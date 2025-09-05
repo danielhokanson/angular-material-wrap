@@ -1,0 +1,254 @@
+// AMW Input Component Styles
+// Following BEM methodology with amw-input as the block
+
+.amw-input {
+  // Base input styles
+  width: 100%;
+  
+  // Size variants
+  &--small {
+    .mat-mdc-form-field {
+      font-size: 12px;
+    }
+    
+    .amw-input__field {
+      font-size: 12px;
+      padding: 8px 12px;
+    }
+  }
+  
+  &--medium {
+    .mat-mdc-form-field {
+      font-size: 14px;
+    }
+    
+    .amw-input__field {
+      font-size: 14px;
+      padding: 12px 16px;
+    }
+  }
+  
+  &--large {
+    .mat-mdc-form-field {
+      font-size: 16px;
+    }
+    
+    .amw-input__field {
+      font-size: 16px;
+      padding: 16px 20px;
+    }
+  }
+  
+  // Appearance variants
+  &--outline {
+    // Uses Material's outline appearance
+  }
+  
+  &--fill {
+    // Uses Material's fill appearance
+  }
+  
+  &--standard {
+    // Uses Material's standard appearance
+  }
+  
+  // State modifiers
+  &--error {
+    .mat-mdc-form-field {
+      color: #f44336;
+    }
+  }
+  
+  &--disabled {
+    .mat-mdc-form-field {
+      opacity: 0.6;
+    }
+  }
+  
+  &--readonly {
+    .amw-input__field {
+      cursor: default;
+      background-color: #f5f5f5;
+    }
+  }
+  
+  &--with-start-icon {
+    .amw-input__field {
+      padding-left: 40px;
+    }
+  }
+  
+  &--with-end-icon {
+    .amw-input__field {
+      padding-right: 40px;
+    }
+  }
+  
+  &--with-character-count {
+    .mat-mdc-form-field-hint-wrapper {
+      display: flex;
+      justify-content: space-between;
+    }
+  }
+  
+  // Element styles
+  &__field {
+    border: none;
+    outline: none;
+    background: transparent;
+    width: 100%;
+    font-family: inherit;
+    font-size: inherit;
+    color: inherit;
+    
+    &:focus {
+      outline: none;
+    }
+    
+    &::placeholder {
+      color: rgba(0, 0, 0, 0.6);
+      opacity: 1;
+    }
+    
+    &:disabled {
+      cursor: not-allowed;
+    }
+  }
+  
+  &__start-icon {
+    color: rgba(0, 0, 0, 0.6);
+    margin-right: 8px;
+  }
+  
+  &__end-icon {
+    color: rgba(0, 0, 0, 0.6);
+    margin-left: 8px;
+  }
+  
+  &__prefix {
+    color: rgba(0, 0, 0, 0.6);
+    margin-right: 8px;
+    font-size: 0.875em;
+  }
+  
+  &__suffix {
+    color: rgba(0, 0, 0, 0.6);
+    margin-left: 8px;
+    font-size: 0.875em;
+  }
+  
+  &__clear-button {
+    color: rgba(0, 0, 0, 0.6);
+    margin-left: 4px;
+    
+    &:hover {
+      color: rgba(0, 0, 0, 0.8);
+    }
+  }
+  
+  &__password-toggle {
+    color: rgba(0, 0, 0, 0.6);
+    margin-left: 4px;
+    
+    &:hover {
+      color: rgba(0, 0, 0, 0.8);
+    }
+  }
+  
+  &__hint {
+    color: rgba(0, 0, 0, 0.6);
+    font-size: 0.75em;
+    margin-top: 4px;
+  }
+  
+  &__character-count {
+    color: rgba(0, 0, 0, 0.6);
+    font-size: 0.75em;
+    margin-top: 4px;
+    
+    &--over-limit {
+      color: #f44336;
+    }
+  }
+  
+  &__error {
+    color: #f44336;
+    font-size: 0.75em;
+    margin-top: 4px;
+  }
+  
+  // Focus styles
+  &:focus-within {
+    .mat-mdc-form-field {
+      .mat-mdc-form-field-focus-overlay {
+        opacity: 1;
+      }
+    }
+  }
+  
+  // Hover effects
+  &:hover:not(.amw-input--disabled) {
+    .mat-mdc-form-field {
+      .mat-mdc-form-field-focus-overlay {
+        opacity: 0.04;
+      }
+    }
+  }
+  
+  // Material form field customization
+  .mat-mdc-form-field {
+    width: 100%;
+    
+    .mat-mdc-form-field-focus-overlay {
+      opacity: 0;
+      transition: opacity 0.2s ease-in-out;
+    }
+    
+    .mat-mdc-form-field-subscript-wrapper {
+      min-height: 20px;
+    }
+    
+    .mat-mdc-form-field-hint-wrapper {
+      padding: 0 16px;
+    }
+    
+    .mat-mdc-form-field-error-wrapper {
+      padding: 0 16px;
+    }
+  }
+  
+  // Icon button styles
+  .mat-mdc-icon-button {
+    width: 24px;
+    height: 24px;
+    line-height: 24px;
+    
+    .mat-icon {
+      font-size: 18px;
+      width: 18px;
+      height: 18px;
+      line-height: 18px;
+    }
+  }
+  
+  // Responsive design
+  @media (max-width: 768px) {
+    &--small {
+      .amw-input__field {
+        padding: 6px 10px;
+      }
+    }
+    
+    &--medium {
+      .amw-input__field {
+        padding: 10px 14px;
+      }
+    }
+    
+    &--large {
+      .amw-input__field {
+        padding: 14px 18px;
+      }
+    }
+  }
+}

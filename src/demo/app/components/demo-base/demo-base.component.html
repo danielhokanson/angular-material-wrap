@@ -1,0 +1,99 @@
+<mat-card class="demo-card">
+  <mat-card-header>
+    <mat-card-title>{{ title }}</mat-card-title>
+    <mat-card-subtitle *ngIf="description">{{ description }}</mat-card-subtitle>
+  </mat-card-header>
+
+  <mat-card-content>
+    <!-- Controls Section -->
+    <div class="demo-controls-section" *ngIf="properties.length > 0">
+      <h3>Live Controls</h3>
+      <div class="demo-controls-grid">
+        <ng-container *ngFor="let prop of properties">
+          <div class="demo-control-item">
+            <label class="demo-control-label">{{ prop.name }}</label>
+            <div class="demo-control-description" *ngIf="prop.description">{{ prop.description }}</div>
+            
+            <!-- String Input -->
+            <mat-form-field *ngIf="prop.type === 'string'" appearance="outline" class="demo-control-input">
+              <input 
+                matInput 
+                [formControl]="getFormControl(prop.name)"
+                (input)="onInputChange(prop.name, $event)"
+                [placeholder]="prop.name">
+            </mat-form-field>
+
+            <!-- Number Input -->
+            <mat-form-field *ngIf="prop.type === 'number'" appearance="outline" class="demo-control-input">
+              <input 
+                matInput 
+                type="number"
+                [formControl]="getFormControl(prop.name)"
+                (input)="onNumberInputChange(prop.name, $event)"
+                [placeholder]="prop.name">
+            </mat-form-field>
+
+            <!-- Boolean Toggle -->
+            <mat-slide-toggle 
+              *ngIf="prop.type === 'boolean'"
+              [formControl]="getFormControl(prop.name)"
+              (change)="onPropertyChange(prop.name, $event.checked)"
+              class="demo-control-toggle">
+              {{ prop.name }}
+            </mat-slide-toggle>
+
+            <!-- Select Dropdown -->
+            <mat-form-field *ngIf="prop.type === 'select'" appearance="outline" class="demo-control-input">
+                          <mat-select 
+              [formControl]="getFormControl(prop.name)"
+              (selectionChange)="onSelectChange(prop.name, $event)">
+                <mat-option *ngFor="let option of prop.options" [value]="option.value">
+                  {{ option.label }}
+                </mat-option>
+              </mat-select>
+            </mat-form-field>
+
+            <!-- Slider -->
+            <div *ngIf="prop.type === 'slider'" class="demo-control-slider">
+              <mat-slider 
+                [min]="prop.min || 0"
+                [max]="prop.max || 100"
+                [step]="prop.step || 1"
+                [formControl]="getFormControl(prop.name)"
+                (change)="onSliderChange(prop.name, $event)"
+                class="demo-slider">
+              </mat-slider>
+              <span class="demo-slider-value">{{ getPropertyValue(prop.name) }}</span>
+            </div>
+          </div>
+        </ng-container>
+      </div>
+
+      <div class="demo-controls-actions">
+        <button mat-button (click)="resetProperties()">Reset</button>
+      </div>
+    </div>
+
+    <!-- Form Toggle Section -->
+    <div class="demo-form-toggle-section" *ngIf="showFormToggle">
+      <h3>Demo Mode</h3>
+      <mat-slide-toggle 
+        [checked]="isFormMode"
+        (change)="onFormModeToggle()"
+        class="demo-form-toggle">
+        {{ isFormMode ? 'Form Mode (Reactive Forms)' : 'ngModel Mode (Two-way Binding)' }}
+      </mat-slide-toggle>
+    </div>
+
+    <!-- Demo Content Area -->
+    <div class="demo-content-area">
+      <ng-content></ng-content>
+    </div>
+
+    <!-- Code Example Section -->
+    <div class="demo-code-section" *ngIf="showCodeExample">
+      <h3>Usage Example</h3>
+      <pre class="demo-code-block"><code>{{ generateCodeExample() }}</code></pre>
+    </div>
+  </mat-card-content>
+</mat-card>

@@ -1,0 +1,61 @@
+<mat-sidenav-container class="demo-sidenav-container">
+  <mat-sidenav 
+    #sidenav 
+    mode="side" 
+    [opened]="isSidenavOpen"
+    class="demo-sidenav">
+    
+    <mat-toolbar class="demo-sidenav-header">
+      <span>AMW Library</span>
+      <span class="spacer"></span>
+      <button mat-icon-button (click)="toggleSidenav()">
+        <mat-icon>menu</mat-icon>
+      </button>
+    </mat-toolbar>
+
+    <mat-nav-list class="demo-nav-list">
+      <ng-container *ngFor="let item of navigationItems">
+        <!-- Main navigation item with expansion -->
+        <mat-list-item 
+          [routerLink]="item.route" 
+          routerLinkActive="active"
+          class="demo-nav-item"
+          (click)="toggleExpansion(item)">
+          <mat-icon matListItemIcon>{{ item.icon }}</mat-icon>
+          <div matListItemTitle>{{ item.title }}</div>
+          <div matListItemLine class="demo-nav-description">{{ item.description }}</div>
+          <mat-icon matListItemMeta class="demo-expand-icon" 
+                    [class.rotated]="item.expanded">
+            expand_more
+          </mat-icon>
+        </mat-list-item>
+
+        <!-- Submenu items -->
+        <div class="demo-submenu" [class.expanded]="item.expanded">
+          <ng-container *ngFor="let child of item.children">
+            <mat-list-item 
+              [routerLink]="child.route" 
+              routerLinkActive="active"
+              class="demo-submenu-item">
+              <mat-icon matListItemIcon class="demo-submenu-icon">{{ child.icon }}</mat-icon>
+              <div matListItemTitle>{{ child.title }}</div>
+            </mat-list-item>
+          </ng-container>
+        </div>
+      </ng-container>
+    </mat-nav-list>
+  </mat-sidenav>
+
+  <mat-sidenav-content class="demo-content">
+    <mat-toolbar class="demo-main-toolbar">
+      <button mat-icon-button (click)="toggleSidenav()" class="demo-menu-button">
+        <mat-icon>menu</mat-icon>
+      </button>
+      <span>Angular Material Wrap - Demo Application</span>
+    </mat-toolbar>
+    
+    <div class="demo-content-area">
+      <router-outlet></router-outlet>
+    </div>
+  </mat-sidenav-content>
+</mat-sidenav-container>

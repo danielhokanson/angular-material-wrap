@@ -1,0 +1,141 @@
+<div class="controls-demo">
+  <h1>Controls Demo</h1>
+  <p>Interactive demonstration of all AMW control components with live property editing.</p>
+
+  <!-- Button Demo -->
+  <amw-demo-base
+    title="AMW Button"
+    description="Enhanced button component with loading states, icons, and variants"
+    [properties]="buttonProperties"
+    (propertyChange)="onPropertyChange($event)"
+    (formModeChange)="onFormModeChange($event)">
+    
+    <!-- Form Mode -->
+    <div *ngIf="true" class="demo-example">
+      <h4>Form Mode (Reactive Forms)</h4>
+      <form [formGroup]="formGroup">
+        <amw-button
+          [variant]="buttonVariant"
+          [color]="buttonColor"
+          [size]="buttonSize"
+          [disabled]="buttonDisabled"
+          [loading]="buttonLoading"
+          [fullWidth]="buttonFullWidth"
+          [autofocus]="buttonAutofocus"
+          [icon]="buttonIcon"
+          [iconPosition]="buttonIconPosition"
+          [ripple]="buttonRipple"
+          [disableRipple]="buttonDisableRipple"
+          [ariaLabel]="buttonAriaLabel"
+          [tabIndex]="buttonTabIndex"
+          (click)="onButtonClick()">
+          Form Button
+        </amw-button>
+      </form>
+    </div>
+
+    <!-- ngModel Mode -->
+    <div *ngIf="true" class="demo-example">
+      <h4>ngModel Mode (Two-way Binding)</h4>
+      <amw-button
+        [variant]="buttonVariant"
+        [color]="buttonColor"
+        [size]="buttonSize"
+        [disabled]="buttonDisabled"
+        [loading]="buttonLoading"
+        [fullWidth]="buttonFullWidth"
+        [autofocus]="buttonAutofocus"
+        [icon]="buttonIcon"
+        [iconPosition]="buttonIconPosition"
+        [ripple]="buttonRipple"
+        [disableRipple]="buttonDisableRipple"
+        [ariaLabel]="buttonAriaLabel"
+        [tabIndex]="buttonTabIndex"
+        [(ngModel)]="ngModelValue"
+        (click)="onButtonClick()">
+        ngModel Button
+      </amw-button>
+      <p>ngModel Value: {{ ngModelValue }}</p>
+    </div>
+  </amw-demo-base>
+
+  <!-- AMW Input Demo -->
+  <amw-demo-base [componentSelector]="'amw-input'" [properties]="inputProperties">
+    <ng-template #componentPreview let-props="props" let-useForm="useForm">
+      <div class="controls-demo__section">
+        <h2>AMW Input</h2>
+        <p>Demonstrates the <code>amw-input</code> component with live editable properties.</p>
+
+        <div class="controls-demo__example">
+          <amw-input
+            [type]="inputType"
+            [appearance]="inputAppearance"
+            [size]="inputSize"
+            [placeholder]="inputPlaceholder"
+            [label]="inputLabel"
+            [hint]="inputHint"
+            [disabled]="inputDisabled"
+            [required]="inputRequired"
+            [readonly]="inputReadonly"
+            [clearable]="inputClearable"
+            [showPasswordToggle]="inputShowPasswordToggle"
+            [showCharacterCount]="inputShowCharacterCount"
+            [maxlength]="inputMaxlength"
+            [startIcon]="inputStartIcon"
+            [endIcon]="inputEndIcon"
+            [(ngModel)]="ngModelValue">
+          </amw-input>
+        </div>
+      </div>
+    </ng-template>
+  </amw-demo-base>
+
+  <!-- AMW Select Demo -->
+  <amw-demo-base [componentSelector]="'amw-select'" [properties]="selectProperties">
+    <ng-template #componentPreview let-props="props" let-useForm="useForm">
+      <div class="controls-demo__section">
+        <h2>AMW Select</h2>
+        <p>Demonstrates the <code>amw-select</code> component with live editable properties.</p>
+
+        <div class="controls-demo__example">
+          <amw-select
+            [appearance]="selectAppearance"
+            [size]="selectSize"
+            [placeholder]="selectPlaceholder"
+            [label]="selectLabel"
+            [hint]="selectHint"
+            [multiple]="selectMultiple"
+            [disabled]="selectDisabled"
+            [required]="selectRequired"
+            [searchable]="selectSearchable"
+            [clearable]="selectClearable"
+            [loading]="selectLoading"
+            [showSearchBox]="selectShowSearchBox"
+            [showClearButton]="selectShowClearButton"
+            [options]="selectOptions"
+            [(ngModel)]="ngModelValue">
+          </amw-select>
+        </div>
+      </div>
+    </ng-template>
+  </amw-demo-base>
+
+  <!-- Additional Controls will be added here -->
+  <div class="coming-soon">
+    <h3>More Controls Coming Soon</h3>
+    <p>Additional control components will be added to this demo as they are implemented:</p>
+    <ul>
+      <li>✅ AMW Button (Complete)</li>
+      <li>✅ AMW Input (Complete)</li>
+      <li>✅ AMW Select (Complete)</li>
+      <li>⏳ AMW Autocomplete</li>
+      <li>⏳ AMW Checkbox</li>
+      <li>⏳ AMW Radio Button</li>
+      <li>⏳ AMW Toggle</li>
+      <li>⏳ AMW Slider</li>
+      <li>⏳ AMW Date Picker</li>
+      <li>⏳ AMW Time Picker</li>
+      <li>And many more...</li>
+    </ul>
+  </div>
+</div>

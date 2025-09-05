@@ -1,0 +1,20 @@
+{
+  "name": "angular-material-wrap",
+  "version": "0.0.0",
+  "description": "Angular Material Wrap Library",
+  "main": "bundles/angular-material-wrap.umd.js",
+  "module": "fesm2015/angular-material-wrap.js",
+  "es2015": "fesm2015/angular-material-wrap.js",
+  "esm2015": "esm2015/angular-material-wrap.js",
+  "fesm2015": "fesm2015/angular-material-wrap.js",
+  "typings": "angular-material-wrap.d.ts",
+  "metadata": "angular-material-wrap.metadata.json",
+  "sideEffects": false,
+  "dependencies": {
+    "tslib": "^2.3.0"
+  },
+  "peerDependencies": {
+    "@angular/common": "^19.2.0",
+    "@angular/core": "^19.2.0"
+  }
+}
