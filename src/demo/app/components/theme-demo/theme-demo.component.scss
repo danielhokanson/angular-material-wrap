@@ -1,0 +1,234 @@
+.amw-demo-theme {
+  .demo-header {
+    margin-bottom: 32px;
+    text-align: center;
+
+    h1 {
+      margin: 0 0 16px 0;
+      font-size: 2.5rem;
+      font-weight: 300;
+      color: var(--mat-foreground);
+    }
+
+    p {
+      margin: 0;
+      font-size: 1.1rem;
+      color: var(--mat-foreground);
+      opacity: 0.8;
+      max-width: 600px;
+      margin: 0 auto;
+    }
+  }
+
+  .demo-content {
+    .theme-section {
+      margin-bottom: 48px;
+
+      h2 {
+        margin: 0 0 24px 0;
+        font-size: 1.8rem;
+        font-weight: 400;
+        color: var(--mat-foreground);
+      }
+    }
+
+    .preview-section {
+      h2 {
+        margin: 0 0 16px 0;
+        font-size: 1.8rem;
+        font-weight: 400;
+        color: var(--mat-foreground);
+      }
+
+      > p {
+        margin: 0 0 24px 0;
+        color: var(--mat-foreground);
+        opacity: 0.8;
+      }
+
+      .preview-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+        gap: 24px;
+
+        .preview-card {
+          .mat-mdc-card-header {
+            .mat-mdc-card-title {
+              font-size: 1.2rem;
+              font-weight: 500;
+              color: var(--mat-foreground);
+            }
+          }
+
+          .mat-mdc-card-content {
+            .button-group {
+              display: flex;
+              flex-wrap: wrap;
+              gap: 12px;
+              margin-bottom: 16px;
+
+              button {
+                min-width: 100px;
+              }
+            }
+
+            .form-group {
+              display: flex;
+              flex-direction: column;
+              gap: 16px;
+
+              .mat-mdc-form-field {
+                width: 100%;
+              }
+            }
+
+            .selection-group {
+              display: flex;
+              flex-direction: column;
+              gap: 16px;
+
+              .mat-mdc-radio-group {
+                display: flex;
+                flex-direction: column;
+                gap: 8px;
+              }
+            }
+
+            .slider-group {
+              display: flex;
+              flex-direction: column;
+              gap: 8px;
+
+              label {
+                font-size: 14px;
+                color: var(--mat-foreground);
+                opacity: 0.8;
+              }
+
+              .mat-mdc-slider {
+                width: 100%;
+              }
+            }
+
+            .icon-group {
+              display: flex;
+              flex-wrap: wrap;
+              gap: 16px;
+              align-items: center;
+
+              mat-icon {
+                font-size: 24px;
+                width: 24px;
+                height: 24px;
+              }
+            }
+
+            .typography-group {
+              h1, h2, h3 {
+                margin: 0 0 12px 0;
+                color: var(--mat-foreground);
+              }
+
+              h1 {
+                font-size: 2rem;
+                font-weight: 300;
+              }
+
+              h2 {
+                font-size: 1.5rem;
+                font-weight: 400;
+              }
+
+              h3 {
+                font-size: 1.25rem;
+                font-weight: 500;
+              }
+
+              p {
+                margin: 0 0 12px 0;
+                line-height: 1.5;
+                color: var(--mat-foreground);
+                opacity: 0.8;
+
+                &.mat-caption {
+                  font-size: 0.75rem;
+                  opacity: 0.6;
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+}
+
+// Dark theme adjustments
+@media (prefers-color-scheme: dark) {
+  .amw-demo-theme {
+    .demo-header {
+      h1, p {
+        color: var(--mat-foreground);
+      }
+    }
+
+    .demo-content {
+      .theme-section,
+      .preview-section {
+        h2 {
+          color: var(--mat-foreground);
+        }
+
+        > p {
+          color: var(--mat-foreground);
+        }
+      }
+
+      .preview-grid {
+        .preview-card {
+          .mat-mdc-card-header {
+            .mat-mdc-card-title {
+              color: var(--mat-foreground);
+            }
+          }
+
+          .mat-mdc-card-content {
+            .slider-group {
+              label {
+                color: var(--mat-foreground);
+              }
+            }
+
+            .typography-group {
+              h1, h2, h3, p {
+                color: var(--mat-foreground);
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+}
+
+// Responsive design
+@media (max-width: 768px) {
+  .amw-demo-theme {
+    .demo-header {
+      h1 {
+        font-size: 2rem;
+      }
+
+      p {
+        font-size: 1rem;
+      }
+    }
+
+    .demo-content {
+      .preview-grid {
+        grid-template-columns: 1fr;
+        gap: 16px;
+      }
+    }
+  }
+}

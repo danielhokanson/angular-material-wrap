@@ -6,7 +6,7 @@
     class="demo-sidenav">
     
     <mat-toolbar class="demo-sidenav-header">
-      <span>AMW Library</span>
+      <span class="mdc-typography--title-large">AMW Library</span>
       <span class="spacer"></span>
       <button mat-icon-button (click)="toggleSidenav()">
         <mat-icon>menu</mat-icon>
@@ -19,11 +19,12 @@
         <mat-list-item 
           [routerLink]="item.route" 
           routerLinkActive="active"
+          [routerLinkActiveOptions]="{exact: false}"
           class="demo-nav-item"
           (click)="toggleExpansion(item)">
           <mat-icon matListItemIcon>{{ item.icon }}</mat-icon>
-          <div matListItemTitle>{{ item.title }}</div>
-          <div matListItemLine class="demo-nav-description">{{ item.description }}</div>
+          <div matListItemTitle class="mdc-typography--title-medium">{{ item.title }}</div>
+          <div matListItemLine class="demo-nav-description mdc-typography--body-small">{{ item.description }}</div>
           <mat-icon matListItemMeta class="demo-expand-icon" 
                     [class.rotated]="item.expanded">
             expand_more
@@ -36,9 +37,10 @@
             <mat-list-item 
               [routerLink]="child.route" 
               routerLinkActive="active"
+              [routerLinkActiveOptions]="{exact: false}"
               class="demo-submenu-item">
               <mat-icon matListItemIcon class="demo-submenu-icon">{{ child.icon }}</mat-icon>
-              <div matListItemTitle>{{ child.title }}</div>
+              <div matListItemTitle class="mdc-typography--body-medium">{{ child.title }}</div>
             </mat-list-item>
           </ng-container>
         </div>
@@ -51,7 +53,9 @@
       <button mat-icon-button (click)="toggleSidenav()" class="demo-menu-button">
         <mat-icon>menu</mat-icon>
       </button>
-      <span>Angular Material Wrap - Demo Application</span>
+      <span class="mdc-typography--headline-small">Angular Material Wrap - Demo Application</span>
+      <span class="spacer"></span>
+      <amw-demo-theme-menu></amw-demo-theme-menu>
     </mat-toolbar>
     
     <div class="demo-content-area">

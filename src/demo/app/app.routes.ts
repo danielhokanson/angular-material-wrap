@@ -8,7 +8,57 @@ export const routes: Routes = [
     },
     {
         path: 'controls',
-        loadComponent: () => import('./pages/controls-demo/controls-demo.component').then(m => m.ControlsDemoComponent)
+        loadComponent: () => import('./components/controls-demo/controls-demo.component').then(m => m.ControlsDemoComponent)
+    },
+    {
+        path: 'controls/button',
+        loadComponent: () => import('./components/controls-demo/controls-demo.component').then(m => m.ControlsDemoComponent),
+        data: { control: 'button' }
+    },
+    {
+        path: 'controls/input',
+        loadComponent: () => import('./components/controls-demo/controls-demo.component').then(m => m.ControlsDemoComponent),
+        data: { control: 'input' }
+    },
+    {
+        path: 'controls/select',
+        loadComponent: () => import('./components/controls-demo/controls-demo.component').then(m => m.ControlsDemoComponent),
+        data: { control: 'select' }
+    },
+    {
+        path: 'controls/checkbox',
+        loadComponent: () => import('./components/controls-demo/controls-demo.component').then(m => m.ControlsDemoComponent),
+        data: { control: 'checkbox' }
+    },
+    {
+        path: 'controls/radio',
+        loadComponent: () => import('./components/controls-demo/controls-demo.component').then(m => m.ControlsDemoComponent),
+        data: { control: 'radio' }
+    },
+    {
+        path: 'controls/slider',
+        loadComponent: () => import('./components/controls-demo/controls-demo.component').then(m => m.ControlsDemoComponent),
+        data: { control: 'slider' }
+    },
+    {
+        path: 'controls/toggle',
+        loadComponent: () => import('./components/controls-demo/controls-demo.component').then(m => m.ControlsDemoComponent),
+        data: { control: 'toggle' }
+    },
+    {
+        path: 'controls/textarea',
+        loadComponent: () => import('./components/controls-demo/controls-demo.component').then(m => m.ControlsDemoComponent),
+        data: { control: 'textarea' }
+    },
+    {
+        path: 'controls/autocomplete',
+        loadComponent: () => import('./components/controls-demo/controls-demo.component').then(m => m.ControlsDemoComponent),
+        data: { control: 'autocomplete' }
+    },
+    {
+        path: 'controls/datepicker',
+        loadComponent: () => import('./components/controls-demo/controls-demo.component').then(m => m.ControlsDemoComponent),
+        data: { control: 'datepicker' }
     },
     {
         path: 'components',
@@ -29,6 +79,10 @@ export const routes: Routes = [
     {
         path: 'pages',
         loadComponent: () => import('./pages/pages-demo/pages-demo.component').then(m => m.PagesDemoComponent)
+    },
+    {
+        path: 'theme',
+        loadComponent: () => import('./components/theme-demo/theme-demo.component').then(m => m.ThemeDemoComponent)
     },
     {
         path: '**',

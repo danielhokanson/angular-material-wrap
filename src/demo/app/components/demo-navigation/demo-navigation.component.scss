@@ -1,16 +1,18 @@
 .demo-sidenav-container {
   height: 100vh;
   width: 100vw;
+  background-color: var(--mdc-theme-background);
 }
 
 .demo-sidenav {
   width: 300px;
-  border-right: 1px solid #e0e0e0;
+  border-right: 1px solid var(--mdc-theme-outline-variant);
+  background-color: var(--mdc-theme-surface-container);
 }
 
 .demo-sidenav-header {
-  background-color: #1976d2;
-  color: white;
+  background-color: var(--mdc-theme-primary);
+  color: var(--mdc-theme-on-primary);
   font-weight: 500;
   
   .spacer {
@@ -20,33 +22,36 @@
 
 .demo-nav-list {
   padding: 0;
+  background-color: var(--mdc-theme-surface-container);
 }
 
 .demo-nav-item {
-  border-bottom: 1px solid #f5f5f5;
+  border-bottom: 1px solid var(--mdc-theme-outline-variant);
+  color: var(--mdc-theme-on-surface);
   
   &.active {
-    background-color: #e3f2fd;
-    color: #1976d2;
+    background-color: var(--mdc-theme-secondary-container);
+    color: var(--mdc-theme-on-secondary-container);
     
     mat-icon {
-      color: #1976d2;
+      color: var(--mdc-theme-on-secondary-container);
     }
   }
   
   &:hover:not(.active) {
-    background-color: #f5f5f5;
+    background-color: var(--mdc-theme-surface-container-high);
   }
 }
 
 .demo-nav-description {
   font-size: 12px;
-  color: #666;
+  color: var(--mdc-theme-on-surface-variant);
   margin-top: 2px;
 }
 
 .demo-expand-icon {
   transition: transform 0.3s ease;
+  color: var(--mdc-theme-on-surface);
   
   &.rotated {
     transform: rotate(180deg);
@@ -57,7 +62,7 @@
   max-height: 0;
   overflow: hidden;
   transition: max-height 0.3s ease;
-  background-color: #f8f9fa;
+  background-color: var(--mdc-theme-surface-container);
   
   &.expanded {
     max-height: 1000px; // Large enough to accommodate all items
@@ -66,20 +71,21 @@
 
 .demo-submenu-item {
   padding-left: 48px !important; // Indent submenu items
-  border-bottom: 1px solid #e8e8e8;
+  border-bottom: 1px solid var(--mdc-theme-outline-variant);
   min-height: 40px;
+  color: var(--mdc-theme-on-surface);
   
   &.active {
-    background-color: #e1f5fe;
-    color: #0277bd;
+    background-color: var(--mdc-theme-secondary-container);
+    color: var(--mdc-theme-on-secondary-container);
     
     .demo-submenu-icon {
-      color: #0277bd;
+      color: var(--mdc-theme-on-secondary-container);
     }
   }
   
   &:hover:not(.active) {
-    background-color: #f0f0f0;
+    background-color: var(--mdc-theme-surface-container-high);
   }
 }
 
@@ -88,20 +94,27 @@
   width: 18px;
   height: 18px;
   margin-right: 8px;
+  color: var(--mdc-theme-on-surface-variant);
 }
 
 .demo-content {
   display: flex;
   flex-direction: column;
+  background-color: var(--mdc-theme-background);
 }
 
 .demo-main-toolbar {
-  background-color: #fafafa;
-  border-bottom: 1px solid #e0e0e0;
-  box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+  background-color: var(--mdc-theme-surface);
+  border-bottom: 1px solid var(--mdc-theme-outline-variant);
+  box-shadow: 0 2px 4px var(--mdc-theme-shadow);
+  color: var(--mdc-theme-on-surface);
   
   .demo-menu-button {
     margin-right: 16px;
+  }
+  
+  .spacer {
+    flex: 1 1 auto;
   }
 }
 
@@ -109,7 +122,8 @@
   flex: 1;
   padding: 24px;
   overflow-y: auto;
-  background-color: #fafafa;
+  background-color: var(--mdc-theme-background);
+  color: var(--mdc-theme-on-background);
 }
 
 // Responsive design

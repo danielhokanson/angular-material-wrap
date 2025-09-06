@@ -26,7 +26,7 @@ import { IconPosition } from './interfaces/icon-position.type';
 export class AmwButtonComponent extends BaseComponent {
     // Basic button properties
     @Input() type: ButtonType = 'button';
-    @Input() variant: ButtonVariant = 'primary';
+    @Input() variant: ButtonVariant = 'text';
     @Input() size: ButtonSize = 'medium';
     @Input() color: ButtonColor = 'primary';
 
@@ -62,6 +62,13 @@ export class AmwButtonComponent extends BaseComponent {
     @Input() rippleRadius?: number;
     @Input() rippleCentered = false;
     @Input() rippleUnbounded = false;
+
+    // Spinner properties
+    @Input() spinnerSize: number = 20;
+    @Input() spinnerColor: string = 'primary';
+
+    // Text content
+    @Input() text: string = '';
 
     // Events
     @Output() click = new EventEmitter<MouseEvent>();
@@ -105,4 +112,13 @@ export class AmwButtonComponent extends BaseComponent {
             disabled: this.disableRipple || this.disabled
         };
     }
+
+    /**
+     * Determines if the current variant is a special variant (mutually exclusive)
+     */
+    isSpecialVariant(): boolean {
+        const specialVariants: string[] = ['icon', 'fab', 'mini-fab', 'extended-fab'];
+        return specialVariants.includes(this.variant);
+    }
+
 }

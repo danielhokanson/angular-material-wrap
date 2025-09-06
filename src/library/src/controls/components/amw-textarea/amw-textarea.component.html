@@ -1,0 +1,34 @@
+<div [class]="getTextareaClasses()">
+  <mat-form-field [appearance]="appearance">
+    <mat-label *ngIf="label" [innerHTML]="label"></mat-label>
+    <textarea
+      matInput
+      [placeholder]="placeholder"
+      [disabled]="disabled"
+      [required]="required"
+      [value]="value"
+      [name]="name"
+      [id]="id"
+      [tabIndex]="tabIndex"
+      [attr.maxlength]="maxLength"
+      [attr.minlength]="minLength"
+      [rows]="rows"
+      [cols]="cols"
+      [wrap]="wrap"
+      [readonly]="readonly"
+      [spellcheck]="spellcheck"
+      [attr.autocomplete]="autocomplete"
+      [attr.aria-label]="ariaLabel"
+      [attr.aria-labelledby]="ariaLabelledby"
+      [attr.aria-describedby]="ariaDescribedby"
+      [attr.aria-required]="ariaRequired"
+      [attr.aria-invalid]="ariaInvalid"
+      (change)="onTextareaChange($event)"
+      (input)="onTextareaInput($event)"
+      (focus)="onFocus($event)"
+      (blur)="onBlur($event)">
+    </textarea>
+    <mat-hint *ngIf="hint">{{ hint }}</mat-hint>
+    <mat-error *ngIf="hasError && errorMessage">{{ errorMessage }}</mat-error>
+  </mat-form-field>
+</div>

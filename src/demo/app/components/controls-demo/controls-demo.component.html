@@ -1,0 +1,57 @@
+<div class="amw-demo-controls">
+  <div class="controls-header">
+    <h1>Angular Material Controls</h1>
+    <p>Comprehensive collection of Angular Material control wrappers with enhanced functionality</p>
+  </div>
+
+  <div class="controls-content">
+    <div class="controls-main">
+      <mat-card class="control-demo">
+        <mat-card-header>
+          <mat-card-title>{{ selectedControl.name }}</mat-card-title>
+          <mat-card-subtitle>Interactive demo and documentation</mat-card-subtitle>
+        </mat-card-header>
+        <mat-card-content>
+          <mat-tab-group [(selectedIndex)]="selectedTab" class="control-tabs">
+            <mat-tab label="Variations" icon="view_module">
+              <ng-container [ngSwitch]="selectedControl.id">
+                <amw-demo-button *ngSwitchCase="'button'"></amw-demo-button>
+                <amw-demo-input *ngSwitchCase="'input'"></amw-demo-input>
+                <amw-demo-select *ngSwitchCase="'select'"></amw-demo-select>
+                <amw-demo-checkbox *ngSwitchCase="'checkbox'"></amw-demo-checkbox>
+                <amw-demo-radio *ngSwitchCase="'radio'"></amw-demo-radio>
+                <amw-demo-toggle *ngSwitchCase="'toggle'"></amw-demo-toggle>
+                <amw-demo-textarea *ngSwitchCase="'textarea'"></amw-demo-textarea>
+                <amw-demo-slider *ngSwitchCase="'slider'"></amw-demo-slider>
+                <amw-demo-autocomplete *ngSwitchCase="'autocomplete'"></amw-demo-autocomplete>
+                <amw-demo-datepicker *ngSwitchCase="'datepicker'"></amw-demo-datepicker>
+                <!-- Add more control demos as they are implemented -->
+              </ng-container>
+            </mat-tab>
+            
+            <mat-tab label="Validation" icon="verified">
+              <div class="tab-content">
+                <h3>Validation Tab - Coming Soon</h3>
+                <p>This will show validation examples for {{ selectedControl.name }}</p>
+              </div>
+            </mat-tab>
+            
+            <mat-tab label="Code" icon="code">
+              <div class="tab-content">
+                <h3>Code Tab - Coming Soon</h3>
+                <p>This will show code examples for {{ selectedControl.name }}</p>
+              </div>
+            </mat-tab>
+            
+            <mat-tab label="API" icon="description">
+              <div class="tab-content">
+                <h3>API Tab - Coming Soon</h3>
+                <p>This will show API documentation for {{ selectedControl.name }}</p>
+              </div>
+            </mat-tab>
+          </mat-tab-group>
+        </mat-card-content>
+      </mat-card>
+    </div>
+  </div>
+</div>

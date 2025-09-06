@@ -1,0 +1,67 @@
+<div class="amw-autocomplete" [class]="'amw-autocomplete--' + size">
+  <mat-form-field [appearance]="appearance" class="amw-autocomplete__field">
+    <mat-label *ngIf="label" [innerHTML]="label"></mat-label>
+    
+    <input
+      matInput
+      [placeholder]="placeholder"
+      [value]="inputValue"
+      (input)="onInputChange($event)"
+      (blur)="onTouched()"
+      [required]="required"
+      [disabled]="disabled"
+      [readonly]="readonly"
+      [attr.minlength]="minLength || null"
+      [attr.maxlength]="maxLength || null"
+      [matAutocomplete]="auto"
+      class="amw-autocomplete__input">
+    
+    <mat-icon *ngIf="!multiple && clearable && (selectedValue || inputValue)" 
+              matSuffix 
+              (click)="onClear()"
+              class="amw-autocomplete__clear">
+      clear
+    </mat-icon>
+    
+    <mat-hint *ngIf="hint" class="amw-autocomplete__hint">{{ hint }}</mat-hint>
+  </mat-form-field>
+
+  <!-- Multiple selection chips -->
+  <div *ngIf="multiple && selectedValues.length > 0" class="amw-autocomplete__chips">
+    <mat-chip-set>
+      <mat-chip *ngFor="let value of selectedValues" 
+                [removable]="!disabled"
+                (removed)="onChipRemoved(value)"
+                class="amw-autocomplete__chip">
+        <span [innerHTML]="getSelectedOption(value)?.label || value"></span>
+        <button matChipRemove *ngIf="!disabled">
+          <mat-icon>cancel</mat-icon>
+        </button>
+      </mat-chip>
+    </mat-chip-set>
+  </div>
+
+  <!-- Autocomplete panel -->
+  <mat-autocomplete 
+    #auto="matAutocomplete"
+    (opened)="onOpened()"
+    (closed)="onClosed()"
+    [displayWith]="displayWith"
+    class="amw-autocomplete__panel">
+    
+    <mat-option 
+      *ngFor="let option of filteredOptions" 
+      [value]="option"
+      [disabled]="option.disabled"
+      (onSelectionChange)="onOptionSelected(option)"
+      class="amw-autocomplete__option">
+      <span [innerHTML]="option.label"></span>
+    </mat-option>
+    
+    <mat-option *ngIf="filteredOptions.length === 0 && inputValue.length >= minLength" 
+                disabled
+                class="amw-autocomplete__no-results">
+      No results found
+    </mat-option>
+  </mat-autocomplete>
+</div>

@@ -1,0 +1,112 @@
+<div class="amw-demo-datepicker">
+  <div class="demo-section">
+    <h3>Size Variations</h3>
+    <div class="variation-grid">
+      <div *ngFor="let variation of datepickerVariations.sizes" class="variation-item">
+        <h4>{{ variation.label }}</h4>
+        <amw-datepicker
+          [size]="variation.size"
+          placeholder="Select a date"
+          label="Date">
+        </amw-datepicker>
+      </div>
+    </div>
+  </div>
+
+  <div class="demo-section">
+    <h3>Appearance Variations</h3>
+    <div class="variation-grid">
+      <div *ngFor="let variation of datepickerVariations.appearances" class="variation-item">
+        <h4>{{ variation.label }}</h4>
+        <amw-datepicker
+          [appearance]="variation.appearance"
+          placeholder="Select a date"
+          label="Date">
+        </amw-datepicker>
+      </div>
+    </div>
+  </div>
+
+  <div class="demo-section">
+    <h3>State Variations</h3>
+    <div class="variation-grid">
+      <div *ngFor="let variation of datepickerVariations.states" class="variation-item">
+        <h4>{{ variation.label }}</h4>
+        <amw-datepicker
+          [disabled]="variation.disabled"
+          [required]="variation.required"
+          placeholder="Select a date"
+          label="Date">
+        </amw-datepicker>
+      </div>
+    </div>
+  </div>
+
+  <div class="demo-section">
+    <h3>Basic Usage</h3>
+    <div class="demo-example">
+      <amw-datepicker
+        [(ngModel)]="selectedDate"
+        placeholder="Choose a date"
+        label="Select Date"
+        hint="Pick any date">
+      </amw-datepicker>
+      <p *ngIf="selectedDate" class="selected-value">
+        Selected: {{ selectedDate | date:'fullDate' }}
+      </p>
+    </div>
+  </div>
+
+  <div class="demo-section">
+    <h3>With Date Range</h3>
+    <div class="demo-example">
+      <div class="date-range">
+        <amw-datepicker
+          [(ngModel)]="selectedRangeStart"
+          placeholder="Start date"
+          label="From"
+          [max]="selectedRangeEnd || maxDate">
+        </amw-datepicker>
+        <amw-datepicker
+          [(ngModel)]="selectedRangeEnd"
+          placeholder="End date"
+          label="To"
+          [min]="selectedRangeStart || minDate">
+        </amw-datepicker>
+      </div>
+      <p *ngIf="selectedRangeStart || selectedRangeEnd" class="selected-value">
+        Range: {{ selectedRangeStart | date:'shortDate' }} - {{ selectedRangeEnd | date:'shortDate' }}
+      </p>
+    </div>
+  </div>
+
+  <div class="demo-section">
+    <h3>With Constraints</h3>
+    <div class="demo-example">
+      <amw-datepicker
+        [(ngModel)]="selectedBirthDate"
+        placeholder="Select birth date"
+        label="Birth Date"
+        [min]="minDate"
+        [max]="maxDate"
+        [startAt]="startAt"
+        hint="Date must be between 2020 and 2030">
+      </amw-datepicker>
+      <p *ngIf="selectedBirthDate" class="selected-value">
+        Birth Date: {{ selectedBirthDate | date:'mediumDate' }}
+      </p>
+    </div>
+  </div>
+
+  <div class="demo-section">
+    <h3>Touch UI</h3>
+    <div class="demo-example">
+      <amw-datepicker
+        placeholder="Touch-friendly date picker"
+        label="Mobile Date Picker"
+        [touchUi]="true"
+        hint="Optimized for touch devices">
+      </amw-datepicker>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,113 @@
+<div class="amw-theme-picker">
+  <mat-form-field appearance="outline" class="theme-selector">
+    <mat-label>Theme</mat-label>
+    <mat-select 
+      [value]="currentTheme()?.id" 
+      (selectionChange)="onThemeChange($event.value)"
+      placeholder="Select a theme">
+      
+      <!-- Built-in Themes Section -->
+      <mat-optgroup label="Built-in Themes">
+        <mat-option 
+          *ngFor="let theme of builtInThemes()" 
+          [value]="theme.id"
+          class="theme-option">
+          <div class="theme-option-content">
+            <mat-icon class="theme-icon">{{ getThemeIcon(theme) }}</mat-icon>
+            <div class="theme-details">
+              <div class="theme-name">{{ theme.displayName }}</div>
+              <div class="theme-description">{{ getThemeDescription(theme) }}</div>
+            </div>
+            <div class="theme-colors">
+              <div 
+                class="color-swatch primary" 
+                [style.background-color]="theme.colors.primary"
+                matTooltip="Primary">
+              </div>
+              <div 
+                class="color-swatch accent" 
+                [style.background-color]="theme.colors.accent"
+                matTooltip="Accent">
+              </div>
+            </div>
+          </div>
+        </mat-option>
+      </mat-optgroup>
+
+      <!-- Custom Themes Section -->
+      <mat-optgroup *ngIf="hasCustomThemes()" label="Custom Themes">
+        <mat-option 
+          *ngFor="let theme of customThemes()" 
+          [value]="theme.id"
+          class="theme-option custom-theme">
+          <div class="theme-option-content">
+            <mat-icon class="theme-icon">{{ getThemeIcon(theme) }}</mat-icon>
+            <div class="theme-details">
+              <div class="theme-name">{{ theme.displayName }}</div>
+              <div class="theme-description">{{ getThemeDescription(theme) }}</div>
+            </div>
+            <div class="theme-colors">
+              <div 
+                class="color-swatch primary" 
+                [style.background-color]="theme.colors.primary"
+                matTooltip="Primary">
+              </div>
+              <div 
+                class="color-swatch accent" 
+                [style.background-color]="theme.colors.accent"
+                matTooltip="Accent">
+              </div>
+            </div>
+          </div>
+        </mat-option>
+      </mat-optgroup>
+    </mat-select>
+  </mat-form-field>
+
+  <!-- Current Theme Info -->
+  <div *ngIf="currentTheme()" class="current-theme-info">
+    <mat-card class="theme-info-card">
+      <mat-card-header>
+        <mat-card-title>
+          <mat-icon>{{ getThemeIcon(currentTheme()!) }}</mat-icon>
+          {{ currentTheme()!.displayName }}
+        </mat-card-title>
+        <mat-card-subtitle>{{ getThemeDescription(currentTheme()!) }}</mat-card-subtitle>
+      </mat-card-header>
+      <mat-card-content>
+        <div class="color-palette">
+          <div class="color-item">
+            <div class="color-label">Primary</div>
+            <div class="color-value">
+              <div 
+                class="color-preview" 
+                [style.background-color]="currentTheme()!.colors.primary">
+              </div>
+              <span class="color-hex">{{ currentTheme()!.colors.primary }}</span>
+            </div>
+          </div>
+          <div class="color-item">
+            <div class="color-label">Accent</div>
+            <div class="color-value">
+              <div 
+                class="color-preview" 
+                [style.background-color]="currentTheme()!.colors.accent">
+              </div>
+              <span class="color-hex">{{ currentTheme()!.colors.accent }}</span>
+            </div>
+          </div>
+          <div class="color-item">
+            <div class="color-label">Warn</div>
+            <div class="color-value">
+              <div 
+                class="color-preview" 
+                [style.background-color]="currentTheme()!.colors.warn">
+              </div>
+              <span class="color-hex">{{ currentTheme()!.colors.warn }}</span>
+            </div>
+          </div>
+        </div>
+      </mat-card-content>
+    </mat-card>
+  </div>
+</div>

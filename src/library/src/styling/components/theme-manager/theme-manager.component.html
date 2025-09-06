@@ -1,0 +1,29 @@
+<div class="amw-theme-manager">
+  <mat-tab-group 
+    [(selectedIndex)]="selectedTab" 
+    (selectedIndexChange)="onTabChange($event)"
+    class="theme-tabs">
+    
+    <!-- Theme Picker Tab -->
+    <mat-tab>
+      <ng-template mat-tab-label>
+        <mat-icon>palette</mat-icon>
+        Switch Theme
+      </ng-template>
+      <div class="tab-content">
+        <amw-theme-picker></amw-theme-picker>
+      </div>
+    </mat-tab>
+    
+    <!-- Theme Editor Tab -->
+    <mat-tab>
+      <ng-template mat-tab-label>
+        <mat-icon>edit</mat-icon>
+        Create/Edit Theme
+      </ng-template>
+      <div class="tab-content">
+        <amw-theme-editor></amw-theme-editor>
+      </div>
+    </mat-tab>
+  </mat-tab-group>
+</div>

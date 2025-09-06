@@ -1,4 +1,4 @@
 /**
  * Button variant types - matches Angular Material button variants
  */
-export type ButtonVariant = 'primary' | 'accent' | 'warn' | 'basic' | 'raised' | 'stroked' | 'flat' | 'icon' | 'fab' | 'mini-fab';
+export type ButtonVariant = 'text' | 'elevated' | 'outlined' | 'filled' | 'tonal' | 'icon' | 'fab' | 'mini-fab' | 'extended-fab';

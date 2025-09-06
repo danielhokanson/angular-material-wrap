@@ -1,0 +1,80 @@
+<div class="demo-section">
+  <h3>Appearance Variations</h3>
+  <div class="variation-grid">
+    <div *ngFor="let variation of selectVariations.appearances" class="variation-item">
+      <h4>{{ variation.label }}</h4>
+      <amw-select
+        [options]="sampleOptions"
+        [appearance]="variation.appearance"
+        placeholder="Select option"
+        label="Sample Label">
+      </amw-select>
+    </div>
+  </div>
+
+  <h3>Size Variations</h3>
+  <div class="variation-grid">
+    <div *ngFor="let variation of selectVariations.sizes" class="variation-item">
+      <h4>{{ variation.label }}</h4>
+      <amw-select
+        [options]="sampleOptions"
+        [size]="variation.size"
+        placeholder="Select option"
+        label="Sample Label">
+      </amw-select>
+    </div>
+  </div>
+
+  <h3>State Variations</h3>
+  <div class="variation-grid">
+    <div *ngFor="let variation of selectVariations.states" class="variation-item">
+      <h4>{{ variation.label }}</h4>
+      <amw-select
+        [options]="sampleOptions"
+        [disabled]="variation.disabled"
+        [required]="variation.required"
+        [multiple]="variation.multiple"
+        placeholder="Select option"
+        label="Sample Label">
+      </amw-select>
+    </div>
+  </div>
+
+  <h3>Special Features</h3>
+  <div class="variation-grid">
+    <div class="variation-item">
+      <h4>Grouped Options</h4>
+      <amw-select
+        [options]="groupedOptions"
+        placeholder="Select category"
+        label="Grouped Options">
+      </amw-select>
+    </div>
+    <div class="variation-item">
+      <h4>Searchable</h4>
+      <amw-select
+        [options]="sampleOptions"
+        [searchable]="true"
+        placeholder="Search and select"
+        label="Searchable Select">
+      </amw-select>
+    </div>
+    <div class="variation-item">
+      <h4>Multiple Selection</h4>
+      <amw-select
+        [options]="sampleOptions"
+        [multiple]="true"
+        placeholder="Select multiple"
+        label="Multiple Select">
+      </amw-select>
+    </div>
+    <div class="variation-item">
+      <h4>With Clear</h4>
+      <amw-select
+        [options]="sampleOptions"
+        placeholder="Clearable select"
+        label="Clearable Select">
+      </amw-select>
+    </div>
+  </div>
+</div>

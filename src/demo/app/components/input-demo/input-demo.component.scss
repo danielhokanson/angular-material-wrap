@@ -1,0 +1,270 @@
+.amw-demo-input {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+
+  // Override tab content styles for better layout
+  .amw-demo-tabs {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+  }
+
+  // Custom styling for the demo content
+  .variation-section {
+    margin-bottom: 32px;
+
+    &__title {
+      font-size: 18px;
+      font-weight: 500;
+      color: var(--mdc-theme-on-surface);
+      margin-bottom: 16px;
+      padding-bottom: 8px;
+      border-bottom: 1px solid var(--mdc-theme-outline-variant);
+    }
+
+    &__content {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 24px;
+      align-items: flex-start;
+    }
+
+    .variation-group {
+      display: flex;
+      flex-direction: column;
+      align-items: flex-start;
+      gap: 8px;
+      min-width: 200px;
+    }
+
+    .variation-label {
+      font-size: 12px;
+      font-weight: 500;
+      color: var(--mdc-theme-on-surface-variant);
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+    }
+
+    .real-world-example {
+      background-color: var(--mdc-theme-surface-container-low);
+      border: 1px solid var(--mdc-theme-outline-variant);
+      border-radius: 8px;
+      padding: 24px;
+      margin-top: 16px;
+
+      .example-description {
+        color: var(--mdc-theme-on-surface-variant);
+        margin-bottom: 20px;
+        font-size: 14px;
+        line-height: 1.5;
+      }
+
+      .example-form {
+        background-color: var(--mdc-theme-surface);
+        border-radius: 6px;
+        border: 1px solid var(--mdc-theme-outline-variant);
+        padding: 20px;
+
+        .form-row {
+          display: flex;
+          gap: 16px;
+          margin-bottom: 16px;
+
+          &:last-child {
+            margin-bottom: 0;
+          }
+
+          amw-input {
+            flex: 1;
+          }
+        }
+      }
+    }
+  }
+
+  .property-section {
+    &__grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+      gap: 16px;
+      margin-bottom: 16px;
+    }
+
+    &__item {
+      padding: 16px;
+      border: 1px solid #e0e0e0;
+      border-radius: 8px;
+      background: #fff;
+      transition: all 0.2s ease;
+
+      &:hover {
+        border-color: #1976d2;
+        box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+      }
+
+      &-label {
+        font-size: 14px;
+        font-weight: 500;
+        margin-bottom: 8px;
+        color: #333;
+      }
+
+      &-control {
+        margin-bottom: 8px;
+      }
+
+      &-description {
+        font-size: 12px;
+        color: #666;
+        line-height: 1.4;
+      }
+    }
+  }
+
+  .validation-section {
+    &__form {
+      max-width: 600px;
+      padding: 24px;
+      background: #fff;
+      border-radius: 8px;
+      border: 1px solid #e0e0e0;
+
+      .form-group {
+        margin-bottom: 16px;
+
+        &__label {
+          display: block;
+          font-size: 14px;
+          font-weight: 500;
+          margin-bottom: 4px;
+          color: #333;
+        }
+
+        &__control {
+          width: 100%;
+        }
+
+        &__error {
+          font-size: 12px;
+          color: #f44336;
+          margin-top: 4px;
+          min-height: 16px;
+        }
+      }
+    }
+  }
+
+  .code-section {
+    &__example {
+      margin-bottom: 24px;
+      border: 1px solid #e0e0e0;
+      border-radius: 8px;
+      overflow: hidden;
+
+      &-title {
+        font-size: 14px;
+        font-weight: 500;
+        margin-bottom: 8px;
+        color: #333;
+        padding: 12px 16px;
+        background: #f5f5f5;
+        border-bottom: 1px solid #e0e0e0;
+      }
+
+      &-code {
+        background: #f8f8f8;
+        padding: 16px;
+        font-family: 'Courier New', monospace;
+        font-size: 13px;
+        line-height: 1.4;
+        overflow-x: auto;
+        white-space: pre-wrap;
+        color: #333;
+        position: relative;
+
+        &::before {
+          content: '';
+          position: absolute;
+          top: 0;
+          right: 0;
+          width: 40px;
+          height: 100%;
+          background: linear-gradient(to right, transparent, #f8f8f8);
+          pointer-events: none;
+        }
+      }
+    }
+  }
+
+  .api-section {
+    &__property {
+      margin-bottom: 16px;
+      padding: 16px;
+      border: 1px solid #e0e0e0;
+      border-radius: 8px;
+      background: #fff;
+      transition: all 0.2s ease;
+
+      &:hover {
+        border-color: #1976d2;
+        box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+      }
+
+      &-name {
+        font-size: 16px;
+        font-weight: 600;
+        color: #1976d2;
+        margin-bottom: 8px;
+        font-family: 'Courier New', monospace;
+        background: #e3f2fd;
+        padding: 4px 8px;
+        border-radius: 4px;
+        display: inline-block;
+      }
+
+      &-type {
+        font-size: 14px;
+        color: #666;
+        margin-bottom: 8px;
+        font-family: 'Courier New', monospace;
+        background: #f5f5f5;
+        padding: 2px 6px;
+        border-radius: 3px;
+        display: inline-block;
+      }
+
+      &-description {
+        font-size: 14px;
+        color: #333;
+        line-height: 1.5;
+        margin-bottom: 8px;
+      }
+
+      &-default {
+        font-size: 12px;
+        color: #666;
+        font-style: italic;
+        background: #f9f9f9;
+        padding: 4px 8px;
+        border-radius: 3px;
+        display: inline-block;
+        margin-right: 8px;
+        margin-bottom: 4px;
+      }
+    }
+  }
+
+  // Responsive design
+  @media (max-width: 768px) {
+    .variation-section__grid,
+    .property-section__grid {
+      grid-template-columns: 1fr;
+    }
+
+    .validation-section__form {
+      padding: 16px;
+    }
+  }
+}

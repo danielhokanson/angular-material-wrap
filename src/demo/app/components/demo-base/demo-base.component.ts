@@ -9,17 +9,10 @@ import { MatInputModule } from '@angular/material/input';
 import { MatSelectModule } from '@angular/material/select';
 import { MatCheckboxModule } from '@angular/material/checkbox';
 import { MatSliderModule } from '@angular/material/slider';
+import { DemoProperty } from './interfaces/demo-property.interface';
 
-export interface DemoProperty {
-    name: string;
-    type: 'string' | 'number' | 'boolean' | 'select' | 'slider';
-    value: any;
-    options?: { value: any; label: string }[];
-    min?: number;
-    max?: number;
-    step?: number;
-    description?: string;
-}
+// Re-export for convenience
+export type { DemoProperty } from './interfaces/demo-property.interface';
 
 @Component({
     selector: 'amw-demo-base',

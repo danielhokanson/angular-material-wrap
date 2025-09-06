@@ -22,8 +22,12 @@ export { AmwSelectComponent } from './controls/components/amw-select/amw-select.
 // export * from './pages/pipes';
 
 // Styling exports
-// export * from './styling/components';
-// export * from './styling/directives';
-// export * from './styling/interfaces';
-// export * from './styling/services';
-// export * from './styling/pipes';
+export * from './styling/components';
+export * from './styling/interfaces';
+export * from './styling/services';
+
+// Individual styling component exports for better tree-shaking
+export { ThemeService } from './styling/services/theme.service';
+export { ThemePickerComponent } from './styling/components/theme-picker/theme-picker.component';
+export { ThemeEditorComponent } from './styling/components/theme-editor/theme-editor.component';
+export { ThemeManagerComponent } from './styling/components/theme-manager/theme-manager.component';

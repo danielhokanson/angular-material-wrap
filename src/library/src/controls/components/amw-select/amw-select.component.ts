@@ -2,7 +2,7 @@ import { Component, Input, Output, EventEmitter, ViewEncapsulation, forwardRef, 
 import { CommonModule } from '@angular/common';
 import { FormsModule, ReactiveFormsModule, ControlValueAccessor, NG_VALUE_ACCESSOR } from '@angular/forms';
 import { MatSelectModule } from '@angular/material/select';
-import { MatFormFieldModule } from '@angular/material/form-field';
+import { MatFormFieldModule, MatFormFieldAppearance } from '@angular/material/form-field';
 import { MatIconModule } from '@angular/material/icon';
 import { MatButtonModule } from '@angular/material/button';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
@@ -43,7 +43,7 @@ import { SelectOption, SelectConfig } from './interfaces/select.interface';
 })
 export class AmwSelectComponent extends BaseComponent implements ControlValueAccessor, OnInit, OnChanges {
     // Basic select properties
-    @Input() appearance: SelectAppearance = 'outline';
+    @Input() appearance: MatFormFieldAppearance = 'outline';
     @Input() size: SelectSize = 'medium';
     @Input() override placeholder: string = '';
     @Input() override label: string = '';

@@ -1,240 +1,177 @@
-        <!-- Primary/Basic Button -->
-        <button
-          *ngIf="variant === 'primary' || variant === 'basic'"
-          mat-button
-          [type]="type"
-          [color]="color"
-          [disabled]="disabled || loading"
-          [autofocus]="autofocus"
-          [name]="name"
-          [attr.form]="form"
-          [attr.formaction]="formAction"
-          [attr.formmethod]="formMethod"
-          [attr.formtarget]="formTarget"
-          [attr.formenctype]="formEnctype"
-          [attr.formnovalidate]="formNoValidate"
-          [attr.aria-label]="ariaLabel"
-          [attr.aria-labelledby]="ariaLabelledby"
-          [attr.aria-describedby]="ariaDescribedby"
-          [attr.tabindex]="tabIndex"
-          [class]="buttonClasses"
-          (click)="onButtonClick($event)"
-          (focus)="onButtonFocus($event)"
-          (blur)="onButtonBlur($event)"
-          (mouseenter)="onMouseEnter($event)"
-          (mouseleave)="onMouseLeave($event)"
-          class="amw-button">
-  
-          <ng-container *ngIf="icon && iconPosition === 'left' && !loading">
-            <mat-icon class="amw-button__icon amw-button__icon--left">{{ icon }}</mat-icon>
-          </ng-container>
+<div class="amw-button">
+  <!-- Common Button Content Template -->
+  <ng-template #buttonContent>
+    <!-- Left Icon -->
+    @if (icon && iconPosition === 'left' && !loading) {
+      <mat-icon class="amw-button__icon amw-button__icon--left">{{ icon }}</mat-icon>
+    }
+
+    <!-- Loading Spinner -->
+    @if (loading) {
+      <mat-spinner class="amw-button__spinner" [diameter]="spinnerSize" [color]="spinnerColor">
+      </mat-spinner>
+    }
+
+    <!-- Button Text -->
+    @if (!loading) {
+      <span class="amw-button__text">
+        @if (text && text.trim()) {
+          <span [innerHTML]="text"></span>
+        } @else {
           <ng-content></ng-content>
-          <ng-container *ngIf="icon && iconPosition === 'right' && !loading">
-            <mat-icon class="amw-button__icon amw-button__icon--right">{{ icon }}</mat-icon>
-          </ng-container>
-          <mat-spinner *ngIf="loading" [diameter]="20" class="amw-button__spinner"></mat-spinner>
-        </button>
+        }
+      </span>
+    }
 
-        <!-- Raised Button -->
-        <button
-          *ngIf="variant === 'raised'"
-          mat-raised-button
-          [type]="type"
-          [color]="color"
-          [disabled]="disabled || loading"
-          [autofocus]="autofocus"
-          [name]="name"
-          [attr.form]="form"
-          [attr.formaction]="formAction"
-          [attr.formmethod]="formMethod"
-          [attr.formtarget]="formTarget"
-          [attr.formenctype]="formEnctype"
-          [attr.formnovalidate]="formNoValidate"
-          [attr.aria-label]="ariaLabel"
-          [attr.aria-labelledby]="ariaLabelledby"
-          [attr.aria-describedby]="ariaDescribedby"
-          [attr.tabindex]="tabIndex"
-          [class]="buttonClasses"
-          (click)="onButtonClick($event)"
-          (focus)="onButtonFocus($event)"
-          (blur)="onButtonBlur($event)"
-          (mouseenter)="onMouseEnter($event)"
-          (mouseleave)="onMouseLeave($event)"
-          class="amw-button">
-          
-          <ng-container *ngIf="icon && iconPosition === 'left' && !loading">
-            <mat-icon class="amw-button__icon amw-button__icon--left">{{ icon }}</mat-icon>
-          </ng-container>
-          <ng-content></ng-content>
-          <ng-container *ngIf="icon && iconPosition === 'right' && !loading">
-            <mat-icon class="amw-button__icon amw-button__icon--right">{{ icon }}</mat-icon>
-          </ng-container>
-          <mat-spinner *ngIf="loading" [diameter]="20" class="amw-button__spinner"></mat-spinner>
-        </button>
+    <!-- Right Icon -->
+    @if (icon && iconPosition === 'right' && !loading) {
+      <mat-icon class="amw-button__icon amw-button__icon--right">{{ icon }}</mat-icon>
+    }
+  </ng-template>
 
-        <!-- Stroked Button -->
-        <button
-          *ngIf="variant === 'stroked'"
-          mat-stroked-button
-          [type]="type"
-          [color]="color"
-          [disabled]="disabled || loading"
-          [autofocus]="autofocus"
-          [name]="name"
-          [attr.form]="form"
-          [attr.formaction]="formAction"
-          [attr.formmethod]="formMethod"
-          [attr.formtarget]="formTarget"
-          [attr.formenctype]="formEnctype"
-          [attr.formnovalidate]="formNoValidate"
-          [attr.aria-label]="ariaLabel"
-          [attr.aria-labelledby]="ariaLabelledby"
-          [attr.aria-describedby]="ariaDescribedby"
-          [attr.tabindex]="tabIndex"
-          [class]="buttonClasses"
-          (click)="onButtonClick($event)"
-          (focus)="onButtonFocus($event)"
-          (blur)="onButtonBlur($event)"
-          (mouseenter)="onMouseEnter($event)"
-          (mouseleave)="onMouseLeave($event)"
-          class="amw-button">
-          
-          <ng-container *ngIf="icon && iconPosition === 'left' && !loading">
-            <mat-icon class="amw-button__icon amw-button__icon--left">{{ icon }}</mat-icon>
-          </ng-container>
-          <ng-content></ng-content>
-          <ng-container *ngIf="icon && iconPosition === 'right' && !loading">
-            <mat-icon class="amw-button__icon amw-button__icon--right">{{ icon }}</mat-icon>
-          </ng-container>
-          <mat-spinner *ngIf="loading" [diameter]="20" class="amw-button__spinner"></mat-spinner>
-        </button>
+  <!-- Text Button -->
+  @if (variant === 'text') {
+    <button matButton [type]="type" [attr.color]="color" [disabled]="disabled || loading"
+      [autofocus]="autofocus" [name]="name" [attr.form]="form" [attr.formaction]="formAction"
+      [attr.formmethod]="formMethod" [attr.formtarget]="formTarget" [attr.formenctype]="formEnctype"
+      [attr.formnovalidate]="formNoValidate" [attr.aria-label]="ariaLabel" [attr.aria-labelledby]="ariaLabelledby"
+      [attr.aria-describedby]="ariaDescribedby" [attr.tabindex]="tabIndex" [class]="buttonClasses"
+      (click)="onButtonClick($event)" (focus)="onButtonFocus($event)" (blur)="onButtonBlur($event)"
+      (mouseenter)="onMouseEnter($event)" (mouseleave)="onMouseLeave($event)" class="amw-button__button">
+      <ng-container [ngTemplateOutlet]="buttonContent"></ng-container>
+    </button>
+  }
 
-        <!-- Flat Button -->
-        <button
-          *ngIf="variant === 'flat'"
-          mat-flat-button
-          [type]="type"
-          [color]="color"
-          [disabled]="disabled || loading"
-          [autofocus]="autofocus"
-          [name]="name"
-          [attr.form]="form"
-          [attr.formaction]="formAction"
-          [attr.formmethod]="formMethod"
-          [attr.formtarget]="formTarget"
-          [attr.formenctype]="formEnctype"
-          [attr.formnovalidate]="formNoValidate"
-          [attr.aria-label]="ariaLabel"
-          [attr.aria-labelledby]="ariaLabelledby"
-          [attr.aria-describedby]="ariaDescribedby"
-          [attr.tabindex]="tabIndex"
-          [class]="buttonClasses"
-          (click)="onButtonClick($event)"
-          (focus)="onButtonFocus($event)"
-          (blur)="onButtonBlur($event)"
-          (mouseenter)="onMouseEnter($event)"
-          (mouseleave)="onMouseLeave($event)"
-          class="amw-button">
-          
-          <ng-container *ngIf="icon && iconPosition === 'left' && !loading">
-            <mat-icon class="amw-button__icon amw-button__icon--left">{{ icon }}</mat-icon>
-          </ng-container>
-          <ng-content></ng-content>
-          <ng-container *ngIf="icon && iconPosition === 'right' && !loading">
-            <mat-icon class="amw-button__icon amw-button__icon--right">{{ icon }}</mat-icon>
-          </ng-container>
-          <mat-spinner *ngIf="loading" [diameter]="20" class="amw-button__spinner"></mat-spinner>
-        </button>
+  <!-- Elevated Button -->
+  @if (variant === 'elevated') {
+    <button matButton="elevated" [type]="type" [attr.color]="color" [disabled]="disabled || loading"
+      [autofocus]="autofocus" [name]="name" [attr.form]="form" [attr.formaction]="formAction"
+      [attr.formmethod]="formMethod" [attr.formtarget]="formTarget" [attr.formenctype]="formEnctype"
+      [attr.formnovalidate]="formNoValidate" [attr.aria-label]="ariaLabel" [attr.aria-labelledby]="ariaLabelledby"
+      [attr.aria-describedby]="ariaDescribedby" [attr.tabindex]="tabIndex" [class]="buttonClasses"
+      (click)="onButtonClick($event)" (focus)="onButtonFocus($event)" (blur)="onButtonBlur($event)"
+      (mouseenter)="onMouseEnter($event)" (mouseleave)="onMouseLeave($event)" class="amw-button__button">
+      <ng-container [ngTemplateOutlet]="buttonContent"></ng-container>
+    </button>
+  }
 
-        <!-- Icon Button -->
-        <button
-          *ngIf="variant === 'icon'"
-          mat-icon-button
-          [type]="type"
-          [color]="color"
-          [disabled]="disabled || loading"
-          [autofocus]="autofocus"
-          [name]="name"
-          [attr.form]="form"
-          [attr.formaction]="formAction"
-          [attr.formmethod]="formMethod"
-          [attr.formtarget]="formTarget"
-          [attr.formenctype]="formEnctype"
-          [attr.formnovalidate]="formNoValidate"
-          [attr.aria-label]="ariaLabel"
-          [attr.aria-labelledby]="ariaLabelledby"
-          [attr.aria-describedby]="ariaDescribedby"
-          [attr.tabindex]="tabIndex"
-          [class]="buttonClasses"
-          (click)="onButtonClick($event)"
-          (focus)="onButtonFocus($event)"
-          (blur)="onButtonBlur($event)"
-          (mouseenter)="onMouseEnter($event)"
-          (mouseleave)="onMouseLeave($event)"
-          class="amw-button">
-          
-          <mat-icon *ngIf="icon && !loading" class="amw-button__icon">{{ icon }}</mat-icon>
-          <mat-spinner *ngIf="loading" [diameter]="20" class="amw-button__spinner"></mat-spinner>
-        </button>
+  <!-- Outlined Button -->
+  @if (variant === 'outlined') {
+    <button matButton="outlined" [type]="type" [attr.color]="color" [disabled]="disabled || loading"
+      [autofocus]="autofocus" [name]="name" [attr.form]="form" [attr.formaction]="formAction"
+      [attr.formmethod]="formMethod" [attr.formtarget]="formTarget" [attr.formenctype]="formEnctype"
+      [attr.formnovalidate]="formNoValidate" [attr.aria-label]="ariaLabel" [attr.aria-labelledby]="ariaLabelledby"
+      [attr.aria-describedby]="ariaDescribedby" [attr.tabindex]="tabIndex" [class]="buttonClasses"
+      (click)="onButtonClick($event)" (focus)="onButtonFocus($event)" (blur)="onButtonBlur($event)"
+      (mouseenter)="onMouseEnter($event)" (mouseleave)="onMouseLeave($event)" class="amw-button__button">
+      <ng-container [ngTemplateOutlet]="buttonContent"></ng-container>
+    </button>
+  }
 
-        <!-- FAB Button -->
-        <button
-          *ngIf="variant === 'fab'"
-          mat-fab
-          [type]="type"
-          [color]="color"
-          [disabled]="disabled || loading"
-          [autofocus]="autofocus"
-          [name]="name"
-          [attr.form]="form"
-          [attr.formaction]="formAction"
-          [attr.formmethod]="formMethod"
-          [attr.formtarget]="formTarget"
-          [attr.formenctype]="formEnctype"
-          [attr.formnovalidate]="formNoValidate"
-          [attr.aria-label]="ariaLabel"
-          [attr.aria-labelledby]="ariaLabelledby"
-          [attr.aria-describedby]="ariaDescribedby"
-          [attr.tabindex]="tabIndex"
-          [class]="buttonClasses"
-          (click)="onButtonClick($event)"
-          (focus)="onButtonFocus($event)"
-          (blur)="onButtonBlur($event)"
-          (mouseenter)="onMouseEnter($event)"
-          (mouseleave)="onMouseLeave($event)"
-          class="amw-button">
-          
-          <mat-icon *ngIf="icon && !loading" class="amw-button__icon">{{ icon }}</mat-icon>
-          <mat-spinner *ngIf="loading" [diameter]="20" class="amw-button__spinner"></mat-spinner>
-        </button>
+  <!-- Filled Button -->
+  @if (variant === 'filled') {
+    <button matButton="filled" [type]="type" [attr.color]="color" [disabled]="disabled || loading"
+      [autofocus]="autofocus" [name]="name" [attr.form]="form" [attr.formaction]="formAction"
+      [attr.formmethod]="formMethod" [attr.formtarget]="formTarget" [attr.formenctype]="formEnctype"
+      [attr.formnovalidate]="formNoValidate" [attr.aria-label]="ariaLabel" [attr.aria-labelledby]="ariaLabelledby"
+      [attr.aria-describedby]="ariaDescribedby" [attr.tabindex]="tabIndex" [class]="buttonClasses"
+      (click)="onButtonClick($event)" (focus)="onButtonFocus($event)" (blur)="onButtonBlur($event)"
+      (mouseenter)="onMouseEnter($event)" (mouseleave)="onMouseLeave($event)" class="amw-button__button">
+      <ng-container [ngTemplateOutlet]="buttonContent"></ng-container>
+    </button>
+  }
 
-        <!-- Mini FAB Button -->
-        <button
-          *ngIf="variant === 'mini-fab'"
-          mat-mini-fab
-          [type]="type"
-          [color]="color"
-          [disabled]="disabled || loading"
-          [autofocus]="autofocus"
-          [name]="name"
-          [attr.form]="form"
-          [attr.formaction]="formAction"
-          [attr.formmethod]="formMethod"
-          [attr.formtarget]="formTarget"
-          [attr.formenctype]="formEnctype"
-          [attr.formnovalidate]="formNoValidate"
-          [attr.aria-label]="ariaLabel"
-          [attr.aria-labelledby]="ariaLabelledby"
-          [attr.aria-describedby]="ariaDescribedby"
-          [attr.tabindex]="tabIndex"
-          [class]="buttonClasses"
-          (click)="onButtonClick($event)"
-          (focus)="onButtonFocus($event)"
-          (blur)="onButtonBlur($event)"
-          (mouseenter)="onMouseEnter($event)"
-          (mouseleave)="onMouseLeave($event)"
-          class="amw-button">
-          
-          <mat-icon *ngIf="icon && !loading" class="amw-button__icon">{{ icon }}</mat-icon>
-          <mat-spinner *ngIf="loading" [diameter]="20" class="amw-button__spinner"></mat-spinner>
-        </button>
+  <!-- Tonal Button -->
+  @if (variant === 'tonal') {
+    <button matButton="tonal" [type]="type" [attr.color]="color" [disabled]="disabled || loading"
+      [autofocus]="autofocus" [name]="name" [attr.form]="form" [attr.formaction]="formAction"
+      [attr.formmethod]="formMethod" [attr.formtarget]="formTarget" [attr.formenctype]="formEnctype"
+      [attr.formnovalidate]="formNoValidate" [attr.aria-label]="ariaLabel" [attr.aria-labelledby]="ariaLabelledby"
+      [attr.aria-describedby]="ariaDescribedby" [attr.tabindex]="tabIndex" [class]="buttonClasses"
+      (click)="onButtonClick($event)" (focus)="onButtonFocus($event)" (blur)="onButtonBlur($event)"
+      (mouseenter)="onMouseEnter($event)" (mouseleave)="onMouseLeave($event)" class="amw-button__button">
+      <ng-container [ngTemplateOutlet]="buttonContent"></ng-container>
+    </button>
+  }
+
+  <!-- Special Button Variants (mutually exclusive) -->
+  @if (isSpecialVariant()) {
+    @if (variant === 'icon') {
+      <button matIconButton [type]="type" [attr.color]="color" [disabled]="disabled || loading"
+        [autofocus]="autofocus" [name]="name" [attr.form]="form" [attr.formaction]="formAction"
+        [attr.formmethod]="formMethod" [attr.formtarget]="formTarget" [attr.formenctype]="formEnctype"
+        [attr.formnovalidate]="formNoValidate" [attr.aria-label]="ariaLabel" [attr.aria-labelledby]="ariaLabelledby"
+        [attr.aria-describedby]="ariaDescribedby" [attr.tabindex]="tabIndex" [class]="buttonClasses"
+        (click)="onButtonClick($event)" (focus)="onButtonFocus($event)" (blur)="onButtonBlur($event)"
+        (mouseenter)="onMouseEnter($event)" (mouseleave)="onMouseLeave($event)" class="amw-button__button">
+
+        <!-- Loading Spinner -->
+        @if (loading) {
+          <mat-spinner class="amw-button__spinner" [diameter]="spinnerSize" [color]="spinnerColor">
+          </mat-spinner>
+        }
+
+        <!-- Icon -->
+        @if (icon && !loading) {
+          <mat-icon class="amw-button__icon">{{ icon }}</mat-icon>
+        }
+      </button>
+    }
+
+    @if (variant === 'fab') {
+      <button matFab [type]="type" [attr.color]="color" [disabled]="disabled || loading"
+        [autofocus]="autofocus" [name]="name" [attr.form]="form" [attr.formaction]="formAction"
+        [attr.formmethod]="formMethod" [attr.formtarget]="formTarget" [attr.formenctype]="formEnctype"
+        [attr.formnovalidate]="formNoValidate" [attr.aria-label]="ariaLabel" [attr.aria-labelledby]="ariaLabelledby"
+        [attr.aria-describedby]="ariaDescribedby" [attr.tabindex]="tabIndex" [class]="buttonClasses"
+        (click)="onButtonClick($event)" (focus)="onButtonFocus($event)" (blur)="onButtonBlur($event)"
+        (mouseenter)="onMouseEnter($event)" (mouseleave)="onMouseLeave($event)" class="amw-button__button">
+
+        <!-- Loading Spinner -->
+        @if (loading) {
+          <mat-spinner class="amw-button__spinner" [diameter]="spinnerSize" [color]="spinnerColor">
+          </mat-spinner>
+        }
+
+        <!-- Icon -->
+        @if (icon && !loading) {
+          <mat-icon class="amw-button__icon">{{ icon }}</mat-icon>
+        }
+      </button>
+    }
+
+    @if (variant === 'mini-fab') {
+      <button matMiniFab [type]="type" [attr.color]="color" [disabled]="disabled || loading"
+        [autofocus]="autofocus" [name]="name" [attr.form]="form" [attr.formaction]="formAction"
+        [attr.formmethod]="formMethod" [attr.formtarget]="formTarget" [attr.formenctype]="formEnctype"
+        [attr.formnovalidate]="formNoValidate" [attr.aria-label]="ariaLabel" [attr.aria-labelledby]="ariaLabelledby"
+        [attr.aria-describedby]="ariaDescribedby" [attr.tabindex]="tabIndex" [class]="buttonClasses"
+        (click)="onButtonClick($event)" (focus)="onButtonFocus($event)" (blur)="onButtonBlur($event)"
+        (mouseenter)="onMouseEnter($event)" (mouseleave)="onMouseLeave($event)" class="amw-button__button">
+
+        <!-- Loading Spinner -->
+        @if (loading) {
+          <mat-spinner class="amw-button__spinner" [diameter]="spinnerSize" [color]="spinnerColor">
+          </mat-spinner>
+        }
+
+        <!-- Icon -->
+        @if (icon && !loading) {
+          <mat-icon class="amw-button__icon">{{ icon }}</mat-icon>
+        }
+      </button>
+    }
+
+    @if (variant === 'extended-fab') {
+      <button matFab extended [type]="type" [attr.color]="color" [disabled]="disabled || loading"
+        [autofocus]="autofocus" [name]="name" [attr.form]="form" [attr.formaction]="formAction"
+        [attr.formmethod]="formMethod" [attr.formtarget]="formTarget" [attr.formenctype]="formEnctype"
+        [attr.formnovalidate]="formNoValidate" [attr.aria-label]="ariaLabel" [attr.aria-labelledby]="ariaLabelledby"
+        [attr.aria-describedby]="ariaDescribedby" [attr.tabindex]="tabIndex" [class]="buttonClasses"
+        (click)="onButtonClick($event)" (focus)="onButtonFocus($event)" (blur)="onButtonBlur($event)"
+        (mouseenter)="onMouseEnter($event)" (mouseleave)="onMouseLeave($event)" class="amw-button__button">
+        <ng-container [ngTemplateOutlet]="buttonContent"></ng-container>
+      </button>
+    }
+  }
+</div>

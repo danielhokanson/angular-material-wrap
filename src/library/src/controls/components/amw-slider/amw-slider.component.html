@@ -1,0 +1,21 @@
+<div [class]="getSliderClasses()">
+  <mat-slider
+    [color]="color"
+    [disabled]="disabled"
+    [min]="min"
+    [max]="max"
+    [step]="step"
+    [attr.aria-label]="ariaLabel"
+    [attr.aria-labelledby]="ariaLabelledby"
+    [attr.aria-describedby]="ariaDescribedby"
+    [tabIndex]="tabIndex"
+    (change)="onSliderChange($event)"
+    (input)="onSliderInput($event)"
+    (focus)="onFocus($event)"
+    (blur)="onBlur($event)">
+  </mat-slider>
+  
+  <div *ngIf="hasError && errorMessage" class="amw-slider__error">
+    {{ errorMessage }}
+  </div>
+</div>

@@ -1,0 +1,131 @@
+.amw-autocomplete {
+  display: block;
+  width: 100%;
+
+  &--small {
+    .amw-autocomplete__field {
+      .mat-mdc-form-field {
+        font-size: 12px;
+      }
+    }
+  }
+
+  &--medium {
+    .amw-autocomplete__field {
+      .mat-mdc-form-field {
+        font-size: 14px;
+      }
+    }
+  }
+
+  &--large {
+    .amw-autocomplete__field {
+      .mat-mdc-form-field {
+        font-size: 16px;
+      }
+    }
+  }
+
+  &__field {
+    width: 100%;
+
+    .mat-mdc-form-field {
+      width: 100%;
+    }
+  }
+
+  &__input {
+    width: 100%;
+  }
+
+  &__clear {
+    cursor: pointer;
+    opacity: 0.6;
+    transition: opacity 0.2s ease;
+
+    &:hover {
+      opacity: 1;
+    }
+  }
+
+  &__hint {
+    font-size: 12px;
+    color: var(--mat-foreground);
+    opacity: 0.7;
+  }
+
+  &__chips {
+    margin-top: 8px;
+
+    .mat-mdc-chip-set {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 4px;
+    }
+  }
+
+  &__chip {
+    background-color: var(--mat-primary);
+    color: white;
+    font-size: 12px;
+    height: 24px;
+    min-height: 24px;
+
+    .mat-mdc-chip-remove {
+      color: white;
+      opacity: 0.8;
+
+      &:hover {
+        opacity: 1;
+      }
+    }
+  }
+
+  &__panel {
+    .mat-mdc-autocomplete-panel {
+      max-height: 256px;
+    }
+  }
+
+  &__option {
+    .mat-mdc-option {
+      min-height: 40px;
+      line-height: 1.2;
+    }
+  }
+
+  &__no-results {
+    .mat-mdc-option {
+      color: var(--mat-foreground);
+      opacity: 0.6;
+      font-style: italic;
+    }
+  }
+}
+
+// Dark theme adjustments
+@media (prefers-color-scheme: dark) {
+  .amw-autocomplete {
+    &__chip {
+      background-color: var(--mat-primary);
+      color: white;
+    }
+  }
+}
+
+// Responsive design
+@media (max-width: 768px) {
+  .amw-autocomplete {
+    &__chips {
+      .mat-mdc-chip-set {
+        gap: 2px;
+      }
+    }
+
+    &__chip {
+      font-size: 11px;
+      height: 22px;
+      min-height: 22px;
+    }
+  }
+}

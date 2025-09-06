@@ -1,0 +1,68 @@
+.amw-demo-autocomplete {
+  .demo-section {
+    margin-bottom: 32px;
+
+    h3 {
+      margin: 0 0 16px 0;
+      font-size: 1.5rem;
+      font-weight: 500;
+      color: var(--mat-foreground);
+    }
+
+    .variation-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+      gap: 24px;
+
+      .variation-item {
+        h4 {
+          margin: 0 0 12px 0;
+          font-size: 1rem;
+          font-weight: 500;
+          color: var(--mat-foreground);
+          opacity: 0.8;
+        }
+      }
+    }
+
+    .demo-example {
+      max-width: 400px;
+
+      .selected-value {
+        margin-top: 12px;
+        padding: 8px 12px;
+        background: rgba(var(--mat-primary), 0.1);
+        border-radius: 4px;
+        font-size: 14px;
+        color: var(--mat-foreground);
+        border-left: 3px solid var(--mat-primary);
+      }
+    }
+  }
+}
+
+// Dark theme adjustments
+@media (prefers-color-scheme: dark) {
+  .amw-demo-autocomplete {
+    .demo-section {
+      .demo-example {
+        .selected-value {
+          background: rgba(var(--mat-primary), 0.2);
+          color: var(--mat-foreground);
+        }
+      }
+    }
+  }
+}
+
+// Responsive design
+@media (max-width: 768px) {
+  .amw-demo-autocomplete {
+    .demo-section {
+      .variation-grid {
+        grid-template-columns: 1fr;
+        gap: 16px;
+      }
+    }
+  }
+}

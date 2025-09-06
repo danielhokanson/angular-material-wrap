@@ -8,6 +8,8 @@ import { MatButtonModule } from '@angular/material/button';
 import { MatToolbarModule } from '@angular/material/toolbar';
 import { MatExpansionModule } from '@angular/material/expansion';
 
+import { ThemeMenuComponent } from '../theme-menu/theme-menu.component';
+
 @Component({
     selector: 'amw-demo-navigation',
     standalone: true,
@@ -19,7 +21,8 @@ import { MatExpansionModule } from '@angular/material/expansion';
         MatIconModule,
         MatButtonModule,
         MatToolbarModule,
-        MatExpansionModule
+        MatExpansionModule,
+        ThemeMenuComponent
     ],
     templateUrl: './demo-navigation.component.html',
     styleUrl: './demo-navigation.component.scss'
@@ -149,6 +152,14 @@ export class DemoNavigationComponent {
                 { title: 'Maintenance', route: '/pages/maintenance', icon: 'build' },
                 { title: 'Coming Soon', route: '/pages/coming-soon', icon: 'schedule' }
             ]
+        },
+        {
+            title: 'Theme Management',
+            icon: 'palette',
+            route: '/theme',
+            description: 'Switch and create custom themes',
+            expanded: false,
+            children: []
         }
     ];
 

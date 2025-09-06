@@ -1,1 +1,1 @@
-// Styling services will be exported here
+export * from './theme.service';

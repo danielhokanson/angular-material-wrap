@@ -2,7 +2,7 @@ import { Component, Input, Output, EventEmitter, ViewEncapsulation, forwardRef }
 import { CommonModule } from '@angular/common';
 import { FormsModule, ReactiveFormsModule, ControlValueAccessor, NG_VALUE_ACCESSOR } from '@angular/forms';
 import { MatInputModule } from '@angular/material/input';
-import { MatFormFieldModule } from '@angular/material/form-field';
+import { MatFormFieldModule, MatFormFieldAppearance } from '@angular/material/form-field';
 import { MatIconModule } from '@angular/material/icon';
 import { MatButtonModule } from '@angular/material/button';
 import { BaseComponent } from '../base/base.component';
@@ -40,7 +40,7 @@ import { InputSize } from './interfaces/input-size.type';
 export class AmwInputComponent extends BaseComponent implements ControlValueAccessor {
     // Basic input properties
     @Input() type: InputType = 'text';
-    @Input() appearance: InputAppearance = 'outline';
+    @Input() appearance: MatFormFieldAppearance = 'outline';
     @Input() size: InputSize = 'medium';
     @Input() override placeholder: string = '';
     @Input() override label: string = '';

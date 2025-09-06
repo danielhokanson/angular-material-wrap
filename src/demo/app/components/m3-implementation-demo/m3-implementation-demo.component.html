@@ -1,0 +1,207 @@
+<div class="m3-implementation-demo">
+  <div class="m3-implementation-demo__header">
+    <h1 class="mdc-typography--headline-large">Material Design 3 Implementation Guide</h1>
+    <p class="mdc-typography--body-large">
+      Essential classes, CSS custom properties, and implementation requirements for consuming applications.
+    </p>
+  </div>
+
+  <!-- Color Tokens Section -->
+  <mat-card class="m3-implementation-demo__section">
+    <mat-card-header>
+      <mat-card-title class="mdc-typography--headline-small">M3 Color Tokens</mat-card-title>
+      <mat-card-subtitle class="mdc-typography--body-medium">
+        Essential CSS custom properties that must be implemented
+      </mat-card-subtitle>
+    </mat-card-header>
+    <mat-card-content>
+      <div class="color-tokens-grid">
+        <div *ngFor="let token of colorTokens" class="color-token-item">
+          <div class="color-token-item__preview" [style.background-color]="token.value"></div>
+          <div class="color-token-item__info">
+            <div class="color-token-item__name mdc-typography--title-small">{{ token.name }}</div>
+            <div class="color-token-item__variable mdc-typography--body-small">{{ token.variable }}</div>
+            <div class="color-token-item__value mdc-typography--body-small">{{ token.value }}</div>
+            <div class="color-token-item__description mdc-typography--body-small">{{ token.description }}</div>
+          </div>
+        </div>
+      </div>
+    </mat-card-content>
+  </mat-card>
+
+  <!-- Typography Scale Section -->
+  <mat-card class="m3-implementation-demo__section">
+    <mat-card-header>
+      <mat-card-title class="mdc-typography--headline-small">M3 Typography Scale</mat-card-title>
+      <mat-card-subtitle class="mdc-typography--body-medium">
+        Typography classes for consistent text styling
+      </mat-card-subtitle>
+    </mat-card-header>
+    <mat-card-content>
+      <div class="typography-scale">
+        <div *ngFor="let typography of typographyScale" class="typography-item">
+          <div class="typography-item__preview" [class]="typography.class">
+            {{ typography.name }} - Sample Text
+          </div>
+          <div class="typography-item__info">
+            <div class="typography-item__class mdc-typography--body-small">{{ typography.class }}</div>
+            <div class="typography-item__description mdc-typography--body-small">{{ typography.description }}</div>
+          </div>
+        </div>
+      </div>
+    </mat-card-content>
+  </mat-card>
+
+  <!-- Component Classes Section -->
+  <mat-card class="m3-implementation-demo__section">
+    <mat-card-header>
+      <mat-card-title class="mdc-typography--headline-small">M3 Component Classes</mat-card-title>
+      <mat-card-subtitle class="mdc-typography--body-medium">
+        Angular Material component classes with M3 theming
+      </mat-card-subtitle>
+    </mat-card-header>
+    <mat-card-content>
+      <div class="component-classes-grid">
+        <div *ngFor="let component of componentClasses" class="component-class-item">
+          <div class="component-class-item__preview">
+            <!-- Button Examples -->
+            <button *ngIf="component.name.includes('Button')" 
+                    [class]="component.class" 
+                    mat-button>
+              {{ component.name }}
+            </button>
+            
+            <!-- Other component examples would go here -->
+            <div *ngIf="!component.name.includes('Button')" 
+                 class="component-placeholder">
+              {{ component.name }}
+            </div>
+          </div>
+          <div class="component-class-item__info">
+            <div class="component-class-item__class mdc-typography--body-small">{{ component.class }}</div>
+            <div class="component-class-item__description mdc-typography--body-small">{{ component.description }}</div>
+          </div>
+        </div>
+      </div>
+    </mat-card-content>
+  </mat-card>
+
+  <!-- State Layer Colors Section -->
+  <mat-card class="m3-implementation-demo__section">
+    <mat-card-header>
+      <mat-card-title class="mdc-typography--headline-small">M3 State Layer Colors</mat-card-title>
+      <mat-card-subtitle class="mdc-typography--body-medium">
+        Surface variants for proper layering and depth
+      </mat-card-subtitle>
+    </mat-card-header>
+    <mat-card-content>
+      <div class="state-layer-colors">
+        <div *ngFor="let layer of stateLayerColors" class="state-layer-item">
+          <div class="state-layer-item__preview" 
+               [style.background-color]="'var(' + layer.variable + ')'"
+               [style.color]="'var(--mdc-theme-on-surface)'">
+            {{ layer.name }}
+          </div>
+          <div class="state-layer-item__info">
+            <div class="state-layer-item__variable mdc-typography--body-small">{{ layer.variable }}</div>
+            <div class="state-layer-item__description mdc-typography--body-small">{{ layer.description }}</div>
+          </div>
+        </div>
+      </div>
+    </mat-card-content>
+  </mat-card>
+
+  <!-- Implementation Requirements Section -->
+  <mat-card class="m3-implementation-demo__section">
+    <mat-card-header>
+      <mat-card-title class="mdc-typography--headline-small">Implementation Requirements</mat-card-title>
+      <mat-card-subtitle class="mdc-typography--body-medium">
+        Essential steps for implementing M3 in consuming applications
+      </mat-card-subtitle>
+    </mat-card-header>
+    <mat-card-content>
+      <div class="implementation-requirements">
+        <div *ngFor="let category of implementationRequirements" class="requirement-category">
+          <h3 class="mdc-typography--title-medium">{{ category.category }}</h3>
+          <ul class="requirement-list">
+            <li *ngFor="let item of category.items" class="requirement-item mdc-typography--body-medium">
+              {{ item }}
+            </li>
+          </ul>
+        </div>
+      </div>
+    </mat-card-content>
+  </mat-card>
+
+  <!-- Code Examples Section -->
+  <mat-card class="m3-implementation-demo__section">
+    <mat-card-header>
+      <mat-card-title class="mdc-typography--headline-small">Implementation Examples</mat-card-title>
+      <mat-card-subtitle class="mdc-typography--body-medium">
+        Code snippets for implementing M3 in your application
+      </mat-card-subtitle>
+    </mat-card-header>
+    <mat-card-content>
+      <div class="code-examples">
+        <!-- CSS Implementation -->
+        <div class="code-example">
+          <h4 class="mdc-typography--title-small">1. CSS Custom Properties (styles.scss)</h4>
+          <pre class="code-block"><code>/* Essential M3 Color Tokens */
+:root {
+  --mdc-theme-primary: #6750A4;
+  --mdc-theme-on-primary: #1C1B1F;
+  --mdc-theme-primary-container: #EADDFF;
+  --mdc-theme-on-primary-container: #21005D;
+  /* ... all other M3 tokens */
+}
+
+/* Dark Theme Support */
+.dark-theme {
+  --mdc-theme-primary: #D0BCFF;
+  --mdc-theme-on-primary: #381E72;
+  /* ... dark theme variants */
+}</code></pre>
+        </div>
+
+        <!-- Typography Implementation -->
+        <div class="code-example">
+          <h4 class="mdc-typography--title-small">2. Typography Classes (HTML)</h4>
+          <pre class="code-block"><code>&lt;h1 class="mdc-typography--headline-large"&gt;Main Heading&lt;/h1&gt;
+&lt;h2 class="mdc-typography--headline-medium"&gt;Section Heading&lt;/h2&gt;
+&lt;p class="mdc-typography--body-large"&gt;Body text content&lt;/p&gt;
+&lt;span class="mdc-typography--label-medium"&gt;Form Label&lt;/span&gt;</code></pre>
+        </div>
+
+        <!-- Component Usage -->
+        <div class="code-example">
+          <h4 class="mdc-typography--title-small">3. Component Usage (Angular)</h4>
+          <pre class="code-block"><code>&lt;button mat-raised-button class="mat-mdc-raised-button"&gt;
+  Primary Action
+&lt;/button&gt;
+
+&lt;mat-form-field class="mat-mdc-form-field"&gt;
+  &lt;input matInput placeholder="Input field"&gt;
+&lt;/mat-form-field&gt;
+
+&lt;mat-card class="mat-mdc-card"&gt;
+  &lt;mat-card-content&gt;Card content&lt;/mat-card-content&gt;
+&lt;/mat-card&gt;</code></pre>
+        </div>
+
+        <!-- Theme Switching -->
+        <div class="code-example">
+          <h4 class="mdc-typography--title-small">4. Theme Switching (TypeScript)</h4>
+          <pre class="code-block"><code>// Toggle dark theme
+toggleDarkTheme() {
+  document.documentElement.classList.toggle('dark-theme');
+}
+
+// Apply custom theme
+applyCustomTheme(primaryColor: string) {
+  document.documentElement.style.setProperty('--mdc-theme-primary', primaryColor);
+}</code></pre>
+        </div>
+      </div>
+    </mat-card-content>
+  </mat-card>
+</div>

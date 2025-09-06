@@ -13,7 +13,7 @@
     [class.mat-form-field-invalid]="hasValidationError">
   
   <!-- Label -->
-  <mat-label *ngIf="label">{{ label }}</mat-label>
+  <mat-label *ngIf="label" [innerHTML]="label"></mat-label>
   
   <!-- Start Icon -->
   <mat-icon *ngIf="startIcon" matPrefix class="amw-input__start-icon">{{ startIcon }}</mat-icon>

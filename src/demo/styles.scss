@@ -1,1 +1,936 @@
 /* You can add global styles to this file, and also import other style files */
+
+/* Material Design 3 Base Styles */
+@use '@angular/material' as mat;
+
+/* Include Angular Material core styles */
+@include mat.core();
+
+/* Create comprehensive M3 theme with proper color mapping */
+$m3-theme: mat.define-theme((
+  color: (
+    theme-type: light,
+    primary: mat.$violet-palette,
+    tertiary: mat.$cyan-palette,
+  ),
+  density: (
+    scale: 0
+  )
+));
+
+/* Include Angular Material component themes */
+@mixin angular-material-theme($theme) {
+  @include mat.button-theme($theme);
+  @include mat.fab-theme($theme);
+  @include mat.form-field-theme($theme);
+  @include mat.input-theme($theme);
+  @include mat.select-theme($theme);
+  @include mat.checkbox-theme($theme);
+  @include mat.radio-theme($theme);
+  @include mat.slider-theme($theme);
+  @include mat.slide-toggle-theme($theme);
+  @include mat.toolbar-theme($theme);
+  @include mat.sidenav-theme($theme);
+  @include mat.list-theme($theme);
+  @include mat.card-theme($theme);
+  @include mat.icon-theme($theme);
+  @include mat.progress-spinner-theme($theme);
+  @include mat.progress-bar-theme($theme);
+  @include mat.tabs-theme($theme);
+  @include mat.menu-theme($theme);
+  @include mat.snack-bar-theme($theme);
+  @include mat.dialog-theme($theme);
+  @include mat.chips-theme($theme);
+  @include mat.datepicker-theme($theme);
+  @include mat.autocomplete-theme($theme);
+}
+
+/* Apply theme to root */
+:root {
+  @include angular-material-theme($m3-theme);
+  
+  /* Override Angular Material colors to use M3 colors */
+  /* Primary colors are already correctly mapped by the theme */
+  
+  
+  
+  /* Map tertiary to accent for checkboxes */
+  .amw-checkbox[color="accent"] .mat-mdc-checkbox,
+  .mat-mdc-checkbox[color="accent"] {
+    --mat-checkbox-selected-icon-color: var(--mdc-theme-tertiary) !important;
+    --mat-checkbox-selected-focus-icon-color: var(--mdc-theme-tertiary) !important;
+    --mat-checkbox-selected-hover-icon-color: var(--mdc-theme-tertiary) !important;
+    --mat-checkbox-selected-pressed-icon-color: var(--mdc-theme-tertiary) !important;
+  }
+  
+  /* Map error to warn for checkboxes */
+  .amw-checkbox[color="warn"] .mat-mdc-checkbox,
+  .mat-mdc-checkbox[color="warn"] {
+    --mat-checkbox-selected-icon-color: var(--mdc-theme-error) !important;
+    --mat-checkbox-selected-focus-icon-color: var(--mdc-theme-error) !important;
+    --mat-checkbox-selected-hover-icon-color: var(--mdc-theme-error) !important;
+    --mat-checkbox-selected-pressed-icon-color: var(--mdc-theme-error) !important;
+  }
+  
+  /* Map tertiary to accent for radio buttons */
+  .amw-radio[color="accent"] .mat-mdc-radio-button,
+  .mat-mdc-radio-button[color="accent"] {
+    --mat-radio-selected-icon-color: var(--mdc-theme-tertiary) !important;
+    --mat-radio-selected-focus-icon-color: var(--mdc-theme-tertiary) !important;
+    --mat-radio-selected-hover-icon-color: var(--mdc-theme-tertiary) !important;
+    --mat-radio-selected-pressed-icon-color: var(--mdc-theme-tertiary) !important;
+  }
+  
+  /* Map error to warn for radio buttons */
+  .amw-radio[color="warn"] .mat-mdc-radio-button,
+  .mat-mdc-radio-button[color="warn"] {
+    --mat-radio-selected-icon-color: var(--mdc-theme-error) !important;
+    --mat-radio-selected-focus-icon-color: var(--mdc-theme-error) !important;
+    --mat-radio-selected-hover-icon-color: var(--mdc-theme-error) !important;
+    --mat-radio-selected-pressed-icon-color: var(--mdc-theme-error) !important;
+  }
+  
+  /* Map tertiary to accent for slide toggles */
+  .amw-toggle[color="accent"] .mat-mdc-slide-toggle,
+  .mat-mdc-slide-toggle[color="accent"] {
+    --mat-slide-toggle-selected-track-color: var(--mdc-theme-tertiary) !important;
+    --mat-slide-toggle-selected-hover-track-color: var(--mdc-theme-tertiary) !important;
+    --mat-slide-toggle-selected-focus-track-color: var(--mdc-theme-tertiary) !important;
+    --mat-slide-toggle-selected-pressed-track-color: var(--mdc-theme-tertiary) !important;
+  }
+  
+  /* Map error to warn for slide toggles */
+  .amw-toggle[color="warn"] .mat-mdc-slide-toggle,
+  .mat-mdc-slide-toggle[color="warn"] {
+    --mat-slide-toggle-selected-track-color: var(--mdc-theme-error) !important;
+    --mat-slide-toggle-selected-hover-track-color: var(--mdc-theme-error) !important;
+    --mat-slide-toggle-selected-focus-track-color: var(--mdc-theme-error) !important;
+    --mat-slide-toggle-selected-pressed-track-color: var(--mdc-theme-error) !important;
+  }
+}
+
+/* Dark theme variant */
+.dark-theme {
+  $m3-dark-theme: mat.define-theme((
+    color: (
+      theme-type: dark,
+      primary: mat.$violet-palette,
+      tertiary: mat.$cyan-palette,
+    ),
+    density: (
+      scale: 0
+    )
+  ));
+  
+  @include angular-material-theme($m3-dark-theme);
+  
+  
+  /* Map tertiary to accent for checkboxes in dark theme */
+  .amw-checkbox[color="accent"] .mat-mdc-checkbox,
+  .mat-mdc-checkbox[color="accent"] {
+    --mat-checkbox-selected-icon-color: var(--mdc-theme-tertiary) !important;
+    --mat-checkbox-selected-focus-icon-color: var(--mdc-theme-tertiary) !important;
+    --mat-checkbox-selected-hover-icon-color: var(--mdc-theme-tertiary) !important;
+    --mat-checkbox-selected-pressed-icon-color: var(--mdc-theme-tertiary) !important;
+  }
+  
+  /* Map error to warn for checkboxes in dark theme */
+  .amw-checkbox[color="warn"] .mat-mdc-checkbox,
+  .mat-mdc-checkbox[color="warn"] {
+    --mat-checkbox-selected-icon-color: var(--mdc-theme-error) !important;
+    --mat-checkbox-selected-focus-icon-color: var(--mdc-theme-error) !important;
+    --mat-checkbox-selected-hover-icon-color: var(--mdc-theme-error) !important;
+    --mat-checkbox-selected-pressed-icon-color: var(--mdc-theme-error) !important;
+  }
+  
+  /* Map tertiary to accent for radio buttons in dark theme */
+  .amw-radio[color="accent"] .mat-mdc-radio-button,
+  .mat-mdc-radio-button[color="accent"] {
+    --mat-radio-selected-icon-color: var(--mdc-theme-tertiary) !important;
+    --mat-radio-selected-focus-icon-color: var(--mdc-theme-tertiary) !important;
+    --mat-radio-selected-hover-icon-color: var(--mdc-theme-tertiary) !important;
+    --mat-radio-selected-pressed-icon-color: var(--mdc-theme-tertiary) !important;
+  }
+  
+  /* Map error to warn for radio buttons in dark theme */
+  .amw-radio[color="warn"] .mat-mdc-radio-button,
+  .mat-mdc-radio-button[color="warn"] {
+    --mat-radio-selected-icon-color: var(--mdc-theme-error) !important;
+    --mat-radio-selected-focus-icon-color: var(--mdc-theme-error) !important;
+    --mat-radio-selected-hover-icon-color: var(--mdc-theme-error) !important;
+    --mat-radio-selected-pressed-icon-color: var(--mdc-theme-error) !important;
+  }
+  
+  /* Map tertiary to accent for slide toggles in dark theme */
+  .amw-toggle[color="accent"] .mat-mdc-slide-toggle,
+  .mat-mdc-slide-toggle[color="accent"] {
+    --mat-slide-toggle-selected-track-color: var(--mdc-theme-tertiary) !important;
+    --mat-slide-toggle-selected-hover-track-color: var(--mdc-theme-tertiary) !important;
+    --mat-slide-toggle-selected-focus-track-color: var(--mdc-theme-tertiary) !important;
+    --mat-slide-toggle-selected-pressed-track-color: var(--mdc-theme-tertiary) !important;
+  }
+  
+  /* Map error to warn for slide toggles in dark theme */
+  .amw-toggle[color="warn"] .mat-mdc-slide-toggle,
+  .mat-mdc-slide-toggle[color="warn"] {
+    --mat-slide-toggle-selected-track-color: var(--mdc-theme-error) !important;
+    --mat-slide-toggle-selected-hover-track-color: var(--mdc-theme-error) !important;
+    --mat-slide-toggle-selected-focus-track-color: var(--mdc-theme-error) !important;
+    --mat-slide-toggle-selected-pressed-track-color: var(--mdc-theme-error) !important;
+  }
+}
+
+/* M3 Theme will be applied dynamically via CSS custom properties */
+
+/* Let Angular Material handle button styling through theme mixins */
+
+/* Material Icons Support */
+.material-icons {
+  font-family: 'Material Icons';
+  font-weight: normal;
+  font-style: normal;
+  font-size: 24px;
+  line-height: 1;
+  letter-spacing: normal;
+  text-transform: none;
+  display: inline-block;
+  white-space: nowrap;
+  word-wrap: normal;
+  direction: ltr;
+  -webkit-font-feature-settings: 'liga';
+  -webkit-font-smoothing: antialiased;
+}
+
+/* Ensure proper icon rendering */
+mat-icon {
+  font-family: 'Material Icons' !important;
+  font-weight: normal;
+  font-style: normal;
+  font-size: 24px;
+  line-height: 1;
+  letter-spacing: normal;
+  text-transform: none;
+  display: inline-block;
+  white-space: nowrap;
+  word-wrap: normal;
+  direction: ltr;
+  -webkit-font-feature-settings: 'liga';
+  -webkit-font-smoothing: antialiased;
+}
+
+/* Roboto Font */
+body {
+  font-family: 'Roboto', sans-serif;
+}
+
+/* Material Design 3 CSS Custom Properties - Complete Token System */
+:root {
+  /* M3 Dynamic Light Theme - Complete Color Tokens */
+  --mdc-theme-primary: #6750A4;
+  --mdc-theme-on-primary: #FFFFFF;
+  --mdc-theme-primary-container: #EADDFF;
+  --mdc-theme-on-primary-container: #21005D;
+  
+  --mdc-theme-secondary: #625B71;
+  --mdc-theme-on-secondary: #FFFFFF;
+  --mdc-theme-secondary-container: #E8DEF8;
+  --mdc-theme-on-secondary-container: #1D192B;
+  
+  --mdc-theme-tertiary: #7D5260;
+  --mdc-theme-on-tertiary: #FFFFFF;
+  --mdc-theme-tertiary-container: #FFD8E4;
+  --mdc-theme-on-tertiary-container: #31111D;
+  
+  --mdc-theme-error: #BA1A1A;
+  --mdc-theme-on-error: #FFFFFF;
+  --mdc-theme-error-container: #FFDAD6;
+  --mdc-theme-on-error-container: #410002;
+  
+  --mdc-theme-surface: #FFFBFE;
+  --mdc-theme-on-surface: #1C1B1F;
+  --mdc-theme-surface-variant: #E7E0EC;
+  --mdc-theme-on-surface-variant: #49454F;
+  
+  --mdc-theme-outline: #79747E;
+  --mdc-theme-outline-variant: #CAC4D0;
+  
+  --mdc-theme-background: #FFFBFE;
+  --mdc-theme-on-background: #1C1B1F;
+  
+  --mdc-theme-surface-container: #F3EDF7;
+  --mdc-theme-surface-container-high: #ECE6F0;
+  --mdc-theme-surface-container-highest: #E6E0E9;
+  --mdc-theme-surface-container-low: #F7F2FA;
+  --mdc-theme-surface-container-lowest: #FFFFFF;
+  
+  --mdc-theme-surface-dim: #DDD8DD;
+  --mdc-theme-surface-bright: #FFFBFE;
+  
+  /* M3 State Layer Colors */
+  --mdc-theme-surface-tint: #6750A4;
+  --mdc-theme-inverse-surface: #313033;
+  --mdc-theme-inverse-on-surface: #F4EFF4;
+  --mdc-theme-inverse-primary: #D0BCFF;
+  
+  /* M3 Scrim */
+  --mdc-theme-scrim: #000000;
+  
+  /* M3 Shadow */
+  --mdc-theme-shadow: #000000;
+  
+  /* M3 Elevation System */
+  --mdc-elevation-level0: none;
+  --mdc-elevation-level1: 0px 1px 2px 0px rgba(0, 0, 0, 0.3), 0px 1px 3px 1px rgba(0, 0, 0, 0.15);
+  --mdc-elevation-level2: 0px 1px 2px 0px rgba(0, 0, 0, 0.3), 0px 2px 6px 2px rgba(0, 0, 0, 0.15);
+  --mdc-elevation-level3: 0px 1px 3px 0px rgba(0, 0, 0, 0.3), 0px 4px 8px 3px rgba(0, 0, 0, 0.15);
+  --mdc-elevation-level4: 0px 2px 3px 0px rgba(0, 0, 0, 0.3), 0px 6px 10px 4px rgba(0, 0, 0, 0.15);
+  --mdc-elevation-level5: 0px 4px 4px 0px rgba(0, 0, 0, 0.3), 0px 8px 12px 6px rgba(0, 0, 0, 0.15);
+}
+
+/* Dark theme support - Complete M3 Dark Tokens */
+.dark-theme {
+  --mdc-theme-primary: #D0BCFF;
+  --mdc-theme-on-primary: #381E72;
+  --mdc-theme-primary-container: #4F378B;
+  --mdc-theme-on-primary-container: #EADDFF;
+  
+  --mdc-theme-secondary: #CCC2DC;
+  --mdc-theme-on-secondary: #332D41;
+  --mdc-theme-secondary-container: #4A4458;
+  --mdc-theme-on-secondary-container: #E8DEF8;
+  
+  --mdc-theme-tertiary: #EFB8C8;
+  --mdc-theme-on-tertiary: #492532;
+  --mdc-theme-tertiary-container: #633B48;
+  --mdc-theme-on-tertiary-container: #FFD8E4;
+  
+  --mdc-theme-error: #FFB4AB;
+  --mdc-theme-on-error: #690005;
+  --mdc-theme-error-container: #93000A;
+  --mdc-theme-on-error-container: #FFDAD6;
+  
+  --mdc-theme-surface: #1C1B1F;
+  --mdc-theme-on-surface: #E6E1E5;
+  --mdc-theme-surface-variant: #49454F;
+  --mdc-theme-on-surface-variant: #CAC4D0;
+  
+  --mdc-theme-outline: #938F99;
+  --mdc-theme-outline-variant: #49454F;
+  
+  --mdc-theme-background: #1C1B1F;
+  --mdc-theme-on-background: #E6E1E5;
+  
+  --mdc-theme-surface-container: #211F26;
+  --mdc-theme-surface-container-high: #2B2930;
+  --mdc-theme-surface-container-highest: #36343B;
+  --mdc-theme-surface-container-low: #1F1D24;
+  --mdc-theme-surface-container-lowest: #161218;
+  
+  --mdc-theme-surface-dim: #141218;
+  --mdc-theme-surface-bright: #3C383E;
+  
+  /* M3 State Layer Colors - Dark */
+  --mdc-theme-surface-tint: #D0BCFF;
+  --mdc-theme-inverse-surface: #E6E1E5;
+  --mdc-theme-inverse-on-surface: #313033;
+  --mdc-theme-inverse-primary: #6750A4;
+  
+  /* M3 Scrim - Dark */
+  --mdc-theme-scrim: #000000;
+  
+  /* M3 Shadow - Dark */
+  --mdc-theme-shadow: #000000;
+  
+  /* M3 Elevation System - Dark */
+  --mdc-elevation-level0: none;
+  --mdc-elevation-level1: 0px 1px 2px 0px rgba(0, 0, 0, 0.3), 0px 1px 3px 1px rgba(0, 0, 0, 0.15);
+  --mdc-elevation-level2: 0px 1px 2px 0px rgba(0, 0, 0, 0.3), 0px 2px 6px 2px rgba(0, 0, 0, 0.15);
+  --mdc-elevation-level3: 0px 1px 3px 0px rgba(0, 0, 0, 0.3), 0px 4px 8px 3px rgba(0, 0, 0, 0.15);
+  --mdc-elevation-level4: 0px 2px 3px 0px rgba(0, 0, 0, 0.3), 0px 6px 10px 4px rgba(0, 0, 0, 0.15);
+  --mdc-elevation-level5: 0px 4px 4px 0px rgba(0, 0, 0, 0.3), 0px 8px 12px 6px rgba(0, 0, 0, 0.15);
+  
+  /* Dark theme background - Apply to all elements */
+  background-color: var(--mdc-theme-background) !important;
+  color: var(--mdc-theme-on-background) !important;
+}
+
+/* Force dark theme on all Angular Material components */
+.dark-theme {
+  /* Sidenav theming */
+  .mat-mdc-sidenav {
+    background-color: var(--mdc-theme-surface-container) !important;
+    color: var(--mdc-theme-on-surface) !important;
+  }
+  
+  .mat-mdc-sidenav .mat-mdc-toolbar {
+    background-color: var(--mdc-theme-primary) !important;
+    color: var(--mdc-theme-on-primary) !important;
+  }
+  
+  /* List theming */
+  .mat-mdc-list {
+    background-color: var(--mdc-theme-surface-container) !important;
+  }
+  
+  .mat-mdc-list-item {
+    background-color: var(--mdc-theme-surface-container) !important;
+    color: var(--mdc-theme-on-surface) !important;
+  }
+  
+  .mat-mdc-list-item:hover {
+    background-color: var(--mdc-theme-surface-container-high) !important;
+  }
+  
+  .mat-mdc-list-item.active {
+    background-color: var(--mdc-theme-secondary-container) !important;
+    color: var(--mdc-theme-on-secondary-container) !important;
+  }
+  
+  /* Toolbar theming */
+  .mat-mdc-toolbar {
+    background-color: var(--mdc-theme-surface) !important;
+    color: var(--mdc-theme-on-surface) !important;
+  }
+  
+  /* Card theming */
+  .mat-mdc-card {
+    background-color: var(--mdc-theme-surface-container-low) !important;
+    color: var(--mdc-theme-on-surface) !important;
+  }
+  
+  /* Form field theming */
+  .mat-mdc-form-field {
+    background-color: transparent !important;
+  }
+  
+  .mat-mdc-form-field .mat-mdc-text-field-wrapper {
+    background-color: var(--mdc-theme-surface) !important;
+  }
+  
+  /* Menu theming */
+  .mat-mdc-menu-panel {
+    background-color: var(--mdc-theme-surface-container) !important;
+    color: var(--mdc-theme-on-surface) !important;
+  }
+  
+  .mat-mdc-menu-item {
+    color: var(--mdc-theme-on-surface) !important;
+  }
+  
+  .mat-mdc-menu-item:hover {
+    background-color: var(--mdc-theme-surface-container-high) !important;
+  }
+  
+  /* Button theming */
+  .mat-mdc-button {
+    color: var(--mdc-theme-on-surface) !important;
+  }
+  
+  .mat-mdc-icon-button {
+    color: var(--mdc-theme-on-surface) !important;
+  }
+  
+  /* Ensure all text elements use proper colors */
+  h1, h2, h3, h4, h5, h6, p, span, div, label {
+    color: var(--mdc-theme-on-surface) !important;
+  }
+  
+  /* Override any light backgrounds */
+  .mat-mdc-card,
+  .mat-mdc-dialog-container,
+  .mat-mdc-snack-bar-container {
+    background-color: var(--mdc-theme-surface-container-low) !important;
+    color: var(--mdc-theme-on-surface) !important;
+  }
+}
+
+/* Material Design 3 Typography Scale */
+.mdc-typography--display-large {
+  font-family: 'Roboto', sans-serif;
+  font-size: 57px;
+  font-weight: 400;
+  line-height: 64px;
+  letter-spacing: -0.25px;
+}
+
+.mdc-typography--display-medium {
+  font-family: 'Roboto', sans-serif;
+  font-size: 45px;
+  font-weight: 400;
+  line-height: 52px;
+  letter-spacing: 0px;
+}
+
+.mdc-typography--display-small {
+  font-family: 'Roboto', sans-serif;
+  font-size: 36px;
+  font-weight: 400;
+  line-height: 44px;
+  letter-spacing: 0px;
+}
+
+.mdc-typography--headline-large {
+  font-family: 'Roboto', sans-serif;
+  font-size: 32px;
+  font-weight: 400;
+  line-height: 40px;
+  letter-spacing: 0px;
+}
+
+.mdc-typography--headline-medium {
+  font-family: 'Roboto', sans-serif;
+  font-size: 28px;
+  font-weight: 400;
+  line-height: 36px;
+  letter-spacing: 0px;
+}
+
+.mdc-typography--headline-small {
+  font-family: 'Roboto', sans-serif;
+  font-size: 24px;
+  font-weight: 400;
+  line-height: 32px;
+  letter-spacing: 0px;
+}
+
+.mdc-typography--title-large {
+  font-family: 'Roboto', sans-serif;
+  font-size: 22px;
+  font-weight: 400;
+  line-height: 28px;
+  letter-spacing: 0px;
+}
+
+.mdc-typography--title-medium {
+  font-family: 'Roboto', sans-serif;
+  font-size: 16px;
+  font-weight: 500;
+  line-height: 24px;
+  letter-spacing: 0.15px;
+}
+
+.mdc-typography--title-small {
+  font-family: 'Roboto', sans-serif;
+  font-size: 14px;
+  font-weight: 500;
+  line-height: 20px;
+  letter-spacing: 0.1px;
+}
+
+.mdc-typography--body-large {
+  font-family: 'Roboto', sans-serif;
+  font-size: 16px;
+  font-weight: 400;
+  line-height: 24px;
+  letter-spacing: 0.15px;
+}
+
+.mdc-typography--body-medium {
+  font-family: 'Roboto', sans-serif;
+  font-size: 14px;
+  font-weight: 400;
+  line-height: 20px;
+  letter-spacing: 0.25px;
+}
+
+.mdc-typography--body-small {
+  font-family: 'Roboto', sans-serif;
+  font-size: 12px;
+  font-weight: 400;
+  line-height: 16px;
+  letter-spacing: 0.4px;
+}
+
+.mdc-typography--label-large {
+  font-family: 'Roboto', sans-serif;
+  font-size: 14px;
+  font-weight: 500;
+  line-height: 20px;
+  letter-spacing: 0.1px;
+}
+
+.mdc-typography--label-medium {
+  font-family: 'Roboto', sans-serif;
+  font-size: 12px;
+  font-weight: 500;
+  line-height: 16px;
+  letter-spacing: 0.5px;
+}
+
+.mdc-typography--label-small {
+  font-family: 'Roboto', sans-serif;
+  font-size: 11px;
+  font-weight: 500;
+  line-height: 16px;
+  letter-spacing: 0.5px;
+}
+
+/* Material Design 3 Component Theming - Complete System */
+
+/* Global M3 Surface Hierarchy */
+body {
+  background-color: var(--mdc-theme-background);
+  color: var(--mdc-theme-on-background);
+}
+
+/* App Bar / Toolbar - Highest Elevation */
+.mat-mdc-toolbar {
+  background-color: var(--mdc-theme-surface-container-highest) !important;
+  color: var(--mdc-theme-on-surface) !important;
+  box-shadow: var(--mdc-elevation-level2);
+  border-bottom: 1px solid var(--mdc-theme-outline-variant);
+}
+
+/* Sidenav - High Elevation */
+.mat-mdc-sidenav {
+  background-color: var(--mdc-theme-surface-container) !important;
+  color: var(--mdc-theme-on-surface) !important;
+  box-shadow: var(--mdc-elevation-level1);
+}
+
+/* Cards - Medium Elevation */
+.mat-mdc-card {
+  background-color: var(--mdc-theme-surface-container-low) !important;
+  color: var(--mdc-theme-on-surface) !important;
+  box-shadow: var(--mdc-elevation-level1);
+  border: 1px solid var(--mdc-theme-outline-variant);
+}
+
+/* Dialogs - High Elevation */
+.mat-mdc-dialog-container {
+  background-color: var(--mdc-theme-surface-container-highest) !important;
+  color: var(--mdc-theme-on-surface) !important;
+  box-shadow: var(--mdc-elevation-level3);
+}
+
+/* Menus - High Elevation */
+.mat-mdc-menu-panel {
+  background-color: var(--mdc-theme-surface-container-highest) !important;
+  color: var(--mdc-theme-on-surface) !important;
+  box-shadow: var(--mdc-elevation-level2);
+  border: 1px solid var(--mdc-theme-outline-variant);
+}
+
+/* Button theming is handled by Angular Material theme mixins */
+
+/* Form Field Theming */
+.mat-mdc-form-field {
+  /* Outlined Text Field */
+  --mdc-outlined-text-field-container-color: var(--mdc-theme-surface);
+  --mdc-outlined-text-field-outline-color: var(--mdc-theme-outline);
+  --mdc-outlined-text-field-focus-outline-color: var(--mdc-theme-primary);
+  --mdc-outlined-text-field-hover-outline-color: var(--mdc-theme-on-surface);
+  --mdc-outlined-text-field-label-text-color: var(--mdc-theme-on-surface-variant);
+  --mdc-outlined-text-field-input-text-color: var(--mdc-theme-on-surface);
+  --mdc-outlined-text-field-supporting-text-color: var(--mdc-theme-on-surface-variant);
+  --mdc-outlined-text-field-error-focus-outline-color: var(--mdc-theme-error);
+  --mdc-outlined-text-field-error-hover-outline-color: var(--mdc-theme-error);
+  --mdc-outlined-text-field-error-outline-color: var(--mdc-theme-error);
+  --mdc-outlined-text-field-error-label-text-color: var(--mdc-theme-error);
+  --mdc-outlined-text-field-error-supporting-text-color: var(--mdc-theme-error);
+  
+  /* Filled Text Field */
+  --mdc-filled-text-field-container-color: var(--mdc-theme-surface-container-lowest);
+  --mdc-filled-text-field-active-indicator-color: var(--mdc-theme-outline);
+  --mdc-filled-text-field-focus-active-indicator-color: var(--mdc-theme-primary);
+  --mdc-filled-text-field-hover-active-indicator-color: var(--mdc-theme-on-surface);
+  --mdc-filled-text-field-label-text-color: var(--mdc-theme-on-surface-variant);
+  --mdc-filled-text-field-input-text-color: var(--mdc-theme-on-surface);
+  --mdc-filled-text-field-supporting-text-color: var(--mdc-theme-on-surface-variant);
+  --mdc-filled-text-field-error-active-indicator-color: var(--mdc-theme-error);
+  --mdc-filled-text-field-error-focus-active-indicator-color: var(--mdc-theme-error);
+  --mdc-filled-text-field-error-hover-active-indicator-color: var(--mdc-theme-error);
+  --mdc-filled-text-field-error-label-text-color: var(--mdc-theme-error);
+  --mdc-filled-text-field-error-supporting-text-color: var(--mdc-theme-error);
+}
+
+/* List Theming */
+.mat-mdc-list {
+  --mdc-list-container-color: var(--mdc-theme-surface-container);
+  background-color: var(--mdc-theme-surface-container) !important;
+}
+
+.mat-mdc-list-item {
+  --mdc-list-item-container-color: var(--mdc-theme-surface-container);
+  --mdc-list-item-label-text-color: var(--mdc-theme-on-surface);
+  --mdc-list-item-leading-icon-color: var(--mdc-theme-on-surface-variant);
+  --mdc-list-item-trailing-supporting-text-color: var(--mdc-theme-on-surface-variant);
+  --mdc-list-item-hover-state-layer-color: var(--mdc-theme-on-surface);
+  --mdc-list-item-focus-state-layer-color: var(--mdc-theme-on-surface);
+  --mdc-list-item-selected-container-color: var(--mdc-theme-secondary-container);
+  --mdc-list-item-selected-label-text-color: var(--mdc-theme-on-secondary-container);
+  --mdc-list-item-selected-leading-icon-color: var(--mdc-theme-on-secondary-container);
+  background-color: var(--mdc-theme-surface-container) !important;
+  color: var(--mdc-theme-on-surface) !important;
+}
+
+/* Icon Button Theming */
+.mat-mdc-icon-button {
+  --mdc-icon-button-icon-color: var(--mdc-theme-on-surface);
+  --mdc-icon-button-hover-state-layer-color: var(--mdc-theme-on-surface);
+  --mdc-icon-button-focus-state-layer-color: var(--mdc-theme-on-surface);
+  --mdc-icon-button-pressed-state-layer-color: var(--mdc-theme-on-surface);
+  color: var(--mdc-theme-on-surface) !important;
+}
+
+/* Tab Theming */
+.mat-mdc-tab-group {
+  --mdc-tab-indicator-active-indicator-color: var(--mdc-theme-primary);
+  --mdc-tab-indicator-hover-indicator-color: var(--mdc-theme-primary);
+  --mdc-tab-indicator-focus-indicator-color: var(--mdc-theme-primary);
+  --mdc-tab-indicator-pressed-indicator-color: var(--mdc-theme-primary);
+}
+
+.mat-mdc-tab {
+  --mdc-tab-text-label-text-color: var(--mdc-theme-on-surface);
+  --mdc-tab-text-hover-label-text-color: var(--mdc-theme-on-surface);
+  --mdc-tab-text-focus-label-text-color: var(--mdc-theme-on-surface);
+  --mdc-tab-text-pressed-label-text-color: var(--mdc-theme-on-surface);
+  --mdc-tab-text-active-label-text-color: var(--mdc-theme-primary);
+  color: var(--mdc-theme-on-surface) !important;
+}
+
+.mat-mdc-tab-body-content {
+  background-color: var(--mdc-theme-background) !important;
+  color: var(--mdc-theme-on-background) !important;
+}
+
+/* Snackbar Theming */
+.mat-mdc-snack-bar-container {
+  background-color: var(--mdc-theme-inverse-surface) !important;
+  color: var(--mdc-theme-inverse-on-surface) !important;
+  box-shadow: var(--mdc-elevation-level3);
+}
+
+/* Chip Theming */
+.mat-mdc-chip {
+  --mdc-chip-container-color: var(--mdc-theme-surface-variant);
+  --mdc-chip-label-text-color: var(--mdc-theme-on-surface);
+  --mdc-chip-hover-state-layer-color: var(--mdc-theme-on-surface);
+  --mdc-chip-focus-state-layer-color: var(--mdc-theme-on-surface);
+  --mdc-chip-pressed-state-layer-color: var(--mdc-theme-on-surface);
+  background-color: var(--mdc-theme-surface-variant) !important;
+  color: var(--mdc-theme-on-surface) !important;
+}
+
+/* Progress Bar Theming */
+.mat-mdc-progress-bar {
+  --mdc-linear-progress-active-indicator-color: var(--mdc-theme-primary);
+  --mdc-linear-progress-track-color: var(--mdc-theme-surface-variant);
+}
+
+/* Progress Spinner Theming */
+.mat-mdc-progress-spinner {
+  --mdc-circular-progress-active-indicator-color: var(--mdc-theme-primary);
+}
+
+/* Divider Theming */
+.mat-mdc-divider {
+  border-color: var(--mdc-theme-outline-variant) !important;
+}
+
+/* Checkbox Theming */
+.mat-mdc-checkbox {
+  --mdc-checkbox-selected-checkmark-color: var(--mdc-theme-on-primary);
+  --mdc-checkbox-selected-focus-icon-color: var(--mdc-theme-primary);
+  --mdc-checkbox-selected-hover-icon-color: var(--mdc-theme-primary);
+  --mdc-checkbox-selected-icon-color: var(--mdc-theme-primary);
+  --mdc-checkbox-selected-pressed-icon-color: var(--mdc-theme-primary);
+  --mdc-checkbox-unselected-focus-icon-color: var(--mdc-theme-on-surface);
+  --mdc-checkbox-unselected-hover-icon-color: var(--mdc-theme-on-surface);
+  --mdc-checkbox-unselected-icon-color: var(--mdc-theme-outline);
+  --mdc-checkbox-unselected-pressed-icon-color: var(--mdc-theme-on-surface);
+}
+
+/* Radio Button Theming */
+.mat-mdc-radio-button {
+  --mdc-radio-selected-checkmark-color: var(--mdc-theme-on-primary);
+  --mdc-radio-selected-focus-icon-color: var(--mdc-theme-primary);
+  --mdc-radio-selected-hover-icon-color: var(--mdc-theme-primary);
+  --mdc-radio-selected-icon-color: var(--mdc-theme-primary);
+  --mdc-radio-selected-pressed-icon-color: var(--mdc-theme-primary);
+  --mdc-radio-unselected-focus-icon-color: var(--mdc-theme-on-surface);
+  --mdc-radio-unselected-hover-icon-color: var(--mdc-theme-on-surface);
+  --mdc-radio-unselected-icon-color: var(--mdc-theme-outline);
+  --mdc-radio-unselected-pressed-icon-color: var(--mdc-theme-on-surface);
+}
+
+/* Slider Theming */
+.mat-mdc-slider {
+  --mdc-slider-active-track-color: var(--mdc-theme-primary);
+  --mdc-slider-inactive-track-color: var(--mdc-theme-surface-variant);
+  --mdc-slider-handle-color: var(--mdc-theme-primary);
+  --mdc-slider-hover-handle-color: var(--mdc-theme-primary);
+  --mdc-slider-focus-handle-color: var(--mdc-theme-primary);
+  --mdc-slider-disabled-active-track-color: var(--mdc-theme-on-surface);
+  --mdc-slider-disabled-inactive-track-color: var(--mdc-theme-on-surface);
+  --mdc-slider-disabled-handle-color: var(--mdc-theme-on-surface);
+  --mdc-slider-with-tick-marks-active-container-color: var(--mdc-theme-primary);
+  --mdc-slider-with-tick-marks-inactive-container-color: var(--mdc-theme-surface-variant);
+  --mdc-slider-with-tick-marks-disabled-active-container-color: var(--mdc-theme-on-surface);
+  --mdc-slider-with-tick-marks-disabled-inactive-container-color: var(--mdc-theme-on-surface);
+}
+
+/* Switch Theming */
+.mat-mdc-slide-toggle {
+  --mdc-switch-selected-track-color: var(--mdc-theme-primary);
+  --mdc-switch-selected-handle-color: var(--mdc-theme-on-primary);
+  --mdc-switch-selected-hover-track-color: var(--mdc-theme-primary);
+  --mdc-switch-selected-hover-handle-color: var(--mdc-theme-on-primary);
+  --mdc-switch-selected-focus-track-color: var(--mdc-theme-primary);
+  --mdc-switch-selected-focus-handle-color: var(--mdc-theme-on-primary);
+  --mdc-switch-selected-pressed-track-color: var(--mdc-theme-primary);
+  --mdc-switch-selected-pressed-handle-color: var(--mdc-theme-on-primary);
+  --mdc-switch-unselected-track-color: var(--mdc-theme-outline);
+  --mdc-switch-unselected-handle-color: var(--mdc-theme-outline);
+  --mdc-switch-unselected-hover-track-color: var(--mdc-theme-on-surface);
+  --mdc-switch-unselected-hover-handle-color: var(--mdc-theme-outline);
+  --mdc-switch-unselected-focus-track-color: var(--mdc-theme-on-surface);
+  --mdc-switch-unselected-focus-handle-color: var(--mdc-theme-outline);
+  --mdc-switch-unselected-pressed-track-color: var(--mdc-theme-on-surface);
+  --mdc-switch-unselected-pressed-handle-color: var(--mdc-theme-outline);
+  --mdc-switch-disabled-selected-track-color: var(--mdc-theme-on-surface);
+  --mdc-switch-disabled-selected-handle-color: var(--mdc-theme-on-surface);
+  --mdc-switch-disabled-unselected-track-color: var(--mdc-theme-on-surface);
+  --mdc-switch-disabled-unselected-handle-color: var(--mdc-theme-on-surface);
+}
+
+/* M3 Text Contrast Fixes - Ensure proper readability */
+.mdc-typography--body-small,
+.mdc-typography--label-small,
+.mat-mdc-list-item .mat-mdc-list-item-line,
+.mat-mdc-menu-item .mat-mdc-menu-item-text,
+.mat-mdc-tab .mat-mdc-tab-text,
+.demo-nav-description,
+.demo-submenu-item .mat-mdc-list-item-title {
+  color: var(--mdc-theme-on-surface-variant) !important;
+  opacity: 1 !important;
+}
+
+/* M3 Surface Hierarchy for Demo Components */
+.demo-content-area {
+  background-color: var(--mdc-theme-background) !important;
+  color: var(--mdc-theme-on-background) !important;
+}
+
+.demo-main-toolbar {
+  background-color: var(--mdc-theme-surface-container-highest) !important;
+  color: var(--mdc-theme-on-surface) !important;
+  box-shadow: var(--mdc-elevation-level2);
+  border-bottom: 1px solid var(--mdc-theme-outline-variant);
+}
+
+.demo-sidenav {
+  background-color: var(--mdc-theme-surface-container) !important;
+  color: var(--mdc-theme-on-surface) !important;
+  box-shadow: var(--mdc-elevation-level1);
+}
+
+.demo-sidenav-header {
+  background-color: var(--mdc-theme-primary) !important;
+  color: var(--mdc-theme-on-primary) !important;
+}
+
+.demo-nav-list {
+  background-color: var(--mdc-theme-surface-container) !important;
+}
+
+.demo-nav-item {
+  background-color: var(--mdc-theme-surface-container) !important;
+  color: var(--mdc-theme-on-surface) !important;
+}
+
+.demo-nav-item.active {
+  background-color: var(--mdc-theme-secondary-container) !important;
+  color: var(--mdc-theme-on-secondary-container) !important;
+}
+
+.demo-nav-item:hover:not(.active) {
+  background-color: var(--mdc-theme-surface-container-high) !important;
+}
+
+.demo-submenu {
+  background-color: var(--mdc-theme-surface-container) !important;
+}
+
+.demo-submenu-item {
+  background-color: var(--mdc-theme-surface-container) !important;
+  color: var(--mdc-theme-on-surface) !important;
+}
+
+.demo-submenu-item:hover:not(.active) {
+  background-color: var(--mdc-theme-surface-container-high) !important;
+}
+
+/* M3 Card Hierarchy for Demo Content */
+.controls-header {
+  background-color: var(--mdc-theme-surface-container-low) !important;
+  color: var(--mdc-theme-on-surface) !important;
+  box-shadow: var(--mdc-elevation-level1);
+  border-bottom: 1px solid var(--mdc-theme-outline-variant);
+}
+
+.controls-header h1 {
+  color: var(--mdc-theme-on-surface) !important;
+}
+
+.controls-header p {
+  color: var(--mdc-theme-on-surface-variant) !important;
+}
+
+/* M3 Demo Section Cards */
+.control-demo mat-card {
+  background-color: var(--mdc-theme-surface-container-low) !important;
+  color: var(--mdc-theme-on-surface) !important;
+  box-shadow: var(--mdc-elevation-level1);
+  border: 1px solid var(--mdc-theme-outline-variant);
+}
+
+.control-demo mat-card h2,
+.control-demo mat-card h3,
+.control-demo mat-card h4 {
+  color: var(--mdc-theme-on-surface) !important;
+}
+
+.control-demo mat-card p,
+.control-demo mat-card span {
+  color: var(--mdc-theme-on-surface-variant) !important;
+}
+
+/* M3 Tab Content */
+.mat-mdc-tab-body-content {
+  background-color: var(--mdc-theme-background) !important;
+  color: var(--mdc-theme-on-background) !important;
+}
+
+/* M3 Menu Items */
+.mat-mdc-menu-item {
+  color: var(--mdc-theme-on-surface) !important;
+}
+
+.mat-mdc-menu-item:hover {
+  background-color: var(--mdc-theme-surface-container-high) !important;
+}
+
+/* M3 Form Field Labels */
+.mat-mdc-form-field .mat-mdc-form-field-label {
+  color: var(--mdc-theme-on-surface-variant) !important;
+}
+
+.mat-mdc-form-field .mat-mdc-form-field-hint {
+  color: var(--mdc-theme-on-surface-variant) !important;
+}
+
+/* Button theming is handled by Angular Material theme mixins */
+
+/* M3 Icon Colors */
+.mat-mdc-icon-button mat-icon,
+.mat-mdc-list-item mat-icon {
+  color: var(--mdc-theme-on-surface-variant) !important;
+}
+
+/* M3 Active State Icons */
+.mat-mdc-list-item.active mat-icon,
+.mat-mdc-tab.mat-mdc-tab-active mat-icon {
+  color: var(--mdc-theme-on-secondary-container) !important;
+}

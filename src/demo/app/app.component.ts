@@ -1,12 +1,11 @@
 import { Component } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { RouterOutlet } from '@angular/router';
-import { DemoNavigationComponent } from './components/demo-navigation/demo-navigation.component';
+import { LayoutComponent } from './components/layout/layout.component';
 
 @Component({
   selector: 'amw-demo-root',
   standalone: true,
-  imports: [CommonModule, RouterOutlet, DemoNavigationComponent],
+  imports: [CommonModule, LayoutComponent],
   templateUrl: './app.component.html',
   styleUrl: './app.component.scss'
 })

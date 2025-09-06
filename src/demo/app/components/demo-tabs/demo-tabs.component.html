@@ -1,0 +1,41 @@
+<div class="amw-demo-tabs">
+  <mat-tab-group 
+    [selectedIndex]="selectedTabIndex"
+    (selectedIndexChange)="onTabChange($event)"
+    class="amw-demo-tabs__group">
+    
+    <mat-tab *ngFor="let tab of tabs; let i = index" [label]="tab.label">
+      <ng-container [ngSwitch]="tab.id">
+        <!-- Variations Tab -->
+        <div *ngSwitchCase="'variations'" class="amw-demo-tabs__variations">
+          <ng-container [ngTemplateOutlet]="tab.content"></ng-container>
+        </div>
+        
+        <!-- Properties Tab -->
+        <div *ngSwitchCase="'properties'" class="amw-demo-tabs__properties">
+          <ng-container [ngTemplateOutlet]="tab.content"></ng-container>
+        </div>
+        
+        <!-- Validation Tab -->
+        <div *ngSwitchCase="'validation'" class="amw-demo-tabs__validation">
+          <ng-container [ngTemplateOutlet]="tab.content"></ng-container>
+        </div>
+        
+        <!-- Code Tab -->
+        <div *ngSwitchCase="'code'" class="amw-demo-tabs__code">
+          <ng-container [ngTemplateOutlet]="tab.content"></ng-container>
+        </div>
+        
+        <!-- API Tab -->
+        <div *ngSwitchCase="'api'" class="amw-demo-tabs__api">
+          <ng-container [ngTemplateOutlet]="tab.content"></ng-container>
+        </div>
+        
+        <!-- Default content -->
+        <div *ngSwitchDefault class="amw-demo-tabs__default">
+          <ng-container [ngTemplateOutlet]="tab.content"></ng-container>
+        </div>
+      </ng-container>
+    </mat-tab>
+  </mat-tab-group>
+</div>

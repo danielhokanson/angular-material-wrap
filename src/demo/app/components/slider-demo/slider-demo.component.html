@@ -1,0 +1,25 @@
+<div class="demo-section">
+  <h3>Orientation Variations</h3>
+  <div class="variation-grid">
+    <div *ngFor="let variation of sliderVariations.orientations" class="variation-item">
+      <h4>{{ variation.label }}</h4>
+      <amw-slider
+        [vertical]="variation.vertical"
+        [min]="0"
+        [max]="100">
+      </amw-slider>
+    </div>
+  </div>
+
+  <h3>State Variations</h3>
+  <div class="variation-grid">
+    <div *ngFor="let variation of sliderVariations.states" class="variation-item">
+      <h4>{{ variation.label }}</h4>
+      <amw-slider
+        [disabled]="variation.disabled"
+        [min]="0"
+        [max]="100">
+      </amw-slider>
+    </div>
+  </div>
+</div>

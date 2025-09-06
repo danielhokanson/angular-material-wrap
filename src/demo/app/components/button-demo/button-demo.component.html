@@ -1,0 +1,123 @@
+<div class="amw-demo-button">
+  <div class="amw-demo-tabs__variations">
+    <!-- Size Variations -->
+    <div class="variation-section">
+      <h3 class="variation-section__title">Size Variations</h3>
+      <div class="variation-section__content">
+        <div class="variation-group">
+          <span class="variation-label">Small</span>
+          <amw-button size="small" variant="elevated">Small Button</amw-button>
+        </div>
+        <div class="variation-group">
+          <span class="variation-label">Medium</span>
+          <amw-button size="medium" variant="elevated">Medium Button</amw-button>
+        </div>
+        <div class="variation-group">
+          <span class="variation-label">Large</span>
+          <amw-button size="large" variant="elevated">Large Button</amw-button>
+        </div>
+      </div>
+    </div>
+
+    <!-- Variant Variations -->
+    <div class="variation-section">
+      <h3 class="variation-section__title">Variant Variations</h3>
+      <div class="variation-section__content">
+        <div class="variation-group">
+          <span class="variation-label">Text</span>
+          <amw-button variant="text" color="primary">Basic</amw-button>
+        </div>
+        <div class="variation-group">
+          <span class="variation-label">Elevated</span>
+          <amw-button variant="elevated" color="primary">Basic</amw-button>
+        </div>
+        <div class="variation-group">
+          <span class="variation-label">Outlined</span>
+          <amw-button variant="outlined" color="primary">Basic</amw-button>
+        </div>
+        <div class="variation-group">
+          <span class="variation-label">Filled</span>
+          <amw-button variant="filled" color="primary">Basic</amw-button>
+        </div>
+        <div class="variation-group">
+          <span class="variation-label">Tonal</span>
+          <amw-button variant="tonal" color="primary">Basic</amw-button>
+        </div>
+        <div class="variation-group">
+          <span class="variation-label">Icon</span>
+          <amw-button variant="icon" color="primary" icon="more_vert"
+            ariaLabel="Example icon button with a vertical three dot icon"></amw-button>
+        </div>
+        <div class="variation-group">
+          <span class="variation-label">FAB</span>
+          <amw-button variant="fab" color="primary" icon="delete"
+            ariaLabel="Example icon button with a delete icon"></amw-button>
+        </div>
+        <div class="variation-group">
+          <span class="variation-label">Mini FAB</span>
+          <amw-button variant="mini-fab" color="primary" icon="menu"
+            ariaLabel="Example icon button with a menu icon"></amw-button>
+        </div>
+        <div class="variation-group">
+          <span class="variation-label">Extended FAB</span>
+          <amw-button variant="extended-fab" color="primary" icon="favorite">Basic</amw-button>
+        </div>
+      </div>
+    </div>
+
+    <!-- Color Variations -->
+    <div class="variation-section">
+      <h3 class="variation-section__title">Color Variations</h3>
+      <div class="variation-section__content">
+        <div class="variation-group">
+          <span class="variation-label">Primary</span>
+          <amw-button color="primary" variant="elevated">Primary Action</amw-button>
+        </div>
+        <div class="variation-group">
+          <span class="variation-label">Accent</span>
+          <amw-button color="accent" variant="elevated">Secondary Action</amw-button>
+        </div>
+        <div class="variation-group">
+          <span class="variation-label">Warn</span>
+          <amw-button color="warn" variant="elevated">Delete Item</amw-button>
+        </div>
+      </div>
+    </div>
+
+    <!-- State Variations -->
+    <div class="variation-section">
+      <h3 class="variation-section__title">State Variations</h3>
+      <div class="variation-section__content">
+        <div class="variation-group">
+          <span class="variation-label">Normal</span>
+          <amw-button variant="elevated" color="primary">Save Changes</amw-button>
+        </div>
+        <div class="variation-group">
+          <span class="variation-label">Disabled</span>
+          <amw-button [disabled]="true" variant="elevated" color="primary">Save Changes</amw-button>
+        </div>
+        <div class="variation-group">
+          <span class="variation-label">Loading</span>
+          <amw-button [loading]="true" variant="elevated" color="primary">Saving...</amw-button>
+        </div>
+      </div>
+    </div>
+
+    <!-- Real-world Example -->
+    <div class="variation-section">
+      <h3 class="variation-section__title">Real-world Example</h3>
+      <div class="real-world-example">
+        <p class="example-description">Here's how buttons would typically be used in a real application:</p>
+        <div class="example-toolbar">
+          <amw-button variant="outlined" color="primary">Cancel</amw-button>
+          <amw-button variant="elevated" color="primary">Save Changes</amw-button>
+        </div>
+        <div class="example-actions">
+          <amw-button variant="outlined" color="primary" size="small" icon="edit">Edit</amw-button>
+          <amw-button variant="outlined" color="warn" size="small" icon="delete">Delete</amw-button>
+          <amw-button variant="fab" color="primary" icon="add"></amw-button>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,171 @@
+<div class="amw-demo-checkbox">
+  <div class="amw-demo-tabs__variations">
+    <!-- Color Variations -->
+    <div class="variation-section">
+      <h3 class="variation-section__title">Color Variations</h3>
+      <div class="variation-section__content">
+        <div class="variation-group">
+          <span class="variation-label">Primary</span>
+          <amw-checkbox
+            color="primary"
+            label="Accept terms and conditions"
+            [checked]="true">
+          </amw-checkbox>
+        </div>
+        <div class="variation-group">
+          <span class="variation-label">Accent</span>
+          <amw-checkbox
+            color="accent"
+            label="Subscribe to newsletter"
+            [checked]="true">
+          </amw-checkbox>
+        </div>
+        <div class="variation-group">
+          <span class="variation-label">Warn</span>
+          <amw-checkbox
+            color="warn"
+            label="Delete all data"
+            [checked]="false">
+          </amw-checkbox>
+        </div>
+      </div>
+    </div>
+
+    <!-- Size Variations -->
+    <div class="variation-section">
+      <h3 class="variation-section__title">Size Variations</h3>
+      <div class="variation-section__content">
+        <div class="variation-group">
+          <span class="variation-label">Small</span>
+          <amw-checkbox
+            size="small"
+            label="Small checkbox"
+            [checked]="true">
+          </amw-checkbox>
+        </div>
+        <div class="variation-group">
+          <span class="variation-label">Medium</span>
+          <amw-checkbox
+            size="medium"
+            label="Medium checkbox"
+            [checked]="true">
+          </amw-checkbox>
+        </div>
+        <div class="variation-group">
+          <span class="variation-label">Large</span>
+          <amw-checkbox
+            size="large"
+            label="Large checkbox"
+            [checked]="true">
+          </amw-checkbox>
+        </div>
+      </div>
+    </div>
+
+    <!-- State Variations -->
+    <div class="variation-section">
+      <h3 class="variation-section__title">State Variations</h3>
+      <div class="variation-section__content">
+        <div class="variation-group">
+          <span class="variation-label">Checked</span>
+          <amw-checkbox
+            label="Checked checkbox"
+            [checked]="true">
+          </amw-checkbox>
+        </div>
+        <div class="variation-group">
+          <span class="variation-label">Unchecked</span>
+          <amw-checkbox
+            label="Unchecked checkbox"
+            [checked]="false">
+          </amw-checkbox>
+        </div>
+        <div class="variation-group">
+          <span class="variation-label">Indeterminate</span>
+          <amw-checkbox
+            label="Indeterminate checkbox"
+            [indeterminate]="true">
+          </amw-checkbox>
+        </div>
+        <div class="variation-group">
+          <span class="variation-label">Disabled</span>
+          <amw-checkbox
+            label="Disabled checkbox"
+            [checked]="true"
+            [disabled]="true">
+          </amw-checkbox>
+        </div>
+      </div>
+    </div>
+
+    <!-- Label Position -->
+    <div class="variation-section">
+      <h3 class="variation-section__title">Label Position</h3>
+      <div class="variation-section__content">
+        <div class="variation-group">
+          <span class="variation-label">After</span>
+          <amw-checkbox
+            labelPosition="after"
+            label="Label after checkbox"
+            [checked]="true">
+          </amw-checkbox>
+        </div>
+        <div class="variation-group">
+          <span class="variation-label">Before</span>
+          <amw-checkbox
+            labelPosition="before"
+            label="Label before checkbox"
+            [checked]="true">
+          </amw-checkbox>
+        </div>
+      </div>
+    </div>
+
+    <!-- Real-world Example -->
+    <div class="variation-section">
+      <h3 class="variation-section__title">Real-world Example</h3>
+      <div class="real-world-example">
+        <p class="example-description">Here's how checkboxes would typically be used in a real application form:</p>
+        <div class="example-form">
+          <h4>User Preferences</h4>
+          <div class="checkbox-group">
+            <amw-checkbox
+              color="primary"
+              label="Email notifications"
+              [checked]="true">
+            </amw-checkbox>
+            <amw-checkbox
+              color="primary"
+              label="SMS notifications"
+              [checked]="false">
+            </amw-checkbox>
+            <amw-checkbox
+              color="primary"
+              label="Push notifications"
+              [checked]="true">
+            </amw-checkbox>
+          </div>
+          
+          <h4>Privacy Settings</h4>
+          <div class="checkbox-group">
+            <amw-checkbox
+              color="accent"
+              label="Make profile public"
+              [checked]="false">
+            </amw-checkbox>
+            <amw-checkbox
+              color="accent"
+              label="Allow data collection"
+              [checked]="true">
+            </amw-checkbox>
+            <amw-checkbox
+              color="warn"
+              label="Delete account permanently"
+              [checked]="false">
+            </amw-checkbox>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

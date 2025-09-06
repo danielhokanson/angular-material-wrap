@@ -7,7 +7,7 @@
     [class.mat-form-field-invalid]="hasValidationError">
   
   <!-- Label -->
-  <mat-label *ngIf="label">{{ label }}</mat-label>
+  <mat-label *ngIf="label" [innerHTML]="label"></mat-label>
   
   <!-- Select Element -->
   <mat-select
@@ -37,7 +37,7 @@
         matInput
         [placeholder]="searchPlaceholder"
         [value]="searchValue"
-        (input)="onSearchChange($any($event.target).value)"
+        (input)="onSearchChange($any($event.target).value || '')"
         class="amw-select__search-input"
         (click)="$event.stopPropagation()">
     </mat-option>
@@ -70,7 +70,7 @@
       <div class="amw-select__option-content">
         <mat-icon *ngIf="option.icon" class="amw-select__option-icon">{{ option.icon }}</mat-icon>
         <div class="amw-select__option-text">
-          <span class="amw-select__option-label">{{ option.label }}</span>
+          <span class="amw-select__option-label" [innerHTML]="option.label"></span>
           <span *ngIf="option.description" class="amw-select__option-description">{{ option.description }}</span>
         </div>
       </div>
@@ -92,7 +92,7 @@
         <div class="amw-select__option-content">
           <mat-icon *ngIf="option.icon" class="amw-select__option-icon">{{ option.icon }}</mat-icon>
           <div class="amw-select__option-text">
-            <span class="amw-select__option-label">{{ option.label }}</span>
+            <span class="amw-select__option-label" [innerHTML]="option.label"></span>
             <span *ngIf="option.description" class="amw-select__option-description">{{ option.description }}</span>
           </div>
         </div>

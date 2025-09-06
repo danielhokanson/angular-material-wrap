@@ -1,0 +1,231 @@
+.amw-theme-editor {
+  .theme-form-card,
+  .themes-list-card {
+    margin-bottom: 24px;
+  }
+
+  .theme-form {
+    .form-section {
+      margin-bottom: 24px;
+
+      h3 {
+        margin: 0 0 16px 0;
+        font-size: 18px;
+        font-weight: 500;
+        color: var(--mat-foreground);
+      }
+
+      .form-row {
+        display: flex;
+        gap: 16px;
+        margin-bottom: 16px;
+
+        .form-field {
+          flex: 1;
+        }
+
+        .dark-mode-toggle {
+          display: flex;
+          align-items: center;
+          gap: 8px;
+          margin-top: 8px;
+
+          mat-icon {
+            color: var(--mat-primary);
+          }
+        }
+      }
+
+      .color-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+        gap: 16px;
+
+        .color-item {
+          .color-field {
+            width: 100%;
+
+            .color-preview {
+              position: absolute;
+              right: 8px;
+              top: 50%;
+              transform: translateY(-50%);
+              width: 32px;
+              height: 32px;
+              border-radius: 4px;
+              border: 1px solid rgba(0, 0, 0, 0.1);
+              display: flex;
+              align-items: center;
+              justify-content: center;
+              cursor: pointer;
+
+              .color-text {
+                font-size: 12px;
+                font-weight: bold;
+                text-shadow: 0 1px 2px rgba(0, 0, 0, 0.3);
+              }
+            }
+          }
+        }
+      }
+
+      .form-actions {
+        display: flex;
+        gap: 12px;
+        justify-content: flex-start;
+        margin-top: 24px;
+
+        button {
+          display: flex;
+          align-items: center;
+          gap: 8px;
+        }
+      }
+    }
+  }
+
+  .themes-list {
+    .theme-item {
+      display: flex;
+      align-items: center;
+      gap: 16px;
+      padding: 16px;
+      border: 1px solid rgba(0, 0, 0, 0.1);
+      border-radius: 8px;
+      margin-bottom: 12px;
+      transition: all 0.2s ease;
+
+      &:hover {
+        background: rgba(0, 0, 0, 0.02);
+        border-color: var(--mat-primary);
+      }
+
+      .theme-info {
+        flex: 1;
+
+        .theme-name {
+          font-weight: 500;
+          font-size: 16px;
+          margin-bottom: 4px;
+        }
+
+        .theme-meta {
+          font-size: 12px;
+          color: var(--mat-foreground);
+          opacity: 0.7;
+        }
+      }
+
+      .theme-colors {
+        display: flex;
+        gap: 6px;
+
+        .color-swatch {
+          width: 20px;
+          height: 20px;
+          border-radius: 50%;
+          border: 2px solid rgba(0, 0, 0, 0.1);
+          box-shadow: 0 1px 3px rgba(0, 0, 0, 0.2);
+        }
+      }
+
+      .theme-actions {
+        display: flex;
+        gap: 4px;
+
+        button {
+          width: 40px;
+          height: 40px;
+
+          mat-icon {
+            font-size: 18px;
+          }
+        }
+      }
+    }
+  }
+}
+
+// Dark theme adjustments
+@media (prefers-color-scheme: dark) {
+  .amw-theme-editor {
+    .theme-form {
+      .form-section {
+        .color-grid {
+          .color-item {
+            .color-field {
+              .color-preview {
+                border-color: rgba(255, 255, 255, 0.2);
+                box-shadow: 0 1px 3px rgba(0, 0, 0, 0.4);
+              }
+            }
+          }
+        }
+      }
+    }
+
+    .themes-list {
+      .theme-item {
+        border-color: rgba(255, 255, 255, 0.1);
+
+        &:hover {
+          background: rgba(255, 255, 255, 0.05);
+        }
+
+        .theme-colors {
+          .color-swatch {
+            border-color: rgba(255, 255, 255, 0.2);
+            box-shadow: 0 1px 3px rgba(0, 0, 0, 0.4);
+          }
+        }
+      }
+    }
+  }
+}
+
+// Responsive design
+@media (max-width: 768px) {
+  .amw-theme-editor {
+    .theme-form {
+      .form-section {
+        .form-row {
+          flex-direction: column;
+          gap: 8px;
+        }
+
+        .color-grid {
+          grid-template-columns: 1fr;
+        }
+
+        .form-actions {
+          flex-direction: column;
+          align-items: stretch;
+
+          button {
+            justify-content: center;
+          }
+        }
+      }
+    }
+
+    .themes-list {
+      .theme-item {
+        flex-direction: column;
+        align-items: stretch;
+        gap: 12px;
+
+        .theme-info {
+          text-align: center;
+        }
+
+        .theme-colors {
+          justify-content: center;
+        }
+
+        .theme-actions {
+          justify-content: center;
+        }
+      }
+    }
+  }
+}
