@@ -1,0 +1,198 @@
+<div class="amw-demo-radio-validation">
+  <div class="validation-section">
+    <h3 class="validation-section__title">Radio Button Validation Examples</h3>
+    <p class="validation-section__description">
+      This form demonstrates various validation patterns using Angular Material radio buttons.
+    </p>
+
+    <form [formGroup]="validationForm" (ngSubmit)="onSubmit()" class="validation-form">
+      <!-- Gender Selection -->
+      <div class="form-section">
+        <h4>Gender Selection (Required)</h4>
+        <mat-radio-group formControlName="gender" class="radio-group">
+          <amw-radio
+            value="male"
+            label="Male"
+            color="primary">
+          </amw-radio>
+          <amw-radio
+            value="female"
+            label="Female"
+            color="primary">
+          </amw-radio>
+          <amw-radio
+            value="other"
+            label="Other"
+            color="primary">
+          </amw-radio>
+          <amw-radio
+            value="prefer-not-to-say"
+            label="Prefer not to say"
+            color="primary">
+          </amw-radio>
+        </mat-radio-group>
+        <div class="field-error" *ngIf="getFieldError('gender')">
+          {{ getFieldError('gender') }}
+        </div>
+      </div>
+
+      <!-- Experience Level -->
+      <div class="form-section">
+        <h4>Experience Level (Required)</h4>
+        <mat-radio-group formControlName="experience" class="radio-group">
+          <amw-radio
+            value="beginner"
+            label="Beginner (0-2 years)"
+            color="accent">
+          </amw-radio>
+          <amw-radio
+            value="intermediate"
+            label="Intermediate (3-5 years)"
+            color="accent">
+          </amw-radio>
+          <amw-radio
+            value="advanced"
+            label="Advanced (6-10 years)"
+            color="accent">
+          </amw-radio>
+          <amw-radio
+            value="expert"
+            label="Expert (10+ years)"
+            color="accent">
+          </amw-radio>
+        </mat-radio-group>
+        <div class="field-error" *ngIf="getFieldError('experience')">
+          {{ getFieldError('experience') }}
+        </div>
+      </div>
+
+      <!-- Communication Preferences -->
+      <div class="form-section">
+        <h4>Communication Preferences (Required)</h4>
+        <mat-radio-group formControlName="preferences" class="radio-group">
+          <amw-radio
+            value="email"
+            label="Email only"
+            color="primary">
+          </amw-radio>
+          <amw-radio
+            value="phone"
+            label="Phone calls only"
+            color="primary">
+          </amw-radio>
+          <amw-radio
+            value="both"
+            label="Both email and phone"
+            color="primary">
+          </amw-radio>
+          <amw-radio
+            value="none"
+            label="No communication"
+            color="primary">
+          </amw-radio>
+        </mat-radio-group>
+        <div class="field-error" *ngIf="getFieldError('preferences')">
+          {{ getFieldError('preferences') }}
+        </div>
+      </div>
+
+      <!-- Subscription Type -->
+      <div class="form-section">
+        <h4>Subscription Type (Required)</h4>
+        <mat-radio-group formControlName="subscription" class="radio-group">
+          <amw-radio
+            value="free"
+            label="Free Plan"
+            color="accent">
+          </amw-radio>
+          <amw-radio
+            value="basic"
+            label="Basic Plan ($9.99/month)"
+            color="accent">
+          </amw-radio>
+          <amw-radio
+            value="premium"
+            label="Premium Plan ($19.99/month)"
+            color="accent">
+          </amw-radio>
+          <amw-radio
+            value="enterprise"
+            label="Enterprise Plan (Contact Sales)"
+            color="accent">
+          </amw-radio>
+        </mat-radio-group>
+        <div class="field-error" *ngIf="getFieldError('subscription')">
+          {{ getFieldError('subscription') }}
+        </div>
+      </div>
+
+      <!-- Age Group -->
+      <div class="form-section">
+        <h4>Age Group (Required)</h4>
+        <mat-radio-group formControlName="ageGroup" class="radio-group">
+          <amw-radio
+            value="18-24"
+            label="18-24 years"
+            color="warn">
+          </amw-radio>
+          <amw-radio
+            value="25-34"
+            label="25-34 years"
+            color="warn">
+          </amw-radio>
+          <amw-radio
+            value="35-44"
+            label="35-44 years"
+            color="warn">
+          </amw-radio>
+          <amw-radio
+            value="45-54"
+            label="45-54 years"
+            color="warn">
+          </amw-radio>
+          <amw-radio
+            value="55-64"
+            label="55-64 years"
+            color="warn">
+          </amw-radio>
+          <amw-radio
+            value="65+"
+            label="65+ years"
+            color="warn">
+          </amw-radio>
+        </mat-radio-group>
+        <div class="field-error" *ngIf="getFieldError('ageGroup')">
+          {{ getFieldError('ageGroup') }}
+        </div>
+      </div>
+
+      <div class="form-actions">
+        <amw-button
+          type="submit"
+          variant="elevated"
+          color="primary"
+          [disabled]="validationForm.invalid">
+          Submit Form
+        </amw-button>
+        <amw-button
+          type="button"
+          variant="outlined"
+          color="primary"
+          (click)="validationForm.reset()">
+          Reset Form
+        </amw-button>
+      </div>
+    </form>
+
+    <div class="validation-info">
+      <h4>Validation Rules Applied:</h4>
+      <ul>
+        <li><strong>Gender Selection:</strong> Must select one option</li>
+        <li><strong>Experience Level:</strong> Must select one option</li>
+        <li><strong>Communication Preferences:</strong> Must select one option</li>
+        <li><strong>Subscription Type:</strong> Must select one option</li>
+        <li><strong>Age Group:</strong> Must select one option</li>
+      </ul>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,85 @@
+<div class="amw-file-input" 
+     [class.amw-file-input--disabled]="disabled"
+     [class.amw-file-input--drag-over]="isDragOver"
+     [class.amw-file-input--error]="!validationResult.valid">
+  
+  @if (label) {
+    <label class="amw-file-input__label">{{ label }}</label>
+  }
+
+  <div class="amw-file-input__drop-zone"
+       (click)="openFileDialog()"
+       [class.amw-file-input__drop-zone--disabled]="disabled">
+    
+    <input #fileInput
+           type="file"
+           [multiple]="multiple"
+           [accept]="accept"
+           [disabled]="disabled"
+           (change)="onFileInputChange($event)"
+           class="amw-file-input__input">
+    
+    @if (isDragOver) {
+      <div class="amw-file-input__drop-overlay">
+        <mat-icon class="amw-file-input__drop-icon">cloud_upload</mat-icon>
+        <p class="amw-file-input__drop-text">{{ dropText }}</p>
+      </div>
+    } @else {
+      <div class="amw-file-input__content">
+        <mat-icon class="amw-file-input__icon">cloud_upload</mat-icon>
+        <p class="amw-file-input__placeholder">{{ placeholderText }}</p>
+        <button mat-raised-button 
+                type="button"
+                [disabled]="disabled"
+                class="amw-file-input__button">
+          {{ buttonText }}
+        </button>
+      </div>
+    }
+  </div>
+
+  @if (showFileList && selectedFiles.length > 0) {
+    <div class="amw-file-input__file-list">
+      @for (file of selectedFiles; track file.name) {
+        <mat-card class="amw-file-input__file-item">
+          <mat-card-content class="amw-file-input__file-content">
+            <mat-icon class="amw-file-input__file-icon">{{ getFileIcon(file) }}</mat-icon>
+            <div class="amw-file-input__file-info">
+              <span class="amw-file-input__file-name">{{ file.name }}</span>
+              <span class="amw-file-input__file-size">{{ formatFileSize(file.size) }}</span>
+            </div>
+            <button mat-icon-button 
+                    type="button"
+                    (click)="removeFile(file)"
+                    class="amw-file-input__remove-button">
+              <mat-icon>close</mat-icon>
+            </button>
+          </mat-card-content>
+        </mat-card>
+      }
+      
+      @if (selectedFiles.length > 0) {
+        <button mat-button 
+                type="button"
+                (click)="clearFiles()"
+                class="amw-file-input__clear-button">
+          Clear All
+        </button>
+      }
+    </div>
+  }
+
+  @if (validationResult.errors.length > 0) {
+    <div class="amw-file-input__errors">
+      @for (error of validationResult.errors; track error) {
+        <div class="amw-file-input__error">{{ error }}</div>
+      }
+    </div>
+  }
+
+  @if (errorMessage || hasValidationError) {
+    <div class="amw-file-input__error-message">
+      {{ errorMessage || errorText }}
+    </div>
+  }
+</div>

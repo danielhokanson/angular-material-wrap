@@ -1,0 +1,139 @@
+<div class="amw-demo-textarea-validation">
+  <div class="validation-section">
+    <h3 class="validation-section__title">Textarea Validation Examples</h3>
+    <p class="validation-section__description">
+      This form demonstrates various validation patterns using Angular Material textareas.
+    </p>
+
+    <form [formGroup]="validationForm" (ngSubmit)="onSubmit()" class="validation-form">
+      <!-- Required Description -->
+      <div class="form-section">
+        <h4>Required Description (10-500 characters)</h4>
+        <div class="textarea-group">
+          <amw-textarea
+            formControlName="description"
+            label="Project Description"
+            placeholder="Describe your project in detail..."
+            [minlength]="10"
+            [maxlength]="500"
+            appearance="outline">
+          </amw-textarea>
+          <div class="field-info">
+            <span class="character-count">{{ getCharacterCount('description') }}/500 characters</span>
+            <div class="field-error" *ngIf="getFieldError('description')">
+              {{ getFieldError('description') }}
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Optional Comments -->
+      <div class="form-section">
+        <h4>Optional Comments (Max 1000 characters)</h4>
+        <div class="textarea-group">
+          <amw-textarea
+            formControlName="comments"
+            label="Additional Comments"
+            placeholder="Any additional thoughts or comments..."
+            [maxlength]="1000"
+            appearance="outline">
+          </amw-textarea>
+          <div class="field-info">
+            <span class="character-count">{{ getCharacterCount('comments') }}/1000 characters</span>
+            <div class="field-error" *ngIf="getFieldError('comments')">
+              {{ getFieldError('comments') }}
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Required Feedback -->
+      <div class="form-section">
+        <h4>Required Feedback (Min 20 characters)</h4>
+        <div class="textarea-group">
+          <amw-textarea
+            formControlName="feedback"
+            label="User Feedback"
+            placeholder="Please provide detailed feedback about your experience..."
+            [minlength]="20"
+            appearance="outline">
+          </amw-textarea>
+          <div class="field-info">
+            <span class="character-count">{{ getCharacterCount('feedback') }} characters (min 20)</span>
+            <div class="field-error" *ngIf="getFieldError('feedback')">
+              {{ getFieldError('feedback') }}
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Bio with Limit -->
+      <div class="form-section">
+        <h4>Bio (Max 200 characters)</h4>
+        <div class="textarea-group">
+          <amw-textarea
+            formControlName="bio"
+            label="Personal Bio"
+            placeholder="Tell us about yourself..."
+            [maxlength]="200"
+            appearance="outline">
+          </amw-textarea>
+          <div class="field-info">
+            <span class="character-count">{{ getCharacterCount('bio') }}/200 characters</span>
+            <div class="field-error" *ngIf="getFieldError('bio')">
+              {{ getFieldError('bio') }}
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Requirements -->
+      <div class="form-section">
+        <h4>Requirements (Min 50 characters)</h4>
+        <div class="textarea-group">
+          <amw-textarea
+            formControlName="requirements"
+            label="Project Requirements"
+            placeholder="List the specific requirements for this project..."
+            [minlength]="50"
+            appearance="outline">
+          </amw-textarea>
+          <div class="field-info">
+            <span class="character-count">{{ getCharacterCount('requirements') }} characters (min 50)</span>
+            <div class="field-error" *ngIf="getFieldError('requirements')">
+              {{ getFieldError('requirements') }}
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="form-actions">
+        <amw-button
+          type="submit"
+          variant="elevated"
+          color="primary"
+          [disabled]="validationForm.invalid">
+          Submit Form
+        </amw-button>
+        <amw-button
+          type="button"
+          variant="outlined"
+          color="primary"
+          (click)="validationForm.reset()">
+          Reset Form
+        </amw-button>
+      </div>
+    </form>
+
+    <div class="validation-info">
+      <h4>Validation Rules Applied:</h4>
+      <ul>
+        <li><strong>Project Description:</strong> Required, 10-500 characters</li>
+        <li><strong>Additional Comments:</strong> Optional, max 1000 characters</li>
+        <li><strong>User Feedback:</strong> Required, minimum 20 characters</li>
+        <li><strong>Personal Bio:</strong> Optional, max 200 characters</li>
+        <li><strong>Project Requirements:</strong> Required, minimum 50 characters</li>
+      </ul>
+    </div>
+  </div>
+</div>

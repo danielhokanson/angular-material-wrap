@@ -1,0 +1,86 @@
+<div class="amw-demo-file-input-api">
+  <div class="api-section">
+    <h3>API Documentation</h3>
+    <p>Complete reference for the amw-file-input component properties, methods, and events.</p>
+
+    <h4>Inputs</h4>
+    <div class="api-table">
+      <div class="api-table__header">
+        <div>Property</div>
+        <div>Type</div>
+        <div>Default</div>
+        <div>Description</div>
+      </div>
+      @for (input of apiDocumentation.inputs; track input.property) {
+        <div class="api-table__row">
+          <div class="api-table__cell api-table__cell--property">{{ input.property }}</div>
+          <div class="api-table__cell api-table__cell--type">{{ input.type }}</div>
+          <div class="api-table__cell api-table__cell--default">{{ input.default }}</div>
+          <div class="api-table__cell api-table__cell--description">{{ input.description }}</div>
+        </div>
+      }
+    </div>
+
+    <h4>Outputs</h4>
+    <div class="api-table">
+      <div class="api-table__header">
+        <div>Property</div>
+        <div>Type</div>
+        <div>Description</div>
+      </div>
+      @for (output of apiDocumentation.outputs; track output.property) {
+        <div class="api-table__row">
+          <div class="api-table__cell api-table__cell--property">{{ output.property }}</div>
+          <div class="api-table__cell api-table__cell--type">{{ output.type }}</div>
+          <div class="api-table__cell api-table__cell--description">{{ output.description }}</div>
+        </div>
+      }
+    </div>
+
+    <h4>Methods</h4>
+    <div class="api-table">
+      <div class="api-table__header">
+        <div>Method</div>
+        <div>Returns</div>
+        <div>Description</div>
+      </div>
+      @for (method of apiDocumentation.methods; track method.method) {
+        <div class="api-table__row">
+          <div class="api-table__cell api-table__cell--property">{{ method.method }}</div>
+          <div class="api-table__cell api-table__cell--type">{{ method.returns }}</div>
+          <div class="api-table__cell api-table__cell--description">{{ method.description }}</div>
+        </div>
+      }
+    </div>
+
+    <h4>Types</h4>
+    <div class="api-table">
+      <div class="api-table__header">
+        <div>Type</div>
+        <div>Definition</div>
+        <div>Description</div>
+      </div>
+      @for (type of apiDocumentation.types; track type.type) {
+        <div class="api-table__row">
+          <div class="api-table__cell api-table__cell--property">{{ type.type }}</div>
+          <div class="api-table__cell api-table__cell--type">{{ type.definition }}</div>
+          <div class="api-table__cell api-table__cell--description">{{ type.description }}</div>
+        </div>
+      }
+    </div>
+
+    <div class="api-section__usage">
+      <h4>Usage Notes</h4>
+      <ul>
+        <li><strong>File Selection:</strong> Use <code>[(selectedFiles)]</code> for two-way data binding</li>
+        <li><strong>Form Integration:</strong> The component implements ControlValueAccessor for seamless form integration</li>
+        <li><strong>Validation:</strong> Use the hasError and errorMessage properties for validation feedback</li>
+        <li><strong>Drag & Drop:</strong> Built-in drag and drop functionality with visual feedback</li>
+        <li><strong>File Types:</strong> Support for MIME types and file extensions</li>
+        <li><strong>Size Validation:</strong> Automatic file size validation with customizable limits</li>
+        <li><strong>File Management:</strong> Built-in file list with remove functionality</li>
+        <li><strong>Accessibility:</strong> Proper ARIA labels and keyboard navigation</li>
+      </ul>
+    </div>
+  </div>
+</div>

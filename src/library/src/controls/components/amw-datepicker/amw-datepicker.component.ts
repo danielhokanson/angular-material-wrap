@@ -26,13 +26,7 @@ export type DatepickerAppearance = 'outline' | 'fill';
         MatButtonModule,
         MatNativeDateModule
     ],
-    providers: [
-        {
-            provide: NG_VALUE_ACCESSOR,
-            useExisting: forwardRef(() => AmwDatepickerComponent),
-            multi: true
-        }
-    ],
+    providers: [],
     templateUrl: './amw-datepicker.component.html',
     styleUrl: './amw-datepicker.component.scss',
     encapsulation: ViewEncapsulation.None

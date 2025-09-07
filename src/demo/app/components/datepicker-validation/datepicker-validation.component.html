@@ -1,0 +1,154 @@
+<div class="amw-demo-datepicker-validation">
+  <div class="validation-section">
+    <h3 class="validation-section__title">Datepicker Validation Examples</h3>
+    <p class="validation-section__description">
+      This form demonstrates various validation patterns using Angular Material datepickers.
+    </p>
+
+    <form [formGroup]="validationForm" (ngSubmit)="onSubmit()" class="validation-form">
+      <!-- Birth Date -->
+      <div class="form-section">
+        <h4>Birth Date (Required)</h4>
+        <div class="datepicker-group">
+          <amw-datepicker
+            formControlName="birthDate"
+            label="Birth Date"
+            placeholder="Select your birth date..."
+            [min]="minDate"
+            [max]="maxDate"
+            [required]="true"
+            appearance="outline">
+          </amw-datepicker>
+          <div class="field-info">
+            <span class="selected-date" *ngIf="getFieldValue('birthDate')">
+              Selected: {{ getFieldValue('birthDate') | date:'mediumDate' }}
+            </span>
+            <div class="field-error" *ngIf="getFieldError('birthDate')">
+              {{ getFieldError('birthDate') }}
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Start Date -->
+      <div class="form-section">
+        <h4>Start Date (Required)</h4>
+        <div class="datepicker-group">
+          <amw-datepicker
+            formControlName="startDate"
+            label="Start Date"
+            placeholder="Select start date..."
+            [min]="today"
+            [required]="true"
+            appearance="outline">
+          </amw-datepicker>
+          <div class="field-info">
+            <span class="selected-date" *ngIf="getFieldValue('startDate')">
+              Selected: {{ getFieldValue('startDate') | date:'mediumDate' }}
+            </span>
+            <div class="field-error" *ngIf="getFieldError('startDate')">
+              {{ getFieldError('startDate') }}
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- End Date -->
+      <div class="form-section">
+        <h4>End Date (Required)</h4>
+        <div class="datepicker-group">
+          <amw-datepicker
+            formControlName="endDate"
+            label="End Date"
+            placeholder="Select end date..."
+            [min]="today"
+            [required]="true"
+            appearance="outline">
+          </amw-datepicker>
+          <div class="field-info">
+            <span class="selected-date" *ngIf="getFieldValue('endDate')">
+              Selected: {{ getFieldValue('endDate') | date:'mediumDate' }}
+            </span>
+            <div class="field-error" *ngIf="getFieldError('endDate')">
+              {{ getFieldError('endDate') }}
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Event Date -->
+      <div class="form-section">
+        <h4>Event Date (Required)</h4>
+        <div class="datepicker-group">
+          <amw-datepicker
+            formControlName="eventDate"
+            label="Event Date"
+            placeholder="Select event date..."
+            [min]="today"
+            [required]="true"
+            appearance="outline">
+          </amw-datepicker>
+          <div class="field-info">
+            <span class="selected-date" *ngIf="getFieldValue('eventDate')">
+              Selected: {{ getFieldValue('eventDate') | date:'mediumDate' }}
+            </span>
+            <div class="field-error" *ngIf="getFieldError('eventDate')">
+              {{ getFieldError('eventDate') }}
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Appointment Date -->
+      <div class="form-section">
+        <h4>Appointment Date (Required)</h4>
+        <div class="datepicker-group">
+          <amw-datepicker
+            formControlName="appointmentDate"
+            label="Appointment Date"
+            placeholder="Select appointment date..."
+            [min]="today"
+            [required]="true"
+            appearance="outline">
+          </amw-datepicker>
+          <div class="field-info">
+            <span class="selected-date" *ngIf="getFieldValue('appointmentDate')">
+              Selected: {{ getFieldValue('appointmentDate') | date:'mediumDate' }}
+            </span>
+            <div class="field-error" *ngIf="getFieldError('appointmentDate')">
+              {{ getFieldError('appointmentDate') }}
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="form-actions">
+        <amw-button
+          type="submit"
+          variant="elevated"
+          color="primary"
+          [disabled]="validationForm.invalid">
+          Submit Form
+        </amw-button>
+        <amw-button
+          type="button"
+          variant="outlined"
+          color="primary"
+          (click)="validationForm.reset()">
+          Reset Form
+        </amw-button>
+      </div>
+    </form>
+
+    <div class="validation-info">
+      <h4>Validation Rules Applied:</h4>
+      <ul>
+        <li><strong>Birth Date:</strong> Required, must be between 1900 and today</li>
+        <li><strong>Start Date:</strong> Required, must be today or later</li>
+        <li><strong>End Date:</strong> Required, must be today or later</li>
+        <li><strong>Event Date:</strong> Required, must be today or later</li>
+        <li><strong>Appointment Date:</strong> Required, must be today or later</li>
+      </ul>
+    </div>
+  </div>
+</div>

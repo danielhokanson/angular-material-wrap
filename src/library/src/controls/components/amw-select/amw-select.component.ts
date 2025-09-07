@@ -33,13 +33,7 @@ import { SelectOption, SelectConfig } from './interfaces/select.interface';
     encapsulation: ViewEncapsulation.None,
     templateUrl: './amw-select.component.html',
     styleUrl: './amw-select.component.scss',
-    providers: [
-        {
-            provide: NG_VALUE_ACCESSOR,
-            useExisting: forwardRef(() => AmwSelectComponent),
-            multi: true
-        }
-    ]
+    providers: []
 })
 export class AmwSelectComponent extends BaseComponent implements ControlValueAccessor, OnInit, OnChanges {
     // Basic select properties

@@ -1,0 +1,89 @@
+<div class="amw-demo-file-input-validation">
+  <div class="validation-section">
+    <h3>File Input Validation</h3>
+    <p>This form demonstrates validation for file input components with various constraints and error handling.</p>
+
+    <form [formGroup]="validationForm" (ngSubmit)="onSubmit()" class="validation-form">
+      <h4>File Input Validation Examples</h4>
+      
+      <div class="form-field">
+        <label>Profile Image (Required)</label>
+        <amw-file-input
+          formControlName="profileImage"
+          [accept]="'image/*'"
+          [maxSize]="5 * 1024 * 1024"
+          [maxFiles]="1"
+          [multiple]="false"
+          [selectedFiles]="profileImage"
+          (filesChange)="profileImage = $event"
+          [hasError]="hasError('profileImage')"
+          [errorMessage]="getErrorMessage('profileImage')"
+          placeholder="Upload profile image (max 5MB)"
+          buttonText="Choose Image">
+        </amw-file-input>
+        @if (hasError('profileImage')) {
+          <div class="error-message">{{ getErrorMessage('profileImage') }}</div>
+        }
+      </div>
+
+      <div class="form-field">
+        <label>Documents (Required, 1-3 files)</label>
+        <amw-file-input
+          formControlName="documents"
+          [accept]="'.pdf,.doc,.docx'"
+          [maxSize]="10 * 1024 * 1024"
+          [maxFiles]="3"
+          [multiple]="true"
+          [selectedFiles]="documents"
+          (filesChange)="documents = $event"
+          [hasError]="hasError('documents')"
+          [errorMessage]="getErrorMessage('documents')"
+          placeholder="Upload documents (PDF, DOC, DOCX)"
+          buttonText="Choose Documents">
+        </amw-file-input>
+        @if (hasError('documents')) {
+          <div class="error-message">{{ getErrorMessage('documents') }}</div>
+        }
+      </div>
+
+      <div class="form-field">
+        <label>Attachments (Optional, max 5 files)</label>
+        <amw-file-input
+          formControlName="attachments"
+          [accept]="'*/*'"
+          [maxSize]="20 * 1024 * 1024"
+          [maxFiles]="5"
+          [multiple]="true"
+          [selectedFiles]="attachments"
+          (filesChange)="attachments = $event"
+          [hasError]="hasError('attachments')"
+          [errorMessage]="getErrorMessage('attachments')"
+          placeholder="Upload attachments (any type)"
+          buttonText="Choose Files">
+        </amw-file-input>
+        @if (hasError('attachments')) {
+          <div class="error-message">{{ getErrorMessage('attachments') }}</div>
+        }
+      </div>
+
+      <div class="form-actions">
+        <button mat-button type="button" (click)="onReset()">Reset</button>
+        <button mat-raised-button color="primary" type="submit" [disabled]="validationForm.invalid">
+          Submit
+        </button>
+      </div>
+    </form>
+
+    <div class="validation-info">
+      <h4>Validation Rules</h4>
+      <ul>
+        <li><strong>Profile Image:</strong> Required, image files only, max 5MB, single file</li>
+        <li><strong>Documents:</strong> Required, PDF/DOC/DOCX only, max 10MB each, 1-3 files</li>
+        <li><strong>Attachments:</strong> Optional, any file type, max 20MB each, up to 5 files</li>
+        <li><strong>File Type Validation:</strong> Checks MIME types and file extensions</li>
+        <li><strong>File Size Validation:</strong> Enforces maximum file size limits</li>
+        <li><strong>File Count Validation:</strong> Enforces minimum and maximum file counts</li>
+      </ul>
+    </div>
+  </div>
+</div>

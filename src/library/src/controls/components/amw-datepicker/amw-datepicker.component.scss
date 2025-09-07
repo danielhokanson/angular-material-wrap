@@ -5,7 +5,7 @@
   &--small {
     .amw-datepicker__field {
       .mat-mdc-form-field {
-        font-size: 12px;
+        font-size: var(--mdc-typography-body-small-font-size, 12px);
       }
     }
   }
@@ -13,7 +13,7 @@
   &--medium {
     .amw-datepicker__field {
       .mat-mdc-form-field {
-        font-size: 14px;
+        font-size: var(--mdc-shape-small, 4px);
       }
     }
   }
@@ -21,7 +21,7 @@
   &--large {
     .amw-datepicker__field {
       .mat-mdc-form-field {
-        font-size: 16px;
+        font-size: var(--mdc-typography-body-large-font-size, 16px);
       }
     }
   }
@@ -48,9 +48,9 @@
 
   &__clear {
     cursor: pointer;
-    opacity: 0.6;
-    transition: opacity 0.2s ease;
-    margin-left: 8px;
+    opacity: var(--mdc-state-disabled-state-layer-opacity, 0.6);
+    transition: opacity var(--mdc-motion-duration-short4, 0.2s) ease;
+    margin-left: var(--mdc-shape-small, 8px);
 
     &:hover {
       opacity: 1;
@@ -58,15 +58,15 @@
   }
 
   &__hint {
-    font-size: 12px;
+    font-size: var(--mdc-typography-body-small-font-size, 12px);
     color: var(--mat-foreground);
-    opacity: 0.7;
+    opacity: var(--mdc-state-disabled-state-layer-opacity, 0.7);
   }
 
   &__panel {
     .mat-mdc-datepicker-content {
-      border-radius: 8px;
-      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+      border-radius: var(--mdc-shape-small, 8px);
+      box-shadow: 0 var(--mdc-shape-small, 4px) var(--mdc-shape-small, 8px) rgba(0, 0, 0, 0.1);
     }
   }
 }
@@ -84,20 +84,20 @@
 }
 
 // Responsive design
-@media (max-width: 768px) {
+@media (max-width: var(--mdc-shape-large, 608px)) {
   .amw-datepicker {
     &__toggle {
       .mat-mdc-icon-button {
-        width: 32px;
-        height: 32px;
-        line-height: 32px;
+        width: var(--mdc-shape-large, 32px);
+        height: var(--mdc-shape-large, 32px);
+        line-height: var(--mdc-shape-large, 32px);
       }
     }
 
     &__clear {
-      width: 20px;
-      height: 20px;
-      font-size: 18px;
+      width: var(--mdc-shape-medium, 20px);
+      height: var(--mdc-shape-medium, 20px);
+      font-size: var(--mdc-shape-small, 8px);
     }
   }
 }

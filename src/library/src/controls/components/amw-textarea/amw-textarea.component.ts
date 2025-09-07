@@ -14,13 +14,7 @@ import { MatFormFieldAppearance } from '@angular/material/form-field';
     encapsulation: ViewEncapsulation.None,
     templateUrl: './amw-textarea.component.html',
     styleUrl: './amw-textarea.component.scss',
-    providers: [
-        {
-            provide: NG_VALUE_ACCESSOR,
-            useExisting: forwardRef(() => AmwTextareaComponent),
-            multi: true
-        }
-    ]
+    providers: []
 })
 export class AmwTextareaComponent extends BaseComponent implements ControlValueAccessor {
     @Input() appearance: MatFormFieldAppearance = 'outline';

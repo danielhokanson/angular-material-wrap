@@ -12,13 +12,7 @@ import { ToggleColor } from './interfaces/toggle-color.type';
     encapsulation: ViewEncapsulation.None,
     templateUrl: './amw-toggle.component.html',
     styleUrl: './amw-toggle.component.scss',
-    providers: [
-        {
-            provide: NG_VALUE_ACCESSOR,
-            useExisting: forwardRef(() => AmwToggleComponent),
-            multi: true
-        }
-    ]
+    providers: []
 })
 export class AmwToggleComponent extends BaseComponent implements ControlValueAccessor {
     @Input() color: ToggleColor = 'primary';

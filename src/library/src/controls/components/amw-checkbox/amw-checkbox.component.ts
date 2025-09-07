@@ -14,13 +14,7 @@ import { CheckboxSize } from './interfaces/checkbox-size.type';
     encapsulation: ViewEncapsulation.None,
     templateUrl: './amw-checkbox.component.html',
     styleUrl: './amw-checkbox.component.scss',
-    providers: [
-        {
-            provide: NG_VALUE_ACCESSOR,
-            useExisting: forwardRef(() => AmwCheckboxComponent),
-            multi: true
-        }
-    ]
+    providers: []
 })
 export class AmwCheckboxComponent extends BaseComponent implements ControlValueAccessor {
     @Input() color: CheckboxColor = 'primary';

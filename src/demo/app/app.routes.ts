@@ -61,6 +61,21 @@ export const routes: Routes = [
         data: { control: 'datepicker' }
     },
     {
+        path: 'controls/range-slider',
+        loadComponent: () => import('./components/controls-demo/controls-demo.component').then(m => m.ControlsDemoComponent),
+        data: { control: 'range-slider' }
+    },
+    {
+        path: 'controls/switch',
+        loadComponent: () => import('./components/controls-demo/controls-demo.component').then(m => m.ControlsDemoComponent),
+        data: { control: 'switch' }
+    },
+    {
+        path: 'controls/file-input',
+        loadComponent: () => import('./components/controls-demo/controls-demo.component').then(m => m.ControlsDemoComponent),
+        data: { control: 'file-input' }
+    },
+    {
         path: 'components',
         loadComponent: () => import('./pages/components-demo/components-demo.component').then(m => m.ComponentsDemoComponent)
     },

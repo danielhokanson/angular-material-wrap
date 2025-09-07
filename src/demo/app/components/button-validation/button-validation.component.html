@@ -1,0 +1,55 @@
+<div class="validation-section">
+  <h3>Form Validation Examples</h3>
+  <p>Buttons can be used in forms with validation. Here are examples showing different validation states:</p>
+  
+  <form [formGroup]="validationForm" (ngSubmit)="onSubmit()" class="validation-form">
+    <div class="form-field">
+      <mat-form-field appearance="outline">
+        <mat-label>Required Field</mat-label>
+        <input matInput formControlName="requiredField" placeholder="This field is required">
+        <mat-error *ngIf="getFieldError('requiredField')">{{ getFieldError('requiredField') }}</mat-error>
+      </mat-form-field>
+    </div>
+
+    <div class="form-field">
+      <mat-form-field appearance="outline">
+        <mat-label>Email Field</mat-label>
+        <input matInput formControlName="emailField" placeholder="Enter a valid email">
+        <mat-error *ngIf="getFieldError('emailField')">{{ getFieldError('emailField') }}</mat-error>
+      </mat-form-field>
+    </div>
+
+    <div class="form-field">
+      <mat-form-field appearance="outline">
+        <mat-label>Min Length Field</mat-label>
+        <input matInput formControlName="minLengthField" placeholder="Minimum 5 characters">
+        <mat-error *ngIf="getFieldError('minLengthField')">{{ getFieldError('minLengthField') }}</mat-error>
+      </mat-form-field>
+    </div>
+
+    <div class="form-field">
+      <mat-form-field appearance="outline">
+        <mat-label>Max Length Field</mat-label>
+        <input matInput formControlName="maxLengthField" placeholder="Maximum 10 characters">
+        <mat-error *ngIf="getFieldError('maxLengthField')">{{ getFieldError('maxLengthField') }}</mat-error>
+      </mat-form-field>
+    </div>
+
+    <div class="form-actions">
+      <amw-button variant="outlined" color="primary" type="button">Cancel</amw-button>
+      <amw-button variant="elevated" color="primary" type="submit" 
+                 [disabled]="!validationForm.valid">Submit Form</amw-button>
+    </div>
+  </form>
+
+  <div class="validation-info">
+    <h4>Validation States</h4>
+    <ul>
+      <li><strong>Valid Form:</strong> Submit button is enabled and ready to process</li>
+      <li><strong>Invalid Form:</strong> Submit button is disabled until all validation passes</li>
+      <li><strong>Required Fields:</strong> Must have a value before form can be submitted</li>
+      <li><strong>Email Validation:</strong> Must be a valid email format</li>
+      <li><strong>Length Validation:</strong> Must meet minimum/maximum character requirements</li>
+    </ul>
+  </div>
+</div>

@@ -1,0 +1,19 @@
+<div class="amw-demo-radio-code">
+  <div class="code-section">
+    <h3 class="code-section__title">Radio Button Code Examples</h3>
+    <p class="code-section__description">
+      Copy and paste these code examples to use the amw-radio component in your projects.
+    </p>
+
+    <mat-expansion-panel *ngFor="let example of codeExamples | keyvalue" class="code-example">
+      <mat-expansion-panel-header>
+        <mat-panel-title>{{ example.value.title }}</mat-panel-title>
+        <mat-panel-description>{{ example.value.description }}</mat-panel-description>
+      </mat-expansion-panel-header>
+      
+      <div class="code-content">
+        <pre><code>{{ example.value.code }}</code></pre>
+      </div>
+    </mat-expansion-panel>
+  </div>
+</div>

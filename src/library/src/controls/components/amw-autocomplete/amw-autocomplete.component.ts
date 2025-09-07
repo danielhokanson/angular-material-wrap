@@ -34,13 +34,7 @@ export type AutocompleteAppearance = 'outline' | 'fill';
         MatButtonModule,
         MatOptionModule
     ],
-    providers: [
-        {
-            provide: NG_VALUE_ACCESSOR,
-            useExisting: forwardRef(() => AmwAutocompleteComponent),
-            multi: true
-        }
-    ],
+    providers: [],
     templateUrl: './amw-autocomplete.component.html',
     styleUrl: './amw-autocomplete.component.scss',
     encapsulation: ViewEncapsulation.None

@@ -8,19 +8,19 @@
   // Size variants - use Angular Material's density system
   &--small {
     .mat-mdc-form-field {
-      --mdc-outlined-text-field-container-shape: 4px;
+      --mdc-outlined-text-field-container-shape: var(--mdc-shape-small, 4px);
     }
   }
   
   &--medium {
     .mat-mdc-form-field {
-      --mdc-outlined-text-field-container-shape: 4px;
+      --mdc-outlined-text-field-container-shape: var(--mdc-shape-small, 4px);
     }
   }
   
   &--large {
     .mat-mdc-form-field {
-      --mdc-outlined-text-field-container-shape: 4px;
+      --mdc-outlined-text-field-container-shape: var(--mdc-shape-small, 4px);
     }
   }
   
@@ -40,20 +40,20 @@
   // State modifiers
   &--error {
     .mat-mdc-form-field {
-      color: #f44336;
+      color: var(--mdc-theme-error, #f44336);
     }
   }
   
   &--disabled {
     .mat-mdc-form-field {
-      opacity: 0.6;
+      opacity: var(--mdc-state-disabled-state-layer-opacity, 0.6);
     }
   }
   
   &--readonly {
     .amw-input__field {
       cursor: default;
-      background-color: #f5f5f5;
+      background-color: var(--mdc-theme-surface-variant, #f5f5f5);
     }
   }
   
@@ -81,7 +81,7 @@
     }
     
     &::placeholder {
-      color: rgba(0, 0, 0, 0.6);
+      color: var(--mdc-theme-on-surface-variant, rgba(0, 0, 0, 0.6));
       opacity: 1;
     }
     
@@ -91,59 +91,59 @@
   }
   
   &__start-icon {
-    color: rgba(0, 0, 0, 0.6);
+    color: var(--mdc-theme-on-surface-variant, rgba(0, 0, 0, 0.6));
   }
   
   &__end-icon {
-    color: rgba(0, 0, 0, 0.6);
+    color: var(--mdc-theme-on-surface-variant, rgba(0, 0, 0, 0.6));
   }
   
   &__prefix {
-    color: rgba(0, 0, 0, 0.6);
-    font-size: 0.875em;
+    color: var(--mdc-theme-on-surface-variant, rgba(0, 0, 0, 0.6));
+    font-size: var(--mdc-typography-body-small-font-size, 0.875em);
   }
   
   &__suffix {
-    color: rgba(0, 0, 0, 0.6);
-    font-size: 0.875em;
+    color: var(--mdc-theme-on-surface-variant, rgba(0, 0, 0, 0.6));
+    font-size: var(--mdc-typography-body-small-font-size, 0.875em);
   }
   
   &__clear-button {
-    color: rgba(0, 0, 0, 0.6);
+    color: var(--mdc-theme-on-surface-variant, rgba(0, 0, 0, 0.6));
     
     &:hover {
-      color: rgba(0, 0, 0, 0.8);
+      color: var(--mdc-theme-on-surface, rgba(0, 0, 0, 0.8));
     }
   }
   
   &__password-toggle {
-    color: rgba(0, 0, 0, 0.6);
+    color: var(--mdc-theme-on-surface-variant, rgba(0, 0, 0, 0.6));
     
     &:hover {
-      color: rgba(0, 0, 0, 0.8);
+      color: var(--mdc-theme-on-surface, rgba(0, 0, 0, 0.8));
     }
   }
   
   &__hint {
-    color: rgba(0, 0, 0, 0.6);
-    font-size: 0.75em;
-    margin-top: 4px;
+    color: var(--mdc-theme-on-surface-variant, rgba(0, 0, 0, 0.6));
+    font-size: var(--mdc-typography-body-small-font-size, 0.75em);
+    margin-top: var(--mdc-shape-small, 4px);
   }
   
   &__character-count {
-    color: rgba(0, 0, 0, 0.6);
-    font-size: 0.75em;
-    margin-top: 4px;
+    color: var(--mdc-theme-on-surface-variant, rgba(0, 0, 0, 0.6));
+    font-size: var(--mdc-typography-body-small-font-size, 0.75em);
+    margin-top: var(--mdc-shape-small, 4px);
     
     &--over-limit {
-      color: #f44336;
+      color: var(--mdc-theme-error, #f44336);
     }
   }
   
   &__error {
-    color: #f44336;
-    font-size: 0.75em;
-    margin-top: 4px;
+    color: var(--mdc-theme-error, #f44336);
+    font-size: var(--mdc-typography-body-small-font-size, 0.75em);
+    margin-top: var(--mdc-shape-small, 4px);
   }
   
   // Focus styles
@@ -169,21 +169,21 @@
     width: 100%;
     
     .mat-mdc-form-field-subscript-wrapper {
-      min-height: 20px;
+      min-height: var(--mdc-shape-medium, 20px);
     }
   }
   
   // Icon button styles
   .mat-mdc-icon-button {
-    width: 24px;
-    height: 24px;
-    line-height: 24px;
+    width: var(--mdc-icon-button-state-layer-size, 24px);
+    height: var(--mdc-icon-button-state-layer-size, 24px);
+    line-height: var(--mdc-icon-button-state-layer-size, 24px);
     
     .mat-icon {
-      font-size: 18px;
-      width: 18px;
-      height: 18px;
-      line-height: 18px;
+      font-size: var(--mdc-icon-size, 18px);
+      width: var(--mdc-icon-size, 18px);
+      height: var(--mdc-icon-size, 18px);
+      line-height: var(--mdc-icon-size, 18px);
     }
   }
   

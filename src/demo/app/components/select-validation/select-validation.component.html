@@ -1,0 +1,105 @@
+<div class="amw-demo-select-validation">
+  <div class="validation-section">
+    <h3 class="validation-section__title">Select Validation Examples</h3>
+    <p class="validation-section__description">
+      This form demonstrates various validation patterns using Angular Material selects.
+    </p>
+
+    <form [formGroup]="validationForm" (ngSubmit)="onSubmit()" class="validation-form">
+      <div class="form-row">
+        <amw-select
+          formControlName="requiredSelect"
+          [options]="countryOptions"
+          label="Required Country"
+          placeholder="Select a country"
+          [required]="true"
+          appearance="outline">
+        </amw-select>
+        <div class="field-error" *ngIf="getFieldError('requiredSelect')">
+          {{ getFieldError('requiredSelect') }}
+        </div>
+      </div>
+
+      <div class="form-row">
+        <amw-select
+          formControlName="countrySelect"
+          [options]="countryOptions"
+          label="Country Selection"
+          placeholder="Choose your country"
+          [required]="true"
+          appearance="outline">
+        </amw-select>
+        <div class="field-error" *ngIf="getFieldError('countrySelect')">
+          {{ getFieldError('countrySelect') }}
+        </div>
+      </div>
+
+      <div class="form-row">
+        <amw-select
+          formControlName="sizeSelect"
+          [options]="sizeOptions"
+          label="Size Selection"
+          placeholder="Select size"
+          [required]="true"
+          appearance="outline">
+        </amw-select>
+        <div class="field-error" *ngIf="getFieldError('sizeSelect')">
+          {{ getFieldError('sizeSelect') }}
+        </div>
+      </div>
+
+      <div class="form-row">
+        <amw-select
+          formControlName="colorSelect"
+          [options]="colorOptions"
+          [multiple]="true"
+          label="Color Selection (Multiple)"
+          placeholder="Select colors"
+          [required]="true"
+          appearance="outline">
+        </amw-select>
+        <div class="field-error" *ngIf="getFieldError('colorSelect')">
+          {{ getFieldError('colorSelect') }}
+        </div>
+      </div>
+
+      <div class="form-row">
+        <amw-select
+          formControlName="optionalSelect"
+          [options]="countryOptions"
+          label="Optional Selection"
+          placeholder="This is optional"
+          appearance="outline">
+        </amw-select>
+      </div>
+
+      <div class="form-actions">
+        <amw-button
+          type="submit"
+          variant="elevated"
+          color="primary"
+          [disabled]="validationForm.invalid">
+          Submit Form
+        </amw-button>
+        <amw-button
+          type="button"
+          variant="outlined"
+          color="primary"
+          (click)="validationForm.reset()">
+          Reset Form
+        </amw-button>
+      </div>
+    </form>
+
+    <div class="validation-info">
+      <h4>Validation Rules Applied:</h4>
+      <ul>
+        <li><strong>Required Select:</strong> Must select a country</li>
+        <li><strong>Country Selection:</strong> Must choose a valid country</li>
+        <li><strong>Size Selection:</strong> Must select a size option</li>
+        <li><strong>Color Selection:</strong> Must select at least one color (multiple selection)</li>
+        <li><strong>Optional Selection:</strong> No validation required</li>
+      </ul>
+    </div>
+  </div>
+</div>

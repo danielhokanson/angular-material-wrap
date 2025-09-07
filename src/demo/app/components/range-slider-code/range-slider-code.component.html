@@ -1,0 +1,19 @@
+<div class="amw-demo-range-slider-code">
+  <div class="code-section">
+    <h3>Code Examples</h3>
+    <p>Copy and paste these code snippets to use the range slider component in your application.</p>
+
+    @for (example of getCodeExamples(); track example.title) {
+      <mat-expansion-panel>
+        <mat-expansion-panel-header>
+          <mat-panel-title>{{ example.title }}</mat-panel-title>
+          <mat-panel-description>{{ example.description }}</mat-panel-description>
+        </mat-expansion-panel-header>
+        
+        <div class="code-example">
+          <pre><code>{{ example.code }}</code></pre>
+        </div>
+      </mat-expansion-panel>
+    }
+  </div>
+</div>

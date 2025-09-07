@@ -1,4 +1,4 @@
-import { Component, ViewEncapsulation, OnInit } from '@angular/core';
+import { Component, ViewEncapsulation, OnInit, ComponentRef, ViewContainerRef, Type } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { ActivatedRoute } from '@angular/router';
 import { MatCardModule } from '@angular/material/card';
@@ -16,6 +16,50 @@ import { TextareaDemoComponent } from '../textarea-demo/textarea-demo.component'
 import { SliderDemoComponent } from '../slider-demo/slider-demo.component';
 import { AutocompleteDemoComponent } from '../autocomplete-demo/autocomplete-demo.component';
 import { DatepickerDemoComponent } from '../datepicker-demo/datepicker-demo.component';
+
+// Tab components
+import { ButtonValidationComponent } from '../button-validation/button-validation.component';
+import { ButtonCodeComponent } from '../button-code/button-code.component';
+import { ButtonApiComponent } from '../button-api/button-api.component';
+import { InputValidationComponent } from '../input-validation/input-validation.component';
+import { InputCodeComponent } from '../input-code/input-code.component';
+import { InputApiComponent } from '../input-api/input-api.component';
+import { SelectValidationComponent } from '../select-validation/select-validation.component';
+import { SelectCodeComponent } from '../select-code/select-code.component';
+import { SelectApiComponent } from '../select-api/select-api.component';
+import { CheckboxValidationComponent } from '../checkbox-validation/checkbox-validation.component';
+import { CheckboxCodeComponent } from '../checkbox-code/checkbox-code.component';
+import { CheckboxApiComponent } from '../checkbox-api/checkbox-api.component';
+import { RadioValidationComponent } from '../radio-validation/radio-validation.component';
+import { RadioCodeComponent } from '../radio-code/radio-code.component';
+import { RadioApiComponent } from '../radio-api/radio-api.component';
+import { ToggleValidationComponent } from '../toggle-validation/toggle-validation.component';
+import { ToggleCodeComponent } from '../toggle-code/toggle-code.component';
+import { ToggleApiComponent } from '../toggle-api/toggle-api.component';
+import { TextareaValidationComponent } from '../textarea-validation/textarea-validation.component';
+import { TextareaCodeComponent } from '../textarea-code/textarea-code.component';
+import { TextareaApiComponent } from '../textarea-api/textarea-api.component';
+import { SliderValidationComponent } from '../slider-validation/slider-validation.component';
+import { SliderCodeComponent } from '../slider-code/slider-code.component';
+import { SliderApiComponent } from '../slider-api/slider-api.component';
+import { AutocompleteValidationComponent } from '../autocomplete-validation/autocomplete-validation.component';
+import { AutocompleteCodeComponent } from '../autocomplete-code/autocomplete-code.component';
+import { AutocompleteApiComponent } from '../autocomplete-api/autocomplete-api.component';
+import { DatepickerValidationComponent } from '../datepicker-validation/datepicker-validation.component';
+import { DatepickerCodeComponent } from '../datepicker-code/datepicker-code.component';
+import { DatepickerApiComponent } from '../datepicker-api/datepicker-api.component';
+import { RangeSliderDemoComponent } from '../range-slider-demo/range-slider-demo.component';
+import { RangeSliderValidationComponent } from '../range-slider-validation/range-slider-validation.component';
+import { RangeSliderCodeComponent } from '../range-slider-code/range-slider-code.component';
+import { RangeSliderApiComponent } from '../range-slider-api/range-slider-api.component';
+import { SwitchDemoComponent } from '../switch-demo/switch-demo.component';
+import { SwitchValidationComponent } from '../switch-validation/switch-validation.component';
+import { SwitchCodeComponent } from '../switch-code/switch-code.component';
+import { SwitchApiComponent } from '../switch-api/switch-api.component';
+import { FileInputDemoComponent } from '../file-input-demo/file-input-demo.component';
+import { FileInputValidationComponent } from '../file-input-validation/file-input-validation.component';
+import { FileInputCodeComponent } from '../file-input-code/file-input-code.component';
+import { FileInputApiComponent } from '../file-input-api/file-input-api.component';
 
 @Component({
     selector: 'amw-demo-controls',
@@ -35,7 +79,50 @@ import { DatepickerDemoComponent } from '../datepicker-demo/datepicker-demo.comp
         TextareaDemoComponent,
         SliderDemoComponent,
         AutocompleteDemoComponent,
-        DatepickerDemoComponent
+        DatepickerDemoComponent,
+        // Tab components
+        ButtonValidationComponent,
+        ButtonCodeComponent,
+        ButtonApiComponent,
+        InputValidationComponent,
+        InputCodeComponent,
+        InputApiComponent,
+        SelectValidationComponent,
+        SelectCodeComponent,
+        SelectApiComponent,
+        CheckboxValidationComponent,
+        CheckboxCodeComponent,
+        CheckboxApiComponent,
+        RadioValidationComponent,
+        RadioCodeComponent,
+        RadioApiComponent,
+        ToggleValidationComponent,
+        ToggleCodeComponent,
+        ToggleApiComponent,
+        TextareaValidationComponent,
+        TextareaCodeComponent,
+        TextareaApiComponent,
+        SliderValidationComponent,
+        SliderCodeComponent,
+        SliderApiComponent,
+        AutocompleteValidationComponent,
+        AutocompleteCodeComponent,
+        AutocompleteApiComponent,
+        DatepickerValidationComponent,
+        DatepickerCodeComponent,
+        DatepickerApiComponent,
+        RangeSliderDemoComponent,
+        RangeSliderValidationComponent,
+        RangeSliderCodeComponent,
+        RangeSliderApiComponent,
+        SwitchDemoComponent,
+        SwitchValidationComponent,
+        SwitchCodeComponent,
+        SwitchApiComponent,
+        FileInputDemoComponent,
+        FileInputValidationComponent,
+        FileInputCodeComponent,
+        FileInputApiComponent
     ],
     encapsulation: ViewEncapsulation.None,
     templateUrl: './controls-demo.component.html',
@@ -53,7 +140,10 @@ export class ControlsDemoComponent implements OnInit {
         { id: 'toggle', name: 'Toggle' },
         { id: 'textarea', name: 'Textarea' },
         { id: 'autocomplete', name: 'Autocomplete' },
-        { id: 'datepicker', name: 'Datepicker' }
+        { id: 'datepicker', name: 'Datepicker' },
+        { id: 'range-slider', name: 'Range Slider' },
+        { id: 'switch', name: 'Switch' },
+        { id: 'file-input', name: 'File Input' }
     ];
 
     selectedControl = { id: 'button', name: 'Button' };

@@ -1,0 +1,57 @@
+<div class="amw-range-slider" 
+     [class.amw-range-slider--disabled]="disabled"
+     [class.amw-range-slider--vertical]="vertical">
+  
+  @if (label) {
+    <label class="amw-range-slider__label">{{ label }}</label>
+  }
+
+  <div class="amw-range-slider__container">
+    <!-- Start Value Slider -->
+    <mat-slider
+      class="amw-range-slider__slider amw-range-slider__slider--start"
+      [min]="min"
+      [max]="max"
+      [step]="step"
+      [disabled]="disabled"
+      [showTickMarks]="showTicks"
+      [color]="color"
+      [ngModel]="startValue"
+      (ngModelChange)="onStartValueChange($event)">
+    </mat-slider>
+
+    <!-- End Value Slider -->
+    <mat-slider
+      class="amw-range-slider__slider amw-range-slider__slider--end"
+      [min]="min"
+      [max]="max"
+      [step]="step"
+      [disabled]="disabled"
+      [showTickMarks]="showTicks"
+      [color]="color"
+      [ngModel]="endValue"
+      (ngModelChange)="onEndValueChange($event)">
+    </mat-slider>
+  </div>
+
+  @if (errorMessage || hasValidationError) {
+    <div class="amw-range-slider__error">
+      {{ errorMessage || errorText }}
+    </div>
+  }
+
+  @if (startThumbLabel || endThumbLabel) {
+    <div class="amw-range-slider__labels">
+      @if (startThumbLabel) {
+        <span class="amw-range-slider__thumb-label amw-range-slider__thumb-label--start">
+          {{ startThumbLabel }}
+        </span>
+      }
+      @if (endThumbLabel) {
+        <span class="amw-range-slider__thumb-label amw-range-slider__thumb-label--end">
+          {{ endThumbLabel }}
+        </span>
+      }
+    </div>
+  }
+</div>

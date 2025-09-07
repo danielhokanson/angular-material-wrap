@@ -1,0 +1,55 @@
+.amw-demo-radio.component-code {
+  .code-section {
+    h3 {
+      font-size: 20px;
+      font-weight: 500;
+      color: var(--mdc-theme-on-surface);
+      margin-bottom: 16px;
+    }
+
+    p {
+      color: var(--mdc-theme-on-surface-variant);
+      margin-bottom: 24px;
+      line-height: 1.5;
+    }
+
+    mat-expansion-panel {
+      margin-bottom: 16px;
+      border: 1px solid var(--mdc-theme-outline-variant);
+      border-radius: 8px;
+      overflow: hidden;
+
+      .mat-expansion-panel-header {
+        background-color: var(--mdc-theme-surface-container-low);
+        border-bottom: 1px solid var(--mdc-theme-outline-variant);
+      }
+
+      .code-example {
+        background-color: var(--mdc-theme-surface-container);
+        padding: 16px;
+        border-top: 1px solid var(--mdc-theme-outline-variant);
+
+        pre {
+          margin: 0;
+          font-family: 'Courier New', 'Monaco', 'Consolas', monospace;
+          font-size: 13px;
+          line-height: 1.4;
+          color: var(--mdc-theme-on-surface);
+          overflow-x: auto;
+          white-space: pre-wrap;
+          word-break: break-word;
+
+          code {
+            background: none;
+            padding: 0;
+            border: none;
+            border-radius: 0;
+            font-family: inherit;
+            font-size: inherit;
+            color: inherit;
+          }
+        }
+      }
+    }
+  }
+}

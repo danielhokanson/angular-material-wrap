@@ -1,0 +1,71 @@
+<div class="amw-demo-switch-validation">
+  <div class="validation-section">
+    <h3>Switch Validation</h3>
+    <p>This form demonstrates validation for switch components with various constraints and error handling.</p>
+
+    <form [formGroup]="validationForm" (ngSubmit)="onSubmit()" class="validation-form">
+      <h4>Switch Validation Examples</h4>
+      
+      <div class="form-field">
+        <amw-switch
+          formControlName="notificationsEnabled"
+          [hasError]="hasError('notificationsEnabled')"
+          [errorMessage]="getErrorMessage('notificationsEnabled')">
+          Enable Notifications (Required)
+        </amw-switch>
+        @if (hasError('notificationsEnabled')) {
+          <div class="error-message">{{ getErrorMessage('notificationsEnabled') }}</div>
+        }
+      </div>
+
+      <div class="form-field">
+        <amw-switch
+          formControlName="darkModeEnabled">
+          Dark Mode (Optional)
+        </amw-switch>
+      </div>
+
+      <div class="form-field">
+        <amw-switch
+          formControlName="autoSaveEnabled"
+          [hasError]="hasError('autoSaveEnabled')"
+          [errorMessage]="getErrorMessage('autoSaveEnabled')">
+          Auto Save (Required)
+        </amw-switch>
+        @if (hasError('autoSaveEnabled')) {
+          <div class="error-message">{{ getErrorMessage('autoSaveEnabled') }}</div>
+        }
+      </div>
+
+      <div class="form-field">
+        <amw-switch
+          formControlName="termsAccepted"
+          [hasError]="hasError('termsAccepted')"
+          [errorMessage]="getErrorMessage('termsAccepted')">
+          Accept Terms and Conditions (Required)
+        </amw-switch>
+        @if (hasError('termsAccepted')) {
+          <div class="error-message">{{ getErrorMessage('termsAccepted') }}</div>
+        }
+      </div>
+
+      <div class="form-actions">
+        <button mat-button type="button" (click)="onReset()">Reset</button>
+        <button mat-raised-button color="primary" type="submit" [disabled]="validationForm.invalid">
+          Submit
+        </button>
+      </div>
+    </form>
+
+    <div class="validation-info">
+      <h4>Validation Rules</h4>
+      <ul>
+        <li><strong>Required Switches:</strong> Notifications, Auto Save, and Terms must be enabled</li>
+        <li><strong>Optional Switches:</strong> Dark Mode can be enabled or disabled</li>
+        <li><strong>RequiredTrue Validator:</strong> Ensures switches are in the "on" position</li>
+        <li><strong>Form State:</strong> Form is invalid if any required switches are off</li>
+        <li><strong>Error Display:</strong> Shows validation errors below each switch</li>
+      </ul>
+    </div>
+  </div>
+</div>

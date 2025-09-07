@@ -29,13 +29,7 @@ import { InputSize } from './interfaces/input-size.type';
     encapsulation: ViewEncapsulation.None,
     templateUrl: './amw-input.component.html',
     styleUrl: './amw-input.component.scss',
-    providers: [
-        {
-            provide: NG_VALUE_ACCESSOR,
-            useExisting: forwardRef(() => AmwInputComponent),
-            multi: true
-        }
-    ]
+    providers: []
 })
 export class AmwInputComponent extends BaseComponent implements ControlValueAccessor {
     // Basic input properties

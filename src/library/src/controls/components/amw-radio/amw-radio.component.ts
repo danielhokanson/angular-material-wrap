@@ -14,13 +14,7 @@ import { RadioSize } from './interfaces/radio-size.type';
     encapsulation: ViewEncapsulation.None,
     templateUrl: './amw-radio.component.html',
     styleUrl: './amw-radio.component.scss',
-    providers: [
-        {
-            provide: NG_VALUE_ACCESSOR,
-            useExisting: forwardRef(() => AmwRadioComponent),
-            multi: true
-        }
-    ]
+    providers: []
 })
 export class AmwRadioComponent extends BaseComponent implements ControlValueAccessor {
     @Input() color: RadioColor = 'primary';

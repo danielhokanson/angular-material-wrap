@@ -1,0 +1,122 @@
+<div class="amw-demo-toggle-validation">
+  <div class="validation-section">
+    <h3 class="validation-section__title">Toggle Validation Examples</h3>
+    <p class="validation-section__description">
+      This form demonstrates various validation patterns using Angular Material toggles.
+    </p>
+
+    <form [formGroup]="validationForm" (ngSubmit)="onSubmit()" class="validation-form">
+      <!-- Required Features -->
+      <div class="form-section">
+        <h4>Required Features (Must be enabled)</h4>
+        <div class="toggle-group">
+          <amw-toggle
+            formControlName="notifications"
+            label="Enable notifications"
+            color="primary">
+          </amw-toggle>
+          <div class="field-error" *ngIf="getFieldError('notifications')">
+            {{ getFieldError('notifications') }}
+          </div>
+        </div>
+
+        <div class="toggle-group">
+          <amw-toggle
+            formControlName="analytics"
+            label="Enable analytics tracking"
+            color="primary">
+          </amw-toggle>
+          <div class="field-error" *ngIf="getFieldError('analytics')">
+            {{ getFieldError('analytics') }}
+          </div>
+        </div>
+
+        <div class="toggle-group">
+          <amw-toggle
+            formControlName="autoSave"
+            label="Enable auto-save functionality"
+            color="primary">
+          </amw-toggle>
+          <div class="field-error" *ngIf="getFieldError('autoSave')">
+            {{ getFieldError('autoSave') }}
+          </div>
+        </div>
+
+        <div class="toggle-group">
+          <amw-toggle
+            formControlName="cookies"
+            label="Accept essential cookies"
+            color="primary">
+          </amw-toggle>
+          <div class="field-error" *ngIf="getFieldError('cookies')">
+            {{ getFieldError('cookies') }}
+          </div>
+        </div>
+      </div>
+
+      <!-- Optional Preferences -->
+      <div class="form-section">
+        <h4>Optional Preferences</h4>
+        <div class="toggle-group">
+          <amw-toggle
+            formControlName="marketing"
+            label="Receive marketing communications"
+            color="accent">
+          </amw-toggle>
+        </div>
+
+        <div class="toggle-group">
+          <amw-toggle
+            formControlName="darkMode"
+            label="Enable dark mode"
+            color="accent">
+          </amw-toggle>
+        </div>
+
+        <div class="toggle-group">
+          <amw-toggle
+            formControlName="twoFactor"
+            label="Enable two-factor authentication"
+            color="accent">
+          </amw-toggle>
+        </div>
+
+        <div class="toggle-group">
+          <amw-toggle
+            formControlName="location"
+            label="Allow location access"
+            color="accent">
+          </amw-toggle>
+        </div>
+      </div>
+
+      <div class="form-actions">
+        <amw-button
+          type="submit"
+          variant="elevated"
+          color="primary"
+          [disabled]="validationForm.invalid">
+          Save Preferences
+        </amw-button>
+        <amw-button
+          type="button"
+          variant="outlined"
+          color="primary"
+          (click)="validationForm.reset()">
+          Reset to Defaults
+        </amw-button>
+      </div>
+    </form>
+
+    <div class="validation-info">
+      <h4>Validation Rules Applied:</h4>
+      <ul>
+        <li><strong>Notifications:</strong> Must be enabled to proceed</li>
+        <li><strong>Analytics:</strong> Must be enabled to proceed</li>
+        <li><strong>Auto-save:</strong> Must be enabled to proceed</li>
+        <li><strong>Cookies:</strong> Must be enabled to proceed</li>
+        <li><strong>Marketing, Dark Mode, 2FA, Location:</strong> Optional - can be left disabled</li>
+      </ul>
+    </div>
+  </div>
+</div>

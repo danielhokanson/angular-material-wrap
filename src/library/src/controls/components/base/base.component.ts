@@ -1,5 +1,5 @@
-import { Component, Input, Output, EventEmitter, forwardRef, Optional, Self, Inject, ViewEncapsulation } from '@angular/core';
-import { ControlValueAccessor, NG_VALUE_ACCESSOR, NgControl, FormControl } from '@angular/forms';
+import { Component, Input, Output, EventEmitter, Optional, Self, Inject, ViewEncapsulation } from '@angular/core';
+import { ControlValueAccessor, NgControl, FormControl } from '@angular/forms';
 import { BaseComponentInterface } from '../../interfaces/base-component.interface';
 
 /**
@@ -10,14 +10,7 @@ import { BaseComponentInterface } from '../../interfaces/base-component.interfac
     selector: 'amw-base',
     template: '',
     standalone: true,
-    encapsulation: ViewEncapsulation.None,
-    providers: [
-        {
-            provide: NG_VALUE_ACCESSOR,
-            useExisting: forwardRef(() => BaseComponent),
-            multi: true
-        }
-    ]
+    encapsulation: ViewEncapsulation.None
 })
 export abstract class BaseComponent implements BaseComponentInterface {
     @Input() disabled = false;

@@ -5,22 +5,22 @@
 
   &--small {
     .mat-mdc-radio-button {
-      --mdc-radio-state-layer-size: 32px;
-      --mdc-radio-icon-size: 16px;
+      --mdc-radio-state-layer-size: var(--mdc-shape-large, 32px);
+      --mdc-radio-icon-size: var(--mdc-typography-body-large-font-size, 16px);
     }
   }
 
   &--medium {
     .mat-mdc-radio-button {
-      --mdc-radio-state-layer-size: 40px;
-      --mdc-radio-icon-size: 20px;
+      --mdc-radio-state-layer-size: var(--mdc-shape-large, 40px);
+      --mdc-radio-icon-size: var(--mdc-shape-medium, 20px);
     }
   }
 
   &--large {
     .mat-mdc-radio-button {
-      --mdc-radio-state-layer-size: 48px;
-      --mdc-radio-icon-size: 24px;
+      --mdc-radio-state-layer-size: var(--mdc-shape-large, 32px);
+      --mdc-radio-icon-size: var(--mdc-shape-small, 8px);
     }
   }
 
@@ -31,22 +31,22 @@
     
     .mat-mdc-radio-button-label {
       order: 1;
-      margin-right: 8px;
+      margin-right: var(--mdc-shape-small, 8px);
       margin-left: 0;
     }
   }
 
   &--disabled {
-    opacity: 0.6;
+    opacity: var(--mdc-state-disabled-state-layer-opacity, 0.6);
     pointer-events: none;
   }
 
   &--error {
     .mat-mdc-radio-button {
-      --mdc-radio-selected-focus-icon-color: #f44336;
-      --mdc-radio-selected-hover-icon-color: #f44336;
-      --mdc-radio-selected-icon-color: #f44336;
-      --mdc-radio-selected-pressed-icon-color: #f44336;
+      --mdc-radio-selected-focus-icon-color: var(--mdc-theme-error, #f44336);
+      --mdc-radio-selected-hover-icon-color: var(--mdc-theme-error, #f44336);
+      --mdc-radio-selected-icon-color: var(--mdc-theme-error, #f44336);
+      --mdc-radio-selected-pressed-icon-color: var(--mdc-theme-error, #f44336);
     }
   }
 
@@ -55,16 +55,16 @@
     top: 100%;
     left: 0;
     right: 0;
-    margin-top: 4px;
-    font-size: 12px;
-    color: #f44336;
+    margin-top: var(--mdc-shape-small, 4px);
+    font-size: var(--mdc-typography-body-small-font-size, 12px);
+    color: var(--mdc-theme-error, #f44336);
     line-height: 1.2;
   }
 
   .mat-mdc-radio-button {
-    --mdc-radio-state-layer-size: 40px;
-    --mdc-radio-icon-size: 20px;
-    --mdc-radio-ripple-size: 40px;
+    --mdc-radio-state-layer-size: var(--mdc-shape-large, 40px);
+    --mdc-radio-icon-size: var(--mdc-shape-medium, 20px);
+    --mdc-radio-ripple-size: var(--mdc-shape-large, 40px);
     --mdc-radio-ripple-opacity: 0.12;
     --mdc-radio-selected-focus-icon-color: #1976d2;
     --mdc-radio-selected-hover-icon-color: #1976d2;
@@ -103,12 +103,12 @@
   }
 
   .mat-mdc-radio-button.mat-warn {
-    --mdc-radio-selected-focus-icon-color: #f44336;
-    --mdc-radio-selected-hover-icon-color: #f44336;
-    --mdc-radio-selected-icon-color: #f44336;
-    --mdc-radio-selected-pressed-icon-color: #f44336;
-    --mdc-radio-selected-focus-state-layer-color: #f44336;
-    --mdc-radio-selected-hover-state-layer-color: #f44336;
-    --mdc-radio-selected-pressed-state-layer-color: #f44336;
+    --mdc-radio-selected-focus-icon-color: var(--mdc-theme-error, #f44336);
+    --mdc-radio-selected-hover-icon-color: var(--mdc-theme-error, #f44336);
+    --mdc-radio-selected-icon-color: var(--mdc-theme-error, #f44336);
+    --mdc-radio-selected-pressed-icon-color: var(--mdc-theme-error, #f44336);
+    --mdc-radio-selected-focus-state-layer-color: var(--mdc-theme-error, #f44336);
+    --mdc-radio-selected-hover-state-layer-color: var(--mdc-theme-error, #f44336);
+    --mdc-radio-selected-pressed-state-layer-color: var(--mdc-theme-error, #f44336);
   }
 }

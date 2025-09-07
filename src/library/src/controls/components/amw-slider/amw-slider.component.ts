@@ -12,13 +12,7 @@ import { SliderColor } from './interfaces/slider-color.type';
     encapsulation: ViewEncapsulation.None,
     templateUrl: './amw-slider.component.html',
     styleUrl: './amw-slider.component.scss',
-    providers: [
-        {
-            provide: NG_VALUE_ACCESSOR,
-            useExisting: forwardRef(() => AmwSliderComponent),
-            multi: true
-        }
-    ]
+    providers: []
 })
 export class AmwSliderComponent extends BaseComponent implements ControlValueAccessor {
     @Input() color: SliderColor = 'primary';

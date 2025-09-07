@@ -1,0 +1,144 @@
+<div class="amw-demo-range-slider">
+  <div class="demo-section">
+    <h3 class="demo-section__title">Basic Range Slider</h3>
+    <div class="demo-section__content">
+      <div class="variation-group">
+        <span class="variation-label">Default Range</span>
+        <amw-range-slider
+          [min]="0"
+          [max]="100"
+          [step]="1"
+          [(rangeValue)]="basicRange"
+          (rangeChange)="onRangeChange($event)">
+        </amw-range-slider>
+        <small>Range: {{ basicRange.start }} - {{ basicRange.end }}</small>
+      </div>
+    </div>
+  </div>
+
+  <div class="demo-section">
+    <h3 class="demo-section__title">Configuration Options</h3>
+    <div class="demo-section__content">
+      <div class="variation-group">
+        <span class="variation-label">Min/Max/Step</span>
+        <amw-range-slider
+          [min]="minValue"
+          [max]="maxValue"
+          [step]="stepValue"
+          [rangeValue]="basicRange"
+          (rangeChange)="basicRange = $event">
+        </amw-range-slider>
+        <div class="config-controls">
+          <mat-form-field appearance="outline">
+            <mat-label>Min</mat-label>
+            <input matInput type="number" [(ngModel)]="minValue">
+          </mat-form-field>
+          <mat-form-field appearance="outline">
+            <mat-label>Max</mat-label>
+            <input matInput type="number" [(ngModel)]="maxValue">
+          </mat-form-field>
+          <mat-form-field appearance="outline">
+            <mat-label>Step</mat-label>
+            <input matInput type="number" [(ngModel)]="stepValue">
+          </mat-form-field>
+        </div>
+      </div>
+
+      <div class="variation-group">
+        <span class="variation-label">With Ticks & Labels</span>
+        <amw-range-slider
+          [min]="0"
+          [max]="100"
+          [step]="10"
+          [showTicks]="true"
+          [showLabels]="true"
+          [rangeValue]="basicRange"
+          (rangeChange)="basicRange = $event">
+        </amw-range-slider>
+        <mat-checkbox [(ngModel)]="showTicks">Show Ticks</mat-checkbox>
+        <mat-checkbox [(ngModel)]="showLabels">Show Labels</mat-checkbox>
+      </div>
+
+      <div class="variation-group">
+        <span class="variation-label">Colors</span>
+        <amw-range-slider
+          [min]="0"
+          [max]="100"
+          [color]="color"
+          [rangeValue]="basicRange"
+          (rangeChange)="basicRange = $event">
+        </amw-range-slider>
+        <mat-button-toggle-group [(ngModel)]="color">
+          <mat-button-toggle value="primary">Primary</mat-button-toggle>
+          <mat-button-toggle value="accent">Accent</mat-button-toggle>
+          <mat-button-toggle value="warn">Warn</mat-button-toggle>
+        </mat-button-toggle-group>
+      </div>
+
+      <div class="variation-group">
+        <span class="variation-label">Vertical</span>
+        <amw-range-slider
+          [min]="0"
+          [max]="100"
+          [vertical]="true"
+          [rangeValue]="basicRange"
+          (rangeChange)="basicRange = $event">
+        </amw-range-slider>
+        <mat-checkbox [(ngModel)]="vertical">Vertical</mat-checkbox>
+      </div>
+    </div>
+  </div>
+
+  <div class="demo-section">
+    <h3 class="demo-section__title">Real-World Examples</h3>
+    <div class="demo-section__content">
+      <div class="variation-group">
+        <span class="variation-label">Price Range Filter</span>
+        <amw-range-slider
+          [min]="0"
+          [max]="1000"
+          [step]="10"
+          [showTicks]="true"
+          [showLabels]="true"
+          startThumbLabel="Min Price"
+          endThumbLabel="Max Price"
+          [rangeValue]="priceRange"
+          (rangeChange)="onPriceRangeChange($event)">
+        </amw-range-slider>
+        <small>${{ priceRange.start }} - ${{ priceRange.end }}</small>
+      </div>
+
+      <div class="variation-group">
+        <span class="variation-label">Age Range</span>
+        <amw-range-slider
+          [min]="18"
+          [max]="100"
+          [step]="1"
+          [showTicks]="true"
+          [showLabels]="true"
+          startThumbLabel="Min Age"
+          endThumbLabel="Max Age"
+          [rangeValue]="ageRange"
+          (rangeChange)="onAgeRangeChange($event)">
+        </amw-range-slider>
+        <small>{{ ageRange.start }} - {{ ageRange.end }} years</small>
+      </div>
+
+      <div class="variation-group">
+        <span class="variation-label">Temperature Range</span>
+        <amw-range-slider
+          [min]="-10"
+          [max]="50"
+          [step]="1"
+          [showTicks]="true"
+          [showLabels]="true"
+          startThumbLabel="Min Temp"
+          endThumbLabel="Max Temp"
+          [rangeValue]="temperatureRange"
+          (rangeChange)="onTemperatureRangeChange($event)">
+        </amw-range-slider>
+        <small>{{ temperatureRange.start }}°C - {{ temperatureRange.end }}°C</small>
+      </div>
+    </div>
+  </div>
+</div>

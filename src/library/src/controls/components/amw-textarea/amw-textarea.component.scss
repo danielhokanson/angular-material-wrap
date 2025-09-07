@@ -3,28 +3,28 @@
   width: 100%;
 
   &--disabled {
-    opacity: 0.6;
+    opacity: var(--mdc-state-disabled-state-layer-opacity, 0.6);
     pointer-events: none;
   }
 
   &--error {
     .mat-mdc-form-field {
-      --mdc-outlined-text-field-error-outline-color: #f44336;
-      --mdc-outlined-text-field-error-focus-outline-color: #f44336;
-      --mdc-outlined-text-field-error-hover-outline-color: #f44336;
+      --mdc-outlined-text-field-error-outline-color: var(--mdc-theme-error, #f44336);
+      --mdc-outlined-text-field-error-focus-outline-color: var(--mdc-theme-error, #f44336);
+      --mdc-outlined-text-field-error-hover-outline-color: var(--mdc-theme-error, #f44336);
       --mdc-outlined-text-field-error-outline-width: 2px;
     }
 
     .mat-mdc-form-field.mat-mdc-form-field-appearance-fill {
-      --mdc-filled-text-field-error-active-indicator-color: #f44336;
-      --mdc-filled-text-field-error-focus-active-indicator-color: #f44336;
-      --mdc-filled-text-field-error-hover-active-indicator-color: #f44336;
+      --mdc-filled-text-field-error-active-indicator-color: var(--mdc-theme-error, #f44336);
+      --mdc-filled-text-field-error-focus-active-indicator-color: var(--mdc-theme-error, #f44336);
+      --mdc-filled-text-field-error-hover-active-indicator-color: var(--mdc-theme-error, #f44336);
     }
 
     .mat-mdc-form-field.mat-mdc-form-field-appearance-outline {
-      --mdc-text-field-error-active-indicator-color: #f44336;
-      --mdc-text-field-error-focus-active-indicator-color: #f44336;
-      --mdc-text-field-error-hover-active-indicator-color: #f44336;
+      --mdc-text-field-error-active-indicator-color: var(--mdc-theme-error, #f44336);
+      --mdc-text-field-error-focus-active-indicator-color: var(--mdc-theme-error, #f44336);
+      --mdc-text-field-error-hover-active-indicator-color: var(--mdc-theme-error, #f44336);
     }
   }
 
@@ -40,15 +40,15 @@
 
     .mat-mdc-form-field-hint-wrapper {
       .mat-mdc-form-field-hint {
-        font-size: 12px;
+        font-size: var(--mdc-typography-body-small-font-size, 12px);
         color: #666;
       }
     }
 
     .mat-mdc-form-field-error-wrapper {
       .mat-mdc-form-field-error {
-        font-size: 12px;
-        color: #f44336;
+        font-size: var(--mdc-typography-body-small-font-size, 12px);
+        color: var(--mdc-theme-error, #f44336);
       }
     }
   }

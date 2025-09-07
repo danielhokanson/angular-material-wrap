@@ -46,11 +46,11 @@ export class DemoNavigationComponent {
                 { title: 'Textarea', route: '/controls/textarea', icon: 'text_fields' },
                 { title: 'Autocomplete', route: '/controls/autocomplete', icon: 'search' },
                 { title: 'Datepicker', route: '/controls/datepicker', icon: 'event' },
-                { title: 'Timepicker', route: '/controls/timepicker', icon: 'access_time' },
-                { title: 'File Input', route: '/controls/file-input', icon: 'attach_file' },
-                { title: 'Color Picker', route: '/controls/color-picker', icon: 'palette' },
                 { title: 'Range Slider', route: '/controls/range-slider', icon: 'linear_scale' },
-                { title: 'Switch', route: '/controls/switch', icon: 'switch_right' }
+                { title: 'Switch', route: '/controls/switch', icon: 'switch_right' },
+                { title: 'File Input', route: '/controls/file-input', icon: 'attach_file' },
+                { title: 'Timepicker', route: '/controls/timepicker', icon: 'access_time' },
+                { title: 'Color Picker', route: '/controls/color-picker', icon: 'palette' }
             ]
         },
         {

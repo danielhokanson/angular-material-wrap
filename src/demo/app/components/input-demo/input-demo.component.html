@@ -1,5 +1,4 @@
 <div class="amw-demo-input">
-  <div class="amw-demo-tabs__variations">
     <!-- Type Variations -->
     <div class="variation-section">
       <h3 class="variation-section__title">Input Type Variations</h3>
@@ -34,6 +33,30 @@
             type="number"
             placeholder="Enter amount"
             label="Amount">
+          </amw-input>
+        </div>
+        <div class="variation-group">
+          <span class="variation-label">Telephone</span>
+          <amw-input 
+            type="tel"
+            placeholder="Enter phone number"
+            label="Phone Number">
+          </amw-input>
+        </div>
+        <div class="variation-group">
+          <span class="variation-label">URL</span>
+          <amw-input 
+            type="url"
+            placeholder="Enter website URL"
+            label="Website">
+          </amw-input>
+        </div>
+        <div class="variation-group">
+          <span class="variation-label">Search</span>
+          <amw-input 
+            type="search"
+            placeholder="Search..."
+            label="Search">
           </amw-input>
         </div>
       </div>
@@ -131,6 +154,40 @@
       </div>
     </div>
 
+    <!-- Prefix/Suffix Variations -->
+    <div class="variation-section">
+      <h3 class="variation-section__title">Prefix & Suffix Variations</h3>
+      <div class="variation-section__content">
+        <div class="variation-group">
+          <span class="variation-label">With Icon</span>
+          <amw-input 
+            type="email"
+            placeholder="Enter your email"
+            label="Email Address"
+            icon="email">
+          </amw-input>
+        </div>
+        <div class="variation-group">
+          <span class="variation-label">With Prefix</span>
+          <amw-input 
+            type="text"
+            placeholder="Enter amount"
+            label="Amount"
+            prefix="$">
+          </amw-input>
+        </div>
+        <div class="variation-group">
+          <span class="variation-label">With Suffix</span>
+          <amw-input 
+            type="text"
+            placeholder="Enter website"
+            label="Website"
+            suffix=".com">
+          </amw-input>
+        </div>
+      </div>
+    </div>
+
     <!-- Real-world Example -->
     <div class="variation-section">
       <h3 class="variation-section__title">Real-world Example</h3>
@@ -156,12 +213,14 @@
               type="email"
               placeholder="Enter email address"
               label="Email Address"
-              [required]="true">
+              [required]="true"
+              icon="email">
             </amw-input>
             <amw-input 
               type="tel"
               placeholder="Enter phone number"
-              label="Phone Number">
+              label="Phone Number"
+              icon="phone">
             </amw-input>
           </div>
           <div class="form-row">
@@ -169,17 +228,17 @@
               type="password"
               placeholder="Create password"
               label="Password"
-              [required]="true">
+              [required]="true"
+              icon="lock">
             </amw-input>
             <amw-input 
               type="password"
               placeholder="Confirm password"
               label="Confirm Password"
-              [required]="true">
+              [required]="true"
+              icon="lock">
             </amw-input>
           </div>
         </div>
       </div>
     </div>
-  </div>
-</div>

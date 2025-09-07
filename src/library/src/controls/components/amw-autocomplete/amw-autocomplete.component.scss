@@ -5,7 +5,7 @@
   &--small {
     .amw-autocomplete__field {
       .mat-mdc-form-field {
-        font-size: 12px;
+        font-size: var(--mdc-typography-body-small-font-size, 12px);
       }
     }
   }
@@ -13,7 +13,7 @@
   &--medium {
     .amw-autocomplete__field {
       .mat-mdc-form-field {
-        font-size: 14px;
+        font-size: var(--mdc-shape-small, 4px);
       }
     }
   }
@@ -21,7 +21,7 @@
   &--large {
     .amw-autocomplete__field {
       .mat-mdc-form-field {
-        font-size: 16px;
+        font-size: var(--mdc-typography-body-large-font-size, 16px);
       }
     }
   }
@@ -40,8 +40,8 @@
 
   &__clear {
     cursor: pointer;
-    opacity: 0.6;
-    transition: opacity 0.2s ease;
+    opacity: var(--mdc-state-disabled-state-layer-opacity, 0.6);
+    transition: opacity var(--mdc-motion-duration-short4, 0.2s) ease;
 
     &:hover {
       opacity: 1;
@@ -49,27 +49,27 @@
   }
 
   &__hint {
-    font-size: 12px;
+    font-size: var(--mdc-typography-body-small-font-size, 12px);
     color: var(--mat-foreground);
-    opacity: 0.7;
+    opacity: var(--mdc-state-disabled-state-layer-opacity, 0.7);
   }
 
   &__chips {
-    margin-top: 8px;
+    margin-top: var(--mdc-shape-small, 8px);
 
     .mat-mdc-chip-set {
       display: flex;
       flex-wrap: wrap;
-      gap: 4px;
+      gap: var(--mdc-shape-small, 4px);
     }
   }
 
   &__chip {
     background-color: var(--mat-primary);
     color: white;
-    font-size: 12px;
-    height: 24px;
-    min-height: 24px;
+    font-size: var(--mdc-typography-body-small-font-size, 12px);
+    height: var(--mdc-shape-small, 8px);
+    min-height: var(--mdc-shape-small, 8px);
 
     .mat-mdc-chip-remove {
       color: white;
@@ -83,13 +83,13 @@
 
   &__panel {
     .mat-mdc-autocomplete-panel {
-      max-height: 256px;
+      max-height: 112px;
     }
   }
 
   &__option {
     .mat-mdc-option {
-      min-height: 40px;
+      min-height: var(--mdc-shape-large, 40px);
       line-height: 1.2;
     }
   }
@@ -97,7 +97,7 @@
   &__no-results {
     .mat-mdc-option {
       color: var(--mat-foreground);
-      opacity: 0.6;
+      opacity: var(--mdc-state-disabled-state-layer-opacity, 0.6);
       font-style: italic;
     }
   }
@@ -114,7 +114,7 @@
 }
 
 // Responsive design
-@media (max-width: 768px) {
+@media (max-width: var(--mdc-shape-large, 608px)) {
   .amw-autocomplete {
     &__chips {
       .mat-mdc-chip-set {

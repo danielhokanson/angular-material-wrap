@@ -1,0 +1,29 @@
+<div class="amw-switch" 
+     [class.amw-switch--disabled]="disabled"
+     [class.amw-switch--small]="size === 'small'"
+     [class.amw-switch--large]="size === 'large'"
+     [class.amw-switch--label-before]="labelPosition === 'before'">
+  
+  @if (label && labelPosition === 'before') {
+    <label class="amw-switch__label amw-switch__label--before">{{ label }}</label>
+  }
+
+  <mat-slide-toggle
+    class="amw-switch__toggle"
+    [ngModel]="checked"
+    (ngModelChange)="onCheckedChange($event)"
+    [disabled]="disabled"
+    [color]="color"
+    [required]="required">
+    
+    @if (label && labelPosition === 'after') {
+      <span class="amw-switch__label amw-switch__label--after">{{ label }}</span>
+    }
+  </mat-slide-toggle>
+
+  @if (errorMessage || hasValidationError) {
+    <div class="amw-switch__error">
+      {{ errorMessage || errorText }}
+    </div>
+  }
+</div>

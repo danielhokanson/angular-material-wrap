@@ -1,0 +1,122 @@
+<div class="amw-demo-checkbox-validation">
+  <div class="validation-section">
+    <h3 class="validation-section__title">Checkbox Validation Examples</h3>
+    <p class="validation-section__description">
+      This form demonstrates various validation patterns using Angular Material checkboxes.
+    </p>
+
+    <form [formGroup]="validationForm" (ngSubmit)="onSubmit()" class="validation-form">
+      <!-- Required Checkboxes -->
+      <div class="form-section">
+        <h4>Required Agreements</h4>
+        <div class="checkbox-group">
+          <amw-checkbox
+            formControlName="termsAccepted"
+            label="I accept the Terms and Conditions"
+            color="primary">
+          </amw-checkbox>
+          <div class="field-error" *ngIf="getFieldError('termsAccepted')">
+            {{ getFieldError('termsAccepted') }}
+          </div>
+        </div>
+
+        <div class="checkbox-group">
+          <amw-checkbox
+            formControlName="privacyAccepted"
+            label="I have read and agree to the Privacy Policy"
+            color="primary">
+          </amw-checkbox>
+          <div class="field-error" *ngIf="getFieldError('privacyAccepted')">
+            {{ getFieldError('privacyAccepted') }}
+          </div>
+        </div>
+      </div>
+
+      <!-- Optional Preferences -->
+      <div class="form-section">
+        <h4>Communication Preferences (Optional)</h4>
+        <div class="checkbox-group">
+          <amw-checkbox
+            formControlName="marketingEmails"
+            label="Receive marketing emails"
+            color="accent">
+          </amw-checkbox>
+        </div>
+
+        <div class="checkbox-group">
+          <amw-checkbox
+            formControlName="smsNotifications"
+            label="Receive SMS notifications"
+            color="accent">
+          </amw-checkbox>
+        </div>
+
+        <div class="checkbox-group">
+          <amw-checkbox
+            formControlName="pushNotifications"
+            label="Receive push notifications"
+            color="accent">
+          </amw-checkbox>
+        </div>
+      </div>
+
+      <!-- Data Collection Agreement -->
+      <div class="form-section">
+        <h4>Data Collection</h4>
+        <div class="checkbox-group">
+          <amw-checkbox
+            formControlName="dataCollection"
+            label="I consent to data collection for analytics and improvement purposes"
+            color="primary">
+          </amw-checkbox>
+          <div class="field-error" *ngIf="getFieldError('dataCollection')">
+            {{ getFieldError('dataCollection') }}
+          </div>
+        </div>
+      </div>
+
+      <!-- Age Verification -->
+      <div class="form-section">
+        <h4>Age Verification</h4>
+        <div class="checkbox-group">
+          <amw-checkbox
+            formControlName="ageVerification"
+            label="I confirm that I am 18 years or older"
+            color="warn">
+          </amw-checkbox>
+          <div class="field-error" *ngIf="getFieldError('ageVerification')">
+            {{ getFieldError('ageVerification') }}
+          </div>
+        </div>
+      </div>
+
+      <div class="form-actions">
+        <amw-button
+          type="submit"
+          variant="elevated"
+          color="primary"
+          [disabled]="validationForm.invalid">
+          Submit Form
+        </amw-button>
+        <amw-button
+          type="button"
+          variant="outlined"
+          color="primary"
+          (click)="validationForm.reset()">
+          Reset Form
+        </amw-button>
+      </div>
+    </form>
+
+    <div class="validation-info">
+      <h4>Validation Rules Applied:</h4>
+      <ul>
+        <li><strong>Terms & Conditions:</strong> Must be checked to proceed</li>
+        <li><strong>Privacy Policy:</strong> Must be checked to proceed</li>
+        <li><strong>Data Collection:</strong> Must be checked to proceed</li>
+        <li><strong>Age Verification:</strong> Must be checked to proceed</li>
+        <li><strong>Communication Preferences:</strong> Optional - can be left unchecked</li>
+      </ul>
+    </div>
+  </div>
+</div>
