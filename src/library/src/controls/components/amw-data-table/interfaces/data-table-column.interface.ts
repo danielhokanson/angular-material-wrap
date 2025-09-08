@@ -22,3 +22,4 @@ export interface DataTableColumn {
     style?: { [key: string]: any };
 }
 
+

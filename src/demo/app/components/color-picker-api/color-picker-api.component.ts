@@ -74,3 +74,4 @@ export class ColorPickerApiComponent {
     displayedColumns = ['name', 'type', 'default', 'description'];
 }
 
+

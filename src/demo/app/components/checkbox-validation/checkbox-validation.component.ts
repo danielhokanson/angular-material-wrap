@@ -43,7 +43,7 @@ export class CheckboxValidationComponent implements OnInit {
     });
   }
 
-  ngOnInit(): void {}
+  ngOnInit(): void { }
 
   onSubmit(): void {
     if (this.validationForm.valid) {
