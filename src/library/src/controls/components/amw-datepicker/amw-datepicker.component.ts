@@ -9,9 +9,9 @@ import { MatButtonModule } from '@angular/material/button';
 import { MatNativeDateModule } from '@angular/material/core';
 
 import { BaseComponent } from '../base/base.component';
+import { AmwSize } from '../../../shared/types/amw-size.type';
+import { AmwAppearance } from '../../../shared/types/amw-appearance.type';
 
-export type DatepickerSize = 'small' | 'medium' | 'large';
-export type DatepickerAppearance = 'outline' | 'fill';
 
 @Component({
     selector: 'amw-datepicker',
@@ -38,8 +38,8 @@ export class AmwDatepickerComponent extends BaseComponent implements ControlValu
     @Input() override required: boolean = false;
     @Input() override disabled: boolean = false;
     @Input() readonly: boolean = false;
-    @Input() size: DatepickerSize = 'medium';
-    @Input() appearance: DatepickerAppearance = 'outline';
+    @Input() size: AmwSize = 'medium';
+    @Input() appearance: AmwAppearance = 'outline';
     @Input() min: Date | null = null;
     @Input() max: Date | null = null;
     @Input() startAt: Date | null = null;

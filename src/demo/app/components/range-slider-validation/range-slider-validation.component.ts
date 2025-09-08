@@ -160,3 +160,5 @@ export class RangeSliderValidationComponent implements OnInit {
         return !!(control && control.invalid && control.touched);
     }
 }
+
+

@@ -3,7 +3,7 @@ import { CommonModule } from '@angular/common';
 import { FormsModule, ReactiveFormsModule, ControlValueAccessor, NG_VALUE_ACCESSOR } from '@angular/forms';
 import { MatSliderModule } from '@angular/material/slider';
 import { BaseComponent } from '../base/base.component';
-import { SliderColor } from './interfaces/slider-color.type';
+import { AmwColor } from '../../../shared/types/amw-color.type';
 
 @Component({
     selector: 'amw-slider',
@@ -15,7 +15,7 @@ import { SliderColor } from './interfaces/slider-color.type';
     providers: []
 })
 export class AmwSliderComponent extends BaseComponent implements ControlValueAccessor {
-    @Input() color: SliderColor = 'primary';
+    @Input() color: AmwColor = 'primary';
     @Input() override disabled: boolean = false;
     @Input() min: number = 0;
     @Input() max: number = 100;
@@ -94,6 +94,10 @@ export class AmwSliderComponent extends BaseComponent implements ControlValueAcc
     override onBlur(event: FocusEvent): void {
         this.blur.emit(event);
         this._onTouched();
+    }
+
+    getMaterialColor(): 'primary' | 'accent' | 'warn' {
+        return this.color === 'basic' ? 'primary' : this.color as 'primary' | 'accent' | 'warn';
     }
 
     getSliderClasses(): string {

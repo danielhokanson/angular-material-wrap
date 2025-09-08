@@ -13,3 +13,6 @@ export interface RangeSliderConfig {
     startThumbLabel: string;
     endThumbLabel: string;
 }
+
+
+

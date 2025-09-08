@@ -6,3 +6,6 @@ export type FileInputAccept =
     | 'text/*'
     | 'application/*'
     | string; // Custom MIME types
+
+
+

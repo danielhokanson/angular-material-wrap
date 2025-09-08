@@ -10,15 +10,10 @@ import { MatButtonModule } from '@angular/material/button';
 import { MatOptionModule } from '@angular/material/core';
 
 import { BaseComponent } from '../base/base.component';
+import { AutocompleteOption } from './interfaces/autocomplete-option.interface';
+import { AmwSize } from '../../../shared/types/amw-size.type';
+import { AmwAppearance } from '../../../shared/types/amw-appearance.type';
 
-export interface AutocompleteOption {
-    value: any;
-    label: string;
-    disabled?: boolean;
-}
-
-export type AutocompleteSize = 'small' | 'medium' | 'large';
-export type AutocompleteAppearance = 'outline' | 'fill';
 
 @Component({
     selector: 'amw-autocomplete',
@@ -49,8 +44,8 @@ export class AmwAutocompleteComponent extends BaseComponent implements ControlVa
     @Input() readonly: boolean = false;
     @Input() multiple: boolean = false;
     @Input() clearable: boolean = true;
-    @Input() size: AutocompleteSize = 'medium';
-    @Input() appearance: AutocompleteAppearance = 'outline';
+    @Input() size: AmwSize = 'medium';
+    @Input() appearance: AmwAppearance = 'outline';
     @Input() minLength: number = 0;
     @Input() maxLength: number = 0;
     @Input() filterBy: string = 'label';

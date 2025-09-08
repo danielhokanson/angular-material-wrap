@@ -5,7 +5,8 @@ import { MatCardModule } from '@angular/material/card';
 import { MatButtonModule } from '@angular/material/button';
 import { MatIconModule } from '@angular/material/icon';
 
-import { AmwDatepickerComponent, DatepickerSize, DatepickerAppearance } from '../../../../library/src/controls/components/amw-datepicker/amw-datepicker.component';
+import { AmwDatepickerComponent } from '../../../../library/src/controls/components/amw-datepicker/amw-datepicker.component';
+import { AmwSize, AmwAppearance } from '../../../../library/src/shared/types';
 
 @Component({
     selector: 'amw-demo-datepicker',
@@ -25,13 +26,13 @@ import { AmwDatepickerComponent, DatepickerSize, DatepickerAppearance } from '..
 export class DatepickerDemoComponent {
     datepickerVariations = {
         sizes: [
-            { size: 'small' as DatepickerSize, label: 'Small' },
-            { size: 'medium' as DatepickerSize, label: 'Medium' },
-            { size: 'large' as DatepickerSize, label: 'Large' }
+            { size: 'small' as AmwSize, label: 'Small' },
+            { size: 'medium' as AmwSize, label: 'Medium' },
+            { size: 'large' as AmwSize, label: 'Large' }
         ],
         appearances: [
-            { appearance: 'outline' as DatepickerAppearance, label: 'Outline' },
-            { appearance: 'fill' as DatepickerAppearance, label: 'Fill' }
+            { appearance: 'outline' as AmwAppearance, label: 'Outline' },
+            { appearance: 'fill' as AmwAppearance, label: 'Fill' }
         ],
         states: [
             { disabled: false, required: false, label: 'Default' },

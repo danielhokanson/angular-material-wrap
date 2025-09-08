@@ -1,12 +1,12 @@
-import { CheckboxColor } from './checkbox-color.type';
-import { CheckboxSize } from './checkbox-size.type';
+import { AmwColor } from '../../../shared/types/amw-color.type';
+import { AmwSize } from '../../../shared/types/amw-size.type';
 
 /**
  * Checkbox configuration interface
  */
 export interface CheckboxConfig {
-    color?: CheckboxColor;
-    size?: CheckboxSize;
+    color?: AmwColor;
+    size?: AmwSize;
     label?: string;
     labelPosition?: 'before' | 'after';
     disabled?: boolean;

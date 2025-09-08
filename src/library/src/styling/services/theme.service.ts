@@ -1,23 +1,10 @@
 import { Injectable, signal, computed } from '@angular/core';
 import { BehaviorSubject, Observable } from 'rxjs';
+import { ThemeColors } from '../interfaces/theme-colors.interface';
+import { ThemeConfig } from '../interfaces/theme-config.interface';
 
-export interface ThemeColors {
-    primary: string;
-    accent: string;
-    warn: string;
-    background: string;
-    surface: string;
-    foreground: string;
-}
-
-export interface ThemeConfig {
-    id: string;
-    name: string;
-    displayName: string;
-    colors: ThemeColors;
-    isDark: boolean;
-    isCustom: boolean;
-}
+// Re-export interfaces for convenience
+export type { ThemeColors, ThemeConfig };
 
 @Injectable({
     providedIn: 'root'

@@ -106,3 +106,5 @@ export class SwitchValidationComponent implements OnInit {
         return !!(control && control.invalid && control.touched);
     }
 }
+
+

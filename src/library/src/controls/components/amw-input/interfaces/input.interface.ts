@@ -1,6 +1,6 @@
 import { InputType } from './input-type.type';
 import { InputAppearance } from './input-appearance.type';
-import { InputSize } from './input-size.type';
+import { AmwSize } from '../../../../shared/types/amw-size.type';
 
 /**
  * Input configuration interface
@@ -8,7 +8,7 @@ import { InputSize } from './input-size.type';
 export interface InputConfig {
     type?: InputType;
     appearance?: InputAppearance;
-    size?: InputSize;
+    size?: AmwSize;
     placeholder?: string;
     label?: string;
     hint?: string;

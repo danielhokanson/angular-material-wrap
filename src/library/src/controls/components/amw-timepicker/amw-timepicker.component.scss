@@ -1,0 +1,165 @@
+@use '@angular/material' as mat;
+
+.amw-timepicker {
+  position: relative;
+  display: inline-block;
+  width: 100%;
+
+  &--small {
+    .amw-timepicker__dropdown {
+      font-size: 0.875rem;
+    }
+  }
+
+  &--large {
+    .amw-timepicker__dropdown {
+      font-size: 1.125rem;
+    }
+  }
+
+  &__dropdown {
+    position: absolute;
+    top: 100%;
+    left: 0;
+    right: 0;
+    z-index: 1000;
+    background: var(--mdc-theme-surface);
+    border: 1px solid var(--mdc-theme-outline);
+    border-radius: var(--mdc-shape-small);
+    box-shadow: var(--mdc-elevation-level2);
+    margin-top: 4px;
+    min-width: 280px;
+  }
+
+  &__header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 16px;
+    border-bottom: 1px solid var(--mdc-theme-outline-variant);
+  }
+
+  &__title {
+    font-weight: 500;
+    color: var(--mdc-theme-on-surface);
+  }
+
+  &__content {
+    display: flex;
+    align-items: center;
+    justify-content: space-around;
+    padding: 16px;
+    gap: 16px;
+  }
+
+  &__section {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 8px;
+  }
+
+  &__label {
+    font-size: 0.75rem;
+    font-weight: 500;
+    color: var(--mdc-theme-on-surface-variant);
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+  }
+
+  &__controls {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 4px;
+  }
+
+  &__value {
+    font-size: 1.5rem;
+    font-weight: 500;
+    color: var(--mdc-theme-on-surface);
+    min-width: 2.5rem;
+    text-align: center;
+    padding: 8px;
+    border-radius: var(--mdc-shape-extra-small);
+    background: var(--mdc-theme-surface-variant);
+  }
+
+  &__ampm {
+    min-width: 3rem;
+    padding: 8px 16px;
+    border-radius: var(--mdc-shape-small);
+    font-weight: 500;
+    transition: all 0.2s ease;
+
+    &--active {
+      background: var(--mdc-theme-primary);
+      color: var(--mdc-theme-on-primary);
+    }
+
+    &--inactive {
+      background: var(--mdc-theme-surface-variant);
+      color: var(--mdc-theme-on-surface-variant);
+    }
+
+    &:hover:not(:disabled) {
+      background: var(--mdc-theme-primary-container);
+      color: var(--mdc-theme-on-primary-container);
+    }
+  }
+
+  &__actions {
+    display: flex;
+    justify-content: flex-end;
+    gap: 8px;
+    padding: 16px;
+    border-top: 1px solid var(--mdc-theme-outline-variant);
+  }
+
+  // Color variants
+  &--primary {
+    .amw-timepicker__value {
+      background: var(--mdc-theme-primary-container);
+      color: var(--mdc-theme-on-primary-container);
+    }
+  }
+
+  &--accent {
+    .amw-timepicker__value {
+      background: var(--mdc-theme-tertiary-container);
+      color: var(--mdc-theme-on-tertiary-container);
+    }
+  }
+
+  &--warn {
+    .amw-timepicker__value {
+      background: var(--mdc-theme-error-container);
+      color: var(--mdc-theme-on-error-container);
+    }
+  }
+
+  // Size variants
+  &--small {
+    .amw-timepicker__value {
+      font-size: 1.25rem;
+      padding: 6px;
+    }
+  }
+
+  &--large {
+    .amw-timepicker__value {
+      font-size: 1.75rem;
+      padding: 12px;
+    }
+  }
+}
+
+// Overlay for closing dropdown when clicking outside
+.amw-timepicker__overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  z-index: 999;
+}

@@ -224,7 +224,7 @@ export class ThemeEditorComponent implements OnInit {
     }
 
     private isValidColorFormat(): boolean {
-        return Object.values(this.colors).every(color => this.isValidColor(color));
+        return Object.values(this.colors).every(color => this.isValidColor(color as string));
     }
 
     getColorContrast(color: string): string {

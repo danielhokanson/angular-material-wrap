@@ -1,1 +1,2 @@
-// Components services will be exported here
+export * from './dialog.service';
+export * from './card.service';

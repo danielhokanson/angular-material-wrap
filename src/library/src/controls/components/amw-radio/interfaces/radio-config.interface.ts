@@ -1,12 +1,12 @@
-import { RadioColor } from './radio-color.type';
-import { RadioSize } from './radio-size.type';
+import { AmwColor } from '../../../shared/types/amw-color.type';
+import { AmwSize } from '../../../shared/types/amw-size.type';
 
 /**
  * Radio button configuration interface
  */
 export interface RadioConfig {
-    color?: RadioColor;
-    size?: RadioSize;
+    color?: AmwColor;
+    size?: AmwSize;
     label?: string;
     labelPosition?: 'before' | 'after';
     disabled?: boolean;

@@ -1,0 +1,63 @@
+.dialog-validation {
+  &__form {
+    margin-bottom: 24px;
+  }
+
+  &__section {
+    margin-bottom: 24px;
+
+    h3 {
+      margin-bottom: 8px;
+      color: var(--mdc-theme-on-surface);
+    }
+
+    p {
+      margin-bottom: 16px;
+      color: var(--mdc-theme-on-surface-variant);
+    }
+  }
+
+  &__controls {
+    display: flex;
+    gap: 16px;
+    margin-bottom: 16px;
+    flex-wrap: wrap;
+  }
+
+  &__control {
+    flex: 1;
+    min-width: 200px;
+  }
+
+  &__checkboxes {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 16px;
+    margin-bottom: 16px;
+  }
+
+  &__actions {
+    display: flex;
+    justify-content: flex-end;
+    gap: 8px;
+    margin-bottom: 24px;
+  }
+
+  &__result {
+    padding: 16px;
+    background: var(--mdc-theme-surface-variant);
+    border-radius: var(--mdc-shape-small);
+    border-left: 4px solid var(--mdc-theme-primary);
+
+    h4 {
+      margin: 0 0 8px 0;
+      color: var(--mdc-theme-on-surface);
+    }
+
+    p {
+      margin: 4px 0;
+      color: var(--mdc-theme-on-surface-variant);
+    }
+  }
+}
+

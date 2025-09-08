@@ -13,3 +13,6 @@ export * from './amw-textarea/amw-textarea.component';
 export * from './amw-range-slider/amw-range-slider.component';
 export * from './amw-switch/amw-switch.component';
 export * from './amw-file-input/amw-file-input.component';
+export * from './amw-timepicker/amw-timepicker.component';
+export * from './amw-color-picker/amw-color-picker.component';
+export * from './amw-data-table/amw-data-table.component';

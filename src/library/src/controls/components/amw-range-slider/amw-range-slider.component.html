@@ -15,7 +15,7 @@
       [step]="step"
       [disabled]="disabled"
       [showTickMarks]="showTicks"
-      [color]="color"
+      [color]="getMaterialColor()"
       [ngModel]="startValue"
       (ngModelChange)="onStartValueChange($event)">
     </mat-slider>
@@ -28,7 +28,7 @@
       [step]="step"
       [disabled]="disabled"
       [showTickMarks]="showTicks"
-      [color]="color"
+      [color]="getMaterialColor()"
       [ngModel]="endValue"
       (ngModelChange)="onEndValueChange($event)">
     </mat-slider>

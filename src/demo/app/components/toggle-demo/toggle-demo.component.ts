@@ -5,7 +5,7 @@ import { MatButtonModule } from '@angular/material/button';
 import { MatIconModule } from '@angular/material/icon';
 
 import { AmwToggleComponent } from '../../../../library/src/controls/components/amw-toggle/amw-toggle.component';
-import { ToggleColor } from '../../../../library/src/controls/components/amw-toggle/interfaces/toggle-color.type';
+import { AmwColor } from '../../../../library/src/shared/types';
 // Note: ToggleSize type doesn't exist, using string for now
 
 @Component({
@@ -26,9 +26,9 @@ export class ToggleDemoComponent {
     // Toggle variations for display
     toggleVariations = {
         colors: [
-            { color: 'primary' as ToggleColor, label: 'Primary' },
-            { color: 'accent' as ToggleColor, label: 'Accent' },
-            { color: 'warn' as ToggleColor, label: 'Warn' }
+            { color: 'primary' as AmwColor, label: 'Primary' },
+            { color: 'accent' as AmwColor, label: 'Accent' },
+            { color: 'warn' as AmwColor, label: 'Warn' }
         ],
         sizes: [
             { size: 'small', label: 'Small' },

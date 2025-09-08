@@ -49,8 +49,9 @@ export class DemoNavigationComponent {
                 { title: 'Range Slider', route: '/controls/range-slider', icon: 'linear_scale' },
                 { title: 'Switch', route: '/controls/switch', icon: 'switch_right' },
                 { title: 'File Input', route: '/controls/file-input', icon: 'attach_file' },
-                { title: 'Timepicker', route: '/controls/timepicker', icon: 'access_time' },
-                { title: 'Color Picker', route: '/controls/color-picker', icon: 'palette' }
+                { title: 'Time Picker', route: '/controls/timepicker', icon: 'access_time' },
+                { title: 'Color Picker', route: '/controls/color-picker', icon: 'palette' },
+                { title: 'Data Table', route: '/controls/data-table', icon: 'table_view' }
             ]
         },
         {

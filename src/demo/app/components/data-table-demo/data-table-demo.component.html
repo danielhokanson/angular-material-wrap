@@ -1,0 +1,32 @@
+<div class="data-table-demo">
+  <div class="data-table-demo__grid">
+    <mat-card *ngFor="let variation of dataTableVariations; let i = index" class="data-table-demo__card">
+      <mat-card-header>
+        <mat-card-title>{{ variation.title }}</mat-card-title>
+        <mat-card-subtitle>{{ variation.description }}</mat-card-subtitle>
+      </mat-card-header>
+      
+      <mat-card-content>
+        <div class="data-table-demo__example">
+          <amw-data-table
+            [value]="variation.dataTable.data"
+            [columns]="variation.dataTable.columns"
+            [actions]="variation.dataTable.actions || []"
+            [selectable]="variation.dataTable.selectable || false"
+            [multiSelect]="variation.dataTable.multiSelect || false"
+            [filterable]="variation.dataTable.filterable || false"
+            [pageable]="variation.dataTable.pageable !== false"
+            [loading]="variation.dataTable.loading || false"
+            [config]="variation.dataTable.config || {}"
+            (dataChange)="onDataChange($event, i)"
+            (selectionChange)="onSelectionChange($event, i)"
+            (sortChange)="onSortChange($event, i)"
+            (pageChange)="onPageChange($event, i)"
+            (filterChange)="onFilterChange($event, i)"
+            (actionClick)="onActionClick($event, i)"
+          ></amw-data-table>
+        </div>
+      </mat-card-content>
+    </mat-card>
+  </div>
+</div>

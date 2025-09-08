@@ -23,8 +23,7 @@ import { ReactiveFormsModule, FormBuilder, FormGroup, Validators } from '@angula
 
 import { AmwButtonComponent } from '../../../../library/src/controls/components/amw-button/amw-button.component';
 import { ButtonVariant } from '../../../../library/src/controls/components/amw-button/interfaces/button.interface';
-import { ButtonSize } from '../../../../library/src/controls/components/amw-button/interfaces/button-size.type';
-import { ButtonColor } from '../../../../library/src/controls/components/amw-button/interfaces/button-color.type';
+import { AmwSize, AmwColor } from '../../../../library/src/shared/types';
 
 @Component({
     selector: 'amw-demo-button',
@@ -64,9 +63,9 @@ export class ButtonDemoComponent implements OnInit {
     // Button variations for display
     buttonVariations = {
         sizes: [
-            { size: 'small' as ButtonSize, label: 'Small' },
-            { size: 'medium' as ButtonSize, label: 'Medium' },
-            { size: 'large' as ButtonSize, label: 'Large' }
+            { size: 'small' as AmwSize, label: 'Small' },
+            { size: 'medium' as AmwSize, label: 'Medium' },
+            { size: 'large' as AmwSize, label: 'Large' }
         ],
         variants: [
             { variant: 'text' as ButtonVariant, label: 'Text' },
@@ -80,9 +79,9 @@ export class ButtonDemoComponent implements OnInit {
             { variant: 'extended-fab' as ButtonVariant, label: 'Extended FAB' }
         ],
         colors: [
-            { color: 'primary' as ButtonColor, label: 'Primary' },
-            { color: 'accent' as ButtonColor, label: 'Accent' },
-            { color: 'warn' as ButtonColor, label: 'Warn' }
+            { color: 'primary' as AmwColor, label: 'Primary' },
+            { color: 'accent' as AmwColor, label: 'Accent' },
+            { color: 'warn' as AmwColor, label: 'Warn' }
         ],
         states: [
             { disabled: false, loading: false, label: 'Normal' },

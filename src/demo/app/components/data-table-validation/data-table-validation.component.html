@@ -1,0 +1,71 @@
+<div class="data-table-validation">
+  <mat-card>
+    <mat-card-header>
+      <mat-card-title>Data Table Validation Examples</mat-card-title>
+      <mat-card-subtitle>Form validation with data table controls</mat-card-subtitle>
+    </mat-card-header>
+    
+    <mat-card-content>
+      <form [formGroup]="dataTableForm" (ngSubmit)="onSubmit()">
+        <div class="data-table-validation__form">
+          <div class="data-table-validation__section">
+            <h3>User Selection with Validation</h3>
+            <p>Select users from the table below. Configure minimum and maximum selection limits.</p>
+            
+            <div class="data-table-validation__controls">
+              <mat-form-field appearance="outline" class="data-table-validation__control">
+                <mat-label>Minimum Selection</mat-label>
+                <input matInput type="number" formControlName="minSelection" min="1" max="10">
+                <mat-hint>Minimum number of users to select</mat-hint>
+              </mat-form-field>
+              
+              <mat-form-field appearance="outline" class="data-table-validation__control">
+                <mat-label>Maximum Selection</mat-label>
+                <input matInput type="number" formControlName="maxSelection" min="1" max="10">
+                <mat-hint>Maximum number of users to select</mat-hint>
+              </mat-form-field>
+            </div>
+            
+            <amw-data-table
+              [value]="users"
+              [columns]="columns"
+              [actions]="actions"
+              [selectable]="true"
+              [multiSelect]="true"
+              [filterable]="true"
+              [config]="{ pageSize: 4 }"
+              (selectionChange)="onSelectionChange($event)"
+              (actionClick)="onActionClick($event)"
+            ></amw-data-table>
+            
+            <div class="data-table-validation__selection-info" *ngIf="selectedUsers.length > 0">
+              <h4>Selected Users ({{ selectedUsers.length }}):</h4>
+              <div class="data-table-validation__user-chips">
+                <mat-chip *ngFor="let user of selectedUsers" class="data-table-validation__user-chip">
+                  {{ user.name }} - {{ user.department }}
+                </mat-chip>
+              </div>
+            </div>
+            
+            <div class="data-table-validation__error" *ngIf="dataTableForm.get('selectedUsers')?.hasError('required')">
+              Please select at least one user
+            </div>
+            <div class="data-table-validation__error" *ngIf="dataTableForm.get('selectedUsers')?.hasError('minSelection')">
+              Please select at least {{ dataTableForm.get('selectedUsers')?.errors?.['minSelection']?.required }} users
+            </div>
+            <div class="data-table-validation__error" *ngIf="dataTableForm.get('selectedUsers')?.hasError('maxSelection')">
+              Please select no more than {{ dataTableForm.get('selectedUsers')?.errors?.['maxSelection']?.max }} users
+            </div>
+          </div>
+        </div>
+
+        <div class="data-table-validation__actions">
+          <button mat-button type="button" (click)="onReset()">Reset</button>
+          <button mat-raised-button color="primary" type="submit" [disabled]="dataTableForm.invalid">
+            Submit Selection
+          </button>
+        </div>
+      </form>
+    </mat-card-content>
+  </mat-card>
+</div>

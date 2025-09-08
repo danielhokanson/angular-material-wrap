@@ -3,7 +3,8 @@ import { CommonModule } from '@angular/common';
 import { MatSliderModule } from '@angular/material/slider';
 import { FormsModule } from '@angular/forms';
 import { BaseComponent } from '../base/base.component';
-import { RangeSliderConfig, RangeSliderColor } from './interfaces';
+import { RangeSliderConfig } from './interfaces';
+import { AmwColor } from '../../../shared/types/amw-color.type';
 
 @Component({
     selector: 'amw-range-slider',
@@ -32,7 +33,7 @@ export class AmwRangeSliderComponent extends BaseComponent {
     @Input() valueText = '';
     @Input() startThumbLabel = '';
     @Input() endThumbLabel = '';
-    @Input() color: RangeSliderColor = 'primary';
+    @Input() color: AmwColor = 'primary';
 
     @Output() rangeChange = new EventEmitter<{ start: number; end: number }>();
     @Output() rangeValueChange = new EventEmitter<{ start: number; end: number }>();
@@ -84,6 +85,10 @@ export class AmwRangeSliderComponent extends BaseComponent {
 
     onEndValueChange(value: number): void {
         this.endValue = value;
+    }
+
+    getMaterialColor(): 'primary' | 'accent' | 'warn' {
+        return this.color === 'basic' ? 'primary' : this.color as 'primary' | 'accent' | 'warn';
     }
 
     getConfig(): RangeSliderConfig {

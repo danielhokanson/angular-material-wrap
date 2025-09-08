@@ -5,8 +5,7 @@ import { MatButtonModule } from '@angular/material/button';
 import { MatIconModule } from '@angular/material/icon';
 
 import { AmwCheckboxComponent } from '../../../../library/src/controls/components/amw-checkbox/amw-checkbox.component';
-import { CheckboxColor } from '../../../../library/src/controls/components/amw-checkbox/interfaces/checkbox-color.type';
-import { CheckboxSize } from '../../../../library/src/controls/components/amw-checkbox/interfaces/checkbox-size.type';
+import { AmwSize, AmwColor } from '../../../../library/src/shared/types';
 
 @Component({
     selector: 'amw-demo-checkbox',
@@ -26,14 +25,14 @@ export class CheckboxDemoComponent {
     // Checkbox variations for display
     checkboxVariations = {
         colors: [
-            { color: 'primary' as CheckboxColor, label: 'Primary' },
-            { color: 'accent' as CheckboxColor, label: 'Accent' },
-            { color: 'warn' as CheckboxColor, label: 'Warn' }
+            { color: 'primary' as AmwColor, label: 'Primary' },
+            { color: 'accent' as AmwColor, label: 'Accent' },
+            { color: 'warn' as AmwColor, label: 'Warn' }
         ],
         sizes: [
-            { size: 'small' as CheckboxSize, label: 'Small' },
-            { size: 'medium' as CheckboxSize, label: 'Medium' },
-            { size: 'large' as CheckboxSize, label: 'Large' }
+            { size: 'small' as AmwSize, label: 'Small' },
+            { size: 'medium' as AmwSize, label: 'Medium' },
+            { size: 'large' as AmwSize, label: 'Large' }
         ],
         states: [
             { checked: false, disabled: false, indeterminate: false, label: 'Unchecked' },

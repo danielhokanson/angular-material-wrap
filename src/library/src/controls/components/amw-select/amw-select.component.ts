@@ -9,7 +9,7 @@ import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { MatInputModule } from '@angular/material/input';
 import { BaseComponent } from '../base/base.component';
 import { SelectAppearance } from './interfaces/select-appearance.type';
-import { SelectSize } from './interfaces/select-size.type';
+import { AmwSize } from '../../../shared/types/amw-size.type';
 import { SelectOption, SelectConfig } from './interfaces/select.interface';
 
 /**
@@ -38,7 +38,7 @@ import { SelectOption, SelectConfig } from './interfaces/select.interface';
 export class AmwSelectComponent extends BaseComponent implements ControlValueAccessor, OnInit, OnChanges {
     // Basic select properties
     @Input() appearance: MatFormFieldAppearance = 'outline';
-    @Input() size: SelectSize = 'medium';
+    @Input() size: AmwSize = 'medium';
     @Input() override placeholder: string = '';
     @Input() override label: string = '';
     @Input() hint: string = '';

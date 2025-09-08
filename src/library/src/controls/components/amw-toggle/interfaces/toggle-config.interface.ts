@@ -1,10 +1,10 @@
-import { ToggleColor } from './toggle-color.type';
+import { AmwColor } from '../../../shared/types/amw-color.type';
 
 /**
  * Toggle configuration interface
  */
 export interface ToggleConfig {
-    color?: ToggleColor;
+    color?: AmwColor;
     disabled?: boolean;
     required?: boolean;
     checked?: boolean;

@@ -1,1 +1,3 @@
-// Components components will be exported here
+// Components will be exported here
+export * from './amw-card/amw-card.component';
+export * from './amw-dialog/amw-dialog.component';

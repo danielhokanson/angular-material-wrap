@@ -1,5 +1,5 @@
 import { SelectAppearance } from './select-appearance.type';
-import { SelectSize } from './select-size.type';
+import { AmwSize } from '../../../../shared/types/amw-size.type';
 import { SelectOption } from './select-option.interface';
 
 /**
@@ -7,7 +7,7 @@ import { SelectOption } from './select-option.interface';
  */
 export interface SelectConfig {
     appearance?: SelectAppearance;
-    size?: SelectSize;
+    size?: AmwSize;
     placeholder?: string;
     label?: string;
     hint?: string;

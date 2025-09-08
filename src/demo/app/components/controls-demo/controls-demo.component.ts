@@ -60,6 +60,18 @@ import { FileInputDemoComponent } from '../file-input-demo/file-input-demo.compo
 import { FileInputValidationComponent } from '../file-input-validation/file-input-validation.component';
 import { FileInputCodeComponent } from '../file-input-code/file-input-code.component';
 import { FileInputApiComponent } from '../file-input-api/file-input-api.component';
+import { TimepickerDemoComponent } from '../timepicker-demo/timepicker-demo.component';
+import { TimepickerValidationComponent } from '../timepicker-validation/timepicker-validation.component';
+import { TimepickerCodeComponent } from '../timepicker-code/timepicker-code.component';
+import { TimepickerApiComponent } from '../timepicker-api/timepicker-api.component';
+import { ColorPickerDemoComponent } from '../color-picker-demo/color-picker-demo.component';
+import { ColorPickerValidationComponent } from '../color-picker-validation/color-picker-validation.component';
+import { ColorPickerCodeComponent } from '../color-picker-code/color-picker-code.component';
+import { ColorPickerApiComponent } from '../color-picker-api/color-picker-api.component';
+import { DataTableDemoComponent } from '../data-table-demo/data-table-demo.component';
+import { DataTableValidationComponent } from '../data-table-validation/data-table-validation.component';
+import { DataTableCodeComponent } from '../data-table-code/data-table-code.component';
+import { DataTableApiComponent } from '../data-table-api/data-table-api.component';
 
 @Component({
     selector: 'amw-demo-controls',
@@ -122,7 +134,19 @@ import { FileInputApiComponent } from '../file-input-api/file-input-api.componen
         FileInputDemoComponent,
         FileInputValidationComponent,
         FileInputCodeComponent,
-        FileInputApiComponent
+        FileInputApiComponent,
+        TimepickerDemoComponent,
+        TimepickerValidationComponent,
+        TimepickerCodeComponent,
+        TimepickerApiComponent,
+        ColorPickerDemoComponent,
+        ColorPickerValidationComponent,
+        ColorPickerCodeComponent,
+        ColorPickerApiComponent,
+        DataTableDemoComponent,
+        DataTableValidationComponent,
+        DataTableCodeComponent,
+        DataTableApiComponent
     ],
     encapsulation: ViewEncapsulation.None,
     templateUrl: './controls-demo.component.html',
@@ -143,7 +167,10 @@ export class ControlsDemoComponent implements OnInit {
         { id: 'datepicker', name: 'Datepicker' },
         { id: 'range-slider', name: 'Range Slider' },
         { id: 'switch', name: 'Switch' },
-        { id: 'file-input', name: 'File Input' }
+        { id: 'file-input', name: 'File Input' },
+        { id: 'timepicker', name: 'Time Picker' },
+        { id: 'color-picker', name: 'Color Picker' },
+        { id: 'data-table', name: 'Data Table' }
     ];
 
     selectedControl = { id: 'button', name: 'Button' };

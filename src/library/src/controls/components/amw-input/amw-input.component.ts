@@ -8,7 +8,7 @@ import { MatButtonModule } from '@angular/material/button';
 import { BaseComponent } from '../base/base.component';
 import { InputType } from './interfaces/input-type.type';
 import { InputAppearance } from './interfaces/input-appearance.type';
-import { InputSize } from './interfaces/input-size.type';
+import { AmwSize } from '../../../shared/types/amw-size.type';
 
 /**
  * AMW Input Component
@@ -35,7 +35,7 @@ export class AmwInputComponent extends BaseComponent implements ControlValueAcce
     // Basic input properties
     @Input() type: InputType = 'text';
     @Input() appearance: MatFormFieldAppearance = 'outline';
-    @Input() size: InputSize = 'medium';
+    @Input() size: AmwSize = 'medium';
     @Input() override placeholder: string = '';
     @Input() override label: string = '';
     @Input() hint: string = '';

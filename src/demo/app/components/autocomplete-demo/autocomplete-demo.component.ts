@@ -5,7 +5,9 @@ import { MatCardModule } from '@angular/material/card';
 import { MatButtonModule } from '@angular/material/button';
 import { MatIconModule } from '@angular/material/icon';
 
-import { AmwAutocompleteComponent, AutocompleteOption, AutocompleteSize, AutocompleteAppearance } from '../../../../library/src/controls/components/amw-autocomplete/amw-autocomplete.component';
+import { AmwAutocompleteComponent } from '../../../../library/src/controls/components/amw-autocomplete/amw-autocomplete.component';
+import { AmwSize, AmwAppearance } from '../../../../library/src/shared/types';
+import { AutocompleteOption } from '../../../../library/src/controls/components/amw-autocomplete/interfaces/autocomplete-option.interface';
 
 @Component({
     selector: 'amw-demo-autocomplete',
@@ -25,13 +27,13 @@ import { AmwAutocompleteComponent, AutocompleteOption, AutocompleteSize, Autocom
 export class AutocompleteDemoComponent {
     autocompleteVariations = {
         sizes: [
-            { size: 'small' as AutocompleteSize, label: 'Small' },
-            { size: 'medium' as AutocompleteSize, label: 'Medium' },
-            { size: 'large' as AutocompleteSize, label: 'Large' }
+            { size: 'small' as AmwSize, label: 'Small' },
+            { size: 'medium' as AmwSize, label: 'Medium' },
+            { size: 'large' as AmwSize, label: 'Large' }
         ],
         appearances: [
-            { appearance: 'outline' as AutocompleteAppearance, label: 'Outline' },
-            { appearance: 'fill' as AutocompleteAppearance, label: 'Fill' }
+            { appearance: 'outline' as AmwAppearance, label: 'Outline' },
+            { appearance: 'fill' as AmwAppearance, label: 'Fill' }
         ],
         states: [
             { disabled: false, required: false, label: 'Default' },

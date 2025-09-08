@@ -6,9 +6,9 @@ import { MatIconModule } from '@angular/material/icon';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { BaseComponent } from '../base/base.component';
 import { ButtonVariant } from './interfaces/button.interface';
-import { ButtonSize } from './interfaces/button-size.type';
+import { AmwSize } from '../../../shared/types/amw-size.type';
 import { ButtonType } from './interfaces/button-type.type';
-import { ButtonColor } from './interfaces/button-color.type';
+import { AmwColor } from '../../../shared/types/amw-color.type';
 import { IconPosition } from './interfaces/icon-position.type';
 
 /**
@@ -27,8 +27,8 @@ export class AmwButtonComponent extends BaseComponent {
     // Basic button properties
     @Input() type: ButtonType = 'button';
     @Input() variant: ButtonVariant = 'text';
-    @Input() size: ButtonSize = 'medium';
-    @Input() color: ButtonColor = 'primary';
+    @Input() size: AmwSize = 'medium';
+    @Input() color: AmwColor = 'primary';
 
     // Icon properties
     @Input() icon?: string;

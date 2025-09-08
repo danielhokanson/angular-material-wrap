@@ -6,8 +6,7 @@ import { MatIconModule } from '@angular/material/icon';
 import { MatRadioModule } from '@angular/material/radio';
 
 import { AmwRadioComponent } from '../../../../library/src/controls/components/amw-radio/amw-radio.component';
-import { RadioColor } from '../../../../library/src/controls/components/amw-radio/interfaces/radio-color.type';
-import { RadioSize } from '../../../../library/src/controls/components/amw-radio/interfaces/radio-size.type';
+import { AmwSize, AmwColor } from '../../../../library/src/shared/types';
 
 @Component({
     selector: 'amw-demo-radio',
@@ -28,14 +27,14 @@ export class RadioDemoComponent {
     // Radio variations for display
     radioVariations = {
         colors: [
-            { color: 'primary' as RadioColor, label: 'Primary' },
-            { color: 'accent' as RadioColor, label: 'Accent' },
-            { color: 'warn' as RadioColor, label: 'Warn' }
+            { color: 'primary' as AmwColor, label: 'Primary' },
+            { color: 'accent' as AmwColor, label: 'Accent' },
+            { color: 'warn' as AmwColor, label: 'Warn' }
         ],
         sizes: [
-            { size: 'small' as RadioSize, label: 'Small' },
-            { size: 'medium' as RadioSize, label: 'Medium' },
-            { size: 'large' as RadioSize, label: 'Large' }
+            { size: 'small' as AmwSize, label: 'Small' },
+            { size: 'medium' as AmwSize, label: 'Medium' },
+            { size: 'large' as AmwSize, label: 'Large' }
         ],
         states: [
             { checked: false, disabled: false, label: 'Unchecked' },

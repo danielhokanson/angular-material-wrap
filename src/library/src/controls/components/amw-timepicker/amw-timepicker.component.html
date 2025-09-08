@@ -1,0 +1,106 @@
+<div class="amw-timepicker" [class]="'amw-timepicker--' + size + ' amw-timepicker--' + color">
+  <mat-form-field [appearance]="config.appearance || 'outline'" [class]="'mat-form-field--' + color">
+    <mat-label *ngIf="label">{{ label }}</mat-label>
+    
+    <input
+      matInput
+      [value]="timeValue"
+      [placeholder]="placeholder"
+      [disabled]="isDisabled"
+      [required]="required"
+      readonly
+      (click)="toggleTimepicker()"
+      (focus)="onFocus($event)"
+      (blur)="onBlur($event)"
+    />
+    
+    <button
+      matSuffix
+      mat-icon-button
+      type="button"
+      [disabled]="isDisabled"
+      (click)="toggleTimepicker()"
+      aria-label="Open time picker"
+    >
+      <mat-icon>access_time</mat-icon>
+    </button>
+    
+    <mat-error *ngIf="hasValidationError">
+      {{ errorText }}
+    </mat-error>
+  </mat-form-field>
+
+  <!-- Time Picker Dropdown -->
+  <div class="amw-timepicker__dropdown" *ngIf="isOpen" (click)="$event.stopPropagation()">
+    <div class="amw-timepicker__header">
+      <span class="amw-timepicker__title">Select Time</span>
+      <button mat-icon-button (click)="isOpen = false" aria-label="Close">
+        <mat-icon>close</mat-icon>
+      </button>
+    </div>
+    
+    <div class="amw-timepicker__content">
+      <!-- Hours -->
+      <div class="amw-timepicker__section">
+        <div class="amw-timepicker__label">Hours</div>
+        <div class="amw-timepicker__controls">
+          <button mat-icon-button (click)="incrementHours()" [disabled]="isDisabled">
+            <mat-icon>keyboard_arrow_up</mat-icon>
+          </button>
+          <div class="amw-timepicker__value">{{ displayHours.toString().padStart(2, '0') }}</div>
+          <button mat-icon-button (click)="decrementHours()" [disabled]="isDisabled">
+            <mat-icon>keyboard_arrow_down</mat-icon>
+          </button>
+        </div>
+      </div>
+
+      <!-- Minutes -->
+      <div class="amw-timepicker__section">
+        <div class="amw-timepicker__label">Minutes</div>
+        <div class="amw-timepicker__controls">
+          <button mat-icon-button (click)="incrementMinutes()" [disabled]="isDisabled">
+            <mat-icon>keyboard_arrow_up</mat-icon>
+          </button>
+          <div class="amw-timepicker__value">{{ minutes.toString().padStart(2, '0') }}</div>
+          <button mat-icon-button (click)="decrementMinutes()" [disabled]="isDisabled">
+            <mat-icon>keyboard_arrow_down</mat-icon>
+          </button>
+        </div>
+      </div>
+
+      <!-- Seconds (if enabled) -->
+      <div class="amw-timepicker__section" *ngIf="showSeconds">
+        <div class="amw-timepicker__label">Seconds</div>
+        <div class="amw-timepicker__controls">
+          <button mat-icon-button (click)="incrementSeconds()" [disabled]="isDisabled">
+            <mat-icon>keyboard_arrow_up</mat-icon>
+          </button>
+          <div class="amw-timepicker__value">{{ seconds.toString().padStart(2, '0') }}</div>
+          <button mat-icon-button (click)="decrementSeconds()" [disabled]="isDisabled">
+            <mat-icon>keyboard_arrow_down</mat-icon>
+          </button>
+        </div>
+      </div>
+
+      <!-- AM/PM (if 12h format) -->
+      <div class="amw-timepicker__section" *ngIf="format === '12h'">
+        <div class="amw-timepicker__label">Period</div>
+        <div class="amw-timepicker__controls">
+          <button 
+            mat-button 
+            [class]="'amw-timepicker__ampm amw-timepicker__ampm--' + (ampm === 'AM' ? 'active' : 'inactive')"
+            (click)="toggleAmPm()"
+            [disabled]="isDisabled"
+          >
+            {{ ampm }}
+          </button>
+        </div>
+      </div>
+    </div>
+
+    <div class="amw-timepicker__actions">
+      <button mat-button (click)="isOpen = false">Cancel</button>
+      <button mat-button color="primary" (click)="selectTime(hours, minutes, seconds)">OK</button>
+    </div>
+  </div>
+</div>

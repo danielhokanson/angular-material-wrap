@@ -1,7 +1,7 @@
 import { ButtonVariant } from './button.interface';
-import { ButtonSize } from './button-size.type';
+import { AmwSize } from '../../../shared/types/amw-size.type';
 import { ButtonType } from './button-type.type';
-import { ButtonColor } from './button-color.type';
+import { AmwColor } from '../../../shared/types/amw-color.type';
 import { IconPosition } from './icon-position.type';
 
 /**
@@ -9,9 +9,9 @@ import { IconPosition } from './icon-position.type';
  */
 export interface ButtonConfig {
     variant?: ButtonVariant;
-    size?: ButtonSize;
+    size?: AmwSize;
     type?: ButtonType;
-    color?: ButtonColor;
+    color?: AmwColor;
     icon?: string;
     iconPosition?: IconPosition;
     loading?: boolean;

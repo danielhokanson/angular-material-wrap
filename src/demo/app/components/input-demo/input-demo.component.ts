@@ -25,7 +25,7 @@ import { AmwInputComponent } from '../../../../library/src/controls/components/a
 import { AmwButtonComponent } from '../../../../library/src/controls/components/amw-button/amw-button.component';
 import { InputType } from '../../../../library/src/controls/components/amw-input/interfaces/input-type.type';
 import { InputAppearance } from '../../../../library/src/controls/components/amw-input/interfaces/input-appearance.type';
-import { InputSize } from '../../../../library/src/controls/components/amw-input/interfaces/input-size.type';
+import { AmwSize } from '../../../../library/src/shared/types';
 
 @Component({
     selector: 'amw-demo-input',
@@ -62,7 +62,7 @@ import { InputSize } from '../../../../library/src/controls/components/amw-input
 export class InputDemoComponent implements OnInit {
     // Form for validation examples
     validationForm: FormGroup;
-    
+
     // Input variations for display
     inputVariations = {
         types: [
@@ -79,9 +79,9 @@ export class InputDemoComponent implements OnInit {
             { appearance: 'fill' as InputAppearance, label: 'Fill' }
         ],
         sizes: [
-            { size: 'small' as InputSize, label: 'Small' },
-            { size: 'medium' as InputSize, label: 'Medium' },
-            { size: 'large' as InputSize, label: 'Large' }
+            { size: 'small' as AmwSize, label: 'Small' },
+            { size: 'medium' as AmwSize, label: 'Medium' },
+            { size: 'large' as AmwSize, label: 'Large' }
         ],
         states: [
             { disabled: false, required: false, readonly: false, label: 'Normal' },

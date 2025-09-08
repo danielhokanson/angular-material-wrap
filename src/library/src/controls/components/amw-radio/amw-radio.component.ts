@@ -4,8 +4,8 @@ import { FormsModule, ReactiveFormsModule, ControlValueAccessor, NG_VALUE_ACCESS
 import { MatRadioModule } from '@angular/material/radio';
 import { MatRippleModule } from '@angular/material/core';
 import { BaseComponent } from '../base/base.component';
-import { RadioColor } from './interfaces/radio-color.type';
-import { RadioSize } from './interfaces/radio-size.type';
+import { AmwColor } from '../../../shared/types/amw-color.type';
+import { AmwSize } from '../../../shared/types/amw-size.type';
 
 @Component({
     selector: 'amw-radio',
@@ -17,8 +17,8 @@ import { RadioSize } from './interfaces/radio-size.type';
     providers: []
 })
 export class AmwRadioComponent extends BaseComponent implements ControlValueAccessor {
-    @Input() color: RadioColor = 'primary';
-    @Input() size: RadioSize = 'medium';
+    @Input() color: AmwColor = 'primary';
+    @Input() size: AmwSize = 'medium';
     @Input() override label: string = '';
     @Input() labelPosition: 'before' | 'after' = 'after';
     @Input() override disabled: boolean = false;
@@ -93,6 +93,10 @@ export class AmwRadioComponent extends BaseComponent implements ControlValueAcce
     override onBlur(event: FocusEvent): void {
         this.blur.emit(event);
         this._onTouched();
+    }
+
+    getMaterialColor(): 'primary' | 'accent' | 'warn' {
+        return this.color === 'basic' ? 'primary' : this.color as 'primary' | 'accent' | 'warn';
     }
 
     getRadioClasses(): string {

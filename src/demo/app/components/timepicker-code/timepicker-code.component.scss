@@ -1,0 +1,37 @@
+.timepicker-code {
+  &__example {
+    padding: 16px 0;
+  }
+
+  &__code-section {
+    margin-bottom: 24px;
+  }
+
+  &__code-block {
+    position: relative;
+    background: var(--mdc-theme-surface-variant);
+    border-radius: var(--mdc-shape-small);
+    overflow: hidden;
+
+    pre {
+      margin: 0;
+      padding: 16px;
+      overflow-x: auto;
+      font-family: 'Roboto Mono', monospace;
+      font-size: 0.875rem;
+      line-height: 1.5;
+      color: var(--mdc-theme-on-surface);
+    }
+
+    code {
+      font-family: inherit;
+    }
+  }
+
+  &__copy-btn {
+    position: absolute;
+    top: 8px;
+    right: 8px;
+    z-index: 1;
+  }
+}

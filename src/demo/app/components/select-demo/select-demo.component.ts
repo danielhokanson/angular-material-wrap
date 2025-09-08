@@ -22,7 +22,7 @@ import { ReactiveFormsModule, FormBuilder, FormGroup, Validators } from '@angula
 
 import { AmwSelectComponent } from '../../../../library/src/controls/components/amw-select/amw-select.component';
 import { AmwButtonComponent } from '../../../../library/src/controls/components/amw-button/amw-button.component';
-import { SelectSize } from '../../../../library/src/controls/components/amw-select/interfaces/select-size.type';
+import { AmwSize } from '../../../../library/src/shared/types';
 import { SelectOption } from '../../../../library/src/controls/components/amw-select/interfaces/select.interface';
 import { MatFormFieldAppearance } from '@angular/material/form-field';
 
@@ -60,7 +60,7 @@ import { MatFormFieldAppearance } from '@angular/material/form-field';
 export class SelectDemoComponent implements OnInit {
     // Form for validation examples
     validationForm: FormGroup;
-    
+
     // Select variations for display
     selectVariations = {
         appearances: [
@@ -68,9 +68,9 @@ export class SelectDemoComponent implements OnInit {
             { appearance: 'fill' as MatFormFieldAppearance, label: 'Fill' }
         ],
         sizes: [
-            { size: 'small' as SelectSize, label: 'Small' },
-            { size: 'medium' as SelectSize, label: 'Medium' },
-            { size: 'large' as SelectSize, label: 'Large' }
+            { size: 'small' as AmwSize, label: 'Small' },
+            { size: 'medium' as AmwSize, label: 'Medium' },
+            { size: 'large' as AmwSize, label: 'Large' }
         ],
         states: [
             { disabled: false, required: false, multiple: false, label: 'Normal' },

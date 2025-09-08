@@ -3,7 +3,7 @@ import { CommonModule } from '@angular/common';
 import { FormsModule, ReactiveFormsModule, ControlValueAccessor, NG_VALUE_ACCESSOR } from '@angular/forms';
 import { MatSlideToggleModule } from '@angular/material/slide-toggle';
 import { BaseComponent } from '../base/base.component';
-import { ToggleColor } from './interfaces/toggle-color.type';
+import { AmwColor } from '../../../shared/types/amw-color.type';
 
 @Component({
     selector: 'amw-toggle',
@@ -15,7 +15,7 @@ import { ToggleColor } from './interfaces/toggle-color.type';
     providers: []
 })
 export class AmwToggleComponent extends BaseComponent implements ControlValueAccessor {
-    @Input() color: ToggleColor = 'primary';
+    @Input() color: AmwColor = 'primary';
     @Input() override disabled: boolean = false;
     @Input() override required: boolean = false;
     @Input() checked: boolean = false;

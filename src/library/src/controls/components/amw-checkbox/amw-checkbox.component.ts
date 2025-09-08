@@ -4,8 +4,8 @@ import { FormsModule, ReactiveFormsModule, ControlValueAccessor, NG_VALUE_ACCESS
 import { MatCheckboxModule } from '@angular/material/checkbox';
 import { MatRippleModule } from '@angular/material/core';
 import { BaseComponent } from '../base/base.component';
-import { CheckboxColor } from './interfaces/checkbox-color.type';
-import { CheckboxSize } from './interfaces/checkbox-size.type';
+import { AmwColor } from '../../../shared/types/amw-color.type';
+import { AmwSize } from '../../../shared/types/amw-size.type';
 
 @Component({
     selector: 'amw-checkbox',
@@ -17,8 +17,8 @@ import { CheckboxSize } from './interfaces/checkbox-size.type';
     providers: []
 })
 export class AmwCheckboxComponent extends BaseComponent implements ControlValueAccessor {
-    @Input() color: CheckboxColor = 'primary';
-    @Input() size: CheckboxSize = 'medium';
+    @Input() color: AmwColor = 'primary';
+    @Input() size: AmwSize = 'medium';
     @Input() override label: string = '';
     @Input() labelPosition: 'before' | 'after' = 'after';
     @Input() override disabled: boolean = false;

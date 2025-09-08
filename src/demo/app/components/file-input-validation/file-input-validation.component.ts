@@ -185,3 +185,5 @@ export class FileInputValidationComponent implements OnInit {
         return parseFloat((bytes / Math.pow(k, i)).toFixed(2)) + ' ' + sizes[i];
     }
 }
+
+

@@ -1,0 +1,26 @@
+<div class="timepicker-demo">
+  <div class="timepicker-demo__grid">
+    <mat-card *ngFor="let variation of timepickerVariations; let i = index" class="timepicker-demo__card">
+      <mat-card-header>
+        <mat-card-title>{{ variation.title }}</mat-card-title>
+        <mat-card-subtitle>{{ variation.description }}</mat-card-subtitle>
+      </mat-card-header>
+      
+      <mat-card-content>
+        <div class="timepicker-demo__example">
+          <amw-timepicker
+            [value]="variation.timepicker.value"
+            [format]="variation.timepicker.format || '24h'"
+            [showSeconds]="variation.timepicker.showSeconds || false"
+            [size]="variation.timepicker.size || 'medium'"
+            [color]="variation.timepicker.color || 'primary'"
+            [disabled]="variation.timepicker.disabled || false"
+            [required]="variation.timepicker.required || false"
+            [placeholder]="variation.timepicker.placeholder || 'Select time'"
+            (timeChange)="onTimeChange($event, i)"
+          ></amw-timepicker>
+        </div>
+      </mat-card-content>
+    </mat-card>
+  </div>
+</div>

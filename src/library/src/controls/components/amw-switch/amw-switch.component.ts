@@ -3,7 +3,9 @@ import { CommonModule } from '@angular/common';
 import { MatSlideToggleModule } from '@angular/material/slide-toggle';
 import { FormsModule } from '@angular/forms';
 import { BaseComponent } from '../base/base.component';
-import { SwitchConfig, SwitchColor, SwitchSize } from './interfaces';
+import { SwitchConfig } from './interfaces';
+import { AmwSize } from '../../../shared/types/amw-size.type';
+import { AmwColor } from '../../../shared/types/amw-color.type';
 
 @Component({
     selector: 'amw-switch',
@@ -21,8 +23,8 @@ import { SwitchConfig, SwitchColor, SwitchSize } from './interfaces';
 })
 export class AmwSwitchComponent extends BaseComponent {
     @Input() checked = false;
-    @Input() size: SwitchSize = 'medium';
-    @Input() color: SwitchColor = 'primary';
+    @Input() size: AmwSize = 'medium';
+    @Input() color: AmwColor = 'primary';
     @Input() labelPosition: 'before' | 'after' = 'after';
     @Input() indeterminate = false;
 
@@ -48,3 +50,4 @@ export class AmwSwitchComponent extends BaseComponent {
         };
     }
 }
+

@@ -1,0 +1,74 @@
+<div class="timepicker-validation">
+  <mat-card>
+    <mat-card-header>
+      <mat-card-title>Timepicker Validation Examples</mat-card-title>
+      <mat-card-subtitle>Form validation with timepicker controls</mat-card-subtitle>
+    </mat-card-header>
+    
+    <mat-card-content>
+      <form [formGroup]="timepickerForm" (ngSubmit)="onSubmit()">
+        <div class="timepicker-validation__form">
+          <mat-form-field appearance="outline">
+            <mat-label>Start Time *</mat-label>
+            <amw-timepicker
+              formControlName="startTime"
+              placeholder="Select start time"
+              [required]="true"
+            ></amw-timepicker>
+            <mat-error *ngIf="timepickerForm.get('startTime')?.hasError('required')">
+              Start time is required
+            </mat-error>
+          </mat-form-field>
+
+          <mat-form-field appearance="outline">
+            <mat-label>End Time *</mat-label>
+            <amw-timepicker
+              formControlName="endTime"
+              placeholder="Select end time"
+              [required]="true"
+            ></amw-timepicker>
+            <mat-error *ngIf="timepickerForm.get('endTime')?.hasError('required')">
+              End time is required
+            </mat-error>
+            <mat-error *ngIf="timepickerForm.get('endTime')?.hasError('timeAfter')">
+              End time must be after start time
+            </mat-error>
+          </mat-form-field>
+
+          <mat-form-field appearance="outline">
+            <mat-label>Break Time *</mat-label>
+            <amw-timepicker
+              formControlName="breakTime"
+              placeholder="Select break time"
+              format="12h"
+              [required]="true"
+            ></amw-timepicker>
+            <mat-error *ngIf="timepickerForm.get('breakTime')?.hasError('required')">
+              Break time is required
+            </mat-error>
+          </mat-form-field>
+
+          <mat-form-field appearance="outline">
+            <mat-label>Meeting Time *</mat-label>
+            <amw-timepicker
+              formControlName="meetingTime"
+              placeholder="Select meeting time"
+              [showSeconds]="true"
+              [required]="true"
+            ></amw-timepicker>
+            <mat-error *ngIf="timepickerForm.get('meetingTime')?.hasError('required')">
+              Meeting time is required
+            </mat-error>
+          </mat-form-field>
+        </div>
+
+        <div class="timepicker-validation__actions">
+          <button mat-button type="button" (click)="onReset()">Reset</button>
+          <button mat-raised-button color="primary" type="submit" [disabled]="timepickerForm.invalid">
+            Submit
+          </button>
+        </div>
+      </form>
+    </mat-card-content>
+  </mat-card>
+</div>

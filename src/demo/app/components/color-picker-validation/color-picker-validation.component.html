@@ -1,0 +1,76 @@
+<div class="color-picker-validation">
+  <mat-card>
+    <mat-card-header>
+      <mat-card-title>Color Picker Validation Examples</mat-card-title>
+      <mat-card-subtitle>Form validation with color picker controls</mat-card-subtitle>
+    </mat-card-header>
+    
+    <mat-card-content>
+      <form [formGroup]="colorPickerForm" (ngSubmit)="onSubmit()">
+        <div class="color-picker-validation__form">
+          <mat-form-field appearance="outline">
+            <mat-label>Primary Color *</mat-label>
+            <amw-color-picker
+              formControlName="primaryColor"
+              placeholder="Select primary color"
+              [required]="true"
+            ></amw-color-picker>
+            <mat-error *ngIf="colorPickerForm.get('primaryColor')?.hasError('required')">
+              Primary color is required
+            </mat-error>
+          </mat-form-field>
+
+          <mat-form-field appearance="outline">
+            <mat-label>Secondary Color *</mat-label>
+            <amw-color-picker
+              formControlName="secondaryColor"
+              placeholder="Select secondary color"
+              mode="custom"
+              [required]="true"
+            ></amw-color-picker>
+            <mat-error *ngIf="colorPickerForm.get('secondaryColor')?.hasError('required')">
+              Secondary color is required
+            </mat-error>
+            <mat-error *ngIf="colorPickerForm.get('secondaryColor')?.hasError('sameColor')">
+              Secondary color must be different from primary color
+            </mat-error>
+          </mat-form-field>
+
+          <mat-form-field appearance="outline">
+            <mat-label>Accent Color *</mat-label>
+            <amw-color-picker
+              formControlName="accentColor"
+              placeholder="Select accent color"
+              mode="text"
+              [required]="true"
+            ></amw-color-picker>
+            <mat-error *ngIf="colorPickerForm.get('accentColor')?.hasError('required')">
+              Accent color is required
+            </mat-error>
+          </mat-form-field>
+
+          <mat-form-field appearance="outline">
+            <mat-label>Background Color *</mat-label>
+            <amw-color-picker
+              formControlName="backgroundColor"
+              placeholder="Select background color"
+              mode="all"
+              [required]="true"
+            ></amw-color-picker>
+            <mat-error *ngIf="colorPickerForm.get('backgroundColor')?.hasError('required')">
+              Background color is required
+            </mat-error>
+          </mat-form-field>
+        </div>
+
+        <div class="color-picker-validation__actions">
+          <button mat-button type="button" (click)="onReset()">Reset</button>
+          <button mat-raised-button color="primary" type="submit" [disabled]="colorPickerForm.invalid">
+            Submit
+          </button>
+        </div>
+      </form>
+    </mat-card-content>
+  </mat-card>
+</div>
+

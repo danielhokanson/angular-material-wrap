@@ -1,2 +1,2 @@
-// Theme-related interfaces are exported from the theme service
-export * from '../services/theme.service';
+export * from './theme-colors.interface';
+export * from './theme-config.interface';

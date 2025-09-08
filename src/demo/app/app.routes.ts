@@ -76,8 +76,33 @@ export const routes: Routes = [
         data: { control: 'file-input' }
     },
     {
+        path: 'controls/timepicker',
+        loadComponent: () => import('./components/controls-demo/controls-demo.component').then(m => m.ControlsDemoComponent),
+        data: { control: 'timepicker' }
+    },
+    {
+        path: 'controls/color-picker',
+        loadComponent: () => import('./components/controls-demo/controls-demo.component').then(m => m.ControlsDemoComponent),
+        data: { control: 'color-picker' }
+    },
+    {
+        path: 'controls/data-table',
+        loadComponent: () => import('./components/controls-demo/controls-demo.component').then(m => m.ControlsDemoComponent),
+        data: { control: 'data-table' }
+    },
+    {
         path: 'components',
         loadComponent: () => import('./pages/components-demo/components-demo.component').then(m => m.ComponentsDemoComponent)
+    },
+    {
+        path: 'components/card',
+        loadComponent: () => import('./pages/components-demo/components-demo.component').then(m => m.ComponentsDemoComponent),
+        data: { component: 'card' }
+    },
+    {
+        path: 'components/dialog',
+        loadComponent: () => import('./pages/components-demo/components-demo.component').then(m => m.ComponentsDemoComponent),
+        data: { component: 'dialog' }
     },
     {
         path: 'directives',

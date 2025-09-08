@@ -1,10 +1,10 @@
-import { SliderColor } from './slider-color.type';
+import { AmwColor } from '../../../shared/types/amw-color.type';
 
 /**
  * Slider configuration interface
  */
 export interface SliderConfig {
-    color?: SliderColor;
+    color?: AmwColor;
     disabled?: boolean;
     required?: boolean;
     min?: number;

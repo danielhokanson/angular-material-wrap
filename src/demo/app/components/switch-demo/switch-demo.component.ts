@@ -65,3 +65,5 @@ export class SwitchDemoComponent {
         console.log('Auto save:', checked);
     }
 }
+
+

@@ -1,0 +1,27 @@
+<div class="color-picker-demo">
+  <div class="color-picker-demo__grid">
+    <mat-card *ngFor="let variation of colorPickerVariations; let i = index" class="color-picker-demo__card">
+      <mat-card-header>
+        <mat-card-title>{{ variation.title }}</mat-card-title>
+        <mat-card-subtitle>{{ variation.description }}</mat-card-subtitle>
+      </mat-card-header>
+      
+      <mat-card-content>
+        <div class="color-picker-demo__example">
+          <amw-color-picker
+            [value]="variation.colorPicker.value"
+            [mode]="variation.colorPicker.mode || 'palette'"
+            [size]="variation.colorPicker.size || 'medium'"
+            [showPreview]="variation.colorPicker.showPreview !== false"
+            [showInput]="variation.colorPicker.showInput !== false"
+            [disabled]="variation.colorPicker.disabled || false"
+            [required]="variation.colorPicker.required || false"
+            [placeholder]="variation.colorPicker.placeholder || 'Select color'"
+            (colorChange)="onColorChange($event, i)"
+          ></amw-color-picker>
+        </div>
+      </mat-card-content>
+    </mat-card>
+  </div>
+</div>
+

@@ -1,0 +1,113 @@
+<div class="amw-color-picker" [class]="'amw-color-picker--' + size + ' amw-color-picker--' + mode">
+  <mat-form-field [appearance]="config.appearance || 'outline'">
+    <mat-label *ngIf="label">{{ label }}</mat-label>
+    
+    <input
+      matInput
+      [value]="selectedColor"
+      [placeholder]="placeholder"
+      [disabled]="isDisabled"
+      [required]="required"
+      readonly
+      (click)="toggleColorPicker()"
+      (focus)="onFocus($event)"
+      (blur)="onBlur($event)"
+    />
+    
+    <button
+      matSuffix
+      mat-icon-button
+      type="button"
+      [disabled]="isDisabled"
+      (click)="toggleColorPicker()"
+      aria-label="Open color picker"
+    >
+      <mat-icon>palette</mat-icon>
+    </button>
+    
+    <mat-error *ngIf="hasValidationError">
+      {{ errorText }}
+    </mat-error>
+  </mat-form-field>
+
+  <!-- Color Preview -->
+  <div class="amw-color-picker__preview" *ngIf="showPreview && selectedColor">
+    <div 
+      class="amw-color-picker__preview-color"
+      [style.background-color]="displayColor"
+      [title]="selectedColor"
+    ></div>
+    <span class="amw-color-picker__preview-text">{{ selectedColor }}</span>
+  </div>
+
+  <!-- Color Picker Dropdown -->
+  <div class="amw-color-picker__dropdown" *ngIf="isOpen" (click)="$event.stopPropagation()">
+    <div class="amw-color-picker__header">
+      <span class="amw-color-picker__title">Select Color</span>
+      <button mat-icon-button (click)="isOpen = false" aria-label="Close">
+        <mat-icon>close</mat-icon>
+      </button>
+    </div>
+    
+    <div class="amw-color-picker__content">
+      <!-- Palette Colors -->
+      <div class="amw-color-picker__palette" *ngIf="showPalette">
+        <div class="amw-color-picker__palette-title">Color Palette</div>
+        <div class="amw-color-picker__palette-grid">
+          <button
+            *ngFor="let color of paletteColors"
+            mat-icon-button
+            class="amw-color-picker__color-button"
+            [class.amw-color-picker__color-button--selected]="selectedColor === color"
+            [style.background-color]="color"
+            [title]="color"
+            (click)="selectColor(color)"
+            [disabled]="isDisabled"
+          >
+            <mat-icon *ngIf="selectedColor === color" class="amw-color-picker__check-icon">check</mat-icon>
+          </button>
+        </div>
+      </div>
+
+      <!-- Custom Color Input -->
+      <div class="amw-color-picker__custom" *ngIf="showCustom">
+        <div class="amw-color-picker__custom-title">Custom Color</div>
+        <div class="amw-color-picker__custom-input">
+          <input
+            type="color"
+            [(ngModel)]="customColor"
+            (change)="onCustomColorChange()"
+            [disabled]="isDisabled"
+            class="amw-color-picker__color-input"
+          />
+          <input
+            type="text"
+            [(ngModel)]="customColor"
+            (input)="onCustomColorChange()"
+            [disabled]="isDisabled"
+            placeholder="#000000"
+            class="amw-color-picker__text-input"
+          />
+        </div>
+      </div>
+
+      <!-- Text Input -->
+      <div class="amw-color-picker__text" *ngIf="showInput">
+        <div class="amw-color-picker__text-title">Color Value</div>
+        <input
+          type="text"
+          [value]="selectedColor"
+          (input)="onInputChange($event)"
+          [disabled]="isDisabled"
+          placeholder="Enter color value"
+          class="amw-color-picker__text-field"
+        />
+      </div>
+    </div>
+
+    <div class="amw-color-picker__actions">
+      <button mat-button (click)="isOpen = false">Cancel</button>
+      <button mat-button color="primary" (click)="selectColor(selectedColor)">OK</button>
+    </div>
+  </div>
+</div>
