@@ -1,0 +1,228 @@
+<div class="sidenav-demo">
+  <!-- Header -->
+  <div class="sidenav-demo__header">
+    <h2>Sidenav Component Demo</h2>
+    <p>Explore different sidenav configurations and variations</p>
+    
+    <div class="sidenav-demo__actions">
+      <button
+        mat-raised-button
+        color="primary"
+        (click)="toggleConfig()">
+        <mat-icon>{{ showConfig ? 'settings' : 'tune' }}</mat-icon>
+        {{ showConfig ? 'Hide' : 'Show' }} Configuration
+      </button>
+      
+      <button
+        mat-button
+        (click)="resetConfig()">
+        <mat-icon>refresh</mat-icon>
+        Reset
+      </button>
+    </div>
+  </div>
+
+  <!-- Configuration Panel -->
+  <mat-card *ngIf="showConfig" class="sidenav-demo__config">
+    <mat-card-header>
+      <mat-card-title>Configuration</mat-card-title>
+      <mat-card-subtitle>Customize the sidenav behavior</mat-card-subtitle>
+    </mat-card-header>
+    
+    <mat-card-content>
+      <form [formGroup]="configForm" class="sidenav-demo__form">
+        <div class="sidenav-demo__form-row">
+          <mat-form-field appearance="outline">
+            <mat-label>Mode</mat-label>
+            <mat-select formControlName="mode">
+              <mat-option *ngFor="let option of modeOptions" [value]="option.value">
+                {{ option.label }}
+              </mat-option>
+            </mat-select>
+          </mat-form-field>
+          
+          <mat-form-field appearance="outline">
+            <mat-label>Size</mat-label>
+            <mat-select formControlName="size">
+              <mat-option *ngFor="let option of sizeOptions" [value]="option.value">
+                {{ option.label }}
+              </mat-option>
+            </mat-select>
+          </mat-form-field>
+          
+          <mat-form-field appearance="outline">
+            <mat-label>Position</mat-label>
+            <mat-select formControlName="position">
+              <mat-option *ngFor="let option of positionOptions" [value]="option.value">
+                {{ option.label }}
+              </mat-option>
+            </mat-select>
+          </mat-form-field>
+        </div>
+        
+        <div class="sidenav-demo__form-row">
+          <mat-form-field appearance="outline">
+            <mat-label>Width</mat-label>
+            <input matInput formControlName="width" placeholder="e.g., 300px">
+          </mat-form-field>
+          
+          <mat-form-field appearance="outline">
+            <mat-label>Min Width</mat-label>
+            <input matInput formControlName="minWidth" placeholder="e.g., 200px">
+          </mat-form-field>
+          
+          <mat-form-field appearance="outline">
+            <mat-label>Max Width</mat-label>
+            <input matInput formControlName="maxWidth" placeholder="e.g., 500px">
+          </mat-form-field>
+        </div>
+        
+        <div class="sidenav-demo__form-row">
+          <mat-slide-toggle formControlName="opened">
+            Opened
+          </mat-slide-toggle>
+          
+          <mat-slide-toggle formControlName="showToggle">
+            Show Toggle Button
+          </mat-slide-toggle>
+          
+          <mat-slide-toggle formControlName="showClose">
+            Show Close Button
+          </mat-slide-toggle>
+        </div>
+        
+        <div class="sidenav-demo__form-row">
+          <mat-slide-toggle formControlName="showBackdrop">
+            Show Backdrop
+          </mat-slide-toggle>
+          
+          <mat-slide-toggle formControlName="disableClose">
+            Disable Close
+          </mat-slide-toggle>
+          
+          <mat-slide-toggle formControlName="fixedInViewport">
+            Fixed in Viewport
+          </mat-slide-toggle>
+        </div>
+        
+        <div class="sidenav-demo__form-row">
+          <mat-slide-toggle formControlName="autoFocus">
+            Auto Focus
+          </mat-slide-toggle>
+          
+          <mat-slide-toggle formControlName="restoreFocus">
+            Restore Focus
+          </mat-slide-toggle>
+          
+          <mat-slide-toggle formControlName="responsive">
+            Responsive
+          </mat-slide-toggle>
+        </div>
+        
+        <div class="sidenav-demo__form-row">
+          <mat-slide-toggle formControlName="disabled">
+            Disabled
+          </mat-slide-toggle>
+        </div>
+      </form>
+    </mat-card-content>
+  </mat-card>
+
+  <!-- Variations -->
+  <div class="sidenav-demo__variations">
+    <h3>Variations</h3>
+    
+    <div class="sidenav-demo__variation-grid">
+      <mat-card
+        *ngFor="let variation of sidenavVariations; let i = index"
+        class="sidenav-demo__variation-card"
+        [class.sidenav-demo__variation-card--selected]="selectedVariation === variation"
+        (click)="loadVariation(variation)">
+        
+        <mat-card-header>
+          <mat-card-title>{{ variation.title }}</mat-card-title>
+          <mat-card-subtitle>{{ variation.description }}</mat-card-subtitle>
+        </mat-card-header>
+        
+        <mat-card-content>
+          <div class="sidenav-demo__variation-preview">
+            <div class="sidenav-demo__preview-sidenav">
+              <div class="sidenav-demo__preview-header">
+                <mat-icon>menu</mat-icon>
+                <span>Menu</span>
+              </div>
+              <div class="sidenav-demo__preview-items">
+                <div
+                  *ngFor="let item of variation.items.slice(0, 3)"
+                  class="sidenav-demo__preview-item">
+                  <mat-icon *ngIf="item.icon">{{ item.icon }}</mat-icon>
+                  <span>{{ item.label }}</span>
+                </div>
+                <div *ngIf="variation.items.length > 3" class="sidenav-demo__preview-more">
+                  +{{ variation.items.length - 3 }} more
+                </div>
+              </div>
+            </div>
+          </div>
+        </mat-card-content>
+      </mat-card>
+    </div>
+  </div>
+
+  <!-- Live Demo -->
+  <div class="sidenav-demo__live">
+    <h3>Live Demo</h3>
+    
+    <div class="sidenav-demo__demo-container">
+      <amw-sidenav
+        [config]="currentConfig"
+        [items]="selectedVariation.items"
+        [opened]="currentConfig.opened"
+        [showToggle]="currentConfig.showToggle"
+        [showClose]="currentConfig.showClose"
+        (openedChange)="onSidenavOpenedChange($event)"
+        (itemClick)="onItemClick($event)"
+        (toggle)="onSidenavToggle($event)"
+        (close)="onSidenavClose()">
+        
+        <!-- Main Content -->
+        <div class="sidenav-demo__main-content">
+          <mat-card class="sidenav-demo__content-card">
+            <mat-card-header>
+              <mat-card-title>Main Content Area</mat-card-title>
+              <mat-card-subtitle>This is the main content that gets pushed/overlaid by the sidenav</mat-card-subtitle>
+            </mat-card-header>
+            
+            <mat-card-content>
+              <p>
+                This is the main content area. The sidenav behavior depends on the selected mode:
+              </p>
+              
+              <ul>
+                <li><strong>Side:</strong> The sidenav is always visible alongside the main content</li>
+                <li><strong>Over:</strong> The sidenav overlays the main content when opened</li>
+                <li><strong>Push:</strong> The sidenav pushes the main content when opened</li>
+              </ul>
+              
+              <p>
+                Try different variations above to see how the sidenav behaves with different configurations.
+              </p>
+              
+              <div class="sidenav-demo__content-actions">
+                <button mat-raised-button color="primary">
+                  <mat-icon>add</mat-icon>
+                  Action Button
+                </button>
+                
+                <button mat-button>
+                  <mat-icon>info</mat-icon>
+                  Info Button
+                </button>
+              </div>
+            </mat-card-content>
+          </mat-card>
+        </div>
+      </amw-sidenav>
+    </div>
+  </div>
+</div>

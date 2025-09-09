@@ -1,0 +1,192 @@
+<!-- Sidenav Toggle Button -->
+<button
+  *ngIf="showToggle"
+  #toggleButton
+  mat-icon-button
+  class="amw-sidenav__toggle"
+  [class.amw-sidenav__toggle--mobile]="isMobile"
+  [class.amw-sidenav__toggle--tablet]="isTablet"
+  [class.amw-sidenav__toggle--desktop]="isDesktop"
+  [disabled]="isDisabled"
+  [attr.aria-label]="toggleButtonText"
+  [matTooltip]="toggleButtonText"
+  (click)="toggleSidenav()">
+  <mat-icon>{{ toggleButtonIcon }}</mat-icon>
+</button>
+
+<!-- Sidenav Container -->
+<mat-sidenav-container
+  class="amw-sidenav__container"
+  [class.amw-sidenav__container--mobile]="isMobile"
+  [class.amw-sidenav__container--tablet]="isTablet"
+  [class.amw-sidenav__container--desktop]="isDesktop"
+  [class.amw-sidenav__container--responsive]="isResponsive"
+  [class.amw-sidenav__container--disabled]="isDisabled">
+  
+  <!-- Sidenav -->
+  <mat-sidenav
+    #sidenav
+    [class]="getSidenavClasses()"
+    [mode]="sidenavMode"
+    [opened]="opened"
+    [disabled]="isDisabled"
+    [disableClose]="disableClose"
+    [fixedInViewport]="fixedInViewport"
+    [autoFocus]="autoFocus"
+    [restoreFocus]="restoreFocus"
+    [position]="position"
+    [style.width]="sidenavWidth"
+    [style.min-width]="config.minWidth"
+    [style.max-width]="config.maxWidth"
+    [panelClass]="getSidenavContentClasses()"
+    [backdropClass]="getBackdropClasses()">
+    
+    <!-- Sidenav Header -->
+    <div class="amw-sidenav__header" *ngIf="headerTemplate || showClose">
+      <ng-container *ngIf="headerTemplate; else defaultHeader">
+        <ng-container *ngTemplateOutlet="headerTemplate"></ng-container>
+      </ng-container>
+      
+      <ng-template #defaultHeader>
+        <div class="amw-sidenav__header-content">
+          <div class="amw-sidenav__header-title">
+            <ng-content select="[slot=header]"></ng-content>
+          </div>
+          
+          <button
+            *ngIf="showClose"
+            mat-icon-button
+            class="amw-sidenav__close"
+            [disabled]="isDisabled"
+            [attr.aria-label]="closeButtonText"
+            [matTooltip]="closeButtonText"
+            (click)="closeSidenav()">
+            <mat-icon>{{ closeButtonIcon }}</mat-icon>
+          </button>
+        </div>
+      </ng-template>
+    </div>
+    
+    <!-- Sidenav Content -->
+    <div class="amw-sidenav__content">
+      <!-- Navigation Items -->
+      <mat-nav-list class="amw-sidenav__nav-list">
+        <ng-container *ngFor="let item of items; trackBy: trackByItem">
+          <!-- Regular Navigation Item -->
+          <mat-list-item
+            *ngIf="!item.children || item.children.length === 0"
+            class="amw-sidenav__list-item"
+            [class]="getItemClasses(item)"
+            [disabled]="item.disabled"
+            [matRipple]="!item.disabled"
+            [matTooltip]="item.tooltip"
+            [routerLink]="item.route"
+            [href]="item.href"
+            (click)="onItemClick(item, $event)">
+            
+            <mat-icon
+              *ngIf="item.icon"
+              matListItemIcon
+              class="amw-sidenav__item-icon">
+              {{ item.icon }}
+            </mat-icon>
+            
+            <span matListItemTitle class="amw-sidenav__item-label">
+              {{ item.label }}
+            </span>
+            
+            <span
+              *ngIf="item.badge"
+              matBadge
+              [matBadge]="item.badge"
+              [matBadgeColor]="item.badgeColor || 'primary'"
+              class="amw-sidenav__item-badge">
+            </span>
+          </mat-list-item>
+          
+          <!-- Nested Navigation Item -->
+          <mat-expansion-panel
+            *ngIf="item.children && item.children.length > 0"
+            class="amw-sidenav__expansion-panel"
+            [class.amw-sidenav__expansion-panel--active]="item.active"
+            [class.amw-sidenav__expansion-panel--disabled]="item.disabled"
+            [expanded]="item.expanded"
+            [disabled]="item.disabled"
+            (openedChange)="item.expanded = $event">
+            
+            <mat-expansion-panel-header class="amw-sidenav__expansion-header">
+              <mat-panel-title class="amw-sidenav__expansion-title">
+                <mat-icon
+                  *ngIf="item.icon"
+                  class="amw-sidenav__item-icon">
+                  {{ item.icon }}
+                </mat-icon>
+                
+                <span class="amw-sidenav__item-label">
+                  {{ item.label }}
+                </span>
+                
+                <span
+                  *ngIf="item.badge"
+                  matBadge
+                  [matBadge]="item.badge"
+                  [matBadgeColor]="item.badgeColor || 'primary'"
+                  class="amw-sidenav__item-badge">
+                </span>
+              </mat-panel-title>
+            </mat-expansion-panel-header>
+            
+            <!-- Nested Items -->
+            <mat-nav-list class="amw-sidenav__nested-list">
+              <mat-list-item
+                *ngFor="let child of item.children; trackBy: trackByItem"
+                class="amw-sidenav__nested-item"
+                [class]="getItemClasses(child)"
+                [disabled]="child.disabled"
+                [matRipple]="!child.disabled"
+                [matTooltip]="child.tooltip"
+                [routerLink]="child.route"
+                [href]="child.href"
+                (click)="onItemClick(child, $event)">
+                
+                <mat-icon
+                  *ngIf="child.icon"
+                  matListItemIcon
+                  class="amw-sidenav__item-icon">
+                  {{ child.icon }}
+                </mat-icon>
+                
+                <span matListItemTitle class="amw-sidenav__item-label">
+                  {{ child.label }}
+                </span>
+                
+                <span
+                  *ngIf="child.badge"
+                  matBadge
+                  [matBadge]="child.badge"
+                  [matBadgeColor]="child.badgeColor || 'primary'"
+                  class="amw-sidenav__item-badge">
+                </span>
+              </mat-list-item>
+            </mat-nav-list>
+          </mat-expansion-panel>
+        </ng-container>
+      </mat-nav-list>
+      
+      <!-- Custom Content -->
+      <div class="amw-sidenav__custom-content">
+        <ng-content select="[slot=content]"></ng-content>
+      </div>
+    </div>
+    
+    <!-- Sidenav Footer -->
+    <div class="amw-sidenav__footer" *ngIf="footerTemplate">
+      <ng-container *ngTemplateOutlet="footerTemplate"></ng-container>
+    </div>
+  </mat-sidenav>
+  
+  <!-- Main Content -->
+  <mat-sidenav-content class="amw-sidenav__main-content">
+    <ng-content></ng-content>
+  </mat-sidenav-content>
+</mat-sidenav-container>

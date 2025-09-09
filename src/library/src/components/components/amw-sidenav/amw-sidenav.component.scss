@@ -1,0 +1,434 @@
+// Angular Material Wrap Sidenav Component Styles
+// BEM methodology with amw-sidenav prefix
+
+.amw-sidenav {
+  // Toggle Button
+  &__toggle {
+    position: fixed;
+    top: 16px;
+    left: 16px;
+    z-index: 1000;
+    background: var(--mat-sys-surface);
+    color: var(--mat-sys-on-surface);
+    box-shadow: var(--mat-sys-elevation-2);
+    border-radius: 50%;
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+
+    &:hover {
+      background: var(--mat-sys-surface-variant);
+      box-shadow: var(--mat-sys-elevation-4);
+    }
+
+    &--mobile {
+      top: 12px;
+      left: 12px;
+    }
+
+    &--tablet {
+      top: 14px;
+      left: 14px;
+    }
+
+    &--desktop {
+      top: 16px;
+      left: 16px;
+    }
+  }
+
+  // Container
+  &__container {
+    height: 100vh;
+    width: 100%;
+
+    &--mobile {
+      .amw-sidenav__sidenav {
+        width: 280px;
+      }
+    }
+
+    &--tablet {
+      .amw-sidenav__sidenav {
+        width: 300px;
+      }
+    }
+
+    &--desktop {
+      .amw-sidenav__sidenav {
+        width: 320px;
+      }
+    }
+
+    &--responsive {
+      .amw-sidenav__sidenav {
+        @media (max-width: 768px) {
+          width: 280px;
+        }
+
+        @media (min-width: 769px) and (max-width: 1024px) {
+          width: 300px;
+        }
+
+        @media (min-width: 1025px) {
+          width: 320px;
+        }
+      }
+    }
+
+    &--disabled {
+      pointer-events: none;
+      opacity: 0.6;
+    }
+  }
+
+  // Sidenav
+  &__sidenav {
+    background: var(--mat-sys-surface);
+    border-right: 1px solid var(--mat-sys-outline-variant);
+    box-shadow: var(--mat-sys-elevation-1);
+
+    &--mobile {
+      width: 280px;
+    }
+
+    &--tablet {
+      width: 300px;
+    }
+
+    &--desktop {
+      width: 320px;
+    }
+
+    &--responsive {
+      @media (max-width: 768px) {
+        width: 280px;
+      }
+
+      @media (min-width: 769px) and (max-width: 1024px) {
+        width: 300px;
+      }
+
+      @media (min-width: 1025px) {
+        width: 320px;
+      }
+    }
+
+    &--disabled {
+      pointer-events: none;
+      opacity: 0.6;
+    }
+  }
+
+  // Header
+  &__header {
+    padding: 16px;
+    border-bottom: 1px solid var(--mat-sys-outline-variant);
+    background: var(--mat-sys-surface-container);
+
+    &-content {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 16px;
+    }
+
+    &-title {
+      flex: 1;
+      font-size: 1.25rem;
+      font-weight: 500;
+      color: var(--mat-sys-on-surface);
+    }
+  }
+
+  &__close {
+    color: var(--mat-sys-on-surface-variant);
+    transition: color 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+
+    &:hover {
+      color: var(--mat-sys-on-surface);
+    }
+  }
+
+  // Content
+  &__content {
+    flex: 1;
+    overflow-y: auto;
+    padding: 8px 0;
+  }
+
+  // Navigation List
+  &__nav-list {
+    padding: 0;
+    margin: 0;
+  }
+
+  &__list-item {
+    margin: 4px 8px;
+    border-radius: 20px;
+    transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+
+    &:hover {
+      background: var(--mat-sys-surface-variant);
+    }
+
+    &.amw-sidenav__item--active {
+      background: var(--mat-sys-primary-container);
+      color: var(--mat-sys-on-primary-container);
+
+      .amw-sidenav__item-icon {
+        color: var(--mat-sys-on-primary-container);
+      }
+
+      .amw-sidenav__item-label {
+        color: var(--mat-sys-on-primary-container);
+        font-weight: 500;
+      }
+    }
+
+    &.amw-sidenav__item--disabled {
+      opacity: 0.6;
+      pointer-events: none;
+    }
+  }
+
+  // Navigation Item
+  &__item {
+    &--active {
+      background: var(--mat-sys-primary-container);
+      color: var(--mat-sys-on-primary-container);
+    }
+
+    &--disabled {
+      opacity: 0.6;
+      pointer-events: none;
+    }
+
+    &--nested {
+      .amw-sidenav__item-label {
+        font-weight: 500;
+      }
+    }
+  }
+
+  &__item-icon {
+    color: var(--mat-sys-on-surface-variant);
+    margin-right: 16px;
+    transition: color 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+  }
+
+  &__item-label {
+    color: var(--mat-sys-on-surface);
+    font-size: 0.875rem;
+    font-weight: 400;
+    transition: color 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+  }
+
+  &__item-badge {
+    margin-left: auto;
+  }
+
+  // Expansion Panel (Nested Items)
+  &__expansion-panel {
+    margin: 4px 8px;
+    border-radius: 20px;
+    box-shadow: none;
+    background: transparent;
+
+    &--active {
+      .amw-sidenav__expansion-header {
+        background: var(--mat-sys-primary-container);
+        color: var(--mat-sys-on-primary-container);
+
+        .amw-sidenav__item-icon {
+          color: var(--mat-sys-on-primary-container);
+        }
+
+        .amw-sidenav__item-label {
+          color: var(--mat-sys-on-primary-container);
+          font-weight: 500;
+        }
+      }
+    }
+
+    &--disabled {
+      opacity: 0.6;
+      pointer-events: none;
+    }
+
+    .mat-expansion-panel-header {
+      padding: 0 16px;
+      height: 48px;
+      border-radius: 20px;
+      transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+
+      &:hover {
+        background: var(--mat-sys-surface-variant);
+      }
+    }
+
+    .mat-expansion-panel-content {
+      .mat-expansion-panel-body {
+        padding: 0;
+      }
+    }
+  }
+
+  &__expansion-header {
+    display: flex;
+    align-items: center;
+    width: 100%;
+  }
+
+  &__expansion-title {
+    display: flex;
+    align-items: center;
+    width: 100%;
+    font-size: 0.875rem;
+    font-weight: 400;
+  }
+
+  // Nested List
+  &__nested-list {
+    padding: 0;
+    margin: 0;
+    background: var(--mat-sys-surface-container-low);
+  }
+
+  &__nested-item {
+    margin: 2px 8px;
+    padding-left: 32px;
+    border-radius: 16px;
+    transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+
+    &:hover {
+      background: var(--mat-sys-surface-variant);
+    }
+
+    &.amw-sidenav__item--active {
+      background: var(--mat-sys-primary-container);
+      color: var(--mat-sys-on-primary-container);
+
+      .amw-sidenav__item-icon {
+        color: var(--mat-sys-on-primary-container);
+      }
+
+      .amw-sidenav__item-label {
+        color: var(--mat-sys-on-primary-container);
+        font-weight: 500;
+      }
+    }
+
+    &.amw-sidenav__item--disabled {
+      opacity: 0.6;
+      pointer-events: none;
+    }
+  }
+
+  // Custom Content
+  &__custom-content {
+    padding: 16px;
+    border-top: 1px solid var(--mat-sys-outline-variant);
+    margin-top: auto;
+  }
+
+  // Footer
+  &__footer {
+    padding: 16px;
+    border-top: 1px solid var(--mat-sys-outline-variant);
+    background: var(--mat-sys-surface-container);
+  }
+
+  // Main Content
+  &__main-content {
+    background: var(--mat-sys-surface);
+    min-height: 100vh;
+  }
+
+  // Responsive Behavior
+  @media (max-width: 768px) {
+    &__toggle {
+      position: fixed;
+      top: 12px;
+      left: 12px;
+      z-index: 1000;
+    }
+
+    &__sidenav {
+      width: 280px;
+    }
+  }
+
+  @media (min-width: 769px) and (max-width: 1024px) {
+    &__toggle {
+      position: fixed;
+      top: 14px;
+      left: 14px;
+      z-index: 1000;
+    }
+
+    &__sidenav {
+      width: 300px;
+    }
+  }
+
+  @media (min-width: 1025px) {
+    &__toggle {
+      position: fixed;
+      top: 16px;
+      left: 16px;
+      z-index: 1000;
+    }
+
+    &__sidenav {
+      width: 320px;
+    }
+  }
+
+  // Dark Theme Adjustments
+  .mat-theme-dark & {
+    &__sidenav {
+      background: var(--mat-sys-surface);
+      border-right-color: var(--mat-sys-outline-variant);
+    }
+
+    &__header {
+      background: var(--mat-sys-surface-container);
+      border-bottom-color: var(--mat-sys-outline-variant);
+    }
+
+    &__footer {
+      background: var(--mat-sys-surface-container);
+      border-top-color: var(--mat-sys-outline-variant);
+    }
+
+    &__nested-list {
+      background: var(--mat-sys-surface-container-low);
+    }
+  }
+
+  // High Contrast Mode
+  @media (prefers-contrast: high) {
+    &__sidenav {
+      border-right-width: 2px;
+    }
+
+    &__header {
+      border-bottom-width: 2px;
+    }
+
+    &__footer {
+      border-top-width: 2px;
+    }
+
+    &__item--active {
+      border: 2px solid var(--mat-sys-primary);
+    }
+  }
+
+  // Reduced Motion
+  @media (prefers-reduced-motion: reduce) {
+    * {
+      transition: none !important;
+      animation: none !important;
+    }
+  }
+}

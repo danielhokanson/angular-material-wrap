@@ -105,6 +105,11 @@ export const routes: Routes = [
         data: { component: 'dialog' }
     },
     {
+        path: 'components/sidenav',
+        loadComponent: () => import('./pages/components-demo/components-demo.component').then(m => m.ComponentsDemoComponent),
+        data: { component: 'sidenav' }
+    },
+    {
         path: 'directives',
         loadComponent: () => import('./pages/directives-demo/directives-demo.component').then(m => m.DirectivesDemoComponent)
     },

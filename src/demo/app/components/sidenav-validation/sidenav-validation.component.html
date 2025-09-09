@@ -1,0 +1,235 @@
+<div class="sidenav-validation">
+  <!-- Header -->
+  <div class="sidenav-validation__header">
+    <h2>Sidenav Validation Demo</h2>
+    <p>Test form validation and error handling for sidenav configuration</p>
+  </div>
+
+  <div class="sidenav-validation__content">
+    <!-- Configuration Form -->
+    <mat-card class="sidenav-validation__form-card">
+      <mat-card-header>
+        <mat-card-title>Configuration Validation</mat-card-title>
+        <mat-card-subtitle>Test validation rules for sidenav configuration</mat-card-subtitle>
+      </mat-card-header>
+      
+      <mat-card-content>
+        <form [formGroup]="configForm" (ngSubmit)="onSubmit()" class="sidenav-validation__form">
+          <div class="sidenav-validation__form-row">
+            <mat-form-field appearance="outline">
+              <mat-label>Mode *</mat-label>
+              <mat-select formControlName="mode">
+                <mat-option *ngFor="let option of modeOptions" [value]="option.value">
+                  {{ option.label }}
+                </mat-option>
+              </mat-select>
+              <mat-error *ngIf="hasError('mode')">{{ getError('mode') }}</mat-error>
+            </mat-form-field>
+            
+            <mat-form-field appearance="outline">
+              <mat-label>Size *</mat-label>
+              <mat-select formControlName="size">
+                <mat-option *ngFor="let option of sizeOptions" [value]="option.value">
+                  {{ option.label }}
+                </mat-option>
+              </mat-select>
+              <mat-error *ngIf="hasError('size')">{{ getError('size') }}</mat-error>
+            </mat-form-field>
+            
+            <mat-form-field appearance="outline">
+              <mat-label>Position *</mat-label>
+              <mat-select formControlName="position">
+                <mat-option *ngFor="let option of positionOptions" [value]="option.value">
+                  {{ option.label }}
+                </mat-option>
+              </mat-select>
+              <mat-error *ngIf="hasError('position')">{{ getError('position') }}</mat-error>
+            </mat-form-field>
+          </div>
+          
+          <div class="sidenav-validation__form-row">
+            <mat-form-field appearance="outline">
+              <mat-label>Width</mat-label>
+              <input matInput formControlName="width" placeholder="e.g., 300px">
+              <mat-hint>Enter width with unit (px, %, rem, em, vw, vh)</mat-hint>
+              <mat-error *ngIf="hasError('width')">{{ getError('width') }}</mat-error>
+            </mat-form-field>
+            
+            <mat-form-field appearance="outline">
+              <mat-label>Min Width</mat-label>
+              <input matInput formControlName="minWidth" placeholder="e.g., 200px">
+              <mat-hint>Enter minimum width with unit</mat-hint>
+              <mat-error *ngIf="hasError('minWidth')">{{ getError('minWidth') }}</mat-error>
+            </mat-form-field>
+            
+            <mat-form-field appearance="outline">
+              <mat-label>Max Width</mat-label>
+              <input matInput formControlName="maxWidth" placeholder="e.g., 500px">
+              <mat-hint>Enter maximum width with unit</mat-hint>
+              <mat-error *ngIf="hasError('maxWidth')">{{ getError('maxWidth') }}</mat-error>
+            </mat-form-field>
+          </div>
+          
+          <div class="sidenav-validation__form-actions">
+            <button mat-raised-button color="primary" type="submit">
+              <mat-icon>save</mat-icon>
+              Update Configuration
+            </button>
+            
+            <button mat-button type="button" (click)="resetConfig()">
+              <mat-icon>refresh</mat-icon>
+              Reset
+            </button>
+          </div>
+        </form>
+      </mat-card-content>
+    </mat-card>
+
+    <!-- Item Form -->
+    <mat-card class="sidenav-validation__form-card">
+      <mat-card-header>
+        <mat-card-title>Navigation Item Validation</mat-card-title>
+        <mat-card-subtitle>Test validation rules for navigation items</mat-card-subtitle>
+      </mat-card-header>
+      
+      <mat-card-content>
+        <form [formGroup]="itemForm" (ngSubmit)="onItemSubmit()" class="sidenav-validation__form">
+          <div class="sidenav-validation__form-row">
+            <mat-form-field appearance="outline">
+              <mat-label>ID *</mat-label>
+              <input matInput formControlName="id" placeholder="e.g., dashboard">
+              <mat-hint>2-50 characters, alphanumeric and underscores only</mat-hint>
+              <mat-error *ngIf="hasError('id')">{{ getError('id') }}</mat-error>
+            </mat-form-field>
+            
+            <mat-form-field appearance="outline">
+              <mat-label>Label *</mat-label>
+              <input matInput formControlName="label" placeholder="e.g., Dashboard">
+              <mat-hint>2-100 characters</mat-hint>
+              <mat-error *ngIf="hasError('label')">{{ getError('label') }}</mat-error>
+            </mat-form-field>
+            
+            <mat-form-field appearance="outline">
+              <mat-label>Icon</mat-label>
+              <input matInput formControlName="icon" placeholder="e.g., dashboard">
+              <mat-hint>Material icon name (alphanumeric and underscores only)</mat-hint>
+              <mat-error *ngIf="hasError('icon')">{{ getError('icon') }}</mat-error>
+            </mat-form-field>
+          </div>
+          
+          <div class="sidenav-validation__form-row">
+            <mat-form-field appearance="outline">
+              <mat-label>Route</mat-label>
+              <input matInput formControlName="route" placeholder="e.g., /dashboard">
+              <mat-hint>Angular route path (starts with /)</mat-hint>
+              <mat-error *ngIf="hasError('route')">{{ getError('route') }}</mat-error>
+            </mat-form-field>
+            
+            <mat-form-field appearance="outline">
+              <mat-label>URL</mat-label>
+              <input matInput formControlName="href" placeholder="e.g., https://example.com">
+              <mat-hint>External URL (starts with http:// or https://)</mat-hint>
+              <mat-error *ngIf="hasError('href')">{{ getError('href') }}</mat-error>
+            </mat-form-field>
+            
+            <mat-form-field appearance="outline">
+              <mat-label>Tooltip</mat-label>
+              <input matInput formControlName="tooltip" placeholder="e.g., View dashboard">
+              <mat-hint>Optional tooltip text (max 200 characters)</mat-hint>
+              <mat-error *ngIf="hasError('tooltip')">{{ getError('tooltip') }}</mat-error>
+            </mat-form-field>
+          </div>
+          
+          <div class="sidenav-validation__form-row">
+            <mat-form-field appearance="outline">
+              <mat-label>Badge</mat-label>
+              <input matInput formControlName="badge" placeholder="e.g., 5">
+              <mat-hint>Badge text (max 10 characters)</mat-hint>
+              <mat-error *ngIf="hasError('badge')">{{ getError('badge') }}</mat-error>
+            </mat-form-field>
+            
+            <mat-form-field appearance="outline">
+              <mat-label>Badge Color</mat-label>
+              <mat-select formControlName="badgeColor">
+                <mat-option *ngFor="let option of badgeColorOptions" [value]="option.value">
+                  {{ option.label }}
+                </mat-option>
+              </mat-select>
+              <mat-error *ngIf="hasError('badgeColor')">{{ getError('badgeColor') }}</mat-error>
+            </mat-form-field>
+            
+            <div class="sidenav-validation__checkbox-group">
+              <mat-slide-toggle formControlName="disabled">
+                Disabled
+              </mat-slide-toggle>
+            </div>
+          </div>
+          
+          <div class="sidenav-validation__form-actions">
+            <button mat-raised-button color="primary" type="submit">
+              <mat-icon>add</mat-icon>
+              Add Item
+            </button>
+            
+            <button mat-button type="button" (click)="resetItem()">
+              <mat-icon>refresh</mat-icon>
+              Reset
+            </button>
+          </div>
+        </form>
+      </mat-card-content>
+    </mat-card>
+
+    <!-- Live Demo -->
+    <mat-card class="sidenav-validation__demo-card">
+      <mat-card-header>
+        <mat-card-title>Live Demo</mat-card-title>
+        <mat-card-subtitle>See the sidenav with current configuration</mat-card-subtitle>
+      </mat-card-header>
+      
+      <mat-card-content>
+        <div class="sidenav-validation__demo-container">
+          <amw-sidenav
+            [config]="currentConfig"
+            [items]="navigationItems"
+            [opened]="currentConfig.opened"
+            (openedChange)="onSidenavOpenedChange($event)"
+            (itemClick)="onItemClick($event)">
+            
+            <!-- Main Content -->
+            <div class="sidenav-validation__main-content">
+              <mat-card class="sidenav-validation__content-card">
+                <mat-card-header>
+                  <mat-card-title>Validation Demo</mat-card-title>
+                  <mat-card-subtitle>Test the sidenav with different configurations</mat-card-subtitle>
+                </mat-card-header>
+                
+                <mat-card-content>
+                  <p>
+                    This demo shows how the sidenav component handles validation and error states.
+                    Try submitting invalid data to see validation errors in action.
+                  </p>
+                  
+                  <div class="sidenav-validation__validation-info">
+                    <h4>Validation Rules:</h4>
+                    <ul>
+                      <li><strong>Required fields:</strong> Mode, Size, Position, ID, Label</li>
+                      <li><strong>Width fields:</strong> Must include unit (px, %, rem, em, vw, vh)</li>
+                      <li><strong>ID:</strong> 2-50 characters, alphanumeric and underscores only</li>
+                      <li><strong>Label:</strong> 2-100 characters</li>
+                      <li><strong>Icon:</strong> Alphanumeric and underscores only</li>
+                      <li><strong>Route:</strong> Must start with /</li>
+                      <li><strong>URL:</strong> Must start with http:// or https://</li>
+                      <li><strong>Tooltip:</strong> Maximum 200 characters</li>
+                      <li><strong>Badge:</strong> Maximum 10 characters</li>
+                    </ul>
+                  </div>
+                </mat-card-content>
+              </mat-card>
+            </div>
+          </amw-sidenav>
+        </div>
+      </mat-card-content>
+    </mat-card>
+  </div>
+</div>

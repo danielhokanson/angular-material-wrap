@@ -17,6 +17,7 @@
               <ng-container [ngSwitch]="selectedComponent.id">
                 <amw-demo-card *ngSwitchCase="'card'"></amw-demo-card>
                 <amw-demo-dialog *ngSwitchCase="'dialog'"></amw-demo-dialog>
+                <app-sidenav-demo *ngSwitchCase="'sidenav'"></app-sidenav-demo>
                 <!-- Add more component demos as they are implemented -->
               </ng-container>
             </mat-tab>
@@ -25,6 +26,7 @@
               <ng-container [ngSwitch]="selectedComponent.id">
                 <amw-demo-card-validation *ngSwitchCase="'card'"></amw-demo-card-validation>
                 <amw-demo-dialog-validation *ngSwitchCase="'dialog'"></amw-demo-dialog-validation>
+                <app-sidenav-validation *ngSwitchCase="'sidenav'"></app-sidenav-validation>
                 <!-- Add more validation components as they are implemented -->
               </ng-container>
             </mat-tab>
@@ -33,6 +35,7 @@
               <ng-container [ngSwitch]="selectedComponent.id">
                 <amw-demo-card-code *ngSwitchCase="'card'"></amw-demo-card-code>
                 <amw-demo-dialog-code *ngSwitchCase="'dialog'"></amw-demo-dialog-code>
+                <app-sidenav-code *ngSwitchCase="'sidenav'"></app-sidenav-code>
                 <!-- Add more code components as they are implemented -->
               </ng-container>
             </mat-tab>
@@ -41,6 +44,7 @@
               <ng-container [ngSwitch]="selectedComponent.id">
                 <amw-demo-card-api *ngSwitchCase="'card'"></amw-demo-card-api>
                 <amw-demo-dialog-api *ngSwitchCase="'dialog'"></amw-demo-dialog-api>
+                <app-sidenav-api *ngSwitchCase="'sidenav'"></app-sidenav-api>
                 <!-- Add more API components as they are implemented -->
               </ng-container>
             </mat-tab>

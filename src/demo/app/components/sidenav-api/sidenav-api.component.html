@@ -1,0 +1,284 @@
+<div class="sidenav-api">
+  <!-- Header -->
+  <div class="sidenav-api__header">
+    <h2>Sidenav API Documentation</h2>
+    <p>Complete API reference for the sidenav component and service</p>
+  </div>
+
+  <div class="sidenav-api__content">
+    <!-- API Tabs -->
+    <mat-card class="sidenav-api__api-card">
+      <mat-card-header>
+        <mat-card-title>API Reference</mat-card-title>
+        <mat-card-subtitle>Component, service, and interface documentation</mat-card-subtitle>
+      </mat-card-header>
+      
+      <mat-card-content>
+        <mat-tab-group class="sidenav-api__tabs">
+          <!-- Component Tab -->
+          <mat-tab label="Component">
+            <div class="sidenav-api__tab-content">
+              <!-- Inputs -->
+              <div class="sidenav-api__section">
+                <h3>Inputs</h3>
+                <div class="sidenav-api__property-table">
+                  <div class="sidenav-api__property-header">
+                    <span class="sidenav-api__property-name">Property</span>
+                    <span class="sidenav-api__property-type">Type</span>
+                    <span class="sidenav-api__property-description">Description</span>
+                    <span class="sidenav-api__property-default">Default</span>
+                  </div>
+                  <div
+                    *ngFor="let input of getComponentInputs()"
+                    class="sidenav-api__property-row">
+                    <span class="sidenav-api__property-name">
+                      {{ input.name }}
+                      <span *ngIf="input.required" class="sidenav-api__required">*</span>
+                    </span>
+                    <span class="sidenav-api__property-type">{{ input.type }}</span>
+                    <span class="sidenav-api__property-description">{{ input.description }}</span>
+                    <span class="sidenav-api__property-default">{{ input.default }}</span>
+                  </div>
+                </div>
+              </div>
+
+              <!-- Outputs -->
+              <div class="sidenav-api__section">
+                <h3>Outputs</h3>
+                <div class="sidenav-api__property-table">
+                  <div class="sidenav-api__property-header">
+                    <span class="sidenav-api__property-name">Event</span>
+                    <span class="sidenav-api__property-type">Type</span>
+                    <span class="sidenav-api__property-description">Description</span>
+                    <span class="sidenav-api__property-parameters">Parameters</span>
+                  </div>
+                  <div
+                    *ngFor="let output of getComponentOutputs()"
+                    class="sidenav-api__property-row">
+                    <span class="sidenav-api__property-name">{{ output.name }}</span>
+                    <span class="sidenav-api__property-type">{{ output.type }}</span>
+                    <span class="sidenav-api__property-description">{{ output.description }}</span>
+                    <span class="sidenav-api__property-parameters">{{ output.parameters }}</span>
+                  </div>
+                </div>
+              </div>
+
+              <!-- Methods -->
+              <div class="sidenav-api__section">
+                <h3>Methods</h3>
+                <div class="sidenav-api__property-table">
+                  <div class="sidenav-api__property-header">
+                    <span class="sidenav-api__property-name">Method</span>
+                    <span class="sidenav-api__property-description">Description</span>
+                    <span class="sidenav-api__property-parameters">Parameters</span>
+                    <span class="sidenav-api__property-returns">Returns</span>
+                  </div>
+                  <div
+                    *ngFor="let method of getComponentMethods()"
+                    class="sidenav-api__property-row">
+                    <span class="sidenav-api__property-name">{{ method.name }}</span>
+                    <span class="sidenav-api__property-description">{{ method.description }}</span>
+                    <span class="sidenav-api__property-parameters">{{ method.parameters }}</span>
+                    <span class="sidenav-api__property-returns">{{ method.returns }}</span>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </mat-tab>
+
+          <!-- Service Tab -->
+          <mat-tab label="Service">
+            <div class="sidenav-api__tab-content">
+              <!-- Properties -->
+              <div class="sidenav-api__section">
+                <h3>Properties</h3>
+                <div class="sidenav-api__property-table">
+                  <div class="sidenav-api__property-header">
+                    <span class="sidenav-api__property-name">Property</span>
+                    <span class="sidenav-api__property-type">Type</span>
+                    <span class="sidenav-api__property-description">Description</span>
+                  </div>
+                  <div
+                    *ngFor="let property of getServiceProperties()"
+                    class="sidenav-api__property-row">
+                    <span class="sidenav-api__property-name">{{ property.name }}</span>
+                    <span class="sidenav-api__property-type">{{ property.type }}</span>
+                    <span class="sidenav-api__property-description">{{ property.description }}</span>
+                  </div>
+                </div>
+              </div>
+
+              <!-- Observables -->
+              <div class="sidenav-api__section">
+                <h3>Observables</h3>
+                <div class="sidenav-api__property-table">
+                  <div class="sidenav-api__property-header">
+                    <span class="sidenav-api__property-name">Observable</span>
+                    <span class="sidenav-api__property-type">Type</span>
+                    <span class="sidenav-api__property-description">Description</span>
+                  </div>
+                  <div
+                    *ngFor="let observable of getServiceObservables()"
+                    class="sidenav-api__property-row">
+                    <span class="sidenav-api__property-name">{{ observable.name }}</span>
+                    <span class="sidenav-api__property-type">{{ observable.type }}</span>
+                    <span class="sidenav-api__property-description">{{ observable.description }}</span>
+                  </div>
+                </div>
+              </div>
+
+              <!-- Methods -->
+              <div class="sidenav-api__section">
+                <h3>Methods</h3>
+                <div class="sidenav-api__property-table">
+                  <div class="sidenav-api__property-header">
+                    <span class="sidenav-api__property-name">Method</span>
+                    <span class="sidenav-api__property-description">Description</span>
+                    <span class="sidenav-api__property-parameters">Parameters</span>
+                    <span class="sidenav-api__property-returns">Returns</span>
+                  </div>
+                  <div
+                    *ngFor="let method of getServiceMethods()"
+                    class="sidenav-api__property-row">
+                    <span class="sidenav-api__property-name">{{ method.name }}</span>
+                    <span class="sidenav-api__property-description">{{ method.description }}</span>
+                    <span class="sidenav-api__property-parameters">{{ method.parameters }}</span>
+                    <span class="sidenav-api__property-returns">{{ method.returns }}</span>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </mat-tab>
+
+          <!-- Interfaces Tab -->
+          <mat-tab label="Interfaces">
+            <div class="sidenav-api__tab-content">
+              <!-- SidenavConfig -->
+              <div class="sidenav-api__section">
+                <h3>SidenavConfig Interface</h3>
+                <div class="sidenav-api__property-table">
+                  <div class="sidenav-api__property-header">
+                    <span class="sidenav-api__property-name">Property</span>
+                    <span class="sidenav-api__property-type">Type</span>
+                    <span class="sidenav-api__property-description">Description</span>
+                    <span class="sidenav-api__property-default">Default</span>
+                  </div>
+                  <div
+                    *ngFor="let property of getSidenavConfigProperties()"
+                    class="sidenav-api__property-row">
+                    <span class="sidenav-api__property-name">
+                      {{ property.name }}
+                      <span *ngIf="property.required" class="sidenav-api__required">*</span>
+                    </span>
+                    <span class="sidenav-api__property-type">{{ property.type }}</span>
+                    <span class="sidenav-api__property-description">{{ property.description }}</span>
+                    <span class="sidenav-api__property-default">{{ property.default }}</span>
+                  </div>
+                </div>
+              </div>
+
+              <!-- SidenavItem -->
+              <div class="sidenav-api__section">
+                <h3>SidenavItem Interface</h3>
+                <div class="sidenav-api__property-table">
+                  <div class="sidenav-api__property-header">
+                    <span class="sidenav-api__property-name">Property</span>
+                    <span class="sidenav-api__property-type">Type</span>
+                    <span class="sidenav-api__property-description">Description</span>
+                    <span class="sidenav-api__property-required">Required</span>
+                  </div>
+                  <div
+                    *ngFor="let property of getSidenavItemProperties()"
+                    class="sidenav-api__property-row">
+                    <span class="sidenav-api__property-name">
+                      {{ property.name }}
+                      <span *ngIf="property.required" class="sidenav-api__required">*</span>
+                    </span>
+                    <span class="sidenav-api__property-type">{{ property.type }}</span>
+                    <span class="sidenav-api__property-description">{{ property.description }}</span>
+                    <span class="sidenav-api__property-required">
+                      {{ property.required ? 'Yes' : 'No' }}
+                    </span>
+                  </div>
+                </div>
+              </div>
+
+              <!-- SidenavEvent -->
+              <div class="sidenav-api__section">
+                <h3>SidenavEvent Interface</h3>
+                <div class="sidenav-api__property-table">
+                  <div class="sidenav-api__property-header">
+                    <span class="sidenav-api__property-name">Property</span>
+                    <span class="sidenav-api__property-type">Type</span>
+                    <span class="sidenav-api__property-description">Description</span>
+                    <span class="sidenav-api__property-required">Required</span>
+                  </div>
+                  <div
+                    *ngFor="let property of getSidenavEventProperties()"
+                    class="sidenav-api__property-row">
+                    <span class="sidenav-api__property-name">
+                      {{ property.name }}
+                      <span *ngIf="property.required" class="sidenav-api__required">*</span>
+                    </span>
+                    <span class="sidenav-api__property-type">{{ property.type }}</span>
+                    <span class="sidenav-api__property-description">{{ property.description }}</span>
+                    <span class="sidenav-api__property-required">
+                      {{ property.required ? 'Yes' : 'No' }}
+                    </span>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </mat-tab>
+        </mat-tab-group>
+      </mat-card-content>
+    </mat-card>
+
+    <!-- Live Demo -->
+    <mat-card class="sidenav-api__demo-card">
+      <mat-card-header>
+        <mat-card-title>Live Demo</mat-card-title>
+        <mat-card-subtitle>Test the sidenav component with the current configuration</mat-card-subtitle>
+      </mat-card-header>
+      
+      <mat-card-content>
+        <div class="sidenav-api__demo-container">
+          <amw-sidenav
+            [config]="currentConfig"
+            [items]="navigationItems"
+            [opened]="currentConfig.opened"
+            (openedChange)="onSidenavOpenedChange($event)"
+            (itemClick)="onItemClick($event)">
+            
+            <!-- Main Content -->
+            <div class="sidenav-api__main-content">
+              <mat-card class="sidenav-api__content-card">
+                <mat-card-header>
+                  <mat-card-title>API Documentation</mat-card-title>
+                  <mat-card-subtitle>Explore the sidenav component API</mat-card-subtitle>
+                </mat-card-header>
+                
+                <mat-card-content>
+                  <p>
+                    This documentation provides comprehensive information about the sidenav component,
+                    including all inputs, outputs, methods, and interfaces.
+                  </p>
+                  
+                  <div class="sidenav-api__usage-info">
+                    <h4>Quick Start:</h4>
+                    <ol>
+                      <li>Import the component and service</li>
+                      <li>Configure the sidenav with SidenavConfig</li>
+                      <li>Provide navigation items as SidenavItem[]</li>
+                      <li>Handle events and user interactions</li>
+                    </ol>
+                  </div>
+                </mat-card-content>
+              </mat-card>
+            </div>
+          </amw-sidenav>
+        </div>
+      </mat-card-content>
+    </mat-card>
+  </div>
+</div>

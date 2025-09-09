@@ -4,33 +4,33 @@ import { MatExpansionModule } from '@angular/material/expansion';
 import { MatCardModule } from '@angular/material/card';
 
 @Component({
-    selector: 'amw-demo-file-input-code',
-    standalone: true,
-    imports: [CommonModule, MatExpansionModule, MatCardModule],
-    encapsulation: ViewEncapsulation.None,
-    templateUrl: './file-input-code.component.html',
-    styleUrl: './file-input-code.component.scss'
+  selector: 'amw-demo-file-input-code',
+  standalone: true,
+  imports: [CommonModule, MatExpansionModule, MatCardModule],
+  encapsulation: ViewEncapsulation.None,
+  templateUrl: './file-input-code.component.html',
+  styleUrl: './file-input-code.component.scss'
 })
 export class FileInputCodeComponent {
-    getCodeExamples() {
-        return Object.values(this.codeExamples);
-    }
+  getCodeExamples() {
+    return Object.values(this.codeExamples);
+  }
 
-    codeExamples = {
-        basic: {
-            title: 'Basic File Input',
-            description: 'Simple file input with default configuration',
-            code: `<amw-file-input
+  codeExamples = {
+    basic: {
+      title: 'Basic File Input',
+      description: 'Simple file input with default configuration',
+      code: `<amw-file-input
   [(selectedFiles)]="files"
   (filesChange)="onFilesChange($event)"
   (fileSelect)="onFileSelect($event)"
   (fileRemove)="onFileRemove($event)">
 </amw-file-input>`
-        },
-        configured: {
-            title: 'Configured File Input',
-            description: 'File input with custom configuration and restrictions',
-            code: `<amw-file-input
+    },
+    configured: {
+      title: 'Configured File Input',
+      description: 'File input with custom configuration and restrictions',
+      code: `<amw-file-input
   [multiple]="true"
   [accept]="'image/*'"
   [maxSize]="5 * 1024 * 1024"
@@ -42,11 +42,11 @@ export class FileInputCodeComponent {
   placeholder="Upload images (max 5MB each)"
   buttonText="Choose Images">
 </amw-file-input>`
-        },
-        formControl: {
-            title: 'Reactive Form Integration',
-            description: 'File input integrated with Angular reactive forms',
-            code: `// Component
+    },
+    formControl: {
+      title: 'Reactive Form Integration',
+      description: 'File input integrated with Angular reactive forms',
+      code: `// Component
 export class MyComponent {
   form = this.fb.group({
     profileImage: [[], [Validators.required, this.validateFileCount(1)]],
@@ -73,11 +73,11 @@ export class MyComponent {
     Profile Image
   </amw-file-input>
 </form>`
-        },
-        validation: {
-            title: 'With Custom Validation',
-            description: 'File input with custom validation and error handling',
-            code: `// Component
+    },
+    validation: {
+      title: 'With Custom Validation',
+      description: 'File input with custom validation and error handling',
+      code: `// Component
 export class MyComponent {
   form = this.fb.group({
     documents: [[], [Validators.required, this.validateDocuments]]
@@ -118,11 +118,11 @@ export class MyComponent {
     Upload Documents
   </amw-file-input>
 </form>`
-        },
-        dragDrop: {
-            title: 'Drag & Drop Configuration',
-            description: 'File input with drag and drop functionality',
-            code: `<amw-file-input
+    },
+    dragDrop: {
+      title: 'Drag & Drop Configuration',
+      description: 'File input with drag and drop functionality',
+      code: `<amw-file-input
   [allowDragDrop]="true"
   [multiple]="true"
   [accept]="'*/*'"
@@ -131,11 +131,11 @@ export class MyComponent {
   placeholder="Drag and drop files here or click to browse"
   dropText="Drop files here to upload">
 </amw-file-input>`
-        },
-        fileTypes: {
-            title: 'File Type Restrictions',
-            description: 'Different file type restrictions and MIME types',
-            code: `<!-- Images only -->
+    },
+    fileTypes: {
+      title: 'File Type Restrictions',
+      description: 'Different file type restrictions and MIME types',
+      code: `<!-- Images only -->
 <amw-file-input [accept]="'image/*'">Images</amw-file-input>
 
 <!-- Specific extensions -->
@@ -149,8 +149,8 @@ export class MyComponent {
 
 <!-- Video files -->
 <amw-file-input [accept]="'video/*'">Video Files</amw-file-input>`
-        }
-    };
+    }
+  };
 }
 
 

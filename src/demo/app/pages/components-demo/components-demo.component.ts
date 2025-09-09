@@ -8,6 +8,7 @@ import { MatTabsModule } from '@angular/material/tabs';
 
 import { CardDemoComponent } from '../../components/card-demo/card-demo.component';
 import { DialogDemoComponent } from '../../components/dialog-demo/dialog-demo.component';
+import { SidenavDemoComponent } from '../../components/sidenav-demo/sidenav-demo.component';
 
 // Tab components
 import { CardValidationComponent } from '../../components/card-validation/card-validation.component';
@@ -16,6 +17,9 @@ import { CardApiComponent } from '../../components/card-api/card-api.component';
 import { DialogValidationComponent } from '../../components/dialog-validation/dialog-validation.component';
 import { DialogCodeComponent } from '../../components/dialog-code/dialog-code.component';
 import { DialogApiComponent } from '../../components/dialog-api/dialog-api.component';
+import { SidenavValidationComponent } from '../../components/sidenav-validation/sidenav-validation.component';
+import { SidenavCodeComponent } from '../../components/sidenav-code/sidenav-code.component';
+import { SidenavApiComponent } from '../../components/sidenav-api/sidenav-api.component';
 
 @Component({
     selector: 'amw-demo-components',
@@ -28,13 +32,17 @@ import { DialogApiComponent } from '../../components/dialog-api/dialog-api.compo
         MatTabsModule,
         CardDemoComponent,
         DialogDemoComponent,
+        SidenavDemoComponent,
         // Tab components
         CardValidationComponent,
         CardCodeComponent,
         CardApiComponent,
         DialogValidationComponent,
         DialogCodeComponent,
-        DialogApiComponent
+        DialogApiComponent,
+        SidenavValidationComponent,
+        SidenavCodeComponent,
+        SidenavApiComponent
     ],
     encapsulation: ViewEncapsulation.None,
     templateUrl: './components-demo.component.html',
@@ -44,7 +52,8 @@ export class ComponentsDemoComponent implements OnInit {
     // Component definitions
     components = [
         { id: 'card', name: 'Card' },
-        { id: 'dialog', name: 'Dialog' }
+        { id: 'dialog', name: 'Dialog' },
+        { id: 'sidenav', name: 'Sidenav' }
     ];
 
     selectedComponent = { id: 'card', name: 'Card' };

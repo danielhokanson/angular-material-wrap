@@ -1,0 +1,142 @@
+<div class="sidenav-code">
+  <!-- Header -->
+  <div class="sidenav-code__header">
+    <h2>Sidenav Code Examples</h2>
+    <p>Learn how to implement and customize the sidenav component</p>
+  </div>
+
+  <div class="sidenav-code__content">
+    <!-- Code Examples -->
+    <mat-card class="sidenav-code__examples-card">
+      <mat-card-header>
+        <mat-card-title>Code Examples</mat-card-title>
+        <mat-card-subtitle>Select an example to see the implementation</mat-card-subtitle>
+      </mat-card-header>
+      
+      <mat-card-content>
+        <div class="sidenav-code__example-buttons">
+          <button
+            *ngFor="let example of [
+              { id: 'basic', label: 'Basic', icon: 'menu' },
+              { id: 'overlay', label: 'Overlay', icon: 'open_in_new' },
+              { id: 'push', label: 'Push', icon: 'arrow_forward' },
+              { id: 'nested', label: 'Nested', icon: 'account_tree' },
+              { id: 'custom', label: 'Custom', icon: 'tune' },
+              { id: 'responsive', label: 'Responsive', icon: 'responsive' }
+            ]"
+            mat-button
+            [class.sidenav-code__example-button--active]="selectedExample === example.id"
+            (click)="selectExample(example.id)">
+            <mat-icon>{{ example.icon }}</mat-icon>
+            {{ example.label }}
+          </button>
+        </div>
+      </mat-card-content>
+    </mat-card>
+
+    <!-- Code Tabs -->
+    <mat-card class="sidenav-code__code-card">
+      <mat-card-header>
+        <mat-card-title>Implementation</mat-card-title>
+        <mat-card-subtitle>Copy and paste the code for your project</mat-card-subtitle>
+      </mat-card-header>
+      
+      <mat-card-content>
+        <mat-tab-group class="sidenav-code__tabs">
+          <!-- HTML Tab -->
+          <mat-tab label="HTML">
+            <div class="sidenav-code__tab-content">
+              <div class="sidenav-code__code-header">
+                <h4>Template</h4>
+                <button mat-icon-button (click)="copyCode(getHtmlCode())" matTooltip="Copy HTML code">
+                  <mat-icon>content_copy</mat-icon>
+                </button>
+              </div>
+              <pre class="sidenav-code__code-block"><code>{{ getHtmlCode() }}</code></pre>
+            </div>
+          </mat-tab>
+
+          <!-- TypeScript Tab -->
+          <mat-tab label="TypeScript">
+            <div class="sidenav-code__tab-content">
+              <div class="sidenav-code__code-header">
+                <h4>Component</h4>
+                <button mat-icon-button (click)="copyCode(getTypeScriptCode())" matTooltip="Copy TypeScript code">
+                  <mat-icon>content_copy</mat-icon>
+                </button>
+              </div>
+              <pre class="sidenav-code__code-block"><code>{{ getTypeScriptCode() }}</code></pre>
+            </div>
+          </mat-tab>
+
+          <!-- SCSS Tab -->
+          <mat-tab label="SCSS">
+            <div class="sidenav-code__tab-content">
+              <div class="sidenav-code__code-header">
+                <h4>Styles</h4>
+                <button mat-icon-button (click)="copyCode(getScssCode())" matTooltip="Copy SCSS code">
+                  <mat-icon>content_copy</mat-icon>
+                </button>
+              </div>
+              <pre class="sidenav-code__code-block"><code>{{ getScssCode() }}</code></pre>
+            </div>
+          </mat-tab>
+
+          <!-- Service Tab -->
+          <mat-tab label="Service">
+            <div class="sidenav-code__tab-content">
+              <div class="sidenav-code__code-header">
+                <h4>Service Usage</h4>
+                <button mat-icon-button (click)="copyCode(getServiceCode())" matTooltip="Copy service code">
+                  <mat-icon>content_copy</mat-icon>
+                </button>
+              </div>
+              <pre class="sidenav-code__code-block"><code>{{ getServiceCode() }}</code></pre>
+            </div>
+          </mat-tab>
+        </mat-tab-group>
+      </mat-card-content>
+    </mat-card>
+
+    <!-- Live Demo -->
+    <mat-card class="sidenav-code__demo-card">
+      <mat-card-header>
+        <mat-card-title>Live Demo</mat-card-title>
+        <mat-card-subtitle>See the current example in action</mat-card-subtitle>
+      </mat-card-header>
+      
+      <mat-card-content>
+        <div class="sidenav-code__demo-container">
+          <amw-sidenav
+            [config]="currentConfig"
+            [items]="navigationItems"
+            [opened]="currentConfig.opened"
+            (openedChange)="onSidenavOpenedChange($event)"
+            (itemClick)="onItemClick($event)">
+            
+            <!-- Main Content -->
+            <div class="sidenav-code__main-content">
+              <mat-card class="sidenav-code__content-card">
+                <mat-card-header>
+                  <mat-card-title>{{ getExampleTitle() }}</mat-card-title>
+                  <mat-card-subtitle>{{ getExampleDescription() }}</mat-card-subtitle>
+                </mat-card-header>
+                
+                <mat-card-content>
+                  <p>{{ getExampleDescription() }}</p>
+                  
+                  <div class="sidenav-code__example-info">
+                    <h4>Key Features:</h4>
+                    <ul>
+                      <li *ngFor="let feature of getExampleFeatures()">{{ feature }}</li>
+                    </ul>
+                  </div>
+                </mat-card-content>
+              </mat-card>
+            </div>
+          </amw-sidenav>
+        </div>
+      </mat-card-content>
+    </mat-card>
+  </div>
+</div>
