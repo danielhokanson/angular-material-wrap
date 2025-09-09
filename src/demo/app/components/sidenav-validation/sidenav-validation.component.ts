@@ -53,7 +53,7 @@ export class SidenavValidationComponent implements OnInit, OnDestroy {
     itemForm: FormGroup;
 
     /** Current sidenav configuration */
-    currentConfig: SidenavConfig = {};
+    currentConfig: SidenavConfig = { opened: false };
 
     /** Navigation items */
     navigationItems: SidenavItem[] = [];

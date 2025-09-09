@@ -1,0 +1,370 @@
+<div class="popover-api">
+  <!-- Header -->
+  <div class="popover-api__header">
+    <h2>Popover API Documentation</h2>
+    <p>Complete API reference and usage examples for the popover component</p>
+  </div>
+
+  <div class="popover-api__content">
+    <!-- API Documentation -->
+    <div class="popover-api__documentation">
+      <mat-tab-group>
+        <!-- Component Tab -->
+        <mat-tab label="Component">
+          <div class="popover-api__tab-content">
+            <h3>{{ apiDocumentation.component.name }}</h3>
+            <p>{{ apiDocumentation.component.description }}</p>
+            
+            <div class="popover-api__section">
+              <h4>Selector</h4>
+              <div class="popover-api__code-block">
+                <code>{{ apiDocumentation.component.selector }}</code>
+                <button
+                  mat-icon-button
+                  (click)="copyCode(apiDocumentation.component.selector, 'Selector')"
+                  matTooltip="Copy selector">
+                  <mat-icon>content_copy</mat-icon>
+                </button>
+              </div>
+            </div>
+            
+            <div class="popover-api__section">
+              <h4>Inputs</h4>
+              <div class="popover-api__table-container">
+                <table class="popover-api__table">
+                  <thead>
+                    <tr>
+                      <th>Name</th>
+                      <th>Type</th>
+                      <th>Description</th>
+                      <th>Required</th>
+                      <th>Default</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <tr *ngFor="let input of apiDocumentation.component.inputs">
+                      <td><code>{{ input.name }}</code></td>
+                      <td><code>{{ input.type }}</code></td>
+                      <td>{{ input.description }}</td>
+                      <td>{{ input.required ? 'Yes' : 'No' }}</td>
+                      <td><code>{{ input.default }}</code></td>
+                    </tr>
+                  </tbody>
+                </table>
+              </div>
+            </div>
+            
+            <div class="popover-api__section">
+              <h4>Outputs</h4>
+              <div class="popover-api__table-container">
+                <table class="popover-api__table">
+                  <thead>
+                    <tr>
+                      <th>Name</th>
+                      <th>Type</th>
+                      <th>Description</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <tr *ngFor="let output of apiDocumentation.component.outputs">
+                      <td><code>{{ output.name }}</code></td>
+                      <td><code>{{ output.type }}</code></td>
+                      <td>{{ output.description }}</td>
+                    </tr>
+                  </tbody>
+                </table>
+              </div>
+            </div>
+          </div>
+        </mat-tab>
+        
+        <!-- Interfaces Tab -->
+        <mat-tab label="Interfaces">
+          <div class="popover-api__tab-content">
+            <mat-tab-group>
+              <!-- PopoverConfig Tab -->
+              <mat-tab label="PopoverConfig">
+                <div class="popover-api__tab-content">
+                  <h3>PopoverConfig</h3>
+                  <p>{{ apiDocumentation.interfaces.PopoverConfig.description }}</p>
+                  
+                  <div class="popover-api__section">
+                    <h4>Properties</h4>
+                    <div class="popover-api__table-container">
+                      <table class="popover-api__table">
+                        <thead>
+                          <tr>
+                            <th>Name</th>
+                            <th>Type</th>
+                            <th>Description</th>
+                            <th>Required</th>
+                            <th>Default</th>
+                            <th>Values</th>
+                          </tr>
+                        </thead>
+                        <tbody>
+                          <tr *ngFor="let property of apiDocumentation.interfaces.PopoverConfig.properties">
+                            <td><code>{{ property.name }}</code></td>
+                            <td><code>{{ property.type }}</code></td>
+                            <td>{{ property.description }}</td>
+                            <td>{{ property.required ? 'Yes' : 'No' }}</td>
+                            <td><code>{{ property.default || '-' }}</code></td>
+                            <td>
+                              <span *ngIf="property.values" class="popover-api__values">
+                                {{ property.values.join(', ') }}
+                              </span>
+                              <span *ngIf="!property.values">-</span>
+                            </td>
+                          </tr>
+                        </tbody>
+                      </table>
+                    </div>
+                  </div>
+                </div>
+              </mat-tab>
+              
+              <!-- PopoverTrigger Tab -->
+              <mat-tab label="PopoverTrigger">
+                <div class="popover-api__tab-content">
+                  <h3>PopoverTrigger</h3>
+                  <p>{{ apiDocumentation.interfaces.PopoverTrigger.description }}</p>
+                  
+                  <div class="popover-api__section">
+                    <h4>Properties</h4>
+                    <div class="popover-api__table-container">
+                      <table class="popover-api__table">
+                        <thead>
+                          <tr>
+                            <th>Name</th>
+                            <th>Type</th>
+                            <th>Description</th>
+                            <th>Required</th>
+                            <th>Default</th>
+                            <th>Values</th>
+                          </tr>
+                        </thead>
+                        <tbody>
+                          <tr *ngFor="let property of apiDocumentation.interfaces.PopoverTrigger.properties">
+                            <td><code>{{ property.name }}</code></td>
+                            <td><code>{{ property.type }}</code></td>
+                            <td>{{ property.description }}</td>
+                            <td>{{ property.required ? 'Yes' : 'No' }}</td>
+                            <td><code>{{ property.default || '-' }}</code></td>
+                            <td>
+                              <span *ngIf="property.values" class="popover-api__values">
+                                {{ property.values.join(', ') }}
+                              </span>
+                              <span *ngIf="!property.values">-</span>
+                            </td>
+                          </tr>
+                        </tbody>
+                      </table>
+                    </div>
+                  </div>
+                </div>
+              </mat-tab>
+            </mat-tab-group>
+          </div>
+        </mat-tab>
+        
+        <!-- Service Tab -->
+        <mat-tab label="Service">
+          <div class="popover-api__tab-content">
+            <h3>{{ apiDocumentation.service.name }}</h3>
+            <p>{{ apiDocumentation.service.description }}</p>
+            
+            <div class="popover-api__section">
+              <h4>Methods</h4>
+              <div class="popover-api__table-container">
+                <table class="popover-api__table">
+                  <thead>
+                    <tr>
+                      <th>Name</th>
+                      <th>Parameters</th>
+                      <th>Return Type</th>
+                      <th>Description</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <tr *ngFor="let method of apiDocumentation.service.methods">
+                      <td><code>{{ method.name }}</code></td>
+                      <td><code>{{ method.parameters }}</code></td>
+                      <td><code>{{ method.returnType }}</code></td>
+                      <td>{{ method.description }}</td>
+                    </tr>
+                  </tbody>
+                </table>
+              </div>
+            </div>
+            
+            <div class="popover-api__section">
+              <h4>Observables</h4>
+              <div class="popover-api__table-container">
+                <table class="popover-api__table">
+                  <thead>
+                    <tr>
+                      <th>Name</th>
+                      <th>Type</th>
+                      <th>Description</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <tr *ngFor="let observable of apiDocumentation.service.observables">
+                      <td><code>{{ observable.name }}</code></td>
+                      <td><code>{{ observable.type }}</code></td>
+                      <td>{{ observable.description }}</td>
+                    </tr>
+                  </tbody>
+                </table>
+              </div>
+            </div>
+          </div>
+        </mat-tab>
+        
+        <!-- Examples Tab -->
+        <mat-tab label="Examples">
+          <div class="popover-api__tab-content">
+            <h3>Usage Examples</h3>
+            
+            <div class="popover-api__section">
+              <h4>Basic Usage</h4>
+              <div class="popover-api__code-block">
+                <div class="popover-api__code-header">
+                  <span class="popover-api__code-title">HTML Template</span>
+                  <button
+                    mat-icon-button
+                    (click)="copyCode(getBasicUsageHtml(), 'HTML')"
+                    matTooltip="Copy HTML code">
+                    <mat-icon>content_copy</mat-icon>
+                  </button>
+                </div>
+                <pre><code [class]="getSyntaxClass('html')">{{ getBasicUsageHtml() }}</code></pre>
+              </div>
+            </div>
+            
+            <div class="popover-api__section">
+              <h4>TypeScript Component</h4>
+              <div class="popover-api__code-block">
+                <div class="popover-api__code-header">
+                  <span class="popover-api__code-title">TypeScript</span>
+                  <button
+                    mat-icon-button
+                    (click)="copyCode(getBasicUsageTypescript(), 'TypeScript')"
+                    matTooltip="Copy TypeScript code">
+                    <mat-icon>content_copy</mat-icon>
+                  </button>
+                </div>
+                <pre><code [class]="getSyntaxClass('typescript')">{{ getBasicUsageTypescript() }}</code></pre>
+              </div>
+            </div>
+            
+            <div class="popover-api__section">
+              <h4>Service Usage</h4>
+              <div class="popover-api__code-block">
+                <div class="popover-api__code-header">
+                  <span class="popover-api__code-title">Service</span>
+                  <button
+                    mat-icon-button
+                    (click)="copyCode(getServiceUsage(), 'TypeScript')"
+                    matTooltip="Copy TypeScript code">
+                    <mat-icon>content_copy</mat-icon>
+                  </button>
+                </div>
+                <pre><code [class]="getSyntaxClass('typescript')">{{ getServiceUsage() }}</code></pre>
+              </div>
+            </div>
+          </div>
+        </mat-tab>
+      </mat-tab-group>
+    </div>
+
+    <!-- Live Demo -->
+    <div class="popover-api__demo">
+      <h3>Live Demo</h3>
+      <p>Test the popover with current configuration and service methods</p>
+      
+      <div class="popover-api__demo-actions">
+        <button mat-raised-button color="primary" (click)="testServiceMethods()">
+          <mat-icon>play_arrow</mat-icon>
+          Test Service Methods
+        </button>
+        
+        <button mat-raised-button color="accent" (click)="testConfigUpdates()">
+          <mat-icon>settings</mat-icon>
+          Test Config Updates
+        </button>
+        
+        <button mat-raised-button color="warn" (click)="testTriggerUpdates()">
+          <mat-icon>touch_app</mat-icon>
+          Test Trigger Updates
+        </button>
+        
+        <button mat-button (click)="resetConfiguration()">
+          <mat-icon>refresh</mat-icon>
+          Reset
+        </button>
+      </div>
+      
+      <div class="popover-api__demo-container">
+        <amw-popover
+          [config]="currentConfig"
+          [trigger]="currentTrigger"
+          [opened]="currentConfig.opened ?? false"
+          (openedChange)="onPopoverOpenedChange($event)"
+          (beforeOpen)="onPopoverBeforeOpen()"
+          (afterOpen)="onPopoverAfterOpen()"
+          (beforeClose)="onPopoverBeforeClose()"
+          (afterClose)="onPopoverAfterClose()">
+          
+          <!-- Trigger Template -->
+          <ng-template #trigger>
+            <button mat-raised-button color="primary">
+              <mat-icon>api</mat-icon>
+              API Demo
+            </button>
+          </ng-template>
+          
+          <!-- Content Template -->
+          <ng-template #content>
+            <div class="popover-api__content">
+              <h4>API Demo</h4>
+              <p>
+                This demo shows the popover component with current configuration.
+                Use the buttons above to test different service methods and configurations.
+              </p>
+              
+              <div class="popover-api__content-details">
+                <h5>Current Configuration:</h5>
+                <ul>
+                  <li><strong>Size:</strong> {{ currentConfig.size }}</li>
+                  <li><strong>Position:</strong> {{ currentConfig.position }}</li>
+                  <li><strong>Arrow:</strong> {{ currentConfig.showArrow ? 'Yes' : 'No' }}</li>
+                  <li><strong>Close Button:</strong> {{ currentConfig.showClose ? 'Yes' : 'No' }}</li>
+                  <li><strong>Header:</strong> {{ currentConfig.showHeader ? 'Yes' : 'No' }}</li>
+                  <li><strong>Footer:</strong> {{ currentConfig.showFooter ? 'Yes' : 'No' }}</li>
+                </ul>
+              </div>
+              
+              <div class="popover-api__content-details">
+                <h5>Current Trigger:</h5>
+                <ul>
+                  <li><strong>Type:</strong> {{ currentTrigger.type }}</li>
+                  <li><strong>Toggle:</strong> {{ currentTrigger.toggle ? 'Yes' : 'No' }}</li>
+                  <li><strong>Escape Key:</strong> {{ currentTrigger.escapeKey ? 'Yes' : 'No' }}</li>
+                  <li><strong>Outside Click:</strong> {{ currentTrigger.outsideClick ? 'Yes' : 'No' }}</li>
+                </ul>
+              </div>
+              
+              <div class="popover-api__content-actions">
+                <button mat-button (click)="onPopoverBeforeClose()">
+                  <mat-icon>close</mat-icon>
+                  Close
+                </button>
+              </div>
+            </div>
+          </ng-template>
+        </amw-popover>
+      </div>
+    </div>
+  </div>
+</div>

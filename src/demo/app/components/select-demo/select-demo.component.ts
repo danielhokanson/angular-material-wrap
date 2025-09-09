@@ -21,7 +21,6 @@ import { MatSnackBarModule, MatSnackBar } from '@angular/material/snack-bar';
 import { ReactiveFormsModule, FormBuilder, FormGroup, Validators } from '@angular/forms';
 
 import { AmwSelectComponent } from '../../../../library/src/controls/components/amw-select/amw-select.component';
-import { AmwButtonComponent } from '../../../../library/src/controls/components/amw-button/amw-button.component';
 import { AmwSize } from '../../../../library/src/shared/types';
 import { SelectOption } from '../../../../library/src/controls/components/amw-select/interfaces/select.interface';
 import { MatFormFieldAppearance } from '@angular/material/form-field';
@@ -50,8 +49,7 @@ import { MatFormFieldAppearance } from '@angular/material/form-field';
         MatExpansionModule,
         MatTabsModule,
         MatSnackBarModule,
-        AmwSelectComponent,
-        AmwButtonComponent
+        AmwSelectComponent
     ],
     encapsulation: ViewEncapsulation.None,
     templateUrl: './select-demo.component.html',

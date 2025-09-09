@@ -177,9 +177,9 @@
       <amw-sidenav
         [config]="currentConfig"
         [items]="selectedVariation.items"
-        [opened]="currentConfig.opened"
-        [showToggle]="currentConfig.showToggle"
-        [showClose]="currentConfig.showClose"
+        [opened]="currentConfig.opened ?? false"
+        [showToggle]="currentConfig.showToggle ?? false"
+        [showClose]="currentConfig.showClose ?? false"
         (openedChange)="onSidenavOpenedChange($event)"
         (itemClick)="onItemClick($event)"
         (toggle)="onSidenavToggle($event)"

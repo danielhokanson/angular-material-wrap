@@ -110,7 +110,7 @@
           <amw-sidenav
             [config]="currentConfig"
             [items]="navigationItems"
-            [opened]="currentConfig.opened"
+            [opened]="currentConfig.opened ?? false"
             (openedChange)="onSidenavOpenedChange($event)"
             (itemClick)="onItemClick($event)">
             

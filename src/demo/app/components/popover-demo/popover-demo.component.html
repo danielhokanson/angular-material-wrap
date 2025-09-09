@@ -1,0 +1,336 @@
+<div class="popover-demo">
+  <!-- Header -->
+  <div class="popover-demo__header">
+    <h2>Popover Component Demo</h2>
+    <p>Explore different popover configurations and trigger behaviors</p>
+    
+    <div class="popover-demo__actions">
+      <button
+        mat-raised-button
+        color="primary"
+        (click)="toggleConfig()">
+        <mat-icon>{{ showConfig ? 'settings' : 'tune' }}</mat-icon>
+        {{ showConfig ? 'Hide' : 'Show' }} Configuration
+      </button>
+      
+      <button
+        mat-button
+        (click)="resetConfig()">
+        <mat-icon>refresh</mat-icon>
+        Reset
+      </button>
+    </div>
+  </div>
+
+  <!-- Configuration Panel -->
+  <mat-card *ngIf="showConfig" class="popover-demo__config">
+    <mat-card-header>
+      <mat-card-title>Configuration</mat-card-title>
+      <mat-card-subtitle>Customize the popover behavior and appearance</mat-card-subtitle>
+    </mat-card-header>
+    
+    <mat-card-content>
+      <form [formGroup]="configForm" class="popover-demo__form">
+        <div class="popover-demo__form-row">
+          <mat-form-field appearance="outline">
+            <mat-label>Size</mat-label>
+            <mat-select formControlName="size">
+              <mat-option *ngFor="let option of sizeOptions" [value]="option.value">
+                {{ option.label }}
+              </mat-option>
+            </mat-select>
+          </mat-form-field>
+          
+          <mat-form-field appearance="outline">
+            <mat-label>Position</mat-label>
+            <mat-select formControlName="position">
+              <mat-option *ngFor="let option of positionOptions" [value]="option.value">
+                {{ option.label }}
+              </mat-option>
+            </mat-select>
+          </mat-form-field>
+          
+          <mat-form-field appearance="outline">
+            <mat-label>Arrow Size</mat-label>
+            <mat-select formControlName="arrowSize">
+              <mat-option *ngFor="let option of arrowSizeOptions" [value]="option.value">
+                {{ option.label }}
+              </mat-option>
+            </mat-select>
+          </mat-form-field>
+        </div>
+        
+        <div class="popover-demo__form-row">
+          <mat-form-field appearance="outline">
+            <mat-label>Width</mat-label>
+            <input matInput formControlName="width" placeholder="e.g., 300px">
+          </mat-form-field>
+          
+          <mat-form-field appearance="outline">
+            <mat-label>Height</mat-label>
+            <input matInput formControlName="height" placeholder="e.g., 200px">
+          </mat-form-field>
+          
+          <mat-form-field appearance="outline">
+            <mat-label>Z-Index</mat-label>
+            <input matInput formControlName="zIndex" type="number" placeholder="1000">
+          </mat-form-field>
+        </div>
+        
+        <div class="popover-demo__form-row">
+          <mat-form-field appearance="outline">
+            <mat-label>Header Title</mat-label>
+            <input matInput formControlName="headerTitle" placeholder="Popover Title">
+          </mat-form-field>
+          
+          <mat-form-field appearance="outline">
+            <mat-label>Header Subtitle</mat-label>
+            <input matInput formControlName="headerSubtitle" placeholder="Subtitle text">
+          </mat-form-field>
+          
+          <mat-form-field appearance="outline">
+            <mat-label>Footer Text</mat-label>
+            <input matInput formControlName="footerText" placeholder="Footer text">
+          </mat-form-field>
+        </div>
+        
+        <div class="popover-demo__form-row">
+          <mat-form-field appearance="outline">
+            <mat-label>Close Text</mat-label>
+            <input matInput formControlName="closeText" placeholder="Close">
+          </mat-form-field>
+          
+          <mat-form-field appearance="outline">
+            <mat-label>Close Icon</mat-label>
+            <input matInput formControlName="closeIcon" placeholder="close">
+          </mat-form-field>
+          
+          <mat-form-field appearance="outline">
+            <mat-label>Arrow Color</mat-label>
+            <input matInput formControlName="arrowColor" placeholder="#ffffff">
+          </mat-form-field>
+        </div>
+        
+        <div class="popover-demo__form-row">
+          <mat-form-field appearance="outline">
+            <mat-label>Offset X</mat-label>
+            <input matInput formControlName="offsetX" type="number" placeholder="0">
+          </mat-form-field>
+          
+          <mat-form-field appearance="outline">
+            <mat-label>Offset Y</mat-label>
+            <input matInput formControlName="offsetY" type="number" placeholder="0">
+          </mat-form-field>
+          
+          <mat-form-field appearance="outline">
+            <mat-label>Animation Duration</mat-label>
+            <input matInput formControlName="animationDuration" type="number" placeholder="300">
+          </mat-form-field>
+        </div>
+        
+        <div class="popover-demo__form-row">
+          <mat-form-field appearance="outline">
+            <mat-label>Animation Easing</mat-label>
+            <mat-select formControlName="animationEasing">
+              <mat-option *ngFor="let option of animationEasingOptions" [value]="option.value">
+                {{ option.label }}
+              </mat-option>
+            </mat-select>
+          </mat-form-field>
+        </div>
+        
+        <div class="popover-demo__form-row">
+          <mat-slide-toggle formControlName="showArrow">
+            Show Arrow
+          </mat-slide-toggle>
+          
+          <mat-slide-toggle formControlName="showClose">
+            Show Close Button
+          </mat-slide-toggle>
+          
+          <mat-slide-toggle formControlName="showHeader">
+            Show Header
+          </mat-slide-toggle>
+        </div>
+        
+        <div class="popover-demo__form-row">
+          <mat-slide-toggle formControlName="showFooter">
+            Show Footer
+          </mat-slide-toggle>
+          
+          <mat-slide-toggle formControlName="showBackdrop">
+            Show Backdrop
+          </mat-slide-toggle>
+          
+          <mat-slide-toggle formControlName="showScrollbar">
+            Show Scrollbar
+          </mat-slide-toggle>
+        </div>
+        
+        <div class="popover-demo__form-row">
+          <mat-slide-toggle formControlName="disabled">
+            Disabled
+          </mat-slide-toggle>
+          
+          <mat-slide-toggle formControlName="autoFocus">
+            Auto Focus
+          </mat-slide-toggle>
+          
+          <mat-slide-toggle formControlName="restoreFocus">
+            Restore Focus
+          </mat-slide-toggle>
+        </div>
+        
+        <div class="popover-demo__form-row">
+          <mat-slide-toggle formControlName="keyboardNavigation">
+            Keyboard Navigation
+          </mat-slide-toggle>
+          
+          <mat-slide-toggle formControlName="escapeKeyClose">
+            Escape Key Close
+          </mat-slide-toggle>
+          
+          <mat-slide-toggle formControlName="clickOutsideClose">
+            Click Outside Close
+          </mat-slide-toggle>
+        </div>
+        
+        <div class="popover-demo__form-row">
+          <mat-slide-toggle formControlName="hoverOpen">
+            Hover Open
+          </mat-slide-toggle>
+          
+          <mat-slide-toggle formControlName="hoverClose">
+            Hover Close
+          </mat-slide-toggle>
+          
+          <mat-slide-toggle formControlName="focusOpen">
+            Focus Open
+          </mat-slide-toggle>
+        </div>
+        
+        <div class="popover-demo__form-row">
+          <mat-slide-toggle formControlName="focusClose">
+            Focus Close
+          </mat-slide-toggle>
+          
+          <mat-slide-toggle formControlName="scrollClose">
+            Scroll Close
+          </mat-slide-toggle>
+          
+          <mat-slide-toggle formControlName="resizeClose">
+            Resize Close
+          </mat-slide-toggle>
+        </div>
+      </form>
+    </mat-card-content>
+  </mat-card>
+
+  <!-- Variations -->
+  <div class="popover-demo__variations">
+    <h3>Variations</h3>
+    
+    <div class="popover-demo__variation-grid">
+      <mat-card
+        *ngFor="let variation of popoverVariations; let i = index"
+        class="popover-demo__variation-card"
+        [class.popover-demo__variation-card--selected]="selectedVariation === variation"
+        (click)="loadVariation(variation)">
+        
+        <mat-card-header>
+          <mat-card-title>{{ variation.title }}</mat-card-title>
+          <mat-card-subtitle>{{ variation.description }}</mat-card-subtitle>
+        </mat-card-header>
+        
+        <mat-card-content>
+          <div class="popover-demo__variation-preview">
+            <div class="popover-demo__preview-popover">
+              <div class="popover-demo__preview-trigger">
+                <mat-icon>info</mat-icon>
+                <span>Trigger</span>
+              </div>
+              <div class="popover-demo__preview-content">
+                <div class="popover-demo__preview-arrow" *ngIf="variation.config.showArrow"></div>
+                <div class="popover-demo__preview-panel">
+                  <div *ngIf="variation.config.showHeader" class="popover-demo__preview-header">
+                    <span>Header</span>
+                    <mat-icon *ngIf="variation.config.showClose">close</mat-icon>
+                  </div>
+                  <div class="popover-demo__preview-body">Content</div>
+                  <div *ngIf="variation.config.showFooter" class="popover-demo__preview-footer">
+                    Footer
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </mat-card-content>
+      </mat-card>
+    </div>
+  </div>
+
+  <!-- Live Demo -->
+  <div class="popover-demo__live">
+    <h3>Live Demo</h3>
+    
+    <div class="popover-demo__demo-container">
+      <amw-popover
+        [config]="currentConfig"
+        [trigger]="currentTrigger"
+        [opened]="currentConfig.opened ?? false"
+        (openedChange)="onPopoverOpenedChange($event)"
+        (beforeOpen)="onPopoverBeforeOpen()"
+        (afterOpen)="onPopoverAfterOpen()"
+        (beforeClose)="onPopoverBeforeClose()"
+        (afterClose)="onPopoverAfterClose()"
+        (toggle)="onPopoverToggle($event)"
+        (close)="onPopoverClose()">
+        
+        <!-- Trigger Template -->
+        <ng-template #trigger>
+          <button mat-raised-button color="primary">
+            <mat-icon>info</mat-icon>
+            {{ selectedVariation.title }}
+          </button>
+        </ng-template>
+        
+        <!-- Content Template -->
+        <ng-template #content>
+          <div class="popover-demo__content">
+            <h4>{{ selectedVariation.title }}</h4>
+            <p>{{ selectedVariation.description }}</p>
+            
+            <div class="popover-demo__content-details">
+              <h5>Configuration:</h5>
+              <ul>
+                <li><strong>Size:</strong> {{ currentConfig.size }}</li>
+                <li><strong>Position:</strong> {{ currentConfig.position }}</li>
+                <li><strong>Arrow:</strong> {{ currentConfig.showArrow ? 'Yes' : 'No' }}</li>
+                <li><strong>Close Button:</strong> {{ currentConfig.showClose ? 'Yes' : 'No' }}</li>
+                <li><strong>Header:</strong> {{ currentConfig.showHeader ? 'Yes' : 'No' }}</li>
+                <li><strong>Footer:</strong> {{ currentConfig.showFooter ? 'Yes' : 'No' }}</li>
+              </ul>
+            </div>
+            
+            <div class="popover-demo__content-details">
+              <h5>Trigger:</h5>
+              <ul>
+                <li><strong>Type:</strong> {{ currentTrigger.type }}</li>
+                <li><strong>Toggle:</strong> {{ currentTrigger.toggle ? 'Yes' : 'No' }}</li>
+                <li><strong>Escape Key:</strong> {{ currentTrigger.escapeKey ? 'Yes' : 'No' }}</li>
+                <li><strong>Outside Click:</strong> {{ currentTrigger.outsideClick ? 'Yes' : 'No' }}</li>
+              </ul>
+            </div>
+            
+            <div class="popover-demo__content-actions">
+              <button mat-button (click)="onPopoverClose()">
+                <mat-icon>close</mat-icon>
+                Close
+              </button>
+            </div>
+          </div>
+        </ng-template>
+      </amw-popover>
+    </div>
+  </div>
+</div>

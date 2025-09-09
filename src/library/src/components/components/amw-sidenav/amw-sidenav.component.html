@@ -29,17 +29,13 @@
     [class]="getSidenavClasses()"
     [mode]="sidenavMode"
     [opened]="opened"
-    [disabled]="isDisabled"
     [disableClose]="disableClose"
     [fixedInViewport]="fixedInViewport"
     [autoFocus]="autoFocus"
-    [restoreFocus]="restoreFocus"
     [position]="position"
     [style.width]="sidenavWidth"
     [style.min-width]="config.minWidth"
-    [style.max-width]="config.maxWidth"
-    [panelClass]="getSidenavContentClasses()"
-    [backdropClass]="getBackdropClasses()">
+    [style.max-width]="config.maxWidth">
     
     <!-- Sidenav Header -->
     <div class="amw-sidenav__header" *ngIf="headerTemplate || showClose">
@@ -78,10 +74,8 @@
             class="amw-sidenav__list-item"
             [class]="getItemClasses(item)"
             [disabled]="item.disabled"
-            [matRipple]="!item.disabled"
             [matTooltip]="item.tooltip"
             [routerLink]="item.route"
-            [href]="item.href"
             (click)="onItemClick(item, $event)">
             
             <mat-icon
@@ -99,7 +93,7 @@
               *ngIf="item.badge"
               matBadge
               [matBadge]="item.badge"
-              [matBadgeColor]="item.badgeColor || 'primary'"
+              [matBadgeColor]="getBadgeColor(item.badgeColor)"
               class="amw-sidenav__item-badge">
             </span>
           </mat-list-item>
@@ -112,7 +106,7 @@
             [class.amw-sidenav__expansion-panel--disabled]="item.disabled"
             [expanded]="item.expanded"
             [disabled]="item.disabled"
-            (openedChange)="item.expanded = $event">
+            (openedChange)="onExpansionChange(item, $event)">
             
             <mat-expansion-panel-header class="amw-sidenav__expansion-header">
               <mat-panel-title class="amw-sidenav__expansion-title">
@@ -130,7 +124,7 @@
                   *ngIf="item.badge"
                   matBadge
                   [matBadge]="item.badge"
-                  [matBadgeColor]="item.badgeColor || 'primary'"
+                  [matBadgeColor]="getBadgeColor(item.badgeColor)"
                   class="amw-sidenav__item-badge">
                 </span>
               </mat-panel-title>
@@ -143,10 +137,8 @@
                 class="amw-sidenav__nested-item"
                 [class]="getItemClasses(child)"
                 [disabled]="child.disabled"
-                [matRipple]="!child.disabled"
                 [matTooltip]="child.tooltip"
                 [routerLink]="child.route"
-                [href]="child.href"
                 (click)="onItemClick(child, $event)">
                 
                 <mat-icon
@@ -164,7 +156,7 @@
                   *ngIf="child.badge"
                   matBadge
                   [matBadge]="child.badge"
-                  [matBadgeColor]="child.badgeColor || 'primary'"
+                  [matBadgeColor]="getBadgeColor(child.badgeColor)"
                   class="amw-sidenav__item-badge">
                 </span>
               </mat-list-item>

@@ -1,0 +1,172 @@
+<div class="popover-code">
+  <!-- Header -->
+  <div class="popover-code__header">
+    <h2>Popover Code Examples</h2>
+    <p>Explore code examples and usage patterns for the popover component</p>
+  </div>
+
+  <div class="popover-code__content">
+    <!-- Code Examples -->
+    <div class="popover-code__examples">
+      <h3>Code Examples</h3>
+      
+      <div class="popover-code__example-grid">
+        <mat-card
+          *ngFor="let example of codeExamples; let i = index"
+          class="popover-code__example-card"
+          [class.popover-code__example-card--selected]="selectedExample === example"
+          (click)="loadExample(example)">
+          
+          <mat-card-header>
+            <mat-card-title>{{ example.title }}</mat-card-title>
+            <mat-card-subtitle>{{ example.description }}</mat-card-subtitle>
+          </mat-card-header>
+          
+          <mat-card-content>
+            <div class="popover-code__example-preview">
+              <div class="popover-code__preview-popover">
+                <div class="popover-code__preview-trigger">
+                  <mat-icon>code</mat-icon>
+                  <span>Preview</span>
+                </div>
+                <div class="popover-code__preview-content">
+                  <div class="popover-code__preview-arrow" *ngIf="example.config.showArrow"></div>
+                  <div class="popover-code__preview-panel">
+                    <div *ngIf="example.config.showHeader" class="popover-code__preview-header">
+                      <span>Header</span>
+                      <mat-icon *ngIf="example.config.showClose">close</mat-icon>
+                    </div>
+                    <div class="popover-code__preview-body">Content</div>
+                    <div *ngIf="example.config.showFooter" class="popover-code__preview-footer">
+                      Footer
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </mat-card-content>
+        </mat-card>
+      </div>
+    </div>
+
+    <!-- Code Display -->
+    <div class="popover-code__display">
+      <h3>{{ selectedExample.title }}</h3>
+      <p>{{ selectedExample.description }}</p>
+      
+      <mat-tab-group>
+        <!-- HTML Tab -->
+        <mat-tab label="HTML">
+          <div class="popover-code__code-block">
+            <div class="popover-code__code-header">
+              <span class="popover-code__code-title">HTML Template</span>
+              <button
+                mat-icon-button
+                (click)="copyCode(selectedExample.html, 'HTML')"
+                matTooltip="Copy HTML code">
+                <mat-icon>content_copy</mat-icon>
+              </button>
+            </div>
+            <pre><code [class]="getSyntaxClass('html')">{{ selectedExample.html }}</code></pre>
+          </div>
+        </mat-tab>
+        
+        <!-- TypeScript Tab -->
+        <mat-tab label="TypeScript">
+          <div class="popover-code__code-block">
+            <div class="popover-code__code-header">
+              <span class="popover-code__code-title">TypeScript Component</span>
+              <button
+                mat-icon-button
+                (click)="copyCode(selectedExample.typescript, 'TypeScript')"
+                matTooltip="Copy TypeScript code">
+                <mat-icon>content_copy</mat-icon>
+              </button>
+            </div>
+            <pre><code [class]="getSyntaxClass('typescript')">{{ selectedExample.typescript }}</code></pre>
+          </div>
+        </mat-tab>
+        
+        <!-- SCSS Tab -->
+        <mat-tab label="SCSS">
+          <div class="popover-code__code-block">
+            <div class="popover-code__code-header">
+              <span class="popover-code__code-title">SCSS Styles</span>
+              <button
+                mat-icon-button
+                (click)="copyCode(selectedExample.scss, 'SCSS')"
+                matTooltip="Copy SCSS code">
+                <mat-icon>content_copy</mat-icon>
+              </button>
+            </div>
+            <pre><code [class]="getSyntaxClass('scss')">{{ selectedExample.scss }}</code></pre>
+          </div>
+        </mat-tab>
+      </mat-tab-group>
+    </div>
+
+    <!-- Live Demo -->
+    <div class="popover-code__demo">
+      <h3>Live Demo</h3>
+      <p>Test the current example configuration</p>
+      
+      <div class="popover-code__demo-container">
+        <amw-popover
+          [config]="currentConfig"
+          [trigger]="currentTrigger"
+          [opened]="currentConfig.opened ?? false"
+          (openedChange)="onPopoverOpenedChange($event)"
+          (beforeOpen)="onPopoverBeforeOpen()"
+          (afterOpen)="onPopoverAfterOpen()"
+          (beforeClose)="onPopoverBeforeClose()"
+          (afterClose)="onPopoverAfterClose()">
+          
+          <!-- Trigger Template -->
+          <ng-template #trigger>
+            <button mat-raised-button color="primary">
+              <mat-icon>code</mat-icon>
+              {{ selectedExample.title }}
+            </button>
+          </ng-template>
+          
+          <!-- Content Template -->
+          <ng-template #content>
+            <div class="popover-code__content">
+              <h4>{{ selectedExample.title }}</h4>
+              <p>{{ selectedExample.description }}</p>
+              
+              <div class="popover-code__content-details">
+                <h5>Configuration:</h5>
+                <ul>
+                  <li><strong>Size:</strong> {{ currentConfig.size }}</li>
+                  <li><strong>Position:</strong> {{ currentConfig.position }}</li>
+                  <li><strong>Arrow:</strong> {{ currentConfig.showArrow ? 'Yes' : 'No' }}</li>
+                  <li><strong>Close Button:</strong> {{ currentConfig.showClose ? 'Yes' : 'No' }}</li>
+                  <li><strong>Header:</strong> {{ currentConfig.showHeader ? 'Yes' : 'No' }}</li>
+                  <li><strong>Footer:</strong> {{ currentConfig.showFooter ? 'Yes' : 'No' }}</li>
+                </ul>
+              </div>
+              
+              <div class="popover-code__content-details">
+                <h5>Trigger:</h5>
+                <ul>
+                  <li><strong>Type:</strong> {{ currentTrigger.type }}</li>
+                  <li><strong>Toggle:</strong> {{ currentTrigger.toggle ? 'Yes' : 'No' }}</li>
+                  <li><strong>Escape Key:</strong> {{ currentTrigger.escapeKey ? 'Yes' : 'No' }}</li>
+                  <li><strong>Outside Click:</strong> {{ currentTrigger.outsideClick ? 'Yes' : 'No' }}</li>
+                </ul>
+              </div>
+              
+              <div class="popover-code__content-actions">
+                <button mat-button (click)="onPopoverBeforeClose()">
+                  <mat-icon>close</mat-icon>
+                  Close
+                </button>
+              </div>
+            </div>
+          </ng-template>
+        </amw-popover>
+      </div>
+    </div>
+  </div>
+</div>

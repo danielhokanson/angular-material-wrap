@@ -110,6 +110,11 @@ export const routes: Routes = [
         data: { component: 'sidenav' }
     },
     {
+        path: 'components/popover',
+        loadComponent: () => import('./pages/components-demo/components-demo.component').then(m => m.ComponentsDemoComponent),
+        data: { component: 'popover' }
+    },
+    {
         path: 'directives',
         loadComponent: () => import('./pages/directives-demo/directives-demo.component').then(m => m.DirectivesDemoComponent)
     },

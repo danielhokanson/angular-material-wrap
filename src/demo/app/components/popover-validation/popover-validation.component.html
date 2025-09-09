@@ -1,0 +1,317 @@
+<div class="popover-validation">
+  <!-- Header -->
+  <div class="popover-validation__header">
+    <h2>Popover Validation Demo</h2>
+    <p>Test form validation and error handling for popover configuration</p>
+  </div>
+
+  <div class="popover-validation__content">
+    <!-- Configuration Form -->
+    <mat-card class="popover-validation__form-card">
+      <mat-card-header>
+        <mat-card-title>Configuration Validation</mat-card-title>
+        <mat-card-subtitle>Test validation rules for popover configuration</mat-card-subtitle>
+      </mat-card-header>
+      
+      <mat-card-content>
+        <form [formGroup]="configForm" (ngSubmit)="onSubmit()" class="popover-validation__form">
+          <div class="popover-validation__form-row">
+            <mat-form-field appearance="outline">
+              <mat-label>Size *</mat-label>
+              <mat-select formControlName="size">
+                <mat-option *ngFor="let option of sizeOptions" [value]="option.value">
+                  {{ option.label }}
+                </mat-option>
+              </mat-select>
+              <mat-error *ngIf="hasError('size')">{{ getError('size') }}</mat-error>
+            </mat-form-field>
+            
+            <mat-form-field appearance="outline">
+              <mat-label>Position *</mat-label>
+              <mat-select formControlName="position">
+                <mat-option *ngFor="let option of positionOptions" [value]="option.value">
+                  {{ option.label }}
+                </mat-option>
+              </mat-select>
+              <mat-error *ngIf="hasError('position')">{{ getError('position') }}</mat-error>
+            </mat-form-field>
+            
+            <mat-form-field appearance="outline">
+              <mat-label>Z-Index</mat-label>
+              <input matInput formControlName="zIndex" type="number" placeholder="1000">
+              <mat-hint>0-10000</mat-hint>
+              <mat-error *ngIf="hasError('zIndex')">{{ getError('zIndex') }}</mat-error>
+            </mat-form-field>
+          </div>
+          
+          <div class="popover-validation__form-row">
+            <mat-form-field appearance="outline">
+              <mat-label>Width</mat-label>
+              <input matInput formControlName="width" placeholder="e.g., 300px">
+              <mat-hint>Enter width with unit (px, %, rem, em, vw, vh)</mat-hint>
+              <mat-error *ngIf="hasError('width')">{{ getError('width') }}</mat-error>
+            </mat-form-field>
+            
+            <mat-form-field appearance="outline">
+              <mat-label>Height</mat-label>
+              <input matInput formControlName="height" placeholder="e.g., 200px">
+              <mat-hint>Enter height with unit</mat-hint>
+              <mat-error *ngIf="hasError('height')">{{ getError('height') }}</mat-error>
+            </mat-form-field>
+            
+            <mat-form-field appearance="outline">
+              <mat-label>Min Width</mat-label>
+              <input matInput formControlName="minWidth" placeholder="e.g., 200px">
+              <mat-hint>Enter minimum width with unit</mat-hint>
+              <mat-error *ngIf="hasError('minWidth')">{{ getError('minWidth') }}</mat-error>
+            </mat-form-field>
+          </div>
+          
+          <div class="popover-validation__form-row">
+            <mat-form-field appearance="outline">
+              <mat-label>Max Width</mat-label>
+              <input matInput formControlName="maxWidth" placeholder="e.g., 500px">
+              <mat-hint>Enter maximum width with unit</mat-hint>
+              <mat-error *ngIf="hasError('maxWidth')">{{ getError('maxWidth') }}</mat-error>
+            </mat-form-field>
+            
+            <mat-form-field appearance="outline">
+              <mat-label>Min Height</mat-label>
+              <input matInput formControlName="minHeight" placeholder="e.g., 100px">
+              <mat-hint>Enter minimum height with unit</mat-hint>
+              <mat-error *ngIf="hasError('minHeight')">{{ getError('minHeight') }}</mat-error>
+            </mat-form-field>
+            
+            <mat-form-field appearance="outline">
+              <mat-label>Max Height</mat-label>
+              <input matInput formControlName="maxHeight" placeholder="e.g., 400px">
+              <mat-hint>Enter maximum height with unit</mat-hint>
+              <mat-error *ngIf="hasError('maxHeight')">{{ getError('maxHeight') }}</mat-error>
+            </mat-form-field>
+          </div>
+          
+          <div class="popover-validation__form-row">
+            <mat-form-field appearance="outline">
+              <mat-label>Offset X</mat-label>
+              <input matInput formControlName="offsetX" type="number" placeholder="0">
+              <mat-hint>-1000 to 1000</mat-hint>
+              <mat-error *ngIf="hasError('offsetX')">{{ getError('offsetX') }}</mat-error>
+            </mat-form-field>
+            
+            <mat-form-field appearance="outline">
+              <mat-label>Offset Y</mat-label>
+              <input matInput formControlName="offsetY" type="number" placeholder="0">
+              <mat-hint>-1000 to 1000</mat-hint>
+              <mat-error *ngIf="hasError('offsetY')">{{ getError('offsetY') }}</mat-error>
+            </mat-form-field>
+            
+            <mat-form-field appearance="outline">
+              <mat-label>Animation Duration</mat-label>
+              <input matInput formControlName="animationDuration" type="number" placeholder="300">
+              <mat-hint>0-5000 milliseconds</mat-hint>
+              <mat-error *ngIf="hasError('animationDuration')">{{ getError('animationDuration') }}</mat-error>
+            </mat-form-field>
+          </div>
+          
+          <div class="popover-validation__form-row">
+            <mat-form-field appearance="outline">
+              <mat-label>Animation Easing</mat-label>
+              <mat-select formControlName="animationEasing">
+                <mat-option *ngFor="let option of animationEasingOptions" [value]="option.value">
+                  {{ option.label }}
+                </mat-option>
+              </mat-select>
+              <mat-error *ngIf="hasError('animationEasing')">{{ getError('animationEasing') }}</mat-error>
+            </mat-form-field>
+            
+            <mat-form-field appearance="outline">
+              <mat-label>Header Title</mat-label>
+              <input matInput formControlName="headerTitle" placeholder="Popover Title">
+              <mat-hint>Maximum 100 characters</mat-hint>
+              <mat-error *ngIf="hasError('headerTitle')">{{ getError('headerTitle') }}</mat-error>
+            </mat-form-field>
+            
+            <mat-form-field appearance="outline">
+              <mat-label>Header Subtitle</mat-label>
+              <input matInput formControlName="headerSubtitle" placeholder="Subtitle text">
+              <mat-hint>Maximum 200 characters</mat-hint>
+              <mat-error *ngIf="hasError('headerSubtitle')">{{ getError('headerSubtitle') }}</mat-error>
+            </mat-form-field>
+          </div>
+          
+          <div class="popover-validation__form-row">
+            <mat-form-field appearance="outline">
+              <mat-label>Footer Text</mat-label>
+              <input matInput formControlName="footerText" placeholder="Footer text">
+              <mat-hint>Maximum 200 characters</mat-hint>
+              <mat-error *ngIf="hasError('footerText')">{{ getError('footerText') }}</mat-error>
+            </mat-form-field>
+            
+            <mat-form-field appearance="outline">
+              <mat-label>Close Text</mat-label>
+              <input matInput formControlName="closeText" placeholder="Close">
+              <mat-hint>Maximum 50 characters</mat-hint>
+              <mat-error *ngIf="hasError('closeText')">{{ getError('closeText') }}</mat-error>
+            </mat-form-field>
+            
+            <mat-form-field appearance="outline">
+              <mat-label>Close Icon</mat-label>
+              <input matInput formControlName="closeIcon" placeholder="close">
+              <mat-hint>Material icon name (alphanumeric and underscores only)</mat-hint>
+              <mat-error *ngIf="hasError('closeIcon')">{{ getError('closeIcon') }}</mat-error>
+            </mat-form-field>
+          </div>
+          
+          <div class="popover-validation__form-row">
+            <mat-form-field appearance="outline">
+              <mat-label>Arrow Color</mat-label>
+              <input matInput formControlName="arrowColor" placeholder="#ffffff">
+              <mat-hint>Hex color code (e.g., #ffffff or #fff)</mat-hint>
+              <mat-error *ngIf="hasError('arrowColor')">{{ getError('arrowColor') }}</mat-error>
+            </mat-form-field>
+          </div>
+          
+          <div class="popover-validation__form-actions">
+            <button mat-raised-button color="primary" type="submit">
+              <mat-icon>save</mat-icon>
+              Update Configuration
+            </button>
+            
+            <button mat-button type="button" (click)="resetConfig()">
+              <mat-icon>refresh</mat-icon>
+              Reset
+            </button>
+          </div>
+        </form>
+      </mat-card-content>
+    </mat-card>
+
+    <!-- Trigger Form -->
+    <mat-card class="popover-validation__form-card">
+      <mat-card-header>
+        <mat-card-title>Trigger Validation</mat-card-title>
+        <mat-card-subtitle>Test validation rules for popover trigger</mat-card-subtitle>
+      </mat-card-header>
+      
+      <mat-card-content>
+        <form [formGroup]="triggerForm" (ngSubmit)="onSubmit()" class="popover-validation__form">
+          <div class="popover-validation__form-row">
+            <mat-form-field appearance="outline">
+              <mat-label>Trigger Type *</mat-label>
+              <mat-select formControlName="type">
+                <mat-option *ngFor="let option of triggerTypeOptions" [value]="option.value">
+                  {{ option.label }}
+                </mat-option>
+              </mat-select>
+              <mat-error *ngIf="hasError('type')">{{ getError('type') }}</mat-error>
+            </mat-form-field>
+            
+            <mat-form-field appearance="outline">
+              <mat-label>Delay</mat-label>
+              <input matInput formControlName="delay" type="number" placeholder="0">
+              <mat-hint>0-10000 milliseconds</mat-hint>
+              <mat-error *ngIf="hasError('delay')">{{ getError('delay') }}</mat-error>
+            </mat-form-field>
+            
+            <mat-form-field appearance="outline">
+              <mat-label>Close Delay</mat-label>
+              <input matInput formControlName="closeDelay" type="number" placeholder="0">
+              <mat-hint>0-10000 milliseconds</mat-hint>
+              <mat-error *ngIf="hasError('closeDelay')">{{ getError('closeDelay') }}</mat-error>
+            </mat-form-field>
+          </div>
+          
+          <div class="popover-validation__form-row">
+            <mat-form-field appearance="outline">
+              <mat-label>ARIA Label</mat-label>
+              <input matInput formControlName="ariaLabel" placeholder="Popover trigger">
+              <mat-hint>Maximum 200 characters</mat-hint>
+              <mat-error *ngIf="hasError('ariaLabel')">{{ getError('ariaLabel') }}</mat-error>
+            </mat-form-field>
+            
+            <mat-form-field appearance="outline">
+              <mat-label>ARIA Described By</mat-label>
+              <input matInput formControlName="ariaDescribedBy" placeholder="popover-description">
+              <mat-hint>Maximum 200 characters</mat-hint>
+              <mat-error *ngIf="hasError('ariaDescribedBy')">{{ getError('ariaDescribedBy') }}</mat-error>
+            </mat-form-field>
+            
+            <mat-form-field appearance="outline">
+              <mat-label>ARIA Controls</mat-label>
+              <input matInput formControlName="ariaControls" placeholder="popover-content">
+              <mat-hint>Maximum 200 characters</mat-hint>
+              <mat-error *ngIf="hasError('ariaControls')">{{ getError('ariaControls') }}</mat-error>
+            </mat-form-field>
+          </div>
+          
+          <div class="popover-validation__form-actions">
+            <button mat-raised-button color="primary" type="submit">
+              <mat-icon>save</mat-icon>
+              Update Trigger
+            </button>
+            
+            <button mat-button type="button" (click)="resetTrigger()">
+              <mat-icon>refresh</mat-icon>
+              Reset
+            </button>
+          </div>
+        </form>
+      </mat-card-content>
+    </mat-card>
+
+    <!-- Live Demo -->
+    <mat-card class="popover-validation__demo-card">
+      <mat-card-header>
+        <mat-card-title>Live Demo</mat-card-title>
+        <mat-card-subtitle>Test the popover with current configuration</mat-card-subtitle>
+      </mat-card-header>
+      
+      <mat-card-content>
+        <div class="popover-validation__demo-container">
+          <amw-popover
+            [config]="currentConfig"
+            [trigger]="currentTrigger"
+            [opened]="currentConfig.opened ?? false"
+            (openedChange)="onPopoverOpenedChange($event)"
+            (beforeOpen)="onPopoverBeforeOpen()"
+            (afterOpen)="onPopoverAfterOpen()"
+            (beforeClose)="onPopoverBeforeClose()"
+            (afterClose)="onPopoverAfterClose()">
+            
+            <!-- Trigger Template -->
+            <ng-template #trigger>
+              <button mat-raised-button color="primary">
+                <mat-icon>info</mat-icon>
+                Test Popover
+              </button>
+            </ng-template>
+            
+            <!-- Content Template -->
+            <ng-template #content>
+              <div class="popover-validation__content">
+                <h4>Validation Demo</h4>
+                <p>
+                  This demo shows how the popover component handles validation and error states.
+                  Try submitting invalid data to see validation errors in action.
+                </p>
+                
+                <div class="popover-validation__validation-info">
+                  <h5>Validation Rules:</h5>
+                  <ul>
+                    <li><strong>Required fields:</strong> Size, Position, Trigger Type</li>
+                    <li><strong>Width/Height fields:</strong> Must include unit (px, %, rem, em, vw, vh)</li>
+                    <li><strong>Numeric fields:</strong> Must be within specified ranges</li>
+                    <li><strong>Text fields:</strong> Must not exceed character limits</li>
+                    <li><strong>Icon field:</strong> Must be valid Material icon name</li>
+                    <li><strong>Color field:</strong> Must be valid hex color code</li>
+                    <li><strong>Easing field:</strong> Must be valid CSS easing function</li>
+                  </ul>
+                </div>
+              </div>
+            </ng-template>
+          </amw-popover>
+        </div>
+      </mat-card-content>
+    </mat-card>
+  </div>
+</div>

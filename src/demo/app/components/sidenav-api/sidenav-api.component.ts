@@ -36,7 +36,7 @@ export class SidenavApiComponent implements OnInit, OnDestroy {
     private destroy$ = new Subject<void>();
 
     /** Current sidenav configuration */
-    currentConfig: SidenavConfig = {};
+    currentConfig: SidenavConfig = { opened: false };
 
     /** Navigation items */
     navigationItems: SidenavItem[] = [];

@@ -1,4 +1,4 @@
-import { Component, Input, Output, EventEmitter, OnInit, OnDestroy, TemplateRef, ViewChild, ElementRef, AfterViewInit, ChangeDetectorRef } from '@angular/core';
+import { Component, Input, Output, EventEmitter, OnInit, OnDestroy, TemplateRef, ViewChild, ElementRef, AfterViewInit, ChangeDetectorRef, ViewEncapsulation } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { MatSidenavModule, MatSidenav } from '@angular/material/sidenav';
 import { MatButtonModule } from '@angular/material/button';
@@ -53,7 +53,7 @@ import { SidenavItem } from './interfaces/sidenav-item.interface';
     ],
     templateUrl: './amw-sidenav.component.html',
     styleUrl: './amw-sidenav.component.scss',
-    viewEncapsulation: ViewEncapsulation.None
+    encapsulation: ViewEncapsulation.None
 })
 export class AmwSidenavComponent extends BaseComponent implements OnInit, OnDestroy, AfterViewInit {
     /** Configuration object for the sidenav */
@@ -177,7 +177,7 @@ export class AmwSidenavComponent extends BaseComponent implements OnInit, OnDest
     }
 
     /** Whether the sidenav is disabled */
-    get isDisabled(): boolean {
+    override get isDisabled(): boolean {
         return this.config.disabled || false;
     }
 
@@ -479,6 +479,27 @@ export class AmwSidenavComponent extends BaseComponent implements OnInit, OnDest
         }
 
         return classes.join(' ');
+    }
+
+    /**
+     * Gets the badge color for Material Design
+     * @param badgeColor The badge color string
+     * @returns Valid Material Design theme palette color
+     */
+    getBadgeColor(badgeColor?: string): 'primary' | 'accent' | 'warn' {
+        if (badgeColor === 'primary' || badgeColor === 'accent' || badgeColor === 'warn') {
+            return badgeColor;
+        }
+        return 'primary';
+    }
+
+    /**
+     * Handles expansion panel change events
+     * @param item The navigation item
+     * @param event The expansion event
+     */
+    onExpansionChange(item: SidenavItem, event: any): void {
+        item.expanded = event;
     }
 
     /**

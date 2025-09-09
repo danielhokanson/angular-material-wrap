@@ -19,8 +19,7 @@
     <button
       mat-button
       class="amw-popover__trigger-button"
-      [disabled]="currentConfig.disabled"
-      [matRipple]="!currentConfig.disabled">
+      [disabled]="currentConfig.disabled">
       <mat-icon *ngIf="!triggerTemplate">info</mat-icon>
       <span *ngIf="!triggerTemplate">Popover</span>
     </button>

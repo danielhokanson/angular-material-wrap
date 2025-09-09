@@ -54,7 +54,7 @@ export class SidenavDemoComponent implements OnInit, OnDestroy {
     configForm: FormGroup;
 
     /** Current sidenav configuration */
-    currentConfig: SidenavConfig = {};
+    currentConfig: SidenavConfig = { opened: false, showToggle: false, showClose: false };
 
     /** Sample navigation items */
     sampleItems: SidenavItem[] = [

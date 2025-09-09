@@ -52,8 +52,7 @@ import { AmwSize } from '../../../../library/src/shared/types';
         MatExpansionModule,
         MatTabsModule,
         MatSnackBarModule,
-        AmwInputComponent,
-        AmwButtonComponent,
+        AmwInputComponent
     ],
     encapsulation: ViewEncapsulation.None,
     templateUrl: './input-demo.component.html',

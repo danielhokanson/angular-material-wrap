@@ -1,6 +1,6 @@
-import { Component, Input, Output, EventEmitter, ViewEncapsulation, forwardRef, ContentChild, TemplateRef, OnInit, OnDestroy } from '@angular/core';
+import { Component, Input, Output, EventEmitter, ViewEncapsulation, forwardRef, ContentChild, TemplateRef, OnInit, OnDestroy, Inject } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { MatDialogModule, MatDialog, MatDialogRef } from '@angular/material/dialog';
+import { MatDialogModule, MatDialog, MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { MatButtonModule } from '@angular/material/button';
 import { MatIconModule } from '@angular/material/icon';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
@@ -65,7 +65,7 @@ import { DialogConfig, DialogType, DialogSize, DialogPosition } from './interfac
     }
   ],
   template: `
-    <div class="amw-dialog" [class]="dialogClasses">
+    <div [class]="dialogClasses">
       <!-- Header -->
       <div *ngIf="showHeader" class="amw-dialog__header">
         <ng-container [ngTemplateOutlet]="headerTemplate" *ngIf="headerTemplate; else defaultHeader"></ng-container>
@@ -160,8 +160,36 @@ export class AmwDialogComponent extends BaseComponent implements OnInit, OnDestr
 
   private dialogRef?: MatDialogRef<any>;
 
-  constructor(private dialog: MatDialog) {
+  constructor(
+    private dialog: MatDialog,
+    @Inject(MAT_DIALOG_DATA) public data: any = {},
+    private matDialogRef: MatDialogRef<AmwDialogComponent>
+  ) {
     super();
+
+    // Initialize properties from injected data
+    if (this.data) {
+      this.title = this.data.title || this.title;
+      this.content = this.data.content || this.content;
+      this.type = this.data.type || this.type;
+      this.size = this.data.size || this.size;
+      this.position = this.data.position || this.position;
+      this.actions = this.data.actions || this.actions;
+      this.showCloseButton = this.data.showCloseButton !== undefined ? this.data.showCloseButton : this.showCloseButton;
+      this.showHeader = this.data.showHeader !== undefined ? this.data.showHeader : this.showHeader;
+      this.showFooter = this.data.showFooter !== undefined ? this.data.showFooter : this.showFooter;
+      this.loading = this.data.loading || this.loading;
+      this.disabled = this.data.disabled || this.disabled;
+      this.closable = this.data.closable !== undefined ? this.data.closable : this.closable;
+      this.backdrop = this.data.backdrop !== undefined ? this.data.backdrop : this.backdrop;
+      this.escapeKeyClose = this.data.escapeKeyClose !== undefined ? this.data.escapeKeyClose : this.escapeKeyClose;
+      this.clickOutsideClose = this.data.clickOutsideClose !== undefined ? this.data.clickOutsideClose : this.clickOutsideClose;
+      this.autoFocus = this.data.autoFocus !== undefined ? this.data.autoFocus : this.autoFocus;
+      this.restoreFocus = this.data.restoreFocus !== undefined ? this.data.restoreFocus : this.restoreFocus;
+      this.hasBackdrop = this.data.hasBackdrop !== undefined ? this.data.hasBackdrop : this.hasBackdrop;
+      this.backdropClass = this.data.backdropClass || this.backdropClass;
+      this.panelClass = this.data.panelClass || this.panelClass;
+    }
   }
 
   ngOnInit() {
@@ -218,8 +246,8 @@ export class AmwDialogComponent extends BaseComponent implements OnInit, OnDestr
   }
 
   close(result?: any) {
-    if (this.dialogRef) {
-      this.dialogRef.close(result);
+    if (this.matDialogRef) {
+      this.matDialogRef.close(result);
       this.dialogClose.emit(result);
     }
   }

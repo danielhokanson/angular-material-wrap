@@ -1,4 +1,4 @@
-import { Component, Input, Output, EventEmitter, OnInit, OnDestroy, TemplateRef, ViewChild, ElementRef, AfterViewInit, ChangeDetectorRef, ViewContainerRef } from '@angular/core';
+import { Component, Input, Output, EventEmitter, OnInit, OnDestroy, TemplateRef, ViewChild, ElementRef, AfterViewInit, ChangeDetectorRef, ViewContainerRef, ViewEncapsulation } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { MatButtonModule } from '@angular/material/button';
 import { MatIconModule } from '@angular/material/icon';
@@ -54,7 +54,7 @@ import { PopoverTrigger } from './interfaces/popover-trigger.interface';
     ],
     templateUrl: './amw-popover.component.html',
     styleUrl: './amw-popover.component.scss',
-    viewEncapsulation: ViewEncapsulation.None
+    encapsulation: ViewEncapsulation.None
 })
 export class AmwPopoverComponent extends BaseComponent implements OnInit, OnDestroy, AfterViewInit {
     /** Configuration object for the popover */
@@ -112,10 +112,10 @@ export class AmwPopoverComponent extends BaseComponent implements OnInit, OnDest
     private destroy$ = new Subject<void>();
 
     /** Current popover configuration */
-    private currentConfig: PopoverConfig = {};
+    currentConfig: PopoverConfig = {};
 
     /** Current trigger configuration */
-    private currentTrigger: PopoverTrigger = {};
+    currentTrigger: PopoverTrigger = {};
 
     /** Whether the popover is currently opening */
     private isOpening = false;
@@ -313,8 +313,9 @@ export class AmwPopoverComponent extends BaseComponent implements OnInit, OnDest
         if (this.currentTrigger.escapeKey) {
             fromEvent(document, 'keydown')
                 .pipe(takeUntil(this.destroy$))
-                .subscribe((event: KeyboardEvent) => {
-                    if (event.key === 'Escape' && this.opened) {
+                .subscribe((event: Event) => {
+                    const keyboardEvent = event as KeyboardEvent;
+                    if (keyboardEvent.key === 'Escape' && this.opened) {
                         this.closePopover();
                     }
                 });
@@ -324,8 +325,9 @@ export class AmwPopoverComponent extends BaseComponent implements OnInit, OnDest
         if (this.currentTrigger.outsideClick) {
             fromEvent(document, 'click')
                 .pipe(takeUntil(this.destroy$))
-                .subscribe((event: MouseEvent) => {
-                    if (this.opened && this.overlayRef && !this.overlayRef.overlayElement.contains(event.target as Node)) {
+                .subscribe((event: Event) => {
+                    const mouseEvent = event as MouseEvent;
+                    if (this.opened && this.overlayRef && !this.overlayRef.overlayElement.contains(mouseEvent.target as Node)) {
                         this.closePopover();
                     }
                 });
