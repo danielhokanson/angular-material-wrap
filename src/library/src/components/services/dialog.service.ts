@@ -351,6 +351,16 @@ export class DialogService {
     }
 
     private getDialogConfig(options: DialogOptions): MatDialogConfig {
+        const backdropClass = this.getBackdropClass(options.type) || 'amw-dialog-backdrop';
+        const panelClass = this.getPanelClass(options.type, options.size) || 'amw-dialog-panel';
+
+        console.log('Dialog config classes:', { backdropClass, panelClass });
+
+        // Final validation to ensure no whitespace in class names
+        if (backdropClass.includes(' ') || panelClass.includes(' ')) {
+            console.error('Whitespace detected in single class names:', { backdropClass, panelClass });
+        }
+
         const config: MatDialogConfig = {
             data: {
                 title: options.title || '',
@@ -371,8 +381,6 @@ export class DialogService {
                 autoFocus: options.autoFocus !== false,
                 restoreFocus: options.restoreFocus !== false,
                 hasBackdrop: options.hasBackdrop !== false,
-                backdropClass: options.backdropClass || '',
-                panelClass: options.panelClass || '',
                 data: options.data
             },
             width: options.width || this.getDefaultWidth(options.size),
@@ -382,8 +390,8 @@ export class DialogService {
             minWidth: options.minWidth || this.getDefaultMinWidth(options.size),
             minHeight: options.minHeight || this.getDefaultMinHeight(options.size),
             hasBackdrop: options.hasBackdrop !== false,
-            backdropClass: options.backdropClass || this.getBackdropClass(options.type),
-            panelClass: options.panelClass || this.getPanelClass(options.type, options.size),
+            backdropClass: backdropClass,
+            panelClass: panelClass,
             disableClose: options.closable === false,
             autoFocus: options.autoFocus !== false,
             restoreFocus: options.restoreFocus !== false,
@@ -470,15 +478,67 @@ export class DialogService {
     }
 
     private getBackdropClass(type?: DialogType): string {
-        const classes = ['amw-dialog-backdrop'];
-        if (type) classes.push(`amw-dialog-backdrop--${type}`);
-        return classes.join(' ');
+        // Angular Material expects a single class name, not multiple classes
+        const baseClass = 'amw-dialog-backdrop';
+
+        if (type && typeof type === 'string' && type.trim()) {
+            const cleanType = this.sanitizeClassName(type);
+            if (cleanType) {
+                return `${baseClass}-${cleanType}`;
+            }
+        }
+
+        console.log('getBackdropClass input:', type, 'output:', baseClass);
+        return baseClass;
     }
 
     private getPanelClass(type?: DialogType, size?: DialogSize): string {
-        const classes = ['amw-dialog-panel'];
-        if (type) classes.push(`amw-dialog-panel--${type}`);
-        if (size) classes.push(`amw-dialog-panel--${size}`);
-        return classes.join(' ');
+        // Angular Material expects a single class name, not multiple classes
+        const baseClass = 'amw-dialog-panel';
+
+        if (type && typeof type === 'string' && type.trim()) {
+            const cleanType = this.sanitizeClassName(type);
+            if (cleanType) {
+                return `${baseClass}-${cleanType}`;
+            }
+        }
+
+        if (size && typeof size === 'string' && size.trim()) {
+            const cleanSize = this.sanitizeClassName(size);
+            if (cleanSize) {
+                return `${baseClass}-${cleanSize}`;
+            }
+        }
+
+        console.log('getPanelClass input:', { type, size }, 'output:', baseClass);
+        return baseClass;
+    }
+
+    private sanitizeClassName(value: string): string {
+        if (!value || typeof value !== 'string') return '';
+
+        // First, ensure we have a string and trim it
+        let sanitized = String(value).trim();
+
+        // If empty after trim, return empty string
+        if (!sanitized) return '';
+
+        // Replace any whitespace (including tabs, newlines, etc.) with hyphens
+        sanitized = sanitized.replace(/\s+/g, '-');
+
+        // Remove any characters that are not alphanumeric, hyphens, or underscores
+        sanitized = sanitized.replace(/[^a-zA-Z0-9-_]/g, '');
+
+        // Replace multiple consecutive hyphens with single hyphen
+        sanitized = sanitized.replace(/-+/g, '-');
+
+        // Remove leading and trailing hyphens
+        sanitized = sanitized.replace(/^-+|-+$/g, '');
+
+        // Final check: ensure no whitespace characters remain
+        sanitized = sanitized.replace(/\s/g, '');
+
+        // Return empty string if nothing valid remains
+        return sanitized || '';
     }
 }

@@ -476,35 +476,23 @@ export class SidenavDemoComponent implements OnInit, OnDestroy {
         });
     }
 
-    /**
-     * Gets the size options
-     */
-    get sizeOptions() {
-        return [
-            { value: 'small', label: 'Small' },
-            { value: 'medium', label: 'Medium' },
-            { value: 'large', label: 'Large' }
-        ];
-    }
+    /** Size options for select dropdown */
+    readonly sizeOptions = [
+        { value: 'small', label: 'Small' },
+        { value: 'medium', label: 'Medium' },
+        { value: 'large', label: 'Large' }
+    ];
 
-    /**
-     * Gets the mode options
-     */
-    get modeOptions() {
-        return [
-            { value: 'over', label: 'Over' },
-            { value: 'push', label: 'Push' },
-            { value: 'side', label: 'Side' }
-        ];
-    }
+    /** Mode options for select dropdown */
+    readonly modeOptions = [
+        { value: 'over', label: 'Over' },
+        { value: 'push', label: 'Push' },
+        { value: 'side', label: 'Side' }
+    ];
 
-    /**
-     * Gets the position options
-     */
-    get positionOptions() {
-        return [
-            { value: 'start', label: 'Start' },
-            { value: 'end', label: 'End' }
-        ];
-    }
+    /** Position options for select dropdown */
+    readonly positionOptions = [
+        { value: 'start', label: 'Start' },
+        { value: 'end', label: 'End' }
+    ];
 }

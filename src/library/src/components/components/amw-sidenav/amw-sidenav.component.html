@@ -35,7 +35,8 @@
     [position]="position"
     [style.width]="sidenavWidth"
     [style.min-width]="config.minWidth"
-    [style.max-width]="config.maxWidth">
+    [style.max-width]="config.maxWidth"
+    (openedChange)="onSidenavOpenedChange($event)">
     
     <!-- Sidenav Header -->
     <div class="amw-sidenav__header" *ngIf="headerTemplate || showClose">

@@ -384,49 +384,33 @@ export class SidenavValidationComponent implements OnInit, OnDestroy {
         this.validationErrors = {};
     }
 
-    /**
-     * Gets the size options
-     */
-    get sizeOptions() {
-        return [
-            { value: 'small', label: 'Small' },
-            { value: 'medium', label: 'Medium' },
-            { value: 'large', label: 'Large' }
-        ];
-    }
+    /** Size options for select dropdown */
+    readonly sizeOptions = [
+        { value: 'small', label: 'Small' },
+        { value: 'medium', label: 'Medium' },
+        { value: 'large', label: 'Large' }
+    ];
 
-    /**
-     * Gets the mode options
-     */
-    get modeOptions() {
-        return [
-            { value: 'over', label: 'Over' },
-            { value: 'push', label: 'Push' },
-            { value: 'side', label: 'Side' }
-        ];
-    }
+    /** Mode options for select dropdown */
+    readonly modeOptions = [
+        { value: 'over', label: 'Over' },
+        { value: 'push', label: 'Push' },
+        { value: 'side', label: 'Side' }
+    ];
 
-    /**
-     * Gets the position options
-     */
-    get positionOptions() {
-        return [
-            { value: 'start', label: 'Start' },
-            { value: 'end', label: 'End' }
-        ];
-    }
+    /** Position options for select dropdown */
+    readonly positionOptions = [
+        { value: 'start', label: 'Start' },
+        { value: 'end', label: 'End' }
+    ];
 
-    /**
-     * Gets the badge color options
-     */
-    get badgeColorOptions() {
-        return [
-            { value: 'primary', label: 'Primary' },
-            { value: 'accent', label: 'Accent' },
-            { value: 'warn', label: 'Warn' },
-            { value: 'basic', label: 'Basic' }
-        ];
-    }
+    /** Badge color options for select dropdown */
+    readonly badgeColorOptions = [
+        { value: 'primary', label: 'Primary' },
+        { value: 'accent', label: 'Accent' },
+        { value: 'warn', label: 'Warn' },
+        { value: 'basic', label: 'Basic' }
+    ];
 
     /**
      * Checks if a form control has an error

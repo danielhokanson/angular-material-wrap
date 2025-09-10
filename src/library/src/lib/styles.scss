@@ -1,0 +1,587 @@
+/* Angular Material Wrap Library Styles */
+/* Global styles for all Angular Material Wrap components */
+
+/* ==========================================================================
+   MATERIAL DESIGN 3 THEME CONFIGURATION
+   ========================================================================== */
+
+@use '@angular/material' as mat;
+
+/* Include Angular Material core styles */
+@include mat.core();
+
+/* Create comprehensive M3 theme with proper color mapping */
+$m3-theme: mat.define-theme((
+  color: (
+    theme-type: light,
+    primary: mat.$violet-palette,
+    tertiary: mat.$cyan-palette,
+  ),
+  density: (
+    scale: 0
+  )
+));
+
+/* Include Angular Material component themes */
+@mixin angular-material-theme($theme) {
+  @include mat.button-theme($theme);
+  @include mat.fab-theme($theme);
+  @include mat.form-field-theme($theme);
+  @include mat.input-theme($theme);
+  @include mat.select-theme($theme);
+  @include mat.checkbox-theme($theme);
+  @include mat.radio-theme($theme);
+  @include mat.slider-theme($theme);
+  @include mat.slide-toggle-theme($theme);
+  @include mat.toolbar-theme($theme);
+  @include mat.sidenav-theme($theme);
+  @include mat.list-theme($theme);
+  @include mat.card-theme($theme);
+  @include mat.icon-theme($theme);
+  @include mat.progress-spinner-theme($theme);
+  @include mat.progress-bar-theme($theme);
+  @include mat.tabs-theme($theme);
+  @include mat.menu-theme($theme);
+  @include mat.snack-bar-theme($theme);
+  @include mat.dialog-theme($theme);
+  @include mat.chips-theme($theme);
+  @include mat.datepicker-theme($theme);
+  @include mat.autocomplete-theme($theme);
+}
+
+/* Apply theme to root */
+:root {
+  @include angular-material-theme($m3-theme);
+  
+  /* Material Design 3 Color Tokens - Light Theme */
+  --mdc-theme-primary: #6750A4;
+  --mdc-theme-on-primary: #FFFFFF;
+  --mdc-theme-primary-container: #EADDFF;
+  --mdc-theme-on-primary-container: #21005D;
+  
+  --mdc-theme-secondary: #625B71;
+  --mdc-theme-on-secondary: #FFFFFF;
+  --mdc-theme-secondary-container: #E8DEF8;
+  --mdc-theme-on-secondary-container: #1D192B;
+  
+  --mdc-theme-tertiary: #7D5260;
+  --mdc-theme-on-tertiary: #FFFFFF;
+  --mdc-theme-tertiary-container: #FFD8E4;
+  --mdc-theme-on-tertiary-container: #31111D;
+  
+  --mdc-theme-error: #BA1A1A;
+  --mdc-theme-on-error: #FFFFFF;
+  --mdc-theme-error-container: #FFDAD6;
+  --mdc-theme-on-error-container: #410002;
+  
+  --mdc-theme-surface: #FFFBFE;
+  --mdc-theme-on-surface: #1C1B1F;
+  --mdc-theme-surface-variant: #E7E0EC;
+  --mdc-theme-on-surface-variant: #49454F;
+  
+  --mdc-theme-outline: #79747E;
+  --mdc-theme-outline-variant: #CAC4D0;
+  
+  --mdc-theme-background: #FFFBFE;
+  --mdc-theme-on-background: #1C1B1F;
+  
+  --mdc-theme-surface-container: #F3EDF7;
+  --mdc-theme-surface-container-high: #ECE6F0;
+  --mdc-theme-surface-container-highest: #E6E0E9;
+  --mdc-theme-surface-container-low: #F7F2FA;
+  --mdc-theme-surface-container-lowest: #FFFFFF;
+  
+  --mdc-theme-surface-dim: #DDD8DD;
+  --mdc-theme-surface-bright: #FFFBFE;
+  
+  /* Additional M3 tokens */
+  --mdc-theme-surface-tint: #6750A4;
+  --mdc-theme-inverse-surface: #313033;
+  --mdc-theme-inverse-on-surface: #F4EFF4;
+  --mdc-theme-inverse-primary: #D0BCFF;
+  
+  /* Scrim and shadow */
+  --mdc-theme-scrim: #000000;
+  --mdc-theme-shadow: #000000;
+}
+
+/* Dark theme variant */
+.dark-theme {
+  $m3-dark-theme: mat.define-theme((
+    color: (
+      theme-type: dark,
+      primary: mat.$violet-palette,
+      tertiary: mat.$cyan-palette,
+    ),
+    density: (
+      scale: 0
+    )
+  ));
+  
+  @include angular-material-theme($m3-dark-theme);
+  
+  /* Material Design 3 Color Tokens - Dark Theme */
+  --mdc-theme-primary: #D0BCFF;
+  --mdc-theme-on-primary: #381E72;
+  --mdc-theme-primary-container: #4F378B;
+  --mdc-theme-on-primary-container: #EADDFF;
+  
+  --mdc-theme-secondary: #CCC2DC;
+  --mdc-theme-on-secondary: #332D41;
+  --mdc-theme-secondary-container: #4A4458;
+  --mdc-theme-on-secondary-container: #E8DEF8;
+  
+  --mdc-theme-tertiary: #EFB8C8;
+  --mdc-theme-on-tertiary: #492532;
+  --mdc-theme-tertiary-container: #633B48;
+  --mdc-theme-on-tertiary-container: #FFD8E4;
+  
+  --mdc-theme-error: #FFB4AB;
+  --mdc-theme-on-error: #690005;
+  --mdc-theme-error-container: #93000A;
+  --mdc-theme-on-error-container: #FFDAD6;
+  
+  --mdc-theme-surface: #1C1B1F;
+  --mdc-theme-on-surface: #E6E1E5;
+  --mdc-theme-surface-variant: #49454F;
+  --mdc-theme-on-surface-variant: #CAC4D0;
+  
+  --mdc-theme-outline: #938F99;
+  --mdc-theme-outline-variant: #49454F;
+  
+  --mdc-theme-background: #1C1B1F;
+  --mdc-theme-on-background: #E6E1E5;
+  
+  --mdc-theme-surface-container: #211F26;
+  --mdc-theme-surface-container-high: #2B2930;
+  --mdc-theme-surface-container-highest: #36343B;
+  --mdc-theme-surface-container-low: #1F1D24;
+  --mdc-theme-surface-container-lowest: #161218;
+  
+  --mdc-theme-surface-dim: #141218;
+  --mdc-theme-surface-bright: #3C383E;
+  
+  /* Additional M3 tokens */
+  --mdc-theme-surface-tint: #D0BCFF;
+  --mdc-theme-inverse-surface: #E6E1E5;
+  --mdc-theme-inverse-on-surface: #313033;
+  --mdc-theme-inverse-primary: #6750A4;
+  
+  /* Scrim and shadow */
+  --mdc-theme-scrim: #000000;
+  --mdc-theme-shadow: #000000;
+}
+
+/* ==========================================================================
+   MATERIAL DESIGN COMPONENT CUSTOM PROPERTIES
+   ========================================================================== */
+
+/* Form Field Theming */
+.mat-mdc-form-field {
+  /* Outlined Text Field */
+  --mdc-outlined-text-field-container-color: var(--mdc-theme-surface);
+  --mdc-outlined-text-field-outline-color: var(--mdc-theme-outline);
+  --mdc-outlined-text-field-focus-outline-color: var(--mdc-theme-primary);
+  --mdc-outlined-text-field-hover-outline-color: var(--mdc-theme-on-surface);
+  --mdc-outlined-text-field-label-text-color: var(--mdc-theme-on-surface-variant);
+  --mdc-outlined-text-field-input-text-color: var(--mdc-theme-on-surface);
+  --mdc-outlined-text-field-supporting-text-color: var(--mdc-theme-on-surface-variant);
+  --mdc-outlined-text-field-error-focus-outline-color: var(--mdc-theme-error);
+  --mdc-outlined-text-field-error-hover-outline-color: var(--mdc-theme-error);
+  --mdc-outlined-text-field-error-outline-color: var(--mdc-theme-error);
+  --mdc-outlined-text-field-error-label-text-color: var(--mdc-theme-error);
+  --mdc-outlined-text-field-error-supporting-text-color: var(--mdc-theme-error);
+  
+  /* Filled Text Field */
+  --mdc-filled-text-field-container-color: var(--mdc-theme-surface-container-lowest);
+  --mdc-filled-text-field-active-indicator-color: var(--mdc-theme-outline);
+  --mdc-filled-text-field-focus-active-indicator-color: var(--mdc-theme-primary);
+  --mdc-filled-text-field-hover-active-indicator-color: var(--mdc-theme-on-surface);
+  --mdc-filled-text-field-label-text-color: var(--mdc-theme-on-surface-variant);
+  --mdc-filled-text-field-input-text-color: var(--mdc-theme-on-surface);
+  --mdc-filled-text-field-supporting-text-color: var(--mdc-theme-on-surface-variant);
+  --mdc-filled-text-field-error-active-indicator-color: var(--mdc-theme-error);
+  --mdc-filled-text-field-error-focus-active-indicator-color: var(--mdc-theme-error);
+  --mdc-filled-text-field-error-hover-active-indicator-color: var(--mdc-theme-error);
+  --mdc-filled-text-field-error-label-text-color: var(--mdc-theme-error);
+  --mdc-filled-text-field-error-supporting-text-color: var(--mdc-theme-error);
+}
+
+/* List Theming */
+.mat-mdc-list {
+  --mdc-list-container-color: var(--mdc-theme-surface-container);
+  background-color: var(--mdc-theme-surface-container) !important;
+}
+
+.mat-mdc-list-item {
+  --mdc-list-item-container-color: var(--mdc-theme-surface-container);
+  --mdc-list-item-label-text-color: var(--mdc-theme-on-surface);
+  --mdc-list-item-leading-icon-color: var(--mdc-theme-on-surface-variant);
+  --mdc-list-item-trailing-supporting-text-color: var(--mdc-theme-on-surface-variant);
+  --mdc-list-item-hover-state-layer-color: var(--mdc-theme-on-surface);
+  --mdc-list-item-focus-state-layer-color: var(--mdc-theme-on-surface);
+  --mdc-list-item-selected-container-color: var(--mdc-theme-secondary-container);
+  --mdc-list-item-selected-label-text-color: var(--mdc-theme-on-secondary-container);
+  --mdc-list-item-selected-leading-icon-color: var(--mdc-theme-on-secondary-container);
+  background-color: var(--mdc-theme-surface-container) !important;
+  color: var(--mdc-theme-on-surface) !important;
+}
+
+/* Icon Button Theming */
+.mat-mdc-icon-button {
+  --mdc-icon-button-icon-color: var(--mdc-theme-on-surface);
+  --mdc-icon-button-hover-state-layer-color: var(--mdc-theme-on-surface);
+  --mdc-icon-button-focus-state-layer-color: var(--mdc-theme-on-surface);
+  --mdc-icon-button-pressed-state-layer-color: var(--mdc-theme-on-surface);
+  color: var(--mdc-theme-on-surface) !important;
+}
+
+/* Tab Theming */
+.mat-mdc-tab-group {
+  --mdc-tab-indicator-active-indicator-color: var(--mdc-theme-primary);
+  --mdc-tab-indicator-hover-indicator-color: var(--mdc-theme-primary);
+  --mdc-tab-indicator-focus-indicator-color: var(--mdc-theme-primary);
+  --mdc-tab-indicator-pressed-indicator-color: var(--mdc-theme-primary);
+}
+
+.mat-mdc-tab {
+  --mdc-tab-text-label-text-color: var(--mdc-theme-on-surface);
+  --mdc-tab-text-hover-label-text-color: var(--mdc-theme-on-surface);
+  --mdc-tab-text-focus-label-text-color: var(--mdc-theme-on-surface);
+  --mdc-tab-text-pressed-label-text-color: var(--mdc-theme-on-surface);
+  --mdc-tab-text-active-label-text-color: var(--mdc-theme-primary);
+  color: var(--mdc-theme-on-surface) !important;
+}
+
+.mat-mdc-tab-body-content {
+  background-color: var(--mdc-theme-background) !important;
+  color: var(--mdc-theme-on-background) !important;
+}
+
+/* Snackbar Theming */
+.mat-mdc-snack-bar-container {
+  background-color: var(--mdc-theme-inverse-surface) !important;
+  color: var(--mdc-theme-inverse-on-surface) !important;
+  box-shadow: var(--mdc-elevation-level3);
+}
+
+/* ==========================================================================
+   DIALOG COMPONENT STYLES
+   ========================================================================== */
+
+     /* Material Icons Support */
+     .material-icons {
+       font-family: 'Material Icons';
+       font-weight: normal;
+       font-style: normal;
+       font-size: 24px;
+       line-height: 1;
+       letter-spacing: normal;
+       text-transform: none;
+       display: inline-block;
+       white-space: nowrap;
+       word-wrap: normal;
+       direction: ltr;
+       -webkit-font-feature-settings: 'liga';
+       -webkit-font-smoothing: antialiased;
+     }
+  
+     /* Ensure proper icon rendering */
+     mat-icon {
+       font-family: 'Material Icons' !important;
+       font-weight: normal;
+       font-style: normal;
+       font-size: 24px;
+       line-height: 1;
+       letter-spacing: normal;
+       text-transform: none;
+       display: inline-block;
+       white-space: nowrap;
+       word-wrap: normal;
+       direction: ltr;
+       -webkit-font-feature-settings: 'liga';
+       -webkit-font-smoothing: antialiased;
+     }
+  
+     /* CDK Overlay Transparency for Demo */
+     .cdk-overlay-backdrop {
+       background: transparent !important;
+     }
+  
+     .cdk-overlay-pane {
+       background: transparent !important;
+     }
+
+/* Dialog Backdrop Styles */
+.amw-dialog-backdrop,
+.amw-dialog-backdrop-alert,
+.amw-dialog-backdrop-warning,
+.amw-dialog-backdrop-error,
+.amw-dialog-backdrop-success,
+.amw-dialog-backdrop-info,
+.amw-dialog-backdrop-confirm {
+  background: transparent !important;
+}
+
+/* Dialog Panel Styles */
+.amw-dialog-panel,
+.amw-dialog-panel-alert,
+.amw-dialog-panel-warning,
+.amw-dialog-panel-error,
+.amw-dialog-panel-success,
+.amw-dialog-panel-info,
+.amw-dialog-panel-confirm,
+.amw-dialog-panel-small,
+.amw-dialog-panel-medium,
+.amw-dialog-panel-large {
+  background: transparent !important;
+  box-shadow: 0 11px 15px -7px rgba(0, 0, 0, 0.2), 0 24px 38px 3px rgba(0, 0, 0, 0.14), 0 9px 46px 8px rgba(0, 0, 0, 0.12) !important;
+  border: 1px solid var(--mdc-theme-outline-variant, #e7e0ec) !important;
+  border-radius: 28px !important; /* Match dialog border radius */
+  margin: 0 !important;
+  padding: 0 !important;
+  overflow: hidden !important; /* Ensure rounded corners are respected */
+}
+
+/* Dialog Component Styles */
+.amw-dialog {
+  display: flex !important;
+  flex-direction: column !important;
+  height: 100% !important;
+  max-height: 100% !important;
+  min-height: 200px !important;
+}
+
+.amw-dialog__header {
+  position: relative !important;
+  flex-shrink: 0 !important;
+  padding: 24px 24px 16px 24px !important;
+  background: var(--mdc-theme-surface, #fff) !important;
+  border-bottom: 1px solid var(--mdc-theme-outline-variant, #e7e0ec) !important;
+  min-height: 60px !important;
+  box-sizing: border-box !important;
+}
+
+.amw-dialog__title {
+  display: flex !important;
+  align-items: center !important;
+  gap: 12px !important;
+  flex: 1 !important;
+}
+
+.amw-dialog__title .dialog-icon {
+  font-size: 1.5rem !important;
+  width: 1.5rem !important;
+  height: 1.5rem !important;
+  color: #6750a4 !important;
+}
+
+.amw-dialog__content {
+  flex: 1 !important;
+  overflow-y: auto !important;
+  padding: 16px 24px 24px 24px !important;
+  color: var(--mdc-theme-on-surface, #1c1b1f) !important;
+  line-height: 1.5 !important;
+  min-height: 60px !important;
+  box-sizing: border-box !important;
+  /* Ensure content can scroll when needed */
+  max-height: calc(100vh - 200px) !important;
+}
+
+.amw-dialog__close {
+  position: absolute !important;
+  top: 16px !important;
+  right: 16px !important;
+  z-index: 1 !important;
+}
+
+/* Dialog Footer Styles */
+.amw-dialog__footer,
+.amw-dialog .amw-dialog__footer,
+.amw-dialog-panel .amw-dialog__footer,
+div.amw-dialog__footer,
+div[class*="amw-dialog"] .amw-dialog__footer {
+  flex-shrink: 0 !important;
+  justify-content: flex-end !important;
+  display: flex !important;
+  align-items: center !important;
+  gap: 12px !important;
+  text-align: right !important;
+  padding: 16px 24px 24px 24px !important;
+  background: var(--mdc-theme-surface, #fff) !important;
+  border-top: 1px solid var(--mdc-theme-outline-variant, #e7e0ec) !important;
+  min-height: 60px !important;
+  box-sizing: border-box !important;
+}
+
+.amw-dialog__action {
+  margin-left: 0 !important;
+  margin-right: 0 !important;
+  flex-shrink: 0 !important;
+}
+
+/* Ensure button container is properly aligned */
+.amw-dialog__footer > * {
+  margin-left: 0 !important;
+  margin-right: 0 !important;
+}
+
+/* Dialog Type Specific Styles */
+.amw-dialog--standard .dialog-icon {
+  color: #6750a4 !important;
+}
+
+.amw-dialog--alert .dialog-icon,
+.amw-dialog--success .dialog-icon {
+  color: #fff !important;
+}
+
+.amw-dialog--warning .dialog-icon,
+.amw-dialog--error .dialog-icon {
+  color: #fff !important;
+}
+
+.amw-dialog--info .dialog-icon {
+  color: #fff !important;
+}
+
+.amw-dialog--confirm .dialog-icon {
+  color: #fff !important;
+}
+
+/* Responsive padding for smaller screens */
+@media (max-width: 600px) {
+  .amw-dialog__header {
+    padding: 16px 16px 12px 16px !important;
+  }
+  
+  .amw-dialog__content {
+    padding: 12px 16px 16px 16px !important;
+  }
+  
+  .amw-dialog__footer {
+    padding: 12px 16px 16px 16px !important;
+  }
+}
+
+/* ==========================================================================
+   POPOVER COMPONENT STYLES
+   ========================================================================== */
+
+/* Add popover styles here when needed */
+
+/* ==========================================================================
+   SIDENAV COMPONENT STYLES
+   ========================================================================== */
+
+/* Add sidenav styles here when needed */
+
+/* ==========================================================================
+   CARD COMPONENT STYLES
+   ========================================================================== */
+
+/* Add card styles here when needed */
+
+/* ==========================================================================
+   BUTTON COMPONENT STYLES
+   ========================================================================== */
+
+/* Add button styles here when needed */
+
+/* ==========================================================================
+   CONTROL COMPONENT STYLES
+   ========================================================================== */
+
+/* Checkbox, Radio, and Toggle Color Mappings */
+.amw-checkbox[color="accent"] .mat-mdc-checkbox,
+.mat-mdc-checkbox[color="accent"] {
+  --mat-checkbox-selected-icon-color: var(--mdc-theme-tertiary) !important;
+  --mat-checkbox-selected-focus-icon-color: var(--mdc-theme-tertiary) !important;
+  --mat-checkbox-selected-hover-icon-color: var(--mdc-theme-tertiary) !important;
+}
+
+.amw-checkbox[color="warn"] .mat-mdc-checkbox,
+.mat-mdc-checkbox[color="warn"] {
+  --mat-checkbox-selected-icon-color: var(--mdc-theme-error) !important;
+  --mat-checkbox-selected-focus-icon-color: var(--mdc-theme-error) !important;
+  --mat-checkbox-selected-hover-icon-color: var(--mdc-theme-error) !important;
+}
+
+.amw-radio[color="accent"] .mat-mdc-radio-button,
+.mat-mdc-radio-button[color="accent"] {
+  --mat-radio-selected-icon-color: var(--mdc-theme-tertiary) !important;
+  --mat-radio-selected-focus-icon-color: var(--mdc-theme-tertiary) !important;
+  --mat-radio-selected-hover-icon-color: var(--mdc-theme-tertiary) !important;
+}
+
+.amw-radio[color="warn"] .mat-mdc-radio-button,
+.mat-mdc-radio-button[color="warn"] {
+  --mat-radio-selected-icon-color: var(--mdc-theme-error) !important;
+  --mat-radio-selected-focus-icon-color: var(--mdc-theme-error) !important;
+  --mat-radio-selected-hover-icon-color: var(--mdc-theme-error) !important;
+}
+
+.amw-toggle[color="accent"] .mat-mdc-slide-toggle,
+.mat-mdc-slide-toggle[color="accent"] {
+  --mat-slide-toggle-selected-track-color: var(--mdc-theme-tertiary) !important;
+  --mat-slide-toggle-selected-hover-track-color: var(--mdc-theme-tertiary) !important;
+  --mat-slide-toggle-selected-focus-track-color: var(--mdc-theme-tertiary) !important;
+}
+
+.amw-toggle[color="warn"] .mat-mdc-slide-toggle,
+.mat-mdc-slide-toggle[color="warn"] {
+  --mat-slide-toggle-selected-track-color: var(--mdc-theme-error) !important;
+  --mat-slide-toggle-selected-hover-track-color: var(--mdc-theme-error) !important;
+  --mat-slide-toggle-selected-focus-track-color: var(--mdc-theme-error) !important;
+}
+
+/* Dark theme overrides */
+@media (prefers-color-scheme: dark) {
+  .amw-checkbox[color="accent"] .mat-mdc-checkbox,
+  .mat-mdc-checkbox[color="accent"] {
+    --mat-checkbox-selected-icon-color: var(--mdc-theme-tertiary) !important;
+    --mat-checkbox-selected-focus-icon-color: var(--mdc-theme-tertiary) !important;
+    --mat-checkbox-selected-hover-icon-color: var(--mdc-theme-tertiary) !important;
+  }
+
+  .amw-checkbox[color="warn"] .mat-mdc-checkbox,
+  .mat-mdc-checkbox[color="warn"] {
+    --mat-checkbox-selected-icon-color: var(--mdc-theme-error) !important;
+    --mat-checkbox-selected-focus-icon-color: var(--mdc-theme-error) !important;
+    --mat-checkbox-selected-hover-icon-color: var(--mdc-theme-error) !important;
+  }
+
+  .amw-radio[color="accent"] .mat-mdc-radio-button,
+  .mat-mdc-radio-button[color="accent"] {
+    --mat-radio-selected-icon-color: var(--mdc-theme-tertiary) !important;
+    --mat-radio-selected-focus-icon-color: var(--mdc-theme-tertiary) !important;
+    --mat-radio-selected-hover-icon-color: var(--mdc-theme-tertiary) !important;
+  }
+
+  .amw-radio[color="warn"] .mat-mdc-radio-button,
+  .mat-mdc-radio-button[color="warn"] {
+    --mat-radio-selected-icon-color: var(--mdc-theme-error) !important;
+    --mat-radio-selected-focus-icon-color: var(--mdc-theme-error) !important;
+    --mat-radio-selected-hover-icon-color: var(--mdc-theme-error) !important;
+  }
+
+  .amw-toggle[color="accent"] .mat-mdc-slide-toggle,
+  .mat-mdc-slide-toggle[color="accent"] {
+    --mat-slide-toggle-selected-track-color: var(--mdc-theme-tertiary) !important;
+    --mat-slide-toggle-selected-hover-track-color: var(--mdc-theme-tertiary) !important;
+    --mat-slide-toggle-selected-focus-track-color: var(--mdc-theme-tertiary) !important;
+  }
+
+  .amw-toggle[color="warn"] .mat-mdc-slide-toggle,
+  .mat-mdc-slide-toggle[color="warn"] {
+    --mat-slide-toggle-selected-track-color: var(--mdc-theme-error) !important;
+    --mat-slide-toggle-selected-hover-track-color: var(--mdc-theme-error) !important;
+    --mat-slide-toggle-selected-focus-track-color: var(--mdc-theme-error) !important;
+  }
+}
+
+/* ==========================================================================
+   OTHER COMPONENT STYLES
+   ========================================================================== */
+
+/* Add other component styles here as needed */

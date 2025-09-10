@@ -234,14 +234,18 @@ export class AmwSidenavComponent extends BaseComponent implements OnInit, OnDest
     }
 
     ngAfterViewInit(): void {
-        if (this.sidenav) {
-            this.sidenav.openedChange
-                .pipe(takeUntil(this.destroy$))
-                .subscribe(opened => {
-                    this.opened = opened;
-                    this.openedChange.emit(opened);
-                });
-        }
+        // REMOVED: Recursive subscription that could cause infinite loops
+        // The parent component should handle openedChange directly via template binding
+        // Example: <amw-sidenav (openedChange)="onSidenavToggle($event)"></amw-sidenav>
+    }
+
+    /**
+     * Handles sidenav opened change event
+     * @param opened Whether the sidenav is opened
+     */
+    onSidenavOpenedChange(opened: boolean): void {
+        this.opened = opened;
+        this.openedChange.emit(opened);
     }
 
     ngOnDestroy(): void {

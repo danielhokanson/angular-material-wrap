@@ -145,7 +145,8 @@ export class CardValidationComponent implements OnInit {
         return this.selectedCards.includes(cardId);
     }
 
-    getSelectedCards() {
+    /** Get selected cards - computed property that updates when selection changes */
+    get selectedCardsList() {
         return this.cardOptions.filter(card => this.selectedCards.includes(card.id));
     }
 }

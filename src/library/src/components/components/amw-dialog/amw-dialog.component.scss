@@ -1,4 +1,400 @@
-// Dialog styles are defined inline in the component
-// This file is kept for consistency but styles are in the component
+// Angular Material Wrap Dialog Component Styles
+// Material Design 3 compliant dialog styling
 
+.amw-dialog {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  height: 100%;
+  max-width: 100%;
+  max-height: 100%;
+  background: var(--mdc-dialog-container-color, #fff);
+  border-radius: var(--mdc-dialog-container-shape, 28px);
+  border: 1px solid var(--mdc-theme-outline-variant, #e7e0ec);
+  box-shadow: var(--mdc-dialog-container-elevation, 0 11px 15px -7px rgba(0, 0, 0, 0.2), 0 24px 38px 3px rgba(0, 0, 0, 0.14), 0 9px 46px 8px rgba(0, 0, 0, 0.12));
+  overflow: hidden;
+  position: relative;
+  margin: 0;
+  padding: 0;
 
+  // Dialog variants
+  &--small {
+    width: 300px;
+    min-width: 300px;
+  }
+
+  &--medium {
+    width: 500px;
+    min-width: 400px;
+  }
+
+  &--large {
+    width: 800px;
+    min-width: 600px;
+  }
+
+  &--fullscreen {
+    width: 100vw;
+    height: 100vh;
+    max-width: 100vw;
+    max-height: 100vh;
+    border-radius: 0;
+  }
+
+  // Dialog types
+  &--alert {
+    .amw-dialog__header {
+      background: var(--mdc-theme-primary, #6750a4);
+      color: var(--mdc-theme-on-primary, #fff);
+    }
+    
+    .dialog-icon {
+      color: var(--mdc-theme-on-primary, #fff) !important;
+    }
+  }
+
+  &--confirm {
+    .amw-dialog__header {
+      background: var(--mdc-theme-secondary, #625b71);
+      color: var(--mdc-theme-on-secondary, #fff);
+    }
+    
+    .dialog-icon {
+      color: var(--mdc-theme-on-secondary, #fff) !important;
+    }
+  }
+
+  &--info {
+    .amw-dialog__header {
+      background: var(--mdc-theme-tertiary, #7d5260);
+      color: var(--mdc-theme-on-tertiary, #fff);
+    }
+    
+    .dialog-icon {
+      color: var(--mdc-theme-on-tertiary, #fff) !important;
+    }
+  }
+
+  &--warning {
+    .amw-dialog__header {
+      background: var(--mdc-theme-error, #ba1a1a);
+      color: var(--mdc-theme-on-error, #fff);
+    }
+    
+    .dialog-icon {
+      color: var(--mdc-theme-on-error, #fff) !important;
+    }
+  }
+
+  &--error {
+    .amw-dialog__header {
+      background: var(--mdc-theme-error, #ba1a1a);
+      color: var(--mdc-theme-on-error, #fff);
+    }
+    
+    .dialog-icon {
+      color: var(--mdc-theme-on-error, #fff) !important;
+    }
+  }
+
+  &--success {
+    .amw-dialog__header {
+      background: var(--mdc-theme-primary, #6750a4);
+      color: var(--mdc-theme-on-primary, #fff);
+    }
+    
+    .dialog-icon {
+      color: var(--mdc-theme-on-primary, #fff) !important;
+    }
+  }
+
+  &--standard {
+    .dialog-icon {
+      color: var(--mdc-theme-primary, #6750a4) !important;
+    }
+  }
+
+  // States
+  &--disabled {
+    opacity: 0.6;
+    pointer-events: none;
+  }
+
+  &--loading {
+    .amw-dialog__content {
+      opacity: 0.6;
+    }
+  }
+}
+
+.amw-dialog__header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 24px 24px 16px 24px;
+  background: var(--mdc-theme-surface, #fff);
+  border-bottom: 1px solid var(--mdc-theme-outline-variant, #e7e0ec);
+  flex-shrink: 0;
+  min-height: 60px;
+  box-sizing: border-box;
+  position: relative;
+
+  .amw-dialog__title {
+    margin: 0;
+    font-size: 1.5rem;
+    font-weight: 500;
+    line-height: 1.2;
+    color: var(--mdc-theme-on-surface, #1c1b1f);
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    flex: 1;
+
+    .dialog-icon {
+      font-size: 1.5rem;
+      width: 1.5rem;
+      height: 1.5rem;
+      color: var(--mdc-theme-primary, #6750a4);
+    }
+  }
+
+  .amw-dialog__close {
+    color: var(--mdc-theme-on-surface-variant, #49454f);
+    position: absolute;
+    top: 16px;
+    right: 16px;
+    flex-shrink: 0;
+    z-index: 1;
+    
+    &:hover {
+      background: var(--mdc-theme-surface-variant, #e7e0ec);
+    }
+
+    &:focus {
+      outline: 2px solid var(--mdc-theme-primary, #6750a4);
+      outline-offset: 2px;
+    }
+  }
+}
+
+.amw-dialog__content {
+  padding: 16px 24px 24px 24px;
+  flex: 1;
+  overflow-y: auto;
+  color: var(--mdc-theme-on-surface, #1c1b1f);
+  line-height: 1.5;
+  min-height: 60px;
+  box-sizing: border-box;
+
+  // Content text styling
+  p {
+    margin: 0 0 16px 0;
+    font-size: 1rem;
+    
+    &:last-child {
+      margin-bottom: 0;
+    }
+  }
+
+  // Success message styling
+  .success-message {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    margin-bottom: 16px;
+    
+    .success-icon {
+      color: var(--mdc-theme-primary, #6750a4);
+      font-size: 1.25rem;
+    }
+    
+    .success-text {
+      font-size: 1.125rem;
+      font-weight: 500;
+      color: var(--mdc-theme-primary, #6750a4);
+    }
+  }
+
+  // Alert message styling
+  .alert-message {
+    display: flex;
+    align-items: flex-start;
+    gap: 12px;
+    margin-bottom: 16px;
+    
+    .alert-icon {
+      color: var(--mdc-theme-error, #ba1a1a);
+      font-size: 1.25rem;
+      margin-top: 2px;
+    }
+    
+    .alert-text {
+      font-size: 1rem;
+      color: var(--mdc-theme-on-surface, #1c1b1f);
+    }
+  }
+
+  // Info message styling
+  .info-message {
+    display: flex;
+    align-items: flex-start;
+    gap: 12px;
+    margin-bottom: 16px;
+    
+    .info-icon {
+      color: var(--mdc-theme-tertiary, #7d5260);
+      font-size: 1.25rem;
+      margin-top: 2px;
+    }
+    
+    .info-text {
+      font-size: 1rem;
+      color: var(--mdc-theme-on-surface, #1c1b1f);
+    }
+  }
+}
+
+.amw-dialog__footer {
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  gap: 12px;
+  padding: 16px 24px 24px 24px;
+  background: var(--mdc-theme-surface, #fff);
+  border-top: 1px solid var(--mdc-theme-outline-variant, #e7e0ec);
+  flex-shrink: 0;
+  min-height: 60px;
+  box-sizing: border-box;
+  margin-top: auto;
+
+  .amw-dialog__action {
+    min-width: 64px;
+    height: 40px;
+    border-radius: 20px;
+    font-weight: 500;
+    text-transform: none;
+    
+    // Action button variants
+    &[color="primary"] {
+      background: var(--mdc-theme-primary, #6750a4);
+      color: var(--mdc-theme-on-primary, #fff);
+      
+      &:hover {
+        background: var(--mdc-theme-primary-container, #eaddff);
+        color: var(--mdc-theme-on-primary-container, #21005d);
+      }
+    }
+    
+    &[color="accent"] {
+      background: var(--mdc-theme-secondary, #625b71);
+      color: var(--mdc-theme-on-secondary, #fff);
+      
+      &:hover {
+        background: var(--mdc-theme-secondary-container, #e8def8);
+        color: var(--mdc-theme-on-secondary-container, #1d192b);
+      }
+    }
+    
+    &[color="warn"] {
+      background: var(--mdc-theme-error, #ba1a1a);
+      color: var(--mdc-theme-on-error, #fff);
+      
+      &:hover {
+        background: var(--mdc-theme-error-container, #ffdad6);
+        color: var(--mdc-theme-on-error-container, #410002);
+      }
+    }
+  }
+}
+
+.amw-dialog__loading {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  background: rgba(255, 255, 255, 0.9);
+  z-index: 10;
+
+  mat-spinner {
+    margin-bottom: 16px;
+  }
+
+  p {
+    margin: 0;
+    color: var(--mdc-theme-on-surface, #1c1b1f);
+    font-size: 1rem;
+  }
+}
+
+// Responsive design
+@media (max-width: 600px) {
+  .amw-dialog {
+    &--small,
+    &--medium,
+    &--large {
+      width: calc(100vw - 32px);
+      min-width: calc(100vw - 32px);
+      margin: 16px;
+    }
+  }
+
+  .amw-dialog__header,
+  .amw-dialog__content,
+  .amw-dialog__footer {
+    padding-left: 16px;
+    padding-right: 16px;
+  }
+}
+
+// Dialog backdrop styles - make transparent
+:host ::ng-deep .amw-dialog-backdrop,
+:host ::ng-deep .amw-dialog-backdrop-alert,
+:host ::ng-deep .amw-dialog-backdrop-warning,
+:host ::ng-deep .amw-dialog-backdrop-error,
+:host ::ng-deep .amw-dialog-backdrop-success,
+:host ::ng-deep .amw-dialog-backdrop-info,
+:host ::ng-deep .amw-dialog-backdrop-confirm {
+  background: transparent !important;
+}
+
+// Dialog panel styles
+:host ::ng-deep .amw-dialog-panel,
+:host ::ng-deep .amw-dialog-panel-alert,
+:host ::ng-deep .amw-dialog-panel-warning,
+:host ::ng-deep .amw-dialog-panel-error,
+:host ::ng-deep .amw-dialog-panel-success,
+:host ::ng-deep .amw-dialog-panel-info,
+:host ::ng-deep .amw-dialog-panel-confirm,
+:host ::ng-deep .amw-dialog-panel-small,
+:host ::ng-deep .amw-dialog-panel-medium,
+:host ::ng-deep .amw-dialog-panel-large {
+  background: transparent !important;
+  box-shadow: none !important;
+  border-radius: 28px !important; /* Match dialog border radius */
+  margin: 0 !important;
+  padding: 0 !important;
+  overflow: hidden !important; /* Ensure rounded corners are respected */
+}
+
+// Dark theme support
+@media (prefers-color-scheme: dark) {
+  .amw-dialog {
+    background: var(--mdc-dialog-container-color, #1c1b1f);
+    color: var(--mdc-theme-on-surface, #e6e0e9);
+  }
+
+  .amw-dialog__header {
+    background: var(--mdc-theme-surface, #1c1b1f);
+    border-bottom-color: var(--mdc-theme-outline-variant, #49454f);
+  }
+
+  .amw-dialog__footer {
+    background: var(--mdc-theme-surface, #1c1b1f);
+    border-top-color: var(--mdc-theme-outline-variant, #49454f);
+  }
+}

@@ -1,80 +1,79 @@
-<!-- Trigger Element -->
-<div
-  #triggerRef
-  class="amw-popover__trigger"
-  [class.amw-popover__trigger--disabled]="currentConfig.disabled"
-  [attr.aria-expanded]="opened"
-  [attr.aria-haspopup]="currentTrigger.ariaHasPopup"
-  [attr.aria-controls]="currentTrigger.ariaControls"
-  [attr.aria-label]="currentTrigger.ariaLabel"
-  [attr.aria-describedby]="currentTrigger.ariaDescribedBy">
-  
+<div #triggerRef class="amw-popover__trigger" [class.amw-popover__trigger--disabled]="isDisabled"
+  [attr.aria-expanded]="opened" [attr.aria-haspopup]="true" [attr.aria-controls]="popoverId"
+  [attr.aria-describedby]="opened ? popoverId : null" [attr.tabindex]="isDisabled ? -1 : 0">
+
   <!-- Custom Trigger Template -->
   <ng-container *ngIf="triggerTemplate; else defaultTrigger">
-    <ng-container *ngTemplateOutlet="triggerTemplate"></ng-container>
+    <ng-container [ngTemplateOutlet]="triggerTemplate"></ng-container>
   </ng-container>
-  
-  <!-- Default Trigger -->
+
+  <!-- Default Trigger Template -->
   <ng-template #defaultTrigger>
-    <button
-      mat-button
-      class="amw-popover__trigger-button"
-      [disabled]="currentConfig.disabled">
-      <mat-icon *ngIf="!triggerTemplate">info</mat-icon>
-      <span *ngIf="!triggerTemplate">Popover</span>
+    <button mat-button class="amw-popover__trigger-button" [disabled]="isDisabled"
+      (click)="onTriggerClick($event)" (mouseenter)="onTriggerMouseEnter($event)" (mouseleave)="onTriggerMouseLeave($event)"
+      (focus)="onTriggerFocus($event)" (blur)="onTriggerBlur($event)" (keydown)="onTriggerKeyDown($event)">
+      <mat-icon *ngIf="triggerIcon">{{ triggerIcon }}</mat-icon>
+      {{ triggerText }}
     </button>
   </ng-template>
 </div>
 
-<!-- Content Template Reference -->
+<!-- Popover Content Template for Overlay -->
 <ng-template #contentRef>
-  <div [class]="getPopoverClasses()" [style.z-index]="getZIndex()">
+  <div [id]="popoverId" class="amw-popover__popover" [class.amw-popover__popover--visible]="opened"
+    [class.amw-popover__popover--small]="size === 'small'" [class.amw-popover__popover--medium]="size === 'medium'"
+    [class.amw-popover__popover--large]="size === 'large'" [class.amw-popover__popover--with-arrow]="showArrow"
+    [class.amw-popover__popover--with-header]="showHeader" [class.amw-popover__popover--with-footer]="showFooter"
+    [class.amw-popover__popover--with-scrollbar]="scrollable" [class.amw-popover__popover--disabled]="isDisabled"
+    [attr.role]="'dialog'" [attr.aria-hidden]="!opened" [attr.aria-labelledby]="headerTitle ? popoverId + '-title' : null"
+    [attr.aria-describedby]="contentTemplate ? popoverId + '-content' : null">
+
     <!-- Arrow -->
-    <div
-      *ngIf="currentConfig.showArrow"
-      [class]="getArrowClasses()"
-      [style.width]="getArrowSize()"
-      [style.height]="getArrowSize()"
-      [style.border-color]="getArrowColor()">
+    <div *ngIf="showArrow" class="amw-popover__arrow" [class.amw-popover__arrow--top]="position === 'top'"
+      [class.amw-popover__arrow--bottom]="position === 'bottom'" [class.amw-popover__arrow--left]="position === 'left'"
+      [class.amw-popover__arrow--right]="position === 'right'"
+      [class.amw-popover__arrow--top-left]="position === 'top-left'"
+      [class.amw-popover__arrow--top-right]="position === 'top-right'"
+      [class.amw-popover__arrow--bottom-left]="position === 'bottom-left'"
+      [class.amw-popover__arrow--bottom-right]="position === 'bottom-right'"
+      [class.amw-popover__arrow--small]="arrowSize === 'small'"
+      [class.amw-popover__arrow--medium]="arrowSize === 'medium'"
+      [class.amw-popover__arrow--large]="arrowSize === 'large'">
     </div>
-    
+
     <!-- Header -->
-    <div *ngIf="currentConfig.showHeader" class="amw-popover__header">
+    <div *ngIf="showHeader" class="amw-popover__header">
       <div class="amw-popover__header-content">
         <div class="amw-popover__header-text">
-          <h3 *ngIf="getHeaderTitle()" class="amw-popover__header-title">{{ getHeaderTitle() }}</h3>
-          <p *ngIf="getHeaderSubtitle()" class="amw-popover__header-subtitle">{{ getHeaderSubtitle() }}</p>
+          <h3 *ngIf="headerTitle" class="amw-popover__header-title" [id]="popoverId + '-title'">{{ headerTitle }}</h3>
+          <p *ngIf="headerSubtitle" class="amw-popover__header-subtitle">{{ headerSubtitle }}</p>
         </div>
         
-        <button
-          *ngIf="currentConfig.showClose"
-          mat-icon-button
-          class="amw-popover__close"
-          [attr.aria-label]="getCloseButtonText()"
+        <button *ngIf="showClose" mat-icon-button class="amw-popover__close" [attr.aria-label]="closeButtonText"
           (click)="onCloseClick()">
-          <mat-icon>{{ getCloseButtonIcon() }}</mat-icon>
+          <mat-icon>{{ closeButtonIcon }}</mat-icon>
         </button>
       </div>
     </div>
-    
+
     <!-- Content -->
-    <div class="amw-popover__content" [class]="getScrollbarClass()">
+    <div class="amw-popover__content" [id]="popoverId + '-content'">
       <!-- Custom Content Template -->
       <ng-container *ngIf="contentTemplate; else defaultContent">
-        <ng-container *ngTemplateOutlet="contentTemplate"></ng-container>
+        <ng-container [ngTemplateOutlet]="contentTemplate"></ng-container>
       </ng-container>
-      
-      <!-- Default Content -->
+
+      <!-- Default Content Template -->
       <ng-template #defaultContent>
         <div class="amw-popover__default-content">
-          <p>This is the popover content. You can customize it using the contentTemplate input.</p>
+          <p>{{ content }}</p>
         </div>
       </ng-template>
     </div>
-    
+
     <!-- Footer -->
-    <div *ngIf="currentConfig.showFooter" class="amw-popover__footer">
-      <p class="amw-popover__footer-text">{{ getFooterText() }}</p>
+    <div *ngIf="showFooter" class="amw-popover__footer">
+      <p class="amw-popover__footer-text">{{ footerText }}</p>
     </div>
   </div>
 </ng-template>

@@ -4,31 +4,28 @@ import { MatExpansionModule } from '@angular/material/expansion';
 import { MatCardModule } from '@angular/material/card';
 
 @Component({
-    selector: 'amw-demo-switch-code',
-    standalone: true,
-    imports: [CommonModule, MatExpansionModule, MatCardModule],
-    encapsulation: ViewEncapsulation.None,
-    templateUrl: './switch-code.component.html',
-    styleUrl: './switch-code.component.scss'
+  selector: 'amw-demo-switch-code',
+  standalone: true,
+  imports: [CommonModule, MatExpansionModule, MatCardModule],
+  encapsulation: ViewEncapsulation.None,
+  templateUrl: './switch-code.component.html',
+  styleUrl: './switch-code.component.scss'
 })
 export class SwitchCodeComponent {
-    getCodeExamples() {
-        return Object.values(this.codeExamples);
-    }
-
-    codeExamples = {
-        basic: {
-            title: 'Basic Switch',
-            description: 'Simple switch with default configuration',
-            code: `<amw-switch
+  /** Code examples for the component */
+  readonly codeExamplesArray = Object.values({
+    basic: {
+      title: 'Basic Switch',
+      description: 'Simple switch with default configuration',
+      code: `<amw-switch
   [(checked)]="isEnabled"
   (switchChange)="onSwitchChange($event)">
 </amw-switch>`
-        },
-        configured: {
-            title: 'Configured Switch',
-            description: 'Switch with custom configuration and styling',
-            code: `<amw-switch
+    },
+    configured: {
+      title: 'Configured Switch',
+      description: 'Switch with custom configuration and styling',
+      code: `<amw-switch
   [(checked)]="notificationsEnabled"
   [size]="'large'"
   [color]="'accent'"
@@ -38,11 +35,11 @@ export class SwitchCodeComponent {
   (switchChange)="onNotificationChange($event)">
   Enable Notifications
 </amw-switch>`
-        },
-        formControl: {
-            title: 'Reactive Form Integration',
-            description: 'Switch integrated with Angular reactive forms',
-            code: `// Component
+    },
+    formControl: {
+      title: 'Reactive Form Integration',
+      description: 'Switch integrated with Angular reactive forms',
+      code: `// Component
 export class MyComponent {
   form = this.fb.group({
     notificationsEnabled: [false, Validators.requiredTrue],
@@ -64,11 +61,11 @@ export class MyComponent {
     Dark Mode
   </amw-switch>
 </form>`
-        },
-        validation: {
-            title: 'With Validation',
-            description: 'Switch with custom validation and error handling',
-            code: `// Component
+    },
+    validation: {
+      title: 'With Validation',
+      description: 'Switch with custom validation and error handling',
+      code: `// Component
 export class MyComponent {
   form = this.fb.group({
     termsAccepted: [false, [Validators.requiredTrue, this.validateTerms]]
@@ -102,22 +99,22 @@ export class MyComponent {
     Accept Terms and Conditions
   </amw-switch>
 </form>`
-        },
-        sizes: {
-            title: 'Size Variations',
-            description: 'Different switch sizes for various use cases',
-            code: `<amw-switch [size]="'small'">Small Switch</amw-switch>
+    },
+    sizes: {
+      title: 'Size Variations',
+      description: 'Different switch sizes for various use cases',
+      code: `<amw-switch [size]="'small'">Small Switch</amw-switch>
 <amw-switch [size]="'medium'">Medium Switch</amw-switch>
 <amw-switch [size]="'large'">Large Switch</amw-switch>`
-        },
-        colors: {
-            title: 'Color Themes',
-            description: 'Switch with different Material Design color themes',
-            code: `<amw-switch [color]="'primary'">Primary Switch</amw-switch>
+    },
+    colors: {
+      title: 'Color Themes',
+      description: 'Switch with different Material Design color themes',
+      code: `<amw-switch [color]="'primary'">Primary Switch</amw-switch>
 <amw-switch [color]="'accent'">Accent Switch</amw-switch>
 <amw-switch [color]="'warn'">Warn Switch</amw-switch>`
-        }
-    };
+    }
+  });
 }
 
 

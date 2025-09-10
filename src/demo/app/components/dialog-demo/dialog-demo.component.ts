@@ -61,10 +61,10 @@ export class DialogDemoComponent {
         },
         {
             title: 'Info Dialog',
-            description: 'Dialog for displaying information',
+            description: 'Dialog for displaying information with HTML formatting',
             dialog: {
                 title: 'Information',
-                content: 'Here is some helpful information about the current process.',
+                content: 'Here is some helpful information about the current process.<br><br><em>This text includes <strong>HTML formatting</strong> and <u>styling</u>.</em>',
                 type: 'info' as DialogType,
                 actions: [
                     { label: 'Got it', action: 'close', color: 'primary' }
@@ -99,10 +99,10 @@ export class DialogDemoComponent {
         },
         {
             title: 'Success Dialog',
-            description: 'Dialog for displaying success messages',
+            description: 'Dialog for displaying success messages with HTML content',
             dialog: {
                 title: 'Success',
-                content: 'Your action was completed successfully!',
+                content: 'Your action was completed successfully!<br><strong>Great!</strong>',
                 type: 'success' as DialogType,
                 actions: [
                     { label: 'Great!', action: 'close', color: 'primary' }
@@ -224,7 +224,7 @@ export class DialogDemoComponent {
     }
 
     openInfo() {
-        this.dialogService.info('Here is some helpful information.', 'Information');
+        this.dialogService.info('Here is some helpful information.<br><br><em>This includes <strong>HTML formatting</strong>!</em>', 'Information');
     }
 
     openWarning() {
@@ -242,7 +242,7 @@ export class DialogDemoComponent {
     }
 
     openSuccess() {
-        this.dialogService.success('Your action was completed successfully!', 'Success');
+        this.dialogService.success('Your action was completed successfully!<br><strong>Great!</strong>', 'Success');
     }
 
     openLoading() {

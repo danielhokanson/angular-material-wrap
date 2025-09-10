@@ -12,11 +12,8 @@ import { MatCardModule } from '@angular/material/card';
   styleUrl: './file-input-code.component.scss'
 })
 export class FileInputCodeComponent {
-  getCodeExamples() {
-    return Object.values(this.codeExamples);
-  }
-
-  codeExamples = {
+  /** Code examples for the component */
+  readonly codeExamplesArray = Object.values({
     basic: {
       title: 'Basic File Input',
       description: 'Simple file input with default configuration',
@@ -150,7 +147,7 @@ export class MyComponent {
 <!-- Video files -->
 <amw-file-input [accept]="'video/*'">Video Files</amw-file-input>`
     }
-  };
+  });
 }
 
 

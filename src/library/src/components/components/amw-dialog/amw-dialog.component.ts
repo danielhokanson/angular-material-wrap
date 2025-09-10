@@ -64,59 +64,7 @@ import { DialogConfig, DialogType, DialogSize, DialogPosition } from './interfac
       multi: true
     }
   ],
-  template: `
-    <div [class]="dialogClasses">
-      <!-- Header -->
-      <div *ngIf="showHeader" class="amw-dialog__header">
-        <ng-container [ngTemplateOutlet]="headerTemplate" *ngIf="headerTemplate; else defaultHeader"></ng-container>
-        
-        <ng-template #defaultHeader>
-          <h2 class="amw-dialog__title">{{ title }}</h2>
-          <button 
-            *ngIf="showCloseButton" 
-            mat-icon-button 
-            class="amw-dialog__close"
-            (click)="onCloseClick()"
-            [disabled]="disabled || loading">
-            <mat-icon>close</mat-icon>
-          </button>
-        </ng-template>
-      </div>
-      
-      <!-- Content -->
-      <div class="amw-dialog__content">
-        <ng-container [ngTemplateOutlet]="contentTemplate" *ngIf="contentTemplate; else defaultContent"></ng-container>
-        
-        <ng-template #defaultContent>
-          <p class="amw-dialog__text">{{ content }}</p>
-        </ng-template>
-      </div>
-      
-      <!-- Footer -->
-      <div *ngIf="showFooter && actions.length > 0" class="amw-dialog__footer">
-        <ng-container [ngTemplateOutlet]="footerTemplate" *ngIf="footerTemplate; else defaultFooter"></ng-container>
-        
-        <ng-template #defaultFooter>
-          <button 
-            *ngFor="let action of actions; let i = index"
-            mat-button
-            [color]="action.color || 'primary'"
-            [disabled]="action.disabled || disabled || loading"
-            (click)="onActionClick(action, i)"
-            class="amw-dialog__action">
-            <mat-icon *ngIf="action.icon" class="amw-dialog__action-icon">{{ action.icon }}</mat-icon>
-            {{ action.label }}
-          </button>
-        </ng-template>
-      </div>
-      
-      <!-- Loading Overlay -->
-      <div *ngIf="loading" class="amw-dialog__loading">
-        <mat-spinner diameter="40"></mat-spinner>
-        <p>Loading...</p>
-      </div>
-    </div>
-    `
+  templateUrl: './amw-dialog.component.html'
 })
 export class AmwDialogComponent extends BaseComponent implements OnInit, OnDestroy {
   @Input() config: DialogConfig = {};
@@ -171,9 +119,9 @@ export class AmwDialogComponent extends BaseComponent implements OnInit, OnDestr
     if (this.data) {
       this.title = this.data.title || this.title;
       this.content = this.data.content || this.content;
-      this.type = this.data.type || this.type;
-      this.size = this.data.size || this.size;
-      this.position = this.data.position || this.position;
+      this.type = this.data.type ? this.sanitizeClassName(this.data.type) as DialogType : this.type;
+      this.size = this.data.size ? this.sanitizeClassName(this.data.size) as DialogSize : this.size;
+      this.position = this.data.position ? this.sanitizeClassName(this.data.position) as DialogPosition : this.position;
       this.actions = this.data.actions || this.actions;
       this.showCloseButton = this.data.showCloseButton !== undefined ? this.data.showCloseButton : this.showCloseButton;
       this.showHeader = this.data.showHeader !== undefined ? this.data.showHeader : this.showHeader;
@@ -187,8 +135,8 @@ export class AmwDialogComponent extends BaseComponent implements OnInit, OnDestr
       this.autoFocus = this.data.autoFocus !== undefined ? this.data.autoFocus : this.autoFocus;
       this.restoreFocus = this.data.restoreFocus !== undefined ? this.data.restoreFocus : this.restoreFocus;
       this.hasBackdrop = this.data.hasBackdrop !== undefined ? this.data.hasBackdrop : this.hasBackdrop;
-      this.backdropClass = this.data.backdropClass || this.backdropClass;
-      this.panelClass = this.data.panelClass || this.panelClass;
+      this.backdropClass = this.data.backdropClass ? this.sanitizeClassName(this.data.backdropClass) : this.backdropClass;
+      this.panelClass = this.data.panelClass ? this.sanitizeClassName(this.data.panelClass) : this.panelClass;
     }
   }
 
@@ -277,13 +225,82 @@ export class AmwDialogComponent extends BaseComponent implements OnInit, OnDestr
   get dialogClasses(): string {
     const classes = ['amw-dialog'];
 
-    if (this.type) classes.push(`amw-dialog--${this.type}`);
-    if (this.size) classes.push(`amw-dialog--${this.size}`);
-    if (this.position) classes.push(`amw-dialog--${this.position}`);
+    // Default to 'standard' if no type is specified
+    const dialogType = this.type && typeof this.type === 'string' && this.type.trim() ? this.type : 'standard';
+    const cleanType = this.sanitizeClassName(dialogType);
+    if (cleanType) {
+      classes.push(`amw-dialog--${cleanType}`);
+    }
+    if (this.size && typeof this.size === 'string' && this.size.trim()) {
+      const cleanSize = this.sanitizeClassName(this.size);
+      if (cleanSize) {
+        classes.push(`amw-dialog--${cleanSize}`);
+      }
+    }
+    if (this.position && typeof this.position === 'string' && this.position.trim()) {
+      const cleanPosition = this.sanitizeClassName(this.position);
+      if (cleanPosition) {
+        classes.push(`amw-dialog--${cleanPosition}`);
+      }
+    }
     if (this.disabled) classes.push('amw-dialog--disabled');
     if (this.loading) classes.push('amw-dialog--loading');
 
-    return classes.join(' ');
+    const result = classes.join(' ');
+
+    // Debug logging
+    console.log('Dialog component classes:', {
+      type: this.type,
+      size: this.size,
+      position: this.position,
+      result
+    });
+
+    // Additional validation to ensure no whitespace in individual class names
+    const validatedClasses = result.split(' ').map(cls => {
+      if (cls && cls.trim() !== cls) {
+        console.warn('Dialog class contains whitespace:', cls);
+        return cls.trim();
+      }
+      return cls;
+    }).filter(cls => cls && cls.length > 0);
+
+    const finalResult = validatedClasses.join(' ');
+
+    // Debug logging to help identify issues
+    if (finalResult !== result) {
+      console.warn('Dialog classes were modified during validation:', { original: result, final: finalResult });
+    }
+
+    return finalResult;
+  }
+
+  private sanitizeClassName(value: string): string {
+    if (!value || typeof value !== 'string') return '';
+
+    // First, ensure we have a string and trim it
+    let sanitized = String(value).trim();
+
+    // If empty after trim, return empty string
+    if (!sanitized) return '';
+
+    // Replace any whitespace (including tabs, newlines, etc.) with hyphens
+    sanitized = sanitized.replace(/\s+/g, '-');
+
+    // Remove any characters that are not alphanumeric, hyphens, or underscores
+    sanitized = sanitized.replace(/[^a-zA-Z0-9-_]/g, '');
+
+    // Replace multiple consecutive hyphens with single hyphen
+    sanitized = sanitized.replace(/-+/g, '-');
+
+    // Remove leading and trailing hyphens
+    sanitized = sanitized.replace(/^-+|-+$/g, '');
+
+    // Final check: ensure no whitespace characters remain
+    sanitized = sanitized.replace(/\s/g, '');
+
+    // Return empty string if nothing valid remains
+    return sanitized || '';
   }
 
   private getDialogConfig() {

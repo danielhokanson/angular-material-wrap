@@ -504,61 +504,45 @@ export class PopoverValidationComponent implements OnInit, OnDestroy {
         this.validationErrors = {};
     }
 
-    /**
-     * Gets the size options
-     */
-    get sizeOptions() {
-        return [
-            { value: 'small', label: 'Small' },
-            { value: 'medium', label: 'Medium' },
-            { value: 'large', label: 'Large' }
-        ];
-    }
+    /** Size options for select dropdown */
+    readonly sizeOptions = [
+        { value: 'small', label: 'Small' },
+        { value: 'medium', label: 'Medium' },
+        { value: 'large', label: 'Large' }
+    ];
 
-    /**
-     * Gets the position options
-     */
-    get positionOptions() {
-        return [
-            { value: 'top', label: 'Top' },
-            { value: 'bottom', label: 'Bottom' },
-            { value: 'left', label: 'Left' },
-            { value: 'right', label: 'Right' },
-            { value: 'top-left', label: 'Top Left' },
-            { value: 'top-right', label: 'Top Right' },
-            { value: 'bottom-left', label: 'Bottom Left' },
-            { value: 'bottom-right', label: 'Bottom Right' }
-        ];
-    }
+    /** Position options for select dropdown */
+    readonly positionOptions = [
+        { value: 'top', label: 'Top' },
+        { value: 'bottom', label: 'Bottom' },
+        { value: 'left', label: 'Left' },
+        { value: 'right', label: 'Right' },
+        { value: 'top-left', label: 'Top Left' },
+        { value: 'top-right', label: 'Top Right' },
+        { value: 'bottom-left', label: 'Bottom Left' },
+        { value: 'bottom-right', label: 'Bottom Right' }
+    ];
 
-    /**
-     * Gets the trigger type options
-     */
-    get triggerTypeOptions() {
-        return [
-            { value: 'click', label: 'Click' },
-            { value: 'hover', label: 'Hover' },
-            { value: 'focus', label: 'Focus' },
-            { value: 'manual', label: 'Manual' }
-        ];
-    }
+    /** Trigger type options for select dropdown */
+    readonly triggerTypeOptions = [
+        { value: 'click', label: 'Click' },
+        { value: 'hover', label: 'Hover' },
+        { value: 'focus', label: 'Focus' },
+        { value: 'manual', label: 'Manual' }
+    ];
 
-    /**
-     * Gets the animation easing options
-     */
-    get animationEasingOptions() {
-        return [
-            { value: 'cubic-bezier(0.4, 0, 0.2, 1)', label: 'Standard' },
-            { value: 'cubic-bezier(0.25, 0.8, 0.25, 1)', label: 'Decelerated' },
-            { value: 'cubic-bezier(0.4, 0, 1, 1)', label: 'Accelerated' },
-            { value: 'cubic-bezier(0.68, -0.55, 0.265, 1.55)', label: 'Sharp' },
-            { value: 'ease', label: 'Ease' },
-            { value: 'ease-in', label: 'Ease In' },
-            { value: 'ease-out', label: 'Ease Out' },
-            { value: 'ease-in-out', label: 'Ease In Out' },
-            { value: 'linear', label: 'Linear' }
-        ];
-    }
+    /** Animation easing options for select dropdown */
+    readonly animationEasingOptions = [
+        { value: 'cubic-bezier(0.4, 0, 0.2, 1)', label: 'Standard' },
+        { value: 'cubic-bezier(0.25, 0.8, 0.25, 1)', label: 'Decelerated' },
+        { value: 'cubic-bezier(0.4, 0, 1, 1)', label: 'Accelerated' },
+        { value: 'cubic-bezier(0.68, -0.55, 0.265, 1.55)', label: 'Sharp' },
+        { value: 'ease', label: 'Ease' },
+        { value: 'ease-in', label: 'Ease In' },
+        { value: 'ease-out', label: 'Ease Out' },
+        { value: 'ease-in-out', label: 'Ease In Out' },
+        { value: 'linear', label: 'Linear' }
+    ];
 
     /**
      * Checks if a form control has an error

@@ -135,7 +135,8 @@ export class DataTableApiComponent {
         return [];
     }
 
-    getInterfaces(): any[] {
+    /** API interfaces - computed property */
+    get interfacesList(): any[] {
         const interfaces = this.apiDocumentation.interfaces;
         return Array.isArray(interfaces) ? interfaces : [];
     }

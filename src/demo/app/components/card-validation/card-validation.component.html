@@ -54,7 +54,7 @@
             <div class="card-validation__selection-info" *ngIf="selectedCards.length > 0">
               <h4>Selected Plans ({{ selectedCards.length }}):</h4>
               <div class="card-validation__selected-chips">
-                <mat-chip *ngFor="let card of getSelectedCards()" class="card-validation__selected-chip">
+                <mat-chip *ngFor="let card of selectedCardsList" class="card-validation__selected-chip">
                   {{ card.title }} - {{ card.price }}
                 </mat-chip>
               </div>

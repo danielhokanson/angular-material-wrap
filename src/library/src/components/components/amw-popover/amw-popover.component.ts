@@ -7,7 +7,7 @@ import { MatDividerModule } from '@angular/material/divider';
 import { MatTooltipModule } from '@angular/material/tooltip';
 import { MatRippleModule } from '@angular/material/core';
 import { OverlayModule, Overlay, OverlayRef, OverlayConfig } from '@angular/cdk/overlay';
-import { ComponentPortal, TemplatePortal } from '@angular/cdk/portal';
+import { TemplatePortal } from '@angular/cdk/portal';
 import { Subject, takeUntil, fromEvent } from 'rxjs';
 import { BaseComponent } from '../../../controls/components/base/base.component';
 import { PopoverConfig } from './interfaces/popover-config.interface';
@@ -78,6 +78,66 @@ export class AmwPopoverComponent extends BaseComponent implements OnInit, OnDest
     /** Custom footer template */
     @Input() footerTemplate?: TemplateRef<any>;
 
+    /** Popover content text */
+    @Input() content: string = '';
+
+    /** Popover size */
+    @Input() size: 'small' | 'medium' | 'large' = 'medium';
+
+    /** Whether to show arrow */
+    @Input() showArrow: boolean = false;
+
+    /** Whether to show header */
+    @Input() showHeader: boolean = false;
+
+    /** Whether to show footer */
+    @Input() showFooter: boolean = false;
+
+    /** Whether to show close button */
+    @Input() showClose: boolean = true;
+
+    /** Header title */
+    @Input() headerTitle: string = '';
+
+    /** Header subtitle */
+    @Input() headerSubtitle: string = '';
+
+    /** Footer text */
+    @Input() footerText: string = '';
+
+    /** Close button text */
+    @Input() closeButtonText: string = 'Close';
+
+    /** Close button icon */
+    @Input() closeButtonIcon: string = 'close';
+
+    /** Arrow size */
+    @Input() arrowSize: 'small' | 'medium' | 'large' = 'medium';
+
+    /** Arrow color */
+    @Input() arrowColor: string = 'var(--mat-sys-surface)';
+
+    /** Whether content is scrollable */
+    @Input() scrollable: boolean = false;
+
+    /** Z-index for the popover */
+    @Input() zIndex: number = 1000;
+
+    /** Popover position */
+    @Input() position: 'top' | 'bottom' | 'left' | 'right' | 'top-left' | 'top-right' | 'bottom-left' | 'bottom-right' = 'bottom';
+
+    /** Whether to show backdrop */
+    @Input() backdrop: boolean = false;
+
+    /** Trigger icon */
+    @Input() triggerIcon: string = '';
+
+    /** Trigger text */
+    @Input() triggerText: string = 'Click me';
+
+    /** Popover ID */
+    @Input() popoverId: string = '';
+
     /** Event emitted when popover opened state changes */
     @Output() openedChange = new EventEmitter<boolean>();
 
@@ -139,7 +199,12 @@ export class AmwPopoverComponent extends BaseComponent implements OnInit, OnDest
 
     ngOnInit(): void {
         this.initializeConfig();
-        this.setupEventListeners();
+        this.setupGlobalEventListeners(); // Only global listeners, no trigger-specific ones
+
+        // Generate unique ID if not provided
+        if (!this.popoverId) {
+            this.popoverId = `amw-popover-${Math.random().toString(36).substr(2, 9)}`;
+        }
     }
 
     ngAfterViewInit(): void {
@@ -147,6 +212,16 @@ export class AmwPopoverComponent extends BaseComponent implements OnInit, OnDest
     }
 
     ngOnDestroy(): void {
+        // Clear any pending timeouts to prevent memory leaks
+        if (this.hoverTimeout) {
+            clearTimeout(this.hoverTimeout);
+            this.hoverTimeout = undefined;
+        }
+        if (this.closeTimeout) {
+            clearTimeout(this.closeTimeout);
+            this.closeTimeout = undefined;
+        }
+
         this.destroy$.next();
         this.destroy$.complete();
         this.cleanup();
@@ -438,13 +513,17 @@ export class AmwPopoverComponent extends BaseComponent implements OnInit, OnDest
      */
     private initializeOverlay(): void {
         if (!this.triggerRef) {
+            console.warn('AmwPopover: triggerRef not available for overlay initialization');
             return;
         }
+
+        console.log('AmwPopover: Initializing overlay with triggerRef:', this.triggerRef.nativeElement);
 
         const overlayConfig: OverlayConfig = {
             positionStrategy: this.overlay.position()
                 .flexibleConnectedTo(this.triggerRef)
-                .withPositions(this.getPositionConfig()),
+                .withPositions(this.getPositionConfig())
+                .withPush(false),
             scrollStrategy: this.overlay.scrollStrategies.reposition(),
             hasBackdrop: this.currentConfig.showBackdrop,
             backdropClass: this.currentConfig.backdropClass || 'amw-popover__backdrop',
@@ -459,6 +538,7 @@ export class AmwPopoverComponent extends BaseComponent implements OnInit, OnDest
         };
 
         this.overlayRef = this.overlay.create(overlayConfig);
+        console.log('AmwPopover: Overlay created:', this.overlayRef);
     }
 
     /**
@@ -594,12 +674,24 @@ export class AmwPopoverComponent extends BaseComponent implements OnInit, OnDest
             return;
         }
 
+        console.log('AmwPopover: Opening popover, overlayRef:', this.overlayRef, 'contentRef:', this.contentRef);
+
         this.isOpening = true;
         this.beforeOpen.emit();
 
         if (this.overlayRef && !this.overlayRef.hasAttached()) {
-            const portal = this.contentRef ? new TemplatePortal(this.contentRef, this.viewContainerRef) : new ComponentPortal(PopoverContentComponent);
-            this.overlayRef.attach(portal);
+            // Use TemplatePortal with the content template instead of ComponentPortal
+            if (this.contentRef) {
+                console.log('AmwPopover: Attaching portal to overlay');
+                const portal = new TemplatePortal(this.contentRef, this.viewContainerRef);
+                this.overlayRef.attach(portal);
+            } else {
+                console.warn('AmwPopover: contentRef not available for portal creation');
+            }
+        } else if (!this.overlayRef) {
+            console.warn('AmwPopover: overlayRef not available for popover opening');
+        } else if (this.overlayRef.hasAttached()) {
+            console.log('AmwPopover: Overlay already has content attached');
         }
 
         this.opened = true;
@@ -608,7 +700,7 @@ export class AmwPopoverComponent extends BaseComponent implements OnInit, OnDest
         this.afterOpen.emit();
 
         this.isOpening = false;
-        this.cdr.detectChanges();
+        // REMOVED: this.cdr.detectChanges(); - can cause infinite loops
     }
 
     /**
@@ -632,7 +724,7 @@ export class AmwPopoverComponent extends BaseComponent implements OnInit, OnDest
         this.afterClose.emit();
 
         this.isClosing = false;
-        this.cdr.detectChanges();
+        // REMOVED: this.cdr.detectChanges(); - can cause infinite loops
     }
 
     /**
@@ -652,6 +744,105 @@ export class AmwPopoverComponent extends BaseComponent implements OnInit, OnDest
     onCloseClick(): void {
         this.closePopover();
     }
+
+    /**
+     * Handles trigger click event
+     */
+    onTriggerClick(event: Event): void {
+        if (this.isDisabled || this.isOpening || this.isClosing) return;
+
+        // Prevent event bubbling to avoid duplicate handling
+        event.stopPropagation();
+
+        if (this.currentTrigger.type === 'click') {
+            this.togglePopover();
+        }
+    }
+
+    /**
+     * Handles trigger mouse enter event
+     */
+    onTriggerMouseEnter(event: Event): void {
+        if (this.isDisabled || this.isOpening || this.isClosing || this.currentTrigger.type !== 'hover') return;
+
+        // Clear any existing close timeout
+        if (this.closeTimeout) {
+            clearTimeout(this.closeTimeout);
+            this.closeTimeout = undefined;
+        }
+
+        if (this.currentTrigger.delay) {
+            this.hoverTimeout = window.setTimeout(() => {
+                this.openPopover();
+            }, this.currentTrigger.delay);
+        } else {
+            this.openPopover();
+        }
+    }
+
+    /**
+     * Handles trigger mouse leave event
+     */
+    onTriggerMouseLeave(event: Event): void {
+        if (this.isDisabled || this.isOpening || this.isClosing || this.currentTrigger.type !== 'hover') return;
+
+        // Clear any existing hover timeout
+        if (this.hoverTimeout) {
+            clearTimeout(this.hoverTimeout);
+            this.hoverTimeout = undefined;
+        }
+
+        if (this.currentTrigger.closeDelay) {
+            this.closeTimeout = window.setTimeout(() => {
+                this.closePopover();
+            }, this.currentTrigger.closeDelay);
+        } else {
+            this.closePopover();
+        }
+    }
+
+    /**
+     * Handles trigger focus event
+     */
+    onTriggerFocus(event: Event): void {
+        if (this.isDisabled || this.isOpening || this.isClosing || this.currentTrigger.type !== 'focus') return;
+        this.openPopover();
+    }
+
+    /**
+     * Handles trigger blur event
+     */
+    onTriggerBlur(event: Event): void {
+        if (this.isDisabled || this.isOpening || this.isClosing || this.currentTrigger.type !== 'focus') return;
+        this.closePopover();
+    }
+
+    /**
+     * Handles trigger keydown event
+     */
+    onTriggerKeyDown(event: KeyboardEvent): void {
+        if (this.isDisabled || this.isOpening || this.isClosing) return;
+
+        if (event.key === 'Enter' || event.key === ' ') {
+            event.preventDefault();
+            event.stopPropagation();
+            this.togglePopover();
+        } else if (event.key === 'Escape' && this.opened) {
+            event.preventDefault();
+            event.stopPropagation();
+            this.closePopover();
+        }
+    }
+
+    /**
+     * Handles backdrop click event
+     */
+    onBackdropClick(event: Event): void {
+        if (this.currentConfig.clickOutsideClose && !this.isOpening && !this.isClosing) {
+            this.closePopover();
+        }
+    }
+
 
     /**
      * Gets the CSS classes for the popover
@@ -794,173 +985,3 @@ export class AmwPopoverComponent extends BaseComponent implements OnInit, OnDest
     }
 }
 
-/**
- * Popover content component
- */
-@Component({
-    selector: 'amw-popover-content',
-    standalone: true,
-    imports: [
-        CommonModule,
-        MatButtonModule,
-        MatIconModule,
-        MatCardModule,
-        MatDividerModule,
-        MatTooltipModule,
-        MatRippleModule
-    ],
-    template: `
-    <div [class]="getPopoverClasses()" [style.z-index]="getZIndex()">
-      <!-- Arrow -->
-      <div
-        *ngIf="showArrow"
-        [class]="getArrowClasses()"
-        [style.width]="getArrowSize()"
-        [style.height]="getArrowSize()"
-        [style.border-color]="getArrowColor()">
-      </div>
-      
-      <!-- Header -->
-      <div *ngIf="showHeader" class="amw-popover__header">
-        <div class="amw-popover__header-content">
-          <div class="amw-popover__header-text">
-            <h3 *ngIf="headerTitle" class="amw-popover__header-title">{{ headerTitle }}</h3>
-            <p *ngIf="headerSubtitle" class="amw-popover__header-subtitle">{{ headerSubtitle }}</p>
-          </div>
-          
-          <button
-            *ngIf="showClose"
-            mat-icon-button
-            class="amw-popover__close"
-            [attr.aria-label]="closeButtonText"
-            (click)="onCloseClick()">
-            <mat-icon>{{ closeButtonIcon }}</mat-icon>
-          </button>
-        </div>
-      </div>
-      
-      <!-- Content -->
-      <div class="amw-popover__content" [class]="getScrollbarClass()">
-        <ng-content></ng-content>
-      </div>
-      
-      <!-- Footer -->
-      <div *ngIf="showFooter" class="amw-popover__footer">
-        <p class="amw-popover__footer-text">{{ footerText }}</p>
-      </div>
-    </div>
-  `,
-    styles: [`
-    .amw-popover {
-      background: var(--mat-sys-surface);
-      border-radius: 8px;
-      box-shadow: var(--mat-sys-elevation-3);
-      overflow: hidden;
-      max-width: 100%;
-      max-height: 100%;
-    }
-    
-    .amw-popover__arrow {
-      position: absolute;
-      width: 0;
-      height: 0;
-      border-style: solid;
-    }
-    
-    .amw-popover__header {
-      padding: 16px;
-      border-bottom: 1px solid var(--mat-sys-outline-variant);
-      background: var(--mat-sys-surface-container);
-    }
-    
-    .amw-popover__header-content {
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-    }
-    
-    .amw-popover__header-text {
-      flex: 1;
-    }
-    
-    .amw-popover__header-title {
-      margin: 0 0 4px 0;
-      font-size: 1.125rem;
-      font-weight: 500;
-      color: var(--mat-sys-on-surface);
-    }
-    
-    .amw-popover__header-subtitle {
-      margin: 0;
-      font-size: 0.875rem;
-      color: var(--mat-sys-on-surface-variant);
-    }
-    
-    .amw-popover__close {
-      color: var(--mat-sys-on-surface-variant);
-    }
-    
-    .amw-popover__content {
-      padding: 16px;
-      max-height: 300px;
-      overflow-y: auto;
-    }
-    
-    .amw-popover__footer {
-      padding: 16px;
-      border-top: 1px solid var(--mat-sys-outline-variant);
-      background: var(--mat-sys-surface-container);
-    }
-    
-    .amw-popover__footer-text {
-      margin: 0;
-      font-size: 0.875rem;
-      color: var(--mat-sys-on-surface-variant);
-    }
-  `]
-})
-export class PopoverContentComponent {
-    @Input() showArrow = false;
-    @Input() showHeader = false;
-    @Input() showFooter = false;
-    @Input() showClose = true;
-    @Input() headerTitle = '';
-    @Input() headerSubtitle = '';
-    @Input() footerText = '';
-    @Input() closeButtonText = 'Close';
-    @Input() closeButtonIcon = 'close';
-    @Input() arrowSize = '12px';
-    @Input() arrowColor = 'var(--mat-sys-surface)';
-    @Input() scrollbarClass = 'amw-popover__scrollbar';
-    @Input() zIndex = 1000;
-
-    @Output() closeClick = new EventEmitter<void>();
-
-    onCloseClick(): void {
-        this.closeClick.emit();
-    }
-
-    getPopoverClasses(): string {
-        return 'amw-popover';
-    }
-
-    getArrowClasses(): string {
-        return 'amw-popover__arrow';
-    }
-
-    getArrowSize(): string {
-        return this.arrowSize;
-    }
-
-    getArrowColor(): string {
-        return this.arrowColor;
-    }
-
-    getScrollbarClass(): string {
-        return this.scrollbarClass;
-    }
-
-    getZIndex(): number {
-        return this.zIndex;
-    }
-}

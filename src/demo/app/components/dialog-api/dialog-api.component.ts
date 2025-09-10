@@ -140,7 +140,8 @@ export class DialogApiComponent {
         return Array.isArray(data) ? data : [];
     }
 
-    getInterfaces() {
+    /** API interfaces - computed property */
+    get interfacesList() {
         return this.apiDocumentation.interfaces;
     }
 }
