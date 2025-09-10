@@ -1,0 +1,191 @@
+<div class="radio-group-demo">
+  <h1>Radio Group Component Demo</h1>
+  <p>Demonstrates the AMW Radio Group component with various configurations and use cases.</p>
+
+  <!-- Basic Usage -->
+  <mat-card class="demo-card">
+    <mat-card-header>
+      <mat-card-title>Basic Usage</mat-card-title>
+      <mat-card-subtitle>Simple radio group with basic options</mat-card-subtitle>
+    </mat-card-header>
+    <mat-card-content>
+      <amw-radio-group
+        [options]="basicOptions"
+        [label]="label"
+        [hint]="hint"
+        [size]="size"
+        [orientation]="orientation"
+        [color]="color"
+        [disabled]="disabled"
+        [required]="required"
+        [(selectedValue)]="selectedValue"
+        (valueChange)="onValueChange($event, 'Basic')"
+        (selectionChange)="onSelectionChange($event, 'Basic')">
+      </amw-radio-group>
+      
+      <div class="demo-result">
+        <strong>Selected Value:</strong> {{ selectedValue || 'None' }}
+      </div>
+    </mat-card-content>
+  </mat-card>
+
+  <!-- With Icons -->
+  <mat-card class="demo-card">
+    <mat-card-header>
+      <mat-card-title>With Icons</mat-card-title>
+      <mat-card-subtitle>Radio group with icon options</mat-card-subtitle>
+    </mat-card-header>
+    <mat-card-content>
+      <amw-radio-group
+        [options]="iconOptions"
+        label="Location Type"
+        hint="Choose your primary location type"
+        [size]="size"
+        [orientation]="orientation"
+        [color]="color"
+        [disabled]="disabled"
+        [required]="required"
+        [(selectedValue)]="selectedValue2"
+        (valueChange)="onValueChange($event, 'Icons')"
+        (selectionChange)="onSelectionChange($event, 'Icons')">
+      </amw-radio-group>
+      
+      <div class="demo-result">
+        <strong>Selected Value:</strong> {{ selectedValue2 || 'None' }}
+      </div>
+    </mat-card-content>
+  </mat-card>
+
+  <!-- With Descriptions -->
+  <mat-card class="demo-card">
+    <mat-card-header>
+      <mat-card-title>With Descriptions</mat-card-title>
+      <mat-card-subtitle>Radio group with detailed option descriptions</mat-card-subtitle>
+    </mat-card-header>
+    <mat-card-content>
+      <amw-radio-group
+        [options]="descriptionOptions"
+        label="Subscription Plan"
+        hint="Select the plan that best fits your needs"
+        [size]="size"
+        [orientation]="orientation"
+        [color]="color"
+        [disabled]="disabled"
+        [required]="required"
+        [(selectedValue)]="selectedValue3"
+        (valueChange)="onValueChange($event, 'Descriptions')"
+        (selectionChange)="onSelectionChange($event, 'Descriptions')">
+      </amw-radio-group>
+      
+      <div class="demo-result">
+        <strong>Selected Value:</strong> {{ selectedValue3 || 'None' }}
+      </div>
+    </mat-card-content>
+  </mat-card>
+
+  <!-- Reactive Forms -->
+  <mat-card class="demo-card">
+    <mat-card-header>
+      <mat-card-title>Reactive Forms</mat-card-title>
+      <mat-card-subtitle>Radio group integrated with Angular reactive forms</mat-card-subtitle>
+    </mat-card-header>
+    <mat-card-content>
+      <form [formGroup]="reactiveForm" (ngSubmit)="onSubmit()">
+        <amw-radio-group
+          [options]="colorOptions"
+          label="Favorite Color"
+          hint="Choose your favorite color"
+          [size]="size"
+          [orientation]="orientation"
+          [color]="color"
+          [disabled]="disabled"
+          [required]="required"
+          formControlName="selectedOption">
+        </amw-radio-group>
+        
+        <div class="demo-result">
+          <strong>Form Value:</strong> {{ reactiveForm.value | json }}
+          <br>
+          <strong>Form Valid:</strong> {{ reactiveForm.valid }}
+        </div>
+      </form>
+    </mat-card-content>
+  </mat-card>
+
+  <!-- Configuration Controls -->
+  <mat-card class="demo-card">
+    <mat-card-header>
+      <mat-card-title>Configuration Controls</mat-card-title>
+      <mat-card-subtitle>Adjust component properties in real-time</mat-card-subtitle>
+    </mat-card-header>
+    <mat-card-content>
+      <div class="config-controls">
+        <div class="config-row">
+          <mat-form-field appearance="outline">
+            <mat-label>Size</mat-label>
+            <mat-select [(value)]="size">
+              <mat-option *ngFor="let option of sizeOptions" [value]="option.value">
+                {{ option.label }}
+              </mat-option>
+            </mat-select>
+          </mat-form-field>
+
+          <mat-form-field appearance="outline">
+            <mat-label>Orientation</mat-label>
+            <mat-select [(value)]="orientation">
+              <mat-option *ngFor="let option of orientationOptions" [value]="option.value">
+                {{ option.label }}
+              </mat-option>
+            </mat-select>
+          </mat-form-field>
+
+          <mat-form-field appearance="outline">
+            <mat-label>Color</mat-label>
+            <mat-select [(value)]="color">
+              <mat-option *ngFor="let option of colorOptionsForDemo" [value]="option.value">
+                {{ option.label }}
+              </mat-option>
+            </mat-select>
+          </mat-form-field>
+        </div>
+
+        <div class="config-row">
+          <mat-form-field appearance="outline">
+            <mat-label>Label</mat-label>
+            <input matInput [(ngModel)]="label">
+          </mat-form-field>
+
+          <mat-form-field appearance="outline">
+            <mat-label>Hint</mat-label>
+            <input matInput [(ngModel)]="hint">
+          </mat-form-field>
+        </div>
+
+        <div class="config-row">
+          <mat-slide-toggle [(ngModel)]="disabled">Disabled</mat-slide-toggle>
+          <mat-slide-toggle [(ngModel)]="required">Required</mat-slide-toggle>
+        </div>
+      </div>
+
+      <mat-divider></mat-divider>
+
+      <div class="config-actions">
+        <button mat-raised-button color="primary" (click)="resetValues()">
+          <mat-icon>refresh</mat-icon>
+          Reset Values
+        </button>
+      </div>
+    </mat-card-content>
+  </mat-card>
+
+  <!-- Configuration Display -->
+  <mat-card class="demo-card">
+    <mat-card-header>
+      <mat-card-title>Current Configuration</mat-card-title>
+      <mat-card-subtitle>JSON representation of current component config</mat-card-subtitle>
+    </mat-card-header>
+    <mat-card-content>
+      <pre class="config-display">{{ currentConfig | json }}</pre>
+    </mat-card-content>
+  </mat-card>
+</div>

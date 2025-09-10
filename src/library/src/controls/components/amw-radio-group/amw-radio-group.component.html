@@ -1,0 +1,56 @@
+<div [class]="radioGroupClasses">
+  <!-- Label -->
+  <label *ngIf="label" class="amw-radio-group__label">
+    {{ label }}
+    <span *ngIf="required" class="amw-radio-group__required-indicator">*</span>
+  </label>
+
+  <!-- Radio Group Container -->
+  <div class="amw-radio-group__container" [class]="'amw-radio-group__container--' + orientation">
+    <mat-radio-group
+      [name]="name || 'amw-radio-group-' + generateId()"
+      [value]="internalValue"
+      [disabled]="disabled"
+      [required]="required"
+      (change)="onRadioChange($event.value)"
+      (focus)="onFocus()"
+      (blur)="onBlur()"
+      class="amw-radio-group__mat-radio-group">
+      
+      <!-- Radio Button Options -->
+      <mat-radio-button
+        *ngFor="let option of options; trackBy: trackByValue"
+        [value]="option.value"
+        [disabled]="option.disabled"
+        [color]="color"
+        [class]="getRadioButtonClasses(option)"
+        class="amw-radio-group__radio-button">
+        
+        <!-- Option Content -->
+        <div class="amw-radio-group__option-content">
+          <!-- Icon -->
+          <mat-icon 
+            *ngIf="option.icon" 
+            class="amw-radio-group__option-icon">
+            {{ option.icon }}
+          </mat-icon>
+          
+          <!-- Label and Description -->
+          <div class="amw-radio-group__option-text">
+            <span class="amw-radio-group__option-label">{{ option.label }}</span>
+            <span 
+              *ngIf="option.description" 
+              class="amw-radio-group__option-description">
+              {{ option.description }}
+            </span>
+          </div>
+        </div>
+      </mat-radio-button>
+    </mat-radio-group>
+  </div>
+
+  <!-- Hint Text -->
+  <div *ngIf="hint" class="amw-radio-group__hint">
+    {{ hint }}
+  </div>
+</div>

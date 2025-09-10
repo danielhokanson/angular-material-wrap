@@ -36,6 +36,11 @@ export const routes: Routes = [
         data: { control: 'radio' }
     },
     {
+        path: 'controls/radio-group',
+        loadComponent: () => import('./components/controls-demo/controls-demo.component').then(m => m.ControlsDemoComponent),
+        data: { control: 'radio-group' }
+    },
+    {
         path: 'controls/slider',
         loadComponent: () => import('./components/controls-demo/controls-demo.component').then(m => m.ControlsDemoComponent),
         data: { control: 'slider' }
@@ -113,6 +118,27 @@ export const routes: Routes = [
         path: 'components/popover',
         loadComponent: () => import('./pages/components-demo/components-demo.component').then(m => m.ComponentsDemoComponent),
         data: { component: 'popover' }
+    },
+    {
+        path: 'components/radio-group',
+        loadComponent: () => import('./pages/components-demo/components-demo.component').then(m => m.ComponentsDemoComponent),
+        data: { component: 'radio-group' }
+    },
+    {
+        path: 'components/radio-group/demo',
+        loadComponent: () => import('./components/radio-group-demo/radio-group-demo.component').then(m => m.RadioGroupDemoComponent)
+    },
+    {
+        path: 'components/radio-group/validation',
+        loadComponent: () => import('./components/radio-group-validation/radio-group-validation.component').then(m => m.RadioGroupValidationComponent)
+    },
+    {
+        path: 'components/radio-group/code',
+        loadComponent: () => import('./components/radio-group-code/radio-group-code.component').then(m => m.RadioGroupCodeComponent)
+    },
+    {
+        path: 'components/radio-group/api',
+        loadComponent: () => import('./components/radio-group-api/radio-group-api.component').then(m => m.RadioGroupApiComponent)
     },
     {
         path: 'directives',

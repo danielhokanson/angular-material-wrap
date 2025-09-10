@@ -1,0 +1,140 @@
+<div class="radio-group-validation">
+  <h1>Radio Group Validation Demo</h1>
+  <p>Demonstrates validation scenarios and error handling for the AMW Radio Group component.</p>
+
+  <!-- Validation Form -->
+  <mat-card class="validation-card">
+    <mat-card-header>
+      <mat-card-title>Validation Form</mat-card-title>
+      <mat-card-subtitle>All fields are required - try submitting without selecting values</mat-card-subtitle>
+    </mat-card-header>
+    <mat-card-content>
+      <form [formGroup]="validationForm" (ngSubmit)="onSubmit()">
+        <!-- Required Field -->
+        <div class="form-field">
+          <amw-radio-group
+            [options]="requiredOptions"
+            label="Required Field"
+            hint="This field is required - you must select a value"
+            [required]="true"
+            formControlName="requiredField"
+            [class]="'validation-' + getFieldValidationStatus('requiredField')">
+          </amw-radio-group>
+          
+          <div *ngIf="getFieldValidationMessage('requiredField')" class="validation-error">
+            <mat-icon>error</mat-icon>
+            {{ getFieldValidationMessage('requiredField') }}
+          </div>
+        </div>
+
+        <mat-divider></mat-divider>
+
+        <!-- Agreement Field -->
+        <div class="form-field">
+          <amw-radio-group
+            [options]="agreementOptions"
+            label="Terms and Conditions"
+            hint="You must agree to the terms to continue"
+            [required]="true"
+            formControlName="agreement"
+            [class]="'validation-' + getFieldValidationStatus('agreement')">
+          </amw-radio-group>
+          
+          <div *ngIf="getFieldValidationMessage('agreement')" class="validation-error">
+            <mat-icon>error</mat-icon>
+            {{ getFieldValidationMessage('agreement') }}
+          </div>
+        </div>
+
+        <mat-divider></mat-divider>
+
+        <!-- Priority Field -->
+        <div class="form-field">
+          <amw-radio-group
+            [options]="priorityOptions"
+            label="Priority Level"
+            hint="Select the priority level for this task"
+            [required]="true"
+            formControlName="priority"
+            [class]="'validation-' + getFieldValidationStatus('priority')">
+          </amw-radio-group>
+          
+          <div *ngIf="getFieldValidationMessage('priority')" class="validation-error">
+            <mat-icon>error</mat-icon>
+            {{ getFieldValidationMessage('priority') }}
+          </div>
+        </div>
+
+        <mat-divider></mat-divider>
+
+        <!-- Size Field -->
+        <div class="form-field">
+          <amw-radio-group
+            [options]="sizeOptions"
+            label="Size Selection"
+            hint="Choose the appropriate size"
+            [required]="true"
+            formControlName="size"
+            [class]="'validation-' + getFieldValidationStatus('size')">
+          </amw-radio-group>
+          
+          <div *ngIf="getFieldValidationMessage('size')" class="validation-error">
+            <mat-icon>error</mat-icon>
+            {{ getFieldValidationMessage('size') }}
+          </div>
+        </div>
+
+        <!-- Form Actions -->
+        <div class="form-actions">
+          <button mat-raised-button type="submit" color="primary" [disabled]="!isFormValid">
+            <mat-icon>check</mat-icon>
+            Submit Form
+          </button>
+          
+          <button mat-button type="button" (click)="resetForm()">
+            <mat-icon>refresh</mat-icon>
+            Reset
+          </button>
+        </div>
+      </form>
+    </mat-card-content>
+  </mat-card>
+
+  <!-- Validation Status -->
+  <mat-card class="status-card">
+    <mat-card-header>
+      <mat-card-title>Validation Status</mat-card-title>
+      <mat-card-subtitle>Current form validation state</mat-card-subtitle>
+    </mat-card-header>
+    <mat-card-content>
+      <div class="status-display">
+        <div class="status-item">
+          <mat-icon [class]="isFormValid ? 'status-valid' : 'status-invalid'">
+            {{ isFormValid ? 'check_circle' : 'error' }}
+          </mat-icon>
+          <span [class]="isFormValid ? 'status-valid' : 'status-invalid'">
+            Form {{ isFormValid ? 'Valid' : 'Invalid' }}
+          </span>
+        </div>
+        
+        <div *ngIf="formErrors.length > 0" class="error-list">
+          <h4>Validation Errors:</h4>
+          <ul>
+            <li *ngFor="let error of formErrors">{{ error }}</li>
+          </ul>
+        </div>
+      </div>
+    </mat-card-content>
+  </mat-card>
+
+  <!-- Form Values Display -->
+  <mat-card class="values-card">
+    <mat-card-header>
+      <mat-card-title>Form Values</mat-card-title>
+      <mat-card-subtitle>Current form data</mat-card-subtitle>
+    </mat-card-header>
+    <mat-card-content>
+      <pre class="values-display">{{ validationForm.value | json }}</pre>
+    </mat-card-content>
+  </mat-card>
+</div>

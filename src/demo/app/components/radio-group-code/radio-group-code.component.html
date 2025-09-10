@@ -1,0 +1,81 @@
+<div class="radio-group-code">
+  <h1>Radio Group Code Examples</h1>
+  <p>Code examples and usage patterns for the AMW Radio Group component.</p>
+
+  <mat-tab-group>
+    <!-- HTML Examples -->
+    <mat-tab label="HTML Templates">
+      <div class="tab-content">
+        <div *ngFor="let example of codeExamplesArray" class="code-example">
+          <mat-card>
+            <mat-card-header>
+              <mat-card-title>{{ example.title }}</mat-card-title>
+              <mat-card-subtitle>{{ example.description }}</mat-card-subtitle>
+            </mat-card-header>
+            <mat-card-content>
+              <div class="code-block">
+                <div class="code-header">
+                  <mat-chip>{{ example.language }}</mat-chip>
+                  <button mat-icon-button (click)="copyToClipboard(example.code)" title="Copy to clipboard">
+                    <mat-icon>content_copy</mat-icon>
+                  </button>
+                </div>
+                <pre><code [class]="'language-' + example.language">{{ example.code }}</code></pre>
+              </div>
+            </mat-card-content>
+          </mat-card>
+        </div>
+      </div>
+    </mat-tab>
+
+    <!-- TypeScript Examples -->
+    <mat-tab label="TypeScript">
+      <div class="tab-content">
+        <div *ngFor="let example of typescriptExamples" class="code-example">
+          <mat-card>
+            <mat-card-header>
+              <mat-card-title>{{ example.title }}</mat-card-title>
+              <mat-card-subtitle>{{ example.description }}</mat-card-subtitle>
+            </mat-card-header>
+            <mat-card-content>
+              <div class="code-block">
+                <div class="code-header">
+                  <mat-chip>{{ example.language }}</mat-chip>
+                  <button mat-icon-button (click)="copyToClipboard(example.code)" title="Copy to clipboard">
+                    <mat-icon>content_copy</mat-icon>
+                  </button>
+                </div>
+                <pre><code [class]="'language-' + example.language">{{ example.code }}</code></pre>
+              </div>
+            </mat-card-content>
+          </mat-card>
+        </div>
+      </div>
+    </mat-tab>
+
+    <!-- SCSS Examples -->
+    <mat-tab label="SCSS Styles">
+      <div class="tab-content">
+        <div *ngFor="let example of scssExamples" class="code-example">
+          <mat-card>
+            <mat-card-header>
+              <mat-card-title>{{ example.title }}</mat-card-title>
+              <mat-card-subtitle>{{ example.description }}</mat-card-subtitle>
+            </mat-card-header>
+            <mat-card-content>
+              <div class="code-block">
+                <div class="code-header">
+                  <mat-chip>{{ example.language }}</mat-chip>
+                  <button mat-icon-button (click)="copyToClipboard(example.code)" title="Copy to clipboard">
+                    <mat-icon>content_copy</mat-icon>
+                  </button>
+                </div>
+                <pre><code [class]="'language-' + example.language">{{ example.code }}</code></pre>
+              </div>
+            </mat-card-content>
+          </mat-card>
+        </div>
+      </div>
+    </mat-tab>
+  </mat-tab-group>
+</div>

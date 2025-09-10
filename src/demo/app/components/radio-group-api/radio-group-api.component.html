@@ -1,0 +1,212 @@
+<div class="radio-group-api">
+  <h1>Radio Group API Documentation</h1>
+  <p>Comprehensive API documentation for the AMW Radio Group component.</p>
+
+  <mat-tab-group>
+    <!-- Input Properties -->
+    <mat-tab label="Input Properties">
+      <div class="tab-content">
+        <div class="api-section">
+          <h2>Input Properties</h2>
+          <p>Properties that can be set on the <code>amw-radio-group</code> component.</p>
+          
+          <div *ngFor="let property of inputProperties" class="property-card">
+            <mat-card>
+              <mat-card-content>
+                <div class="property-header">
+                  <h3>{{ property.name }}</h3>
+                  <mat-chip>{{ property.type }}</mat-chip>
+                </div>
+                <p class="property-description">{{ property.description }}</p>
+                <div class="property-details">
+                  <div class="property-detail">
+                    <strong>Default:</strong> <code>{{ property.default }}</code>
+                  </div>
+                  <div class="property-detail">
+                    <strong>Options:</strong> 
+                    <span *ngFor="let option of property.options; let last = last">
+                      <code>{{ option }}</code><span *ngIf="!last">, </span>
+                    </span>
+                  </div>
+                </div>
+              </mat-card-content>
+            </mat-card>
+          </div>
+        </div>
+      </div>
+    </mat-tab>
+
+    <!-- Output Properties -->
+    <mat-tab label="Output Properties">
+      <div class="tab-content">
+        <div class="api-section">
+          <h2>Output Properties</h2>
+          <p>Events emitted by the <code>amw-radio-group</code> component.</p>
+          
+          <div *ngFor="let property of outputProperties" class="property-card">
+            <mat-card>
+              <mat-card-content>
+                <div class="property-header">
+                  <h3>{{ property.name }}</h3>
+                  <mat-chip>{{ property.type }}</mat-chip>
+                </div>
+                <p class="property-description">{{ property.description }}</p>
+                <div class="property-details">
+                  <div class="property-detail">
+                    <strong>Parameters:</strong>
+                    <ul>
+                      <li *ngFor="let param of property.parameters">{{ param }}</li>
+                    </ul>
+                  </div>
+                </div>
+              </mat-card-content>
+            </mat-card>
+          </div>
+        </div>
+      </div>
+    </mat-tab>
+
+    <!-- Interfaces -->
+    <mat-tab label="Interfaces">
+      <div class="tab-content">
+        <div class="api-section">
+          <h2>Interfaces</h2>
+          <p>TypeScript interfaces used by the <code>amw-radio-group</code> component.</p>
+          
+          <div *ngFor="let interface of interfacesList" class="interface-card">
+            <mat-card>
+              <mat-card-content>
+                <div class="interface-header">
+                  <h3>{{ interface.name }}</h3>
+                  <p class="interface-description">{{ interface.description }}</p>
+                </div>
+                <div class="interface-properties">
+                  <h4>Properties:</h4>
+                  <div *ngFor="let prop of interface.properties" class="property-item">
+                    <div class="property-name">
+                      <code>{{ prop.name }}</code>
+                      <mat-chip>{{ prop.type }}</mat-chip>
+                    </div>
+                    <p class="property-description">{{ prop.description }}</p>
+                  </div>
+                </div>
+              </mat-card-content>
+            </mat-card>
+          </div>
+        </div>
+      </div>
+    </mat-tab>
+
+    <!-- Methods -->
+    <mat-tab label="Methods">
+      <div class="tab-content">
+        <div class="api-section">
+          <h2>Public Methods</h2>
+          <p>Public methods available on the <code>amw-radio-group</code> component.</p>
+          
+          <div *ngFor="let method of methods" class="method-card">
+            <mat-card>
+              <mat-card-content>
+                <div class="method-header">
+                  <h3>{{ method.name }}</h3>
+                  <mat-chip>{{ method.type }}</mat-chip>
+                </div>
+                <p class="method-description">{{ method.description }}</p>
+                <div class="method-details">
+                  <div class="method-detail">
+                    <strong>Parameters:</strong>
+                    <ul>
+                      <li *ngFor="let param of method.parameters">{{ param }}</li>
+                    </ul>
+                  </div>
+                </div>
+              </mat-card-content>
+            </mat-card>
+          </div>
+        </div>
+
+        <div class="api-section">
+          <h2>ControlValueAccessor Methods</h2>
+          <p>Methods required for Angular's ControlValueAccessor interface.</p>
+          
+          <div *ngFor="let method of controlValueAccessorMethods" class="method-card">
+            <mat-card>
+              <mat-card-content>
+                <div class="method-header">
+                  <h3>{{ method.name }}</h3>
+                  <mat-chip>{{ method.type }}</mat-chip>
+                </div>
+                <p class="method-description">{{ method.description }}</p>
+                <div class="method-details">
+                  <div class="method-detail">
+                    <strong>Parameters:</strong>
+                    <ul>
+                      <li *ngFor="let param of method.parameters">{{ param }}</li>
+                    </ul>
+                  </div>
+                </div>
+              </mat-card-content>
+            </mat-card>
+          </div>
+        </div>
+      </div>
+    </mat-tab>
+
+    <!-- Examples -->
+    <mat-tab label="Usage Examples">
+      <div class="tab-content">
+        <div class="api-section">
+          <h2>Usage Examples</h2>
+          <p>Common usage patterns and examples for the <code>amw-radio-group</code> component.</p>
+          
+          <div class="example-card">
+            <mat-card>
+              <mat-card-header>
+                <mat-card-title>Basic Usage</mat-card-title>
+              </mat-card-header>
+              <mat-card-content>
+                <pre><code>&lt;amw-radio-group
+  [options]="options"
+  label="Choose an option"
+  [(value)]="selectedValue"
+  (valueChange)="onValueChange($event)"&gt;
+&lt;/amw-radio-group&gt;</code></pre>
+              </mat-card-content>
+            </mat-card>
+          </div>
+
+          <div class="example-card">
+            <mat-card>
+              <mat-card-header>
+                <mat-card-title>With Configuration Object</mat-card-title>
+              </mat-card-header>
+              <mat-card-content>
+                <pre><code>&lt;amw-radio-group
+  [config]="radioGroupConfig"
+  [(value)]="selectedValue"&gt;
+&lt;/amw-radio-group&gt;</code></pre>
+              </mat-card-content>
+            </mat-card>
+          </div>
+
+          <div class="example-card">
+            <mat-card>
+              <mat-card-header>
+                <mat-card-title>Reactive Forms</mat-card-title>
+              </mat-card-header>
+              <mat-card-content>
+                <pre><code>&lt;form [formGroup]="myForm"&gt;
+  &lt;amw-radio-group
+    [options]="options"
+    formControlName="myField"
+    [required]="true"&gt;
+  &lt;/amw-radio-group&gt;
+&lt;/form&gt;</code></pre>
+              </mat-card-content>
+            </mat-card>
+          </div>
+        </div>
+      </div>
+    </mat-tab>
+  </mat-tab-group>
+</div>

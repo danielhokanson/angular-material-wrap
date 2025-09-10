@@ -11,6 +11,7 @@ import { InputDemoComponent } from '../input-demo/input-demo.component';
 import { SelectDemoComponent } from '../select-demo/select-demo.component';
 import { CheckboxDemoComponent } from '../checkbox-demo/checkbox-demo.component';
 import { RadioDemoComponent } from '../radio-demo/radio-demo.component';
+import { RadioGroupDemoComponent } from '../radio-group-demo/radio-group-demo.component';
 import { ToggleDemoComponent } from '../toggle-demo/toggle-demo.component';
 import { TextareaDemoComponent } from '../textarea-demo/textarea-demo.component';
 import { SliderDemoComponent } from '../slider-demo/slider-demo.component';
@@ -33,6 +34,9 @@ import { CheckboxApiComponent } from '../checkbox-api/checkbox-api.component';
 import { RadioValidationComponent } from '../radio-validation/radio-validation.component';
 import { RadioCodeComponent } from '../radio-code/radio-code.component';
 import { RadioApiComponent } from '../radio-api/radio-api.component';
+import { RadioGroupValidationComponent } from '../radio-group-validation/radio-group-validation.component';
+import { RadioGroupCodeComponent } from '../radio-group-code/radio-group-code.component';
+import { RadioGroupApiComponent } from '../radio-group-api/radio-group-api.component';
 import { ToggleValidationComponent } from '../toggle-validation/toggle-validation.component';
 import { ToggleCodeComponent } from '../toggle-code/toggle-code.component';
 import { ToggleApiComponent } from '../toggle-api/toggle-api.component';
@@ -87,6 +91,7 @@ import { DataTableApiComponent } from '../data-table-api/data-table-api.componen
         SelectDemoComponent,
         CheckboxDemoComponent,
         RadioDemoComponent,
+        RadioGroupDemoComponent,
         ToggleDemoComponent,
         TextareaDemoComponent,
         SliderDemoComponent,
@@ -108,6 +113,9 @@ import { DataTableApiComponent } from '../data-table-api/data-table-api.componen
         RadioValidationComponent,
         RadioCodeComponent,
         RadioApiComponent,
+        RadioGroupValidationComponent,
+        RadioGroupCodeComponent,
+        RadioGroupApiComponent,
         ToggleValidationComponent,
         ToggleCodeComponent,
         ToggleApiComponent,
@@ -160,6 +168,7 @@ export class ControlsDemoComponent implements OnInit {
         { id: 'select', name: 'Select' },
         { id: 'checkbox', name: 'Checkbox' },
         { id: 'radio', name: 'Radio Button' },
+        { id: 'radio-group', name: 'Radio Group' },
         { id: 'slider', name: 'Slider' },
         { id: 'toggle', name: 'Toggle' },
         { id: 'textarea', name: 'Textarea' },
