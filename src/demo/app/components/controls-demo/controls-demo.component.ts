@@ -37,6 +37,7 @@ import { RadioApiComponent } from '../radio-api/radio-api.component';
 import { RadioGroupValidationComponent } from '../radio-group-validation/radio-group-validation.component';
 import { RadioGroupCodeComponent } from '../radio-group-code/radio-group-code.component';
 import { RadioGroupApiComponent } from '../radio-group-api/radio-group-api.component';
+import { ChipsDemoComponent } from '../chips-demo/chips-demo.component';
 import { ToggleValidationComponent } from '../toggle-validation/toggle-validation.component';
 import { ToggleCodeComponent } from '../toggle-code/toggle-code.component';
 import { ToggleApiComponent } from '../toggle-api/toggle-api.component';
@@ -116,6 +117,7 @@ import { DataTableApiComponent } from '../data-table-api/data-table-api.componen
         RadioGroupValidationComponent,
         RadioGroupCodeComponent,
         RadioGroupApiComponent,
+        ChipsDemoComponent,
         ToggleValidationComponent,
         ToggleCodeComponent,
         ToggleApiComponent,
@@ -165,6 +167,7 @@ export class ControlsDemoComponent implements OnInit {
         { id: 'checkbox', name: 'Checkbox' },
         { id: 'radio', name: 'Radio Button' },
         { id: 'radio-group', name: 'Radio Group' },
+        { id: 'chips', name: 'Chips' },
         { id: 'slider', name: 'Slider' },
         { id: 'toggle', name: 'Toggle' },
         { id: 'textarea', name: 'Textarea' },

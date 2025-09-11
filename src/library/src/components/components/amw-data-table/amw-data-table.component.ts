@@ -15,6 +15,7 @@ import { MatTooltipModule } from '@angular/material/tooltip';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { MatChipsModule } from '@angular/material/chips';
 import { MatSlideToggleModule } from '@angular/material/slide-toggle';
+import { OverlayModule } from '@angular/cdk/overlay';
 import { Subject, takeUntil } from 'rxjs';
 
 // import { BaseComponent } from '../base/base.component';
@@ -54,7 +55,8 @@ import { DialogService } from '../../services/dialog.service';
         MatTooltipModule,
         MatProgressSpinnerModule,
         MatChipsModule,
-        MatSlideToggleModule
+        MatSlideToggleModule,
+        OverlayModule
     ],
     encapsulation: ViewEncapsulation.None,
     templateUrl: './amw-data-table.component.html',

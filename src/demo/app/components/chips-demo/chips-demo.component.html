@@ -1,0 +1,45 @@
+<div class="amw-demo-chips">
+  <div class="demo-header">
+    <h1>AMW Chips</h1>
+    <p>Comprehensive chip component with various configurations and use cases</p>
+  </div>
+
+  <mat-tab-group [(selectedIndex)]="selectedTab" class="demo-tabs">
+    
+    <!-- Basic Chips Tab -->
+    <mat-tab label="Basic Chips" icon="view_module">
+      <div class="tab-content">
+        <mat-card class="demo-card">
+          <mat-card-header>
+            <mat-card-title>Basic Chips</mat-card-title>
+            <mat-card-subtitle>Simple chips with add/remove functionality</mat-card-subtitle>
+          </mat-card-header>
+          <mat-card-content>
+            <div class="demo-section">
+              <h3>Default Chips</h3>
+              <p>Basic chips with add and remove functionality</p>
+              <amw-chips
+                [config]="basicConfig"
+                (chipAdd)="onChipAdd($event)"
+                (chipRemove)="onChipRemove($event)"
+                (chipsChange)="onChipsChange($event)">
+              </amw-chips>
+            </div>
+
+            <mat-divider></mat-divider>
+
+            <div class="demo-section">
+              <h3>Chips with Menus</h3>
+              <p>Chips with contextual menu actions</p>
+              <amw-chips
+                [config]="menuConfig"
+                (chipMenuItemClick)="onMenuItemClick($event)"
+                (chipsChange)="onChipsChange($event)">
+              </amw-chips>
+            </div>
+          </mat-card-content>
+        </mat-card>
+      </div>
+    </mat-tab>
+  </mat-tab-group>
+</div>

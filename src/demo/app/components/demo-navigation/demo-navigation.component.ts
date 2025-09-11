@@ -42,6 +42,7 @@ export class DemoNavigationComponent {
                 { title: 'Checkbox', route: '/controls/checkbox', icon: 'check_box' },
                 { title: 'Radio Button', route: '/controls/radio', icon: 'radio_button_checked' },
                 { title: 'Radio Group', route: '/controls/radio-group', icon: 'radio_button_checked' },
+                { title: 'Chips', route: '/controls/chips', icon: 'view_module' },
                 { title: 'Slider', route: '/controls/slider', icon: 'tune' },
                 { title: 'Toggle', route: '/controls/toggle', icon: 'toggle_on' },
                 { title: 'Textarea', route: '/controls/textarea', icon: 'text_fields' },

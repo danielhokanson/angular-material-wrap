@@ -145,7 +145,8 @@
                 <mat-select 
                   [value]="getEditingValue(column.property)"
                   (selectionChange)="setEditingValue(column.property, $event.value)"
-                  (blur)="stopCellEditing(column.property)">
+                  (blur)="stopCellEditing(column.property)"
+                  panelClass="amw-data-table__select-panel">
                   <mat-option *ngFor="let option of column.editor?.options" [value]="option.value">
                     {{ option.label }}
                   </mat-option>
@@ -181,7 +182,8 @@
                 <mat-form-field *ngIf="column.editor?.type === 'select'" appearance="outline" class="amw-data-table__edit-field">
                   <mat-select 
                     [value]="row[column.property]"
-                    (selectionChange)="row[column.property] = $event.value">
+                    (selectionChange)="row[column.property] = $event.value"
+                    panelClass="amw-data-table__select-panel">
                     <mat-option *ngFor="let option of column.editor?.options" [value]="option.value">
                       {{ option.label }}
                     </mat-option>

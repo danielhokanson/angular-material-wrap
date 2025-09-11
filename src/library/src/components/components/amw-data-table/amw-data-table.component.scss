@@ -236,10 +236,109 @@
     }
   }
 
-  // Constrain dropdown panel width to match column width
+  // Allow dropdown panel to expand beyond column width for readability
   ::ng-deep .mat-mdc-select-panel {
-    max-width: 100% !important;
-    width: 100% !important;
+    min-width: 200px !important; // Minimum width for readability
+    max-width: 300px !important; // Maximum width to prevent excessive expansion
+    width: auto !important; // Allow natural width based on content
+  }
+
+  // Target specific panel class for data table selects
+  ::ng-deep .amw-data-table__select-panel {
+    min-width: 200px !important;
+    max-width: 300px !important;
+    width: auto !important;
+    
+    // Ensure all options in this panel have proper width
+    .mat-mdc-option {
+      min-width: 200px !important;
+      width: auto !important;
+      
+      .mdc-list-item {
+        min-width: 200px !important;
+        width: auto !important;
+        
+        .mdc-list-item__content {
+          min-width: 200px !important;
+          width: auto !important;
+          
+          .mdc-list-item__primary-text {
+            white-space: nowrap !important;
+            overflow: visible !important;
+            text-overflow: unset !important;
+            max-width: none !important;
+            min-width: 200px !important;
+          }
+        }
+      }
+    }
+  }
+
+  // Override Material Design's default panel width constraints
+  ::ng-deep .cdk-overlay-pane .mat-mdc-select-panel {
+    min-width: 200px !important;
+    max-width: 300px !important;
+    width: auto !important;
+  }
+
+  // Override CDK overlay pane width specifically for our select panels
+  ::ng-deep .cdk-overlay-pane .amw-data-table__select-panel {
+    min-width: 200px !important;
+    max-width: 300px !important;
+    width: auto !important;
+  }
+
+  // Force CDK overlay pane width override for data table selects
+  ::ng-deep .cdk-overlay-pane[style*="width: 89px"] {
+    width: auto !important;
+    min-width: 200px !important;
+    max-width: 300px !important;
+  }
+
+  // Target the specific overlay pane that contains our select panel
+  ::ng-deep .cdk-overlay-pane:has(.amw-data-table__select-panel) {
+    width: auto !important;
+    min-width: 200px !important;
+    max-width: 300px !important;
+  }
+
+  // Ensure the overlay container doesn't constrain the panel
+  ::ng-deep .mat-mdc-select-panel-container {
+    min-width: 200px !important;
+    max-width: 300px !important;
+    width: auto !important;
+  }
+
+  // Ensure option text is not truncated
+  ::ng-deep .mat-mdc-option {
+    white-space: nowrap !important;
+    min-width: 200px !important;
+  }
+
+  ::ng-deep .mat-mdc-option .mdc-list-item__primary-text {
+    white-space: nowrap !important;
+    overflow: visible !important;
+    text-overflow: unset !important;
+  }
+
+  // Specifically target selected option text
+  ::ng-deep .mat-mdc-option.mdc-list-item--selected .mdc-list-item__primary-text {
+    white-space: nowrap !important;
+    overflow: visible !important;
+    text-overflow: unset !important;
+    max-width: none !important;
+  }
+
+  // Target the option content container
+  ::ng-deep .mat-mdc-option .mdc-list-item__content {
+    min-width: 200px !important;
+    overflow: visible !important;
+  }
+
+  // Ensure the list item itself doesn't constrain width
+  ::ng-deep .mat-mdc-option .mdc-list-item {
+    min-width: 200px !important;
+    overflow: visible !important;
   }
 
   &__edit-errors {

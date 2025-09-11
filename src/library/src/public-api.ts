@@ -7,6 +7,7 @@ export { AmwButtonComponent } from './controls/components/amw-button/amw-button.
 export { AmwInputComponent } from './controls/components/amw-input/amw-input.component';
 export { AmwSelectComponent } from './controls/components/amw-select/amw-select.component';
 export { AmwRadioGroupComponent } from './controls/components/amw-radio-group/amw-radio-group.component';
+export { AmwChipsComponent } from './controls/components/amw-chips/amw-chips.component';
 
 // Components exports
 // export * from './components/components';

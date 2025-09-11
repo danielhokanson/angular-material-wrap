@@ -41,6 +41,11 @@ export const routes: Routes = [
         data: { control: 'radio-group' }
     },
     {
+        path: 'controls/chips',
+        loadComponent: () => import('./components/controls-demo/controls-demo.component').then(m => m.ControlsDemoComponent),
+        data: { control: 'chips' }
+    },
+    {
         path: 'controls/slider',
         loadComponent: () => import('./components/controls-demo/controls-demo.component').then(m => m.ControlsDemoComponent),
         data: { control: 'slider' }
