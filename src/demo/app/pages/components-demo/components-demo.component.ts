@@ -24,6 +24,7 @@ import { SidenavApiComponent } from '../../components/sidenav-api/sidenav-api.co
 import { PopoverValidationComponent } from '../../components/popover-validation/popover-validation.component';
 import { PopoverCodeComponent } from '../../components/popover-code/popover-code.component';
 import { PopoverApiComponent } from '../../components/popover-api/popover-api.component';
+import { DataTableDemoComponent } from '../../components/data-table-demo/data-table-demo.component';
 
 @Component({
     selector: 'amw-demo-components',
@@ -50,7 +51,8 @@ import { PopoverApiComponent } from '../../components/popover-api/popover-api.co
         SidenavApiComponent,
         PopoverValidationComponent,
         PopoverCodeComponent,
-        PopoverApiComponent
+        PopoverApiComponent,
+        DataTableDemoComponent
     ],
     encapsulation: ViewEncapsulation.None,
     templateUrl: './components-demo.component.html',
@@ -62,7 +64,8 @@ export class ComponentsDemoComponent implements OnInit {
         { id: 'card', name: 'Card' },
         { id: 'dialog', name: 'Dialog' },
         { id: 'sidenav', name: 'Sidenav' },
-        { id: 'popover', name: 'Popover' }
+        { id: 'popover', name: 'Popover' },
+        { id: 'data-table', name: 'Data Table' }
     ];
 
     selectedComponent = { id: 'card', name: 'Card' };

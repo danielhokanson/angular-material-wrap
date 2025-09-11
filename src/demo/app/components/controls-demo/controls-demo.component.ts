@@ -151,10 +151,6 @@ import { DataTableApiComponent } from '../data-table-api/data-table-api.componen
         ColorPickerValidationComponent,
         ColorPickerCodeComponent,
         ColorPickerApiComponent,
-        DataTableDemoComponent,
-        DataTableValidationComponent,
-        DataTableCodeComponent,
-        DataTableApiComponent
     ],
     encapsulation: ViewEncapsulation.None,
     templateUrl: './controls-demo.component.html',
@@ -178,8 +174,7 @@ export class ControlsDemoComponent implements OnInit {
         { id: 'switch', name: 'Switch' },
         { id: 'file-input', name: 'File Input' },
         { id: 'timepicker', name: 'Time Picker' },
-        { id: 'color-picker', name: 'Color Picker' },
-        { id: 'data-table', name: 'Data Table' }
+        { id: 'color-picker', name: 'Color Picker' }
     ];
 
     selectedControl = { id: 'button', name: 'Button' };

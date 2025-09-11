@@ -91,11 +91,6 @@ export const routes: Routes = [
         data: { control: 'color-picker' }
     },
     {
-        path: 'controls/data-table',
-        loadComponent: () => import('./components/controls-demo/controls-demo.component').then(m => m.ControlsDemoComponent),
-        data: { control: 'data-table' }
-    },
-    {
         path: 'components',
         loadComponent: () => import('./pages/components-demo/components-demo.component').then(m => m.ComponentsDemoComponent)
     },
@@ -139,6 +134,15 @@ export const routes: Routes = [
     {
         path: 'components/radio-group/api',
         loadComponent: () => import('./components/radio-group-api/radio-group-api.component').then(m => m.RadioGroupApiComponent)
+    },
+    {
+        path: 'components/data-table',
+        loadComponent: () => import('./pages/components-demo/components-demo.component').then(m => m.ComponentsDemoComponent),
+        data: { component: 'data-table' }
+    },
+    {
+        path: 'components/data-table/demo',
+        loadComponent: () => import('./components/data-table-demo/data-table-demo.component').then(m => m.DataTableDemoComponent)
     },
     {
         path: 'directives',

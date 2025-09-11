@@ -1,32 +1,149 @@
 <div class="data-table-demo">
-  <div class="data-table-demo__grid">
-    <mat-card *ngFor="let variation of dataTableVariations; let i = index" class="data-table-demo__card">
-      <mat-card-header>
-        <mat-card-title>{{ variation.title }}</mat-card-title>
-        <mat-card-subtitle>{{ variation.description }}</mat-card-subtitle>
-      </mat-card-header>
-      
-      <mat-card-content>
-        <div class="data-table-demo__example">
-          <amw-data-table
-            [value]="variation.dataTable.data"
-            [columns]="variation.dataTable.columns"
-            [actions]="variation.dataTable.actions || []"
-            [selectable]="variation.dataTable.selectable || false"
-            [multiSelect]="variation.dataTable.multiSelect || false"
-            [filterable]="variation.dataTable.filterable || false"
-            [pageable]="variation.dataTable.pageable !== false"
-            [loading]="variation.dataTable.loading || false"
-            [config]="variation.dataTable.config || {}"
-            (dataChange)="onDataChange($event, i)"
-            (selectionChange)="onSelectionChange($event, i)"
-            (sortChange)="onSortChange($event, i)"
-            (pageChange)="onPageChange($event, i)"
-            (filterChange)="onFilterChange($event, i)"
-            (actionClick)="onActionClick($event, i)"
-          ></amw-data-table>
+  <h1>Data Table Demo</h1>
+  <p>Comprehensive demonstration of the AMW Data Table component with all features.</p>
+
+  <!-- Demo Controls -->
+  <mat-card class="demo-controls">
+    <mat-card-header>
+      <mat-card-title>Demo Controls</mat-card-title>
+    </mat-card-header>
+    <mat-card-content>
+      <div class="controls-grid">
+        <button mat-raised-button color="primary" (click)="addSampleRecord()">
+          <mat-icon>add</mat-icon>
+          Add Record
+        </button>
+        
+        <button mat-raised-button color="accent" (click)="refreshData()">
+          <mat-icon>refresh</mat-icon>
+          Refresh Data
+        </button>
+        
+        <button mat-raised-button (click)="toggleLoading()">
+          <mat-icon>hourglass_empty</mat-icon>
+          Toggle Loading
+        </button>
+        
+        <button mat-raised-button (click)="exportData()">
+          <mat-icon>download</mat-icon>
+          Export Data
+        </button>
+        
+        <button mat-raised-button (click)="clearSelection()" [disabled]="selectedRows.length === 0">
+          <mat-icon>clear</mat-icon>
+          Clear Selection
+        </button>
+      </div>
+    </mat-card-content>
+  </mat-card>
+
+  <!-- Selection Info -->
+  <mat-card *ngIf="selectedRows.length > 0" class="selection-info">
+    <mat-card-content>
+      <div class="selection-details">
+        <mat-icon>check_circle</mat-icon>
+        <span>{{ selectedRows.length }} row(s) selected</span>
+        <mat-chip-set>
+          <mat-chip *ngFor="let row of selectedRows.slice(0, 3)">
+            {{ row.name }}
+          </mat-chip>
+          <mat-chip *ngIf="selectedRows.length > 3">
+            +{{ selectedRows.length - 3 }} more
+          </mat-chip>
+        </mat-chip-set>
+      </div>
+    </mat-card-content>
+  </mat-card>
+
+  <!-- Sort Info -->
+  <mat-card *ngIf="currentSort" class="sort-info">
+    <mat-card-content>
+      <div class="sort-details">
+        <mat-icon>sort</mat-icon>
+        <span>Sorted by: {{ currentSort.column }} ({{ currentSort.direction }})</span>
+      </div>
+    </mat-card-content>
+  </mat-card>
+
+  <!-- Filter Info -->
+  <mat-card *ngIf="currentFilters.length > 0" class="filter-info">
+    <mat-card-content>
+      <div class="filter-details">
+        <mat-icon>filter_list</mat-icon>
+        <span>{{ currentFilters.length }} filter(s) applied</span>
+        <mat-chip-set>
+          <mat-chip *ngFor="let filter of currentFilters">
+            {{ filter.column }}: {{ filter.value }}
+          </mat-chip>
+        </mat-chip-set>
+      </div>
+    </mat-card-content>
+  </mat-card>
+
+  <!-- Data Table -->
+  <mat-card class="data-table-card">
+    <mat-card-header>
+      <mat-card-title>Employee Records</mat-card-title>
+      <mat-card-subtitle>Interactive data table with sorting, filtering, pagination, and selection</mat-card-subtitle>
+    </mat-card-header>
+    <mat-card-content>
+      <amw-data-table
+        [data]="sampleData"
+        [config]="tableConfig"
+        [loading]="loading"
+        (sortChange)="onSortChange($event)"
+        (filterChange)="onFilterChange($event)"
+        (pageChange)="onPageChange($event)"
+        (selectionChange)="onSelectionChange($event)"
+        (editChange)="onEditChange($event)"
+        (actionClick)="onActionClick($event)">
+      </amw-data-table>
+    </mat-card-content>
+  </mat-card>
+
+  <!-- Feature Highlights -->
+  <mat-card class="features-card">
+    <mat-card-header>
+      <mat-card-title>Features Demonstrated</mat-card-title>
+    </mat-card-header>
+    <mat-card-content>
+      <div class="features-grid">
+        <div class="feature-item">
+          <mat-icon>sort</mat-icon>
+          <h3>Sorting</h3>
+          <p>Click column headers to sort data in ascending or descending order</p>
         </div>
-      </mat-card-content>
-    </mat-card>
-  </div>
+        
+        <div class="feature-item">
+          <mat-icon>search</mat-icon>
+          <h3>Filtering</h3>
+          <p>Use the global search to filter across all columns</p>
+        </div>
+        
+        <div class="feature-item">
+          <mat-icon>view_list</mat-icon>
+          <h3>Pagination</h3>
+          <p>Navigate through pages with configurable page sizes</p>
+        </div>
+        
+        <div class="feature-item">
+          <mat-icon>check_box</mat-icon>
+          <h3>Selection</h3>
+          <p>Select single or multiple rows with checkboxes</p>
+        </div>
+        
+        <div class="feature-item">
+          <mat-icon>edit</mat-icon>
+          <h3>Actions</h3>
+          <p>Perform actions on individual rows with action buttons</p>
+        </div>
+        
+        <div class="feature-item">
+          <mat-icon>responsive</mat-icon>
+          <h3>Responsive</h3>
+          <p>Table adapts to different screen sizes and orientations</p>
+        </div>
+      </div>
+    </mat-card-content>
+  </mat-card>
 </div>
