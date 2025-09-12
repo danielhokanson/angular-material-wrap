@@ -25,6 +25,7 @@ import { PopoverValidationComponent } from '../../components/popover-validation/
 import { PopoverCodeComponent } from '../../components/popover-code/popover-code.component';
 import { PopoverApiComponent } from '../../components/popover-api/popover-api.component';
 import { DataTableDemoComponent } from '../../components/data-table-demo/data-table-demo.component';
+import { CalendarDemoComponent } from '../../components/calendar-demo/calendar-demo.component';
 
 @Component({
     selector: 'amw-demo-components',
@@ -52,7 +53,8 @@ import { DataTableDemoComponent } from '../../components/data-table-demo/data-ta
         PopoverValidationComponent,
         PopoverCodeComponent,
         PopoverApiComponent,
-        DataTableDemoComponent
+        DataTableDemoComponent,
+        CalendarDemoComponent
     ],
     encapsulation: ViewEncapsulation.None,
     templateUrl: './components-demo.component.html',
@@ -65,7 +67,8 @@ export class ComponentsDemoComponent implements OnInit {
         { id: 'dialog', name: 'Dialog' },
         { id: 'sidenav', name: 'Sidenav' },
         { id: 'popover', name: 'Popover' },
-        { id: 'data-table', name: 'Data Table' }
+        { id: 'data-table', name: 'Data Table' },
+        { id: 'calendar', name: 'Calendar' }
     ];
 
     selectedComponent = { id: 'card', name: 'Card' };

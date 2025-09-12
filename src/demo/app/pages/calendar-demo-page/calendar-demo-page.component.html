@@ -1,0 +1,344 @@
+<div class="amw-demo-calendar-page">
+  <div class="demo-header">
+    <h1>AMW Calendar Components</h1>
+    <p>Comprehensive calendar components with event management and multiple view modes</p>
+  </div>
+
+  <mat-tab-group [(selectedIndex)]="selectedTab" class="demo-tabs">
+    
+    <!-- Full Calendar Tab -->
+    <mat-tab label="Full Calendar" icon="calendar_view_month">
+      <div class="tab-content">
+        <mat-card class="demo-card">
+          <mat-card-header>
+            <mat-card-title>Full Calendar Component</mat-card-title>
+            <mat-card-subtitle>Full-screen calendar with month, week, and day views</mat-card-subtitle>
+          </mat-card-header>
+          <mat-card-content>
+            <div class="demo-section">
+              <h3>Interactive Calendar</h3>
+              <p>Full-featured calendar with drag-and-drop, editing, and multiple view modes</p>
+              
+              <!-- Demo Controls -->
+              <div class="demo-controls">
+                <button mat-raised-button 
+                        color="primary" 
+                        (click)="addSampleEvent()">
+                  <mat-icon>add</mat-icon>
+                  Add Sample Event
+                </button>
+                <button mat-button 
+                        (click)="clearAllEvents()">
+                  <mat-icon>clear</mat-icon>
+                  Clear All
+                </button>
+                <button mat-button 
+                        (click)="resetSampleEvents()">
+                  <mat-icon>refresh</mat-icon>
+                  Reset Sample
+                </button>
+              </div>
+
+              <!-- Full Calendar Component -->
+              <div class="calendar-container">
+                <amw-calendar-full
+                  [events]="sampleEvents"
+                  [config]="fullCalendarConfig"
+                  [currentDate]="currentDate"
+                  [height]="'600px'"
+                  (eventChange)="onEventChange($event)"
+                  (eventClick)="onEventClick($event)"
+                  (eventDoubleClick)="onEventDoubleClick($event)"
+                  (eventEdit)="onEventEdit($event)"
+                  (eventDelete)="onEventDelete($event)"
+                  (eventMove)="onEventMove($event)"
+                  (navigationChange)="onNavigationChange($event)"
+                  (viewChange)="onViewChange($event)"
+                  (dateChange)="onDateChange($event)"
+                  (cellClick)="onCellClick($event)"
+                  (cellDoubleClick)="onCellDoubleClick($event)">
+                </amw-calendar-full>
+              </div>
+            </div>
+          </mat-card-content>
+        </mat-card>
+      </div>
+    </mat-tab>
+
+    <!-- Mini Calendar Tab -->
+    <mat-tab label="Mini Calendar" icon="calendar_today">
+      <div class="tab-content">
+        <mat-card class="demo-card">
+          <mat-card-header>
+            <mat-card-title>Mini Calendar Component</mat-card-title>
+            <mat-card-subtitle>Compact calendar for single day and week views</mat-card-subtitle>
+          </mat-card-header>
+          <mat-card-content>
+            <div class="demo-section">
+              <h3>Single Day View</h3>
+              <p>Compact calendar showing events for a single day</p>
+              
+              <!-- Mini Calendar - Single Day -->
+              <div class="calendar-container mini">
+                <amw-calendar-mini
+                  [events]="sampleEvents"
+                  [config]="miniCalendarConfig"
+                  [currentDate]="currentDate"
+                  [showWeekView]="false"
+                  [maxEventsPerDay]="3"
+                  [showMoreButton]="true"
+                  [compactMode]="false"
+                  (eventChange)="onEventChange($event)"
+                  (eventClick)="onEventClick($event)"
+                  (eventDoubleClick)="onEventDoubleClick($event)"
+                  (eventEdit)="onEventEdit($event)"
+                  (eventDelete)="onEventDelete($event)"
+                  (eventMove)="onEventMove($event)"
+                  (navigationChange)="onNavigationChange($event)"
+                  (viewChange)="onViewChange($event)"
+                  (dateChange)="onDateChange($event)"
+                  (showMoreClick)="onShowMoreClick($event)"
+                  (weekViewToggle)="onWeekViewToggle($event)">
+                </amw-calendar-mini>
+              </div>
+            </div>
+
+            <mat-divider></mat-divider>
+
+            <div class="demo-section">
+              <h3>Week View</h3>
+              <p>Mini calendar showing events for an entire week</p>
+              
+              <!-- Mini Calendar - Week View -->
+              <div class="calendar-container mini">
+                <amw-calendar-mini
+                  [events]="sampleEvents"
+                  [config]="miniCalendarConfig"
+                  [currentDate]="currentDate"
+                  [showWeekView]="true"
+                  [maxEventsPerDay]="2"
+                  [showMoreButton]="true"
+                  [compactMode]="false"
+                  (eventChange)="onEventChange($event)"
+                  (eventClick)="onEventClick($event)"
+                  (eventDoubleClick)="onEventDoubleClick($event)"
+                  (eventEdit)="onEventEdit($event)"
+                  (eventDelete)="onEventDelete($event)"
+                  (eventMove)="onEventMove($event)"
+                  (navigationChange)="onNavigationChange($event)"
+                  (viewChange)="onViewChange($event)"
+                  (dateChange)="onDateChange($event)"
+                  (showMoreClick)="onShowMoreClick($event)"
+                  (weekViewToggle)="onWeekViewToggle($event)">
+                </amw-calendar-mini>
+              </div>
+            </div>
+
+            <mat-divider></mat-divider>
+
+            <div class="demo-section">
+              <h3>Compact Mode</h3>
+              <p>Ultra-compact mini calendar for space-constrained layouts</p>
+              
+              <!-- Mini Calendar - Compact Mode -->
+              <div class="calendar-container mini compact">
+                <amw-calendar-mini
+                  [events]="sampleEvents"
+                  [config]="miniCalendarConfig"
+                  [currentDate]="currentDate"
+                  [showWeekView]="true"
+                  [maxEventsPerDay]="1"
+                  [showMoreButton]="true"
+                  [compactMode]="true"
+                  (eventChange)="onEventChange($event)"
+                  (eventClick)="onEventClick($event)"
+                  (eventDoubleClick)="onEventDoubleClick($event)"
+                  (eventEdit)="onEventEdit($event)"
+                  (eventDelete)="onEventDelete($event)"
+                  (eventMove)="onEventMove($event)"
+                  (navigationChange)="onNavigationChange($event)"
+                  (viewChange)="onViewChange($event)"
+                  (dateChange)="onDateChange($event)"
+                  (showMoreClick)="onShowMoreClick($event)"
+                  (weekViewToggle)="onWeekViewToggle($event)">
+                </amw-calendar-mini>
+              </div>
+            </div>
+          </mat-card-content>
+        </mat-card>
+      </div>
+    </mat-tab>
+
+    <!-- Features Tab -->
+    <mat-tab label="Features" icon="star">
+      <div class="tab-content">
+        <mat-card class="demo-card">
+          <mat-card-header>
+            <mat-card-title>Calendar Features</mat-card-title>
+            <mat-card-subtitle>Comprehensive feature overview</mat-card-subtitle>
+          </mat-card-header>
+          <mat-card-content>
+            <div class="features-grid">
+              <div class="feature-item">
+                <mat-icon>event</mat-icon>
+                <h4>Event Management</h4>
+                <p>Create, edit, delete, and move events with drag-and-drop support</p>
+              </div>
+              
+              <div class="feature-item">
+                <mat-icon>view_module</mat-icon>
+                <h4>Multiple Views</h4>
+                <p>Month, week, and day views with smooth transitions</p>
+              </div>
+              
+              <div class="feature-item">
+                <mat-icon>drag_indicator</mat-icon>
+                <h4>Drag & Drop</h4>
+                <p>Intuitive drag-and-drop for moving events between dates and times</p>
+              </div>
+              
+              <div class="feature-item">
+                <mat-icon>palette</mat-icon>
+                <h4>Customizable</h4>
+                <p>Custom colors, styling, and event rendering</p>
+              </div>
+              
+              <div class="feature-item">
+                <mat-icon>code</mat-icon>
+                <h4>Generic Types</h4>
+                <p>Strongly typed with TypeScript generics for any data type</p>
+              </div>
+              
+              <div class="feature-item">
+                <mat-icon>responsive</mat-icon>
+                <h4>Responsive</h4>
+                <p>Fully responsive design that works on all screen sizes</p>
+              </div>
+              
+              <div class="feature-item">
+                <mat-icon>accessibility</mat-icon>
+                <h4>Accessible</h4>
+                <p>Built with accessibility in mind, supporting screen readers</p>
+              </div>
+              
+              <div class="feature-item">
+                <mat-icon>settings</mat-icon>
+                <h4>Configurable</h4>
+                <p>Highly configurable with extensive customization options</p>
+              </div>
+            </div>
+          </mat-card-content>
+        </mat-card>
+      </div>
+    </mat-tab>
+
+    <!-- Code Examples Tab -->
+    <mat-tab label="Code Examples" icon="code">
+      <div class="tab-content">
+        <mat-card class="demo-card">
+          <mat-card-header>
+            <mat-card-title>Usage Examples</mat-card-title>
+            <mat-card-subtitle>Code snippets and implementation examples</mat-card-subtitle>
+          </mat-card-header>
+          <mat-card-content>
+            <div class="code-section">
+              <h3>Basic Usage</h3>
+              <div class="code-block">
+                <pre><code>&lt;!-- Full Calendar --&gt;
+&lt;amw-calendar-full
+  [events]="myEvents"
+  [config]="calendarConfig"
+  [currentDate]="selectedDate"
+  (eventChange)="onEventChange($event)"
+  (eventClick)="onEventClick($event)"&gt;
+&lt;/amw-calendar-full&gt;
+
+&lt;!-- Mini Calendar --&gt;
+&lt;amw-calendar-mini
+  [events]="myEvents"
+  [config]="miniConfig"
+  [showWeekView]="true"
+  [compactMode]="false"&gt;
+&lt;/amw-calendar-mini&gt;</code></pre>
+              </div>
+            </div>
+
+            <mat-divider></mat-divider>
+
+            <div class="code-section">
+              <h3>TypeScript Configuration</h3>
+              <div class="code-block">
+                <pre><code>// Event interface
+interface MyEvent &#123;
+  id: string;
+  title: string;
+  description?: string;
+  category: string;
+  priority: 'low' | 'medium' | 'high';
+&#125;
+
+// Calendar configuration
+const calendarConfig: CalendarConfig&lt;MyEvent&gt; = &#123;
+  displayProperty: 'title',
+  editable: true,
+  deletable: true,
+  draggable: true,
+  defaultDuration: 60,
+  allowCreate: true,
+  eventColor: (event) => event.data.priority === 'high' ? '#ba1a1a' : '#388e3c'
+&#125;;
+
+// Sample events
+const myEvents: CalendarEvent&lt;MyEvent&gt;[] = [
+  &#123;
+    id: '1',
+    data: &#123; id: '1', title: 'Meeting', category: 'work', priority: 'high' &#125;,
+    start: new Date(2024, 0, 15, 10, 0),
+    end: new Date(2024, 0, 15, 11, 0),
+    title: 'Meeting',
+    color: '#6750a4'
+  &#125;
+];</code></pre>
+              </div>
+            </div>
+
+            <mat-divider></mat-divider>
+
+            <div class="code-section">
+              <h3>Event Handlers</h3>
+              <div class="code-block">
+                <pre><code>// Event change handler
+onEventChange(event: CalendarEventChangeEvent&lt;MyEvent&gt;): void &#123;
+  switch (event.type) &#123;
+    case 'create':
+      // Handle event creation
+      break;
+    case 'update':
+      // Handle event update
+      break;
+    case 'delete':
+      // Handle event deletion
+      break;
+    case 'move':
+      // Handle event move
+      break;
+  &#125;
+&#125;
+
+// Event click handler
+onEventClick(event: CalendarEvent&lt;MyEvent&gt;): void &#123;
+  console.log('Event clicked:', event.data.title);
+&#125;
+
+// Event create handler
+onEventCreate(event: &#123; date: Date; time?: Date &#125;): void &#123;
+  console.log('Create event at:', event.date);
+&#125;</code></pre>
+              </div>
+            </div>
+          </mat-card-content>
+        </mat-card>
+      </div>
+    </mat-tab>
+  </mat-tab-group>
+</div>

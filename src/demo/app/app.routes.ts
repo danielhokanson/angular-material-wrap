@@ -150,6 +150,19 @@ export const routes: Routes = [
         loadComponent: () => import('./components/data-table-demo/data-table-demo.component').then(m => m.DataTableDemoComponent)
     },
     {
+        path: 'components/calendar',
+        loadComponent: () => import('./pages/components-demo/components-demo.component').then(m => m.ComponentsDemoComponent),
+        data: { component: 'calendar' }
+    },
+    {
+        path: 'components/calendar/demo',
+        loadComponent: () => import('./components/calendar-demo/calendar-demo.component').then(m => m.CalendarDemoComponent)
+    },
+    {
+        path: 'calendar-demo',
+        loadComponent: () => import('./pages/calendar-demo-page/calendar-demo-page.component').then(m => m.CalendarDemoPageComponent)
+    },
+    {
         path: 'directives',
         loadComponent: () => import('./pages/directives-demo/directives-demo.component').then(m => m.DirectivesDemoComponent)
     },

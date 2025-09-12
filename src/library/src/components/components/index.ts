@@ -1,3 +1,7 @@
-// Components will be exported here
-export * from './amw-card/amw-card.component';
-export * from './amw-dialog/amw-dialog.component';
+// Calendar components
+export * from './amw-calendar/amw-calendar-full.component';
+export * from './amw-calendar/amw-calendar-mini.component';
+export * from './amw-calendar/amw-calendar-base.component';
+
+// Data table component
+export * from './amw-data-table/amw-data-table.component';

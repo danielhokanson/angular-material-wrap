@@ -1,0 +1,213 @@
+<div class="amw-calendar-mini" 
+     [class]="internalConfig.cssClass"
+     [class.amw-calendar-mini--loading]="loading"
+     [class.amw-calendar-mini--disabled]="disabled"
+     [class.amw-calendar-mini--compact]="compactMode"
+     [class.amw-calendar-mini--week-view]="showWeekViewInternal">
+
+  <!-- Loading Spinner -->
+  <div *ngIf="loading" class="amw-calendar-mini__loading">
+    <mat-spinner diameter="24"></mat-spinner>
+  </div>
+
+  <!-- Header -->
+  <div *ngIf="showNavigation" class="amw-calendar-mini__header">
+    <!-- Navigation Controls -->
+    <div class="amw-calendar-mini__navigation">
+      <button mat-icon-button 
+              (click)="navigatePrevious()"
+              [disabled]="disabled"
+              matTooltip="Previous">
+        <mat-icon>chevron_left</mat-icon>
+      </button>
+      
+      <button mat-button 
+              (click)="navigateToday()"
+              [disabled]="disabled"
+              matTooltip="Today">
+        Today
+      </button>
+      
+      <button mat-icon-button 
+              (click)="navigateNext()"
+              [disabled]="disabled"
+              matTooltip="Next">
+        <mat-icon>chevron_right</mat-icon>
+      </button>
+    </div>
+
+    <!-- Current Date/Period Display -->
+    <div class="amw-calendar-mini__current-period">
+      <h3 *ngIf="!showWeekViewInternal">
+        {{ getFormattedDate(selectedDate, 'medium') }}
+      </h3>
+      <h3 *ngIf="showWeekViewInternal">
+        {{ getCurrentWeekRange() }}
+      </h3>
+    </div>
+
+    <!-- Week View Toggle -->
+    <div class="amw-calendar-mini__view-toggle">
+      <button mat-icon-button 
+              (click)="toggleWeekView()"
+              [disabled]="disabled"
+              [matTooltip]="showWeekViewInternal ? 'Show single day' : 'Show week view'">
+        <mat-icon>{{ showWeekViewInternal ? 'view_day' : 'view_week' }}</mat-icon>
+      </button>
+    </div>
+  </div>
+
+  <!-- Content -->
+  <div class="amw-calendar-mini__content">
+    
+    <!-- Single Day View -->
+    <div *ngIf="!showWeekViewInternal" class="amw-calendar-mini__day-view">
+      <mat-card class="amw-calendar-mini__day-card">
+        <mat-card-header>
+          <mat-card-title>
+            {{ getFormattedDate(selectedDate, 'long') }}
+          </mat-card-title>
+          <mat-card-subtitle>
+            {{ getEventsForDate(selectedDate).length }} event{{ getEventsForDate(selectedDate).length !== 1 ? 's' : '' }}
+          </mat-card-subtitle>
+        </mat-card-header>
+        
+        <mat-card-content>
+          <!-- Events List -->
+          <div class="amw-calendar-mini__events-list">
+            <div *ngFor="let event of getEventsForDateLimited(selectedDate)" 
+                 class="amw-calendar-mini__event"
+                 [class]="getMiniEventClasses(event).join(' ')"
+                 [style.border-left-color]="getEventColor(event)"
+                 (click)="onMiniEventClick(event)"
+                 (dblclick)="onMiniEventDoubleClick(event)">
+              
+              <div class="amw-calendar-mini__event-content">
+                <div class="amw-calendar-mini__event-title">
+                  {{ getEventDisplayTextMini(event) }}
+                </div>
+                <div *ngIf="event.description && !compactMode" 
+                     class="amw-calendar-mini__event-description">
+                  {{ event.description }}
+                </div>
+                <div class="amw-calendar-mini__event-time">
+                  {{ getMiniEventTime(event) }}
+                </div>
+              </div>
+              
+              <div class="amw-calendar-mini__event-actions">
+                <button *ngIf="isEventEditable(event)"
+                        mat-icon-button
+                        (click)="editEvent(event)"
+                        matTooltip="Edit">
+                  <mat-icon>edit</mat-icon>
+                </button>
+                <button *ngIf="isEventDeletable(event)"
+                        mat-icon-button
+                        (click)="deleteEvent(event)"
+                        matTooltip="Delete">
+                  <mat-icon>delete</mat-icon>
+                </button>
+                <button mat-icon-button
+                        (click)="onEventDetails(event)"
+                        matTooltip="Details">
+                  <mat-icon>info</mat-icon>
+                </button>
+              </div>
+            </div>
+            
+            <!-- Show More Button -->
+            <div *ngIf="showMoreButton && getRemainingEventsCount(selectedDate) > 0" 
+                 class="amw-calendar-mini__show-more">
+              <button mat-button 
+                      (click)="onShowMoreClick(selectedDate)"
+                      [disabled]="disabled">
+                +{{ getRemainingEventsCount(selectedDate) }} more
+              </button>
+            </div>
+            
+            <!-- No Events Message -->
+            <div *ngIf="getEventsForDate(selectedDate).length === 0" 
+                 class="amw-calendar-mini__no-events">
+              <mat-icon>event_available</mat-icon>
+              <p>No events scheduled</p>
+            </div>
+          </div>
+        </mat-card-content>
+      </mat-card>
+    </div>
+
+    <!-- Week View -->
+    <div *ngIf="showWeekViewInternal" class="amw-calendar-mini__week-view">
+      <div class="amw-calendar-mini__week-grid">
+        <div *ngFor="let date of weekDays" 
+             class="amw-calendar-mini__week-day"
+             [class]="getMiniDayClasses(date).join(' ')"
+             (click)="onDayClick(date)"
+             (dblclick)="onDayDoubleClick(date)">
+          
+          <!-- Day Header -->
+          <div class="amw-calendar-mini__day-header">
+            <div class="amw-calendar-mini__day-name">
+              {{ getDayOfWeekName(date) }}
+            </div>
+            <div class="amw-calendar-mini__day-date">
+              {{ date.getDate() }}
+            </div>
+          </div>
+          
+          <!-- Day Events -->
+          <div class="amw-calendar-mini__day-events">
+            <div *ngFor="let event of getEventsForDateLimited(date)" 
+                 class="amw-calendar-mini__event"
+                 [class]="getMiniEventClasses(event).join(' ')"
+                 [style.border-left-color]="getEventColor(event)"
+                 (click)="onMiniEventClick(event)"
+                 (dblclick)="onMiniEventDoubleClick(event)">
+              
+              <div class="amw-calendar-mini__event-content">
+                <div class="amw-calendar-mini__event-title">
+                  {{ getEventDisplayTextMini(event) }}
+                </div>
+                <div *ngIf="!event.allDay && !compactMode" 
+                     class="amw-calendar-mini__event-time">
+                  {{ getFormattedTime(event.start) }}
+                </div>
+              </div>
+              
+              <div class="amw-calendar-mini__event-actions">
+                <button *ngIf="isEventEditable(event)"
+                        mat-icon-button
+                        (click)="editEvent(event)"
+                        matTooltip="Edit">
+                  <mat-icon>edit</mat-icon>
+                </button>
+                <button *ngIf="isEventDeletable(event)"
+                        mat-icon-button
+                        (click)="deleteEvent(event)"
+                        matTooltip="Delete">
+                  <mat-icon>delete</mat-icon>
+                </button>
+                <button mat-icon-button
+                        (click)="onEventDetails(event)"
+                        matTooltip="Details">
+                  <mat-icon>info</mat-icon>
+                </button>
+              </div>
+            </div>
+            
+            <!-- Show More Button -->
+            <div *ngIf="showMoreButton && getRemainingEventsCount(date) > 0" 
+                 class="amw-calendar-mini__show-more">
+              <button mat-button 
+                      (click)="onShowMoreClick(date)"
+                      [disabled]="disabled">
+                +{{ getRemainingEventsCount(date) }}
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

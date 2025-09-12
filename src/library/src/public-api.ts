@@ -10,9 +10,9 @@ export { AmwRadioGroupComponent } from './controls/components/amw-radio-group/am
 export { AmwChipsComponent } from './controls/components/amw-chips/amw-chips.component';
 
 // Components exports
-// export * from './components/components';
+export * from './components/components';
+export * from './components/interfaces';
 // export * from './components/directives';
-// export * from './components/interfaces';
 // export * from './components/services';
 // export * from './components/pipes';
 

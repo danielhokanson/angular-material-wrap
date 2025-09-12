@@ -71,6 +71,7 @@ export class DemoNavigationComponent {
                 { title: 'Context Menu', route: '/components/context-menu', icon: 'more_vert' },
                 { title: 'Confirmation Dialog', route: '/components/confirmation-dialog', icon: 'help_outline' },
                 { title: 'Data Table', route: '/components/data-table', icon: 'table_chart' },
+                { title: 'Calendar', route: '/components/calendar', icon: 'calendar_month' },
                 { title: 'Stepper', route: '/components/stepper', icon: 'view_list' },
                 { title: 'Tabs', route: '/components/tabs', icon: 'tab' },
                 { title: 'Accordion', route: '/components/accordion', icon: 'expand_more' },

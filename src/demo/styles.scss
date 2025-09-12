@@ -12,3 +12,9 @@
 body {
   font-family: 'Roboto', sans-serif;
 }
+
+/* Calendar Item Editor Popover Styles */
+.amw-calendar-item-editor-backdrop {
+  background-color: rgba(0, 0, 0, 0.32);
+  backdrop-filter: blur(2px);
+}
