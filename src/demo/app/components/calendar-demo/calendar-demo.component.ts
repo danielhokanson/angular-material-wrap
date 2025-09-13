@@ -118,7 +118,9 @@ export class CalendarDemoComponent implements OnInit {
             title: 'Code Review',
             description: 'Review pull requests - 1 hour session',
             color: '#388e3c',
-            allDay: false
+            allDay: false,
+            editable: true,
+            deletable: true
         },
         {
             id: '5',
@@ -135,7 +137,9 @@ export class CalendarDemoComponent implements OnInit {
             title: 'Lunch Break',
             description: 'Team lunch - 1 hour break',
             color: '#f57c00',
-            allDay: false
+            allDay: false,
+            editable: true,
+            deletable: true
         },
         // DATE-ONLY EVENTS (all day events)
         {
@@ -153,7 +157,9 @@ export class CalendarDemoComponent implements OnInit {
             title: 'Project Deadline',
             description: 'Final project submission - all day deadline',
             color: '#ba1a1a',
-            allDay: true
+            allDay: true,
+            editable: true,
+            deletable: true
         },
         {
             id: '6',
@@ -170,7 +176,9 @@ export class CalendarDemoComponent implements OnInit {
             title: 'Company Holiday',
             description: 'Martin Luther King Jr. Day - office closed',
             color: '#9c27b0',
-            allDay: true
+            allDay: true,
+            editable: true,
+            deletable: true
         },
         {
             id: '7',
@@ -187,7 +195,9 @@ export class CalendarDemoComponent implements OnInit {
             title: 'Conference Day',
             description: 'Tech conference attendance - all day event',
             color: '#ff9800',
-            allDay: true
+            allDay: true,
+            editable: true,
+            deletable: true
         },
         // MULTI-DAY EVENTS
         {
@@ -205,7 +215,9 @@ export class CalendarDemoComponent implements OnInit {
             title: 'Sprint Planning',
             description: '2-day sprint planning session',
             color: '#4caf50',
-            allDay: false
+            allDay: false,
+            editable: true,
+            deletable: true
         }
     ];
 
@@ -249,9 +261,6 @@ export class CalendarDemoComponent implements OnInit {
     ) { }
 
     ngOnInit(): void {
-        // Set up sample events with current date
-        this.updateEventDates();
-
         // Register item types for new system
         this.registerItemTypes();
     }

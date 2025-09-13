@@ -27,161 +27,14 @@ import { Subject } from 'rxjs';
         MatNativeDateModule,
         MatCheckboxModule
     ],
-    template: `
-        <div class="amw-calendar-item-editor">
-            <div class="amw-calendar-item-editor__header">
-                <h3>{{ isEditing ? 'Edit Item' : 'Create Item' }}</h3>
-            </div>
-            
-            <div class="amw-calendar-item-editor__content">
-                <div class="amw-calendar-item-editor__field">
-                    <label>Title:</label>
-                    <input type="text" 
-                           [(ngModel)]="item.title" 
-                           placeholder="Item title"
-                           class="amw-calendar-item-editor__input">
-                </div>
-                
-                <div class="amw-calendar-item-editor__field">
-                    <label>Description:</label>
-                    <textarea [(ngModel)]="item.description" 
-                              placeholder="Item description"
-                              class="amw-calendar-item-editor__textarea"></textarea>
-                </div>
-
-                <div class="amw-calendar-item-editor__field">
-                    <label>Type:</label>
-                    <select [(ngModel)]="itemType" class="amw-calendar-item-editor__select">
-                        <option value="Event">Event</option>
-                        <option value="Task">Task</option>
-                        <option value="Meal">Meal</option>
-                        <option value="Vacation">Vacation</option>
-                        <option value="Appointment">Appointment</option>
-                    </select>
-                </div>
-
-                <div class="amw-calendar-item-editor__field">
-                    <label>Start Date:</label>
-                    <input type="date" 
-                           [(ngModel)]="startDate" 
-                           class="amw-calendar-item-editor__input">
-                </div>
-
-                <div class="amw-calendar-item-editor__field" *ngIf="!item.allDay">
-                    <label>Start Time:</label>
-                    <input type="time" 
-                           [(ngModel)]="startTime" 
-                           class="amw-calendar-item-editor__input">
-                </div>
-
-                <div class="amw-calendar-item-editor__field" *ngIf="!item.allDay">
-                    <label>End Time:</label>
-                    <input type="time" 
-                           [(ngModel)]="endTime" 
-                           class="amw-calendar-item-editor__input">
-                </div>
-
-                <div class="amw-calendar-item-editor__field">
-                    <label>
-                        <input type="checkbox" 
-                               [(ngModel)]="item.allDay" 
-                               class="amw-calendar-item-editor__checkbox">
-                        All Day
-                    </label>
-                </div>
-
-                <div class="amw-calendar-item-editor__field" *ngIf="itemType === 'Task'">
-                    <label>
-                        <input type="checkbox" 
-                               [(ngModel)]="completed" 
-                               class="amw-calendar-item-editor__checkbox">
-                        Completed
-                    </label>
-                </div>
-            </div>
-
-            <div class="amw-calendar-item-editor__actions">
-                <button mat-button (click)="onCancel()" class="amw-calendar-item-editor__action">
-                    Cancel
-                </button>
-                <button mat-raised-button 
-                        (click)="onSave()" 
-                        class="amw-calendar-item-editor__action amw-calendar-item-editor__action--primary">
-                    {{ isEditing ? 'Save' : 'Create' }}
-                </button>
-            </div>
-        </div>
-    `,
-    styles: [`
-        .amw-calendar-item-editor {
-            min-width: 300px;
-            max-width: 400px;
-            padding: 16px;
-            background: white;
-            border-radius: 8px;
-            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
-        }
-
-        .amw-calendar-item-editor__header {
-            margin-bottom: 16px;
-        }
-
-        .amw-calendar-item-editor__header h3 {
-            margin: 0;
-            font-size: 18px;
-            font-weight: 500;
-        }
-
-        .amw-calendar-item-editor__content {
-            margin-bottom: 16px;
-        }
-
-        .amw-calendar-item-editor__field {
-            margin-bottom: 12px;
-        }
-
-        .amw-calendar-item-editor__field label {
-            display: block;
-            font-weight: 500;
-            margin-bottom: 4px;
-            color: #333;
-        }
-
-        .amw-calendar-item-editor__input,
-        .amw-calendar-item-editor__select,
-        .amw-calendar-item-editor__textarea {
-            width: 100%;
-            padding: 8px 12px;
-            border: 1px solid #ccc;
-            border-radius: 4px;
-            font-size: 14px;
-        }
-
-        .amw-calendar-item-editor__textarea {
-            min-height: 60px;
-            resize: vertical;
-        }
-
-        .amw-calendar-item-editor__checkbox {
-            margin-right: 8px;
-        }
-
-        .amw-calendar-item-editor__actions {
-            display: flex;
-            gap: 8px;
-            justify-content: flex-end;
-        }
-
-        .amw-calendar-item-editor__action--primary {
-            background-color: #6750a4;
-            color: white;
-        }
-    `]
+    templateUrl: './amw-calendar-item-editor.component.html',
+    styleUrls: ['./amw-calendar-item-editor.component.scss']
 })
 export class AmwCalendarItemEditorComponent<T = any> implements OnInit, OnDestroy {
     @Input() context!: CalendarItemEditorContext<T>;
     @Output() save = new EventEmitter<CalendarItem<T>>();
     @Output() cancel = new EventEmitter<void>();
+    @Output() delete = new EventEmitter<CalendarItem<T>>();
 
     item: CalendarItem<T> = {
         id: '',
@@ -208,6 +61,34 @@ export class AmwCalendarItemEditorComponent<T = any> implements OnInit, OnDestro
 
     get isEditing(): boolean {
         return this.context?.isEditing || false;
+    }
+
+    getHeaderTitle(): string {
+        if (this.isEditing) {
+            return this.item.id ? 'Edit Item' : 'Create Item';
+        }
+        return 'Item Details';
+    }
+
+    getFormattedDate(): string {
+        return this.item.start.toLocaleDateString();
+    }
+
+    getFormattedTime(): string {
+        if (this.item.allDay) {
+            return 'All Day';
+        }
+        const start = this.item.start.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' });
+        if (this.item.end) {
+            const end = this.item.end.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' });
+            return `${start} - ${end}`;
+        }
+        return start;
+    }
+
+    onEdit(): void {
+        // Switch to edit mode
+        this.context.isEditing = true;
     }
 
     ngOnInit(): void {
@@ -267,4 +148,11 @@ export class AmwCalendarItemEditorComponent<T = any> implements OnInit, OnDestro
     onCancel(): void {
         this.cancel.emit();
     }
+
+    onDelete(): void {
+        if (this.item.id) {
+            this.delete.emit(this.item);
+        }
+    }
+
 }

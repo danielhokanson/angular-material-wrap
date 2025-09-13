@@ -296,15 +296,15 @@ export abstract class AmwCalendarBaseComponent<T = any> implements OnInit, OnCha
      * Handle event click
      */
     onEventClick(event: CalendarEvent<T>, clickEvent?: Event): void {
-        console.log('onEventClick called with event:', event);
-        console.log('Event editable:', event.editable);
-
         if (clickEvent) {
             clickEvent.stopPropagation();
         }
 
-        // Open popover editor in edit mode
-        this.openEventEditor(event, clickEvent?.target as HTMLElement);
+        // Get the actual event container element for positioning
+        const eventElement = clickEvent?.currentTarget as HTMLElement;
+
+        // Open popover editor in read-only mode
+        this.openEventEditor(event, eventElement);
 
         this.eventClick.emit(event);
     }
@@ -317,12 +317,7 @@ export abstract class AmwCalendarBaseComponent<T = any> implements OnInit, OnCha
      * Open event editor in edit mode
      */
     private openEventEditor(event: CalendarEvent<T>, triggerElement?: HTMLElement): void {
-        console.log('openEventEditor called with event:', event);
-        console.log('this.disabled:', this.disabled);
-        console.log('event.editable:', event.editable);
-
         if (this.disabled || !event.editable) {
-            console.log('openEventEditor returning early - disabled or not editable');
             return;
         }
 
@@ -342,24 +337,96 @@ export abstract class AmwCalendarBaseComponent<T = any> implements OnInit, OnCha
             data: event.data
         };
 
-        // Get item type from event data
-        const itemType = (event.data as any)?.itemType || 'Event';
+        // Get item type from event data and normalize case
+        const rawItemType = (event.data as any)?.itemType || 'Event';
+        const itemType = rawItemType.toLowerCase();
 
-        console.log('openEventEditor calling openItemEditor with:', {
-            itemType,
-            startDate: event.start,
-            triggerElement,
-            existingItem: item
-        });
 
-        // Open the popover editor with the existing item
-        this.openItemEditor(
+        // Open the popover editor in read-only mode
+        this.openItemEditorReadOnly(
             itemType,
             event.start,
-            undefined,
             triggerElement,
             item
         );
+    }
+
+    /**
+     * Open item editor in read-only mode
+     */
+    private openItemEditorReadOnly(
+        itemType: string,
+        date: Date,
+        triggerElement?: HTMLElement,
+        existingItem?: CalendarItem<T>
+    ): void {
+
+        const itemTypeDef = this.itemRegistry.getItemType(itemType);
+        if (!itemTypeDef) {
+            console.warn(`Item type '${itemType}' not found`);
+            return;
+        }
+
+        // Simplified positioning - always try to position near the clicked element
+        let preferredPosition: 'top' | 'bottom' | 'left' | 'right' = 'bottom';
+
+        if (triggerElement) {
+            const rect = triggerElement.getBoundingClientRect();
+            const viewportWidth = window.innerWidth || document.documentElement.clientWidth;
+            const viewportHeight = window.innerHeight || document.documentElement.clientHeight;
+
+            // Simple logic: prefer bottom, fallback to top, then right, then left
+            const spaceBelow = viewportHeight - rect.bottom;
+            const spaceAbove = rect.top;
+            const spaceRight = viewportWidth - rect.right;
+            const spaceLeft = rect.left;
+
+            // Responsive minimum space based on viewport
+            const minSpace = Math.min(400, viewportWidth * 0.3); // 30% of viewport width
+
+            if (spaceBelow >= minSpace) {
+                preferredPosition = 'bottom';
+            } else if (spaceAbove >= minSpace) {
+                preferredPosition = 'top';
+            } else if (spaceRight >= minSpace) {
+                preferredPosition = 'right';
+            } else if (spaceLeft >= minSpace) {
+                preferredPosition = 'left';
+            } else {
+                // Fallback to bottom if no space is sufficient
+                preferredPosition = 'bottom';
+            }
+
+        }
+
+        const context: CalendarItemEditorContext<T> = {
+            itemType,
+            timePattern: existingItem?.timePattern || itemTypeDef.defaultTimePattern,
+            startDate: date,
+            endDate: undefined,
+            isEditing: false, // Read-only mode
+            item: existingItem,
+            triggerElement,
+            position: preferredPosition
+        };
+
+
+        this.editorRef = this.popoverService.openEditor(context, triggerElement, preferredPosition);
+        if (this.editorRef) {
+            this.editorRef.instance.save.subscribe((item: CalendarItem<T>) => {
+                if (existingItem) {
+                    this.onItemUpdate(item);
+                } else {
+                    this.onItemSave(item);
+                }
+            });
+            this.editorRef.instance.cancel.subscribe(() => {
+                this.onItemEditorCancel();
+            });
+            this.editorRef.instance.delete.subscribe((item: CalendarItem<T>) => {
+                this.onItemDelete(item);
+            });
+        }
     }
 
     /**
@@ -629,16 +696,11 @@ export abstract class AmwCalendarBaseComponent<T = any> implements OnInit, OnCha
      * Handle cell click for item creation
      */
     onCellClickForItem(date: Date, time?: Date, triggerElement?: HTMLElement): void {
-        console.log('onCellClickForItem called:', { date, time, triggerElement, useNewItemSystem: this.useNewItemSystem });
-
         if (this.disabled || !this.internalItemConfig.allowCreate) {
-            console.log('Item creation disabled or not allowed');
             return;
         }
 
         const availableTypes = this.itemRegistry.getRegisteredTypes();
-        console.log('Available types:', availableTypes);
-
         if (availableTypes.length === 0) {
             console.warn('No calendar item types registered');
             return;
@@ -646,12 +708,10 @@ export abstract class AmwCalendarBaseComponent<T = any> implements OnInit, OnCha
 
         // If only one type, use it directly
         if (availableTypes.length === 1) {
-            console.log('Using single type:', availableTypes[0].type);
             this.openItemEditor(availableTypes[0].type, date, time, triggerElement);
         } else {
             // Show type selection (for now, just use the first type)
             // TODO: Implement type selection UI
-            console.log('Using first type from multiple:', availableTypes[0].type);
             this.openItemEditor(availableTypes[0].type, date, time, triggerElement);
         }
     }
@@ -688,7 +748,6 @@ export abstract class AmwCalendarBaseComponent<T = any> implements OnInit, OnCha
         triggerElement?: HTMLElement,
         existingItem?: CalendarItem<T>
     ): void {
-        console.log('openItemEditor called:', { itemType, date, time, triggerElement, existingItem });
 
         const itemTypeDef = this.itemRegistry.getItemType(itemType);
         if (!itemTypeDef) {
@@ -696,23 +755,58 @@ export abstract class AmwCalendarBaseComponent<T = any> implements OnInit, OnCha
             return;
         }
 
+        // Calculate smart position based on trigger element location
+        let preferredPosition: 'top' | 'bottom' | 'left' | 'right' = 'bottom';
+
+        if (triggerElement) {
+            const rect = triggerElement.getBoundingClientRect();
+            const viewportWidth = window.innerWidth || document.documentElement.clientWidth;
+            const viewportHeight = window.innerHeight || document.documentElement.clientHeight;
+
+            // Determine position based on available space
+            const spaceAbove = rect.top;
+            const spaceBelow = viewportHeight - rect.bottom;
+            const spaceLeft = rect.left;
+            const spaceRight = viewportWidth - rect.right;
+
+            // Choose the position with the most available space, but prefer vertical positioning
+            // unless there's significantly more horizontal space
+            const maxVerticalSpace = Math.max(spaceAbove, spaceBelow);
+            const maxHorizontalSpace = Math.max(spaceLeft, spaceRight);
+
+            // Only choose horizontal if there's significantly more horizontal space (at least 50% more)
+            if (maxHorizontalSpace > maxVerticalSpace * 1.5) {
+                // Much more horizontal space available
+                if (spaceRight > spaceLeft) {
+                    preferredPosition = 'right';
+                } else {
+                    preferredPosition = 'left';
+                }
+            } else {
+                // Prefer vertical positioning (more natural for popovers)
+                if (spaceBelow > spaceAbove) {
+                    preferredPosition = 'bottom';
+                } else {
+                    preferredPosition = 'top';
+                }
+            }
+
+        }
+
         const context: CalendarItemEditorContext<T> = {
             itemType,
             timePattern: existingItem?.timePattern || itemTypeDef.defaultTimePattern,
             startDate: date,
             endDate: time ? new Date(time) : undefined,
-            isEditing: !!existingItem,
+            isEditing: true, // Always start in editing mode (create or edit)
             item: existingItem,
             triggerElement,
-            position: 'bottom'
+            position: preferredPosition
         };
 
-        console.log('Creating editor with context:', context);
-
-        this.editorRef = this.popoverService.openEditor(context, triggerElement, 'bottom');
+        this.editorRef = this.popoverService.openEditor(context, triggerElement, preferredPosition);
 
         if (this.editorRef) {
-            console.log('Editor created successfully');
             this.editorRef.instance.save.subscribe((item: CalendarItem<T>) => {
                 if (existingItem) {
                     this.onItemUpdate(item);
@@ -724,8 +818,10 @@ export abstract class AmwCalendarBaseComponent<T = any> implements OnInit, OnCha
             this.editorRef.instance.cancel.subscribe(() => {
                 this.onItemEditorCancel();
             });
-        } else {
-            console.error('Failed to create editor');
+
+            this.editorRef.instance.delete.subscribe((item: CalendarItem<T>) => {
+                this.onItemDelete(item);
+            });
         }
     }
 
@@ -738,6 +834,14 @@ export abstract class AmwCalendarBaseComponent<T = any> implements OnInit, OnCha
             type: 'create',
             item
         });
+
+        // Also emit eventChange for calendar display
+        const event = this.convertItemToEvent(item);
+        this.eventChange.emit({
+            type: 'add',
+            event
+        });
+
         this.popoverService.closeEditor();
         this.editorRef = null;
         this.cdr.detectChanges();
@@ -754,6 +858,39 @@ export abstract class AmwCalendarBaseComponent<T = any> implements OnInit, OnCha
                 type: 'update',
                 item
             });
+
+            // Also emit eventChange for calendar display
+            const event = this.convertItemToEvent(item);
+            this.eventChange.emit({
+                type: 'update',
+                event
+            });
+
+            this.popoverService.closeEditor();
+            this.editorRef = null;
+            this.cdr.detectChanges();
+        }
+    }
+
+    /**
+     * Handle item delete
+     */
+    private onItemDelete(item: CalendarItem<T>): void {
+        const index = this.internalItems.findIndex(i => i.id === item.id);
+        if (index !== -1) {
+            this.internalItems.splice(index, 1);
+            this.itemChange.emit({
+                type: 'delete',
+                item
+            });
+
+            // Also emit eventChange for calendar display
+            const event = this.convertItemToEvent(item);
+            this.eventChange.emit({
+                type: 'delete',
+                event
+            });
+
             this.popoverService.closeEditor();
             this.editorRef = null;
             this.cdr.detectChanges();
@@ -806,6 +943,9 @@ export abstract class AmwCalendarBaseComponent<T = any> implements OnInit, OnCha
             end: item.end,
             allDay: item.allDay,
             color: item.color,
+            editable: item.editable,
+            deletable: item.deletable,
+            draggable: item.draggable,
             data: item.data
         };
     }

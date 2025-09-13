@@ -87,7 +87,7 @@
   // Content
   &__content {
     flex: 1;
-    overflow: hidden;
+    overflow: visible; // Allow content to be visible instead of hidden
   }
 
   // Month View
@@ -129,7 +129,8 @@
     display: grid;
     grid-template-columns: repeat(7, minmax(0, 1fr)); // Use minmax to prevent expansion
     flex: 1;
-    overflow: hidden;
+    overflow-y: auto; // Allow vertical scrolling instead of hiding
+    overflow-x: hidden; // Prevent horizontal scrolling
   }
 
   &__month-cell {
@@ -188,7 +189,8 @@
     display: grid;
     grid-template-columns: repeat(7, 1fr);
     flex: 1;
-    overflow: hidden;
+    overflow-y: auto; // Allow vertical scrolling instead of hiding
+    overflow-x: hidden; // Prevent horizontal scrolling
   }
 
   &__week-cell {

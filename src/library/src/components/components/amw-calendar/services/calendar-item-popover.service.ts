@@ -34,8 +34,10 @@ export class CalendarItemPopoverService {
             scrollStrategy: this.overlay.scrollStrategies.reposition(),
             width: 'auto',
             height: 'auto',
-            maxWidth: '90vw',
-            maxHeight: '90vh'
+            // Remove maxWidth constraint that might be affecting positioning
+            maxHeight: '90vh',
+            // Ensure overlay is constrained to viewport
+            panelClass: 'amw-calendar-item-editor-overlay'
         };
 
         // Create overlay
@@ -86,42 +88,110 @@ export class CalendarItemPopoverService {
         triggerElement?: HTMLElement,
         position: 'top' | 'bottom' | 'left' | 'right' = 'bottom'
     ): PositionStrategy {
-        if (triggerElement) {
-            // Position relative to trigger element
-            const strategy = this.overlay.position()
-                .flexibleConnectedTo(triggerElement)
-                .withPush(true)
-                .withGrowAfterOpen(true)
-                .withFlexibleDimensions(true);
+        console.log('createPositionStrategy called with:', { triggerElement, position });
 
-            // Set position based on preference
+        if (triggerElement) {
+            console.log('Using trigger element for positioning:', triggerElement);
+            const rect = triggerElement.getBoundingClientRect();
+            console.log('Trigger element bounds:', rect);
+
+            // Try a more direct approach - use global positioning with calculated coordinates
+            const viewportWidth = window.innerWidth || document.documentElement.clientWidth;
+            const viewportHeight = window.innerHeight || document.documentElement.clientHeight;
+
+            // Calculate responsive popover dimensions based on viewport
+            const popoverWidth = Math.min(400, viewportWidth * 0.4); // Max 40% of viewport width
+            const popoverHeight = Math.min(300, viewportHeight * 0.4); // Max 40% of viewport height
+
+            // Calculate position based on trigger element and preferred direction
+            let x: number, y: number;
+
             switch (position) {
                 case 'top':
-                    return strategy.withPositions([
-                        { originX: 'center', originY: 'top', overlayX: 'center', overlayY: 'bottom', offsetY: -8 },
-                        { originX: 'center', originY: 'bottom', overlayX: 'center', overlayY: 'top', offsetY: 8 }
-                    ]);
+                    // Center horizontally, position above
+                    x = rect.left + (rect.width / 2) - (popoverWidth / 2);
+                    y = rect.top - popoverHeight - 8;
+                    break;
                 case 'bottom':
-                    return strategy.withPositions([
-                        { originX: 'center', originY: 'bottom', overlayX: 'center', overlayY: 'top', offsetY: 8 },
-                        { originX: 'center', originY: 'top', overlayX: 'center', overlayY: 'bottom', offsetY: -8 }
-                    ]);
+                    // Center horizontally, position below
+                    x = rect.left + (rect.width / 2) - (popoverWidth / 2);
+                    y = rect.bottom + 8;
+                    break;
                 case 'left':
-                    return strategy.withPositions([
-                        { originX: 'start', originY: 'center', overlayX: 'end', overlayY: 'center', offsetX: -8 },
-                        { originX: 'end', originY: 'center', overlayX: 'start', overlayY: 'center', offsetX: 8 }
-                    ]);
+                    // Center vertically, position to the left
+                    x = rect.left - popoverWidth - 8;
+                    y = rect.top + (rect.height / 2) - (popoverHeight / 2);
+                    break;
                 case 'right':
-                    return strategy.withPositions([
-                        { originX: 'end', originY: 'center', overlayX: 'start', overlayY: 'center', offsetX: 8 },
-                        { originX: 'start', originY: 'center', overlayX: 'end', overlayY: 'center', offsetX: -8 }
-                    ]);
+                    // Center vertically, position to the right
+                    x = rect.right + 8;
+                    y = rect.top + (rect.height / 2) - (popoverHeight / 2);
+                    break;
                 default:
-                    return strategy.withPositions([
-                        { originX: 'center', originY: 'bottom', overlayX: 'center', overlayY: 'top', offsetY: 8 }
-                    ]);
+                    // Default to bottom, centered
+                    x = rect.left + (rect.width / 2) - (popoverWidth / 2);
+                    y = rect.bottom + 8;
             }
+
+            // Responsive viewport boundary adjustments
+            const margin = Math.max(16, viewportWidth * 0.02); // 2% of viewport width, min 16px
+
+            // Horizontal positioning with better fallbacks
+            if (x < margin) {
+                x = margin;
+            } else if (x + popoverWidth > viewportWidth - margin) {
+                // Try alternative positioning
+                if (position === 'right' || position === 'left') {
+                    // For horizontal positioning, try the opposite side
+                    x = position === 'right' ? rect.left - popoverWidth - 8 : rect.right + 8;
+                    if (x < margin) x = margin;
+                    if (x + popoverWidth > viewportWidth - margin) x = viewportWidth - popoverWidth - margin;
+                } else {
+                    // For vertical positioning, try centering
+                    x = Math.max(margin, Math.min(viewportWidth - popoverWidth - margin,
+                        rect.left + (rect.width / 2) - (popoverWidth / 2)));
+                }
+            }
+
+            // Vertical positioning with better fallbacks
+            if (y < margin) {
+                y = margin;
+            } else if (y + popoverHeight > viewportHeight - margin) {
+                // Try alternative positioning
+                if (position === 'top' || position === 'bottom') {
+                    // For vertical positioning, try the opposite side
+                    y = position === 'bottom' ? rect.top - popoverHeight - 8 : rect.bottom + 8;
+                    if (y < margin) y = margin;
+                    if (y + popoverHeight > viewportHeight - margin) y = viewportHeight - popoverHeight - margin;
+                } else {
+                    // For horizontal positioning, try centering
+                    y = Math.max(margin, Math.min(viewportHeight - popoverHeight - margin,
+                        rect.top + (rect.height / 2) - (popoverHeight / 2)));
+                }
+            }
+
+            console.log('Calculated position:', {
+                x,
+                y,
+                position,
+                rect,
+                viewportWidth,
+                viewportHeight,
+                popoverWidth,
+                popoverHeight,
+                finalLeft: `${x}px`,
+                finalTop: `${y}px`
+            });
+
+            const positionStrategy = this.overlay.position().global()
+                .left(`${x}px`)
+                .top(`${y}px`);
+
+            console.log('Position strategy created:', positionStrategy);
+
+            return positionStrategy;
         } else {
+            console.log('No trigger element - centering on screen');
             // Center on screen
             return this.overlay.position().global()
                 .centerHorizontally()
