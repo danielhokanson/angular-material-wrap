@@ -2,8 +2,7 @@
 @use '@angular/material' as mat;
 
 .amw-calendar-full {
-  display: flex;
-  flex-direction: column;
+  position: relative;
   width: 100%;
   height: 100%;
   background: var(--mdc-theme-surface, #ffffff);
@@ -39,19 +38,43 @@
 
   // Header
   &__header {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 22px;
     display: flex;
     align-items: center;
     justify-content: space-between;
     padding: 16px 24px;
     background: var(--mdc-theme-surface-container, #f3f0f4);
     border-bottom: 1px solid var(--mdc-theme-outline-variant, #cac4d0);
-    min-height: 64px;
+    z-index: 20;
   }
 
   &__navigation {
     display: flex;
     align-items: center;
     gap: 8px;
+
+    // Ensure navigation buttons have proper contrast
+    .mat-mdc-icon-button {
+      color: var(--mdc-theme-primary, #6750a4) !important;
+      
+      &:hover {
+        background-color: var(--mdc-theme-primary-container, #e8def8) !important;
+        color: var(--mdc-theme-on-primary-container, #21005d) !important;
+      }
+    }
+
+    .mat-mdc-button {
+      color: var(--mdc-theme-primary, #6750a4) !important;
+      
+      &:hover {
+        background-color: var(--mdc-theme-primary-container, #e8def8) !important;
+        color: var(--mdc-theme-on-primary-container, #21005d) !important;
+      }
+    }
   }
 
   &__current-period {
@@ -73,9 +96,32 @@
   }
 
   &__view-button {
+    // Base button styling for inactive state - with higher specificity
+    background-color: transparent !important;
+    color: var(--mdc-theme-primary, #6750a4) !important;
+    border: 1px solid var(--mdc-theme-outline, #79747e) !important;
+    border-radius: 20px !important;
+    padding: 8px 16px !important;
+    font-weight: 500 !important;
+    transition: all 0.2s ease !important;
+    min-width: auto !important;
+    
+    &:hover {
+      background-color: var(--mdc-theme-primary-container, #e8def8) !important;
+      color: var(--mdc-theme-on-primary-container, #21005d) !important;
+      border-color: var(--mdc-theme-primary, #6750a4) !important;
+    }
+
+    &:focus {
+      outline: 2px solid var(--mdc-theme-primary, #6750a4) !important;
+      outline-offset: 2px !important;
+    }
+
     &--active {
-      background-color: var(--mdc-theme-primary, #6750a4);
-      color: var(--mdc-theme-on-primary, #ffffff);
+      background-color: var(--mdc-theme-primary, #6750a4) !important;
+      color: var(--mdc-theme-on-primary, #ffffff) !important;
+      border-color: var(--mdc-theme-primary, #6750a4) !important;
+      box-shadow: 0 1px 2px rgba(0, 0, 0, 0.1) !important;
     }
   }
 
@@ -86,7 +132,11 @@
 
   // Content
   &__content {
-    flex: 1;
+    position: absolute;
+    top: 44px;
+    left: 0;
+    right: 0;
+    bottom: 0;
     overflow: visible; // Allow content to be visible instead of hidden
   }
 
@@ -219,9 +269,21 @@
 
   // Day View
   &__day-view {
-    display: flex;
-    flex-direction: column;
-    height: 100%;
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+  }
+
+  &__day-fixed-header {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 125px;
+    background-color: var(--mdc-theme-surface, #ffffff);
+    z-index: 10;
   }
 
   &__day-header {
@@ -237,19 +299,61 @@
     }
   }
 
-  &__day-grid {
+  &__allday-section {
+    display: flex;
+    background: var(--mdc-theme-surface-container-low, #faf9fa);
+    border-bottom: 1px solid var(--mdc-theme-outline-variant, #cac4d0);
+    min-height: 60px;
+  }
+
+  &__allday-label {
+    width: 80px;
+    padding: 8px 12px;
+    font-size: 12px;
+    color: var(--mdc-theme-on-surface-variant, #49454f);
+    border-right: 1px solid var(--mdc-theme-outline-variant, #cac4d0);
+    display: flex;
+    align-items: center;
+    background-color: var(--mdc-theme-surface-container-low, #faf9fa);
+    font-weight: 500;
+  }
+
+  &__allday-events {
     flex: 1;
-    overflow-y: auto;
+    padding: 8px;
     display: flex;
     flex-direction: column;
+    gap: 4px;
+    background-color: var(--mdc-theme-surface-container-low, #faf9fa);
+  }
+
+  &__day-scrollable-content {
+    position: absolute;
+    top: 125px;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    overflow-y: auto;
+    overflow-x: hidden;
+  }
+
+  &__day-grid {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    background-color: var(--mdc-theme-surface, #ffffff);
+    min-height: 100%;
   }
 
   &__day-hour {
     display: flex;
-    min-height: 60px;
-    border-bottom: 1px solid var(--mdc-theme-outline-variant, #cac4d0);
+    height: 70px; // Fixed height to match slotHeight calculation
+    border-bottom: 2px solid var(--mdc-theme-outline-variant, #cac4d0) !important;
     cursor: pointer;
     transition: background-color 0.2s ease;
+    background-color: var(--mdc-theme-surface, #ffffff);
+    position: relative;
+    z-index: 1;
 
     &:hover {
       background-color: var(--mdc-theme-surface-container-low, #faf9fa);
@@ -264,17 +368,20 @@
     border-right: 1px solid var(--mdc-theme-outline-variant, #cac4d0);
     display: flex;
     align-items: center;
+    background-color: var(--mdc-theme-surface-container-low, #faf9fa);
   }
 
   &__hour-content {
     flex: 1;
     position: relative;
     padding: 4px;
+    background-color: var(--mdc-theme-surface, #ffffff);
+    min-height: 70px; // Ensure minimum height for content area
   }
 
   // Events
   &__event {
-    position: relative;
+    position: absolute !important;
     border-radius: 4px;
     padding: 4px 8px; // Normal padding without button space
     margin-bottom: 2px;
@@ -284,11 +391,26 @@
     font-size: 12px;
     line-height: 1.2;
     display: block;
+    z-index: 2;
     min-height: 20px;
     overflow: hidden;
     width: 100%;
     max-width: 100%; // Ensure it doesn't exceed cell width
     box-sizing: border-box; // Include padding in width calculation
+
+    &--allday {
+      position: relative !important;
+      top: auto !important;
+      height: auto !important;
+      left: auto !important;
+      right: auto !important;
+      width: 100% !important;
+      margin-bottom: 4px;
+      min-height: 32px;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+    }
 
     &:hover {
       transform: translateY(-1px);

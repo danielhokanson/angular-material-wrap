@@ -198,30 +198,23 @@
 
     <!-- Day View -->
     <div *ngIf="currentView === 'day'" class="amw-calendar-full__day-view">
-      <!-- Day Header -->
-      <div class="amw-calendar-full__day-header">
-        <h3>{{ getFormattedDate(selectedDate, 'long') }}</h3>
-      </div>
+      <!-- Fixed Header Section -->
+      <div class="amw-calendar-full__day-fixed-header">
+        <!-- Day Header -->
+        <div class="amw-calendar-full__day-header">
+          <h3>{{ getFormattedDate(selectedDate, 'long') }}</h3>
+        </div>
 
-      <!-- Day Grid -->
-      <div class="amw-calendar-full__day-grid">
-        <div *ngFor="let hour of dayHours; let i = index" 
-             class="amw-calendar-full__day-hour"
-             (click)="onCellClick(selectedDate, hour)"
-             (dblclick)="onCellDoubleClick(selectedDate, hour)"
-             (dragover)="onDragOver($event)"
-             (drop)="onDrop($event, selectedDate, hour)">
-          
-          <div class="amw-calendar-full__hour-label">
-            {{ getFormattedTime(hour) }}
+        <!-- All-Day Events Section -->
+        <div class="amw-calendar-full__allday-section">
+          <div class="amw-calendar-full__allday-label">
+            All Day
           </div>
-          
-          <div class="amw-calendar-full__hour-content">
-            <div *ngFor="let event of getEventsForTimeSlot(hour.getHours())" 
-                 class="amw-calendar-full__event"
+          <div class="amw-calendar-full__allday-events">
+            <div *ngFor="let event of getAllDayEventsForDate(selectedDate)" 
+                 class="amw-calendar-full__event amw-calendar-full__event--allday"
                  [class]="getEventClasses(event).join(' ')"
                  [style.background-color]="getEventColor(event)"
-                 [style]="getEventPosition(event)"
                  (click)="onEventClick(event, $event)"
                  (dblclick)="onEventDoubleClick(event)"
                  [draggable]="isEventDraggable(event)"
@@ -235,12 +228,56 @@
                     class="amw-calendar-full__event-description">
                 {{ event.description }}
               </span>
-              <span *ngIf="!event.allDay" 
-                    class="amw-calendar-full__event-time">
-                {{ getFormattedTime(event.start) }} - {{ getFormattedTime(event.end || event.start) }}
-              </span>
               
             </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Scrollable Hours Section -->
+      <div class="amw-calendar-full__day-scrollable-content">
+        <div class="amw-calendar-full__day-grid">
+          <!-- Hour slots -->
+          <div *ngFor="let hour of dayHours; let i = index" 
+               class="amw-calendar-full__day-hour"
+               (click)="onCellClick(selectedDate, hour)"
+               (dblclick)="onCellDoubleClick(selectedDate, hour)"
+               (dragover)="onDragOver($event)"
+               (drop)="onDrop($event, selectedDate, hour)">
+            
+            <div class="amw-calendar-full__hour-label">
+              {{ getFormattedTime(hour) }}
+            </div>
+            
+            <div class="amw-calendar-full__hour-content">
+              <!-- Empty content area for hour slots -->
+            </div>
+          </div>
+          
+          <!-- Events positioned relative to entire day grid -->
+          <div *ngFor="let event of getTimedEventsForDate()" 
+               class="amw-calendar-full__event"
+               [class]="getEventClasses(event).join(' ')"
+               [style.background-color]="getEventColor(event)"
+               [style]="getEventPosition(event)"
+               (click)="onEventClick(event, $event)"
+               (dblclick)="onEventDoubleClick(event)"
+               [draggable]="isEventDraggable(event)"
+               (dragstart)="onDragStart($event, event)"
+               (dragend)="onDragEnd()">
+            
+            <span class="amw-calendar-full__event-title">
+              {{ getEventDisplayText(event) }}
+            </span>
+            <span *ngIf="event.description" 
+                  class="amw-calendar-full__event-description">
+              {{ event.description }}
+            </span>
+            <span *ngIf="!event.allDay" 
+                  class="amw-calendar-full__event-time">
+              {{ getFormattedTime(event.start) }} - {{ getFormattedTime(event.end || event.start) }}
+            </span>
+            
           </div>
         </div>
       </div>

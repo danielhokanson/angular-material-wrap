@@ -247,24 +247,56 @@ export class AmwCalendarFullComponent<T = any> extends AmwCalendarBaseComponent<
     }
 
     /**
+     * Get all-day events for a specific date
+     */
+    getAllDayEventsForDate(date: Date): CalendarEvent<T>[] {
+        const eventsForDate = this.getEventsForDate(date);
+        return eventsForDate.filter(event => event.allDay);
+    }
+
+    /**
+     * Get timed events for a specific time slot (excludes all-day events)
+     */
+    getTimedEventsForTimeSlot(hour: number): CalendarEvent<T>[] {
+        const eventsForSlot = this.getEventsForTimeSlot(hour);
+        return eventsForSlot.filter(event => !event.allDay);
+    }
+
+    /**
+     * Get all timed events for the selected date (excludes all-day events)
+     */
+    getTimedEventsForDate(): CalendarEvent<T>[] {
+        const eventsForDate = this.getEventsForDate(this.selectedDate);
+        return eventsForDate.filter(event => !event.allDay);
+    }
+
+    /**
      * Get event position and size for day view
      */
-    getEventPosition(event: CalendarEvent<T>): { top: string; height: string; left?: string; width?: string } {
+    getEventPosition(event: CalendarEvent<T>): { top: string; height: string; left?: string; right?: string; width?: string; position?: string } {
         const startHour = this.internalConfig.startHour || 6;
-        const slotHeight = 60; // 60px per hour
+        const slotHeight = 70; // Match exact CSS height
 
         const eventStart = new Date(event.start);
         const eventEnd = event.end ? new Date(event.end) : new Date(eventStart.getTime() + (this.internalConfig.defaultDuration || 60) * 60 * 1000);
 
+        // Calculate minutes from start of day (6 AM)
         const startMinutes = eventStart.getHours() * 60 + eventStart.getMinutes();
         const endMinutes = eventEnd.getHours() * 60 + eventEnd.getMinutes();
+        const startHourMinutes = startHour * 60;
 
-        const top = ((startMinutes - (startHour * 60)) / 60) * slotHeight;
+        // Position relative to the first hour slot (6 AM)
+        const top = ((startMinutes - startHourMinutes) / 60) * slotHeight;
         const height = ((endMinutes - startMinutes) / 60) * slotHeight;
 
+
         return {
+            position: 'absolute',
             top: `${top}px`,
-            height: `${height}px`
+            height: `${height}px`,
+            left: '104px', // 80px (hour label width) + 12px (padding) + 12px (gap)
+            right: '4px',
+            width: 'auto' // Let width be determined by left and right positioning
         };
     }
 
