@@ -1,7 +1,9 @@
-import { Component, ViewEncapsulation } from '@angular/core';
+import { Component, OnInit, ViewEncapsulation } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { MatCardModule } from '@angular/material/card';
-import { MatTableModule } from '@angular/material/table';
+import { MatTabsModule } from '@angular/material/tabs';
+import { MatButtonModule } from '@angular/material/button';
+import { MatIconModule } from '@angular/material/icon';
 
 @Component({
     selector: 'amw-demo-data-table-api',
@@ -9,135 +11,196 @@ import { MatTableModule } from '@angular/material/table';
     imports: [
         CommonModule,
         MatCardModule,
-        MatTableModule
+        MatTabsModule,
+        MatButtonModule,
+        MatIconModule
     ],
     encapsulation: ViewEncapsulation.None,
-    templateUrl: './data-table-api.component.html',
+    template: `
+    <div class="data-table-api-demo">
+      <h3>Data Table API Documentation</h3>
+      <p>Complete API reference for the data table component.</p>
+      
+      <mat-tab-group>
+        <mat-tab label="Inputs">
+          <div class="api-section">
+            <h4>Component Inputs</h4>
+            <div class="api-table">
+              <table>
+                <thead>
+                  <tr>
+                    <th>Property</th>
+                    <th>Type</th>
+                    <th>Default</th>
+                    <th>Description</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td><code>data</code></td>
+                    <td><code>any[]</code></td>
+                    <td><code>[]</code></td>
+                    <td>Array of data objects to display in the table</td>
+                  </tr>
+                  <tr>
+                    <td><code>columns</code></td>
+                    <td><code>DataTableColumn[]</code></td>
+                    <td><code>[]</code></td>
+                    <td>Column configuration array</td>
+                  </tr>
+                  <tr>
+                    <td><code>config</code></td>
+                    <td><code>DataTableConfig</code></td>
+                    <td><code>{{ '{}' }}</code></td>
+                    <td>Table configuration options</td>
+                  </tr>
+                  <tr>
+                    <td><code>loading</code></td>
+                    <td><code>boolean</code></td>
+                    <td><code>false</code></td>
+                    <td>Shows loading spinner when true</td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </mat-tab>
+        
+        <mat-tab label="Outputs">
+          <div class="api-section">
+            <h4>Component Outputs</h4>
+            <div class="api-table">
+              <table>
+                <thead>
+                  <tr>
+                    <th>Event</th>
+                    <th>Type</th>
+                    <th>Description</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td><code>rowClick</code></td>
+                    <td><code>EventEmitter&lt;any&gt;</code></td>
+                    <td>Emitted when a row is clicked</td>
+                  </tr>
+                  <tr>
+                    <td><code>actionClick</code></td>
+                    <td><code>EventEmitter&lt;DataTableAction&gt;</code></td>
+                    <td>Emitted when an action button is clicked</td>
+                  </tr>
+                  <tr>
+                    <td><code>rowUpdate</code></td>
+                    <td><code>EventEmitter&lt;any&gt;</code></td>
+                    <td>Emitted when a row is updated</td>
+                  </tr>
+                  <tr>
+                    <td><code>rowDelete</code></td>
+                    <td><code>EventEmitter&lt;any&gt;</code></td>
+                    <td>Emitted when a row is deleted</td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </mat-tab>
+        
+        <mat-tab label="Interfaces">
+          <div class="api-section">
+            <h4>DataTableColumn Interface</h4>
+            <pre><code>{{ columnInterface }}</code></pre>
+            
+            <h4>DataTableConfig Interface</h4>
+            <pre><code>{{ configInterface }}</code></pre>
+            
+            <h4>DataTableAction Interface</h4>
+            <pre><code>{{ actionInterface }}</code></pre>
+          </div>
+        </mat-tab>
+        
+        <mat-tab label="Methods">
+          <div class="api-section">
+            <h4>Public Methods</h4>
+            <div class="api-table">
+              <table>
+                <thead>
+                  <tr>
+                    <th>Method</th>
+                    <th>Parameters</th>
+                    <th>Return Type</th>
+                    <th>Description</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td><code>refresh()</code></td>
+                    <td>-</td>
+                    <td><code>void</code></td>
+                    <td>Refreshes the table data</td>
+                  </tr>
+                  <tr>
+                    <td><code>getSelectedRows()</code></td>
+                    <td>-</td>
+                    <td><code>any[]</code></td>
+                    <td>Returns currently selected rows</td>
+                  </tr>
+                  <tr>
+                    <td><code>clearSelection()</code></td>
+                    <td>-</td>
+                    <td><code>void</code></td>
+                    <td>Clears row selection</td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </mat-tab>
+      </mat-tab-group>
+    </div>
+  `,
     styleUrl: './data-table-api.component.scss'
 })
-export class DataTableApiComponent {
-    apiDocumentation = {
-        inputs: [
-            { name: 'value', type: 'any[]', default: '[]', description: 'Array of data objects to display in the table' },
-            { name: 'columns', type: 'DataTableColumn[]', default: '[]', description: 'Configuration for table columns' },
-            { name: 'actions', type: 'DataTableAction[]', default: '[]', description: 'Action buttons for each row' },
-            { name: 'config', type: 'DataTableConfig', default: '{}', description: 'General table configuration options' },
-            { name: 'selectable', type: 'boolean', default: 'false', description: 'Enable row selection' },
-            { name: 'multiSelect', type: 'boolean', default: 'false', description: 'Allow multiple row selection' },
-            { name: 'sortable', type: 'boolean', default: 'true', description: 'Enable column sorting' },
-            { name: 'filterable', type: 'boolean', default: 'true', description: 'Enable search and filtering' },
-            { name: 'pageable', type: 'boolean', default: 'true', description: 'Enable pagination' },
-            { name: 'loading', type: 'boolean', default: 'false', description: 'Show loading state' },
-            { name: 'emptyMessage', type: 'string', default: "'No data available'", description: 'Message to show when no data' },
-            { name: 'noDataIcon', type: 'string', default: "'inbox'", description: 'Icon to show when no data' }
-        ],
-        outputs: [
-            { name: 'dataChange', type: 'EventEmitter<any[]>', description: 'Emitted when data changes' },
-            { name: 'selectionChange', type: 'EventEmitter<any[]>', description: 'Emitted when selection changes' },
-            { name: 'sortChange', type: 'EventEmitter<DataTableSort>', description: 'Emitted when sorting changes' },
-            { name: 'pageChange', type: 'EventEmitter<DataTablePage>', description: 'Emitted when pagination changes' },
-            { name: 'filterChange', type: 'EventEmitter<DataTableFilter[]>', description: 'Emitted when filters change' },
-            { name: 'actionClick', type: 'EventEmitter<{action: DataTableAction; row: any; index: number}>', description: 'Emitted when action button is clicked' }
-        ],
-        interfaces: [
-            {
-                name: 'DataTableConfig',
-                description: 'Configuration options for the data table',
-                properties: [
-                    { name: 'size', type: "'small' | 'medium' | 'large'", description: 'Size variant of the table' },
-                    { name: 'theme', type: "'primary' | 'accent' | 'warn'", description: 'Theme variant of the table' },
-                    { name: 'pageSize', type: 'number', description: 'Number of items per page' },
-                    { name: 'pageSizeOptions', type: 'number[]', description: 'Available page size options' },
-                    { name: 'showFirstLastButtons', type: 'boolean', description: 'Show first/last page buttons' },
-                    { name: 'hidePageSize', type: 'boolean', description: 'Hide page size selector' },
-                    { name: 'disabled', type: 'boolean', description: 'Disable the table' },
-                    { name: 'loading', type: 'boolean', description: 'Show loading state' },
-                    { name: 'emptyMessage', type: 'string', description: 'Message when no data' },
-                    { name: 'noDataIcon', type: 'string', description: 'Icon when no data' },
-                    { name: 'stickyHeader', type: 'boolean', description: 'Make header sticky' },
-                    { name: 'stickyFooter', type: 'boolean', description: 'Make footer sticky' },
-                    { name: 'striped', type: 'boolean', description: 'Alternating row colors' },
-                    { name: 'hoverable', type: 'boolean', description: 'Row hover effects' }
-                ]
-            },
-            {
-                name: 'DataTableColumn',
-                description: 'Configuration for table columns',
-                properties: [
-                    { name: 'key', type: 'string', description: 'Property key in data object' },
-                    { name: 'label', type: 'string', description: 'Display label for column header' },
-                    { name: 'type', type: "'text' | 'number' | 'currency' | 'date' | 'boolean' | 'custom'", description: 'Data type for formatting' },
-                    { name: 'sortable', type: 'boolean', description: 'Enable sorting for this column' },
-                    { name: 'filterable', type: 'boolean', description: 'Enable filtering for this column' },
-                    { name: 'hidden', type: 'boolean', description: 'Hide this column' },
-                    { name: 'width', type: 'string', description: 'Column width (CSS value)' },
-                    { name: 'minWidth', type: 'string', description: 'Minimum column width' },
-                    { name: 'maxWidth', type: 'string', description: 'Maximum column width' },
-                    { name: 'align', type: "'left' | 'center' | 'right'", description: 'Text alignment' },
-                    { name: 'currency', type: 'string', description: 'Currency code for currency type' },
-                    { name: 'decimals', type: 'number', description: 'Decimal places for number type' },
-                    { name: 'dateFormat', type: 'string', description: 'Date format string' },
-                    { name: 'template', type: 'TemplateRef<any>', description: 'Custom template for cell content' },
-                    { name: 'formatter', type: '(value: any, row: any) => string', description: 'Custom formatter function' }
-                ]
-            },
-            {
-                name: 'DataTableAction',
-                description: 'Configuration for row action buttons',
-                properties: [
-                    { name: 'key', type: 'string', description: 'Unique identifier for the action' },
-                    { name: 'label', type: 'string', description: 'Display label for the action' },
-                    { name: 'icon', type: 'string', description: 'Material icon name' },
-                    { name: 'color', type: "'primary' | 'accent' | 'warn'", description: 'Button color theme' },
-                    { name: 'disabled', type: '(row: any, index: number) => boolean', description: 'Function to determine if action is disabled' },
-                    { name: 'visible', type: '(row: any, index: number) => boolean', description: 'Function to determine if action is visible' },
-                    { name: 'tooltip', type: 'string', description: 'Tooltip text for the action' }
-                ]
-            },
-            {
-                name: 'DataTableSort',
-                description: 'Sort configuration',
-                properties: [
-                    { name: 'column', type: 'string', description: 'Column key being sorted' },
-                    { name: 'direction', type: "'asc' | 'desc'", description: 'Sort direction' }
-                ]
-            },
-            {
-                name: 'DataTablePage',
-                description: 'Pagination configuration',
-                properties: [
-                    { name: 'pageIndex', type: 'number', description: 'Current page index (0-based)' },
-                    { name: 'pageSize', type: 'number', description: 'Number of items per page' },
-                    { name: 'length', type: 'number', description: 'Total number of items' }
-                ]
-            },
-            {
-                name: 'DataTableFilter',
-                description: 'Filter configuration',
-                properties: [
-                    { name: 'key', type: 'string', description: 'Column key to filter' },
-                    { name: 'label', type: 'string', description: 'Display label for filter' },
-                    { name: 'type', type: "'text' | 'select' | 'date' | 'number' | 'boolean'", description: 'Filter input type' },
-                    { name: 'options', type: '{value: any; label: string}[]', description: 'Options for select filter' },
-                    { name: 'placeholder', type: 'string', description: 'Placeholder text for filter input' },
-                    { name: 'value', type: 'any', description: 'Current filter value' },
-                    { name: 'operator', type: "'equals' | 'contains' | 'startsWith' | 'endsWith' | 'greaterThan' | 'lessThan' | 'between'", description: 'Filter operator' }
-                ]
-            }
-        ]
-    };
+export class DataTableApiComponent implements OnInit {
+    columnInterface = `interface DataTableColumn {{
+  key: string;
+  title: string;
+  type: 'text' | 'number' | 'email' | 'date' | 'boolean' | 'select';
+  sortable?: boolean;
+  filterable?: boolean;
+  editable?: boolean;
+  required?: boolean;
+  width?: string;
+  align?: 'left' | 'center' | 'right';
+  format?: string;
+  options?: any[];
+  validation?: ValidationRule;
+}}`;
 
-    getDisplayedColumns(section: string): any[] {
-        const data = this.apiDocumentation[section as keyof typeof this.apiDocumentation];
-        if (Array.isArray(data)) {
-            return data;
-        }
-        return [];
-    }
+    configInterface = `interface DataTableConfig {{
+  editable?: boolean;
+  showActions?: boolean;
+  showPagination?: boolean;
+  showSorting?: boolean;
+  showFiltering?: boolean;
+  pageSize?: number;
+  pageSizeOptions?: number[];
+  actions?: DataTableAction[];
+  selection?: 'single' | 'multiple' | 'none';
+  stickyHeader?: boolean;
+  height?: string;
+  maxHeight?: string;
+}}`;
 
-    /** API interfaces - computed property */
-    get interfacesList(): any[] {
-        const interfaces = this.apiDocumentation.interfaces;
-        return Array.isArray(interfaces) ? interfaces : [];
-    }
+    actionInterface = `interface DataTableAction {{
+  id: string;
+  label: string;
+  icon?: string;
+  color?: 'primary' | 'accent' | 'warn';
+  disabled?: boolean;
+  visible?: (row: any) => boolean;
+}}`;
+
+    constructor() { }
+
+    ngOnInit(): void { }
 }

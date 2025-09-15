@@ -354,11 +354,9 @@ export class DialogService {
         const backdropClass = this.getBackdropClass(options.type) || 'amw-dialog-backdrop';
         const panelClass = this.getPanelClass(options.type, options.size) || 'amw-dialog-panel';
 
-        console.log('Dialog config classes:', { backdropClass, panelClass });
-
         // Final validation to ensure no whitespace in class names
         if (backdropClass.includes(' ') || panelClass.includes(' ')) {
-            console.error('Whitespace detected in single class names:', { backdropClass, panelClass });
+            // Handle whitespace in class names if needed
         }
 
         const config: MatDialogConfig = {

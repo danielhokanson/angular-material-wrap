@@ -42,3 +42,30 @@
     }
   }
 }
+
+.tooltip-demo-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 16px;
+  margin: 16px 0;
+  
+  button {
+    min-width: 120px;
+  }
+}
+
+.demo-content {
+  .demo-section {
+    margin-bottom: 24px;
+    
+    h4 {
+      margin-bottom: 12px;
+      color: #333;
+    }
+    
+    button {
+      margin-right: 8px;
+      margin-bottom: 8px;
+    }
+  }
+}

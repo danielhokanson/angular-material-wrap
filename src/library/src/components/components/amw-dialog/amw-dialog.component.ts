@@ -248,31 +248,15 @@ export class AmwDialogComponent extends BaseComponent implements OnInit, OnDestr
 
     const result = classes.join(' ');
 
-    // Debug logging
-    console.log('Dialog component classes:', {
-      type: this.type,
-      size: this.size,
-      position: this.position,
-      result
-    });
-
     // Additional validation to ensure no whitespace in individual class names
     const validatedClasses = result.split(' ').map(cls => {
       if (cls && cls.trim() !== cls) {
-        console.warn('Dialog class contains whitespace:', cls);
         return cls.trim();
       }
       return cls;
     }).filter(cls => cls && cls.length > 0);
 
-    const finalResult = validatedClasses.join(' ');
-
-    // Debug logging to help identify issues
-    if (finalResult !== result) {
-      console.warn('Dialog classes were modified during validation:', { original: result, final: finalResult });
-    }
-
-    return finalResult;
+    return validatedClasses.join(' ');
   }
 
   private sanitizeClassName(value: string): string {

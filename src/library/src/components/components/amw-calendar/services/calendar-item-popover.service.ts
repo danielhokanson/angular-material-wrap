@@ -170,28 +170,12 @@ export class CalendarItemPopoverService {
                 }
             }
 
-            console.log('Calculated position:', {
-                x,
-                y,
-                position,
-                rect,
-                viewportWidth,
-                viewportHeight,
-                popoverWidth,
-                popoverHeight,
-                finalLeft: `${x}px`,
-                finalTop: `${y}px`
-            });
-
             const positionStrategy = this.overlay.position().global()
                 .left(`${x}px`)
                 .top(`${y}px`);
 
-            console.log('Position strategy created:', positionStrategy);
-
             return positionStrategy;
         } else {
-            console.log('No trigger element - centering on screen');
             // Center on screen
             return this.overlay.position().global()
                 .centerHorizontally()

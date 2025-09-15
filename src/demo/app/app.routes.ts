@@ -96,6 +96,11 @@ export const routes: Routes = [
         data: { control: 'color-picker' }
     },
     {
+        path: 'controls/data-table',
+        loadComponent: () => import('./components/controls-demo/controls-demo.component').then(m => m.ControlsDemoComponent),
+        data: { control: 'data-table' }
+    },
+    {
         path: 'components',
         loadComponent: () => import('./pages/components-demo/components-demo.component').then(m => m.ComponentsDemoComponent)
     },
@@ -153,6 +158,102 @@ export const routes: Routes = [
         path: 'components/calendar',
         loadComponent: () => import('./pages/components-demo/components-demo.component').then(m => m.ComponentsDemoComponent),
         data: { component: 'calendar' }
+    },
+    {
+        path: 'components/stepper',
+        loadComponent: () => import('./pages/components-demo/components-demo.component').then(m => m.ComponentsDemoComponent),
+        data: { component: 'stepper' }
+    },
+    {
+        path: 'components/tabs',
+        loadComponent: () => import('./pages/components-demo/components-demo.component').then(m => m.ComponentsDemoComponent),
+        data: { component: 'tabs' }
+    },
+    {
+        path: 'components/accordion',
+        loadComponent: () => import('./pages/components-demo/components-demo.component').then(m => m.ComponentsDemoComponent),
+        data: { component: 'accordion' }
+    },
+    {
+        path: 'directives',
+        loadComponent: () => import('./pages/directives-demo/directives-demo.component').then(m => m.DirectivesDemoComponent)
+    },
+    {
+        path: 'directives/click-outside',
+        loadComponent: () => import('./pages/directives-demo/directives-demo.component').then(m => m.DirectivesDemoComponent),
+        data: { directive: 'click-outside' }
+    },
+    {
+        path: 'directives/auto-focus',
+        loadComponent: () => import('./pages/directives-demo/directives-demo.component').then(m => m.DirectivesDemoComponent),
+        data: { directive: 'auto-focus' }
+    },
+    {
+        path: 'directives/copy-to-clipboard',
+        loadComponent: () => import('./pages/directives-demo/directives-demo.component').then(m => m.DirectivesDemoComponent),
+        data: { directive: 'copy-to-clipboard' }
+    },
+    {
+        path: 'directives/tooltip',
+        loadComponent: () => import('./pages/directives-demo/directives-demo.component').then(m => m.DirectivesDemoComponent),
+        data: { directive: 'tooltip' }
+    },
+    {
+        path: 'services',
+        loadComponent: () => import('./pages/services-demo/services-demo.component').then(m => m.ServicesDemoComponent)
+    },
+    {
+        path: 'services/messaging',
+        loadComponent: () => import('./pages/services-demo/services-demo.component').then(m => m.ServicesDemoComponent),
+        data: { service: 'messaging' }
+    },
+    {
+        path: 'services/loading',
+        loadComponent: () => import('./pages/services-demo/services-demo.component').then(m => m.ServicesDemoComponent),
+        data: { service: 'loading' }
+    },
+    {
+        path: 'services/notification',
+        loadComponent: () => import('./pages/services-demo/services-demo.component').then(m => m.ServicesDemoComponent),
+        data: { service: 'notification' }
+    },
+    {
+        path: 'pipes',
+        loadComponent: () => import('./pages/pipes-demo/pipes-demo.component').then(m => m.PipesDemoComponent)
+    },
+    {
+        path: 'pipes/currency',
+        loadComponent: () => import('./pages/pipes-demo/pipes-demo.component').then(m => m.PipesDemoComponent),
+        data: { pipe: 'currency' }
+    },
+    {
+        path: 'pipes/date',
+        loadComponent: () => import('./pages/pipes-demo/pipes-demo.component').then(m => m.PipesDemoComponent),
+        data: { pipe: 'date' }
+    },
+    {
+        path: 'pipes/text-transform',
+        loadComponent: () => import('./pages/pipes-demo/pipes-demo.component').then(m => m.PipesDemoComponent),
+        data: { pipe: 'text-transform' }
+    },
+    {
+        path: 'pages',
+        loadComponent: () => import('./pages/pages-demo/pages-demo.component').then(m => m.PagesDemoComponent)
+    },
+    {
+        path: 'pages/dashboard',
+        loadComponent: () => import('./pages/pages-demo/pages-demo.component').then(m => m.PagesDemoComponent),
+        data: { page: 'dashboard' }
+    },
+    {
+        path: 'pages/profile',
+        loadComponent: () => import('./pages/pages-demo/pages-demo.component').then(m => m.PagesDemoComponent),
+        data: { page: 'profile' }
+    },
+    {
+        path: 'pages/settings',
+        loadComponent: () => import('./pages/pages-demo/pages-demo.component').then(m => m.PagesDemoComponent),
+        data: { page: 'settings' }
     },
     {
         path: 'components/calendar/demo',

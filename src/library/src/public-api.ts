@@ -16,6 +16,9 @@ export * from './components/interfaces';
 // export * from './components/services';
 // export * from './components/pipes';
 
+// Directives exports
+export * from './directives';
+
 // Pages exports
 // export * from './pages/components';
 // export * from './pages/directives';

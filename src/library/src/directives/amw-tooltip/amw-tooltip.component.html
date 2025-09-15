@@ -1,0 +1,8 @@
+<div 
+  class="amw-tooltip"
+  [class]="class"
+  [style.max-width]="maxWidth"
+  [innerHTML]="allowHtml ? content : null"
+>
+  <ng-container *ngIf="!allowHtml">{{ content }}</ng-container>
+</div>

@@ -52,7 +52,8 @@ export class DemoNavigationComponent {
                 { title: 'Switch', route: '/controls/switch', icon: 'switch_right' },
                 { title: 'File Input', route: '/controls/file-input', icon: 'attach_file' },
                 { title: 'Time Picker', route: '/controls/timepicker', icon: 'access_time' },
-                { title: 'Color Picker', route: '/controls/color-picker', icon: 'palette' }
+                { title: 'Color Picker', route: '/controls/color-picker', icon: 'palette' },
+                { title: 'Data Table', route: '/controls/data-table', icon: 'table_view' }
             ]
         },
         {
@@ -66,18 +67,11 @@ export class DemoNavigationComponent {
                 { title: 'Dialog', route: '/components/dialog', icon: 'open_in_new' },
                 { title: 'Sidenav', route: '/components/sidenav', icon: 'menu' },
                 { title: 'Popover', route: '/components/popover', icon: 'call_made' },
-                { title: 'Validation Popover', route: '/components/validation-popover', icon: 'error_outline' },
-                { title: 'Loading Indicator', route: '/components/loading-indicator', icon: 'hourglass_empty' },
-                { title: 'Context Menu', route: '/components/context-menu', icon: 'more_vert' },
-                { title: 'Confirmation Dialog', route: '/components/confirmation-dialog', icon: 'help_outline' },
                 { title: 'Data Table', route: '/components/data-table', icon: 'table_chart' },
                 { title: 'Calendar', route: '/components/calendar', icon: 'calendar_month' },
                 { title: 'Stepper', route: '/components/stepper', icon: 'view_list' },
                 { title: 'Tabs', route: '/components/tabs', icon: 'tab' },
-                { title: 'Accordion', route: '/components/accordion', icon: 'expand_more' },
-                { title: 'Toolbar', route: '/components/toolbar', icon: 'construction' },
-                { title: 'Breadcrumb', route: '/components/breadcrumb', icon: 'chevron_right' },
-                { title: 'Pagination', route: '/components/pagination', icon: 'last_page' }
+                { title: 'Accordion', route: '/components/accordion', icon: 'expand_more' }
             ]
         },
         {
@@ -89,14 +83,8 @@ export class DemoNavigationComponent {
             children: [
                 { title: 'Click Outside', route: '/directives/click-outside', icon: 'mouse' },
                 { title: 'Auto Focus', route: '/directives/auto-focus', icon: 'center_focus_strong' },
-                { title: 'Lazy Load', route: '/directives/lazy-load', icon: 'cloud_download' },
-                { title: 'Infinite Scroll', route: '/directives/infinite-scroll', icon: 'vertical_align_bottom' },
-                { title: 'Tooltip', route: '/directives/tooltip', icon: 'info' },
                 { title: 'Copy to Clipboard', route: '/directives/copy-to-clipboard', icon: 'content_copy' },
-                { title: 'Debounce', route: '/directives/debounce', icon: 'schedule' },
-                { title: 'Throttle', route: '/directives/throttle', icon: 'speed' },
-                { title: 'Resize', route: '/directives/resize', icon: 'open_with' },
-                { title: 'Intersection Observer', route: '/directives/intersection-observer', icon: 'visibility' }
+                { title: 'Tooltip', route: '/directives/tooltip', icon: 'help_outline' }
             ]
         },
         {
@@ -108,14 +96,7 @@ export class DemoNavigationComponent {
             children: [
                 { title: 'Messaging Service', route: '/services/messaging', icon: 'message' },
                 { title: 'Loading Service', route: '/services/loading', icon: 'hourglass_empty' },
-                { title: 'Notification Service', route: '/services/notification', icon: 'notifications' },
-                { title: 'Storage Service', route: '/services/storage', icon: 'storage' },
-                { title: 'Theme Service', route: '/services/theme', icon: 'palette' },
-                { title: 'Validation Service', route: '/services/validation', icon: 'verified' },
-                { title: 'Http Interceptor', route: '/services/http-interceptor', icon: 'http' },
-                { title: 'Error Handler', route: '/services/error-handler', icon: 'error' },
-                { title: 'Analytics Service', route: '/services/analytics', icon: 'analytics' },
-                { title: 'Logging Service', route: '/services/logging', icon: 'description' }
+                { title: 'Notification Service', route: '/services/notification', icon: 'notifications' }
             ]
         },
         {
@@ -127,14 +108,7 @@ export class DemoNavigationComponent {
             children: [
                 { title: 'Currency Pipe', route: '/pipes/currency', icon: 'attach_money' },
                 { title: 'Date Pipe', route: '/pipes/date', icon: 'event' },
-                { title: 'Number Pipe', route: '/pipes/number', icon: 'numbers' },
-                { title: 'Percent Pipe', route: '/pipes/percent', icon: 'percent' },
-                { title: 'Text Transform', route: '/pipes/text-transform', icon: 'text_format' },
-                { title: 'Truncate', route: '/pipes/truncate', icon: 'more_horiz' },
-                { title: 'Pluralize', route: '/pipes/pluralize', icon: 'format_list_numbered' },
-                { title: 'Safe HTML', route: '/pipes/safe-html', icon: 'code' },
-                { title: 'File Size', route: '/pipes/file-size', icon: 'folder' },
-                { title: 'Time Ago', route: '/pipes/time-ago', icon: 'schedule' }
+                { title: 'Text Transform', route: '/pipes/text-transform', icon: 'text_format' }
             ]
         },
         {
@@ -146,14 +120,7 @@ export class DemoNavigationComponent {
             children: [
                 { title: 'Dashboard', route: '/pages/dashboard', icon: 'dashboard' },
                 { title: 'Profile', route: '/pages/profile', icon: 'person' },
-                { title: 'Settings', route: '/pages/settings', icon: 'settings' },
-                { title: 'Login', route: '/pages/login', icon: 'login' },
-                { title: 'Register', route: '/pages/register', icon: 'person_add' },
-                { title: 'Forgot Password', route: '/pages/forgot-password', icon: 'lock_reset' },
-                { title: '404 Error', route: '/pages/404', icon: 'error' },
-                { title: '500 Error', route: '/pages/500', icon: 'error_outline' },
-                { title: 'Maintenance', route: '/pages/maintenance', icon: 'build' },
-                { title: 'Coming Soon', route: '/pages/coming-soon', icon: 'schedule' }
+                { title: 'Settings', route: '/pages/settings', icon: 'settings' }
             ]
         },
         {

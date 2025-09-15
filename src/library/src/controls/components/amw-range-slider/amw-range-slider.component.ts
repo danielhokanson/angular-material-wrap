@@ -1,7 +1,7 @@
 import { Component, Input, Output, EventEmitter, ViewEncapsulation, forwardRef } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { MatSliderModule } from '@angular/material/slider';
-import { FormsModule } from '@angular/forms';
+import { FormsModule, ControlValueAccessor, NG_VALUE_ACCESSOR } from '@angular/forms';
 import { BaseComponent } from '../base/base.component';
 import { RangeSliderConfig } from './interfaces';
 import { AmwColor } from '../../../shared/types/amw-color.type';
@@ -15,12 +15,13 @@ import { AmwColor } from '../../../shared/types/amw-color.type';
     styleUrl: './amw-range-slider.component.scss',
     providers: [
         {
-            provide: forwardRef(() => BaseComponent),
-            useExisting: forwardRef(() => AmwRangeSliderComponent)
+            provide: NG_VALUE_ACCESSOR,
+            useExisting: forwardRef(() => AmwRangeSliderComponent),
+            multi: true
         }
     ]
 })
-export class AmwRangeSliderComponent extends BaseComponent {
+export class AmwRangeSliderComponent extends BaseComponent implements ControlValueAccessor {
     @Input() min = 0;
     @Input() max = 100;
     @Input() step = 1;

@@ -25,7 +25,16 @@ import { PopoverValidationComponent } from '../../components/popover-validation/
 import { PopoverCodeComponent } from '../../components/popover-code/popover-code.component';
 import { PopoverApiComponent } from '../../components/popover-api/popover-api.component';
 import { DataTableDemoComponent } from '../../components/data-table-demo/data-table-demo.component';
+import { DataTableValidationComponent } from '../../components/data-table-validation/data-table-validation.component';
+import { DataTableCodeComponent } from '../../components/data-table-code/data-table-code.component';
+import { DataTableApiComponent } from '../../components/data-table-api/data-table-api.component';
 import { CalendarDemoComponent } from '../../components/calendar-demo/calendar-demo.component';
+import { StepperDemoComponent } from '../../components/stepper-demo/stepper-demo.component';
+import { StepperValidationComponent } from '../../components/stepper-validation/stepper-validation.component';
+import { StepperCodeComponent } from '../../components/stepper-code/stepper-code.component';
+import { StepperApiComponent } from '../../components/stepper-api/stepper-api.component';
+import { TabsDemoComponent } from '../../components/tabs-demo/tabs-demo.component';
+import { AccordionDemoComponent } from '../../components/accordion-demo/accordion-demo.component';
 
 @Component({
     selector: 'amw-demo-components',
@@ -54,7 +63,16 @@ import { CalendarDemoComponent } from '../../components/calendar-demo/calendar-d
         PopoverCodeComponent,
         PopoverApiComponent,
         DataTableDemoComponent,
-        CalendarDemoComponent
+        DataTableValidationComponent,
+        DataTableCodeComponent,
+        DataTableApiComponent,
+        CalendarDemoComponent,
+        StepperDemoComponent,
+        StepperValidationComponent,
+        StepperCodeComponent,
+        StepperApiComponent,
+        TabsDemoComponent,
+        AccordionDemoComponent
     ],
     encapsulation: ViewEncapsulation.None,
     templateUrl: './components-demo.component.html',
@@ -68,7 +86,10 @@ export class ComponentsDemoComponent implements OnInit {
         { id: 'sidenav', name: 'Sidenav' },
         { id: 'popover', name: 'Popover' },
         { id: 'data-table', name: 'Data Table' },
-        { id: 'calendar', name: 'Calendar' }
+        { id: 'calendar', name: 'Calendar' },
+        { id: 'stepper', name: 'Stepper' },
+        { id: 'tabs', name: 'Tabs' },
+        { id: 'accordion', name: 'Accordion' }
     ];
 
     selectedComponent = { id: 'card', name: 'Card' };

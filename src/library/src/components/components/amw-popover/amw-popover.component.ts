@@ -674,24 +674,15 @@ export class AmwPopoverComponent extends BaseComponent implements OnInit, OnDest
             return;
         }
 
-        console.log('AmwPopover: Opening popover, overlayRef:', this.overlayRef, 'contentRef:', this.contentRef);
-
         this.isOpening = true;
         this.beforeOpen.emit();
 
         if (this.overlayRef && !this.overlayRef.hasAttached()) {
             // Use TemplatePortal with the content template instead of ComponentPortal
             if (this.contentRef) {
-                console.log('AmwPopover: Attaching portal to overlay');
                 const portal = new TemplatePortal(this.contentRef, this.viewContainerRef);
                 this.overlayRef.attach(portal);
-            } else {
-                console.warn('AmwPopover: contentRef not available for portal creation');
             }
-        } else if (!this.overlayRef) {
-            console.warn('AmwPopover: overlayRef not available for popover opening');
-        } else if (this.overlayRef.hasAttached()) {
-            console.log('AmwPopover: Overlay already has content attached');
         }
 
         this.opened = true;
