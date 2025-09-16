@@ -275,8 +275,22 @@
     
     <div class="popover-demo__demo-container">
       <amw-popover
-        [config]="currentConfig"
-        [trigger]="currentTrigger"
+        [content]="selectedVariation.description"
+        [size]="currentConfig.size || 'medium'"
+        [position]="currentConfig.position || 'bottom'"
+        [showArrow]="currentConfig.showArrow || false"
+        [showClose]="currentConfig.showClose || true"
+        [showHeader]="currentConfig.showHeader || false"
+        [showFooter]="currentConfig.showFooter || false"
+        [headerTitle]="currentConfig.headerTitle || ''"
+        [headerSubtitle]="currentConfig.headerSubtitle || ''"
+        [footerText]="currentConfig.footerText || ''"
+        [closeButtonText]="currentConfig.closeText || 'Close'"
+        [closeButtonIcon]="currentConfig.closeIcon || 'close'"
+        [arrowSize]="currentConfig.arrowSize || 'medium'"
+        [arrowColor]="currentConfig.arrowColor || 'var(--mat-sys-surface)'"
+        [zIndex]="currentConfig.zIndex || 1000"
+        [backdrop]="currentConfig.showBackdrop || false"
         [opened]="currentConfig.opened ?? false"
         (openedChange)="onPopoverOpenedChange($event)"
         (beforeOpen)="onPopoverBeforeOpen()"
@@ -295,7 +309,7 @@
         </ng-template>
         
         <!-- Content Template -->
-        <ng-template #content>
+        <ng-template #contentRef>
           <div class="popover-demo__content">
             <h4>{{ selectedVariation.title }}</h4>
             <p>{{ selectedVariation.description }}</p>

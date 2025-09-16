@@ -242,18 +242,15 @@ export const routes: Routes = [
     },
     {
         path: 'pages/dashboard',
-        loadComponent: () => import('./pages/pages-demo/pages-demo.component').then(m => m.PagesDemoComponent),
-        data: { page: 'dashboard' }
+        loadComponent: () => import('./pages/dashboard-page/dashboard-page.component').then(m => m.DashboardPageComponent)
     },
     {
         path: 'pages/profile',
-        loadComponent: () => import('./pages/pages-demo/pages-demo.component').then(m => m.PagesDemoComponent),
-        data: { page: 'profile' }
+        loadComponent: () => import('./pages/profile-page/profile-page.component').then(m => m.ProfilePageComponent)
     },
     {
         path: 'pages/settings',
-        loadComponent: () => import('./pages/pages-demo/pages-demo.component').then(m => m.PagesDemoComponent),
-        data: { page: 'settings' }
+        loadComponent: () => import('./pages/settings-page/settings-page.component').then(m => m.SettingsPageComponent)
     },
     {
         path: 'components/calendar/demo',

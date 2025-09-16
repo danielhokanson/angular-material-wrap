@@ -1,0 +1,358 @@
+import { Component, OnInit, ViewEncapsulation } from '@angular/core';
+import { CommonModule } from '@angular/common';
+import { MatCardModule } from '@angular/material/card';
+import { MatButtonModule } from '@angular/material/button';
+import { MatIconModule } from '@angular/material/icon';
+import { MatFormFieldModule } from '@angular/material/form-field';
+import { MatInputModule } from '@angular/material/input';
+import { MatSelectModule } from '@angular/material/select';
+import { MatSlideToggleModule } from '@angular/material/slide-toggle';
+import { MatSliderModule } from '@angular/material/slider';
+import { MatDividerModule } from '@angular/material/divider';
+import { MatTabsModule } from '@angular/material/tabs';
+import { MatExpansionModule } from '@angular/material/expansion';
+import { MatChipsModule } from '@angular/material/chips';
+import { FormsModule } from '@angular/forms';
+
+@Component({
+    selector: 'amw-settings-page',
+    standalone: true,
+    imports: [
+        CommonModule,
+        MatCardModule,
+        MatButtonModule,
+        MatIconModule,
+        MatFormFieldModule,
+        MatInputModule,
+        MatSelectModule,
+        MatSlideToggleModule,
+        MatSliderModule,
+        MatDividerModule,
+        MatTabsModule,
+        MatExpansionModule,
+        MatChipsModule,
+        FormsModule
+    ],
+    encapsulation: ViewEncapsulation.None,
+    template: `
+    <div class="settings-page">
+      <div class="settings-header">
+        <h1>Settings</h1>
+        <p>Configure your application preferences and system settings</p>
+      </div>
+
+      <div class="settings-content">
+        <mat-tab-group>
+          <!-- General Settings -->
+          <mat-tab label="General">
+            <div class="tab-content">
+              <mat-card>
+                <mat-card-header>
+                  <mat-card-title>General Settings</mat-card-title>
+                  <mat-card-subtitle>Basic application configuration</mat-card-subtitle>
+                </mat-card-header>
+                <mat-card-content>
+                  <div class="settings-group">
+                    <h4>Application</h4>
+                    <div class="setting-item">
+                      <div class="setting-info">
+                        <span class="setting-label">Application Name</span>
+                        <span class="setting-description">The name displayed in the application header</span>
+                      </div>
+                      <mat-form-field appearance="outline">
+                        <input matInput [(ngModel)]="appName" placeholder="Enter application name">
+                      </mat-form-field>
+                    </div>
+                    
+                    <div class="setting-item">
+                      <div class="setting-info">
+                        <span class="setting-label">Default Language</span>
+                        <span class="setting-description">The default language for the application</span>
+                      </div>
+                      <mat-form-field appearance="outline">
+                        <mat-label>Language</mat-label>
+                        <mat-select [(ngModel)]="defaultLanguage">
+                          <mat-option value="en">English</mat-option>
+                          <mat-option value="es">Spanish</mat-option>
+                          <mat-option value="fr">French</mat-option>
+                          <mat-option value="de">German</mat-option>
+                        </mat-select>
+                      </mat-form-field>
+                    </div>
+                  </div>
+
+                  <mat-divider></mat-divider>
+
+                  <div class="settings-group">
+                    <h4>Display</h4>
+                    <div class="setting-item">
+                      <div class="setting-info">
+                        <span class="setting-label">Theme</span>
+                        <span class="setting-description">Choose your preferred theme</span>
+                      </div>
+                      <mat-form-field appearance="outline">
+                        <mat-label>Theme</mat-label>
+                        <mat-select [(ngModel)]="theme">
+                          <mat-option value="light">Light</mat-option>
+                          <mat-option value="dark">Dark</mat-option>
+                          <mat-option value="auto">Auto</mat-option>
+                        </mat-select>
+                      </mat-form-field>
+                    </div>
+                    
+                    <div class="setting-item">
+                      <div class="setting-info">
+                        <span class="setting-label">Font Size</span>
+                        <span class="setting-description">Adjust the base font size</span>
+                      </div>
+                      <div class="slider-container">
+                        <mat-slider min="12" max="20" step="1" [(ngModel)]="fontSize">
+                          <input matSliderThumb>
+                        </mat-slider>
+                        <span class="slider-value">{{ fontSize }}px</span>
+                      </div>
+                    </div>
+                  </div>
+                </mat-card-content>
+              </mat-card>
+            </div>
+          </mat-tab>
+
+          <!-- Notifications -->
+          <mat-tab label="Notifications">
+            <div class="tab-content">
+              <mat-card>
+                <mat-card-header>
+                  <mat-card-title>Notification Settings</mat-card-title>
+                  <mat-card-subtitle>Configure how you receive notifications</mat-card-subtitle>
+                </mat-card-header>
+                <mat-card-content>
+                  <div class="settings-group">
+                    <h4>Email Notifications</h4>
+                    <div class="setting-item">
+                      <div class="setting-info">
+                        <span class="setting-label">Enable Email Notifications</span>
+                        <span class="setting-description">Receive notifications via email</span>
+                      </div>
+                      <mat-slide-toggle [(ngModel)]="emailNotifications"></mat-slide-toggle>
+                    </div>
+                    
+                    <div class="setting-item">
+                      <div class="setting-info">
+                        <span class="setting-label">Email Frequency</span>
+                        <span class="setting-description">How often to receive email notifications</span>
+                      </div>
+                      <mat-form-field appearance="outline">
+                        <mat-label>Frequency</mat-label>
+                        <mat-select [(ngModel)]="emailFrequency">
+                          <mat-option value="immediate">Immediate</mat-option>
+                          <mat-option value="daily">Daily Digest</mat-option>
+                          <mat-option value="weekly">Weekly Digest</mat-option>
+                        </mat-select>
+                      </mat-form-field>
+                    </div>
+                  </div>
+
+                  <mat-divider></mat-divider>
+
+                  <div class="settings-group">
+                    <h4>Push Notifications</h4>
+                    <div class="setting-item">
+                      <div class="setting-info">
+                        <span class="setting-label">Enable Push Notifications</span>
+                        <span class="setting-description">Receive push notifications in your browser</span>
+                      </div>
+                      <mat-slide-toggle [(ngModel)]="pushNotifications"></mat-slide-toggle>
+                    </div>
+                  </div>
+                </mat-card-content>
+              </mat-card>
+            </div>
+          </mat-tab>
+
+          <!-- Security -->
+          <mat-tab label="Security">
+            <div class="tab-content">
+              <mat-card>
+                <mat-card-header>
+                  <mat-card-title>Security Settings</mat-card-title>
+                  <mat-card-subtitle>Manage your security preferences</mat-card-subtitle>
+                </mat-card-header>
+                <mat-card-content>
+                  <div class="settings-group">
+                    <h4>Session Management</h4>
+                    <div class="setting-item">
+                      <div class="setting-info">
+                        <span class="setting-label">Session Timeout</span>
+                        <span class="setting-description">Automatically log out after inactivity</span>
+                      </div>
+                      <div class="slider-container">
+                        <mat-slider min="5" max="120" step="5" [(ngModel)]="sessionTimeout">
+                          <input matSliderThumb>
+                        </mat-slider>
+                        <span class="slider-value">{{ sessionTimeout }} minutes</span>
+                      </div>
+                    </div>
+                  </div>
+
+                  <mat-divider></mat-divider>
+
+                  <div class="settings-group">
+                    <h4>Data Privacy</h4>
+                    <div class="setting-item">
+                      <div class="setting-info">
+                        <span class="setting-label">Analytics Tracking</span>
+                        <span class="setting-description">Allow analytics data collection</span>
+                      </div>
+                      <mat-slide-toggle [(ngModel)]="analyticsTracking"></mat-slide-toggle>
+                    </div>
+                    
+                    <div class="setting-item">
+                      <div class="setting-info">
+                        <span class="setting-label">Error Reporting</span>
+                        <span class="setting-description">Automatically report errors for debugging</span>
+                      </div>
+                      <mat-slide-toggle [(ngModel)]="errorReporting"></mat-slide-toggle>
+                    </div>
+                  </div>
+                </mat-card-content>
+              </mat-card>
+            </div>
+          </mat-tab>
+
+          <!-- Advanced -->
+          <mat-tab label="Advanced">
+            <div class="tab-content">
+              <mat-card>
+                <mat-card-header>
+                  <mat-card-title>Advanced Settings</mat-card-title>
+                  <mat-card-subtitle>Advanced configuration options</mat-card-subtitle>
+                </mat-card-header>
+                <mat-card-content>
+                  <mat-expansion-panel>
+                    <mat-expansion-panel-header>
+                      <mat-panel-title>API Configuration</mat-panel-title>
+                    </mat-expansion-panel-header>
+                    <div class="setting-item">
+                      <div class="setting-info">
+                        <span class="setting-label">API Base URL</span>
+                        <span class="setting-description">The base URL for API requests</span>
+                      </div>
+                      <mat-form-field appearance="outline">
+                        <input matInput [(ngModel)]="apiBaseUrl" placeholder="https://api.example.com">
+                      </mat-form-field>
+                    </div>
+                  </mat-expansion-panel>
+
+                  <mat-expansion-panel>
+                    <mat-expansion-panel-header>
+                      <mat-panel-title>Cache Settings</mat-panel-title>
+                    </mat-expansion-panel-header>
+                    <div class="setting-item">
+                      <div class="setting-info">
+                        <span class="setting-label">Cache Duration</span>
+                        <span class="setting-description">How long to cache data</span>
+                      </div>
+                      <div class="slider-container">
+                        <mat-slider min="1" max="60" step="1" [(ngModel)]="cacheDuration">
+                          <input matSliderThumb>
+                        </mat-slider>
+                        <span class="slider-value">{{ cacheDuration }} minutes</span>
+                      </div>
+                    </div>
+                  </mat-expansion-panel>
+
+                  <mat-expansion-panel>
+                    <mat-expansion-panel-header>
+                      <mat-panel-title>Debug Settings</mat-panel-title>
+                    </mat-expansion-panel-header>
+                    <div class="setting-item">
+                      <div class="setting-info">
+                        <span class="setting-label">Debug Mode</span>
+                        <span class="setting-description">Enable debug logging</span>
+                      </div>
+                      <mat-slide-toggle [(ngModel)]="debugMode"></mat-slide-toggle>
+                    </div>
+                  </mat-expansion-panel>
+                </mat-card-content>
+              </mat-card>
+            </div>
+          </mat-tab>
+        </mat-tab-group>
+      </div>
+
+      <div class="settings-actions">
+        <button mat-raised-button color="primary" (click)="saveSettings()">
+          <mat-icon>save</mat-icon>
+          Save Settings
+        </button>
+        <button mat-button (click)="resetSettings()">
+          <mat-icon>refresh</mat-icon>
+          Reset to Defaults
+        </button>
+      </div>
+    </div>
+  `,
+    styleUrl: './settings-page.component.scss'
+})
+export class SettingsPageComponent implements OnInit {
+    // General settings
+    appName = 'Angular Material Wrap';
+    defaultLanguage = 'en';
+    theme = 'light';
+    fontSize = 14;
+
+    // Notification settings
+    emailNotifications = true;
+    emailFrequency = 'daily';
+    pushNotifications = false;
+
+    // Security settings
+    sessionTimeout = 30;
+    analyticsTracking = true;
+    errorReporting = true;
+
+    // Advanced settings
+    apiBaseUrl = 'https://api.example.com';
+    cacheDuration = 15;
+    debugMode = false;
+
+    constructor() { }
+
+    ngOnInit(): void { }
+
+    saveSettings(): void {
+        console.log('Saving settings:', {
+            appName: this.appName,
+            defaultLanguage: this.defaultLanguage,
+            theme: this.theme,
+            fontSize: this.fontSize,
+            emailNotifications: this.emailNotifications,
+            emailFrequency: this.emailFrequency,
+            pushNotifications: this.pushNotifications,
+            sessionTimeout: this.sessionTimeout,
+            analyticsTracking: this.analyticsTracking,
+            errorReporting: this.errorReporting,
+            apiBaseUrl: this.apiBaseUrl,
+            cacheDuration: this.cacheDuration,
+            debugMode: this.debugMode
+        });
+    }
+
+    resetSettings(): void {
+        // Reset to default values
+        this.appName = 'Angular Material Wrap';
+        this.defaultLanguage = 'en';
+        this.theme = 'light';
+        this.fontSize = 14;
+        this.emailNotifications = true;
+        this.emailFrequency = 'daily';
+        this.pushNotifications = false;
+        this.sessionTimeout = 30;
+        this.analyticsTracking = true;
+        this.errorReporting = true;
+        this.apiBaseUrl = 'https://api.example.com';
+        this.cacheDuration = 15;
+        this.debugMode = false;
+    }
+}

@@ -10,23 +10,29 @@ import { MatInputModule } from '@angular/material/input';
 import { MatSelectModule } from '@angular/material/select';
 import { FormsModule } from '@angular/forms';
 import { ViewEncapsulation } from '@angular/core';
+import { AmwCurrencyPipe } from '../../../../library/src/pipes/amw-currency/amw-currency.pipe';
+import { AmwDatePipe } from '../../../../library/src/pipes/amw-date/amw-date.pipe';
+import { AmwTextTransformPipe } from '../../../../library/src/pipes/amw-text-transform/amw-text-transform.pipe';
 
 @Component({
-  selector: 'amw-demo-pipes',
-  standalone: true,
-  imports: [
-    CommonModule,
-    MatCardModule,
-    MatTabsModule,
-    MatButtonModule,
-    MatIconModule,
-    MatFormFieldModule,
-    MatInputModule,
-    MatSelectModule,
-    FormsModule
-  ],
-  encapsulation: ViewEncapsulation.None,
-  template: `
+    selector: 'amw-demo-pipes',
+    standalone: true,
+    imports: [
+        CommonModule,
+        MatCardModule,
+        MatTabsModule,
+        MatButtonModule,
+        MatIconModule,
+        MatFormFieldModule,
+        MatInputModule,
+        MatSelectModule,
+        FormsModule,
+        AmwCurrencyPipe,
+        AmwDatePipe,
+        AmwTextTransformPipe
+    ],
+    encapsulation: ViewEncapsulation.None,
+    template: `
         <div class="pipes-demo">
             <div class="pipes-header">
                 <h1>Angular Pipes</h1>
@@ -57,7 +63,7 @@ import { ViewEncapsulation } from '@angular/core';
                                                 
                                                 <div class="pipe-result">
                                                     <h4>Result:</h4>
-                                                    <p class="result-text">{{ currencyAmount | currency:'USD' }}</p>
+                                                    <p class="result-text">{{ currencyAmount | amwCurrency:'USD' }}</p>
                                                 </div>
                                             </div>
                                         </div>
@@ -70,7 +76,7 @@ import { ViewEncapsulation } from '@angular/core';
                                                 <h4>Date Formatting</h4>
                                                 <div class="pipe-result">
                                                     <h4>Current Date:</h4>
-                                                    <p class="result-text">{{ currentDate | date:'medium' }}</p>
+                                                    <p class="result-text">{{ currentDate | amwDate:'medium' }}</p>
                                                 </div>
                                             </div>
                                         </div>
@@ -88,9 +94,9 @@ import { ViewEncapsulation } from '@angular/core';
                                                 
                                                 <div class="pipe-result">
                                                     <h4>Results:</h4>
-                                                    <p><strong>Uppercase:</strong> {{ textValue | uppercase }}</p>
-                                                    <p><strong>Lowercase:</strong> {{ textValue | lowercase }}</p>
-                                                    <p><strong>Title Case:</strong> {{ textValue | titlecase }}</p>
+                                                    <p><strong>Uppercase:</strong> {{ textValue | amwTextTransform:'uppercase' }}</p>
+                                                    <p><strong>Lowercase:</strong> {{ textValue | amwTextTransform:'lowercase' }}</p>
+                                                    <p><strong>Title Case:</strong> {{ textValue | amwTextTransform:'titlecase' }}</p>
                                                 </div>
                                             </div>
                                         </div>
@@ -117,7 +123,7 @@ import { ViewEncapsulation } from '@angular/core';
             </div>
         </div>
     `,
-  styles: [`
+    styles: [`
         .pipes-demo {
             padding: 20px;
         }
@@ -162,35 +168,35 @@ import { ViewEncapsulation } from '@angular/core';
     `]
 })
 export class PipesDemoComponent implements OnInit {
-  // Pipe definitions
-  pipes = [
-    { id: 'currency', name: 'Currency Pipe' },
-    { id: 'date', name: 'Date Pipe' },
-    { id: 'text-transform', name: 'Text Transform Pipe' }
-  ];
+    // Pipe definitions
+    pipes = [
+        { id: 'currency', name: 'Currency Pipe' },
+        { id: 'date', name: 'Date Pipe' },
+        { id: 'text-transform', name: 'Text Transform Pipe' }
+    ];
 
-  selectedPipe = { id: 'currency', name: 'Currency Pipe' };
-  selectedTab = 0; // 0 = Demo, 1 = Code, 2 = API
+    selectedPipe = { id: 'currency', name: 'Currency Pipe' };
+    selectedTab = 0; // 0 = Demo, 1 = Code, 2 = API
 
-  // Currency pipe properties
-  currencyAmount = 1234.56;
+    // Currency pipe properties
+    currencyAmount = 1234.56;
 
-  // Date pipe properties
-  currentDate = new Date();
+    // Date pipe properties
+    currentDate = new Date();
 
-  // Text transform pipe properties
-  textValue = 'Hello World';
+    // Text transform pipe properties
+    textValue = 'Hello World';
 
-  constructor(private route: ActivatedRoute) { }
+    constructor(private route: ActivatedRoute) { }
 
-  ngOnInit(): void {
-    this.route.data.subscribe(data => {
-      if (data['pipe']) {
-        const pipe = this.pipes.find(p => p.id === data['pipe']);
-        if (pipe) {
-          this.selectedPipe = pipe;
-        }
-      }
-    });
-  }
+    ngOnInit(): void {
+        this.route.data.subscribe(data => {
+            if (data['pipe']) {
+                const pipe = this.pipes.find(p => p.id === data['pipe']);
+                if (pipe) {
+                    this.selectedPipe = pipe;
+                }
+            }
+        });
+    }
 }

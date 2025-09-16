@@ -208,7 +208,11 @@ export class AmwPopoverComponent extends BaseComponent implements OnInit, OnDest
     }
 
     ngAfterViewInit(): void {
-        this.initializeOverlay();
+        // Wait for the next tick to ensure the trigger element is properly rendered
+        setTimeout(() => {
+            this.initializeOverlay();
+            this.setupEventListeners();
+        }, 0);
     }
 
     ngOnDestroy(): void {
@@ -517,28 +521,38 @@ export class AmwPopoverComponent extends BaseComponent implements OnInit, OnDest
             return;
         }
 
-        console.log('AmwPopover: Initializing overlay with triggerRef:', this.triggerRef.nativeElement);
-
+        // Use global positioning strategy as fallback when trigger dimensions are unreliable
         const overlayConfig: OverlayConfig = {
-            positionStrategy: this.overlay.position()
-                .flexibleConnectedTo(this.triggerRef)
-                .withPositions(this.getPositionConfig())
-                .withPush(false),
+            positionStrategy: this.overlay.position().global()
+                .centerHorizontally()
+                .centerVertically(),
             scrollStrategy: this.overlay.scrollStrategies.reposition(),
-            hasBackdrop: this.currentConfig.showBackdrop,
-            backdropClass: this.currentConfig.backdropClass || 'amw-popover__backdrop',
-            panelClass: this.currentConfig.panelClass || 'amw-popover__panel',
+            hasBackdrop: this.currentConfig.showBackdrop || false,
+            backdropClass: 'amw-popover__backdrop',
+            panelClass: ['amw-popover__panel', 'cdk-overlay-pane'],
             width: this.getPopoverWidth(),
-            height: this.getPopoverHeight(),
-            minWidth: this.currentConfig.minWidth,
-            maxWidth: this.currentConfig.maxWidth,
-            minHeight: this.currentConfig.minHeight,
-            maxHeight: this.currentConfig.maxHeight,
+            height: 'auto',
             disposeOnNavigation: true
         };
 
         this.overlayRef = this.overlay.create(overlayConfig);
-        console.log('AmwPopover: Overlay created:', this.overlayRef);
+
+        // Add a listener to see when the overlay is attached
+        this.overlayRef.attachments().subscribe(() => {
+            // Overlay attached
+        });
+
+        // Add a listener to see when the overlay is detached
+        this.overlayRef.detachments().subscribe(() => {
+            // Overlay detached
+        });
+
+        // Add a listener to see when the overlay is clicked
+        this.overlayRef.backdropClick().subscribe(() => {
+            if (this.currentConfig.clickOutsideClose) {
+                this.closePopover();
+            }
+        });
     }
 
     /**
@@ -549,6 +563,8 @@ export class AmwPopoverComponent extends BaseComponent implements OnInit, OnDest
         const position = this.currentConfig.position || 'bottom';
         const offsetX = this.currentConfig.offsetX || 0;
         const offsetY = this.currentConfig.offsetY || 0;
+
+        console.log('AmwPopover: Position config - position:', position, 'offsetX:', offsetX, 'offsetY:', offsetY);
 
         switch (position) {
             case 'top':
@@ -633,6 +649,7 @@ export class AmwPopoverComponent extends BaseComponent implements OnInit, OnDest
                 break;
         }
 
+        console.log('AmwPopover: Generated positions:', positions);
         return positions;
     }
 
@@ -677,12 +694,21 @@ export class AmwPopoverComponent extends BaseComponent implements OnInit, OnDest
         this.isOpening = true;
         this.beforeOpen.emit();
 
+
         if (this.overlayRef && !this.overlayRef.hasAttached()) {
             // Use TemplatePortal with the content template instead of ComponentPortal
             if (this.contentRef) {
                 const portal = new TemplatePortal(this.contentRef, this.viewContainerRef);
                 this.overlayRef.attach(portal);
+            } else {
+                // Fallback: Create content directly
+                this.createFallbackContent();
             }
+
+            // Position the popover manually after attachment
+            setTimeout(() => {
+                this.positionPopover();
+            }, 0);
         }
 
         this.opened = true;
@@ -691,7 +717,8 @@ export class AmwPopoverComponent extends BaseComponent implements OnInit, OnDest
         this.afterOpen.emit();
 
         this.isOpening = false;
-        // REMOVED: this.cdr.detectChanges(); - can cause infinite loops
+        this.cdr.detectChanges(); // Re-enable change detection for proper rendering
+
     }
 
     /**
@@ -958,6 +985,69 @@ export class AmwPopoverComponent extends BaseComponent implements OnInit, OnDest
      */
     getZIndex(): number {
         return this.currentConfig.zIndex || 1000;
+    }
+
+    /**
+     * Creates fallback content when template is not available
+     */
+    private createFallbackContent(): void {
+        if (!this.overlayRef) return;
+
+        const overlayElement = this.overlayRef.overlayElement;
+        if (overlayElement) {
+            overlayElement.innerHTML = `
+                <div id="${this.popoverId}" class="amw-popover__popover amw-popover__popover--visible amw-popover__popover--medium" role="dialog" aria-hidden="false">
+                    <div class="amw-popover__content" id="${this.popoverId}-content">
+                        <div class="amw-popover__default-content">
+                            <p>${this.content || 'Popover content'}</p>
+                        </div>
+                    </div>
+                </div>
+            `;
+        }
+    }
+
+    /**
+     * Manually positions the popover relative to the trigger element.
+     */
+    private positionPopover(): void {
+        if (!this.overlayRef || !this.triggerRef) return;
+
+        const triggerElement = this.triggerRef.nativeElement;
+        const overlayElement = this.overlayRef.overlayElement;
+
+        if (!overlayElement) return;
+
+        // Get trigger position
+        const triggerRect = triggerElement.getBoundingClientRect();
+        const viewportWidth = window.innerWidth;
+        const viewportHeight = window.innerHeight;
+
+        // Get popover dimensions
+        const popoverRect = overlayElement.getBoundingClientRect();
+        const popoverWidth = popoverRect.width || 300; // fallback to config width
+        const popoverHeight = popoverRect.height || 200; // fallback height
+
+        // Calculate position
+        let left = triggerRect.left + (triggerRect.width / 2) - (popoverWidth / 2);
+        let top = triggerRect.bottom + 8; // Position below trigger
+
+        // Adjust if popover would go off screen
+        if (left < 8) left = 8;
+        if (left + popoverWidth > viewportWidth - 8) {
+            left = viewportWidth - popoverWidth - 8;
+        }
+
+        // If popover would go below viewport, position above trigger
+        if (top + popoverHeight > viewportHeight - 8) {
+            top = triggerRect.top - popoverHeight - 8;
+        }
+
+        // Apply position
+        overlayElement.style.position = 'fixed';
+        overlayElement.style.left = `${left}px`;
+        overlayElement.style.top = `${top}px`;
+        overlayElement.style.transform = 'none';
     }
 
     /**

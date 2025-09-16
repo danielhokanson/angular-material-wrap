@@ -39,14 +39,27 @@
 
   // Popover Container
   &__popover {
-    background: var(--mat-sys-surface);
-    border-radius: 8px;
-    box-shadow: var(--mat-sys-elevation-3);
-    overflow: hidden;
-    max-width: 100%;
-    max-height: 100%;
-    position: relative;
-    z-index: 1000;
+    background: var(--mat-sys-surface, #ffffff) !important;
+    background-color: var(--mat-sys-surface, #ffffff) !important;
+    border-radius: 12px !important;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15), 0 2px 4px rgba(0, 0, 0, 0.1) !important;
+    overflow: hidden !important;
+    max-width: 100% !important;
+    max-height: 100% !important;
+    position: relative !important;
+    z-index: 1000 !important;
+    pointer-events: auto !important; // Override CDK overlay's pointer-events: none
+    padding: 0 !important; // Remove default padding, let content handle it
+    border: 1px solid var(--mat-sys-outline-variant, #e0e0e0) !important;
+    min-width: 200px !important;
+    font-family: 'Roboto', 'Helvetica Neue', sans-serif !important;
+    font-size: 14px !important;
+    line-height: 1.5 !important;
+    
+    // Ensure solid background in all cases
+    * {
+      background-color: inherit !important;
+    }
 
     &--small {
       min-width: 200px;
@@ -239,9 +252,12 @@
 
   // Header
   &__header {
-    padding: 16px;
-    border-bottom: 1px solid var(--mat-sys-outline-variant);
-    background: var(--mat-sys-surface-container);
+    padding: 16px 20px !important;
+    border-bottom: 1px solid var(--mat-sys-outline-variant) !important;
+    background: var(--mat-sys-surface-container) !important;
+    display: flex !important;
+    align-items: flex-start !important;
+    justify-content: space-between !important;
 
     &-content {
       display: flex;
@@ -286,11 +302,15 @@
 
   // Content
   &__content {
-    padding: 16px;
-    max-height: 300px;
-    overflow-y: auto;
-    color: var(--mat-sys-on-surface);
-    line-height: 1.6;
+    padding: 20px !important;
+    max-height: 300px !important;
+    overflow-y: auto !important;
+    color: var(--mat-sys-on-surface) !important;
+    line-height: 1.6 !important;
+    background: var(--mat-sys-surface, #ffffff) !important;
+    background-color: var(--mat-sys-surface, #ffffff) !important;
+    display: block !important;
+    font-size: 14px !important;
 
     &::-webkit-scrollbar {
       width: 6px;
@@ -311,22 +331,30 @@
   }
 
   &__default-content {
+    display: block !important;
+    background: var(--mat-sys-surface, #ffffff) !important;
+    background-color: var(--mat-sys-surface, #ffffff) !important;
+    
     p {
-      margin: 0 0 16px 0;
-      font-size: 0.875rem;
-      color: var(--mat-sys-on-surface-variant);
+      margin: 0 0 16px 0 !important;
+      font-size: 0.875rem !important;
+      color: var(--mat-sys-on-surface-variant) !important;
+      display: block !important;
+      background: transparent !important;
 
       &:last-child {
-        margin-bottom: 0;
+        margin-bottom: 0 !important;
       }
     }
   }
 
   // Footer
   &__footer {
-    padding: 16px;
-    border-top: 1px solid var(--mat-sys-outline-variant);
-    background: var(--mat-sys-surface-container);
+    padding: 16px 20px !important;
+    border-top: 1px solid var(--mat-sys-outline-variant) !important;
+    background: var(--mat-sys-surface-container) !important;
+    font-size: 12px !important;
+    color: var(--mat-sys-on-surface-variant) !important;
 
     &-text {
       margin: 0;
@@ -344,8 +372,30 @@
 
   // Panel
   &__panel {
+    pointer-events: auto !important; // Ensure panel is interactive
+    position: absolute !important; // Force absolute positioning to fix CDK overlay issue
+    background: transparent !important;
+    border: none !important;
+    box-shadow: none !important;
+    padding: 0 !important;
+    margin: 0 !important;
+
     .amw-popover {
-      margin: 0;
+      margin: 0 !important;
+      display: block !important;
+    }
+  }
+
+  // CDK Overlay Panel Override
+  .cdk-overlay-pane {
+    &.amw-popover__panel {
+      pointer-events: auto !important;
+      position: absolute !important;
+      background: transparent !important;
+      border: none !important;
+      box-shadow: none !important;
+      padding: 0 !important;
+      margin: 0 !important;
     }
   }
 

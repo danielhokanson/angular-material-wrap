@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, OnDestroy } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { ActivatedRoute } from '@angular/router';
 import { MatCardModule } from '@angular/material/card';
@@ -11,24 +11,30 @@ import { MatSnackBarModule, MatSnackBar } from '@angular/material/snack-bar';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { FormsModule } from '@angular/forms';
 import { ViewEncapsulation } from '@angular/core';
+import { MatChipsModule } from '@angular/material/chips';
+import { Subject, takeUntil } from 'rxjs';
+import { AmwMessagingService, Message } from '../../../../library/src/services/amw-messaging/amw-messaging.service';
+import { AmwLoadingService, LoadingState } from '../../../../library/src/services/amw-loading/amw-loading.service';
+import { AmwNotificationService, Notification } from '../../../../library/src/services/amw-notification/amw-notification.service';
 
 @Component({
-  selector: 'amw-demo-services',
-  standalone: true,
-  imports: [
-    CommonModule,
-    MatCardModule,
-    MatTabsModule,
-    MatButtonModule,
-    MatIconModule,
-    MatFormFieldModule,
-    MatInputModule,
-    MatSnackBarModule,
-    MatProgressSpinnerModule,
-    FormsModule
-  ],
-  encapsulation: ViewEncapsulation.None,
-  template: `
+    selector: 'amw-demo-services',
+    standalone: true,
+    imports: [
+        CommonModule,
+        MatCardModule,
+        MatTabsModule,
+        MatButtonModule,
+        MatIconModule,
+        MatFormFieldModule,
+        MatInputModule,
+        MatSnackBarModule,
+        MatProgressSpinnerModule,
+        MatChipsModule,
+        FormsModule
+    ],
+    encapsulation: ViewEncapsulation.None,
+    template: `
         <div class="services-demo">
             <div class="services-header">
                 <h1>Angular Services</h1>
@@ -53,23 +59,52 @@ import { ViewEncapsulation } from '@angular/core';
                                             <div class="demo-section">
                                                 <h4>Send Message</h4>
                                                 <mat-form-field appearance="outline">
-                                                    <mat-label>Message</mat-label>
-                                                    <input matInput [(ngModel)]="messageText" placeholder="Enter your message">
+                                                    <mat-label>Title</mat-label>
+                                                    <input matInput [(ngModel)]="messageTitle" placeholder="Enter message title">
                                                 </mat-form-field>
-                                                <button mat-raised-button color="primary" (click)="sendMessage()">
-                                                    <mat-icon>send</mat-icon>
-                                                    Send Message
-                                                </button>
+                                                <mat-form-field appearance="outline">
+                                                    <mat-label>Content</mat-label>
+                                                    <input matInput [(ngModel)]="messageContent" placeholder="Enter message content">
+                                                </mat-form-field>
+                                                <div class="button-group">
+                                                    <button mat-raised-button color="primary" (click)="sendMessage()">
+                                                        <mat-icon>info</mat-icon>
+                                                        Info
+                                                    </button>
+                                                    <button mat-raised-button color="accent" (click)="sendSuccessMessage()">
+                                                        <mat-icon>check_circle</mat-icon>
+                                                        Success
+                                                    </button>
+                                                    <button mat-raised-button color="warn" (click)="sendWarningMessage()">
+                                                        <mat-icon>warning</mat-icon>
+                                                        Warning
+                                                    </button>
+                                                    <button mat-raised-button color="warn" (click)="sendErrorMessage()">
+                                                        <mat-icon>error</mat-icon>
+                                                        Error
+                                                    </button>
+                                                </div>
                                             </div>
                                             
                                             <div class="demo-section">
                                                 <h4>Message History</h4>
                                                 <div class="message-list">
-                                                    <div *ngFor="let message of messages" class="message-item">
-                                                        {{ message.text }}
-                                                        <span class="timestamp">{{ message.timestamp | date:'short' }}</span>
+                                                    <div *ngFor="let message of messages" class="message-item" [class]="'message-' + message.type">
+                                                        <div class="message-header">
+                                                            <mat-icon>{{ getMessageIcon(message.type) }}</mat-icon>
+                                                            <span class="message-title">{{ message.title }}</span>
+                                                            <button mat-icon-button (click)="removeMessage(message.id)" *ngIf="message.dismissible">
+                                                                <mat-icon>close</mat-icon>
+                                                            </button>
+                                                        </div>
+                                                        <div class="message-content">{{ message.content }}</div>
+                                                        <div class="message-time">{{ message.timestamp | date:'short' }}</div>
                                                     </div>
                                                 </div>
+                                                <button mat-button color="warn" (click)="clearMessages()">
+                                                    <mat-icon>clear</mat-icon>
+                                                    Clear Messages
+                                                </button>
                                             </div>
                                         </div>
 
@@ -79,16 +114,16 @@ import { ViewEncapsulation } from '@angular/core';
                                             
                                             <div class="demo-section">
                                                 <h4>Loading States</h4>
-                                                <button mat-raised-button color="primary" (click)="startLoading()" [disabled]="isLoading">
+                                                <button mat-raised-button color="primary" (click)="startLoading()" [disabled]="loadingState.isLoading">
                                                     <mat-icon>play_arrow</mat-icon>
                                                     Start Loading
                                                 </button>
-                                                <button mat-button (click)="stopLoading()" [disabled]="!isLoading">
+                                                <button mat-button (click)="stopLoading()" [disabled]="!loadingState.isLoading">
                                                     <mat-icon>stop</mat-icon>
                                                     Stop Loading
                                                 </button>
                                                 
-                                                <div *ngIf="isLoading" class="loading-demo">
+                                                <div *ngIf="loadingState.isLoading" class="loading-demo">
                                                     <mat-spinner diameter="40"></mat-spinner>
                                                     <p>Loading in progress...</p>
                                                 </div>
@@ -138,7 +173,7 @@ import { ViewEncapsulation } from '@angular/core';
             </div>
         </div>
     `,
-  styles: [`
+    styles: [`
         .services-demo {
             padding: 20px;
         }
@@ -211,69 +246,167 @@ import { ViewEncapsulation } from '@angular/core';
         }
     `]
 })
-export class ServicesDemoComponent implements OnInit {
-  // Service definitions
-  services = [
-    { id: 'messaging', name: 'Messaging Service' },
-    { id: 'loading', name: 'Loading Service' },
-    { id: 'notification', name: 'Notification Service' }
-  ];
+export class ServicesDemoComponent implements OnInit, OnDestroy {
+    // Service definitions
+    services = [
+        { id: 'messaging', name: 'Messaging Service' },
+        { id: 'loading', name: 'Loading Service' },
+        { id: 'notification', name: 'Notification Service' }
+    ];
 
-  selectedService = { id: 'messaging', name: 'Messaging Service' };
-  selectedTab = 0; // 0 = Demo, 1 = Code, 2 = API
+    selectedService = { id: 'messaging', name: 'Messaging Service' };
+    selectedTab = 0; // 0 = Demo, 1 = Code, 2 = API
 
-  // Messaging service properties
-  messageText = '';
-  messages: Array<{ text: string, timestamp: Date }> = [];
+    // Service data
+    messages: Message[] = [];
+    notifications: Notification[] = [];
+    loadingState: LoadingState = { isLoading: false };
+    private destroy$ = new Subject<void>();
 
-  // Loading service properties
-  isLoading = false;
+    // Form data
+    messageTitle = '';
+    messageContent = '';
+    notificationTitle = '';
+    notificationMessage = '';
+    loadingMessage = 'Loading...';
+    loadingProgress = 0;
 
-  constructor(private route: ActivatedRoute, private snackBar: MatSnackBar) { }
+    constructor(
+        private route: ActivatedRoute,
+        private snackBar: MatSnackBar,
+        private messagingService: AmwMessagingService,
+        private loadingService: AmwLoadingService,
+        private notificationService: AmwNotificationService
+    ) { }
 
-  ngOnInit(): void {
-    this.route.data.subscribe(data => {
-      if (data['service']) {
-        const service = this.services.find(s => s.id === data['service']);
-        if (service) {
-          this.selectedService = service;
-        }
-      }
-    });
-  }
+    ngOnInit(): void {
+        this.route.data.subscribe(data => {
+            if (data['service']) {
+                const service = this.services.find(s => s.id === data['service']);
+                if (service) {
+                    this.selectedService = service;
+                }
+            }
+        });
 
-  // Messaging service methods
-  sendMessage(): void {
-    if (this.messageText) {
-      this.messages.push({
-        text: this.messageText,
-        timestamp: new Date()
-      });
-      this.messageText = '';
-      this.snackBar.open('Message sent!', 'Close', { duration: 2000 });
+        // Subscribe to services
+        this.messagingService.messages$
+            .pipe(takeUntil(this.destroy$))
+            .subscribe(messages => this.messages = messages);
+
+        this.notificationService.notifications$
+            .pipe(takeUntil(this.destroy$))
+            .subscribe(notifications => this.notifications = notifications);
+
+        this.loadingService.loading$
+            .pipe(takeUntil(this.destroy$))
+            .subscribe(state => this.loadingState = state);
     }
-  }
 
-  // Loading service methods
-  startLoading(): void {
-    this.isLoading = true;
-    setTimeout(() => this.stopLoading(), 3000);
-  }
+    ngOnDestroy(): void {
+        this.destroy$.next();
+        this.destroy$.complete();
+    }
 
-  stopLoading(): void {
-    this.isLoading = false;
-  }
+    // Messaging service methods
+    sendMessage(): void {
+        if (this.messageTitle && this.messageContent) {
+            this.messagingService.info(this.messageTitle, this.messageContent);
+            this.messageTitle = '';
+            this.messageContent = '';
+        }
+    }
 
-  // Notification service methods
-  showSuccessNotification(): void {
-    this.snackBar.open('Operation completed successfully!', 'Close', { duration: 3000 });
-  }
+    sendSuccessMessage(): void {
+        if (this.messageTitle && this.messageContent) {
+            this.messagingService.success(this.messageTitle, this.messageContent);
+        }
+    }
 
-  showErrorNotification(): void {
-    this.snackBar.open('An error occurred!', 'Close', { duration: 3000 });
-  }
+    sendWarningMessage(): void {
+        if (this.messageTitle && this.messageContent) {
+            this.messagingService.warning(this.messageTitle, this.messageContent);
+        }
+    }
 
-  showInfoNotification(): void {
-    this.snackBar.open('Here is some information for you.', 'Close', { duration: 3000 });
-  }
+    sendErrorMessage(): void {
+        if (this.messageTitle && this.messageContent) {
+            this.messagingService.error(this.messageTitle, this.messageContent);
+        }
+    }
+
+    clearMessages(): void {
+        this.messagingService.clearMessages();
+    }
+
+    removeMessage(id: string): void {
+        this.messagingService.removeMessage(id);
+    }
+
+    // Loading service methods
+    startLoading(): void {
+        this.loadingService.show(this.loadingMessage, { progress: this.loadingProgress });
+    }
+
+    stopLoading(): void {
+        this.loadingService.hide();
+    }
+
+    updateLoadingMessage(): void {
+        this.loadingService.updateMessage(this.loadingMessage);
+    }
+
+    updateLoadingProgress(): void {
+        this.loadingService.updateProgress(this.loadingProgress);
+    }
+
+    // Notification service methods
+    showNotification(): void {
+        if (this.notificationTitle && this.notificationMessage) {
+            this.notificationService.info(this.notificationTitle, this.notificationMessage);
+            this.notificationTitle = '';
+            this.notificationMessage = '';
+        }
+    }
+
+    showSuccessNotification(): void {
+        if (this.notificationTitle && this.notificationMessage) {
+            this.notificationService.success(this.notificationTitle, this.notificationMessage);
+        }
+    }
+
+    showWarningNotification(): void {
+        if (this.notificationTitle && this.notificationMessage) {
+            this.notificationService.warning(this.notificationTitle, this.notificationMessage);
+        }
+    }
+
+    showErrorNotification(): void {
+        if (this.notificationTitle && this.notificationMessage) {
+            this.notificationService.error(this.notificationTitle, this.notificationMessage);
+        }
+    }
+
+    clearNotifications(): void {
+        this.notificationService.clear();
+    }
+
+    dismissNotification(id: string): void {
+        this.notificationService.dismiss(id);
+    }
+
+    showInfoNotification(): void {
+        this.snackBar.open('Here is some information for you.', 'Close', { duration: 3000 });
+    }
+
+    // Helper methods
+    getMessageIcon(type: string): string {
+        const icons = {
+            info: 'info',
+            success: 'check_circle',
+            warning: 'warning',
+            error: 'error'
+        };
+        return icons[type as keyof typeof icons] || 'info';
+    }
 }

@@ -11,6 +11,9 @@ import { MatSnackBarModule, MatSnackBar } from '@angular/material/snack-bar';
 import { FormsModule } from '@angular/forms';
 import { ViewEncapsulation } from '@angular/core';
 import { AmwTooltipDirective } from '../../../../library/src/directives/amw-tooltip/amw-tooltip.directive';
+import { AmwClickOutsideDirective } from '../../../../library/src/directives/amw-click-outside/amw-click-outside.directive';
+import { AmwAutoFocusDirective } from '../../../../library/src/directives/amw-auto-focus/amw-auto-focus.directive';
+import { AmwCopyToClipboardDirective } from '../../../../library/src/directives/amw-copy-to-clipboard/amw-copy-to-clipboard.directive';
 
 @Component({
     selector: 'amw-demo-directives',
@@ -25,7 +28,10 @@ import { AmwTooltipDirective } from '../../../../library/src/directives/amw-tool
         MatInputModule,
         MatSnackBarModule,
         FormsModule,
-        AmwTooltipDirective
+        AmwTooltipDirective,
+        AmwClickOutsideDirective,
+        AmwAutoFocusDirective,
+        AmwCopyToClipboardDirective
     ],
     encapsulation: ViewEncapsulation.None,
     template: `
@@ -52,18 +58,12 @@ import { AmwTooltipDirective } from '../../../../library/src/directives/amw-tool
                                             
                                             <div class="demo-box" 
                                                  (click)="onBoxClick()" 
+                                                 (amwClickOutside)="onOutsideClick()"
                                                  [class.clicked]="boxClicked"
                                                  style="padding: 20px; border: 2px dashed #ccc; margin: 20px 0; cursor: pointer; text-align: center;">
                                                 <h4>Click inside this box</h4>
                                                 <p>Then click outside to see the directive in action</p>
                                                 <p *ngIf="boxClicked" class="click-indicator">Box was clicked!</p>
-                                            </div>
-                                            
-                                            <div class="demo-box" 
-                                                 (click)="onOutsideClick()" 
-                                                 style="padding: 20px; border: 2px solid #4caf50; margin: 20px 0; cursor: pointer; text-align: center;">
-                                                <h4>Click Outside Area</h4>
-                                                <p>This will trigger the click outside event</p>
                                             </div>
                                         </div>
 
@@ -75,13 +75,13 @@ import { AmwTooltipDirective } from '../../../../library/src/directives/amw-tool
                                                 <h4>Input with Auto Focus</h4>
                                                 <mat-form-field appearance="outline">
                                                     <mat-label>This input will auto-focus</mat-label>
-                                                    <input matInput placeholder="Type something here">
+                                                    <input matInput placeholder="Type something here" [amwAutoFocus]="true">
                                                 </mat-form-field>
                                             </div>
                                             
                                             <div class="demo-section">
                                                 <h4>Button with Auto Focus</h4>
-                                                <button mat-raised-button color="primary">
+                                                <button mat-raised-button color="primary" [amwAutoFocus]="true">
                                                     This button will auto-focus
                                                 </button>
                                             </div>
@@ -97,7 +97,9 @@ import { AmwTooltipDirective } from '../../../../library/src/directives/amw-tool
                                                     <mat-label>Text to copy</mat-label>
                                                     <input matInput [(ngModel)]="copyText" placeholder="Enter text to copy">
                                                 </mat-form-field>
-                                                <button mat-raised-button color="primary" (click)="copyToClipboard()">
+                                                <button mat-raised-button color="primary" 
+                                                        amwCopyToClipboard
+                                                        [amwCopyToClipboard]="copyText">
                                                     <mat-icon>content_copy</mat-icon>
                                                     Copy to Clipboard
                                                 </button>
@@ -107,7 +109,10 @@ import { AmwTooltipDirective } from '../../../../library/src/directives/amw-tool
                                                 <h4>Copy Code Block</h4>
                                                 <div class="code-block">
                                                     <pre>{{ codeExample }}</pre>
-                                                    <button mat-icon-button (click)="copyCode()" title="Copy code">
+                                                    <button mat-icon-button 
+                                                            amwCopyToClipboard
+                                                            [amwCopyToClipboard]="codeExample"
+                                                            title="Copy code">
                                                         <mat-icon>content_copy</mat-icon>
                                                     </button>
                                                 </div>

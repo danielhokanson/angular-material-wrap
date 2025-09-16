@@ -2,19 +2,72 @@
   <h1>Pipes Demo</h1>
   <p>Interactive demonstration of data transformation pipes.</p>
 
-  <div class="coming-soon">
-    <h3>Pipes Coming Soon</h3>
-    <p>Data transformation pipes will be demonstrated here:</p>
-    <ul>
-      <li>AMW Date Pipe - Advanced date formatting</li>
-      <li>AMW Currency Pipe - Currency formatting with locales</li>
-      <li>AMW Number Pipe - Number formatting and precision</li>
-      <li>AMW Text Pipe - Text truncation and formatting</li>
-      <li>AMW Array Pipe - Array filtering and sorting</li>
-      <li>AMW Object Pipe - Object property extraction</li>
-      <li>AMW Safe Pipe - Safe HTML rendering</li>
-      <li>AMW Highlight Pipe - Text highlighting</li>
-      <li>And many more...</li>
-    </ul>
+  <div class="demo-section">
+    <h3>Currency Pipe</h3>
+    <p>Format numbers as currency with different locales and display options.</p>
+    <div class="pipe-examples">
+      <div class="example">
+        <strong>Basic:</strong> {{ 1234.56 | amwCurrency }}
+      </div>
+      <div class="example">
+        <strong>EUR:</strong> {{ 1234.56 | amwCurrency:'EUR' }}
+      </div>
+      <div class="example">
+        <strong>JPY:</strong> {{ 1234.56 | amwCurrency:'JPY' }}
+      </div>
+      <div class="example">
+        <strong>Custom digits:</strong> {{ 1234.56 | amwCurrency:'USD':'symbol':'1.0-0' }}
+      </div>
+    </div>
+  </div>
+
+  <div class="demo-section">
+    <h3>Date Pipe</h3>
+    <p>Format dates with various display options and locales.</p>
+    <div class="pipe-examples">
+      <div class="example">
+        <strong>Short:</strong> {{ currentDate | amwDate:'short' }}
+      </div>
+      <div class="example">
+        <strong>Medium:</strong> {{ currentDate | amwDate:'medium' }}
+      </div>
+      <div class="example">
+        <strong>Long:</strong> {{ currentDate | amwDate:'long' }}
+      </div>
+      <div class="example">
+        <strong>Date only:</strong> {{ currentDate | amwDate:'date' }}
+      </div>
+      <div class="example">
+        <strong>Time only:</strong> {{ currentDate | amwDate:'time' }}
+      </div>
+    </div>
+  </div>
+
+  <div class="demo-section">
+    <h3>Text Transform Pipe</h3>
+    <p>Transform text with various case and format options.</p>
+    <div class="pipe-examples">
+      <div class="example">
+        <strong>Uppercase:</strong> {{ textValue | amwTextTransform:'uppercase' }}
+      </div>
+      <div class="example">
+        <strong>Lowercase:</strong> {{ textValue | amwTextTransform:'lowercase' }}
+      </div>
+      <div class="example">
+        <strong>Capitalize:</strong> {{ textValue | amwTextTransform:'capitalize' }}
+      </div>
+      <div class="example">
+        <strong>Title Case:</strong> {{ textValue | amwTextTransform:'titlecase' }}
+      </div>
+      <div class="example">
+        <strong>Camel Case:</strong> {{ textValue | amwTextTransform:'camelcase' }}
+      </div>
+      <div class="example">
+        <strong>Kebab Case:</strong> {{ textValue | amwTextTransform:'kebabcase' }}
+      </div>
+      <div class="example">
+        <strong>Snake Case:</strong> {{ textValue | amwTextTransform:'snakecase' }}
+      </div>
+    </div>
   </div>
 </div>

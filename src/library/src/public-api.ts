@@ -19,6 +19,12 @@ export * from './components/interfaces';
 // Directives exports
 export * from './directives';
 
+// Pipes exports
+export * from './pipes';
+
+// Services exports
+export * from './services';
+
 // Pages exports
 // export * from './pages/components';
 // export * from './pages/directives';
