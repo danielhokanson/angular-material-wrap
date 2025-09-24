@@ -39,18 +39,16 @@
 
   // Popover Container
   &__popover {
-    background: var(--mat-sys-surface, #ffffff) !important;
-    background-color: var(--mat-sys-surface, #ffffff) !important;
-    border-radius: 12px !important;
-    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15), 0 2px 4px rgba(0, 0, 0, 0.1) !important;
-    overflow: hidden !important;
+    background: transparent !important;
+    border: none !important;
+    box-shadow: none !important;
+    overflow: visible !important;
     max-width: 100% !important;
     max-height: 100% !important;
     position: relative !important;
     z-index: 1000 !important;
     pointer-events: auto !important; // Override CDK overlay's pointer-events: none
     padding: 0 !important; // Remove default padding, let content handle it
-    border: 1px solid var(--mat-sys-outline-variant, #e0e0e0) !important;
     min-width: 200px !important;
     font-family: 'Roboto', 'Helvetica Neue', sans-serif !important;
     font-size: 14px !important;
@@ -76,83 +74,6 @@
       max-width: 400px;
     }
 
-    &--with-arrow {
-      &::before {
-        content: '';
-        position: absolute;
-        width: 0;
-        height: 0;
-        border-style: solid;
-      }
-
-      &.amw-popover--top::before {
-        bottom: -8px;
-        left: 50%;
-        transform: translateX(-50%);
-        border-left: 8px solid transparent;
-        border-right: 8px solid transparent;
-        border-top: 8px solid var(--mat-sys-surface);
-      }
-
-      &.amw-popover--bottom::before {
-        top: -8px;
-        left: 50%;
-        transform: translateX(-50%);
-        border-left: 8px solid transparent;
-        border-right: 8px solid transparent;
-        border-bottom: 8px solid var(--mat-sys-surface);
-      }
-
-      &.amw-popover--left::before {
-        right: -8px;
-        top: 50%;
-        transform: translateY(-50%);
-        border-top: 8px solid transparent;
-        border-bottom: 8px solid transparent;
-        border-left: 8px solid var(--mat-sys-surface);
-      }
-
-      &.amw-popover--right::before {
-        left: -8px;
-        top: 50%;
-        transform: translateY(-50%);
-        border-top: 8px solid transparent;
-        border-bottom: 8px solid transparent;
-        border-right: 8px solid var(--mat-sys-surface);
-      }
-
-      &.amw-popover--top-left::before {
-        bottom: -8px;
-        left: 16px;
-        border-left: 8px solid transparent;
-        border-right: 8px solid transparent;
-        border-top: 8px solid var(--mat-sys-surface);
-      }
-
-      &.amw-popover--top-right::before {
-        bottom: -8px;
-        right: 16px;
-        border-left: 8px solid transparent;
-        border-right: 8px solid transparent;
-        border-top: 8px solid var(--mat-sys-surface);
-      }
-
-      &.amw-popover--bottom-left::before {
-        top: -8px;
-        left: 16px;
-        border-left: 8px solid transparent;
-        border-right: 8px solid transparent;
-        border-bottom: 8px solid var(--mat-sys-surface);
-      }
-
-      &.amw-popover--bottom-right::before {
-        top: -8px;
-        right: 16px;
-        border-left: 8px solid transparent;
-        border-right: 8px solid transparent;
-        border-bottom: 8px solid var(--mat-sys-surface);
-      }
-    }
 
     &--with-header {
       .amw-popover__content {
@@ -194,59 +115,68 @@
     }
   }
 
-  // Arrow
+  // Speech Bubble Content Container
+  &__bubble-content {
+    background: var(--mat-sys-surface, #ffffff) !important;
+    border: 1px solid var(--mat-sys-outline-variant, #e0e0e0) !important;
+    border-radius: 16px !important;
+    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.12), 0 4px 8px rgba(0, 0, 0, 0.08) !important;
+    overflow: visible !important;
+    position: relative !important;
+  }
+
+  // Arrow elements
   &__arrow {
-    position: absolute;
-    width: 0;
-    height: 0;
-    border-style: solid;
+    position: absolute !important;
+    width: 0 !important;
+    height: 0 !important;
+    border-style: solid !important;
+    z-index: 1;
+    background: transparent !important;
+    background-color: transparent !important;
+    padding: 0 !important;
+    margin: 0 !important;
+    content: none !important;
+    display: block !important;
+    box-sizing: border-box !important;
+    outline: none !important;
+    border-image: none !important;
+    box-shadow: none !important;
 
-    &--small {
-      border-width: 6px;
-    }
-
-    &--medium {
-      border-width: 8px;
-    }
-
-    &--large {
-      border-width: 12px;
-    }
-
-    &--top {
-      bottom: -8px;
+    // Arrow pointing up (when popover is below trigger)
+    &--up {
+      top: -12px;
       left: 50%;
       transform: translateX(-50%);
-      border-left-color: transparent;
-      border-right-color: transparent;
-      border-top-color: var(--mat-sys-surface);
+      border-width: 0 12px 12px 12px !important;
+      border-color: transparent transparent var(--mat-sys-surface, #ffffff) transparent !important;
     }
 
-    &--bottom {
-      top: -8px;
+    // Arrow pointing down (when popover is above trigger)
+    &--down {
+      bottom: -12px;
       left: 50%;
       transform: translateX(-50%);
-      border-left-color: transparent;
-      border-right-color: transparent;
-      border-bottom-color: var(--mat-sys-surface);
+      border-width: 12px 12px 0 12px !important;
+      border-color: var(--mat-sys-surface, #ffffff) transparent transparent transparent !important;
     }
 
+    // Arrow pointing left (when popover is to the right of trigger)
     &--left {
-      right: -8px;
+      left: -12px;
       top: 50%;
       transform: translateY(-50%);
-      border-top-color: transparent;
-      border-bottom-color: transparent;
-      border-left-color: var(--mat-sys-surface);
+      border-width: 12px 12px 12px 0 !important;
+      border-color: transparent var(--mat-sys-surface, #ffffff) transparent transparent !important;
     }
 
+    // Arrow pointing right (when popover is to the left of trigger)
     &--right {
-      left: -8px;
+      right: -12px;
       top: 50%;
       transform: translateY(-50%);
-      border-top-color: transparent;
-      border-bottom-color: transparent;
-      border-right-color: var(--mat-sys-surface);
+      border-width: 12px 0 12px 12px !important;
+      border-color: transparent transparent transparent var(--mat-sys-surface, #ffffff) !important;
     }
   }
 
@@ -287,28 +217,41 @@
   }
 
   &__close {
-    color: var(--mat-sys-on-surface-variant);
-    transition: color 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+    position: absolute !important;
+    top: 8px !important;
+    right: 8px !important;
+    z-index: 10 !important;
+    color: var(--mat-sys-on-surface-variant) !important;
+    transition: color 0.2s cubic-bezier(0.4, 0, 0.2, 1) !important;
+    background: transparent !important;
+    border: none !important;
+    padding: 4px !important;
+    min-width: 32px !important;
+    min-height: 32px !important;
+    display: flex !important;
+    align-items: center !important;
+    justify-content: center !important;
 
     &:hover {
-      color: var(--mat-sys-on-surface);
+      color: var(--mat-sys-on-surface) !important;
+      background: var(--mat-sys-surface-variant) !important;
+      border-radius: 50% !important;
     }
 
     &:focus {
-      outline: 2px solid var(--mat-sys-primary);
-      outline-offset: 2px;
+      outline: 2px solid var(--mat-sys-primary) !important;
+      outline-offset: 2px !important;
     }
   }
 
   // Content
   &__content {
-    padding: 20px !important;
+    padding: 16px 20px !important;
     max-height: 300px !important;
     overflow-y: auto !important;
     color: var(--mat-sys-on-surface) !important;
     line-height: 1.6 !important;
-    background: var(--mat-sys-surface, #ffffff) !important;
-    background-color: var(--mat-sys-surface, #ffffff) !important;
+    background: transparent !important;
     display: block !important;
     font-size: 14px !important;
 
@@ -332,8 +275,7 @@
 
   &__default-content {
     display: block !important;
-    background: var(--mat-sys-surface, #ffffff) !important;
-    background-color: var(--mat-sys-surface, #ffffff) !important;
+    background: transparent !important;
     
     p {
       margin: 0 0 16px 0 !important;

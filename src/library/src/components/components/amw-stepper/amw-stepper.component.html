@@ -1,0 +1,138 @@
+<div class="amw-stepper" 
+     [class.amw-stepper--vertical]="currentConfig.orientation === 'vertical'"
+     [class.amw-stepper--horizontal]="currentConfig.orientation === 'horizontal'"
+     [class.amw-stepper--linear]="currentConfig.linear"
+     [class.amw-stepper--disabled]="disabled"
+     [attr.data-current-step]="currentStep"
+     [attr.data-total-steps]="steps.length">
+
+  <!-- Stepper Header -->
+  <div class="amw-stepper__header" *ngIf="currentConfig.showLabels || currentConfig.showIcons">
+    <div class="amw-stepper__progress" 
+         [style.width.%]="getProgress()"
+         [attr.data-progress]="getProgress()">
+    </div>
+    
+    <div class="amw-stepper__steps">
+      <div *ngFor="let step of steps; let i = index" 
+           class="amw-stepper__step"
+           [class.amw-stepper__step--active]="isStepActive(i)"
+           [class.amw-stepper__step--completed]="isStepCompleted(i)"
+           [class.amw-stepper__step--disabled]="step.isDisabled"
+           [class.amw-stepper__step--optional]="step.isOptional"
+           [class.amw-stepper__step--accessible]="isStepAccessible(i)"
+           [attr.data-step-index]="i"
+           (click)="goToStep(i)">
+        
+        <!-- Step Icon -->
+        <div class="amw-stepper__step-icon" *ngIf="currentConfig.showIcons">
+          <mat-icon *ngIf="step.icon && !isStepCompleted(i)">{{ step.icon }}</mat-icon>
+          <mat-icon *ngIf="isStepCompleted(i)">check</mat-icon>
+          <span *ngIf="!step.icon && !isStepCompleted(i)" class="amw-stepper__step-number">{{ i + 1 }}</span>
+        </div>
+
+        <!-- Step Content -->
+        <div class="amw-stepper__step-content">
+          <div class="amw-stepper__step-label" *ngIf="currentConfig.showLabels">
+            {{ step.label }}
+            <span *ngIf="step.isOptional" class="amw-stepper__step-optional">(Optional)</span>
+          </div>
+          <div class="amw-stepper__step-description" *ngIf="currentConfig.showDescriptions && step.description">
+            {{ step.description }}
+          </div>
+        </div>
+
+        <!-- Step Status Indicator -->
+        <div class="amw-stepper__step-status">
+          <mat-icon *ngIf="isStepCompleted(i)" class="amw-stepper__step-check">check</mat-icon>
+          <mat-icon *ngIf="step.isValid === false" class="amw-stepper__step-error">error</mat-icon>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Stepper Content -->
+  <div class="amw-stepper__content">
+    <div class="amw-stepper__step-panel" 
+         *ngFor="let step of steps; let i = index"
+         [class.amw-stepper__step-panel--active]="isStepActive(i)"
+         [class.amw-stepper__step-panel--completed]="isStepCompleted(i)"
+         [attr.data-step-index]="i">
+      
+      <!-- Step Content -->
+      <div class="amw-stepper__step-body" *ngIf="isStepActive(i)">
+        <div class="amw-stepper__step-title">
+          <h3>{{ step.label }}</h3>
+          <p *ngIf="step.description">{{ step.description }}</p>
+        </div>
+        
+        <div class="amw-stepper__step-main">
+          <ng-content [ngSwitch]="i">
+            <ng-container *ngFor="let stepContent of steps; let j = index">
+              <ng-container *ngSwitchCase="j" [ngTemplateOutlet]="stepContent.content || null">
+              </ng-container>
+            </ng-container>
+          </ng-content>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Stepper Navigation -->
+  <div class="amw-stepper__navigation" *ngIf="currentConfig.showNavigation && !isCompleting">
+    <div class="amw-stepper__nav-buttons">
+      <!-- Previous Button -->
+      <button mat-button 
+              class="amw-stepper__nav-button amw-stepper__nav-button--previous"
+              [disabled]="!canGoBack() || disabled"
+              (click)="previousStep()">
+        <mat-icon>arrow_back</mat-icon>
+        Previous
+      </button>
+
+      <!-- Next Button -->
+      <button mat-button 
+              class="amw-stepper__nav-button amw-stepper__nav-button--next"
+              [disabled]="!canGoNext() || disabled"
+              (click)="nextStep()">
+        Next
+        <mat-icon>arrow_forward</mat-icon>
+      </button>
+
+      <!-- Complete Button -->
+      <button mat-raised-button 
+              color="primary"
+              class="amw-stepper__nav-button amw-stepper__nav-button--complete"
+              [disabled]="!canComplete() || disabled"
+              (click)="completeStepper()"
+              *ngIf="currentConfig.showCompletion && currentStep === steps.length - 1">
+        <mat-icon>check</mat-icon>
+        Complete
+      </button>
+    </div>
+
+    <!-- Stepper Progress -->
+    <div class="amw-stepper__progress-info">
+      <span class="amw-stepper__progress-text">
+        Step {{ currentStep + 1 }} of {{ steps.length }}
+      </span>
+      <div class="amw-stepper__progress-bar">
+        <div class="amw-stepper__progress-fill" 
+             [style.width.%]="getProgress()">
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Stepper Completion -->
+  <div class="amw-stepper__completion" *ngIf="isCompleting">
+    <div class="amw-stepper__completion-content">
+      <mat-icon class="amw-stepper__completion-icon">check_circle</mat-icon>
+      <h3>Stepper Completed!</h3>
+      <p>All steps have been completed successfully.</p>
+      <button mat-button (click)="resetStepper()">
+        Start Over
+      </button>
+    </div>
+  </div>
+</div>

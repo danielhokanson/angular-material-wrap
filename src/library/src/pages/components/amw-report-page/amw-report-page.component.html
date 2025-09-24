@@ -1,0 +1,226 @@
+<div class="amw-report-page" [ngClass]="currentConfig.customClasses" [ngStyle]="currentConfig.customStyles">
+  <!-- Header -->
+  <div class="amw-report-page__header">
+    <div class="amw-report-page__header-content">
+      <div class="amw-report-page__header-text">
+        <h1 class="amw-report-page__title">{{ currentConfig.title }}</h1>
+        <p class="amw-report-page__subtitle" *ngIf="currentConfig.subtitle">{{ currentConfig.subtitle }}</p>
+      </div>
+      
+      <div class="amw-report-page__header-actions">
+        <button mat-icon-button (click)="onRefresh()" matTooltip="Refresh" *ngIf="currentConfig.showRefresh">
+          <mat-icon>refresh</mat-icon>
+        </button>
+        <button mat-icon-button (click)="onToggleFullscreen()" matTooltip="Toggle Fullscreen" *ngIf="currentConfig.showFullscreen">
+          <mat-icon>{{ isFullscreen ? 'fullscreen_exit' : 'fullscreen' }}</mat-icon>
+        </button>
+        <button mat-icon-button [matMenuTriggerFor]="exportMenu" matTooltip="Export">
+          <mat-icon>download</mat-icon>
+        </button>
+        <mat-menu #exportMenu="matMenu">
+          <button mat-menu-item (click)="onExport('pdf')">
+            <mat-icon>picture_as_pdf</mat-icon>
+            Export as PDF
+          </button>
+          <button mat-menu-item (click)="onExport('excel')">
+            <mat-icon>table_chart</mat-icon>
+            Export as Excel
+          </button>
+          <button mat-menu-item (click)="onExport('csv')">
+            <mat-icon>text_snippet</mat-icon>
+            Export as CSV
+          </button>
+        </mat-menu>
+      </div>
+    </div>
+  </div>
+
+  <!-- Date Range and Filters -->
+  <div class="amw-report-page__controls">
+    <mat-expansion-panel>
+      <mat-expansion-panel-header>
+        <mat-panel-title>
+          <mat-icon>tune</mat-icon>
+          Filters & Date Range
+        </mat-panel-title>
+      </mat-expansion-panel-header>
+      
+      <div class="amw-report-page__controls-content">
+        <!-- Date Range -->
+        <div class="amw-report-page__date-range">
+          <mat-form-field appearance="outline">
+            <mat-label>Date Range</mat-label>
+            <mat-select [(ngModel)]="currentData.dateRange.preset" (selectionChange)="onDateRangeChange()">
+              <mat-option value="last7days">Last 7 days</mat-option>
+              <mat-option value="last30days">Last 30 days</mat-option>
+              <mat-option value="last90days">Last 90 days</mat-option>
+              <mat-option value="custom">Custom range</mat-option>
+            </mat-select>
+          </mat-form-field>
+          
+          <mat-form-field appearance="outline" *ngIf="currentData.dateRange.preset === 'custom'">
+            <mat-label>Start Date</mat-label>
+            <input matInput 
+                   type="date"
+                   [(ngModel)]="currentData.dateRange.start"
+                   (ngModelChange)="onDateRangeChange()">
+          </mat-form-field>
+          
+          <mat-form-field appearance="outline" *ngIf="currentData.dateRange.preset === 'custom'">
+            <mat-label>End Date</mat-label>
+            <input matInput 
+                   type="date"
+                   [(ngModel)]="currentData.dateRange.end"
+                   (ngModelChange)="onDateRangeChange()">
+          </mat-form-field>
+        </div>
+
+        <!-- Filters -->
+        <div class="amw-report-page__filters" *ngIf="currentConfig.filters && currentConfig.filters.length > 0">
+          <div class="amw-report-page__filters-grid">
+            <div *ngFor="let filter of currentConfig.filters" 
+                 class="amw-report-page__filter-field"
+                 [style.display]="filter.visible !== false ? 'block' : 'none'">
+              
+              <mat-form-field appearance="outline" *ngIf="filter.type === 'text'">
+                <mat-label>{{ filter.label }}</mat-label>
+                <input matInput 
+                       [(ngModel)]="currentData.filters[filter.key]"
+                       (ngModelChange)="onFilterChange(filter.key, $event)"
+                       [placeholder]="filter.placeholder || ''">
+              </mat-form-field>
+              
+              <mat-form-field appearance="outline" *ngIf="filter.type === 'select'">
+                <mat-label>{{ filter.label }}</mat-label>
+                <mat-select [(ngModel)]="currentData.filters[filter.key]" (selectionChange)="onFilterChange(filter.key, $event.value || $event.checked)">
+                  <mat-option value="">All</mat-option>
+                  <mat-option *ngFor="let option of filter.options" [value]="option.value">
+                    {{ option.label }}
+                  </mat-option>
+                </mat-select>
+              </mat-form-field>
+              
+              <div class="amw-report-page__boolean-filter" *ngIf="filter.type === 'boolean'">
+                <mat-slide-toggle [(ngModel)]="currentData.filters[filter.key]"
+                                  (change)="onFilterChange(filter.key, $event.checked)">
+                  {{ filter.label }}
+                </mat-slide-toggle>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </mat-expansion-panel>
+  </div>
+
+  <!-- Loading State -->
+  <div class="amw-report-page__loading" *ngIf="loading">
+    <mat-spinner diameter="40"></mat-spinner>
+    <p>Loading report data...</p>
+  </div>
+
+  <!-- Error State -->
+  <div class="amw-report-page__error" *ngIf="error && !loading">
+    <mat-icon>error</mat-icon>
+    <p>{{ error }}</p>
+    <button mat-raised-button color="primary" (click)="onRefresh()">Retry</button>
+  </div>
+
+  <!-- Report Content -->
+  <div *ngIf="!loading && !error" class="amw-report-page__content">
+    <!-- Widgets Grid -->
+    <div class="amw-report-page__widgets-grid">
+      <div *ngFor="let widget of currentData.widgets" 
+           class="amw-report-page__widget"
+           [class]="getWidgetSizeClass(widget.size)"
+           [style]="getWidgetGridStyle(widget)"
+           [style.display]="isWidgetVisible(widget) ? 'block' : 'none'">
+        
+        <mat-card class="amw-report-page__widget-card">
+          <mat-card-header>
+            <mat-card-title>
+              <mat-icon *ngIf="widget.type === 'chart'">bar_chart</mat-icon>
+              <mat-icon *ngIf="widget.type === 'table'">table_chart</mat-icon>
+              <mat-icon *ngIf="widget.type === 'metric'">analytics</mat-icon>
+              <mat-icon *ngIf="widget.type === 'progress'">trending_up</mat-icon>
+              {{ widget.title }}
+            </mat-card-title>
+            <div class="amw-report-page__widget-actions">
+              <button mat-icon-button (click)="onRefreshWidget(widget)" matTooltip="Refresh">
+                <mat-icon>refresh</mat-icon>
+              </button>
+            </div>
+          </mat-card-header>
+          
+          <mat-card-content (click)="onWidgetClick(widget)">
+            <!-- Chart Widget -->
+            <div *ngIf="widget.type === 'chart'" class="amw-report-page__chart-widget">
+              <div class="amw-report-page__chart-placeholder">
+                <mat-icon>bar_chart</mat-icon>
+                <p>Chart visualization would be rendered here</p>
+                <p>Data: {{ widget.data | json }}</p>
+              </div>
+            </div>
+
+            <!-- Table Widget -->
+            <div *ngIf="widget.type === 'table'" class="amw-report-page__table-widget">
+              <table mat-table [dataSource]="widget.data.rows" class="amw-report-page__table">
+                <ng-container *ngFor="let column of widget.data.columns" [matColumnDef]="column.key">
+                  <th mat-header-cell *matHeaderCellDef>{{ column.title }}</th>
+                  <td mat-cell *matCellDef="let row">{{ row[column.key] }}</td>
+                </ng-container>
+                <tr mat-header-row *matHeaderRowDef="getColumnKeys(widget.data.columns)"></tr>
+                <tr mat-row *matRowDef="let row; columns: getColumnKeys(widget.data.columns)"></tr>
+              </table>
+            </div>
+
+            <!-- Metric Widget -->
+            <div *ngIf="widget.type === 'metric'" class="amw-report-page__metric-widget">
+              <div class="amw-report-page__metric-value">{{ widget.data.value }}</div>
+              <div class="amw-report-page__metric-label">{{ widget.data.label }}</div>
+              <div class="amw-report-page__metric-change" *ngIf="widget.data.change">
+                <mat-icon [class.amw-report-page__metric-change--positive]="widget.data.change > 0"
+                          [class.amw-report-page__metric-change--negative]="widget.data.change < 0">
+                  {{ widget.data.change > 0 ? 'trending_up' : 'trending_down' }}
+                </mat-icon>
+                {{ Math.abs(widget.data.change) }}%
+              </div>
+            </div>
+
+            <!-- Progress Widget -->
+            <div *ngIf="widget.type === 'progress'" class="amw-report-page__progress-widget">
+              <div class="amw-report-page__progress-label">{{ widget.data.label }}</div>
+              <mat-progress-bar
+                mode="determinate"
+                [value]="widget.data.value"
+                class="amw-report-page__progress-bar">
+              </mat-progress-bar>
+              <div class="amw-report-page__progress-value">{{ widget.data.value }}%</div>
+            </div>
+
+            <!-- Custom Widget -->
+            <div *ngIf="widget.type === 'custom'" class="amw-report-page__custom-widget">
+              <p>Custom widget content would be rendered here</p>
+              <p>Data: {{ widget.data | json }}</p>
+            </div>
+          </mat-card-content>
+        </mat-card>
+      </div>
+    </div>
+
+    <!-- Empty State -->
+    <div class="amw-report-page__empty" *ngIf="currentData.widgets.length === 0">
+      <mat-icon>assessment</mat-icon>
+      <p>No widgets configured</p>
+    </div>
+  </div>
+
+  <!-- Footer -->
+  <div class="amw-report-page__footer" *ngIf="!loading && !error">
+    <div class="amw-report-page__footer-content">
+      <span class="amw-report-page__last-updated">
+        Last updated: {{ currentData.lastUpdated | date:'medium' }}
+      </span>
+    </div>
+  </div>
+</div>

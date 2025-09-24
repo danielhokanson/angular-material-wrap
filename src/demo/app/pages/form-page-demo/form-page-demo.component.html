@@ -1,0 +1,112 @@
+<div class="form-page-demo">
+  <div class="form-page-demo__header">
+    <h1>Form/Create-Edit Page Demo</h1>
+    <p>This demo showcases the AMW Form Page component with comprehensive employee data entry, including validation, auto-save, and state management.</p>
+  </div>
+
+  <div class="form-page-demo__controls">
+    <mat-card class="form-page-demo__controls-card">
+      <mat-card-content>
+        <mat-tab-group [(selectedIndex)]="currentView" (selectedIndexChange)="onViewChange($event === 0 ? 'basic' : 'advanced')">
+          <mat-tab label="Basic View">
+            <div class="form-page-demo__tab-content">
+              <p>Basic form view with essential fields and validation.</p>
+            </div>
+          </mat-tab>
+          <mat-tab label="Advanced View">
+            <div class="form-page-demo__tab-content">
+              <p>Advanced form view with auto-save, preview, and additional features.</p>
+            </div>
+          </mat-tab>
+        </mat-tab-group>
+        
+        <mat-divider class="form-page-demo__divider"></mat-divider>
+        
+        <div class="form-page-demo__mode-controls">
+          <h4>Form Mode:</h4>
+          <div class="form-page-demo__mode-buttons">
+            <button mat-button 
+                    [color]="currentMode === 'create' ? 'primary' : 'basic'"
+                    (click)="onModeChange('create')">
+              <mat-icon>add</mat-icon>
+              Create
+            </button>
+            <button mat-button 
+                    [color]="currentMode === 'edit' ? 'primary' : 'basic'"
+                    (click)="onModeChange('edit')">
+              <mat-icon>edit</mat-icon>
+              Edit
+            </button>
+            <button mat-button 
+                    [color]="currentMode === 'view' ? 'primary' : 'basic'"
+                    (click)="onModeChange('view')">
+              <mat-icon>visibility</mat-icon>
+              View
+            </button>
+          </div>
+        </div>
+      </mat-card-content>
+    </mat-card>
+  </div>
+
+  <div class="form-page-demo__content">
+    <amw-form-page
+      [config]="formConfig"
+      [itemId]="currentItemId"
+      [dataSource]="dataSource"
+      [autoSave]="formConfig.autoSave"
+      (formSubmit)="onFormSubmit($event)"
+      (formCancel)="onFormCancel()"
+      (formChange)="onFormChange($event)"
+      (formSave)="onFormSave($event)"
+      (formDelete)="onFormDelete($event)"
+      (formReset)="onFormReset()">
+    </amw-form-page>
+  </div>
+
+  <div class="form-page-demo__info">
+    <mat-card class="form-page-demo__info-card">
+      <mat-card-header>
+        <mat-card-title>Demo Information</mat-card-title>
+      </mat-card-header>
+      <mat-card-content>
+        <div class="form-page-demo__info-content">
+          <div class="form-page-demo__info-section">
+            <h4>Features Demonstrated:</h4>
+            <ul>
+              <li>Multiple field types (text, email, select, date, chips, toggle, checkbox)</li>
+              <li>Real-time validation with custom validators</li>
+              <li>Auto-save functionality (in advanced view)</li>
+              <li>Dependent field visibility</li>
+              <li>Form state management and progress tracking</li>
+              <li>Custom component integration</li>
+              <li>Responsive design</li>
+            </ul>
+          </div>
+          
+          <div class="form-page-demo__info-section">
+            <h4>Form Sections:</h4>
+            <ul>
+              <li><strong>Personal Information:</strong> Basic contact details</li>
+              <li><strong>Professional Information:</strong> Work-related data</li>
+              <li><strong>Skills & Preferences:</strong> Technical skills and bio</li>
+              <li><strong>User Preferences:</strong> Notification settings</li>
+            </ul>
+          </div>
+
+          <div class="form-page-demo__info-section">
+            <h4>Validation Rules:</h4>
+            <ul>
+              <li>First/Last name: minimum 2 characters</li>
+              <li>Email: valid email format</li>
+              <li>Phone: valid phone number format</li>
+              <li>Salary: between $30,000 and $500,000</li>
+              <li>Required fields: marked with asterisk (*)</li>
+            </ul>
+          </div>
+        </div>
+      </mat-card-content>
+    </mat-card>
+  </div>
+</div>
+

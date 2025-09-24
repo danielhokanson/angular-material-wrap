@@ -1,0 +1,89 @@
+<div class="search-page-demo">
+  <div class="search-page-demo__header">
+    <h1>Search/Filter Page Demo</h1>
+    <p>This demo showcases the AMW Search Page component with product search, including advanced filtering, suggestions, and multiple view modes.</p>
+  </div>
+
+  <div class="search-page-demo__controls">
+    <mat-card class="search-page-demo__controls-card">
+      <mat-card-content>
+        <mat-tab-group [(selectedIndex)]="currentView" (selectedIndexChange)="onViewChange($event === 0 ? 'basic' : 'advanced')">
+          <mat-tab label="Basic View">
+            <div class="search-page-demo__tab-content">
+              <p>Basic search view with essential search and filtering capabilities.</p>
+            </div>
+          </mat-tab>
+          <mat-tab label="Advanced View">
+            <div class="search-page-demo__tab-content">
+              <p>Advanced search view with saved searches, search history, and multiple view modes.</p>
+            </div>
+          </mat-tab>
+        </mat-tab-group>
+      </mat-card-content>
+    </mat-card>
+  </div>
+
+  <div class="search-page-demo__content">
+    <amw-search-page
+      [config]="searchConfig"
+      [dataSource]="dataSource"
+      [realTimeSearch]="true"
+      [searchDebounceTime]="300"
+      (resultClick)="onResultClick($event)"
+      (searchChange)="onSearchChange($event)"
+      (filterChange)="onFilterChange($event)"
+      (savedSearchSelect)="onSavedSearchSelect($event)"
+      (exportClick)="onExportClick($event)">
+    </amw-search-page>
+  </div>
+
+  <div class="search-page-demo__info">
+    <mat-card class="search-page-demo__info-card">
+      <mat-card-header>
+        <mat-card-title>Demo Information</mat-card-title>
+      </mat-card-header>
+      <mat-card-content>
+        <div class="search-page-demo__info-content">
+          <div class="search-page-demo__info-section">
+            <h4>Features Demonstrated:</h4>
+            <ul>
+              <li>Real-time search with debounced input</li>
+              <li>Search suggestions and autocomplete</li>
+              <li>Quick filter chips</li>
+              <li>Advanced filter panel with multiple field types</li>
+              <li>Multiple view modes (list/grid/table)</li>
+              <li>Saved searches and search history</li>
+              <li>Export capabilities (PDF/Excel/CSV)</li>
+              <li>Faceted search with counts</li>
+            </ul>
+          </div>
+          
+          <div class="search-page-demo__info-section">
+            <h4>Search Data:</h4>
+            <p>The demo includes a product catalog with:</p>
+            <ul>
+              <li>Books, Courses, and Software products</li>
+              <li>Price ranges from $29.99 to $199.99</li>
+              <li>Ratings from 4.4 to 4.9 stars</li>
+              <li>Stock availability status</li>
+              <li>Tags for enhanced searchability</li>
+              <li>Author and publication date information</li>
+            </ul>
+          </div>
+
+          <div class="search-page-demo__info-section">
+            <h4>Search Features:</h4>
+            <ul>
+              <li><strong>Basic Search:</strong> Title, subtitle, description, tags, author</li>
+              <li><strong>Quick Filters:</strong> In stock, category, rating</li>
+              <li><strong>Advanced Filters:</strong> Price range, minimum rating, tags</li>
+              <li><strong>Sorting:</strong> Relevance, title, price, rating, date</li>
+              <li><strong>View Modes:</strong> List, grid, and table views</li>
+            </ul>
+          </div>
+        </div>
+      </mat-card-content>
+    </mat-card>
+  </div>
+</div>
+

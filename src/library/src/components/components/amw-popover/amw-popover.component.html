@@ -28,52 +28,59 @@
     [attr.role]="'dialog'" [attr.aria-hidden]="!opened" [attr.aria-labelledby]="headerTitle ? popoverId + '-title' : null"
     [attr.aria-describedby]="contentTemplate ? popoverId + '-content' : null">
 
-    <!-- Arrow -->
-    <div *ngIf="showArrow" class="amw-popover__arrow" [class.amw-popover__arrow--top]="position === 'top'"
-      [class.amw-popover__arrow--bottom]="position === 'bottom'" [class.amw-popover__arrow--left]="position === 'left'"
-      [class.amw-popover__arrow--right]="position === 'right'"
-      [class.amw-popover__arrow--top-left]="position === 'top-left'"
-      [class.amw-popover__arrow--top-right]="position === 'top-right'"
-      [class.amw-popover__arrow--bottom-left]="position === 'bottom-left'"
-      [class.amw-popover__arrow--bottom-right]="position === 'bottom-right'"
-      [class.amw-popover__arrow--small]="arrowSize === 'small'"
-      [class.amw-popover__arrow--medium]="arrowSize === 'medium'"
-      [class.amw-popover__arrow--large]="arrowSize === 'large'">
-    </div>
+    <!-- Speech Bubble Content Container -->
+    <div class="amw-popover__bubble-content" [attr.data-position]="position" [attr.data-show-arrow]="showArrow">
 
-    <!-- Header -->
-    <div *ngIf="showHeader" class="amw-popover__header">
-      <div class="amw-popover__header-content">
-        <div class="amw-popover__header-text">
-          <h3 *ngIf="headerTitle" class="amw-popover__header-title" [id]="popoverId + '-title'">{{ headerTitle }}</h3>
-          <p *ngIf="headerSubtitle" class="amw-popover__header-subtitle">{{ headerSubtitle }}</p>
+      <!-- Arrow pointing up (when popover is below trigger) -->
+      <div *ngIf="showArrow && (position === 'bottom' || position === 'bottom-left' || position === 'bottom-right')" 
+           class="amw-popover__arrow amw-popover__arrow--up"></div>
+
+      <!-- Arrow pointing down (when popover is above trigger) -->
+      <div *ngIf="showArrow && (position === 'top' || position === 'top-left' || position === 'top-right')" 
+           class="amw-popover__arrow amw-popover__arrow--down"></div>
+
+      <!-- Arrow pointing left (when popover is to the right of trigger) -->
+      <div *ngIf="showArrow && (position === 'right')" 
+           class="amw-popover__arrow amw-popover__arrow--left"></div>
+
+      <!-- Arrow pointing right (when popover is to the left of trigger) -->
+      <div *ngIf="showArrow && (position === 'left')" 
+           class="amw-popover__arrow amw-popover__arrow--right"></div>
+
+      <!-- Header -->
+      <div *ngIf="showHeader" class="amw-popover__header">
+        <div class="amw-popover__header-content">
+          <div class="amw-popover__header-text">
+            <h3 *ngIf="headerTitle" class="amw-popover__header-title" [id]="popoverId + '-title'">{{ headerTitle }}</h3>
+            <p *ngIf="headerSubtitle" class="amw-popover__header-subtitle">{{ headerSubtitle }}</p>
+          </div>
+          
+          <button *ngIf="showClose" mat-icon-button class="amw-popover__close" [attr.aria-label]="closeButtonText"
+            (click)="onCloseClick()">
+            <mat-icon>{{ closeButtonIcon }}</mat-icon>
+          </button>
         </div>
-        
-        <button *ngIf="showClose" mat-icon-button class="amw-popover__close" [attr.aria-label]="closeButtonText"
-          (click)="onCloseClick()">
-          <mat-icon>{{ closeButtonIcon }}</mat-icon>
-        </button>
       </div>
-    </div>
 
-    <!-- Content -->
-    <div class="amw-popover__content" [id]="popoverId + '-content'">
-      <!-- Custom Content Template -->
-      <ng-container *ngIf="contentTemplate; else defaultContent">
-        <ng-container [ngTemplateOutlet]="contentTemplate"></ng-container>
-      </ng-container>
+      <!-- Content -->
+      <div class="amw-popover__content" [id]="popoverId + '-content'">
+        <!-- Custom Content Template -->
+        <ng-container *ngIf="contentTemplate; else defaultContent">
+          <ng-container [ngTemplateOutlet]="contentTemplate"></ng-container>
+        </ng-container>
 
-      <!-- Default Content Template -->
-      <ng-template #defaultContent>
-        <div class="amw-popover__default-content">
-          <p>{{ content }}</p>
-        </div>
-      </ng-template>
-    </div>
+        <!-- Default Content Template -->
+        <ng-template #defaultContent>
+          <div class="amw-popover__default-content">
+            <p>{{ content }}</p>
+          </div>
+        </ng-template>
+      </div>
 
-    <!-- Footer -->
-    <div *ngIf="showFooter" class="amw-popover__footer">
-      <p class="amw-popover__footer-text">{{ footerText }}</p>
+      <!-- Footer -->
+      <div *ngIf="showFooter" class="amw-popover__footer">
+        <p class="amw-popover__footer-text">{{ footerText }}</p>
+      </div>
     </div>
   </div>
 </ng-template>

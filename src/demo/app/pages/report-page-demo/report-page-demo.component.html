@@ -1,0 +1,86 @@
+<div class="report-page-demo">
+  <div class="report-page-demo__header">
+    <h1>Report/Analytics Page Demo</h1>
+    <p>This demo showcases the AMW Report Page component with interactive widgets, data visualization, and comprehensive analytics.</p>
+  </div>
+
+  <div class="report-page-demo__controls">
+    <mat-card class="report-page-demo__controls-card">
+      <mat-card-content>
+        <mat-tab-group [(selectedIndex)]="currentView" (selectedIndexChange)="onViewChange($event === 0 ? 'basic' : 'advanced')">
+          <mat-tab label="Basic View">
+            <div class="report-page-demo__tab-content">
+              <p>Basic report view with essential widgets and metrics.</p>
+            </div>
+          </mat-tab>
+          <mat-tab label="Advanced View">
+            <div class="report-page-demo__tab-content">
+              <p>Advanced report view with fullscreen mode and additional analytics features.</p>
+            </div>
+          </mat-tab>
+        </mat-tab-group>
+      </mat-card-content>
+    </mat-card>
+  </div>
+
+  <div class="report-page-demo__content">
+    <amw-report-page
+      [config]="reportConfig"
+      [dataSource]="dataSource"
+      [autoRefresh]="false"
+      (widgetClick)="onWidgetClick($event)"
+      (filterChange)="onFilterChange($event)"
+      (dateRangeChange)="onDateRangeChange($event)"
+      (exportClick)="onExportClick($event)">
+    </amw-report-page>
+  </div>
+
+  <div class="report-page-demo__info">
+    <mat-card class="report-page-demo__info-card">
+      <mat-card-header>
+        <mat-card-title>Demo Information</mat-card-title>
+      </mat-card-header>
+      <mat-card-content>
+        <div class="report-page-demo__info-content">
+          <div class="report-page-demo__info-section">
+            <h4>Features Demonstrated:</h4>
+            <ul>
+              <li>Interactive widget grid with multiple sizes</li>
+              <li>Multiple widget types (metrics, charts, tables, KPIs)</li>
+              <li>Date range filtering with presets</li>
+              <li>Advanced filtering capabilities</li>
+              <li>Export to PDF/Excel/CSV</li>
+              <li>Fullscreen mode</li>
+              <li>Real-time data updates</li>
+              <li>Responsive design</li>
+            </ul>
+          </div>
+          
+          <div class="report-page-demo__info-section">
+            <h4>Widget Types:</h4>
+            <ul>
+              <li><strong>Metrics:</strong> Key performance indicators with trends</li>
+              <li><strong>Charts:</strong> Line and bar charts for data visualization</li>
+              <li><strong>Tables:</strong> Sortable data tables with pagination</li>
+              <li><strong>KPIs:</strong> Overall performance scores and summaries</li>
+              <li><strong>Custom:</strong> Placeholder for custom widget components</li>
+            </ul>
+          </div>
+
+          <div class="report-page-demo__info-section">
+            <h4>Sample Data:</h4>
+            <ul>
+              <li>Sales metrics and trends</li>
+              <li>Product performance data</li>
+              <li>Regional customer analysis</li>
+              <li>Monthly revenue and order data</li>
+              <li>Customer satisfaction scores</li>
+              <li>Conversion and bounce rates</li>
+            </ul>
+          </div>
+        </div>
+      </mat-card-content>
+    </mat-card>
+  </div>
+</div>
+

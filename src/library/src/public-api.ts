@@ -11,7 +11,7 @@ export { AmwChipsComponent } from './controls/components/amw-chips/amw-chips.com
 
 // Components exports
 export * from './components/components';
-export * from './components/interfaces';
+// export * from './components/interfaces';
 // export * from './components/directives';
 // export * from './components/services';
 // export * from './components/pipes';
@@ -26,7 +26,7 @@ export * from './pipes';
 export * from './services';
 
 // Pages exports
-// export * from './pages/components';
+export * from './pages/components';
 // export * from './pages/directives';
 // export * from './pages/interfaces';
 // export * from './pages/services';

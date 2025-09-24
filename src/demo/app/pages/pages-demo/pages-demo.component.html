@@ -2,19 +2,117 @@
   <h1>Pages Demo</h1>
   <p>Interactive demonstration of complete page layouts and combinations.</p>
 
-  <div class="coming-soon">
-    <h3>Pages Coming Soon</h3>
-    <p>Complete page layouts will be demonstrated here:</p>
-    <ul>
-      <li>AMW Layout - Main application layout with sidebar, header</li>
-      <li>AMW Dashboard - Dashboard page with widgets, charts</li>
-      <li>AMW Login - Login page with form, validation</li>
-      <li>AMW Profile - User profile page with settings</li>
-      <li>AMW Settings - Application settings page</li>
-      <li>AMW Error - Error pages (404, 500, etc.)</li>
-      <li>AMW Landing - Marketing landing page</li>
-      <li>AMW Admin - Admin panel layout</li>
-      <li>And many more...</li>
-    </ul>
+  <div class="pages-grid">
+    <mat-card class="page-card" routerLink="/pages/dashboard">
+      <mat-card-header>
+        <mat-card-title>Dashboard Page</mat-card-title>
+        <mat-card-subtitle>Overview with metrics and quick actions</mat-card-subtitle>
+      </mat-card-header>
+      <mat-card-content>
+        <p>Comprehensive dashboard with KPIs, charts, and interactive widgets.</p>
+      </mat-card-content>
+    </mat-card>
+
+    <mat-card class="page-card" routerLink="/pages/profile">
+      <mat-card-header>
+        <mat-card-title>Profile Page</mat-card-title>
+        <mat-card-subtitle>User profile and settings</mat-card-subtitle>
+      </mat-card-header>
+      <mat-card-content>
+        <p>User profile management with personal information and preferences.</p>
+      </mat-card-content>
+    </mat-card>
+
+    <mat-card class="page-card" routerLink="/pages/settings">
+      <mat-card-header>
+        <mat-card-title>Settings Page</mat-card-title>
+        <mat-card-subtitle>Application configuration</mat-card-subtitle>
+      </mat-card-header>
+      <mat-card-content>
+        <p>Application settings and configuration options.</p>
+      </mat-card-content>
+    </mat-card>
+
+    <mat-card class="page-card" routerLink="/pages/list">
+      <mat-card-header>
+        <mat-card-title>List/Table Page</mat-card-title>
+        <mat-card-subtitle>Data browsing and management</mat-card-subtitle>
+      </mat-card-header>
+      <mat-card-content>
+        <p>Advanced list view with filtering, sorting, pagination, and bulk operations.</p>
+      </mat-card-content>
+    </mat-card>
+
+    <mat-card class="page-card" routerLink="/pages/detail">
+      <mat-card-header>
+        <mat-card-title>Detail/View Page</mat-card-title>
+        <mat-card-subtitle>Single record display</mat-card-subtitle>
+      </mat-card-header>
+      <mat-card-content>
+        <p>Comprehensive detail view with related data and actions.</p>
+      </mat-card-content>
+    </mat-card>
+
+    <mat-card class="page-card" routerLink="/pages/form">
+      <mat-card-header>
+        <mat-card-title>Form/Create-Edit Page</mat-card-title>
+        <mat-card-subtitle>Data entry and validation</mat-card-subtitle>
+      </mat-card-header>
+      <mat-card-content>
+        <p>Advanced form with validation, auto-save, and state management.</p>
+      </mat-card-content>
+    </mat-card>
+
+    <mat-card class="page-card" routerLink="/pages/search">
+      <mat-card-header>
+        <mat-card-title>Search/Filter Page</mat-card-title>
+        <mat-card-subtitle>Advanced search capabilities</mat-card-subtitle>
+      </mat-card-header>
+      <mat-card-content>
+        <p>Comprehensive search with filters, suggestions, and multiple view modes.</p>
+      </mat-card-content>
+    </mat-card>
+
+    <mat-card class="page-card" routerLink="/pages/workflow">
+      <mat-card-header>
+        <mat-card-title>Workflow/Process Page</mat-card-title>
+        <mat-card-subtitle>Multi-step operations</mat-card-subtitle>
+      </mat-card-header>
+      <mat-card-content>
+        <p>Step-by-step workflow with validation and progress tracking.</p>
+      </mat-card-content>
+    </mat-card>
+
+    <mat-card class="page-card" routerLink="/pages/report">
+      <mat-card-header>
+        <mat-card-title>Report/Analytics Page</mat-card-title>
+        <mat-card-subtitle>Data visualization and reporting</mat-card-subtitle>
+      </mat-card-header>
+      <mat-card-content>
+        <p>Interactive analytics dashboard with widgets and export capabilities.</p>
+      </mat-card-content>
+    </mat-card>
+  </div>
+
+  <div class="pages-info">
+    <mat-card>
+      <mat-card-header>
+        <mat-card-title>Page Stereotypes</mat-card-title>
+        <mat-card-subtitle>Common patterns for transactional applications</mat-card-subtitle>
+      </mat-card-header>
+      <mat-card-content>
+        <p>These page components represent the 7 most common page stereotypes that cover approximately 80% of functionality in transactional/functional applications:</p>
+        <ul>
+          <li><strong>List/Table:</strong> Browse hundreds/thousands of records with filtering and sorting</li>
+          <li><strong>Detail/View:</strong> Display single records with related data and actions</li>
+          <li><strong>Form/Create-Edit:</strong> Data entry with validation and state management</li>
+          <li><strong>Search/Filter:</strong> Advanced search with complex filtering capabilities</li>
+          <li><strong>Dashboard/Overview:</strong> Metrics, KPIs, and quick actions</li>
+          <li><strong>Workflow/Process:</strong> Multi-step operations with approval flows</li>
+          <li><strong>Report/Analytics:</strong> Data visualization and reporting</li>
+        </ul>
+        <p>Each page component is highly customizable, supports real-time updates, and includes comprehensive accessibility features.</p>
+      </mat-card-content>
+    </mat-card>
   </div>
 </div>

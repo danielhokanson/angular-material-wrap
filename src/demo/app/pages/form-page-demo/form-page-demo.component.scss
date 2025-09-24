@@ -1,0 +1,141 @@
+.form-page-demo {
+  padding: 24px;
+  max-width: 1400px;
+  margin: 0 auto;
+
+  &__header {
+    margin-bottom: 24px;
+    text-align: center;
+
+    h1 {
+      margin: 0 0 8px 0;
+      font-size: 32px;
+      font-weight: 500;
+      color: var(--mat-sys-on-surface, #212121);
+    }
+
+    p {
+      margin: 0;
+      font-size: 16px;
+      color: var(--mat-sys-on-surface-variant, #757575);
+      max-width: 600px;
+      margin: 0 auto;
+    }
+  }
+
+  &__controls {
+    margin-bottom: 24px;
+  }
+
+  &__controls-card {
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+  }
+
+  &__tab-content {
+    padding: 16px 0;
+    text-align: center;
+    color: var(--mat-sys-on-surface-variant, #757575);
+  }
+
+  &__divider {
+    margin: 16px 0;
+  }
+
+  &__mode-controls {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    padding: 16px 0;
+
+    h4 {
+      margin: 0;
+      font-size: 16px;
+      font-weight: 500;
+      color: var(--mat-sys-on-surface, #212121);
+    }
+  }
+
+  &__mode-buttons {
+    display: flex;
+    gap: 8px;
+  }
+
+  &__content {
+    margin-bottom: 24px;
+  }
+
+  &__info {
+    margin-top: 24px;
+  }
+
+  &__info-card {
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+  }
+
+  &__info-content {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 24px;
+  }
+
+  &__info-section {
+    h4 {
+      margin: 0 0 12px 0;
+      font-size: 16px;
+      font-weight: 500;
+      color: var(--mat-sys-on-surface, #212121);
+    }
+
+    p {
+      margin: 0 0 8px 0;
+      font-size: 14px;
+      color: var(--mat-sys-on-surface-variant, #757575);
+      line-height: 1.5;
+    }
+
+    ul {
+      margin: 0;
+      padding-left: 20px;
+      font-size: 14px;
+      color: var(--mat-sys-on-surface-variant, #757575);
+      line-height: 1.6;
+
+      li {
+        margin-bottom: 4px;
+      }
+    }
+
+    strong {
+      color: var(--mat-sys-on-surface, #212121);
+      font-weight: 500;
+    }
+  }
+
+  // Responsive design
+  @media (max-width: 768px) {
+    padding: 16px;
+
+    &__header {
+      h1 {
+        font-size: 24px;
+      }
+    }
+
+    &__mode-controls {
+      flex-direction: column;
+      align-items: flex-start;
+      gap: 12px;
+    }
+
+    &__mode-buttons {
+      width: 100%;
+      justify-content: center;
+    }
+
+    &__info-content {
+      grid-template-columns: 1fr;
+      gap: 16px;
+    }
+  }
+}
+

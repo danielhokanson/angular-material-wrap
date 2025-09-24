@@ -253,6 +253,30 @@ export const routes: Routes = [
         loadComponent: () => import('./pages/settings-page/settings-page.component').then(m => m.SettingsPageComponent)
     },
     {
+        path: 'pages/list',
+        loadComponent: () => import('./pages/list-page-demo/list-page-demo.component').then(m => m.ListPageDemoComponent)
+    },
+    {
+        path: 'pages/detail',
+        loadComponent: () => import('./pages/detail-page-demo/detail-page-demo.component').then(m => m.DetailPageDemoComponent)
+    },
+    {
+        path: 'pages/form',
+        loadComponent: () => import('./pages/form-page-demo/form-page-demo.component').then(m => m.FormPageDemoComponent)
+    },
+    {
+        path: 'pages/search',
+        loadComponent: () => import('./pages/search-page-demo/search-page-demo.component').then(m => m.SearchPageDemoComponent)
+    },
+    {
+        path: 'pages/workflow',
+        loadComponent: () => import('./pages/workflow-page-demo/workflow-page-demo.component').then(m => m.WorkflowPageDemoComponent)
+    },
+    {
+        path: 'pages/report',
+        loadComponent: () => import('./pages/report-page-demo/report-page-demo.component').then(m => m.ReportPageDemoComponent)
+    },
+    {
         path: 'components/calendar/demo',
         loadComponent: () => import('./components/calendar-demo/calendar-demo.component').then(m => m.CalendarDemoComponent)
     },

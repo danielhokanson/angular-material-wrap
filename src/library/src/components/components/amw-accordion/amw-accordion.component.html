@@ -1,0 +1,102 @@
+<div class="amw-accordion" 
+     [class.amw-accordion--disabled]="disabled"
+     [class.amw-accordion--multi-expand]="currentConfig.multiExpand"
+     [attr.data-expanded-count]="getExpandedCount()"
+     [attr.data-total-panels]="panels.length">
+
+  <!-- Accordion Header -->
+  <div class="amw-accordion__header" *ngIf="currentConfig.showExpandCollapseAll">
+    <div class="amw-accordion__header-content">
+      <h3 class="amw-accordion__header-title">Accordion</h3>
+      <div class="amw-accordion__header-actions">
+        <button mat-button 
+                (click)="expandAll()"
+                [disabled]="areAllExpanded() || disabled">
+          <mat-icon>expand_more</mat-icon>
+          Expand All
+        </button>
+        <button mat-button 
+                (click)="collapseAll()"
+                [disabled]="areAllCollapsed() || disabled">
+          <mat-icon>expand_less</mat-icon>
+          Collapse All
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Accordion Panels -->
+  <div class="amw-accordion__panels">
+    <mat-accordion class="amw-accordion__mat-accordion"
+                   [multi]="currentConfig.multiExpand">
+      
+      <mat-expansion-panel *ngFor="let panel of panels; let i = index" 
+                           class="amw-accordion__panel"
+                           [class.amw-accordion__panel--expanded]="isPanelExpanded(i)"
+                           [class.amw-accordion__panel--disabled]="isPanelDisabled(i)"
+                           [class.amw-accordion__panel--invalid]="!isPanelValid(i)"
+                           [expanded]="isPanelExpanded(i)"
+                           [disabled]="isPanelDisabled(i)"
+                           (opened)="expandPanel(i)"
+                           (closed)="collapsePanel(i)"
+                           [attr.data-panel-index]="i">
+        
+        <!-- Panel Header -->
+        <mat-expansion-panel-header class="amw-accordion__panel-header">
+          <div class="amw-accordion__panel-header-content">
+            <!-- Panel Icon -->
+            <mat-icon *ngIf="currentConfig.showIcons && panel.icon" 
+                      class="amw-accordion__panel-icon">
+              {{ panel.icon }}
+            </mat-icon>
+            
+            <!-- Panel Title -->
+            <div class="amw-accordion__panel-title">
+              <h4 class="amw-accordion__panel-title-text">{{ panel.title }}</h4>
+              <p *ngIf="currentConfig.showDescriptions && panel.description" 
+                 class="amw-accordion__panel-description">
+                {{ panel.description }}
+              </p>
+            </div>
+            
+            <!-- Panel Badge -->
+            <span *ngIf="currentConfig.showBadges && hasPanelBadge(i)" 
+                  class="amw-accordion__panel-badge"
+                  [style.background-color]="panel.badgeColor || 'var(--mat-sys-error, #f44336)'">
+              {{ getPanelBadgeCount(i) }}
+            </span>
+          </div>
+        </mat-expansion-panel-header>
+
+        <!-- Panel Content -->
+        <div class="amw-accordion__panel-content">
+          <div class="amw-accordion__panel-body">
+            <!-- Panel Actions -->
+            <div class="amw-accordion__panel-actions" *ngIf="currentConfig.showPanelActions">
+              <button mat-icon-button 
+                      (click)="togglePanel(i)"
+                      [disabled]="isPanelDisabled(i)">
+                <mat-icon>{{ isPanelExpanded(i) ? 'expand_less' : 'expand_more' }}</mat-icon>
+              </button>
+            </div>
+
+            <!-- Panel Main Content -->
+            <div class="amw-accordion__panel-main">
+              <div class="amw-accordion__panel-text" [innerHTML]="panel.content">
+              </div>
+            </div>
+          </div>
+        </div>
+      </mat-expansion-panel>
+    </mat-accordion>
+  </div>
+
+  <!-- Empty State -->
+  <div *ngIf="panels.length === 0" class="amw-accordion__empty">
+    <div class="amw-accordion__empty-content">
+      <mat-icon class="amw-accordion__empty-icon">expand_more</mat-icon>
+      <h3>No panels available</h3>
+      <p>Add some panels to get started</p>
+    </div>
+  </div>
+</div>

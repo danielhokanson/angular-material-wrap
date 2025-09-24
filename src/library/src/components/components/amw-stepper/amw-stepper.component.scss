@@ -1,0 +1,404 @@
+// AMW Stepper Component Styles
+.amw-stepper {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  background: var(--mat-sys-surface, #ffffff);
+  border-radius: 12px;
+  overflow: hidden;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+
+  // Horizontal orientation
+  &--horizontal {
+    .amw-stepper__header {
+      flex-direction: row;
+    }
+
+    .amw-stepper__steps {
+      display: flex;
+      flex-direction: row;
+      align-items: center;
+    }
+
+    .amw-stepper__step {
+      flex: 1;
+      display: flex;
+      align-items: center;
+      padding: 16px;
+      position: relative;
+
+      &:not(:last-child)::after {
+        content: '';
+        position: absolute;
+        right: 0;
+        top: 50%;
+        transform: translateY(-50%);
+        width: 1px;
+        height: 24px;
+        background: var(--mat-sys-outline-variant, #e0e0e0);
+      }
+    }
+  }
+
+  // Vertical orientation
+  &--vertical {
+    .amw-stepper__header {
+      flex-direction: column;
+    }
+
+    .amw-stepper__steps {
+      display: flex;
+      flex-direction: column;
+    }
+
+    .amw-stepper__step {
+      display: flex;
+      align-items: flex-start;
+      padding: 16px;
+      position: relative;
+
+      &:not(:last-child)::after {
+        content: '';
+        position: absolute;
+        left: 20px;
+        top: 40px;
+        width: 1px;
+        height: calc(100% - 40px);
+        background: var(--mat-sys-outline-variant, #e0e0e0);
+      }
+    }
+  }
+
+  // Disabled state
+  &--disabled {
+    opacity: 0.6;
+    pointer-events: none;
+  }
+
+  // Header
+  &__header {
+    display: flex;
+    background: var(--mat-sys-surface-container, #f5f5f5);
+    border-bottom: 1px solid var(--mat-sys-outline-variant, #e0e0e0);
+  }
+
+  // Progress bar
+  &__progress {
+    position: absolute;
+    top: 0;
+    left: 0;
+    height: 3px;
+    background: var(--mat-sys-primary, #1976d2);
+    transition: width 0.3s ease;
+    z-index: 1;
+  }
+
+  // Steps container
+  &__steps {
+    display: flex;
+    width: 100%;
+    position: relative;
+    z-index: 2;
+  }
+
+  // Individual step
+  &__step {
+    display: flex;
+    align-items: center;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    border-radius: 8px;
+    margin: 4px;
+
+    &:hover:not(&--disabled) {
+      background: var(--mat-sys-surface-container-highest, #f0f0f0);
+    }
+
+    // Active step
+    &--active {
+      background: var(--mat-sys-primary-container, #e3f2fd);
+      color: var(--mat-sys-on-primary-container, #001e3c);
+
+      .amw-stepper__step-icon {
+        background: var(--mat-sys-primary, #1976d2);
+        color: var(--mat-sys-on-primary, #ffffff);
+      }
+    }
+
+    // Completed step
+    &--completed {
+      .amw-stepper__step-icon {
+        background: var(--mat-sys-tertiary, #4caf50);
+        color: var(--mat-sys-on-tertiary, #ffffff);
+      }
+    }
+
+    // Disabled step
+    &--disabled {
+      opacity: 0.5;
+      cursor: not-allowed;
+    }
+
+    // Optional step
+    &--optional {
+      .amw-stepper__step-label {
+        font-style: italic;
+      }
+    }
+
+    // Accessible step
+    &--accessible {
+      cursor: pointer;
+    }
+
+    // Inaccessible step
+    &:not(&--accessible) {
+      cursor: not-allowed;
+      opacity: 0.5;
+    }
+  }
+
+  // Step icon
+  &__step-icon {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 32px;
+    height: 32px;
+    border-radius: 50%;
+    background: var(--mat-sys-surface-variant, #f5f5f5);
+    color: var(--mat-sys-on-surface-variant, #424242);
+    margin-right: 12px;
+    transition: all 0.3s ease;
+    font-size: 16px;
+  }
+
+  // Step number
+  &__step-number {
+    font-weight: 500;
+    font-size: 14px;
+  }
+
+  // Step content
+  &__step-content {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+  }
+
+  // Step label
+  &__step-label {
+    font-weight: 500;
+    font-size: 14px;
+    color: var(--mat-sys-on-surface, #212121);
+    margin-bottom: 2px;
+  }
+
+  // Step optional indicator
+  &__step-optional {
+    font-size: 12px;
+    color: var(--mat-sys-on-surface-variant, #757575);
+    margin-left: 4px;
+  }
+
+  // Step description
+  &__step-description {
+    font-size: 12px;
+    color: var(--mat-sys-on-surface-variant, #757575);
+    line-height: 1.4;
+  }
+
+  // Step status
+  &__step-status {
+    display: flex;
+    align-items: center;
+    margin-left: 8px;
+  }
+
+  // Step check icon
+  &__step-check {
+    color: var(--mat-sys-tertiary, #4caf50);
+    font-size: 18px;
+  }
+
+  // Step error icon
+  &__step-error {
+    color: var(--mat-sys-error, #f44336);
+    font-size: 18px;
+  }
+
+  // Content area
+  &__content {
+    flex: 1;
+    padding: 24px;
+    min-height: 200px;
+  }
+
+  // Step panel
+  &__step-panel {
+    display: none;
+
+    &--active {
+      display: block;
+    }
+  }
+
+  // Step body
+  &__step-body {
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+  }
+
+  // Step title
+  &__step-title {
+    margin-bottom: 24px;
+
+    h3 {
+      margin: 0 0 8px 0;
+      font-size: 24px;
+      font-weight: 500;
+      color: var(--mat-sys-on-surface, #212121);
+    }
+
+    p {
+      margin: 0;
+      font-size: 16px;
+      color: var(--mat-sys-on-surface-variant, #757575);
+      line-height: 1.5;
+    }
+  }
+
+  // Step main content
+  &__step-main {
+    flex: 1;
+  }
+
+  // Navigation
+  &__navigation {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 16px 24px;
+    background: var(--mat-sys-surface-container, #f5f5f5);
+    border-top: 1px solid var(--mat-sys-outline-variant, #e0e0e0);
+  }
+
+  // Navigation buttons
+  &__nav-buttons {
+    display: flex;
+    gap: 12px;
+  }
+
+  // Navigation button
+  &__nav-button {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    min-width: 100px;
+
+    &--previous {
+      color: var(--mat-sys-on-surface-variant, #757575);
+    }
+
+    &--next {
+      color: var(--mat-sys-primary, #1976d2);
+    }
+
+    &--complete {
+      background: var(--mat-sys-primary, #1976d2);
+      color: var(--mat-sys-on-primary, #ffffff);
+    }
+  }
+
+  // Progress info
+  &__progress-info {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+  }
+
+  // Progress text
+  &__progress-text {
+    font-size: 14px;
+    color: var(--mat-sys-on-surface-variant, #757575);
+    white-space: nowrap;
+  }
+
+  // Progress bar
+  &__progress-bar {
+    width: 120px;
+    height: 4px;
+    background: var(--mat-sys-surface-variant, #f5f5f5);
+    border-radius: 2px;
+    overflow: hidden;
+  }
+
+  // Progress fill
+  &__progress-fill {
+    height: 100%;
+    background: var(--mat-sys-primary, #1976d2);
+    transition: width 0.3s ease;
+  }
+
+  // Completion state
+  &__completion {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 48px 24px;
+    text-align: center;
+  }
+
+  // Completion content
+  &__completion-content {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 16px;
+
+    h3 {
+      margin: 0;
+      font-size: 24px;
+      font-weight: 500;
+      color: var(--mat-sys-on-surface, #212121);
+    }
+
+    p {
+      margin: 0;
+      font-size: 16px;
+      color: var(--mat-sys-on-surface-variant, #757575);
+    }
+  }
+
+  // Completion icon
+  &__completion-icon {
+    font-size: 48px;
+    color: var(--mat-sys-tertiary, #4caf50);
+  }
+
+  // Responsive design
+  @media (max-width: 768px) {
+    &--horizontal {
+      .amw-stepper__steps {
+        flex-direction: column;
+      }
+
+      .amw-stepper__step {
+        &:not(:last-child)::after {
+          display: none;
+        }
+      }
+    }
+
+    &__navigation {
+      flex-direction: column;
+      gap: 16px;
+    }
+
+    &__progress-info {
+      order: -1;
+    }
+  }
+}
+

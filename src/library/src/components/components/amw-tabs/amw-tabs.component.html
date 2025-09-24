@@ -1,0 +1,122 @@
+<div class="amw-tabs" 
+     [class.amw-tabs--vertical]="currentConfig.orientation === 'vertical'"
+     [class.amw-tabs--horizontal]="currentConfig.orientation === 'horizontal'"
+     [class.amw-tabs--disabled]="disabled"
+     [class.amw-tabs--draggable]="currentConfig.draggable"
+     [attr.data-active-tab]="activeTab"
+     [attr.data-total-tabs]="tabs.length">
+
+  <!-- Tabs Header -->
+  <div class="amw-tabs__header" 
+       [class.amw-tabs__header--vertical]="currentConfig.orientation === 'vertical'"
+       [class.amw-tabs__header--horizontal]="currentConfig.orientation === 'horizontal'">
+    
+    <!-- Tabs List -->
+    <div class="amw-tabs__list" 
+         [class.amw-tabs__list--vertical]="currentConfig.orientation === 'vertical'"
+         [class.amw-tabs__list--horizontal]="currentConfig.orientation === 'horizontal'">
+      
+      <div *ngFor="let tab of tabs; let i = index" 
+           class="amw-tabs__tab"
+           [class.amw-tabs__tab--active]="isTabActive(i)"
+           [class.amw-tabs__tab--disabled]="isTabDisabled(i)"
+           [class.amw-tabs__tab--invalid]="tab.isValid === false"
+           [class.amw-tabs__tab--dragging]="isReordering"
+           [attr.data-tab-index]="i"
+           [draggable]="currentConfig.draggable"
+           (click)="changeTab(i)"
+           (dragstart)="onDragStart($event, i)"
+           (dragover)="onDragOver($event)"
+           (drop)="onDrop($event, i)"
+           (dragend)="onDragEnd()">
+        
+        <!-- Tab Content -->
+        <div class="amw-tabs__tab-content">
+          <!-- Tab Icon -->
+          <mat-icon *ngIf="currentConfig.showIcons && tab.icon" 
+                    class="amw-tabs__tab-icon">
+            {{ tab.icon }}
+          </mat-icon>
+          
+          <!-- Tab Label -->
+          <span class="amw-tabs__tab-label">{{ tab.label }}</span>
+          
+          <!-- Tab Badge -->
+          <span *ngIf="currentConfig.showBadges && hasTabBadge(i)" 
+                class="amw-tabs__tab-badge"
+                [style.background-color]="tab.badgeColor || 'var(--mat-sys-error, #f44336)'">
+            {{ getTabBadgeCount(i) }}
+          </span>
+        </div>
+
+        <!-- Tab Close Button -->
+        <button *ngIf="currentConfig.showCloseButtons && isTabClosable(i)" 
+                mat-icon-button
+                class="amw-tabs__tab-close"
+                (click)="closeTab(i); $event.stopPropagation()"
+                [disabled]="disabled">
+          <mat-icon>close</mat-icon>
+        </button>
+      </div>
+    </div>
+
+    <!-- Add Tab Button -->
+    <button *ngIf="currentConfig.showAddButton" 
+            mat-icon-button
+            class="amw-tabs__add-button"
+            (click)="addTab()"
+            [disabled]="disabled">
+      <mat-icon>add</mat-icon>
+    </button>
+  </div>
+
+  <!-- Tabs Content -->
+  <div class="amw-tabs__content">
+    <div *ngFor="let tab of tabs; let i = index" 
+         class="amw-tabs__panel"
+         [class.amw-tabs__panel--active]="isTabActive(i)"
+         [attr.data-tab-index]="i">
+      
+      <!-- Tab Panel Content -->
+      <div class="amw-tabs__panel-body">
+        <div class="amw-tabs__panel-header" *ngIf="tab.label || tab.icon">
+          <div class="amw-tabs__panel-title">
+            <mat-icon *ngIf="tab.icon" class="amw-tabs__panel-icon">{{ tab.icon }}</mat-icon>
+            <h3 *ngIf="tab.label">{{ tab.label }}</h3>
+          </div>
+          
+          <div class="amw-tabs__panel-actions" *ngIf="currentConfig.showCloseButtons && isTabClosable(i)">
+            <button mat-icon-button
+                    (click)="closeTab(i)"
+                    [disabled]="disabled">
+              <mat-icon>close</mat-icon>
+            </button>
+          </div>
+        </div>
+
+        <div class="amw-tabs__panel-main">
+          <div class="amw-tabs__panel-content" [innerHTML]="tab.content">
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Empty State -->
+  <div *ngIf="tabs.length === 0" class="amw-tabs__empty">
+    <div class="amw-tabs__empty-content">
+      <mat-icon class="amw-tabs__empty-icon">tab</mat-icon>
+      <h3>No tabs available</h3>
+      <p>Add a new tab to get started</p>
+      <button *ngIf="currentConfig.showAddButton" 
+              mat-raised-button
+              color="primary"
+              (click)="addTab()"
+              [disabled]="disabled">
+        <mat-icon>add</mat-icon>
+        Add Tab
+      </button>
+    </div>
+  </div>
+</div>
+

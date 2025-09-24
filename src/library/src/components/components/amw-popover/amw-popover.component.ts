@@ -186,6 +186,9 @@ export class AmwPopoverComponent extends BaseComponent implements OnInit, OnDest
     /** Hover timeout reference */
     private hoverTimeout?: number;
 
+    /** Last zoom level for detecting zoom changes */
+    private lastZoomLevel?: number;
+
     /** Close timeout reference */
     private closeTimeout?: number;
 
@@ -239,7 +242,7 @@ export class AmwPopoverComponent extends BaseComponent implements OnInit, OnDest
             opened: false,
             size: 'medium',
             position: 'bottom',
-            showArrow: true,
+            showArrow: false,
             showClose: true,
             showHeader: false,
             showFooter: false,
@@ -279,13 +282,13 @@ export class AmwPopoverComponent extends BaseComponent implements OnInit, OnDest
             toggle: true,
             escapeKey: true,
             outsideClick: true,
-            scroll: false,
-            resize: false,
+            scroll: true,
+            resize: true,
             orientationChange: false,
             windowBlur: false,
             windowFocus: false,
-            windowResize: false,
-            windowScroll: false,
+            windowResize: true,
+            windowScroll: true,
             windowOrientationChange: false,
             windowVisibilityChange: false,
             keyboardNavigation: true,
@@ -414,13 +417,51 @@ export class AmwPopoverComponent extends BaseComponent implements OnInit, OnDest
 
         // Scroll
         if (this.currentTrigger.scroll) {
+            console.log('Setting up scroll listener, scroll enabled:', this.currentTrigger.scroll);
+
+            // Listen to scroll events on window, document, and document.body
             fromEvent(window, 'scroll')
                 .pipe(takeUntil(this.destroy$))
                 .subscribe(() => {
+                    console.log('Window scroll event fired, opened:', this.opened);
                     if (this.opened) {
+                        console.log('Closing popover due to window scroll');
                         this.closePopover();
                     }
                 });
+
+            fromEvent(document, 'scroll')
+                .pipe(takeUntil(this.destroy$))
+                .subscribe(() => {
+                    console.log('Document scroll event fired, opened:', this.opened);
+                    if (this.opened) {
+                        console.log('Closing popover due to document scroll');
+                        this.closePopover();
+                    }
+                });
+
+            fromEvent(document.body, 'scroll')
+                .pipe(takeUntil(this.destroy$))
+                .subscribe(() => {
+                    console.log('Body scroll event fired, opened:', this.opened);
+                    if (this.opened) {
+                        console.log('Closing popover due to body scroll');
+                        this.closePopover();
+                    }
+                });
+
+            // Also listen to scroll events on all scrollable containers
+            fromEvent(document, 'scroll', { capture: true })
+                .pipe(takeUntil(this.destroy$))
+                .subscribe(() => {
+                    console.log('Captured scroll event fired, opened:', this.opened);
+                    if (this.opened) {
+                        console.log('Closing popover due to captured scroll');
+                        this.closePopover();
+                    }
+                });
+        } else {
+            console.log('Scroll listener not set up, scroll disabled:', this.currentTrigger.scroll);
         }
 
         // Resize
@@ -428,8 +469,9 @@ export class AmwPopoverComponent extends BaseComponent implements OnInit, OnDest
             fromEvent(window, 'resize')
                 .pipe(takeUntil(this.destroy$))
                 .subscribe(() => {
-                    if (this.opened) {
-                        this.closePopover();
+                    if (this.opened && this.overlayRef) {
+                        // Reposition the popover instead of closing it
+                        this.positionPopover();
                     }
                 });
         }
@@ -472,8 +514,9 @@ export class AmwPopoverComponent extends BaseComponent implements OnInit, OnDest
             fromEvent(window, 'resize')
                 .pipe(takeUntil(this.destroy$))
                 .subscribe(() => {
-                    if (this.opened) {
-                        this.closePopover();
+                    if (this.opened && this.overlayRef) {
+                        // Reposition the popover instead of closing it
+                        this.positionPopover();
                     }
                 });
         }
@@ -488,6 +531,20 @@ export class AmwPopoverComponent extends BaseComponent implements OnInit, OnDest
                     }
                 });
         }
+
+        // Zoom events (using resize as a proxy for zoom)
+        fromEvent(window, 'resize')
+            .pipe(takeUntil(this.destroy$))
+            .subscribe(() => {
+                if (this.opened) {
+                    // Check if this is a zoom event by comparing innerWidth/innerHeight ratio
+                    const currentZoom = window.innerWidth / window.outerWidth;
+                    if (this.lastZoomLevel && Math.abs(currentZoom - this.lastZoomLevel) > 0.01) {
+                        this.closePopover();
+                    }
+                    this.lastZoomLevel = currentZoom;
+                }
+            });
 
         // Window orientation change
         if (this.currentTrigger.windowOrientationChange) {
@@ -1028,19 +1085,59 @@ export class AmwPopoverComponent extends BaseComponent implements OnInit, OnDest
         const popoverWidth = popoverRect.width || 300; // fallback to config width
         const popoverHeight = popoverRect.height || 200; // fallback height
 
-        // Calculate position
-        let left = triggerRect.left + (triggerRect.width / 2) - (popoverWidth / 2);
-        let top = triggerRect.bottom + 8; // Position below trigger
 
-        // Adjust if popover would go off screen
-        if (left < 8) left = 8;
-        if (left + popoverWidth > viewportWidth - 8) {
-            left = viewportWidth - popoverWidth - 8;
+        // Calculate position based on configured position
+        let left: number;
+        let top: number;
+        const gap = 8;
+
+        switch (this.position) {
+            case 'right':
+                left = triggerRect.right + gap;
+                top = triggerRect.top + (triggerRect.height / 2) - (popoverHeight / 2);
+                break;
+            case 'left':
+                left = triggerRect.left - popoverWidth - gap;
+                top = triggerRect.top + (triggerRect.height / 2) - (popoverHeight / 2);
+                break;
+            case 'top':
+                left = triggerRect.left + (triggerRect.width / 2) - (popoverWidth / 2);
+                top = triggerRect.top - popoverHeight - gap;
+                break;
+            case 'bottom':
+                left = triggerRect.left + (triggerRect.width / 2) - (popoverWidth / 2);
+                top = triggerRect.bottom + gap;
+                break;
+            case 'top-left':
+                left = triggerRect.left;
+                top = triggerRect.top - popoverHeight - gap;
+                break;
+            case 'top-right':
+                left = triggerRect.right - popoverWidth;
+                top = triggerRect.top - popoverHeight - gap;
+                break;
+            case 'bottom-left':
+                left = triggerRect.left;
+                top = triggerRect.bottom + gap;
+                break;
+            case 'bottom-right':
+                left = triggerRect.right - popoverWidth;
+                top = triggerRect.bottom + gap;
+                break;
+            default:
+                // Default to right
+                left = triggerRect.right + gap;
+                top = triggerRect.top + (triggerRect.height / 2) - (popoverHeight / 2);
         }
 
-        // If popover would go below viewport, position above trigger
-        if (top + popoverHeight > viewportHeight - 8) {
-            top = triggerRect.top - popoverHeight - 8;
+        // Adjust if popover would go off screen
+        if (left < gap) left = gap;
+        if (left + popoverWidth > viewportWidth - gap) {
+            left = viewportWidth - popoverWidth - gap;
+        }
+        if (top < gap) top = gap;
+        if (top + popoverHeight > viewportHeight - gap) {
+            top = viewportHeight - popoverHeight - gap;
         }
 
         // Apply position
@@ -1048,6 +1145,7 @@ export class AmwPopoverComponent extends BaseComponent implements OnInit, OnDest
         overlayElement.style.left = `${left}px`;
         overlayElement.style.top = `${top}px`;
         overlayElement.style.transform = 'none';
+
     }
 
     /**
