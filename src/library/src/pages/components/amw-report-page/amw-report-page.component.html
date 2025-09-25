@@ -50,7 +50,7 @@
         <div class="amw-report-page__date-range">
           <mat-form-field appearance="outline">
             <mat-label>Date Range</mat-label>
-            <mat-select [(ngModel)]="currentData.dateRange.preset" (selectionChange)="onDateRangeChange()">
+            <mat-select [ngModel]="currentData.dateRange?.preset" (ngModelChange)="onDateRangePresetChange($event)" (selectionChange)="onDateRangeChange()">
               <mat-option value="last7days">Last 7 days</mat-option>
               <mat-option value="last30days">Last 30 days</mat-option>
               <mat-option value="last90days">Last 90 days</mat-option>
@@ -58,19 +58,19 @@
             </mat-select>
           </mat-form-field>
           
-          <mat-form-field appearance="outline" *ngIf="currentData.dateRange.preset === 'custom'">
+          <mat-form-field appearance="outline" *ngIf="currentData.dateRange?.preset === 'custom'">
             <mat-label>Start Date</mat-label>
             <input matInput 
                    type="date"
-                   [(ngModel)]="currentData.dateRange.start"
+                    [ngModel]="currentData.dateRange?.start" (ngModelChange)="onDateRangeStartChange($event)"
                    (ngModelChange)="onDateRangeChange()">
           </mat-form-field>
           
-          <mat-form-field appearance="outline" *ngIf="currentData.dateRange.preset === 'custom'">
+          <mat-form-field appearance="outline" *ngIf="currentData.dateRange?.preset === 'custom'">
             <mat-label>End Date</mat-label>
             <input matInput 
                    type="date"
-                   [(ngModel)]="currentData.dateRange.end"
+                    [ngModel]="currentData.dateRange?.end" (ngModelChange)="onDateRangeEndChange($event)"
                    (ngModelChange)="onDateRangeChange()">
           </mat-form-field>
         </div>
@@ -85,14 +85,14 @@
               <mat-form-field appearance="outline" *ngIf="filter.type === 'text'">
                 <mat-label>{{ filter.label }}</mat-label>
                 <input matInput 
-                       [(ngModel)]="currentData.filters[filter.key]"
+                        [ngModel]="currentData.filters?.[filter.key]" (ngModelChange)="onFilterValueChange(filter.key, $event)"
                        (ngModelChange)="onFilterChange(filter.key, $event)"
                        [placeholder]="filter.placeholder || ''">
               </mat-form-field>
               
               <mat-form-field appearance="outline" *ngIf="filter.type === 'select'">
                 <mat-label>{{ filter.label }}</mat-label>
-                <mat-select [(ngModel)]="currentData.filters[filter.key]" (selectionChange)="onFilterChange(filter.key, $event.value || $event.checked)">
+                <mat-select [ngModel]="currentData.filters?.[filter.key]" (ngModelChange)="onFilterValueChange(filter.key, $event)" (selectionChange)="onFilterChange(filter.key, $event)">
                   <mat-option value="">All</mat-option>
                   <mat-option *ngFor="let option of filter.options" [value]="option.value">
                     {{ option.label }}
@@ -101,7 +101,7 @@
               </mat-form-field>
               
               <div class="amw-report-page__boolean-filter" *ngIf="filter.type === 'boolean'">
-                <mat-slide-toggle [(ngModel)]="currentData.filters[filter.key]"
+                <mat-slide-toggle [ngModel]="currentData.filters?.[filter.key]"
                                   (change)="onFilterChange(filter.key, $event.checked)">
                   {{ filter.label }}
                 </mat-slide-toggle>

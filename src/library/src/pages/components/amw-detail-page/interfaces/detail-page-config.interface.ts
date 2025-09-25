@@ -1,5 +1,6 @@
 import { DetailPageField } from './detail-page-field.interface';
 import { DetailPageRelatedData } from './detail-page-related-data.interface';
+import { DetailPageAction } from './detail-page-action.interface';
 
 // Detail Page Configuration Interface
 export interface DetailPageConfig {
@@ -18,11 +19,4 @@ export interface DetailPageConfig {
     customStyles?: { [key: string]: string };
 }
 
-export interface DetailPageAction {
-    key: string;
-    label: string;
-    icon: string;
-    color?: 'primary' | 'accent' | 'warn';
-    onClick: (item: any) => void;
-}
 

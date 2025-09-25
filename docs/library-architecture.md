@@ -2,16 +2,19 @@
 
 ## Overview
 
-The Angular Material Wrap library is organized into four main areas, each serving a specific purpose in the component hierarchy and functionality.
+The Angular Material Wrap library is organized into four main areas, each serving a specific purpose in the component hierarchy and functionality. The library provides 40+ components across controls, complex components, and complete page layouts.
 
 ## Directory Structure
 
 ```
 src/library/src/
-├── controls/           # 1:1 wrappers of Angular Material controls
-├── components/         # Complex combinations of controls
-├── pages/             # Common page layouts and combinations
-├── styling/           # Theme and styling logic
+├── controls/           # 20+ enhanced Material control wrappers
+├── components/         # 10+ complex UI components
+├── pages/             # 6 complete page layout patterns
+├── styling/           # Material Design 3 theme management
+├── directives/        # 4 utility directives
+├── pipes/             # 3 utility pipes
+├── services/          # 3 global services
 └── public-api.ts      # Main export file
 ```
 
@@ -19,7 +22,7 @@ src/library/src/
 
 ### 1. Controls (`/controls`)
 
-**Purpose**: 1:1 wrappers of Angular Material controls with enhanced functionality
+**Purpose**: 20+ enhanced wrappers of Angular Material controls with additional functionality
 
 **Structure**:
 

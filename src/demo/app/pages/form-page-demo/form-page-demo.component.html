@@ -54,12 +54,10 @@
       [config]="formConfig"
       [itemId]="currentItemId"
       [dataSource]="dataSource"
-      [autoSave]="formConfig.autoSave"
-      (formSubmit)="onFormSubmit($event)"
-      (formCancel)="onFormCancel()"
+      [autoSave]="formConfig.autoSave ?? false"
+      (formSubmit)="onFormSave($event)"
+      (formCancel)="onFormDelete()"
       (formChange)="onFormChange($event)"
-      (formSave)="onFormSave($event)"
-      (formDelete)="onFormDelete($event)"
       (formReset)="onFormReset()">
     </amw-form-page>
   </div>

@@ -39,7 +39,7 @@ export class DefaultReportPageDataSource implements ReportPageDataSource {
     constructor() { }
 
     getData(params: {
-        dateRange?: { start: Date; end: Date };
+        dateRange?: DateRange;
         filters?: { [key: string]: any };
     }): Observable<ReportData> {
         return new BehaviorSubject({
@@ -47,16 +47,16 @@ export class DefaultReportPageDataSource implements ReportPageDataSource {
                 {
                     id: 'widget1',
                     title: 'Sample Chart',
-                    type: 'chart',
-                    size: 'medium',
+                    type: 'chart' as const,
+                    size: 'medium' as const,
                     data: { labels: ['Jan', 'Feb', 'Mar'], values: [10, 20, 30] },
                     visible: true
                 },
                 {
                     id: 'widget2',
                     title: 'Sample Table',
-                    type: 'table',
-                    size: 'large',
+                    type: 'table' as const,
+                    size: 'large' as const,
                     data: {
                         columns: [{ key: 'name', title: 'Name' }, { key: 'value', title: 'Value' }],
                         rows: [{ name: 'Item 1', value: 100 }, { name: 'Item 2', value: 200 }]
@@ -226,14 +226,53 @@ export class AmwReportPageComponent implements OnInit, OnDestroy {
         action.onClick(this.currentData);
     }
 
-    onFilterChange(filterKey: string, value: any): void {
+    onFilterChange(filterKey: string, event: any): void {
+        const value = event.value || event.checked || event.target?.value;
+        this.currentData.filters = this.currentData.filters || {};
         this.currentData.filters[filterKey] = value;
-        this.filterChange.emit({ filters: this.currentData.filters, dateRange: this.currentData.dateRange });
+        this.filterChange.emit({
+            filters: this.currentData.filters || {},
+            dateRange: this.currentData.dateRange || { start: new Date(), end: new Date() }
+        });
         this.loadData();
     }
 
     onDateRangeChange(): void {
         this.dateRangeChange.emit(this.currentData.dateRange);
+        this.loadData();
+    }
+
+    onDateRangePresetChange(preset: string): void {
+        if (!this.currentData.dateRange) {
+            this.currentData.dateRange = { start: null, end: null };
+        }
+        this.currentData.dateRange.preset = preset;
+        this.onDateRangeChange();
+    }
+
+    onDateRangeStartChange(start: Date): void {
+        if (!this.currentData.dateRange) {
+            this.currentData.dateRange = { start: null, end: null };
+        }
+        this.currentData.dateRange.start = start;
+        this.onDateRangeChange();
+    }
+
+    onDateRangeEndChange(end: Date): void {
+        if (!this.currentData.dateRange) {
+            this.currentData.dateRange = { start: null, end: null };
+        }
+        this.currentData.dateRange.end = end;
+        this.onDateRangeChange();
+    }
+
+    onFilterValueChange(filterKey: string, value: any): void {
+        this.currentData.filters = this.currentData.filters || {};
+        this.currentData.filters[filterKey] = value;
+        this.filterChange.emit({
+            filters: this.currentData.filters || {},
+            dateRange: this.currentData.dateRange || { start: new Date(), end: new Date() }
+        });
         this.loadData();
     }
 

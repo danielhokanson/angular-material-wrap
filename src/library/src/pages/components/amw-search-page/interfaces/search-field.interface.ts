@@ -12,7 +12,3 @@ export interface SearchField {
     visible?: boolean;
 }
 
-export interface SearchOption {
-    value: any;
-    label: string;
-}

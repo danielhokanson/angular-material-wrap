@@ -27,13 +27,9 @@
     <amw-search-page
       [config]="searchConfig"
       [dataSource]="dataSource"
-      [realTimeSearch]="true"
-      [searchDebounceTime]="300"
       (resultClick)="onResultClick($event)"
-      (searchChange)="onSearchChange($event)"
-      (filterChange)="onFilterChange($event)"
-      (savedSearchSelect)="onSavedSearchSelect($event)"
-      (exportClick)="onExportClick($event)">
+      (search)="onSearchChange($event)"
+      (filterChange)="onFilterChange($event)">
     </amw-search-page>
   </div>
 

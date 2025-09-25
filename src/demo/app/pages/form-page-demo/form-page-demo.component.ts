@@ -20,7 +20,8 @@ import {
     FormPageData,
     FormPageSection,
     FormPageField,
-    FormPageAction
+    FormPageAction,
+    FormPageValidation
 } from '../../../../library/src/pages/components/amw-form-page';
 
 // Sample data
@@ -76,30 +77,33 @@ class FormPageDemoDataSource implements FormPageDataSource {
         return of(true).pipe(delay(500));
     }
 
-    validateData(data: any): Observable<{ [key: string]: string[] }> {
-        const errors: { [key: string]: string[] } = {};
+    validateData(data: any): Observable<FormPageValidation> {
+        const errors: { [key: string]: string } = {};
 
         if (!data.firstName || data.firstName.trim().length < 2) {
-            errors['firstName'] = ['First name must be at least 2 characters'];
+            errors['firstName'] = 'First name must be at least 2 characters';
         }
 
         if (!data.lastName || data.lastName.trim().length < 2) {
-            errors['lastName'] = ['Last name must be at least 2 characters'];
+            errors['lastName'] = 'Last name must be at least 2 characters';
         }
 
         if (!data.email || !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(data.email)) {
-            errors['email'] = ['Please enter a valid email address'];
+            errors['email'] = 'Please enter a valid email address';
         }
 
         if (!data.phone || !/^\+?[\d\s\-\(\)]+$/.test(data.phone)) {
-            errors['phone'] = ['Please enter a valid phone number'];
+            errors['phone'] = 'Please enter a valid phone number';
         }
 
         if (!data.salary || data.salary < 30000 || data.salary > 500000) {
-            errors['salary'] = ['Salary must be between $30,000 and $500,000'];
+            errors['salary'] = 'Salary must be between $30,000 and $500,000';
         }
 
-        return of(errors).pipe(delay(200));
+        return of({
+            isValid: Object.keys(errors).length === 0,
+            errors: errors
+        }).pipe(delay(200));
     }
 }
 
@@ -143,7 +147,7 @@ export class FormPageDemoComponent implements OnInit, OnDestroy {
                 label: 'Duplicate Employee',
                 icon: 'content_copy',
                 color: 'accent',
-                onClick: (form: any, data: any) => {
+                onClick: (formData: any) => {
                     this.snackBar.open('Duplicating employee record', 'Close', { duration: 2000 });
                 }
             },
@@ -152,7 +156,7 @@ export class FormPageDemoComponent implements OnInit, OnDestroy {
                 label: 'Archive Employee',
                 icon: 'archive',
                 color: 'warn',
-                onClick: (form: any, data: any) => {
+                onClick: (formData: any) => {
                     this.snackBar.open('Archiving employee record', 'Close', { duration: 2000 });
                 }
             }
@@ -317,6 +321,7 @@ export class FormPageDemoComponent implements OnInit, OnDestroy {
                     },
                     {
                         key: 'benefits',
+                        label: 'Benefits Selection',
                         title: 'Benefits Selection',
                         type: 'custom',
                         value: {},
@@ -362,14 +367,7 @@ export class FormPageDemoComponent implements OnInit, OnDestroy {
                 ]
             }
         ],
-        validation: {
-            showErrorsOnSubmit: true,
-            showErrorsOnBlur: true,
-            showErrorsOnChange: false
-        },
-        autoSave: false,
-        autoSaveInterval: 30000,
-        showProgress: true
+        autoSave: false
     };
 
     // Data source
@@ -410,9 +408,9 @@ export class FormPageDemoComponent implements OnInit, OnDestroy {
         console.log('Form saved:', data);
     }
 
-    onFormDelete(itemId: string): void {
-        this.snackBar.open(`Employee ${itemId} deleted`, 'Close', { duration: 2000 });
-        console.log('Form deleted:', itemId);
+    onFormDelete(): void {
+        this.snackBar.open('Form cancelled', 'Close', { duration: 2000 });
+        console.log('Form cancelled');
     }
 
     onFormReset(): void {
@@ -436,7 +434,7 @@ export class FormPageDemoComponent implements OnInit, OnDestroy {
                         label: 'Advanced Options',
                         icon: 'settings',
                         color: 'accent',
-                        onClick: (form: any, data: any) => {
+                        onClick: (formData: any) => {
                             this.snackBar.open('Advanced options clicked', 'Close', { duration: 2000 });
                         }
                     }

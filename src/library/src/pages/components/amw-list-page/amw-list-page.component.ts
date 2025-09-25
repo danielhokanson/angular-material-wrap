@@ -29,36 +29,11 @@ import {
     ListPageConfig,
     ListPageColumn,
     ListPageFilter,
-    ListPageBulkAction,
     ListPageData,
     ListPageDataSource
 } from './interfaces';
+import { DefaultListPageDataSource } from './services/default-list-page-data-source.service';
 
-// Default data source implementation
-@Injectable()
-export class DefaultListPageDataSource implements ListPageDataSource {
-    constructor() { }
-
-    getData(params: any): Observable<ListPageData> {
-        // Mock data for demo
-        const mockItems = [
-            { id: 1, name: 'Item 1', status: 'Active' },
-            { id: 2, name: 'Item 2', status: 'Inactive' },
-            { id: 3, name: 'Item 3', status: 'Active' }
-        ];
-
-        return new BehaviorSubject({
-            items: mockItems,
-            totalCount: mockItems.length,
-            pageIndex: params.pageIndex,
-            pageSize: params.pageSize,
-            sortField: params.sortField,
-            sortDirection: params.sortDirection,
-            filters: params.filters,
-            searchQuery: params.searchQuery
-        }).pipe(delay(500));
-    }
-}
 
 @Component({
     selector: 'amw-list-page',
@@ -250,7 +225,7 @@ export class AmwListPageComponent implements OnInit, OnDestroy {
         return this.selectedItems.size > 0 && this.selectedItems.size < this.currentData.items.length;
     }
 
-    onBulkAction(action: ListPageBulkAction): void {
+    onBulkAction(action: any): void {
         const selectedItems = Array.from(this.selectedItems);
         action.onClick(selectedItems);
         this.bulkActionClick.emit({ action: action.key, items: selectedItems });

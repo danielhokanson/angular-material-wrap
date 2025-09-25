@@ -14,16 +14,9 @@ export interface FormPageConfig {
     showPrintButton?: boolean;
     autoSave?: boolean;
     sections: FormPageSection[];
-    customActions?: FormPageAction[];
+    customActions?: any[];
     customClasses?: string[];
     customStyles?: { [key: string]: string };
 }
 
-export interface FormPageAction {
-    key: string;
-    label: string;
-    icon: string;
-    color?: 'primary' | 'accent' | 'warn';
-    onClick: (formData: any) => void;
-}
 

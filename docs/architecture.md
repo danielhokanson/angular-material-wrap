@@ -7,34 +7,48 @@ angular-material-wrap/
 ├── src/
 │   ├── library/                    # Library source code
 │   │   ├── src/
-│   │   │   ├── lib/               # Library components, services, modules
-│   │   │   │   ├── angular-material-wrap.component.ts
-│   │   │   │   ├── angular-material-wrap.service.ts
-│   │   │   │   └── angular-material-wrap.module.ts
-│   │   │   └── public-api.ts      # Public API exports
-│   │   ├── package.json           # Library package configuration
-│   │   ├── ng-package.json        # ng-packagr configuration
-│   │   └── tsconfig.*.json        # Library TypeScript configs
-│   └── demo/                      # Demo application
-│       ├── app/                   # Demo app components
-│       │   ├── app.component.ts
-│       │   ├── app.component.html
-│       │   ├── app.component.scss
-│       │   ├── app.component.spec.ts
-│       │   ├── app.config.ts
-│       │   └── app.routes.ts
-│       ├── main.ts                # Demo app bootstrap
-│       ├── index.html             # Demo app HTML
-│       ├── styles.scss            # Demo app global styles
-│       └── tsconfig.*.json        # Demo app TypeScript configs
-├── dist/                          # Build outputs
-│   ├── angular-material-wrap/     # Library build output
+│   │   │   ├── controls/           # Enhanced Material control wrappers
+│   │   │   │   ├── components/     # 20+ control components
+│   │   │   │   ├── interfaces/     # Control type definitions
+│   │   │   │   └── services/       # Control-specific services
+│   │   │   ├── components/         # Complex UI components
+│   │   │   │   ├── components/     # 10+ complex components
+│   │   │   │   ├── directives/     # Custom directives
+│   │   │   │   ├── interfaces/     # Component interfaces
+│   │   │   │   └── services/       # Component services
+│   │   │   ├── pages/              # Complete page layouts
+│   │   │   │   ├── components/     # 6 page stereotype components
+│   │   │   │   └── interfaces/     # Page configuration interfaces
+│   │   │   ├── styling/            # Theme and Material Design 3
+│   │   │   │   ├── components/     # Theme management components
+│   │   │   │   ├── interfaces/     # Theme configuration
+│   │   │   │   └── services/       # Theme service
+│   │   │   ├── directives/         # Global directives
+│   │   │   ├── pipes/              # Utility pipes
+│   │   │   ├── services/           # Global services
+│   │   │   └── public-api.ts       # Public API exports
+│   │   ├── package.json            # Library package configuration
+│   │   ├── ng-package.json         # ng-packagr configuration
+│   │   └── tsconfig.*.json         # Library TypeScript configs
+│   └── demo/                       # Demo application
+│       ├── app/                    # Demo app components
+│       │   ├── components/         # Individual component demos
+│       │   ├── pages/              # Page layout demos
+│       │   ├── shared/             # Shared demo components
+│       │   ├── app.component.ts    # Main app component
+│       │   ├── app.routes.ts       # Routing configuration
+│       │   └── app.config.ts       # App configuration
+│       ├── main.ts                 # Demo app bootstrap
+│       ├── index.html              # Demo app HTML
+│       ├── styles.scss             # Demo app global styles
+│       └── tsconfig.*.json         # Demo app TypeScript configs
+├── dist/                           # Build outputs
+│   ├── angular-material-wrap/      # Library build output
 │   └── angular-material-wrap-demo/ # Demo app build output
-├── docs/                          # Documentation
-├── public/                        # Static assets
-├── angular.json                   # Angular workspace configuration
-├── package.json                   # Dependencies and scripts
-└── tsconfig.json                  # Root TypeScript configuration
+├── docs/                           # Documentation
+├── angular.json                    # Angular workspace configuration
+├── package.json                    # Dependencies and scripts
+└── tsconfig.json                   # Root TypeScript configuration
 ```
 
 ## Build System Architecture

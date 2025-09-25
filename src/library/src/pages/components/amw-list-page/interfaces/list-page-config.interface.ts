@@ -16,6 +16,13 @@ export interface ListPageConfig {
     showDensity?: boolean;
     showExport?: boolean;
     showRefresh?: boolean;
+    showAddButton?: boolean;
+    pageSize?: number;
+    sortable?: boolean;
+    selectable?: boolean;
+    multiSelect?: boolean;
+    stickyHeader?: boolean;
+    density?: 'compact' | 'comfortable' | 'spacious';
     bulkActions?: ListPageAction[];
     customActions?: ListPageAction[];
     customClasses?: string[];

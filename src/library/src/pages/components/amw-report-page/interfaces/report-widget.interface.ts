@@ -4,9 +4,9 @@ export interface ReportWidget {
     title: string;
     type: 'chart' | 'table' | 'metric' | 'progress' | 'custom' | 'kpi';
     size: 'small' | 'medium' | 'large' | 'full';
-  data: any;
-  visible?: boolean;
-  refreshable?: boolean;
-  config?: any;
-  position?: { row: number; col: number; colspan?: number; rowspan?: number };
+    data: any;
+    visible?: boolean;
+    refreshable?: boolean;
+    config?: any;
+    position?: { row: number; col: number; colspan?: number; rowspan?: number };
 }

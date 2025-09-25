@@ -42,7 +42,7 @@ const SAMPLE_WORKFLOW: WorkflowPageConfig = {
             label: 'Pause Workflow',
             icon: 'pause',
             color: 'accent',
-            onClick: (workflow: any, data: any) => {
+            onClick: (data: any) => {
                 console.log('Workflow paused');
             }
         },
@@ -51,7 +51,7 @@ const SAMPLE_WORKFLOW: WorkflowPageConfig = {
             label: 'Assign to HR',
             icon: 'person_add',
             color: 'primary',
-            onClick: (workflow: any, data: any) => {
+            onClick: (data: any) => {
                 console.log('Workflow assigned to HR');
             }
         }
@@ -65,16 +65,6 @@ const SAMPLE_WORKFLOW: WorkflowPageConfig = {
             status: 'pending',
             required: true,
             skippable: false,
-            content: `
-        <h3>Personal Information</h3>
-        <p>Please provide your basic personal information. This information will be used for your employee record and contact purposes.</p>
-        <ul>
-          <li>Full name and preferred name</li>
-          <li>Date of birth and gender</li>
-          <li>Contact information (phone, email, address)</li>
-          <li>Emergency contact details</li>
-        </ul>
-      `,
             data: {
                 firstName: '',
                 lastName: '',
@@ -99,16 +89,6 @@ const SAMPLE_WORKFLOW: WorkflowPageConfig = {
             status: 'pending',
             required: true,
             skippable: false,
-            content: `
-        <h3>Employment Details</h3>
-        <p>Please provide your employment-related information. This will be used to set up your employee record and determine your compensation.</p>
-        <ul>
-          <li>Job title and department</li>
-          <li>Start date and employment type</li>
-          <li>Reporting manager</li>
-          <li>Work location and schedule</li>
-        </ul>
-      `,
             data: {
                 jobTitle: '',
                 department: '',
@@ -133,16 +113,6 @@ const SAMPLE_WORKFLOW: WorkflowPageConfig = {
             status: 'pending',
             required: true,
             skippable: true,
-            content: `
-        <h3>Document Upload</h3>
-        <p>Please upload the required documents. You can skip this step and upload documents later if needed.</p>
-        <ul>
-          <li>Government-issued ID (driver's license, passport)</li>
-          <li>Social Security Card or equivalent</li>
-          <li>Tax forms (W-4, I-9)</li>
-          <li>Direct deposit authorization</li>
-        </ul>
-      `,
             data: {
                 documents: []
             },
@@ -162,16 +132,6 @@ const SAMPLE_WORKFLOW: WorkflowPageConfig = {
             status: 'pending',
             required: true,
             skippable: true,
-            content: `
-        <h3>Benefits Selection</h3>
-        <p>Select your benefits package. You can change these selections during the annual open enrollment period.</p>
-        <ul>
-          <li>Health insurance options</li>
-          <li>Dental and vision coverage</li>
-          <li>Retirement plan (401k)</li>
-          <li>Life insurance and disability</li>
-        </ul>
-      `,
             data: {
                 healthInsurance: '',
                 dentalInsurance: false,
@@ -195,16 +155,6 @@ const SAMPLE_WORKFLOW: WorkflowPageConfig = {
             status: 'pending',
             required: false,
             skippable: true,
-            content: `
-        <h3>Equipment & Access</h3>
-        <p>Request the equipment and system access you need for your role. This step is optional and can be completed later.</p>
-        <ul>
-          <li>Computer and peripherals</li>
-          <li>Software licenses</li>
-          <li>System access and permissions</li>
-          <li>Phone and communication tools</li>
-        </ul>
-      `,
             data: {
                 computer: false,
                 software: [],
@@ -220,16 +170,6 @@ const SAMPLE_WORKFLOW: WorkflowPageConfig = {
             status: 'pending',
             required: true,
             skippable: false,
-            content: `
-        <h3>Orientation & Training</h3>
-        <p>Complete the required orientation and training modules. This is mandatory for all new employees.</p>
-        <ul>
-          <li>Company culture and values</li>
-          <li>Safety and security training</li>
-          <li>HR policies and procedures</li>
-          <li>Role-specific training</li>
-        </ul>
-      `,
             data: {
                 orientationCompleted: false,
                 safetyTraining: false,
@@ -252,16 +192,6 @@ const SAMPLE_WORKFLOW: WorkflowPageConfig = {
             status: 'pending',
             required: true,
             skippable: false,
-            content: `
-        <h3>Review & Approval</h3>
-        <p>Review all the information you've provided and submit for approval. Your HR representative will review and approve your onboarding.</p>
-        <ul>
-          <li>Verify all personal information</li>
-          <li>Confirm employment details</li>
-          <li>Review benefits selections</li>
-          <li>Submit for HR approval</li>
-        </ul>
-      `,
             data: {
                 personalInfoVerified: false,
                 employmentDetailsVerified: false,
@@ -392,7 +322,7 @@ export class WorkflowPageDemoComponent implements OnInit, OnDestroy {
                         label: 'Advanced Options',
                         icon: 'settings',
                         color: 'accent',
-                        onClick: (workflow: any, data: any) => {
+                        onClick: (data: any) => {
                             this.snackBar.open('Advanced options clicked', 'Close', { duration: 2000 });
                         }
                     }

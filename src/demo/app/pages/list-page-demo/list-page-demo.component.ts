@@ -347,50 +347,6 @@ export class ListPageDemoComponent implements OnInit, OnDestroy {
                 align: 'center'
             }
         ],
-        customFilters: [
-            {
-                key: 'department',
-                label: 'Department',
-                type: 'select',
-                options: [
-                    { value: '', label: 'All Departments' },
-                    { value: 'Engineering', label: 'Engineering' },
-                    { value: 'Design', label: 'Design' },
-                    { value: 'Marketing', label: 'Marketing' },
-                    { value: 'Sales', label: 'Sales' },
-                    { value: 'HR', label: 'HR' },
-                    { value: 'Finance', label: 'Finance' }
-                ]
-            },
-            {
-                key: 'status',
-                label: 'Status',
-                type: 'select',
-                options: [
-                    { value: '', label: 'All Statuses' },
-                    { value: 'Active', label: 'Active' },
-                    { value: 'Inactive', label: 'Inactive' }
-                ]
-            },
-            {
-                key: 'location',
-                label: 'Location',
-                type: 'text',
-                placeholder: 'Enter location...'
-            },
-            {
-                key: 'salaryRange',
-                label: 'Salary Range',
-                type: 'select',
-                options: [
-                    { value: '', label: 'All Ranges' },
-                    { value: '50000-70000', label: '$50k - $70k' },
-                    { value: '70000-90000', label: '$70k - $90k' },
-                    { value: '90000-110000', label: '$90k - $110k' },
-                    { value: '110000-130000', label: '$110k - $130k' }
-                ]
-            }
-        ],
         customActions: [
             {
                 key: 'edit',
@@ -422,9 +378,7 @@ export class ListPageDemoComponent implements OnInit, OnDestroy {
                     this.snackBar.open(`Exporting ${selectedItems.length} item(s)`, 'Close', { duration: 2000 });
                 }
             }
-        ],
-        emptyMessage: 'No employees found',
-        noDataIcon: 'people'
+        ]
     };
 
     // Data source
@@ -445,9 +399,9 @@ export class ListPageDemoComponent implements OnInit, OnDestroy {
         this.destroy$.complete();
     }
 
-    onItemSelect(selectedItems: any[]): void {
-        this.selectedItems = selectedItems;
-        console.log('Selected items:', selectedItems);
+    onItemSelect(event: { item: any; selected: boolean }): void {
+        console.log('Item selected:', event);
+        this.snackBar.open(`Item ${event.selected ? 'selected' : 'deselected'}`, 'Close', { duration: 2000 });
     }
 
     onItemClick(item: any): void {
@@ -455,16 +409,26 @@ export class ListPageDemoComponent implements OnInit, OnDestroy {
         console.log('Item clicked:', item);
     }
 
-    onActionClick(event: { action: string; items: any[] }): void {
+    onActionClick(event: { action: string; item: any }): void {
         console.log('Action clicked:', event);
+        this.snackBar.open(`Action ${event.action} performed on item`, 'Close', { duration: 2000 });
     }
 
-    onDataChange(data: ListPageData): void {
-        console.log('Data changed:', data);
+    onBulkActionClick(event: { action: string; items: any[] }): void {
+        console.log('Bulk action clicked:', event);
+        this.snackBar.open(`Bulk action ${event.action} performed on ${event.items.length} items`, 'Close', { duration: 2000 });
     }
 
-    onStateChange(state: any): void {
-        console.log('State changed:', state);
+    onFilterChange(event: { filters: { [key: string]: any }; searchQuery: string }): void {
+        console.log('Filter changed:', event);
+    }
+
+    onSortChange(event: { field: string; direction: 'asc' | 'desc' }): void {
+        console.log('Sort changed:', event);
+    }
+
+    onPageChange(event: { pageIndex: number; pageSize: number }): void {
+        console.log('Page changed:', event);
     }
 
     onViewChange(view: string): void {

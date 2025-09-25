@@ -1,6 +1,7 @@
 import { ReportWidget } from './report-widget.interface';
 import { ReportFilter } from './report-filter.interface';
 import { DateRange } from './date-range.interface';
+import { ReportAction } from './report-action.interface';
 
 // Report Page Configuration Interface
 export interface ReportPageConfig {
@@ -20,10 +21,3 @@ export interface ReportPageConfig {
     customStyles?: { [key: string]: string };
 }
 
-export interface ReportAction {
-    key: string;
-    label: string;
-    icon: string;
-    color?: 'primary' | 'accent' | 'warn';
-    onClick: (data: any) => void;
-}

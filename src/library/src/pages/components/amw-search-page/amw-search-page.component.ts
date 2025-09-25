@@ -27,86 +27,8 @@ import {
     SearchData,
     SearchPageDataSource
 } from './interfaces';
+import { DefaultSearchPageDataSource } from './services/default-search-page-data-source.service';
 
-// Default data source implementation
-@Injectable()
-export class DefaultSearchPageDataSource implements SearchPageDataSource {
-    constructor() { }
-
-    search(params: {
-        query?: string;
-        filters?: { [key: string]: any };
-        sortField?: string;
-        sortDirection?: 'asc' | 'desc';
-        pageIndex: number;
-        pageSize: number;
-    }): Observable<SearchData> {
-        // Mock search results
-        const mockResults = [
-            { id: '1', title: 'Result 1', description: 'Description 1', data: { category: 'A' } },
-            { id: '2', title: 'Result 2', description: 'Description 2', data: { category: 'B' } }
-        ];
-
-        // Apply text search
-        let filteredResults = mockResults;
-        if (params.query) {
-            filteredResults = mockResults.filter(item =>
-                Object.values(item).some(value =>
-                    String(value).toLowerCase().includes(params.query!.toLowerCase())
-                )
-            );
-        }
-
-        // Apply filters
-        if (params.filters) {
-            Object.keys(params.filters).forEach(key => {
-                const filterValue = params.filters![key];
-                if (filterValue !== null && filterValue !== undefined && filterValue !== '') {
-                    filteredResults = filteredResults.filter(item => (item.data as any)[key] === filterValue);
-                }
-            });
-        }
-
-        // Apply sorting
-        if (params.sortField) {
-            filteredResults.sort((a, b) => {
-                const aVal = (a as any)[params.sortField!];
-                const bVal = (b as any)[params.sortField!];
-                if (aVal < bVal) return params.sortDirection === 'asc' ? -1 : 1;
-                if (aVal > bVal) return params.sortDirection === 'asc' ? 1 : -1;
-                return 0;
-            });
-        }
-
-        const startIndex = params.pageIndex * params.pageSize;
-        const endIndex = startIndex + params.pageSize;
-
-        return new BehaviorSubject({
-            results: filteredResults.slice(startIndex, endIndex),
-            totalCount: filteredResults.length,
-            pageIndex: params.pageIndex,
-            pageSize: params.pageSize,
-            searchQuery: params.query,
-            filters: params.filters
-        }).pipe(delay(500));
-    }
-
-    exportSearchResults(format: string, criteria: { [key: string]: any }): Observable<any> {
-        return of({ success: true, data: 'Export completed' }).pipe(delay(500));
-    }
-
-    saveSearch(name: string, criteria: { [key: string]: any }): Observable<boolean> {
-        return of(true).pipe(delay(500));
-    }
-
-    loadSavedSearches(): Observable<{ name: string; criteria: { [key: string]: any } }[]> {
-        return of([]).pipe(delay(500));
-    }
-
-    deleteSavedSearch(name: string): Observable<boolean> {
-        return of(true).pipe(delay(500));
-    }
-}
 
 @Component({
     selector: 'amw-search-page',
@@ -165,6 +87,7 @@ export class AmwSearchPageComponent implements OnInit, OnDestroy {
     sortField = '';
     viewMode = 'list';
     showSuggestions = false;
+    filtersVisible = false;
 
     // Subject for component destruction
     private destroy$ = new Subject<void>();
@@ -275,15 +198,15 @@ export class AmwSearchPageComponent implements OnInit, OnDestroy {
         this.onSearch();
     }
 
-    isFieldVisible(field: SearchPageField): boolean {
+    isFieldVisible(field: SearchField): boolean {
         return field.visible !== false;
     }
 
-    getFieldValue(field: SearchPageField): any {
+    getFieldValue(field: SearchField): any {
         return this.currentFilters[field.key] || '';
     }
 
-    setFieldValue(field: SearchPageField, value: any): void {
+    setFieldValue(field: SearchField, value: any): void {
         this.currentFilters[field.key] = value;
     }
 
@@ -299,5 +222,9 @@ export class AmwSearchPageComponent implements OnInit, OnDestroy {
 
     onSearchInputBlur(): void {
         setTimeout(() => this.showSuggestions = false, 200);
+    }
+
+    toggleFilters(): void {
+        this.filtersVisible = !this.filtersVisible;
     }
 }

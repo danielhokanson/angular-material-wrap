@@ -21,30 +21,8 @@ import {
     DetailPageData,
     DetailPageDataSource
 } from './interfaces';
+import { DefaultDetailPageDataSource } from './services/default-detail-page-data-source.service';
 
-// Default data source implementation
-@Injectable()
-export class DefaultDetailPageDataSource implements DetailPageDataSource {
-    constructor() { }
-
-    getData(id: string): Observable<DetailPageData> {
-        // Mock data for demo
-        const mockItem = { id, name: 'Sample Item', description: 'This is a sample item' };
-        return new BehaviorSubject({
-            item: mockItem,
-            sections: [],
-            relatedData: []
-        }).pipe(delay(500));
-    }
-
-    deleteItem(id: string): Observable<boolean> {
-        return of(true).pipe(delay(500));
-    }
-
-    refreshItem(id: string): Observable<DetailPageData> {
-        return this.getData(id);
-    }
-}
 
 @Component({
     selector: 'amw-detail-page',
@@ -84,7 +62,8 @@ export class AmwDetailPageComponent implements OnInit, OnDestroy {
     currentConfig: DetailPageConfig = { fields: [] };
     currentData: DetailPageData = {
         item: {},
-        relatedData: {}
+        sections: [],
+        relatedData: []
     };
 
     // UI state

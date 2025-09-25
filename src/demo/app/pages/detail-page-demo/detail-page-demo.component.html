@@ -30,9 +30,8 @@
       [dataSource]="dataSource"
       [realTimeUpdates]="false"
       (actionClick)="onActionClick($event)"
-      (itemDelete)="onItemDelete($event)"
-      (itemRefresh)="onItemRefresh($event)"
-      (dataChange)="onDataChange($event)"
+      (deleteClick)="onItemDelete($event)"
+      (editClick)="onItemRefresh($event)"
       (backClick)="onBackClick()">
     </amw-detail-page>
   </div>

@@ -1,12 +1,13 @@
 // Workflow Step Interface
 export interface WorkflowStep {
-    key: string;
+    id: string;
     title: string;
     description?: string;
     icon?: string;
-    completed?: boolean;
-    disabled?: boolean;
+    status: 'pending' | 'current' | 'completed' | 'error';
     required?: boolean;
+    skippable?: boolean;
+    data?: any;
     validation?: {
         required?: boolean;
         requiredFields?: string[];

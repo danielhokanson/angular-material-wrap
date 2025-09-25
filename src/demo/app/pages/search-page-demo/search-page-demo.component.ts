@@ -193,6 +193,22 @@ class SearchPageDemoDataSource implements SearchPageDataSource {
         return of(facets).pipe(delay(100));
     }
 
+    exportSearchResults(format: string, criteria: { [key: string]: any }): Observable<any> {
+        return of({ success: true, data: 'Export completed' }).pipe(delay(500));
+    }
+
+    saveSearch(name: string, criteria: { [key: string]: any }): Observable<boolean> {
+        return of(true).pipe(delay(500));
+    }
+
+    loadSavedSearches(): Observable<{ name: string; criteria: { [key: string]: any } }[]> {
+        return of([]).pipe(delay(500));
+    }
+
+    deleteSavedSearch(name: string): Observable<boolean> {
+        return of(true).pipe(delay(500));
+    }
+
     private processSearch(params: any): SearchData {
         let filteredData = [...this.data];
 
@@ -258,6 +274,7 @@ class SearchPageDemoDataSource implements SearchPageDataSource {
                 subtitle: item.subtitle,
                 description: item.description,
                 image: item.image,
+                data: item, // Add the data property
                 metadata: {
                     category: item.category,
                     price: item.price,
@@ -272,22 +289,8 @@ class SearchPageDemoDataSource implements SearchPageDataSource {
             totalCount: filteredData.length,
             pageIndex: params.pageIndex,
             pageSize: params.pageSize,
-            sortField: params.sortField,
-            sortDirection: params.sortDirection,
             filters: params.filters,
-            searchQuery: params.query,
-            facets: {
-                category: {
-                    'Books': 4,
-                    'Courses': 3,
-                    'Software': 1
-                },
-                inStock: {
-                    'true': 6,
-                    'false': 2
-                }
-            },
-            suggestions: []
+            searchQuery: params.query
         };
     }
 
@@ -335,6 +338,7 @@ export class SearchPageDemoComponent implements OnInit, OnDestroy {
         title: 'Product Search',
         subtitle: 'Find the perfect product for your needs',
         showAdvancedSearch: true,
+        showAdvancedFilters: true,
         showQuickFilters: true,
         showSavedSearches: true,
         showSearchHistory: true,
@@ -438,24 +442,18 @@ export class SearchPageDemoComponent implements OnInit, OnDestroy {
                 name: 'JavaScript Books',
                 description: 'All JavaScript related books',
                 filters: { category: 'Books', tags: 'JavaScript' },
+                criteria: { category: 'Books', tags: 'JavaScript' },
                 isDefault: false,
-                isPublic: true,
-                createdBy: 'user1',
-                createdAt: new Date('2023-01-01')
             },
             {
                 id: '2',
                 name: 'High-Rated Courses',
                 description: 'Courses with 4.5+ rating',
                 filters: { category: 'Courses', rating: '4.5-5.0' },
+                criteria: { category: 'Courses', rating: '4.5-5.0' },
                 isDefault: true,
-                isPublic: true,
-                createdBy: 'user1',
-                createdAt: new Date('2023-01-15')
             }
-        ],
-        resultsPerPage: 12,
-        maxResults: 1000
+        ]
     };
 
     // Data source
@@ -480,11 +478,11 @@ export class SearchPageDemoComponent implements OnInit, OnDestroy {
         console.log('Result clicked:', result);
     }
 
-    onSearchChange(data: SearchData): void {
-        console.log('Search changed:', data);
+    onSearchChange(event: { query: string; filters: { [key: string]: any } }): void {
+        console.log('Search changed:', event);
     }
 
-    onFilterChange(event: { filters: { [key: string]: any }; dateRange: any }): void {
+    onFilterChange(event: { filters: { [key: string]: any } }): void {
         console.log('Filter changed:', event);
     }
 

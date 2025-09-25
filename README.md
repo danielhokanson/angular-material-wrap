@@ -1,6 +1,6 @@
 # Angular Material Wrap
 
-This project contains both a library and a demo application for Angular Material components.
+A comprehensive Angular library providing enhanced Material Design components, complete page layouts, and advanced UI patterns. This project includes both a distributable library and a comprehensive demo application showcasing all capabilities.
 
 ## 📚 Documentation
 
@@ -9,6 +9,7 @@ This project contains both a library and a demo application for Angular Material
 - **[Quick Start for AI Assistants](./docs/cursor-ai-context.md)** - Essential context for AI assistants
 - **[Complete Documentation Index](./docs/index.md)** - Full documentation overview
 - **[Project Overview](./docs/project-overview.md)** - High-level project description
+- **[Library API Reference](./docs/library-api.md)** - Complete API documentation
 - **[Development Workflow](./docs/development-workflow.md)** - How to develop, build, and test
 
 ## 🚀 Quick Start
@@ -31,10 +32,10 @@ npm run build:demo
 
 The library is organized into four main areas:
 
-1. **Controls** (`/controls`) - 1:1 wrappers of Angular Material controls with enhanced functionality
-2. **Components** (`/components`) - Complex combinations of controls for common UI patterns
-3. **Pages** (`/pages`) - Complete page layouts and common page combinations
-4. **Styling** (`/styling`) - Theme management and styling logic
+1. **Controls** (`/controls`) - Enhanced wrappers of Angular Material controls with additional functionality
+2. **Components** (`/components`) - Complex UI components combining multiple controls
+3. **Pages** (`/pages`) - Complete page layouts and common page patterns
+4. **Styling** (`/styling`) - Theme management and Material Design 3 implementation
 
 ## 🏗️ Project Structure
 
@@ -42,16 +43,34 @@ The library is organized into four main areas:
 src/
 ├── library/          # Library source code (amw- prefix)
 │   ├── src/
-│   │   ├── controls/     # 1:1 Material control wrappers
+│   │   ├── controls/     # Enhanced Material control wrappers
+│   │   │   ├── components/   # 20+ control components
+│   │   │   ├── interfaces/   # Type definitions
+│   │   │   └── services/     # Control-specific services
 │   │   ├── components/   # Complex UI components
-│   │   ├── pages/        # Page layouts and combinations
-│   │   ├── styling/      # Theme and styling logic
+│   │   │   ├── components/   # 10+ complex components
+│   │   │   ├── directives/   # Custom directives
+│   │   │   ├── interfaces/   # Component interfaces
+│   │   │   └── services/     # Component services
+│   │   ├── pages/        # Complete page layouts
+│   │   │   ├── components/   # 6 page stereotype components
+│   │   │   └── interfaces/   # Page configuration interfaces
+│   │   ├── styling/      # Theme and Material Design 3
+│   │   │   ├── components/   # Theme management components
+│   │   │   ├── interfaces/   # Theme configuration
+│   │   │   └── services/     # Theme service
+│   │   ├── directives/   # Global directives
+│   │   ├── pipes/        # Utility pipes
+│   │   ├── services/     # Global services
 │   │   └── public-api.ts # Public API exports
 │   ├── package.json
 │   ├── ng-package.json
 │   └── tsconfig.*.json
 └── demo/             # Demo application (amw-demo- prefix)
     ├── app/          # Demo app components
+    │   ├── components/   # Individual component demos
+    │   ├── pages/        # Page layout demos
+    │   └── shared/       # Shared demo components
     ├── main.ts
     ├── index.html
     ├── styles.scss
@@ -62,9 +81,9 @@ src/
 
 ### Development
 
-- `npm start` - Start demo app (default)
+- `npm start` - Start demo app (default, port 4201)
 - `npm run start:demo` - Start demo app
-- `npm run watch:lib` - Watch library changes
+- `npm run watch` - Watch library changes
 - `npm run watch:demo` - Watch demo changes
 
 ### Building
@@ -81,12 +100,38 @@ src/
 
 ## 🏷️ Naming Conventions
 
-- **Library components**: `amw-*` prefix (e.g., `amw-angular-material-wrap`)
+- **Library components**: `amw-*` prefix (e.g., `amw-button`, `amw-data-table`)
 - **Demo components**: `amw-demo-*` prefix (e.g., `amw-demo-root`)
+- **SCSS classes**: BEM methodology with `amw-` prefix
+- **Interfaces**: Descriptive names (e.g., `ButtonConfig`, `ListPageData`)
 
-## 📖 Usage
+## 📖 What's Included
 
-The demo app imports and uses the library components, showing how consumers would integrate the library into their applications.
+### Controls (20+ Components)
+
+- **Form Controls**: Button, Input, Select, Checkbox, Radio, Switch, Toggle, Slider, Range Slider
+- **Advanced Controls**: Autocomplete, Chips, Color Picker, Date Picker, Time Picker, File Input
+- **Data Controls**: Data Table with sorting, filtering, pagination
+
+### Components (10+ Components)
+
+- **Layout**: Card, Dialog, Popover, Sidenav, Stepper, Tabs, Accordion
+- **Data Display**: Calendar (Full, Mini, Item Dialog, Item Editor)
+
+### Pages (6 Page Stereotypes)
+
+- **List/Table Page**: Data tables with advanced filtering and bulk actions
+- **Detail/View Page**: Item detail views with related data sections
+- **Form/Create-Edit Page**: Dynamic forms with validation and sections
+- **Search/Filter Page**: Advanced search with collapsible filters
+- **Workflow/Process Page**: Multi-step processes with progress tracking
+- **Report/Analytics Page**: Dashboard-style reports with widgets
+
+### Styling & Theme
+
+- **Material Design 3**: Complete M3 implementation
+- **Theme Management**: Dynamic theme switching and customization
+- **SCSS Architecture**: BEM methodology with consistent naming
 
 ## 📦 Output
 
@@ -95,8 +140,9 @@ The demo app imports and uses the library components, showing how consumers woul
 
 ## 🔧 Technology Stack
 
-- **Angular**: 19.2.0
-- **TypeScript**: 5.7.2
-- **SCSS**: For styling
+- **Angular**: 20.2.0
+- **Angular Material**: 20.2.0
+- **TypeScript**: 5.8.0
+- **SCSS**: For styling with BEM methodology
 - **ng-packagr**: For library building
 - **Angular CLI**: For development and building

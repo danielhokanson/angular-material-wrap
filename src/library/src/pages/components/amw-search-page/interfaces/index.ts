@@ -8,4 +8,5 @@ export * from './quick-filter.interface';
 export * from './search-result.interface';
 export * from './search-page-sort-option.interface';
 export * from './search-page-view-mode.interface';
+export * from './search-action.interface';
 

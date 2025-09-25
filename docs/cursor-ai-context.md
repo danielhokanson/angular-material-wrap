@@ -6,9 +6,10 @@ This document provides essential context for AI assistants (like Cursor AI) to q
 
 ## Quick Project Overview
 
-**Project Type**: Dual-purpose Angular project (Library + Demo App)
-**Angular Version**: 19.2.0
-**TypeScript**: 5.7.2
+**Project Type**: Comprehensive Angular library with demo application
+**Angular Version**: 20.2.0
+**Angular Material**: 20.2.0
+**TypeScript**: 5.8.0
 **Build System**: ng-packagr (library) + Angular CLI (demo app)
 
 ## Key Project Structure
@@ -18,26 +19,44 @@ angular-material-wrap/
 ├── src/
 │   ├── library/          # Library source (amw- prefix)
 │   │   └── src/
-│   │       ├── controls/     # 1:1 Material control wrappers
-│   │       ├── components/   # Complex UI components
-│   │       ├── pages/        # Page layouts and combinations
-│   │       ├── styling/      # Theme and styling logic
-│   │       └── public-api.ts # Public exports
-│   └── demo/             # Demo app (amw-demo- prefix)
-│       ├── app/          # Demo components
+│   │       ├── controls/     # 20+ enhanced Material control wrappers
+│   │       │   ├── components/   # Individual control components
+│   │       │   ├── interfaces/   # Type definitions
+│   │       │   └── services/     # Control-specific services
+│   │       ├── components/   # 10+ complex UI components
+│   │       │   ├── components/   # Complex component implementations
+│   │       │   ├── directives/   # Custom directives
+│   │       │   ├── interfaces/   # Component interfaces
+│   │       │   └── services/     # Component services
+│   │       ├── pages/        # 6 complete page layout patterns
+│   │       │   ├── components/   # Page stereotype components
+│   │       │   └── interfaces/   # Page configuration interfaces
+│   │       ├── styling/      # Material Design 3 theme management
+│   │       │   ├── components/   # Theme management components
+│   │       │   ├── interfaces/   # Theme configuration
+│   │       │   └── services/     # Theme service
+│   │       ├── directives/   # 4 utility directives
+│   │       ├── pipes/        # 3 utility pipes
+│   │       ├── services/     # 3 global services
+│   │       └── public-api.ts # Public API exports
+│   └── demo/             # Comprehensive demo app (amw-demo- prefix)
+│       ├── app/          # Demo components and pages
+│       │   ├── components/   # Individual component demos
+│       │   ├── pages/        # Page layout demos
+│       │   └── shared/       # Shared demo components
 │       └── main.ts       # Bootstrap
 ├── dist/                 # Build outputs
-└── docs/                 # This documentation
+└── docs/                 # Complete documentation
 ```
 
 ## Library Architecture
 
 ### Four Main Areas
 
-1. **Controls** (`/controls`) - 1:1 wrappers of Angular Material controls
-2. **Components** (`/components`) - Complex combinations of controls
-3. **Pages** (`/pages`) - Complete page layouts and combinations
-4. **Styling** (`/styling`) - Theme management and styling logic
+1. **Controls** (`/controls`) - 20+ enhanced wrappers of Angular Material controls
+2. **Components** (`/components`) - 10+ complex UI components combining multiple controls
+3. **Pages** (`/pages`) - 6 complete page layout patterns for common use cases
+4. **Styling** (`/styling`) - Material Design 3 theme management and customization
 
 ### Component Standards
 
@@ -47,11 +66,14 @@ angular-material-wrap/
 - **BEM CSS**: Component selector as block name (e.g., `amw-button`)
 - **Separate Files**: HTML, SCSS, and TypeScript in separate files
 - **Single Responsibility**: One class per TypeScript file
+- **Interface-Driven**: Comprehensive TypeScript interfaces for all configurations
 
 ## Naming Conventions
 
-- **Library components**: `amw-*` prefix (e.g., `amw-button`, `amw-input`)
+- **Library components**: `amw-*` prefix (e.g., `amw-button`, `amw-data-table`, `amw-list-page`)
 - **Demo components**: `amw-demo-*` prefix (e.g., `amw-demo-root`)
+- **SCSS classes**: BEM methodology with `amw-` prefix
+- **Interfaces**: Descriptive names (e.g., `ButtonConfig`, `ListPageData`, `ThemeConfig`)
 
 ## File Organization Rules
 
@@ -59,24 +81,70 @@ angular-material-wrap/
 
 - **TypeScript files**: Component logic only (no HTML, no inline styles)
 - **HTML files**: Separate `.html` files for templates
-- **SCSS files**: Separate `.scss` files for styles
+- **SCSS files**: Separate `.scss` files with BEM methodology
 - **One class per file**: Each TypeScript file contains exactly one class, enum, service, directive, model, etc.
+- **Interface files**: Separate `.interface.ts` files for type definitions
 
 ### Example Structure
 
 ```
-my-component/
-├── my-component.component.ts      # Component class only
-├── my-component.component.html    # Template
-├── my-component.component.scss    # Styles
-├── my-component.component.spec.ts # Tests
-└── my-component.service.ts        # Related service (if needed)
+amw-button/
+├── amw-button.component.ts      # Component class only
+├── amw-button.component.html    # Template
+├── amw-button.component.scss    # BEM styles
+├── amw-button.component.spec.ts # Tests
+├── interfaces/
+│   ├── button-config.interface.ts
+│   ├── button-size.type.ts
+│   └── button-color.type.ts
+└── index.ts                     # Exports
 ```
 
-## Component Selectors
+## Component Categories
 
-- **Library selector**: `amw-angular-material-wrap`
-- **Demo selector**: `amw-demo-root`
+### Controls (20+ Components)
+
+**Form Controls:**
+
+- Button, Input, Select, Checkbox, Radio, Radio Group, Switch, Toggle
+- Slider, Range Slider, Textarea
+
+**Advanced Controls:**
+
+- Autocomplete, Chips, Color Picker, Date Picker, Time Picker, File Input
+
+**Data Controls:**
+
+- Data Table with sorting, filtering, pagination, and bulk actions
+
+### Components (10+ Components)
+
+**Layout:**
+
+- Card, Dialog, Popover, Sidenav, Stepper, Tabs, Accordion
+
+**Data Display:**
+
+- Calendar (Full, Mini, Item Dialog, Item Editor)
+
+### Pages (6 Page Stereotypes)
+
+**Complete Page Layouts:**
+
+- List/Table Page - Data tables with advanced filtering and bulk actions
+- Detail/View Page - Item detail views with related data sections
+- Form/Create-Edit Page - Dynamic forms with validation and sections
+- Search/Filter Page - Advanced search with collapsible filters
+- Workflow/Process Page - Multi-step processes with progress tracking
+- Report/Analytics Page - Dashboard-style reports with widgets
+
+### Styling & Theme
+
+**Material Design 3:**
+
+- Complete M3 implementation with dynamic theming
+- Theme management components (Picker, Editor, Manager)
+- SCSS architecture with BEM methodology
 
 ## Critical Files
 
@@ -90,13 +158,18 @@ my-component/
 
 - `src/library/ng-package.json` - ng-packagr config
 - `src/library/src/public-api.ts` - Public API exports
-- `src/library/src/lib/angular-material-wrap.component.ts` - Main component
+- `src/library/src/controls/components/index.ts` - Controls exports
+- `src/library/src/components/components/index.ts` - Components exports
+- `src/library/src/pages/components/index.ts` - Pages exports
+- `src/library/src/styling/components/index.ts` - Styling exports
 
 ### Demo Files
 
 - `src/demo/app/app.component.ts` - Demo app component
+- `src/demo/app/app.routes.ts` - Demo routing
+- `src/demo/app/components/demo-navigation/` - Navigation component
+- `src/demo/app/pages/` - Page demos
 - `src/demo/main.ts` - Demo bootstrap
-- `src/demo/index.html` - Demo HTML template
 
 ## Build Commands
 
@@ -111,7 +184,7 @@ npm run test:lib            # Test library
 npm run test:demo           # Test demo app
 
 # Watch mode
-npm run watch:lib           # Watch library changes
+npm run watch               # Watch library changes
 npm run watch:demo          # Watch demo changes
 ```
 
@@ -119,26 +192,32 @@ npm run watch:demo          # Watch demo changes
 
 ### Library Component Not Rendering
 
-- **Cause**: Component is standalone but used in module
-- **Solution**: Set `standalone: false` in component decorator
+- **Cause**: Component not properly exported or imported
+- **Solution**: Check `public-api.ts` exports and component imports
 
 ### Import Errors
 
-- **Cause**: Incorrect import paths
-- **Solution**: Use relative paths from demo to library: `../../library/src/lib/`
+- **Cause**: Incorrect import paths or missing exports
+- **Solution**: Use correct import paths and ensure components are exported
 
 ### Build Failures
 
-- **Cause**: TypeScript errors or missing dependencies
-- **Solution**: Check `npx tsc --noEmit` and ensure all dependencies installed
+- **Cause**: TypeScript errors, missing dependencies, or interface mismatches
+- **Solution**: Check `npx tsc --noEmit`, ensure all dependencies installed, verify interfaces
+
+### Template Binding Errors
+
+- **Cause**: Missing methods or properties in component classes
+- **Solution**: Ensure all template-referenced methods are public and implemented
 
 ## Development Workflow
 
-1. **Add Library Component**: Create in `src/library/src/lib/`
-2. **Export API**: Add to `src/library/src/public-api.ts`
-3. **Use in Demo**: Import in `src/demo/app/app.component.ts`
-4. **Test**: Run `npm run test:lib && npm run test:demo`
-5. **Build**: Run `npm run build:lib && npm run build:demo`
+1. **Add Library Component**: Create in appropriate area (`controls/`, `components/`, `pages/`)
+2. **Create Interfaces**: Define configuration and data interfaces
+3. **Export API**: Add to appropriate `index.ts` and `public-api.ts`
+4. **Create Demo**: Add demo component in `src/demo/app/components/`
+5. **Test**: Run `npm run test:lib && npm run test:demo`
+6. **Build**: Run `npm run build:lib && npm run build:demo`
 
 ## Key Technical Details
 
@@ -164,50 +243,70 @@ npm run watch:demo          # Watch demo changes
 
 ### Working Features
 
+- ✅ Comprehensive component library (40+ components)
+- ✅ Complete page layout patterns (6 page stereotypes)
+- ✅ Material Design 3 implementation
 - ✅ Dual build system (library + demo)
 - ✅ Component naming conventions (amw-_ and amw-demo-_)
-- ✅ Library component with module structure
-- ✅ Demo app using library component
-- ✅ Development server with HMR
+- ✅ Standalone components throughout
+- ✅ Comprehensive demo application
+- ✅ Development server with HMR (port 4201)
 - ✅ TypeScript strict mode
-- ✅ SCSS support
+- ✅ SCSS with BEM methodology
+- ✅ Complete documentation
 
-### Recent Changes
+### Recent Major Additions
 
-- Updated component selectors to use `amw-` and `amw-demo-` prefixes
-- Fixed library component to work with ng-packagr (`standalone: false`)
-- Created comprehensive documentation structure
-- Set up proper build configurations for both library and demo
+- **Page Stereotypes**: Complete page layout components
+- **Enhanced Controls**: 20+ control components with advanced features
+- **Complex Components**: 10+ complex UI components
+- **Theme Management**: Complete Material Design 3 theming
+- **Demo Application**: Comprehensive showcase with navigation
+- **Documentation**: Complete API documentation and guides
 
 ## AI Assistant Guidelines
 
 ### When Working on This Project
 
 1. **Always check naming conventions** - Use `amw-*` for library, `amw-demo-*` for demo
-2. **Maintain dual structure** - Keep library and demo separate
-3. **Update public API** - Add new exports to `public-api.ts`
+2. **Maintain four-area structure** - Controls, Components, Pages, Styling
+3. **Update public API** - Add new exports to appropriate `index.ts` files
 4. **Test both builds** - Verify library and demo build successfully
 5. **Follow TypeScript strict mode** - Maintain type safety
 6. **Separate files properly** - HTML in `.html` files, SCSS in `.scss` files, TypeScript in `.ts` files
 7. **One class per file** - Each TypeScript file contains exactly one class, enum, service, directive, model, etc.
 8. **No inline templates/styles** - Always use external template and style files
+9. **Use BEM methodology** - Follow BEM naming for SCSS classes
+10. **Create comprehensive interfaces** - Define all configuration and data interfaces
 
 ### Common Tasks
 
-#### Adding New Library Component
+#### Adding New Control Component
 
-1. Create component in `src/library/src/lib/`
-2. Set `standalone: false`
-3. Add to module in `src/library/src/lib/angular-material-wrap.module.ts`
+1. Create component in `src/library/src/controls/components/amw-[name]/`
+2. Create interfaces in `interfaces/` subdirectory
+3. Add to `src/library/src/controls/components/index.ts`
 4. Export from `src/library/src/public-api.ts`
-5. Use in demo app
+5. Create demo component in `src/demo/app/components/[name]-demo/`
+6. Add to demo navigation
 
-#### Adding New Demo Feature
+#### Adding New Complex Component
 
-1. Create component in `src/demo/app/`
-2. Use `amw-demo-*` prefix
-3. Import library components as needed
-4. Update routing if needed
+1. Create component in `src/library/src/components/components/amw-[name]/`
+2. Create interfaces and services as needed
+3. Add to `src/library/src/components/components/index.ts`
+4. Export from `src/library/src/public-api.ts`
+5. Create demo component
+6. Add to demo navigation
+
+#### Adding New Page Component
+
+1. Create component in `src/library/src/pages/components/amw-[name]-page/`
+2. Create comprehensive interfaces for configuration and data
+3. Add to `src/library/src/pages/components/index.ts`
+4. Export from `src/library/src/public-api.ts`
+5. Create demo component in `src/demo/app/pages/[name]-page-demo/`
+6. Add to demo navigation and routing
 
 #### Debugging Build Issues
 
@@ -215,16 +314,29 @@ npm run watch:demo          # Watch demo changes
 2. Verify import paths are correct
 3. Ensure all dependencies are installed
 4. Check Angular CLI configuration
+5. Verify all interfaces are properly defined
+6. Check that all template-referenced methods are public
 
 ### File Locations Reference
 
-- **Library component**: `src/library/src/lib/angular-material-wrap.component.ts`
-- **Library module**: `src/library/src/lib/angular-material-wrap.module.ts`
-- **Library service**: `src/library/src/lib/angular-material-wrap.service.ts`
+- **Controls**: `src/library/src/controls/components/`
+- **Components**: `src/library/src/components/components/`
+- **Pages**: `src/library/src/pages/components/`
+- **Styling**: `src/library/src/styling/components/`
 - **Public API**: `src/library/src/public-api.ts`
-- **Demo component**: `src/demo/app/app.component.ts`
-- **Demo HTML**: `src/demo/app/app.component.html`
-- **Demo bootstrap**: `src/demo/main.ts`
-- **Demo HTML template**: `src/demo/index.html`
+- **Demo Components**: `src/demo/app/components/`
+- **Demo Pages**: `src/demo/app/pages/`
+- **Demo Navigation**: `src/demo/app/components/demo-navigation/`
 
-This context should help AI assistants quickly understand the project structure and work effectively with the codebase.
+### Memory Context
+
+The project follows these key architectural patterns:
+
+- **Standalone Components**: All components are standalone
+- **Interface-Driven Design**: Comprehensive TypeScript interfaces
+- **BEM SCSS**: Consistent CSS naming methodology
+- **Four-Area Organization**: Controls, Components, Pages, Styling
+- **Comprehensive Demo**: Complete showcase application
+- **Material Design 3**: Full M3 implementation with theming
+
+This context should help AI assistants quickly understand the project structure and work effectively with the comprehensive codebase.

@@ -424,18 +424,14 @@ export class DetailPageDemoComponent implements OnInit, OnDestroy {
         console.log('Action clicked:', event);
     }
 
-    onItemDelete(itemId: string): void {
-        this.snackBar.open(`Deleting employee ${itemId}`, 'Close', { duration: 2000 });
-        console.log('Item deleted:', itemId);
+    onItemDelete(item: any): void {
+        this.snackBar.open(`Deleting employee ${item?.id || 'unknown'}`, 'Close', { duration: 2000 });
+        console.log('Item deleted:', item);
     }
 
-    onItemRefresh(itemId: string): void {
-        this.snackBar.open(`Refreshing employee ${itemId}`, 'Close', { duration: 2000 });
-        console.log('Item refreshed:', itemId);
-    }
-
-    onDataChange(data: DetailPageData): void {
-        console.log('Data changed:', data);
+    onItemRefresh(item: any): void {
+        this.snackBar.open(`Refreshing employee ${item?.id || 'unknown'}`, 'Close', { duration: 2000 });
+        console.log('Item refreshed:', item);
     }
 
     onBackClick(): void {

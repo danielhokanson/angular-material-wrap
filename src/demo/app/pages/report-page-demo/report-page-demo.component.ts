@@ -21,9 +21,6 @@ import {
     ReportWidget,
     ReportAction,
     DateRange,
-    MetricData,
-    TableData,
-    TableColumn
 } from '../../../../library/src/pages/components/amw-report-page';
 
 // Sample data
@@ -73,6 +70,18 @@ const SAMPLE_CUSTOMER_DATA = [
 class ReportPageDemoDataSource implements ReportPageDataSource {
     constructor(private data: any = SAMPLE_METRICS) { }
 
+    getData(params: {
+        dateRange?: DateRange;
+        filters?: { [key: string]: any };
+    }): Observable<ReportData> {
+        return of({
+            widgets: this.buildWidgets(params),
+            dateRange: params.dateRange || { start: new Date(), end: new Date() },
+            filters: params.filters || {},
+            lastUpdated: new Date()
+        }).pipe(delay(800));
+    }
+
     getReportData(params: {
         dateRange: DateRange;
         filters: { [key: string]: any };
@@ -114,7 +123,7 @@ class ReportPageDemoDataSource implements ReportPageDataSource {
                     format: 'currency',
                     icon: 'attach_money',
                     color: 'primary'
-                } as MetricData,
+                },
                 visible: true,
                 refreshable: true
             },
@@ -132,7 +141,7 @@ class ReportPageDemoDataSource implements ReportPageDataSource {
                     format: 'number',
                     icon: 'shopping_cart',
                     color: 'accent'
-                } as MetricData,
+                },
                 visible: true,
                 refreshable: true
             },
@@ -150,7 +159,7 @@ class ReportPageDemoDataSource implements ReportPageDataSource {
                     format: 'number',
                     icon: 'star',
                     color: 'warn'
-                } as MetricData,
+                },
                 visible: true,
                 refreshable: true
             },
@@ -168,7 +177,7 @@ class ReportPageDemoDataSource implements ReportPageDataSource {
                     format: 'percentage',
                     icon: 'trending_up',
                     color: 'primary'
-                } as MetricData,
+                },
                 visible: true,
                 refreshable: true
             },
@@ -252,12 +261,12 @@ class ReportPageDemoDataSource implements ReportPageDataSource {
                         { key: 'sales', title: 'Sales', type: 'currency', sortable: true },
                         { key: 'units', title: 'Units', type: 'number', sortable: true },
                         { key: 'growth', title: 'Growth %', type: 'percentage', sortable: true }
-                    ] as TableColumn[],
+                    ],
                     rows: SAMPLE_PRODUCT_DATA,
                     totalCount: SAMPLE_PRODUCT_DATA.length,
                     pageSize: 10,
                     pageIndex: 0
-                } as TableData,
+                },
                 visible: true,
                 refreshable: true
             },
@@ -273,12 +282,12 @@ class ReportPageDemoDataSource implements ReportPageDataSource {
                         { key: 'customers', title: 'Customers', type: 'number', sortable: true },
                         { key: 'revenue', title: 'Revenue', type: 'currency', sortable: true },
                         { key: 'growth', title: 'Growth %', type: 'percentage', sortable: true }
-                    ] as TableColumn[],
+                    ],
                     rows: SAMPLE_CUSTOMER_DATA,
                     totalCount: SAMPLE_CUSTOMER_DATA.length,
                     pageSize: 10,
                     pageIndex: 0
-                } as TableData,
+                },
                 visible: true,
                 refreshable: true
             },

@@ -11,22 +11,22 @@ import { MatListModule } from '@angular/material/list';
 import { MatTabsModule } from '@angular/material/tabs';
 
 @Component({
-    selector: 'amw-dashboard-page',
-    standalone: true,
-    imports: [
-        CommonModule,
-        MatCardModule,
-        MatButtonModule,
-        MatIconModule,
-        MatGridListModule,
-        MatProgressBarModule,
-        MatChipsModule,
-        MatDividerModule,
-        MatListModule,
-        MatTabsModule
-    ],
-    encapsulation: ViewEncapsulation.None,
-    template: `
+  selector: 'amw-dashboard-page',
+  standalone: true,
+  imports: [
+    CommonModule,
+    MatCardModule,
+    MatButtonModule,
+    MatIconModule,
+    MatGridListModule,
+    MatProgressBarModule,
+    MatChipsModule,
+    MatDividerModule,
+    MatListModule,
+    MatTabsModule
+  ],
+  encapsulation: ViewEncapsulation.None,
+  template: `
     <div class="dashboard-page">
       <div class="dashboard-header">
         <h1>Dashboard</h1>
@@ -34,7 +34,7 @@ import { MatTabsModule } from '@angular/material/tabs';
       </div>
 
       <div class="dashboard-content">
-        <mat-grid-list cols="4" rowHeight="200px" gutterSize="16px">
+        <mat-grid-list cols="5" rowHeight="200px" gutterSize="16px">
           <!-- Stats Cards -->
           <mat-grid-tile colspan="1" rowspan="1">
             <mat-card class="stat-card">
@@ -87,6 +87,20 @@ import { MatTabsModule } from '@angular/material/tabs';
                 <div class="stat-content">
                   <h3>3</h3>
                   <p>Services</p>
+                </div>
+              </mat-card-content>
+            </mat-card>
+          </mat-grid-tile>
+
+          <mat-grid-tile colspan="1" rowspan="1">
+            <mat-card class="stat-card">
+              <mat-card-content>
+                <div class="stat-icon">
+                  <mat-icon>pages</mat-icon>
+                </div>
+                <div class="stat-content">
+                  <h3>7</h3>
+                  <p>Pages</p>
                 </div>
               </mat-card-content>
             </mat-card>
@@ -185,6 +199,13 @@ import { MatTabsModule } from '@angular/material/tabs';
                   </div>
                   <mat-progress-bar mode="determinate" value="90"></mat-progress-bar>
                 </div>
+                <div class="progress-item">
+                  <div class="progress-label">
+                    <span>Pages</span>
+                    <span>100%</span>
+                  </div>
+                  <mat-progress-bar mode="determinate" value="100"></mat-progress-bar>
+                </div>
               </mat-card-content>
             </mat-card>
           </mat-grid-tile>
@@ -192,10 +213,10 @@ import { MatTabsModule } from '@angular/material/tabs';
       </div>
     </div>
   `,
-    styleUrl: './dashboard-page.component.scss'
+  styleUrl: './dashboard-page.component.scss'
 })
 export class DashboardPageComponent implements OnInit {
-    constructor() { }
+  constructor() { }
 
-    ngOnInit(): void { }
+  ngOnInit(): void { }
 }

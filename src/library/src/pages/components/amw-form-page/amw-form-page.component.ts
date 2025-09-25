@@ -107,6 +107,7 @@ export class AmwFormPageComponent implements OnInit, OnDestroy {
     currentConfig: FormPageConfig = { sections: [] };
     currentData: FormPageData = {
         item: {},
+        sections: [],
         isValid: true,
         errors: {}
     };

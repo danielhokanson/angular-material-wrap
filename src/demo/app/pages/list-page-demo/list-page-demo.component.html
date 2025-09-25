@@ -29,10 +29,11 @@
       [dataSource]="dataSource"
       [realTimeUpdates]="false"
       (itemSelect)="onItemSelect($event)"
-      (itemClick)="onItemClick($event)"
       (actionClick)="onActionClick($event)"
-      (dataChange)="onDataChange($event)"
-      (stateChange)="onStateChange($event)">
+      (bulkActionClick)="onBulkActionClick($event)"
+      (filterChange)="onFilterChange($event)"
+      (sortChange)="onSortChange($event)"
+      (pageChange)="onPageChange($event)">
     </amw-list-page>
   </div>
 

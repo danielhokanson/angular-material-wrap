@@ -120,7 +120,13 @@ export class DemoNavigationComponent {
             children: [
                 { title: 'Dashboard', route: '/pages/dashboard', icon: 'dashboard' },
                 { title: 'Profile', route: '/pages/profile', icon: 'person' },
-                { title: 'Settings', route: '/pages/settings', icon: 'settings' }
+                { title: 'Settings', route: '/pages/settings', icon: 'settings' },
+                { title: 'List/Table', route: '/pages/list', icon: 'list' },
+                { title: 'Detail/View', route: '/pages/detail', icon: 'visibility' },
+                { title: 'Form/Create-Edit', route: '/pages/form', icon: 'edit' },
+                { title: 'Search/Filter', route: '/pages/search', icon: 'search' },
+                { title: 'Workflow/Process', route: '/pages/workflow', icon: 'account_tree' },
+                { title: 'Report/Analytics', route: '/pages/report', icon: 'analytics' }
             ]
         },
         {

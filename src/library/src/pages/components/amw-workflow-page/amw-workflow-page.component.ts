@@ -1,4 +1,4 @@
-import { Component, Input, Output, EventEmitter, OnInit, OnDestroy, ViewEncapsulation, ChangeDetectorRef, Inject, Optional, Injectable } from '@angular/core';
+import { Component, Input, Output, EventEmitter, OnInit, OnDestroy, ViewEncapsulation, ChangeDetectorRef, Inject, Optional, Injectable, InjectionToken } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule, ReactiveFormsModule, FormBuilder, FormGroup } from '@angular/forms';
 import { MatCardModule } from '@angular/material/card';
@@ -16,54 +16,19 @@ import { MatSnackBarModule, MatSnackBar } from '@angular/material/snack-bar';
 import { Subject, takeUntil, BehaviorSubject, Observable, of } from 'rxjs';
 import { delay } from 'rxjs/operators';
 
-// Interfaces
-export interface WorkflowPageConfig {
-    title?: string;
-    subtitle?: string;
-    showSaveButton?: boolean;
-    showCancelButton?: boolean;
-    showResetButton?: boolean;
-    showPreviewButton?: boolean;
-    steps: WorkflowStep[];
-    customActions?: any[];
-    customClasses?: string[];
-    customStyles?: { [key: string]: string };
-}
+// Injection token for WorkflowPageDataSource
+export const WORKFLOW_PAGE_DATA_SOURCE = new InjectionToken<WorkflowPageDataSource>('WorkflowPageDataSource');
 
-export interface WorkflowStep {
-    id: string;
-    title: string;
-    description?: string;
-    status: 'pending' | 'current' | 'completed' | 'error';
-    required?: boolean;
-    validation?: {
-        customValidator?: (data: any) => boolean;
-        requiredFields?: string[];
-    };
-}
-
-export interface WorkflowData {
-    currentStep: number;
-    completedSteps: number;
-    totalSteps: number;
-    stepData: { [key: string]: any };
-    errors: { [key: string]: string };
-}
-
-export interface WorkflowPageDataSource {
-    getWorkflow(id: string): Observable<WorkflowPageConfig>;
-    saveStepData(stepId: string, data: any): Observable<boolean>;
-    validateStep(stepId: string, data: any): Observable<{ isValid: boolean; errors: string[] }>;
-    completeWorkflow(data: any): Observable<boolean>;
-}
+// Import interfaces
+import { WorkflowPageConfig, WorkflowStep, WorkflowData, WorkflowPageDataSource } from './interfaces';
 
 // Default data source implementation
 @Injectable()
 export class DefaultWorkflowPageDataSource implements WorkflowPageDataSource {
-    constructor(private workflows: { [key: string]: WorkflowPageConfig } = {}) { }
+    constructor() { }
 
     getWorkflow(id: string): Observable<WorkflowPageConfig> {
-        const workflow = this.workflows[id] || {
+        const workflow: WorkflowPageConfig = {
             title: 'Workflow',
             steps: []
         };
@@ -107,7 +72,7 @@ export class DefaultWorkflowPageDataSource implements WorkflowPageDataSource {
     templateUrl: './amw-workflow-page.component.html',
     styleUrl: './amw-workflow-page.component.scss',
     providers: [
-        { provide: WorkflowPageDataSource, useFactory: () => new DefaultWorkflowPageDataSource() }
+        { provide: WORKFLOW_PAGE_DATA_SOURCE, useFactory: () => new DefaultWorkflowPageDataSource() }
     ]
 })
 export class AmwWorkflowPageComponent implements OnInit, OnDestroy {
@@ -151,7 +116,7 @@ export class AmwWorkflowPageComponent implements OnInit, OnDestroy {
         private cdr: ChangeDetectorRef,
         private snackBar: MatSnackBar,
         private fb: FormBuilder,
-        @Optional() @Inject(WorkflowPageDataSource) private injectedDataSource?: WorkflowPageDataSource
+        @Optional() @Inject(WORKFLOW_PAGE_DATA_SOURCE) private injectedDataSource?: WorkflowPageDataSource
     ) { }
 
     ngOnInit(): void {
