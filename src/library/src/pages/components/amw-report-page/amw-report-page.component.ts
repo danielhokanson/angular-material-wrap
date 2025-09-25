@@ -120,7 +120,11 @@ export class AmwReportPageComponent implements OnInit, OnDestroy {
     currentConfig: ReportPageConfig = { widgets: [] };
     currentData: ReportData = {
         widgets: [],
-        dateRange: { start: new Date(), end: new Date() },
+        dateRange: {
+            start: new Date(),
+            end: new Date(),
+            preset: 'last7days'
+        },
         filters: {},
         lastUpdated: new Date()
     };
@@ -184,7 +188,12 @@ export class AmwReportPageComponent implements OnInit, OnDestroy {
         }
 
         const params = {
-            dateRange: this.currentData.dateRange,
+            dateRange: {
+                start: this.currentData.dateRange?.start || null,
+                end: this.currentData.dateRange?.end || null,
+                label: this.currentData.dateRange?.label,
+                preset: this.currentData.dateRange?.preset || 'last7days'
+            },
             filters: this.currentData.filters
         };
 
@@ -192,7 +201,15 @@ export class AmwReportPageComponent implements OnInit, OnDestroy {
             takeUntil(this.destroy$)
         ).subscribe({
             next: (data) => {
-                this.currentData = data;
+                this.currentData = {
+                    ...data,
+                    dateRange: {
+                        start: data.dateRange?.start || null,
+                        end: data.dateRange?.end || null,
+                        label: data.dateRange?.label,
+                        preset: data.dateRange?.preset || 'last7days'
+                    }
+                };
                 this.loading = false;
                 this.cdr.detectChanges();
             },

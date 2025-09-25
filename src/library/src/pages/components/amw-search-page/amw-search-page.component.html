@@ -15,6 +15,7 @@
       <mat-form-field appearance="outline" class="amw-search-page__search-field">
         <mat-label>Search</mat-label>
         <input matInput 
+               name="searchQuery"
                [(ngModel)]="searchQuery" 
                (keyup.enter)="onSearch()"
                (focus)="onSearchInputFocus()"
@@ -65,6 +66,7 @@
               <mat-form-field appearance="outline" *ngIf="field.type === 'text'" class="amw-search-page__filter-input">
                 <mat-label>{{ field.label }}</mat-label>
                 <input matInput 
+                       name="searchField_{{ field.key }}"
                        [ngModel]="getFieldValue(field)"
                        (ngModelChange)="setFieldValue(field, $event)"
                        [placeholder]="field.placeholder || ''">

@@ -69,7 +69,8 @@
         <div class="amw-stepper__step-main">
           <ng-content [ngSwitch]="i">
             <ng-container *ngFor="let stepContent of steps; let j = index">
-              <ng-container *ngSwitchCase="j" [ngTemplateOutlet]="stepContent.content || null">
+              <ng-container *ngSwitchCase="j">
+                <div *ngIf="stepContent.content" [innerHTML]="stepContent.content"></div>
               </ng-container>
             </ng-container>
           </ng-content>

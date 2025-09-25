@@ -1,73 +1,96 @@
 <div class="pipes-demo">
-  <h1>Pipes Demo</h1>
-  <p>Interactive demonstration of data transformation pipes.</p>
-
-  <div class="demo-section">
-    <h3>Currency Pipe</h3>
-    <p>Format numbers as currency with different locales and display options.</p>
-    <div class="pipe-examples">
-      <div class="example">
-        <strong>Basic:</strong> {{ 1234.56 | amwCurrency }}
-      </div>
-      <div class="example">
-        <strong>EUR:</strong> {{ 1234.56 | amwCurrency:'EUR' }}
-      </div>
-      <div class="example">
-        <strong>JPY:</strong> {{ 1234.56 | amwCurrency:'JPY' }}
-      </div>
-      <div class="example">
-        <strong>Custom digits:</strong> {{ 1234.56 | amwCurrency:'USD':'symbol':'1.0-0' }}
-      </div>
+    <div class="pipes-header">
+        <h1>Angular Pipes</h1>
+        <p>Data transformation pipes for formatting and manipulating data</p>
     </div>
-  </div>
 
-  <div class="demo-section">
-    <h3>Date Pipe</h3>
-    <p>Format dates with various display options and locales.</p>
-    <div class="pipe-examples">
-      <div class="example">
-        <strong>Short:</strong> {{ currentDate | amwDate:'short' }}
-      </div>
-      <div class="example">
-        <strong>Medium:</strong> {{ currentDate | amwDate:'medium' }}
-      </div>
-      <div class="example">
-        <strong>Long:</strong> {{ currentDate | amwDate:'long' }}
-      </div>
-      <div class="example">
-        <strong>Date only:</strong> {{ currentDate | amwDate:'date' }}
-      </div>
-      <div class="example">
-        <strong>Time only:</strong> {{ currentDate | amwDate:'time' }}
-      </div>
-    </div>
-  </div>
+    <div class="pipes-content">
+        <div class="pipes-main">
+            <mat-card class="pipe-demo">
+                <mat-card-header>
+                    <mat-card-title>{{ selectedPipe.name }}</mat-card-title>
+                    <mat-card-subtitle>Interactive demo and documentation</mat-card-subtitle>
+                </mat-card-header>
+                <mat-card-content>
+                    <mat-tab-group [(selectedIndex)]="selectedTab" class="pipe-tabs">
+                        <mat-tab label="Demo" icon="play_arrow">
+                            <ng-container [ngSwitch]="selectedPipe.id">
+                                <div *ngSwitchCase="'currency'" class="demo-content">
+                                    <h3>Currency Pipe Demo</h3>
+                                    <p>This pipe formats numbers as currency.</p>
+                                    
+                                    <div class="demo-section">
+                                        <h4>Basic Currency Formatting</h4>
+                                        <mat-form-field appearance="outline">
+                                            <mat-label>Amount</mat-label>
+                                            <input matInput 
+                                                   name="currencyAmount"
+                                                   [(ngModel)]="currencyAmount" 
+                                                   type="number" 
+                                                   placeholder="Enter amount">
+                                        </mat-form-field>
+                                        
+                                        <div class="pipe-result">
+                                            <h4>Result:</h4>
+                                            <p class="result-text">{{ currencyAmount | amwCurrency:'USD' }}</p>
+                                        </div>
+                                    </div>
+                                </div>
 
-  <div class="demo-section">
-    <h3>Text Transform Pipe</h3>
-    <p>Transform text with various case and format options.</p>
-    <div class="pipe-examples">
-      <div class="example">
-        <strong>Uppercase:</strong> {{ textValue | amwTextTransform:'uppercase' }}
-      </div>
-      <div class="example">
-        <strong>Lowercase:</strong> {{ textValue | amwTextTransform:'lowercase' }}
-      </div>
-      <div class="example">
-        <strong>Capitalize:</strong> {{ textValue | amwTextTransform:'capitalize' }}
-      </div>
-      <div class="example">
-        <strong>Title Case:</strong> {{ textValue | amwTextTransform:'titlecase' }}
-      </div>
-      <div class="example">
-        <strong>Camel Case:</strong> {{ textValue | amwTextTransform:'camelcase' }}
-      </div>
-      <div class="example">
-        <strong>Kebab Case:</strong> {{ textValue | amwTextTransform:'kebabcase' }}
-      </div>
-      <div class="example">
-        <strong>Snake Case:</strong> {{ textValue | amwTextTransform:'snakecase' }}
-      </div>
+                                <div *ngSwitchCase="'date'" class="demo-content">
+                                    <h3>Date Pipe Demo</h3>
+                                    <p>This pipe formats dates in various ways.</p>
+                                    
+                                    <div class="demo-section">
+                                        <h4>Date Formatting</h4>
+                                        <div class="pipe-result">
+                                            <h4>Current Date:</h4>
+                                            <p class="result-text">{{ currentDate | amwDate:'medium' }}</p>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div *ngSwitchCase="'text-transform'" class="demo-content">
+                                    <h3>Text Transform Pipe Demo</h3>
+                                    <p>This pipe transforms text in various ways.</p>
+                                    
+                                    <div class="demo-section">
+                                        <h4>Text Transformation</h4>
+                                        <mat-form-field appearance="outline">
+                                            <mat-label>Text to Transform</mat-label>
+                                            <input matInput 
+                                                   name="textValue"
+                                                   [(ngModel)]="textValue" 
+                                                   placeholder="Enter text to transform">
+                                        </mat-form-field>
+                                        
+                                        <div class="pipe-result">
+                                            <h4>Results:</h4>
+                                            <p><strong>Uppercase:</strong> {{ textValue | amwTextTransform:'uppercase' }}</p>
+                                            <p><strong>Lowercase:</strong> {{ textValue | amwTextTransform:'lowercase' }}</p>
+                                            <p><strong>Title Case:</strong> {{ textValue | amwTextTransform:'titlecase' }}</p>
+                                        </div>
+                                    </div>
+                                </div>
+                            </ng-container>
+                        </mat-tab>
+                        
+                        <mat-tab label="Code" icon="code">
+                            <div class="code-content">
+                                <h3>{{ selectedPipe.name }} Pipe Code</h3>
+                                <p>Code examples will be available soon.</p>
+                            </div>
+                        </mat-tab>
+                        
+                        <mat-tab label="API" icon="description">
+                            <div class="api-content">
+                                <h3>{{ selectedPipe.name }} Pipe API</h3>
+                                <p>API documentation will be available soon.</p>
+                            </div>
+                        </mat-tab>
+                    </mat-tab-group>
+                </mat-card-content>
+            </mat-card>
+        </div>
     </div>
-  </div>
 </div>

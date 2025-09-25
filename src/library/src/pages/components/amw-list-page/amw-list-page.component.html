@@ -23,7 +23,11 @@
     <div class="amw-list-page__search" *ngIf="currentConfig.showSearch">
       <mat-form-field appearance="outline">
         <mat-label>Search</mat-label>
-        <input matInput [(ngModel)]="searchQuery" (keyup.enter)="onSearch()" placeholder="Search...">
+        <input matInput 
+               name="listSearchQuery"
+               [(ngModel)]="searchQuery" 
+               (keyup.enter)="onSearch()" 
+               placeholder="Search...">
         <mat-icon matSuffix>search</mat-icon>
       </mat-form-field>
       <button mat-raised-button color="primary" (click)="onSearch()">Search</button>
@@ -46,7 +50,10 @@
             <div *ngFor="let filter of currentConfig.filters" class="amw-list-page__filter-field">
               <mat-form-field appearance="outline" *ngIf="filter.type === 'text'">
                 <mat-label>{{ filter.label }}</mat-label>
-                <input matInput [(ngModel)]="currentFilters[filter.key]" [placeholder]="filter.placeholder || ''">
+                <input matInput 
+                       name="listFilter_{{ filter.key }}"
+                       [(ngModel)]="currentFilters[filter.key]" 
+                       [placeholder]="filter.placeholder || ''">
               </mat-form-field>
               
               <mat-form-field appearance="outline" *ngIf="filter.type === 'select'">

@@ -1,44 +1,70 @@
 .services-demo {
-  max-width: 1200px;
-  margin: 0 auto;
-
-  h1 {
-    color: #1976d2;
-    margin-bottom: 8px;
-  }
-
-  > p {
-    color: #666;
-    margin-bottom: 32px;
-    font-size: 16px;
-  }
+    padding: 20px;
 }
 
-.coming-soon {
-  margin-top: 48px;
-  padding: 24px;
-  background-color: #e3f2fd;
-  border-radius: 8px;
-  border: 1px solid #bbdefb;
+.services-header h1 {
+    margin-bottom: 10px;
+}
 
-  h3 {
-    margin: 0 0 16px 0;
-    color: #1976d2;
-    font-size: 18px;
-  }
+.services-header p {
+    margin-bottom: 20px;
+    color: #666;
+}
 
-  p {
-    margin: 0 0 16px 0;
-    color: #1976d2;
-  }
+.demo-content {
+    padding: 20px 0;
+}
 
-  ul {
-    margin: 0;
-    padding-left: 20px;
-    color: #1976d2;
+.demo-section {
+    margin-bottom: 30px;
+}
 
-    li {
-      margin-bottom: 4px;
-    }
-  }
+.message-list {
+    max-height: 200px;
+    overflow-y: auto;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    padding: 16px;
+    background: #f9f9f9;
+}
+
+.message-item {
+    padding: 8px 0;
+    border-bottom: 1px solid #eee;
+}
+
+.message-item:last-child {
+    border-bottom: none;
+}
+
+.timestamp {
+    float: right;
+    color: #666;
+    font-size: 0.8em;
+}
+
+.loading-demo {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 20px;
+    margin: 20px 0;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    background: #f9f9f9;
+}
+
+.loading-demo p {
+    margin-top: 16px;
+    margin-bottom: 0;
+}
+
+mat-form-field {
+    width: 100%;
+    margin-bottom: 16px;
+}
+
+button {
+    margin-right: 8px;
+    margin-bottom: 8px;
 }
