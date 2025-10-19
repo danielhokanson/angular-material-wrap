@@ -18,6 +18,7 @@ import { MatTableModule } from '@angular/material/table';
 import { MatSlideToggleModule } from '@angular/material/slide-toggle';
 import { MatProgressBarModule } from '@angular/material/progress-bar';
 import { MatOptionModule } from '@angular/material/core';
+import { MatSelectModule } from '@angular/material/select';
 import { MatPaginatorModule, PageEvent } from '@angular/material/paginator';
 import { MatSortModule, Sort } from '@angular/material/sort';
 import { Subject, takeUntil, BehaviorSubject, Observable, of } from 'rxjs';
@@ -95,6 +96,7 @@ export class DefaultReportPageDataSource implements ReportPageDataSource {
         MatSlideToggleModule,
         MatProgressBarModule,
         MatOptionModule,
+        MatSelectModule,
         MatPaginatorModule,
         MatSortModule
     ],

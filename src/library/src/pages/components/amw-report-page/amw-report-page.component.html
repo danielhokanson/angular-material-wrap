@@ -50,7 +50,7 @@
         <div class="amw-report-page__date-range" *ngIf="!loading && currentData.dateRange">
           <mat-form-field appearance="outline">
             <mat-label>Date Range</mat-label>
-            <mat-select name="dateRangePreset" [ngModel]="currentData.dateRange?.preset" (ngModelChange)="onDateRangePresetChange($event)" (selectionChange)="onDateRangeChange()">
+            <mat-select name="dateRangePreset" [ngModel]="currentData.dateRange.preset" (ngModelChange)="onDateRangePresetChange($event)">
               <mat-option value="last7days">Last 7 days</mat-option>
               <mat-option value="last30days">Last 30 days</mat-option>
               <mat-option value="last90days">Last 90 days</mat-option>
@@ -63,7 +63,7 @@
             <input matInput 
                    type="date"
                    name="startDate"
-                   [ngModel]="currentData.dateRange?.start" 
+                    [ngModel]="currentData.dateRange.start"
                    (ngModelChange)="onDateRangeStartChange($event)">
           </mat-form-field>
           
@@ -72,7 +72,7 @@
             <input matInput 
                    type="date"
                    name="endDate"
-                   [ngModel]="currentData.dateRange?.end" 
+                    [ngModel]="currentData.dateRange.end"
                    (ngModelChange)="onDateRangeEndChange($event)">
           </mat-form-field>
         </div>

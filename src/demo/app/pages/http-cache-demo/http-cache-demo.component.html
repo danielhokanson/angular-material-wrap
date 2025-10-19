@@ -1,0 +1,155 @@
+<div class="http-cache-demo">
+  <div class="http-cache-demo__header">
+    <h1>HTTP Cache Interceptor Demo</h1>
+    <p>Test the HTTP caching interceptor with configurable timeouts</p>
+  </div>
+
+  <div class="http-cache-demo__content">
+    <mat-tab-group>
+      <!-- Demo Tab -->
+      <mat-tab label="Interactive Demo">
+        <div class="tab-content">
+          <mat-card>
+            <mat-card-header>
+              <mat-card-title>Test Cache Behavior</mat-card-title>
+              <mat-card-subtitle>Click buttons multiple times to see caching in action</mat-card-subtitle>
+            </mat-card-header>
+            <mat-card-content>
+              <div class="cache-info">
+                <mat-chip-set>
+                  <mat-chip>
+                    <mat-icon>memory</mat-icon>
+                    Memory: {{ cacheSize }} entries
+                  </mat-chip>
+                  <mat-chip>
+                    <mat-icon>storage</mat-icon>
+                    IndexedDB: {{ totalCacheSize }} entries
+                  </mat-chip>
+                  <mat-chip>
+                    <mat-icon>pie_chart</mat-icon>
+                    Storage: {{ storageUsage }}
+                  </mat-chip>
+                  <mat-chip *ngIf="lastRequestTime !== null" [class.cached]="lastRequestTime < 10">
+                    <mat-icon>timer</mat-icon>
+                    Response Time: {{ lastRequestTime.toFixed(2) }}ms
+                    <span *ngIf="lastRequestTime < 10" class="cached-badge">CACHED</span>
+                  </mat-chip>
+                </mat-chip-set>
+              </div>
+
+              <div class="test-endpoints">
+                <h3>Test Endpoints</h3>
+                <div class="endpoint-buttons">
+                  <button mat-raised-button 
+                          color="primary" 
+                          *ngFor="let endpoint of testEndpoints"
+                          (click)="makeRequest(endpoint.url)"
+                          [disabled]="loading">
+                    <mat-icon>http</mat-icon>
+                    {{ endpoint.label }}
+                  </button>
+                </div>
+              </div>
+
+              <div class="cache-actions">
+                <button mat-raised-button color="accent" (click)="pruneExpired()">
+                  <mat-icon>cleaning_services</mat-icon>
+                  Prune Expired
+                </button>
+                <button mat-raised-button color="warn" (click)="clearCache()">
+                  <mat-icon>delete_sweep</mat-icon>
+                  Clear All Cache
+                </button>
+              </div>
+
+              <mat-spinner *ngIf="loading" diameter="40"></mat-spinner>
+
+              <div *ngIf="errorMessage" class="error-message">
+                <mat-icon>warning</mat-icon>
+                <p>{{ errorMessage }}</p>
+              </div>
+
+              <div *ngIf="responseData" class="response-data">
+                <h3>Response Data</h3>
+                <pre>{{ responseData | json }}</pre>
+              </div>
+            </mat-card-content>
+          </mat-card>
+        </div>
+      </mat-tab>
+
+      <!-- Configuration Tab -->
+      <mat-tab label="Cache Configuration">
+        <div class="tab-content">
+          <mat-card>
+            <mat-card-header>
+              <mat-card-title>Current Cache Configuration</mat-card-title>
+              <mat-card-subtitle>From assets/cache-map.json</mat-card-subtitle>
+            </mat-card-header>
+            <mat-card-content>
+              <mat-list>
+                <mat-list-item *ngFor="let pattern of cacheConfig | keyvalue">
+                  <span matListItemTitle>{{ pattern.key }}</span>
+                  <span matListItemLine>Timeout: {{ pattern.value }} ms</span>
+                  <mat-icon matListItemIcon>schedule</mat-icon>
+                </mat-list-item>
+              </mat-list>
+            </mat-card-content>
+          </mat-card>
+        </div>
+      </mat-tab>
+
+      <!-- Documentation Tab -->
+      <mat-tab label="How It Works">
+        <div class="tab-content">
+          <mat-card>
+            <mat-card-header>
+              <mat-card-title>HTTP Cache Interceptor</mat-card-title>
+            </mat-card-header>
+            <mat-card-content>
+              <h3>Features</h3>
+              <ul>
+                <li><strong>Automatic Caching:</strong> GET requests are automatically cached based on URL patterns</li>
+                <li><strong>Persistent Storage:</strong> Cache survives browser restarts using IndexedDB</li>
+                <li><strong>Cross-Tab Sharing:</strong> Cache is shared between all browser tabs/windows</li>
+                <li><strong>Two-Tier Architecture:</strong> Fast in-memory cache (L1) + persistent IndexedDB (L2)</li>
+                <li><strong>Large Dataset Support:</strong> IndexedDB can handle 10,000+ records efficiently</li>
+                <li><strong>Configurable Timeouts:</strong> Different endpoints can have different cache durations</li>
+                <li><strong>Pattern Matching:</strong> Supports placeholders like <code>:id</code>, <code>:param</code>, and <code>*</code></li>
+                <li><strong>In-Flight Deduplication:</strong> Prevents duplicate requests to the same endpoint</li>
+                <li><strong>Automatic Expiration:</strong> Cached responses expire after the configured timeout</li>
+                <li><strong>Storage Monitoring:</strong> Track storage usage and quota</li>
+              </ul>
+
+              <h3>Pattern Examples</h3>
+              <ul>
+                <li><code>api/users</code> - Exact match</li>
+                <li><code>api/users/:id</code> - Matches <code>api/users/123</code></li>
+                <li><code>api/products/:param</code> - Matches any path segment</li>
+                <li><code>api/search/*</code> - Matches any sub-path</li>
+              </ul>
+
+              <h3>Usage</h3>
+              <p>
+                Simply configure the <code>assets/cache-map.json</code> file with URL patterns and timeouts.
+                The interceptor will automatically cache matching GET requests.
+              </p>
+
+              <h3>Testing Tips</h3>
+              <ol>
+                <li>Click a test endpoint button twice quickly - the second request should be instant (cached)</li>
+                <li>Wait for the timeout period, then click again - a fresh request will be made</li>
+                <li>Use the browser's Network tab to see which requests actually hit the network</li>
+                <li>Check the console for cache hit/miss logging</li>
+                <li><strong>Test Persistence:</strong> Click a button, close the browser, reopen - the cache should still be there</li>
+                <li><strong>Test Cross-Tab:</strong> Open two tabs, cache data in one - it's available in the other instantly</li>
+                <li><strong>Monitor Storage:</strong> Check the storage usage statistics to see IndexedDB usage</li>
+              </ol>
+            </mat-card-content>
+          </mat-card>
+        </div>
+      </mat-tab>
+    </mat-tab-group>
+  </div>
+</div>
+

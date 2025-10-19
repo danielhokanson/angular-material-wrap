@@ -96,7 +96,8 @@ export class DemoNavigationComponent {
             children: [
                 { title: 'Messaging Service', route: '/services/messaging', icon: 'message' },
                 { title: 'Loading Service', route: '/services/loading', icon: 'hourglass_empty' },
-                { title: 'Notification Service', route: '/services/notification', icon: 'notifications' }
+                { title: 'Notification Service', route: '/services/notification', icon: 'notifications' },
+                { title: 'HTTP Cache', route: '/services/http-cache', icon: 'storage' }
             ]
         },
         {

@@ -48,11 +48,16 @@ export class SettingsPageComponent implements OnInit {
   emailNotifications = true;
   emailFrequency = 'daily';
   pushNotifications = false;
+  emailAddress = 'user@example.com';
+  systemNotifications = true;
+  marketingEmails = false;
 
   // Security settings
   sessionTimeout = 30;
   analyticsTracking = true;
   errorReporting = true;
+  usageAnalytics = true;
+  performanceMonitoring = true;
 
   // Advanced settings
   apiBaseUrl = 'https://api.example.com';
@@ -72,9 +77,14 @@ export class SettingsPageComponent implements OnInit {
       emailNotifications: this.emailNotifications,
       emailFrequency: this.emailFrequency,
       pushNotifications: this.pushNotifications,
+      emailAddress: this.emailAddress,
+      systemNotifications: this.systemNotifications,
+      marketingEmails: this.marketingEmails,
       sessionTimeout: this.sessionTimeout,
       analyticsTracking: this.analyticsTracking,
       errorReporting: this.errorReporting,
+      usageAnalytics: this.usageAnalytics,
+      performanceMonitoring: this.performanceMonitoring,
       apiBaseUrl: this.apiBaseUrl,
       cacheDuration: this.cacheDuration,
       debugMode: this.debugMode
@@ -90,9 +100,14 @@ export class SettingsPageComponent implements OnInit {
     this.emailNotifications = true;
     this.emailFrequency = 'daily';
     this.pushNotifications = false;
+    this.emailAddress = 'user@example.com';
+    this.systemNotifications = true;
+    this.marketingEmails = false;
     this.sessionTimeout = 30;
     this.analyticsTracking = true;
     this.errorReporting = true;
+    this.usageAnalytics = true;
+    this.performanceMonitoring = true;
     this.apiBaseUrl = 'https://api.example.com';
     this.cacheDuration = 15;
     this.debugMode = false;

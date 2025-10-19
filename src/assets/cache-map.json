@@ -1,0 +1,21 @@
+{
+  "_comment": "HTTP Cache Configuration",
+  "_description": "Maps URL patterns to cache timeouts in milliseconds",
+  "_patterns": {
+    "exact": "Exact URL match: '/api/users'",
+    ":id": "Numeric ID placeholder: '/api/users/:id'",
+    ":param": "Any path segment: '/api/categories/:param'",
+    "*": "Wildcard: '/api/search/*'"
+  },
+  
+  "/api/users": 60000,
+  "/api/users/:id": 300000,
+  "/api/products": 30000,
+  "/api/products/:id": 300000,
+  "/api/products/:id/reviews": 120000,
+  "/api/categories": 600000,
+  "/api/categories/:param": 600000,
+  "/api/settings": 300000,
+  "/api/config/*": 600000
+}
+

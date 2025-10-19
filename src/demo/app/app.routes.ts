@@ -218,6 +218,10 @@ export const routes: Routes = [
         data: { service: 'notification' }
     },
     {
+        path: 'services/http-cache',
+        loadComponent: () => import('./pages/http-cache-demo/http-cache-demo.component').then(m => m.HttpCacheDemoComponent)
+    },
+    {
         path: 'pipes',
         loadComponent: () => import('./pages/pipes-demo/pipes-demo.component').then(m => m.PipesDemoComponent)
     },
