@@ -6,10 +6,67 @@ import {
     HttpRequest,
     HttpHandler
 } from '@angular/common/http';
-import { of } from 'rxjs';
+import { of, Observable } from 'rxjs';
 import { tap, switchMap, shareReplay } from 'rxjs/operators';
 import { HttpCacheService } from './http-cache.service';
 import { CacheConfigService } from './cache-config.service';
+
+/**
+ * Shared caching logic for both functional and class-based interceptors
+ */
+function processCacheRequest(
+    req: HttpRequest<any>,
+    next: HttpHandler,
+    cacheService: HttpCacheService,
+    configService: CacheConfigService,
+    debugPrefix: string = '[HTTP Cache]'
+): Observable<any> {
+    // Only cache GET requests
+    if (req.method !== 'GET') {
+        console.log(`${debugPrefix} Skipping non-GET request: ${req.method}`);
+        return next.handle(req);
+    }
+
+    // Only cache requests to /api/ endpoints
+    if (!req.url.includes('/api/')) {
+        console.log(`${debugPrefix} Skipping non-API request: ${req.url}`);
+        return next.handle(req);
+    }
+
+    // Check if this URL should be cached
+    const timeout = configService.getTimeoutForUrl(req.url);
+    console.log(`${debugPrefix} Timeout for ${req.url}: ${timeout}ms`);
+    if (timeout === null) {
+        console.log(`${debugPrefix} No cache timeout configured for: ${req.url}`);
+        return next.handle(req);
+    }
+
+    // Try to get the response from cache (returns Observable)
+    return cacheService.get(req.url).pipe(
+        switchMap(cachedResponse => {
+            if (cachedResponse) {
+                console.log(`${debugPrefix} Serving cached response for: ${req.url}`);
+                return of(cachedResponse.clone());
+            }
+
+            // Make the request and cache the response
+            console.log(`${debugPrefix} Making HTTP request for: ${req.url} (timeout: ${timeout}ms)`);
+            return next.handle(req).pipe(
+                tap(event => {
+                    if (event instanceof HttpResponse) {
+                        console.log(`${debugPrefix} Caching response for: ${req.url}`);
+                        // Subscribe to the put operation but don't block the response
+                        cacheService.put(req.url, event, timeout).subscribe({
+                            next: () => console.log(`${debugPrefix} Successfully cached: ${req.url}`),
+                            error: (err) => console.error(`${debugPrefix} Failed to cache: ${req.url}`, err)
+                        });
+                    }
+                }),
+                shareReplay(1) // Prevent duplicate requests
+            );
+        })
+    );
+}
 
 /**
  * Class-based HTTP Cache Interceptor
@@ -32,47 +89,7 @@ export class HttpCacheInterceptor implements HttpInterceptor {
     ) { }
 
     intercept(req: HttpRequest<any>, next: HttpHandler) {
-        // Only cache GET requests
-        if (req.method !== 'GET') {
-            return next.handle(req);
-        }
-
-        // Only cache requests to /api/ endpoints
-        if (!req.url.includes('/api/')) {
-            return next.handle(req);
-        }
-
-        // Check if this URL should be cached
-        const timeout = this.configService.getTimeoutForUrl(req.url);
-        if (timeout === null) {
-            return next.handle(req);
-        }
-
-        // Try to get the response from cache (returns Observable)
-        return this.cacheService.get(req.url).pipe(
-            switchMap(cachedResponse => {
-                if (cachedResponse) {
-                    console.log(`[HTTP Cache] Serving cached response for: ${req.url}`);
-                    return of(cachedResponse.clone());
-                }
-
-                // Make the request and cache the response
-                console.log(`[HTTP Cache] Making HTTP request for: ${req.url} (timeout: ${timeout}ms)`);
-                return next.handle(req).pipe(
-                    tap(event => {
-                        if (event instanceof HttpResponse) {
-                            console.log(`[HTTP Cache] Caching response for: ${req.url}`);
-                            // Subscribe to the put operation but don't block the response
-                            this.cacheService.put(req.url, event, timeout).subscribe({
-                                next: () => console.log(`[HTTP Cache] Successfully cached: ${req.url}`),
-                                error: (err) => console.error(`[HTTP Cache] Failed to cache: ${req.url}`, err)
-                            });
-                        }
-                    }),
-                    shareReplay(1) // Prevent duplicate requests
-                );
-            })
-        );
+        return processCacheRequest(req, next, this.cacheService, this.configService);
     }
 }
 
@@ -91,57 +108,18 @@ export class HttpCacheInterceptor implements HttpInterceptor {
 export const httpCacheInterceptor: HttpInterceptorFn = (req, next) => {
     console.log(`[HTTP Cache Interceptor] Intercepting: ${req.method} ${req.url}`);
 
-    // Only cache GET requests
-    if (req.method !== 'GET') {
-        console.log(`[HTTP Cache Interceptor] Skipping non-GET request: ${req.method}`);
-        return next(req);
-    }
-
-    // Only cache requests to /api/ endpoints
-    if (!req.url.includes('/api/')) {
-        console.log(`[HTTP Cache Interceptor] Skipping non-API request: ${req.url}`);
-        return next(req);
-    }
-
     try {
         console.log(`[HTTP Cache Interceptor] Injecting services for: ${req.url}`);
         const cacheService = inject(HttpCacheService);
         const configService = inject(CacheConfigService);
         console.log(`[HTTP Cache Interceptor] Services injected successfully`);
 
-        // Check if this URL should be cached
-        const timeout = configService.getTimeoutForUrl(req.url);
-        console.log(`[HTTP Cache Interceptor] Timeout for ${req.url}: ${timeout}ms`);
-        if (timeout === null) {
-            console.log(`[HTTP Cache Interceptor] No cache timeout configured for: ${req.url}`);
-            return next(req);
-        }
+        // Convert functional interceptor signature to class-based signature
+        const nextHandler: HttpHandler = {
+            handle: (req: HttpRequest<any>) => next(req)
+        };
 
-        // Try to get the response from cache (returns Observable)
-        return cacheService.get(req.url).pipe(
-            switchMap(cachedResponse => {
-                if (cachedResponse) {
-                    console.log(`[HTTP Cache] Serving cached response for: ${req.url}`);
-                    return of(cachedResponse.clone());
-                }
-
-                // Make the request and cache the response
-                console.log(`[HTTP Cache] Making HTTP request for: ${req.url} (timeout: ${timeout}ms)`);
-                return next(req).pipe(
-                    tap(event => {
-                        if (event instanceof HttpResponse) {
-                            console.log(`[HTTP Cache] Caching response for: ${req.url}`);
-                            // Subscribe to the put operation but don't block the response
-                            cacheService.put(req.url, event, timeout).subscribe({
-                                next: () => console.log(`[HTTP Cache] Successfully cached: ${req.url}`),
-                                error: (err) => console.error(`[HTTP Cache] Failed to cache: ${req.url}`, err)
-                            });
-                        }
-                    }),
-                    shareReplay(1) // Prevent duplicate requests
-                );
-            })
-        );
+        return processCacheRequest(req, nextHandler, cacheService, configService, '[HTTP Cache Interceptor]');
     } catch (error) {
         console.warn('[HTTP Cache] Service injection failed, bypassing cache:', error);
         return next(req);
