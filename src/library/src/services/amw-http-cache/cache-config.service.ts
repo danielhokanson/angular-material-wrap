@@ -72,20 +72,36 @@ export class CacheConfigService {
         }
 
         // Try pattern matching with placeholders
+        const normalizedUrl = this.normalizeApiPrefix(cleanUrl);
         for (const pattern in config) {
-            if (this.matchesPattern(cleanUrl, pattern)) {
+            if (this.matchesPattern(normalizedUrl, pattern)) {
                 return config[pattern];
             }
-        }
-
-        // Try partial path matching (e.g., "SomeController/Thing" matches "/api/SomeController/Thing")
-        for (const pattern in config) {
-            if (this.matchesPartialPath(cleanUrl, pattern)) {
+            if (this.matchesPartialPath(normalizedUrl, pattern)) {
                 return config[pattern];
             }
         }
 
         return null;
+    }
+
+    /**
+     * Normalize API prefix in URL for partial path matching
+     * Removes /api/, /API/, /Api, etc. from the beginning of URLs
+     * 
+     * Examples:
+     * - "/api/SomeController/Thing" -> "SomeController/Thing"
+     * - "/API/users/123" -> "users/123"
+     * - "/Api/products" -> "products"
+     * - "/other/path" -> "/other/path" (unchanged)
+     * 
+     * @param url The URL to normalize
+     * @returns The normalized URL without API prefix
+     */
+    private normalizeApiPrefix(url: string): string {
+        // Match /api/, /API/, /Api, etc. (case insensitive) at the start
+        const apiPrefixRegex = /^\/api\//i;
+        return url.replace(apiPrefixRegex, '/');
     }
 
     /**

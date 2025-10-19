@@ -9,8 +9,6 @@
     "partial": "Partial path match: 'SomeController/Thing' matches '/api/SomeController/Thing' (exact segments only)"
   },
   
-  "/api/users": 60000,
-  "/api/users/:id": 300000,
   "/api/products": 30000,
   "/api/products/:id": 300000,
   "/api/products/:id/reviews": 120000,

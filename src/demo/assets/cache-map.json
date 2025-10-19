@@ -8,8 +8,8 @@
     "*": "Wildcard: '/api/search/*'"
   },
   
-  "/api/users": 60000,
-  "/api/users/:id": 300000,
+  "users": 60000,
+  "users/:id": 300000,
   "/api/products": 30000,
   "/api/products/:id": 300000,
   "/api/products/:id/reviews": 120000,
