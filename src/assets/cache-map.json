@@ -5,7 +5,8 @@
     "exact": "Exact URL match: '/api/users'",
     ":id": "Numeric ID placeholder: '/api/users/:id'",
     ":param": "Any path segment: '/api/categories/:param'",
-    "*": "Wildcard: '/api/search/*'"
+    "*": "Wildcard: '/api/search/*'",
+    "partial": "Partial path match: 'SomeController/Thing' matches '/api/SomeController/Thing' (exact segments only)"
   },
   
   "/api/users": 60000,
@@ -16,6 +17,9 @@
   "/api/categories": 600000,
   "/api/categories/:param": 600000,
   "/api/settings": 300000,
-  "/api/config/*": 600000
+  "/api/config/*": 600000,
+  "SomeController/Thing": 180000,
+  "users": 120000,
+  "users/:id": 240000
 }
 

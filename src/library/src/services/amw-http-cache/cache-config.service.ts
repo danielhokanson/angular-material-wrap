@@ -78,7 +78,30 @@ export class CacheConfigService {
             }
         }
 
+        // Try partial path matching (e.g., "SomeController/Thing" matches "/api/SomeController/Thing")
+        for (const pattern in config) {
+            if (this.matchesPartialPath(cleanUrl, pattern)) {
+                return config[pattern];
+            }
+        }
+
         return null;
+    }
+
+    /**
+     * Convert a pattern string to a regex pattern
+     * Handles placeholders like :id, :param, and wildcards like *
+     * 
+     * @param pattern The pattern string to convert
+     * @returns The regex pattern string
+     */
+    private patternToRegex(pattern: string): string {
+        return pattern
+            .replace(/[.+?^${}()|[\]\\]/g, '\\$&')  // Escape special regex chars
+            .replace(/\*/g, '.*')                   // * becomes .*
+            .replace(/:id/g, '\\d+')                // :id becomes \d+
+            .replace(/:param/g, '[^/]+')            // :param becomes [^/]+
+            .replace(/:(\w+)/g, '[^/]+');           // :anything becomes [^/]+
     }
 
     /**
@@ -98,16 +121,37 @@ export class CacheConfigService {
      * @returns True if the URL matches the pattern
      */
     private matchesPattern(url: string, pattern: string): boolean {
-        // Escape special regex characters except for * and :
-        let regexPattern = pattern
-            .replace(/[.+?^${}()|[\]\\]/g, '\\$&')
-            .replace(/\*/g, '.*')
-            .replace(/:id/g, '\\d+')
-            .replace(/:param/g, '[^/]+')
-            .replace(/:(\w+)/g, '[^/]+');
+        const regexPattern = '^' + this.patternToRegex(pattern) + '$';
+        const regex = new RegExp(regexPattern);
+        return regex.test(url);
+    }
 
-        // Add start and end anchors
-        regexPattern = '^' + regexPattern + '$';
+    /**
+     * Check if a URL contains a partial path pattern
+     * This allows patterns like "SomeController/Thing" to match URLs like "/api/SomeController/Thing"
+     * 
+     * Examples:
+     * - "SomeController/Thing" matches "/api/SomeController/Thing"
+     * - "users" matches "/api/users" but NOT "/api/users/123"
+     * - "users/:id" matches "/api/users/123"
+     * - "products/:id" matches "/api/products/123"
+     * 
+     * @param url The URL to test
+     * @param pattern The partial path pattern to match against
+     * @returns True if the URL contains the pattern
+     */
+    private matchesPartialPath(url: string, pattern: string): boolean {
+        // Skip patterns that start with / (these are handled by exact/pattern matching)
+        if (pattern.startsWith('/')) {
+            return false;
+        }
+
+        // Convert pattern to regex and add word boundaries to ensure exact segment matching
+        let regexPattern = this.patternToRegex(pattern);
+
+        // Add word boundaries around the pattern to ensure it matches complete path segments
+        // This prevents "users" from matching "users/123" or "myusers"
+        regexPattern = '\\b' + regexPattern + '\\b';
 
         const regex = new RegExp(regexPattern);
         return regex.test(url);
