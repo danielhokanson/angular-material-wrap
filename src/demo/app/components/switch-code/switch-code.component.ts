@@ -1,12 +1,12 @@
 import { Component, ViewEncapsulation } from '@angular/core';
-import { CommonModule } from '@angular/common';
+
 import { MatExpansionModule } from '@angular/material/expansion';
 import { MatCardModule } from '@angular/material/card';
 
 @Component({
   selector: 'amw-demo-switch-code',
   standalone: true,
-  imports: [CommonModule, MatExpansionModule, MatCardModule],
+  imports: [MatExpansionModule, MatCardModule],
   encapsulation: ViewEncapsulation.None,
   templateUrl: './switch-code.component.html',
   styleUrl: './switch-code.component.scss'

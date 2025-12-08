@@ -14,96 +14,234 @@
         <mat-card-content>
           <mat-tab-group [(selectedIndex)]="selectedTab" class="control-tabs">
             <mat-tab label="Variations" icon="view_module">
-              <ng-container [ngSwitch]="selectedControl.id">
-                <amw-demo-button *ngSwitchCase="'button'"></amw-demo-button>
-                <amw-demo-input *ngSwitchCase="'input'"></amw-demo-input>
-                <amw-demo-select *ngSwitchCase="'select'"></amw-demo-select>
-                <amw-demo-checkbox *ngSwitchCase="'checkbox'"></amw-demo-checkbox>
-                <amw-demo-radio *ngSwitchCase="'radio'"></amw-demo-radio>
-                <app-radio-group-demo *ngSwitchCase="'radio-group'"></app-radio-group-demo>
-                <amw-demo-chips *ngSwitchCase="'chips'"></amw-demo-chips>
-                <amw-demo-toggle *ngSwitchCase="'toggle'"></amw-demo-toggle>
-                <amw-demo-textarea *ngSwitchCase="'textarea'"></amw-demo-textarea>
-                <amw-demo-slider *ngSwitchCase="'slider'"></amw-demo-slider>
-                <amw-demo-autocomplete *ngSwitchCase="'autocomplete'"></amw-demo-autocomplete>
-                <amw-demo-datepicker *ngSwitchCase="'datepicker'"></amw-demo-datepicker>
-                <amw-demo-range-slider *ngSwitchCase="'range-slider'"></amw-demo-range-slider>
-                <amw-demo-switch *ngSwitchCase="'switch'"></amw-demo-switch>
-                <amw-demo-file-input *ngSwitchCase="'file-input'"></amw-demo-file-input>
-                <amw-demo-timepicker *ngSwitchCase="'timepicker'"></amw-demo-timepicker>
-                <amw-demo-color-picker *ngSwitchCase="'color-picker'"></amw-demo-color-picker>
-                <app-data-table-demo *ngSwitchCase="'data-table'"></app-data-table-demo>
+              @switch (selectedControl.id) {
+                @case ('button') {
+                  <amw-demo-button></amw-demo-button>
+                }
+                @case ('input') {
+                  <amw-demo-input></amw-demo-input>
+                }
+                @case ('select') {
+                  <amw-demo-select></amw-demo-select>
+                }
+                @case ('checkbox') {
+                  <amw-demo-checkbox></amw-demo-checkbox>
+                }
+                @case ('radio') {
+                  <amw-demo-radio></amw-demo-radio>
+                }
+                @case ('radio-group') {
+                  <app-radio-group-demo></app-radio-group-demo>
+                }
+                @case ('chips') {
+                  <amw-demo-chips></amw-demo-chips>
+                }
+                @case ('toggle') {
+                  <amw-demo-toggle></amw-demo-toggle>
+                }
+                @case ('textarea') {
+                  <amw-demo-textarea></amw-demo-textarea>
+                }
+                @case ('slider') {
+                  <amw-demo-slider></amw-demo-slider>
+                }
+                @case ('autocomplete') {
+                  <amw-demo-autocomplete></amw-demo-autocomplete>
+                }
+                @case ('datepicker') {
+                  <amw-demo-datepicker></amw-demo-datepicker>
+                }
+                @case ('range-slider') {
+                  <amw-demo-range-slider></amw-demo-range-slider>
+                }
+                @case ('switch') {
+                  <amw-demo-switch></amw-demo-switch>
+                }
+                @case ('file-input') {
+                  <amw-demo-file-input></amw-demo-file-input>
+                }
+                @case ('timepicker') {
+                  <amw-demo-timepicker></amw-demo-timepicker>
+                }
+                @case ('color-picker') {
+                  <amw-demo-color-picker></amw-demo-color-picker>
+                }
+                @case ('data-table') {
+                  <app-data-table-demo></app-data-table-demo>
+                }
                 <!-- Add more control demos as they are implemented -->
-              </ng-container>
+              }
             </mat-tab>
-            
+
             <mat-tab label="Validation" icon="verified">
-              <ng-container [ngSwitch]="selectedControl.id">
-                <amw-demo-button-validation *ngSwitchCase="'button'"></amw-demo-button-validation>
-                <amw-demo-input-validation *ngSwitchCase="'input'"></amw-demo-input-validation>
-                <amw-demo-select-validation *ngSwitchCase="'select'"></amw-demo-select-validation>
-                <amw-demo-checkbox-validation *ngSwitchCase="'checkbox'"></amw-demo-checkbox-validation>
-                <amw-demo-radio-validation *ngSwitchCase="'radio'"></amw-demo-radio-validation>
-                <app-radio-group-validation *ngSwitchCase="'radio-group'"></app-radio-group-validation>
-                <amw-demo-toggle-validation *ngSwitchCase="'toggle'"></amw-demo-toggle-validation>
-                <amw-demo-textarea-validation *ngSwitchCase="'textarea'"></amw-demo-textarea-validation>
-                <amw-demo-slider-validation *ngSwitchCase="'slider'"></amw-demo-slider-validation>
-                <amw-demo-autocomplete-validation *ngSwitchCase="'autocomplete'"></amw-demo-autocomplete-validation>
-                <amw-demo-datepicker-validation *ngSwitchCase="'datepicker'"></amw-demo-datepicker-validation>
-                <amw-demo-range-slider-validation *ngSwitchCase="'range-slider'"></amw-demo-range-slider-validation>
-                <amw-demo-switch-validation *ngSwitchCase="'switch'"></amw-demo-switch-validation>
-                <amw-demo-file-input-validation *ngSwitchCase="'file-input'"></amw-demo-file-input-validation>
-                <amw-demo-timepicker-validation *ngSwitchCase="'timepicker'"></amw-demo-timepicker-validation>
-                <amw-demo-color-picker-validation *ngSwitchCase="'color-picker'"></amw-demo-color-picker-validation>
-                <amw-demo-data-table-validation *ngSwitchCase="'data-table'"></amw-demo-data-table-validation>
+              @switch (selectedControl.id) {
+                @case ('button') {
+                  <amw-demo-button-validation></amw-demo-button-validation>
+                }
+                @case ('input') {
+                  <amw-demo-input-validation></amw-demo-input-validation>
+                }
+                @case ('select') {
+                  <amw-demo-select-validation></amw-demo-select-validation>
+                }
+                @case ('checkbox') {
+                  <amw-demo-checkbox-validation></amw-demo-checkbox-validation>
+                }
+                @case ('radio') {
+                  <amw-demo-radio-validation></amw-demo-radio-validation>
+                }
+                @case ('radio-group') {
+                  <app-radio-group-validation></app-radio-group-validation>
+                }
+                @case ('toggle') {
+                  <amw-demo-toggle-validation></amw-demo-toggle-validation>
+                }
+                @case ('textarea') {
+                  <amw-demo-textarea-validation></amw-demo-textarea-validation>
+                }
+                @case ('slider') {
+                  <amw-demo-slider-validation></amw-demo-slider-validation>
+                }
+                @case ('autocomplete') {
+                  <amw-demo-autocomplete-validation></amw-demo-autocomplete-validation>
+                }
+                @case ('datepicker') {
+                  <amw-demo-datepicker-validation></amw-demo-datepicker-validation>
+                }
+                @case ('range-slider') {
+                  <amw-demo-range-slider-validation></amw-demo-range-slider-validation>
+                }
+                @case ('switch') {
+                  <amw-demo-switch-validation></amw-demo-switch-validation>
+                }
+                @case ('file-input') {
+                  <amw-demo-file-input-validation></amw-demo-file-input-validation>
+                }
+                @case ('timepicker') {
+                  <amw-demo-timepicker-validation></amw-demo-timepicker-validation>
+                }
+                @case ('color-picker') {
+                  <amw-demo-color-picker-validation></amw-demo-color-picker-validation>
+                }
+                @case ('data-table') {
+                  <amw-demo-data-table-validation></amw-demo-data-table-validation>
+                }
                 <!-- Add more validation components as they are implemented -->
-              </ng-container>
+              }
             </mat-tab>
-            
+
             <mat-tab label="Code" icon="code">
-              <ng-container [ngSwitch]="selectedControl.id">
-                <amw-demo-button-code *ngSwitchCase="'button'"></amw-demo-button-code>
-                <amw-demo-input-code *ngSwitchCase="'input'"></amw-demo-input-code>
-                <amw-demo-select-code *ngSwitchCase="'select'"></amw-demo-select-code>
-                <amw-demo-checkbox-code *ngSwitchCase="'checkbox'"></amw-demo-checkbox-code>
-                <amw-demo-radio-code *ngSwitchCase="'radio'"></amw-demo-radio-code>
-                <app-radio-group-code *ngSwitchCase="'radio-group'"></app-radio-group-code>
-                <amw-demo-toggle-code *ngSwitchCase="'toggle'"></amw-demo-toggle-code>
-                <amw-demo-textarea-code *ngSwitchCase="'textarea'"></amw-demo-textarea-code>
-                <amw-demo-slider-code *ngSwitchCase="'slider'"></amw-demo-slider-code>
-                <amw-demo-autocomplete-code *ngSwitchCase="'autocomplete'"></amw-demo-autocomplete-code>
-                <amw-demo-datepicker-code *ngSwitchCase="'datepicker'"></amw-demo-datepicker-code>
-                <amw-demo-range-slider-code *ngSwitchCase="'range-slider'"></amw-demo-range-slider-code>
-                <amw-demo-switch-code *ngSwitchCase="'switch'"></amw-demo-switch-code>
-                <amw-demo-file-input-code *ngSwitchCase="'file-input'"></amw-demo-file-input-code>
-                <amw-demo-timepicker-code *ngSwitchCase="'timepicker'"></amw-demo-timepicker-code>
-                <amw-demo-color-picker-code *ngSwitchCase="'color-picker'"></amw-demo-color-picker-code>
-                <amw-demo-data-table-code *ngSwitchCase="'data-table'"></amw-demo-data-table-code>
+              @switch (selectedControl.id) {
+                @case ('button') {
+                  <amw-demo-button-code></amw-demo-button-code>
+                }
+                @case ('input') {
+                  <amw-demo-input-code></amw-demo-input-code>
+                }
+                @case ('select') {
+                  <amw-demo-select-code></amw-demo-select-code>
+                }
+                @case ('checkbox') {
+                  <amw-demo-checkbox-code></amw-demo-checkbox-code>
+                }
+                @case ('radio') {
+                  <amw-demo-radio-code></amw-demo-radio-code>
+                }
+                @case ('radio-group') {
+                  <app-radio-group-code></app-radio-group-code>
+                }
+                @case ('toggle') {
+                  <amw-demo-toggle-code></amw-demo-toggle-code>
+                }
+                @case ('textarea') {
+                  <amw-demo-textarea-code></amw-demo-textarea-code>
+                }
+                @case ('slider') {
+                  <amw-demo-slider-code></amw-demo-slider-code>
+                }
+                @case ('autocomplete') {
+                  <amw-demo-autocomplete-code></amw-demo-autocomplete-code>
+                }
+                @case ('datepicker') {
+                  <amw-demo-datepicker-code></amw-demo-datepicker-code>
+                }
+                @case ('range-slider') {
+                  <amw-demo-range-slider-code></amw-demo-range-slider-code>
+                }
+                @case ('switch') {
+                  <amw-demo-switch-code></amw-demo-switch-code>
+                }
+                @case ('file-input') {
+                  <amw-demo-file-input-code></amw-demo-file-input-code>
+                }
+                @case ('timepicker') {
+                  <amw-demo-timepicker-code></amw-demo-timepicker-code>
+                }
+                @case ('color-picker') {
+                  <amw-demo-color-picker-code></amw-demo-color-picker-code>
+                }
+                @case ('data-table') {
+                  <amw-demo-data-table-code></amw-demo-data-table-code>
+                }
                 <!-- Add more code components as they are implemented -->
-              </ng-container>
+              }
             </mat-tab>
-            
+
             <mat-tab label="API" icon="description">
-              <ng-container [ngSwitch]="selectedControl.id">
-                <amw-demo-button-api *ngSwitchCase="'button'"></amw-demo-button-api>
-                <amw-demo-input-api *ngSwitchCase="'input'"></amw-demo-input-api>
-                <amw-demo-select-api *ngSwitchCase="'select'"></amw-demo-select-api>
-                <amw-demo-checkbox-api *ngSwitchCase="'checkbox'"></amw-demo-checkbox-api>
-                <amw-demo-radio-api *ngSwitchCase="'radio'"></amw-demo-radio-api>
-                <app-radio-group-api *ngSwitchCase="'radio-group'"></app-radio-group-api>
-                <amw-demo-toggle-api *ngSwitchCase="'toggle'"></amw-demo-toggle-api>
-                <amw-demo-textarea-api *ngSwitchCase="'textarea'"></amw-demo-textarea-api>
-                <amw-demo-slider-api *ngSwitchCase="'slider'"></amw-demo-slider-api>
-                <amw-demo-autocomplete-api *ngSwitchCase="'autocomplete'"></amw-demo-autocomplete-api>
-                <amw-demo-datepicker-api *ngSwitchCase="'datepicker'"></amw-demo-datepicker-api>
-                <amw-demo-range-slider-api *ngSwitchCase="'range-slider'"></amw-demo-range-slider-api>
-                <amw-demo-switch-api *ngSwitchCase="'switch'"></amw-demo-switch-api>
-                <amw-demo-file-input-api *ngSwitchCase="'file-input'"></amw-demo-file-input-api>
-                <amw-demo-timepicker-api *ngSwitchCase="'timepicker'"></amw-demo-timepicker-api>
-                <amw-demo-color-picker-api *ngSwitchCase="'color-picker'"></amw-demo-color-picker-api>
-                <amw-demo-data-table-api *ngSwitchCase="'data-table'"></amw-demo-data-table-api>
+              @switch (selectedControl.id) {
+                @case ('button') {
+                  <amw-demo-button-api></amw-demo-button-api>
+                }
+                @case ('input') {
+                  <amw-demo-input-api></amw-demo-input-api>
+                }
+                @case ('select') {
+                  <amw-demo-select-api></amw-demo-select-api>
+                }
+                @case ('checkbox') {
+                  <amw-demo-checkbox-api></amw-demo-checkbox-api>
+                }
+                @case ('radio') {
+                  <amw-demo-radio-api></amw-demo-radio-api>
+                }
+                @case ('radio-group') {
+                  <app-radio-group-api></app-radio-group-api>
+                }
+                @case ('toggle') {
+                  <amw-demo-toggle-api></amw-demo-toggle-api>
+                }
+                @case ('textarea') {
+                  <amw-demo-textarea-api></amw-demo-textarea-api>
+                }
+                @case ('slider') {
+                  <amw-demo-slider-api></amw-demo-slider-api>
+                }
+                @case ('autocomplete') {
+                  <amw-demo-autocomplete-api></amw-demo-autocomplete-api>
+                }
+                @case ('datepicker') {
+                  <amw-demo-datepicker-api></amw-demo-datepicker-api>
+                }
+                @case ('range-slider') {
+                  <amw-demo-range-slider-api></amw-demo-range-slider-api>
+                }
+                @case ('switch') {
+                  <amw-demo-switch-api></amw-demo-switch-api>
+                }
+                @case ('file-input') {
+                  <amw-demo-file-input-api></amw-demo-file-input-api>
+                }
+                @case ('timepicker') {
+                  <amw-demo-timepicker-api></amw-demo-timepicker-api>
+                }
+                @case ('color-picker') {
+                  <amw-demo-color-picker-api></amw-demo-color-picker-api>
+                }
+                @case ('data-table') {
+                  <amw-demo-data-table-api></amw-demo-data-table-api>
+                }
                 <!-- Add more API components as they are implemented -->
-              </ng-container>
+              }
             </mat-tab>
           </mat-tab-group>
         </mat-card-content>

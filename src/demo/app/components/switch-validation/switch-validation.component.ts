@@ -1,5 +1,5 @@
 import { Component, ViewEncapsulation, OnInit } from '@angular/core';
-import { CommonModule } from '@angular/common';
+
 import { FormBuilder, FormGroup, Validators, ReactiveFormsModule } from '@angular/forms';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
@@ -13,15 +13,14 @@ import { AmwSwitchComponent } from '../../../../library/src/controls/components/
     selector: 'amw-demo-switch-validation',
     standalone: true,
     imports: [
-        CommonModule,
-        ReactiveFormsModule,
-        MatFormFieldModule,
-        MatInputModule,
-        MatButtonModule,
-        MatSnackBarModule,
-        MatCardModule,
-        AmwSwitchComponent
-    ],
+    ReactiveFormsModule,
+    MatFormFieldModule,
+    MatInputModule,
+    MatButtonModule,
+    MatSnackBarModule,
+    MatCardModule,
+    AmwSwitchComponent
+],
     encapsulation: ViewEncapsulation.None,
     templateUrl: './switch-validation.component.html',
     styleUrl: './switch-validation.component.scss'

@@ -1,5 +1,5 @@
 import { Component, Input, Output, EventEmitter, ViewEncapsulation, forwardRef, ElementRef, ViewChild, HostListener } from '@angular/core';
-import { CommonModule } from '@angular/common';
+
 import { FormsModule, NG_VALUE_ACCESSOR } from '@angular/forms';
 import { MatButtonModule } from '@angular/material/button';
 import { MatIconModule } from '@angular/material/icon';
@@ -12,7 +12,7 @@ import { FileInputConfig, FileValidationResult, FileUploadProgress, FileInputAcc
 @Component({
     selector: 'amw-file-input',
     standalone: true,
-    imports: [CommonModule, FormsModule, MatButtonModule, MatIconModule, MatProgressBarModule, MatChipsModule, MatCardModule],
+    imports: [FormsModule, MatButtonModule, MatIconModule, MatProgressBarModule, MatChipsModule, MatCardModule],
     encapsulation: ViewEncapsulation.None,
     templateUrl: './amw-file-input.component.html',
     styleUrl: './amw-file-input.component.scss',

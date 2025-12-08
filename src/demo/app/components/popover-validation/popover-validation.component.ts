@@ -1,5 +1,5 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
-import { CommonModule } from '@angular/common';
+
 import { MatButtonModule } from '@angular/material/button';
 import { MatIconModule } from '@angular/material/icon';
 import { MatCardModule } from '@angular/material/card';
@@ -26,19 +26,18 @@ import { AmwSize } from '../../../../library/src/shared/types';
     selector: 'app-popover-validation',
     standalone: true,
     imports: [
-        CommonModule,
-        MatButtonModule,
-        MatIconModule,
-        MatCardModule,
-        MatFormFieldModule,
-        MatInputModule,
-        MatSelectModule,
-        MatCheckboxModule,
-        MatSlideToggleModule,
-        MatSnackBarModule,
-        ReactiveFormsModule,
-        AmwPopoverComponent
-    ],
+    MatButtonModule,
+    MatIconModule,
+    MatCardModule,
+    MatFormFieldModule,
+    MatInputModule,
+    MatSelectModule,
+    MatCheckboxModule,
+    MatSlideToggleModule,
+    MatSnackBarModule,
+    ReactiveFormsModule,
+    AmwPopoverComponent
+],
     templateUrl: './popover-validation.component.html',
     styleUrl: './popover-validation.component.scss'
 })

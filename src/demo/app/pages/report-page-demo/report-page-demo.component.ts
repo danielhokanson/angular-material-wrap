@@ -1,5 +1,5 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
-import { CommonModule } from '@angular/common';
+
 import { MatCardModule } from '@angular/material/card';
 import { MatButtonModule } from '@angular/material/button';
 import { MatIconModule } from '@angular/material/icon';
@@ -314,18 +314,17 @@ class ReportPageDemoDataSource implements ReportPageDataSource {
     selector: 'app-report-page-demo',
     standalone: true,
     imports: [
-        CommonModule,
-        MatCardModule,
-        MatButtonModule,
-        MatIconModule,
-        MatChipsModule,
-        MatDividerModule,
-        MatTabsModule,
-        MatExpansionModule,
-        MatTooltipModule,
-        MatSnackBarModule,
-        AmwReportPageComponent
-    ],
+    MatCardModule,
+    MatButtonModule,
+    MatIconModule,
+    MatChipsModule,
+    MatDividerModule,
+    MatTabsModule,
+    MatExpansionModule,
+    MatTooltipModule,
+    MatSnackBarModule,
+    AmwReportPageComponent
+],
     templateUrl: './report-page-demo.component.html',
     styleUrl: './report-page-demo.component.scss'
 })

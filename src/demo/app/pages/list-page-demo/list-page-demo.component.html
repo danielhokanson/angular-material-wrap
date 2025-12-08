@@ -57,7 +57,7 @@
               <li>Responsive design</li>
             </ul>
           </div>
-          
+
           <div class="list-page-demo__info-section">
             <h4>Data Source:</h4>
             <p>Custom implementation of <code>ListPageDataSource</code> with simulated API calls and 500ms delay.</p>
@@ -65,14 +65,20 @@
 
           <div class="list-page-demo__info-section">
             <h4>Selected Items:</h4>
-            <p *ngIf="selectedItems.length === 0">No items selected</p>
-            <div *ngIf="selectedItems.length > 0" class="list-page-demo__selected-items">
-              <mat-chip-set>
-                <mat-chip *ngFor="let item of selectedItems">
-                  {{ item.name }}
-                </mat-chip>
-              </mat-chip-set>
-            </div>
+            @if (selectedItems.length === 0) {
+              <p>No items selected</p>
+            }
+            @if (selectedItems.length > 0) {
+              <div class="list-page-demo__selected-items">
+                <mat-chip-set>
+                  @for (item of selectedItems; track item) {
+                    <mat-chip>
+                      {{ item.name }}
+                    </mat-chip>
+                  }
+                </mat-chip-set>
+              </div>
+            }
           </div>
         </div>
       </mat-card-content>

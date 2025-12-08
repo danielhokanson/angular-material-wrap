@@ -1,5 +1,5 @@
 import { Component, OnInit, ViewEncapsulation } from '@angular/core';
-import { CommonModule } from '@angular/common';
+
 import { ReactiveFormsModule, FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
@@ -12,7 +12,6 @@ import { AmwButtonComponent } from '../../../../library/src/controls/components/
   selector: 'amw-demo-textarea-validation',
   standalone: true,
   imports: [
-    CommonModule,
     ReactiveFormsModule,
     MatFormFieldModule,
     MatInputModule,
@@ -20,7 +19,7 @@ import { AmwButtonComponent } from '../../../../library/src/controls/components/
     MatSnackBarModule,
     AmwTextareaComponent,
     AmwButtonComponent
-  ],
+],
   encapsulation: ViewEncapsulation.None,
   templateUrl: './textarea-validation.component.html',
   styleUrl: './textarea-validation.component.scss'

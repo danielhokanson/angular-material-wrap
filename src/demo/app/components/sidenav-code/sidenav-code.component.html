@@ -12,24 +12,25 @@
         <mat-card-title>Code Examples</mat-card-title>
         <mat-card-subtitle>Select an example to see the implementation</mat-card-subtitle>
       </mat-card-header>
-      
+
       <mat-card-content>
         <div class="sidenav-code__example-buttons">
-          <button
-            *ngFor="let example of [
-              { id: 'basic', label: 'Basic', icon: 'menu' },
-              { id: 'overlay', label: 'Overlay', icon: 'open_in_new' },
-              { id: 'push', label: 'Push', icon: 'arrow_forward' },
-              { id: 'nested', label: 'Nested', icon: 'account_tree' },
-              { id: 'custom', label: 'Custom', icon: 'tune' },
-              { id: 'responsive', label: 'Responsive', icon: 'responsive' }
-            ]"
-            mat-button
-            [class.sidenav-code__example-button--active]="selectedExample === example.id"
-            (click)="selectExample(example.id)">
-            <mat-icon>{{ example.icon }}</mat-icon>
-            {{ example.label }}
-          </button>
+          @for (example of [
+            { id: 'basic', label: 'Basic', icon: 'menu' },
+            { id: 'overlay', label: 'Overlay', icon: 'open_in_new' },
+            { id: 'push', label: 'Push', icon: 'arrow_forward' },
+            { id: 'nested', label: 'Nested', icon: 'account_tree' },
+            { id: 'custom', label: 'Custom', icon: 'tune' },
+            { id: 'responsive', label: 'Responsive', icon: 'responsive' }
+            ]; track example) {
+            <button
+              mat-button
+              [class.sidenav-code__example-button--active]="selectedExample === example.id"
+              (click)="selectExample(example.id)">
+              <mat-icon>{{ example.icon }}</mat-icon>
+              {{ example.label }}
+            </button>
+          }
         </div>
       </mat-card-content>
     </mat-card>
@@ -40,7 +41,7 @@
         <mat-card-title>Implementation</mat-card-title>
         <mat-card-subtitle>Copy and paste the code for your project</mat-card-subtitle>
       </mat-card-header>
-      
+
       <mat-card-content>
         <mat-tab-group class="sidenav-code__tabs">
           <!-- HTML Tab -->
@@ -104,7 +105,7 @@
         <mat-card-title>Live Demo</mat-card-title>
         <mat-card-subtitle>See the current example in action</mat-card-subtitle>
       </mat-card-header>
-      
+
       <mat-card-content>
         <div class="sidenav-code__demo-container">
           <amw-sidenav
@@ -113,7 +114,7 @@
             [opened]="currentConfig.opened ?? false"
             (openedChange)="onSidenavOpenedChange($event)"
             (itemClick)="onItemClick($event)">
-            
+
             <!-- Main Content -->
             <div class="sidenav-code__main-content">
               <mat-card class="sidenav-code__content-card">
@@ -121,14 +122,16 @@
                   <mat-card-title>{{ getExampleTitle() }}</mat-card-title>
                   <mat-card-subtitle>{{ getExampleDescription() }}</mat-card-subtitle>
                 </mat-card-header>
-                
+
                 <mat-card-content>
                   <p>{{ getExampleDescription() }}</p>
-                  
+
                   <div class="sidenav-code__example-info">
                     <h4>Key Features:</h4>
                     <ul>
-                      <li *ngFor="let feature of getExampleFeatures()">{{ feature }}</li>
+                      @for (feature of getExampleFeatures(); track feature) {
+                        <li>{{ feature }}</li>
+                      }
                     </ul>
                   </div>
                 </mat-card-content>

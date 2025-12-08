@@ -1,5 +1,5 @@
 import { Component, Input, Output, EventEmitter, ViewEncapsulation, forwardRef, OnChanges } from '@angular/core';
-import { CommonModule } from '@angular/common';
+
 import { FormsModule, NG_VALUE_ACCESSOR } from '@angular/forms';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
@@ -13,7 +13,7 @@ import { AmwSize } from '../../../shared/types/amw-size.type';
 @Component({
     selector: 'amw-color-picker',
     standalone: true,
-    imports: [CommonModule, FormsModule, MatFormFieldModule, MatInputModule, MatIconModule, MatButtonModule, MatChipsModule],
+    imports: [FormsModule, MatFormFieldModule, MatInputModule, MatIconModule, MatButtonModule, MatChipsModule],
     encapsulation: ViewEncapsulation.None,
     templateUrl: './amw-color-picker.component.html',
     styleUrl: './amw-color-picker.component.scss',

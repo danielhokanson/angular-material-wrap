@@ -4,30 +4,38 @@
     <div class="amw-workflow-page__header-content">
       <div class="amw-workflow-page__header-text">
         <h1 class="amw-workflow-page__title">{{ currentConfig.title }}</h1>
-        <p class="amw-workflow-page__subtitle" *ngIf="currentConfig.subtitle">{{ currentConfig.subtitle }}</p>
+        @if (currentConfig.subtitle) {
+          <p class="amw-workflow-page__subtitle">{{ currentConfig.subtitle }}</p>
+        }
       </div>
-      
+
       <div class="amw-workflow-page__header-actions">
-        <button mat-raised-button (click)="onCancelWorkflow()" *ngIf="currentConfig.showCancelButton">
-          <mat-icon>cancel</mat-icon>
-          Cancel
-        </button>
-        <button mat-raised-button (click)="onSaveWorkflow()" *ngIf="currentConfig.showSaveButton">
-          <mat-icon>save</mat-icon>
-          Save
-        </button>
-        <button mat-raised-button (click)="onResetWorkflow()" *ngIf="currentConfig.showResetButton">
-          <mat-icon>refresh</mat-icon>
-          Reset
-        </button>
+        @if (currentConfig.showCancelButton) {
+          <button mat-raised-button (click)="onCancelWorkflow()">
+            <mat-icon>cancel</mat-icon>
+            Cancel
+          </button>
+        }
+        @if (currentConfig.showSaveButton) {
+          <button mat-raised-button (click)="onSaveWorkflow()">
+            <mat-icon>save</mat-icon>
+            Save
+          </button>
+        }
+        @if (currentConfig.showResetButton) {
+          <button mat-raised-button (click)="onResetWorkflow()">
+            <mat-icon>refresh</mat-icon>
+            Reset
+          </button>
+        }
       </div>
     </div>
   </div>
 
   <!-- Progress Bar -->
   <div class="amw-workflow-page__progress">
-    <mat-progress-bar 
-      mode="determinate" 
+    <mat-progress-bar
+      mode="determinate"
       [value]="getProgressPercentage()"
       class="amw-workflow-page__progress-bar">
     </mat-progress-bar>
@@ -38,90 +46,108 @@
   </div>
 
   <!-- Loading State -->
-  <div class="amw-workflow-page__loading" *ngIf="loading">
-    <mat-spinner diameter="40"></mat-spinner>
-    <p>Loading workflow...</p>
-  </div>
+  @if (loading) {
+    <div class="amw-workflow-page__loading">
+      <mat-spinner diameter="40"></mat-spinner>
+      <p>Loading workflow...</p>
+    </div>
+  }
 
   <!-- Error State -->
-  <div class="amw-workflow-page__error" *ngIf="error && !loading">
-    <mat-icon>error</mat-icon>
-    <p>{{ error }}</p>
-    <button mat-raised-button color="primary" (click)="loadWorkflow()">Retry</button>
-  </div>
+  @if (error && !loading) {
+    <div class="amw-workflow-page__error">
+      <mat-icon>error</mat-icon>
+      <p>{{ error }}</p>
+      <button mat-raised-button color="primary" (click)="loadWorkflow()">Retry</button>
+    </div>
+  }
 
   <!-- Workflow Content -->
-  <div class="amw-workflow-page__content" *ngIf="!loading && !error">
-    <!-- Steps Navigation -->
-    <div class="amw-workflow-page__steps">
-      <div class="amw-workflow-page__steps-container">
-        <div *ngFor="let step of currentConfig.steps; let i = index" 
-             class="amw-workflow-page__step"
-             [class.amw-workflow-page__step--completed]="isStepCompleted(i)"
-             [class.amw-workflow-page__step--current]="isStepCurrent(i)"
-             [class.amw-workflow-page__step--pending]="!isStepCompleted(i) && !isStepCurrent(i)"
-             [class.amw-workflow-page__step--accessible]="isStepAccessible(i)"
-             (click)="onStepClick(i)">
-          
-          <div class="amw-workflow-page__step-indicator">
-            <mat-icon *ngIf="isStepCompleted(i)">check</mat-icon>
-            <span *ngIf="!isStepCompleted(i)">{{ i + 1 }}</span>
-          </div>
-          
-          <div class="amw-workflow-page__step-content">
-            <h3 class="amw-workflow-page__step-title">{{ step.title }}</h3>
-            <p class="amw-workflow-page__step-description" *ngIf="step.description">{{ step.description }}</p>
-          </div>
+  @if (!loading && !error) {
+    <div class="amw-workflow-page__content">
+      <!-- Steps Navigation -->
+      <div class="amw-workflow-page__steps">
+        <div class="amw-workflow-page__steps-container">
+          @for (step of currentConfig.steps; track step; let i = $index) {
+            <div
+              class="amw-workflow-page__step"
+              [class.amw-workflow-page__step--completed]="isStepCompleted(i)"
+              [class.amw-workflow-page__step--current]="isStepCurrent(i)"
+              [class.amw-workflow-page__step--pending]="!isStepCompleted(i) && !isStepCurrent(i)"
+              [class.amw-workflow-page__step--accessible]="isStepAccessible(i)"
+              (click)="onStepClick(i)">
+              <div class="amw-workflow-page__step-indicator">
+                @if (isStepCompleted(i)) {
+                  <mat-icon>check</mat-icon>
+                }
+                @if (!isStepCompleted(i)) {
+                  <span>{{ i + 1 }}</span>
+                }
+              </div>
+              <div class="amw-workflow-page__step-content">
+                <h3 class="amw-workflow-page__step-title">{{ step.title }}</h3>
+                @if (step.description) {
+                  <p class="amw-workflow-page__step-description">{{ step.description }}</p>
+                }
+              </div>
+            </div>
+          }
+        </div>
+      </div>
+      <!-- Current Step Content -->
+      <div class="amw-workflow-page__step-content">
+        @if (getCurrentStep()) {
+          <mat-card class="amw-workflow-page__step-card">
+            <mat-card-header>
+              <mat-card-title>{{ getCurrentStep()?.title }}</mat-card-title>
+              @if (getCurrentStep()?.description) {
+                <mat-card-subtitle>{{ getCurrentStep()?.description }}</mat-card-subtitle>
+              }
+            </mat-card-header>
+            <mat-card-content>
+              <div class="amw-workflow-page__step-form">
+                <!-- Step content will be rendered here -->
+                <p>Step content for: {{ getCurrentStep()?.title }}</p>
+                <p>This is where the step-specific form or content would be rendered.</p>
+              </div>
+            </mat-card-content>
+          </mat-card>
+        }
+      </div>
+      <!-- Navigation Buttons -->
+      <div class="amw-workflow-page__navigation">
+        <div class="amw-workflow-page__navigation-buttons">
+          @if (canGoPrevious()) {
+            <button mat-raised-button
+              (click)="onPreviousStep()"
+              [disabled]="!canGoPrevious()"
+              >
+              <mat-icon>arrow_back</mat-icon>
+              Previous
+            </button>
+          }
+          @if (canGoNext()) {
+            <button mat-raised-button
+              color="primary"
+              (click)="onNextStep()"
+              [disabled]="!canGoNext()"
+              >
+              Next
+              <mat-icon>arrow_forward</mat-icon>
+            </button>
+          }
+          @if (isWorkflowComplete()) {
+            <button mat-raised-button
+              color="primary"
+              (click)="onCompleteWorkflow()"
+              [disabled]="saving"
+              >
+              <mat-icon>check</mat-icon>
+              {{ saving ? 'Completing...' : 'Complete Workflow' }}
+            </button>
+          }
         </div>
       </div>
     </div>
-
-    <!-- Current Step Content -->
-    <div class="amw-workflow-page__step-content">
-      <mat-card *ngIf="getCurrentStep()" class="amw-workflow-page__step-card">
-        <mat-card-header>
-          <mat-card-title>{{ getCurrentStep()?.title }}</mat-card-title>
-          <mat-card-subtitle *ngIf="getCurrentStep()?.description">{{ getCurrentStep()?.description }}</mat-card-subtitle>
-        </mat-card-header>
-        <mat-card-content>
-          <div class="amw-workflow-page__step-form">
-            <!-- Step content will be rendered here -->
-            <p>Step content for: {{ getCurrentStep()?.title }}</p>
-            <p>This is where the step-specific form or content would be rendered.</p>
-          </div>
-        </mat-card-content>
-      </mat-card>
-    </div>
-
-    <!-- Navigation Buttons -->
-    <div class="amw-workflow-page__navigation">
-      <div class="amw-workflow-page__navigation-buttons">
-        <button mat-raised-button 
-                (click)="onPreviousStep()" 
-                [disabled]="!canGoPrevious()"
-                *ngIf="canGoPrevious()">
-          <mat-icon>arrow_back</mat-icon>
-          Previous
-        </button>
-        
-        <button mat-raised-button 
-                color="primary"
-                (click)="onNextStep()" 
-                [disabled]="!canGoNext()"
-                *ngIf="canGoNext()">
-          Next
-          <mat-icon>arrow_forward</mat-icon>
-        </button>
-        
-        <button mat-raised-button 
-                color="primary"
-                (click)="onCompleteWorkflow()" 
-                [disabled]="saving"
-                *ngIf="isWorkflowComplete()">
-          <mat-icon>check</mat-icon>
-          {{ saving ? 'Completing...' : 'Complete Workflow' }}
-        </button>
-      </div>
-    </div>
-  </div>
+  }
 </div>

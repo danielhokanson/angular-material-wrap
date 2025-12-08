@@ -14,78 +14,144 @@
         <mat-card-content>
           <mat-tab-group [(selectedIndex)]="selectedTab" class="component-tabs">
             <mat-tab label="Variations" icon="view_module">
-              <ng-container [ngSwitch]="selectedComponent.id">
-                <amw-demo-card *ngSwitchCase="'card'"></amw-demo-card>
-                <amw-demo-dialog *ngSwitchCase="'dialog'"></amw-demo-dialog>
-                <app-sidenav-demo *ngSwitchCase="'sidenav'"></app-sidenav-demo>
-                <app-popover-demo *ngSwitchCase="'popover'"></app-popover-demo>
-                <app-data-table-demo *ngSwitchCase="'data-table'"></app-data-table-demo>
-                <amw-demo-calendar *ngSwitchCase="'calendar'"></amw-demo-calendar>
-                <amw-demo-stepper *ngSwitchCase="'stepper'"></amw-demo-stepper>
-                <amw-demo-tabs *ngSwitchCase="'tabs'"></amw-demo-tabs>
-                <amw-demo-accordion *ngSwitchCase="'accordion'"></amw-demo-accordion>
+              @switch (selectedComponent.id) {
+                @case ('card') {
+                  <amw-demo-card></amw-demo-card>
+                }
+                @case ('dialog') {
+                  <amw-demo-dialog></amw-demo-dialog>
+                }
+                @case ('sidenav') {
+                  <app-sidenav-demo></app-sidenav-demo>
+                }
+                @case ('popover') {
+                  <app-popover-demo></app-popover-demo>
+                }
+                @case ('data-table') {
+                  <app-data-table-demo></app-data-table-demo>
+                }
+                @case ('calendar') {
+                  <amw-demo-calendar></amw-demo-calendar>
+                }
+                @case ('stepper') {
+                  <amw-demo-stepper></amw-demo-stepper>
+                }
+                @case ('tabs') {
+                  <amw-demo-tabs></amw-demo-tabs>
+                }
+                @case ('accordion') {
+                  <amw-demo-accordion></amw-demo-accordion>
+                }
                 <!-- Add more component demos as they are implemented -->
-              </ng-container>
+              }
             </mat-tab>
-            
+
             <mat-tab label="Validation" icon="verified">
-              <ng-container [ngSwitch]="selectedComponent.id">
-                <amw-demo-card-validation *ngSwitchCase="'card'"></amw-demo-card-validation>
-                <amw-demo-dialog-validation *ngSwitchCase="'dialog'"></amw-demo-dialog-validation>
-                <app-sidenav-validation *ngSwitchCase="'sidenav'"></app-sidenav-validation>
-                <app-popover-validation *ngSwitchCase="'popover'"></app-popover-validation>
-                <amw-demo-data-table-validation *ngSwitchCase="'data-table'"></amw-demo-data-table-validation>
-                <amw-demo-stepper-validation *ngSwitchCase="'stepper'"></amw-demo-stepper-validation>
-                <div *ngSwitchCase="'tabs'" class="placeholder-content">
-                  <h3>Tabs Validation</h3>
-                  <p>Validation examples for the tabs component will be available soon.</p>
-                </div>
-                <div *ngSwitchCase="'accordion'" class="placeholder-content">
-                  <h3>Accordion Validation</h3>
-                  <p>Validation examples for the accordion component will be available soon.</p>
-                </div>
+              @switch (selectedComponent.id) {
+                @case ('card') {
+                  <amw-demo-card-validation></amw-demo-card-validation>
+                }
+                @case ('dialog') {
+                  <amw-demo-dialog-validation></amw-demo-dialog-validation>
+                }
+                @case ('sidenav') {
+                  <app-sidenav-validation></app-sidenav-validation>
+                }
+                @case ('popover') {
+                  <app-popover-validation></app-popover-validation>
+                }
+                @case ('data-table') {
+                  <amw-demo-data-table-validation></amw-demo-data-table-validation>
+                }
+                @case ('stepper') {
+                  <amw-demo-stepper-validation></amw-demo-stepper-validation>
+                }
+                @case ('tabs') {
+                  <div class="placeholder-content">
+                    <h3>Tabs Validation</h3>
+                    <p>Validation examples for the tabs component will be available soon.</p>
+                  </div>
+                }
+                @case ('accordion') {
+                  <div class="placeholder-content">
+                    <h3>Accordion Validation</h3>
+                    <p>Validation examples for the accordion component will be available soon.</p>
+                  </div>
+                }
                 <!-- Add more validation components as they are implemented -->
-              </ng-container>
+              }
             </mat-tab>
-            
+
             <mat-tab label="Code" icon="code">
-              <ng-container [ngSwitch]="selectedComponent.id">
-                <amw-demo-card-code *ngSwitchCase="'card'"></amw-demo-card-code>
-                <amw-demo-dialog-code *ngSwitchCase="'dialog'"></amw-demo-dialog-code>
-                <app-sidenav-code *ngSwitchCase="'sidenav'"></app-sidenav-code>
-                <app-popover-code *ngSwitchCase="'popover'"></app-popover-code>
-                <amw-demo-data-table-code *ngSwitchCase="'data-table'"></amw-demo-data-table-code>
-                <amw-demo-stepper-code *ngSwitchCase="'stepper'"></amw-demo-stepper-code>
-                <div *ngSwitchCase="'tabs'" class="placeholder-content">
-                  <h3>Tabs Code Examples</h3>
-                  <p>Code examples for the tabs component will be available soon.</p>
-                </div>
-                <div *ngSwitchCase="'accordion'" class="placeholder-content">
-                  <h3>Accordion Code Examples</h3>
-                  <p>Code examples for the accordion component will be available soon.</p>
-                </div>
+              @switch (selectedComponent.id) {
+                @case ('card') {
+                  <amw-demo-card-code></amw-demo-card-code>
+                }
+                @case ('dialog') {
+                  <amw-demo-dialog-code></amw-demo-dialog-code>
+                }
+                @case ('sidenav') {
+                  <app-sidenav-code></app-sidenav-code>
+                }
+                @case ('popover') {
+                  <app-popover-code></app-popover-code>
+                }
+                @case ('data-table') {
+                  <amw-demo-data-table-code></amw-demo-data-table-code>
+                }
+                @case ('stepper') {
+                  <amw-demo-stepper-code></amw-demo-stepper-code>
+                }
+                @case ('tabs') {
+                  <div class="placeholder-content">
+                    <h3>Tabs Code Examples</h3>
+                    <p>Code examples for the tabs component will be available soon.</p>
+                  </div>
+                }
+                @case ('accordion') {
+                  <div class="placeholder-content">
+                    <h3>Accordion Code Examples</h3>
+                    <p>Code examples for the accordion component will be available soon.</p>
+                  </div>
+                }
                 <!-- Add more code components as they are implemented -->
-              </ng-container>
+              }
             </mat-tab>
-            
+
             <mat-tab label="API" icon="description">
-              <ng-container [ngSwitch]="selectedComponent.id">
-                <amw-demo-card-api *ngSwitchCase="'card'"></amw-demo-card-api>
-                <amw-demo-dialog-api *ngSwitchCase="'dialog'"></amw-demo-dialog-api>
-                <app-sidenav-api *ngSwitchCase="'sidenav'"></app-sidenav-api>
-                <app-popover-api *ngSwitchCase="'popover'"></app-popover-api>
-                <amw-demo-data-table-api *ngSwitchCase="'data-table'"></amw-demo-data-table-api>
-                <amw-demo-stepper-api *ngSwitchCase="'stepper'"></amw-demo-stepper-api>
-                <div *ngSwitchCase="'tabs'" class="placeholder-content">
-                  <h3>Tabs API Documentation</h3>
-                  <p>API documentation for the tabs component will be available soon.</p>
-                </div>
-                <div *ngSwitchCase="'accordion'" class="placeholder-content">
-                  <h3>Accordion API Documentation</h3>
-                  <p>API documentation for the accordion component will be available soon.</p>
-                </div>
+              @switch (selectedComponent.id) {
+                @case ('card') {
+                  <amw-demo-card-api></amw-demo-card-api>
+                }
+                @case ('dialog') {
+                  <amw-demo-dialog-api></amw-demo-dialog-api>
+                }
+                @case ('sidenav') {
+                  <app-sidenav-api></app-sidenav-api>
+                }
+                @case ('popover') {
+                  <app-popover-api></app-popover-api>
+                }
+                @case ('data-table') {
+                  <amw-demo-data-table-api></amw-demo-data-table-api>
+                }
+                @case ('stepper') {
+                  <amw-demo-stepper-api></amw-demo-stepper-api>
+                }
+                @case ('tabs') {
+                  <div class="placeholder-content">
+                    <h3>Tabs API Documentation</h3>
+                    <p>API documentation for the tabs component will be available soon.</p>
+                  </div>
+                }
+                @case ('accordion') {
+                  <div class="placeholder-content">
+                    <h3>Accordion API Documentation</h3>
+                    <p>API documentation for the accordion component will be available soon.</p>
+                  </div>
+                }
                 <!-- Add more API components as they are implemented -->
-              </ng-container>
+              }
             </mat-tab>
           </mat-tab-group>
         </mat-card-content>

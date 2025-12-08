@@ -22,8 +22,10 @@
     (blur)="onBlur($event)">
     <span [innerHTML]="label"></span>
   </mat-checkbox>
-  
-  <div *ngIf="hasError && errorMessage" class="amw-checkbox__error">
-    {{ errorMessage }}
-  </div>
+
+  @if (hasError && errorMessage) {
+    <div class="amw-checkbox__error">
+      {{ errorMessage }}
+    </div>
+  }
 </div>

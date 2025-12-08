@@ -1,5 +1,5 @@
 import { Component, OnInit, signal, computed } from '@angular/core';
-import { CommonModule } from '@angular/common';
+
 import { FormsModule } from '@angular/forms';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
@@ -16,17 +16,16 @@ import { ThemeService, ThemeConfig, ThemeColors } from '../../services/theme.ser
     selector: 'amw-theme-editor',
     standalone: true,
     imports: [
-        CommonModule,
-        FormsModule,
-        MatFormFieldModule,
-        MatInputModule,
-        MatButtonModule,
-        MatIconModule,
-        MatCardModule,
-        MatSlideToggleModule,
-        MatDividerModule,
-        MatSnackBarModule
-    ],
+    FormsModule,
+    MatFormFieldModule,
+    MatInputModule,
+    MatButtonModule,
+    MatIconModule,
+    MatCardModule,
+    MatSlideToggleModule,
+    MatDividerModule,
+    MatSnackBarModule
+],
     templateUrl: './theme-editor.component.html',
     styleUrl: './theme-editor.component.scss'
 })

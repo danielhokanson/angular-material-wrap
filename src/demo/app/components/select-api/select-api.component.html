@@ -18,12 +18,14 @@
           </tr>
         </thead>
         <tbody>
-          <tr *ngFor="let input of apiDocumentation.inputs">
-            <td><code>{{ input.property }}</code></td>
-            <td><code>{{ input.type }}</code></td>
-            <td><code>{{ input.default }}</code></td>
-            <td>{{ input.description }}</td>
-          </tr>
+          @for (input of apiDocumentation.inputs; track input) {
+            <tr>
+              <td><code>{{ input.property }}</code></td>
+              <td><code>{{ input.type }}</code></td>
+              <td><code>{{ input.default }}</code></td>
+              <td>{{ input.description }}</td>
+            </tr>
+          }
         </tbody>
       </table>
     </div>
@@ -40,11 +42,13 @@
           </tr>
         </thead>
         <tbody>
-          <tr *ngFor="let output of apiDocumentation.outputs">
-            <td><code>{{ output.property }}</code></td>
-            <td><code>{{ output.type }}</code></td>
-            <td>{{ output.description }}</td>
-          </tr>
+          @for (output of apiDocumentation.outputs; track output) {
+            <tr>
+              <td><code>{{ output.property }}</code></td>
+              <td><code>{{ output.type }}</code></td>
+              <td>{{ output.description }}</td>
+            </tr>
+          }
         </tbody>
       </table>
     </div>
@@ -52,37 +56,43 @@
     <!-- Interfaces -->
     <div class="api-table">
       <h4>Interfaces</h4>
-      <div *ngFor="let interface of apiDocumentation.interfaces" class="interface-section">
-        <h5>{{ interface.name }}</h5>
-        <p>{{ interface.description }}</p>
-        <table>
-          <thead>
-            <tr>
-              <th>Property</th>
-              <th>Type</th>
-              <th>Description</th>
-            </tr>
-          </thead>
-          <tbody>
-            <tr *ngFor="let prop of interface.properties">
-              <td><code>{{ prop.name }}</code></td>
-              <td><code>{{ prop.type }}</code></td>
-              <td>{{ prop.description }}</td>
-            </tr>
-          </tbody>
-        </table>
-      </div>
+      @for (interface of apiDocumentation.interfaces; track interface) {
+        <div class="interface-section">
+          <h5>{{ interface.name }}</h5>
+          <p>{{ interface.description }}</p>
+          <table>
+            <thead>
+              <tr>
+                <th>Property</th>
+                <th>Type</th>
+                <th>Description</th>
+              </tr>
+            </thead>
+            <tbody>
+              @for (prop of interface.properties; track prop) {
+                <tr>
+                  <td><code>{{ prop.name }}</code></td>
+                  <td><code>{{ prop.type }}</code></td>
+                  <td>{{ prop.description }}</td>
+                </tr>
+              }
+            </tbody>
+          </table>
+        </div>
+      }
     </div>
 
     <!-- Usage Examples -->
     <div class="api-section__usage">
       <h4>Usage Examples</h4>
       <p>{{ apiDocumentation.usage.description }}</p>
-      
-      <div *ngFor="let example of apiDocumentation.usage.examples" class="usage-example">
-        <h5>{{ example.title }}</h5>
-        <pre><code>{{ example.code }}</code></pre>
-      </div>
+
+      @for (example of apiDocumentation.usage.examples; track example) {
+        <div class="usage-example">
+          <h5>{{ example.title }}</h5>
+          <pre><code>{{ example.code }}</code></pre>
+        </div>
+      }
     </div>
   </div>
 </div>

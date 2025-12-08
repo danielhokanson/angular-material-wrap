@@ -1,5 +1,5 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
-import { CommonModule } from '@angular/common';
+
 import { MatCardModule } from '@angular/material/card';
 import { MatButtonModule } from '@angular/material/button';
 import { MatIconModule } from '@angular/material/icon';
@@ -352,18 +352,17 @@ class DetailPageDemoDataSource implements DetailPageDataSource {
     selector: 'app-detail-page-demo',
     standalone: true,
     imports: [
-        CommonModule,
-        MatCardModule,
-        MatButtonModule,
-        MatIconModule,
-        MatChipsModule,
-        MatDividerModule,
-        MatTabsModule,
-        MatExpansionModule,
-        MatTooltipModule,
-        MatSnackBarModule,
-        AmwDetailPageComponent
-    ],
+    MatCardModule,
+    MatButtonModule,
+    MatIconModule,
+    MatChipsModule,
+    MatDividerModule,
+    MatTabsModule,
+    MatExpansionModule,
+    MatTooltipModule,
+    MatSnackBarModule,
+    AmwDetailPageComponent
+],
     templateUrl: './detail-page-demo.component.html',
     styleUrl: './detail-page-demo.component.scss'
 })

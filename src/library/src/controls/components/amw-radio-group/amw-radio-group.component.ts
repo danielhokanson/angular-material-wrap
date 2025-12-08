@@ -1,5 +1,5 @@
 import { Component, Input, Output, EventEmitter, ViewEncapsulation, forwardRef, OnInit, OnChanges, SimpleChanges } from '@angular/core';
-import { CommonModule } from '@angular/common';
+
 import { FormsModule, ReactiveFormsModule, ControlValueAccessor, NG_VALUE_ACCESSOR } from '@angular/forms';
 import { MatRadioModule } from '@angular/material/radio';
 import { MatFormFieldModule } from '@angular/material/form-field';
@@ -17,13 +17,12 @@ import { RadioGroupOption, RadioGroupConfig } from './interfaces/radio-group.int
     selector: 'amw-radio-group',
     standalone: true,
     imports: [
-        CommonModule,
-        FormsModule,
-        ReactiveFormsModule,
-        MatRadioModule,
-        MatFormFieldModule,
-        MatIconModule
-    ],
+    FormsModule,
+    ReactiveFormsModule,
+    MatRadioModule,
+    MatFormFieldModule,
+    MatIconModule
+],
     encapsulation: ViewEncapsulation.None,
     templateUrl: './amw-radio-group.component.html',
     styleUrl: './amw-radio-group.component.scss',

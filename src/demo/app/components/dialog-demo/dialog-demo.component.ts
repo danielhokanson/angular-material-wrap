@@ -1,5 +1,5 @@
 import { Component, ViewEncapsulation } from '@angular/core';
-import { CommonModule } from '@angular/common';
+
 import { MatCardModule } from '@angular/material/card';
 import { MatButtonModule } from '@angular/material/button';
 import { MatIconModule } from '@angular/material/icon';
@@ -11,12 +11,11 @@ import { DialogType, DialogSize, DialogPosition } from '../../../../library/src/
     selector: 'amw-demo-dialog',
     standalone: true,
     imports: [
-        CommonModule,
-        MatCardModule,
-        MatButtonModule,
-        MatIconModule,
-        MatSnackBarModule
-    ],
+    MatCardModule,
+    MatButtonModule,
+    MatIconModule,
+    MatSnackBarModule
+],
     encapsulation: ViewEncapsulation.None,
     templateUrl: './dialog-demo.component.html',
     styleUrl: './dialog-demo.component.scss'

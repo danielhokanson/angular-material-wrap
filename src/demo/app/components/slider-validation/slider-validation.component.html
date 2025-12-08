@@ -21,9 +21,11 @@
           </amw-slider>
           <div class="slider-info">
             <span class="current-value">Current: {{ getFieldValue('volume') }}%</span>
-            <div class="field-error" *ngIf="getFieldError('volume')">
-              {{ getFieldError('volume') }}
-            </div>
+            @if (getFieldError('volume')) {
+              <div class="field-error">
+                {{ getFieldError('volume') }}
+              </div>
+            }
           </div>
         </div>
       </div>
@@ -43,9 +45,11 @@
           </amw-slider>
           <div class="slider-info">
             <span class="current-value">Current: {{ getFieldValue('brightness') }}%</span>
-            <div class="field-error" *ngIf="getFieldError('brightness')">
-              {{ getFieldError('brightness') }}
-            </div>
+            @if (getFieldError('brightness')) {
+              <div class="field-error">
+                {{ getFieldError('brightness') }}
+              </div>
+            }
           </div>
         </div>
       </div>
@@ -65,9 +69,11 @@
           </amw-slider>
           <div class="slider-info">
             <span class="current-value">Current: {{ getFieldValue('temperature') }}°C</span>
-            <div class="field-error" *ngIf="getFieldError('temperature')">
-              {{ getFieldError('temperature') }}
-            </div>
+            @if (getFieldError('temperature')) {
+              <div class="field-error">
+                {{ getFieldError('temperature') }}
+              </div>
+            }
           </div>
         </div>
       </div>
@@ -87,9 +93,11 @@
           </amw-slider>
           <div class="slider-info">
             <span class="current-value">Current: {{ getFieldValue('rating') }} stars</span>
-            <div class="field-error" *ngIf="getFieldError('rating')">
-              {{ getFieldError('rating') }}
-            </div>
+            @if (getFieldError('rating')) {
+              <div class="field-error">
+                {{ getFieldError('rating') }}
+              </div>
+            }
           </div>
         </div>
       </div>
@@ -109,9 +117,11 @@
           </amw-slider>
           <div class="slider-info">
             <span class="current-value">Current: {{ getFieldValue('progress') }}%</span>
-            <div class="field-error" *ngIf="getFieldError('progress')">
-              {{ getFieldError('progress') }}
-            </div>
+            @if (getFieldError('progress')) {
+              <div class="field-error">
+                {{ getFieldError('progress') }}
+              </div>
+            }
           </div>
         </div>
       </div>
@@ -131,9 +141,11 @@
           </amw-slider>
           <div class="slider-info">
             <span class="current-value">Current: ${{ getFieldValue('price') }}</span>
-            <div class="field-error" *ngIf="getFieldError('price')">
-              {{ getFieldError('price') }}
-            </div>
+            @if (getFieldError('price')) {
+              <div class="field-error">
+                {{ getFieldError('price') }}
+              </div>
+            }
           </div>
         </div>
       </div>

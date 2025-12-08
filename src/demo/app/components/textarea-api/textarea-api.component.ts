@@ -1,10 +1,10 @@
 import { Component, ViewEncapsulation } from '@angular/core';
-import { CommonModule } from '@angular/common';
+
 
 @Component({
   selector: 'amw-demo-textarea-api',
   standalone: true,
-  imports: [CommonModule],
+  imports: [],
   encapsulation: ViewEncapsulation.None,
   templateUrl: './textarea-api.component.html',
   styleUrl: './textarea-api.component.scss'

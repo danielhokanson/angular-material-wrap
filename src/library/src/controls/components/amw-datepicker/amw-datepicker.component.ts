@@ -1,5 +1,5 @@
 import { Component, Input, Output, EventEmitter, forwardRef, ViewEncapsulation } from '@angular/core';
-import { CommonModule } from '@angular/common';
+
 import { FormsModule, ControlValueAccessor, NG_VALUE_ACCESSOR } from '@angular/forms';
 import { MatDatepickerModule } from '@angular/material/datepicker';
 import { MatFormFieldModule } from '@angular/material/form-field';
@@ -17,15 +17,14 @@ import { AmwAppearance } from '../../../shared/types/amw-appearance.type';
     selector: 'amw-datepicker',
     standalone: true,
     imports: [
-        CommonModule,
-        FormsModule,
-        MatDatepickerModule,
-        MatFormFieldModule,
-        MatInputModule,
-        MatIconModule,
-        MatButtonModule,
-        MatNativeDateModule
-    ],
+    FormsModule,
+    MatDatepickerModule,
+    MatFormFieldModule,
+    MatInputModule,
+    MatIconModule,
+    MatButtonModule,
+    MatNativeDateModule
+],
     providers: [],
     templateUrl: './amw-datepicker.component.html',
     styleUrl: './amw-datepicker.component.scss',

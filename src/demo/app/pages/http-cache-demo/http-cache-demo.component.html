@@ -29,25 +29,30 @@
                     <mat-icon>pie_chart</mat-icon>
                     Storage: {{ storageUsage }}
                   </mat-chip>
-                  <mat-chip *ngIf="lastRequestTime !== null" [class.cached]="lastRequestTime < 10">
-                    <mat-icon>timer</mat-icon>
-                    Response Time: {{ lastRequestTime.toFixed(2) }}ms
-                    <span *ngIf="lastRequestTime < 10" class="cached-badge">CACHED</span>
-                  </mat-chip>
+                  @if (lastRequestTime !== null) {
+                    <mat-chip [class.cached]="lastRequestTime < 10">
+                      <mat-icon>timer</mat-icon>
+                      Response Time: {{ lastRequestTime.toFixed(2) }}ms
+                      @if (lastRequestTime < 10) {
+                        <span class="cached-badge">CACHED</span>
+                      }
+                    </mat-chip>
+                  }
                 </mat-chip-set>
               </div>
 
               <div class="test-endpoints">
                 <h3>Test Endpoints</h3>
                 <div class="endpoint-buttons">
-                  <button mat-raised-button 
-                          color="primary" 
-                          *ngFor="let endpoint of testEndpoints"
-                          (click)="makeRequest(endpoint.url)"
-                          [disabled]="loading">
-                    <mat-icon>http</mat-icon>
-                    {{ endpoint.label }}
-                  </button>
+                  @for (endpoint of testEndpoints; track endpoint) {
+                    <button mat-raised-button
+                      color="primary"
+                      (click)="makeRequest(endpoint.url)"
+                      [disabled]="loading">
+                      <mat-icon>http</mat-icon>
+                      {{ endpoint.label }}
+                    </button>
+                  }
                 </div>
               </div>
 
@@ -62,17 +67,23 @@
                 </button>
               </div>
 
-              <mat-spinner *ngIf="loading" diameter="40"></mat-spinner>
+              @if (loading) {
+                <mat-spinner diameter="40"></mat-spinner>
+              }
 
-              <div *ngIf="errorMessage" class="error-message">
-                <mat-icon>warning</mat-icon>
-                <p>{{ errorMessage }}</p>
-              </div>
+              @if (errorMessage) {
+                <div class="error-message">
+                  <mat-icon>warning</mat-icon>
+                  <p>{{ errorMessage }}</p>
+                </div>
+              }
 
-              <div *ngIf="responseData" class="response-data">
-                <h3>Response Data</h3>
-                <pre>{{ responseData | json }}</pre>
-              </div>
+              @if (responseData) {
+                <div class="response-data">
+                  <h3>Response Data</h3>
+                  <pre>{{ responseData | json }}</pre>
+                </div>
+              }
             </mat-card-content>
           </mat-card>
         </div>
@@ -88,11 +99,13 @@
             </mat-card-header>
             <mat-card-content>
               <mat-list>
-                <mat-list-item *ngFor="let pattern of cacheConfig | keyvalue">
-                  <span matListItemTitle>{{ pattern.key }}</span>
-                  <span matListItemLine>Timeout: {{ pattern.value }} ms</span>
-                  <mat-icon matListItemIcon>schedule</mat-icon>
-                </mat-list-item>
+                @for (pattern of cacheConfig | keyvalue; track pattern) {
+                  <mat-list-item>
+                    <span matListItemTitle>{{ pattern.key }}</span>
+                    <span matListItemLine>Timeout: {{ pattern.value }} ms</span>
+                    <mat-icon matListItemIcon>schedule</mat-icon>
+                  </mat-list-item>
+                }
               </mat-list>
             </mat-card-content>
           </mat-card>

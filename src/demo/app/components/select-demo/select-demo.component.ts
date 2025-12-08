@@ -1,5 +1,5 @@
 import { Component, ViewEncapsulation, OnInit } from '@angular/core';
-import { CommonModule } from '@angular/common';
+
 import { MatCardModule } from '@angular/material/card';
 import { MatButtonModule } from '@angular/material/button';
 import { MatIconModule } from '@angular/material/icon';
@@ -29,28 +29,27 @@ import { MatFormFieldAppearance } from '@angular/material/form-field';
     selector: 'amw-demo-select',
     standalone: true,
     imports: [
-        CommonModule,
-        ReactiveFormsModule,
-        MatCardModule,
-        MatButtonModule,
-        MatIconModule,
-        MatFormFieldModule,
-        MatInputModule,
-        MatSelectModule,
-        MatSliderModule,
-        MatSlideToggleModule,
-        MatToolbarModule,
-        MatSidenavModule,
-        MatListModule,
-        MatTooltipModule,
-        MatRippleModule,
-        MatOptionModule,
-        MatDividerModule,
-        MatExpansionModule,
-        MatTabsModule,
-        MatSnackBarModule,
-        AmwSelectComponent
-    ],
+    ReactiveFormsModule,
+    MatCardModule,
+    MatButtonModule,
+    MatIconModule,
+    MatFormFieldModule,
+    MatInputModule,
+    MatSelectModule,
+    MatSliderModule,
+    MatSlideToggleModule,
+    MatToolbarModule,
+    MatSidenavModule,
+    MatListModule,
+    MatTooltipModule,
+    MatRippleModule,
+    MatOptionModule,
+    MatDividerModule,
+    MatExpansionModule,
+    MatTabsModule,
+    MatSnackBarModule,
+    AmwSelectComponent
+],
     encapsulation: ViewEncapsulation.None,
     templateUrl: './select-demo.component.html',
     styleUrl: './select-demo.component.scss'

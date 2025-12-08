@@ -10,7 +10,7 @@
         {{ isEditing() ? 'Modify an existing custom theme' : 'Design a custom theme with your own colors' }}
       </mat-card-subtitle>
     </mat-card-header>
-    
+
     <mat-card-content>
       <div class="theme-form">
         <!-- Basic Info -->
@@ -19,28 +19,28 @@
           <div class="form-row">
             <mat-form-field appearance="outline" class="form-field">
               <mat-label>Theme Name</mat-label>
-              <input 
-                matInput 
-                [(ngModel)]="themeName" 
+              <input
+                matInput
+                [(ngModel)]="themeName"
                 (ngModelChange)="onThemeNameChange()"
                 placeholder="My Custom Theme"
                 required>
             </mat-form-field>
-            
+
             <mat-form-field appearance="outline" class="form-field">
               <mat-label>Theme ID</mat-label>
-              <input 
-                matInput 
-                [(ngModel)]="themeId" 
+              <input
+                matInput
+                [(ngModel)]="themeId"
                 placeholder="my-custom-theme"
                 required>
               <mat-hint>Used internally (auto-generated from name)</mat-hint>
             </mat-form-field>
           </div>
-          
+
           <div class="form-row">
-            <mat-slide-toggle 
-              [(ngModel)]="isDarkMode" 
+            <mat-slide-toggle
+              [(ngModel)]="isDarkMode"
               (change)="onDarkModeToggle()"
               class="dark-mode-toggle">
               <mat-icon>dark_mode</mat-icon>
@@ -58,9 +58,9 @@
             <div class="color-item">
               <mat-form-field appearance="outline" class="color-field">
                 <mat-label>Primary Color</mat-label>
-                <input 
-                  matInput 
-                  [(ngModel)]="colors.primary" 
+                <input
+                  matInput
+                  [(ngModel)]="colors.primary"
                   (ngModelChange)="onColorChange('primary', $event)"
                   placeholder="#673AB7"
                   pattern="^#[0-9A-Fa-f]{6}$">
@@ -69,13 +69,13 @@
                 </div>
               </mat-form-field>
             </div>
-            
+
             <div class="color-item">
               <mat-form-field appearance="outline" class="color-field">
                 <mat-label>Accent Color</mat-label>
-                <input 
-                  matInput 
-                  [(ngModel)]="colors.accent" 
+                <input
+                  matInput
+                  [(ngModel)]="colors.accent"
                   (ngModelChange)="onColorChange('accent', $event)"
                   placeholder="#FFC107"
                   pattern="^#[0-9A-Fa-f]{6}$">
@@ -84,13 +84,13 @@
                 </div>
               </mat-form-field>
             </div>
-            
+
             <div class="color-item">
               <mat-form-field appearance="outline" class="color-field">
                 <mat-label>Warn Color</mat-label>
-                <input 
-                  matInput 
-                  [(ngModel)]="colors.warn" 
+                <input
+                  matInput
+                  [(ngModel)]="colors.warn"
                   (ngModelChange)="onColorChange('warn', $event)"
                   placeholder="#F44336"
                   pattern="^#[0-9A-Fa-f]{6}$">
@@ -99,13 +99,13 @@
                 </div>
               </mat-form-field>
             </div>
-            
+
             <div class="color-item">
               <mat-form-field appearance="outline" class="color-field">
                 <mat-label>Background Color</mat-label>
-                <input 
-                  matInput 
-                  [(ngModel)]="colors.background" 
+                <input
+                  matInput
+                  [(ngModel)]="colors.background"
                   (ngModelChange)="onColorChange('background', $event)"
                   placeholder="#FAFAFA"
                   pattern="^#[0-9A-Fa-f]{6}$">
@@ -114,13 +114,13 @@
                 </div>
               </mat-form-field>
             </div>
-            
+
             <div class="color-item">
               <mat-form-field appearance="outline" class="color-field">
                 <mat-label>Surface Color</mat-label>
-                <input 
-                  matInput 
-                  [(ngModel)]="colors.surface" 
+                <input
+                  matInput
+                  [(ngModel)]="colors.surface"
                   (ngModelChange)="onColorChange('surface', $event)"
                   placeholder="#FFFFFF"
                   pattern="^#[0-9A-Fa-f]{6}$">
@@ -129,13 +129,13 @@
                 </div>
               </mat-form-field>
             </div>
-            
+
             <div class="color-item">
               <mat-form-field appearance="outline" class="color-field">
                 <mat-label>Foreground Color</mat-label>
-                <input 
-                  matInput 
-                  [(ngModel)]="colors.foreground" 
+                <input
+                  matInput
+                  [(ngModel)]="colors.foreground"
                   (ngModelChange)="onColorChange('foreground', $event)"
                   placeholder="#212121"
                   pattern="^#[0-9A-Fa-f]{6}$">
@@ -151,25 +151,25 @@
 
         <!-- Actions -->
         <div class="form-actions">
-          <button 
-            mat-raised-button 
-            color="primary" 
-            (click)="onSaveTheme()" 
+          <button
+            mat-raised-button
+            color="primary"
+            (click)="onSaveTheme()"
             [disabled]="!isValid">
             <mat-icon>save</mat-icon>
             {{ isEditing() ? 'Update Theme' : 'Create Theme' }}
           </button>
-          
-          <button 
-            mat-button 
-            (click)="onPreviewTheme()" 
+
+          <button
+            mat-button
+            (click)="onPreviewTheme()"
             [disabled]="!isValid">
             <mat-icon>visibility</mat-icon>
             Preview
           </button>
-          
-          <button 
-            mat-button 
+
+          <button
+            mat-button
             (click)="onNewTheme()">
             <mat-icon>add</mat-icon>
             New Theme
@@ -180,59 +180,60 @@
   </mat-card>
 
   <!-- Custom Themes List -->
-  <mat-card *ngIf="customThemes().length > 0" class="themes-list-card">
-    <mat-card-header>
-      <mat-card-title>
-        <mat-icon>palette</mat-icon>
-        Custom Themes
-      </mat-card-title>
-      <mat-card-subtitle>Manage your custom themes</mat-card-subtitle>
-    </mat-card-header>
-    
-    <mat-card-content>
-      <div class="themes-list">
-        <div *ngFor="let theme of customThemes()" class="theme-item">
-          <div class="theme-info">
-            <div class="theme-name">{{ theme.displayName }}</div>
-            <div class="theme-meta">
-              {{ theme.isDark ? 'Dark' : 'Light' }} theme • ID: {{ theme.id }}
+  @if (customThemes().length > 0) {
+    <mat-card class="themes-list-card">
+      <mat-card-header>
+        <mat-card-title>
+          <mat-icon>palette</mat-icon>
+          Custom Themes
+        </mat-card-title>
+        <mat-card-subtitle>Manage your custom themes</mat-card-subtitle>
+      </mat-card-header>
+      <mat-card-content>
+        <div class="themes-list">
+          @for (theme of customThemes(); track theme) {
+            <div class="theme-item">
+              <div class="theme-info">
+                <div class="theme-name">{{ theme.displayName }}</div>
+                <div class="theme-meta">
+                  {{ theme.isDark ? 'Dark' : 'Light' }} theme • ID: {{ theme.id }}
+                </div>
+              </div>
+              <div class="theme-colors">
+                <div
+                  class="color-swatch"
+                  [style.background-color]="theme.colors.primary"
+                  matTooltip="Primary">
+                </div>
+                <div
+                  class="color-swatch"
+                  [style.background-color]="theme.colors.accent"
+                  matTooltip="Accent">
+                </div>
+                <div
+                  class="color-swatch"
+                  [style.background-color]="theme.colors.warn"
+                  matTooltip="Warn">
+                </div>
+              </div>
+              <div class="theme-actions">
+                <button
+                  mat-icon-button
+                  (click)="onLoadTheme(theme)"
+                  matTooltip="Edit theme">
+                  <mat-icon>edit</mat-icon>
+                </button>
+                <button
+                  mat-icon-button
+                  (click)="onDeleteTheme(theme)"
+                  matTooltip="Delete theme">
+                  <mat-icon>delete</mat-icon>
+                </button>
+              </div>
             </div>
-          </div>
-          
-          <div class="theme-colors">
-            <div 
-              class="color-swatch" 
-              [style.background-color]="theme.colors.primary"
-              matTooltip="Primary">
-            </div>
-            <div 
-              class="color-swatch" 
-              [style.background-color]="theme.colors.accent"
-              matTooltip="Accent">
-            </div>
-            <div 
-              class="color-swatch" 
-              [style.background-color]="theme.colors.warn"
-              matTooltip="Warn">
-            </div>
-          </div>
-          
-          <div class="theme-actions">
-            <button 
-              mat-icon-button 
-              (click)="onLoadTheme(theme)"
-              matTooltip="Edit theme">
-              <mat-icon>edit</mat-icon>
-            </button>
-            <button 
-              mat-icon-button 
-              (click)="onDeleteTheme(theme)"
-              matTooltip="Delete theme">
-              <mat-icon>delete</mat-icon>
-            </button>
-          </div>
+          }
         </div>
-      </div>
-    </mat-card-content>
-  </mat-card>
+      </mat-card-content>
+    </mat-card>
+  }
 </div>

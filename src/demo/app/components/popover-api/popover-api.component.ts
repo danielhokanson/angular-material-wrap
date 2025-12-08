@@ -1,5 +1,5 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
-import { CommonModule } from '@angular/common';
+
 import { MatButtonModule } from '@angular/material/button';
 import { MatIconModule } from '@angular/material/icon';
 import { MatCardModule } from '@angular/material/card';
@@ -21,14 +21,13 @@ import { AmwSize } from '../../../../library/src/shared/types';
     selector: 'app-popover-api',
     standalone: true,
     imports: [
-        CommonModule,
-        MatButtonModule,
-        MatIconModule,
-        MatCardModule,
-        MatTabsModule,
-        MatSnackBarModule,
-        AmwPopoverComponent
-    ],
+    MatButtonModule,
+    MatIconModule,
+    MatCardModule,
+    MatTabsModule,
+    MatSnackBarModule,
+    AmwPopoverComponent
+],
     templateUrl: './popover-api.component.html',
     styleUrl: './popover-api.component.scss'
 })

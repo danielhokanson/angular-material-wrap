@@ -1,5 +1,5 @@
 import { Component, Input, Output, EventEmitter, ViewEncapsulation, forwardRef, OnChanges } from '@angular/core';
-import { CommonModule } from '@angular/common';
+
 import { FormsModule, NG_VALUE_ACCESSOR } from '@angular/forms';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
@@ -13,7 +13,7 @@ import { AmwColor } from '../../../shared/types/amw-color.type';
 @Component({
     selector: 'amw-timepicker',
     standalone: true,
-    imports: [CommonModule, FormsModule, MatFormFieldModule, MatInputModule, MatIconModule, MatButtonModule],
+    imports: [FormsModule, MatFormFieldModule, MatInputModule, MatIconModule, MatButtonModule],
     encapsulation: ViewEncapsulation.None,
     templateUrl: './amw-timepicker.component.html',
     styleUrl: './amw-timepicker.component.scss',

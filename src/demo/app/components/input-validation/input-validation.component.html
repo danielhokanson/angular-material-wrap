@@ -14,9 +14,11 @@
           [required]="true"
           appearance="outline">
         </amw-input>
-        <div class="field-error" *ngIf="getFieldError('requiredField')">
-          {{ getFieldError('requiredField') }}
-        </div>
+        @if (getFieldError('requiredField')) {
+          <div class="field-error">
+            {{ getFieldError('requiredField') }}
+          </div>
+        }
       </div>
 
       <div class="form-row">
@@ -28,9 +30,11 @@
           [required]="true"
           appearance="outline">
         </amw-input>
-        <div class="field-error" *ngIf="getFieldError('emailField')">
-          {{ getFieldError('emailField') }}
-        </div>
+        @if (getFieldError('emailField')) {
+          <div class="field-error">
+            {{ getFieldError('emailField') }}
+          </div>
+        }
       </div>
 
       <div class="form-row">
@@ -41,9 +45,11 @@
           [required]="true"
           appearance="outline">
         </amw-input>
-        <div class="field-error" *ngIf="getFieldError('minLengthField')">
-          {{ getFieldError('minLengthField') }}
-        </div>
+        @if (getFieldError('minLengthField')) {
+          <div class="field-error">
+            {{ getFieldError('minLengthField') }}
+          </div>
+        }
       </div>
 
       <div class="form-row">
@@ -54,9 +60,11 @@
           [required]="true"
           appearance="outline">
         </amw-input>
-        <div class="field-error" *ngIf="getFieldError('maxLengthField')">
-          {{ getFieldError('maxLengthField') }}
-        </div>
+        @if (getFieldError('maxLengthField')) {
+          <div class="field-error">
+            {{ getFieldError('maxLengthField') }}
+          </div>
+        }
       </div>
 
       <div class="form-row">
@@ -67,9 +75,11 @@
           [required]="true"
           appearance="outline">
         </amw-input>
-        <div class="field-error" *ngIf="getFieldError('patternField')">
-          {{ getFieldError('patternField') }}
-        </div>
+        @if (getFieldError('patternField')) {
+          <div class="field-error">
+            {{ getFieldError('patternField') }}
+          </div>
+        }
       </div>
 
       <div class="form-row">
@@ -81,9 +91,11 @@
           [required]="true"
           appearance="outline">
         </amw-input>
-        <div class="field-error" *ngIf="getFieldError('numberField')">
-          {{ getFieldError('numberField') }}
-        </div>
+        @if (getFieldError('numberField')) {
+          <div class="field-error">
+            {{ getFieldError('numberField') }}
+          </div>
+        }
       </div>
 
       <div class="form-actions">

@@ -1,5 +1,5 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
-import { CommonModule } from '@angular/common';
+
 import { MatButtonModule } from '@angular/material/button';
 import { MatIconModule } from '@angular/material/icon';
 import { MatCardModule } from '@angular/material/card';
@@ -27,22 +27,21 @@ import { AmwSize } from '../../../../library/src/shared/types';
     selector: 'app-sidenav-demo',
     standalone: true,
     imports: [
-        CommonModule,
-        MatButtonModule,
-        MatIconModule,
-        MatCardModule,
-        MatDividerModule,
-        MatFormFieldModule,
-        MatSelectModule,
-        MatSlideToggleModule,
-        MatSliderModule,
-        MatInputModule,
-        MatBadgeModule,
-        MatTooltipModule,
-        MatSnackBarModule,
-        ReactiveFormsModule,
-        AmwSidenavComponent
-    ],
+    MatButtonModule,
+    MatIconModule,
+    MatCardModule,
+    MatDividerModule,
+    MatFormFieldModule,
+    MatSelectModule,
+    MatSlideToggleModule,
+    MatSliderModule,
+    MatInputModule,
+    MatBadgeModule,
+    MatTooltipModule,
+    MatSnackBarModule,
+    ReactiveFormsModule,
+    AmwSidenavComponent
+],
     templateUrl: './sidenav-demo.component.html',
     styleUrl: './sidenav-demo.component.scss'
 })

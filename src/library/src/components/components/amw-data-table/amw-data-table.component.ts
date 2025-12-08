@@ -1,5 +1,5 @@
 import { Component, Input, Output, EventEmitter, ViewEncapsulation, OnInit, OnChanges, SimpleChanges, OnDestroy, ChangeDetectorRef, Inject } from '@angular/core';
-import { CommonModule } from '@angular/common';
+
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { MatTableModule } from '@angular/material/table';
 import { MatPaginatorModule, PageEvent } from '@angular/material/paginator';
@@ -39,25 +39,24 @@ import { DialogService } from '../../services/dialog.service';
     selector: 'amw-data-table',
     standalone: true,
     imports: [
-        CommonModule,
-        FormsModule,
-        ReactiveFormsModule,
-        MatTableModule,
-        MatPaginatorModule,
-        MatSortModule,
-        MatCheckboxModule,
-        MatButtonModule,
-        MatIconModule,
-        MatInputModule,
-        MatFormFieldModule,
-        MatSelectModule,
-        MatMenuModule,
-        MatTooltipModule,
-        MatProgressSpinnerModule,
-        MatChipsModule,
-        MatSlideToggleModule,
-        OverlayModule
-    ],
+    FormsModule,
+    ReactiveFormsModule,
+    MatTableModule,
+    MatPaginatorModule,
+    MatSortModule,
+    MatCheckboxModule,
+    MatButtonModule,
+    MatIconModule,
+    MatInputModule,
+    MatFormFieldModule,
+    MatSelectModule,
+    MatMenuModule,
+    MatTooltipModule,
+    MatProgressSpinnerModule,
+    MatChipsModule,
+    MatSlideToggleModule,
+    OverlayModule
+],
     encapsulation: ViewEncapsulation.None,
     templateUrl: './amw-data-table.component.html',
     styleUrl: './amw-data-table.component.scss'

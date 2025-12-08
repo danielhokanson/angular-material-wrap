@@ -1,143 +1,148 @@
 <div class="services-demo">
-    <div class="services-header">
-        <h1>Angular Services</h1>
-        <p>Global services and utilities for application-wide functionality</p>
-    </div>
+  <div class="services-header">
+    <h1>Angular Services</h1>
+    <p>Global services and utilities for application-wide functionality</p>
+  </div>
 
-    <div class="services-content">
-        <div class="services-main">
-            <mat-card class="service-demo">
-                <mat-card-header>
-                    <mat-card-title>{{ selectedService.name }}</mat-card-title>
-                    <mat-card-subtitle>Interactive demo and documentation</mat-card-subtitle>
-                </mat-card-header>
-                <mat-card-content>
-                    <mat-tab-group [(selectedIndex)]="selectedTab" class="service-tabs">
-                        <mat-tab label="Demo" icon="play_arrow">
-                            <ng-container [ngSwitch]="selectedService.id">
-                                <div *ngSwitchCase="'messaging'" class="demo-content">
-                                    <h3>Messaging Service Demo</h3>
-                                    <p>This service provides centralized messaging functionality.</p>
-                                    
-                                    <div class="demo-section">
-                                        <h4>Send Message</h4>
-                                        <mat-form-field appearance="outline">
-                                            <mat-label>Title</mat-label>
-                                            <input matInput 
-                                                   name="messageTitle"
-                                                   [(ngModel)]="messageTitle" 
-                                                   placeholder="Enter message title">
-                                        </mat-form-field>
-                                        <mat-form-field appearance="outline">
-                                            <mat-label>Content</mat-label>
-                                            <input matInput 
-                                                   name="messageContent"
-                                                   [(ngModel)]="messageContent" 
-                                                   placeholder="Enter message content">
-                                        </mat-form-field>
-                                        <div class="button-group">
-                                            <button mat-raised-button color="primary" (click)="sendMessage()">
-                                                <mat-icon>info</mat-icon>
-                                                Info
-                                            </button>
-                                            <button mat-raised-button color="accent" (click)="sendSuccessMessage()">
-                                                <mat-icon>check_circle</mat-icon>
-                                                Success
-                                            </button>
-                                            <button mat-raised-button color="warn" (click)="sendWarningMessage()">
-                                                <mat-icon>warning</mat-icon>
-                                                Warning
-                                            </button>
-                                            <button mat-raised-button color="warn" (click)="sendErrorMessage()">
-                                                <mat-icon>error</mat-icon>
-                                                Error
-                                            </button>
-                                        </div>
-                                    </div>
-                                    
-                                    <div class="demo-section">
-                                        <h4>Message History</h4>
-                                        <div class="message-list">
-                                            <div *ngFor="let message of messages" class="message-item" [class]="'message-' + message.type">
-                                                <div class="message-header">
-                                                    <mat-icon>{{ getMessageIcon(message.type) }}</mat-icon>
-                                                    <span class="message-title">{{ message.title }}</span>
-                                                    <button mat-icon-button (click)="removeMessage(message.id)" *ngIf="message.dismissible">
-                                                        <mat-icon>close</mat-icon>
-                                                    </button>
-                                                </div>
-                                                <div class="message-content">{{ message.content }}</div>
-                                                <div class="message-time">{{ message.timestamp | date:'short' }}</div>
-                                            </div>
-                                        </div>
-                                        <button mat-button color="warn" (click)="clearMessages()">
-                                            <mat-icon>clear</mat-icon>
-                                            Clear Messages
-                                        </button>
-                                    </div>
-                                </div>
-
-                                <div *ngSwitchCase="'loading'" class="demo-content">
-                                    <h3>Loading Service Demo</h3>
-                                    <p>This service manages loading states throughout the application.</p>
-                                    
-                                    <div class="demo-section">
-                                        <h4>Loading States</h4>
-                                        <button mat-raised-button color="primary" (click)="startLoading()" [disabled]="loadingState.isLoading">
-                                            <mat-icon>play_arrow</mat-icon>
-                                            Start Loading
-                                        </button>
-                                        <button mat-button (click)="stopLoading()" [disabled]="!loadingState.isLoading">
-                                            <mat-icon>stop</mat-icon>
-                                            Stop Loading
-                                        </button>
-                                        
-                                        <div *ngIf="loadingState.isLoading" class="loading-demo">
-                                            <mat-spinner diameter="40"></mat-spinner>
-                                            <p>Loading in progress...</p>
-                                        </div>
-                                    </div>
-                                </div>
-
-                                <div *ngSwitchCase="'notification'" class="demo-content">
-                                    <h3>Notification Service Demo</h3>
-                                    <p>This service provides various types of notifications to users.</p>
-                                    
-                                    <div class="demo-section">
-                                        <h4>Notification Types</h4>
-                                        <button mat-raised-button color="primary" (click)="showSuccessNotification()">
-                                            <mat-icon>check_circle</mat-icon>
-                                            Success
-                                        </button>
-                                        <button mat-raised-button color="warn" (click)="showErrorNotification()">
-                                            <mat-icon>error</mat-icon>
-                                            Error
-                                        </button>
-                                        <button mat-raised-button color="accent" (click)="showInfoNotification()">
-                                            <mat-icon>info</mat-icon>
-                                            Info
-                                        </button>
-                                    </div>
-                                </div>
-                            </ng-container>
-                        </mat-tab>
-                        
-                        <mat-tab label="Code" icon="code">
-                            <div class="code-content">
-                                <h3>{{ selectedService.name }} Service Code</h3>
-                                <p>Code examples will be available soon.</p>
+  <div class="services-content">
+    <div class="services-main">
+      <mat-card class="service-demo">
+        <mat-card-header>
+          <mat-card-title>{{ selectedService.name }}</mat-card-title>
+          <mat-card-subtitle>Interactive demo and documentation</mat-card-subtitle>
+        </mat-card-header>
+        <mat-card-content>
+          <mat-tab-group [(selectedIndex)]="selectedTab" class="service-tabs">
+            <mat-tab label="Demo" icon="play_arrow">
+              @switch (selectedService.id) {
+                @case ('messaging') {
+                  <div class="demo-content">
+                    <h3>Messaging Service Demo</h3>
+                    <p>This service provides centralized messaging functionality.</p>
+                    <div class="demo-section">
+                      <h4>Send Message</h4>
+                      <mat-form-field appearance="outline">
+                        <mat-label>Title</mat-label>
+                        <input matInput
+                          name="messageTitle"
+                          [(ngModel)]="messageTitle"
+                          placeholder="Enter message title">
+                      </mat-form-field>
+                      <mat-form-field appearance="outline">
+                        <mat-label>Content</mat-label>
+                        <input matInput
+                          name="messageContent"
+                          [(ngModel)]="messageContent"
+                          placeholder="Enter message content">
+                      </mat-form-field>
+                      <div class="button-group">
+                        <button mat-raised-button color="primary" (click)="sendMessage()">
+                          <mat-icon>info</mat-icon>
+                          Info
+                        </button>
+                        <button mat-raised-button color="accent" (click)="sendSuccessMessage()">
+                          <mat-icon>check_circle</mat-icon>
+                          Success
+                        </button>
+                        <button mat-raised-button color="warn" (click)="sendWarningMessage()">
+                          <mat-icon>warning</mat-icon>
+                          Warning
+                        </button>
+                        <button mat-raised-button color="warn" (click)="sendErrorMessage()">
+                          <mat-icon>error</mat-icon>
+                          Error
+                        </button>
+                      </div>
+                    </div>
+                    <div class="demo-section">
+                      <h4>Message History</h4>
+                      <div class="message-list">
+                        @for (message of messages; track message) {
+                          <div class="message-item" [class]="'message-' + message.type">
+                            <div class="message-header">
+                              <mat-icon>{{ getMessageIcon(message.type) }}</mat-icon>
+                              <span class="message-title">{{ message.title }}</span>
+                              @if (message.dismissible) {
+                                <button mat-icon-button (click)="removeMessage(message.id)">
+                                  <mat-icon>close</mat-icon>
+                                </button>
+                              }
                             </div>
-                        </mat-tab>
-                        
-                        <mat-tab label="API" icon="description">
-                            <div class="api-content">
-                                <h3>{{ selectedService.name }} Service API</h3>
-                                <p>API documentation will be available soon.</p>
-                            </div>
-                        </mat-tab>
-                    </mat-tab-group>
-                </mat-card-content>
-            </mat-card>
-        </div>
+                            <div class="message-content">{{ message.content }}</div>
+                            <div class="message-time">{{ message.timestamp | date:'short' }}</div>
+                          </div>
+                        }
+                      </div>
+                      <button mat-button color="warn" (click)="clearMessages()">
+                        <mat-icon>clear</mat-icon>
+                        Clear Messages
+                      </button>
+                    </div>
+                  </div>
+                }
+                @case ('loading') {
+                  <div class="demo-content">
+                    <h3>Loading Service Demo</h3>
+                    <p>This service manages loading states throughout the application.</p>
+                    <div class="demo-section">
+                      <h4>Loading States</h4>
+                      <button mat-raised-button color="primary" (click)="startLoading()" [disabled]="loadingState.isLoading">
+                        <mat-icon>play_arrow</mat-icon>
+                        Start Loading
+                      </button>
+                      <button mat-button (click)="stopLoading()" [disabled]="!loadingState.isLoading">
+                        <mat-icon>stop</mat-icon>
+                        Stop Loading
+                      </button>
+                      @if (loadingState.isLoading) {
+                        <div class="loading-demo">
+                          <mat-spinner diameter="40"></mat-spinner>
+                          <p>Loading in progress...</p>
+                        </div>
+                      }
+                    </div>
+                  </div>
+                }
+                @case ('notification') {
+                  <div class="demo-content">
+                    <h3>Notification Service Demo</h3>
+                    <p>This service provides various types of notifications to users.</p>
+                    <div class="demo-section">
+                      <h4>Notification Types</h4>
+                      <button mat-raised-button color="primary" (click)="showSuccessNotification()">
+                        <mat-icon>check_circle</mat-icon>
+                        Success
+                      </button>
+                      <button mat-raised-button color="warn" (click)="showErrorNotification()">
+                        <mat-icon>error</mat-icon>
+                        Error
+                      </button>
+                      <button mat-raised-button color="accent" (click)="showInfoNotification()">
+                        <mat-icon>info</mat-icon>
+                        Info
+                      </button>
+                    </div>
+                  </div>
+                }
+              }
+            </mat-tab>
+
+            <mat-tab label="Code" icon="code">
+              <div class="code-content">
+                <h3>{{ selectedService.name }} Service Code</h3>
+                <p>Code examples will be available soon.</p>
+              </div>
+            </mat-tab>
+
+            <mat-tab label="API" icon="description">
+              <div class="api-content">
+                <h3>{{ selectedService.name }} Service API</h3>
+                <p>API documentation will be available soon.</p>
+              </div>
+            </mat-tab>
+          </mat-tab-group>
+        </mat-card-content>
+      </mat-card>
     </div>
+  </div>
 </div>

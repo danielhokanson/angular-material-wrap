@@ -1,7 +1,9 @@
 <div class="amw-datepicker" [class]="'amw-datepicker--' + size">
   <mat-form-field [appearance]="appearance" class="amw-datepicker__field">
-    <mat-label *ngIf="label" [innerHTML]="label"></mat-label>
-    
+    @if (label) {
+      <mat-label [innerHTML]="label"></mat-label>
+    }
+
     <input
       matInput
       [matDatepicker]="picker"
@@ -16,25 +18,29 @@
       [min]="min"
       [max]="max"
       class="amw-datepicker__input">
-    
-    <mat-datepicker-toggle 
-      matSuffix 
+
+    <mat-datepicker-toggle
+      matSuffix
       [for]="picker"
       [disabled]="disabled"
       class="amw-datepicker__toggle">
     </mat-datepicker-toggle>
-    
-    <mat-icon *ngIf="clearable && selectedDate && !disabled" 
-              matSuffix 
-              (click)="onClear()"
-              class="amw-datepicker__clear">
-      clear
-    </mat-icon>
-    
-    <mat-hint *ngIf="hint" class="amw-datepicker__hint">{{ hint }}</mat-hint>
+
+    @if (clearable && selectedDate && !disabled) {
+      <mat-icon
+        matSuffix
+        (click)="onClear()"
+        class="amw-datepicker__clear">
+        clear
+      </mat-icon>
+    }
+
+    @if (hint) {
+      <mat-hint class="amw-datepicker__hint">{{ hint }}</mat-hint>
+    }
   </mat-form-field>
 
-  <mat-datepicker 
+  <mat-datepicker
     #picker
     [touchUi]="touchUi"
     [startAt]="startAt"

@@ -11,17 +11,21 @@
         <div class="api-table__cell">Default</div>
         <div class="api-table__cell">Description</div>
       </div>
-      <div class="api-table__row" *ngFor="let input of apiDocumentation.inputs">
-        <div class="api-table__cell api-table__cell--property">{{ input.name }}</div>
-        <div class="api-table__cell api-table__cell--type">{{ input.type }}</div>
-        <div class="api-table__cell api-table__cell--default">{{ input.default }}</div>
-        <div class="api-table__cell api-table__cell--description">
-          {{ input.description }}
-          <div class="api-table__options" *ngIf="input.options">
-            <strong>Options:</strong> {{ input.options.join(', ') }}
+      @for (input of apiDocumentation.inputs; track input) {
+        <div class="api-table__row">
+          <div class="api-table__cell api-table__cell--property">{{ input.name }}</div>
+          <div class="api-table__cell api-table__cell--type">{{ input.type }}</div>
+          <div class="api-table__cell api-table__cell--default">{{ input.default }}</div>
+          <div class="api-table__cell api-table__cell--description">
+            {{ input.description }}
+            @if (input.options) {
+              <div class="api-table__options">
+                <strong>Options:</strong> {{ input.options.join(', ') }}
+              </div>
+            }
           </div>
         </div>
-      </div>
+      }
     </div>
   </div>
 
@@ -33,11 +37,13 @@
         <div class="api-table__cell">Type</div>
         <div class="api-table__cell">Description</div>
       </div>
-      <div class="api-table__row" *ngFor="let output of apiDocumentation.outputs">
-        <div class="api-table__cell api-table__cell--property">{{ output.name }}</div>
-        <div class="api-table__cell api-table__cell--type">{{ output.type }}</div>
-        <div class="api-table__cell api-table__cell--description">{{ output.description }}</div>
-      </div>
+      @for (output of apiDocumentation.outputs; track output) {
+        <div class="api-table__row">
+          <div class="api-table__cell api-table__cell--property">{{ output.name }}</div>
+          <div class="api-table__cell api-table__cell--type">{{ output.type }}</div>
+          <div class="api-table__cell api-table__cell--description">{{ output.description }}</div>
+        </div>
+      }
     </div>
   </div>
 

@@ -1,5 +1,5 @@
 import { Component, OnInit, ViewEncapsulation } from '@angular/core';
-import { CommonModule } from '@angular/common';
+
 import { ReactiveFormsModule, FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
@@ -17,18 +17,17 @@ import { AmwSize } from '../../../../library/src/shared/types';
     selector: 'amw-demo-card-validation',
     standalone: true,
     imports: [
-        CommonModule,
-        ReactiveFormsModule,
-        MatFormFieldModule,
-        MatInputModule,
-        MatButtonModule,
-        MatSnackBarModule,
-        MatCardModule,
-        MatSelectModule,
-        MatCheckboxModule,
-        MatChipsModule,
-        AmwCardComponent
-    ],
+    ReactiveFormsModule,
+    MatFormFieldModule,
+    MatInputModule,
+    MatButtonModule,
+    MatSnackBarModule,
+    MatCardModule,
+    MatSelectModule,
+    MatCheckboxModule,
+    MatChipsModule,
+    AmwCardComponent
+],
     encapsulation: ViewEncapsulation.None,
     templateUrl: './card-validation.component.html',
     styleUrl: './card-validation.component.scss'

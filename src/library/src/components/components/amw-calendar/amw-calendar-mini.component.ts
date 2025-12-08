@@ -1,5 +1,5 @@
 import { Component, Input, Output, EventEmitter, OnInit, OnChanges, OnDestroy, ChangeDetectorRef, SimpleChanges, ViewEncapsulation } from '@angular/core';
-import { CommonModule } from '@angular/common';
+
 import { FormsModule } from '@angular/forms';
 import { MatButtonModule } from '@angular/material/button';
 import { MatIconModule } from '@angular/material/icon';
@@ -21,15 +21,14 @@ import { CalendarItemPopoverService } from './services/calendar-item-popover.ser
     selector: 'amw-calendar-mini',
     standalone: true,
     imports: [
-        CommonModule,
-        FormsModule,
-        MatButtonModule,
-        MatIconModule,
-        MatTooltipModule,
-        MatCardModule,
-        MatChipsModule,
-        MatProgressSpinnerModule
-    ],
+    FormsModule,
+    MatButtonModule,
+    MatIconModule,
+    MatTooltipModule,
+    MatCardModule,
+    MatChipsModule,
+    MatProgressSpinnerModule
+],
     templateUrl: './amw-calendar-mini.component.html',
     styleUrl: './amw-calendar-mini.component.scss',
     encapsulation: ViewEncapsulation.None

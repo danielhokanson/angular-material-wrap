@@ -1,11 +1,11 @@
 import { Component, ViewEncapsulation } from '@angular/core';
-import { CommonModule } from '@angular/common';
+
 import { MatCardModule } from '@angular/material/card';
 
 @Component({
     selector: 'amw-demo-range-slider-api',
     standalone: true,
-    imports: [CommonModule, MatCardModule],
+    imports: [MatCardModule],
     encapsulation: ViewEncapsulation.None,
     templateUrl: './range-slider-api.component.html',
     styleUrl: './range-slider-api.component.scss'

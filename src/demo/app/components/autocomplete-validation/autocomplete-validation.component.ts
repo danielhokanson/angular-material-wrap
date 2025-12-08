@@ -1,5 +1,5 @@
 import { Component, OnInit, ViewEncapsulation } from '@angular/core';
-import { CommonModule } from '@angular/common';
+
 import { ReactiveFormsModule, FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatAutocompleteModule } from '@angular/material/autocomplete';
@@ -13,7 +13,6 @@ import { AmwButtonComponent } from '../../../../library/src/controls/components/
   selector: 'amw-demo-autocomplete-validation',
   standalone: true,
   imports: [
-    CommonModule,
     ReactiveFormsModule,
     MatFormFieldModule,
     MatAutocompleteModule,
@@ -22,7 +21,7 @@ import { AmwButtonComponent } from '../../../../library/src/controls/components/
     MatSnackBarModule,
     AmwAutocompleteComponent,
     AmwButtonComponent
-  ],
+],
   encapsulation: ViewEncapsulation.None,
   templateUrl: './autocomplete-validation.component.html',
   styleUrl: './autocomplete-validation.component.scss'

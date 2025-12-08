@@ -1,14 +1,16 @@
 <div class="demo-section">
   <h3>Appearance Variations</h3>
   <div class="variation-grid">
-    <div *ngFor="let variation of textareaVariations.appearances" class="variation-item">
-      <h4>{{ variation.label }}</h4>
-      <amw-textarea
-        [appearance]="variation.appearance"
-        [label]="variation.label + ' Textarea'"
-        placeholder="Enter your text here...">
-      </amw-textarea>
-    </div>
+    @for (variation of textareaVariations.appearances; track variation) {
+      <div class="variation-item">
+        <h4>{{ variation.label }}</h4>
+        <amw-textarea
+          [appearance]="variation.appearance"
+          [label]="variation.label + ' Textarea'"
+          placeholder="Enter your text here...">
+        </amw-textarea>
+      </div>
+    }
   </div>
 
   <h3>Size Variations</h3>
@@ -41,14 +43,16 @@
 
   <h3>State Variations</h3>
   <div class="variation-grid">
-    <div *ngFor="let variation of textareaVariations.states" class="variation-item">
-      <h4>{{ variation.label }}</h4>
-      <amw-textarea
-        [disabled]="variation.disabled"
-        [required]="variation.required"
-        [label]="variation.label + ' Textarea'"
-        placeholder="Enter your text here...">
-      </amw-textarea>
-    </div>
+    @for (variation of textareaVariations.states; track variation) {
+      <div class="variation-item">
+        <h4>{{ variation.label }}</h4>
+        <amw-textarea
+          [disabled]="variation.disabled"
+          [required]="variation.required"
+          [label]="variation.label + ' Textarea'"
+          placeholder="Enter your text here...">
+        </amw-textarea>
+      </div>
+    }
   </div>
 </div>

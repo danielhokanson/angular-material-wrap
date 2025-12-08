@@ -1,5 +1,5 @@
 import { Component, ViewEncapsulation, OnInit } from '@angular/core';
-import { CommonModule } from '@angular/common';
+
 import { MatButtonModule } from '@angular/material/button';
 import { MatIconModule } from '@angular/material/icon';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
@@ -31,29 +31,28 @@ import { AmwSize } from '../../../../library/src/shared/types';
     selector: 'amw-demo-input',
     standalone: true,
     imports: [
-        CommonModule,
-        ReactiveFormsModule,
-        MatButtonModule,
-        MatIconModule,
-        MatProgressSpinnerModule,
-        MatFormFieldModule,
-        MatInputModule,
-        MatSelectModule,
-        MatSliderModule,
-        MatSlideToggleModule,
-        MatCardModule,
-        MatToolbarModule,
-        MatSidenavModule,
-        MatListModule,
-        MatTooltipModule,
-        MatRippleModule,
-        MatOptionModule,
-        MatDividerModule,
-        MatExpansionModule,
-        MatTabsModule,
-        MatSnackBarModule,
-        AmwInputComponent
-    ],
+    ReactiveFormsModule,
+    MatButtonModule,
+    MatIconModule,
+    MatProgressSpinnerModule,
+    MatFormFieldModule,
+    MatInputModule,
+    MatSelectModule,
+    MatSliderModule,
+    MatSlideToggleModule,
+    MatCardModule,
+    MatToolbarModule,
+    MatSidenavModule,
+    MatListModule,
+    MatTooltipModule,
+    MatRippleModule,
+    MatOptionModule,
+    MatDividerModule,
+    MatExpansionModule,
+    MatTabsModule,
+    MatSnackBarModule,
+    AmwInputComponent
+],
     encapsulation: ViewEncapsulation.None,
     templateUrl: './input-demo.component.html',
     styleUrl: './input-demo.component.scss'

@@ -4,7 +4,7 @@
       <mat-card-title>Dialog API Documentation</mat-card-title>
       <mat-card-subtitle>Complete API reference for the amw-dialog component</mat-card-subtitle>
     </mat-card-header>
-    
+
     <mat-card-content>
       <!-- Inputs -->
       <div class="dialog-api__section">
@@ -16,26 +16,26 @@
               <code>{{ element.name }}</code>
             </mat-cell>
           </ng-container>
-          
+
           <ng-container matColumnDef="type">
             <mat-header-cell *matHeaderCellDef>Type</mat-header-cell>
             <mat-cell *matCellDef="let element">
               <code>{{ element.type }}</code>
             </mat-cell>
           </ng-container>
-          
+
           <ng-container matColumnDef="default">
             <mat-header-cell *matHeaderCellDef>Default</mat-header-cell>
             <mat-cell *matCellDef="let element">
               <code>{{ element.default }}</code>
             </mat-cell>
           </ng-container>
-          
+
           <ng-container matColumnDef="description">
             <mat-header-cell *matHeaderCellDef>Description</mat-header-cell>
             <mat-cell *matCellDef="let element">{{ element.description }}</mat-cell>
           </ng-container>
-          
+
           <mat-header-row *matHeaderRowDef="['name', 'type', 'default', 'description']"></mat-header-row>
           <mat-row *matRowDef="let row; columns: ['name', 'type', 'default', 'description'];"></mat-row>
         </mat-table>
@@ -51,19 +51,19 @@
               <code>{{ element.name }}</code>
             </mat-cell>
           </ng-container>
-          
+
           <ng-container matColumnDef="type">
             <mat-header-cell *matHeaderCellDef>Type</mat-header-cell>
             <mat-cell *matCellDef="let element">
               <code>{{ element.type }}</code>
             </mat-cell>
           </ng-container>
-          
+
           <ng-container matColumnDef="description">
             <mat-header-cell *matHeaderCellDef>Description</mat-header-cell>
             <mat-cell *matCellDef="let element">{{ element.description }}</mat-cell>
           </ng-container>
-          
+
           <mat-header-row *matHeaderRowDef="['name', 'type', 'description']"></mat-header-row>
           <mat-row *matRowDef="let row; columns: ['name', 'type', 'description'];"></mat-row>
         </mat-table>
@@ -79,19 +79,19 @@
               <code>{{ element.name }}</code>
             </mat-cell>
           </ng-container>
-          
+
           <ng-container matColumnDef="type">
             <mat-header-cell *matHeaderCellDef>Return Type</mat-header-cell>
             <mat-cell *matCellDef="let element">
               <code>{{ element.type }}</code>
             </mat-cell>
           </ng-container>
-          
+
           <ng-container matColumnDef="description">
             <mat-header-cell *matHeaderCellDef>Description</mat-header-cell>
             <mat-cell *matCellDef="let element">{{ element.description }}</mat-cell>
           </ng-container>
-          
+
           <mat-header-row *matHeaderRowDef="['name', 'type', 'description']"></mat-header-row>
           <mat-row *matRowDef="let row; columns: ['name', 'type', 'description'];"></mat-row>
         </mat-table>
@@ -107,19 +107,19 @@
               <code>{{ element.name }}</code>
             </mat-cell>
           </ng-container>
-          
+
           <ng-container matColumnDef="type">
             <mat-header-cell *matHeaderCellDef>Return Type</mat-header-cell>
             <mat-cell *matCellDef="let element">
               <code>{{ element.type }}</code>
             </mat-cell>
           </ng-container>
-          
+
           <ng-container matColumnDef="description">
             <mat-header-cell *matHeaderCellDef>Description</mat-header-cell>
             <mat-cell *matCellDef="let element">{{ element.description }}</mat-cell>
           </ng-container>
-          
+
           <mat-header-row *matHeaderRowDef="['name', 'type', 'description']"></mat-header-row>
           <mat-row *matRowDef="let row; columns: ['name', 'type', 'description'];"></mat-row>
         </mat-table>
@@ -128,34 +128,32 @@
       <!-- Interfaces -->
       <div class="dialog-api__section">
         <h3>Interfaces</h3>
-        <div *ngFor="let interface of interfacesList" class="dialog-api__interface">
-          <h4>{{ interface.name }}</h4>
-          <p>{{ interface.description }}</p>
-          
-          <mat-table [dataSource]="interface.properties" class="dialog-api__table">
-            <ng-container matColumnDef="name">
-              <mat-header-cell *matHeaderCellDef>Property</mat-header-cell>
-              <mat-cell *matCellDef="let element">
-                <code>{{ element.name }}</code>
-              </mat-cell>
-            </ng-container>
-            
-            <ng-container matColumnDef="type">
-              <mat-header-cell *matHeaderCellDef>Type</mat-header-cell>
-              <mat-cell *matCellDef="let element">
-                <code>{{ element.type }}</code>
-              </mat-cell>
-            </ng-container>
-            
-            <ng-container matColumnDef="description">
-              <mat-header-cell *matHeaderCellDef>Description</mat-header-cell>
-              <mat-cell *matCellDef="let element">{{ element.description }}</mat-cell>
-            </ng-container>
-            
-            <mat-header-row *matHeaderRowDef="['name', 'type', 'description']"></mat-header-row>
-            <mat-row *matRowDef="let row; columns: ['name', 'type', 'description'];"></mat-row>
-          </mat-table>
-        </div>
+        @for (interface of interfacesList; track interface) {
+          <div class="dialog-api__interface">
+            <h4>{{ interface.name }}</h4>
+            <p>{{ interface.description }}</p>
+            <mat-table [dataSource]="interface.properties" class="dialog-api__table">
+              <ng-container matColumnDef="name">
+                <mat-header-cell *matHeaderCellDef>Property</mat-header-cell>
+                <mat-cell *matCellDef="let element">
+                  <code>{{ element.name }}</code>
+                </mat-cell>
+              </ng-container>
+              <ng-container matColumnDef="type">
+                <mat-header-cell *matHeaderCellDef>Type</mat-header-cell>
+                <mat-cell *matCellDef="let element">
+                  <code>{{ element.type }}</code>
+                </mat-cell>
+              </ng-container>
+              <ng-container matColumnDef="description">
+                <mat-header-cell *matHeaderCellDef>Description</mat-header-cell>
+                <mat-cell *matCellDef="let element">{{ element.description }}</mat-cell>
+              </ng-container>
+              <mat-header-row *matHeaderRowDef="['name', 'type', 'description']"></mat-header-row>
+              <mat-row *matRowDef="let row; columns: ['name', 'type', 'description'];"></mat-row>
+            </mat-table>
+          </div>
+        }
       </div>
     </mat-card-content>
   </mat-card>

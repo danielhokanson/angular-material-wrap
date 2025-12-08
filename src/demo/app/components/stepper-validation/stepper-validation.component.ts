@@ -1,5 +1,5 @@
 import { Component, OnInit, ViewEncapsulation } from '@angular/core';
-import { CommonModule } from '@angular/common';
+
 import { MatCardModule } from '@angular/material/card';
 import { MatStepperModule } from '@angular/material/stepper';
 import { MatFormFieldModule } from '@angular/material/form-field';
@@ -12,22 +12,21 @@ import { FormsModule, ReactiveFormsModule, FormBuilder, FormGroup, Validators } 
     selector: 'amw-demo-stepper-validation',
     standalone: true,
     imports: [
-        CommonModule,
-        MatCardModule,
-        MatStepperModule,
-        MatFormFieldModule,
-        MatInputModule,
-        MatButtonModule,
-        MatIconModule,
-        FormsModule,
-        ReactiveFormsModule
-    ],
+    MatCardModule,
+    MatStepperModule,
+    MatFormFieldModule,
+    MatInputModule,
+    MatButtonModule,
+    MatIconModule,
+    FormsModule,
+    ReactiveFormsModule
+],
     encapsulation: ViewEncapsulation.None,
     template: `
     <div class="stepper-validation-demo">
       <h3>Stepper Validation Examples</h3>
       <p>Demonstrates various validation scenarios for the stepper component.</p>
-      
+    
       <div class="demo-section">
         <h4>Required Field Validation</h4>
         <mat-card>
@@ -39,16 +38,20 @@ import { FormsModule, ReactiveFormsModule, FormBuilder, FormGroup, Validators } 
                   <mat-form-field>
                     <mat-label>First Name *</mat-label>
                     <input matInput formControlName="firstName" required>
-                    <mat-error *ngIf="firstFormGroup.get('firstName')?.hasError('required')">
-                      First name is required
-                    </mat-error>
+                    @if (firstFormGroup.get('firstName')?.hasError('required')) {
+                      <mat-error>
+                        First name is required
+                      </mat-error>
+                    }
                   </mat-form-field>
                   <mat-form-field>
                     <mat-label>Last Name *</mat-label>
                     <input matInput formControlName="lastName" required>
-                    <mat-error *ngIf="firstFormGroup.get('lastName')?.hasError('required')">
-                      Last name is required
-                    </mat-error>
+                    @if (firstFormGroup.get('lastName')?.hasError('required')) {
+                      <mat-error>
+                        Last name is required
+                      </mat-error>
+                    }
                   </mat-form-field>
                   <div>
                     <button mat-button matStepperNext>Next</button>
@@ -61,19 +64,25 @@ import { FormsModule, ReactiveFormsModule, FormBuilder, FormGroup, Validators } 
                   <mat-form-field>
                     <mat-label>Email *</mat-label>
                     <input matInput formControlName="email" type="email" required>
-                    <mat-error *ngIf="secondFormGroup.get('email')?.hasError('required')">
-                      Email is required
-                    </mat-error>
-                    <mat-error *ngIf="secondFormGroup.get('email')?.hasError('email')">
-                      Please enter a valid email
-                    </mat-error>
+                    @if (secondFormGroup.get('email')?.hasError('required')) {
+                      <mat-error>
+                        Email is required
+                      </mat-error>
+                    }
+                    @if (secondFormGroup.get('email')?.hasError('email')) {
+                      <mat-error>
+                        Please enter a valid email
+                      </mat-error>
+                    }
                   </mat-form-field>
                   <mat-form-field>
                     <mat-label>Phone *</mat-label>
                     <input matInput formControlName="phone" required>
-                    <mat-error *ngIf="secondFormGroup.get('phone')?.hasError('required')">
-                      Phone is required
-                    </mat-error>
+                    @if (secondFormGroup.get('phone')?.hasError('required')) {
+                      <mat-error>
+                        Phone is required
+                      </mat-error>
+                    }
                   </mat-form-field>
                   <div>
                     <button mat-button matStepperPrevious>Back</button>
@@ -94,7 +103,7 @@ import { FormsModule, ReactiveFormsModule, FormBuilder, FormGroup, Validators } 
         </mat-card>
       </div>
     </div>
-  `,
+    `,
     styleUrl: './stepper-validation.component.scss'
 })
 export class StepperValidationComponent implements OnInit {

@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { CommonModule } from '@angular/common';
+
 import { MatCardModule } from '@angular/material/card';
 import { MatTabsModule } from '@angular/material/tabs';
 import { MatButtonModule } from '@angular/material/button';
@@ -14,13 +14,12 @@ import { MatChipsModule } from '@angular/material/chips';
     selector: 'app-radio-group-code',
     standalone: true,
     imports: [
-        CommonModule,
-        MatCardModule,
-        MatTabsModule,
-        MatButtonModule,
-        MatIconModule,
-        MatChipsModule
-    ],
+    MatCardModule,
+    MatTabsModule,
+    MatButtonModule,
+    MatIconModule,
+    MatChipsModule
+],
     templateUrl: './radio-group-code.component.html',
     styleUrl: './radio-group-code.component.scss'
 })

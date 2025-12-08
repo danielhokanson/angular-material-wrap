@@ -1,5 +1,5 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
-import { CommonModule } from '@angular/common';
+
 import { MatCardModule } from '@angular/material/card';
 import { MatButtonModule } from '@angular/material/button';
 import { MatIconModule } from '@angular/material/icon';
@@ -111,18 +111,17 @@ class FormPageDemoDataSource implements FormPageDataSource {
     selector: 'app-form-page-demo',
     standalone: true,
     imports: [
-        CommonModule,
-        MatCardModule,
-        MatButtonModule,
-        MatIconModule,
-        MatChipsModule,
-        MatDividerModule,
-        MatTabsModule,
-        MatExpansionModule,
-        MatTooltipModule,
-        MatSnackBarModule,
-        AmwFormPageComponent
-    ],
+    MatCardModule,
+    MatButtonModule,
+    MatIconModule,
+    MatChipsModule,
+    MatDividerModule,
+    MatTabsModule,
+    MatExpansionModule,
+    MatTooltipModule,
+    MatSnackBarModule,
+    AmwFormPageComponent
+],
     templateUrl: './form-page-demo.component.html',
     styleUrl: './form-page-demo.component.scss'
 })

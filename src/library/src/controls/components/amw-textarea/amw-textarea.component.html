@@ -1,6 +1,8 @@
 <div [class]="getTextareaClasses()">
   <mat-form-field [appearance]="appearance">
-    <mat-label *ngIf="label" [innerHTML]="label"></mat-label>
+    @if (label) {
+      <mat-label [innerHTML]="label"></mat-label>
+    }
     <textarea
       matInput
       [placeholder]="placeholder"
@@ -28,7 +30,11 @@
       (focus)="onFocus($event)"
       (blur)="onBlur($event)">
     </textarea>
-    <mat-hint *ngIf="hint">{{ hint }}</mat-hint>
-    <mat-error *ngIf="hasError && errorMessage">{{ errorMessage }}</mat-error>
+    @if (hint) {
+      <mat-hint>{{ hint }}</mat-hint>
+    }
+    @if (hasError && errorMessage) {
+      <mat-error>{{ errorMessage }}</mat-error>
+    }
   </mat-form-field>
 </div>

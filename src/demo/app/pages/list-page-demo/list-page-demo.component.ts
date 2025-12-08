@@ -1,5 +1,5 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
-import { CommonModule } from '@angular/common';
+
 import { MatCardModule } from '@angular/material/card';
 import { MatButtonModule } from '@angular/material/button';
 import { MatIconModule } from '@angular/material/icon';
@@ -217,18 +217,17 @@ class ListPageDemoDataSource implements ListPageDataSource {
     selector: 'app-list-page-demo',
     standalone: true,
     imports: [
-        CommonModule,
-        MatCardModule,
-        MatButtonModule,
-        MatIconModule,
-        MatChipsModule,
-        MatDividerModule,
-        MatTabsModule,
-        MatExpansionModule,
-        MatTooltipModule,
-        MatSnackBarModule,
-        AmwListPageComponent
-    ],
+    MatCardModule,
+    MatButtonModule,
+    MatIconModule,
+    MatChipsModule,
+    MatDividerModule,
+    MatTabsModule,
+    MatExpansionModule,
+    MatTooltipModule,
+    MatSnackBarModule,
+    AmwListPageComponent
+],
     templateUrl: './list-page-demo.component.html',
     styleUrl: './list-page-demo.component.scss'
 })

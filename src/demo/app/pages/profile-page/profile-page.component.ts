@@ -1,5 +1,5 @@
 import { Component, OnInit, ViewEncapsulation } from '@angular/core';
-import { CommonModule } from '@angular/common';
+
 import { MatCardModule } from '@angular/material/card';
 import { MatButtonModule } from '@angular/material/button';
 import { MatIconModule } from '@angular/material/icon';
@@ -16,7 +16,6 @@ import { FormsModule, ReactiveFormsModule, FormBuilder, FormGroup, Validators } 
   selector: 'amw-profile-page',
   standalone: true,
   imports: [
-    CommonModule,
     MatCardModule,
     MatButtonModule,
     MatIconModule,
@@ -26,10 +25,9 @@ import { FormsModule, ReactiveFormsModule, FormBuilder, FormGroup, Validators } 
     MatChipsModule,
     MatDividerModule,
     MatTabsModule,
-    // MatAvatarModule,
     FormsModule,
     ReactiveFormsModule
-  ],
+],
   encapsulation: ViewEncapsulation.None,
   templateUrl: './profile-page.component.html',
   styleUrl: './profile-page.component.scss'

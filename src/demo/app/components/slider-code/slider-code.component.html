@@ -5,15 +5,16 @@
       Copy and paste these code examples to use the amw-slider component in your projects.
     </p>
 
-    <mat-expansion-panel *ngFor="let example of codeExamples | keyvalue" class="code-example">
-      <mat-expansion-panel-header>
-        <mat-panel-title>{{ example.value.title }}</mat-panel-title>
-        <mat-panel-description>{{ example.value.description }}</mat-panel-description>
-      </mat-expansion-panel-header>
-      
-      <div class="code-content">
-        <pre><code>{{ example.value.code }}</code></pre>
-      </div>
-    </mat-expansion-panel>
+    @for (example of codeExamples | keyvalue; track example) {
+      <mat-expansion-panel class="code-example">
+        <mat-expansion-panel-header>
+          <mat-panel-title>{{ example.value.title }}</mat-panel-title>
+          <mat-panel-description>{{ example.value.description }}</mat-panel-description>
+        </mat-expansion-panel-header>
+        <div class="code-content">
+          <pre><code>{{ example.value.code }}</code></pre>
+        </div>
+      </mat-expansion-panel>
+    }
   </div>
 </div>

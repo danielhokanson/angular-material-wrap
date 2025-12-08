@@ -1,5 +1,5 @@
 import { Component, Input, Output, EventEmitter, OnInit, OnChanges, OnDestroy, ChangeDetectorRef, SimpleChanges, ViewEncapsulation } from '@angular/core';
-import { CommonModule } from '@angular/common';
+
 import { FormsModule } from '@angular/forms';
 import { MatButtonModule } from '@angular/material/button';
 import { MatIconModule } from '@angular/material/icon';
@@ -24,17 +24,16 @@ import { CalendarItemPopoverService } from './services/calendar-item-popover.ser
     selector: 'amw-calendar-full',
     standalone: true,
     imports: [
-        CommonModule,
-        FormsModule,
-        MatButtonModule,
-        MatIconModule,
-        MatTooltipModule,
-        MatMenuModule,
-        MatCardModule,
-        MatChipsModule,
-        MatDialogModule,
-        MatProgressSpinnerModule
-    ],
+    FormsModule,
+    MatButtonModule,
+    MatIconModule,
+    MatTooltipModule,
+    MatMenuModule,
+    MatCardModule,
+    MatChipsModule,
+    MatDialogModule,
+    MatProgressSpinnerModule
+],
     templateUrl: './amw-calendar-full.component.html',
     styleUrl: './amw-calendar-full.component.scss',
     encapsulation: ViewEncapsulation.None

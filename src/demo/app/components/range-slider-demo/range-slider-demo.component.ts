@@ -1,5 +1,5 @@
 import { Component, ViewEncapsulation } from '@angular/core';
-import { CommonModule } from '@angular/common';
+
 import { FormsModule } from '@angular/forms';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
@@ -16,18 +16,17 @@ import { AmwRangeSliderComponent } from '../../../../library/src/controls/compon
     selector: 'amw-demo-range-slider',
     standalone: true,
     imports: [
-        CommonModule,
-        FormsModule,
-        MatFormFieldModule,
-        MatInputModule,
-        MatCheckboxModule,
-        MatButtonModule,
-        MatIconModule,
-        MatCardModule,
-        MatDividerModule,
-        MatButtonToggleModule,
-        AmwRangeSliderComponent
-    ],
+    FormsModule,
+    MatFormFieldModule,
+    MatInputModule,
+    MatCheckboxModule,
+    MatButtonModule,
+    MatIconModule,
+    MatCardModule,
+    MatDividerModule,
+    MatButtonToggleModule,
+    AmwRangeSliderComponent
+],
     encapsulation: ViewEncapsulation.None,
     templateUrl: './range-slider-demo.component.html',
     styleUrl: './range-slider-demo.component.scss'

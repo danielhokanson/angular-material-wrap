@@ -1,5 +1,5 @@
 import { Component, signal } from '@angular/core';
-import { CommonModule } from '@angular/common';
+
 import { MatTabsModule } from '@angular/material/tabs';
 import { MatIconModule } from '@angular/material/icon';
 
@@ -10,12 +10,11 @@ import { ThemeEditorComponent } from '../theme-editor/theme-editor.component';
     selector: 'amw-theme-manager',
     standalone: true,
     imports: [
-        CommonModule,
-        MatTabsModule,
-        MatIconModule,
-        ThemePickerComponent,
-        ThemeEditorComponent
-    ],
+    MatTabsModule,
+    MatIconModule,
+    ThemePickerComponent,
+    ThemeEditorComponent
+],
     templateUrl: './theme-manager.component.html',
     styleUrl: './theme-manager.component.scss'
 })

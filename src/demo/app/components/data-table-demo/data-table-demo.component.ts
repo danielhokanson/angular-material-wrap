@@ -1,5 +1,5 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
-import { CommonModule } from '@angular/common';
+
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { MatCardModule } from '@angular/material/card';
 import { MatButtonModule } from '@angular/material/button';
@@ -34,23 +34,22 @@ import {
     selector: 'app-data-table-demo',
     standalone: true,
     imports: [
-        CommonModule,
-        FormsModule,
-        ReactiveFormsModule,
-        MatCardModule,
-        MatButtonModule,
-        MatIconModule,
-        MatFormFieldModule,
-        MatInputModule,
-        MatSelectModule,
-        MatCheckboxModule,
-        MatSlideToggleModule,
-        MatDividerModule,
-        MatChipsModule,
-        MatTooltipModule,
-        MatSnackBarModule,
-        AmwDataTableComponent
-    ],
+    FormsModule,
+    ReactiveFormsModule,
+    MatCardModule,
+    MatButtonModule,
+    MatIconModule,
+    MatFormFieldModule,
+    MatInputModule,
+    MatSelectModule,
+    MatCheckboxModule,
+    MatSlideToggleModule,
+    MatDividerModule,
+    MatChipsModule,
+    MatTooltipModule,
+    MatSnackBarModule,
+    AmwDataTableComponent
+],
     templateUrl: './data-table-demo.component.html',
     styleUrl: './data-table-demo.component.scss'
 })

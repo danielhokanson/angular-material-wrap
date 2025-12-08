@@ -1,8 +1,10 @@
-<div class="amw-range-slider" 
-     [class.amw-range-slider--disabled]="disabled"
-     [class.amw-range-slider--vertical]="vertical">
-  
-  <label *ngIf="label" class="amw-range-slider__label">{{ label }}</label>
+<div class="amw-range-slider"
+  [class.amw-range-slider--disabled]="disabled"
+  [class.amw-range-slider--vertical]="vertical">
+
+  @if (label) {
+    <label class="amw-range-slider__label">{{ label }}</label>
+  }
 
   <div class="amw-range-slider__container">
     <!-- Start Value Slider -->
@@ -32,16 +34,24 @@
     </mat-slider>
   </div>
 
-  <div *ngIf="errorMessage || hasError" class="amw-range-slider__error">
-    {{ errorMessage }}
-  </div>
+  @if (errorMessage || hasError) {
+    <div class="amw-range-slider__error">
+      {{ errorMessage }}
+    </div>
+  }
 
-  <div *ngIf="startThumbLabel || endThumbLabel" class="amw-range-slider__labels">
-    <span *ngIf="startThumbLabel" class="amw-range-slider__thumb-label amw-range-slider__thumb-label--start">
-      {{ startThumbLabel }}
-    </span>
-    <span *ngIf="endThumbLabel" class="amw-range-slider__thumb-label amw-range-slider__thumb-label--end">
-      {{ endThumbLabel }}
-    </span>
-  </div>
+  @if (startThumbLabel || endThumbLabel) {
+    <div class="amw-range-slider__labels">
+      @if (startThumbLabel) {
+        <span class="amw-range-slider__thumb-label amw-range-slider__thumb-label--start">
+          {{ startThumbLabel }}
+        </span>
+      }
+      @if (endThumbLabel) {
+        <span class="amw-range-slider__thumb-label amw-range-slider__thumb-label--end">
+          {{ endThumbLabel }}
+        </span>
+      }
+    </div>
+  }
 </div>

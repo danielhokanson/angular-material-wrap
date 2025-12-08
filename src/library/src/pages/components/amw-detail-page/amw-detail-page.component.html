@@ -4,92 +4,119 @@
     <div class="amw-detail-page__header-content">
       <div class="amw-detail-page__header-text">
         <h1 class="amw-detail-page__title">{{ currentConfig.title }}</h1>
-        <p class="amw-detail-page__subtitle" *ngIf="currentConfig.subtitle">{{ currentConfig.subtitle }}</p>
+        @if (currentConfig.subtitle) {
+          <p class="amw-detail-page__subtitle">{{ currentConfig.subtitle }}</p>
+        }
       </div>
-      
+
       <div class="amw-detail-page__header-actions">
         <button mat-icon-button (click)="onRefresh()" matTooltip="Refresh">
           <mat-icon>refresh</mat-icon>
         </button>
-        <button mat-raised-button color="primary" (click)="onEdit()" *ngIf="currentConfig.showEditButton">
-          <mat-icon>edit</mat-icon>
-          Edit
-        </button>
-        <button mat-raised-button color="warn" (click)="onDelete()" *ngIf="currentConfig.showDeleteButton">
-          <mat-icon>delete</mat-icon>
-          Delete
-        </button>
-        <button mat-raised-button (click)="onPrint()" *ngIf="currentConfig.showPrintButton">
-          <mat-icon>print</mat-icon>
-          Print
-        </button>
-        <button mat-raised-button (click)="onShare()" *ngIf="currentConfig.showShareButton">
-          <mat-icon>share</mat-icon>
-          Share
-        </button>
+        @if (currentConfig.showEditButton) {
+          <button mat-raised-button color="primary" (click)="onEdit()">
+            <mat-icon>edit</mat-icon>
+            Edit
+          </button>
+        }
+        @if (currentConfig.showDeleteButton) {
+          <button mat-raised-button color="warn" (click)="onDelete()">
+            <mat-icon>delete</mat-icon>
+            Delete
+          </button>
+        }
+        @if (currentConfig.showPrintButton) {
+          <button mat-raised-button (click)="onPrint()">
+            <mat-icon>print</mat-icon>
+            Print
+          </button>
+        }
+        @if (currentConfig.showShareButton) {
+          <button mat-raised-button (click)="onShare()">
+            <mat-icon>share</mat-icon>
+            Share
+          </button>
+        }
       </div>
     </div>
   </div>
 
   <!-- Loading State -->
-  <div class="amw-detail-page__loading" *ngIf="loading">
-    <mat-spinner diameter="40"></mat-spinner>
-    <p>Loading data...</p>
-  </div>
+  @if (loading) {
+    <div class="amw-detail-page__loading">
+      <mat-spinner diameter="40"></mat-spinner>
+      <p>Loading data...</p>
+    </div>
+  }
 
   <!-- Error State -->
-  <div class="amw-detail-page__error" *ngIf="error && !loading">
-    <mat-icon>error</mat-icon>
-    <p>{{ error }}</p>
-    <button mat-raised-button color="primary" (click)="onRefresh()">Retry</button>
-  </div>
+  @if (error && !loading) {
+    <div class="amw-detail-page__error">
+      <mat-icon>error</mat-icon>
+      <p>{{ error }}</p>
+      <button mat-raised-button color="primary" (click)="onRefresh()">Retry</button>
+    </div>
+  }
 
   <!-- Content -->
-  <div class="amw-detail-page__content" *ngIf="!loading && !error">
-    <!-- Main Details -->
-    <mat-card class="amw-detail-page__main-card">
-      <mat-card-header>
-        <mat-card-title>Details</mat-card-title>
-      </mat-card-header>
-      <mat-card-content>
-        <div class="amw-detail-page__fields">
-          <div *ngFor="let field of currentConfig.fields" 
-               class="amw-detail-page__field"
-               [style.display]="isFieldVisible(field) ? 'block' : 'none'">
-            <div class="amw-detail-page__field-label">{{ field.label }}</div>
-            <div class="amw-detail-page__field-value">{{ getFieldValue(field) }}</div>
-          </div>
-        </div>
-      </mat-card-content>
-    </mat-card>
-
-    <!-- Related Data -->
-    <div class="amw-detail-page__related" *ngIf="currentConfig.relatedData && currentConfig.relatedData.length > 0">
-      <mat-card *ngFor="let related of currentConfig.relatedData" 
-                class="amw-detail-page__related-card"
-                [style.display]="isRelatedDataVisible(related) ? 'block' : 'none'">
+  @if (!loading && !error) {
+    <div class="amw-detail-page__content">
+      <!-- Main Details -->
+      <mat-card class="amw-detail-page__main-card">
         <mat-card-header>
-          <mat-card-title>{{ related.title }}</mat-card-title>
+          <mat-card-title>Details</mat-card-title>
         </mat-card-header>
         <mat-card-content>
-          <div class="amw-detail-page__related-table">
-            <table>
-              <thead>
-                <tr>
-                  <th *ngFor="let column of related.columns">{{ column.title }}</th>
-                </tr>
-              </thead>
-              <tbody>
-                <tr *ngFor="let row of related.items">
-                  <td *ngFor="let column of related.columns">
-                    {{ getColumnValue(row, column) }}
-                  </td>
-                </tr>
-              </tbody>
-            </table>
+          <div class="amw-detail-page__fields">
+            @for (field of currentConfig.fields; track field) {
+              <div
+                class="amw-detail-page__field"
+                [style.display]="isFieldVisible(field) ? 'block' : 'none'">
+                <div class="amw-detail-page__field-label">{{ field.label }}</div>
+                <div class="amw-detail-page__field-value">{{ getFieldValue(field) }}</div>
+              </div>
+            }
           </div>
         </mat-card-content>
       </mat-card>
+      <!-- Related Data -->
+      @if (currentConfig.relatedData && currentConfig.relatedData.length > 0) {
+        <div class="amw-detail-page__related">
+          @for (related of currentConfig.relatedData; track related) {
+            <mat-card
+              class="amw-detail-page__related-card"
+              [style.display]="isRelatedDataVisible(related) ? 'block' : 'none'">
+              <mat-card-header>
+                <mat-card-title>{{ related.title }}</mat-card-title>
+              </mat-card-header>
+              <mat-card-content>
+                <div class="amw-detail-page__related-table">
+                  <table>
+                    <thead>
+                      <tr>
+                        @for (column of related.columns; track column) {
+                          <th>{{ column.title }}</th>
+                        }
+                      </tr>
+                    </thead>
+                    <tbody>
+                      @for (row of related.items; track row) {
+                        <tr>
+                          @for (column of related.columns; track column) {
+                            <td>
+                              {{ getColumnValue(row, column) }}
+                            </td>
+                          }
+                        </tr>
+                      }
+                    </tbody>
+                  </table>
+                </div>
+              </mat-card-content>
+            </mat-card>
+          }
+        </div>
+      }
     </div>
-  </div>
+  }
 </div>

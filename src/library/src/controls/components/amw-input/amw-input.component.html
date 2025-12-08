@@ -11,90 +11,108 @@
     [floatLabel]="label ? 'always' : 'auto'"
     [hideRequiredMarker]="!required"
     [class.mat-form-field-invalid]="hasValidationError">
-  
-  <!-- Label -->
-  <mat-label *ngIf="label" [innerHTML]="label"></mat-label>
-  
-  <!-- Start Icon -->
-  <mat-icon *ngIf="startIcon" matPrefix class="amw-input__start-icon">{{ startIcon }}</mat-icon>
-  
-  <!-- Prefix Text -->
-  <span *ngIf="prefix" matPrefix class="amw-input__prefix">{{ prefix }}</span>
-  
-  <!-- Input Element -->
-  <input
-    matInput
-    [type]="inputType"
-    [placeholder]="placeholder"
-    [disabled]="disabled"
-    [readonly]="readonly"
-    [required]="required"
-    [attr.maxlength]="maxlength"
-    [attr.minlength]="minlength"
-    [max]="max"
-    [min]="min"
-    [step]="step"
-    [pattern]="pattern"
-    [autocomplete]="autocomplete"
-    [autofocus]="autofocus"
-    [name]="name"
-    [id]="id"
-    [attr.tabindex]="tabIndex"
-    [attr.aria-label]="ariaLabel"
-    [attr.aria-labelledby]="ariaLabelledby"
-    [attr.aria-describedby]="ariaDescribedby"
-    [attr.aria-required]="ariaRequired || required"
-    [attr.aria-invalid]="ariaInvalid || hasValidationError"
-    [value]="internalValue"
-    (input)="onInput($event)"
-    (change)="onChangeEvent($event)"
-    (blur)="onBlur($event)"
-    (focus)="onFocus($event)"
-    (keydown)="onKeydown($event)"
-    (keyup)="onKeyup($event)"
-    class="amw-input__field">
-  
-  <!-- Suffix Text -->
-  <span *ngIf="suffix" matSuffix class="amw-input__suffix">{{ suffix }}</span>
-  
-  <!-- End Icon -->
-  <mat-icon *ngIf="endIcon" matSuffix class="amw-input__end-icon">{{ endIcon }}</mat-icon>
-  
-  <!-- Clear Button -->
-  <button
-    *ngIf="canClear"
-    matSuffix
-    mat-icon-button
-    type="button"
-    (click)="onClear()"
-    class="amw-input__clear-button"
-    [attr.aria-label]="'Clear input'">
-    <mat-icon>clear</mat-icon>
-  </button>
-  
-  <!-- Password Toggle Button -->
-  <button
-    *ngIf="canTogglePassword"
-    matSuffix
-    mat-icon-button
-    type="button"
-    (click)="onTogglePassword()"
-    class="amw-input__password-toggle"
-    [attr.aria-label]="showPassword ? 'Hide password' : 'Show password'">
-    <mat-icon>{{ showPassword ? 'visibility_off' : 'visibility' }}</mat-icon>
-  </button>
-  
-  <!-- Hint Text -->
-  <mat-hint *ngIf="hint && !hasValidationError" class="amw-input__hint">{{ hint }}</mat-hint>
-  
-  <!-- Character Count -->
-  <mat-hint *ngIf="showCharacterCount && !hasValidationError" align="end" class="amw-input__character-count" [class.amw-input__character-count--over-limit]="isOverLimit">
-    {{ characterCountText }}
-  </mat-hint>
-  
-  <!-- Error Message -->
-  <mat-error *ngIf="hasValidationError" class="amw-input__error">
-    {{ errorText }}
-  </mat-error>
+
+    <!-- Label -->
+    @if (label) {
+      <mat-label [innerHTML]="label"></mat-label>
+    }
+
+    <!-- Start Icon -->
+    @if (startIcon) {
+      <mat-icon matPrefix class="amw-input__start-icon">{{ startIcon }}</mat-icon>
+    }
+
+    <!-- Prefix Text -->
+    @if (prefix) {
+      <span matPrefix class="amw-input__prefix">{{ prefix }}</span>
+    }
+
+    <!-- Input Element -->
+    <input
+      matInput
+      [type]="inputType"
+      [placeholder]="placeholder"
+      [disabled]="disabled"
+      [readonly]="readonly"
+      [required]="required"
+      [attr.maxlength]="maxlength"
+      [attr.minlength]="minlength"
+      [max]="max"
+      [min]="min"
+      [step]="step"
+      [pattern]="pattern"
+      [autocomplete]="autocomplete"
+      [autofocus]="autofocus"
+      [name]="name"
+      [id]="id"
+      [attr.tabindex]="tabIndex"
+      [attr.aria-label]="ariaLabel"
+      [attr.aria-labelledby]="ariaLabelledby"
+      [attr.aria-describedby]="ariaDescribedby"
+      [attr.aria-required]="ariaRequired || required"
+      [attr.aria-invalid]="ariaInvalid || hasValidationError"
+      [value]="internalValue"
+      (input)="onInput($event)"
+      (change)="onChangeEvent($event)"
+      (blur)="onBlur($event)"
+      (focus)="onFocus($event)"
+      (keydown)="onKeydown($event)"
+      (keyup)="onKeyup($event)"
+      class="amw-input__field">
+
+    <!-- Suffix Text -->
+    @if (suffix) {
+      <span matSuffix class="amw-input__suffix">{{ suffix }}</span>
+    }
+
+    <!-- End Icon -->
+    @if (endIcon) {
+      <mat-icon matSuffix class="amw-input__end-icon">{{ endIcon }}</mat-icon>
+    }
+
+    <!-- Clear Button -->
+    @if (canClear) {
+      <button
+        matSuffix
+        mat-icon-button
+        type="button"
+        (click)="onClear()"
+        class="amw-input__clear-button"
+        [attr.aria-label]="'Clear input'">
+        <mat-icon>clear</mat-icon>
+      </button>
+    }
+
+    <!-- Password Toggle Button -->
+    @if (canTogglePassword) {
+      <button
+        matSuffix
+        mat-icon-button
+        type="button"
+        (click)="onTogglePassword()"
+        class="amw-input__password-toggle"
+        [attr.aria-label]="showPassword ? 'Hide password' : 'Show password'">
+        <mat-icon>{{ showPassword ? 'visibility_off' : 'visibility' }}</mat-icon>
+      </button>
+    }
+
+    <!-- Hint Text -->
+    @if (hint && !hasValidationError) {
+      <mat-hint class="amw-input__hint">{{ hint }}</mat-hint>
+    }
+
+    <!-- Character Count -->
+    @if (showCharacterCount && !hasValidationError) {
+      <mat-hint align="end" class="amw-input__character-count" [class.amw-input__character-count--over-limit]="isOverLimit">
+        {{ characterCountText }}
+      </mat-hint>
+    }
+
+    <!-- Error Message -->
+    @if (hasValidationError) {
+      <mat-error class="amw-input__error">
+        {{ errorText }}
+      </mat-error>
+    }
   </mat-form-field>
 </div>

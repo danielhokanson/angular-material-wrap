@@ -1,5 +1,5 @@
 import { Component, Input, Output, EventEmitter, forwardRef, ViewEncapsulation } from '@angular/core';
-import { CommonModule } from '@angular/common';
+
 import { FormsModule, ControlValueAccessor, NG_VALUE_ACCESSOR } from '@angular/forms';
 import { MatAutocompleteModule } from '@angular/material/autocomplete';
 import { MatFormFieldModule } from '@angular/material/form-field';
@@ -19,16 +19,15 @@ import { AmwAppearance } from '../../../shared/types/amw-appearance.type';
     selector: 'amw-autocomplete',
     standalone: true,
     imports: [
-        CommonModule,
-        FormsModule,
-        MatAutocompleteModule,
-        MatFormFieldModule,
-        MatInputModule,
-        MatIconModule,
-        MatChipsModule,
-        MatButtonModule,
-        MatOptionModule
-    ],
+    FormsModule,
+    MatAutocompleteModule,
+    MatFormFieldModule,
+    MatInputModule,
+    MatIconModule,
+    MatChipsModule,
+    MatButtonModule,
+    MatOptionModule
+],
     providers: [],
     templateUrl: './amw-autocomplete.component.html',
     styleUrl: './amw-autocomplete.component.scss',

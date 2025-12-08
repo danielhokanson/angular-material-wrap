@@ -1,5 +1,5 @@
 import { Component, ViewEncapsulation } from '@angular/core';
-import { CommonModule } from '@angular/common';
+
 import { MatCardModule } from '@angular/material/card';
 import { MatButtonModule } from '@angular/material/button';
 import { MatIconModule } from '@angular/material/icon';
@@ -11,12 +11,11 @@ import { AmwSize, AmwColor } from '../../../../library/src/shared/types';
     selector: 'amw-demo-checkbox',
     standalone: true,
     imports: [
-        CommonModule,
-        MatCardModule,
-        MatButtonModule,
-        MatIconModule,
-        AmwCheckboxComponent
-    ],
+    MatCardModule,
+    MatButtonModule,
+    MatIconModule,
+    AmwCheckboxComponent
+],
     encapsulation: ViewEncapsulation.None,
     templateUrl: './checkbox-demo.component.html',
     styleUrl: './checkbox-demo.component.scss'

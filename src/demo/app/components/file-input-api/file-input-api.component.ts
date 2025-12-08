@@ -1,11 +1,11 @@
 import { Component, ViewEncapsulation } from '@angular/core';
-import { CommonModule } from '@angular/common';
+
 import { MatCardModule } from '@angular/material/card';
 
 @Component({
     selector: 'amw-demo-file-input-api',
     standalone: true,
-    imports: [CommonModule, MatCardModule],
+    imports: [MatCardModule],
     encapsulation: ViewEncapsulation.None,
     templateUrl: './file-input-api.component.html',
     styleUrl: './file-input-api.component.scss'

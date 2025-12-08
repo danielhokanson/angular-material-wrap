@@ -1,5 +1,5 @@
 import { Component, Input, Output, EventEmitter, ViewEncapsulation, forwardRef } from '@angular/core';
-import { CommonModule } from '@angular/common';
+
 import { FormsModule, ReactiveFormsModule, ControlValueAccessor, NG_VALUE_ACCESSOR } from '@angular/forms';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
@@ -10,7 +10,7 @@ import { MatFormFieldAppearance } from '@angular/material/form-field';
 @Component({
     selector: 'amw-textarea',
     standalone: true,
-    imports: [CommonModule, FormsModule, ReactiveFormsModule, MatFormFieldModule, MatInputModule],
+    imports: [FormsModule, ReactiveFormsModule, MatFormFieldModule, MatInputModule],
     encapsulation: ViewEncapsulation.None,
     templateUrl: './amw-textarea.component.html',
     styleUrl: './amw-textarea.component.scss',

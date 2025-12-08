@@ -1,5 +1,5 @@
 import { Component, OnInit, ViewEncapsulation } from '@angular/core';
-import { CommonModule } from '@angular/common';
+
 import { MatCardModule } from '@angular/material/card';
 import { MatTabsModule } from '@angular/material/tabs';
 import { MatButtonModule } from '@angular/material/button';
@@ -9,12 +9,11 @@ import { MatIconModule } from '@angular/material/icon';
     selector: 'amw-demo-data-table-api',
     standalone: true,
     imports: [
-        CommonModule,
-        MatCardModule,
-        MatTabsModule,
-        MatButtonModule,
-        MatIconModule
-    ],
+    MatCardModule,
+    MatTabsModule,
+    MatButtonModule,
+    MatIconModule
+],
     encapsulation: ViewEncapsulation.None,
     template: `
     <div class="data-table-api-demo">

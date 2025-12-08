@@ -1,5 +1,5 @@
 import { Component, ViewEncapsulation } from '@angular/core';
-import { CommonModule } from '@angular/common';
+
 import { FormsModule } from '@angular/forms';
 import { MatCardModule } from '@angular/material/card';
 import { MatButtonModule } from '@angular/material/button';
@@ -18,20 +18,19 @@ import { ThemeManagerComponent } from '../../../../library/src/styling/component
     selector: 'amw-demo-theme',
     standalone: true,
     imports: [
-        CommonModule,
-        FormsModule,
-        MatCardModule,
-        MatButtonModule,
-        MatIconModule,
-        MatFormFieldModule,
-        MatInputModule,
-        MatSelectModule,
-        MatCheckboxModule,
-        MatRadioModule,
-        MatSliderModule,
-        MatSlideToggleModule,
-        ThemeManagerComponent
-    ],
+    FormsModule,
+    MatCardModule,
+    MatButtonModule,
+    MatIconModule,
+    MatFormFieldModule,
+    MatInputModule,
+    MatSelectModule,
+    MatCheckboxModule,
+    MatRadioModule,
+    MatSliderModule,
+    MatSlideToggleModule,
+    ThemeManagerComponent
+],
     templateUrl: './theme-demo.component.html',
     styleUrl: './theme-demo.component.scss',
     encapsulation: ViewEncapsulation.None

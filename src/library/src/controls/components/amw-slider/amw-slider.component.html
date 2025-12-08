@@ -14,8 +14,10 @@
     (focus)="onFocus($event)"
     (blur)="onBlur($event)">
   </mat-slider>
-  
-  <div *ngIf="hasError && errorMessage" class="amw-slider__error">
-    {{ errorMessage }}
-  </div>
+
+  @if (hasError && errorMessage) {
+    <div class="amw-slider__error">
+      {{ errorMessage }}
+    </div>
+  }
 </div>

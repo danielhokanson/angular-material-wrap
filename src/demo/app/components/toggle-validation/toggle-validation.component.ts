@@ -1,5 +1,5 @@
 import { Component, OnInit, ViewEncapsulation } from '@angular/core';
-import { CommonModule } from '@angular/common';
+
 import { ReactiveFormsModule, FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatSlideToggleModule } from '@angular/material/slide-toggle';
@@ -12,7 +12,6 @@ import { AmwButtonComponent } from '../../../../library/src/controls/components/
   selector: 'amw-demo-toggle-validation',
   standalone: true,
   imports: [
-    CommonModule,
     ReactiveFormsModule,
     MatFormFieldModule,
     MatSlideToggleModule,
@@ -20,7 +19,7 @@ import { AmwButtonComponent } from '../../../../library/src/controls/components/
     MatSnackBarModule,
     AmwToggleComponent,
     AmwButtonComponent
-  ],
+],
   encapsulation: ViewEncapsulation.None,
   templateUrl: './toggle-validation.component.html',
   styleUrl: './toggle-validation.component.scss'
