@@ -3,6 +3,9 @@
 /* Import Angular Material Wrap Library Styles */
 @use '../library/src/lib/styles.scss';
 
+/* Import shared demo API/Code styles */
+@import 'styles/demo-api-code-shared';
+
 /* ==========================================================================
    DEMO-SPECIFIC STYLES
    ========================================================================== */
