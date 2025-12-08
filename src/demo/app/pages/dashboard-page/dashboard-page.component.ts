@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { CommonModule } from '@angular/common';
+
 import { MatCardModule } from '@angular/material/card';
 import { MatButtonModule } from '@angular/material/button';
 import { MatIconModule } from '@angular/material/icon';
@@ -14,7 +14,6 @@ import { ViewEncapsulation } from '@angular/core';
   selector: 'amw-demo-dashboard-page',
   standalone: true,
   imports: [
-    CommonModule,
     MatCardModule,
     MatButtonModule,
     MatIconModule,
@@ -23,7 +22,7 @@ import { ViewEncapsulation } from '@angular/core';
     MatDividerModule,
     MatListModule,
     MatTabsModule
-  ],
+],
   encapsulation: ViewEncapsulation.None,
   templateUrl: './dashboard-page.component.html',
   styleUrl: './dashboard-page.component.scss'

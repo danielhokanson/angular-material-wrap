@@ -14,7 +14,7 @@
           <div class="popover-api__tab-content">
             <h3>{{ apiDocumentation.component.name }}</h3>
             <p>{{ apiDocumentation.component.description }}</p>
-            
+
             <div class="popover-api__section">
               <h4>Selector</h4>
               <div class="popover-api__code-block">
@@ -27,7 +27,7 @@
                 </button>
               </div>
             </div>
-            
+
             <div class="popover-api__section">
               <h4>Inputs</h4>
               <div class="popover-api__table-container">
@@ -42,18 +42,20 @@
                     </tr>
                   </thead>
                   <tbody>
-                    <tr *ngFor="let input of apiDocumentation.component.inputs">
-                      <td><code>{{ input.name }}</code></td>
-                      <td><code>{{ input.type }}</code></td>
-                      <td>{{ input.description }}</td>
-                      <td>{{ input.required ? 'Yes' : 'No' }}</td>
-                      <td><code>{{ input.default }}</code></td>
-                    </tr>
+                    @for (input of apiDocumentation.component.inputs; track input) {
+                      <tr>
+                        <td><code>{{ input.name }}</code></td>
+                        <td><code>{{ input.type }}</code></td>
+                        <td>{{ input.description }}</td>
+                        <td>{{ input.required ? 'Yes' : 'No' }}</td>
+                        <td><code>{{ input.default }}</code></td>
+                      </tr>
+                    }
                   </tbody>
                 </table>
               </div>
             </div>
-            
+
             <div class="popover-api__section">
               <h4>Outputs</h4>
               <div class="popover-api__table-container">
@@ -66,18 +68,20 @@
                     </tr>
                   </thead>
                   <tbody>
-                    <tr *ngFor="let output of apiDocumentation.component.outputs">
-                      <td><code>{{ output.name }}</code></td>
-                      <td><code>{{ output.type }}</code></td>
-                      <td>{{ output.description }}</td>
-                    </tr>
+                    @for (output of apiDocumentation.component.outputs; track output) {
+                      <tr>
+                        <td><code>{{ output.name }}</code></td>
+                        <td><code>{{ output.type }}</code></td>
+                        <td>{{ output.description }}</td>
+                      </tr>
+                    }
                   </tbody>
                 </table>
               </div>
             </div>
           </div>
         </mat-tab>
-        
+
         <!-- Interfaces Tab -->
         <mat-tab label="Interfaces">
           <div class="popover-api__tab-content">
@@ -87,7 +91,7 @@
                 <div class="popover-api__tab-content">
                   <h3>PopoverConfig</h3>
                   <p>{{ apiDocumentation.interfaces.PopoverConfig.description }}</p>
-                  
+
                   <div class="popover-api__section">
                     <h4>Properties</h4>
                     <div class="popover-api__table-container">
@@ -103,32 +107,38 @@
                           </tr>
                         </thead>
                         <tbody>
-                          <tr *ngFor="let property of apiDocumentation.interfaces.PopoverConfig.properties">
-                            <td><code>{{ property.name }}</code></td>
-                            <td><code>{{ property.type }}</code></td>
-                            <td>{{ property.description }}</td>
-                            <td>{{ property.required ? 'Yes' : 'No' }}</td>
-                            <td><code>{{ property.default || '-' }}</code></td>
-                            <td>
-                              <span *ngIf="property.values" class="popover-api__values">
-                                {{ property.values.join(', ') }}
-                              </span>
-                              <span *ngIf="!property.values">-</span>
-                            </td>
-                          </tr>
+                          @for (property of apiDocumentation.interfaces.PopoverConfig.properties; track property) {
+                            <tr>
+                              <td><code>{{ property.name }}</code></td>
+                              <td><code>{{ property.type }}</code></td>
+                              <td>{{ property.description }}</td>
+                              <td>{{ property.required ? 'Yes' : 'No' }}</td>
+                              <td><code>{{ property.default || '-' }}</code></td>
+                              <td>
+                                @if (property.values) {
+                                  <span class="popover-api__values">
+                                    {{ property.values.join(', ') }}
+                                  </span>
+                                }
+                                @if (!property.values) {
+                                  <span>-</span>
+                                }
+                              </td>
+                            </tr>
+                          }
                         </tbody>
                       </table>
                     </div>
                   </div>
                 </div>
               </mat-tab>
-              
+
               <!-- PopoverTrigger Tab -->
               <mat-tab label="PopoverTrigger">
                 <div class="popover-api__tab-content">
                   <h3>PopoverTrigger</h3>
                   <p>{{ apiDocumentation.interfaces.PopoverTrigger.description }}</p>
-                  
+
                   <div class="popover-api__section">
                     <h4>Properties</h4>
                     <div class="popover-api__table-container">
@@ -144,19 +154,25 @@
                           </tr>
                         </thead>
                         <tbody>
-                          <tr *ngFor="let property of apiDocumentation.interfaces.PopoverTrigger.properties">
-                            <td><code>{{ property.name }}</code></td>
-                            <td><code>{{ property.type }}</code></td>
-                            <td>{{ property.description }}</td>
-                            <td>{{ property.required ? 'Yes' : 'No' }}</td>
-                            <td><code>{{ property.default || '-' }}</code></td>
-                            <td>
-                              <span *ngIf="property.values" class="popover-api__values">
-                                {{ property.values.join(', ') }}
-                              </span>
-                              <span *ngIf="!property.values">-</span>
-                            </td>
-                          </tr>
+                          @for (property of apiDocumentation.interfaces.PopoverTrigger.properties; track property) {
+                            <tr>
+                              <td><code>{{ property.name }}</code></td>
+                              <td><code>{{ property.type }}</code></td>
+                              <td>{{ property.description }}</td>
+                              <td>{{ property.required ? 'Yes' : 'No' }}</td>
+                              <td><code>{{ property.default || '-' }}</code></td>
+                              <td>
+                                @if (property.values) {
+                                  <span class="popover-api__values">
+                                    {{ property.values.join(', ') }}
+                                  </span>
+                                }
+                                @if (!property.values) {
+                                  <span>-</span>
+                                }
+                              </td>
+                            </tr>
+                          }
                         </tbody>
                       </table>
                     </div>
@@ -166,13 +182,13 @@
             </mat-tab-group>
           </div>
         </mat-tab>
-        
+
         <!-- Service Tab -->
         <mat-tab label="Service">
           <div class="popover-api__tab-content">
             <h3>{{ apiDocumentation.service.name }}</h3>
             <p>{{ apiDocumentation.service.description }}</p>
-            
+
             <div class="popover-api__section">
               <h4>Methods</h4>
               <div class="popover-api__table-container">
@@ -186,17 +202,19 @@
                     </tr>
                   </thead>
                   <tbody>
-                    <tr *ngFor="let method of apiDocumentation.service.methods">
-                      <td><code>{{ method.name }}</code></td>
-                      <td><code>{{ method.parameters }}</code></td>
-                      <td><code>{{ method.returnType }}</code></td>
-                      <td>{{ method.description }}</td>
-                    </tr>
+                    @for (method of apiDocumentation.service.methods; track method) {
+                      <tr>
+                        <td><code>{{ method.name }}</code></td>
+                        <td><code>{{ method.parameters }}</code></td>
+                        <td><code>{{ method.returnType }}</code></td>
+                        <td>{{ method.description }}</td>
+                      </tr>
+                    }
                   </tbody>
                 </table>
               </div>
             </div>
-            
+
             <div class="popover-api__section">
               <h4>Observables</h4>
               <div class="popover-api__table-container">
@@ -209,23 +227,25 @@
                     </tr>
                   </thead>
                   <tbody>
-                    <tr *ngFor="let observable of apiDocumentation.service.observables">
-                      <td><code>{{ observable.name }}</code></td>
-                      <td><code>{{ observable.type }}</code></td>
-                      <td>{{ observable.description }}</td>
-                    </tr>
+                    @for (observable of apiDocumentation.service.observables; track observable) {
+                      <tr>
+                        <td><code>{{ observable.name }}</code></td>
+                        <td><code>{{ observable.type }}</code></td>
+                        <td>{{ observable.description }}</td>
+                      </tr>
+                    }
                   </tbody>
                 </table>
               </div>
             </div>
           </div>
         </mat-tab>
-        
+
         <!-- Examples Tab -->
         <mat-tab label="Examples">
           <div class="popover-api__tab-content">
             <h3>Usage Examples</h3>
-            
+
             <div class="popover-api__section">
               <h4>Basic Usage</h4>
               <div class="popover-api__code-block">
@@ -241,7 +261,7 @@
                 <pre><code [class]="getSyntaxClass('html')">{{ getBasicUsageHtml() }}</code></pre>
               </div>
             </div>
-            
+
             <div class="popover-api__section">
               <h4>TypeScript Component</h4>
               <div class="popover-api__code-block">
@@ -257,7 +277,7 @@
                 <pre><code [class]="getSyntaxClass('typescript')">{{ getBasicUsageTypescript() }}</code></pre>
               </div>
             </div>
-            
+
             <div class="popover-api__section">
               <h4>Service Usage</h4>
               <div class="popover-api__code-block">
@@ -282,29 +302,29 @@
     <div class="popover-api__demo">
       <h3>Live Demo</h3>
       <p>Test the popover with current configuration and service methods</p>
-      
+
       <div class="popover-api__demo-actions">
         <button mat-raised-button color="primary" (click)="testServiceMethods()">
           <mat-icon>play_arrow</mat-icon>
           Test Service Methods
         </button>
-        
+
         <button mat-raised-button color="accent" (click)="testConfigUpdates()">
           <mat-icon>settings</mat-icon>
           Test Config Updates
         </button>
-        
+
         <button mat-raised-button color="warn" (click)="testTriggerUpdates()">
           <mat-icon>touch_app</mat-icon>
           Test Trigger Updates
         </button>
-        
+
         <button mat-button (click)="resetConfiguration()">
           <mat-icon>refresh</mat-icon>
           Reset
         </button>
       </div>
-      
+
       <div class="popover-api__demo-container">
         <amw-popover
           [config]="currentConfig"
@@ -315,7 +335,7 @@
           (afterOpen)="onPopoverAfterOpen()"
           (beforeClose)="onPopoverBeforeClose()"
           (afterClose)="onPopoverAfterClose()">
-          
+
           <!-- Trigger Template -->
           <ng-template #trigger>
             <button mat-raised-button color="primary">
@@ -323,7 +343,7 @@
               API Demo
             </button>
           </ng-template>
-          
+
           <!-- Content Template -->
           <ng-template #content>
             <div class="popover-api__content">
@@ -332,7 +352,7 @@
                 This demo shows the popover component with current configuration.
                 Use the buttons above to test different service methods and configurations.
               </p>
-              
+
               <div class="popover-api__content-details">
                 <h5>Current Configuration:</h5>
                 <ul>
@@ -344,7 +364,7 @@
                   <li><strong>Footer:</strong> {{ currentConfig.showFooter ? 'Yes' : 'No' }}</li>
                 </ul>
               </div>
-              
+
               <div class="popover-api__content-details">
                 <h5>Current Trigger:</h5>
                 <ul>
@@ -354,7 +374,7 @@
                   <li><strong>Outside Click:</strong> {{ currentTrigger.outsideClick ? 'Yes' : 'No' }}</li>
                 </ul>
               </div>
-              
+
               <div class="popover-api__content-actions">
                 <button mat-button (click)="onPopoverBeforeClose()">
                   <mat-icon>close</mat-icon>

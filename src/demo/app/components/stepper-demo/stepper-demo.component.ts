@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { CommonModule } from '@angular/common';
+
 import { MatStepperModule } from '@angular/material/stepper';
 import { MatButtonModule } from '@angular/material/button';
 import { MatFormFieldModule } from '@angular/material/form-field';
@@ -10,13 +10,12 @@ import { ReactiveFormsModule, FormBuilder, FormGroup, Validators } from '@angula
     selector: 'amw-demo-stepper',
     standalone: true,
     imports: [
-        CommonModule,
-        MatStepperModule,
-        MatButtonModule,
-        MatFormFieldModule,
-        MatInputModule,
-        ReactiveFormsModule
-    ],
+    MatStepperModule,
+    MatButtonModule,
+    MatFormFieldModule,
+    MatInputModule,
+    ReactiveFormsModule
+],
     template: `
         <div class="stepper-demo">
             <h2>Stepper Component Demo</h2>

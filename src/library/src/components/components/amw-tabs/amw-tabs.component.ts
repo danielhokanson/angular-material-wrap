@@ -1,5 +1,5 @@
 import { Component, Input, Output, EventEmitter, OnInit, OnDestroy, ViewEncapsulation, ChangeDetectorRef, ContentChildren, QueryList, TemplateRef } from '@angular/core';
-import { CommonModule } from '@angular/common';
+
 import { MatTabsModule } from '@angular/material/tabs';
 import { MatButtonModule } from '@angular/material/button';
 import { MatIconModule } from '@angular/material/icon';
@@ -30,13 +30,12 @@ import { TabsConfig, TabItem } from './interfaces';
     selector: 'amw-tabs',
     standalone: true,
     imports: [
-        CommonModule,
-        MatTabsModule,
-        MatButtonModule,
-        MatIconModule,
-        MatCardModule,
-        MatDividerModule
-    ],
+    MatTabsModule,
+    MatButtonModule,
+    MatIconModule,
+    MatCardModule,
+    MatDividerModule
+],
     encapsulation: ViewEncapsulation.None,
     templateUrl: './amw-tabs.component.html',
     styleUrl: './amw-tabs.component.scss'

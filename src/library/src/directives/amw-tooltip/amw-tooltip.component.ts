@@ -1,10 +1,10 @@
 import { Component, Input, ViewEncapsulation, ChangeDetectionStrategy } from '@angular/core';
-import { CommonModule } from '@angular/common';
+
 
 @Component({
     selector: 'amw-tooltip',
     standalone: true,
-    imports: [CommonModule],
+    imports: [],
     encapsulation: ViewEncapsulation.None,
     changeDetection: ChangeDetectionStrategy.OnPush,
     templateUrl: './amw-tooltip.component.html',

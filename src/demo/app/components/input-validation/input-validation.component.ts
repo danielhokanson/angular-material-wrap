@@ -1,5 +1,5 @@
 import { Component, OnInit, ViewEncapsulation } from '@angular/core';
-import { CommonModule } from '@angular/common';
+
 import { ReactiveFormsModule, FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
@@ -12,15 +12,14 @@ import { AmwButtonComponent } from '../../../../library/src/controls/components/
     selector: 'amw-demo-input-validation',
     standalone: true,
     imports: [
-        CommonModule,
-        ReactiveFormsModule,
-        MatFormFieldModule,
-        MatInputModule,
-        MatButtonModule,
-        MatSnackBarModule,
-        AmwInputComponent,
-        AmwButtonComponent
-    ],
+    ReactiveFormsModule,
+    MatFormFieldModule,
+    MatInputModule,
+    MatButtonModule,
+    MatSnackBarModule,
+    AmwInputComponent,
+    AmwButtonComponent
+],
     encapsulation: ViewEncapsulation.None,
     templateUrl: './input-validation.component.html',
     styleUrl: './input-validation.component.scss'

@@ -1,5 +1,5 @@
 import { Component, Input, Output, EventEmitter, ViewEncapsulation, forwardRef } from '@angular/core';
-import { CommonModule } from '@angular/common';
+
 import { FormsModule, ReactiveFormsModule, ControlValueAccessor, NG_VALUE_ACCESSOR } from '@angular/forms';
 import { MatSlideToggleModule } from '@angular/material/slide-toggle';
 import { BaseComponent } from '../base/base.component';
@@ -8,7 +8,7 @@ import { AmwColor } from '../../../shared/types/amw-color.type';
 @Component({
     selector: 'amw-toggle',
     standalone: true,
-    imports: [CommonModule, FormsModule, ReactiveFormsModule, MatSlideToggleModule],
+    imports: [FormsModule, ReactiveFormsModule, MatSlideToggleModule],
     encapsulation: ViewEncapsulation.None,
     templateUrl: './amw-toggle.component.html',
     styleUrl: './amw-toggle.component.scss',

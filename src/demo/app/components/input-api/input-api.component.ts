@@ -1,10 +1,10 @@
 import { Component, ViewEncapsulation } from '@angular/core';
-import { CommonModule } from '@angular/common';
+
 
 @Component({
     selector: 'amw-demo-input-api',
     standalone: true,
-    imports: [CommonModule],
+    imports: [],
     encapsulation: ViewEncapsulation.None,
     templateUrl: './input-api.component.html',
     styleUrl: './input-api.component.scss'

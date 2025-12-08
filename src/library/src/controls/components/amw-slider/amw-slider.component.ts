@@ -1,5 +1,5 @@
 import { Component, Input, Output, EventEmitter, ViewEncapsulation, forwardRef } from '@angular/core';
-import { CommonModule } from '@angular/common';
+
 import { FormsModule, ReactiveFormsModule, ControlValueAccessor, NG_VALUE_ACCESSOR } from '@angular/forms';
 import { MatSliderModule } from '@angular/material/slider';
 import { BaseComponent } from '../base/base.component';
@@ -8,7 +8,7 @@ import { AmwColor } from '../../../shared/types/amw-color.type';
 @Component({
     selector: 'amw-slider',
     standalone: true,
-    imports: [CommonModule, FormsModule, ReactiveFormsModule, MatSliderModule],
+    imports: [FormsModule, ReactiveFormsModule, MatSliderModule],
     encapsulation: ViewEncapsulation.None,
     templateUrl: './amw-slider.component.html',
     styleUrl: './amw-slider.component.scss',

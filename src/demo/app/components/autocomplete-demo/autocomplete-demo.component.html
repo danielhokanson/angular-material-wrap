@@ -2,46 +2,52 @@
   <div class="demo-section">
     <h3>Size Variations</h3>
     <div class="variation-grid">
-      <div *ngFor="let variation of autocompleteVariations.sizes" class="variation-item">
-        <h4>{{ variation.label }}</h4>
-        <amw-autocomplete
-          [options]="sampleOptions"
-          [size]="variation.size"
-          placeholder="Select a framework"
-          label="Framework">
-        </amw-autocomplete>
-      </div>
+      @for (variation of autocompleteVariations.sizes; track variation) {
+        <div class="variation-item">
+          <h4>{{ variation.label }}</h4>
+          <amw-autocomplete
+            [options]="sampleOptions"
+            [size]="variation.size"
+            placeholder="Select a framework"
+            label="Framework">
+          </amw-autocomplete>
+        </div>
+      }
     </div>
   </div>
 
   <div class="demo-section">
     <h3>Appearance Variations</h3>
     <div class="variation-grid">
-      <div *ngFor="let variation of autocompleteVariations.appearances" class="variation-item">
-        <h4>{{ variation.label }}</h4>
-        <amw-autocomplete
-          [options]="sampleOptions"
-          [appearance]="variation.appearance"
-          placeholder="Select a framework"
-          label="Framework">
-        </amw-autocomplete>
-      </div>
+      @for (variation of autocompleteVariations.appearances; track variation) {
+        <div class="variation-item">
+          <h4>{{ variation.label }}</h4>
+          <amw-autocomplete
+            [options]="sampleOptions"
+            [appearance]="variation.appearance"
+            placeholder="Select a framework"
+            label="Framework">
+          </amw-autocomplete>
+        </div>
+      }
     </div>
   </div>
 
   <div class="demo-section">
     <h3>State Variations</h3>
     <div class="variation-grid">
-      <div *ngFor="let variation of autocompleteVariations.states" class="variation-item">
-        <h4>{{ variation.label }}</h4>
-        <amw-autocomplete
-          [options]="sampleOptions"
-          [disabled]="variation.disabled"
-          [required]="variation.required"
-          placeholder="Select a framework"
-          label="Framework">
-        </amw-autocomplete>
-      </div>
+      @for (variation of autocompleteVariations.states; track variation) {
+        <div class="variation-item">
+          <h4>{{ variation.label }}</h4>
+          <amw-autocomplete
+            [options]="sampleOptions"
+            [disabled]="variation.disabled"
+            [required]="variation.required"
+            placeholder="Select a framework"
+            label="Framework">
+          </amw-autocomplete>
+        </div>
+      }
     </div>
   </div>
 
@@ -55,9 +61,11 @@
         label="Framework"
         hint="Start typing to search">
       </amw-autocomplete>
-      <p *ngIf="selectedFramework" class="selected-value">
-        Selected: {{ selectedFramework }}
-      </p>
+      @if (selectedFramework) {
+        <p class="selected-value">
+          Selected: {{ selectedFramework }}
+        </p>
+      }
     </div>
   </div>
 
@@ -72,9 +80,11 @@
         label="Countries"
         hint="You can select multiple countries">
       </amw-autocomplete>
-      <p *ngIf="selectedMultiple.length > 0" class="selected-value">
-        Selected: {{ selectedMultiple.join(', ') }}
-      </p>
+      @if (selectedMultiple.length > 0) {
+        <p class="selected-value">
+          Selected: {{ selectedMultiple.join(', ') }}
+        </p>
+      }
     </div>
   </div>
 
@@ -88,9 +98,11 @@
         label="Country"
         hint="Countries are displayed with custom formatting">
       </amw-autocomplete>
-      <p *ngIf="selectedCountry" class="selected-value">
-        Selected: {{ selectedCountry }}
-      </p>
+      @if (selectedCountry) {
+        <p class="selected-value">
+          Selected: {{ selectedCountry }}
+        </p>
+      }
     </div>
   </div>
 </div>

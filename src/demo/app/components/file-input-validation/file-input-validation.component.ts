@@ -1,5 +1,5 @@
 import { Component, ViewEncapsulation, OnInit } from '@angular/core';
-import { CommonModule } from '@angular/common';
+
 import { FormBuilder, FormGroup, Validators, ReactiveFormsModule } from '@angular/forms';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
@@ -13,15 +13,14 @@ import { AmwFileInputComponent } from '../../../../library/src/controls/componen
     selector: 'amw-demo-file-input-validation',
     standalone: true,
     imports: [
-        CommonModule,
-        ReactiveFormsModule,
-        MatFormFieldModule,
-        MatInputModule,
-        MatButtonModule,
-        MatSnackBarModule,
-        MatCardModule,
-        AmwFileInputComponent
-    ],
+    ReactiveFormsModule,
+    MatFormFieldModule,
+    MatInputModule,
+    MatButtonModule,
+    MatSnackBarModule,
+    MatCardModule,
+    AmwFileInputComponent
+],
     encapsulation: ViewEncapsulation.None,
     templateUrl: './file-input-validation.component.html',
     styleUrl: './file-input-validation.component.scss'

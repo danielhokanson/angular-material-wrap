@@ -3,185 +3,199 @@
     <h2 class="amw-calendar-item-dialog__title">
       {{ data.mode === 'create' ? 'Create Event' : data.event?.title || 'Event Details' }}
     </h2>
-    <button mat-icon-button 
-            class="amw-calendar-item-dialog__close"
-            (click)="onClose()">
+    <button mat-icon-button
+      class="amw-calendar-item-dialog__close"
+      (click)="onClose()">
       <mat-icon>close</mat-icon>
     </button>
   </div>
 
   <div class="amw-calendar-item-dialog__content">
     <!-- Create/Edit Form -->
-    <form *ngIf="data.mode === 'create' || data.mode === 'edit'" 
-          class="amw-calendar-item-dialog__form">
-      <div class="amw-calendar-item-dialog__field">
-        <label>Title:</label>
-        <input type="text" 
-               name="title"
-               [(ngModel)]="eventForm.title" 
-               placeholder="Event title"
-               class="amw-calendar-item-dialog__input">
-      </div>
-      
-      <div class="amw-calendar-item-dialog__field">
-        <label>Description:</label>
-        <textarea name="description"
-                  [(ngModel)]="eventForm.description" 
-                  placeholder="Event description"
-                  class="amw-calendar-item-dialog__textarea"></textarea>
-      </div>
-
-      <div class="amw-calendar-item-dialog__field">
-        <label>Type:</label>
-        <select name="itemType"
-                [(ngModel)]="eventForm.itemType" 
-                class="amw-calendar-item-dialog__select">
-          <option value="Event">Event</option>
-          <option value="Task">Task</option>
-          <option value="Meal">Meal</option>
-          <option value="Vacation">Vacation</option>
-          <option value="Appointment">Appointment</option>
-        </select>
-      </div>
-
-      <div class="amw-calendar-item-dialog__field">
-        <label>Start Date:</label>
-        <input type="date" 
-               name="startDate"
-               [(ngModel)]="eventForm.startDate" 
-               class="amw-calendar-item-dialog__input">
-      </div>
-
-      <div class="amw-calendar-item-dialog__field" *ngIf="!eventForm.allDay">
-        <label>Start Time:</label>
-        <input type="time" 
-               name="startTime"
-               [(ngModel)]="eventForm.startTime" 
-               class="amw-calendar-item-dialog__input">
-      </div>
-
-      <div class="amw-calendar-item-dialog__field" *ngIf="!eventForm.allDay">
-        <label>End Time:</label>
-        <input type="time" 
-               name="endTime"
-               [(ngModel)]="eventForm.endTime" 
-               class="amw-calendar-item-dialog__input">
-      </div>
-
-      <div class="amw-calendar-item-dialog__field">
-        <label>
-          <input type="checkbox" 
-                 name="allDay"
-                 [(ngModel)]="eventForm.allDay" 
-                 class="amw-calendar-item-dialog__checkbox">
-          All Day
-        </label>
-      </div>
-
-      <div class="amw-calendar-item-dialog__field" *ngIf="eventForm.itemType === 'Task'">
-        <label>
-          <input type="checkbox" 
-                 name="completed"
-                 [(ngModel)]="eventForm.completed" 
-                 class="amw-calendar-item-dialog__checkbox">
-          Completed
-        </label>
-      </div>
-    </form>
-
-    <!-- Read-only View -->
-    <div *ngIf="data.mode === 'read'" class="amw-calendar-item-dialog__readonly">
-      <div class="amw-calendar-item-dialog__section">
-        <h3>Details</h3>
+    @if (data.mode === 'create' || data.mode === 'edit') {
+      <form
+        class="amw-calendar-item-dialog__form">
+        <div class="amw-calendar-item-dialog__field">
+          <label>Title:</label>
+          <input type="text"
+            name="title"
+            [(ngModel)]="eventForm.title"
+            placeholder="Event title"
+            class="amw-calendar-item-dialog__input">
+        </div>
+        <div class="amw-calendar-item-dialog__field">
+          <label>Description:</label>
+          <textarea name="description"
+            [(ngModel)]="eventForm.description"
+            placeholder="Event description"
+          class="amw-calendar-item-dialog__textarea"></textarea>
+        </div>
         <div class="amw-calendar-item-dialog__field">
           <label>Type:</label>
-          <span>{{ getItemType() }}</span>
+          <select name="itemType"
+            [(ngModel)]="eventForm.itemType"
+            class="amw-calendar-item-dialog__select">
+            <option value="Event">Event</option>
+            <option value="Task">Task</option>
+            <option value="Meal">Meal</option>
+            <option value="Vacation">Vacation</option>
+            <option value="Appointment">Appointment</option>
+          </select>
         </div>
         <div class="amw-calendar-item-dialog__field">
-          <label>Date:</label>
-          <span>{{ getFormattedDate() }}</span>
+          <label>Start Date:</label>
+          <input type="date"
+            name="startDate"
+            [(ngModel)]="eventForm.startDate"
+            class="amw-calendar-item-dialog__input">
         </div>
-        <div class="amw-calendar-item-dialog__field" *ngIf="!data.event?.allDay">
-          <label>Time:</label>
-          <span>{{ getFormattedTime() }}</span>
+        @if (!eventForm.allDay) {
+          <div class="amw-calendar-item-dialog__field">
+            <label>Start Time:</label>
+            <input type="time"
+              name="startTime"
+              [(ngModel)]="eventForm.startTime"
+              class="amw-calendar-item-dialog__input">
+          </div>
+        }
+        @if (!eventForm.allDay) {
+          <div class="amw-calendar-item-dialog__field">
+            <label>End Time:</label>
+            <input type="time"
+              name="endTime"
+              [(ngModel)]="eventForm.endTime"
+              class="amw-calendar-item-dialog__input">
+          </div>
+        }
+        <div class="amw-calendar-item-dialog__field">
+          <label>
+            <input type="checkbox"
+              name="allDay"
+              [(ngModel)]="eventForm.allDay"
+              class="amw-calendar-item-dialog__checkbox">
+            All Day
+          </label>
         </div>
-        <div class="amw-calendar-item-dialog__field" *ngIf="data.event?.description">
-          <label>Description:</label>
-          <span>{{ data.event?.description }}</span>
-        </div>
-        <div class="amw-calendar-item-dialog__field" *ngIf="hasCustomData()">
-          <label>Additional Data:</label>
-          <pre class="amw-calendar-item-dialog__data">{{ getCustomDataString() }}</pre>
-        </div>
-      </div>
+        @if (eventForm.itemType === 'Task') {
+          <div class="amw-calendar-item-dialog__field">
+            <label>
+              <input type="checkbox"
+                name="completed"
+                [(ngModel)]="eventForm.completed"
+                class="amw-calendar-item-dialog__checkbox">
+              Completed
+            </label>
+          </div>
+        }
+      </form>
+    }
 
-      <div class="amw-calendar-item-dialog__section" *ngIf="isTask()">
-        <h3>Task Status</h3>
-        <div class="amw-calendar-item-dialog__field">
-          <label>Status:</label>
-          <span [class]="'amw-calendar-item-dialog__status amw-calendar-item-dialog__status--' + (isCompleted() ? 'completed' : 'pending')">
-            {{ isCompleted() ? 'Completed' : 'Pending' }}
-          </span>
+    <!-- Read-only View -->
+    @if (data.mode === 'read') {
+      <div class="amw-calendar-item-dialog__readonly">
+        <div class="amw-calendar-item-dialog__section">
+          <h3>Details</h3>
+          <div class="amw-calendar-item-dialog__field">
+            <label>Type:</label>
+            <span>{{ getItemType() }}</span>
+          </div>
+          <div class="amw-calendar-item-dialog__field">
+            <label>Date:</label>
+            <span>{{ getFormattedDate() }}</span>
+          </div>
+          @if (!data.event?.allDay) {
+            <div class="amw-calendar-item-dialog__field">
+              <label>Time:</label>
+              <span>{{ getFormattedTime() }}</span>
+            </div>
+          }
+          @if (data.event?.description) {
+            <div class="amw-calendar-item-dialog__field">
+              <label>Description:</label>
+              <span>{{ data.event?.description }}</span>
+            </div>
+          }
+          @if (hasCustomData()) {
+            <div class="amw-calendar-item-dialog__field">
+              <label>Additional Data:</label>
+              <pre class="amw-calendar-item-dialog__data">{{ getCustomDataString() }}</pre>
+            </div>
+          }
         </div>
+        @if (isTask()) {
+          <div class="amw-calendar-item-dialog__section">
+            <h3>Task Status</h3>
+            <div class="amw-calendar-item-dialog__field">
+              <label>Status:</label>
+              <span [class]="'amw-calendar-item-dialog__status amw-calendar-item-dialog__status--' + (isCompleted() ? 'completed' : 'pending')">
+                {{ isCompleted() ? 'Completed' : 'Pending' }}
+              </span>
+            </div>
+          </div>
+        }
       </div>
-    </div>
+    }
   </div>
 
   <div class="amw-calendar-item-dialog__actions">
     <!-- Create Mode Actions -->
-    <ng-container *ngIf="data.mode === 'create'">
+    @if (data.mode === 'create') {
       <button mat-button (click)="onCancel()" class="amw-calendar-item-dialog__action">
         Cancel
       </button>
-      <button mat-raised-button 
-              (click)="save()" 
-              class="amw-calendar-item-dialog__action amw-calendar-item-dialog__action--primary">
+      <button mat-raised-button
+        (click)="save()"
+        class="amw-calendar-item-dialog__action amw-calendar-item-dialog__action--primary">
         Create
       </button>
-    </ng-container>
+    }
 
     <!-- Edit Mode Actions -->
-    <ng-container *ngIf="data.mode === 'edit'">
+    @if (data.mode === 'edit') {
       <button mat-button (click)="onCancel()" class="amw-calendar-item-dialog__action">
         Cancel
       </button>
-      <button mat-raised-button 
-              (click)="save()" 
-              class="amw-calendar-item-dialog__action amw-calendar-item-dialog__action--primary">
+      <button mat-raised-button
+        (click)="save()"
+        class="amw-calendar-item-dialog__action amw-calendar-item-dialog__action--primary">
         Save
       </button>
-    </ng-container>
+    }
 
     <!-- Read Mode Actions -->
-    <ng-container *ngIf="data.mode === 'read'">
-      <button mat-button 
-              *ngIf="isTask() && !isCompleted()"
-              (click)="markComplete()"
-              class="amw-calendar-item-dialog__action amw-calendar-item-dialog__action--complete">
-        <mat-icon>check</mat-icon>
-        Mark Complete
-      </button>
-      <button mat-button 
-              *ngIf="isTask() && isCompleted()"
-              (click)="markIncomplete()"
-              class="amw-calendar-item-dialog__action amw-calendar-item-dialog__action--incomplete">
-        <mat-icon>undo</mat-icon>
-        Mark Incomplete
-      </button>
-      <button mat-button 
-              *ngIf="isEditable()"
-              (click)="edit()"
-              class="amw-calendar-item-dialog__action amw-calendar-item-dialog__action--edit">
-        <mat-icon>edit</mat-icon>
-        Edit
-      </button>
-      <button mat-button 
-              *ngIf="isDeletable()"
-              (click)="delete()"
-              class="amw-calendar-item-dialog__action amw-calendar-item-dialog__action--delete">
-        <mat-icon>delete</mat-icon>
-        Delete
-      </button>
-    </ng-container>
+    @if (data.mode === 'read') {
+      @if (isTask() && !isCompleted()) {
+        <button mat-button
+          (click)="markComplete()"
+          class="amw-calendar-item-dialog__action amw-calendar-item-dialog__action--complete">
+          <mat-icon>check</mat-icon>
+          Mark Complete
+        </button>
+      }
+      @if (isTask() && isCompleted()) {
+        <button mat-button
+          (click)="markIncomplete()"
+          class="amw-calendar-item-dialog__action amw-calendar-item-dialog__action--incomplete">
+          <mat-icon>undo</mat-icon>
+          Mark Incomplete
+        </button>
+      }
+      @if (isEditable()) {
+        <button mat-button
+          (click)="edit()"
+          class="amw-calendar-item-dialog__action amw-calendar-item-dialog__action--edit">
+          <mat-icon>edit</mat-icon>
+          Edit
+        </button>
+      }
+      @if (isDeletable()) {
+        <button mat-button
+          (click)="delete()"
+          class="amw-calendar-item-dialog__action amw-calendar-item-dialog__action--delete">
+          <mat-icon>delete</mat-icon>
+          Delete
+        </button>
+      }
+    }
   </div>
 </div>

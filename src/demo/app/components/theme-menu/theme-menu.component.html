@@ -1,6 +1,6 @@
 <div class="amw-demo-theme-menu">
-  <button 
-    mat-icon-button 
+  <button
+    mat-icon-button
     [matMenuTriggerFor]="themeMenu"
     matTooltip="Theme Options"
     class="theme-menu-button">
@@ -19,25 +19,27 @@
     <mat-divider></mat-divider>
 
     <!-- Current Theme Info -->
-    <div *ngIf="currentTheme()" class="current-theme-info">
-      <div class="current-theme-label">Current Theme:</div>
-      <div class="current-theme-details">
-        <div class="theme-name">{{ currentTheme()!.displayName }}</div>
-        <div class="theme-meta">{{ getThemeDescription(currentTheme()!) }}</div>
-        <div class="theme-colors">
-          <div 
-            class="color-swatch primary" 
-            [style.background-color]="currentTheme()!.colors.primary"
-            matTooltip="Primary">
-          </div>
-          <div 
-            class="color-swatch accent" 
-            [style.background-color]="currentTheme()!.colors.accent"
-            matTooltip="Accent">
+    @if (currentTheme()) {
+      <div class="current-theme-info">
+        <div class="current-theme-label">Current Theme:</div>
+        <div class="current-theme-details">
+          <div class="theme-name">{{ currentTheme()!.displayName }}</div>
+          <div class="theme-meta">{{ getThemeDescription(currentTheme()!) }}</div>
+          <div class="theme-colors">
+            <div
+              class="color-swatch primary"
+              [style.background-color]="currentTheme()!.colors.primary"
+              matTooltip="Primary">
+            </div>
+            <div
+              class="color-swatch accent"
+              [style.background-color]="currentTheme()!.colors.accent"
+              matTooltip="Accent">
+            </div>
           </div>
         </div>
       </div>
-    </div>
+    }
 
     <mat-divider></mat-divider>
 
@@ -45,28 +47,29 @@
     <div class="quick-switcher">
       <div class="quick-switcher-label">Quick Switch:</div>
       <div class="theme-list">
-        <button 
-          *ngFor="let theme of allThemes()" 
-          mat-menu-item 
-          (click)="onThemeSelect(theme.id)"
-          [class.active]="currentTheme()?.id === theme.id"
-          class="theme-item">
-          <mat-icon class="theme-icon">{{ getThemeIcon(theme) }}</mat-icon>
-          <div class="theme-details">
-            <div class="theme-name">{{ theme.displayName }}</div>
-            <div class="theme-description">{{ getThemeDescription(theme) }}</div>
-          </div>
-          <div class="theme-colors">
-            <div 
-              class="color-swatch primary" 
-              [style.background-color]="theme.colors.primary">
+        @for (theme of allThemes(); track theme) {
+          <button
+            mat-menu-item
+            (click)="onThemeSelect(theme.id)"
+            [class.active]="currentTheme()?.id === theme.id"
+            class="theme-item">
+            <mat-icon class="theme-icon">{{ getThemeIcon(theme) }}</mat-icon>
+            <div class="theme-details">
+              <div class="theme-name">{{ theme.displayName }}</div>
+              <div class="theme-description">{{ getThemeDescription(theme) }}</div>
             </div>
-            <div 
-              class="color-swatch accent" 
-              [style.background-color]="theme.colors.accent">
+            <div class="theme-colors">
+              <div
+                class="color-swatch primary"
+                [style.background-color]="theme.colors.primary">
+              </div>
+              <div
+                class="color-swatch accent"
+                [style.background-color]="theme.colors.accent">
+              </div>
             </div>
-          </div>
-        </button>
+          </button>
+        }
       </div>
     </div>
 
@@ -74,15 +77,15 @@
 
     <!-- Theme Management Actions -->
     <div class="theme-actions">
-      <button 
-        mat-menu-item 
+      <button
+        mat-menu-item
         routerLink="/theme"
         class="theme-action-item">
         <mat-icon>edit</mat-icon>
         <span>Manage Themes</span>
       </button>
-      <button 
-        mat-menu-item 
+      <button
+        mat-menu-item
         routerLink="/theme"
         class="theme-action-item">
         <mat-icon>add</mat-icon>

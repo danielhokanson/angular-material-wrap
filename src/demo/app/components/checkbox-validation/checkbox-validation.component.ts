@@ -1,5 +1,5 @@
 import { Component, OnInit, ViewEncapsulation } from '@angular/core';
-import { CommonModule } from '@angular/common';
+
 import { ReactiveFormsModule, FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatCheckboxModule } from '@angular/material/checkbox';
@@ -12,7 +12,6 @@ import { AmwButtonComponent } from '../../../../library/src/controls/components/
   selector: 'amw-demo-checkbox-validation',
   standalone: true,
   imports: [
-    CommonModule,
     ReactiveFormsModule,
     MatFormFieldModule,
     MatCheckboxModule,
@@ -20,7 +19,7 @@ import { AmwButtonComponent } from '../../../../library/src/controls/components/
     MatSnackBarModule,
     AmwCheckboxComponent,
     AmwButtonComponent
-  ],
+],
   encapsulation: ViewEncapsulation.None,
   templateUrl: './checkbox-validation.component.html',
   styleUrl: './checkbox-validation.component.scss'

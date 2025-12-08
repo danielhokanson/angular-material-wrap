@@ -1,153 +1,151 @@
 <div class="directives-demo">
-    <div class="directives-header">
-        <h1>Angular Directives</h1>
-        <p>Reusable directive functionality and utilities</p>
+  <div class="directives-header">
+    <h1>Angular Directives</h1>
+    <p>Reusable directive functionality and utilities</p>
+  </div>
+
+  <div class="directives-content">
+    <div class="directives-main">
+      <mat-card class="directive-demo">
+        <mat-card-header>
+          <mat-card-title>{{ selectedDirective.name }}</mat-card-title>
+          <mat-card-subtitle>Interactive demo and documentation</mat-card-subtitle>
+        </mat-card-header>
+        <mat-card-content>
+          <mat-tab-group [(selectedIndex)]="selectedTab" class="directive-tabs">
+            <mat-tab label="Demo" icon="play_arrow">
+              @switch (selectedDirective.id) {
+                @case ('click-outside') {
+                  <div class="demo-content">
+                    <h3>Click Outside Directive Demo</h3>
+                    <p>This directive detects clicks outside of a specified element.</p>
+                    <div class="demo-box"
+                      (click)="onBoxClick()"
+                      (amwClickOutside)="onOutsideClick()"
+                      [class.clicked]="boxClicked"
+                      style="padding: 20px; border: 2px dashed #ccc; margin: 20px 0; cursor: pointer; text-align: center;">
+                      <h4>Click inside this box</h4>
+                      <p>Then click outside to see the directive in action</p>
+                      @if (boxClicked) {
+                        <p class="click-indicator">Box was clicked!</p>
+                      }
+                    </div>
+                  </div>
+                }
+                @case ('auto-focus') {
+                  <div class="demo-content">
+                    <h3>Auto Focus Directive Demo</h3>
+                    <p>This directive automatically focuses an element when it becomes visible.</p>
+                    <div class="demo-section">
+                      <h4>Input with Auto Focus</h4>
+                      <mat-form-field appearance="outline">
+                        <mat-label>This input will auto-focus</mat-label>
+                        <input matInput
+                          name="autoFocusInput"
+                          placeholder="Type something here"
+                          [amwAutoFocus]="true">
+                      </mat-form-field>
+                    </div>
+                    <div class="demo-section">
+                      <h4>Button with Auto Focus</h4>
+                      <button mat-raised-button color="primary" [amwAutoFocus]="true">
+                        This button will auto-focus
+                      </button>
+                    </div>
+                  </div>
+                }
+                @case ('copy-to-clipboard') {
+                  <div class="demo-content">
+                    <h3>Copy to Clipboard Directive Demo</h3>
+                    <p>This directive allows easy copying of text to the clipboard.</p>
+                    <div class="demo-section">
+                      <h4>Copy Text</h4>
+                      <mat-form-field appearance="outline">
+                        <mat-label>Text to copy</mat-label>
+                        <input matInput
+                          name="copyText"
+                          [(ngModel)]="copyText"
+                          placeholder="Enter text to copy">
+                      </mat-form-field>
+                      <button mat-raised-button color="primary"
+                        amwCopyToClipboard
+                        [amwCopyToClipboard]="copyText">
+                        <mat-icon>content_copy</mat-icon>
+                        Copy to Clipboard
+                      </button>
+                    </div>
+                    <div class="demo-section">
+                      <h4>Copy Code Block</h4>
+                      <div class="code-block">
+                        <pre>{{ codeExample }}</pre>
+                        <button mat-icon-button
+                          amwCopyToClipboard
+                          [amwCopyToClipboard]="codeExample"
+                          title="Copy code">
+                          <mat-icon>content_copy</mat-icon>
+                        </button>
+                      </div>
+                    </div>
+                  </div>
+                }
+                @case ('tooltip') {
+                  <div class="demo-content">
+                    <h3>Tooltip Directive Demo</h3>
+                    <p>Display helpful information on hover or focus with support for HTML content.</p>
+                    <div class="demo-section">
+                      <h4>Basic Tooltip</h4>
+                      <button mat-raised-button color="primary"
+                        amwTooltip="This is a basic tooltip">
+                        Hover me
+                      </button>
+                    </div>
+                    <div class="demo-section">
+                      <h4>Tooltip with HTML Content</h4>
+                      <button mat-raised-button color="accent"
+                        [amwTooltip]="htmlTooltipContent"
+                        [tooltipAllowHtml]="true">
+                        HTML Tooltip
+                      </button>
+                    </div>
+                    <div class="demo-section">
+                      <h4>Tooltip Positions</h4>
+                      <div class="tooltip-demo-grid">
+                        <button mat-button amwTooltip="Top tooltip" tooltipPosition="top">Top</button>
+                        <button mat-button amwTooltip="Bottom tooltip" tooltipPosition="bottom">Bottom</button>
+                        <button mat-button amwTooltip="Left tooltip" tooltipPosition="left">Left</button>
+                        <button mat-button amwTooltip="Right tooltip" tooltipPosition="right">Right</button>
+                      </div>
+                    </div>
+                    <div class="demo-section">
+                      <h4>Tooltip with Delay</h4>
+                      <button mat-button color="warn"
+                        amwTooltip="This tooltip has a 1 second delay"
+                        [tooltipShowDelay]="1000"
+                        [tooltipHideDelay]="500">
+                        Delayed Tooltip
+                      </button>
+                    </div>
+                  </div>
+                }
+              }
+            </mat-tab>
+
+            <mat-tab label="Code" icon="code">
+              <div class="code-content">
+                <h3>{{ selectedDirective.name }} Directive Code</h3>
+                <p>Code examples will be available soon.</p>
+              </div>
+            </mat-tab>
+
+            <mat-tab label="API" icon="description">
+              <div class="api-content">
+                <h3>{{ selectedDirective.name }} Directive API</h3>
+                <p>API documentation will be available soon.</p>
+              </div>
+            </mat-tab>
+          </mat-tab-group>
+        </mat-card-content>
+      </mat-card>
     </div>
-
-    <div class="directives-content">
-        <div class="directives-main">
-            <mat-card class="directive-demo">
-                <mat-card-header>
-                    <mat-card-title>{{ selectedDirective.name }}</mat-card-title>
-                    <mat-card-subtitle>Interactive demo and documentation</mat-card-subtitle>
-                </mat-card-header>
-                <mat-card-content>
-                    <mat-tab-group [(selectedIndex)]="selectedTab" class="directive-tabs">
-                        <mat-tab label="Demo" icon="play_arrow">
-                            <ng-container [ngSwitch]="selectedDirective.id">
-                                <div *ngSwitchCase="'click-outside'" class="demo-content">
-                                    <h3>Click Outside Directive Demo</h3>
-                                    <p>This directive detects clicks outside of a specified element.</p>
-                                    
-                                    <div class="demo-box" 
-                                         (click)="onBoxClick()" 
-                                         (amwClickOutside)="onOutsideClick()"
-                                         [class.clicked]="boxClicked"
-                                         style="padding: 20px; border: 2px dashed #ccc; margin: 20px 0; cursor: pointer; text-align: center;">
-                                        <h4>Click inside this box</h4>
-                                        <p>Then click outside to see the directive in action</p>
-                                        <p *ngIf="boxClicked" class="click-indicator">Box was clicked!</p>
-                                    </div>
-                                </div>
-
-                                <div *ngSwitchCase="'auto-focus'" class="demo-content">
-                                    <h3>Auto Focus Directive Demo</h3>
-                                    <p>This directive automatically focuses an element when it becomes visible.</p>
-                                    
-                                    <div class="demo-section">
-                                        <h4>Input with Auto Focus</h4>
-                                        <mat-form-field appearance="outline">
-                                            <mat-label>This input will auto-focus</mat-label>
-                                            <input matInput 
-                                                   name="autoFocusInput"
-                                                   placeholder="Type something here" 
-                                                   [amwAutoFocus]="true">
-                                        </mat-form-field>
-                                    </div>
-                                    
-                                    <div class="demo-section">
-                                        <h4>Button with Auto Focus</h4>
-                                        <button mat-raised-button color="primary" [amwAutoFocus]="true">
-                                            This button will auto-focus
-                                        </button>
-                                    </div>
-                                </div>
-
-                                <div *ngSwitchCase="'copy-to-clipboard'" class="demo-content">
-                                    <h3>Copy to Clipboard Directive Demo</h3>
-                                    <p>This directive allows easy copying of text to the clipboard.</p>
-                                    
-                                    <div class="demo-section">
-                                        <h4>Copy Text</h4>
-                                        <mat-form-field appearance="outline">
-                                            <mat-label>Text to copy</mat-label>
-                                            <input matInput 
-                                                   name="copyText"
-                                                   [(ngModel)]="copyText" 
-                                                   placeholder="Enter text to copy">
-                                        </mat-form-field>
-                                        <button mat-raised-button color="primary" 
-                                                amwCopyToClipboard
-                                                [amwCopyToClipboard]="copyText">
-                                            <mat-icon>content_copy</mat-icon>
-                                            Copy to Clipboard
-                                        </button>
-                                    </div>
-                                    
-                                    <div class="demo-section">
-                                        <h4>Copy Code Block</h4>
-                                        <div class="code-block">
-                                            <pre>{{ codeExample }}</pre>
-                                            <button mat-icon-button 
-                                                    amwCopyToClipboard
-                                                    [amwCopyToClipboard]="codeExample"
-                                                    title="Copy code">
-                                                <mat-icon>content_copy</mat-icon>
-                                            </button>
-                                        </div>
-                                    </div>
-                                </div>
-
-                                <div *ngSwitchCase="'tooltip'" class="demo-content">
-                                    <h3>Tooltip Directive Demo</h3>
-                                    <p>Display helpful information on hover or focus with support for HTML content.</p>
-                                    
-                                    <div class="demo-section">
-                                        <h4>Basic Tooltip</h4>
-                                        <button mat-raised-button color="primary" 
-                                                amwTooltip="This is a basic tooltip">
-                                            Hover me
-                                        </button>
-                                    </div>
-                                    
-                                    <div class="demo-section">
-                                        <h4>Tooltip with HTML Content</h4>
-                                        <button mat-raised-button color="accent" 
-                                                [amwTooltip]="htmlTooltipContent"
-                                                [tooltipAllowHtml]="true">
-                                            HTML Tooltip
-                                        </button>
-                                    </div>
-                                    
-                                    <div class="demo-section">
-                                        <h4>Tooltip Positions</h4>
-                                        <div class="tooltip-demo-grid">
-                                            <button mat-button amwTooltip="Top tooltip" tooltipPosition="top">Top</button>
-                                            <button mat-button amwTooltip="Bottom tooltip" tooltipPosition="bottom">Bottom</button>
-                                            <button mat-button amwTooltip="Left tooltip" tooltipPosition="left">Left</button>
-                                            <button mat-button amwTooltip="Right tooltip" tooltipPosition="right">Right</button>
-                                        </div>
-                                    </div>
-                                    
-                                    <div class="demo-section">
-                                        <h4>Tooltip with Delay</h4>
-                                        <button mat-button color="warn" 
-                                                amwTooltip="This tooltip has a 1 second delay"
-                                                [tooltipShowDelay]="1000"
-                                                [tooltipHideDelay]="500">
-                                            Delayed Tooltip
-                                        </button>
-                                    </div>
-                                </div>
-                            </ng-container>
-                        </mat-tab>
-                        
-                        <mat-tab label="Code" icon="code">
-                            <div class="code-content">
-                                <h3>{{ selectedDirective.name }} Directive Code</h3>
-                                <p>Code examples will be available soon.</p>
-                            </div>
-                        </mat-tab>
-                        
-                        <mat-tab label="API" icon="description">
-                            <div class="api-content">
-                                <h3>{{ selectedDirective.name }} Directive API</h3>
-                                <p>API documentation will be available soon.</p>
-                            </div>
-                        </mat-tab>
-                    </mat-tab-group>
-                </mat-card-content>
-            </mat-card>
-        </div>
-    </div>
+  </div>
 </div>

@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { CommonModule } from '@angular/common';
+
 import { RouterModule } from '@angular/router';
 import { MatSidenavModule } from '@angular/material/sidenav';
 import { MatListModule } from '@angular/material/list';
@@ -14,16 +14,15 @@ import { ThemeMenuComponent } from '../theme-menu/theme-menu.component';
     selector: 'amw-demo-navigation',
     standalone: true,
     imports: [
-        CommonModule,
-        RouterModule,
-        MatSidenavModule,
-        MatListModule,
-        MatIconModule,
-        MatButtonModule,
-        MatToolbarModule,
-        MatExpansionModule,
-        ThemeMenuComponent
-    ],
+    RouterModule,
+    MatSidenavModule,
+    MatListModule,
+    MatIconModule,
+    MatButtonModule,
+    MatToolbarModule,
+    MatExpansionModule,
+    ThemeMenuComponent
+],
     templateUrl: './demo-navigation.component.html',
     styleUrl: './demo-navigation.component.scss'
 })

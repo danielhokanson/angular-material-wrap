@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { CommonModule } from '@angular/common';
+
 import { ActivatedRoute } from '@angular/router';
 import { MatCardModule } from '@angular/material/card';
 import { MatTabsModule } from '@angular/material/tabs';
@@ -19,20 +19,19 @@ import { AmwCopyToClipboardDirective } from '../../../../library/src/directives/
     selector: 'amw-demo-directives',
     standalone: true,
     imports: [
-        CommonModule,
-        MatCardModule,
-        MatTabsModule,
-        MatButtonModule,
-        MatIconModule,
-        MatFormFieldModule,
-        MatInputModule,
-        MatSnackBarModule,
-        FormsModule,
-        AmwTooltipDirective,
-        AmwClickOutsideDirective,
-        AmwAutoFocusDirective,
-        AmwCopyToClipboardDirective
-    ],
+    MatCardModule,
+    MatTabsModule,
+    MatButtonModule,
+    MatIconModule,
+    MatFormFieldModule,
+    MatInputModule,
+    MatSnackBarModule,
+    FormsModule,
+    AmwTooltipDirective,
+    AmwClickOutsideDirective,
+    AmwAutoFocusDirective,
+    AmwCopyToClipboardDirective
+],
     encapsulation: ViewEncapsulation.None,
     templateUrl: './directives-demo.component.html',
     styleUrl: './directives-demo.component.scss'

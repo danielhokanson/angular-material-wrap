@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { CommonModule } from '@angular/common';
+
 import { MatCardModule } from '@angular/material/card';
 import { MatTabsModule } from '@angular/material/tabs';
 import { MatChipsModule } from '@angular/material/chips';
@@ -13,12 +13,11 @@ import { MatIconModule } from '@angular/material/icon';
     selector: 'app-radio-group-api',
     standalone: true,
     imports: [
-        CommonModule,
-        MatCardModule,
-        MatTabsModule,
-        MatChipsModule,
-        MatIconModule
-    ],
+    MatCardModule,
+    MatTabsModule,
+    MatChipsModule,
+    MatIconModule
+],
     templateUrl: './radio-group-api.component.html',
     styleUrl: './radio-group-api.component.scss'
 })

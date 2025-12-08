@@ -4,7 +4,9 @@
     <div class="amw-search-page__header-content">
       <div class="amw-search-page__header-text">
         <h1 class="amw-search-page__title">{{ currentConfig.title }}</h1>
-        <p class="amw-search-page__subtitle" *ngIf="currentConfig.subtitle">{{ currentConfig.subtitle }}</p>
+        @if (currentConfig.subtitle) {
+          <p class="amw-search-page__subtitle">{{ currentConfig.subtitle }}</p>
+        }
       </div>
     </div>
   </div>
@@ -14,13 +16,13 @@
     <div class="amw-search-page__search-container">
       <mat-form-field appearance="outline" class="amw-search-page__search-field">
         <mat-label>Search</mat-label>
-        <input matInput 
-               name="searchQuery"
-               [(ngModel)]="searchQuery" 
-               (keyup.enter)="onSearch()"
-               (focus)="onSearchInputFocus()"
-               (blur)="onSearchInputBlur()"
-               placeholder="Enter search terms...">
+        <input matInput
+          name="searchQuery"
+          [(ngModel)]="searchQuery"
+          (keyup.enter)="onSearch()"
+          (focus)="onSearchInputFocus()"
+          (blur)="onSearchInputBlur()"
+          placeholder="Enter search terms...">
         <mat-icon matSuffix>search</mat-icon>
       </mat-form-field>
       <button mat-raised-button color="primary" (click)="onSearch()">Search</button>
@@ -30,180 +32,220 @@
   <!-- Main Content Layout -->
   <div class="amw-search-page__content">
     <!-- Filter Toggle Button -->
-    <div class="amw-search-page__filter-toggle" *ngIf="currentConfig.showAdvancedFilters && currentConfig.searchFields && currentConfig.searchFields.length > 0">
-      <button mat-raised-button 
-              color="primary" 
-              (click)="toggleFilters()"
-              class="amw-search-page__filter-toggle-btn">
-        <mat-icon>{{ filtersVisible ? 'close' : 'filter_list' }}</mat-icon>
-        {{ filtersVisible ? 'Hide Filters' : 'Show Filters' }}
-      </button>
-    </div>
-
-    <!-- Filters Sidebar -->
-    <div class="amw-search-page__sidebar" 
-         *ngIf="currentConfig.showAdvancedFilters && currentConfig.searchFields && currentConfig.searchFields.length > 0 && filtersVisible"
-         [class.amw-search-page__sidebar--visible]="filtersVisible">
-      <mat-card class="amw-search-page__filters-card">
-        <mat-card-header>
-          <mat-card-title>
-            <mat-icon>filter_list</mat-icon>
-            Filters
-          </mat-card-title>
-          <button mat-icon-button 
-                  (click)="toggleFilters()"
-                  class="amw-search-page__close-filters-btn"
-                  aria-label="Close filters">
-            <mat-icon>close</mat-icon>
-          </button>
-        </mat-card-header>
-        <mat-card-content>
-          <div class="amw-search-page__filters-content">
-            <div *ngFor="let field of currentConfig.searchFields" 
-                 class="amw-search-page__filter-field"
-                 [style.display]="isFieldVisible(field) ? 'block' : 'none'">
-              
-              <mat-form-field appearance="outline" *ngIf="field.type === 'text'" class="amw-search-page__filter-input">
-                <mat-label>{{ field.label }}</mat-label>
-                <input matInput 
-                       name="searchField_{{ field.key }}"
-                       [ngModel]="getFieldValue(field)"
-                       (ngModelChange)="setFieldValue(field, $event)"
-                       [placeholder]="field.placeholder || ''">
-              </mat-form-field>
-              
-              <mat-form-field appearance="outline" *ngIf="field.type === 'select'" class="amw-search-page__filter-input">
-                <mat-label>{{ field.label }}</mat-label>
-                <mat-select [ngModel]="getFieldValue(field)" (ngModelChange)="setFieldValue(field, $event)">
-                  <mat-option value="">All</mat-option>
-                  <mat-option *ngFor="let option of field.options" [value]="option.value">
-                    {{ option.label }}
-                  </mat-option>
-                </mat-select>
-              </mat-form-field>
-              
-              <div class="amw-search-page__checkbox" *ngIf="field.type === 'boolean'">
-                <mat-checkbox [ngModel]="getFieldValue(field)" (ngModelChange)="setFieldValue(field, $event)">
-                  {{ field.label }}
-                </mat-checkbox>
-              </div>
-            </div>
-            
-            <div class="amw-search-page__filters-actions">
-              <button mat-raised-button color="primary" (click)="onFilterChange()" class="amw-search-page__filter-button">
-                Apply Filters
-              </button>
-              <button mat-button (click)="onClearFilters()" class="amw-search-page__filter-button">
-                Clear All
-              </button>
-            </div>
-          </div>
-        </mat-card-content>
-      </mat-card>
-    </div>
-
-    <!-- Results Area -->
-    <div class="amw-search-page__results-area" 
-         [class.amw-search-page__results-area--filters-visible]="filtersVisible">
-
-  <!-- Results Header -->
-  <div class="amw-search-page__results-header" *ngIf="!loading && !error">
-    <div class="amw-search-page__results-info">
-      <span>{{ currentData.totalCount }} results found</span>
-    </div>
-    
-    <div class="amw-search-page__results-controls">
-      <!-- Sort Options -->
-      <mat-form-field appearance="outline" *ngIf="currentConfig.showSortOptions && currentConfig.sortOptions">
-        <mat-label>Sort by</mat-label>
-        <mat-select [(ngModel)]="sortField" (selectionChange)="onSortChange()">
-          <mat-option *ngFor="let option of currentConfig.sortOptions" [value]="option.value">
-            {{ option.label }}
-          </mat-option>
-        </mat-select>
-      </mat-form-field>
-      
-      <!-- View Modes -->
-      <div class="amw-search-page__view-modes" *ngIf="currentConfig.showViewModes && currentConfig.viewModes">
-        <button *ngFor="let mode of currentConfig.viewModes" 
-                mat-icon-button 
-                [class.amw-search-page__view-mode--active]="viewMode === mode.value"
-                (click)="onViewModeChange(mode.value)"
-                [matTooltip]="mode.label">
-          <mat-icon>{{ mode.icon }}</mat-icon>
+    @if (currentConfig.showAdvancedFilters && currentConfig.searchFields && currentConfig.searchFields.length > 0) {
+      <div class="amw-search-page__filter-toggle">
+        <button mat-raised-button
+          color="primary"
+          (click)="toggleFilters()"
+          class="amw-search-page__filter-toggle-btn">
+          <mat-icon>{{ filtersVisible ? 'close' : 'filter_list' }}</mat-icon>
+          {{ filtersVisible ? 'Hide Filters' : 'Show Filters' }}
         </button>
       </div>
-    </div>
-  </div>
+    }
 
-  <!-- Loading State -->
-  <div class="amw-search-page__loading" *ngIf="loading">
-    <mat-spinner diameter="40"></mat-spinner>
-    <p>Searching...</p>
-  </div>
-
-  <!-- Error State -->
-  <div class="amw-search-page__error" *ngIf="error && !loading">
-    <mat-icon>error</mat-icon>
-    <p>{{ error }}</p>
-    <button mat-raised-button color="primary" (click)="onSearch()">Retry</button>
-  </div>
-
-  <!-- Results -->
-  <div class="amw-search-page__results" *ngIf="!loading && !error">
-    <!-- List View -->
-    <div class="amw-search-page__results-list" *ngIf="viewMode === 'list'">
-      <mat-card *ngFor="let result of currentData.results" 
-                class="amw-search-page__result-card"
-                (click)="onResultClick(result)">
-        <mat-card-content>
-          <h3>{{ result.title || result.name || 'Result' }}</h3>
-          <p>{{ result.description || result.summary || 'No description available' }}</p>
-          <div class="amw-search-page__result-meta">
-            <span *ngIf="result.date">{{ result.date | date:'medium' }}</span>
-            <span *ngIf="result.category">{{ result.category }}</span>
-            <span *ngIf="result.score">{{ Math.round(result.score * 100) }}% match</span>
-          </div>
-        </mat-card-content>
-      </mat-card>
-    </div>
-
-    <!-- Grid View -->
-    <div class="amw-search-page__results-grid" *ngIf="viewMode === 'grid'">
-      <mat-card *ngFor="let result of currentData.results" 
-                class="amw-search-page__result-card"
-                (click)="onResultClick(result)">
-        <mat-card-content>
-          <h3>{{ result.title || result.name || 'Result' }}</h3>
-          <p>{{ result.description || result.summary || 'No description available' }}</p>
-        </mat-card-content>
-      </mat-card>
-    </div>
-
-    <!-- Card View -->
-    <div class="amw-search-page__results-cards" *ngIf="viewMode === 'card'">
-      <mat-card *ngFor="let result of currentData.results" 
-                class="amw-search-page__result-card"
-                (click)="onResultClick(result)">
-        <mat-card-header>
-          <mat-card-title>{{ result.title || result.name || 'Result' }}</mat-card-title>
-          <mat-card-subtitle>{{ result.category || 'Category' }}</mat-card-subtitle>
-        </mat-card-header>
-        <mat-card-content>
-          <p>{{ result.description || result.summary || 'No description available' }}</p>
-        </mat-card-content>
-        <mat-card-actions>
-          <button mat-button>View Details</button>
-        </mat-card-actions>
-      </mat-card>
-    </div>
-
-      <!-- Empty State -->
-      <div class="amw-search-page__empty" *ngIf="currentData.results.length === 0">
-        <mat-icon>search_off</mat-icon>
-        <p>No results found</p>
-        <button mat-raised-button color="primary" (click)="onClearFilters()">Clear Filters</button>
+    <!-- Filters Sidebar -->
+    @if (currentConfig.showAdvancedFilters && currentConfig.searchFields && currentConfig.searchFields.length > 0 && filtersVisible) {
+      <div class="amw-search-page__sidebar"
+        [class.amw-search-page__sidebar--visible]="filtersVisible">
+        <mat-card class="amw-search-page__filters-card">
+          <mat-card-header>
+            <mat-card-title>
+              <mat-icon>filter_list</mat-icon>
+              Filters
+            </mat-card-title>
+            <button mat-icon-button
+              (click)="toggleFilters()"
+              class="amw-search-page__close-filters-btn"
+              aria-label="Close filters">
+              <mat-icon>close</mat-icon>
+            </button>
+          </mat-card-header>
+          <mat-card-content>
+            <div class="amw-search-page__filters-content">
+              @for (field of currentConfig.searchFields; track field) {
+                <div
+                  class="amw-search-page__filter-field"
+                  [style.display]="isFieldVisible(field) ? 'block' : 'none'">
+                  @if (field.type === 'text') {
+                    <mat-form-field appearance="outline" class="amw-search-page__filter-input">
+                      <mat-label>{{ field.label }}</mat-label>
+                      <input matInput
+                        name="searchField_{{ field.key }}"
+                        [ngModel]="getFieldValue(field)"
+                        (ngModelChange)="setFieldValue(field, $event)"
+                        [placeholder]="field.placeholder || ''">
+                    </mat-form-field>
+                  }
+                  @if (field.type === 'select') {
+                    <mat-form-field appearance="outline" class="amw-search-page__filter-input">
+                      <mat-label>{{ field.label }}</mat-label>
+                      <mat-select [ngModel]="getFieldValue(field)" (ngModelChange)="setFieldValue(field, $event)">
+                        <mat-option value="">All</mat-option>
+                        @for (option of field.options; track option) {
+                          <mat-option [value]="option.value">
+                            {{ option.label }}
+                          </mat-option>
+                        }
+                      </mat-select>
+                    </mat-form-field>
+                  }
+                  @if (field.type === 'boolean') {
+                    <div class="amw-search-page__checkbox">
+                      <mat-checkbox [ngModel]="getFieldValue(field)" (ngModelChange)="setFieldValue(field, $event)">
+                        {{ field.label }}
+                      </mat-checkbox>
+                    </div>
+                  }
+                </div>
+              }
+              <div class="amw-search-page__filters-actions">
+                <button mat-raised-button color="primary" (click)="onFilterChange()" class="amw-search-page__filter-button">
+                  Apply Filters
+                </button>
+                <button mat-button (click)="onClearFilters()" class="amw-search-page__filter-button">
+                  Clear All
+                </button>
+              </div>
+            </div>
+          </mat-card-content>
+        </mat-card>
       </div>
+    }
+
+    <!-- Results Area -->
+    <div class="amw-search-page__results-area"
+      [class.amw-search-page__results-area--filters-visible]="filtersVisible">
+
+      <!-- Results Header -->
+      @if (!loading && !error) {
+        <div class="amw-search-page__results-header">
+          <div class="amw-search-page__results-info">
+            <span>{{ currentData.totalCount }} results found</span>
+          </div>
+          <div class="amw-search-page__results-controls">
+            <!-- Sort Options -->
+            @if (currentConfig.showSortOptions && currentConfig.sortOptions) {
+              <mat-form-field appearance="outline">
+                <mat-label>Sort by</mat-label>
+                <mat-select [(ngModel)]="sortField" (selectionChange)="onSortChange()">
+                  @for (option of currentConfig.sortOptions; track option) {
+                    <mat-option [value]="option.value">
+                      {{ option.label }}
+                    </mat-option>
+                  }
+                </mat-select>
+              </mat-form-field>
+            }
+            <!-- View Modes -->
+            @if (currentConfig.showViewModes && currentConfig.viewModes) {
+              <div class="amw-search-page__view-modes">
+                @for (mode of currentConfig.viewModes; track mode) {
+                  <button
+                    mat-icon-button
+                    [class.amw-search-page__view-mode--active]="viewMode === mode.value"
+                    (click)="onViewModeChange(mode.value)"
+                    [matTooltip]="mode.label">
+                    <mat-icon>{{ mode.icon }}</mat-icon>
+                  </button>
+                }
+              </div>
+            }
+          </div>
+        </div>
+      }
+
+      <!-- Loading State -->
+      @if (loading) {
+        <div class="amw-search-page__loading">
+          <mat-spinner diameter="40"></mat-spinner>
+          <p>Searching...</p>
+        </div>
+      }
+
+      <!-- Error State -->
+      @if (error && !loading) {
+        <div class="amw-search-page__error">
+          <mat-icon>error</mat-icon>
+          <p>{{ error }}</p>
+          <button mat-raised-button color="primary" (click)="onSearch()">Retry</button>
+        </div>
+      }
+
+      <!-- Results -->
+      @if (!loading && !error) {
+        <div class="amw-search-page__results">
+          <!-- List View -->
+          @if (viewMode === 'list') {
+            <div class="amw-search-page__results-list">
+              @for (result of currentData.results; track result) {
+                <mat-card
+                  class="amw-search-page__result-card"
+                  (click)="onResultClick(result)">
+                  <mat-card-content>
+                    <h3>{{ result.title || result.name || 'Result' }}</h3>
+                    <p>{{ result.description || result.summary || 'No description available' }}</p>
+                    <div class="amw-search-page__result-meta">
+                      @if (result.date) {
+                        <span>{{ result.date | date:'medium' }}</span>
+                      }
+                      @if (result.category) {
+                        <span>{{ result.category }}</span>
+                      }
+                      @if (result.score) {
+                        <span>{{ Math.round(result.score * 100) }}% match</span>
+                      }
+                    </div>
+                  </mat-card-content>
+                </mat-card>
+              }
+            </div>
+          }
+          <!-- Grid View -->
+          @if (viewMode === 'grid') {
+            <div class="amw-search-page__results-grid">
+              @for (result of currentData.results; track result) {
+                <mat-card
+                  class="amw-search-page__result-card"
+                  (click)="onResultClick(result)">
+                  <mat-card-content>
+                    <h3>{{ result.title || result.name || 'Result' }}</h3>
+                    <p>{{ result.description || result.summary || 'No description available' }}</p>
+                  </mat-card-content>
+                </mat-card>
+              }
+            </div>
+          }
+          <!-- Card View -->
+          @if (viewMode === 'card') {
+            <div class="amw-search-page__results-cards">
+              @for (result of currentData.results; track result) {
+                <mat-card
+                  class="amw-search-page__result-card"
+                  (click)="onResultClick(result)">
+                  <mat-card-header>
+                    <mat-card-title>{{ result.title || result.name || 'Result' }}</mat-card-title>
+                    <mat-card-subtitle>{{ result.category || 'Category' }}</mat-card-subtitle>
+                  </mat-card-header>
+                  <mat-card-content>
+                    <p>{{ result.description || result.summary || 'No description available' }}</p>
+                  </mat-card-content>
+                  <mat-card-actions>
+                    <button mat-button>View Details</button>
+                  </mat-card-actions>
+                </mat-card>
+              }
+            </div>
+          }
+          <!-- Empty State -->
+          @if (currentData.results.length === 0) {
+            <div class="amw-search-page__empty">
+              <mat-icon>search_off</mat-icon>
+              <p>No results found</p>
+              <button mat-raised-button color="primary" (click)="onClearFilters()">Clear Filters</button>
+            </div>
+          }
+        </div>
+      }
     </div>
   </div>
-</div>

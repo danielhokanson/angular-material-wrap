@@ -1,5 +1,5 @@
 import { Component, Input, Output, EventEmitter, ViewEncapsulation, OnInit, OnChanges, SimpleChanges, OnDestroy, ChangeDetectorRef, forwardRef } from '@angular/core';
-import { CommonModule } from '@angular/common';
+
 import { FormsModule, ReactiveFormsModule, ControlValueAccessor, NG_VALUE_ACCESSOR } from '@angular/forms';
 import { MatChipsModule } from '@angular/material/chips';
 import { MatIconModule } from '@angular/material/icon';
@@ -23,19 +23,18 @@ import { Chip, ChipConfig, ChipEvent, ChipChangeEvent, ChipMenuItem } from './in
     selector: 'amw-chips',
     standalone: true,
     imports: [
-        CommonModule,
-        FormsModule,
-        ReactiveFormsModule,
-        MatChipsModule,
-        MatIconModule,
-        MatButtonModule,
-        MatInputModule,
-        MatFormFieldModule,
-        MatAutocompleteModule,
-        MatMenuModule,
-        MatTooltipModule,
-        MatDividerModule
-    ],
+    FormsModule,
+    ReactiveFormsModule,
+    MatChipsModule,
+    MatIconModule,
+    MatButtonModule,
+    MatInputModule,
+    MatFormFieldModule,
+    MatAutocompleteModule,
+    MatMenuModule,
+    MatTooltipModule,
+    MatDividerModule
+],
     encapsulation: ViewEncapsulation.None,
     templateUrl: './amw-chips.component.html',
     styleUrl: './amw-chips.component.scss',

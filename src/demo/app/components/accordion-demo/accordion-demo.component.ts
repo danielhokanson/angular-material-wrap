@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { CommonModule } from '@angular/common';
+
 import { MatExpansionModule } from '@angular/material/expansion';
 import { MatIconModule } from '@angular/material/icon';
 import { MatButtonModule } from '@angular/material/button';
@@ -11,14 +11,13 @@ import { MatCheckboxModule } from '@angular/material/checkbox';
     selector: 'amw-demo-accordion',
     standalone: true,
     imports: [
-        CommonModule,
-        MatExpansionModule,
-        MatIconModule,
-        MatButtonModule,
-        MatFormFieldModule,
-        MatInputModule,
-        MatCheckboxModule
-    ],
+    MatExpansionModule,
+    MatIconModule,
+    MatButtonModule,
+    MatFormFieldModule,
+    MatInputModule,
+    MatCheckboxModule
+],
     template: `
         <div class="accordion-demo">
             <h2>Accordion Component Demo</h2>

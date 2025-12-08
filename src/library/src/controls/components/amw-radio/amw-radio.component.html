@@ -20,8 +20,10 @@
     (blur)="onBlur($event)">
     <span [innerHTML]="label"></span>
   </mat-radio-button>
-  
-  <div *ngIf="hasError && errorMessage" class="amw-radio__error">
-    {{ errorMessage }}
-  </div>
+
+  @if (hasError && errorMessage) {
+    <div class="amw-radio__error">
+      {{ errorMessage }}
+    </div>
+  }
 </div>

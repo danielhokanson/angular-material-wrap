@@ -2,43 +2,49 @@
   <div class="demo-section">
     <h3>Size Variations</h3>
     <div class="variation-grid">
-      <div *ngFor="let variation of datepickerVariations.sizes" class="variation-item">
-        <h4>{{ variation.label }}</h4>
-        <amw-datepicker
-          [size]="variation.size"
-          placeholder="Select a date"
-          label="Date">
-        </amw-datepicker>
-      </div>
+      @for (variation of datepickerVariations.sizes; track variation) {
+        <div class="variation-item">
+          <h4>{{ variation.label }}</h4>
+          <amw-datepicker
+            [size]="variation.size"
+            placeholder="Select a date"
+            label="Date">
+          </amw-datepicker>
+        </div>
+      }
     </div>
   </div>
 
   <div class="demo-section">
     <h3>Appearance Variations</h3>
     <div class="variation-grid">
-      <div *ngFor="let variation of datepickerVariations.appearances" class="variation-item">
-        <h4>{{ variation.label }}</h4>
-        <amw-datepicker
-          [appearance]="variation.appearance"
-          placeholder="Select a date"
-          label="Date">
-        </amw-datepicker>
-      </div>
+      @for (variation of datepickerVariations.appearances; track variation) {
+        <div class="variation-item">
+          <h4>{{ variation.label }}</h4>
+          <amw-datepicker
+            [appearance]="variation.appearance"
+            placeholder="Select a date"
+            label="Date">
+          </amw-datepicker>
+        </div>
+      }
     </div>
   </div>
 
   <div class="demo-section">
     <h3>State Variations</h3>
     <div class="variation-grid">
-      <div *ngFor="let variation of datepickerVariations.states" class="variation-item">
-        <h4>{{ variation.label }}</h4>
-        <amw-datepicker
-          [disabled]="variation.disabled"
-          [required]="variation.required"
-          placeholder="Select a date"
-          label="Date">
-        </amw-datepicker>
-      </div>
+      @for (variation of datepickerVariations.states; track variation) {
+        <div class="variation-item">
+          <h4>{{ variation.label }}</h4>
+          <amw-datepicker
+            [disabled]="variation.disabled"
+            [required]="variation.required"
+            placeholder="Select a date"
+            label="Date">
+          </amw-datepicker>
+        </div>
+      }
     </div>
   </div>
 
@@ -51,9 +57,11 @@
         label="Select Date"
         hint="Pick any date">
       </amw-datepicker>
-      <p *ngIf="selectedDate" class="selected-value">
-        Selected: {{ selectedDate | date:'fullDate' }}
-      </p>
+      @if (selectedDate) {
+        <p class="selected-value">
+          Selected: {{ selectedDate | date:'fullDate' }}
+        </p>
+      }
     </div>
   </div>
 
@@ -74,9 +82,11 @@
           [min]="selectedRangeStart || minDate">
         </amw-datepicker>
       </div>
-      <p *ngIf="selectedRangeStart || selectedRangeEnd" class="selected-value">
-        Range: {{ selectedRangeStart | date:'shortDate' }} - {{ selectedRangeEnd | date:'shortDate' }}
-      </p>
+      @if (selectedRangeStart || selectedRangeEnd) {
+        <p class="selected-value">
+          Range: {{ selectedRangeStart | date:'shortDate' }} - {{ selectedRangeEnd | date:'shortDate' }}
+        </p>
+      }
     </div>
   </div>
 
@@ -92,9 +102,11 @@
         [startAt]="startAt"
         hint="Date must be between 2020 and 2030">
       </amw-datepicker>
-      <p *ngIf="selectedBirthDate" class="selected-value">
-        Birth Date: {{ selectedBirthDate | date:'mediumDate' }}
-      </p>
+      @if (selectedBirthDate) {
+        <p class="selected-value">
+          Birth Date: {{ selectedBirthDate | date:'mediumDate' }}
+        </p>
+      }
     </div>
   </div>
 

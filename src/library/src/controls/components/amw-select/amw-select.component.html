@@ -5,107 +5,129 @@
     [floatLabel]="label ? 'always' : 'auto'"
     [hideRequiredMarker]="!required"
     [class.mat-form-field-invalid]="hasValidationError">
-  
-  <!-- Label -->
-  <mat-label *ngIf="label" [innerHTML]="label"></mat-label>
-  
-  <!-- Select Element -->
-  <mat-select
-    [placeholder]="placeholder"
-    [disabled]="disabled"
-    [required]="required"
-    [multiple]="multiple"
-    [compareWith]="compareWith"
-    [value]="internalValue"
-    [panelClass]="panelClass"
-    [disableRipple]="disableRipple"
-    [attr.aria-label]="ariaLabel"
-    [attr.aria-labelledby]="ariaLabelledby"
-    [attr.aria-describedby]="ariaDescribedby"
-    [attr.tabindex]="tabIndex"
-    [attr.autofocus]="autofocus"
-    [attr.id]="id"
-    (selectionChange)="onSelectionChange($event.value)"
-    (openedChange)="onOpenedChange($event)"
-    (focus)="onFocus($event)"
-    (blur)="onBlur($event)"
-    class="amw-select__field">
-    
-    <!-- Search Box (if enabled) -->
-    <mat-option *ngIf="searchable && showSearchBox" disabled class="amw-select__search-option">
-      <input
-        matInput
-        [placeholder]="searchPlaceholder"
-        [value]="searchValue"
-        (input)="onSearchChange($any($event.target).value || '')"
-        class="amw-select__search-input"
-        (click)="$event.stopPropagation()">
-    </mat-option>
-    
-    <!-- Clear Button (if enabled) -->
-    <mat-option *ngIf="canClear" (click)="onClear()" class="amw-select__clear-option">
-      <mat-icon class="amw-select__clear-icon">clear</mat-icon>
-      Clear Selection
-    </mat-option>
-    
-    <!-- Loading Option -->
-    <mat-option *ngIf="loading" disabled class="amw-select__loading-option">
-      <mat-spinner diameter="20" class="amw-select__loading-spinner"></mat-spinner>
-      {{ loadingText }}
-    </mat-option>
-    
-    <!-- No Options Message -->
-    <mat-option *ngIf="!loading && !hasOptions" disabled class="amw-select__no-options">
-      {{ noOptionsText }}
-    </mat-option>
-    
-    <!-- Regular Options -->
-    <mat-option
-      *ngFor="let option of filteredOptions"
-      [value]="option.value"
-      [disabled]="option.disabled"
-      [class.amw-select__option]="true"
-      [class.amw-select__option--disabled]="option.disabled">
-      
-      <div class="amw-select__option-content">
-        <mat-icon *ngIf="option.icon" class="amw-select__option-icon">{{ option.icon }}</mat-icon>
-        <div class="amw-select__option-text">
-          <span class="amw-select__option-label" [innerHTML]="option.label"></span>
-          <span *ngIf="option.description" class="amw-select__option-description">{{ option.description }}</span>
-        </div>
-      </div>
-    </mat-option>
-    
-    <!-- Grouped Options -->
-    <mat-optgroup
-      *ngFor="let group of filteredGroups | keyvalue"
-      [label]="group.key"
-      class="amw-select__group">
-      
-      <mat-option
-        *ngFor="let option of group.value"
-        [value]="option.value"
-        [disabled]="option.disabled"
-        [class.amw-select__option]="true"
-        [class.amw-select__option--disabled]="option.disabled">
-        
-        <div class="amw-select__option-content">
-          <mat-icon *ngIf="option.icon" class="amw-select__option-icon">{{ option.icon }}</mat-icon>
-          <div class="amw-select__option-text">
-            <span class="amw-select__option-label" [innerHTML]="option.label"></span>
-            <span *ngIf="option.description" class="amw-select__option-description">{{ option.description }}</span>
+
+    <!-- Label -->
+    @if (label) {
+      <mat-label [innerHTML]="label"></mat-label>
+    }
+
+    <!-- Select Element -->
+    <mat-select
+      [placeholder]="placeholder"
+      [disabled]="disabled"
+      [required]="required"
+      [multiple]="multiple"
+      [compareWith]="compareWith"
+      [value]="internalValue"
+      [panelClass]="panelClass"
+      [disableRipple]="disableRipple"
+      [attr.aria-label]="ariaLabel"
+      [attr.aria-labelledby]="ariaLabelledby"
+      [attr.aria-describedby]="ariaDescribedby"
+      [attr.tabindex]="tabIndex"
+      [attr.autofocus]="autofocus"
+      [attr.id]="id"
+      (selectionChange)="onSelectionChange($event.value)"
+      (openedChange)="onOpenedChange($event)"
+      (focus)="onFocus($event)"
+      (blur)="onBlur($event)"
+      class="amw-select__field">
+
+      <!-- Search Box (if enabled) -->
+      @if (searchable && showSearchBox) {
+        <mat-option disabled class="amw-select__search-option">
+          <input
+            matInput
+            [placeholder]="searchPlaceholder"
+            [value]="searchValue"
+            (input)="onSearchChange($any($event.target).value || '')"
+            class="amw-select__search-input"
+            (click)="$event.stopPropagation()">
+        </mat-option>
+      }
+
+      <!-- Clear Button (if enabled) -->
+      @if (canClear) {
+        <mat-option (click)="onClear()" class="amw-select__clear-option">
+          <mat-icon class="amw-select__clear-icon">clear</mat-icon>
+          Clear Selection
+        </mat-option>
+      }
+
+      <!-- Loading Option -->
+      @if (loading) {
+        <mat-option disabled class="amw-select__loading-option">
+          <mat-spinner diameter="20" class="amw-select__loading-spinner"></mat-spinner>
+          {{ loadingText }}
+        </mat-option>
+      }
+
+      <!-- No Options Message -->
+      @if (!loading && !hasOptions) {
+        <mat-option disabled class="amw-select__no-options">
+          {{ noOptionsText }}
+        </mat-option>
+      }
+
+      <!-- Regular Options -->
+      @for (option of filteredOptions; track option) {
+        <mat-option
+          [value]="option.value"
+          [disabled]="option.disabled"
+          [class.amw-select__option]="true"
+          [class.amw-select__option--disabled]="option.disabled">
+          <div class="amw-select__option-content">
+            @if (option.icon) {
+              <mat-icon class="amw-select__option-icon">{{ option.icon }}</mat-icon>
+            }
+            <div class="amw-select__option-text">
+              <span class="amw-select__option-label" [innerHTML]="option.label"></span>
+              @if (option.description) {
+                <span class="amw-select__option-description">{{ option.description }}</span>
+              }
+            </div>
           </div>
-        </div>
-      </mat-option>
-    </mat-optgroup>
-  </mat-select>
-  
-  <!-- Hint Text -->
-  <mat-hint *ngIf="hint && !hasValidationError" class="amw-select__hint">{{ hint }}</mat-hint>
-  
-  <!-- Error Message -->
-  <mat-error *ngIf="hasValidationError" class="amw-select__error">
-    {{ errorText }}
-  </mat-error>
+        </mat-option>
+      }
+
+      <!-- Grouped Options -->
+      @for (group of filteredGroups | keyvalue; track group) {
+        <mat-optgroup
+          [label]="group.key"
+          class="amw-select__group">
+          @for (option of group.value; track option) {
+            <mat-option
+              [value]="option.value"
+              [disabled]="option.disabled"
+              [class.amw-select__option]="true"
+              [class.amw-select__option--disabled]="option.disabled">
+              <div class="amw-select__option-content">
+                @if (option.icon) {
+                  <mat-icon class="amw-select__option-icon">{{ option.icon }}</mat-icon>
+                }
+                <div class="amw-select__option-text">
+                  <span class="amw-select__option-label" [innerHTML]="option.label"></span>
+                  @if (option.description) {
+                    <span class="amw-select__option-description">{{ option.description }}</span>
+                  }
+                </div>
+              </div>
+            </mat-option>
+          }
+        </mat-optgroup>
+      }
+    </mat-select>
+
+    <!-- Hint Text -->
+    @if (hint && !hasValidationError) {
+      <mat-hint class="amw-select__hint">{{ hint }}</mat-hint>
+    }
+
+    <!-- Error Message -->
+    @if (hasValidationError) {
+      <mat-error class="amw-select__error">
+        {{ errorText }}
+      </mat-error>
+    }
   </mat-form-field>
 </div>

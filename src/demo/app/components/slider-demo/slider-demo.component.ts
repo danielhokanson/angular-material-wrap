@@ -1,5 +1,5 @@
 import { Component, ViewEncapsulation } from '@angular/core';
-import { CommonModule } from '@angular/common';
+
 import { MatCardModule } from '@angular/material/card';
 import { MatButtonModule } from '@angular/material/button';
 import { MatIconModule } from '@angular/material/icon';
@@ -11,12 +11,11 @@ import { AmwSliderComponent } from '../../../../library/src/controls/components/
     selector: 'amw-demo-slider',
     standalone: true,
     imports: [
-        CommonModule,
-        MatCardModule,
-        MatButtonModule,
-        MatIconModule,
-        AmwSliderComponent
-    ],
+    MatCardModule,
+    MatButtonModule,
+    MatIconModule,
+    AmwSliderComponent
+],
     encapsulation: ViewEncapsulation.None,
     templateUrl: './slider-demo.component.html',
     styleUrl: './slider-demo.component.scss'

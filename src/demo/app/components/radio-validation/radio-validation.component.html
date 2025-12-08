@@ -31,9 +31,11 @@
             color="primary">
           </amw-radio>
         </mat-radio-group>
-        <div class="field-error" *ngIf="getFieldError('gender')">
-          {{ getFieldError('gender') }}
-        </div>
+        @if (getFieldError('gender')) {
+          <div class="field-error">
+            {{ getFieldError('gender') }}
+          </div>
+        }
       </div>
 
       <!-- Experience Level -->
@@ -61,9 +63,11 @@
             color="accent">
           </amw-radio>
         </mat-radio-group>
-        <div class="field-error" *ngIf="getFieldError('experience')">
-          {{ getFieldError('experience') }}
-        </div>
+        @if (getFieldError('experience')) {
+          <div class="field-error">
+            {{ getFieldError('experience') }}
+          </div>
+        }
       </div>
 
       <!-- Communication Preferences -->
@@ -91,9 +95,11 @@
             color="primary">
           </amw-radio>
         </mat-radio-group>
-        <div class="field-error" *ngIf="getFieldError('preferences')">
-          {{ getFieldError('preferences') }}
-        </div>
+        @if (getFieldError('preferences')) {
+          <div class="field-error">
+            {{ getFieldError('preferences') }}
+          </div>
+        }
       </div>
 
       <!-- Subscription Type -->
@@ -121,9 +127,11 @@
             color="accent">
           </amw-radio>
         </mat-radio-group>
-        <div class="field-error" *ngIf="getFieldError('subscription')">
-          {{ getFieldError('subscription') }}
-        </div>
+        @if (getFieldError('subscription')) {
+          <div class="field-error">
+            {{ getFieldError('subscription') }}
+          </div>
+        }
       </div>
 
       <!-- Age Group -->
@@ -161,9 +169,11 @@
             color="warn">
           </amw-radio>
         </mat-radio-group>
-        <div class="field-error" *ngIf="getFieldError('ageGroup')">
-          {{ getFieldError('ageGroup') }}
-        </div>
+        @if (getFieldError('ageGroup')) {
+          <div class="field-error">
+            {{ getFieldError('ageGroup') }}
+          </div>
+        }
       </div>
 
       <div class="form-actions">

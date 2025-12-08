@@ -1,5 +1,5 @@
 import { Component, Input, Output, EventEmitter, OnInit, OnDestroy, ViewEncapsulation, ChangeDetectorRef } from '@angular/core';
-import { CommonModule } from '@angular/common';
+
 import { MatExpansionModule } from '@angular/material/expansion';
 import { MatButtonModule } from '@angular/material/button';
 import { MatIconModule } from '@angular/material/icon';
@@ -31,13 +31,12 @@ import { AccordionConfig, AccordionPanel } from './interfaces';
     selector: 'amw-accordion',
     standalone: true,
     imports: [
-        CommonModule,
-        MatExpansionModule,
-        MatButtonModule,
-        MatIconModule,
-        MatCardModule,
-        MatDividerModule
-    ],
+    MatExpansionModule,
+    MatButtonModule,
+    MatIconModule,
+    MatCardModule,
+    MatDividerModule
+],
     encapsulation: ViewEncapsulation.None,
     templateUrl: './amw-accordion.component.html',
     styleUrl: './amw-accordion.component.scss'

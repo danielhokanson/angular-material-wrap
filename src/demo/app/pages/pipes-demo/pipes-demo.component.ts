@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { CommonModule } from '@angular/common';
+
 import { ActivatedRoute } from '@angular/router';
 import { MatCardModule } from '@angular/material/card';
 import { MatTabsModule } from '@angular/material/tabs';
@@ -18,19 +18,18 @@ import { AmwTextTransformPipe } from '../../../../library/src/pipes/amw-text-tra
     selector: 'amw-demo-pipes',
     standalone: true,
     imports: [
-        CommonModule,
-        MatCardModule,
-        MatTabsModule,
-        MatButtonModule,
-        MatIconModule,
-        MatFormFieldModule,
-        MatInputModule,
-        MatSelectModule,
-        FormsModule,
-        AmwCurrencyPipe,
-        AmwDatePipe,
-        AmwTextTransformPipe
-    ],
+    MatCardModule,
+    MatTabsModule,
+    MatButtonModule,
+    MatIconModule,
+    MatFormFieldModule,
+    MatInputModule,
+    MatSelectModule,
+    FormsModule,
+    AmwCurrencyPipe,
+    AmwDatePipe,
+    AmwTextTransformPipe
+],
     encapsulation: ViewEncapsulation.None,
     templateUrl: './pipes-demo.component.html',
     styleUrl: './pipes-demo.component.scss'

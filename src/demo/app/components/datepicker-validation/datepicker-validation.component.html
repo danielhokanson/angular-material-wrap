@@ -20,12 +20,16 @@
             appearance="outline">
           </amw-datepicker>
           <div class="field-info">
-            <span class="selected-date" *ngIf="getFieldValue('birthDate')">
-              Selected: {{ getFieldValue('birthDate') | date:'mediumDate' }}
-            </span>
-            <div class="field-error" *ngIf="getFieldError('birthDate')">
-              {{ getFieldError('birthDate') }}
-            </div>
+            @if (getFieldValue('birthDate')) {
+              <span class="selected-date">
+                Selected: {{ getFieldValue('birthDate') | date:'mediumDate' }}
+              </span>
+            }
+            @if (getFieldError('birthDate')) {
+              <div class="field-error">
+                {{ getFieldError('birthDate') }}
+              </div>
+            }
           </div>
         </div>
       </div>
@@ -43,12 +47,16 @@
             appearance="outline">
           </amw-datepicker>
           <div class="field-info">
-            <span class="selected-date" *ngIf="getFieldValue('startDate')">
-              Selected: {{ getFieldValue('startDate') | date:'mediumDate' }}
-            </span>
-            <div class="field-error" *ngIf="getFieldError('startDate')">
-              {{ getFieldError('startDate') }}
-            </div>
+            @if (getFieldValue('startDate')) {
+              <span class="selected-date">
+                Selected: {{ getFieldValue('startDate') | date:'mediumDate' }}
+              </span>
+            }
+            @if (getFieldError('startDate')) {
+              <div class="field-error">
+                {{ getFieldError('startDate') }}
+              </div>
+            }
           </div>
         </div>
       </div>
@@ -66,12 +74,16 @@
             appearance="outline">
           </amw-datepicker>
           <div class="field-info">
-            <span class="selected-date" *ngIf="getFieldValue('endDate')">
-              Selected: {{ getFieldValue('endDate') | date:'mediumDate' }}
-            </span>
-            <div class="field-error" *ngIf="getFieldError('endDate')">
-              {{ getFieldError('endDate') }}
-            </div>
+            @if (getFieldValue('endDate')) {
+              <span class="selected-date">
+                Selected: {{ getFieldValue('endDate') | date:'mediumDate' }}
+              </span>
+            }
+            @if (getFieldError('endDate')) {
+              <div class="field-error">
+                {{ getFieldError('endDate') }}
+              </div>
+            }
           </div>
         </div>
       </div>
@@ -89,12 +101,16 @@
             appearance="outline">
           </amw-datepicker>
           <div class="field-info">
-            <span class="selected-date" *ngIf="getFieldValue('eventDate')">
-              Selected: {{ getFieldValue('eventDate') | date:'mediumDate' }}
-            </span>
-            <div class="field-error" *ngIf="getFieldError('eventDate')">
-              {{ getFieldError('eventDate') }}
-            </div>
+            @if (getFieldValue('eventDate')) {
+              <span class="selected-date">
+                Selected: {{ getFieldValue('eventDate') | date:'mediumDate' }}
+              </span>
+            }
+            @if (getFieldError('eventDate')) {
+              <div class="field-error">
+                {{ getFieldError('eventDate') }}
+              </div>
+            }
           </div>
         </div>
       </div>
@@ -112,12 +128,16 @@
             appearance="outline">
           </amw-datepicker>
           <div class="field-info">
-            <span class="selected-date" *ngIf="getFieldValue('appointmentDate')">
-              Selected: {{ getFieldValue('appointmentDate') | date:'mediumDate' }}
-            </span>
-            <div class="field-error" *ngIf="getFieldError('appointmentDate')">
-              {{ getFieldError('appointmentDate') }}
-            </div>
+            @if (getFieldValue('appointmentDate')) {
+              <span class="selected-date">
+                Selected: {{ getFieldValue('appointmentDate') | date:'mediumDate' }}
+              </span>
+            }
+            @if (getFieldError('appointmentDate')) {
+              <div class="field-error">
+                {{ getFieldError('appointmentDate') }}
+              </div>
+            }
           </div>
         </div>
       </div>

@@ -6,7 +6,7 @@
         <mat-card-title>Dialog Service Methods</mat-card-title>
         <mat-card-subtitle>Quick access to common dialog types using the service</mat-card-subtitle>
       </mat-card-header>
-      
+
       <mat-card-content>
         <div class="dialog-demo__service-buttons">
           <button mat-raised-button color="primary" (click)="openAlert()">
@@ -44,24 +44,25 @@
 
   <!-- Custom Dialog Variations -->
   <div class="dialog-demo__grid">
-    <mat-card *ngFor="let variation of dialogVariations" class="dialog-demo__card">
-      <mat-card-header>
-        <mat-card-title>{{ variation.title }}</mat-card-title>
-        <mat-card-subtitle>{{ variation.description }}</mat-card-subtitle>
-      </mat-card-header>
-      
-      <mat-card-content>
-        <div class="dialog-demo__example">
-          <button 
-            mat-raised-button 
-            color="primary"
-            (click)="openDialog(variation)"
-            class="dialog-demo__button">
-            <mat-icon>open_in_new</mat-icon>
-            Open Dialog
-          </button>
-        </div>
-      </mat-card-content>
-    </mat-card>
+    @for (variation of dialogVariations; track variation) {
+      <mat-card class="dialog-demo__card">
+        <mat-card-header>
+          <mat-card-title>{{ variation.title }}</mat-card-title>
+          <mat-card-subtitle>{{ variation.description }}</mat-card-subtitle>
+        </mat-card-header>
+        <mat-card-content>
+          <div class="dialog-demo__example">
+            <button
+              mat-raised-button
+              color="primary"
+              (click)="openDialog(variation)"
+              class="dialog-demo__button">
+              <mat-icon>open_in_new</mat-icon>
+              Open Dialog
+            </button>
+          </div>
+        </mat-card-content>
+      </mat-card>
+    }
   </div>
 </div>

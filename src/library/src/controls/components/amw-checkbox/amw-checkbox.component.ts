@@ -1,5 +1,5 @@
 import { Component, Input, Output, EventEmitter, ViewEncapsulation, forwardRef } from '@angular/core';
-import { CommonModule } from '@angular/common';
+
 import { FormsModule, ReactiveFormsModule, ControlValueAccessor, NG_VALUE_ACCESSOR } from '@angular/forms';
 import { MatCheckboxModule } from '@angular/material/checkbox';
 import { MatRippleModule } from '@angular/material/core';
@@ -10,7 +10,7 @@ import { AmwSize } from '../../../shared/types/amw-size.type';
 @Component({
     selector: 'amw-checkbox',
     standalone: true,
-    imports: [CommonModule, FormsModule, ReactiveFormsModule, MatCheckboxModule, MatRippleModule],
+    imports: [FormsModule, ReactiveFormsModule, MatCheckboxModule, MatRippleModule],
     encapsulation: ViewEncapsulation.None,
     templateUrl: './amw-checkbox.component.html',
     styleUrl: './amw-checkbox.component.scss',

@@ -1,286 +1,313 @@
-<div class="amw-calendar-full" 
-     [class]="internalConfig.cssClass"
-     [class.amw-calendar-full--loading]="loading"
-     [class.amw-calendar-full--disabled]="disabled"
-     [style.height]="height">
+<div class="amw-calendar-full"
+  [class]="internalConfig.cssClass"
+  [class.amw-calendar-full--loading]="loading"
+  [class.amw-calendar-full--disabled]="disabled"
+  [style.height]="height">
 
   <!-- Loading Spinner -->
-  <div *ngIf="loading" class="amw-calendar-full__loading">
-    <mat-spinner diameter="40"></mat-spinner>
-    <p>Loading calendar...</p>
-  </div>
+  @if (loading) {
+    <div class="amw-calendar-full__loading">
+      <mat-spinner diameter="40"></mat-spinner>
+      <p>Loading calendar...</p>
+    </div>
+  }
 
   <!-- Calendar Header -->
-  <div *ngIf="showNavigation" class="amw-calendar-full__header">
-    <!-- Navigation Controls -->
-    <div class="amw-calendar-full__navigation">
-      <button mat-icon-button 
-              (click)="navigatePrevious()"
-              [disabled]="disabled"
-              matTooltip="Previous">
-        <mat-icon>chevron_left</mat-icon>
-      </button>
-      
-      <button mat-button 
-              (click)="navigateToday()"
-              [disabled]="disabled"
-              matTooltip="Today">
-        Today
-      </button>
-      
-      <button mat-icon-button 
-              (click)="navigateNext()"
-              [disabled]="disabled"
-              matTooltip="Next">
-        <mat-icon>chevron_right</mat-icon>
-      </button>
+  @if (showNavigation) {
+    <div class="amw-calendar-full__header">
+      <!-- Navigation Controls -->
+      <div class="amw-calendar-full__navigation">
+        <button mat-icon-button
+          (click)="navigatePrevious()"
+          [disabled]="disabled"
+          matTooltip="Previous">
+          <mat-icon>chevron_left</mat-icon>
+        </button>
+        <button mat-button
+          (click)="navigateToday()"
+          [disabled]="disabled"
+          matTooltip="Today">
+          Today
+        </button>
+        <button mat-icon-button
+          (click)="navigateNext()"
+          [disabled]="disabled"
+          matTooltip="Next">
+          <mat-icon>chevron_right</mat-icon>
+        </button>
+      </div>
+      <!-- Current Date/Period Display -->
+      <div class="amw-calendar-full__current-period">
+        @if (currentView === 'month') {
+          <h2>
+            {{ getCurrentMonthName() }} {{ getCurrentYear() }}
+          </h2>
+        }
+        @if (currentView === 'week') {
+          <h2>
+            {{ getCurrentWeekRange() }}
+          </h2>
+        }
+        @if (currentView === 'day') {
+          <h2>
+            {{ getFormattedDate(selectedDate, 'long') }}
+          </h2>
+        }
+      </div>
+      <!-- View Switcher -->
+      @if (showViewSwitcher) {
+        <div class="amw-calendar-full__view-switcher">
+          <button mat-button
+            [class.amw-calendar-full__view-button--active]="currentView === 'month'"
+            (click)="changeView('month')"
+            [disabled]="disabled">
+            Month
+          </button>
+          <button mat-button
+            [class.amw-calendar-full__view-button--active]="currentView === 'week'"
+            (click)="changeView('week')"
+            [disabled]="disabled">
+            Week
+          </button>
+          <button mat-button
+            [class.amw-calendar-full__view-button--active]="currentView === 'day'"
+            (click)="changeView('day')"
+            [disabled]="disabled">
+            Day
+          </button>
+        </div>
+      }
+      <!-- Create Event/Item Button -->
+      @if (showCreateButton && (internalConfig.allowCreate || internalItemConfig.allowCreate)) {
+        <div class="amw-calendar-full__actions">
+          <button mat-raised-button
+            color="primary"
+            #createButton
+            (click)="onCreateButtonClick($event)"
+            [disabled]="disabled">
+            <mat-icon>add</mat-icon>
+            {{ useNewItemSystem ? 'Create Item' : 'Create Event' }}
+          </button>
+        </div>
+      }
     </div>
-
-    <!-- Current Date/Period Display -->
-    <div class="amw-calendar-full__current-period">
-      <h2 *ngIf="currentView === 'month'">
-        {{ getCurrentMonthName() }} {{ getCurrentYear() }}
-      </h2>
-      <h2 *ngIf="currentView === 'week'">
-        {{ getCurrentWeekRange() }}
-      </h2>
-      <h2 *ngIf="currentView === 'day'">
-        {{ getFormattedDate(selectedDate, 'long') }}
-      </h2>
-    </div>
-
-    <!-- View Switcher -->
-    <div *ngIf="showViewSwitcher" class="amw-calendar-full__view-switcher">
-      <button mat-button 
-              [class.amw-calendar-full__view-button--active]="currentView === 'month'"
-              (click)="changeView('month')"
-              [disabled]="disabled">
-        Month
-      </button>
-      <button mat-button 
-              [class.amw-calendar-full__view-button--active]="currentView === 'week'"
-              (click)="changeView('week')"
-              [disabled]="disabled">
-        Week
-      </button>
-      <button mat-button 
-              [class.amw-calendar-full__view-button--active]="currentView === 'day'"
-              (click)="changeView('day')"
-              [disabled]="disabled">
-        Day
-      </button>
-    </div>
-
-    <!-- Create Event/Item Button -->
-    <div *ngIf="showCreateButton && (internalConfig.allowCreate || internalItemConfig.allowCreate)" class="amw-calendar-full__actions">
-      <button mat-raised-button 
-              color="primary"
-              #createButton
-              (click)="onCreateButtonClick($event)"
-              [disabled]="disabled">
-        <mat-icon>add</mat-icon>
-        {{ useNewItemSystem ? 'Create Item' : 'Create Event' }}
-      </button>
-    </div>
-  </div>
+  }
 
   <!-- Calendar Content -->
   <div class="amw-calendar-full__content">
-    
-    <!-- Month View -->
-    <div *ngIf="currentView === 'month'" class="amw-calendar-full__month-view">
-      <!-- Week Day Headers -->
-      <div class="amw-calendar-full__week-header">
-        <div *ngFor="let dayName of getWeekDayNames()" 
-             class="amw-calendar-full__week-day-header">
-          {{ dayName }}
-        </div>
-      </div>
 
-      <!-- Month Grid -->
-      <div class="amw-calendar-full__month-grid">
-        <div *ngFor="let date of monthDays; let i = index" 
-             class="amw-calendar-full__month-cell"
-             [class.amw-calendar-full__month-cell--current-month]="isCurrentMonth(date)"
-             [class.amw-calendar-full__month-cell--today]="isToday(date)"
-             [class.amw-calendar-full__month-cell--weekend]="isWeekend(date)"
-             #cellElement
-             (click)="useNewItemSystem ? onCellClickForItem(date, undefined, cellElement) : onCellClick(date)"
-             (dblclick)="useNewItemSystem ? onCellClickForItem(date, undefined, cellElement) : onCellDoubleClick(date)"
-             (dragover)="onDragOver($event)"
-             (drop)="onDrop($event, date)">
-          
-          <div class="amw-calendar-full__cell-date">
-            {{ date.getDate() }}
-          </div>
-          
-          <div class="amw-calendar-full__cell-events">
-            <div *ngFor="let event of getEventsForDate(date)" 
-                 class="amw-calendar-full__event"
-                 [class]="getEventClasses(event).join(' ')"
-                 [style.background-color]="getEventColor(event)"
-                 (click)="onEventClick(event, $event)"
-                 (dblclick)="onEventDoubleClick(event)"
-                 [draggable]="isEventDraggable(event)"
-                 (dragstart)="onDragStart($event, event)"
-                 (dragend)="onDragEnd()">
-              
-              <span class="amw-calendar-full__event-title">
-                {{ getEventDisplayText(event) }}
-              </span>
-              <span *ngIf="event.description" 
-                    class="amw-calendar-full__event-description">
-                {{ event.description }}
-              </span>
-              <span *ngIf="!event.allDay && internalConfig.showTime" 
-                    class="amw-calendar-full__event-time">
-                {{ getFormattedTime(event.start) }}
-              </span>
-              
+    <!-- Month View -->
+    @if (currentView === 'month') {
+      <div class="amw-calendar-full__month-view">
+        <!-- Week Day Headers -->
+        <div class="amw-calendar-full__week-header">
+          @for (dayName of getWeekDayNames(); track dayName) {
+            <div
+              class="amw-calendar-full__week-day-header">
+              {{ dayName }}
             </div>
-          </div>
+          }
+        </div>
+        <!-- Month Grid -->
+        <div class="amw-calendar-full__month-grid">
+          @for (date of monthDays; track date; let i = $index) {
+            <div
+              class="amw-calendar-full__month-cell"
+              [class.amw-calendar-full__month-cell--current-month]="isCurrentMonth(date)"
+              [class.amw-calendar-full__month-cell--today]="isToday(date)"
+              [class.amw-calendar-full__month-cell--weekend]="isWeekend(date)"
+              #cellElement
+              (click)="useNewItemSystem ? onCellClickForItem(date, undefined, cellElement) : onCellClick(date)"
+              (dblclick)="useNewItemSystem ? onCellClickForItem(date, undefined, cellElement) : onCellDoubleClick(date)"
+              (dragover)="onDragOver($event)"
+              (drop)="onDrop($event, date)">
+              <div class="amw-calendar-full__cell-date">
+                {{ date.getDate() }}
+              </div>
+              <div class="amw-calendar-full__cell-events">
+                @for (event of getEventsForDate(date); track event) {
+                  <div
+                    class="amw-calendar-full__event"
+                    [class]="getEventClasses(event).join(' ')"
+                    [style.background-color]="getEventColor(event)"
+                    (click)="onEventClick(event, $event)"
+                    (dblclick)="onEventDoubleClick(event)"
+                    [draggable]="isEventDraggable(event)"
+                    (dragstart)="onDragStart($event, event)"
+                    (dragend)="onDragEnd()">
+                    <span class="amw-calendar-full__event-title">
+                      {{ getEventDisplayText(event) }}
+                    </span>
+                    @if (event.description) {
+                      <span
+                        class="amw-calendar-full__event-description">
+                        {{ event.description }}
+                      </span>
+                    }
+                    @if (!event.allDay && internalConfig.showTime) {
+                      <span
+                        class="amw-calendar-full__event-time">
+                        {{ getFormattedTime(event.start) }}
+                      </span>
+                    }
+                  </div>
+                }
+              </div>
+            </div>
+          }
         </div>
       </div>
-    </div>
+    }
 
     <!-- Week View -->
-    <div *ngIf="currentView === 'week'" class="amw-calendar-full__week-view">
-      <!-- Week Day Headers -->
-      <div class="amw-calendar-full__week-header">
-        <div *ngFor="let date of weekDays" 
-             class="amw-calendar-full__week-day-header"
-             [class.amw-calendar-full__week-day-header--today]="isToday(date)"
-             [class.amw-calendar-full__week-day-header--weekend]="isWeekend(date)">
-          <div class="amw-calendar-full__week-day-name">
-            {{ getWeekDayNames()[date.getDay()] }}
-          </div>
-          <div class="amw-calendar-full__week-day-date">
-            {{ date.getDate() }}
-          </div>
-        </div>
-      </div>
-
-      <!-- Week Grid -->
-      <div class="amw-calendar-full__week-grid">
-        <div *ngFor="let date of weekDays" 
-             class="amw-calendar-full__week-cell"
-             [class.amw-calendar-full__week-cell--today]="isToday(date)"
-             [class.amw-calendar-full__week-cell--weekend]="isWeekend(date)"
-             (click)="onCellClick(date)"
-             (dblclick)="onCellDoubleClick(date)"
-             (dragover)="onDragOver($event)"
-             (drop)="onDrop($event, date)">
-          
-          <div class="amw-calendar-full__cell-events">
-            <div *ngFor="let event of getEventsForDate(date)" 
-                 class="amw-calendar-full__event"
-                 [class]="getEventClasses(event).join(' ')"
-                 [style.background-color]="getEventColor(event)"
-                 (click)="onEventClick(event, $event)"
-                 (dblclick)="onEventDoubleClick(event)"
-                 [draggable]="isEventDraggable(event)"
-                 (dragstart)="onDragStart($event, event)"
-                 (dragend)="onDragEnd()">
-              
-              <span class="amw-calendar-full__event-title">
-                {{ getEventDisplayText(event) }}
-              </span>
-              <span *ngIf="!event.allDay && internalConfig.showTime" 
-                    class="amw-calendar-full__event-time">
-                {{ getFormattedTime(event.start) }}
-              </span>
-              
+    @if (currentView === 'week') {
+      <div class="amw-calendar-full__week-view">
+        <!-- Week Day Headers -->
+        <div class="amw-calendar-full__week-header">
+          @for (date of weekDays; track date) {
+            <div
+              class="amw-calendar-full__week-day-header"
+              [class.amw-calendar-full__week-day-header--today]="isToday(date)"
+              [class.amw-calendar-full__week-day-header--weekend]="isWeekend(date)">
+              <div class="amw-calendar-full__week-day-name">
+                {{ getWeekDayNames()[date.getDay()] }}
+              </div>
+              <div class="amw-calendar-full__week-day-date">
+                {{ date.getDate() }}
+              </div>
             </div>
-          </div>
+          }
+        </div>
+        <!-- Week Grid -->
+        <div class="amw-calendar-full__week-grid">
+          @for (date of weekDays; track date) {
+            <div
+              class="amw-calendar-full__week-cell"
+              [class.amw-calendar-full__week-cell--today]="isToday(date)"
+              [class.amw-calendar-full__week-cell--weekend]="isWeekend(date)"
+              (click)="onCellClick(date)"
+              (dblclick)="onCellDoubleClick(date)"
+              (dragover)="onDragOver($event)"
+              (drop)="onDrop($event, date)">
+              <div class="amw-calendar-full__cell-events">
+                @for (event of getEventsForDate(date); track event) {
+                  <div
+                    class="amw-calendar-full__event"
+                    [class]="getEventClasses(event).join(' ')"
+                    [style.background-color]="getEventColor(event)"
+                    (click)="onEventClick(event, $event)"
+                    (dblclick)="onEventDoubleClick(event)"
+                    [draggable]="isEventDraggable(event)"
+                    (dragstart)="onDragStart($event, event)"
+                    (dragend)="onDragEnd()">
+                    <span class="amw-calendar-full__event-title">
+                      {{ getEventDisplayText(event) }}
+                    </span>
+                    @if (!event.allDay && internalConfig.showTime) {
+                      <span
+                        class="amw-calendar-full__event-time">
+                        {{ getFormattedTime(event.start) }}
+                      </span>
+                    }
+                  </div>
+                }
+              </div>
+            </div>
+          }
         </div>
       </div>
-    </div>
+    }
 
     <!-- Day View -->
-    <div *ngIf="currentView === 'day'" class="amw-calendar-full__day-view">
-      <!-- Fixed Header Section -->
-      <div class="amw-calendar-full__day-fixed-header">
-        <!-- Day Header -->
-        <div class="amw-calendar-full__day-header">
-          <h3>{{ getFormattedDate(selectedDate, 'long') }}</h3>
-        </div>
-
-        <!-- All-Day Events Section -->
-        <div class="amw-calendar-full__allday-section">
-          <div class="amw-calendar-full__allday-label">
-            All Day
+    @if (currentView === 'day') {
+      <div class="amw-calendar-full__day-view">
+        <!-- Fixed Header Section -->
+        <div class="amw-calendar-full__day-fixed-header">
+          <!-- Day Header -->
+          <div class="amw-calendar-full__day-header">
+            <h3>{{ getFormattedDate(selectedDate, 'long') }}</h3>
           </div>
-          <div class="amw-calendar-full__allday-events">
-            <div *ngFor="let event of getAllDayEventsForDate(selectedDate)" 
-                 class="amw-calendar-full__event amw-calendar-full__event--allday"
-                 [class]="getEventClasses(event).join(' ')"
-                 [style.background-color]="getEventColor(event)"
-                 (click)="onEventClick(event, $event)"
-                 (dblclick)="onEventDoubleClick(event)"
-                 [draggable]="isEventDraggable(event)"
-                 (dragstart)="onDragStart($event, event)"
-                 (dragend)="onDragEnd()">
-              
-              <span class="amw-calendar-full__event-title">
-                {{ getEventDisplayText(event) }}
-              </span>
-              <span *ngIf="event.description" 
+          <!-- All-Day Events Section -->
+          <div class="amw-calendar-full__allday-section">
+            <div class="amw-calendar-full__allday-label">
+              All Day
+            </div>
+            <div class="amw-calendar-full__allday-events">
+              @for (event of getAllDayEventsForDate(selectedDate); track event) {
+                <div
+                  class="amw-calendar-full__event amw-calendar-full__event--allday"
+                  [class]="getEventClasses(event).join(' ')"
+                  [style.background-color]="getEventColor(event)"
+                  (click)="onEventClick(event, $event)"
+                  (dblclick)="onEventDoubleClick(event)"
+                  [draggable]="isEventDraggable(event)"
+                  (dragstart)="onDragStart($event, event)"
+                  (dragend)="onDragEnd()">
+                  <span class="amw-calendar-full__event-title">
+                    {{ getEventDisplayText(event) }}
+                  </span>
+                  @if (event.description) {
+                    <span
+                      class="amw-calendar-full__event-description">
+                      {{ event.description }}
+                    </span>
+                  }
+                </div>
+              }
+            </div>
+          </div>
+        </div>
+        <!-- Scrollable Hours Section -->
+        <div class="amw-calendar-full__day-scrollable-content">
+          <div class="amw-calendar-full__day-grid">
+            <!-- Hour slots -->
+            @for (hour of dayHours; track hour; let i = $index) {
+              <div
+                class="amw-calendar-full__day-hour"
+                (click)="onCellClick(selectedDate, hour)"
+                (dblclick)="onCellDoubleClick(selectedDate, hour)"
+                (dragover)="onDragOver($event)"
+                (drop)="onDrop($event, selectedDate, hour)">
+                <div class="amw-calendar-full__hour-label">
+                  {{ getFormattedTime(hour) }}
+                </div>
+                <div class="amw-calendar-full__hour-content">
+                  <!-- Empty content area for hour slots -->
+                </div>
+              </div>
+            }
+            <!-- Events positioned relative to entire day grid -->
+            @for (event of getTimedEventsForDate(); track event) {
+              <div
+                class="amw-calendar-full__event"
+                [class]="getEventClasses(event).join(' ')"
+                [style.background-color]="getEventColor(event)"
+                [style]="getEventPosition(event)"
+                (click)="onEventClick(event, $event)"
+                (dblclick)="onEventDoubleClick(event)"
+                [draggable]="isEventDraggable(event)"
+                (dragstart)="onDragStart($event, event)"
+                (dragend)="onDragEnd()">
+                <span class="amw-calendar-full__event-title">
+                  {{ getEventDisplayText(event) }}
+                </span>
+                @if (event.description) {
+                  <span
                     class="amw-calendar-full__event-description">
-                {{ event.description }}
-              </span>
-              
-            </div>
+                    {{ event.description }}
+                  </span>
+                }
+                @if (!event.allDay) {
+                  <span
+                    class="amw-calendar-full__event-time">
+                    {{ getFormattedTime(event.start) }} - {{ getFormattedTime(event.end || event.start) }}
+                  </span>
+                }
+              </div>
+            }
           </div>
         </div>
       </div>
-
-      <!-- Scrollable Hours Section -->
-      <div class="amw-calendar-full__day-scrollable-content">
-        <div class="amw-calendar-full__day-grid">
-          <!-- Hour slots -->
-          <div *ngFor="let hour of dayHours; let i = index" 
-               class="amw-calendar-full__day-hour"
-               (click)="onCellClick(selectedDate, hour)"
-               (dblclick)="onCellDoubleClick(selectedDate, hour)"
-               (dragover)="onDragOver($event)"
-               (drop)="onDrop($event, selectedDate, hour)">
-            
-            <div class="amw-calendar-full__hour-label">
-              {{ getFormattedTime(hour) }}
-            </div>
-            
-            <div class="amw-calendar-full__hour-content">
-              <!-- Empty content area for hour slots -->
-            </div>
-          </div>
-          
-          <!-- Events positioned relative to entire day grid -->
-          <div *ngFor="let event of getTimedEventsForDate()" 
-               class="amw-calendar-full__event"
-               [class]="getEventClasses(event).join(' ')"
-               [style.background-color]="getEventColor(event)"
-               [style]="getEventPosition(event)"
-               (click)="onEventClick(event, $event)"
-               (dblclick)="onEventDoubleClick(event)"
-               [draggable]="isEventDraggable(event)"
-               (dragstart)="onDragStart($event, event)"
-               (dragend)="onDragEnd()">
-            
-            <span class="amw-calendar-full__event-title">
-              {{ getEventDisplayText(event) }}
-            </span>
-            <span *ngIf="event.description" 
-                  class="amw-calendar-full__event-description">
-              {{ event.description }}
-            </span>
-            <span *ngIf="!event.allDay" 
-                  class="amw-calendar-full__event-time">
-              {{ getFormattedTime(event.start) }} - {{ getFormattedTime(event.end || event.start) }}
-            </span>
-            
-          </div>
-        </div>
-      </div>
-    </div>
+    }
   </div>
 </div>

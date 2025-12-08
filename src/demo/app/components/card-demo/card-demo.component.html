@@ -6,7 +6,7 @@
         <mat-card-title>Card Service Demo</mat-card-title>
         <mat-card-subtitle>Manage cards using the CardService with filtering, sorting, and CRUD operations</mat-card-subtitle>
       </mat-card-header>
-      
+
       <mat-card-content>
         <!-- Search and Filters -->
         <div class="card-demo__controls">
@@ -15,7 +15,7 @@
             <input matInput [(ngModel)]="searchTerm" (input)="onSearch()" placeholder="Search by title, subtitle, or content">
             <mat-icon matSuffix>search</mat-icon>
           </mat-form-field>
-          
+
           <mat-form-field appearance="outline" class="card-demo__filter">
             <mat-label>Variant</mat-label>
             <mat-select [(ngModel)]="selectedVariant" (selectionChange)="onFilterChange()">
@@ -25,7 +25,7 @@
               <mat-option value="filled">Filled</mat-option>
             </mat-select>
           </mat-form-field>
-          
+
           <mat-form-field appearance="outline" class="card-demo__filter">
             <mat-label>Size</mat-label>
             <mat-select [(ngModel)]="selectedSize" (selectionChange)="onFilterChange()">
@@ -36,7 +36,7 @@
             </mat-select>
           </mat-form-field>
         </div>
-        
+
         <!-- Filter Checkboxes -->
         <div class="card-demo__checkboxes">
           <mat-checkbox [(ngModel)]="showClickableOnly" (change)="onFilterChange()">
@@ -49,7 +49,7 @@
             With Actions Only
           </mat-checkbox>
         </div>
-        
+
         <!-- Sort Controls -->
         <div class="card-demo__sort">
           <mat-form-field appearance="outline" class="card-demo__sort-field">
@@ -60,7 +60,7 @@
               <mat-option value="updatedAt">Updated Date</mat-option>
             </mat-select>
           </mat-form-field>
-          
+
           <mat-form-field appearance="outline" class="card-demo__sort-field">
             <mat-label>Direction</mat-label>
             <mat-select [(ngModel)]="sortDirection" (selectionChange)="onSortChange()">
@@ -69,7 +69,7 @@
             </mat-select>
           </mat-form-field>
         </div>
-        
+
         <!-- Action Buttons -->
         <div class="card-demo__actions">
           <button mat-raised-button color="primary" (click)="addSampleCard()">
@@ -94,83 +94,87 @@
   </div>
 
   <!-- Service Cards Display -->
-  <div class="card-demo__service-cards" *ngIf="filteredCards.length > 0">
-    <h3>Service-Managed Cards ({{ filteredCards.length }})</h3>
-    <div class="card-demo__service-grid">
-      <amw-card
-        *ngFor="let card of filteredCards"
-        [headerTitle]="card.title"
-        [headerSubtitle]="card.subtitle || ''"
-        [image]="card.image || ''"
-        [imageAlt]="card.imageAlt || ''"
-        [content]="card.content"
-        [actions]="card.actions || []"
-        [clickable]="card.clickable || false"
-        [disabled]="card.disabled || false"
-        [loading]="card.loading || false"
-        [variant]="card.variant || 'elevated'"
-        [size]="card.size || 'medium'"
-        [elevation]="card.elevation || 1"
-        [config]="card.config || {}"
-        (cardClick)="onCardClick()"
-        (actionClick)="onActionClick($event)"
-        (headerClick)="onHeaderClick()"
-        (imageClick)="onImageClick()"
-        class="card-demo__service-card"
-      >
-        <ng-template #cardActions>
-          <button mat-icon-button (click)="duplicateCard(card)" matTooltip="Duplicate">
-            <mat-icon>content_copy</mat-icon>
-          </button>
-          <button mat-icon-button (click)="toggleCardLoading(card)" matTooltip="Toggle Loading">
-            <mat-icon>{{ card.loading ? 'pause' : 'play_arrow' }}</mat-icon>
-          </button>
-          <button mat-icon-button (click)="toggleCardDisabled(card)" matTooltip="Toggle Disabled">
-            <mat-icon>{{ card.disabled ? 'check_circle' : 'cancel' }}</mat-icon>
-          </button>
-          <button mat-icon-button (click)="deleteCard(card)" matTooltip="Delete" color="warn">
-            <mat-icon>delete</mat-icon>
-          </button>
-        </ng-template>
-      </amw-card>
+  @if (filteredCards.length > 0) {
+    <div class="card-demo__service-cards">
+      <h3>Service-Managed Cards ({{ filteredCards.length }})</h3>
+      <div class="card-demo__service-grid">
+        @for (card of filteredCards; track card) {
+          <amw-card
+            [headerTitle]="card.title"
+            [headerSubtitle]="card.subtitle || ''"
+            [image]="card.image || ''"
+            [imageAlt]="card.imageAlt || ''"
+            [content]="card.content"
+            [actions]="card.actions || []"
+            [clickable]="card.clickable || false"
+            [disabled]="card.disabled || false"
+            [loading]="card.loading || false"
+            [variant]="card.variant || 'elevated'"
+            [size]="card.size || 'medium'"
+            [elevation]="card.elevation || 1"
+            [config]="card.config || {}"
+            (cardClick)="onCardClick()"
+            (actionClick)="onActionClick($event)"
+            (headerClick)="onHeaderClick()"
+            (imageClick)="onImageClick()"
+            class="card-demo__service-card"
+            >
+            <ng-template #cardActions>
+              <button mat-icon-button (click)="duplicateCard(card)" matTooltip="Duplicate">
+                <mat-icon>content_copy</mat-icon>
+              </button>
+              <button mat-icon-button (click)="toggleCardLoading(card)" matTooltip="Toggle Loading">
+                <mat-icon>{{ card.loading ? 'pause' : 'play_arrow' }}</mat-icon>
+              </button>
+              <button mat-icon-button (click)="toggleCardDisabled(card)" matTooltip="Toggle Disabled">
+                <mat-icon>{{ card.disabled ? 'check_circle' : 'cancel' }}</mat-icon>
+              </button>
+              <button mat-icon-button (click)="deleteCard(card)" matTooltip="Delete" color="warn">
+                <mat-icon>delete</mat-icon>
+              </button>
+            </ng-template>
+          </amw-card>
+        }
+      </div>
     </div>
-  </div>
+  }
 
   <!-- Static Card Variations -->
   <div class="card-demo__variations">
     <h3>Static Card Variations</h3>
     <div class="card-demo__grid">
-      <mat-card *ngFor="let variation of cardVariations" class="card-demo__card">
-        <mat-card-header>
-          <mat-card-title>{{ variation.title }}</mat-card-title>
-          <mat-card-subtitle>{{ variation.description }}</mat-card-subtitle>
-        </mat-card-header>
-        
-        <mat-card-content>
-          <div class="card-demo__example">
-            <amw-card
-              [headerTitle]="variation.card.headerTitle"
-              [headerSubtitle]="variation.card.headerSubtitle"
-              [headerIcon]="variation.card.headerIcon || ''"
-              [image]="variation.card.image || ''"
-              [imageAlt]="variation.card.imageAlt || ''"
-              [content]="variation.card.content"
-              [actions]="variation.card.actions || []"
-              [clickable]="variation.card.clickable || false"
-              [disabled]="variation.card.disabled || false"
-              [loading]="variation.card.loading || false"
-              [variant]="variation.card.variant || 'elevated'"
-              [size]="variation.card.size || 'medium'"
-              [elevation]="variation.card.elevation || 1"
-              [config]="variation.card.config || {}"
-              (cardClick)="onCardClick()"
-              (actionClick)="onActionClick($event)"
-              (headerClick)="onHeaderClick()"
-              (imageClick)="onImageClick()"
-            ></amw-card>
-          </div>
-        </mat-card-content>
-      </mat-card>
+      @for (variation of cardVariations; track variation) {
+        <mat-card class="card-demo__card">
+          <mat-card-header>
+            <mat-card-title>{{ variation.title }}</mat-card-title>
+            <mat-card-subtitle>{{ variation.description }}</mat-card-subtitle>
+          </mat-card-header>
+          <mat-card-content>
+            <div class="card-demo__example">
+              <amw-card
+                [headerTitle]="variation.card.headerTitle"
+                [headerSubtitle]="variation.card.headerSubtitle"
+                [headerIcon]="variation.card.headerIcon || ''"
+                [image]="variation.card.image || ''"
+                [imageAlt]="variation.card.imageAlt || ''"
+                [content]="variation.card.content"
+                [actions]="variation.card.actions || []"
+                [clickable]="variation.card.clickable || false"
+                [disabled]="variation.card.disabled || false"
+                [loading]="variation.card.loading || false"
+                [variant]="variation.card.variant || 'elevated'"
+                [size]="variation.card.size || 'medium'"
+                [elevation]="variation.card.elevation || 1"
+                [config]="variation.card.config || {}"
+                (cardClick)="onCardClick()"
+                (actionClick)="onActionClick($event)"
+                (headerClick)="onHeaderClick()"
+                (imageClick)="onImageClick()"
+              ></amw-card>
+            </div>
+          </mat-card-content>
+        </mat-card>
+      }
     </div>
   </div>
 </div>

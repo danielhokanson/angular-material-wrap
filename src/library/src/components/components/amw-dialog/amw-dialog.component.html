@@ -1,112 +1,145 @@
 <div [class]="dialogClasses">
   <!-- Header -->
-  <div *ngIf="showHeader" class="amw-dialog__header">
-    <ng-container [ngTemplateOutlet]="headerTemplate" *ngIf="headerTemplate; else defaultHeader"></ng-container>
-    
-    <ng-template #defaultHeader>
-      <h2 class="amw-dialog__title">
-        <mat-icon *ngIf="type === 'warning' || type === 'alert'" class="dialog-icon">warning</mat-icon>
-        <mat-icon *ngIf="type === 'error'" class="dialog-icon">error</mat-icon>
-        <mat-icon *ngIf="type === 'success'" class="dialog-icon">check_circle</mat-icon>
-        <mat-icon *ngIf="type === 'info'" class="dialog-icon">info</mat-icon>
-        <mat-icon *ngIf="type === 'confirm'" class="dialog-icon">help</mat-icon>
-        <mat-icon *ngIf="!type || type === 'standard'" class="dialog-icon">info</mat-icon>
-        {{ title }}
-      </h2>
-      <button 
-        *ngIf="showCloseButton" 
-        mat-icon-button 
-        class="amw-dialog__close"
-        (click)="onCloseClick()"
-        [disabled]="!closable || disabled || loading">
-        <mat-icon>close</mat-icon>
-      </button>
-    </ng-template>
-  </div>
-  
+  @if (showHeader) {
+    <div class="amw-dialog__header">
+      @if (headerTemplate) {
+        <ng-container [ngTemplateOutlet]="headerTemplate"></ng-container>
+      } @else {
+        <h2 class="amw-dialog__title">
+          @if (type === 'warning' || type === 'alert') {
+            <mat-icon class="dialog-icon">warning</mat-icon>
+          }
+          @if (type === 'error') {
+            <mat-icon class="dialog-icon">error</mat-icon>
+          }
+          @if (type === 'success') {
+            <mat-icon class="dialog-icon">check_circle</mat-icon>
+          }
+          @if (type === 'info') {
+            <mat-icon class="dialog-icon">info</mat-icon>
+          }
+          @if (type === 'confirm') {
+            <mat-icon class="dialog-icon">help</mat-icon>
+          }
+          @if (!type || type === 'standard') {
+            <mat-icon class="dialog-icon">info</mat-icon>
+          }
+          {{ title }}
+        </h2>
+        @if (showCloseButton) {
+          <button
+            mat-icon-button
+            class="amw-dialog__close"
+            (click)="onCloseClick()"
+            [disabled]="!closable || disabled || loading">
+            <mat-icon>close</mat-icon>
+          </button>
+        }
+      }
+    </div>
+  }
+
   <!-- Content -->
   <div class="amw-dialog__content">
-    <ng-container [ngTemplateOutlet]="contentTemplate" *ngIf="contentTemplate; else defaultContent"></ng-container>
-    
-    <ng-template #defaultContent>
-      <div [ngSwitch]="type" class="dialog-content">
-        <!-- Success Message -->
-        <div *ngSwitchCase="'success'" class="success-message">
-          <mat-icon class="success-icon">check_circle</mat-icon>
-          <div>
-            <p class="success-text" [innerHTML]="content"></p>
-          </div>
-        </div>
-        
-        <!-- Alert Message -->
-        <div *ngSwitchCase="'alert'" class="alert-message">
-          <mat-icon class="alert-icon">warning</mat-icon>
-          <div>
-            <p class="alert-text" [innerHTML]="content"></p>
-          </div>
-        </div>
-        
-        <!-- Info Message -->
-        <div *ngSwitchCase="'info'" class="info-message">
-          <mat-icon class="info-icon">info</mat-icon>
-          <div>
-            <p class="info-text" [innerHTML]="content"></p>
-          </div>
-        </div>
-        
-        <!-- Warning Message -->
-        <div *ngSwitchCase="'warning'" class="alert-message">
-          <mat-icon class="alert-icon">warning</mat-icon>
-          <div>
-            <p class="alert-text" [innerHTML]="content"></p>
-          </div>
-        </div>
-        
-        <!-- Error Message -->
-        <div *ngSwitchCase="'error'" class="alert-message">
-          <mat-icon class="alert-icon">error</mat-icon>
-          <div>
-            <p class="alert-text" [innerHTML]="content"></p>
-          </div>
-        </div>
-        
-        <!-- Confirm Message -->
-        <div *ngSwitchCase="'confirm'" class="info-message">
-          <mat-icon class="info-icon">help_outline</mat-icon>
-          <div>
-            <p class="info-text" [innerHTML]="content"></p>
-          </div>
-        </div>
-        
-        <!-- Default/Standard Message -->
-        <div *ngSwitchDefault>
-          <p [innerHTML]="content"></p>
-        </div>
+    @if (contentTemplate) {
+      <ng-container [ngTemplateOutlet]="contentTemplate"></ng-container>
+    } @else {
+      <div class="dialog-content">
+        @switch (type) {
+          <!-- Success Message -->
+          @case ('success') {
+            <div class="success-message">
+              <mat-icon class="success-icon">check_circle</mat-icon>
+              <div>
+                <p class="success-text" [innerHTML]="content"></p>
+              </div>
+            </div>
+          }
+          <!-- Alert Message -->
+          @case ('alert') {
+            <div class="alert-message">
+              <mat-icon class="alert-icon">warning</mat-icon>
+              <div>
+                <p class="alert-text" [innerHTML]="content"></p>
+              </div>
+            </div>
+          }
+          <!-- Info Message -->
+          @case ('info') {
+            <div class="info-message">
+              <mat-icon class="info-icon">info</mat-icon>
+              <div>
+                <p class="info-text" [innerHTML]="content"></p>
+              </div>
+            </div>
+          }
+          <!-- Warning Message -->
+          @case ('warning') {
+            <div class="alert-message">
+              <mat-icon class="alert-icon">warning</mat-icon>
+              <div>
+                <p class="alert-text" [innerHTML]="content"></p>
+              </div>
+            </div>
+          }
+          <!-- Error Message -->
+          @case ('error') {
+            <div class="alert-message">
+              <mat-icon class="alert-icon">error</mat-icon>
+              <div>
+                <p class="alert-text" [innerHTML]="content"></p>
+              </div>
+            </div>
+          }
+          <!-- Confirm Message -->
+          @case ('confirm') {
+            <div class="info-message">
+              <mat-icon class="info-icon">help_outline</mat-icon>
+              <div>
+                <p class="info-text" [innerHTML]="content"></p>
+              </div>
+            </div>
+          }
+          <!-- Default/Standard Message -->
+          @default {
+            <div>
+              <p [innerHTML]="content"></p>
+            </div>
+          }
+        }
       </div>
-    </ng-template>
+    }
+
   </div>
-  
+
   <!-- Footer -->
-  <div *ngIf="showFooter && actions.length > 0" class="amw-dialog__footer">
-    <ng-container [ngTemplateOutlet]="footerTemplate" *ngIf="footerTemplate; else defaultFooter"></ng-container>
-    
-    <ng-template #defaultFooter>
-      <button 
-        *ngFor="let action of actions; let i = index"
-        mat-button
-        [color]="action.color || 'primary'"
-        [disabled]="action.disabled || disabled || loading"
-        (click)="onActionClick(action, i)"
-        class="amw-dialog__action">
-        <mat-icon *ngIf="action.icon" class="amw-dialog__action-icon">{{ action.icon }}</mat-icon>
-        {{ action.label }}
-      </button>
-    </ng-template>
-  </div>
-  
+  @if (showFooter && actions.length > 0) {
+    <div class="amw-dialog__footer">
+      @if (footerTemplate) {
+        <ng-container [ngTemplateOutlet]="footerTemplate"></ng-container>
+      } @else {
+        @for (action of actions; track action; let i = $index) {
+          <button
+            mat-button
+            [color]="action.color || 'primary'"
+            [disabled]="action.disabled || disabled || loading"
+            (click)="onActionClick(action, i)"
+            class="amw-dialog__action">
+            @if (action.icon) {
+              <mat-icon class="amw-dialog__action-icon">{{ action.icon }}</mat-icon>
+            }
+            {{ action.label }}
+          </button>
+        }
+      }
+    </div>
+  }
+
   <!-- Loading Overlay -->
-  <div *ngIf="loading" class="amw-dialog__loading">
-    <mat-spinner diameter="40"></mat-spinner>
-    <p>Loading...</p>
-  </div>
+  @if (loading) {
+    <div class="amw-dialog__loading">
+      <mat-spinner diameter="40"></mat-spinner>
+      <p>Loading...</p>
+    </div>
+  }
 </div>

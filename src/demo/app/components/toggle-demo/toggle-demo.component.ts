@@ -1,5 +1,5 @@
 import { Component, ViewEncapsulation } from '@angular/core';
-import { CommonModule } from '@angular/common';
+
 import { MatCardModule } from '@angular/material/card';
 import { MatButtonModule } from '@angular/material/button';
 import { MatIconModule } from '@angular/material/icon';
@@ -12,12 +12,11 @@ import { AmwColor } from '../../../../library/src/shared/types';
     selector: 'amw-demo-toggle',
     standalone: true,
     imports: [
-        CommonModule,
-        MatCardModule,
-        MatButtonModule,
-        MatIconModule,
-        AmwToggleComponent
-    ],
+    MatCardModule,
+    MatButtonModule,
+    MatIconModule,
+    AmwToggleComponent
+],
     encapsulation: ViewEncapsulation.None,
     templateUrl: './toggle-demo.component.html',
     styleUrl: './toggle-demo.component.scss'

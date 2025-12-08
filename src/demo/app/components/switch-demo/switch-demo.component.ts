@@ -1,5 +1,5 @@
 import { Component, ViewEncapsulation } from '@angular/core';
-import { CommonModule } from '@angular/common';
+
 import { FormsModule } from '@angular/forms';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
@@ -15,17 +15,16 @@ import { AmwSwitchComponent } from '../../../../library/src/controls/components/
     selector: 'amw-demo-switch',
     standalone: true,
     imports: [
-        CommonModule,
-        FormsModule,
-        MatFormFieldModule,
-        MatInputModule,
-        MatButtonModule,
-        MatIconModule,
-        MatCardModule,
-        MatDividerModule,
-        MatButtonToggleModule,
-        AmwSwitchComponent
-    ],
+    FormsModule,
+    MatFormFieldModule,
+    MatInputModule,
+    MatButtonModule,
+    MatIconModule,
+    MatCardModule,
+    MatDividerModule,
+    MatButtonToggleModule,
+    AmwSwitchComponent
+],
     encapsulation: ViewEncapsulation.None,
     templateUrl: './switch-demo.component.html',
     styleUrl: './switch-demo.component.scss'

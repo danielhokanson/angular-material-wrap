@@ -20,9 +20,11 @@
           </amw-textarea>
           <div class="field-info">
             <span class="character-count">{{ getCharacterCount('description') }}/500 characters</span>
-            <div class="field-error" *ngIf="getFieldError('description')">
-              {{ getFieldError('description') }}
-            </div>
+            @if (getFieldError('description')) {
+              <div class="field-error">
+                {{ getFieldError('description') }}
+              </div>
+            }
           </div>
         </div>
       </div>
@@ -40,9 +42,11 @@
           </amw-textarea>
           <div class="field-info">
             <span class="character-count">{{ getCharacterCount('comments') }}/1000 characters</span>
-            <div class="field-error" *ngIf="getFieldError('comments')">
-              {{ getFieldError('comments') }}
-            </div>
+            @if (getFieldError('comments')) {
+              <div class="field-error">
+                {{ getFieldError('comments') }}
+              </div>
+            }
           </div>
         </div>
       </div>
@@ -60,9 +64,11 @@
           </amw-textarea>
           <div class="field-info">
             <span class="character-count">{{ getCharacterCount('feedback') }} characters (min 20)</span>
-            <div class="field-error" *ngIf="getFieldError('feedback')">
-              {{ getFieldError('feedback') }}
-            </div>
+            @if (getFieldError('feedback')) {
+              <div class="field-error">
+                {{ getFieldError('feedback') }}
+              </div>
+            }
           </div>
         </div>
       </div>
@@ -80,9 +86,11 @@
           </amw-textarea>
           <div class="field-info">
             <span class="character-count">{{ getCharacterCount('bio') }}/200 characters</span>
-            <div class="field-error" *ngIf="getFieldError('bio')">
-              {{ getFieldError('bio') }}
-            </div>
+            @if (getFieldError('bio')) {
+              <div class="field-error">
+                {{ getFieldError('bio') }}
+              </div>
+            }
           </div>
         </div>
       </div>
@@ -100,9 +108,11 @@
           </amw-textarea>
           <div class="field-info">
             <span class="character-count">{{ getCharacterCount('requirements') }} characters (min 50)</span>
-            <div class="field-error" *ngIf="getFieldError('requirements')">
-              {{ getFieldError('requirements') }}
-            </div>
+            @if (getFieldError('requirements')) {
+              <div class="field-error">
+                {{ getFieldError('requirements') }}
+              </div>
+            }
           </div>
         </div>
       </div>

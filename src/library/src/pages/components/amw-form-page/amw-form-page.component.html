@@ -4,161 +4,197 @@
     <div class="amw-form-page__header-content">
       <div class="amw-form-page__header-text">
         <h1 class="amw-form-page__title">{{ currentConfig.title }}</h1>
-        <p class="amw-form-page__subtitle" *ngIf="currentConfig.subtitle">{{ currentConfig.subtitle }}</p>
+        @if (currentConfig.subtitle) {
+          <p class="amw-form-page__subtitle">{{ currentConfig.subtitle }}</p>
+        }
       </div>
-      
+
       <div class="amw-form-page__header-actions">
-        <button mat-raised-button color="primary" (click)="onSave()" 
-                [disabled]="!form.valid || saving" *ngIf="currentConfig.showSaveButton">
-          <mat-icon>save</mat-icon>
-          {{ saving ? 'Saving...' : 'Save' }}
-        </button>
-        <button mat-raised-button (click)="onCancel()" *ngIf="currentConfig.showCancelButton">
-          <mat-icon>cancel</mat-icon>
-          Cancel
-        </button>
-        <button mat-raised-button (click)="onReset()" *ngIf="currentConfig.showResetButton">
-          <mat-icon>refresh</mat-icon>
-          Reset
-        </button>
-        <button mat-raised-button (click)="onPreview()" *ngIf="currentConfig.showPreviewButton">
-          <mat-icon>preview</mat-icon>
-          Preview
-        </button>
-        <button mat-raised-button (click)="onPrint()" *ngIf="currentConfig.showPrintButton">
-          <mat-icon>print</mat-icon>
-          Print
-        </button>
+        @if (currentConfig.showSaveButton) {
+          <button mat-raised-button color="primary" (click)="onSave()"
+            [disabled]="!form.valid || saving">
+            <mat-icon>save</mat-icon>
+            {{ saving ? 'Saving...' : 'Save' }}
+          </button>
+        }
+        @if (currentConfig.showCancelButton) {
+          <button mat-raised-button (click)="onCancel()">
+            <mat-icon>cancel</mat-icon>
+            Cancel
+          </button>
+        }
+        @if (currentConfig.showResetButton) {
+          <button mat-raised-button (click)="onReset()">
+            <mat-icon>refresh</mat-icon>
+            Reset
+          </button>
+        }
+        @if (currentConfig.showPreviewButton) {
+          <button mat-raised-button (click)="onPreview()">
+            <mat-icon>preview</mat-icon>
+            Preview
+          </button>
+        }
+        @if (currentConfig.showPrintButton) {
+          <button mat-raised-button (click)="onPrint()">
+            <mat-icon>print</mat-icon>
+            Print
+          </button>
+        }
       </div>
     </div>
   </div>
 
   <!-- Loading State -->
-  <div class="amw-form-page__loading" *ngIf="loading">
-    <mat-spinner diameter="40"></mat-spinner>
-    <p>Loading data...</p>
-  </div>
+  @if (loading) {
+    <div class="amw-form-page__loading">
+      <mat-spinner diameter="40"></mat-spinner>
+      <p>Loading data...</p>
+    </div>
+  }
 
   <!-- Error State -->
-  <div class="amw-form-page__error" *ngIf="error && !loading">
-    <mat-icon>error</mat-icon>
-    <p>{{ error }}</p>
-    <button mat-raised-button color="primary" (click)="loadData()">Retry</button>
-  </div>
+  @if (error && !loading) {
+    <div class="amw-form-page__error">
+      <mat-icon>error</mat-icon>
+      <p>{{ error }}</p>
+      <button mat-raised-button color="primary" (click)="loadData()">Retry</button>
+    </div>
+  }
 
   <!-- Form Content -->
-  <form [formGroup]="form" (ngSubmit)="onSave()" class="amw-form-page__form" *ngIf="!loading && !error">
-    <div class="amw-form-page__sections">
-      <mat-card *ngFor="let section of currentConfig.sections" 
-                class="amw-form-page__section"
-                [style.display]="isSectionVisible(section) ? 'block' : 'none'">
-        <mat-card-header>
-          <mat-card-title>{{ section.title }}</mat-card-title>
-        </mat-card-header>
-        <mat-card-content>
-          <div class="amw-form-page__fields">
-            <div *ngFor="let field of section.fields" 
-                 class="amw-form-page__field"
-                 [style.display]="isFieldVisible(field) ? 'block' : 'none'">
-              
-              <!-- Text Input -->
-              <mat-form-field appearance="outline" *ngIf="field.type === 'text' || field.type === 'email' || field.type === 'password'">
-                <mat-label>{{ field.label }}</mat-label>
-                <input matInput 
-                       [formControlName]="field.key"
-                       [type]="field.type"
-                       [placeholder]="field.placeholder || ''"
-                       [maxlength]="field.validation?.maxlength || null">
-                <mat-error>{{ getFieldError(field) }}</mat-error>
-              </mat-form-field>
-
-              <!-- Number Input -->
-              <mat-form-field appearance="outline" *ngIf="field.type === 'number'">
-                <mat-label>{{ field.label }}</mat-label>
-                <input matInput 
-                       type="number"
-                       [formControlName]="field.key"
-                       [placeholder]="field.placeholder || ''"
-                       [min]="field.validation?.min || null"
-                       [max]="field.validation?.max || null">
-                <mat-error>{{ getFieldError(field) }}</mat-error>
-              </mat-form-field>
-
-              <!-- Textarea -->
-              <mat-form-field appearance="outline" *ngIf="field.type === 'textarea'">
-                <mat-label>{{ field.label }}</mat-label>
-                <textarea matInput 
+  @if (!loading && !error) {
+    <form [formGroup]="form" (ngSubmit)="onSave()" class="amw-form-page__form">
+      <div class="amw-form-page__sections">
+        @for (section of currentConfig.sections; track section) {
+          <mat-card
+            class="amw-form-page__section"
+            [style.display]="isSectionVisible(section) ? 'block' : 'none'">
+            <mat-card-header>
+              <mat-card-title>{{ section.title }}</mat-card-title>
+            </mat-card-header>
+            <mat-card-content>
+              <div class="amw-form-page__fields">
+                @for (field of section.fields; track field) {
+                  <div
+                    class="amw-form-page__field"
+                    [style.display]="isFieldVisible(field) ? 'block' : 'none'">
+                    <!-- Text Input -->
+                    @if (field.type === 'text' || field.type === 'email' || field.type === 'password') {
+                      <mat-form-field appearance="outline">
+                        <mat-label>{{ field.label }}</mat-label>
+                        <input matInput
+                          [formControlName]="field.key"
+                          [type]="field.type"
+                          [placeholder]="field.placeholder || ''"
+                          [maxlength]="field.validation?.maxlength || null">
+                        <mat-error>{{ getFieldError(field) }}</mat-error>
+                      </mat-form-field>
+                    }
+                    <!-- Number Input -->
+                    @if (field.type === 'number') {
+                      <mat-form-field appearance="outline">
+                        <mat-label>{{ field.label }}</mat-label>
+                        <input matInput
+                          type="number"
+                          [formControlName]="field.key"
+                          [placeholder]="field.placeholder || ''"
+                          [min]="field.validation?.min || null"
+                          [max]="field.validation?.max || null">
+                        <mat-error>{{ getFieldError(field) }}</mat-error>
+                      </mat-form-field>
+                    }
+                    <!-- Textarea -->
+                    @if (field.type === 'textarea') {
+                      <mat-form-field appearance="outline">
+                        <mat-label>{{ field.label }}</mat-label>
+                        <textarea matInput
                           [formControlName]="field.key"
                           [placeholder]="field.placeholder || ''"
                           [maxlength]="field.validation?.maxlength || null"
-                          rows="4"></textarea>
-                <mat-error>{{ getFieldError(field) }}</mat-error>
-              </mat-form-field>
-
-              <!-- Select -->
-              <mat-form-field appearance="outline" *ngIf="field.type === 'select'">
-                <mat-label>{{ field.label }}</mat-label>
-                <mat-select [formControlName]="field.key">
-                  <mat-option *ngFor="let option of field.options" [value]="option.value">
-                    {{ option.label }}
-                  </mat-option>
-                </mat-select>
-                <mat-error>{{ getFieldError(field) }}</mat-error>
-              </mat-form-field>
-
-              <!-- Checkbox -->
-              <div class="amw-form-page__checkbox" *ngIf="field.type === 'checkbox'">
-                <mat-checkbox [formControlName]="field.key">
-                  {{ field.label }}
-                </mat-checkbox>
-                <mat-error>{{ getFieldError(field) }}</mat-error>
+                        rows="4"></textarea>
+                        <mat-error>{{ getFieldError(field) }}</mat-error>
+                      </mat-form-field>
+                    }
+                    <!-- Select -->
+                    @if (field.type === 'select') {
+                      <mat-form-field appearance="outline">
+                        <mat-label>{{ field.label }}</mat-label>
+                        <mat-select [formControlName]="field.key">
+                          @for (option of field.options; track option) {
+                            <mat-option [value]="option.value">
+                              {{ option.label }}
+                            </mat-option>
+                          }
+                        </mat-select>
+                        <mat-error>{{ getFieldError(field) }}</mat-error>
+                      </mat-form-field>
+                    }
+                    <!-- Checkbox -->
+                    @if (field.type === 'checkbox') {
+                      <div class="amw-form-page__checkbox">
+                        <mat-checkbox [formControlName]="field.key">
+                          {{ field.label }}
+                        </mat-checkbox>
+                        <mat-error>{{ getFieldError(field) }}</mat-error>
+                      </div>
+                    }
+                    <!-- Radio Group -->
+                    @if (field.type === 'radio') {
+                      <div class="amw-form-page__radio">
+                        <label class="amw-form-page__radio-label">{{ field.label }}</label>
+                        <mat-radio-group [formControlName]="field.key">
+                          @for (option of field.options; track option) {
+                            <mat-radio-button [value]="option.value">
+                              {{ option.label }}
+                            </mat-radio-button>
+                          }
+                        </mat-radio-group>
+                        <mat-error>{{ getFieldError(field) }}</mat-error>
+                      </div>
+                    }
+                    <!-- Date Picker -->
+                    @if (field.type === 'date') {
+                      <mat-form-field appearance="outline">
+                        <mat-label>{{ field.label }}</mat-label>
+                        <input matInput
+                          [matDatepicker]="picker"
+                          [formControlName]="field.key"
+                          [placeholder]="field.placeholder || ''">
+                        <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+                        <mat-datepicker #picker></mat-datepicker>
+                        <mat-error>{{ getFieldError(field) }}</mat-error>
+                      </mat-form-field>
+                    }
+                    <!-- Chips -->
+                    @if (field.type === 'chips') {
+                      <mat-form-field appearance="outline">
+                        <mat-label>{{ field.label }}</mat-label>
+                        <mat-chip-grid #chipGrid [formControlName]="field.key">
+                          @for (chip of form.get(field.key)?.value || []; track chip) {
+                            <mat-chip-row
+                              (removed)="removeChip(field, chip)">
+                              {{ chip }}
+                              <button matChipRemove>
+                                <mat-icon>cancel</mat-icon>
+                              </button>
+                            </mat-chip-row>
+                          }
+                          <input placeholder="Add new item..."
+                            [matChipInputFor]="chipGrid"
+                            [matChipInputSeparatorKeyCodes]="[13, 188]"
+                            (matChipInputTokenEnd)="addChip(field, $event)">
+                        </mat-chip-grid>
+                        <mat-error>{{ getFieldError(field) }}</mat-error>
+                      </mat-form-field>
+                    }
+                  </div>
+                }
               </div>
-
-              <!-- Radio Group -->
-              <div class="amw-form-page__radio" *ngIf="field.type === 'radio'">
-                <label class="amw-form-page__radio-label">{{ field.label }}</label>
-                <mat-radio-group [formControlName]="field.key">
-                  <mat-radio-button *ngFor="let option of field.options" [value]="option.value">
-                    {{ option.label }}
-                  </mat-radio-button>
-                </mat-radio-group>
-                <mat-error>{{ getFieldError(field) }}</mat-error>
-              </div>
-
-              <!-- Date Picker -->
-              <mat-form-field appearance="outline" *ngIf="field.type === 'date'">
-                <mat-label>{{ field.label }}</mat-label>
-                <input matInput 
-                       [matDatepicker]="picker"
-                       [formControlName]="field.key"
-                       [placeholder]="field.placeholder || ''">
-                <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
-                <mat-datepicker #picker></mat-datepicker>
-                <mat-error>{{ getFieldError(field) }}</mat-error>
-              </mat-form-field>
-
-              <!-- Chips -->
-              <mat-form-field appearance="outline" *ngIf="field.type === 'chips'">
-                <mat-label>{{ field.label }}</mat-label>
-                <mat-chip-grid #chipGrid [formControlName]="field.key">
-                  <mat-chip-row *ngFor="let chip of form.get(field.key)?.value || []" 
-                                (removed)="removeChip(field, chip)">
-                    {{ chip }}
-                    <button matChipRemove>
-                      <mat-icon>cancel</mat-icon>
-                    </button>
-                  </mat-chip-row>
-                  <input placeholder="Add new item..."
-                         [matChipInputFor]="chipGrid"
-                         [matChipInputSeparatorKeyCodes]="[13, 188]"
-                         (matChipInputTokenEnd)="addChip(field, $event)">
-                </mat-chip-grid>
-                <mat-error>{{ getFieldError(field) }}</mat-error>
-              </mat-form-field>
-            </div>
-          </div>
-        </mat-card-content>
-      </mat-card>
-    </div>
-  </form>
+            </mat-card-content>
+          </mat-card>
+        }
+      </div>
+    </form>
+  }
 </div>

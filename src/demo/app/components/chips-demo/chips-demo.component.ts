@@ -1,5 +1,5 @@
 import { Component, ViewEncapsulation } from '@angular/core';
-import { CommonModule } from '@angular/common';
+
 import { FormsModule } from '@angular/forms';
 import { MatCardModule } from '@angular/material/card';
 import { MatButtonModule } from '@angular/material/button';
@@ -15,16 +15,15 @@ import { Chip, ChipConfig, ChipEvent, ChipChangeEvent, ChipMenuItem } from '../.
     selector: 'amw-demo-chips',
     standalone: true,
     imports: [
-        CommonModule,
-        FormsModule,
-        MatCardModule,
-        MatButtonModule,
-        MatIconModule,
-        MatDividerModule,
-        MatTabsModule,
-        MatSnackBarModule,
-        AmwChipsComponent
-    ],
+    FormsModule,
+    MatCardModule,
+    MatButtonModule,
+    MatIconModule,
+    MatDividerModule,
+    MatTabsModule,
+    MatSnackBarModule,
+    AmwChipsComponent
+],
     encapsulation: ViewEncapsulation.None,
     templateUrl: './chips-demo.component.html',
     styleUrl: './chips-demo.component.scss'

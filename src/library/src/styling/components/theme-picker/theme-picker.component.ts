@@ -1,5 +1,5 @@
 import { Component, OnInit, signal, computed } from '@angular/core';
-import { CommonModule } from '@angular/common';
+
 import { MatSelectModule } from '@angular/material/select';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatIconModule } from '@angular/material/icon';
@@ -14,15 +14,14 @@ import { ThemeService, ThemeConfig } from '../../services/theme.service';
     selector: 'amw-theme-picker',
     standalone: true,
     imports: [
-        CommonModule,
-        MatSelectModule,
-        MatFormFieldModule,
-        MatIconModule,
-        MatButtonModule,
-        MatTooltipModule,
-        MatDividerModule,
-        MatCardModule
-    ],
+    MatSelectModule,
+    MatFormFieldModule,
+    MatIconModule,
+    MatButtonModule,
+    MatTooltipModule,
+    MatDividerModule,
+    MatCardModule
+],
     templateUrl: './theme-picker.component.html',
     styleUrl: './theme-picker.component.scss'
 })

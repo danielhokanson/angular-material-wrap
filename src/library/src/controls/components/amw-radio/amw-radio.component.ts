@@ -1,5 +1,5 @@
 import { Component, Input, Output, EventEmitter, ViewEncapsulation, forwardRef } from '@angular/core';
-import { CommonModule } from '@angular/common';
+
 import { FormsModule, ReactiveFormsModule, ControlValueAccessor, NG_VALUE_ACCESSOR } from '@angular/forms';
 import { MatRadioModule } from '@angular/material/radio';
 import { MatRippleModule } from '@angular/material/core';
@@ -10,7 +10,7 @@ import { AmwSize } from '../../../shared/types/amw-size.type';
 @Component({
     selector: 'amw-radio',
     standalone: true,
-    imports: [CommonModule, FormsModule, ReactiveFormsModule, MatRadioModule, MatRippleModule],
+    imports: [FormsModule, ReactiveFormsModule, MatRadioModule, MatRippleModule],
     encapsulation: ViewEncapsulation.None,
     templateUrl: './amw-radio.component.html',
     styleUrl: './amw-radio.component.scss',

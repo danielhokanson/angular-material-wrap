@@ -1,5 +1,5 @@
 import { Component, ViewEncapsulation, OnInit } from '@angular/core';
-import { CommonModule } from '@angular/common';
+
 import { FormBuilder, FormGroup, Validators, ReactiveFormsModule } from '@angular/forms';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
@@ -13,15 +13,14 @@ import { AmwRangeSliderComponent } from '../../../../library/src/controls/compon
     selector: 'amw-demo-range-slider-validation',
     standalone: true,
     imports: [
-        CommonModule,
-        ReactiveFormsModule,
-        MatFormFieldModule,
-        MatInputModule,
-        MatButtonModule,
-        MatSnackBarModule,
-        MatCardModule,
-        AmwRangeSliderComponent
-    ],
+    ReactiveFormsModule,
+    MatFormFieldModule,
+    MatInputModule,
+    MatButtonModule,
+    MatSnackBarModule,
+    MatCardModule,
+    AmwRangeSliderComponent
+],
     encapsulation: ViewEncapsulation.None,
     templateUrl: './range-slider-validation.component.html',
     styleUrl: './range-slider-validation.component.scss'

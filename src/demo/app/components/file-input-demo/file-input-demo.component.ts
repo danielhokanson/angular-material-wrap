@@ -1,5 +1,5 @@
 import { Component, ViewEncapsulation } from '@angular/core';
-import { CommonModule } from '@angular/common';
+
 import { FormsModule } from '@angular/forms';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
@@ -16,18 +16,17 @@ import { AmwFileInputComponent } from '../../../../library/src/controls/componen
     selector: 'amw-demo-file-input',
     standalone: true,
     imports: [
-        CommonModule,
-        FormsModule,
-        MatFormFieldModule,
-        MatInputModule,
-        MatButtonModule,
-        MatIconModule,
-        MatCardModule,
-        MatDividerModule,
-        MatButtonToggleModule,
-        MatChipsModule,
-        AmwFileInputComponent
-    ],
+    FormsModule,
+    MatFormFieldModule,
+    MatInputModule,
+    MatButtonModule,
+    MatIconModule,
+    MatCardModule,
+    MatDividerModule,
+    MatButtonToggleModule,
+    MatChipsModule,
+    AmwFileInputComponent
+],
     encapsulation: ViewEncapsulation.None,
     templateUrl: './file-input-demo.component.html',
     styleUrl: './file-input-demo.component.scss'

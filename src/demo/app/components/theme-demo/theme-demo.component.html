@@ -15,7 +15,7 @@
     <div class="preview-section">
       <h2>Live Preview</h2>
       <p>This section shows how different themes affect various Material components:</p>
-      
+
       <div class="preview-grid">
         <!-- Buttons Preview -->
         <mat-card class="preview-card">
@@ -44,18 +44,20 @@
                 <mat-label>Name</mat-label>
                 <input matInput [(ngModel)]="sampleForm.name">
               </mat-form-field>
-              
+
               <mat-form-field appearance="outline">
                 <mat-label>Email</mat-label>
                 <input matInput type="email" [(ngModel)]="sampleForm.email">
               </mat-form-field>
-              
+
               <mat-form-field appearance="outline">
                 <mat-label>Country</mat-label>
                 <mat-select [(ngModel)]="sampleForm.country">
-                  <mat-option *ngFor="let country of countries" [value]="country.value">
-                    {{ country.label }}
-                  </mat-option>
+                  @for (country of countries; track country) {
+                    <mat-option [value]="country.value">
+                      {{ country.label }}
+                    </mat-option>
+                  }
                 </mat-select>
               </mat-form-field>
             </div>
@@ -72,13 +74,15 @@
               <mat-checkbox [(ngModel)]="sampleForm.newsletter">
                 Subscribe to newsletter
               </mat-checkbox>
-              
+
               <mat-radio-group [(ngModel)]="sampleForm.notifications">
-                <mat-radio-button *ngFor="let option of notificationOptions" [value]="option.value">
-                  {{ option.label }}
-                </mat-radio-button>
+                @for (option of notificationOptions; track option) {
+                  <mat-radio-button [value]="option.value">
+                    {{ option.label }}
+                  </mat-radio-button>
+                }
               </mat-radio-group>
-              
+
               <mat-slide-toggle [(ngModel)]="sampleForm.darkMode">
                 Dark mode
               </mat-slide-toggle>
@@ -94,10 +98,10 @@
           <mat-card-content>
             <div class="slider-group">
               <label>Volume: {{ sampleForm.volume }}%</label>
-              <mat-slider 
-                [(ngModel)]="sampleForm.volume" 
-                min="0" 
-                max="100" 
+              <mat-slider
+                [(ngModel)]="sampleForm.volume"
+                min="0"
+                max="100"
                 step="1"
                 discrete>
                 <input matSliderThumb>

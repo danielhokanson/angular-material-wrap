@@ -15,9 +15,11 @@
             label="Enable notifications"
             color="primary">
           </amw-toggle>
-          <div class="field-error" *ngIf="getFieldError('notifications')">
-            {{ getFieldError('notifications') }}
-          </div>
+          @if (getFieldError('notifications')) {
+            <div class="field-error">
+              {{ getFieldError('notifications') }}
+            </div>
+          }
         </div>
 
         <div class="toggle-group">
@@ -26,9 +28,11 @@
             label="Enable analytics tracking"
             color="primary">
           </amw-toggle>
-          <div class="field-error" *ngIf="getFieldError('analytics')">
-            {{ getFieldError('analytics') }}
-          </div>
+          @if (getFieldError('analytics')) {
+            <div class="field-error">
+              {{ getFieldError('analytics') }}
+            </div>
+          }
         </div>
 
         <div class="toggle-group">
@@ -37,9 +41,11 @@
             label="Enable auto-save functionality"
             color="primary">
           </amw-toggle>
-          <div class="field-error" *ngIf="getFieldError('autoSave')">
-            {{ getFieldError('autoSave') }}
-          </div>
+          @if (getFieldError('autoSave')) {
+            <div class="field-error">
+              {{ getFieldError('autoSave') }}
+            </div>
+          }
         </div>
 
         <div class="toggle-group">
@@ -48,9 +54,11 @@
             label="Accept essential cookies"
             color="primary">
           </amw-toggle>
-          <div class="field-error" *ngIf="getFieldError('cookies')">
-            {{ getFieldError('cookies') }}
-          </div>
+          @if (getFieldError('cookies')) {
+            <div class="field-error">
+              {{ getFieldError('cookies') }}
+            </div>
+          }
         </div>
       </div>
 

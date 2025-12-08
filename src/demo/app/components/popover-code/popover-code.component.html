@@ -9,43 +9,50 @@
     <!-- Code Examples -->
     <div class="popover-code__examples">
       <h3>Code Examples</h3>
-      
+
       <div class="popover-code__example-grid">
-        <mat-card
-          *ngFor="let example of codeExamples; let i = index"
-          class="popover-code__example-card"
-          [class.popover-code__example-card--selected]="selectedExample === example"
-          (click)="loadExample(example)">
-          
-          <mat-card-header>
-            <mat-card-title>{{ example.title }}</mat-card-title>
-            <mat-card-subtitle>{{ example.description }}</mat-card-subtitle>
-          </mat-card-header>
-          
-          <mat-card-content>
-            <div class="popover-code__example-preview">
-              <div class="popover-code__preview-popover">
-                <div class="popover-code__preview-trigger">
-                  <mat-icon>code</mat-icon>
-                  <span>Preview</span>
-                </div>
-                <div class="popover-code__preview-content">
-                  <div class="popover-code__preview-arrow" *ngIf="example.config.showArrow"></div>
-                  <div class="popover-code__preview-panel">
-                    <div *ngIf="example.config.showHeader" class="popover-code__preview-header">
-                      <span>Header</span>
-                      <mat-icon *ngIf="example.config.showClose">close</mat-icon>
-                    </div>
-                    <div class="popover-code__preview-body">Content</div>
-                    <div *ngIf="example.config.showFooter" class="popover-code__preview-footer">
-                      Footer
+        @for (example of codeExamples; track example; let i = $index) {
+          <mat-card
+            class="popover-code__example-card"
+            [class.popover-code__example-card--selected]="selectedExample === example"
+            (click)="loadExample(example)">
+            <mat-card-header>
+              <mat-card-title>{{ example.title }}</mat-card-title>
+              <mat-card-subtitle>{{ example.description }}</mat-card-subtitle>
+            </mat-card-header>
+            <mat-card-content>
+              <div class="popover-code__example-preview">
+                <div class="popover-code__preview-popover">
+                  <div class="popover-code__preview-trigger">
+                    <mat-icon>code</mat-icon>
+                    <span>Preview</span>
+                  </div>
+                  <div class="popover-code__preview-content">
+                    @if (example.config.showArrow) {
+                      <div class="popover-code__preview-arrow"></div>
+                    }
+                    <div class="popover-code__preview-panel">
+                      @if (example.config.showHeader) {
+                        <div class="popover-code__preview-header">
+                          <span>Header</span>
+                          @if (example.config.showClose) {
+                            <mat-icon>close</mat-icon>
+                          }
+                        </div>
+                      }
+                      <div class="popover-code__preview-body">Content</div>
+                      @if (example.config.showFooter) {
+                        <div class="popover-code__preview-footer">
+                          Footer
+                        </div>
+                      }
                     </div>
                   </div>
                 </div>
               </div>
-            </div>
-          </mat-card-content>
-        </mat-card>
+            </mat-card-content>
+          </mat-card>
+        }
       </div>
     </div>
 
@@ -53,7 +60,7 @@
     <div class="popover-code__display">
       <h3>{{ selectedExample.title }}</h3>
       <p>{{ selectedExample.description }}</p>
-      
+
       <mat-tab-group>
         <!-- HTML Tab -->
         <mat-tab label="HTML">
@@ -70,7 +77,7 @@
             <pre><code [class]="getSyntaxClass('html')">{{ selectedExample.html }}</code></pre>
           </div>
         </mat-tab>
-        
+
         <!-- TypeScript Tab -->
         <mat-tab label="TypeScript">
           <div class="popover-code__code-block">
@@ -86,7 +93,7 @@
             <pre><code [class]="getSyntaxClass('typescript')">{{ selectedExample.typescript }}</code></pre>
           </div>
         </mat-tab>
-        
+
         <!-- SCSS Tab -->
         <mat-tab label="SCSS">
           <div class="popover-code__code-block">
@@ -109,7 +116,7 @@
     <div class="popover-code__demo">
       <h3>Live Demo</h3>
       <p>Test the current example configuration</p>
-      
+
       <div class="popover-code__demo-container">
         <amw-popover
           [config]="currentConfig"
@@ -120,7 +127,7 @@
           (afterOpen)="onPopoverAfterOpen()"
           (beforeClose)="onPopoverBeforeClose()"
           (afterClose)="onPopoverAfterClose()">
-          
+
           <!-- Trigger Template -->
           <ng-template #trigger>
             <button mat-raised-button color="primary">
@@ -128,13 +135,13 @@
               {{ selectedExample.title }}
             </button>
           </ng-template>
-          
+
           <!-- Content Template -->
           <ng-template #content>
             <div class="popover-code__content">
               <h4>{{ selectedExample.title }}</h4>
               <p>{{ selectedExample.description }}</p>
-              
+
               <div class="popover-code__content-details">
                 <h5>Configuration:</h5>
                 <ul>
@@ -146,7 +153,7 @@
                   <li><strong>Footer:</strong> {{ currentConfig.showFooter ? 'Yes' : 'No' }}</li>
                 </ul>
               </div>
-              
+
               <div class="popover-code__content-details">
                 <h5>Trigger:</h5>
                 <ul>
@@ -156,7 +163,7 @@
                   <li><strong>Outside Click:</strong> {{ currentTrigger.outsideClick ? 'Yes' : 'No' }}</li>
                 </ul>
               </div>
-              
+
               <div class="popover-code__content-actions">
                 <button mat-button (click)="onPopoverBeforeClose()">
                   <mat-icon>close</mat-icon>

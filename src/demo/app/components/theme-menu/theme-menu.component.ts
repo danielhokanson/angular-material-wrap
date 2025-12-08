@@ -1,5 +1,5 @@
 import { Component, signal } from '@angular/core';
-import { CommonModule } from '@angular/common';
+
 import { MatButtonModule } from '@angular/material/button';
 import { MatIconModule } from '@angular/material/icon';
 import { MatMenuModule } from '@angular/material/menu';
@@ -13,14 +13,13 @@ import { ThemeService, ThemeConfig } from '../../../../library/src/styling/servi
     selector: 'amw-demo-theme-menu',
     standalone: true,
     imports: [
-        CommonModule,
-        MatButtonModule,
-        MatIconModule,
-        MatMenuModule,
-        MatTooltipModule,
-        MatDividerModule,
-        RouterModule
-    ],
+    MatButtonModule,
+    MatIconModule,
+    MatMenuModule,
+    MatTooltipModule,
+    MatDividerModule,
+    RouterModule
+],
     templateUrl: './theme-menu.component.html',
     styleUrl: './theme-menu.component.scss'
 })

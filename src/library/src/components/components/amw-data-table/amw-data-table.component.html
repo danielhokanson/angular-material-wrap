@@ -1,320 +1,350 @@
-<div class="amw-data-table" 
-     [class]="'amw-data-table--' + (config?.density || 'comfortable')"
-     role="table"
-     [attr.aria-label]="'Data table'"
-     [attr.aria-rowcount]="pagination.length"
-     [attr.aria-colcount]="displayedColumns.length">
-  
+<div class="amw-data-table"
+  [class]="'amw-data-table--' + (config?.density || 'comfortable')"
+  role="table"
+  [attr.aria-label]="'Data table'"
+  [attr.aria-rowcount]="pagination.length"
+  [attr.aria-colcount]="displayedColumns.length">
+
   <!-- Loading State -->
-  <div *ngIf="loading" class="amw-data-table__loading">
-    <mat-spinner diameter="40"></mat-spinner>
-    <p class="amw-data-table__loading-message">{{ loadingMessage }}</p>
-  </div>
-  
-  <!-- Table Container -->
-  <div *ngIf="!loading" class="amw-data-table__container">
-    
-    <!-- Table Header -->
-    <div *ngIf="config?.showHeader !== false" class="amw-data-table__header">
-      
-      <!-- Global Search -->
-      <div *ngIf="config?.filterable !== false" class="amw-data-table__search">
-        <mat-form-field appearance="outline" class="amw-data-table__search-field">
-          <mat-label>Search</mat-label>
-          <input 
-            matInput 
-            [(ngModel)]="globalFilter"
-            (ngModelChange)="onGlobalFilterChange()"
-            placeholder="Search all columns...">
-          <mat-icon matSuffix>search</mat-icon>
-        </mat-form-field>
-      </div>
-      
-      <!-- Table Actions -->
-      <div class="amw-data-table__actions">
-        <button 
-          *ngIf="config?.showRefresh !== false" 
-          mat-icon-button 
-          matTooltip="Refresh">
-          <mat-icon>refresh</mat-icon>
-        </button>
-        
-        <button 
-          *ngIf="config?.showColumnVisibility !== false" 
-          mat-icon-button 
-          matTooltip="Column Visibility">
-          <mat-icon>view_column</mat-icon>
-        </button>
-        
-        <button 
-          *ngIf="config?.showExport !== false" 
-          mat-icon-button 
-          matTooltip="Export">
-          <mat-icon>download</mat-icon>
-        </button>
-        
-        <button 
-          *ngIf="config?.showSettings !== false" 
-          mat-icon-button 
-          matTooltip="Settings">
-          <mat-icon>settings</mat-icon>
-        </button>
-      </div>
+  @if (loading) {
+    <div class="amw-data-table__loading">
+      <mat-spinner diameter="40"></mat-spinner>
+      <p class="amw-data-table__loading-message">{{ loadingMessage }}</p>
     </div>
-    
-    <!-- Table -->
-    <div class="amw-data-table__table-container">
-      <table mat-table 
-             [dataSource]="getPaginatedData()" 
-             matSort 
-             (matSortChange)="onSortChange($event)" 
-             class="amw-data-table__table"
-             role="table"
-             [attr.aria-label]="'Data table'"
-             [attr.aria-rowcount]="pagination.length"
-             [attr.aria-colcount]="displayedColumns.length">
-        
-        <!-- Selection Column -->
-        <ng-container *ngIf="config?.selectable && config?.selectionMode !== 'none'" matColumnDef="select">
-          <th mat-header-cell *matHeaderCellDef role="columnheader" scope="col">
-            <mat-checkbox 
-              *ngIf="config?.selectionMode === 'multiple'"
-              [checked]="isAllSelected()"
-              [indeterminate]="isSomeSelected()"
-              (change)="onMasterSelectionChange($event.checked)"
-              [attr.aria-label]="'Select all rows'"
-              [attr.aria-describedby]="'select-all-description'">
-            </mat-checkbox>
-            <span id="select-all-description" class="sr-only">Select all rows in the table</span>
-          </th>
-          <td mat-cell *matCellDef="let row; let i = index" role="gridcell">
-            <mat-checkbox 
-              [checked]="isRowSelected(row)"
-              (change)="onRowSelectionChange(row, $event.checked)"
-              [attr.aria-label]="'Select row ' + (i + 1) + ', ' + (row.name || row.id || 'item')"
-              [attr.aria-describedby]="'select-row-' + i + '-description'">
-            </mat-checkbox>
-            <span [id]="'select-row-' + i + '-description'" class="sr-only">Select this row</span>
-          </td>
-        </ng-container>
-        
-        <!-- Data Columns -->
-        <ng-container *ngFor="let column of config?.columns" [matColumnDef]="column.property">
-          <th 
-            mat-header-cell 
-            *matHeaderCellDef
-            [class]="getCellClasses(column.property)"
-            [mat-sort-header]="column.sortable !== false ? column.property : ''"
-            [disabled]="column.sortable === false"
-            role="columnheader"
-            scope="col"
-            [attr.aria-sort]="getColumnSortState(column.property)"
-            [attr.aria-label]="column.label + (column.sortable !== false ? ', sortable' : '')"
-            [attr.aria-describedby]="column.tooltip ? 'column-' + column.property + '-description' : null">
-            {{ column.label }}
-            <mat-icon 
-              *ngIf="column.tooltip" 
-              matTooltip="{{ column.tooltip }}"
-              class="amw-data-table__header-tooltip"
-              [id]="'column-' + column.property + '-description'"
-              [attr.aria-label]="'More information about ' + column.label">
-              help_outline
-            </mat-icon>
-          </th>
-          <td 
-            mat-cell 
-            *matCellDef="let row; let i = index"
-            [class]="getCellClasses(column.property)">
-            
-            <!-- Editable cell (row-level editing) -->
-            <div *ngIf="column.editable && isRowEditing(row) && isCellEditing(column.property)" class="amw-data-table__edit-cell">
-              <!-- Text input -->
-              <mat-form-field *ngIf="!column.editor || column.editor.type === 'input'" appearance="outline" class="amw-data-table__edit-field">
-                <input 
-                  matInput 
-                  [value]="getEditingValue(column.property)"
-                  (input)="setEditingValue(column.property, $event.target.value)"
-                  (blur)="stopCellEditing(column.property)"
-                  (keydown.enter)="stopCellEditing(column.property)"
-                  (keydown.escape)="cancelEditing()"
-                  [type]="column.type === 'number' ? 'number' : 'text'">
-              </mat-form-field>
-              
-              <!-- Select input -->
-              <mat-form-field *ngIf="column.editor?.type === 'select'" appearance="outline" class="amw-data-table__edit-field">
-                <mat-select 
-                  [value]="getEditingValue(column.property)"
-                  (selectionChange)="setEditingValue(column.property, $event.value)"
-                  (blur)="stopCellEditing(column.property)"
-                  panelClass="amw-data-table__select-panel">
-                  <mat-option *ngFor="let option of column.editor?.options" [value]="option.value">
-                    {{ option.label }}
-                  </mat-option>
-                </mat-select>
-              </mat-form-field>
-              
-              <!-- Checkbox input -->
-              <mat-checkbox 
-                *ngIf="column.editor?.type === 'checkbox'"
-                [checked]="getEditingValue(column.property)"
-                (change)="setEditingValue(column.property, $event.checked)"
-                (blur)="stopCellEditing(column.property)">
-              </mat-checkbox>
-            </div>
+  }
 
-            <!-- Editable cell (field-level editing) -->
-            <div *ngIf="column.editable && isFieldEditing(row, i, column.property)" 
-                 class="amw-data-table__edit-cell"
-                 [style.width.px]="getFieldColumnWidth(row, i, column.property)">
-              <div class="amw-data-table__field-container">
-                <!-- Text input -->
-                <mat-form-field *ngIf="!column.editor || column.editor.type === 'input'" appearance="outline" class="amw-data-table__edit-field">
-                  <input 
-                    matInput 
-                    [value]="row[column.property]"
-                    (input)="row[column.property] = $event.target.value"
-                    (keydown.enter)="saveFieldEditing(row, i, column.property)"
-                    (keydown.escape)="cancelFieldEditing(row, i, column.property)"
-                    [type]="column.type === 'number' ? 'number' : 'text'">
-                </mat-form-field>
-                
-                <!-- Select input -->
-                <mat-form-field *ngIf="column.editor?.type === 'select'" appearance="outline" class="amw-data-table__edit-field">
-                  <mat-select 
-                    [value]="row[column.property]"
-                    (selectionChange)="row[column.property] = $event.value"
-                    panelClass="amw-data-table__select-panel">
-                    <mat-option *ngFor="let option of column.editor?.options" [value]="option.value">
-                      {{ option.label }}
-                    </mat-option>
-                  </mat-select>
-                </mat-form-field>
-                
-                <!-- Checkbox input -->
-                <mat-checkbox 
-                  *ngIf="column.editor?.type === 'checkbox'"
-                  [checked]="row[column.property]"
-                  (change)="row[column.property] = $event.checked">
+  <!-- Table Container -->
+  @if (!loading) {
+    <div class="amw-data-table__container">
+      <!-- Table Header -->
+      @if (config?.showHeader !== false) {
+        <div class="amw-data-table__header">
+          <!-- Global Search -->
+          @if (config?.filterable !== false) {
+            <div class="amw-data-table__search">
+              <mat-form-field appearance="outline" class="amw-data-table__search-field">
+                <mat-label>Search</mat-label>
+                <input
+                  matInput
+                  [(ngModel)]="globalFilter"
+                  (ngModelChange)="onGlobalFilterChange()"
+                  placeholder="Search all columns...">
+                <mat-icon matSuffix>search</mat-icon>
+              </mat-form-field>
+            </div>
+          }
+          <!-- Table Actions -->
+          <div class="amw-data-table__actions">
+            @if (config?.showRefresh !== false) {
+              <button
+                mat-icon-button
+                matTooltip="Refresh">
+                <mat-icon>refresh</mat-icon>
+              </button>
+            }
+            @if (config?.showColumnVisibility !== false) {
+              <button
+                mat-icon-button
+                matTooltip="Column Visibility">
+                <mat-icon>view_column</mat-icon>
+              </button>
+            }
+            @if (config?.showExport !== false) {
+              <button
+                mat-icon-button
+                matTooltip="Export">
+                <mat-icon>download</mat-icon>
+              </button>
+            }
+            @if (config?.showSettings !== false) {
+              <button
+                mat-icon-button
+                matTooltip="Settings">
+                <mat-icon>settings</mat-icon>
+              </button>
+            }
+          </div>
+        </div>
+      }
+      <!-- Table -->
+      <div class="amw-data-table__table-container">
+        <table mat-table
+          [dataSource]="getPaginatedData()"
+          matSort
+          (matSortChange)="onSortChange($event)"
+          class="amw-data-table__table"
+          role="table"
+          [attr.aria-label]="'Data table'"
+          [attr.aria-rowcount]="pagination.length"
+          [attr.aria-colcount]="displayedColumns.length">
+          <!-- Selection Column -->
+          @if (config?.selectable && config?.selectionMode !== 'none') {
+            <ng-container matColumnDef="select">
+              <th mat-header-cell *matHeaderCellDef role="columnheader" scope="col">
+                @if (config?.selectionMode === 'multiple') {
+                  <mat-checkbox
+                    [checked]="isAllSelected()"
+                    [indeterminate]="isSomeSelected()"
+                    (change)="onMasterSelectionChange($event.checked)"
+                    [attr.aria-label]="'Select all rows'"
+                    [attr.aria-describedby]="'select-all-description'">
+                  </mat-checkbox>
+                }
+                <span id="select-all-description" class="sr-only">Select all rows in the table</span>
+              </th>
+              <td mat-cell *matCellDef="let row; let i = index" role="gridcell">
+                <mat-checkbox
+                  [checked]="isRowSelected(row)"
+                  (change)="onRowSelectionChange(row, $event.checked)"
+                  [attr.aria-label]="'Select row ' + (i + 1) + ', ' + (row.name || row.id || 'item')"
+                  [attr.aria-describedby]="'select-row-' + i + '-description'">
                 </mat-checkbox>
-
-                <!-- Field action buttons -->
-                <div class="amw-data-table__field-actions">
-                  <button mat-icon-button (click)="saveFieldEditing(row, i, column.property)" 
+                <span [id]="'select-row-' + i + '-description'" class="sr-only">Select this row</span>
+              </td>
+            </ng-container>
+          }
+          <!-- Data Columns -->
+          @for (column of config?.columns; track column) {
+            <ng-container [matColumnDef]="column.property">
+              <th
+                mat-header-cell
+                *matHeaderCellDef
+                [class]="getCellClasses(column.property)"
+                [mat-sort-header]="column.sortable !== false ? column.property : ''"
+                [disabled]="column.sortable === false"
+                role="columnheader"
+                scope="col"
+                [attr.aria-sort]="getColumnSortState(column.property)"
+                [attr.aria-label]="column.label + (column.sortable !== false ? ', sortable' : '')"
+                [attr.aria-describedby]="column.tooltip ? 'column-' + column.property + '-description' : null">
+                {{ column.label }}
+                @if (column.tooltip) {
+                  <mat-icon
+                    matTooltip="{{ column.tooltip }}"
+                    class="amw-data-table__header-tooltip"
+                    [id]="'column-' + column.property + '-description'"
+                    [attr.aria-label]="'More information about ' + column.label">
+                    help_outline
+                  </mat-icon>
+                }
+              </th>
+              <td
+                mat-cell
+                *matCellDef="let row; let i = index"
+                [class]="getCellClasses(column.property)">
+                <!-- Editable cell (row-level editing) -->
+                @if (column.editable && isRowEditing(row) && isCellEditing(column.property)) {
+                  <div class="amw-data-table__edit-cell">
+                    <!-- Text input -->
+                    @if (!column.editor || column.editor.type === 'input') {
+                      <mat-form-field appearance="outline" class="amw-data-table__edit-field">
+                        <input
+                          matInput
+                          [value]="getEditingValue(column.property)"
+                          (input)="setEditingValue(column.property, $event.target.value)"
+                          (blur)="stopCellEditing(column.property)"
+                          (keydown.enter)="stopCellEditing(column.property)"
+                          (keydown.escape)="cancelEditing()"
+                          [type]="column.type === 'number' ? 'number' : 'text'">
+                      </mat-form-field>
+                    }
+                    <!-- Select input -->
+                    @if (column.editor?.type === 'select') {
+                      <mat-form-field appearance="outline" class="amw-data-table__edit-field">
+                        <mat-select
+                          [value]="getEditingValue(column.property)"
+                          (selectionChange)="setEditingValue(column.property, $event.value)"
+                          (blur)="stopCellEditing(column.property)"
+                          panelClass="amw-data-table__select-panel">
+                          @for (option of column.editor?.options; track option) {
+                            <mat-option [value]="option.value">
+                              {{ option.label }}
+                            </mat-option>
+                          }
+                        </mat-select>
+                      </mat-form-field>
+                    }
+                    <!-- Checkbox input -->
+                    @if (column.editor?.type === 'checkbox') {
+                      <mat-checkbox
+                        [checked]="getEditingValue(column.property)"
+                        (change)="setEditingValue(column.property, $event.checked)"
+                        (blur)="stopCellEditing(column.property)">
+                      </mat-checkbox>
+                    }
+                  </div>
+                }
+                <!-- Editable cell (field-level editing) -->
+                @if (column.editable && isFieldEditing(row, i, column.property)) {
+                  <div
+                    class="amw-data-table__edit-cell"
+                    [style.width.px]="getFieldColumnWidth(row, i, column.property)">
+                    <div class="amw-data-table__field-container">
+                      <!-- Text input -->
+                      @if (!column.editor || column.editor.type === 'input') {
+                        <mat-form-field appearance="outline" class="amw-data-table__edit-field">
+                          <input
+                            matInput
+                            [value]="row[column.property]"
+                            (input)="row[column.property] = $event.target.value"
+                            (keydown.enter)="saveFieldEditing(row, i, column.property)"
+                            (keydown.escape)="cancelFieldEditing(row, i, column.property)"
+                            [type]="column.type === 'number' ? 'number' : 'text'">
+                        </mat-form-field>
+                      }
+                      <!-- Select input -->
+                      @if (column.editor?.type === 'select') {
+                        <mat-form-field appearance="outline" class="amw-data-table__edit-field">
+                          <mat-select
+                            [value]="row[column.property]"
+                            (selectionChange)="row[column.property] = $event.value"
+                            panelClass="amw-data-table__select-panel">
+                            @for (option of column.editor?.options; track option) {
+                              <mat-option [value]="option.value">
+                                {{ option.label }}
+                              </mat-option>
+                            }
+                          </mat-select>
+                        </mat-form-field>
+                      }
+                      <!-- Checkbox input -->
+                      @if (column.editor?.type === 'checkbox') {
+                        <mat-checkbox
+                          [checked]="row[column.property]"
+                          (change)="row[column.property] = $event.checked">
+                        </mat-checkbox>
+                      }
+                      <!-- Field action buttons -->
+                      <div class="amw-data-table__field-actions">
+                        <button mat-icon-button (click)="saveFieldEditing(row, i, column.property)"
                           matTooltip="Save changes" class="amw-data-table__field-action">
-                    <mat-icon>check</mat-icon>
-                  </button>
-                  <button mat-icon-button (click)="cancelFieldEditing(row, i, column.property)" 
+                          <mat-icon>check</mat-icon>
+                        </button>
+                        <button mat-icon-button (click)="cancelFieldEditing(row, i, column.property)"
                           matTooltip="Cancel changes" class="amw-data-table__field-action">
-                    <mat-icon>close</mat-icon>
-                  </button>
-                </div>
-              </div>
-            </div>
-            
-            <!-- Read-only cell -->
-            <div *ngIf="!(column.editable && (isRowEditing(row) && isCellEditing(column.property) || isFieldEditing(row, i, column.property)))" 
-                 class="amw-data-table__readonly-cell"
-                 [class.amw-data-table__readonly-cell--editable]="column.editable">
-              <span [innerHTML]="getFormattedCellValue(row, column.property)"></span>
-              <mat-icon *ngIf="column.editable" 
+                          <mat-icon>close</mat-icon>
+                        </button>
+                      </div>
+                    </div>
+                  </div>
+                }
+                <!-- Read-only cell -->
+                @if (!(column.editable && (isRowEditing(row) && isCellEditing(column.property) || isFieldEditing(row, i, column.property)))) {
+                  <div
+                    class="amw-data-table__readonly-cell"
+                    [class.amw-data-table__readonly-cell--editable]="column.editable">
+                    <span [innerHTML]="getFormattedCellValue(row, column.property)"></span>
+                    @if (column.editable) {
+                      <mat-icon
                         class="amw-data-table__edit-icon"
                         (click)="startFieldEditing(row, i, column.property, $event)"
-                        matTooltip="Edit field">edit</mat-icon>
-            </div>
-          </td>
-        </ng-container>
-        
-        <!-- Actions Column -->
-        <ng-container *ngIf="hasActions()" matColumnDef="actions">
-          <th mat-header-cell *matHeaderCellDef>Actions</th>
-          <td mat-cell *matCellDef="let row; let i = index">
-            <div class="amw-data-table__actions-cell">
-              <!-- Edit/Save/Cancel buttons -->
-              <button 
-                *ngIf="config?.editable && !isRowEditing(row) && !hasCustomEditAction()"
-                mat-icon-button
-                matTooltip="Edit row"
-                (click)="startEditing(row, i)">
-                <mat-icon>edit</mat-icon>
-              </button>
-              
-              <button 
-                *ngIf="config?.editable && isRowEditing(row)"
-                mat-icon-button
-                color="primary"
-                matTooltip="Save changes"
-                (click)="saveEditing()">
-                <mat-icon>save</mat-icon>
-              </button>
-              
-              <button 
-                *ngIf="config?.editable && isRowEditing(row)"
-                mat-icon-button
-                matTooltip="Cancel editing"
-                (click)="cancelEditing()">
-                <mat-icon>cancel</mat-icon>
-              </button>
-              
-              <!-- Other actions -->
-              <button 
-                *ngFor="let action of getRowActions(row, i)"
-                mat-icon-button
-                [disabled]="isActionDisabled(action, row, i)"
-                [matTooltip]="action.tooltip || action.label"
-                [class]="action.cssClass"
-                (click)="onActionClick(action, row, i)">
-                <mat-icon *ngIf="action.icon">{{ action.icon }}</mat-icon>
-                <span *ngIf="!action.icon">{{ action.label }}</span>
-              </button>
-            </div>
-          </td>
-        </ng-container>
-        
-        <!-- Table Header -->
-        <tr mat-header-row *matHeaderRowDef="displayedColumns" class="amw-data-table__header-row"></tr>
-        
-        <!-- Table Rows -->
-        <tr 
-          mat-row 
-          *matRowDef="let row; let i = index; columns: displayedColumns"
-          [class]="getRowClasses(row, i)"
-          class="amw-data-table__data-row">
-        </tr>
-        
-        <!-- No Data Row -->
-        <tr *ngIf="getPaginatedData().length === 0" class="amw-data-table__no-data-row">
-          <td [colSpan]="displayedColumns.length" class="amw-data-table__no-data-cell">
-            <div class="amw-data-table__no-data">
-              <mat-icon class="amw-data-table__no-data-icon">inbox</mat-icon>
-              <p class="amw-data-table__no-data-message">{{ emptyMessage }}</p>
-            </div>
-          </td>
-        </tr>
-      </table>
-    </div>
-    
-    <!-- Table Footer -->
-    <div *ngIf="config?.showFooter !== false" class="amw-data-table__footer">
-      
-      <!-- Pagination -->
-      <mat-paginator 
-        *ngIf="config?.paginated !== false"
-        [pageIndex]="pagination.pageIndex"
-        [pageSize]="pagination.pageSize"
-        [length]="pagination.length"
-        [pageSizeOptions]="pagination.pageSizeOptions"
-        [showFirstLastButtons]="pagination.showFirstLastButtons"
-        [hidePageSize]="pagination.hidePageSize"
-        (page)="onPageChange($event)"
-        class="amw-data-table__paginator">
-      </mat-paginator>
-      
-      <!-- Total Count -->
-      <div *ngIf="config?.showTotalCount !== false" class="amw-data-table__total-count">
-        <span class="amw-data-table__total-count-text">
-          {{ config?.totalCountLabel || 'Total' }}: {{ pagination.length }}
-        </span>
+                      matTooltip="Edit field">edit</mat-icon>
+                    }
+                  </div>
+                }
+              </td>
+            </ng-container>
+          }
+          <!-- Actions Column -->
+          @if (hasActions()) {
+            <ng-container matColumnDef="actions">
+              <th mat-header-cell *matHeaderCellDef>Actions</th>
+              <td mat-cell *matCellDef="let row; let i = index">
+                <div class="amw-data-table__actions-cell">
+                  <!-- Edit/Save/Cancel buttons -->
+                  @if (config?.editable && !isRowEditing(row) && !hasCustomEditAction()) {
+                    <button
+                      mat-icon-button
+                      matTooltip="Edit row"
+                      (click)="startEditing(row, i)">
+                      <mat-icon>edit</mat-icon>
+                    </button>
+                  }
+                  @if (config?.editable && isRowEditing(row)) {
+                    <button
+                      mat-icon-button
+                      color="primary"
+                      matTooltip="Save changes"
+                      (click)="saveEditing()">
+                      <mat-icon>save</mat-icon>
+                    </button>
+                  }
+                  @if (config?.editable && isRowEditing(row)) {
+                    <button
+                      mat-icon-button
+                      matTooltip="Cancel editing"
+                      (click)="cancelEditing()">
+                      <mat-icon>cancel</mat-icon>
+                    </button>
+                  }
+                  <!-- Other actions -->
+                  @for (action of getRowActions(row, i); track action) {
+                    <button
+                      mat-icon-button
+                      [disabled]="isActionDisabled(action, row, i)"
+                      [matTooltip]="action.tooltip || action.label"
+                      [class]="action.cssClass"
+                      (click)="onActionClick(action, row, i)">
+                      @if (action.icon) {
+                        <mat-icon>{{ action.icon }}</mat-icon>
+                      }
+                      @if (!action.icon) {
+                        <span>{{ action.label }}</span>
+                      }
+                    </button>
+                  }
+                </div>
+              </td>
+            </ng-container>
+          }
+          <!-- Table Header -->
+          <tr mat-header-row *matHeaderRowDef="displayedColumns" class="amw-data-table__header-row"></tr>
+          <!-- Table Rows -->
+          <tr
+            mat-row
+            *matRowDef="let row; let i = index; columns: displayedColumns"
+            [class]="getRowClasses(row, i)"
+            class="amw-data-table__data-row">
+          </tr>
+          <!-- No Data Row -->
+          @if (getPaginatedData().length === 0) {
+            <tr class="amw-data-table__no-data-row">
+              <td [colSpan]="displayedColumns.length" class="amw-data-table__no-data-cell">
+                <div class="amw-data-table__no-data">
+                  <mat-icon class="amw-data-table__no-data-icon">inbox</mat-icon>
+                  <p class="amw-data-table__no-data-message">{{ emptyMessage }}</p>
+                </div>
+              </td>
+            </tr>
+          }
+        </table>
       </div>
+      <!-- Table Footer -->
+      @if (config?.showFooter !== false) {
+        <div class="amw-data-table__footer">
+          <!-- Pagination -->
+          @if (config?.paginated !== false) {
+            <mat-paginator
+              [pageIndex]="pagination.pageIndex"
+              [pageSize]="pagination.pageSize"
+              [length]="pagination.length"
+              [pageSizeOptions]="pagination.pageSizeOptions"
+              [showFirstLastButtons]="pagination.showFirstLastButtons"
+              [hidePageSize]="pagination.hidePageSize"
+              (page)="onPageChange($event)"
+              class="amw-data-table__paginator">
+            </mat-paginator>
+          }
+          <!-- Total Count -->
+          @if (config?.showTotalCount !== false) {
+            <div class="amw-data-table__total-count">
+              <span class="amw-data-table__total-count-text">
+                {{ config?.totalCountLabel || 'Total' }}: {{ pagination.length }}
+              </span>
+            </div>
+          }
+        </div>
+      }
     </div>
-  </div>
+  }
 </div>

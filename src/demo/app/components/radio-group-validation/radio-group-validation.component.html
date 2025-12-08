@@ -20,11 +20,13 @@
             formControlName="requiredField"
             [class]="'validation-' + getFieldValidationStatus('requiredField')">
           </amw-radio-group>
-          
-          <div *ngIf="getFieldValidationMessage('requiredField')" class="validation-error">
-            <mat-icon>error</mat-icon>
-            {{ getFieldValidationMessage('requiredField') }}
-          </div>
+
+          @if (getFieldValidationMessage('requiredField')) {
+            <div class="validation-error">
+              <mat-icon>error</mat-icon>
+              {{ getFieldValidationMessage('requiredField') }}
+            </div>
+          }
         </div>
 
         <mat-divider></mat-divider>
@@ -39,11 +41,13 @@
             formControlName="agreement"
             [class]="'validation-' + getFieldValidationStatus('agreement')">
           </amw-radio-group>
-          
-          <div *ngIf="getFieldValidationMessage('agreement')" class="validation-error">
-            <mat-icon>error</mat-icon>
-            {{ getFieldValidationMessage('agreement') }}
-          </div>
+
+          @if (getFieldValidationMessage('agreement')) {
+            <div class="validation-error">
+              <mat-icon>error</mat-icon>
+              {{ getFieldValidationMessage('agreement') }}
+            </div>
+          }
         </div>
 
         <mat-divider></mat-divider>
@@ -58,11 +62,13 @@
             formControlName="priority"
             [class]="'validation-' + getFieldValidationStatus('priority')">
           </amw-radio-group>
-          
-          <div *ngIf="getFieldValidationMessage('priority')" class="validation-error">
-            <mat-icon>error</mat-icon>
-            {{ getFieldValidationMessage('priority') }}
-          </div>
+
+          @if (getFieldValidationMessage('priority')) {
+            <div class="validation-error">
+              <mat-icon>error</mat-icon>
+              {{ getFieldValidationMessage('priority') }}
+            </div>
+          }
         </div>
 
         <mat-divider></mat-divider>
@@ -77,11 +83,13 @@
             formControlName="size"
             [class]="'validation-' + getFieldValidationStatus('size')">
           </amw-radio-group>
-          
-          <div *ngIf="getFieldValidationMessage('size')" class="validation-error">
-            <mat-icon>error</mat-icon>
-            {{ getFieldValidationMessage('size') }}
-          </div>
+
+          @if (getFieldValidationMessage('size')) {
+            <div class="validation-error">
+              <mat-icon>error</mat-icon>
+              {{ getFieldValidationMessage('size') }}
+            </div>
+          }
         </div>
 
         <!-- Form Actions -->
@@ -90,7 +98,7 @@
             <mat-icon>check</mat-icon>
             Submit Form
           </button>
-          
+
           <button mat-button type="button" (click)="resetForm()">
             <mat-icon>refresh</mat-icon>
             Reset
@@ -116,13 +124,17 @@
             Form {{ isFormValid ? 'Valid' : 'Invalid' }}
           </span>
         </div>
-        
-        <div *ngIf="formErrors.length > 0" class="error-list">
-          <h4>Validation Errors:</h4>
-          <ul>
-            <li *ngFor="let error of formErrors">{{ error }}</li>
-          </ul>
-        </div>
+
+        @if (formErrors.length > 0) {
+          <div class="error-list">
+            <h4>Validation Errors:</h4>
+            <ul>
+              @for (error of formErrors; track error) {
+                <li>{{ error }}</li>
+              }
+            </ul>
+          </div>
+        }
       </div>
     </mat-card-content>
   </mat-card>

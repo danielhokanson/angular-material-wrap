@@ -1,5 +1,5 @@
 import { Component, ViewEncapsulation } from '@angular/core';
-import { CommonModule } from '@angular/common';
+
 import { MatCardModule } from '@angular/material/card';
 import { MatButtonModule } from '@angular/material/button';
 import { MatIconModule } from '@angular/material/icon';
@@ -10,13 +10,12 @@ import { AmwColorPickerComponent } from '../../../../library/src/controls/compon
     selector: 'amw-demo-color-picker',
     standalone: true,
     imports: [
-        CommonModule,
-        MatCardModule,
-        MatButtonModule,
-        MatIconModule,
-        MatChipsModule,
-        AmwColorPickerComponent
-    ],
+    MatCardModule,
+    MatButtonModule,
+    MatIconModule,
+    MatChipsModule,
+    AmwColorPickerComponent
+],
     encapsulation: ViewEncapsulation.None,
     templateUrl: './color-picker-demo.component.html',
     styleUrl: './color-picker-demo.component.scss'

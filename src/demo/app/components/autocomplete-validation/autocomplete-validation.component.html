@@ -18,9 +18,11 @@
             [required]="true"
             appearance="outline">
           </amw-autocomplete>
-          <div class="field-error" *ngIf="getFieldError('country')">
-            {{ getFieldError('country') }}
-          </div>
+          @if (getFieldError('country')) {
+            <div class="field-error">
+              {{ getFieldError('country') }}
+            </div>
+          }
         </div>
       </div>
 
@@ -36,9 +38,11 @@
             [required]="true"
             appearance="outline">
           </amw-autocomplete>
-          <div class="field-error" *ngIf="getFieldError('skills')">
-            {{ getFieldError('skills') }}
-          </div>
+          @if (getFieldError('skills')) {
+            <div class="field-error">
+              {{ getFieldError('skills') }}
+            </div>
+          }
         </div>
       </div>
 
@@ -54,9 +58,11 @@
             [required]="true"
             appearance="outline">
           </amw-autocomplete>
-          <div class="field-error" *ngIf="getFieldError('favoriteColor')">
-            {{ getFieldError('favoriteColor') }}
-          </div>
+          @if (getFieldError('favoriteColor')) {
+            <div class="field-error">
+              {{ getFieldError('favoriteColor') }}
+            </div>
+          }
         </div>
       </div>
 
@@ -73,9 +79,11 @@
             [minlength]="2"
             appearance="outline">
           </amw-autocomplete>
-          <div class="field-error" *ngIf="getFieldError('company')">
-            {{ getFieldError('company') }}
-          </div>
+          @if (getFieldError('company')) {
+            <div class="field-error">
+              {{ getFieldError('company') }}
+            </div>
+          }
         </div>
       </div>
 
@@ -92,9 +100,11 @@
             type="email"
             appearance="outline">
           </amw-autocomplete>
-          <div class="field-error" *ngIf="getFieldError('email')">
-            {{ getFieldError('email') }}
-          </div>
+          @if (getFieldError('email')) {
+            <div class="field-error">
+              {{ getFieldError('email') }}
+            </div>
+          }
         </div>
       </div>
 

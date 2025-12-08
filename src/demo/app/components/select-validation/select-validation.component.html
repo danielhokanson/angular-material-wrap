@@ -15,9 +15,11 @@
           [required]="true"
           appearance="outline">
         </amw-select>
-        <div class="field-error" *ngIf="getFieldError('requiredSelect')">
-          {{ getFieldError('requiredSelect') }}
-        </div>
+        @if (getFieldError('requiredSelect')) {
+          <div class="field-error">
+            {{ getFieldError('requiredSelect') }}
+          </div>
+        }
       </div>
 
       <div class="form-row">
@@ -29,9 +31,11 @@
           [required]="true"
           appearance="outline">
         </amw-select>
-        <div class="field-error" *ngIf="getFieldError('countrySelect')">
-          {{ getFieldError('countrySelect') }}
-        </div>
+        @if (getFieldError('countrySelect')) {
+          <div class="field-error">
+            {{ getFieldError('countrySelect') }}
+          </div>
+        }
       </div>
 
       <div class="form-row">
@@ -43,9 +47,11 @@
           [required]="true"
           appearance="outline">
         </amw-select>
-        <div class="field-error" *ngIf="getFieldError('sizeSelect')">
-          {{ getFieldError('sizeSelect') }}
-        </div>
+        @if (getFieldError('sizeSelect')) {
+          <div class="field-error">
+            {{ getFieldError('sizeSelect') }}
+          </div>
+        }
       </div>
 
       <div class="form-row">
@@ -58,9 +64,11 @@
           [required]="true"
           appearance="outline">
         </amw-select>
-        <div class="field-error" *ngIf="getFieldError('colorSelect')">
-          {{ getFieldError('colorSelect') }}
-        </div>
+        @if (getFieldError('colorSelect')) {
+          <div class="field-error">
+            {{ getFieldError('colorSelect') }}
+          </div>
+        }
       </div>
 
       <div class="form-row">

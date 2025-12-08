@@ -1,14 +1,13 @@
 import { Component, ViewEncapsulation } from '@angular/core';
-import { CommonModule } from '@angular/common';
+
 import { MatExpansionModule } from '@angular/material/expansion';
 
 @Component({
   selector: 'amw-demo-button-code',
   standalone: true,
   imports: [
-    CommonModule,
-    MatExpansionModule,
-  ],
+    MatExpansionModule
+],
   encapsulation: ViewEncapsulation.None,
   templateUrl: './button-code.component.html',
   styleUrl: './button-code.component.scss'

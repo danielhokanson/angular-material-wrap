@@ -1,5 +1,5 @@
 import { Component, ViewEncapsulation } from '@angular/core';
-import { CommonModule } from '@angular/common';
+
 import { MatCardModule } from '@angular/material/card';
 import { MatTableModule } from '@angular/material/table';
 
@@ -7,10 +7,9 @@ import { MatTableModule } from '@angular/material/table';
     selector: 'amw-demo-timepicker-api',
     standalone: true,
     imports: [
-        CommonModule,
-        MatCardModule,
-        MatTableModule
-    ],
+    MatCardModule,
+    MatTableModule
+],
     encapsulation: ViewEncapsulation.None,
     templateUrl: './timepicker-api.component.html',
     styleUrl: './timepicker-api.component.scss'

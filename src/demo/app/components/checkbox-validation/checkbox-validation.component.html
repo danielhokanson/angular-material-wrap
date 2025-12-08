@@ -15,9 +15,11 @@
             label="I accept the Terms and Conditions"
             color="primary">
           </amw-checkbox>
-          <div class="field-error" *ngIf="getFieldError('termsAccepted')">
-            {{ getFieldError('termsAccepted') }}
-          </div>
+          @if (getFieldError('termsAccepted')) {
+            <div class="field-error">
+              {{ getFieldError('termsAccepted') }}
+            </div>
+          }
         </div>
 
         <div class="checkbox-group">
@@ -26,9 +28,11 @@
             label="I have read and agree to the Privacy Policy"
             color="primary">
           </amw-checkbox>
-          <div class="field-error" *ngIf="getFieldError('privacyAccepted')">
-            {{ getFieldError('privacyAccepted') }}
-          </div>
+          @if (getFieldError('privacyAccepted')) {
+            <div class="field-error">
+              {{ getFieldError('privacyAccepted') }}
+            </div>
+          }
         </div>
       </div>
 
@@ -69,9 +73,11 @@
             label="I consent to data collection for analytics and improvement purposes"
             color="primary">
           </amw-checkbox>
-          <div class="field-error" *ngIf="getFieldError('dataCollection')">
-            {{ getFieldError('dataCollection') }}
-          </div>
+          @if (getFieldError('dataCollection')) {
+            <div class="field-error">
+              {{ getFieldError('dataCollection') }}
+            </div>
+          }
         </div>
       </div>
 
@@ -84,9 +90,11 @@
             label="I confirm that I am 18 years or older"
             color="warn">
           </amw-checkbox>
-          <div class="field-error" *ngIf="getFieldError('ageVerification')">
-            {{ getFieldError('ageVerification') }}
-          </div>
+          @if (getFieldError('ageVerification')) {
+            <div class="field-error">
+              {{ getFieldError('ageVerification') }}
+            </div>
+          }
         </div>
       </div>
 

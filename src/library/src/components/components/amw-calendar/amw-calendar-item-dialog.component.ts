@@ -1,5 +1,5 @@
 import { Component, Inject, OnInit } from '@angular/core';
-import { CommonModule } from '@angular/common';
+
 import { FormsModule } from '@angular/forms';
 import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
 import { MatButtonModule } from '@angular/material/button';
@@ -20,7 +20,7 @@ export interface CalendarItemDialogData {
 @Component({
     selector: 'amw-calendar-item-dialog',
     standalone: true,
-    imports: [CommonModule, FormsModule, MatButtonModule, MatIconModule],
+    imports: [FormsModule, MatButtonModule, MatIconModule],
     templateUrl: './amw-calendar-item-dialog.component.html',
     styleUrl: './amw-calendar-item-dialog.component.scss'
 })

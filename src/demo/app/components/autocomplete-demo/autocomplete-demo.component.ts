@@ -1,5 +1,5 @@
 import { Component, ViewEncapsulation } from '@angular/core';
-import { CommonModule } from '@angular/common';
+
 import { FormsModule } from '@angular/forms';
 import { MatCardModule } from '@angular/material/card';
 import { MatButtonModule } from '@angular/material/button';
@@ -13,13 +13,12 @@ import { AutocompleteOption } from '../../../../library/src/controls/components/
     selector: 'amw-demo-autocomplete',
     standalone: true,
     imports: [
-        CommonModule,
-        FormsModule,
-        MatCardModule,
-        MatButtonModule,
-        MatIconModule,
-        AmwAutocompleteComponent
-    ],
+    FormsModule,
+    MatCardModule,
+    MatButtonModule,
+    MatIconModule,
+    AmwAutocompleteComponent
+],
     templateUrl: './autocomplete-demo.component.html',
     styleUrl: './autocomplete-demo.component.scss',
     encapsulation: ViewEncapsulation.None

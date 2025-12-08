@@ -17,8 +17,10 @@
     (blur)="onBlur($event)">
     <span [innerHTML]="label"></span>
   </mat-slide-toggle>
-  
-  <div *ngIf="hasError && errorMessage" class="amw-toggle__error">
-    {{ errorMessage }}
-  </div>
+
+  @if (hasError && errorMessage) {
+    <div class="amw-toggle__error">
+      {{ errorMessage }}
+    </div>
+  }
 </div>

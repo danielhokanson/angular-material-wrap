@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { CommonModule } from '@angular/common';
+
 import { MatCardModule } from '@angular/material/card';
 import { MatButtonModule } from '@angular/material/button';
 import { MatIconModule } from '@angular/material/icon';
@@ -26,17 +26,16 @@ interface SampleEvent {
     selector: 'amw-demo-calendar-page',
     standalone: true,
     imports: [
-        CommonModule,
-        MatCardModule,
-        MatButtonModule,
-        MatIconModule,
-        MatTabsModule,
-        MatSnackBarModule,
-        MatDialogModule,
-        MatDividerModule,
-        AmwCalendarFullComponent,
-        AmwCalendarMiniComponent
-    ],
+    MatCardModule,
+    MatButtonModule,
+    MatIconModule,
+    MatTabsModule,
+    MatSnackBarModule,
+    MatDialogModule,
+    MatDividerModule,
+    AmwCalendarFullComponent,
+    AmwCalendarMiniComponent
+],
     encapsulation: ViewEncapsulation.None,
     templateUrl: './calendar-demo-page.component.html',
     styleUrl: './calendar-demo-page.component.scss'

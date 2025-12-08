@@ -1,12 +1,10 @@
 import { Component, ViewEncapsulation } from '@angular/core';
-import { CommonModule } from '@angular/common';
+
 
 @Component({
     selector: 'amw-demo-button-api',
     standalone: true,
-    imports: [
-        CommonModule,
-    ],
+    imports: [],
     encapsulation: ViewEncapsulation.None,
     templateUrl: './button-api.component.html',
     styleUrl: './button-api.component.scss'

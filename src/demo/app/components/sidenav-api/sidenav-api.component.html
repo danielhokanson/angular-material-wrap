@@ -12,7 +12,7 @@
         <mat-card-title>API Reference</mat-card-title>
         <mat-card-subtitle>Component, service, and interface documentation</mat-card-subtitle>
       </mat-card-header>
-      
+
       <mat-card-content>
         <mat-tab-group class="sidenav-api__tabs">
           <!-- Component Tab -->
@@ -28,17 +28,20 @@
                     <span class="sidenav-api__property-description">Description</span>
                     <span class="sidenav-api__property-default">Default</span>
                   </div>
-                  <div
-                    *ngFor="let input of getComponentInputs()"
-                    class="sidenav-api__property-row">
-                    <span class="sidenav-api__property-name">
-                      {{ input.name }}
-                      <span *ngIf="input.required" class="sidenav-api__required">*</span>
-                    </span>
-                    <span class="sidenav-api__property-type">{{ input.type }}</span>
-                    <span class="sidenav-api__property-description">{{ input.description }}</span>
-                    <span class="sidenav-api__property-default">{{ input.default }}</span>
-                  </div>
+                  @for (input of getComponentInputs(); track input) {
+                    <div
+                      class="sidenav-api__property-row">
+                      <span class="sidenav-api__property-name">
+                        {{ input.name }}
+                        @if (input.required) {
+                          <span class="sidenav-api__required">*</span>
+                        }
+                      </span>
+                      <span class="sidenav-api__property-type">{{ input.type }}</span>
+                      <span class="sidenav-api__property-description">{{ input.description }}</span>
+                      <span class="sidenav-api__property-default">{{ input.default }}</span>
+                    </div>
+                  }
                 </div>
               </div>
 
@@ -52,14 +55,15 @@
                     <span class="sidenav-api__property-description">Description</span>
                     <span class="sidenav-api__property-parameters">Parameters</span>
                   </div>
-                  <div
-                    *ngFor="let output of getComponentOutputs()"
-                    class="sidenav-api__property-row">
-                    <span class="sidenav-api__property-name">{{ output.name }}</span>
-                    <span class="sidenav-api__property-type">{{ output.type }}</span>
-                    <span class="sidenav-api__property-description">{{ output.description }}</span>
-                    <span class="sidenav-api__property-parameters">{{ output.parameters }}</span>
-                  </div>
+                  @for (output of getComponentOutputs(); track output) {
+                    <div
+                      class="sidenav-api__property-row">
+                      <span class="sidenav-api__property-name">{{ output.name }}</span>
+                      <span class="sidenav-api__property-type">{{ output.type }}</span>
+                      <span class="sidenav-api__property-description">{{ output.description }}</span>
+                      <span class="sidenav-api__property-parameters">{{ output.parameters }}</span>
+                    </div>
+                  }
                 </div>
               </div>
 
@@ -73,14 +77,15 @@
                     <span class="sidenav-api__property-parameters">Parameters</span>
                     <span class="sidenav-api__property-returns">Returns</span>
                   </div>
-                  <div
-                    *ngFor="let method of getComponentMethods()"
-                    class="sidenav-api__property-row">
-                    <span class="sidenav-api__property-name">{{ method.name }}</span>
-                    <span class="sidenav-api__property-description">{{ method.description }}</span>
-                    <span class="sidenav-api__property-parameters">{{ method.parameters }}</span>
-                    <span class="sidenav-api__property-returns">{{ method.returns }}</span>
-                  </div>
+                  @for (method of getComponentMethods(); track method) {
+                    <div
+                      class="sidenav-api__property-row">
+                      <span class="sidenav-api__property-name">{{ method.name }}</span>
+                      <span class="sidenav-api__property-description">{{ method.description }}</span>
+                      <span class="sidenav-api__property-parameters">{{ method.parameters }}</span>
+                      <span class="sidenav-api__property-returns">{{ method.returns }}</span>
+                    </div>
+                  }
                 </div>
               </div>
             </div>
@@ -98,13 +103,14 @@
                     <span class="sidenav-api__property-type">Type</span>
                     <span class="sidenav-api__property-description">Description</span>
                   </div>
-                  <div
-                    *ngFor="let property of getServiceProperties()"
-                    class="sidenav-api__property-row">
-                    <span class="sidenav-api__property-name">{{ property.name }}</span>
-                    <span class="sidenav-api__property-type">{{ property.type }}</span>
-                    <span class="sidenav-api__property-description">{{ property.description }}</span>
-                  </div>
+                  @for (property of getServiceProperties(); track property) {
+                    <div
+                      class="sidenav-api__property-row">
+                      <span class="sidenav-api__property-name">{{ property.name }}</span>
+                      <span class="sidenav-api__property-type">{{ property.type }}</span>
+                      <span class="sidenav-api__property-description">{{ property.description }}</span>
+                    </div>
+                  }
                 </div>
               </div>
 
@@ -117,13 +123,14 @@
                     <span class="sidenav-api__property-type">Type</span>
                     <span class="sidenav-api__property-description">Description</span>
                   </div>
-                  <div
-                    *ngFor="let observable of getServiceObservables()"
-                    class="sidenav-api__property-row">
-                    <span class="sidenav-api__property-name">{{ observable.name }}</span>
-                    <span class="sidenav-api__property-type">{{ observable.type }}</span>
-                    <span class="sidenav-api__property-description">{{ observable.description }}</span>
-                  </div>
+                  @for (observable of getServiceObservables(); track observable) {
+                    <div
+                      class="sidenav-api__property-row">
+                      <span class="sidenav-api__property-name">{{ observable.name }}</span>
+                      <span class="sidenav-api__property-type">{{ observable.type }}</span>
+                      <span class="sidenav-api__property-description">{{ observable.description }}</span>
+                    </div>
+                  }
                 </div>
               </div>
 
@@ -137,14 +144,15 @@
                     <span class="sidenav-api__property-parameters">Parameters</span>
                     <span class="sidenav-api__property-returns">Returns</span>
                   </div>
-                  <div
-                    *ngFor="let method of getServiceMethods()"
-                    class="sidenav-api__property-row">
-                    <span class="sidenav-api__property-name">{{ method.name }}</span>
-                    <span class="sidenav-api__property-description">{{ method.description }}</span>
-                    <span class="sidenav-api__property-parameters">{{ method.parameters }}</span>
-                    <span class="sidenav-api__property-returns">{{ method.returns }}</span>
-                  </div>
+                  @for (method of getServiceMethods(); track method) {
+                    <div
+                      class="sidenav-api__property-row">
+                      <span class="sidenav-api__property-name">{{ method.name }}</span>
+                      <span class="sidenav-api__property-description">{{ method.description }}</span>
+                      <span class="sidenav-api__property-parameters">{{ method.parameters }}</span>
+                      <span class="sidenav-api__property-returns">{{ method.returns }}</span>
+                    </div>
+                  }
                 </div>
               </div>
             </div>
@@ -163,17 +171,20 @@
                     <span class="sidenav-api__property-description">Description</span>
                     <span class="sidenav-api__property-default">Default</span>
                   </div>
-                  <div
-                    *ngFor="let property of getSidenavConfigProperties()"
-                    class="sidenav-api__property-row">
-                    <span class="sidenav-api__property-name">
-                      {{ property.name }}
-                      <span *ngIf="property.required" class="sidenav-api__required">*</span>
-                    </span>
-                    <span class="sidenav-api__property-type">{{ property.type }}</span>
-                    <span class="sidenav-api__property-description">{{ property.description }}</span>
-                    <span class="sidenav-api__property-default">{{ property.default }}</span>
-                  </div>
+                  @for (property of getSidenavConfigProperties(); track property) {
+                    <div
+                      class="sidenav-api__property-row">
+                      <span class="sidenav-api__property-name">
+                        {{ property.name }}
+                        @if (property.required) {
+                          <span class="sidenav-api__required">*</span>
+                        }
+                      </span>
+                      <span class="sidenav-api__property-type">{{ property.type }}</span>
+                      <span class="sidenav-api__property-description">{{ property.description }}</span>
+                      <span class="sidenav-api__property-default">{{ property.default }}</span>
+                    </div>
+                  }
                 </div>
               </div>
 
@@ -187,19 +198,22 @@
                     <span class="sidenav-api__property-description">Description</span>
                     <span class="sidenav-api__property-required">Required</span>
                   </div>
-                  <div
-                    *ngFor="let property of getSidenavItemProperties()"
-                    class="sidenav-api__property-row">
-                    <span class="sidenav-api__property-name">
-                      {{ property.name }}
-                      <span *ngIf="property.required" class="sidenav-api__required">*</span>
-                    </span>
-                    <span class="sidenav-api__property-type">{{ property.type }}</span>
-                    <span class="sidenav-api__property-description">{{ property.description }}</span>
-                    <span class="sidenav-api__property-required">
-                      {{ property.required ? 'Yes' : 'No' }}
-                    </span>
-                  </div>
+                  @for (property of getSidenavItemProperties(); track property) {
+                    <div
+                      class="sidenav-api__property-row">
+                      <span class="sidenav-api__property-name">
+                        {{ property.name }}
+                        @if (property.required) {
+                          <span class="sidenav-api__required">*</span>
+                        }
+                      </span>
+                      <span class="sidenav-api__property-type">{{ property.type }}</span>
+                      <span class="sidenav-api__property-description">{{ property.description }}</span>
+                      <span class="sidenav-api__property-required">
+                        {{ property.required ? 'Yes' : 'No' }}
+                      </span>
+                    </div>
+                  }
                 </div>
               </div>
 
@@ -213,19 +227,22 @@
                     <span class="sidenav-api__property-description">Description</span>
                     <span class="sidenav-api__property-required">Required</span>
                   </div>
-                  <div
-                    *ngFor="let property of getSidenavEventProperties()"
-                    class="sidenav-api__property-row">
-                    <span class="sidenav-api__property-name">
-                      {{ property.name }}
-                      <span *ngIf="property.required" class="sidenav-api__required">*</span>
-                    </span>
-                    <span class="sidenav-api__property-type">{{ property.type }}</span>
-                    <span class="sidenav-api__property-description">{{ property.description }}</span>
-                    <span class="sidenav-api__property-required">
-                      {{ property.required ? 'Yes' : 'No' }}
-                    </span>
-                  </div>
+                  @for (property of getSidenavEventProperties(); track property) {
+                    <div
+                      class="sidenav-api__property-row">
+                      <span class="sidenav-api__property-name">
+                        {{ property.name }}
+                        @if (property.required) {
+                          <span class="sidenav-api__required">*</span>
+                        }
+                      </span>
+                      <span class="sidenav-api__property-type">{{ property.type }}</span>
+                      <span class="sidenav-api__property-description">{{ property.description }}</span>
+                      <span class="sidenav-api__property-required">
+                        {{ property.required ? 'Yes' : 'No' }}
+                      </span>
+                    </div>
+                  }
                 </div>
               </div>
             </div>
@@ -240,7 +257,7 @@
         <mat-card-title>Live Demo</mat-card-title>
         <mat-card-subtitle>Test the sidenav component with the current configuration</mat-card-subtitle>
       </mat-card-header>
-      
+
       <mat-card-content>
         <div class="sidenav-api__demo-container">
           <amw-sidenav
@@ -249,7 +266,7 @@
             [opened]="currentConfig.opened ?? false"
             (openedChange)="onSidenavOpenedChange($event)"
             (itemClick)="onItemClick($event)">
-            
+
             <!-- Main Content -->
             <div class="sidenav-api__main-content">
               <mat-card class="sidenav-api__content-card">
@@ -257,13 +274,13 @@
                   <mat-card-title>API Documentation</mat-card-title>
                   <mat-card-subtitle>Explore the sidenav component API</mat-card-subtitle>
                 </mat-card-header>
-                
+
                 <mat-card-content>
                   <p>
                     This documentation provides comprehensive information about the sidenav component,
                     including all inputs, outputs, methods, and interfaces.
                   </p>
-                  
+
                   <div class="sidenav-api__usage-info">
                     <h4>Quick Start:</h4>
                     <ol>
