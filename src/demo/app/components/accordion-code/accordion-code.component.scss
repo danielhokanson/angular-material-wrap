@@ -1,4 +1,148 @@
 // Component-specific styles for accordion-code
 // Global code section styles are imported from styles/_demo-api-code-shared.scss
 
-// Add any accordion-specific overrides here if needed
+// Interactive code example layout
+.code-examples-accordion {
+  .example-container {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 24px;
+    padding: 24px 0;
+
+    @media (max-width: 1200px) {
+      grid-template-columns: 1fr;
+    }
+
+    .code-panel,
+    .preview-panel {
+      h4 {
+        font-size: 16px;
+        font-weight: 500;
+        color: var(--mdc-theme-on-surface, #1c1b1f);
+        margin-bottom: 16px;
+        display: flex;
+        align-items: center;
+        gap: 8px;
+
+        &::before {
+          content: '';
+          width: 4px;
+          height: 20px;
+          border-radius: 2px;
+        }
+      }
+    }
+
+    .code-panel {
+      h4::before {
+        background-color: var(--mdc-theme-primary, #6750a4);
+      }
+
+      pre {
+        margin: 0;
+        padding: 20px;
+        background-color: #1e1e1e;
+        border-radius: 8px;
+        overflow-x: auto;
+        box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+
+        code {
+          font-family: 'Roboto Mono', 'Courier New', monospace;
+          font-size: 13px;
+          line-height: 1.6;
+          color: #d4d4d4;
+          white-space: pre;
+        }
+      }
+    }
+
+    .preview-panel {
+      h4::before {
+        background-color: var(--mdc-theme-secondary, #625b71);
+      }
+
+      .preview-content {
+        padding: 20px;
+        background-color: var(--mdc-theme-surface-variant, #f3f0f4);
+        border-radius: 8px;
+        border: 1px solid var(--mdc-theme-outline, #79747e);
+        min-height: 150px;
+
+        // Style the preview accordions to be more compact
+        mat-accordion {
+          mat-expansion-panel {
+            margin-bottom: 8px;
+            border-radius: 8px;
+            box-shadow: 0 1px 3px rgba(0, 0, 0, 0.12);
+
+            &:last-child {
+              margin-bottom: 0;
+            }
+          }
+        }
+
+        // Style button groups
+        .button-group {
+          display: flex;
+          gap: 12px;
+          margin-top: 16px;
+          flex-wrap: wrap;
+
+          button {
+            display: flex;
+            align-items: center;
+            gap: 6px;
+
+            mat-icon {
+              font-size: 18px;
+              width: 18px;
+              height: 18px;
+            }
+          }
+        }
+
+        p {
+          margin: 12px 0;
+          color: var(--mdc-theme-on-surface, #1c1b1f);
+        }
+      }
+    }
+  }
+
+  // Header styling for code examples
+  mat-expansion-panel-header {
+    mat-panel-title {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      font-weight: 500;
+
+      mat-icon {
+        color: var(--mdc-theme-primary, #6750a4);
+        font-size: 20px;
+        width: 20px;
+        height: 20px;
+      }
+    }
+
+    mat-panel-description {
+      color: var(--mdc-theme-on-surface-variant, #49454f);
+    }
+  }
+}
+
+// Add spacing for the section
+.code-section {
+  h3 {
+    font-size: 24px;
+    font-weight: 500;
+    color: var(--mdc-theme-on-surface, #1c1b1f);
+    margin-bottom: 8px;
+  }
+
+  > p {
+    color: var(--mdc-theme-on-surface-variant, #49454f);
+    margin-bottom: 32px;
+    line-height: 1.6;
+  }
+}

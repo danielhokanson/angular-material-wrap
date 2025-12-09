@@ -1,67 +1,238 @@
 <div class="code-section">
   <h3>Code Examples</h3>
-  <p>Here are practical code examples for different accordion use cases:</p>
+  <p>Interactive examples with live previews. Expand each section to see the code and working component side-by-side.</p>
 
-  <mat-expansion-panel>
-    <mat-expansion-panel-header>
-      <mat-panel-title>Basic Accordion</mat-panel-title>
-    </mat-expansion-panel-header>
-    <div class="code-example">
-      <pre><code>{{ codeExamples.basic }}</code></pre>
-    </div>
-  </mat-expansion-panel>
+  <mat-accordion class="code-examples-accordion">
+    <!-- Basic Accordion -->
+    <mat-expansion-panel>
+      <mat-expansion-panel-header>
+        <mat-panel-title>
+          <mat-icon>code</mat-icon>
+          Basic Accordion
+        </mat-panel-title>
+        <mat-panel-description>Simple accordion with title and description</mat-panel-description>
+      </mat-expansion-panel-header>
+      <div class="example-container">
+        <div class="code-panel">
+          <h4>Code</h4>
+          <pre><code>{{ codeExamples.basic }}</code></pre>
+        </div>
+        <div class="preview-panel">
+          <h4>Live Preview</h4>
+          <div class="preview-content">
+            <mat-accordion>
+              <mat-expansion-panel>
+                <mat-expansion-panel-header>
+                  <mat-panel-title>Personal Information</mat-panel-title>
+                  <mat-panel-description>Enter your details</mat-panel-description>
+                </mat-expansion-panel-header>
+                <p>Panel content goes here</p>
+              </mat-expansion-panel>
+            </mat-accordion>
+          </div>
+        </div>
+      </div>
+    </mat-expansion-panel>
 
-  <mat-expansion-panel>
-    <mat-expansion-panel-header>
-      <mat-panel-title>Multi-Expansion Mode</mat-panel-title>
-    </mat-expansion-panel-header>
-    <div class="code-example">
-      <pre><code>{{ codeExamples.multiExpand }}</code></pre>
-    </div>
-  </mat-expansion-panel>
+    <!-- Multi-Expansion Mode -->
+    <mat-expansion-panel>
+      <mat-expansion-panel-header>
+        <mat-panel-title>
+          <mat-icon>code</mat-icon>
+          Multi-Expansion Mode
+        </mat-panel-title>
+        <mat-panel-description>Allow multiple panels to be open simultaneously</mat-panel-description>
+      </mat-expansion-panel-header>
+      <div class="example-container">
+        <div class="code-panel">
+          <h4>Code</h4>
+          <pre><code>{{ codeExamples.multiExpand }}</code></pre>
+        </div>
+        <div class="preview-panel">
+          <h4>Live Preview</h4>
+          <div class="preview-content">
+            <mat-accordion [multi]="true">
+              <mat-expansion-panel>
+                <mat-expansion-panel-header>
+                  <mat-panel-title>Panel 1</mat-panel-title>
+                </mat-expansion-panel-header>
+                <p>First panel content</p>
+              </mat-expansion-panel>
 
-  <mat-expansion-panel>
-    <mat-expansion-panel-header>
-      <mat-panel-title>Hide Toggle Indicator</mat-panel-title>
-    </mat-expansion-panel-header>
-    <div class="code-example">
-      <pre><code>{{ codeExamples.hideToggle }}</code></pre>
-    </div>
-  </mat-expansion-panel>
+              <mat-expansion-panel>
+                <mat-expansion-panel-header>
+                  <mat-panel-title>Panel 2</mat-panel-title>
+                </mat-expansion-panel-header>
+                <p>Second panel content</p>
+              </mat-expansion-panel>
+            </mat-accordion>
+          </div>
+        </div>
+      </div>
+    </mat-expansion-panel>
 
-  <mat-expansion-panel>
-    <mat-expansion-panel-header>
-      <mat-panel-title>Disabled State</mat-panel-title>
-    </mat-expansion-panel-header>
-    <div class="code-example">
-      <pre><code>{{ codeExamples.disabled }}</code></pre>
-    </div>
-  </mat-expansion-panel>
+    <!-- Hide Toggle -->
+    <mat-expansion-panel>
+      <mat-expansion-panel-header>
+        <mat-panel-title>
+          <mat-icon>code</mat-icon>
+          Hide Toggle Indicator
+        </mat-panel-title>
+        <mat-panel-description>Remove the expansion indicator icon</mat-panel-description>
+      </mat-expansion-panel-header>
+      <div class="example-container">
+        <div class="code-panel">
+          <h4>Code</h4>
+          <pre><code>{{ codeExamples.hideToggle }}</code></pre>
+        </div>
+        <div class="preview-panel">
+          <h4>Live Preview</h4>
+          <div class="preview-content">
+            <mat-accordion>
+              <mat-expansion-panel [hideToggle]="true">
+                <mat-expansion-panel-header>
+                  <mat-panel-title>No Toggle Indicator</mat-panel-title>
+                </mat-expansion-panel-header>
+                <p>This panel has no toggle indicator</p>
+              </mat-expansion-panel>
+            </mat-accordion>
+          </div>
+        </div>
+      </div>
+    </mat-expansion-panel>
 
-  <mat-expansion-panel>
-    <mat-expansion-panel-header>
-      <mat-panel-title>Programmatic Control</mat-panel-title>
-    </mat-expansion-panel-header>
-    <div class="code-example">
-      <pre><code>{{ codeExamples.programmatic }}</code></pre>
-    </div>
-  </mat-expansion-panel>
+    <!-- Disabled State -->
+    <mat-expansion-panel>
+      <mat-expansion-panel-header>
+        <mat-panel-title>
+          <mat-icon>code</mat-icon>
+          Disabled State
+        </mat-panel-title>
+        <mat-panel-description>Prevent user interaction with panel</mat-panel-description>
+      </mat-expansion-panel-header>
+      <div class="example-container">
+        <div class="code-panel">
+          <h4>Code</h4>
+          <pre><code>{{ codeExamples.disabled }}</code></pre>
+        </div>
+        <div class="preview-panel">
+          <h4>Live Preview</h4>
+          <div class="preview-content">
+            <mat-accordion>
+              <mat-expansion-panel [disabled]="true">
+                <mat-expansion-panel-header>
+                  <mat-panel-title>Disabled Panel</mat-panel-title>
+                </mat-expansion-panel-header>
+                <p>This panel cannot be opened</p>
+              </mat-expansion-panel>
+            </mat-accordion>
+          </div>
+        </div>
+      </div>
+    </mat-expansion-panel>
 
-  <mat-expansion-panel>
-    <mat-expansion-panel-header>
-      <mat-panel-title>Event Handling</mat-panel-title>
-    </mat-expansion-panel-header>
-    <div class="code-example">
-      <pre><code>{{ codeExamples.events }}</code></pre>
-    </div>
-  </mat-expansion-panel>
+    <!-- Programmatic Control -->
+    <mat-expansion-panel>
+      <mat-expansion-panel-header>
+        <mat-panel-title>
+          <mat-icon>code</mat-icon>
+          Programmatic Control
+        </mat-panel-title>
+        <mat-panel-description>Control panel state with methods</mat-panel-description>
+      </mat-expansion-panel-header>
+      <div class="example-container">
+        <div class="code-panel">
+          <h4>Code</h4>
+          <pre><code>{{ codeExamples.programmatic }}</code></pre>
+        </div>
+        <div class="preview-panel">
+          <h4>Live Preview</h4>
+          <div class="preview-content">
+            <mat-accordion>
+              <mat-expansion-panel #myPanel>
+                <mat-expansion-panel-header>
+                  <mat-panel-title>Controlled Panel</mat-panel-title>
+                </mat-expansion-panel-header>
+                <p>Panel controlled by buttons</p>
+              </mat-expansion-panel>
+            </mat-accordion>
 
-  <mat-expansion-panel>
-    <mat-expansion-panel-header>
-      <mat-panel-title>Toggle Position</mat-panel-title>
-    </mat-expansion-panel-header>
-    <div class="code-example">
-      <pre><code>{{ codeExamples.togglePosition }}</code></pre>
-    </div>
-  </mat-expansion-panel>
+            <div class="button-group">
+              <button mat-raised-button color="primary" (click)="myPanel.open()">
+                <mat-icon>expand_more</mat-icon> Open
+              </button>
+              <button mat-raised-button (click)="myPanel.close()">
+                <mat-icon>expand_less</mat-icon> Close
+              </button>
+              <button mat-raised-button (click)="myPanel.toggle()">
+                <mat-icon>sync</mat-icon> Toggle
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </mat-expansion-panel>
+
+    <!-- Event Handling -->
+    <mat-expansion-panel>
+      <mat-expansion-panel-header>
+        <mat-panel-title>
+          <mat-icon>code</mat-icon>
+          Event Handling
+        </mat-panel-title>
+        <mat-panel-description>Listen to panel state changes</mat-panel-description>
+      </mat-expansion-panel-header>
+      <div class="example-container">
+        <div class="code-panel">
+          <h4>Code</h4>
+          <pre><code>{{ codeExamples.events }}</code></pre>
+        </div>
+        <div class="preview-panel">
+          <h4>Live Preview</h4>
+          <div class="preview-content">
+            <mat-expansion-panel
+              (opened)="onOpened()"
+              (closed)="onClosed()"
+              (afterExpand)="onAfterExpand()"
+              (afterCollapse)="onAfterCollapse()">
+              <mat-expansion-panel-header>
+                <mat-panel-title>Event Handling</mat-panel-title>
+              </mat-expansion-panel-header>
+              <p>Panel with event listeners (check browser console)</p>
+            </mat-expansion-panel>
+          </div>
+        </div>
+      </div>
+    </mat-expansion-panel>
+
+    <!-- Toggle Position -->
+    <mat-expansion-panel>
+      <mat-expansion-panel-header>
+        <mat-panel-title>
+          <mat-icon>code</mat-icon>
+          Toggle Position
+        </mat-panel-title>
+        <mat-panel-description>Position the toggle indicator before the title</mat-panel-description>
+      </mat-expansion-panel-header>
+      <div class="example-container">
+        <div class="code-panel">
+          <h4>Code</h4>
+          <pre><code>{{ codeExamples.togglePosition }}</code></pre>
+        </div>
+        <div class="preview-panel">
+          <h4>Live Preview</h4>
+          <div class="preview-content">
+            <mat-accordion [togglePosition]="'before'">
+              <mat-expansion-panel>
+                <mat-expansion-panel-header>
+                  <mat-panel-title>Toggle on Left</mat-panel-title>
+                </mat-expansion-panel-header>
+                <p>Toggle indicator appears before the title</p>
+              </mat-expansion-panel>
+            </mat-accordion>
+          </div>
+        </div>
+      </div>
+    </mat-expansion-panel>
+  </mat-accordion>
 </div>

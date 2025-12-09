@@ -1,15 +1,36 @@
 import { Component, ViewEncapsulation } from '@angular/core';
 import { MatExpansionModule } from '@angular/material/expansion';
+import { MatButtonModule } from '@angular/material/button';
+import { MatIconModule } from '@angular/material/icon';
 
 @Component({
   selector: 'amw-demo-accordion-code',
   standalone: true,
-  imports: [MatExpansionModule],
+  imports: [MatExpansionModule, MatButtonModule, MatIconModule],
   encapsulation: ViewEncapsulation.None,
   templateUrl: './accordion-code.component.html',
   styleUrl: './accordion-code.component.scss'
 })
 export class AccordionCodeComponent {
+  // State for live previews
+  step = 0;
+
+  // Event handlers for event example
+  onOpened() {
+    console.log('Panel opened');
+  }
+
+  onClosed() {
+    console.log('Panel closed');
+  }
+
+  onAfterExpand() {
+    console.log('Expansion animation complete');
+  }
+
+  onAfterCollapse() {
+    console.log('Collapse animation complete');
+  }
   codeExamples = {
     basic: `<mat-accordion>
   <mat-expansion-panel>
