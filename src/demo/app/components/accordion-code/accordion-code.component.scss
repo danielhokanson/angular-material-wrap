@@ -34,24 +34,62 @@
     }
 
     .code-panel {
+      .code-header {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        margin-bottom: 16px;
+
+        h4 {
+          margin-bottom: 0;
+        }
+
+        button {
+          opacity: 0.7;
+          transition: opacity 0.2s;
+
+          &:hover {
+            opacity: 1;
+          }
+
+          mat-icon {
+            font-size: 20px;
+            width: 20px;
+            height: 20px;
+          }
+        }
+      }
+
       h4::before {
         background-color: var(--mdc-theme-primary, #6750a4);
       }
 
-      pre {
+      .code-editor {
+        width: 100%;
+        min-height: 300px;
         margin: 0;
         padding: 20px;
         background-color: #1e1e1e;
+        border: 2px solid #2d2d2d;
         border-radius: 8px;
         overflow-x: auto;
         box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+        font-family: 'Roboto Mono', 'Courier New', monospace;
+        font-size: 13px;
+        line-height: 1.6;
+        color: #d4d4d4;
+        white-space: pre;
+        resize: vertical;
+        transition: border-color 0.2s, box-shadow 0.2s;
 
-        code {
-          font-family: 'Roboto Mono', 'Courier New', monospace;
-          font-size: 13px;
-          line-height: 1.6;
-          color: #d4d4d4;
-          white-space: pre;
+        &:focus {
+          outline: none;
+          border-color: var(--mdc-theme-primary, #6750a4);
+          box-shadow: 0 2px 8px rgba(103, 80, 164, 0.3);
+        }
+
+        &:hover {
+          border-color: #3d3d3d;
         }
       }
     }
@@ -104,6 +142,26 @@
         p {
           margin: 12px 0;
           color: var(--mdc-theme-on-surface, #1c1b1f);
+        }
+
+        .preview-note {
+          display: flex;
+          align-items: center;
+          gap: 8px;
+          margin-top: 16px;
+          padding: 12px;
+          background-color: rgba(103, 80, 164, 0.1);
+          border-left: 3px solid var(--mdc-theme-primary, #6750a4);
+          border-radius: 4px;
+          font-size: 13px;
+          color: var(--mdc-theme-on-surface-variant, #49454f);
+
+          mat-icon {
+            font-size: 18px;
+            width: 18px;
+            height: 18px;
+            color: var(--mdc-theme-primary, #6750a4);
+          }
         }
       }
     }

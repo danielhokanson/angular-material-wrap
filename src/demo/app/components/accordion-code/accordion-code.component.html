@@ -14,8 +14,16 @@
       </mat-expansion-panel-header>
       <div class="example-container">
         <div class="code-panel">
-          <h4>Code</h4>
-          <pre><code>{{ codeExamples.basic }}</code></pre>
+          <div class="code-header">
+            <h4>Code</h4>
+            <button mat-icon-button (click)="resetCode('basic')" title="Reset to original">
+              <mat-icon>refresh</mat-icon>
+            </button>
+          </div>
+          <textarea
+            [(ngModel)]="editableCode.basic"
+            class="code-editor"
+            spellcheck="false"></textarea>
         </div>
         <div class="preview-panel">
           <h4>Live Preview</h4>
@@ -29,6 +37,10 @@
                 <p>Panel content goes here</p>
               </mat-expansion-panel>
             </mat-accordion>
+            <div class="preview-note">
+              <mat-icon>info</mat-icon>
+              <span>Note: Live HTML rendering coming soon. Edit the code to see changes.</span>
+            </div>
           </div>
         </div>
       </div>
@@ -45,8 +57,16 @@
       </mat-expansion-panel-header>
       <div class="example-container">
         <div class="code-panel">
-          <h4>Code</h4>
-          <pre><code>{{ codeExamples.multiExpand }}</code></pre>
+          <div class="code-header">
+            <h4>Code</h4>
+            <button mat-icon-button (click)="resetCode('multiExpand')" title="Reset to original">
+              <mat-icon>refresh</mat-icon>
+            </button>
+          </div>
+          <textarea
+            [(ngModel)]="editableCode.multiExpand"
+            class="code-editor"
+            spellcheck="false"></textarea>
         </div>
         <div class="preview-panel">
           <h4>Live Preview</h4>
@@ -82,8 +102,16 @@
       </mat-expansion-panel-header>
       <div class="example-container">
         <div class="code-panel">
-          <h4>Code</h4>
-          <pre><code>{{ codeExamples.hideToggle }}</code></pre>
+          <div class="code-header">
+            <h4>Code</h4>
+            <button mat-icon-button (click)="resetCode('hideToggle')" title="Reset to original">
+              <mat-icon>refresh</mat-icon>
+            </button>
+          </div>
+          <textarea
+            [(ngModel)]="editableCode.hideToggle"
+            class="code-editor"
+            spellcheck="false"></textarea>
         </div>
         <div class="preview-panel">
           <h4>Live Preview</h4>
@@ -112,8 +140,16 @@
       </mat-expansion-panel-header>
       <div class="example-container">
         <div class="code-panel">
-          <h4>Code</h4>
-          <pre><code>{{ codeExamples.disabled }}</code></pre>
+          <div class="code-header">
+            <h4>Code</h4>
+            <button mat-icon-button (click)="resetCode('disabled')" title="Reset to original">
+              <mat-icon>refresh</mat-icon>
+            </button>
+          </div>
+          <textarea
+            [(ngModel)]="editableCode.disabled"
+            class="code-editor"
+            spellcheck="false"></textarea>
         </div>
         <div class="preview-panel">
           <h4>Live Preview</h4>
@@ -142,8 +178,16 @@
       </mat-expansion-panel-header>
       <div class="example-container">
         <div class="code-panel">
-          <h4>Code</h4>
-          <pre><code>{{ codeExamples.programmatic }}</code></pre>
+          <div class="code-header">
+            <h4>Code</h4>
+            <button mat-icon-button (click)="resetCode('programmatic')" title="Reset to original">
+              <mat-icon>refresh</mat-icon>
+            </button>
+          </div>
+          <textarea
+            [(ngModel)]="editableCode.programmatic"
+            class="code-editor"
+            spellcheck="false"></textarea>
         </div>
         <div class="preview-panel">
           <h4>Live Preview</h4>
@@ -184,8 +228,16 @@
       </mat-expansion-panel-header>
       <div class="example-container">
         <div class="code-panel">
-          <h4>Code</h4>
-          <pre><code>{{ codeExamples.events }}</code></pre>
+          <div class="code-header">
+            <h4>Code</h4>
+            <button mat-icon-button (click)="resetCode('events')" title="Reset to original">
+              <mat-icon>refresh</mat-icon>
+            </button>
+          </div>
+          <textarea
+            [(ngModel)]="editableCode.events"
+            class="code-editor"
+            spellcheck="false"></textarea>
         </div>
         <div class="preview-panel">
           <h4>Live Preview</h4>
@@ -216,8 +268,16 @@
       </mat-expansion-panel-header>
       <div class="example-container">
         <div class="code-panel">
-          <h4>Code</h4>
-          <pre><code>{{ codeExamples.togglePosition }}</code></pre>
+          <div class="code-header">
+            <h4>Code</h4>
+            <button mat-icon-button (click)="resetCode('togglePosition')" title="Reset to original">
+              <mat-icon>refresh</mat-icon>
+            </button>
+          </div>
+          <textarea
+            [(ngModel)]="editableCode.togglePosition"
+            class="code-editor"
+            spellcheck="false"></textarea>
         </div>
         <div class="preview-panel">
           <h4>Live Preview</h4>

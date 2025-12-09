@@ -1,12 +1,20 @@
 import { Component, ViewEncapsulation } from '@angular/core';
+import { FormsModule } from '@angular/forms';
 import { MatExpansionModule } from '@angular/material/expansion';
 import { MatButtonModule } from '@angular/material/button';
 import { MatIconModule } from '@angular/material/icon';
+import { MatFormFieldModule } from '@angular/material/form-field';
 
 @Component({
   selector: 'amw-demo-accordion-code',
   standalone: true,
-  imports: [MatExpansionModule, MatButtonModule, MatIconModule],
+  imports: [
+    FormsModule,
+    MatExpansionModule,
+    MatButtonModule,
+    MatIconModule,
+    MatFormFieldModule
+  ],
   encapsulation: ViewEncapsulation.None,
   templateUrl: './accordion-code.component.html',
   styleUrl: './accordion-code.component.scss'
@@ -14,6 +22,17 @@ import { MatIconModule } from '@angular/material/icon';
 export class AccordionCodeComponent {
   // State for live previews
   step = 0;
+
+  // Editable code examples - these will be bound to textareas
+  editableCode = {
+    basic: '',
+    multiExpand: '',
+    hideToggle: '',
+    disabled: '',
+    programmatic: '',
+    events: '',
+    togglePosition: ''
+  };
 
   // Event handlers for event example
   onOpened() {
@@ -30,6 +49,21 @@ export class AccordionCodeComponent {
 
   onAfterCollapse() {
     console.log('Collapse animation complete');
+  }
+
+  constructor() {
+    // Initialize editable code with original examples
+    this.editableCode.basic = this.codeExamples.basic;
+    this.editableCode.multiExpand = this.codeExamples.multiExpand;
+    this.editableCode.hideToggle = this.codeExamples.hideToggle;
+    this.editableCode.disabled = this.codeExamples.disabled;
+    this.editableCode.programmatic = this.codeExamples.programmatic;
+    this.editableCode.events = this.codeExamples.events;
+    this.editableCode.togglePosition = this.codeExamples.togglePosition;
+  }
+
+  resetCode(exampleKey: keyof typeof this.codeExamples) {
+    this.editableCode[exampleKey] = this.codeExamples[exampleKey];
   }
   codeExamples = {
     basic: `<mat-accordion>
