@@ -35,6 +35,9 @@ import { StepperCodeComponent } from '../../components/stepper-code/stepper-code
 import { StepperApiComponent } from '../../components/stepper-api/stepper-api.component';
 import { TabsDemoComponent } from '../../components/tabs-demo/tabs-demo.component';
 import { AccordionDemoComponent } from '../../components/accordion-demo/accordion-demo.component';
+import { AccordionApiComponent } from '../../components/accordion-api/accordion-api.component';
+import { AccordionCodeComponent } from '../../components/accordion-code/accordion-code.component';
+import { AccordionValidationComponent } from '../../components/accordion-validation/accordion-validation.component';
 
 @Component({
     selector: 'amw-demo-components',
@@ -70,7 +73,10 @@ import { AccordionDemoComponent } from '../../components/accordion-demo/accordio
     StepperCodeComponent,
     StepperApiComponent,
     TabsDemoComponent,
-    AccordionDemoComponent
+    AccordionDemoComponent,
+    AccordionApiComponent,
+    AccordionCodeComponent,
+    AccordionValidationComponent,
 ],
     encapsulation: ViewEncapsulation.None,
     templateUrl: './components-demo.component.html',

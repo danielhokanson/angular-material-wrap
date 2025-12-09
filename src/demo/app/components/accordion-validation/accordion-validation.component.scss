@@ -1,0 +1,85 @@
+// Validation section styles
+.validation-section {
+  padding: 24px;
+  max-width: 800px;
+
+  h3 {
+    font-size: 24px;
+    font-weight: 500;
+    color: var(--mdc-theme-on-surface, #1c1b1f);
+    margin-bottom: 8px;
+  }
+
+  p {
+    color: var(--mdc-theme-on-surface-variant, #49454f);
+    margin-bottom: 32px;
+    line-height: 1.6;
+  }
+
+  .validation-accordion {
+    mat-expansion-panel {
+      margin-bottom: 16px;
+      border-radius: 12px;
+      box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+
+      mat-expansion-panel-header {
+        mat-panel-title {
+          display: flex;
+          align-items: center;
+          gap: 12px;
+          font-weight: 500;
+
+          mat-icon {
+            color: var(--mdc-theme-primary, #6750a4);
+          }
+        }
+
+        mat-panel-description {
+          display: flex;
+          align-items: center;
+          justify-content: space-between;
+          gap: 8px;
+
+          .status-icon {
+            &--valid {
+              color: var(--mdc-theme-success, #4caf50);
+            }
+          }
+        }
+      }
+    }
+
+    form {
+      display: flex;
+      flex-direction: column;
+      gap: 16px;
+      padding: 16px 0;
+
+      mat-form-field {
+        width: 100%;
+      }
+
+      .checkbox-group {
+        display: flex;
+        flex-direction: column;
+        gap: 12px;
+        padding: 12px 0;
+      }
+
+      .button-row {
+        display: flex;
+        justify-content: space-between;
+        gap: 12px;
+        margin-top: 16px;
+        padding-top: 16px;
+        border-top: 1px solid var(--mdc-theme-outline-variant, #e7e0ec);
+
+        button {
+          display: flex;
+          align-items: center;
+          gap: 8px;
+        }
+      }
+    }
+  }
+}
