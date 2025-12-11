@@ -1,0 +1,243 @@
+// Component-specific styles for chips-validation
+// Global validation form styles are imported from styles/_demo-api-code-shared.scss
+
+// Chips-specific validation overrides
+.validation-section {
+  .validation-forms {
+    display: grid;
+    gap: 24px;
+  }
+
+  .validation-card {
+    mat-card-header {
+      mat-card-title {
+        display: flex;
+        align-items: center;
+        gap: 12px;
+        font-size: 20px;
+
+        mat-icon {
+          color: var(--mdc-theme-primary, #6750a4);
+        }
+      }
+
+      mat-card-subtitle {
+        margin-top: 8px;
+        color: var(--mdc-theme-on-surface-variant, #49454f);
+      }
+    }
+
+    mat-card-content {
+      padding-top: 16px;
+    }
+  }
+
+  // Chip grid styling
+  mat-chip-grid {
+    min-height: 48px;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+  }
+
+  mat-chip-row {
+    mat-icon {
+      font-size: 18px;
+      width: 18px;
+      height: 18px;
+    }
+  }
+
+  // Skill form layout
+  .skill-chips {
+    margin-bottom: 24px;
+    min-height: 60px;
+
+    mat-chip-set {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+    }
+  }
+
+  .skill-form {
+    .form-row {
+      display: flex;
+      gap: 16px;
+      align-items: flex-start;
+
+      @media (max-width: 768px) {
+        flex-direction: column;
+
+        .skill-name-field,
+        .skill-level-field,
+        .add-skill-button {
+          width: 100%;
+        }
+      }
+
+      .skill-name-field {
+        flex: 2;
+      }
+
+      .skill-level-field {
+        flex: 1;
+      }
+
+      .add-skill-button {
+        margin-top: 8px;
+        height: 56px;
+        white-space: nowrap;
+
+        mat-icon {
+          margin-right: 8px;
+        }
+      }
+    }
+  }
+
+  // Validation status messages
+  .validation-status {
+    margin-top: 16px;
+  }
+
+  .status-message {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    padding: 12px 16px;
+    border-radius: 8px;
+    font-size: 14px;
+    font-weight: 500;
+
+    mat-icon {
+      font-size: 20px;
+      width: 20px;
+      height: 20px;
+    }
+
+    &.status-message--success {
+      background-color: rgba(76, 175, 80, 0.1);
+      border-left: 4px solid #4caf50;
+      color: #2e7d32;
+
+      mat-icon {
+        color: #4caf50;
+      }
+    }
+
+    &.status-message--warning {
+      background-color: rgba(255, 152, 0, 0.1);
+      border-left: 4px solid #ff9800;
+      color: #e65100;
+
+      mat-icon {
+        color: #ff9800;
+      }
+    }
+
+    &.status-message--error {
+      background-color: rgba(244, 67, 54, 0.1);
+      border-left: 4px solid #f44336;
+      color: #c62828;
+
+      mat-icon {
+        color: #f44336;
+      }
+    }
+  }
+
+  // Form summary section
+  .validation-card--actions {
+    background-color: var(--mdc-theme-surface-variant, #f3f0f4);
+    border: 2px solid var(--mdc-theme-outline, #79747e);
+
+    .form-summary {
+      h4 {
+        font-size: 18px;
+        font-weight: 500;
+        margin-bottom: 16px;
+        color: var(--mdc-theme-on-surface, #1c1b1f);
+      }
+
+      .summary-items {
+        display: flex;
+        flex-direction: column;
+        gap: 12px;
+        margin-bottom: 24px;
+      }
+
+      .summary-item {
+        display: flex;
+        align-items: center;
+        gap: 12px;
+        font-size: 14px;
+        color: var(--mdc-theme-on-surface-variant, #49454f);
+
+        mat-icon {
+          font-size: 20px;
+          width: 20px;
+          height: 20px;
+
+          &.valid {
+            color: #4caf50;
+          }
+
+          &.invalid {
+            color: #f44336;
+          }
+        }
+      }
+    }
+
+    .action-buttons {
+      display: flex;
+      flex-direction: column;
+      gap: 16px;
+
+      .submit-button {
+        height: 48px;
+        font-size: 16px;
+        font-weight: 500;
+
+        mat-icon {
+          margin-right: 8px;
+        }
+      }
+
+      .validation-message {
+        display: flex;
+        align-items: center;
+        gap: 8px;
+        padding: 12px;
+        background-color: rgba(103, 80, 164, 0.1);
+        border-left: 3px solid var(--mdc-theme-primary, #6750a4);
+        border-radius: 4px;
+        font-size: 13px;
+        color: var(--mdc-theme-on-surface-variant, #49454f);
+
+        mat-icon {
+          font-size: 18px;
+          width: 18px;
+          height: 18px;
+          color: var(--mdc-theme-primary, #6750a4);
+        }
+      }
+    }
+  }
+
+  // Full width form fields
+  .full-width {
+    width: 100%;
+  }
+
+  // Email chip avatars
+  mat-chip-row[matChipAvatar] {
+    mat-icon[matChipAvatar] {
+      color: var(--mdc-theme-on-primary, #ffffff);
+      background-color: var(--mdc-theme-primary, #6750a4);
+      border-radius: 50%;
+      padding: 4px;
+    }
+  }
+}

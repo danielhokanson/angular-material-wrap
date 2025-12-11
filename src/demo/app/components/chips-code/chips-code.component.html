@@ -1,0 +1,213 @@
+<div class="code-section">
+  <h3>Code Examples</h3>
+  <p>Interactive examples with live previews. Edit the code to see real-time changes.</p>
+
+  <mat-accordion class="code-examples-accordion">
+    <!-- Basic Chips -->
+    <mat-expansion-panel>
+      <mat-expansion-panel-header>
+        <mat-panel-title>
+          <mat-icon>code</mat-icon>
+          Basic Chip Set
+        </mat-panel-title>
+        <mat-panel-description>Simple chip collection</mat-panel-description>
+      </mat-expansion-panel-header>
+      <div class="example-container">
+        <div class="code-panel">
+          <div class="code-header">
+            <h4>Code</h4>
+            <button mat-icon-button (click)="resetCode('basic')" title="Reset to original">
+              <mat-icon>refresh</mat-icon>
+            </button>
+          </div>
+          <textarea
+            [(ngModel)]="editableCode.basic"
+            (ngModelChange)="onCodeChange('basic')"
+            class="code-editor"
+            [class.has-error]="hasError('basic')"
+            spellcheck="false"></textarea>
+          @if (hasError('basic')) {
+            <div class="error-message">
+              <mat-icon>error</mat-icon>
+              <span>{{ getError('basic') }}</span>
+            </div>
+          }
+        </div>
+        <div class="preview-panel">
+          <h4>Live Preview</h4>
+          <div class="preview-content">
+            <div class="dynamic-preview" [innerHTML]="getRenderedHtml('basic')"></div>
+            <div class="preview-note preview-note--success">
+              <mat-icon>check_circle</mat-icon>
+              <span>Live preview! Edit the code to see changes.</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </mat-expansion-panel>
+
+    <!-- Removable Chips -->
+    <mat-expansion-panel>
+      <mat-expansion-panel-header>
+        <mat-panel-title>
+          <mat-icon>code</mat-icon>
+          Removable Chips
+        </mat-panel-title>
+        <mat-panel-description>Chips with remove functionality</mat-panel-description>
+      </mat-expansion-panel-header>
+      <div class="example-container">
+        <div class="code-panel">
+          <div class="code-header">
+            <h4>Code</h4>
+            <button mat-icon-button (click)="resetCode('removable')" title="Reset to original">
+              <mat-icon>refresh</mat-icon>
+            </button>
+          </div>
+          <textarea
+            [(ngModel)]="editableCode.removable"
+            (ngModelChange)="onCodeChange('removable')"
+            class="code-editor"
+            [class.has-error]="hasError('removable')"
+            spellcheck="false"></textarea>
+          @if (hasError('removable')) {
+            <div class="error-message">
+              <mat-icon>error</mat-icon>
+              <span>{{ getError('removable') }}</span>
+            </div>
+          }
+        </div>
+        <div class="preview-panel">
+          <h4>Live Preview</h4>
+          <div class="preview-content">
+            <div class="dynamic-preview" [innerHTML]="getRenderedHtml('removable')"></div>
+            <div class="preview-note">
+              <mat-icon>info</mat-icon>
+              <span>Note: Remove functionality requires component logic</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </mat-expansion-panel>
+
+    <!-- Selectable Chips -->
+    <mat-expansion-panel>
+      <mat-expansion-panel-header>
+        <mat-panel-title>
+          <mat-icon>code</mat-icon>
+          Selectable Chips
+        </mat-panel-title>
+        <mat-panel-description>Chips that can be selected</mat-panel-description>
+      </mat-expansion-panel-header>
+      <div class="example-container">
+        <div class="code-panel">
+          <div class="code-header">
+            <h4>Code</h4>
+            <button mat-icon-button (click)="resetCode('selectable')" title="Reset to original">
+              <mat-icon>refresh</mat-icon>
+            </button>
+          </div>
+          <textarea
+            [(ngModel)]="editableCode.selectable"
+            (ngModelChange)="onCodeChange('selectable')"
+            class="code-editor"
+            [class.has-error]="hasError('selectable')"
+            spellcheck="false"></textarea>
+          @if (hasError('selectable')) {
+            <div class="error-message">
+              <mat-icon>error</mat-icon>
+              <span>{{ getError('selectable') }}</span>
+            </div>
+          }
+        </div>
+        <div class="preview-panel">
+          <h4>Live Preview</h4>
+          <div class="preview-content">
+            <div class="dynamic-preview" [innerHTML]="getRenderedHtml('selectable')"></div>
+          </div>
+        </div>
+      </div>
+    </mat-expansion-panel>
+
+    <!-- Chip Input -->
+    <mat-expansion-panel>
+      <mat-expansion-panel-header>
+        <mat-panel-title>
+          <mat-icon>code</mat-icon>
+          Chip Input
+        </mat-panel-title>
+        <mat-panel-description>Add chips with input field</mat-panel-description>
+      </mat-expansion-panel-header>
+      <div class="example-container">
+        <div class="code-panel">
+          <div class="code-header">
+            <h4>Code</h4>
+            <button mat-icon-button (click)="resetCode('input')" title="Reset to original">
+              <mat-icon>refresh</mat-icon>
+            </button>
+          </div>
+          <textarea
+            [(ngModel)]="editableCode.input"
+            (ngModelChange)="onCodeChange('input')"
+            class="code-editor"
+            [class.has-error]="hasError('input')"
+            spellcheck="false"></textarea>
+          @if (hasError('input')) {
+            <div class="error-message">
+              <mat-icon>error</mat-icon>
+              <span>{{ getError('input') }}</span>
+            </div>
+          }
+        </div>
+        <div class="preview-panel">
+          <h4>Live Preview</h4>
+          <div class="preview-content">
+            <div class="dynamic-preview" [innerHTML]="getRenderedHtml('input')"></div>
+            <div class="preview-note">
+              <mat-icon>info</mat-icon>
+              <span>Note: Input functionality requires component logic</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </mat-expansion-panel>
+
+    <!-- Styled Chips -->
+    <mat-expansion-panel>
+      <mat-expansion-panel-header>
+        <mat-panel-title>
+          <mat-icon>code</mat-icon>
+          Styled Chips
+        </mat-panel-title>
+        <mat-panel-description>Chips with color themes</mat-panel-description>
+      </mat-expansion-panel-header>
+      <div class="example-container">
+        <div class="code-panel">
+          <div class="code-header">
+            <h4>Code</h4>
+            <button mat-icon-button (click)="resetCode('styled')" title="Reset to original">
+              <mat-icon>refresh</mat-icon>
+            </button>
+          </div>
+          <textarea
+            [(ngModel)]="editableCode.styled"
+            (ngModelChange)="onCodeChange('styled')"
+            class="code-editor"
+            [class.has-error]="hasError('styled')"
+            spellcheck="false"></textarea>
+          @if (hasError('styled')) {
+            <div class="error-message">
+              <mat-icon>error</mat-icon>
+              <span>{{ getError('styled') }}</span>
+            </div>
+          }
+        </div>
+        <div class="preview-panel">
+          <h4>Live Preview</h4>
+          <div class="preview-content">
+            <div class="dynamic-preview" [innerHTML]="getRenderedHtml('styled')"></div>
+          </div>
+        </div>
+      </div>
+    </mat-expansion-panel>
+  </mat-accordion>
+</div>

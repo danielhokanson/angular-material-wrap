@@ -1,0 +1,220 @@
+// Component-specific styles for calendar-validation
+// Global validation form styles are imported from styles/_demo-api-code-shared.scss
+
+// Calendar-specific validation overrides
+.validation-section {
+  .validation-forms {
+    display: grid;
+    gap: 24px;
+  }
+
+  .validation-card {
+    mat-card-header {
+      mat-card-title {
+        display: flex;
+        align-items: center;
+        gap: 12px;
+        font-size: 20px;
+
+        mat-icon {
+          color: var(--mdc-theme-primary, #6750a4);
+        }
+      }
+
+      mat-card-subtitle {
+        margin-top: 8px;
+        color: var(--mdc-theme-on-surface-variant, #49454f);
+      }
+    }
+
+    mat-card-content {
+      padding-top: 16px;
+    }
+  }
+
+  // Date range fields layout
+  .date-range-fields {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 16px;
+    margin-bottom: 16px;
+
+    @media (max-width: 768px) {
+      grid-template-columns: 1fr;
+    }
+
+    .date-field {
+      width: 100%;
+    }
+  }
+
+  // Range error styling
+  .range-error {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    margin-bottom: 16px;
+    padding: 10px 12px;
+    background-color: rgba(244, 67, 54, 0.1);
+    border-left: 3px solid #f44336;
+    border-radius: 4px;
+    font-size: 13px;
+    color: #d32f2f;
+
+    mat-icon {
+      font-size: 18px;
+      width: 18px;
+      height: 18px;
+      color: #f44336;
+    }
+  }
+
+  // Form actions
+  .form-actions {
+    display: flex;
+    gap: 12px;
+    margin-top: 16px;
+
+    button {
+      height: 48px;
+      font-size: 16px;
+      font-weight: 500;
+
+      mat-icon {
+        margin-right: 8px;
+      }
+    }
+  }
+
+  // Validation status messages
+  .validation-status {
+    margin-top: 16px;
+  }
+
+  .status-message {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    padding: 12px 16px;
+    border-radius: 8px;
+    font-size: 14px;
+    font-weight: 500;
+
+    mat-icon {
+      font-size: 20px;
+      width: 20px;
+      height: 20px;
+    }
+
+    &.status-message--success {
+      background-color: rgba(76, 175, 80, 0.1);
+      border-left: 4px solid #4caf50;
+      color: #2e7d32;
+
+      mat-icon {
+        color: #4caf50;
+      }
+    }
+
+    &.status-message--warning {
+      background-color: rgba(255, 152, 0, 0.1);
+      border-left: 4px solid #ff9800;
+      color: #e65100;
+
+      mat-icon {
+        color: #ff9800;
+      }
+    }
+
+    &.status-message--error {
+      background-color: rgba(244, 67, 54, 0.1);
+      border-left: 4px solid #f44336;
+      color: #c62828;
+
+      mat-icon {
+        color: #f44336;
+      }
+    }
+  }
+
+  // Form summary section
+  .validation-card--summary {
+    background-color: var(--mdc-theme-surface-variant, #f3f0f4);
+    border: 2px solid var(--mdc-theme-outline, #79747e);
+
+    .form-summary {
+      h4 {
+        font-size: 18px;
+        font-weight: 500;
+        margin-bottom: 16px;
+        color: var(--mdc-theme-on-surface, #1c1b1f);
+      }
+
+      .summary-items {
+        display: flex;
+        flex-direction: column;
+        gap: 12px;
+        margin-bottom: 24px;
+      }
+
+      .summary-item {
+        display: flex;
+        align-items: center;
+        gap: 12px;
+        font-size: 14px;
+        color: var(--mdc-theme-on-surface-variant, #49454f);
+
+        mat-icon {
+          font-size: 20px;
+          width: 20px;
+          height: 20px;
+
+          &.valid {
+            color: #4caf50;
+          }
+
+          &.invalid {
+            color: #f44336;
+          }
+        }
+      }
+    }
+
+    .summary-message {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      padding: 12px;
+      background-color: rgba(103, 80, 164, 0.1);
+      border-left: 3px solid var(--mdc-theme-primary, #6750a4);
+      border-radius: 4px;
+      font-size: 13px;
+      color: var(--mdc-theme-on-surface-variant, #49454f);
+
+      mat-icon {
+        font-size: 18px;
+        width: 18px;
+        height: 18px;
+        color: var(--mdc-theme-primary, #6750a4);
+      }
+
+      &.summary-message--success {
+        background-color: rgba(76, 175, 80, 0.1);
+        border-left-color: #4caf50;
+
+        mat-icon {
+          color: #4caf50;
+        }
+
+        span {
+          color: #2e7d32;
+        }
+      }
+    }
+  }
+
+  // Full width form fields
+  .full-width {
+    width: 100%;
+  }
+}

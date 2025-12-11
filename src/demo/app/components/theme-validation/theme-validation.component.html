@@ -1,0 +1,251 @@
+<div class="validation-section">
+  <h3>Theme Configuration</h3>
+  <p>Interactive theme builder with live preview and validation. Customize colors, mode, density, and typography.</p>
+
+  <div class="validation-forms">
+    <div class="theme-builder">
+      <!-- Configuration Panel -->
+      <mat-card class="validation-card config-panel">
+        <mat-card-header>
+          <mat-card-title>
+            <mat-icon>palette</mat-icon>
+            Theme Configuration
+          </mat-card-title>
+          <mat-card-subtitle>Customize your Material Design theme</mat-card-subtitle>
+        </mat-card-header>
+        <mat-card-content>
+          <form [formGroup]="themeForm">
+            <!-- Color Configuration -->
+            <div class="config-section">
+              <h4>
+                <mat-icon>color_lens</mat-icon>
+                Color Palette
+              </h4>
+
+              <mat-form-field appearance="outline" class="full-width">
+                <mat-label>Primary Color</mat-label>
+                <input
+                  matInput
+                  formControlName="primaryColor"
+                  type="color"
+                  class="color-input" />
+                <input
+                  matInput
+                  formControlName="primaryColor"
+                  placeholder="#6750a4" />
+                @if (themeForm.get('primaryColor')?.invalid && themeForm.get('primaryColor')?.touched) {
+                  <mat-error>{{ getErrorMessage('primaryColor') }}</mat-error>
+                }
+              </mat-form-field>
+
+              <mat-form-field appearance="outline" class="full-width">
+                <mat-label>Accent Color</mat-label>
+                <input
+                  matInput
+                  formControlName="accentColor"
+                  type="color"
+                  class="color-input" />
+                <input
+                  matInput
+                  formControlName="accentColor"
+                  placeholder="#625b71" />
+                @if (themeForm.get('accentColor')?.invalid && themeForm.get('accentColor')?.touched) {
+                  <mat-error>{{ getErrorMessage('accentColor') }}</mat-error>
+                }
+              </mat-form-field>
+
+              <mat-form-field appearance="outline" class="full-width">
+                <mat-label>Warn Color</mat-label>
+                <input
+                  matInput
+                  formControlName="warnColor"
+                  type="color"
+                  class="color-input" />
+                <input
+                  matInput
+                  formControlName="warnColor"
+                  placeholder="#ba1a1a" />
+                @if (themeForm.get('warnColor')?.invalid && themeForm.get('warnColor')?.touched) {
+                  <mat-error>{{ getErrorMessage('warnColor') }}</mat-error>
+                }
+              </mat-form-field>
+            </div>
+
+            <!-- Mode Configuration -->
+            <div class="config-section">
+              <h4>
+                <mat-icon>{{ getModeIcon() }}</mat-icon>
+                Theme Mode
+              </h4>
+
+              <mat-radio-group formControlName="mode" class="mode-radio-group">
+                <mat-radio-button value="light">
+                  <mat-icon>light_mode</mat-icon>
+                  Light Mode
+                </mat-radio-button>
+                <mat-radio-button value="dark">
+                  <mat-icon>dark_mode</mat-icon>
+                  Dark Mode
+                </mat-radio-button>
+              </mat-radio-group>
+            </div>
+
+            <!-- Density Configuration -->
+            <div class="config-section">
+              <h4>
+                <mat-icon>height</mat-icon>
+                Component Density
+              </h4>
+
+              <mat-form-field appearance="outline" class="full-width">
+                <mat-label>Density Level</mat-label>
+                <mat-select formControlName="density">
+                  @for (option of densityOptions; track option.value) {
+                    <mat-option [value]="option.value">
+                      {{ option.name }} - {{ option.description }}
+                    </mat-option>
+                  }
+                </mat-select>
+              </mat-form-field>
+            </div>
+
+            <!-- Typography Configuration -->
+            <div class="config-section">
+              <h4>
+                <mat-icon>text_fields</mat-icon>
+                Typography
+              </h4>
+
+              <mat-form-field appearance="outline" class="full-width">
+                <mat-label>Font Family</mat-label>
+                <mat-select formControlName="typography">
+                  @for (option of typographyOptions; track option.value) {
+                    <mat-option [value]="option.value">
+                      {{ option.name }}
+                    </mat-option>
+                  }
+                </mat-select>
+              </mat-form-field>
+            </div>
+          </form>
+
+          <!-- Action Buttons -->
+          <div class="config-actions">
+            <button
+              mat-raised-button
+              color="primary"
+              (click)="applyTheme()"
+              [disabled]="!isFormValid()">
+              <mat-icon>check</mat-icon>
+              Apply Theme
+            </button>
+
+            <button
+              mat-raised-button
+              (click)="resetTheme()">
+              <mat-icon>refresh</mat-icon>
+              Reset to Default
+            </button>
+
+            <button
+              mat-raised-button
+              (click)="exportTheme()"
+              [disabled]="!isFormValid()">
+              <mat-icon>download</mat-icon>
+              Export Config
+            </button>
+          </div>
+
+          @if (!isFormValid()) {
+            <div class="validation-warning">
+              <mat-icon>warning</mat-icon>
+              <span>Please fix validation errors before applying theme</span>
+            </div>
+          }
+        </mat-card-content>
+      </mat-card>
+
+      <!-- Preview Panel -->
+      <mat-card class="validation-card preview-panel" [ngStyle]="getPreviewStyles()">
+        <mat-card-header>
+          <mat-card-title>
+            <mat-icon>visibility</mat-icon>
+            Live Preview
+          </mat-card-title>
+          <mat-card-subtitle>See your theme in action</mat-card-subtitle>
+        </mat-card-header>
+        <mat-card-content>
+          @if (previewEnabled()) {
+            <div class="preview-content">
+              <!-- Color Swatches -->
+              <div class="color-swatches">
+                <div class="swatch swatch--primary">
+                  <div class="swatch-color"></div>
+                  <span>Primary</span>
+                </div>
+                <div class="swatch swatch--accent">
+                  <div class="swatch-color"></div>
+                  <span>Accent</span>
+                </div>
+                <div class="swatch swatch--warn">
+                  <div class="swatch-color"></div>
+                  <span>Warn</span>
+                </div>
+              </div>
+
+              <!-- Component Samples -->
+              <div class="component-samples">
+                <h5>Buttons</h5>
+                <div class="button-group">
+                  <button mat-raised-button class="btn-primary">Primary</button>
+                  <button mat-raised-button class="btn-accent">Accent</button>
+                  <button mat-raised-button class="btn-warn">Warn</button>
+                </div>
+
+                <h5>Text Styles</h5>
+                <div class="text-samples">
+                  <h6 class="sample-headline">Headline Text</h6>
+                  <p class="sample-body">Body text with current theme applied.</p>
+                  <span class="sample-caption">Caption text example</span>
+                </div>
+
+                <h5>Surface & Background</h5>
+                <div class="surface-sample">
+                  <div class="sample-card">
+                    <div class="sample-card-header">Card Header</div>
+                    <div class="sample-card-content">
+                      This is a card with the current surface color applied.
+                      The text adapts to the background for proper contrast.
+                    </div>
+                  </div>
+                </div>
+
+                <h5>Current Configuration</h5>
+                <div class="config-summary">
+                  <div class="summary-row">
+                    <span class="label">Mode:</span>
+                    <span class="value">{{ currentTheme().mode }}</span>
+                  </div>
+                  <div class="summary-row">
+                    <span class="label">Density:</span>
+                    <span class="value">{{ currentTheme().density }}</span>
+                  </div>
+                  <div class="summary-row">
+                    <span class="label">Typography:</span>
+                    <span class="value">{{ currentTheme().typography }}</span>
+                  </div>
+                </div>
+              </div>
+            </div>
+          } @else {
+            <div class="preview-disabled">
+              <mat-icon>visibility_off</mat-icon>
+              <p>Preview disabled</p>
+              <button mat-button (click)="togglePreview()">Enable Preview</button>
+            </div>
+          }
+        </mat-card-content>
+      </mat-card>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,213 @@
+<div class="code-section">
+  <h3>Code Examples</h3>
+  <p>Interactive examples demonstrating Material Design 3 theming. Edit the code to see real-time changes.</p>
+
+  <mat-accordion class="code-examples-accordion">
+    <!-- Color Palette -->
+    <mat-expansion-panel>
+      <mat-expansion-panel-header>
+        <mat-panel-title>
+          <mat-icon>code</mat-icon>
+          Color Palette Usage
+        </mat-panel-title>
+        <mat-panel-description>Using built-in theme colors</mat-panel-description>
+      </mat-expansion-panel-header>
+      <div class="example-container">
+        <div class="code-panel">
+          <div class="code-header">
+            <h4>Code</h4>
+            <button mat-icon-button (click)="resetCode('colorPalette')" title="Reset to original">
+              <mat-icon>refresh</mat-icon>
+            </button>
+          </div>
+          <textarea
+            [(ngModel)]="editableCode.colorPalette"
+            (ngModelChange)="onCodeChange('colorPalette')"
+            class="code-editor"
+            [class.has-error]="hasError('colorPalette')"
+            spellcheck="false"></textarea>
+          @if (hasError('colorPalette')) {
+            <div class="error-message">
+              <mat-icon>error</mat-icon>
+              <span>{{ getError('colorPalette') }}</span>
+            </div>
+          }
+        </div>
+        <div class="preview-panel">
+          <h4>Live Preview</h4>
+          <div class="preview-content">
+            <div class="dynamic-preview" [innerHTML]="getRenderedHtml('colorPalette')"></div>
+            <div class="preview-note preview-note--success">
+              <mat-icon>check_circle</mat-icon>
+              <span>Live preview! Edit the code to see changes.</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </mat-expansion-panel>
+
+    <!-- CSS Variables -->
+    <mat-expansion-panel>
+      <mat-expansion-panel-header>
+        <mat-panel-title>
+          <mat-icon>code</mat-icon>
+          CSS Variables
+        </mat-panel-title>
+        <mat-panel-description>Using Material Design 3 CSS variables</mat-panel-description>
+      </mat-expansion-panel-header>
+      <div class="example-container">
+        <div class="code-panel">
+          <div class="code-header">
+            <h4>Code</h4>
+            <button mat-icon-button (click)="resetCode('cssVariables')" title="Reset to original">
+              <mat-icon>refresh</mat-icon>
+            </button>
+          </div>
+          <textarea
+            [(ngModel)]="editableCode.cssVariables"
+            (ngModelChange)="onCodeChange('cssVariables')"
+            class="code-editor"
+            [class.has-error]="hasError('cssVariables')"
+            spellcheck="false"></textarea>
+          @if (hasError('cssVariables')) {
+            <div class="error-message">
+              <mat-icon>error</mat-icon>
+              <span>{{ getError('cssVariables') }}</span>
+            </div>
+          }
+        </div>
+        <div class="preview-panel">
+          <h4>Live Preview</h4>
+          <div class="preview-content">
+            <div class="dynamic-preview" [innerHTML]="getRenderedHtml('cssVariables')"></div>
+          </div>
+        </div>
+      </div>
+    </mat-expansion-panel>
+
+    <!-- Component Theming -->
+    <mat-expansion-panel>
+      <mat-expansion-panel-header>
+        <mat-panel-title>
+          <mat-icon>code</mat-icon>
+          Component Theming
+        </mat-panel-title>
+        <mat-panel-description>Applying themes to Material components</mat-panel-description>
+      </mat-expansion-panel-header>
+      <div class="example-container">
+        <div class="code-panel">
+          <div class="code-header">
+            <h4>Code</h4>
+            <button mat-icon-button (click)="resetCode('componentTheming')" title="Reset to original">
+              <mat-icon>refresh</mat-icon>
+            </button>
+          </div>
+          <textarea
+            [(ngModel)]="editableCode.componentTheming"
+            (ngModelChange)="onCodeChange('componentTheming')"
+            class="code-editor"
+            [class.has-error]="hasError('componentTheming')"
+            spellcheck="false"></textarea>
+          @if (hasError('componentTheming')) {
+            <div class="error-message">
+              <mat-icon>error</mat-icon>
+              <span>{{ getError('componentTheming') }}</span>
+            </div>
+          }
+        </div>
+        <div class="preview-panel">
+          <h4>Live Preview</h4>
+          <div class="preview-content">
+            <div class="dynamic-preview" [innerHTML]="getRenderedHtml('componentTheming')"></div>
+          </div>
+        </div>
+      </div>
+    </mat-expansion-panel>
+
+    <!-- Dark Mode -->
+    <mat-expansion-panel>
+      <mat-expansion-panel-header>
+        <mat-panel-title>
+          <mat-icon>code</mat-icon>
+          Dark Mode
+        </mat-panel-title>
+        <mat-panel-description>Implementing dark theme support</mat-panel-description>
+      </mat-expansion-panel-header>
+      <div class="example-container">
+        <div class="code-panel">
+          <div class="code-header">
+            <h4>Code</h4>
+            <button mat-icon-button (click)="resetCode('darkMode')" title="Reset to original">
+              <mat-icon>refresh</mat-icon>
+            </button>
+          </div>
+          <textarea
+            [(ngModel)]="editableCode.darkMode"
+            (ngModelChange)="onCodeChange('darkMode')"
+            class="code-editor"
+            [class.has-error]="hasError('darkMode')"
+            spellcheck="false"></textarea>
+          @if (hasError('darkMode')) {
+            <div class="error-message">
+              <mat-icon>error</mat-icon>
+              <span>{{ getError('darkMode') }}</span>
+            </div>
+          }
+        </div>
+        <div class="preview-panel">
+          <h4>Live Preview</h4>
+          <div class="preview-content">
+            <div class="dynamic-preview" [innerHTML]="getRenderedHtml('darkMode')"></div>
+            <div class="preview-note">
+              <mat-icon>info</mat-icon>
+              <span>Note: Full dark mode requires global theme configuration</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </mat-expansion-panel>
+
+    <!-- Custom Theme -->
+    <mat-expansion-panel>
+      <mat-expansion-panel-header>
+        <mat-panel-title>
+          <mat-icon>code</mat-icon>
+          Custom Theme
+        </mat-panel-title>
+        <mat-panel-description>Creating custom theme overrides</mat-panel-description>
+      </mat-expansion-panel-header>
+      <div class="example-container">
+        <div class="code-panel">
+          <div class="code-header">
+            <h4>Code</h4>
+            <button mat-icon-button (click)="resetCode('customTheme')" title="Reset to original">
+              <mat-icon>refresh</mat-icon>
+            </button>
+          </div>
+          <textarea
+            [(ngModel)]="editableCode.customTheme"
+            (ngModelChange)="onCodeChange('customTheme')"
+            class="code-editor"
+            [class.has-error]="hasError('customTheme')"
+            spellcheck="false"></textarea>
+          @if (hasError('customTheme')) {
+            <div class="error-message">
+              <mat-icon>error</mat-icon>
+              <span>{{ getError('customTheme') }}</span>
+            </div>
+          }
+        </div>
+        <div class="preview-panel">
+          <h4>Live Preview</h4>
+          <div class="preview-content">
+            <div class="dynamic-preview" [innerHTML]="getRenderedHtml('customTheme')"></div>
+            <div class="preview-note">
+              <mat-icon>info</mat-icon>
+              <span>Note: CSS variables can be scoped to specific elements</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </mat-expansion-panel>
+  </mat-accordion>
+</div>

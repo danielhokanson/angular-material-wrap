@@ -1,0 +1,275 @@
+<div class="validation-section">
+  <h3>Form Validation Examples</h3>
+  <p>Multi-step form using tabs with validation, progress tracking, and error handling.</p>
+
+  <div class="validation-forms">
+    <mat-card class="validation-card">
+      <mat-card-header>
+        <mat-card-title>
+          <mat-icon>fact_check</mat-icon>
+          Multi-Step Registration Form
+        </mat-card-title>
+        <mat-card-subtitle>Complete all steps to submit the form</mat-card-subtitle>
+      </mat-card-header>
+      <mat-card-content>
+        <mat-tab-group [(selectedIndex)]="selectedTabIndex" class="registration-tabs">
+          <!-- Step 1: Personal Info -->
+          <mat-tab>
+            <ng-template mat-tab-label>
+              <div class="tab-label" [ngClass]="getStepClass(0)">
+                <mat-icon>{{ getStepIcon(0) }}</mat-icon>
+                <span>{{ steps[0].label }}</span>
+              </div>
+            </ng-template>
+            <div class="tab-content">
+              <h4>Step 1: Personal Information</h4>
+              <form [formGroup]="personalInfoForm">
+                <div class="form-row">
+                  <mat-form-field appearance="outline" class="half-width">
+                    <mat-label>First Name</mat-label>
+                    <input matInput formControlName="firstName" placeholder="John" />
+                    @if (personalInfoForm.get('firstName')?.invalid && personalInfoForm.get('firstName')?.touched) {
+                      <mat-error>{{ getErrorMessage(personalInfoForm, 'firstName') }}</mat-error>
+                    }
+                  </mat-form-field>
+
+                  <mat-form-field appearance="outline" class="half-width">
+                    <mat-label>Last Name</mat-label>
+                    <input matInput formControlName="lastName" placeholder="Doe" />
+                    @if (personalInfoForm.get('lastName')?.invalid && personalInfoForm.get('lastName')?.touched) {
+                      <mat-error>{{ getErrorMessage(personalInfoForm, 'lastName') }}</mat-error>
+                    }
+                  </mat-form-field>
+                </div>
+
+                <mat-form-field appearance="outline" class="full-width">
+                  <mat-label>Email</mat-label>
+                  <input matInput formControlName="email" type="email" placeholder="john.doe@example.com" />
+                  @if (personalInfoForm.get('email')?.invalid && personalInfoForm.get('email')?.touched) {
+                    <mat-error>{{ getErrorMessage(personalInfoForm, 'email') }}</mat-error>
+                  }
+                </mat-form-field>
+
+                <mat-form-field appearance="outline" class="full-width">
+                  <mat-label>Phone Number</mat-label>
+                  <input matInput formControlName="phone" placeholder="1234567890" />
+                  @if (personalInfoForm.get('phone')?.invalid && personalInfoForm.get('phone')?.touched) {
+                    <mat-error>{{ getErrorMessage(personalInfoForm, 'phone') }}</mat-error>
+                  }
+                  <mat-hint>Enter 10 digits without spaces or dashes</mat-hint>
+                </mat-form-field>
+              </form>
+            </div>
+          </mat-tab>
+
+          <!-- Step 2: Account Details -->
+          <mat-tab>
+            <ng-template mat-tab-label>
+              <div class="tab-label" [ngClass]="getStepClass(1)">
+                <mat-icon>{{ getStepIcon(1) }}</mat-icon>
+                <span>{{ steps[1].label }}</span>
+              </div>
+            </ng-template>
+            <div class="tab-content">
+              <h4>Step 2: Account Details</h4>
+              <form [formGroup]="accountDetailsForm">
+                <mat-form-field appearance="outline" class="full-width">
+                  <mat-label>Username</mat-label>
+                  <input matInput formControlName="username" placeholder="johndoe" />
+                  @if (accountDetailsForm.get('username')?.invalid && accountDetailsForm.get('username')?.touched) {
+                    <mat-error>{{ getErrorMessage(accountDetailsForm, 'username') }}</mat-error>
+                  }
+                  <mat-hint>Minimum 4 characters</mat-hint>
+                </mat-form-field>
+
+                <mat-form-field appearance="outline" class="full-width">
+                  <mat-label>Password</mat-label>
+                  <input matInput formControlName="password" type="password" />
+                  @if (accountDetailsForm.get('password')?.invalid && accountDetailsForm.get('password')?.touched) {
+                    <mat-error>{{ getErrorMessage(accountDetailsForm, 'password') }}</mat-error>
+                  }
+                  <mat-hint>Minimum 8 characters</mat-hint>
+                </mat-form-field>
+
+                <mat-form-field appearance="outline" class="full-width">
+                  <mat-label>Confirm Password</mat-label>
+                  <input matInput formControlName="confirmPassword" type="password" />
+                  @if (getPasswordMatchError()) {
+                    <mat-error>{{ getPasswordMatchError() }}</mat-error>
+                  }
+                </mat-form-field>
+
+                @if (getPasswordMatchError()) {
+                  <div class="password-error">
+                    <mat-icon>error</mat-icon>
+                    <span>{{ getPasswordMatchError() }}</span>
+                  </div>
+                }
+              </form>
+            </div>
+          </mat-tab>
+
+          <!-- Step 3: Preferences -->
+          <mat-tab>
+            <ng-template mat-tab-label>
+              <div class="tab-label" [ngClass]="getStepClass(2)">
+                <mat-icon>{{ getStepIcon(2) }}</mat-icon>
+                <span>{{ steps[2].label }}</span>
+              </div>
+            </ng-template>
+            <div class="tab-content">
+              <h4>Step 3: Preferences</h4>
+              <form [formGroup]="preferencesForm">
+                <mat-form-field appearance="outline" class="full-width">
+                  <mat-label>Language</mat-label>
+                  <mat-select formControlName="language">
+                    <mat-option value="en">English</mat-option>
+                    <mat-option value="es">Spanish</mat-option>
+                    <mat-option value="fr">French</mat-option>
+                    <mat-option value="de">German</mat-option>
+                  </mat-select>
+                  @if (preferencesForm.get('language')?.invalid && preferencesForm.get('language')?.touched) {
+                    <mat-error>{{ getErrorMessage(preferencesForm, 'language') }}</mat-error>
+                  }
+                </mat-form-field>
+
+                <mat-form-field appearance="outline" class="full-width">
+                  <mat-label>Timezone</mat-label>
+                  <mat-select formControlName="timezone">
+                    <mat-option value="UTC">UTC</mat-option>
+                    <mat-option value="EST">Eastern Time</mat-option>
+                    <mat-option value="CST">Central Time</mat-option>
+                    <mat-option value="MST">Mountain Time</mat-option>
+                    <mat-option value="PST">Pacific Time</mat-option>
+                  </mat-select>
+                  @if (preferencesForm.get('timezone')?.invalid && preferencesForm.get('timezone')?.touched) {
+                    <mat-error>{{ getErrorMessage(preferencesForm, 'timezone') }}</mat-error>
+                  }
+                </mat-form-field>
+
+                <mat-form-field appearance="outline" class="full-width">
+                  <mat-label>Notification Preference</mat-label>
+                  <mat-select formControlName="notifications">
+                    <mat-option value="email">Email</mat-option>
+                    <mat-option value="sms">SMS</mat-option>
+                    <mat-option value="both">Both</mat-option>
+                    <mat-option value="none">None</mat-option>
+                  </mat-select>
+                </mat-form-field>
+              </form>
+            </div>
+          </mat-tab>
+
+          <!-- Step 4: Review -->
+          <mat-tab>
+            <ng-template mat-tab-label>
+              <div class="tab-label" [ngClass]="getStepClass(3)">
+                <mat-icon>{{ getStepIcon(3) }}</mat-icon>
+                <span>{{ steps[3].label }}</span>
+              </div>
+            </ng-template>
+            <div class="tab-content">
+              <h4>Step 4: Review & Submit</h4>
+
+              <div class="review-section">
+                <h5>Personal Information</h5>
+                <div class="review-item">
+                  <span class="review-label">Name:</span>
+                  <span>{{ personalInfoForm.get('firstName')?.value }} {{ personalInfoForm.get('lastName')?.value }}</span>
+                </div>
+                <div class="review-item">
+                  <span class="review-label">Email:</span>
+                  <span>{{ personalInfoForm.get('email')?.value }}</span>
+                </div>
+                <div class="review-item">
+                  <span class="review-label">Phone:</span>
+                  <span>{{ personalInfoForm.get('phone')?.value }}</span>
+                </div>
+              </div>
+
+              <div class="review-section">
+                <h5>Account Details</h5>
+                <div class="review-item">
+                  <span class="review-label">Username:</span>
+                  <span>{{ accountDetailsForm.get('username')?.value }}</span>
+                </div>
+              </div>
+
+              <div class="review-section">
+                <h5>Preferences</h5>
+                <div class="review-item">
+                  <span class="review-label">Language:</span>
+                  <span>{{ preferencesForm.get('language')?.value }}</span>
+                </div>
+                <div class="review-item">
+                  <span class="review-label">Timezone:</span>
+                  <span>{{ preferencesForm.get('timezone')?.value }}</span>
+                </div>
+                <div class="review-item">
+                  <span class="review-label">Notifications:</span>
+                  <span>{{ preferencesForm.get('notifications')?.value }}</span>
+                </div>
+              </div>
+
+              @if (!isFormComplete()) {
+                <div class="validation-warning">
+                  <mat-icon>warning</mat-icon>
+                  <span>Please complete all previous steps before submitting</span>
+                </div>
+              }
+            </div>
+          </mat-tab>
+        </mat-tab-group>
+
+        <!-- Navigation Buttons -->
+        <div class="tab-navigation">
+          <button
+            mat-raised-button
+            (click)="previousStep()"
+            [disabled]="selectedTabIndex === 0">
+            <mat-icon>arrow_back</mat-icon>
+            Previous
+          </button>
+
+          @if (selectedTabIndex < 3) {
+            <button
+              mat-raised-button
+              color="primary"
+              (click)="nextStep()"
+              [disabled]="!canProceed()">
+              Next
+              <mat-icon>arrow_forward</mat-icon>
+            </button>
+          } @else {
+            <button
+              mat-raised-button
+              color="primary"
+              (click)="submitForm()"
+              [disabled]="!isFormComplete()">
+              <mat-icon>send</mat-icon>
+              Submit
+            </button>
+          }
+        </div>
+
+        <!-- Progress Indicator -->
+        <div class="progress-indicator">
+          <div class="progress-text">
+            Step {{ selectedTabIndex + 1 }} of {{ steps.length }}
+          </div>
+          <div class="progress-steps">
+            @for (step of steps; track step; let i = $index) {
+              <div
+                class="progress-step"
+                [class.completed]="step.completed"
+                [class.active]="i === selectedTabIndex"
+                [class.error]="step.error"
+                (click)="goToStep(i)">
+              </div>
+            }
+          </div>
+        </div>
+      </mat-card-content>
+    </mat-card>
+  </div>
+</div>

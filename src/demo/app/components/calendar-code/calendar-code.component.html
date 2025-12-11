@@ -1,0 +1,217 @@
+<div class="code-section">
+  <h3>Code Examples</h3>
+  <p>Interactive examples with live previews. Edit the code to see real-time changes.</p>
+
+  <mat-accordion class="code-examples-accordion">
+    <!-- Basic Calendar -->
+    <mat-expansion-panel>
+      <mat-expansion-panel-header>
+        <mat-panel-title>
+          <mat-icon>code</mat-icon>
+          Basic Calendar
+        </mat-panel-title>
+        <mat-panel-description>Simple calendar with date selection</mat-panel-description>
+      </mat-expansion-panel-header>
+      <div class="example-container">
+        <div class="code-panel">
+          <div class="code-header">
+            <h4>Code</h4>
+            <button mat-icon-button (click)="resetCode('basic')" title="Reset to original">
+              <mat-icon>refresh</mat-icon>
+            </button>
+          </div>
+          <textarea
+            [(ngModel)]="editableCode.basic"
+            (ngModelChange)="onCodeChange('basic')"
+            class="code-editor"
+            [class.has-error]="hasError('basic')"
+            spellcheck="false"></textarea>
+          @if (hasError('basic')) {
+            <div class="error-message">
+              <mat-icon>error</mat-icon>
+              <span>{{ getError('basic') }}</span>
+            </div>
+          }
+        </div>
+        <div class="preview-panel">
+          <h4>Live Preview</h4>
+          <div class="preview-content">
+            <div class="dynamic-preview" [innerHTML]="getRenderedHtml('basic')"></div>
+            <div class="preview-note preview-note--success">
+              <mat-icon>check_circle</mat-icon>
+              <span>Live preview! Edit the code to see changes.</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </mat-expansion-panel>
+
+    <!-- Date Range Calendar -->
+    <mat-expansion-panel>
+      <mat-expansion-panel-header>
+        <mat-panel-title>
+          <mat-icon>code</mat-icon>
+          Date Range Calendar
+        </mat-panel-title>
+        <mat-panel-description>Calendar with start view configuration</mat-panel-description>
+      </mat-expansion-panel-header>
+      <div class="example-container">
+        <div class="code-panel">
+          <div class="code-header">
+            <h4>Code</h4>
+            <button mat-icon-button (click)="resetCode('range')" title="Reset to original">
+              <mat-icon>refresh</mat-icon>
+            </button>
+          </div>
+          <textarea
+            [(ngModel)]="editableCode.range"
+            (ngModelChange)="onCodeChange('range')"
+            class="code-editor"
+            [class.has-error]="hasError('range')"
+            spellcheck="false"></textarea>
+          @if (hasError('range')) {
+            <div class="error-message">
+              <mat-icon>error</mat-icon>
+              <span>{{ getError('range') }}</span>
+            </div>
+          }
+        </div>
+        <div class="preview-panel">
+          <h4>Live Preview</h4>
+          <div class="preview-content">
+            <div class="dynamic-preview" [innerHTML]="getRenderedHtml('range')"></div>
+          </div>
+        </div>
+      </div>
+    </mat-expansion-panel>
+
+    <!-- Min/Max Date Calendar -->
+    <mat-expansion-panel>
+      <mat-expansion-panel-header>
+        <mat-panel-title>
+          <mat-icon>code</mat-icon>
+          Min/Max Date Calendar
+        </mat-panel-title>
+        <mat-panel-description>Calendar with date range restrictions</mat-panel-description>
+      </mat-expansion-panel-header>
+      <div class="example-container">
+        <div class="code-panel">
+          <div class="code-header">
+            <h4>Code</h4>
+            <button mat-icon-button (click)="resetCode('minMax')" title="Reset to original">
+              <mat-icon>refresh</mat-icon>
+            </button>
+          </div>
+          <textarea
+            [(ngModel)]="editableCode.minMax"
+            (ngModelChange)="onCodeChange('minMax')"
+            class="code-editor"
+            [class.has-error]="hasError('minMax')"
+            spellcheck="false"></textarea>
+          @if (hasError('minMax')) {
+            <div class="error-message">
+              <mat-icon>error</mat-icon>
+              <span>{{ getError('minMax') }}</span>
+            </div>
+          }
+        </div>
+        <div class="preview-panel">
+          <h4>Live Preview</h4>
+          <div class="preview-content">
+            <div class="dynamic-preview" [innerHTML]="getRenderedHtml('minMax')"></div>
+            <div class="preview-note">
+              <mat-icon>info</mat-icon>
+              <span>Note: Min/Max dates require component logic</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </mat-expansion-panel>
+
+    <!-- Filtered Calendar -->
+    <mat-expansion-panel>
+      <mat-expansion-panel-header>
+        <mat-panel-title>
+          <mat-icon>code</mat-icon>
+          Filtered Calendar
+        </mat-panel-title>
+        <mat-panel-description>Calendar with custom date filter</mat-panel-description>
+      </mat-expansion-panel-header>
+      <div class="example-container">
+        <div class="code-panel">
+          <div class="code-header">
+            <h4>Code</h4>
+            <button mat-icon-button (click)="resetCode('filter')" title="Reset to original">
+              <mat-icon>refresh</mat-icon>
+            </button>
+          </div>
+          <textarea
+            [(ngModel)]="editableCode.filter"
+            (ngModelChange)="onCodeChange('filter')"
+            class="code-editor"
+            [class.has-error]="hasError('filter')"
+            spellcheck="false"></textarea>
+          @if (hasError('filter')) {
+            <div class="error-message">
+              <mat-icon>error</mat-icon>
+              <span>{{ getError('filter') }}</span>
+            </div>
+          }
+        </div>
+        <div class="preview-panel">
+          <h4>Live Preview</h4>
+          <div class="preview-content">
+            <div class="dynamic-preview" [innerHTML]="getRenderedHtml('filter')"></div>
+            <div class="preview-note">
+              <mat-icon>info</mat-icon>
+              <span>Note: Date filtering requires component logic</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </mat-expansion-panel>
+
+    <!-- Custom Styled Calendar -->
+    <mat-expansion-panel>
+      <mat-expansion-panel-header>
+        <mat-panel-title>
+          <mat-icon>code</mat-icon>
+          Custom Styled Calendar
+        </mat-panel-title>
+        <mat-panel-description>Calendar with custom date classes</mat-panel-description>
+      </mat-expansion-panel-header>
+      <div class="example-container">
+        <div class="code-panel">
+          <div class="code-header">
+            <h4>Code</h4>
+            <button mat-icon-button (click)="resetCode('customClass')" title="Reset to original">
+              <mat-icon>refresh</mat-icon>
+            </button>
+          </div>
+          <textarea
+            [(ngModel)]="editableCode.customClass"
+            (ngModelChange)="onCodeChange('customClass')"
+            class="code-editor"
+            [class.has-error]="hasError('customClass')"
+            spellcheck="false"></textarea>
+          @if (hasError('customClass')) {
+            <div class="error-message">
+              <mat-icon>error</mat-icon>
+              <span>{{ getError('customClass') }}</span>
+            </div>
+          }
+        </div>
+        <div class="preview-panel">
+          <h4>Live Preview</h4>
+          <div class="preview-content">
+            <div class="dynamic-preview" [innerHTML]="getRenderedHtml('customClass')"></div>
+            <div class="preview-note">
+              <mat-icon>info</mat-icon>
+              <span>Note: Custom classes require component logic and CSS</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </mat-expansion-panel>
+  </mat-accordion>
+</div>
