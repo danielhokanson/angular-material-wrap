@@ -135,6 +135,13 @@
         border: 1px solid var(--mdc-theme-outline, #79747e);
         min-height: 150px;
 
+        .control-buttons {
+          display: flex;
+          gap: 12px;
+          margin-top: 16px;
+          flex-wrap: wrap;
+        }
+
         // Style the preview accordions to be more compact
         mat-accordion {
           mat-expansion-panel {

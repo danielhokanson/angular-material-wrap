@@ -1,6 +1,6 @@
 <div class="code-section">
   <h3>Code Examples</h3>
-  <p>Interactive examples with live previews. Expand each section to see the code and working component side-by-side.</p>
+  <p>Interactive examples with live previews. The code is editable for reference, and working examples are shown alongside.</p>
 
   <mat-accordion class="code-examples-accordion">
     <!-- Basic Accordion -->
@@ -22,25 +22,30 @@
           </div>
           <textarea
             [(ngModel)]="editableCode.basic"
-            (ngModelChange)="onCodeChange('basic')"
             class="code-editor"
-            [class.has-error]="hasError('basic')"
-            spellcheck="false"></textarea>
-          @if (hasError('basic')) {
-            <div class="error-message">
-              <mat-icon>error</mat-icon>
-              <span>{{ getError('basic') }}</span>
-            </div>
-          }
+            spellcheck="false"
+            readonly></textarea>
         </div>
         <div class="preview-panel">
           <h4>Live Preview</h4>
           <div class="preview-content">
-            <div class="dynamic-preview" [innerHTML]="getRenderedHtml('basic')"></div>
-            <div class="preview-note preview-note--success">
-              <mat-icon>check_circle</mat-icon>
-              <span>Live preview! Edit the code on the left to see real-time changes.</span>
-            </div>
+            <mat-accordion>
+              <mat-expansion-panel>
+                <mat-expansion-panel-header>
+                  <mat-panel-title>Panel 1</mat-panel-title>
+                  <mat-panel-description>First panel content</mat-panel-description>
+                </mat-expansion-panel-header>
+                <p>First panel content</p>
+              </mat-expansion-panel>
+
+              <mat-expansion-panel>
+                <mat-expansion-panel-header>
+                  <mat-panel-title>Panel 2</mat-panel-title>
+                  <mat-panel-description>Second panel content</mat-panel-description>
+                </mat-expansion-panel-header>
+                <p>Second panel content</p>
+              </mat-expansion-panel>
+            </mat-accordion>
           </div>
         </div>
       </div>
@@ -65,27 +70,34 @@
           </div>
           <textarea
             [(ngModel)]="editableCode.multiExpand"
-            (ngModelChange)="onCodeChange('multiExpand')"
             class="code-editor"
-            [class.has-error]="hasError('multiExpand')"
-            spellcheck="false"></textarea>
-          @if (hasError('multiExpand')) {
-            <div class="error-message">
-              <mat-icon>error</mat-icon>
-              <span>{{ getError('multiExpand') }}</span>
-            </div>
-          }
+            spellcheck="false"
+            readonly></textarea>
         </div>
         <div class="preview-panel">
           <h4>Live Preview</h4>
           <div class="preview-content">
-            <div class="dynamic-preview" [innerHTML]="getRenderedHtml('multiExpand')"></div>
+            <mat-accordion [multi]="true">
+              <mat-expansion-panel>
+                <mat-expansion-panel-header>
+                  <mat-panel-title>Panel 1</mat-panel-title>
+                </mat-expansion-panel-header>
+                <p>Content 1 - can stay open with others</p>
+              </mat-expansion-panel>
+
+              <mat-expansion-panel>
+                <mat-expansion-panel-header>
+                  <mat-panel-title>Panel 2</mat-panel-title>
+                </mat-expansion-panel-header>
+                <p>Content 2 - can stay open with others</p>
+              </mat-expansion-panel>
+            </mat-accordion>
           </div>
         </div>
       </div>
     </mat-expansion-panel>
 
-    <!-- Hide Toggle -->
+    <!-- Hide Toggle Indicator -->
     <mat-expansion-panel>
       <mat-expansion-panel-header>
         <mat-panel-title>
@@ -104,21 +116,21 @@
           </div>
           <textarea
             [(ngModel)]="editableCode.hideToggle"
-            (ngModelChange)="onCodeChange('hideToggle')"
             class="code-editor"
-            [class.has-error]="hasError('hideToggle')"
-            spellcheck="false"></textarea>
-          @if (hasError('hideToggle')) {
-            <div class="error-message">
-              <mat-icon>error</mat-icon>
-              <span>{{ getError('hideToggle') }}</span>
-            </div>
-          }
+            spellcheck="false"
+            readonly></textarea>
         </div>
         <div class="preview-panel">
           <h4>Live Preview</h4>
           <div class="preview-content">
-            <div class="dynamic-preview" [innerHTML]="getRenderedHtml('hideToggle')"></div>
+            <mat-accordion>
+              <mat-expansion-panel [hideToggle]="true">
+                <mat-expansion-panel-header>
+                  <mat-panel-title>No Toggle Indicator</mat-panel-title>
+                </mat-expansion-panel-header>
+                <p>Panel without toggle indicator</p>
+              </mat-expansion-panel>
+            </mat-accordion>
           </div>
         </div>
       </div>
@@ -143,21 +155,21 @@
           </div>
           <textarea
             [(ngModel)]="editableCode.disabled"
-            (ngModelChange)="onCodeChange('disabled')"
             class="code-editor"
-            [class.has-error]="hasError('disabled')"
-            spellcheck="false"></textarea>
-          @if (hasError('disabled')) {
-            <div class="error-message">
-              <mat-icon>error</mat-icon>
-              <span>{{ getError('disabled') }}</span>
-            </div>
-          }
+            spellcheck="false"
+            readonly></textarea>
         </div>
         <div class="preview-panel">
           <h4>Live Preview</h4>
           <div class="preview-content">
-            <div class="dynamic-preview" [innerHTML]="getRenderedHtml('disabled')"></div>
+            <mat-accordion>
+              <mat-expansion-panel [disabled]="true">
+                <mat-expansion-panel-header>
+                  <mat-panel-title>Disabled Panel</mat-panel-title>
+                </mat-expansion-panel-header>
+                <p>This content cannot be accessed</p>
+              </mat-expansion-panel>
+            </mat-accordion>
           </div>
         </div>
       </div>
@@ -182,24 +194,26 @@
           </div>
           <textarea
             [(ngModel)]="editableCode.programmatic"
-            (ngModelChange)="onCodeChange('programmatic')"
             class="code-editor"
-            [class.has-error]="hasError('programmatic')"
-            spellcheck="false"></textarea>
-          @if (hasError('programmatic')) {
-            <div class="error-message">
-              <mat-icon>error</mat-icon>
-              <span>{{ getError('programmatic') }}</span>
-            </div>
-          }
+            spellcheck="false"
+            readonly></textarea>
         </div>
         <div class="preview-panel">
           <h4>Live Preview</h4>
           <div class="preview-content">
-            <div class="dynamic-preview" [innerHTML]="getRenderedHtml('programmatic')"></div>
-            <div class="preview-note">
-              <mat-icon>info</mat-icon>
-              <span>Note: Interactive buttons require component logic (not available in HTML preview)</span>
+            <mat-accordion>
+              <mat-expansion-panel #panel>
+                <mat-expansion-panel-header>
+                  <mat-panel-title>Programmatically Controlled</mat-panel-title>
+                </mat-expansion-panel-header>
+                <p>Control this panel with methods</p>
+              </mat-expansion-panel>
+            </mat-accordion>
+
+            <div class="control-buttons">
+              <button mat-raised-button (click)="panel.open()">Open</button>
+              <button mat-raised-button (click)="panel.close()">Close</button>
+              <button mat-raised-button (click)="panel.toggle()">Toggle</button>
             </div>
           </div>
         </div>
@@ -225,24 +239,28 @@
           </div>
           <textarea
             [(ngModel)]="editableCode.events"
-            (ngModelChange)="onCodeChange('events')"
             class="code-editor"
-            [class.has-error]="hasError('events')"
-            spellcheck="false"></textarea>
-          @if (hasError('events')) {
-            <div class="error-message">
-              <mat-icon>error</mat-icon>
-              <span>{{ getError('events') }}</span>
-            </div>
-          }
+            spellcheck="false"
+            readonly></textarea>
         </div>
         <div class="preview-panel">
           <h4>Live Preview</h4>
           <div class="preview-content">
-            <div class="dynamic-preview" [innerHTML]="getRenderedHtml('events')"></div>
+            <mat-accordion>
+              <mat-expansion-panel
+                (opened)="onOpened()"
+                (closed)="onClosed()"
+                (afterExpand)="onAfterExpand()"
+                (afterCollapse)="onAfterCollapse()">
+                <mat-expansion-panel-header>
+                  <mat-panel-title>Event Handling</mat-panel-title>
+                </mat-expansion-panel-header>
+                <p>Check console for event logs</p>
+              </mat-expansion-panel>
+            </mat-accordion>
             <div class="preview-note">
               <mat-icon>info</mat-icon>
-              <span>Note: Event handlers require component logic (not available in HTML preview)</span>
+              <span>Open your browser console to see event logs</span>
             </div>
           </div>
         </div>
@@ -268,21 +286,21 @@
           </div>
           <textarea
             [(ngModel)]="editableCode.togglePosition"
-            (ngModelChange)="onCodeChange('togglePosition')"
             class="code-editor"
-            [class.has-error]="hasError('togglePosition')"
-            spellcheck="false"></textarea>
-          @if (hasError('togglePosition')) {
-            <div class="error-message">
-              <mat-icon>error</mat-icon>
-              <span>{{ getError('togglePosition') }}</span>
-            </div>
-          }
+            spellcheck="false"
+            readonly></textarea>
         </div>
         <div class="preview-panel">
           <h4>Live Preview</h4>
           <div class="preview-content">
-            <div class="dynamic-preview" [innerHTML]="getRenderedHtml('togglePosition')"></div>
+            <mat-accordion>
+              <mat-expansion-panel [togglePosition]="'before'">
+                <mat-expansion-panel-header>
+                  <mat-panel-title>Toggle Before Title</mat-panel-title>
+                </mat-expansion-panel-header>
+                <p>Toggle indicator on the left</p>
+              </mat-expansion-panel>
+            </mat-accordion>
           </div>
         </div>
       </div>
