@@ -22,25 +22,15 @@
           </div>
           <textarea
             [(ngModel)]="editableCode.colorPalette"
-            (ngModelChange)="onCodeChange('colorPalette')"
             class="code-editor"
-            [class.has-error]="hasError('colorPalette')"
             spellcheck="false"></textarea>
-          @if (hasError('colorPalette')) {
-            <div class="error-message">
-              <mat-icon>error</mat-icon>
-              <span>{{ getError('colorPalette') }}</span>
-            </div>
-          }
         </div>
         <div class="preview-panel">
           <h4>Live Preview</h4>
           <div class="preview-content">
-            <div class="dynamic-preview" [innerHTML]="getRenderedHtml('colorPalette')"></div>
-            <div class="preview-note preview-note--success">
-              <mat-icon>check_circle</mat-icon>
-              <span>Live preview! Edit the code to see changes.</span>
-            </div>
+            <button mat-raised-button color="primary">Primary</button>
+            <button mat-raised-button color="accent">Accent</button>
+            <button mat-raised-button color="warn">Warn</button>
           </div>
         </div>
       </div>
@@ -65,21 +55,19 @@
           </div>
           <textarea
             [(ngModel)]="editableCode.cssVariables"
-            (ngModelChange)="onCodeChange('cssVariables')"
             class="code-editor"
-            [class.has-error]="hasError('cssVariables')"
             spellcheck="false"></textarea>
-          @if (hasError('cssVariables')) {
-            <div class="error-message">
-              <mat-icon>error</mat-icon>
-              <span>{{ getError('cssVariables') }}</span>
-            </div>
-          }
         </div>
         <div class="preview-panel">
           <h4>Live Preview</h4>
           <div class="preview-content">
-            <div class="dynamic-preview" [innerHTML]="getRenderedHtml('cssVariables')"></div>
+            <div style="
+              background-color: var(--mdc-theme-primary);
+              color: var(--mdc-theme-on-primary);
+              padding: 16px;
+              border-radius: 8px;">
+              Themed Container
+            </div>
           </div>
         </div>
       </div>
@@ -104,21 +92,23 @@
           </div>
           <textarea
             [(ngModel)]="editableCode.componentTheming"
-            (ngModelChange)="onCodeChange('componentTheming')"
             class="code-editor"
-            [class.has-error]="hasError('componentTheming')"
             spellcheck="false"></textarea>
-          @if (hasError('componentTheming')) {
-            <div class="error-message">
-              <mat-icon>error</mat-icon>
-              <span>{{ getError('componentTheming') }}</span>
-            </div>
-          }
         </div>
         <div class="preview-panel">
           <h4>Live Preview</h4>
           <div class="preview-content">
-            <div class="dynamic-preview" [innerHTML]="getRenderedHtml('componentTheming')"></div>
+            <mat-card>
+              <mat-card-header>
+                <mat-card-title>Themed Card</mat-card-title>
+              </mat-card-header>
+              <mat-card-content>
+                Content styled with theme colors
+              </mat-card-content>
+              <mat-card-actions>
+                <button mat-button color="primary">Action</button>
+              </mat-card-actions>
+            </mat-card>
           </div>
         </div>
       </div>
@@ -143,21 +133,19 @@
           </div>
           <textarea
             [(ngModel)]="editableCode.darkMode"
-            (ngModelChange)="onCodeChange('darkMode')"
             class="code-editor"
-            [class.has-error]="hasError('darkMode')"
             spellcheck="false"></textarea>
-          @if (hasError('darkMode')) {
-            <div class="error-message">
-              <mat-icon>error</mat-icon>
-              <span>{{ getError('darkMode') }}</span>
-            </div>
-          }
         </div>
         <div class="preview-panel">
           <h4>Live Preview</h4>
           <div class="preview-content">
-            <div class="dynamic-preview" [innerHTML]="getRenderedHtml('darkMode')"></div>
+            <div class="dark-theme">
+              <mat-card>
+                <mat-card-content>
+                  This content adapts to dark theme
+                </mat-card-content>
+              </mat-card>
+            </div>
             <div class="preview-note">
               <mat-icon>info</mat-icon>
               <span>Note: Full dark mode requires global theme configuration</span>
@@ -186,21 +174,17 @@
           </div>
           <textarea
             [(ngModel)]="editableCode.customTheme"
-            (ngModelChange)="onCodeChange('customTheme')"
             class="code-editor"
-            [class.has-error]="hasError('customTheme')"
             spellcheck="false"></textarea>
-          @if (hasError('customTheme')) {
-            <div class="error-message">
-              <mat-icon>error</mat-icon>
-              <span>{{ getError('customTheme') }}</span>
-            </div>
-          }
         </div>
         <div class="preview-panel">
           <h4>Live Preview</h4>
           <div class="preview-content">
-            <div class="dynamic-preview" [innerHTML]="getRenderedHtml('customTheme')"></div>
+            <div class="custom-theme" style="--mdc-theme-primary: #ff5722; --mdc-theme-on-primary: #ffffff;">
+              <button mat-raised-button color="primary">
+                Custom Primary Color
+              </button>
+            </div>
             <div class="preview-note">
               <mat-icon>info</mat-icon>
               <span>Note: CSS variables can be scoped to specific elements</span>

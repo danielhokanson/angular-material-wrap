@@ -1,15 +1,16 @@
-import { Component, ViewEncapsulation, SecurityContext } from '@angular/core';
+import { Component, ViewEncapsulation } from '@angular/core';
 import { FormsModule } from '@angular/forms';
-import { DomSanitizer, SafeHtml } from '@angular/platform-browser';
 import { MatButtonModule } from '@angular/material/button';
 import { MatIconModule } from '@angular/material/icon';
 import { MatExpansionModule } from '@angular/material/expansion';
 import { MatCardModule } from '@angular/material/card';
+import { CommonModule } from '@angular/common';
 
 @Component({
   selector: 'amw-demo-theme-code',
   standalone: true,
   imports: [
+    CommonModule,
     FormsModule,
     MatButtonModule,
     MatIconModule,
@@ -29,56 +30,16 @@ export class ThemeCodeComponent {
     customTheme: ''
   };
 
-  renderedHtml: Record<string, SafeHtml> = {};
-  errors: Record<string, string> = {};
-  highlightedCode: Record<string, string> = {};
-
-  constructor(private sanitizer: DomSanitizer) {
+  constructor() {
     this.editableCode.colorPalette = this.codeExamples.colorPalette;
     this.editableCode.cssVariables = this.codeExamples.cssVariables;
     this.editableCode.componentTheming = this.codeExamples.componentTheming;
     this.editableCode.darkMode = this.codeExamples.darkMode;
     this.editableCode.customTheme = this.codeExamples.customTheme;
-    this.updateAllPreviews();
   }
 
   resetCode(exampleKey: keyof typeof this.codeExamples) {
     this.editableCode[exampleKey] = this.codeExamples[exampleKey];
-    this.updatePreview(exampleKey);
-  }
-
-  onCodeChange(exampleKey: keyof typeof this.codeExamples) {
-    this.updatePreview(exampleKey);
-  }
-
-  private updatePreview(exampleKey: keyof typeof this.codeExamples) {
-    const code = this.editableCode[exampleKey];
-    try {
-      const sanitized = this.sanitizer.sanitize(SecurityContext.HTML, code);
-      if (sanitized) {
-        this.renderedHtml[exampleKey] = this.sanitizer.bypassSecurityTrustHtml(sanitized);
-        this.errors[exampleKey] = '';
-      }
-    } catch (error) {
-      this.errors[exampleKey] = error instanceof Error ? error.message : 'Invalid HTML';
-    }
-  }
-
-  private updateAllPreviews() {
-    const keys: Array<keyof typeof this.codeExamples> = ['colorPalette', 'cssVariables', 'componentTheming', 'darkMode', 'customTheme'];
-    keys.forEach(key => this.updatePreview(key));
-  }
-
-  hasError(exampleKey: keyof typeof this.codeExamples): boolean {
-    return !!this.errors[exampleKey];
-  }
-
-  getError(exampleKey: keyof typeof this.codeExamples): string {
-    return this.errors[exampleKey] || '';
-  }
-
-  getRenderedHtml(exampleKey: keyof typeof this.codeExamples): SafeHtml {
-    return this.renderedHtml[exampleKey] || '';
   }
 
   codeExamples = {

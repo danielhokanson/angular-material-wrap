@@ -1,12 +1,13 @@
-import { Component, ViewEncapsulation, SecurityContext } from '@angular/core';
+import { Component, ViewEncapsulation } from '@angular/core';
 import { FormsModule } from '@angular/forms';
-import { DomSanitizer, SafeHtml } from '@angular/platform-browser';
 import { MatDatepickerModule } from '@angular/material/datepicker';
 import { MatCardModule } from '@angular/material/card';
 import { MatNativeDateModule } from '@angular/material/core';
 import { MatIconModule } from '@angular/material/icon';
 import { MatButtonModule } from '@angular/material/button';
 import { MatExpansionModule } from '@angular/material/expansion';
+import { MatInputModule } from '@angular/material/input';
+import { MatFormFieldModule } from '@angular/material/form-field';
 
 @Component({
   selector: 'amw-demo-calendar-code',
@@ -33,57 +34,36 @@ export class CalendarCodeComponent {
     customClass: ''
   };
 
-  renderedHtml: Record<string, SafeHtml> = {};
-  errors: Record<string, string> = {};
-  highlightedCode: Record<string, string> = {};
+  // Example dates for previews
+  selectedDate = new Date();
+  minDate = new Date(2020, 0, 1);
+  maxDate = new Date(2025, 11, 31);
 
-  constructor(private sanitizer: DomSanitizer) {
+  constructor() {
     this.editableCode.basic = this.codeExamples.basic;
     this.editableCode.range = this.codeExamples.range;
     this.editableCode.minMax = this.codeExamples.minMax;
     this.editableCode.filter = this.codeExamples.filter;
     this.editableCode.customClass = this.codeExamples.customClass;
-    this.updateAllPreviews();
   }
 
   resetCode(exampleKey: keyof typeof this.codeExamples) {
     this.editableCode[exampleKey] = this.codeExamples[exampleKey];
-    this.updatePreview(exampleKey);
   }
 
-  onCodeChange(exampleKey: keyof typeof this.codeExamples) {
-    this.updatePreview(exampleKey);
-  }
+  // Date filter function for filtered calendar example
+  myFilter = (d: Date | null): boolean => {
+    const day = (d || new Date()).getDay();
+    // Prevent Saturday and Sunday from being selected
+    return day !== 0 && day !== 6;
+  };
 
-  private updatePreview(exampleKey: keyof typeof this.codeExamples) {
-    const code = this.editableCode[exampleKey];
-    try {
-      const sanitized = this.sanitizer.sanitize(SecurityContext.HTML, code);
-      if (sanitized) {
-        this.renderedHtml[exampleKey] = this.sanitizer.bypassSecurityTrustHtml(sanitized);
-        this.errors[exampleKey] = '';
-      }
-    } catch (error) {
-      this.errors[exampleKey] = error instanceof Error ? error.message : 'Invalid HTML';
-    }
-  }
-
-  private updateAllPreviews() {
-    const keys: Array<keyof typeof this.codeExamples> = ['basic', 'range', 'minMax', 'filter', 'customClass'];
-    keys.forEach(key => this.updatePreview(key));
-  }
-
-  hasError(exampleKey: keyof typeof this.codeExamples): boolean {
-    return !!this.errors[exampleKey];
-  }
-
-  getError(exampleKey: keyof typeof this.codeExamples): string {
-    return this.errors[exampleKey] || '';
-  }
-
-  getRenderedHtml(exampleKey: keyof typeof this.codeExamples): SafeHtml {
-    return this.renderedHtml[exampleKey] || '';
-  }
+  // Custom date class function
+  dateClass = (d: Date): string => {
+    const date = d.getDate();
+    // Highlight dates that are multiples of 5
+    return date % 5 === 0 ? 'special-date' : '';
+  };
 
   codeExamples = {
     basic: `<mat-card>

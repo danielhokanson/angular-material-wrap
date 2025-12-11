@@ -1,6 +1,5 @@
-import { Component, ViewEncapsulation, SecurityContext } from '@angular/core';
+import { Component, ViewEncapsulation } from '@angular/core';
 import { FormsModule } from '@angular/forms';
-import { DomSanitizer, SafeHtml } from '@angular/platform-browser';
 import { MatChipsModule } from '@angular/material/chips';
 import { MatIconModule } from '@angular/material/icon';
 import { MatButtonModule } from '@angular/material/button';
@@ -15,6 +14,7 @@ import { MatExpansionModule } from '@angular/material/expansion';
   styleUrl: './chips-code.component.scss'
 })
 export class ChipsCodeComponent {
+  // Editable code examples
   editableCode = {
     basic: '',
     removable: '',
@@ -23,56 +23,42 @@ export class ChipsCodeComponent {
     styled: ''
   };
 
-  renderedHtml: Record<string, SafeHtml> = {};
-  errors: Record<string, string> = {};
-  highlightedCode: Record<string, string> = {};
+  // State for removable chips preview
+  removableChips = [
+    { label: 'Removable Chip', removed: false }
+  ];
 
-  constructor(private sanitizer: DomSanitizer) {
+  // State for input chips preview
+  inputChips = ['Apple', 'Banana', 'Orange'];
+
+  constructor() {
     this.editableCode.basic = this.codeExamples.basic;
     this.editableCode.removable = this.codeExamples.removable;
     this.editableCode.selectable = this.codeExamples.selectable;
     this.editableCode.input = this.codeExamples.input;
     this.editableCode.styled = this.codeExamples.styled;
-    this.updateAllPreviews();
   }
 
   resetCode(exampleKey: keyof typeof this.codeExamples) {
     this.editableCode[exampleKey] = this.codeExamples[exampleKey];
-    this.updatePreview(exampleKey);
   }
 
-  onCodeChange(exampleKey: keyof typeof this.codeExamples) {
-    this.updatePreview(exampleKey);
+  // Remove a chip from removable chips preview
+  removeChip(index: number) {
+    this.removableChips.splice(index, 1);
   }
 
-  private updatePreview(exampleKey: keyof typeof this.codeExamples) {
-    const code = this.editableCode[exampleKey];
-    try {
-      const sanitized = this.sanitizer.sanitize(SecurityContext.HTML, code);
-      if (sanitized) {
-        this.renderedHtml[exampleKey] = this.sanitizer.bypassSecurityTrustHtml(sanitized);
-        this.errors[exampleKey] = '';
-      }
-    } catch (error) {
-      this.errors[exampleKey] = error instanceof Error ? error.message : 'Invalid HTML';
+  // Remove a chip from input chips preview
+  removeInputChip(index: number) {
+    this.inputChips.splice(index, 1);
+  }
+
+  // Add chip from input field
+  addInputChip(input: HTMLInputElement) {
+    if (input.value.trim()) {
+      this.inputChips.push(input.value.trim());
+      input.value = '';
     }
-  }
-
-  private updateAllPreviews() {
-    const keys: Array<keyof typeof this.codeExamples> = ['basic', 'removable', 'selectable', 'input', 'styled'];
-    keys.forEach(key => this.updatePreview(key));
-  }
-
-  hasError(exampleKey: keyof typeof this.codeExamples): boolean {
-    return !!this.errors[exampleKey];
-  }
-
-  getError(exampleKey: keyof typeof this.codeExamples): string {
-    return this.errors[exampleKey] || '';
-  }
-
-  getRenderedHtml(exampleKey: keyof typeof this.codeExamples): SafeHtml {
-    return this.renderedHtml[exampleKey] || '';
   }
 
   codeExamples = {
@@ -89,10 +75,10 @@ export class ChipsCodeComponent {
   </mat-chip>
 </mat-chip-set>`,
 
-    selectable: `<mat-chip-set [selectable]="true">
-  <mat-chip [selected]="true">Selected</mat-chip>
-  <mat-chip>Not Selected</mat-chip>
-</mat-chip-set>`,
+    selectable: `<mat-chip-listbox>
+  <mat-chip-option [selected]="true">Selected</mat-chip-option>
+  <mat-chip-option>Not Selected</mat-chip-option>
+</mat-chip-listbox>`,
 
     input: `<mat-chip-grid #chipGrid>
   @for (item of items; track item) {

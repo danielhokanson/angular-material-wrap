@@ -22,25 +22,17 @@
           </div>
           <textarea
             [(ngModel)]="editableCode.basic"
-            (ngModelChange)="onCodeChange('basic')"
             class="code-editor"
-            [class.has-error]="hasError('basic')"
             spellcheck="false"></textarea>
-          @if (hasError('basic')) {
-            <div class="error-message">
-              <mat-icon>error</mat-icon>
-              <span>{{ getError('basic') }}</span>
-            </div>
-          }
         </div>
         <div class="preview-panel">
           <h4>Live Preview</h4>
           <div class="preview-content">
-            <div class="dynamic-preview" [innerHTML]="getRenderedHtml('basic')"></div>
-            <div class="preview-note preview-note--success">
-              <mat-icon>check_circle</mat-icon>
-              <span>Live preview! Edit the code to see changes.</span>
-            </div>
+            <mat-chip-set>
+              <mat-chip>Tag 1</mat-chip>
+              <mat-chip>Tag 2</mat-chip>
+              <mat-chip>Tag 3</mat-chip>
+            </mat-chip-set>
           </div>
         </div>
       </div>
@@ -65,25 +57,22 @@
           </div>
           <textarea
             [(ngModel)]="editableCode.removable"
-            (ngModelChange)="onCodeChange('removable')"
             class="code-editor"
-            [class.has-error]="hasError('removable')"
             spellcheck="false"></textarea>
-          @if (hasError('removable')) {
-            <div class="error-message">
-              <mat-icon>error</mat-icon>
-              <span>{{ getError('removable') }}</span>
-            </div>
-          }
         </div>
         <div class="preview-panel">
           <h4>Live Preview</h4>
           <div class="preview-content">
-            <div class="dynamic-preview" [innerHTML]="getRenderedHtml('removable')"></div>
-            <div class="preview-note">
-              <mat-icon>info</mat-icon>
-              <span>Note: Remove functionality requires component logic</span>
-            </div>
+            <mat-chip-set>
+              @for (chip of removableChips; let i = $index; track chip.label) {
+                @if (!chip.removed) {
+                  <mat-chip [removable]="true" (removed)="removeChip(i)">
+                    {{ chip.label }}
+                    <mat-icon matChipRemove>cancel</mat-icon>
+                  </mat-chip>
+                }
+              }
+            </mat-chip-set>
           </div>
         </div>
       </div>
@@ -108,21 +97,16 @@
           </div>
           <textarea
             [(ngModel)]="editableCode.selectable"
-            (ngModelChange)="onCodeChange('selectable')"
             class="code-editor"
-            [class.has-error]="hasError('selectable')"
             spellcheck="false"></textarea>
-          @if (hasError('selectable')) {
-            <div class="error-message">
-              <mat-icon>error</mat-icon>
-              <span>{{ getError('selectable') }}</span>
-            </div>
-          }
         </div>
         <div class="preview-panel">
           <h4>Live Preview</h4>
           <div class="preview-content">
-            <div class="dynamic-preview" [innerHTML]="getRenderedHtml('selectable')"></div>
+            <mat-chip-listbox>
+              <mat-chip-option [selected]="true">Selected</mat-chip-option>
+              <mat-chip-option>Not Selected</mat-chip-option>
+            </mat-chip-listbox>
           </div>
         </div>
       </div>
@@ -147,25 +131,26 @@
           </div>
           <textarea
             [(ngModel)]="editableCode.input"
-            (ngModelChange)="onCodeChange('input')"
             class="code-editor"
-            [class.has-error]="hasError('input')"
             spellcheck="false"></textarea>
-          @if (hasError('input')) {
-            <div class="error-message">
-              <mat-icon>error</mat-icon>
-              <span>{{ getError('input') }}</span>
-            </div>
-          }
         </div>
         <div class="preview-panel">
           <h4>Live Preview</h4>
           <div class="preview-content">
-            <div class="dynamic-preview" [innerHTML]="getRenderedHtml('input')"></div>
-            <div class="preview-note">
-              <mat-icon>info</mat-icon>
-              <span>Note: Input functionality requires component logic</span>
-            </div>
+            <mat-chip-set>
+              @for (item of inputChips; let i = $index; track item) {
+                <mat-chip [removable]="true" (removed)="removeInputChip(i)">
+                  {{ item }}
+                  <mat-icon matChipRemove>cancel</mat-icon>
+                </mat-chip>
+              }
+            </mat-chip-set>
+            <input
+              type="text"
+              placeholder="Add a chip"
+              #chipInput
+              (keyup.enter)="addInputChip(chipInput)"
+              style="margin-top: 8px; padding: 8px; border: 1px solid #ccc; border-radius: 4px;" />
           </div>
         </div>
       </div>
@@ -190,21 +175,17 @@
           </div>
           <textarea
             [(ngModel)]="editableCode.styled"
-            (ngModelChange)="onCodeChange('styled')"
             class="code-editor"
-            [class.has-error]="hasError('styled')"
             spellcheck="false"></textarea>
-          @if (hasError('styled')) {
-            <div class="error-message">
-              <mat-icon>error</mat-icon>
-              <span>{{ getError('styled') }}</span>
-            </div>
-          }
         </div>
         <div class="preview-panel">
           <h4>Live Preview</h4>
           <div class="preview-content">
-            <div class="dynamic-preview" [innerHTML]="getRenderedHtml('styled')"></div>
+            <mat-chip-set>
+              <mat-chip color="primary">Primary</mat-chip>
+              <mat-chip color="accent">Accent</mat-chip>
+              <mat-chip color="warn">Warn</mat-chip>
+            </mat-chip-set>
           </div>
         </div>
       </div>

@@ -22,25 +22,20 @@
           </div>
           <textarea
             [(ngModel)]="editableCode.basic"
-            (ngModelChange)="onCodeChange('basic')"
             class="code-editor"
-            [class.has-error]="hasError('basic')"
             spellcheck="false"></textarea>
-          @if (hasError('basic')) {
-            <div class="error-message">
-              <mat-icon>error</mat-icon>
-              <span>{{ getError('basic') }}</span>
-            </div>
-          }
         </div>
         <div class="preview-panel">
           <h4>Live Preview</h4>
           <div class="preview-content">
-            <div class="dynamic-preview" [innerHTML]="getRenderedHtml('basic')"></div>
-            <div class="preview-note preview-note--success">
-              <mat-icon>check_circle</mat-icon>
-              <span>Live preview! Edit the code to see changes.</span>
-            </div>
+            <mat-card>
+              <mat-card-header>
+                <mat-card-title>Basic Calendar</mat-card-title>
+              </mat-card-header>
+              <mat-card-content>
+                <mat-calendar [(selected)]="selectedDate"></mat-calendar>
+              </mat-card-content>
+            </mat-card>
           </div>
         </div>
       </div>
@@ -65,21 +60,23 @@
           </div>
           <textarea
             [(ngModel)]="editableCode.range"
-            (ngModelChange)="onCodeChange('range')"
             class="code-editor"
-            [class.has-error]="hasError('range')"
             spellcheck="false"></textarea>
-          @if (hasError('range')) {
-            <div class="error-message">
-              <mat-icon>error</mat-icon>
-              <span>{{ getError('range') }}</span>
-            </div>
-          }
         </div>
         <div class="preview-panel">
           <h4>Live Preview</h4>
           <div class="preview-content">
-            <div class="dynamic-preview" [innerHTML]="getRenderedHtml('range')"></div>
+            <mat-card>
+              <mat-card-header>
+                <mat-card-title>Date Range Calendar</mat-card-title>
+              </mat-card-header>
+              <mat-card-content>
+                <mat-calendar
+                  [(selected)]="selectedDate"
+                  [startView]="'month'">
+                </mat-calendar>
+              </mat-card-content>
+            </mat-card>
           </div>
         </div>
       </div>
@@ -104,25 +101,24 @@
           </div>
           <textarea
             [(ngModel)]="editableCode.minMax"
-            (ngModelChange)="onCodeChange('minMax')"
             class="code-editor"
-            [class.has-error]="hasError('minMax')"
             spellcheck="false"></textarea>
-          @if (hasError('minMax')) {
-            <div class="error-message">
-              <mat-icon>error</mat-icon>
-              <span>{{ getError('minMax') }}</span>
-            </div>
-          }
         </div>
         <div class="preview-panel">
           <h4>Live Preview</h4>
           <div class="preview-content">
-            <div class="dynamic-preview" [innerHTML]="getRenderedHtml('minMax')"></div>
-            <div class="preview-note">
-              <mat-icon>info</mat-icon>
-              <span>Note: Min/Max dates require component logic</span>
-            </div>
+            <mat-card>
+              <mat-card-header>
+                <mat-card-title>Min/Max Date Calendar</mat-card-title>
+              </mat-card-header>
+              <mat-card-content>
+                <mat-calendar
+                  [(selected)]="selectedDate"
+                  [minDate]="minDate"
+                  [maxDate]="maxDate">
+                </mat-calendar>
+              </mat-card-content>
+            </mat-card>
           </div>
         </div>
       </div>
@@ -147,24 +143,26 @@
           </div>
           <textarea
             [(ngModel)]="editableCode.filter"
-            (ngModelChange)="onCodeChange('filter')"
             class="code-editor"
-            [class.has-error]="hasError('filter')"
             spellcheck="false"></textarea>
-          @if (hasError('filter')) {
-            <div class="error-message">
-              <mat-icon>error</mat-icon>
-              <span>{{ getError('filter') }}</span>
-            </div>
-          }
         </div>
         <div class="preview-panel">
           <h4>Live Preview</h4>
           <div class="preview-content">
-            <div class="dynamic-preview" [innerHTML]="getRenderedHtml('filter')"></div>
+            <mat-card>
+              <mat-card-header>
+                <mat-card-title>Filtered Calendar</mat-card-title>
+              </mat-card-header>
+              <mat-card-content>
+                <mat-calendar
+                  [(selected)]="selectedDate"
+                  [dateFilter]="myFilter">
+                </mat-calendar>
+              </mat-card-content>
+            </mat-card>
             <div class="preview-note">
               <mat-icon>info</mat-icon>
-              <span>Note: Date filtering requires component logic</span>
+              <span>Note: Weekends are disabled in this example</span>
             </div>
           </div>
         </div>
@@ -190,24 +188,26 @@
           </div>
           <textarea
             [(ngModel)]="editableCode.customClass"
-            (ngModelChange)="onCodeChange('customClass')"
             class="code-editor"
-            [class.has-error]="hasError('customClass')"
             spellcheck="false"></textarea>
-          @if (hasError('customClass')) {
-            <div class="error-message">
-              <mat-icon>error</mat-icon>
-              <span>{{ getError('customClass') }}</span>
-            </div>
-          }
         </div>
         <div class="preview-panel">
           <h4>Live Preview</h4>
           <div class="preview-content">
-            <div class="dynamic-preview" [innerHTML]="getRenderedHtml('customClass')"></div>
+            <mat-card>
+              <mat-card-header>
+                <mat-card-title>Custom Styled Calendar</mat-card-title>
+              </mat-card-header>
+              <mat-card-content>
+                <mat-calendar
+                  [(selected)]="selectedDate"
+                  [dateClass]="dateClass">
+                </mat-calendar>
+              </mat-card-content>
+            </mat-card>
             <div class="preview-note">
               <mat-icon>info</mat-icon>
-              <span>Note: Custom classes require component logic and CSS</span>
+              <span>Note: Dates that are multiples of 5 are highlighted</span>
             </div>
           </div>
         </div>

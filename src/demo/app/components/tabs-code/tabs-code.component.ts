@@ -1,15 +1,16 @@
-import { Component, ViewEncapsulation, SecurityContext } from '@angular/core';
+import { Component, ViewEncapsulation } from '@angular/core';
 import { FormsModule } from '@angular/forms';
-import { DomSanitizer, SafeHtml } from '@angular/platform-browser';
 import { MatTabsModule } from '@angular/material/tabs';
 import { MatIconModule } from '@angular/material/icon';
 import { MatButtonModule } from '@angular/material/button';
 import { MatExpansionModule } from '@angular/material/expansion';
+import { CommonModule } from '@angular/common';
 
 @Component({
   selector: 'amw-demo-tabs-code',
   standalone: true,
   imports: [
+    CommonModule,
     FormsModule,
     MatTabsModule,
     MatIconModule,
@@ -29,56 +30,24 @@ export class TabsCodeComponent {
     styled: ''
   };
 
-  renderedHtml: Record<string, SafeHtml> = {};
-  errors: Record<string, string> = {};
-  highlightedCode: Record<string, string> = {};
+  // Data for dynamic tabs example
+  dynamicTabs = [
+    { label: 'Tab 1', content: 'Content of tab 1' },
+    { label: 'Tab 2', content: 'Content of tab 2' },
+    { label: 'Tab 3', content: 'Content of tab 3' }
+  ];
+  selectedIndex = 0;
 
-  constructor(private sanitizer: DomSanitizer) {
+  constructor() {
     this.editableCode.basic = this.codeExamples.basic;
     this.editableCode.icons = this.codeExamples.icons;
     this.editableCode.lazy = this.codeExamples.lazy;
     this.editableCode.dynamic = this.codeExamples.dynamic;
     this.editableCode.styled = this.codeExamples.styled;
-    this.updateAllPreviews();
   }
 
   resetCode(exampleKey: keyof typeof this.codeExamples) {
     this.editableCode[exampleKey] = this.codeExamples[exampleKey];
-    this.updatePreview(exampleKey);
-  }
-
-  onCodeChange(exampleKey: keyof typeof this.codeExamples) {
-    this.updatePreview(exampleKey);
-  }
-
-  private updatePreview(exampleKey: keyof typeof this.codeExamples) {
-    const code = this.editableCode[exampleKey];
-    try {
-      const sanitized = this.sanitizer.sanitize(SecurityContext.HTML, code);
-      if (sanitized) {
-        this.renderedHtml[exampleKey] = this.sanitizer.bypassSecurityTrustHtml(sanitized);
-        this.errors[exampleKey] = '';
-      }
-    } catch (error) {
-      this.errors[exampleKey] = error instanceof Error ? error.message : 'Invalid HTML';
-    }
-  }
-
-  private updateAllPreviews() {
-    const keys: Array<keyof typeof this.codeExamples> = ['basic', 'icons', 'lazy', 'dynamic', 'styled'];
-    keys.forEach(key => this.updatePreview(key));
-  }
-
-  hasError(exampleKey: keyof typeof this.codeExamples): boolean {
-    return !!this.errors[exampleKey];
-  }
-
-  getError(exampleKey: keyof typeof this.codeExamples): string {
-    return this.errors[exampleKey] || '';
-  }
-
-  getRenderedHtml(exampleKey: keyof typeof this.codeExamples): SafeHtml {
-    return this.renderedHtml[exampleKey] || '';
   }
 
   codeExamples = {

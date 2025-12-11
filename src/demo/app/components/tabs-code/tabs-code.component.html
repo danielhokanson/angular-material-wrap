@@ -22,25 +22,17 @@
           </div>
           <textarea
             [(ngModel)]="editableCode.basic"
-            (ngModelChange)="onCodeChange('basic')"
             class="code-editor"
-            [class.has-error]="hasError('basic')"
             spellcheck="false"></textarea>
-          @if (hasError('basic')) {
-            <div class="error-message">
-              <mat-icon>error</mat-icon>
-              <span>{{ getError('basic') }}</span>
-            </div>
-          }
         </div>
         <div class="preview-panel">
           <h4>Live Preview</h4>
           <div class="preview-content">
-            <div class="dynamic-preview" [innerHTML]="getRenderedHtml('basic')"></div>
-            <div class="preview-note preview-note--success">
-              <mat-icon>check_circle</mat-icon>
-              <span>Live preview! Edit the code to see changes.</span>
-            </div>
+            <mat-tab-group>
+              <mat-tab label="First">Content 1</mat-tab>
+              <mat-tab label="Second">Content 2</mat-tab>
+              <mat-tab label="Third">Content 3</mat-tab>
+            </mat-tab-group>
           </div>
         </div>
       </div>
@@ -65,21 +57,35 @@
           </div>
           <textarea
             [(ngModel)]="editableCode.icons"
-            (ngModelChange)="onCodeChange('icons')"
             class="code-editor"
-            [class.has-error]="hasError('icons')"
             spellcheck="false"></textarea>
-          @if (hasError('icons')) {
-            <div class="error-message">
-              <mat-icon>error</mat-icon>
-              <span>{{ getError('icons') }}</span>
-            </div>
-          }
         </div>
         <div class="preview-panel">
           <h4>Live Preview</h4>
           <div class="preview-content">
-            <div class="dynamic-preview" [innerHTML]="getRenderedHtml('icons')"></div>
+            <mat-tab-group>
+              <mat-tab>
+                <ng-template mat-tab-label>
+                  <mat-icon>home</mat-icon>
+                  Home
+                </ng-template>
+                Home content
+              </mat-tab>
+              <mat-tab>
+                <ng-template mat-tab-label>
+                  <mat-icon>person</mat-icon>
+                  Profile
+                </ng-template>
+                Profile content
+              </mat-tab>
+              <mat-tab>
+                <ng-template mat-tab-label>
+                  <mat-icon>settings</mat-icon>
+                  Settings
+                </ng-template>
+                Settings content
+              </mat-tab>
+            </mat-tab-group>
           </div>
         </div>
       </div>
@@ -104,21 +110,22 @@
           </div>
           <textarea
             [(ngModel)]="editableCode.lazy"
-            (ngModelChange)="onCodeChange('lazy')"
             class="code-editor"
-            [class.has-error]="hasError('lazy')"
             spellcheck="false"></textarea>
-          @if (hasError('lazy')) {
-            <div class="error-message">
-              <mat-icon>error</mat-icon>
-              <span>{{ getError('lazy') }}</span>
-            </div>
-          }
         </div>
         <div class="preview-panel">
           <h4>Live Preview</h4>
           <div class="preview-content">
-            <div class="dynamic-preview" [innerHTML]="getRenderedHtml('lazy')"></div>
+            <mat-tab-group>
+              <mat-tab label="Eager">
+                This content is loaded immediately
+              </mat-tab>
+              <mat-tab label="Lazy">
+                <ng-template matTabContent>
+                  This content is lazy loaded
+                </ng-template>
+              </mat-tab>
+            </mat-tab-group>
             <div class="preview-note">
               <mat-icon>info</mat-icon>
               <span>Note: Lazy loading requires matTabContent directive</span>
@@ -147,21 +154,19 @@
           </div>
           <textarea
             [(ngModel)]="editableCode.dynamic"
-            (ngModelChange)="onCodeChange('dynamic')"
             class="code-editor"
-            [class.has-error]="hasError('dynamic')"
             spellcheck="false"></textarea>
-          @if (hasError('dynamic')) {
-            <div class="error-message">
-              <mat-icon>error</mat-icon>
-              <span>{{ getError('dynamic') }}</span>
-            </div>
-          }
         </div>
         <div class="preview-panel">
           <h4>Live Preview</h4>
           <div class="preview-content">
-            <div class="dynamic-preview" [innerHTML]="getRenderedHtml('dynamic')"></div>
+            <mat-tab-group [(selectedIndex)]="selectedIndex">
+              @for (tab of dynamicTabs; track tab) {
+                <mat-tab [label]="tab.label">
+                  {{ tab.content }}
+                </mat-tab>
+              }
+            </mat-tab-group>
             <div class="preview-note">
               <mat-icon>info</mat-icon>
               <span>Note: Dynamic tabs require component logic</span>
@@ -190,21 +195,23 @@
           </div>
           <textarea
             [(ngModel)]="editableCode.styled"
-            (ngModelChange)="onCodeChange('styled')"
             class="code-editor"
-            [class.has-error]="hasError('styled')"
             spellcheck="false"></textarea>
-          @if (hasError('styled')) {
-            <div class="error-message">
-              <mat-icon>error</mat-icon>
-              <span>{{ getError('styled') }}</span>
-            </div>
-          }
         </div>
         <div class="preview-panel">
           <h4>Live Preview</h4>
           <div class="preview-content">
-            <div class="dynamic-preview" [innerHTML]="getRenderedHtml('styled')"></div>
+            <mat-tab-group color="accent" backgroundColor="primary">
+              <mat-tab label="Primary Tab">
+                Content with custom colors
+              </mat-tab>
+              <mat-tab label="Accent Tab">
+                More content
+              </mat-tab>
+              <mat-tab label="Disabled" [disabled]="true">
+                Disabled content
+              </mat-tab>
+            </mat-tab-group>
           </div>
         </div>
       </div>
