@@ -4,11 +4,12 @@ import { DomSanitizer, SafeHtml } from '@angular/platform-browser';
 import { MatChipsModule } from '@angular/material/chips';
 import { MatIconModule } from '@angular/material/icon';
 import { MatButtonModule } from '@angular/material/button';
+import { MatExpansionModule } from '@angular/material/expansion';
 
 @Component({
   selector: 'amw-demo-chips-code',
   standalone: true,
-  imports: [FormsModule, MatChipsModule, MatIconModule, MatButtonModule],
+  imports: [FormsModule, MatChipsModule, MatIconModule, MatButtonModule, MatExpansionModule],
   encapsulation: ViewEncapsulation.None,
   templateUrl: './chips-code.component.html',
   styleUrl: './chips-code.component.scss'

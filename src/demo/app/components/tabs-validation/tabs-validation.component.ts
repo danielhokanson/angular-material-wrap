@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import { CommonModule } from '@angular/common';
 import { FormBuilder, FormGroup, Validators, ReactiveFormsModule } from '@angular/forms';
 import { MatTabsModule } from '@angular/material/tabs';
 import { MatFormFieldModule } from '@angular/material/form-field';
@@ -18,6 +19,7 @@ interface Step {
   selector: 'amw-demo-tabs-validation',
   standalone: true,
   imports: [
+    CommonModule,
     ReactiveFormsModule,
     MatTabsModule,
     MatFormFieldModule,

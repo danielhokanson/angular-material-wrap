@@ -38,6 +38,18 @@ import { AccordionDemoComponent } from '../../components/accordion-demo/accordio
 import { AccordionApiComponent } from '../../components/accordion-api/accordion-api.component';
 import { AccordionCodeComponent } from '../../components/accordion-code/accordion-code.component';
 import { AccordionValidationComponent } from '../../components/accordion-validation/accordion-validation.component';
+import { ChipsApiComponent } from '../../components/chips-api/chips-api.component';
+import { ChipsCodeComponent } from '../../components/chips-code/chips-code.component';
+import { ChipsValidationComponent } from '../../components/chips-validation/chips-validation.component';
+import { CalendarApiComponent } from '../../components/calendar-api/calendar-api.component';
+import { CalendarCodeComponent } from '../../components/calendar-code/calendar-code.component';
+import { CalendarValidationComponent } from '../../components/calendar-validation/calendar-validation.component';
+import { TabsApiComponent } from '../../components/tabs-api/tabs-api.component';
+import { TabsCodeComponent } from '../../components/tabs-code/tabs-code.component';
+import { TabsValidationComponent } from '../../components/tabs-validation/tabs-validation.component';
+import { ThemeApiComponent } from '../../components/theme-api/theme-api.component';
+import { ThemeCodeComponent } from '../../components/theme-code/theme-code.component';
+import { ThemeValidationComponent } from '../../components/theme-validation/theme-validation.component';
 
 @Component({
     selector: 'amw-demo-components',
@@ -77,6 +89,18 @@ import { AccordionValidationComponent } from '../../components/accordion-validat
     AccordionApiComponent,
     AccordionCodeComponent,
     AccordionValidationComponent,
+    ChipsApiComponent,
+    ChipsCodeComponent,
+    ChipsValidationComponent,
+    CalendarApiComponent,
+    CalendarCodeComponent,
+    CalendarValidationComponent,
+    TabsApiComponent,
+    TabsCodeComponent,
+    TabsValidationComponent,
+    ThemeApiComponent,
+    ThemeCodeComponent,
+    ThemeValidationComponent
 ],
     encapsulation: ViewEncapsulation.None,
     templateUrl: './components-demo.component.html',
@@ -93,7 +117,9 @@ export class ComponentsDemoComponent implements OnInit {
         { id: 'calendar', name: 'Calendar' },
         { id: 'stepper', name: 'Stepper' },
         { id: 'tabs', name: 'Tabs' },
-        { id: 'accordion', name: 'Accordion' }
+        { id: 'accordion', name: 'Accordion' },
+        { id: 'chips', name: 'Chips' },
+        { id: 'theme', name: 'Theme' }
     ];
 
     selectedComponent = { id: 'card', name: 'Card' };
