@@ -1,63 +1,88 @@
 .directives-demo {
-    padding: 20px;
-}
+  padding: 24px;
+  max-width: 1400px;
+  margin: 0 auto;
 
-.directives-header h1 {
-    margin-bottom: 10px;
-}
+  .directives-header {
+    text-align: center;
+    margin-bottom: 32px;
 
-.directives-header p {
-    margin-bottom: 20px;
-    color: #666;
-}
+    h1 {
+      margin: 0 0 8px 0;
+      font-size: 2.5rem;
+      font-weight: 300;
+      color: var(--mdc-theme-on-surface);
+    }
 
-.demo-content {
+    p {
+      margin: 0;
+      font-size: 1.1rem;
+      color: var(--mdc-theme-on-surface-variant);
+    }
+  }
+
+  .directives-content {
+    .directives-main {
+      .directive-demo {
+        .directive-tabs {
+          margin-top: 16px;
+
+          ::ng-deep .mat-mdc-tab-body-wrapper {
+            padding: 24px 0;
+          }
+        }
+      }
+    }
+  }
+
+  .demo-content {
     padding: 20px 0;
-}
+  }
 
-.demo-box {
+  .demo-box {
     transition: all 0.3s ease;
-}
+  }
 
-.demo-box.clicked {
+  .demo-box.clicked {
     background-color: #e3f2fd;
     border-color: #2196f3 !important;
-}
+  }
 
-.click-indicator {
+  .click-indicator {
     color: #2196f3;
     font-weight: bold;
-}
+  }
 
-.demo-section {
+  .demo-section {
     margin-bottom: 30px;
-}
+  }
 
-.code-block {
+  .code-block {
     position: relative;
     background: #f5f5f5;
     border: 1px solid #ddd;
     border-radius: 4px;
     padding: 16px;
     margin: 16px 0;
-}
+  }
 
-.code-block pre {
+  .code-block pre {
     margin: 0;
     font-family: 'Courier New', monospace;
-}
+  }
 
-.code-block button {
+  .code-block button {
     position: absolute;
     top: 8px;
     right: 8px;
-}
+  }
 
-mat-form-field {
+  mat-form-field {
     width: 100%;
     margin-bottom: 16px;
-}
+  }
 
-button {
+  button {
     margin-right: 8px;
+  }
 }
