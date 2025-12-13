@@ -1,114 +1,159 @@
 import { Component, ViewEncapsulation } from '@angular/core';
 import { CommonModule } from '@angular/common';
+import { FormsModule } from '@angular/forms';
 import { MatExpansionModule } from '@angular/material/expansion';
+import { MatButtonModule } from '@angular/material/button';
+import { MatIconModule } from '@angular/material/icon';
+import { MatSelectModule } from '@angular/material/select';
+import { MatFormFieldModule } from '@angular/material/form-field';
 
 @Component({
   selector: 'amw-demo-select-code',
   standalone: true,
   imports: [
     CommonModule,
-    MatExpansionModule
+    FormsModule,
+    MatExpansionModule,
+    MatButtonModule,
+    MatIconModule,
+    MatSelectModule,
+    MatFormFieldModule
   ],
   encapsulation: ViewEncapsulation.None,
   templateUrl: './select-code.component.html',
   styleUrl: './select-code.component.scss'
 })
 export class SelectCodeComponent {
-  codeExamples = {
-    basic: {
-      title: 'Basic Select',
-      description: 'A simple select with options array',
-      code: `const options = [
-  { value: 'option1', label: 'Option 1' },
-  { value: 'option2', label: 'Option 2' },
-  { value: 'option3', label: 'Option 3' }
-];
+  // State for live preview examples
+  selectedValue = '';
+  selectedFood = '';
+  selectedMultiple: string[] = [];
+  selectedCar = '';
 
-<amw-select
-  [options]="options"
-  label="Choose Option"
-  placeholder="Select an option">
-</amw-select>`
-    },
-    withValidation: {
-      title: 'Select with Validation',
-      description: 'Select with required validation and error handling',
-      code: `<amw-select
-  [options]="countryOptions"
-  label="Country"
-  placeholder="Select country"
-  [required]="true"
-  appearance="outline">
-</amw-select>`
-    },
-    multipleSelection: {
-      title: 'Multiple Selection',
-      description: 'Select that allows multiple option selection',
-      code: `<amw-select
-  [options]="colorOptions"
-  [multiple]="true"
-  label="Colors"
-  placeholder="Select multiple colors"
-  appearance="fill">
-</amw-select>`
-    },
-    withIcon: {
-      title: 'Select with Icon',
-      description: 'Select with prefix icon for better UX',
-      code: `<amw-select
-  [options]="categoryOptions"
-  label="Category"
-  placeholder="Select category"
-  icon="category"
-  appearance="outline">
-</amw-select>`
-    },
-    differentSizes: {
-      title: 'Different Sizes',
-      description: 'Selects in different sizes for various use cases',
-      code: `<amw-select size="small" [options]="options" label="Small Select"></amw-select>
-<amw-select size="medium" [options]="options" label="Medium Select"></amw-select>
-<amw-select size="large" [options]="options" label="Large Select"></amw-select>`
-    },
-    disabledState: {
-      title: 'Disabled State',
-      description: 'Select in disabled state',
-      code: `<amw-select
-  [options]="options"
-  label="Disabled Select"
-  placeholder="Cannot select"
-  [disabled]="true">
-</amw-select>`
-    },
-    reactiveForm: {
-      title: 'Reactive Form Integration',
-      description: 'Using select with Angular reactive forms',
-      code: `// Component TypeScript
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-
-export class MyComponent {
-  form: FormGroup;
-  countryOptions = [
-    { value: 'us', label: 'United States' },
-    { value: 'ca', label: 'Canada' }
+  foods = [
+    { value: 'steak', viewValue: 'Steak' },
+    { value: 'pizza', viewValue: 'Pizza' },
+    { value: 'tacos', viewValue: 'Tacos' }
   ];
 
-  constructor(private fb: FormBuilder) {
-    this.form = this.fb.group({
-      country: ['', Validators.required]
+  cars = [
+    { value: 'volvo', viewValue: 'Volvo' },
+    { value: 'saab', viewValue: 'Saab' },
+    { value: 'mercedes', viewValue: 'Mercedes' }
+  ];
+
+  toppings = [
+    { value: 'extra-cheese', viewValue: 'Extra cheese' },
+    { value: 'mushroom', viewValue: 'Mushroom' },
+    { value: 'onion', viewValue: 'Onion' },
+    { value: 'pepperoni', viewValue: 'Pepperoni' },
+    { value: 'sausage', viewValue: 'Sausage' },
+    { value: 'tomato', viewValue: 'Tomato' }
+  ];
+
+  // Editable code examples
+  editableCode = {
+    basic: '',
+    withValue: '',
+    multiple: '',
+    optGroups: '',
+    disabled: '',
+    customTrigger: '',
+    errorState: ''
+  };
+
+  // Original code examples (for reset functionality)
+  readonly codeExamples = {
+    basic: `<mat-form-field>
+  <mat-label>Favorite food</mat-label>
+  <mat-select>
+    <mat-option value="steak">Steak</mat-option>
+    <mat-option value="pizza">Pizza</mat-option>
+    <mat-option value="tacos">Tacos</mat-option>
+  </mat-select>
+</mat-form-field>`,
+
+    withValue: `<mat-form-field>
+  <mat-label>Select your car</mat-label>
+  <mat-select [(value)]="selectedCar">
+    <mat-option value="volvo">Volvo</mat-option>
+    <mat-option value="saab">Saab</mat-option>
+    <mat-option value="mercedes">Mercedes</mat-option>
+  </mat-select>
+</mat-form-field>
+<p>You selected: {{selectedCar}}</p>`,
+
+    multiple: `<mat-form-field>
+  <mat-label>Toppings</mat-label>
+  <mat-select multiple>
+    <mat-option value="extra-cheese">Extra cheese</mat-option>
+    <mat-option value="mushroom">Mushroom</mat-option>
+    <mat-option value="onion">Onion</mat-option>
+    <mat-option value="pepperoni">Pepperoni</mat-option>
+    <mat-option value="sausage">Sausage</mat-option>
+    <mat-option value="tomato">Tomato</mat-option>
+  </mat-select>
+</mat-form-field>`,
+
+    optGroups: `<mat-form-field>
+  <mat-label>Pokemon</mat-label>
+  <mat-select>
+    <mat-optgroup label="Grass">
+      <mat-option value="bulbasaur">Bulbasaur</mat-option>
+      <mat-option value="oddish">Oddish</mat-option>
+    </mat-optgroup>
+    <mat-optgroup label="Water">
+      <mat-option value="squirtle">Squirtle</mat-option>
+      <mat-option value="psyduck">Psyduck</mat-option>
+    </mat-optgroup>
+    <mat-optgroup label="Fire">
+      <mat-option value="charmander">Charmander</mat-option>
+      <mat-option value="vulpix">Vulpix</mat-option>
+    </mat-optgroup>
+  </mat-select>
+</mat-form-field>`,
+
+    disabled: `<mat-form-field>
+  <mat-label>Disabled select</mat-label>
+  <mat-select disabled>
+    <mat-option value="option1">Option 1</mat-option>
+    <mat-option value="option2">Option 2</mat-option>
+  </mat-select>
+</mat-form-field>`,
+
+    customTrigger: `<mat-form-field>
+  <mat-label>Favorite food</mat-label>
+  <mat-select #select>
+    <mat-select-trigger>
+      {{select.value?.viewValue || 'None'}}
+    </mat-select-trigger>
+    <mat-option *ngFor="let food of foods" [value]="food">
+      {{food.viewValue}}
+    </mat-option>
+  </mat-select>
+</mat-form-field>`,
+
+    errorState: `<mat-form-field>
+  <mat-label>Favorite food</mat-label>
+  <mat-select required>
+    <mat-option value="steak">Steak</mat-option>
+    <mat-option value="pizza">Pizza</mat-option>
+    <mat-option value="tacos">Tacos</mat-option>
+  </mat-select>
+  <mat-error>Please make a selection</mat-error>
+</mat-form-field>`
+  };
+
+  constructor() {
+    // Initialize editable code
+    Object.keys(this.codeExamples).forEach(key => {
+      this.editableCode[key as keyof typeof this.codeExamples] =
+        this.codeExamples[key as keyof typeof this.codeExamples];
     });
   }
-}
 
-// Template
-<form [formGroup]="form">
-  <amw-select
-    formControlName="country"
-    [options]="countryOptions"
-    label="Country"
-    placeholder="Select country">
-  </amw-select>
-</form>`
-    }
-  };
+  // Reset code to original
+  resetCode(exampleKey: keyof typeof this.codeExamples) {
+    this.editableCode[exampleKey] = this.codeExamples[exampleKey];
+  }
 }

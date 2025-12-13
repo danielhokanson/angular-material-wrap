@@ -1,145 +1,233 @@
-<div class="sidenav-code">
-  <!-- Header -->
-  <div class="sidenav-code__header">
-    <h2>Sidenav Code Examples</h2>
-    <p>Learn how to implement and customize the sidenav component</p>
-  </div>
+<div class="code-section">
+  <h3>Code Examples</h3>
+  <p>Interactive examples with live previews. The code is editable for reference, and working examples are shown alongside.</p>
 
-  <div class="sidenav-code__content">
-    <!-- Code Examples -->
-    <mat-card class="sidenav-code__examples-card">
-      <mat-card-header>
-        <mat-card-title>Code Examples</mat-card-title>
-        <mat-card-subtitle>Select an example to see the implementation</mat-card-subtitle>
-      </mat-card-header>
-
-      <mat-card-content>
-        <div class="sidenav-code__example-buttons">
-          @for (example of [
-            { id: 'basic', label: 'Basic', icon: 'menu' },
-            { id: 'overlay', label: 'Overlay', icon: 'open_in_new' },
-            { id: 'push', label: 'Push', icon: 'arrow_forward' },
-            { id: 'nested', label: 'Nested', icon: 'account_tree' },
-            { id: 'custom', label: 'Custom', icon: 'tune' },
-            { id: 'responsive', label: 'Responsive', icon: 'responsive' }
-            ]; track example) {
-            <button
-              mat-button
-              [class.sidenav-code__example-button--active]="selectedExample === example.id"
-              (click)="selectExample(example.id)">
-              <mat-icon>{{ example.icon }}</mat-icon>
-              {{ example.label }}
+  <mat-accordion class="code-examples-accordion">
+    <!-- Basic Sidenav -->
+    <mat-expansion-panel>
+      <mat-expansion-panel-header>
+        <mat-panel-title>
+          <mat-icon>code</mat-icon>
+          Basic Sidenav
+        </mat-panel-title>
+        <mat-panel-description>Side mode with navigation list</mat-panel-description>
+      </mat-expansion-panel-header>
+      <div class="example-container">
+        <div class="code-panel">
+          <div class="code-header">
+            <h4>Code</h4>
+            <button mat-icon-button (click)="resetCode('basic')" title="Reset to original">
+              <mat-icon>refresh</mat-icon>
             </button>
-          }
+          </div>
+          <textarea
+            [(ngModel)]="editableCode.basic"
+            class="code-editor"
+            spellcheck="false"></textarea>
         </div>
-      </mat-card-content>
-    </mat-card>
-
-    <!-- Code Tabs -->
-    <mat-card class="sidenav-code__code-card">
-      <mat-card-header>
-        <mat-card-title>Implementation</mat-card-title>
-        <mat-card-subtitle>Copy and paste the code for your project</mat-card-subtitle>
-      </mat-card-header>
-
-      <mat-card-content>
-        <mat-tab-group class="sidenav-code__tabs">
-          <!-- HTML Tab -->
-          <mat-tab label="HTML">
-            <div class="sidenav-code__tab-content">
-              <div class="sidenav-code__code-header">
-                <h4>Template</h4>
-                <button mat-icon-button (click)="copyCode(getHtmlCode())" matTooltip="Copy HTML code">
-                  <mat-icon>content_copy</mat-icon>
-                </button>
-              </div>
-              <pre class="sidenav-code__code-block"><code>{{ getHtmlCode() }}</code></pre>
-            </div>
-          </mat-tab>
-
-          <!-- TypeScript Tab -->
-          <mat-tab label="TypeScript">
-            <div class="sidenav-code__tab-content">
-              <div class="sidenav-code__code-header">
-                <h4>Component</h4>
-                <button mat-icon-button (click)="copyCode(getTypeScriptCode())" matTooltip="Copy TypeScript code">
-                  <mat-icon>content_copy</mat-icon>
-                </button>
-              </div>
-              <pre class="sidenav-code__code-block"><code>{{ getTypeScriptCode() }}</code></pre>
-            </div>
-          </mat-tab>
-
-          <!-- SCSS Tab -->
-          <mat-tab label="SCSS">
-            <div class="sidenav-code__tab-content">
-              <div class="sidenav-code__code-header">
-                <h4>Styles</h4>
-                <button mat-icon-button (click)="copyCode(getScssCode())" matTooltip="Copy SCSS code">
-                  <mat-icon>content_copy</mat-icon>
-                </button>
-              </div>
-              <pre class="sidenav-code__code-block"><code>{{ getScssCode() }}</code></pre>
-            </div>
-          </mat-tab>
-
-          <!-- Service Tab -->
-          <mat-tab label="Service">
-            <div class="sidenav-code__tab-content">
-              <div class="sidenav-code__code-header">
-                <h4>Service Usage</h4>
-                <button mat-icon-button (click)="copyCode(getServiceCode())" matTooltip="Copy service code">
-                  <mat-icon>content_copy</mat-icon>
-                </button>
-              </div>
-              <pre class="sidenav-code__code-block"><code>{{ getServiceCode() }}</code></pre>
-            </div>
-          </mat-tab>
-        </mat-tab-group>
-      </mat-card-content>
-    </mat-card>
-
-    <!-- Live Demo -->
-    <mat-card class="sidenav-code__demo-card">
-      <mat-card-header>
-        <mat-card-title>Live Demo</mat-card-title>
-        <mat-card-subtitle>See the current example in action</mat-card-subtitle>
-      </mat-card-header>
-
-      <mat-card-content>
-        <div class="sidenav-code__demo-container">
-          <amw-sidenav
-            [config]="currentConfig"
-            [items]="navigationItems"
-            [opened]="currentConfig.opened ?? false"
-            (openedChange)="onSidenavOpenedChange($event)"
-            (itemClick)="onItemClick($event)">
-
-            <!-- Main Content -->
-            <div class="sidenav-code__main-content">
-              <mat-card class="sidenav-code__content-card">
-                <mat-card-header>
-                  <mat-card-title>{{ getExampleTitle() }}</mat-card-title>
-                  <mat-card-subtitle>{{ getExampleDescription() }}</mat-card-subtitle>
-                </mat-card-header>
-
-                <mat-card-content>
-                  <p>{{ getExampleDescription() }}</p>
-
-                  <div class="sidenav-code__example-info">
-                    <h4>Key Features:</h4>
-                    <ul>
-                      @for (feature of getExampleFeatures(); track feature) {
-                        <li>{{ feature }}</li>
-                      }
-                    </ul>
-                  </div>
-                </mat-card-content>
-              </mat-card>
-            </div>
-          </amw-sidenav>
+        <div class="preview-panel">
+          <h4>Live Preview</h4>
+          <div class="preview-content">
+            <mat-drawer-container class="example-sidenav-container">
+              <mat-drawer mode="side" [opened]="sidenavOpened">
+                <mat-nav-list>
+                  <a mat-list-item href="#">
+                    <mat-icon matListItemIcon>home</mat-icon>
+                    <span matListItemTitle>Home</span>
+                  </a>
+                  <a mat-list-item href="#">
+                    <mat-icon matListItemIcon>person</mat-icon>
+                    <span matListItemTitle>Profile</span>
+                  </a>
+                  <a mat-list-item href="#">
+                    <mat-icon matListItemIcon>settings</mat-icon>
+                    <span matListItemTitle>Settings</span>
+                  </a>
+                </mat-nav-list>
+              </mat-drawer>
+              <mat-drawer-content>
+                <div class="sidenav-content-padding">
+                  <button mat-raised-button (click)="sidenavOpened = !sidenavOpened">
+                    Toggle Sidenav
+                  </button>
+                  <p>Main content area. The sidenav stays open by default in side mode.</p>
+                </div>
+              </mat-drawer-content>
+            </mat-drawer-container>
+          </div>
         </div>
-      </mat-card-content>
-    </mat-card>
-  </div>
+      </div>
+    </mat-expansion-panel>
+
+    <!-- Overlay Mode -->
+    <mat-expansion-panel>
+      <mat-expansion-panel-header>
+        <mat-panel-title>
+          <mat-icon>code</mat-icon>
+          Overlay Mode
+        </mat-panel-title>
+        <mat-panel-description>Sidenav overlays content with backdrop</mat-panel-description>
+      </mat-expansion-panel-header>
+      <div class="example-container">
+        <div class="code-panel">
+          <div class="code-header">
+            <h4>Code</h4>
+            <button mat-icon-button (click)="resetCode('overlay')" title="Reset to original">
+              <mat-icon>refresh</mat-icon>
+            </button>
+          </div>
+          <textarea
+            [(ngModel)]="editableCode.overlay"
+            class="code-editor"
+            spellcheck="false"
+            readonly></textarea>
+        </div>
+        <div class="preview-panel">
+          <h4>Live Preview</h4>
+          <div class="preview-content">
+            <mat-drawer-container class="example-sidenav-container">
+              <mat-drawer mode="over" [(opened)]="overlaySidenavOpened">
+                <mat-nav-list>
+                  <a mat-list-item href="#">
+                    <mat-icon matListItemIcon>home</mat-icon>
+                    <span matListItemTitle>Home</span>
+                  </a>
+                  <a mat-list-item href="#">
+                    <mat-icon matListItemIcon>person</mat-icon>
+                    <span matListItemTitle>Profile</span>
+                  </a>
+                  <a mat-list-item href="#">
+                    <mat-icon matListItemIcon>settings</mat-icon>
+                    <span matListItemTitle>Settings</span>
+                  </a>
+                </mat-nav-list>
+              </mat-drawer>
+              <mat-drawer-content>
+                <div class="sidenav-content-padding">
+                  <button mat-raised-button (click)="overlaySidenavOpened = !overlaySidenavOpened">
+                    Toggle Sidenav
+                  </button>
+                  <p>The sidenav overlays the content with a backdrop in over mode.</p>
+                </div>
+              </mat-drawer-content>
+            </mat-drawer-container>
+          </div>
+        </div>
+      </div>
+    </mat-expansion-panel>
+
+    <!-- Push Mode -->
+    <mat-expansion-panel>
+      <mat-expansion-panel-header>
+        <mat-panel-title>
+          <mat-icon>code</mat-icon>
+          Push Mode
+        </mat-panel-title>
+        <mat-panel-description>Sidenav pushes content to the side</mat-panel-description>
+      </mat-expansion-panel-header>
+      <div class="example-container">
+        <div class="code-panel">
+          <div class="code-header">
+            <h4>Code</h4>
+            <button mat-icon-button (click)="resetCode('push')" title="Reset to original">
+              <mat-icon>refresh</mat-icon>
+            </button>
+          </div>
+          <textarea
+            [(ngModel)]="editableCode.push"
+            class="code-editor"
+            spellcheck="false"
+            readonly></textarea>
+        </div>
+        <div class="preview-panel">
+          <h4>Live Preview</h4>
+          <div class="preview-content">
+            <mat-drawer-container class="example-sidenav-container">
+              <mat-drawer mode="push" [(opened)]="pushSidenavOpened">
+                <mat-nav-list>
+                  <a mat-list-item href="#">
+                    <mat-icon matListItemIcon>home</mat-icon>
+                    <span matListItemTitle>Home</span>
+                  </a>
+                  <a mat-list-item href="#">
+                    <mat-icon matListItemIcon>person</mat-icon>
+                    <span matListItemTitle>Profile</span>
+                  </a>
+                  <a mat-list-item href="#">
+                    <mat-icon matListItemIcon>settings</mat-icon>
+                    <span matListItemTitle>Settings</span>
+                  </a>
+                </mat-nav-list>
+              </mat-drawer>
+              <mat-drawer-content>
+                <div class="sidenav-content-padding">
+                  <button mat-raised-button (click)="pushSidenavOpened = !pushSidenavOpened">
+                    Toggle Sidenav
+                  </button>
+                  <p>The content is pushed to the side when sidenav opens in push mode.</p>
+                </div>
+              </mat-drawer-content>
+            </mat-drawer-container>
+          </div>
+        </div>
+      </div>
+    </mat-expansion-panel>
+
+    <!-- Fixed Position -->
+    <mat-expansion-panel>
+      <mat-expansion-panel-header>
+        <mat-panel-title>
+          <mat-icon>code</mat-icon>
+          Fixed Position
+        </mat-panel-title>
+        <mat-panel-description>Sidenav on the right side</mat-panel-description>
+      </mat-expansion-panel-header>
+      <div class="example-container">
+        <div class="code-panel">
+          <div class="code-header">
+            <h4>Code</h4>
+            <button mat-icon-button (click)="resetCode('fixed')" title="Reset to original">
+              <mat-icon>refresh</mat-icon>
+            </button>
+          </div>
+          <textarea
+            [(ngModel)]="editableCode.fixed"
+            class="code-editor"
+            spellcheck="false"
+            readonly></textarea>
+        </div>
+        <div class="preview-panel">
+          <h4>Live Preview</h4>
+          <div class="preview-content">
+            <mat-drawer-container class="example-sidenav-container" hasBackdrop="false">
+              <mat-drawer mode="side" position="end" [(opened)]="fixedSidenavOpened">
+                <mat-nav-list>
+                  <a mat-list-item href="#">
+                    <mat-icon matListItemIcon>home</mat-icon>
+                    <span matListItemTitle>Home</span>
+                  </a>
+                  <a mat-list-item href="#">
+                    <mat-icon matListItemIcon>person</mat-icon>
+                    <span matListItemTitle>Profile</span>
+                  </a>
+                  <a mat-list-item href="#">
+                    <mat-icon matListItemIcon>settings</mat-icon>
+                    <span matListItemTitle>Settings</span>
+                  </a>
+                </mat-nav-list>
+              </mat-drawer>
+              <mat-drawer-content>
+                <div class="sidenav-content-padding">
+                  <button mat-raised-button (click)="fixedSidenavOpened = !fixedSidenavOpened">
+                    Toggle Right Sidenav
+                  </button>
+                  <p>The sidenav can be positioned on the right side using position="end".</p>
+                </div>
+              </mat-drawer-content>
+            </mat-drawer-container>
+          </div>
+        </div>
+      </div>
+    </mat-expansion-panel>
+  </mat-accordion>
 </div>

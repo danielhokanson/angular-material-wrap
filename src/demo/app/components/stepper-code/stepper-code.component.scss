@@ -1,25 +1,33 @@
-.stepper-code-demo {
-  .code-example {
-    margin-bottom: 24px;
-    
-    h4 {
-      margin-bottom: 12px;
-      color: #1976d2;
+// Component-specific styles for stepper-code
+// Global code section styles are imported from styles/_demo-api-code-shared.scss
+
+// Stepper preview styling
+.preview-content {
+  mat-stepper {
+    box-shadow: none;
+  }
+
+  .step-actions {
+    display: flex;
+    gap: 12px;
+    margin-top: 16px;
+    padding-top: 16px;
+  }
+
+  .step-label-with-icon {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+
+    mat-icon {
+      font-size: 20px;
+      width: 20px;
+      height: 20px;
     }
-    
-    pre {
-      background-color: #f5f5f5;
-      border: 1px solid #e0e0e0;
-      border-radius: 4px;
-      padding: 16px;
-      overflow-x: auto;
-      
-      code {
-        font-family: 'Courier New', monospace;
-        font-size: 14px;
-        line-height: 1.4;
-        color: #333;
-      }
-    }
+  }
+
+  mat-form-field {
+    width: 100%;
+    margin-bottom: 16px;
   }
 }

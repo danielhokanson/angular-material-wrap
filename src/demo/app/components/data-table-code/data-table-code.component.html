@@ -1,41 +1,350 @@
-<div class="data-table-code">
-  <mat-card>
-    <mat-card-header>
-      <mat-card-title>Data Table Code Examples</mat-card-title>
-      <mat-card-subtitle>Implementation examples and code snippets</mat-card-subtitle>
-    </mat-card-header>
-    
-    <mat-card-content>
-      <mat-tab-group>
-        <mat-tab *ngFor="let example of codeExamples | keyvalue" [label]="example.value.title">
-          <div class="data-table-code__tab-content">
-            <h3>{{ example.value.title }}</h3>
-            <p>{{ example.value.description }}</p>
-            
-            <div class="data-table-code__example">
-              <h4>HTML Template</h4>
-              <div class="data-table-code__code-block">
-                <button mat-icon-button class="data-table-code__copy-btn" (click)="copyToClipboard(example.value.html)">
-                  <mat-icon>content_copy</mat-icon>
-                </button>
-                <pre><code>{{ example.value.html }}</code></pre>
-              </div>
-            </div>
-            
-            <div class="data-table-code__example">
-              <h4>TypeScript Component</h4>
-              <div class="data-table-code__code-block">
-                <button mat-icon-button class="data-table-code__copy-btn" (click)="copyToClipboard(example.value.typescript)">
-                  <mat-icon>content_copy</mat-icon>
-                </button>
-                <pre><code>{{ example.value.typescript }}</code></pre>
-              </div>
+<div class="code-section">
+  <h3>Code Examples</h3>
+  <p>Interactive examples with live previews. The code is editable for reference, and working examples are shown alongside.</p>
+
+  <mat-accordion class="code-examples-accordion">
+    <!-- Basic Table -->
+    <mat-expansion-panel>
+      <mat-expansion-panel-header>
+        <mat-panel-title>
+          <mat-icon>code</mat-icon>
+          Basic Table
+        </mat-panel-title>
+        <mat-panel-description>Simple data table with static data</mat-panel-description>
+      </mat-expansion-panel-header>
+      <div class="example-container">
+        <div class="code-panel">
+          <div class="code-header">
+            <h4>Code</h4>
+            <button mat-icon-button (click)="resetCode('basic')" title="Reset to original">
+              <mat-icon>refresh</mat-icon>
+            </button>
+          </div>
+          <textarea
+            [(ngModel)]="editableCode.basic"
+            class="code-editor"
+            spellcheck="false"
+            readonly></textarea>
+        </div>
+        <div class="preview-panel">
+          <h4>Live Preview</h4>
+          <div class="preview-content">
+            <table mat-table [dataSource]="dataSource" class="demo-table">
+              <ng-container matColumnDef="position">
+                <th mat-header-cell *matHeaderCellDef>No.</th>
+                <td mat-cell *matCellDef="let element">{{element.position}}</td>
+              </ng-container>
+
+              <ng-container matColumnDef="name">
+                <th mat-header-cell *matHeaderCellDef>Name</th>
+                <td mat-cell *matCellDef="let element">{{element.name}}</td>
+              </ng-container>
+
+              <ng-container matColumnDef="weight">
+                <th mat-header-cell *matHeaderCellDef>Weight</th>
+                <td mat-cell *matCellDef="let element">{{element.weight}}</td>
+              </ng-container>
+
+              <ng-container matColumnDef="symbol">
+                <th mat-header-cell *matHeaderCellDef>Symbol</th>
+                <td mat-cell *matCellDef="let element">{{element.symbol}}</td>
+              </ng-container>
+
+              <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+              <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+            </table>
+          </div>
+        </div>
+      </div>
+    </mat-expansion-panel>
+
+    <!-- Sortable Table -->
+    <mat-expansion-panel>
+      <mat-expansion-panel-header>
+        <mat-panel-title>
+          <mat-icon>code</mat-icon>
+          Sortable Table
+        </mat-panel-title>
+        <mat-panel-description>Table with sortable columns</mat-panel-description>
+      </mat-expansion-panel-header>
+      <div class="example-container">
+        <div class="code-panel">
+          <div class="code-header">
+            <h4>Code</h4>
+            <button mat-icon-button (click)="resetCode('sorting')" title="Reset to original">
+              <mat-icon>refresh</mat-icon>
+            </button>
+          </div>
+          <textarea
+            [(ngModel)]="editableCode.sorting"
+            class="code-editor"
+            spellcheck="false"
+            readonly></textarea>
+        </div>
+        <div class="preview-panel">
+          <h4>Live Preview</h4>
+          <div class="preview-content">
+            <table mat-table [dataSource]="dataSource" matSort class="demo-table">
+              <ng-container matColumnDef="position">
+                <th mat-header-cell *matHeaderCellDef mat-sort-header>No.</th>
+                <td mat-cell *matCellDef="let element">{{element.position}}</td>
+              </ng-container>
+
+              <ng-container matColumnDef="name">
+                <th mat-header-cell *matHeaderCellDef mat-sort-header>Name</th>
+                <td mat-cell *matCellDef="let element">{{element.name}}</td>
+              </ng-container>
+
+              <ng-container matColumnDef="weight">
+                <th mat-header-cell *matHeaderCellDef mat-sort-header>Weight</th>
+                <td mat-cell *matCellDef="let element">{{element.weight}}</td>
+              </ng-container>
+
+              <ng-container matColumnDef="symbol">
+                <th mat-header-cell *matHeaderCellDef mat-sort-header>Symbol</th>
+                <td mat-cell *matCellDef="let element">{{element.symbol}}</td>
+              </ng-container>
+
+              <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+              <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+            </table>
+          </div>
+        </div>
+      </div>
+    </mat-expansion-panel>
+
+    <!-- Table with Pagination -->
+    <mat-expansion-panel>
+      <mat-expansion-panel-header>
+        <mat-panel-title>
+          <mat-icon>code</mat-icon>
+          Table with Pagination
+        </mat-panel-title>
+        <mat-panel-description>Add pagination controls to the table</mat-panel-description>
+      </mat-expansion-panel-header>
+      <div class="example-container">
+        <div class="code-panel">
+          <div class="code-header">
+            <h4>Code</h4>
+            <button mat-icon-button (click)="resetCode('pagination')" title="Reset to original">
+              <mat-icon>refresh</mat-icon>
+            </button>
+          </div>
+          <textarea
+            [(ngModel)]="editableCode.pagination"
+            class="code-editor"
+            spellcheck="false"
+            readonly></textarea>
+        </div>
+        <div class="preview-panel">
+          <h4>Live Preview</h4>
+          <div class="preview-content">
+            <table mat-table [dataSource]="dataSource" class="demo-table">
+              <ng-container matColumnDef="position">
+                <th mat-header-cell *matHeaderCellDef>No.</th>
+                <td mat-cell *matCellDef="let element">{{element.position}}</td>
+              </ng-container>
+
+              <ng-container matColumnDef="name">
+                <th mat-header-cell *matHeaderCellDef>Name</th>
+                <td mat-cell *matCellDef="let element">{{element.name}}</td>
+              </ng-container>
+
+              <ng-container matColumnDef="weight">
+                <th mat-header-cell *matHeaderCellDef>Weight</th>
+                <td mat-cell *matCellDef="let element">{{element.weight}}</td>
+              </ng-container>
+
+              <ng-container matColumnDef="symbol">
+                <th mat-header-cell *matHeaderCellDef>Symbol</th>
+                <td mat-cell *matCellDef="let element">{{element.symbol}}</td>
+              </ng-container>
+
+              <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+              <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+            </table>
+            <mat-paginator [pageSizeOptions]="[5, 10, 20]" showFirstLastButtons></mat-paginator>
+          </div>
+        </div>
+      </div>
+    </mat-expansion-panel>
+
+    <!-- Table with Selection -->
+    <mat-expansion-panel>
+      <mat-expansion-panel-header>
+        <mat-panel-title>
+          <mat-icon>code</mat-icon>
+          Table with Selection
+        </mat-panel-title>
+        <mat-panel-description>Allow row selection with checkboxes</mat-panel-description>
+      </mat-expansion-panel-header>
+      <div class="example-container">
+        <div class="code-panel">
+          <div class="code-header">
+            <h4>Code</h4>
+            <button mat-icon-button (click)="resetCode('selection')" title="Reset to original">
+              <mat-icon>refresh</mat-icon>
+            </button>
+          </div>
+          <textarea
+            [(ngModel)]="editableCode.selection"
+            class="code-editor"
+            spellcheck="false"
+            readonly></textarea>
+        </div>
+        <div class="preview-panel">
+          <h4>Live Preview</h4>
+          <div class="preview-content">
+            <table mat-table [dataSource]="dataSource" class="demo-table">
+              <ng-container matColumnDef="select">
+                <th mat-header-cell *matHeaderCellDef>
+                  <mat-checkbox (change)="toggleAll()"
+                                [checked]="isAllSelected()">
+                  </mat-checkbox>
+                </th>
+                <td mat-cell *matCellDef="let row">
+                  <mat-checkbox (change)="toggleRow(row)"
+                                [checked]="isSelected(row)">
+                  </mat-checkbox>
+                </td>
+              </ng-container>
+
+              <ng-container matColumnDef="position">
+                <th mat-header-cell *matHeaderCellDef>No.</th>
+                <td mat-cell *matCellDef="let element">{{element.position}}</td>
+              </ng-container>
+
+              <ng-container matColumnDef="name">
+                <th mat-header-cell *matHeaderCellDef>Name</th>
+                <td mat-cell *matCellDef="let element">{{element.name}}</td>
+              </ng-container>
+
+              <ng-container matColumnDef="weight">
+                <th mat-header-cell *matHeaderCellDef>Weight</th>
+                <td mat-cell *matCellDef="let element">{{element.weight}}</td>
+              </ng-container>
+
+              <ng-container matColumnDef="symbol">
+                <th mat-header-cell *matHeaderCellDef>Symbol</th>
+                <td mat-cell *matCellDef="let element">{{element.symbol}}</td>
+              </ng-container>
+
+              <tr mat-header-row *matHeaderRowDef="displayedColumnsWithSelection"></tr>
+              <tr mat-row *matRowDef="let row; columns: displayedColumnsWithSelection;"></tr>
+            </table>
+            <div class="preview-note">
+              <mat-icon>info</mat-icon>
+              <span>Selected: {{selection.length}} row(s)</span>
             </div>
           </div>
-        </mat-tab>
-      </mat-tab-group>
-    </mat-card-content>
-  </mat-card>
+        </div>
+      </div>
+    </mat-expansion-panel>
+
+    <!-- Table with Actions -->
+    <mat-expansion-panel>
+      <mat-expansion-panel-header>
+        <mat-panel-title>
+          <mat-icon>code</mat-icon>
+          Table with Actions
+        </mat-panel-title>
+        <mat-panel-description>Add action buttons to each row</mat-panel-description>
+      </mat-expansion-panel-header>
+      <div class="example-container">
+        <div class="code-panel">
+          <div class="code-header">
+            <h4>Code</h4>
+            <button mat-icon-button (click)="resetCode('actions')" title="Reset to original">
+              <mat-icon>refresh</mat-icon>
+            </button>
+          </div>
+          <textarea
+            [(ngModel)]="editableCode.actions"
+            class="code-editor"
+            spellcheck="false"
+            readonly></textarea>
+        </div>
+        <div class="preview-panel">
+          <h4>Live Preview</h4>
+          <div class="preview-content">
+            <table mat-table [dataSource]="dataSource" class="demo-table">
+              <ng-container matColumnDef="position">
+                <th mat-header-cell *matHeaderCellDef>No.</th>
+                <td mat-cell *matCellDef="let element">{{element.position}}</td>
+              </ng-container>
+
+              <ng-container matColumnDef="name">
+                <th mat-header-cell *matHeaderCellDef>Name</th>
+                <td mat-cell *matCellDef="let element">{{element.name}}</td>
+              </ng-container>
+
+              <ng-container matColumnDef="weight">
+                <th mat-header-cell *matHeaderCellDef>Weight</th>
+                <td mat-cell *matCellDef="let element">{{element.weight}}</td>
+              </ng-container>
+
+              <ng-container matColumnDef="symbol">
+                <th mat-header-cell *matHeaderCellDef>Symbol</th>
+                <td mat-cell *matCellDef="let element">{{element.symbol}}</td>
+              </ng-container>
+
+              <ng-container matColumnDef="actions">
+                <th mat-header-cell *matHeaderCellDef>Actions</th>
+                <td mat-cell *matCellDef="let element">
+                  <button mat-icon-button (click)="onEdit(element)" title="Edit">
+                    <mat-icon>edit</mat-icon>
+                  </button>
+                  <button mat-icon-button (click)="onDelete(element)" title="Delete">
+                    <mat-icon>delete</mat-icon>
+                  </button>
+                </td>
+              </ng-container>
+
+              <tr mat-header-row *matHeaderRowDef="displayedColumnsWithActions"></tr>
+              <tr mat-row *matRowDef="let row; columns: displayedColumnsWithActions;"></tr>
+            </table>
+            <div class="preview-note">
+              <mat-icon>info</mat-icon>
+              <span>Check console for action logs</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </mat-expansion-panel>
+
+    <!-- Table with Filtering -->
+    <mat-expansion-panel>
+      <mat-expansion-panel-header>
+        <mat-panel-title>
+          <mat-icon>code</mat-icon>
+          Table with Filtering
+        </mat-panel-title>
+        <mat-panel-description>Add search/filter functionality</mat-panel-description>
+      </mat-expansion-panel-header>
+      <div class="example-container">
+        <div class="code-panel">
+          <div class="code-header">
+            <h4>Code</h4>
+            <button mat-icon-button (click)="resetCode('filtering')" title="Reset to original">
+              <mat-icon>refresh</mat-icon>
+            </button>
+          </div>
+          <textarea
+            [(ngModel)]="editableCode.filtering"
+            class="code-editor"
+            spellcheck="false"
+            readonly></textarea>
+        </div>
+        <div class="preview-panel">
+          <h4>Live Preview</h4>
+          <div class="preview-content">
+            <div class="preview-note">
+              <mat-icon>info</mat-icon>
+              <span>Filtering requires MatTableDataSource - see documentation for implementation</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </mat-expansion-panel>
+  </mat-accordion>
 </div>
-
-

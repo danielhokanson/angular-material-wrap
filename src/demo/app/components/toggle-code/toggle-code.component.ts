@@ -1,20 +1,45 @@
 import { Component, ViewEncapsulation } from '@angular/core';
 import { CommonModule } from '@angular/common';
+import { FormsModule } from '@angular/forms';
 import { MatExpansionModule } from '@angular/material/expansion';
+import { MatButtonModule } from '@angular/material/button';
+import { MatIconModule } from '@angular/material/icon';
+import { MatSlideToggleModule } from '@angular/material/slide-toggle';
 
 @Component({
   selector: 'amw-demo-toggle-code',
   standalone: true,
   imports: [
     CommonModule,
-    MatExpansionModule
+    FormsModule,
+    MatExpansionModule,
+    MatButtonModule,
+    MatIconModule,
+    MatSlideToggleModule
   ],
   encapsulation: ViewEncapsulation.None,
   templateUrl: './toggle-code.component.html',
   styleUrl: './toggle-code.component.scss'
 })
 export class ToggleCodeComponent {
-  codeExamples = {
+  // State for live preview examples
+  isChecked = true;
+  isDisabled = false;
+  labelPosition: 'before' | 'after' = 'after';
+
+  // Editable code examples
+  editableCode = {
+    basic: '',
+    colors: '',
+    disabled: '',
+    labelPosition: '',
+    ngModel: '',
+    events: '',
+    formField: ''
+  };
+
+  // Original code examples (for reset functionality)
+  readonly codeExamples = {
     basic: {
       title: 'Basic Toggle',
       description: 'A simple toggle switch with label',

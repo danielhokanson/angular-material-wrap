@@ -1,23 +1,264 @@
-<div class="amw-demo-input-code">
-  <div class="code-section">
-    <h3 class="code-section__title">Input Code Examples</h3>
-    <p class="code-section__description">
-      Copy and paste these code examples to use the amw-input component in your projects.
-    </p>
+<div class="code-section">
+  <h3>Code Examples</h3>
+  <p>Interactive examples with live previews. The code is editable for reference, and working examples are shown alongside.</p>
 
-    @for (example of codeExamples | keyvalue; track example) {
-      <mat-expansion-panel class="code-example">
-        <mat-expansion-panel-header>
-          <mat-panel-title>{{ example.value.title }}</mat-panel-title>
-          <mat-panel-description>{{ example.value.description }}</mat-panel-description>
-        </mat-expansion-panel-header>
-        <div class="code-content">
-          <pre><code>{{ example.value.code }}</code></pre>
+  <mat-accordion class="code-examples-accordion">
+    <!-- Basic Input -->
+    <mat-expansion-panel>
+      <mat-expansion-panel-header>
+        <mat-panel-title>
+          <mat-icon>code</mat-icon>
+          Basic Input
+        </mat-panel-title>
+        <mat-panel-description>Simple input with label and placeholder</mat-panel-description>
+      </mat-expansion-panel-header>
+      <div class="example-container">
+        <div class="code-panel">
+          <div class="code-header">
+            <h4>Code</h4>
+            <button mat-icon-button (click)="resetCode('basic')" title="Reset to original">
+              <mat-icon>refresh</mat-icon>
+            </button>
+          </div>
+          <textarea
+            [(ngModel)]="editableCode.basic"
+            class="code-editor"
+            spellcheck="false"></textarea>
         </div>
-      </mat-expansion-panel>
-    }
-  </div>
+        <div class="preview-panel">
+          <h4>Live Preview</h4>
+          <div class="preview-content">
+            <mat-form-field>
+              <mat-label>Basic Input</mat-label>
+              <input matInput placeholder="Enter text" [(ngModel)]="basicValue">
+            </mat-form-field>
+          </div>
+        </div>
+      </div>
+    </mat-expansion-panel>
+
+    <!-- Input Appearances -->
+    <mat-expansion-panel>
+      <mat-expansion-panel-header>
+        <mat-panel-title>
+          <mat-icon>code</mat-icon>
+          Input Appearances
+        </mat-panel-title>
+        <mat-panel-description>Different visual styles for inputs</mat-panel-description>
+      </mat-expansion-panel-header>
+      <div class="example-container">
+        <div class="code-panel">
+          <div class="code-header">
+            <h4>Code</h4>
+            <button mat-icon-button (click)="resetCode('withLabel')" title="Reset to original">
+              <mat-icon>refresh</mat-icon>
+            </button>
+          </div>
+          <textarea
+            [(ngModel)]="editableCode.withLabel"
+            class="code-editor"
+            spellcheck="false"></textarea>
+        </div>
+        <div class="preview-panel">
+          <h4>Live Preview</h4>
+          <div class="preview-content">
+            <mat-form-field appearance="fill">
+              <mat-label>Fill Appearance</mat-label>
+              <input matInput placeholder="Placeholder text">
+            </mat-form-field>
+
+            <mat-form-field appearance="outline">
+              <mat-label>Outline Appearance</mat-label>
+              <input matInput placeholder="Placeholder text">
+            </mat-form-field>
+          </div>
+        </div>
+      </div>
+    </mat-expansion-panel>
+
+    <!-- Input with Hint -->
+    <mat-expansion-panel>
+      <mat-expansion-panel-header>
+        <mat-panel-title>
+          <mat-icon>code</mat-icon>
+          Input with Hint
+        </mat-panel-title>
+        <mat-panel-description>Display helpful hint text below input</mat-panel-description>
+      </mat-expansion-panel-header>
+      <div class="example-container">
+        <div class="code-panel">
+          <div class="code-header">
+            <h4>Code</h4>
+            <button mat-icon-button (click)="resetCode('withHint')" title="Reset to original">
+              <mat-icon>refresh</mat-icon>
+            </button>
+          </div>
+          <textarea
+            [(ngModel)]="editableCode.withHint"
+            class="code-editor"
+            spellcheck="false"></textarea>
+        </div>
+        <div class="preview-panel">
+          <h4>Live Preview</h4>
+          <div class="preview-content">
+            <mat-form-field>
+              <mat-label>Username</mat-label>
+              <input matInput placeholder="Enter username">
+              <mat-hint>Choose a unique username</mat-hint>
+            </mat-form-field>
+          </div>
+        </div>
+      </div>
+    </mat-expansion-panel>
+
+    <!-- Input with Error -->
+    <mat-expansion-panel>
+      <mat-expansion-panel-header>
+        <mat-panel-title>
+          <mat-icon>code</mat-icon>
+          Input with Error
+        </mat-panel-title>
+        <mat-panel-description>Display error messages for validation</mat-panel-description>
+      </mat-expansion-panel-header>
+      <div class="example-container">
+        <div class="code-panel">
+          <div class="code-header">
+            <h4>Code</h4>
+            <button mat-icon-button (click)="resetCode('withError')" title="Reset to original">
+              <mat-icon>refresh</mat-icon>
+            </button>
+          </div>
+          <textarea
+            [(ngModel)]="editableCode.withError"
+            class="code-editor"
+            spellcheck="false"></textarea>
+        </div>
+        <div class="preview-panel">
+          <h4>Live Preview</h4>
+          <div class="preview-content">
+            <mat-form-field>
+              <mat-label>Email</mat-label>
+              <input matInput type="email" placeholder="email@example.com" [(ngModel)]="emailValue" required>
+              <mat-error>Please enter a valid email</mat-error>
+            </mat-form-field>
+          </div>
+        </div>
+      </div>
+    </mat-expansion-panel>
+
+    <!-- Input with Icons -->
+    <mat-expansion-panel>
+      <mat-expansion-panel-header>
+        <mat-panel-title>
+          <mat-icon>code</mat-icon>
+          Input with Icons/Affixes
+        </mat-panel-title>
+        <mat-panel-description>Add prefix and suffix content</mat-panel-description>
+      </mat-expansion-panel-header>
+      <div class="example-container">
+        <div class="code-panel">
+          <div class="code-header">
+            <h4>Code</h4>
+            <button mat-icon-button (click)="resetCode('withIcon')" title="Reset to original">
+              <mat-icon>refresh</mat-icon>
+            </button>
+          </div>
+          <textarea
+            [(ngModel)]="editableCode.withIcon"
+            class="code-editor"
+            spellcheck="false"></textarea>
+        </div>
+        <div class="preview-panel">
+          <h4>Live Preview</h4>
+          <div class="preview-content">
+            <mat-form-field>
+              <mat-label>Search</mat-label>
+              <input matInput placeholder="Search...">
+              <mat-icon matPrefix>search</mat-icon>
+            </mat-form-field>
+
+            <mat-form-field>
+              <mat-label>Amount</mat-label>
+              <input matInput type="number" placeholder="0">
+              <span matPrefix>$&nbsp;</span>
+              <span matSuffix>.00</span>
+            </mat-form-field>
+          </div>
+        </div>
+      </div>
+    </mat-expansion-panel>
+
+    <!-- Disabled/Readonly States -->
+    <mat-expansion-panel>
+      <mat-expansion-panel-header>
+        <mat-panel-title>
+          <mat-icon>code</mat-icon>
+          Disabled and Readonly States
+        </mat-panel-title>
+        <mat-panel-description>Non-editable input variants</mat-panel-description>
+      </mat-expansion-panel-header>
+      <div class="example-container">
+        <div class="code-panel">
+          <div class="code-header">
+            <h4>Code</h4>
+            <button mat-icon-button (click)="resetCode('disabled')" title="Reset to original">
+              <mat-icon>refresh</mat-icon>
+            </button>
+          </div>
+          <textarea
+            [(ngModel)]="editableCode.disabled"
+            class="code-editor"
+            spellcheck="false"></textarea>
+        </div>
+        <div class="preview-panel">
+          <h4>Live Preview</h4>
+          <div class="preview-content">
+            <mat-form-field>
+              <mat-label>Disabled Input</mat-label>
+              <input matInput disabled [value]="disabledValue">
+            </mat-form-field>
+
+            <mat-form-field>
+              <mat-label>Readonly Input</mat-label>
+              <input matInput readonly [value]="readonlyValue">
+            </mat-form-field>
+          </div>
+        </div>
+      </div>
+    </mat-expansion-panel>
+
+    <!-- Textarea -->
+    <mat-expansion-panel>
+      <mat-expansion-panel-header>
+        <mat-panel-title>
+          <mat-icon>code</mat-icon>
+          Textarea
+        </mat-panel-title>
+        <mat-panel-description>Multi-line text input</mat-panel-description>
+      </mat-expansion-panel-header>
+      <div class="example-container">
+        <div class="code-panel">
+          <div class="code-header">
+            <h4>Code</h4>
+            <button mat-icon-button (click)="resetCode('textarea')" title="Reset to original">
+              <mat-icon>refresh</mat-icon>
+            </button>
+          </div>
+          <textarea
+            [(ngModel)]="editableCode.textarea"
+            class="code-editor"
+            spellcheck="false"></textarea>
+        </div>
+        <div class="preview-panel">
+          <h4>Live Preview</h4>
+          <div class="preview-content">
+            <mat-form-field>
+              <mat-label>Description</mat-label>
+              <textarea matInput rows="4" placeholder="Enter description"></textarea>
+            </mat-form-field>
+          </div>
+        </div>
+      </div>
+    </mat-expansion-panel>
+  </mat-accordion>
 </div>
-
-
-

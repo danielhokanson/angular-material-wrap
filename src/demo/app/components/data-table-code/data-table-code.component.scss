@@ -1,25 +1,30 @@
-.data-table-code-demo {
-  .code-example {
-    margin-bottom: 24px;
-    
-    h4 {
-      margin-bottom: 12px;
-      color: #1976d2;
-    }
-    
-    pre {
-      background-color: #f5f5f5;
-      border: 1px solid #e0e0e0;
-      border-radius: 4px;
-      padding: 16px;
-      overflow-x: auto;
-      
-      code {
-        font-family: 'Courier New', monospace;
-        font-size: 14px;
-        line-height: 1.4;
-        color: #333;
-      }
-    }
+// Component-specific styles for data-table-code
+// Global code section styles are imported from styles/_demo-api-code-shared.scss
+
+// Add styling for demo tables in preview
+.demo-table {
+  width: 100%;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.12);
+  border-radius: 4px;
+  overflow: hidden;
+
+  th {
+    font-weight: 600;
+    background-color: var(--mdc-theme-surface-variant, #f3f0f4);
+  }
+
+  td, th {
+    padding: 12px 16px;
+  }
+
+  tr.mat-mdc-row:hover {
+    background-color: rgba(0, 0, 0, 0.04);
+  }
+}
+
+// Override default table spacing in preview
+.preview-content {
+  mat-paginator {
+    margin-top: 16px;
   }
 }

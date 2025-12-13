@@ -1,122 +1,130 @@
-<div class="color-picker-code">
-  <mat-card>
-    <mat-card-header>
-      <mat-card-title>Color Picker Code Examples</mat-card-title>
-      <mat-card-subtitle>Implementation examples and code snippets</mat-card-subtitle>
-    </mat-card-header>
-    
-    <mat-card-content>
-      <mat-tab-group>
-        <mat-tab label="Basic Usage">
-          <div class="color-picker-code__example">
-            <h3>{{ codeExamples.basic.title }}</h3>
-            <p>{{ codeExamples.basic.description }}</p>
-            
-            <div class="color-picker-code__code-section">
-              <h4>HTML Template</h4>
-              <div class="color-picker-code__code-block">
-                <button mat-icon-button (click)="copyToClipboard(codeExamples.basic.html)" class="color-picker-code__copy-btn">
-                  <mat-icon>content_copy</mat-icon>
-                </button>
-                <pre><code>{{ codeExamples.basic.html }}</code></pre>
-              </div>
-            </div>
-            
-            <div class="color-picker-code__code-section">
-              <h4>TypeScript Component</h4>
-              <div class="color-picker-code__code-block">
-                <button mat-icon-button (click)="copyToClipboard(codeExamples.basic.typescript)" class="color-picker-code__copy-btn">
-                  <mat-icon>content_copy</mat-icon>
-                </button>
-                <pre><code>{{ codeExamples.basic.typescript }}</code></pre>
-              </div>
-            </div>
-          </div>
-        </mat-tab>
+<div class="code-section">
+  <h3>Code Examples</h3>
+  <p>Interactive examples with live previews. The code is editable for reference, and working examples are shown alongside.</p>
 
-        <mat-tab label="Mode Options">
-          <div class="color-picker-code__example">
-            <h3>{{ codeExamples.mode.title }}</h3>
-            <p>{{ codeExamples.mode.description }}</p>
-            
-            <div class="color-picker-code__code-section">
-              <h4>HTML Template</h4>
-              <div class="color-picker-code__code-block">
-                <button mat-icon-button (click)="copyToClipboard(codeExamples.mode.html)" class="color-picker-code__copy-btn">
-                  <mat-icon>content_copy</mat-icon>
-                </button>
-                <pre><code>{{ codeExamples.mode.html }}</code></pre>
-              </div>
-            </div>
-            
-            <div class="color-picker-code__code-section">
-              <h4>TypeScript Component</h4>
-              <div class="color-picker-code__code-block">
-                <button mat-icon-button (click)="copyToClipboard(codeExamples.mode.typescript)" class="color-picker-code__copy-btn">
-                  <mat-icon>content_copy</mat-icon>
-                </button>
-                <pre><code>{{ codeExamples.mode.typescript }}</code></pre>
-              </div>
-            </div>
+  <mat-accordion class="code-examples-accordion">
+    <!-- Basic Color Picker -->
+    <mat-expansion-panel>
+      <mat-expansion-panel-header>
+        <mat-panel-title>
+          <mat-icon>code</mat-icon>
+          Basic Color Picker
+        </mat-panel-title>
+        <mat-panel-description>Simple color picker with default palette</mat-panel-description>
+      </mat-expansion-panel-header>
+      <div class="example-container">
+        <div class="code-panel">
+          <div class="code-header">
+            <h4>Code</h4>
+            <button mat-icon-button (click)="resetCode('basic')" title="Reset to original">
+              <mat-icon>refresh</mat-icon>
+            </button>
           </div>
-        </mat-tab>
+          <textarea
+            [(ngModel)]="editableCode.basic"
+            class="code-editor"
+            spellcheck="false"></textarea>
+        </div>
+        <div class="preview-panel">
+          <h4>Live Preview</h4>
+          <div class="preview-content">
+            <p class="preview-note">Note: This is a placeholder preview. Actual color picker component integration would go here.</p>
+          </div>
+        </div>
+      </div>
+    </mat-expansion-panel>
 
-        <mat-tab label="Form Validation">
-          <div class="color-picker-code__example">
-            <h3>{{ codeExamples.validation.title }}</h3>
-            <p>{{ codeExamples.validation.description }}</p>
-            
-            <div class="color-picker-code__code-section">
-              <h4>HTML Template</h4>
-              <div class="color-picker-code__code-block">
-                <button mat-icon-button (click)="copyToClipboard(codeExamples.validation.html)" class="color-picker-code__copy-btn">
-                  <mat-icon>content_copy</mat-icon>
-                </button>
-                <pre><code>{{ codeExamples.validation.html }}</code></pre>
-              </div>
-            </div>
-            
-            <div class="color-picker-code__code-section">
-              <h4>TypeScript Component</h4>
-              <div class="color-picker-code__code-block">
-                <button mat-icon-button (click)="copyToClipboard(codeExamples.validation.typescript)" class="color-picker-code__copy-btn">
-                  <mat-icon>content_copy</mat-icon>
-                </button>
-                <pre><code>{{ codeExamples.validation.typescript }}</code></pre>
-              </div>
-            </div>
+    <!-- Custom Color Mode -->
+    <mat-expansion-panel>
+      <mat-expansion-panel-header>
+        <mat-panel-title>
+          <mat-icon>code</mat-icon>
+          Custom Color Mode
+        </mat-panel-title>
+        <mat-panel-description>Color picker with custom color input</mat-panel-description>
+      </mat-expansion-panel-header>
+      <div class="example-container">
+        <div class="code-panel">
+          <div class="code-header">
+            <h4>Code</h4>
+            <button mat-icon-button (click)="resetCode('mode')" title="Reset to original">
+              <mat-icon>refresh</mat-icon>
+            </button>
           </div>
-        </mat-tab>
+          <textarea
+            [(ngModel)]="editableCode.mode"
+            class="code-editor"
+            spellcheck="false"></textarea>
+        </div>
+        <div class="preview-panel">
+          <h4>Live Preview</h4>
+          <div class="preview-content">
+            <p class="preview-note">Note: This is a placeholder preview. Actual color picker component integration would go here.</p>
+          </div>
+        </div>
+      </div>
+    </mat-expansion-panel>
 
-        <mat-tab label="Configuration">
-          <div class="color-picker-code__example">
-            <h3>{{ codeExamples.configuration.title }}</h3>
-            <p>{{ codeExamples.configuration.description }}</p>
-            
-            <div class="color-picker-code__code-section">
-              <h4>HTML Template</h4>
-              <div class="color-picker-code__code-block">
-                <button mat-icon-button (click)="copyToClipboard(codeExamples.configuration.html)" class="color-picker-code__copy-btn">
-                  <mat-icon>content_copy</mat-icon>
-                </button>
-                <pre><code>{{ codeExamples.configuration.html }}</code></pre>
-              </div>
-            </div>
-            
-            <div class="color-picker-code__code-section">
-              <h4>TypeScript Component</h4>
-              <div class="color-picker-code__code-block">
-                <button mat-icon-button (click)="copyToClipboard(codeExamples.configuration.typescript)" class="color-picker-code__copy-btn">
-                  <mat-icon>content_copy</mat-icon>
-                </button>
-                <pre><code>{{ codeExamples.configuration.typescript }}</code></pre>
-              </div>
-            </div>
+    <!-- Form Validation -->
+    <mat-expansion-panel>
+      <mat-expansion-panel-header>
+        <mat-panel-title>
+          <mat-icon>code</mat-icon>
+          Form Validation
+        </mat-panel-title>
+        <mat-panel-description>Color picker with form validation</mat-panel-description>
+      </mat-expansion-panel-header>
+      <div class="example-container">
+        <div class="code-panel">
+          <div class="code-header">
+            <h4>Code</h4>
+            <button mat-icon-button (click)="resetCode('validation')" title="Reset to original">
+              <mat-icon>refresh</mat-icon>
+            </button>
           </div>
-        </mat-tab>
-      </mat-tab-group>
-    </mat-card-content>
-  </mat-card>
+          <textarea
+            [(ngModel)]="editableCode.validation"
+            class="code-editor"
+            spellcheck="false"></textarea>
+        </div>
+        <div class="preview-panel">
+          <h4>Live Preview</h4>
+          <div class="preview-content">
+            <p class="preview-note">Note: This is a placeholder preview. Actual form component integration would go here.</p>
+          </div>
+        </div>
+      </div>
+    </mat-expansion-panel>
+
+    <!-- Advanced Configuration -->
+    <mat-expansion-panel>
+      <mat-expansion-panel-header>
+        <mat-panel-title>
+          <mat-icon>code</mat-icon>
+          Advanced Configuration
+        </mat-panel-title>
+        <mat-panel-description>Color picker with custom configuration</mat-panel-description>
+      </mat-expansion-panel-header>
+      <div class="example-container">
+        <div class="code-panel">
+          <div class="code-header">
+            <h4>Code</h4>
+            <button mat-icon-button (click)="resetCode('configuration')" title="Reset to original">
+              <mat-icon>refresh</mat-icon>
+            </button>
+          </div>
+          <textarea
+            [(ngModel)]="editableCode.configuration"
+            class="code-editor"
+            spellcheck="false"></textarea>
+        </div>
+        <div class="preview-panel">
+          <h4>Live Preview</h4>
+          <div class="preview-content">
+            <p class="preview-note">Note: This is a placeholder preview. Actual color picker component integration would go here.</p>
+          </div>
+        </div>
+      </div>
+    </mat-expansion-panel>
+  </mat-accordion>
 </div>
-
-

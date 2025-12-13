@@ -1,33 +1,50 @@
 import { Component, ViewEncapsulation } from '@angular/core';
-import { CommonModule } from '@angular/common';
+import { FormsModule } from '@angular/forms';
 import { MatExpansionModule } from '@angular/material/expansion';
+import { MatButtonModule } from '@angular/material/button';
+import { MatIconModule } from '@angular/material/icon';
 
 @Component({
   selector: 'amw-demo-datepicker-code',
   standalone: true,
   imports: [
-    CommonModule,
-    MatExpansionModule
+    FormsModule,
+    MatExpansionModule,
+    MatButtonModule,
+    MatIconModule
   ],
   encapsulation: ViewEncapsulation.None,
   templateUrl: './datepicker-code.component.html',
   styleUrl: './datepicker-code.component.scss'
 })
 export class DatepickerCodeComponent {
-  codeExamples = {
-    basic: {
-      title: 'Basic Datepicker',
-      description: 'A simple datepicker with default settings',
-      code: `<amw-datepicker
+  // State for live preview examples
+  selectedDate = new Date();
+  minDate = new Date(1900, 0, 1);
+  maxDate = new Date();
+  birthDate = new Date(1990, 0, 1);
+
+  // Editable code examples
+  editableCode = {
+    basic: '',
+    withMinMax: '',
+    withValidation: '',
+    differentFormats: '',
+    disabled: '',
+    reactiveForm: '',
+    withEvents: '',
+    bookingForm: ''
+  };
+
+  // Original code examples (for reset functionality)
+  readonly codeExamples = {
+    basic: `<amw-datepicker
   label="Select Date"
   placeholder="Choose a date..."
   [value]="selectedDate">
-</amw-datepicker>`
-    },
-    withMinMax: {
-      title: 'Datepicker with Min/Max Dates',
-      description: 'Datepicker with date range restrictions',
-      code: `<amw-datepicker
+</amw-datepicker>`,
+
+    withMinMax: `<amw-datepicker
   label="Birth Date"
   placeholder="Select your birth date..."
   [min]="minDate"
@@ -38,12 +55,9 @@ export class DatepickerCodeComponent {
 // Component setup
 minDate = new Date(1900, 0, 1);
 maxDate = new Date();
-birthDate = new Date(1990, 0, 1);`
-    },
-    withValidation: {
-      title: 'Datepicker with Validation',
-      description: 'Datepicker with required validation',
-      code: `<amw-datepicker
+birthDate = new Date(1990, 0, 1);`,
+
+    withValidation: `<amw-datepicker
   formControlName="startDate"
   label="Start Date"
   placeholder="Select start date..."
@@ -55,12 +69,9 @@ birthDate = new Date(1990, 0, 1);`
 // Form setup
 form = this.fb.group({
   startDate: ['', Validators.required]
-});`
-    },
-    differentFormats: {
-      title: 'Different Date Formats',
-      description: 'Datepickers with various display formats',
-      code: `<amw-datepicker
+});`,
+
+    differentFormats: `<amw-datepicker
   label="Short Date"
   placeholder="MM/DD/YYYY"
   [value]="shortDate"
@@ -79,22 +90,16 @@ form = this.fb.group({
   placeholder="DD-MM-YYYY"
   [value]="customDate"
   format="dd-MM-yyyy">
-</amw-datepicker>`
-    },
-    disabled: {
-      title: 'Disabled Datepicker',
-      description: 'Datepicker in disabled state',
-      code: `<amw-datepicker
+</amw-datepicker>`,
+
+    disabled: `<amw-datepicker
   label="Disabled Datepicker"
   placeholder="This is disabled..."
   [value]="selectedDate"
   [disabled]="true">
-</amw-datepicker>`
-    },
-    reactiveForm: {
-      title: 'Reactive Form Integration',
-      description: 'Using datepickers with Angular reactive forms',
-      code: `// Component TypeScript
+</amw-datepicker>`,
+
+    reactiveForm: `// Component TypeScript
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 
 export class MyComponent {
@@ -120,7 +125,7 @@ export class MyComponent {
     [min]="minDate"
     [required]="true">
   </amw-datepicker>
-  
+
   <amw-datepicker
     formControlName="endDate"
     label="End Date"
@@ -129,7 +134,7 @@ export class MyComponent {
     [max]="maxDate"
     [required]="true">
   </amw-datepicker>
-  
+
   <amw-datepicker
     formControlName="eventDate"
     label="Event Date"
@@ -137,12 +142,9 @@ export class MyComponent {
     [min]="minDate"
     [required]="true">
   </amw-datepicker>
-</form>`
-    },
-    withEvents: {
-      title: 'Datepicker with Events',
-      description: 'Datepickers with event handling',
-      code: `<amw-datepicker
+</form>`,
+
+    withEvents: `<amw-datepicker
   label="Event Date"
   placeholder="Select event date..."
   [value]="eventDate"
@@ -163,14 +165,11 @@ onDatepickerOpened(): void {
 
 onDatepickerClosed(): void {
   console.log('Datepicker closed');
-}`
-    },
-    bookingForm: {
-      title: 'Booking Form Example',
-      description: 'Complete booking form with multiple datepickers',
-      code: `<form [formGroup]="bookingForm" class="booking-form">
+}`,
+
+    bookingForm: `<form [formGroup]="bookingForm" class="booking-form">
   <h3>Event Booking</h3>
-  
+
   <amw-datepicker
     formControlName="eventDate"
     label="Event Date"
@@ -178,7 +177,7 @@ onDatepickerClosed(): void {
     [min]="new Date()"
     [required]="true">
   </amw-datepicker>
-  
+
   <amw-datepicker
     formControlName="startTime"
     label="Start Time"
@@ -186,7 +185,7 @@ onDatepickerClosed(): void {
     [min]="new Date()"
     [required]="true">
   </amw-datepicker>
-  
+
   <amw-datepicker
     formControlName="endTime"
     label="End Time"
@@ -194,14 +193,14 @@ onDatepickerClosed(): void {
     [min]="new Date()"
     [required]="true">
   </amw-datepicker>
-  
+
   <amw-datepicker
     formControlName="setupDate"
     label="Setup Date"
     placeholder="Select setup date..."
     [min]="new Date()">
   </amw-datepicker>
-  
+
   <amw-button
     type="submit"
     variant="elevated"
@@ -210,6 +209,31 @@ onDatepickerClosed(): void {
     Book Event
   </amw-button>
 </form>`
-    }
   };
+
+  constructor() {
+    // Initialize editable code
+    Object.keys(this.codeExamples).forEach(key => {
+      this.editableCode[key as keyof typeof this.codeExamples] =
+        this.codeExamples[key as keyof typeof this.codeExamples];
+    });
+  }
+
+  // Event handlers for event example
+  onDateChange(event: any): void {
+    console.log('Date changed to:', event);
+  }
+
+  onDatepickerOpened(): void {
+    console.log('Datepicker opened');
+  }
+
+  onDatepickerClosed(): void {
+    console.log('Datepicker closed');
+  }
+
+  // Reset code to original
+  resetCode(exampleKey: keyof typeof this.codeExamples) {
+    this.editableCode[exampleKey] = this.codeExamples[exampleKey];
+  }
 }

@@ -1,20 +1,256 @@
-<div class="amw-demo-radio-code">
-  <div class="code-section">
-    <h3 class="code-section__title">Radio Button Code Examples</h3>
-    <p class="code-section__description">
-      Copy and paste these code examples to use the amw-radio component in your projects.
-    </p>
+<div class="code-section">
+  <h3>Code Examples</h3>
+  <p>Interactive examples with live previews. The code is editable for reference, and working examples are shown alongside.</p>
 
-    @for (example of codeExamples | keyvalue; track example) {
-      <mat-expansion-panel class="code-example">
-        <mat-expansion-panel-header>
-          <mat-panel-title>{{ example.value.title }}</mat-panel-title>
-          <mat-panel-description>{{ example.value.description }}</mat-panel-description>
-        </mat-expansion-panel-header>
-        <div class="code-content">
-          <pre><code>{{ example.value.code }}</code></pre>
+  <mat-accordion class="code-examples-accordion">
+    <!-- Basic Radio Group -->
+    <mat-expansion-panel>
+      <mat-expansion-panel-header>
+        <mat-panel-title>
+          <mat-icon>code</mat-icon>
+          Basic Radio Group
+        </mat-panel-title>
+        <mat-panel-description>Simple radio button group</mat-panel-description>
+      </mat-expansion-panel-header>
+      <div class="example-container">
+        <div class="code-panel">
+          <div class="code-header">
+            <h4>Code</h4>
+            <button mat-icon-button (click)="resetCode('basic')" title="Reset to original">
+              <mat-icon>refresh</mat-icon>
+            </button>
+          </div>
+          <textarea
+            [(ngModel)]="editableCode.basic"
+            class="code-editor"
+            spellcheck="false"></textarea>
         </div>
-      </mat-expansion-panel>
-    }
-  </div>
+        <div class="preview-panel">
+          <h4>Live Preview</h4>
+          <div class="preview-content">
+            <mat-radio-group [(ngModel)]="selectedOption">
+              <mat-radio-button value="1">Option 1</mat-radio-button>
+              <mat-radio-button value="2">Option 2</mat-radio-button>
+              <mat-radio-button value="3">Option 3</mat-radio-button>
+            </mat-radio-group>
+          </div>
+        </div>
+      </div>
+    </mat-expansion-panel>
+
+    <!-- Radio Colors -->
+    <mat-expansion-panel>
+      <mat-expansion-panel-header>
+        <mat-panel-title>
+          <mat-icon>code</mat-icon>
+          Radio Button Colors
+        </mat-panel-title>
+        <mat-panel-description>Different color themes</mat-panel-description>
+      </mat-expansion-panel-header>
+      <div class="example-container">
+        <div class="code-panel">
+          <div class="code-header">
+            <h4>Code</h4>
+            <button mat-icon-button (click)="resetCode('colors')" title="Reset to original">
+              <mat-icon>refresh</mat-icon>
+            </button>
+          </div>
+          <textarea
+            [(ngModel)]="editableCode.colors"
+            class="code-editor"
+            spellcheck="false"></textarea>
+        </div>
+        <div class="preview-panel">
+          <h4>Live Preview</h4>
+          <div class="preview-content">
+            <mat-radio-group>
+              <mat-radio-button value="primary" color="primary" [checked]="true">Primary</mat-radio-button>
+              <mat-radio-button value="accent" color="accent">Accent</mat-radio-button>
+              <mat-radio-button value="warn" color="warn">Warn</mat-radio-button>
+            </mat-radio-group>
+          </div>
+        </div>
+      </div>
+    </mat-expansion-panel>
+
+    <!-- Disabled State -->
+    <mat-expansion-panel>
+      <mat-expansion-panel-header>
+        <mat-panel-title>
+          <mat-icon>code</mat-icon>
+          Disabled Radio Buttons
+        </mat-panel-title>
+        <mat-panel-description>Individual buttons can be disabled</mat-panel-description>
+      </mat-expansion-panel-header>
+      <div class="example-container">
+        <div class="code-panel">
+          <div class="code-header">
+            <h4>Code</h4>
+            <button mat-icon-button (click)="resetCode('disabled')" title="Reset to original">
+              <mat-icon>refresh</mat-icon>
+            </button>
+          </div>
+          <textarea
+            [(ngModel)]="editableCode.disabled"
+            class="code-editor"
+            spellcheck="false"></textarea>
+        </div>
+        <div class="preview-panel">
+          <h4>Live Preview</h4>
+          <div class="preview-content">
+            <mat-radio-group>
+              <mat-radio-button value="1">Enabled</mat-radio-button>
+              <mat-radio-button value="2" disabled>Disabled</mat-radio-button>
+              <mat-radio-button value="3">Enabled</mat-radio-button>
+            </mat-radio-group>
+          </div>
+        </div>
+      </div>
+    </mat-expansion-panel>
+
+    <!-- Label Position -->
+    <mat-expansion-panel>
+      <mat-expansion-panel-header>
+        <mat-panel-title>
+          <mat-icon>code</mat-icon>
+          Label Position
+        </mat-panel-title>
+        <mat-panel-description>Position label before or after button</mat-panel-description>
+      </mat-expansion-panel-header>
+      <div class="example-container">
+        <div class="code-panel">
+          <div class="code-header">
+            <h4>Code</h4>
+            <button mat-icon-button (click)="resetCode('labelPosition')" title="Reset to original">
+              <mat-icon>refresh</mat-icon>
+            </button>
+          </div>
+          <textarea
+            [(ngModel)]="editableCode.labelPosition"
+            class="code-editor"
+            spellcheck="false"></textarea>
+        </div>
+        <div class="preview-panel">
+          <h4>Live Preview</h4>
+          <div class="preview-content">
+            <mat-radio-group>
+              <mat-radio-button labelPosition="before" value="1">Label before</mat-radio-button>
+              <mat-radio-button labelPosition="after" value="2">Label after</mat-radio-button>
+            </mat-radio-group>
+          </div>
+        </div>
+      </div>
+    </mat-expansion-panel>
+
+    <!-- NgModel Binding -->
+    <mat-expansion-panel>
+      <mat-expansion-panel-header>
+        <mat-panel-title>
+          <mat-icon>code</mat-icon>
+          Two-Way Binding with ngModel
+        </mat-panel-title>
+        <mat-panel-description>Bind radio group to a model property</mat-panel-description>
+      </mat-expansion-panel-header>
+      <div class="example-container">
+        <div class="code-panel">
+          <div class="code-header">
+            <h4>Code</h4>
+            <button mat-icon-button (click)="resetCode('ngModel')" title="Reset to original">
+              <mat-icon>refresh</mat-icon>
+            </button>
+          </div>
+          <textarea
+            [(ngModel)]="editableCode.ngModel"
+            class="code-editor"
+            spellcheck="false"></textarea>
+        </div>
+        <div class="preview-panel">
+          <h4>Live Preview</h4>
+          <div class="preview-content">
+            <mat-radio-group [(ngModel)]="selectedSeason">
+              <mat-radio-button value="winter">Winter</mat-radio-button>
+              <mat-radio-button value="spring">Spring</mat-radio-button>
+              <mat-radio-button value="summer">Summer</mat-radio-button>
+              <mat-radio-button value="autumn">Autumn</mat-radio-button>
+            </mat-radio-group>
+            <p>Your favorite season is: {{selectedSeason}}</p>
+          </div>
+        </div>
+      </div>
+    </mat-expansion-panel>
+
+    <!-- Event Handling -->
+    <mat-expansion-panel>
+      <mat-expansion-panel-header>
+        <mat-panel-title>
+          <mat-icon>code</mat-icon>
+          Event Handling
+        </mat-panel-title>
+        <mat-panel-description>Listen to radio group change events</mat-panel-description>
+      </mat-expansion-panel-header>
+      <div class="example-container">
+        <div class="code-panel">
+          <div class="code-header">
+            <h4>Code</h4>
+            <button mat-icon-button (click)="resetCode('events')" title="Reset to original">
+              <mat-icon>refresh</mat-icon>
+            </button>
+          </div>
+          <textarea
+            [(ngModel)]="editableCode.events"
+            class="code-editor"
+            spellcheck="false"></textarea>
+        </div>
+        <div class="preview-panel">
+          <h4>Live Preview</h4>
+          <div class="preview-content">
+            <mat-radio-group (change)="onRadioChange($event)">
+              <mat-radio-button value="1">Option 1</mat-radio-button>
+              <mat-radio-button value="2">Option 2</mat-radio-button>
+              <mat-radio-button value="3">Option 3</mat-radio-button>
+            </mat-radio-group>
+            <div class="preview-note">
+              <mat-icon>info</mat-icon>
+              <span>Open your browser console to see event logs</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </mat-expansion-panel>
+
+    <!-- Dynamic Options -->
+    <mat-expansion-panel>
+      <mat-expansion-panel-header>
+        <mat-panel-title>
+          <mat-icon>code</mat-icon>
+          Dynamic Options
+        </mat-panel-title>
+        <mat-panel-description>Generate radio buttons from array</mat-panel-description>
+      </mat-expansion-panel-header>
+      <div class="example-container">
+        <div class="code-panel">
+          <div class="code-header">
+            <h4>Code</h4>
+            <button mat-icon-button (click)="resetCode('dynamicOptions')" title="Reset to original">
+              <mat-icon>refresh</mat-icon>
+            </button>
+          </div>
+          <textarea
+            [(ngModel)]="editableCode.dynamicOptions"
+            class="code-editor"
+            spellcheck="false"></textarea>
+        </div>
+        <div class="preview-panel">
+          <h4>Live Preview</h4>
+          <div class="preview-content">
+            <mat-radio-group [(ngModel)]="selectedColor">
+              <mat-radio-button *ngFor="let season of seasons" [value]="season">
+                {{season}}
+              </mat-radio-button>
+            </mat-radio-group>
+          </div>
+        </div>
+      </div>
+    </mat-expansion-panel>
+  </mat-accordion>
 </div>

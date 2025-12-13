@@ -1,147 +1,161 @@
-<div class="timepicker-code">
-  <mat-card>
-    <mat-card-header>
-      <mat-card-title>Timepicker Code Examples</mat-card-title>
-      <mat-card-subtitle>Implementation examples and code snippets</mat-card-subtitle>
-    </mat-card-header>
-    
-    <mat-card-content>
-      <mat-tab-group>
-        <mat-tab label="Basic Usage">
-          <div class="timepicker-code__example">
-            <h3>{{ codeExamples.basic.title }}</h3>
-            <p>{{ codeExamples.basic.description }}</p>
-            
-            <div class="timepicker-code__code-section">
-              <h4>HTML Template</h4>
-              <div class="timepicker-code__code-block">
-                <button mat-icon-button (click)="copyToClipboard(codeExamples.basic.html)" class="timepicker-code__copy-btn">
-                  <mat-icon>content_copy</mat-icon>
-                </button>
-                <pre><code>{{ codeExamples.basic.html }}</code></pre>
-              </div>
-            </div>
-            
-            <div class="timepicker-code__code-section">
-              <h4>TypeScript Component</h4>
-              <div class="timepicker-code__code-block">
-                <button mat-icon-button (click)="copyToClipboard(codeExamples.basic.typescript)" class="timepicker-code__copy-btn">
-                  <mat-icon>content_copy</mat-icon>
-                </button>
-                <pre><code>{{ codeExamples.basic.typescript }}</code></pre>
-              </div>
-            </div>
-          </div>
-        </mat-tab>
+<div class="code-section">
+  <h3>Code Examples</h3>
+  <p>Interactive examples with live previews. The code is editable for reference, and working examples are shown alongside.</p>
 
-        <mat-tab label="Format Options">
-          <div class="timepicker-code__example">
-            <h3>{{ codeExamples.format.title }}</h3>
-            <p>{{ codeExamples.format.description }}</p>
-            
-            <div class="timepicker-code__code-section">
-              <h4>HTML Template</h4>
-              <div class="timepicker-code__code-block">
-                <button mat-icon-button (click)="copyToClipboard(codeExamples.format.html)" class="timepicker-code__copy-btn">
-                  <mat-icon>content_copy</mat-icon>
-                </button>
-                <pre><code>{{ codeExamples.format.html }}</code></pre>
-              </div>
-            </div>
-            
-            <div class="timepicker-code__code-section">
-              <h4>TypeScript Component</h4>
-              <div class="timepicker-code__code-block">
-                <button mat-icon-button (click)="copyToClipboard(codeExamples.format.typescript)" class="timepicker-code__copy-btn">
-                  <mat-icon>content_copy</mat-icon>
-                </button>
-                <pre><code>{{ codeExamples.format.typescript }}</code></pre>
-              </div>
-            </div>
+  <mat-accordion class="code-examples-accordion">
+    <!-- Basic Timepicker -->
+    <mat-expansion-panel>
+      <mat-expansion-panel-header>
+        <mat-panel-title>
+          <mat-icon>code</mat-icon>
+          Basic Timepicker
+        </mat-panel-title>
+        <mat-panel-description>Simple timepicker with default settings</mat-panel-description>
+      </mat-expansion-panel-header>
+      <div class="example-container">
+        <div class="code-panel">
+          <div class="code-header">
+            <h4>Code</h4>
+            <button mat-icon-button (click)="resetCode('basic')" title="Reset to original">
+              <mat-icon>refresh</mat-icon>
+            </button>
           </div>
-        </mat-tab>
+          <textarea
+            [(ngModel)]="editableCode.basic"
+            class="code-editor"
+            spellcheck="false"></textarea>
+        </div>
+        <div class="preview-panel">
+          <h4>Live Preview</h4>
+          <div class="preview-content">
+            <p class="preview-note">Note: This is a placeholder preview. Actual timepicker component integration would go here.</p>
+          </div>
+        </div>
+      </div>
+    </mat-expansion-panel>
 
-        <mat-tab label="With Seconds">
-          <div class="timepicker-code__example">
-            <h3>{{ codeExamples.seconds.title }}</h3>
-            <p>{{ codeExamples.seconds.description }}</p>
-            
-            <div class="timepicker-code__code-section">
-              <h4>HTML Template</h4>
-              <div class="timepicker-code__code-block">
-                <button mat-icon-button (click)="copyToClipboard(codeExamples.seconds.html)" class="timepicker-code__copy-btn">
-                  <mat-icon>content_copy</mat-icon>
-                </button>
-                <pre><code>{{ codeExamples.seconds.html }}</code></pre>
-              </div>
-            </div>
-            
-            <div class="timepicker-code__code-section">
-              <h4>TypeScript Component</h4>
-              <div class="timepicker-code__code-block">
-                <button mat-icon-button (click)="copyToClipboard(codeExamples.seconds.typescript)" class="timepicker-code__copy-btn">
-                  <mat-icon>content_copy</mat-icon>
-                </button>
-                <pre><code>{{ codeExamples.seconds.typescript }}</code></pre>
-              </div>
-            </div>
+    <!-- 12-Hour Format -->
+    <mat-expansion-panel>
+      <mat-expansion-panel-header>
+        <mat-panel-title>
+          <mat-icon>code</mat-icon>
+          12-Hour Format
+        </mat-panel-title>
+        <mat-panel-description>Timepicker with AM/PM display</mat-panel-description>
+      </mat-expansion-panel-header>
+      <div class="example-container">
+        <div class="code-panel">
+          <div class="code-header">
+            <h4>Code</h4>
+            <button mat-icon-button (click)="resetCode('format')" title="Reset to original">
+              <mat-icon>refresh</mat-icon>
+            </button>
           </div>
-        </mat-tab>
+          <textarea
+            [(ngModel)]="editableCode.format"
+            class="code-editor"
+            spellcheck="false"></textarea>
+        </div>
+        <div class="preview-panel">
+          <h4>Live Preview</h4>
+          <div class="preview-content">
+            <p class="preview-note">Note: This is a placeholder preview. Actual timepicker component integration would go here.</p>
+          </div>
+        </div>
+      </div>
+    </mat-expansion-panel>
 
-        <mat-tab label="Form Validation">
-          <div class="timepicker-code__example">
-            <h3>{{ codeExamples.validation.title }}</h3>
-            <p>{{ codeExamples.validation.description }}</p>
-            
-            <div class="timepicker-code__code-section">
-              <h4>HTML Template</h4>
-              <div class="timepicker-code__code-block">
-                <button mat-icon-button (click)="copyToClipboard(codeExamples.validation.html)" class="timepicker-code__copy-btn">
-                  <mat-icon>content_copy</mat-icon>
-                </button>
-                <pre><code>{{ codeExamples.validation.html }}</code></pre>
-              </div>
-            </div>
-            
-            <div class="timepicker-code__code-section">
-              <h4>TypeScript Component</h4>
-              <div class="timepicker-code__code-block">
-                <button mat-icon-button (click)="copyToClipboard(codeExamples.validation.typescript)" class="timepicker-code__copy-btn">
-                  <mat-icon>content_copy</mat-icon>
-                </button>
-                <pre><code>{{ codeExamples.validation.typescript }}</code></pre>
-              </div>
-            </div>
+    <!-- With Seconds -->
+    <mat-expansion-panel>
+      <mat-expansion-panel-header>
+        <mat-panel-title>
+          <mat-icon>code</mat-icon>
+          With Seconds
+        </mat-panel-title>
+        <mat-panel-description>Timepicker showing seconds</mat-panel-description>
+      </mat-expansion-panel-header>
+      <div class="example-container">
+        <div class="code-panel">
+          <div class="code-header">
+            <h4>Code</h4>
+            <button mat-icon-button (click)="resetCode('seconds')" title="Reset to original">
+              <mat-icon>refresh</mat-icon>
+            </button>
           </div>
-        </mat-tab>
+          <textarea
+            [(ngModel)]="editableCode.seconds"
+            class="code-editor"
+            spellcheck="false"></textarea>
+        </div>
+        <div class="preview-panel">
+          <h4>Live Preview</h4>
+          <div class="preview-content">
+            <p class="preview-note">Note: This is a placeholder preview. Actual timepicker component integration would go here.</p>
+          </div>
+        </div>
+      </div>
+    </mat-expansion-panel>
 
-        <mat-tab label="Configuration">
-          <div class="timepicker-code__example">
-            <h3>{{ codeExamples.configuration.title }}</h3>
-            <p>{{ codeExamples.configuration.description }}</p>
-            
-            <div class="timepicker-code__code-section">
-              <h4>HTML Template</h4>
-              <div class="timepicker-code__code-block">
-                <button mat-icon-button (click)="copyToClipboard(codeExamples.configuration.html)" class="timepicker-code__copy-btn">
-                  <mat-icon>content_copy</mat-icon>
-                </button>
-                <pre><code>{{ codeExamples.configuration.html }}</code></pre>
-              </div>
-            </div>
-            
-            <div class="timepicker-code__code-section">
-              <h4>TypeScript Component</h4>
-              <div class="timepicker-code__code-block">
-                <button mat-icon-button (click)="copyToClipboard(codeExamples.configuration.typescript)" class="timepicker-code__copy-btn">
-                  <mat-icon>content_copy</mat-icon>
-                </button>
-                <pre><code>{{ codeExamples.configuration.typescript }}</code></pre>
-              </div>
-            </div>
+    <!-- Form Validation -->
+    <mat-expansion-panel>
+      <mat-expansion-panel-header>
+        <mat-panel-title>
+          <mat-icon>code</mat-icon>
+          Form Validation
+        </mat-panel-title>
+        <mat-panel-description>Timepicker with form validation</mat-panel-description>
+      </mat-expansion-panel-header>
+      <div class="example-container">
+        <div class="code-panel">
+          <div class="code-header">
+            <h4>Code</h4>
+            <button mat-icon-button (click)="resetCode('validation')" title="Reset to original">
+              <mat-icon>refresh</mat-icon>
+            </button>
           </div>
-        </mat-tab>
-      </mat-tab-group>
-    </mat-card-content>
-  </mat-card>
+          <textarea
+            [(ngModel)]="editableCode.validation"
+            class="code-editor"
+            spellcheck="false"></textarea>
+        </div>
+        <div class="preview-panel">
+          <h4>Live Preview</h4>
+          <div class="preview-content">
+            <p class="preview-note">Note: This is a placeholder preview. Actual form component integration would go here.</p>
+          </div>
+        </div>
+      </div>
+    </mat-expansion-panel>
+
+    <!-- Advanced Configuration -->
+    <mat-expansion-panel>
+      <mat-expansion-panel-header>
+        <mat-panel-title>
+          <mat-icon>code</mat-icon>
+          Advanced Configuration
+        </mat-panel-title>
+        <mat-panel-description>Timepicker with custom configuration</mat-panel-description>
+      </mat-expansion-panel-header>
+      <div class="example-container">
+        <div class="code-panel">
+          <div class="code-header">
+            <h4>Code</h4>
+            <button mat-icon-button (click)="resetCode('configuration')" title="Reset to original">
+              <mat-icon>refresh</mat-icon>
+            </button>
+          </div>
+          <textarea
+            [(ngModel)]="editableCode.configuration"
+            class="code-editor"
+            spellcheck="false"></textarea>
+        </div>
+        <div class="preview-panel">
+          <h4>Live Preview</h4>
+          <div class="preview-content">
+            <p class="preview-note">Note: This is a placeholder preview. Actual timepicker component integration would go here.</p>
+          </div>
+        </div>
+      </div>
+    </mat-expansion-panel>
+  </mat-accordion>
 </div>

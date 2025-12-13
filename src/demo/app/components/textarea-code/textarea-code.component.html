@@ -1,20 +1,292 @@
-<div class="amw-demo-textarea-code">
-  <div class="code-section">
-    <h3 class="code-section__title">Textarea Code Examples</h3>
-    <p class="code-section__description">
-      Copy and paste these code examples to use the amw-textarea component in your projects.
-    </p>
+<div class="code-section">
+  <h3>Code Examples</h3>
+  <p>Interactive examples with live previews. The code is editable for reference, and working examples are shown alongside.</p>
 
-    @for (example of codeExamples | keyvalue; track example) {
-      <mat-expansion-panel class="code-example">
-        <mat-expansion-panel-header>
-          <mat-panel-title>{{ example.value.title }}</mat-panel-title>
-          <mat-panel-description>{{ example.value.description }}</mat-panel-description>
-        </mat-expansion-panel-header>
-        <div class="code-content">
-          <pre><code>{{ example.value.code }}</code></pre>
+  <mat-accordion class="code-examples-accordion">
+    <!-- Basic Textarea -->
+    <mat-expansion-panel>
+      <mat-expansion-panel-header>
+        <mat-panel-title>
+          <mat-icon>code</mat-icon>
+          Basic Textarea
+        </mat-panel-title>
+        <mat-panel-description>A simple textarea with label and placeholder</mat-panel-description>
+      </mat-expansion-panel-header>
+      <div class="example-container">
+        <div class="code-panel">
+          <div class="code-header">
+            <h4>Code</h4>
+            <button mat-icon-button (click)="resetCode('basic')" title="Reset to original">
+              <mat-icon>refresh</mat-icon>
+            </button>
+          </div>
+          <textarea
+            [(ngModel)]="editableCode.basic"
+            class="code-editor"
+            spellcheck="false"></textarea>
         </div>
-      </mat-expansion-panel>
-    }
-  </div>
+        <div class="preview-panel">
+          <h4>Live Preview</h4>
+          <div class="preview-content">
+            <mat-form-field appearance="outline">
+              <mat-label>Description</mat-label>
+              <textarea matInput
+                [(ngModel)]="descriptionValue"
+                placeholder="Enter your description here..."
+                rows="4"></textarea>
+            </mat-form-field>
+          </div>
+        </div>
+      </div>
+    </mat-expansion-panel>
+
+    <!-- Textarea with Validation -->
+    <mat-expansion-panel>
+      <mat-expansion-panel-header>
+        <mat-panel-title>
+          <mat-icon>code</mat-icon>
+          Textarea with Validation
+        </mat-panel-title>
+        <mat-panel-description>Textarea with character limits and validation</mat-panel-description>
+      </mat-expansion-panel-header>
+      <div class="example-container">
+        <div class="code-panel">
+          <div class="code-header">
+            <h4>Code</h4>
+            <button mat-icon-button (click)="resetCode('withValidation')" title="Reset to original">
+              <mat-icon>refresh</mat-icon>
+            </button>
+          </div>
+          <textarea
+            [(ngModel)]="editableCode.withValidation"
+            class="code-editor"
+            spellcheck="false"
+            readonly></textarea>
+        </div>
+        <div class="preview-panel">
+          <h4>Live Preview</h4>
+          <div class="preview-content">
+            <mat-form-field appearance="outline">
+              <mat-label>Project Description</mat-label>
+              <textarea matInput
+                [(ngModel)]="projectValue"
+                placeholder="Describe your project..."
+                minlength="10"
+                maxlength="500"
+                required
+                rows="4"></textarea>
+              <mat-hint>Min 10, Max 500 characters</mat-hint>
+            </mat-form-field>
+          </div>
+        </div>
+      </div>
+    </mat-expansion-panel>
+
+    <!-- Different Sizes -->
+    <mat-expansion-panel>
+      <mat-expansion-panel-header>
+        <mat-panel-title>
+          <mat-icon>code</mat-icon>
+          Different Sizes
+        </mat-panel-title>
+        <mat-panel-description>Textareas with different row counts</mat-panel-description>
+      </mat-expansion-panel-header>
+      <div class="example-container">
+        <div class="code-panel">
+          <div class="code-header">
+            <h4>Code</h4>
+            <button mat-icon-button (click)="resetCode('differentSizes')" title="Reset to original">
+              <mat-icon>refresh</mat-icon>
+            </button>
+          </div>
+          <textarea
+            [(ngModel)]="editableCode.differentSizes"
+            class="code-editor"
+            spellcheck="false"
+            readonly></textarea>
+        </div>
+        <div class="preview-panel">
+          <h4>Live Preview</h4>
+          <div class="preview-content">
+            <mat-form-field appearance="outline">
+              <mat-label>Short Note</mat-label>
+              <textarea matInput
+                [(ngModel)]="noteValue"
+                placeholder="Brief note..."
+                rows="2"></textarea>
+            </mat-form-field>
+
+            <mat-form-field appearance="outline">
+              <mat-label>Detailed Description</mat-label>
+              <textarea matInput
+                placeholder="Detailed description..."
+                rows="6"></textarea>
+            </mat-form-field>
+
+            <mat-form-field appearance="outline">
+              <mat-label>Long Text</mat-label>
+              <textarea matInput
+                placeholder="Very long text..."
+                rows="10"></textarea>
+            </mat-form-field>
+          </div>
+        </div>
+      </div>
+    </mat-expansion-panel>
+
+    <!-- With Character Count -->
+    <mat-expansion-panel>
+      <mat-expansion-panel-header>
+        <mat-panel-title>
+          <mat-icon>code</mat-icon>
+          With Character Count
+        </mat-panel-title>
+        <mat-panel-description>Textarea with character count display</mat-panel-description>
+      </mat-expansion-panel-header>
+      <div class="example-container">
+        <div class="code-panel">
+          <div class="code-header">
+            <h4>Code</h4>
+            <button mat-icon-button (click)="resetCode('withCharacterCount')" title="Reset to original">
+              <mat-icon>refresh</mat-icon>
+            </button>
+          </div>
+          <textarea
+            [(ngModel)]="editableCode.withCharacterCount"
+            class="code-editor"
+            spellcheck="false"
+            readonly></textarea>
+        </div>
+        <div class="preview-panel">
+          <h4>Live Preview</h4>
+          <div class="preview-content">
+            <mat-form-field appearance="outline">
+              <mat-label>Bio</mat-label>
+              <textarea matInput
+                #bioInput
+                placeholder="Tell us about yourself..."
+                maxlength="200"
+                rows="4"></textarea>
+              <mat-hint align="end">{{bioInput.value.length}}/200</mat-hint>
+            </mat-form-field>
+          </div>
+        </div>
+      </div>
+    </mat-expansion-panel>
+
+    <!-- Reactive Form Integration -->
+    <mat-expansion-panel>
+      <mat-expansion-panel-header>
+        <mat-panel-title>
+          <mat-icon>code</mat-icon>
+          Reactive Form Integration
+        </mat-panel-title>
+        <mat-panel-description>Using textareas with Angular reactive forms</mat-panel-description>
+      </mat-expansion-panel-header>
+      <div class="example-container">
+        <div class="code-panel">
+          <div class="code-header">
+            <h4>Code</h4>
+            <button mat-icon-button (click)="resetCode('reactiveForm')" title="Reset to original">
+              <mat-icon>refresh</mat-icon>
+            </button>
+          </div>
+          <textarea
+            [(ngModel)]="editableCode.reactiveForm"
+            class="code-editor"
+            spellcheck="false"
+            readonly></textarea>
+        </div>
+        <div class="preview-panel">
+          <h4>Live Preview</h4>
+          <div class="preview-content">
+            <div class="preview-note">
+              <mat-icon>info</mat-icon>
+              <span>This example shows code for reactive form integration</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </mat-expansion-panel>
+
+    <!-- Textarea with Events -->
+    <mat-expansion-panel>
+      <mat-expansion-panel-header>
+        <mat-panel-title>
+          <mat-icon>code</mat-icon>
+          Textarea with Events
+        </mat-panel-title>
+        <mat-panel-description>Textareas with event handling</mat-panel-description>
+      </mat-expansion-panel-header>
+      <div class="example-container">
+        <div class="code-panel">
+          <div class="code-header">
+            <h4>Code</h4>
+            <button mat-icon-button (click)="resetCode('withEvents')" title="Reset to original">
+              <mat-icon>refresh</mat-icon>
+            </button>
+          </div>
+          <textarea
+            [(ngModel)]="editableCode.withEvents"
+            class="code-editor"
+            spellcheck="false"
+            readonly></textarea>
+        </div>
+        <div class="preview-panel">
+          <h4>Live Preview</h4>
+          <div class="preview-content">
+            <mat-form-field appearance="outline">
+              <mat-label>Message</mat-label>
+              <textarea matInput
+                [(ngModel)]="messageValue"
+                (input)="onTextInput($event)"
+                (focus)="onTextFocus($event)"
+                (blur)="onTextBlur($event)"
+                placeholder="Type your message..."
+                rows="4"></textarea>
+            </mat-form-field>
+            <div class="preview-note">
+              <mat-icon>info</mat-icon>
+              <span>Open your browser console to see event logs</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </mat-expansion-panel>
+
+    <!-- Contact Form Example -->
+    <mat-expansion-panel>
+      <mat-expansion-panel-header>
+        <mat-panel-title>
+          <mat-icon>code</mat-icon>
+          Contact Form Example
+        </mat-panel-title>
+        <mat-panel-description>Complete contact form with multiple textareas</mat-panel-description>
+      </mat-expansion-panel-header>
+      <div class="example-container">
+        <div class="code-panel">
+          <div class="code-header">
+            <h4>Code</h4>
+            <button mat-icon-button (click)="resetCode('contactForm')" title="Reset to original">
+              <mat-icon>refresh</mat-icon>
+            </button>
+          </div>
+          <textarea
+            [(ngModel)]="editableCode.contactForm"
+            class="code-editor"
+            spellcheck="false"
+            readonly></textarea>
+        </div>
+        <div class="preview-panel">
+          <h4>Live Preview</h4>
+          <div class="preview-content">
+            <div class="preview-note">
+              <mat-icon>info</mat-icon>
+              <span>This example shows code for a contact form with multiple textareas</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </mat-expansion-panel>
+  </mat-accordion>
 </div>

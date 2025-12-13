@@ -1,23 +1,288 @@
-<div class="amw-demo-select-code">
-  <div class="code-section">
-    <h3 class="code-section__title">Select Code Examples</h3>
-    <p class="code-section__description">
-      Copy and paste these code examples to use the amw-select component in your projects.
-    </p>
+<div class="code-section">
+  <h3>Code Examples</h3>
+  <p>Interactive examples with live previews. The code is editable for reference, and working examples are shown alongside.</p>
 
-    @for (example of codeExamples | keyvalue; track example) {
-      <mat-expansion-panel class="code-example">
-        <mat-expansion-panel-header>
-          <mat-panel-title>{{ example.value.title }}</mat-panel-title>
-          <mat-panel-description>{{ example.value.description }}</mat-panel-description>
-        </mat-expansion-panel-header>
-        <div class="code-content">
-          <pre><code>{{ example.value.code }}</code></pre>
+  <mat-accordion class="code-examples-accordion">
+    <!-- Basic Select -->
+    <mat-expansion-panel>
+      <mat-expansion-panel-header>
+        <mat-panel-title>
+          <mat-icon>code</mat-icon>
+          Basic Select
+        </mat-panel-title>
+        <mat-panel-description>Simple dropdown selection</mat-panel-description>
+      </mat-expansion-panel-header>
+      <div class="example-container">
+        <div class="code-panel">
+          <div class="code-header">
+            <h4>Code</h4>
+            <button mat-icon-button (click)="resetCode('basic')" title="Reset to original">
+              <mat-icon>refresh</mat-icon>
+            </button>
+          </div>
+          <textarea
+            [(ngModel)]="editableCode.basic"
+            class="code-editor"
+            spellcheck="false"></textarea>
         </div>
-      </mat-expansion-panel>
-    }
-  </div>
+        <div class="preview-panel">
+          <h4>Live Preview</h4>
+          <div class="preview-content">
+            <mat-form-field>
+              <mat-label>Favorite food</mat-label>
+              <mat-select [(ngModel)]="selectedFood">
+                <mat-option value="steak">Steak</mat-option>
+                <mat-option value="pizza">Pizza</mat-option>
+                <mat-option value="tacos">Tacos</mat-option>
+              </mat-select>
+            </mat-form-field>
+          </div>
+        </div>
+      </div>
+    </mat-expansion-panel>
+
+    <!-- Select with Value Binding -->
+    <mat-expansion-panel>
+      <mat-expansion-panel-header>
+        <mat-panel-title>
+          <mat-icon>code</mat-icon>
+          Select with Value Binding
+        </mat-panel-title>
+        <mat-panel-description>Two-way data binding example</mat-panel-description>
+      </mat-expansion-panel-header>
+      <div class="example-container">
+        <div class="code-panel">
+          <div class="code-header">
+            <h4>Code</h4>
+            <button mat-icon-button (click)="resetCode('withValue')" title="Reset to original">
+              <mat-icon>refresh</mat-icon>
+            </button>
+          </div>
+          <textarea
+            [(ngModel)]="editableCode.withValue"
+            class="code-editor"
+            spellcheck="false"></textarea>
+        </div>
+        <div class="preview-panel">
+          <h4>Live Preview</h4>
+          <div class="preview-content">
+            <mat-form-field>
+              <mat-label>Select your car</mat-label>
+              <mat-select [(value)]="selectedCar">
+                <mat-option value="volvo">Volvo</mat-option>
+                <mat-option value="saab">Saab</mat-option>
+                <mat-option value="mercedes">Mercedes</mat-option>
+              </mat-select>
+            </mat-form-field>
+            <p>You selected: {{selectedCar}}</p>
+          </div>
+        </div>
+      </div>
+    </mat-expansion-panel>
+
+    <!-- Multiple Selection -->
+    <mat-expansion-panel>
+      <mat-expansion-panel-header>
+        <mat-panel-title>
+          <mat-icon>code</mat-icon>
+          Multiple Selection
+        </mat-panel-title>
+        <mat-panel-description>Select multiple options at once</mat-panel-description>
+      </mat-expansion-panel-header>
+      <div class="example-container">
+        <div class="code-panel">
+          <div class="code-header">
+            <h4>Code</h4>
+            <button mat-icon-button (click)="resetCode('multiple')" title="Reset to original">
+              <mat-icon>refresh</mat-icon>
+            </button>
+          </div>
+          <textarea
+            [(ngModel)]="editableCode.multiple"
+            class="code-editor"
+            spellcheck="false"></textarea>
+        </div>
+        <div class="preview-panel">
+          <h4>Live Preview</h4>
+          <div class="preview-content">
+            <mat-form-field>
+              <mat-label>Toppings</mat-label>
+              <mat-select multiple [(ngModel)]="selectedMultiple">
+                <mat-option value="extra-cheese">Extra cheese</mat-option>
+                <mat-option value="mushroom">Mushroom</mat-option>
+                <mat-option value="onion">Onion</mat-option>
+                <mat-option value="pepperoni">Pepperoni</mat-option>
+                <mat-option value="sausage">Sausage</mat-option>
+                <mat-option value="tomato">Tomato</mat-option>
+              </mat-select>
+            </mat-form-field>
+          </div>
+        </div>
+      </div>
+    </mat-expansion-panel>
+
+    <!-- Option Groups -->
+    <mat-expansion-panel>
+      <mat-expansion-panel-header>
+        <mat-panel-title>
+          <mat-icon>code</mat-icon>
+          Option Groups
+        </mat-panel-title>
+        <mat-panel-description>Organize options into groups</mat-panel-description>
+      </mat-expansion-panel-header>
+      <div class="example-container">
+        <div class="code-panel">
+          <div class="code-header">
+            <h4>Code</h4>
+            <button mat-icon-button (click)="resetCode('optGroups')" title="Reset to original">
+              <mat-icon>refresh</mat-icon>
+            </button>
+          </div>
+          <textarea
+            [(ngModel)]="editableCode.optGroups"
+            class="code-editor"
+            spellcheck="false"></textarea>
+        </div>
+        <div class="preview-panel">
+          <h4>Live Preview</h4>
+          <div class="preview-content">
+            <mat-form-field>
+              <mat-label>Pokemon</mat-label>
+              <mat-select>
+                <mat-optgroup label="Grass">
+                  <mat-option value="bulbasaur">Bulbasaur</mat-option>
+                  <mat-option value="oddish">Oddish</mat-option>
+                </mat-optgroup>
+                <mat-optgroup label="Water">
+                  <mat-option value="squirtle">Squirtle</mat-option>
+                  <mat-option value="psyduck">Psyduck</mat-option>
+                </mat-optgroup>
+                <mat-optgroup label="Fire">
+                  <mat-option value="charmander">Charmander</mat-option>
+                  <mat-option value="vulpix">Vulpix</mat-option>
+                </mat-optgroup>
+              </mat-select>
+            </mat-form-field>
+          </div>
+        </div>
+      </div>
+    </mat-expansion-panel>
+
+    <!-- Disabled State -->
+    <mat-expansion-panel>
+      <mat-expansion-panel-header>
+        <mat-panel-title>
+          <mat-icon>code</mat-icon>
+          Disabled State
+        </mat-panel-title>
+        <mat-panel-description>Non-interactive select</mat-panel-description>
+      </mat-expansion-panel-header>
+      <div class="example-container">
+        <div class="code-panel">
+          <div class="code-header">
+            <h4>Code</h4>
+            <button mat-icon-button (click)="resetCode('disabled')" title="Reset to original">
+              <mat-icon>refresh</mat-icon>
+            </button>
+          </div>
+          <textarea
+            [(ngModel)]="editableCode.disabled"
+            class="code-editor"
+            spellcheck="false"></textarea>
+        </div>
+        <div class="preview-panel">
+          <h4>Live Preview</h4>
+          <div class="preview-content">
+            <mat-form-field>
+              <mat-label>Disabled select</mat-label>
+              <mat-select disabled>
+                <mat-option value="option1">Option 1</mat-option>
+                <mat-option value="option2">Option 2</mat-option>
+              </mat-select>
+            </mat-form-field>
+          </div>
+        </div>
+      </div>
+    </mat-expansion-panel>
+
+    <!-- Custom Trigger -->
+    <mat-expansion-panel>
+      <mat-expansion-panel-header>
+        <mat-panel-title>
+          <mat-icon>code</mat-icon>
+          Custom Trigger
+        </mat-panel-title>
+        <mat-panel-description>Customize the display trigger</mat-panel-description>
+      </mat-expansion-panel-header>
+      <div class="example-container">
+        <div class="code-panel">
+          <div class="code-header">
+            <h4>Code</h4>
+            <button mat-icon-button (click)="resetCode('customTrigger')" title="Reset to original">
+              <mat-icon>refresh</mat-icon>
+            </button>
+          </div>
+          <textarea
+            [(ngModel)]="editableCode.customTrigger"
+            class="code-editor"
+            spellcheck="false"></textarea>
+        </div>
+        <div class="preview-panel">
+          <h4>Live Preview</h4>
+          <div class="preview-content">
+            <mat-form-field>
+              <mat-label>Favorite food</mat-label>
+              <mat-select #select>
+                <mat-select-trigger>
+                  {{select.value?.viewValue || 'None'}}
+                </mat-select-trigger>
+                <mat-option *ngFor="let food of foods" [value]="food">
+                  {{food.viewValue}}
+                </mat-option>
+              </mat-select>
+            </mat-form-field>
+          </div>
+        </div>
+      </div>
+    </mat-expansion-panel>
+
+    <!-- Error State -->
+    <mat-expansion-panel>
+      <mat-expansion-panel-header>
+        <mat-panel-title>
+          <mat-icon>code</mat-icon>
+          Error State
+        </mat-panel-title>
+        <mat-panel-description>Display validation errors</mat-panel-description>
+      </mat-expansion-panel-header>
+      <div class="example-container">
+        <div class="code-panel">
+          <div class="code-header">
+            <h4>Code</h4>
+            <button mat-icon-button (click)="resetCode('errorState')" title="Reset to original">
+              <mat-icon>refresh</mat-icon>
+            </button>
+          </div>
+          <textarea
+            [(ngModel)]="editableCode.errorState"
+            class="code-editor"
+            spellcheck="false"></textarea>
+        </div>
+        <div class="preview-panel">
+          <h4>Live Preview</h4>
+          <div class="preview-content">
+            <mat-form-field>
+              <mat-label>Favorite food</mat-label>
+              <mat-select [(ngModel)]="selectedValue" required>
+                <mat-option value="steak">Steak</mat-option>
+                <mat-option value="pizza">Pizza</mat-option>
+                <mat-option value="tacos">Tacos</mat-option>
+              </mat-select>
+              <mat-error>Please make a selection</mat-error>
+            </mat-form-field>
+          </div>
+        </div>
+      </div>
+    </mat-expansion-panel>
+  </mat-accordion>
 </div>
-
-
-

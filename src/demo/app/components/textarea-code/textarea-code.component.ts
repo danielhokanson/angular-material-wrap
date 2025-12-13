@@ -1,81 +1,99 @@
 import { Component, ViewEncapsulation } from '@angular/core';
-import { CommonModule } from '@angular/common';
+import { FormsModule } from '@angular/forms';
 import { MatExpansionModule } from '@angular/material/expansion';
+import { MatButtonModule } from '@angular/material/button';
+import { MatIconModule } from '@angular/material/icon';
+import { MatFormFieldModule } from '@angular/material/form-field';
+import { MatInputModule } from '@angular/material/input';
 
 @Component({
   selector: 'amw-demo-textarea-code',
   standalone: true,
   imports: [
-    CommonModule,
-    MatExpansionModule
+    FormsModule,
+    MatExpansionModule,
+    MatButtonModule,
+    MatIconModule,
+    MatFormFieldModule,
+    MatInputModule
   ],
   encapsulation: ViewEncapsulation.None,
   templateUrl: './textarea-code.component.html',
   styleUrl: './textarea-code.component.scss'
 })
 export class TextareaCodeComponent {
-  codeExamples = {
-    basic: {
-      title: 'Basic Textarea',
-      description: 'A simple textarea with label and placeholder',
-      code: `<amw-textarea
-  label="Description"
-  placeholder="Enter your description here..."
-  [rows]="4">
-</amw-textarea>`
-    },
-    withValidation: {
-      title: 'Textarea with Validation',
-      description: 'Textarea with character limits and validation',
-      code: `<amw-textarea
-  label="Project Description"
-  placeholder="Describe your project..."
-  [minlength]="10"
-  [maxlength]="500"
-  [required]="true"
-  appearance="outline">
-</amw-textarea>`
-    },
-    differentSizes: {
-      title: 'Different Sizes',
-      description: 'Textareas with different row counts',
-      code: `<amw-textarea
-  label="Short Note"
-  [rows]="2"
-  placeholder="Brief note...">
-</amw-textarea>
+  // State for live preview examples
+  descriptionValue = '';
+  projectValue = '';
+  noteValue = '';
+  messageValue = '';
 
-<amw-textarea
-  label="Detailed Description"
-  [rows]="6"
-  placeholder="Detailed description...">
-</amw-textarea>
+  // Editable code examples
+  editableCode = {
+    basic: '',
+    withValidation: '',
+    differentSizes: '',
+    withCharacterCount: '',
+    reactiveForm: '',
+    withEvents: '',
+    contactForm: ''
+  };
 
-<amw-textarea
-  label="Long Text"
-  [rows]="10"
-  placeholder="Very long text...">
-</amw-textarea>`
-    },
-    withCharacterCount: {
-      title: 'With Character Count',
-      description: 'Textarea with character count display',
-      code: `<amw-textarea
-  label="Bio"
-  placeholder="Tell us about yourself..."
-  [maxlength]="200"
-  appearance="outline">
-</amw-textarea>
+  // Original code examples (for reset functionality)
+  readonly codeExamples = {
+    basic: `<mat-form-field appearance="outline">
+  <mat-label>Description</mat-label>
+  <textarea matInput
+    [(ngModel)]="descriptionValue"
+    placeholder="Enter your description here..."
+    rows="4"></textarea>
+</mat-form-field>`,
 
-<!-- Character count display -->
-<div class="character-count">
-  {{ bioText.length }}/200 characters
-</div>`
-    },
-    reactiveForm: {
-      title: 'Reactive Form Integration',
-      description: 'Using textareas with Angular reactive forms',
-      code: `// Component TypeScript
+    withValidation: `<mat-form-field appearance="outline">
+  <mat-label>Project Description</mat-label>
+  <textarea matInput
+    [(ngModel)]="projectValue"
+    placeholder="Describe your project..."
+    minlength="10"
+    maxlength="500"
+    required
+    rows="4"></textarea>
+  <mat-hint>Min 10, Max 500 characters</mat-hint>
+</mat-form-field>`,
+
+    differentSizes: `<mat-form-field appearance="outline">
+  <mat-label>Short Note</mat-label>
+  <textarea matInput
+    [(ngModel)]="noteValue"
+    placeholder="Brief note..."
+    rows="2"></textarea>
+</mat-form-field>
+
+<mat-form-field appearance="outline">
+  <mat-label>Detailed Description</mat-label>
+  <textarea matInput
+    placeholder="Detailed description..."
+    rows="6"></textarea>
+</mat-form-field>
+
+<mat-form-field appearance="outline">
+  <mat-label>Long Text</mat-label>
+  <textarea matInput
+    placeholder="Very long text..."
+    rows="10"></textarea>
+</mat-form-field>`,
+
+    withCharacterCount: `<mat-form-field appearance="outline">
+  <mat-label>Bio</mat-label>
+  <textarea matInput
+    #bioInput
+    placeholder="Tell us about yourself..."
+    maxlength="200"
+    rows="4"></textarea>
+  <mat-hint align="end">{{bioInput.value.length}}/200</mat-hint>
+</mat-form-field>`,
+
+    reactiveForm: `// Component TypeScript
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 
 export class MyComponent {
@@ -92,95 +110,114 @@ export class MyComponent {
 
 // Template
 <form [formGroup]="form">
-  <amw-textarea
-    formControlName="description"
-    label="Description"
-    placeholder="Enter description..."
-    [required]="true"
-    [minlength]="10">
-  </amw-textarea>
-  
-  <amw-textarea
-    formControlName="comments"
-    label="Comments"
-    placeholder="Additional comments..."
-    [maxlength]="1000">
-  </amw-textarea>
-  
-  <amw-textarea
-    formControlName="feedback"
-    label="Feedback"
-    placeholder="Your feedback..."
-    [required]="true"
-    [minlength]="20">
-  </amw-textarea>
-</form>`
-    },
-    withEvents: {
-      title: 'Textarea with Events',
-      description: 'Textareas with event handling',
-      code: `<amw-textarea
-  label="Message"
-  placeholder="Type your message..."
-  [value]="message"
-  (input)="onTextChange($event)"
-  (focus)="onFocus($event)"
-  (blur)="onBlur($event)">
-</amw-textarea>
+  <mat-form-field appearance="outline">
+    <mat-label>Description</mat-label>
+    <textarea matInput
+      formControlName="description"
+      placeholder="Enter description..."
+      required
+      rows="4"></textarea>
+  </mat-form-field>
+
+  <mat-form-field appearance="outline">
+    <mat-label>Comments</mat-label>
+    <textarea matInput
+      formControlName="comments"
+      placeholder="Additional comments..."
+      rows="4"></textarea>
+  </mat-form-field>
+
+  <mat-form-field appearance="outline">
+    <mat-label>Feedback</mat-label>
+    <textarea matInput
+      formControlName="feedback"
+      placeholder="Your feedback..."
+      required
+      rows="4"></textarea>
+  </mat-form-field>
+</form>`,
+
+    withEvents: `<mat-form-field appearance="outline">
+  <mat-label>Message</mat-label>
+  <textarea matInput
+    [(ngModel)]="messageValue"
+    (input)="onTextInput($event)"
+    (focus)="onTextFocus($event)"
+    (blur)="onTextBlur($event)"
+    placeholder="Type your message..."
+    rows="4"></textarea>
+</mat-form-field>
 
 // Component methods
-onTextChange(event: any): void {
-  this.message = event.target.value;
-  console.log('Text changed:', this.message);
+onTextInput(event: any): void {
+  console.log('Text changed:', event.target.value);
 }
 
-onFocus(event: FocusEvent): void {
+onTextFocus(event: FocusEvent): void {
   console.log('Textarea focused');
 }
 
-onBlur(event: FocusEvent): void {
+onTextBlur(event: FocusEvent): void {
   console.log('Textarea blurred');
-}`
-    },
-    contactForm: {
-      title: 'Contact Form Example',
-      description: 'Complete contact form with multiple textareas',
-      code: `<form [formGroup]="contactForm" class="contact-form">
+}`,
+
+    contactForm: `<form class="contact-form">
   <h3>Contact Us</h3>
-  
-  <amw-textarea
-    formControlName="inquiry"
-    label="Inquiry Type"
-    placeholder="What can we help you with?"
-    [required]="true"
-    [rows]="3">
-  </amw-textarea>
-  
-  <amw-textarea
-    formControlName="message"
-    label="Message"
-    placeholder="Please provide details about your inquiry..."
-    [required]="true"
-    [minlength]="20"
-    [rows]="6">
-  </amw-textarea>
-  
-  <amw-textarea
-    formControlName="additional"
-    label="Additional Information"
-    placeholder="Any additional information that might be helpful..."
-    [maxlength]="500"
-    [rows]="4">
-  </amw-textarea>
-  
-  <amw-button
-    type="submit"
-    variant="elevated"
-    color="primary"
-    [disabled]="contactForm.invalid">
+
+  <mat-form-field appearance="outline">
+    <mat-label>Inquiry Type</mat-label>
+    <textarea matInput
+      placeholder="What can we help you with?"
+      required
+      rows="3"></textarea>
+  </mat-form-field>
+
+  <mat-form-field appearance="outline">
+    <mat-label>Message</mat-label>
+    <textarea matInput
+      placeholder="Please provide details about your inquiry..."
+      required
+      minlength="20"
+      rows="6"></textarea>
+  </mat-form-field>
+
+  <mat-form-field appearance="outline">
+    <mat-label>Additional Information</mat-label>
+    <textarea matInput
+      placeholder="Any additional information that might be helpful..."
+      maxlength="500"
+      rows="4"></textarea>
+  </mat-form-field>
+
+  <button mat-raised-button color="primary" type="submit">
     Send Message
-  </amw-button>
+  </button>
 </form>`
-    }
   };
+
+  constructor() {
+    // Initialize editable code
+    Object.keys(this.codeExamples).forEach(key => {
+      this.editableCode[key as keyof typeof this.codeExamples] =
+        this.codeExamples[key as keyof typeof this.codeExamples];
+    });
+  }
+
+  // Event handlers for event example
+  onTextInput(event: any) {
+    console.log('Text changed:', event.target.value);
+  }
+
+  onTextFocus(event: FocusEvent) {
+    console.log('Textarea focused');
+  }
+
+  onTextBlur(event: FocusEvent) {
+    console.log('Textarea blurred');
+  }
+
+  // Reset code to original
+  resetCode(exampleKey: keyof typeof this.codeExamples) {
+    this.editableCode[exampleKey] = this.codeExamples[exampleKey];
+  }
 }

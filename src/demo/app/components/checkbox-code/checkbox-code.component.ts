@@ -1,157 +1,138 @@
 import { Component, ViewEncapsulation } from '@angular/core';
 import { CommonModule } from '@angular/common';
+import { FormsModule } from '@angular/forms';
 import { MatExpansionModule } from '@angular/material/expansion';
+import { MatButtonModule } from '@angular/material/button';
+import { MatIconModule } from '@angular/material/icon';
+import { MatCheckboxModule } from '@angular/material/checkbox';
 
 @Component({
   selector: 'amw-demo-checkbox-code',
   standalone: true,
   imports: [
     CommonModule,
-    MatExpansionModule
+    FormsModule,
+    MatExpansionModule,
+    MatButtonModule,
+    MatIconModule,
+    MatCheckboxModule
   ],
   encapsulation: ViewEncapsulation.None,
   templateUrl: './checkbox-code.component.html',
   styleUrl: './checkbox-code.component.scss'
 })
 export class CheckboxCodeComponent {
-  codeExamples = {
-    basic: {
-      title: 'Basic Checkbox',
-      description: 'A simple checkbox with label',
-      code: `<amw-checkbox
-  label="Accept terms and conditions"
-  [checked]="true">
-</amw-checkbox>`
-    },
-    withColor: {
-      title: 'Checkbox with Color',
-      description: 'Checkbox with different color themes',
-      code: `<amw-checkbox
-  label="Primary checkbox"
-  color="primary"
-  [checked]="true">
-</amw-checkbox>
+  // State for live preview examples
+  checked = true;
+  indeterminate = false;
+  disabled = false;
+  labelPosition: 'before' | 'after' = 'after';
 
-<amw-checkbox
-  label="Accent checkbox"
-  color="accent"
-  [checked]="true">
-</amw-checkbox>
+  // Task list example
+  allComplete = false;
+  task = {
+    name: 'All tasks',
+    completed: false,
+    subtasks: [
+      { name: 'Task 1', completed: false },
+      { name: 'Task 2', completed: false },
+      { name: 'Task 3', completed: false }
+    ]
+  };
 
-<amw-checkbox
-  label="Warn checkbox"
-  color="warn"
-  [checked]="false">
-</amw-checkbox>`
-    },
-    differentSizes: {
-      title: 'Different Sizes',
-      description: 'Checkboxes in different sizes',
-      code: `<amw-checkbox size="small" label="Small checkbox" [checked]="true"></amw-checkbox>
-<amw-checkbox size="medium" label="Medium checkbox" [checked]="true"></amw-checkbox>
-<amw-checkbox size="large" label="Large checkbox" [checked]="true"></amw-checkbox>`
-    },
-    states: {
-      title: 'Different States',
-      description: 'Checkboxes in various states',
-      code: `<amw-checkbox
-  label="Checked checkbox"
-  [checked]="true">
-</amw-checkbox>
+  // Editable code examples
+  editableCode = {
+    basic: '',
+    colors: '',
+    states: '',
+    labelPosition: '',
+    indeterminate: '',
+    disabled: '',
+    events: ''
+  };
 
-<amw-checkbox
-  label="Unchecked checkbox"
-  [checked]="false">
-</amw-checkbox>
+  // Original code examples (for reset functionality)
+  readonly codeExamples = {
+    basic: `<mat-checkbox>Check me</mat-checkbox>
+<mat-checkbox [checked]="true">Checked</mat-checkbox>
+<mat-checkbox [indeterminate]="true">Indeterminate</mat-checkbox>`,
 
-<amw-checkbox
-  label="Indeterminate checkbox"
-  [indeterminate]="true">
-</amw-checkbox>
+    colors: `<mat-checkbox color="primary" [checked]="true">Primary</mat-checkbox>
+<mat-checkbox color="accent" [checked]="true">Accent</mat-checkbox>
+<mat-checkbox color="warn" [checked]="true">Warn</mat-checkbox>`,
 
-<amw-checkbox
-  label="Disabled checkbox"
-  [checked]="true"
-  [disabled]="true">
-</amw-checkbox>`
-    },
-    labelPosition: {
-      title: 'Label Position',
-      description: 'Checkboxes with different label positions',
-      code: `<amw-checkbox
-  labelPosition="after"
-  label="Label after checkbox"
-  [checked]="true">
-</amw-checkbox>
+    states: `<mat-checkbox [checked]="true">Checked</mat-checkbox>
+<mat-checkbox [checked]="false">Unchecked</mat-checkbox>
+<mat-checkbox [indeterminate]="true">Indeterminate</mat-checkbox>`,
 
-<amw-checkbox
-  labelPosition="before"
-  label="Label before checkbox"
-  [checked]="true">
-</amw-checkbox>`
-    },
-    reactiveForm: {
-      title: 'Reactive Form Integration',
-      description: 'Using checkboxes with Angular reactive forms',
-      code: `// Component TypeScript
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+    labelPosition: `<mat-checkbox labelPosition="before">Label before</mat-checkbox>
+<mat-checkbox labelPosition="after">Label after</mat-checkbox>`,
 
-export class MyComponent {
-  form: FormGroup;
+    indeterminate: `<mat-checkbox
+  [checked]="allComplete"
+  [indeterminate]="someComplete()"
+  (change)="setAll($event.checked)">
+  {{task.name}}
+</mat-checkbox>
+<ul>
+  <li *ngFor="let subtask of task.subtasks">
+    <mat-checkbox
+      [(ngModel)]="subtask.completed"
+      (ngModelChange)="updateAllComplete()">
+      {{subtask.name}}
+    </mat-checkbox>
+  </li>
+</ul>`,
 
-  constructor(private fb: FormBuilder) {
-    this.form = this.fb.group({
-      termsAccepted: [false, Validators.requiredTrue],
-      marketingEmails: [false],
-      notifications: [true]
+    disabled: `<mat-checkbox [disabled]="true">Disabled unchecked</mat-checkbox>
+<mat-checkbox [disabled]="true" [checked]="true">Disabled checked</mat-checkbox>`,
+
+    events: `<mat-checkbox
+  (change)="onCheckboxChange($event)"
+  (indeterminateChange)="onIndeterminateChange($event)">
+  Event tracking
+</mat-checkbox>`
+  };
+
+  constructor() {
+    // Initialize editable code
+    Object.keys(this.codeExamples).forEach(key => {
+      this.editableCode[key as keyof typeof this.codeExamples] =
+        this.codeExamples[key as keyof typeof this.codeExamples];
     });
   }
-}
 
-// Template
-<form [formGroup]="form">
-  <amw-checkbox
-    formControlName="termsAccepted"
-    label="Accept terms and conditions"
-    color="primary">
-  </amw-checkbox>
-  
-  <amw-checkbox
-    formControlName="marketingEmails"
-    label="Receive marketing emails"
-    color="accent">
-  </amw-checkbox>
-  
-  <amw-checkbox
-    formControlName="notifications"
-    label="Enable notifications"
-    color="primary">
-  </amw-checkbox>
-</form>`
-    },
-    checkboxGroup: {
-      title: 'Checkbox Group',
-      description: 'Multiple checkboxes in a group',
-      code: `<div class="checkbox-group">
-  <h4>User Preferences</h4>
-  <amw-checkbox
-    color="primary"
-    label="Email notifications"
-    [checked]="true">
-  </amw-checkbox>
-  
-  <amw-checkbox
-    color="primary"
-    label="SMS notifications"
-    [checked]="false">
-  </amw-checkbox>
-  
-  <amw-checkbox
-    color="primary"
-    label="Push notifications"
-    [checked]="true">
-  </amw-checkbox>
-</div>`
+  // Reset code to original
+  resetCode(exampleKey: keyof typeof this.codeExamples) {
+    this.editableCode[exampleKey] = this.codeExamples[exampleKey];
+  }
+
+  // Indeterminate checkbox methods
+  updateAllComplete() {
+    this.allComplete = this.task.subtasks != null && this.task.subtasks.every(t => t.completed);
+  }
+
+  someComplete(): boolean {
+    if (this.task.subtasks == null) {
+      return false;
     }
-  };
+    return this.task.subtasks.filter(t => t.completed).length > 0 && !this.allComplete;
+  }
+
+  setAll(completed: boolean) {
+    this.allComplete = completed;
+    if (this.task.subtasks == null) {
+      return;
+    }
+    this.task.subtasks.forEach(t => (t.completed = completed));
+  }
+
+  // Event handlers
+  onCheckboxChange(event: any) {
+    console.log('Checkbox changed:', event.checked);
+  }
+
+  onIndeterminateChange(event: boolean) {
+    console.log('Indeterminate changed:', event);
+  }
 }
