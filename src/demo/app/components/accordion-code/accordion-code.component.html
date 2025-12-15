@@ -1,0 +1,308 @@
+<div class="code-section">
+  <h3>Code Examples</h3>
+  <p>Interactive examples with live previews. The code is editable for reference, and working examples are shown alongside.</p>
+
+  <mat-accordion class="code-examples-accordion">
+    <!-- Basic Accordion -->
+    <mat-expansion-panel>
+      <mat-expansion-panel-header>
+        <mat-panel-title>
+          <mat-icon>code</mat-icon>
+          Basic Accordion
+        </mat-panel-title>
+        <mat-panel-description>Simple accordion with title and description</mat-panel-description>
+      </mat-expansion-panel-header>
+      <div class="example-container">
+        <div class="code-panel">
+          <div class="code-header">
+            <h4>Code</h4>
+            <button mat-icon-button (click)="resetCode('basic')" title="Reset to original">
+              <mat-icon>refresh</mat-icon>
+            </button>
+          </div>
+          <textarea
+            [(ngModel)]="editableCode.basic"
+            class="code-editor"
+            spellcheck="false"></textarea>
+        </div>
+        <div class="preview-panel">
+          <h4>Live Preview</h4>
+          <div class="preview-content">
+            <mat-accordion>
+              <mat-expansion-panel>
+                <mat-expansion-panel-header>
+                  <mat-panel-title>Panel 1</mat-panel-title>
+                  <mat-panel-description>First panel content</mat-panel-description>
+                </mat-expansion-panel-header>
+                <p>First panel content</p>
+              </mat-expansion-panel>
+
+              <mat-expansion-panel>
+                <mat-expansion-panel-header>
+                  <mat-panel-title>Panel 2</mat-panel-title>
+                  <mat-panel-description>Second panel content</mat-panel-description>
+                </mat-expansion-panel-header>
+                <p>Second panel content</p>
+              </mat-expansion-panel>
+            </mat-accordion>
+          </div>
+        </div>
+      </div>
+    </mat-expansion-panel>
+
+    <!-- Multi-Expansion Mode -->
+    <mat-expansion-panel>
+      <mat-expansion-panel-header>
+        <mat-panel-title>
+          <mat-icon>code</mat-icon>
+          Multi-Expansion Mode
+        </mat-panel-title>
+        <mat-panel-description>Allow multiple panels to be open simultaneously</mat-panel-description>
+      </mat-expansion-panel-header>
+      <div class="example-container">
+        <div class="code-panel">
+          <div class="code-header">
+            <h4>Code</h4>
+            <button mat-icon-button (click)="resetCode('multiExpand')" title="Reset to original">
+              <mat-icon>refresh</mat-icon>
+            </button>
+          </div>
+          <textarea
+            [(ngModel)]="editableCode.multiExpand"
+            class="code-editor"
+            spellcheck="false"
+            readonly></textarea>
+        </div>
+        <div class="preview-panel">
+          <h4>Live Preview</h4>
+          <div class="preview-content">
+            <mat-accordion [multi]="true">
+              <mat-expansion-panel>
+                <mat-expansion-panel-header>
+                  <mat-panel-title>Panel 1</mat-panel-title>
+                </mat-expansion-panel-header>
+                <p>Content 1 - can stay open with others</p>
+              </mat-expansion-panel>
+
+              <mat-expansion-panel>
+                <mat-expansion-panel-header>
+                  <mat-panel-title>Panel 2</mat-panel-title>
+                </mat-expansion-panel-header>
+                <p>Content 2 - can stay open with others</p>
+              </mat-expansion-panel>
+            </mat-accordion>
+          </div>
+        </div>
+      </div>
+    </mat-expansion-panel>
+
+    <!-- Hide Toggle Indicator -->
+    <mat-expansion-panel>
+      <mat-expansion-panel-header>
+        <mat-panel-title>
+          <mat-icon>code</mat-icon>
+          Hide Toggle Indicator
+        </mat-panel-title>
+        <mat-panel-description>Remove the expansion indicator icon</mat-panel-description>
+      </mat-expansion-panel-header>
+      <div class="example-container">
+        <div class="code-panel">
+          <div class="code-header">
+            <h4>Code</h4>
+            <button mat-icon-button (click)="resetCode('hideToggle')" title="Reset to original">
+              <mat-icon>refresh</mat-icon>
+            </button>
+          </div>
+          <textarea
+            [(ngModel)]="editableCode.hideToggle"
+            class="code-editor"
+            spellcheck="false"
+            readonly></textarea>
+        </div>
+        <div class="preview-panel">
+          <h4>Live Preview</h4>
+          <div class="preview-content">
+            <mat-accordion>
+              <mat-expansion-panel [hideToggle]="true">
+                <mat-expansion-panel-header>
+                  <mat-panel-title>No Toggle Indicator</mat-panel-title>
+                </mat-expansion-panel-header>
+                <p>Panel without toggle indicator</p>
+              </mat-expansion-panel>
+            </mat-accordion>
+          </div>
+        </div>
+      </div>
+    </mat-expansion-panel>
+
+    <!-- Disabled State -->
+    <mat-expansion-panel>
+      <mat-expansion-panel-header>
+        <mat-panel-title>
+          <mat-icon>code</mat-icon>
+          Disabled State
+        </mat-panel-title>
+        <mat-panel-description>Prevent user interaction with panel</mat-panel-description>
+      </mat-expansion-panel-header>
+      <div class="example-container">
+        <div class="code-panel">
+          <div class="code-header">
+            <h4>Code</h4>
+            <button mat-icon-button (click)="resetCode('disabled')" title="Reset to original">
+              <mat-icon>refresh</mat-icon>
+            </button>
+          </div>
+          <textarea
+            [(ngModel)]="editableCode.disabled"
+            class="code-editor"
+            spellcheck="false"
+            readonly></textarea>
+        </div>
+        <div class="preview-panel">
+          <h4>Live Preview</h4>
+          <div class="preview-content">
+            <mat-accordion>
+              <mat-expansion-panel [disabled]="true">
+                <mat-expansion-panel-header>
+                  <mat-panel-title>Disabled Panel</mat-panel-title>
+                </mat-expansion-panel-header>
+                <p>This content cannot be accessed</p>
+              </mat-expansion-panel>
+            </mat-accordion>
+          </div>
+        </div>
+      </div>
+    </mat-expansion-panel>
+
+    <!-- Programmatic Control -->
+    <mat-expansion-panel>
+      <mat-expansion-panel-header>
+        <mat-panel-title>
+          <mat-icon>code</mat-icon>
+          Programmatic Control
+        </mat-panel-title>
+        <mat-panel-description>Control panel state with methods</mat-panel-description>
+      </mat-expansion-panel-header>
+      <div class="example-container">
+        <div class="code-panel">
+          <div class="code-header">
+            <h4>Code</h4>
+            <button mat-icon-button (click)="resetCode('programmatic')" title="Reset to original">
+              <mat-icon>refresh</mat-icon>
+            </button>
+          </div>
+          <textarea
+            [(ngModel)]="editableCode.programmatic"
+            class="code-editor"
+            spellcheck="false"
+            readonly></textarea>
+        </div>
+        <div class="preview-panel">
+          <h4>Live Preview</h4>
+          <div class="preview-content">
+            <mat-accordion>
+              <mat-expansion-panel #panel>
+                <mat-expansion-panel-header>
+                  <mat-panel-title>Programmatically Controlled</mat-panel-title>
+                </mat-expansion-panel-header>
+                <p>Control this panel with methods</p>
+              </mat-expansion-panel>
+            </mat-accordion>
+
+            <div class="control-buttons">
+              <button mat-raised-button (click)="panel.open()">Open</button>
+              <button mat-raised-button (click)="panel.close()">Close</button>
+              <button mat-raised-button (click)="panel.toggle()">Toggle</button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </mat-expansion-panel>
+
+    <!-- Event Handling -->
+    <mat-expansion-panel>
+      <mat-expansion-panel-header>
+        <mat-panel-title>
+          <mat-icon>code</mat-icon>
+          Event Handling
+        </mat-panel-title>
+        <mat-panel-description>Listen to panel state changes</mat-panel-description>
+      </mat-expansion-panel-header>
+      <div class="example-container">
+        <div class="code-panel">
+          <div class="code-header">
+            <h4>Code</h4>
+            <button mat-icon-button (click)="resetCode('events')" title="Reset to original">
+              <mat-icon>refresh</mat-icon>
+            </button>
+          </div>
+          <textarea
+            [(ngModel)]="editableCode.events"
+            class="code-editor"
+            spellcheck="false"
+            readonly></textarea>
+        </div>
+        <div class="preview-panel">
+          <h4>Live Preview</h4>
+          <div class="preview-content">
+            <mat-accordion>
+              <mat-expansion-panel
+                (opened)="onOpened()"
+                (closed)="onClosed()"
+                (afterExpand)="onAfterExpand()"
+                (afterCollapse)="onAfterCollapse()">
+                <mat-expansion-panel-header>
+                  <mat-panel-title>Event Handling</mat-panel-title>
+                </mat-expansion-panel-header>
+                <p>Check console for event logs</p>
+              </mat-expansion-panel>
+            </mat-accordion>
+            <div class="preview-note">
+              <mat-icon>info</mat-icon>
+              <span>Open your browser console to see event logs</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </mat-expansion-panel>
+
+    <!-- Toggle Position -->
+    <mat-expansion-panel>
+      <mat-expansion-panel-header>
+        <mat-panel-title>
+          <mat-icon>code</mat-icon>
+          Toggle Position
+        </mat-panel-title>
+        <mat-panel-description>Position the toggle indicator before the title</mat-panel-description>
+      </mat-expansion-panel-header>
+      <div class="example-container">
+        <div class="code-panel">
+          <div class="code-header">
+            <h4>Code</h4>
+            <button mat-icon-button (click)="resetCode('togglePosition')" title="Reset to original">
+              <mat-icon>refresh</mat-icon>
+            </button>
+          </div>
+          <textarea
+            [(ngModel)]="editableCode.togglePosition"
+            class="code-editor"
+            spellcheck="false"
+            readonly></textarea>
+        </div>
+        <div class="preview-panel">
+          <h4>Live Preview</h4>
+          <div class="preview-content">
+            <mat-accordion>
+              <mat-expansion-panel [togglePosition]="'before'">
+                <mat-expansion-panel-header>
+                  <mat-panel-title>Toggle Before Title</mat-panel-title>
+                </mat-expansion-panel-header>
+                <p>Toggle indicator on the left</p>
+              </mat-expansion-panel>
+            </mat-accordion>
+          </div>
+        </div>
+      </div>
+    </mat-expansion-panel>
+  </mat-accordion>
+</div>

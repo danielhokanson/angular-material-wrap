@@ -1,5 +1,5 @@
 import { Component, ViewEncapsulation } from '@angular/core';
-
+import { BaseApiComponent, ApiDocumentation } from '../base/base-api.component';
 
 @Component({
     selector: 'amw-demo-button-api',
@@ -9,8 +9,8 @@ import { Component, ViewEncapsulation } from '@angular/core';
     templateUrl: './button-api.component.html',
     styleUrl: './button-api.component.scss'
 })
-export class ButtonApiComponent {
-    apiDocumentation = {
+export class ButtonApiComponent extends BaseApiComponent {
+    apiDocumentation: ApiDocumentation = {
         inputs: [
             {
                 name: 'variant',
@@ -71,22 +71,20 @@ export class ButtonApiComponent {
         ],
         outputs: [
             {
-                name: 'click',
-                type: 'EventEmitter<MouseEvent>',
-                description: 'Emitted when the button is clicked'
+                name: 'click', type: 'EventEmitter<MouseEvent>', description: 'Emitted when the button is clicked'
             },
             {
-                name: 'focus',
-                type: 'EventEmitter<FocusEvent>',
-                description: 'Emitted when the button receives focus'
+                name: 'focus', type: 'EventEmitter<FocusEvent>', description: 'Emitted when the button receives focus'
             },
             {
-                name: 'blur',
-                type: 'EventEmitter<FocusEvent>',
-                description: 'Emitted when the button loses focus'
+                name: 'blur', type: 'EventEmitter<FocusEvent>', description: 'Emitted when the button loses focus'
             }
         ]
     };
+
+    constructor() {
+        super();
+    }
 }
 
 

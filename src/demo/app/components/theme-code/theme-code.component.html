@@ -1,0 +1,197 @@
+<div class="code-section">
+  <h3>Code Examples</h3>
+  <p>Interactive examples demonstrating Material Design 3 theming. Edit the code to see real-time changes.</p>
+
+  <mat-accordion class="code-examples-accordion">
+    <!-- Color Palette -->
+    <mat-expansion-panel>
+      <mat-expansion-panel-header>
+        <mat-panel-title>
+          <mat-icon>code</mat-icon>
+          Color Palette Usage
+        </mat-panel-title>
+        <mat-panel-description>Using built-in theme colors</mat-panel-description>
+      </mat-expansion-panel-header>
+      <div class="example-container">
+        <div class="code-panel">
+          <div class="code-header">
+            <h4>Code</h4>
+            <button mat-icon-button (click)="resetCode('colorPalette')" title="Reset to original">
+              <mat-icon>refresh</mat-icon>
+            </button>
+          </div>
+          <textarea
+            [(ngModel)]="editableCode.colorPalette"
+            class="code-editor"
+            spellcheck="false"></textarea>
+        </div>
+        <div class="preview-panel">
+          <h4>Live Preview</h4>
+          <div class="preview-content">
+            <button mat-raised-button color="primary">Primary</button>
+            <button mat-raised-button color="accent">Accent</button>
+            <button mat-raised-button color="warn">Warn</button>
+          </div>
+        </div>
+      </div>
+    </mat-expansion-panel>
+
+    <!-- CSS Variables -->
+    <mat-expansion-panel>
+      <mat-expansion-panel-header>
+        <mat-panel-title>
+          <mat-icon>code</mat-icon>
+          CSS Variables
+        </mat-panel-title>
+        <mat-panel-description>Using Material Design 3 CSS variables</mat-panel-description>
+      </mat-expansion-panel-header>
+      <div class="example-container">
+        <div class="code-panel">
+          <div class="code-header">
+            <h4>Code</h4>
+            <button mat-icon-button (click)="resetCode('cssVariables')" title="Reset to original">
+              <mat-icon>refresh</mat-icon>
+            </button>
+          </div>
+          <textarea
+            [(ngModel)]="editableCode.cssVariables"
+            class="code-editor"
+            spellcheck="false"></textarea>
+        </div>
+        <div class="preview-panel">
+          <h4>Live Preview</h4>
+          <div class="preview-content">
+            <div style="
+              background-color: var(--mdc-theme-primary);
+              color: var(--mdc-theme-on-primary);
+              padding: 16px;
+              border-radius: 8px;">
+              Themed Container
+            </div>
+          </div>
+        </div>
+      </div>
+    </mat-expansion-panel>
+
+    <!-- Component Theming -->
+    <mat-expansion-panel>
+      <mat-expansion-panel-header>
+        <mat-panel-title>
+          <mat-icon>code</mat-icon>
+          Component Theming
+        </mat-panel-title>
+        <mat-panel-description>Applying themes to Material components</mat-panel-description>
+      </mat-expansion-panel-header>
+      <div class="example-container">
+        <div class="code-panel">
+          <div class="code-header">
+            <h4>Code</h4>
+            <button mat-icon-button (click)="resetCode('componentTheming')" title="Reset to original">
+              <mat-icon>refresh</mat-icon>
+            </button>
+          </div>
+          <textarea
+            [(ngModel)]="editableCode.componentTheming"
+            class="code-editor"
+            spellcheck="false"></textarea>
+        </div>
+        <div class="preview-panel">
+          <h4>Live Preview</h4>
+          <div class="preview-content">
+            <mat-card>
+              <mat-card-header>
+                <mat-card-title>Themed Card</mat-card-title>
+              </mat-card-header>
+              <mat-card-content>
+                Content styled with theme colors
+              </mat-card-content>
+              <mat-card-actions>
+                <button mat-button color="primary">Action</button>
+              </mat-card-actions>
+            </mat-card>
+          </div>
+        </div>
+      </div>
+    </mat-expansion-panel>
+
+    <!-- Dark Mode -->
+    <mat-expansion-panel>
+      <mat-expansion-panel-header>
+        <mat-panel-title>
+          <mat-icon>code</mat-icon>
+          Dark Mode
+        </mat-panel-title>
+        <mat-panel-description>Implementing dark theme support</mat-panel-description>
+      </mat-expansion-panel-header>
+      <div class="example-container">
+        <div class="code-panel">
+          <div class="code-header">
+            <h4>Code</h4>
+            <button mat-icon-button (click)="resetCode('darkMode')" title="Reset to original">
+              <mat-icon>refresh</mat-icon>
+            </button>
+          </div>
+          <textarea
+            [(ngModel)]="editableCode.darkMode"
+            class="code-editor"
+            spellcheck="false"></textarea>
+        </div>
+        <div class="preview-panel">
+          <h4>Live Preview</h4>
+          <div class="preview-content">
+            <div class="dark-theme">
+              <mat-card>
+                <mat-card-content>
+                  This content adapts to dark theme
+                </mat-card-content>
+              </mat-card>
+            </div>
+            <div class="preview-note">
+              <mat-icon>info</mat-icon>
+              <span>Note: Full dark mode requires global theme configuration</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </mat-expansion-panel>
+
+    <!-- Custom Theme -->
+    <mat-expansion-panel>
+      <mat-expansion-panel-header>
+        <mat-panel-title>
+          <mat-icon>code</mat-icon>
+          Custom Theme
+        </mat-panel-title>
+        <mat-panel-description>Creating custom theme overrides</mat-panel-description>
+      </mat-expansion-panel-header>
+      <div class="example-container">
+        <div class="code-panel">
+          <div class="code-header">
+            <h4>Code</h4>
+            <button mat-icon-button (click)="resetCode('customTheme')" title="Reset to original">
+              <mat-icon>refresh</mat-icon>
+            </button>
+          </div>
+          <textarea
+            [(ngModel)]="editableCode.customTheme"
+            class="code-editor"
+            spellcheck="false"></textarea>
+        </div>
+        <div class="preview-panel">
+          <h4>Live Preview</h4>
+          <div class="preview-content">
+            <div class="custom-theme" style="--mdc-theme-primary: #ff5722; --mdc-theme-on-primary: #ffffff;">
+              <button mat-raised-button color="primary">
+                Custom Primary Color
+              </button>
+            </div>
+            <div class="preview-note">
+              <mat-icon>info</mat-icon>
+              <span>Note: CSS variables can be scoped to specific elements</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </mat-expansion-panel>
+  </mat-accordion>
+</div>

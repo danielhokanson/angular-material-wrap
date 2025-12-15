@@ -1,4 +1,5 @@
-import { Component, OnInit } from '@angular/core';
+import { Component } from '@angular/core';
+import { BaseApiComponent, ApiDocumentation } from '../base/base-api.component';
 
 import { MatCardModule } from '@angular/material/card';
 import { MatTabsModule } from '@angular/material/tabs';
@@ -21,7 +22,12 @@ import { MatIconModule } from '@angular/material/icon';
     templateUrl: './radio-group-api.component.html',
     styleUrl: './radio-group-api.component.scss'
 })
-export class RadioGroupApiComponent implements OnInit {
+export class RadioGroupApiComponent extends BaseApiComponent {
+    apiDocumentation: ApiDocumentation = {
+        inputs: [],
+        outputs: []
+    };
+
     // Input properties documentation
     readonly inputProperties = [
         {
@@ -106,15 +112,11 @@ export class RadioGroupApiComponent implements OnInit {
     // Output properties documentation
     readonly outputProperties = [
         {
-            name: 'valueChange',
-            type: 'EventEmitter<any>',
-            description: 'Emitted when the selected value changes',
+            name: 'valueChange', returns: 'EventEmitter<any>', description: 'Emitted when the selected value changes',
             parameters: ['value: any - The new selected value']
         },
         {
-            name: 'selectionChange',
-            type: 'EventEmitter<RadioGroupOption>',
-            description: 'Emitted when a radio button is selected',
+            name: 'selectionChange', returns: 'EventEmitter<RadioGroupOption>', description: 'Emitted when a radio button is selected',
             parameters: ['option: RadioGroupOption - The selected option object']
         }
     ];
@@ -125,24 +127,24 @@ export class RadioGroupApiComponent implements OnInit {
             name: 'RadioGroupOption',
             description: 'Interface for radio group option objects',
             properties: [
-                { name: 'value', type: 'any', description: 'The value of the option' },
-                { name: 'label', type: 'string', description: 'Display label for the option' },
-                { name: 'disabled?', type: 'boolean', description: 'Whether the option is disabled' },
-                { name: 'icon?', type: 'string', description: 'Material icon name for the option' },
-                { name: 'description?', type: 'string', description: 'Additional description text' }
+                { name: 'value', returns: 'any', description: 'The value of the option' },
+                { name: 'label', returns: 'string', description: 'Display label for the option' },
+                { name: 'disabled?', returns: 'boolean', description: 'Whether the option is disabled' },
+                { name: 'icon?', returns: 'string', description: 'Material icon name for the option' },
+                { name: 'description?', returns: 'string', description: 'Additional description text' }
             ]
         },
         {
             name: 'RadioGroupConfig',
             description: 'Interface for radio group configuration objects',
             properties: [
-                { name: 'options', type: 'RadioGroupOption[]', description: 'Array of radio button options' },
-                { name: 'size?', type: 'AmwSize', description: 'Size of the radio group' },
-                { name: 'label?', type: 'string', description: 'Label text for the radio group' },
-                { name: 'hint?', type: 'string', description: 'Hint text for the radio group' },
-                { name: 'disabled?', type: 'boolean', description: 'Whether the radio group is disabled' },
-                { name: 'required?', type: 'boolean', description: 'Whether the radio group is required' },
-                { name: 'name?', type: 'string', description: 'Name attribute for the radio group' },
+                { name: 'options', returns: 'RadioGroupOption[]', description: 'Array of radio button options' },
+                { name: 'size?', returns: 'AmwSize', description: 'Size of the radio group' },
+                { name: 'label?', returns: 'string', description: 'Label text for the radio group' },
+                { name: 'hint?', returns: 'string', description: 'Hint text for the radio group' },
+                { name: 'disabled?', returns: 'boolean', description: 'Whether the radio group is disabled' },
+                { name: 'required?', returns: 'boolean', description: 'Whether the radio group is required' },
+                { name: 'name?', returns: 'string', description: 'Name attribute for the radio group' },
                 { name: 'orientation?', type: "'horizontal' | 'vertical'", description: 'Layout orientation' },
                 { name: 'color?', type: "'primary' | 'accent' | 'warn'", description: 'Color theme' }
             ]
@@ -152,33 +154,23 @@ export class RadioGroupApiComponent implements OnInit {
     // Method documentation
     readonly methods = [
         {
-            name: 'onRadioChange(value: any)',
-            type: 'void',
-            description: 'Handles radio button selection change',
+            name: 'onRadioChange(value: any)', returns: 'void', description: 'Handles radio button selection change',
             parameters: ['value: any - The selected value']
         },
         {
-            name: 'onFocus()',
-            type: 'void',
-            description: 'Handles focus events',
+            name: 'onFocus()', returns: 'void', description: 'Handles focus events',
             parameters: []
         },
         {
-            name: 'onBlur()',
-            type: 'void',
-            description: 'Handles blur events',
+            name: 'onBlur()', returns: 'void', description: 'Handles blur events',
             parameters: []
         },
         {
-            name: 'getRadioGroupClasses()',
-            type: 'string',
-            description: 'Returns CSS classes for the radio group',
+            name: 'getRadioGroupClasses()', returns: 'string', description: 'Returns CSS classes for the radio group',
             parameters: []
         },
         {
-            name: 'getRadioButtonClasses(option: RadioGroupOption)',
-            type: 'string',
-            description: 'Returns CSS classes for individual radio buttons',
+            name: 'getRadioButtonClasses(option: RadioGroupOption)', returns: 'string', description: 'Returns CSS classes for individual radio buttons',
             parameters: ['option: RadioGroupOption - The option object']
         }
     ];
@@ -186,32 +178,24 @@ export class RadioGroupApiComponent implements OnInit {
     // ControlValueAccessor methods
     readonly controlValueAccessorMethods = [
         {
-            name: 'writeValue(value: any)',
-            type: 'void',
-            description: 'Writes a new value to the element',
+            name: 'writeValue(value: any)', returns: 'void', description: 'Writes a new value to the element',
             parameters: ['value: any - The new value']
         },
         {
-            name: 'registerOnChange(fn: (value: any) => void)',
-            type: 'void',
-            description: 'Registers a callback function for value changes',
+            name: 'registerOnChange(fn: (value: any) => void)', returns: 'void', description: 'Registers a callback function for value changes',
             parameters: ['fn: (value: any) => void - The callback function']
         },
         {
-            name: 'registerOnTouched(fn: () => void)',
-            type: 'void',
-            description: 'Registers a callback function for touch events',
+            name: 'registerOnTouched(fn: () => void)', returns: 'void', description: 'Registers a callback function for touch events',
             parameters: ['fn: () => void - The callback function']
         },
         {
-            name: 'setDisabledState(isDisabled: boolean)',
-            type: 'void',
-            description: 'Sets the disabled state of the element',
+            name: 'setDisabledState(isDisabled: boolean)', returns: 'void', description: 'Sets the disabled state of the element',
             parameters: ['isDisabled: boolean - Whether the element is disabled']
         }
     ];
 
-    constructor() { }
-
-    ngOnInit(): void { }
+    constructor() {
+        super();
+    }
 }

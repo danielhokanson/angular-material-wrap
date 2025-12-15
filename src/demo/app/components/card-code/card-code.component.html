@@ -1,41 +1,188 @@
-<div class="card-code">
-  <mat-card>
-    <mat-card-header>
-      <mat-card-title>Card Code Examples</mat-card-title>
-      <mat-card-subtitle>Implementation examples and code snippets</mat-card-subtitle>
-    </mat-card-header>
+<div class="code-section">
+  <h3>Code Examples</h3>
+  <p>Interactive examples with live previews. The code is editable for reference, and working examples are shown alongside.</p>
 
-    <mat-card-content>
-      <mat-tab-group>
-        @for (example of codeExamples | keyvalue; track example) {
-          <mat-tab [label]="example.value.title">
-            <div class="card-code__tab-content">
-              <h3>{{ example.value.title }}</h3>
-              <p>{{ example.value.description }}</p>
-              <div class="card-code__example">
-                <h4>HTML Template</h4>
-                <div class="card-code__code-block">
-                  <button mat-icon-button class="card-code__copy-btn" (click)="copyToClipboard(example.value.html)">
-                    <mat-icon>content_copy</mat-icon>
-                  </button>
-                  <pre><code>{{ example.value.html }}</code></pre>
-                </div>
-              </div>
-              <div class="card-code__example">
-                <h4>TypeScript Component</h4>
-                <div class="card-code__code-block">
-                  <button mat-icon-button class="card-code__copy-btn" (click)="copyToClipboard(example.value.typescript)">
-                    <mat-icon>content_copy</mat-icon>
-                  </button>
-                  <pre><code>{{ example.value.typescript }}</code></pre>
-                </div>
-              </div>
+  <mat-accordion class="code-examples-accordion">
+    <!-- Basic Card -->
+    <mat-expansion-panel>
+      <mat-expansion-panel-header>
+        <mat-panel-title>
+          <mat-icon>code</mat-icon>
+          Basic Card
+        </mat-panel-title>
+        <mat-panel-description>Simple card with title, subtitle, and content</mat-panel-description>
+      </mat-expansion-panel-header>
+      <div class="example-container">
+        <div class="code-panel">
+          <div class="code-header">
+            <h4>Code</h4>
+            <button mat-icon-button (click)="resetCode('basic')" title="Reset to original">
+              <mat-icon>refresh</mat-icon>
+            </button>
+          </div>
+          <textarea
+            [(ngModel)]="editableCode.basic"
+            class="code-editor"
+            spellcheck="false"></textarea>
+        </div>
+        <div class="preview-panel">
+          <h4>Live Preview</h4>
+          <div class="preview-content">
+            <mat-card>
+              <mat-card-header>
+                <mat-card-title>Card Title</mat-card-title>
+                <mat-card-subtitle>Card subtitle</mat-card-subtitle>
+              </mat-card-header>
+              <mat-card-content>
+                <p>This is a basic card with title, subtitle, and content.</p>
+              </mat-card-content>
+              <mat-card-actions>
+                <button mat-button>ACTION 1</button>
+                <button mat-button>ACTION 2</button>
+              </mat-card-actions>
+            </mat-card>
+          </div>
+        </div>
+      </div>
+    </mat-expansion-panel>
+
+    <!-- Card with Image -->
+    <mat-expansion-panel>
+      <mat-expansion-panel-header>
+        <mat-panel-title>
+          <mat-icon>code</mat-icon>
+          Card with Image
+        </mat-panel-title>
+        <mat-panel-description>Card featuring an image with content</mat-panel-description>
+      </mat-expansion-panel-header>
+      <div class="example-container">
+        <div class="code-panel">
+          <div class="code-header">
+            <h4>Code</h4>
+            <button mat-icon-button (click)="resetCode('withImage')" title="Reset to original">
+              <mat-icon>refresh</mat-icon>
+            </button>
+          </div>
+          <textarea
+            [(ngModel)]="editableCode.withImage"
+            class="code-editor"
+            spellcheck="false"
+            readonly></textarea>
+        </div>
+        <div class="preview-panel">
+          <h4>Live Preview</h4>
+          <div class="preview-content">
+            <mat-card>
+              <mat-card-header>
+                <mat-card-title>Shiba Inu</mat-card-title>
+                <mat-card-subtitle>Dog Breed</mat-card-subtitle>
+              </mat-card-header>
+              <img mat-card-image src="https://material.angular.io/assets/img/examples/shiba2.jpg" alt="Photo of a Shiba Inu">
+              <mat-card-content>
+                <p>The Shiba Inu is the smallest of the six original and distinct spitz breeds of dog from Japan.</p>
+              </mat-card-content>
+              <mat-card-actions>
+                <button mat-button>LIKE</button>
+                <button mat-button>SHARE</button>
+              </mat-card-actions>
+            </mat-card>
+          </div>
+        </div>
+      </div>
+    </mat-expansion-panel>
+
+    <!-- Clickable Card -->
+    <mat-expansion-panel>
+      <mat-expansion-panel-header>
+        <mat-panel-title>
+          <mat-icon>code</mat-icon>
+          Clickable Card
+        </mat-panel-title>
+        <mat-panel-description>Interactive card that responds to clicks</mat-panel-description>
+      </mat-expansion-panel-header>
+      <div class="example-container">
+        <div class="code-panel">
+          <div class="code-header">
+            <h4>Code</h4>
+            <button mat-icon-button (click)="resetCode('clickable')" title="Reset to original">
+              <mat-icon>refresh</mat-icon>
+            </button>
+          </div>
+          <textarea
+            [(ngModel)]="editableCode.clickable"
+            class="code-editor"
+            spellcheck="false"
+            readonly></textarea>
+        </div>
+        <div class="preview-panel">
+          <h4>Live Preview</h4>
+          <div class="preview-content">
+            <mat-card class="example-card" (click)="onCardClick()">
+              <mat-card-header>
+                <mat-card-title>Interactive Card</mat-card-title>
+                <mat-card-subtitle>Click anywhere on this card</mat-card-subtitle>
+              </mat-card-header>
+              <mat-card-content>
+                <p>This entire card is clickable and will respond to user interactions.</p>
+              </mat-card-content>
+            </mat-card>
+            <div class="preview-note">
+              <mat-icon>info</mat-icon>
+              <span>Open your browser console to see click events</span>
             </div>
-          </mat-tab>
-        }
-      </mat-tab-group>
-    </mat-card-content>
-  </mat-card>
+          </div>
+        </div>
+      </div>
+    </mat-expansion-panel>
+
+    <!-- Card Variants -->
+    <mat-expansion-panel>
+      <mat-expansion-panel-header>
+        <mat-panel-title>
+          <mat-icon>code</mat-icon>
+          Card Variants
+        </mat-panel-title>
+        <mat-panel-description>Different card styles and appearances</mat-panel-description>
+      </mat-expansion-panel-header>
+      <div class="example-container">
+        <div class="code-panel">
+          <div class="code-header">
+            <h4>Code</h4>
+            <button mat-icon-button (click)="resetCode('variants')" title="Reset to original">
+              <mat-icon>refresh</mat-icon>
+            </button>
+          </div>
+          <textarea
+            [(ngModel)]="editableCode.variants"
+            class="code-editor"
+            spellcheck="false"
+            readonly></textarea>
+        </div>
+        <div class="preview-panel">
+          <h4>Live Preview</h4>
+          <div class="preview-content">
+            <div class="card-variants-container">
+              <mat-card appearance="outlined">
+                <mat-card-header>
+                  <mat-card-title>Outlined Card</mat-card-title>
+                </mat-card-header>
+                <mat-card-content>
+                  <p>This card uses an outlined appearance.</p>
+                </mat-card-content>
+              </mat-card>
+
+              <mat-card appearance="raised">
+                <mat-card-header>
+                  <mat-card-title>Raised Card</mat-card-title>
+                </mat-card-header>
+                <mat-card-content>
+                  <p>This card uses a raised appearance with elevation.</p>
+                </mat-card-content>
+              </mat-card>
+            </div>
+          </div>
+        </div>
+      </div>
+    </mat-expansion-panel>
+  </mat-accordion>
 </div>
-
-

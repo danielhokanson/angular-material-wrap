@@ -7,30 +7,21 @@
   }
 
   <div class="amw-range-slider__container">
-    <!-- Start Value Slider -->
+    <!-- Range Slider with Start and End Thumbs -->
     <mat-slider
-      class="amw-range-slider__slider amw-range-slider__slider--start"
+      class="amw-range-slider__slider"
       [min]="min"
       [max]="max"
       [step]="step"
       [disabled]="disabled"
       [showTickMarks]="showTicks"
-      [color]="getMaterialColor()"
-      [ngModel]="startValue"
-      (ngModelChange)="onStartValueChange($event)">
-    </mat-slider>
-
-    <!-- End Value Slider -->
-    <mat-slider
-      class="amw-range-slider__slider amw-range-slider__slider--end"
-      [min]="min"
-      [max]="max"
-      [step]="step"
-      [disabled]="disabled"
-      [showTickMarks]="showTicks"
-      [color]="getMaterialColor()"
-      [ngModel]="endValue"
-      (ngModelChange)="onEndValueChange($event)">
+      [color]="getMaterialColor()">
+      <input matSliderStartThumb
+        [ngModel]="startValue"
+        (ngModelChange)="onStartValueChange($event)">
+      <input matSliderEndThumb
+        [ngModel]="endValue"
+        (ngModelChange)="onEndValueChange($event)">
     </mat-slider>
   </div>
 

@@ -1,20 +1,324 @@
-<div class="amw-demo-autocomplete-code">
-  <div class="code-section">
-    <h3 class="code-section__title">Autocomplete Code Examples</h3>
-    <p class="code-section__description">
-      Copy and paste these code examples to use the amw-autocomplete component in your projects.
-    </p>
+<div class="code-section">
+  <h3>Code Examples</h3>
+  <p>Interactive examples with live previews. The code is editable for reference, and working examples are shown alongside.</p>
 
-    @for (example of codeExamples | keyvalue; track example) {
-      <mat-expansion-panel class="code-example">
-        <mat-expansion-panel-header>
-          <mat-panel-title>{{ example.value.title }}</mat-panel-title>
-          <mat-panel-description>{{ example.value.description }}</mat-panel-description>
-        </mat-expansion-panel-header>
-        <div class="code-content">
-          <pre><code>{{ example.value.code }}</code></pre>
+  <mat-accordion class="code-examples-accordion">
+    <!-- Basic Autocomplete -->
+    <mat-expansion-panel>
+      <mat-expansion-panel-header>
+        <mat-panel-title>
+          <mat-icon>code</mat-icon>
+          Basic Autocomplete
+        </mat-panel-title>
+        <mat-panel-description>A simple autocomplete with predefined options</mat-panel-description>
+      </mat-expansion-panel-header>
+      <div class="example-container">
+        <div class="code-panel">
+          <div class="code-header">
+            <h4>Code</h4>
+            <button mat-icon-button (click)="resetCode('basic')" title="Reset to original">
+              <mat-icon>refresh</mat-icon>
+            </button>
+          </div>
+          <textarea
+            [(ngModel)]="editableCode.basic"
+            class="code-editor"
+            spellcheck="false"></textarea>
         </div>
-      </mat-expansion-panel>
-    }
-  </div>
+        <div class="preview-panel">
+          <h4>Live Preview</h4>
+          <div class="preview-content">
+            <mat-form-field appearance="outline">
+              <mat-label>Country</mat-label>
+              <input matInput
+                [(ngModel)]="countryValue"
+                placeholder="Select your country..."
+                [matAutocomplete]="auto">
+              <mat-autocomplete #auto="matAutocomplete">
+                @for (country of countries; track country) {
+                  <mat-option [value]="country">{{country}}</mat-option>
+                }
+              </mat-autocomplete>
+            </mat-form-field>
+          </div>
+        </div>
+      </div>
+    </mat-expansion-panel>
+
+    <!-- Autocomplete with Validation -->
+    <mat-expansion-panel>
+      <mat-expansion-panel-header>
+        <mat-panel-title>
+          <mat-icon>code</mat-icon>
+          Autocomplete with Validation
+        </mat-panel-title>
+        <mat-panel-description>Autocomplete with required validation</mat-panel-description>
+      </mat-expansion-panel-header>
+      <div class="example-container">
+        <div class="code-panel">
+          <div class="code-header">
+            <h4>Code</h4>
+            <button mat-icon-button (click)="resetCode('withValidation')" title="Reset to original">
+              <mat-icon>refresh</mat-icon>
+            </button>
+          </div>
+          <textarea
+            [(ngModel)]="editableCode.withValidation"
+            class="code-editor"
+            spellcheck="false"
+            readonly></textarea>
+        </div>
+        <div class="preview-panel">
+          <h4>Live Preview</h4>
+          <div class="preview-content">
+            <mat-form-field appearance="outline">
+              <mat-label>Country</mat-label>
+              <input matInput
+                placeholder="Select your country..."
+                required
+                [matAutocomplete]="autoValidation">
+              <mat-autocomplete #autoValidation="matAutocomplete">
+                @for (country of countries; track country) {
+                  <mat-option [value]="country">{{country}}</mat-option>
+                }
+              </mat-autocomplete>
+              <mat-hint>Country is required</mat-hint>
+            </mat-form-field>
+          </div>
+        </div>
+      </div>
+    </mat-expansion-panel>
+
+    <!-- Autocomplete with Filtering -->
+    <mat-expansion-panel>
+      <mat-expansion-panel-header>
+        <mat-panel-title>
+          <mat-icon>code</mat-icon>
+          Autocomplete with Filtering
+        </mat-panel-title>
+        <mat-panel-description>Autocomplete that filters options as you type</mat-panel-description>
+      </mat-expansion-panel-header>
+      <div class="example-container">
+        <div class="code-panel">
+          <div class="code-header">
+            <h4>Code</h4>
+            <button mat-icon-button (click)="resetCode('withFiltering')" title="Reset to original">
+              <mat-icon>refresh</mat-icon>
+            </button>
+          </div>
+          <textarea
+            [(ngModel)]="editableCode.withFiltering"
+            class="code-editor"
+            spellcheck="false"
+            readonly></textarea>
+        </div>
+        <div class="preview-panel">
+          <h4>Live Preview</h4>
+          <div class="preview-content">
+            <mat-form-field appearance="outline">
+              <mat-label>Search Skills</mat-label>
+              <input matInput
+                [(ngModel)]="skillValue"
+                (input)="filterSkills($event)"
+                placeholder="Type to search skills..."
+                [matAutocomplete]="autoFilter">
+              <mat-autocomplete #autoFilter="matAutocomplete">
+                @for (skill of filteredSkills; track skill) {
+                  <mat-option [value]="skill">{{skill}}</mat-option>
+                }
+              </mat-autocomplete>
+            </mat-form-field>
+          </div>
+        </div>
+      </div>
+    </mat-expansion-panel>
+
+    <!-- Multiple Selection -->
+    <mat-expansion-panel>
+      <mat-expansion-panel-header>
+        <mat-panel-title>
+          <mat-icon>code</mat-icon>
+          Multiple Selection
+        </mat-panel-title>
+        <mat-panel-description>Autocomplete allowing multiple selections</mat-panel-description>
+      </mat-expansion-panel-header>
+      <div class="example-container">
+        <div class="code-panel">
+          <div class="code-header">
+            <h4>Code</h4>
+            <button mat-icon-button (click)="resetCode('multipleSelection')" title="Reset to original">
+              <mat-icon>refresh</mat-icon>
+            </button>
+          </div>
+          <textarea
+            [(ngModel)]="editableCode.multipleSelection"
+            class="code-editor"
+            spellcheck="false"
+            readonly></textarea>
+        </div>
+        <div class="preview-panel">
+          <h4>Live Preview</h4>
+          <div class="preview-content">
+            <div class="preview-note">
+              <mat-icon>info</mat-icon>
+              <span>This example shows code for multiple selection with chips</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </mat-expansion-panel>
+
+    <!-- Custom Display Format -->
+    <mat-expansion-panel>
+      <mat-expansion-panel-header>
+        <mat-panel-title>
+          <mat-icon>code</mat-icon>
+          Custom Display Format
+        </mat-panel-title>
+        <mat-panel-description>Autocomplete with custom option display</mat-panel-description>
+      </mat-expansion-panel-header>
+      <div class="example-container">
+        <div class="code-panel">
+          <div class="code-header">
+            <h4>Code</h4>
+            <button mat-icon-button (click)="resetCode('withCustomDisplay')" title="Reset to original">
+              <mat-icon>refresh</mat-icon>
+            </button>
+          </div>
+          <textarea
+            [(ngModel)]="editableCode.withCustomDisplay"
+            class="code-editor"
+            spellcheck="false"
+            readonly></textarea>
+        </div>
+        <div class="preview-panel">
+          <h4>Live Preview</h4>
+          <div class="preview-content">
+            <div class="preview-note">
+              <mat-icon>info</mat-icon>
+              <span>This example shows code for custom display formatting</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </mat-expansion-panel>
+
+    <!-- Reactive Form Integration -->
+    <mat-expansion-panel>
+      <mat-expansion-panel-header>
+        <mat-panel-title>
+          <mat-icon>code</mat-icon>
+          Reactive Form Integration
+        </mat-panel-title>
+        <mat-panel-description>Using autocomplete with Angular reactive forms</mat-panel-description>
+      </mat-expansion-panel-header>
+      <div class="example-container">
+        <div class="code-panel">
+          <div class="code-header">
+            <h4>Code</h4>
+            <button mat-icon-button (click)="resetCode('reactiveForm')" title="Reset to original">
+              <mat-icon>refresh</mat-icon>
+            </button>
+          </div>
+          <textarea
+            [(ngModel)]="editableCode.reactiveForm"
+            class="code-editor"
+            spellcheck="false"
+            readonly></textarea>
+        </div>
+        <div class="preview-panel">
+          <h4>Live Preview</h4>
+          <div class="preview-content">
+            <div class="preview-note">
+              <mat-icon>info</mat-icon>
+              <span>This example shows code for reactive form integration</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </mat-expansion-panel>
+
+    <!-- Autocomplete with Events -->
+    <mat-expansion-panel>
+      <mat-expansion-panel-header>
+        <mat-panel-title>
+          <mat-icon>code</mat-icon>
+          Autocomplete with Events
+        </mat-panel-title>
+        <mat-panel-description>Autocomplete with event handling</mat-panel-description>
+      </mat-expansion-panel-header>
+      <div class="example-container">
+        <div class="code-panel">
+          <div class="code-header">
+            <h4>Code</h4>
+            <button mat-icon-button (click)="resetCode('withEvents')" title="Reset to original">
+              <mat-icon>refresh</mat-icon>
+            </button>
+          </div>
+          <textarea
+            [(ngModel)]="editableCode.withEvents"
+            class="code-editor"
+            spellcheck="false"
+            readonly></textarea>
+        </div>
+        <div class="preview-panel">
+          <h4>Live Preview</h4>
+          <div class="preview-content">
+            <mat-form-field appearance="outline">
+              <mat-label>Search</mat-label>
+              <input matInput
+                [(ngModel)]="searchValue"
+                (input)="onInputChange($event)"
+                placeholder="Type to search..."
+                [matAutocomplete]="autoEvent">
+              <mat-autocomplete #autoEvent="matAutocomplete" (optionSelected)="onOptionSelected($event)">
+                @for (skill of filteredSkills; track skill) {
+                  <mat-option [value]="skill">{{skill}}</mat-option>
+                }
+              </mat-autocomplete>
+            </mat-form-field>
+            <div class="preview-note">
+              <mat-icon>info</mat-icon>
+              <span>Open your browser console to see event logs</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </mat-expansion-panel>
+
+    <!-- Search Form Example -->
+    <mat-expansion-panel>
+      <mat-expansion-panel-header>
+        <mat-panel-title>
+          <mat-icon>code</mat-icon>
+          Search Form Example
+        </mat-panel-title>
+        <mat-panel-description>Complete search form with multiple autocompletes</mat-panel-description>
+      </mat-expansion-panel-header>
+      <div class="example-container">
+        <div class="code-panel">
+          <div class="code-header">
+            <h4>Code</h4>
+            <button mat-icon-button (click)="resetCode('searchForm')" title="Reset to original">
+              <mat-icon>refresh</mat-icon>
+            </button>
+          </div>
+          <textarea
+            [(ngModel)]="editableCode.searchForm"
+            class="code-editor"
+            spellcheck="false"
+            readonly></textarea>
+        </div>
+        <div class="preview-panel">
+          <h4>Live Preview</h4>
+          <div class="preview-content">
+            <div class="preview-note">
+              <mat-icon>info</mat-icon>
+              <span>This example shows code for a search form with multiple autocompletes</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </mat-expansion-panel>
+  </mat-accordion>
 </div>

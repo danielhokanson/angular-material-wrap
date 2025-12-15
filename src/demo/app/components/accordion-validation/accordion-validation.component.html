@@ -1,0 +1,149 @@
+<div class="validation-section">
+  <h3>Form Validation Examples</h3>
+  <p>Demonstration of accordion panels with form validation in a multi-step wizard pattern.</p>
+
+  <mat-accordion class="validation-accordion">
+    <!-- Step 1: Personal Information -->
+    <mat-expansion-panel [expanded]="step === 0" (opened)="setStep(0)" hideToggle>
+      <mat-expansion-panel-header>
+        <mat-panel-title>
+          <mat-icon>person</mat-icon>
+          Personal Information
+        </mat-panel-title>
+        <mat-panel-description>
+          Enter your basic details
+          @if (personalInfoForm.valid) {
+            <mat-icon class="status-icon status-icon--valid">check_circle</mat-icon>
+          }
+        </mat-panel-description>
+      </mat-expansion-panel-header>
+
+      <form [formGroup]="personalInfoForm">
+        <mat-form-field appearance="outline">
+          <mat-label>First Name</mat-label>
+          <input matInput formControlName="firstName" placeholder="Enter your first name">
+          @if (personalInfoForm.get('firstName')?.invalid && personalInfoForm.get('firstName')?.touched) {
+            <mat-error>{{ getErrorMessage(personalInfoForm, 'firstName') }}</mat-error>
+          }
+        </mat-form-field>
+
+        <mat-form-field appearance="outline">
+          <mat-label>Last Name</mat-label>
+          <input matInput formControlName="lastName" placeholder="Enter your last name">
+          @if (personalInfoForm.get('lastName')?.invalid && personalInfoForm.get('lastName')?.touched) {
+            <mat-error>{{ getErrorMessage(personalInfoForm, 'lastName') }}</mat-error>
+          }
+        </mat-form-field>
+
+        <mat-form-field appearance="outline">
+          <mat-label>Email</mat-label>
+          <input matInput type="email" formControlName="email" placeholder="your@email.com">
+          @if (personalInfoForm.get('email')?.invalid && personalInfoForm.get('email')?.touched) {
+            <mat-error>{{ getErrorMessage(personalInfoForm, 'email') }}</mat-error>
+          }
+        </mat-form-field>
+
+        <div class="button-row">
+          <button mat-raised-button color="primary" (click)="nextStep()" [disabled]="!personalInfoForm.valid">
+            Next <mat-icon>arrow_forward</mat-icon>
+          </button>
+        </div>
+      </form>
+    </mat-expansion-panel>
+
+    <!-- Step 2: Contact Information -->
+    <mat-expansion-panel [expanded]="step === 1" (opened)="setStep(1)" hideToggle>
+      <mat-expansion-panel-header>
+        <mat-panel-title>
+          <mat-icon>contact_phone</mat-icon>
+          Contact Information
+        </mat-panel-title>
+        <mat-panel-description>
+          Add your contact details
+          @if (contactForm.valid) {
+            <mat-icon class="status-icon status-icon--valid">check_circle</mat-icon>
+          }
+        </mat-panel-description>
+      </mat-expansion-panel-header>
+
+      <form [formGroup]="contactForm">
+        <mat-form-field appearance="outline">
+          <mat-label>Phone Number</mat-label>
+          <input matInput formControlName="phone" placeholder="1234567890">
+          @if (contactForm.get('phone')?.invalid && contactForm.get('phone')?.touched) {
+            <mat-error>{{ getErrorMessage(contactForm, 'phone') }}</mat-error>
+          }
+        </mat-form-field>
+
+        <mat-form-field appearance="outline">
+          <mat-label>Address</mat-label>
+          <input matInput formControlName="address" placeholder="123 Main St">
+          @if (contactForm.get('address')?.invalid && contactForm.get('address')?.touched) {
+            <mat-error>{{ getErrorMessage(contactForm, 'address') }}</mat-error>
+          }
+        </mat-form-field>
+
+        <mat-form-field appearance="outline">
+          <mat-label>City</mat-label>
+          <input matInput formControlName="city" placeholder="Your City">
+          @if (contactForm.get('city')?.invalid && contactForm.get('city')?.touched) {
+            <mat-error>{{ getErrorMessage(contactForm, 'city') }}</mat-error>
+          }
+        </mat-form-field>
+
+        <mat-form-field appearance="outline">
+          <mat-label>ZIP Code</mat-label>
+          <input matInput formControlName="zipCode" placeholder="12345">
+          @if (contactForm.get('zipCode')?.invalid && contactForm.get('zipCode')?.touched) {
+            <mat-error>{{ getErrorMessage(contactForm, 'zipCode') }}</mat-error>
+          }
+        </mat-form-field>
+
+        <div class="button-row">
+          <button mat-button (click)="prevStep()">
+            <mat-icon>arrow_back</mat-icon> Previous
+          </button>
+          <button mat-raised-button color="primary" (click)="nextStep()" [disabled]="!contactForm.valid">
+            Next <mat-icon>arrow_forward</mat-icon>
+          </button>
+        </div>
+      </form>
+    </mat-expansion-panel>
+
+    <!-- Step 3: Preferences -->
+    <mat-expansion-panel [expanded]="step === 2" (opened)="setStep(2)" hideToggle>
+      <mat-expansion-panel-header>
+        <mat-panel-title>
+          <mat-icon>settings</mat-icon>
+          Preferences
+        </mat-panel-title>
+        <mat-panel-description>
+          Set your preferences
+          @if (preferencesForm.valid) {
+            <mat-icon class="status-icon status-icon--valid">check_circle</mat-icon>
+          }
+        </mat-panel-description>
+      </mat-expansion-panel-header>
+
+      <form [formGroup]="preferencesForm">
+        <div class="checkbox-group">
+          <mat-checkbox formControlName="newsletter">Subscribe to newsletter</mat-checkbox>
+          <mat-checkbox formControlName="notifications">Enable notifications</mat-checkbox>
+        </div>
+
+        <div class="button-row">
+          <button mat-button (click)="prevStep()">
+            <mat-icon>arrow_back</mat-icon> Previous
+          </button>
+          <button 
+            mat-raised-button 
+            color="primary" 
+            (click)="onSubmit()" 
+            [disabled]="!personalInfoForm.valid || !contactForm.valid || !preferencesForm.valid">
+            Submit <mat-icon>check</mat-icon>
+          </button>
+        </div>
+      </form>
+    </mat-expansion-panel>
+  </mat-accordion>
+</div>

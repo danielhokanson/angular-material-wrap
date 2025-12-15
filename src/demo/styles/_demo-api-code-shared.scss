@@ -1,0 +1,270 @@
+// Shared styles for API and Code demo components
+// This reduces duplication across 40+ component files
+
+.api-section {
+  padding: 24px;
+  max-width: 1400px;
+
+  h3 {
+    font-size: 24px;
+    font-weight: 500;
+    color: var(--mdc-theme-on-surface, #1c1b1f);
+    margin-bottom: 8px;
+  }
+
+  > p {
+    color: var(--mdc-theme-on-surface-variant, #49454f);
+    margin-bottom: 32px;
+    line-height: 1.6;
+    font-size: 14px;
+  }
+
+  h4 {
+    font-size: 18px;
+    font-weight: 500;
+    color: var(--mdc-theme-on-surface, #1c1b1f);
+    margin: 32px 0 16px 0;
+    padding-bottom: 8px;
+    border-bottom: 2px solid var(--mdc-theme-primary, #6750a4);
+  }
+
+  .api-table {
+    background-color: var(--mdc-theme-surface, #ffffff);
+    border: 1px solid var(--mdc-theme-outline-variant, #c4c7c5);
+    border-radius: 12px;
+    overflow: hidden;
+    margin-bottom: 32px;
+    box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.05);
+
+    &__header {
+      display: grid;
+      grid-template-columns: 1.5fr 1.2fr 1fr 2.5fr;
+      background-color: var(--mdc-theme-primary-container, #eaddff);
+      border-bottom: 1px solid var(--mdc-theme-outline-variant, #c4c7c5);
+      font-weight: 600;
+      font-size: 13px;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+      color: var(--mdc-theme-on-primary-container, #21005e);
+    }
+
+    &__row {
+      display: grid;
+      grid-template-columns: 1.5fr 1.2fr 1fr 2.5fr;
+      border-bottom: 1px solid var(--mdc-theme-outline-variant, #e7e0ec);
+      transition: background-color 0.2s ease;
+
+      &:last-child {
+        border-bottom: none;
+      }
+
+      &:hover {
+        background-color: var(--mdc-theme-surface-container-low, #f7f2fa);
+      }
+    }
+
+    &__cell {
+      padding: 16px;
+      border-right: 1px solid var(--mdc-theme-outline-variant, #e7e0ec);
+      color: var(--mdc-theme-on-surface, #1c1b1f);
+      font-size: 14px;
+      line-height: 1.6;
+      display: flex;
+      align-items: flex-start;
+      word-wrap: break-word;
+      overflow-wrap: break-word;
+
+      &:last-child {
+        border-right: none;
+      }
+
+      &--property {
+        font-family: 'Roboto Mono', monospace;
+        font-weight: 600;
+        color: var(--mdc-theme-primary, #6750a4);
+        font-size: 13px;
+      }
+
+      &--type {
+        font-family: 'Roboto Mono', monospace;
+        color: var(--mdc-theme-tertiary, #7d5260);
+        font-size: 13px;
+      }
+
+      &--default {
+        font-family: 'Roboto Mono', monospace;
+        color: var(--mdc-theme-on-surface-variant, #49454f);
+        font-size: 12px;
+      }
+
+      &--description {
+        line-height: 1.7;
+        color: var(--mdc-theme-on-surface-variant, #49454f);
+      }
+
+      code {
+        background-color: var(--mdc-theme-surface-container-high, #ece6f0);
+        padding: 2px 6px;
+        border-radius: 4px;
+        font-family: 'Roboto Mono', monospace;
+        font-size: 12px;
+        color: var(--mdc-theme-on-surface, #1c1b1f);
+      }
+    }
+
+    &__options {
+      margin-top: 8px;
+      padding: 8px 12px;
+      background-color: var(--mdc-theme-surface-container, #f3edf7);
+      border-left: 3px solid var(--mdc-theme-primary, #6750a4);
+      border-radius: 4px;
+      font-size: 12px;
+      line-height: 1.5;
+
+      strong {
+        color: var(--mdc-theme-on-surface, #1c1b1f);
+        font-weight: 600;
+      }
+    }
+
+    // Responsive: 3 columns on tablets
+    @media (max-width: 1024px) {
+      &__header,
+      &__row {
+        grid-template-columns: 1.5fr 1.5fr 2fr;
+
+        .api-table__cell:nth-child(3) {
+          display: none;
+        }
+      }
+    }
+
+    // Responsive: Stack on mobile
+    @media (max-width: 768px) {
+      &__header {
+        display: none;
+      }
+
+      &__row {
+        display: flex;
+        flex-direction: column;
+        padding: 12px;
+        gap: 8px;
+
+        &:not(:last-child) {
+          border-bottom: 2px solid var(--mdc-theme-outline-variant, #e7e0ec);
+        }
+      }
+
+      &__cell {
+        border-right: none !important;
+        padding: 0;
+
+        &--property::before {
+          content: 'Property: ';
+          font-weight: 700;
+          color: var(--mdc-theme-on-surface, #1c1b1f);
+        }
+
+        &--type::before {
+          content: 'Type: ';
+          font-weight: 700;
+          color: var(--mdc-theme-on-surface, #1c1b1f);
+        }
+
+        &--default::before {
+          content: 'Default: ';
+          font-weight: 700;
+          color: var(--mdc-theme-on-surface, #1c1b1f);
+        }
+
+        &--description::before {
+          content: 'Description: ';
+          font-weight: 700;
+          color: var(--mdc-theme-on-surface, #1c1b1f);
+          display: block;
+          margin-bottom: 4px;
+        }
+      }
+    }
+  }
+
+  &__usage {
+    ul {
+      list-style: none;
+      padding: 0;
+      margin: 0;
+
+      li {
+        padding: 12px 16px;
+        margin-bottom: 8px;
+        background-color: var(--mdc-theme-surface-container-low, #f7f2fa);
+        border-left: 4px solid var(--mdc-theme-primary, #6750a4);
+        border-radius: 4px;
+        line-height: 1.6;
+        font-size: 14px;
+
+        strong {
+          color: var(--mdc-theme-primary, #6750a4);
+          font-weight: 600;
+        }
+
+        code {
+          background-color: var(--mdc-theme-surface-container-high, #ece6f0);
+          padding: 2px 6px;
+          border-radius: 4px;
+          font-family: 'Roboto Mono', monospace;
+          font-size: 12px;
+        }
+      }
+    }
+  }
+}
+
+// Code examples section
+.code-section {
+  padding: 24px;
+
+  h3 {
+    font-size: 24px;
+    font-weight: 500;
+    color: var(--mdc-theme-on-surface, #1c1b1f);
+    margin-bottom: 8px;
+  }
+
+  > p {
+    color: var(--mdc-theme-on-surface-variant, #49454f);
+    margin-bottom: 24px;
+    line-height: 1.6;
+  }
+
+  mat-expansion-panel {
+    margin-bottom: 16px;
+    border-radius: 12px !important;
+    box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.1) !important;
+
+    mat-expansion-panel-header {
+      font-weight: 500;
+      font-size: 15px;
+    }
+  }
+
+  pre {
+    margin: 0;
+    padding: 20px;
+    background-color: #282c34 !important;
+    border-radius: 8px;
+    overflow-x: auto;
+    box-shadow: inset 0 2px 4px 0 rgba(0, 0, 0, 0.1);
+
+    code {
+      font-family: 'Roboto Mono', 'Courier New', monospace;
+      font-size: 13px;
+      line-height: 1.6;
+      color: #abb2bf;
+      display: block;
+      white-space: pre;
+      tab-size: 2;
+    }
+  }
+}

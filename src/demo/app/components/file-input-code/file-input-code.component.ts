@@ -1,33 +1,39 @@
 import { Component, ViewEncapsulation } from '@angular/core';
-
+import { FormsModule } from '@angular/forms';
 import { MatExpansionModule } from '@angular/material/expansion';
-import { MatCardModule } from '@angular/material/card';
+import { MatButtonModule } from '@angular/material/button';
+import { MatIconModule } from '@angular/material/icon';
+import { BaseCodeComponent } from '../base/base-code.component';
+
+type FileInputExamples = 'basic' | 'configured' | 'formControl' | 'validation' | 'dragDrop' | 'fileTypes';
 
 @Component({
   selector: 'amw-demo-file-input-code',
   standalone: true,
-  imports: [MatExpansionModule, MatCardModule],
+  imports: [
+    FormsModule,
+    MatExpansionModule,
+    MatButtonModule,
+    MatIconModule
+  ],
   encapsulation: ViewEncapsulation.None,
   templateUrl: './file-input-code.component.html',
   styleUrl: './file-input-code.component.scss'
 })
-export class FileInputCodeComponent {
-  /** Code examples for the component */
-  readonly codeExamplesArray = Object.values({
-    basic: {
-      title: 'Basic File Input',
-      description: 'Simple file input with default configuration',
-      code: `<amw-file-input
+export class FileInputCodeComponent extends BaseCodeComponent<FileInputExamples> {
+  // State for live preview examples
+  files: File[] = [];
+
+  // Original code examples (for reset functionality)
+  readonly codeExamples: Record<FileInputExamples, string> = {
+    basic: `<amw-file-input
   [(selectedFiles)]="files"
   (filesChange)="onFilesChange($event)"
   (fileSelect)="onFileSelect($event)"
   (fileRemove)="onFileRemove($event)">
-</amw-file-input>`
-    },
-    configured: {
-      title: 'Configured File Input',
-      description: 'File input with custom configuration and restrictions',
-      code: `<amw-file-input
+</amw-file-input>`,
+
+    configured: `<amw-file-input
   [multiple]="true"
   [accept]="'image/*'"
   [maxSize]="5 * 1024 * 1024"
@@ -38,12 +44,9 @@ export class FileInputCodeComponent {
   (filesChange)="onImageFilesChange($event)"
   placeholder="Upload images (max 5MB each)"
   buttonText="Choose Images">
-</amw-file-input>`
-    },
-    formControl: {
-      title: 'Reactive Form Integration',
-      description: 'File input integrated with Angular reactive forms',
-      code: `// Component
+</amw-file-input>`,
+
+    formControl: `// Component
 export class MyComponent {
   form = this.fb.group({
     profileImage: [[], [Validators.required, this.validateFileCount(1)]],
@@ -69,12 +72,9 @@ export class MyComponent {
     [hasError]="form.get('profileImage')?.invalid">
     Profile Image
   </amw-file-input>
-</form>`
-    },
-    validation: {
-      title: 'With Custom Validation',
-      description: 'File input with custom validation and error handling',
-      code: `// Component
+</form>`,
+
+    validation: `// Component
 export class MyComponent {
   form = this.fb.group({
     documents: [[], [Validators.required, this.validateDocuments]]
@@ -83,7 +83,7 @@ export class MyComponent {
   validateDocuments(control: any) {
     const files = control.value as File[];
     if (!files || files.length === 0) return { required: true };
-    
+
     for (const file of files) {
       if (!file.type.includes('pdf') && !file.name.endsWith('.pdf')) {
         return { invalidFileType: true };
@@ -114,12 +114,9 @@ export class MyComponent {
     [errorMessage]="getErrorMessage('documents')">
     Upload Documents
   </amw-file-input>
-</form>`
-    },
-    dragDrop: {
-      title: 'Drag & Drop Configuration',
-      description: 'File input with drag and drop functionality',
-      code: `<amw-file-input
+</form>`,
+
+    dragDrop: `<amw-file-input
   [allowDragDrop]="true"
   [multiple]="true"
   [accept]="'*/*'"
@@ -127,12 +124,9 @@ export class MyComponent {
   (filesChange)="onFilesChange($event)"
   placeholder="Drag and drop files here or click to browse"
   dropText="Drop files here to upload">
-</amw-file-input>`
-    },
-    fileTypes: {
-      title: 'File Type Restrictions',
-      description: 'Different file type restrictions and MIME types',
-      code: `<!-- Images only -->
+</amw-file-input>`,
+
+    fileTypes: `<!-- Images only -->
 <amw-file-input [accept]="'image/*'">Images</amw-file-input>
 
 <!-- Specific extensions -->
@@ -146,8 +140,24 @@ export class MyComponent {
 
 <!-- Video files -->
 <amw-file-input [accept]="'video/*'">Video Files</amw-file-input>`
-    }
-  });
+  };
+
+  constructor() {
+    super();
+  }
+
+  // Event handlers for file input
+  onFilesChange(files: File[]): void {
+    console.log('Files changed:', files);
+  }
+
+  onFileSelect(file: File): void {
+    console.log('File selected:', file);
+  }
+
+  onFileRemove(file: File): void {
+    console.log('File removed:', file);
+  }
 }
 
 

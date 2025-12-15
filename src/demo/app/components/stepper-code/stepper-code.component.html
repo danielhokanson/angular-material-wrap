@@ -1,0 +1,368 @@
+<div class="code-section">
+  <h3>Code Examples</h3>
+  <p>Interactive examples with live previews. The code is editable for reference, and working examples are shown alongside.</p>
+
+  <mat-accordion class="code-examples-accordion">
+    <!-- Basic Stepper -->
+    <mat-expansion-panel>
+      <mat-expansion-panel-header>
+        <mat-panel-title>
+          <mat-icon>code</mat-icon>
+          Basic Stepper
+        </mat-panel-title>
+        <mat-panel-description>Simple horizontal stepper with navigation buttons</mat-panel-description>
+      </mat-expansion-panel-header>
+      <div class="example-container">
+        <div class="code-panel">
+          <div class="code-header">
+            <h4>Code</h4>
+            <button mat-icon-button (click)="resetCode('basic')" title="Reset to original">
+              <mat-icon>refresh</mat-icon>
+            </button>
+          </div>
+          <textarea
+            [(ngModel)]="editableCode.basic"
+            class="code-editor"
+            spellcheck="false"
+            readonly></textarea>
+        </div>
+        <div class="preview-panel">
+          <h4>Live Preview</h4>
+          <div class="preview-content">
+            <mat-stepper>
+              <mat-step>
+                <ng-template matStepLabel>Step 1</ng-template>
+                <p>Content for step 1</p>
+                <div class="step-actions">
+                  <button mat-raised-button matStepperNext>Next</button>
+                </div>
+              </mat-step>
+
+              <mat-step>
+                <ng-template matStepLabel>Step 2</ng-template>
+                <p>Content for step 2</p>
+                <div class="step-actions">
+                  <button mat-button matStepperPrevious>Back</button>
+                  <button mat-raised-button matStepperNext>Next</button>
+                </div>
+              </mat-step>
+
+              <mat-step>
+                <ng-template matStepLabel>Step 3</ng-template>
+                <p>You're done!</p>
+                <div class="step-actions">
+                  <button mat-button matStepperPrevious>Back</button>
+                </div>
+              </mat-step>
+            </mat-stepper>
+          </div>
+        </div>
+      </div>
+    </mat-expansion-panel>
+
+    <!-- Linear Stepper -->
+    <mat-expansion-panel>
+      <mat-expansion-panel-header>
+        <mat-panel-title>
+          <mat-icon>code</mat-icon>
+          Linear Stepper
+        </mat-panel-title>
+        <mat-panel-description>Form validation with linear progression</mat-panel-description>
+      </mat-expansion-panel-header>
+      <div class="example-container">
+        <div class="code-panel">
+          <div class="code-header">
+            <h4>Code</h4>
+            <button mat-icon-button (click)="resetCode('linear')" title="Reset to original">
+              <mat-icon>refresh</mat-icon>
+            </button>
+          </div>
+          <textarea
+            [(ngModel)]="editableCode.linear"
+            class="code-editor"
+            spellcheck="false"
+            readonly></textarea>
+        </div>
+        <div class="preview-panel">
+          <h4>Live Preview</h4>
+          <div class="preview-content">
+            <mat-stepper [linear]="true">
+              <mat-step [stepControl]="firstFormGroup">
+                <form [formGroup]="firstFormGroup">
+                  <ng-template matStepLabel>Personal Info</ng-template>
+                  <mat-form-field>
+                    <mat-label>Name</mat-label>
+                    <input matInput formControlName="name" required>
+                  </mat-form-field>
+                  <div class="step-actions">
+                    <button mat-raised-button matStepperNext>Next</button>
+                  </div>
+                </form>
+              </mat-step>
+
+              <mat-step [stepControl]="secondFormGroup">
+                <form [formGroup]="secondFormGroup">
+                  <ng-template matStepLabel>Contact Info</ng-template>
+                  <mat-form-field>
+                    <mat-label>Email</mat-label>
+                    <input matInput formControlName="email" type="email" required>
+                  </mat-form-field>
+                  <div class="step-actions">
+                    <button mat-button matStepperPrevious>Back</button>
+                    <button mat-raised-button matStepperNext>Next</button>
+                  </div>
+                </form>
+              </mat-step>
+
+              <mat-step>
+                <ng-template matStepLabel>Done</ng-template>
+                <p>All information collected!</p>
+                <div class="step-actions">
+                  <button mat-button matStepperPrevious>Back</button>
+                </div>
+              </mat-step>
+            </mat-stepper>
+            <div class="preview-note">
+              <mat-icon>info</mat-icon>
+              <span>Linear mode requires valid form data to proceed</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </mat-expansion-panel>
+
+    <!-- Editable Steps -->
+    <mat-expansion-panel>
+      <mat-expansion-panel-header>
+        <mat-panel-title>
+          <mat-icon>code</mat-icon>
+          Editable Steps
+        </mat-panel-title>
+        <mat-panel-description>Control whether completed steps can be edited</mat-panel-description>
+      </mat-expansion-panel-header>
+      <div class="example-container">
+        <div class="code-panel">
+          <div class="code-header">
+            <h4>Code</h4>
+            <button mat-icon-button (click)="resetCode('editable')" title="Reset to original">
+              <mat-icon>refresh</mat-icon>
+            </button>
+          </div>
+          <textarea
+            [(ngModel)]="editableCode.editable"
+            class="code-editor"
+            spellcheck="false"
+            readonly></textarea>
+        </div>
+        <div class="preview-panel">
+          <h4>Live Preview</h4>
+          <div class="preview-content">
+            <mat-stepper>
+              <mat-step [editable]="true">
+                <ng-template matStepLabel>Editable Step</ng-template>
+                <p>This step can be edited after completion</p>
+                <div class="step-actions">
+                  <button mat-raised-button matStepperNext>Next</button>
+                </div>
+              </mat-step>
+
+              <mat-step [editable]="false">
+                <ng-template matStepLabel>Non-editable Step</ng-template>
+                <p>This step cannot be edited after completion</p>
+                <div class="step-actions">
+                  <button mat-button matStepperPrevious>Back</button>
+                </div>
+              </mat-step>
+            </mat-stepper>
+          </div>
+        </div>
+      </div>
+    </mat-expansion-panel>
+
+    <!-- Optional Steps -->
+    <mat-expansion-panel>
+      <mat-expansion-panel-header>
+        <mat-panel-title>
+          <mat-icon>code</mat-icon>
+          Optional Steps
+        </mat-panel-title>
+        <mat-panel-description>Mark steps as optional in the workflow</mat-panel-description>
+      </mat-expansion-panel-header>
+      <div class="example-container">
+        <div class="code-panel">
+          <div class="code-header">
+            <h4>Code</h4>
+            <button mat-icon-button (click)="resetCode('optional')" title="Reset to original">
+              <mat-icon>refresh</mat-icon>
+            </button>
+          </div>
+          <textarea
+            [(ngModel)]="editableCode.optional"
+            class="code-editor"
+            spellcheck="false"
+            readonly></textarea>
+        </div>
+        <div class="preview-panel">
+          <h4>Live Preview</h4>
+          <div class="preview-content">
+            <mat-stepper>
+              <mat-step>
+                <ng-template matStepLabel>Required Step</ng-template>
+                <p>This step is required</p>
+                <div class="step-actions">
+                  <button mat-raised-button matStepperNext>Next</button>
+                </div>
+              </mat-step>
+
+              <mat-step [optional]="true">
+                <ng-template matStepLabel>Optional Step</ng-template>
+                <p>This step is optional</p>
+                <div class="step-actions">
+                  <button mat-button matStepperPrevious>Back</button>
+                  <button mat-raised-button matStepperNext>Next</button>
+                </div>
+              </mat-step>
+
+              <mat-step>
+                <ng-template matStepLabel>Final Step</ng-template>
+                <p>Complete!</p>
+                <div class="step-actions">
+                  <button mat-button matStepperPrevious>Back</button>
+                </div>
+              </mat-step>
+            </mat-stepper>
+          </div>
+        </div>
+      </div>
+    </mat-expansion-panel>
+
+    <!-- Vertical Stepper -->
+    <mat-expansion-panel>
+      <mat-expansion-panel-header>
+        <mat-panel-title>
+          <mat-icon>code</mat-icon>
+          Vertical Stepper
+        </mat-panel-title>
+        <mat-panel-description>Display steps vertically instead of horizontally</mat-panel-description>
+      </mat-expansion-panel-header>
+      <div class="example-container">
+        <div class="code-panel">
+          <div class="code-header">
+            <h4>Code</h4>
+            <button mat-icon-button (click)="resetCode('vertical')" title="Reset to original">
+              <mat-icon>refresh</mat-icon>
+            </button>
+          </div>
+          <textarea
+            [(ngModel)]="editableCode.vertical"
+            class="code-editor"
+            spellcheck="false"
+            readonly></textarea>
+        </div>
+        <div class="preview-panel">
+          <h4>Live Preview</h4>
+          <div class="preview-content">
+            <mat-stepper orientation="vertical">
+              <mat-step>
+                <ng-template matStepLabel>Step 1</ng-template>
+                <p>Content for step 1</p>
+                <div class="step-actions">
+                  <button mat-raised-button matStepperNext>Next</button>
+                </div>
+              </mat-step>
+
+              <mat-step>
+                <ng-template matStepLabel>Step 2</ng-template>
+                <p>Content for step 2</p>
+                <div class="step-actions">
+                  <button mat-button matStepperPrevious>Back</button>
+                  <button mat-raised-button matStepperNext>Next</button>
+                </div>
+              </mat-step>
+
+              <mat-step>
+                <ng-template matStepLabel>Step 3</ng-template>
+                <p>You're done!</p>
+                <div class="step-actions">
+                  <button mat-button matStepperPrevious>Back</button>
+                </div>
+              </mat-step>
+            </mat-stepper>
+          </div>
+        </div>
+      </div>
+    </mat-expansion-panel>
+
+    <!-- Custom Icons -->
+    <mat-expansion-panel>
+      <mat-expansion-panel-header>
+        <mat-panel-title>
+          <mat-icon>code</mat-icon>
+          Custom Icons in Labels
+        </mat-panel-title>
+        <mat-panel-description>Add icons to step labels for better UX</mat-panel-description>
+      </mat-expansion-panel-header>
+      <div class="example-container">
+        <div class="code-panel">
+          <div class="code-header">
+            <h4>Code</h4>
+            <button mat-icon-button (click)="resetCode('customIcons')" title="Reset to original">
+              <mat-icon>refresh</mat-icon>
+            </button>
+          </div>
+          <textarea
+            [(ngModel)]="editableCode.customIcons"
+            class="code-editor"
+            spellcheck="false"
+            readonly></textarea>
+        </div>
+        <div class="preview-panel">
+          <h4>Live Preview</h4>
+          <div class="preview-content">
+            <mat-stepper>
+              <mat-step>
+                <ng-template matStepLabel>
+                  <div class="step-label-with-icon">
+                    <mat-icon>person</mat-icon>
+                    <span>Personal Info</span>
+                  </div>
+                </ng-template>
+                <p>Enter your personal information</p>
+                <div class="step-actions">
+                  <button mat-raised-button matStepperNext>Next</button>
+                </div>
+              </mat-step>
+
+              <mat-step>
+                <ng-template matStepLabel>
+                  <div class="step-label-with-icon">
+                    <mat-icon>email</mat-icon>
+                    <span>Contact</span>
+                  </div>
+                </ng-template>
+                <p>Enter your contact details</p>
+                <div class="step-actions">
+                  <button mat-button matStepperPrevious>Back</button>
+                  <button mat-raised-button matStepperNext>Next</button>
+                </div>
+              </mat-step>
+
+              <mat-step>
+                <ng-template matStepLabel>
+                  <div class="step-label-with-icon">
+                    <mat-icon>check_circle</mat-icon>
+                    <span>Complete</span>
+                  </div>
+                </ng-template>
+                <p>All done!</p>
+                <div class="step-actions">
+                  <button mat-button matStepperPrevious>Back</button>
+                </div>
+              </mat-step>
+            </mat-stepper>
+          </div>
+        </div>
+      </div>
+    </mat-expansion-panel>
+  </mat-accordion>
+</div>

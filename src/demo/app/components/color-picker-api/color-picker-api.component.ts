@@ -2,6 +2,7 @@ import { Component, ViewEncapsulation } from '@angular/core';
 
 import { MatCardModule } from '@angular/material/card';
 import { MatTableModule } from '@angular/material/table';
+import { BaseApiComponent, ApiDocumentation } from '../base/base-api.component';
 
 @Component({
     selector: 'amw-demo-color-picker-api',
@@ -14,7 +15,12 @@ import { MatTableModule } from '@angular/material/table';
     templateUrl: './color-picker-api.component.html',
     styleUrl: './color-picker-api.component.scss'
 })
-export class ColorPickerApiComponent {
+export class ColorPickerApiComponent extends BaseApiComponent {
+    apiDocumentation: ApiDocumentation = {
+        inputs: [],
+        outputs: []
+    };
+
     inputProperties = [
         { name: 'value', type: 'string', default: '', description: 'The current color value in hex format' },
         { name: 'config', type: 'ColorPickerConfig', default: '{}', description: 'Configuration object for the color picker' },
@@ -33,11 +39,11 @@ export class ColorPickerApiComponent {
     ];
 
     outputProperties = [
-        { name: 'colorChange', type: 'EventEmitter<string>', description: 'Emitted when the color value changes' },
-        { name: 'colorPickerChange', type: 'EventEmitter<string>', description: 'Emitted when the color picker value changes (alias for colorChange)' },
-        { name: 'valueChange', type: 'EventEmitter<any>', description: 'Emitted when the value changes (inherited from BaseComponent)' },
-        { name: 'blur', type: 'EventEmitter<FocusEvent>', description: 'Emitted when the color picker loses focus' },
-        { name: 'focus', type: 'EventEmitter<FocusEvent>', description: 'Emitted when the color picker gains focus' }
+        { name: 'colorChange', returns: 'EventEmitter<string>', description: 'Emitted when the color value changes' },
+        { name: 'colorPickerChange', returns: 'EventEmitter<string>', description: 'Emitted when the color picker value changes (alias for colorChange)' },
+        { name: 'valueChange', returns: 'EventEmitter<any>', description: 'Emitted when the value changes (inherited from BaseComponent)' },
+        { name: 'blur', returns: 'EventEmitter<FocusEvent>', description: 'Emitted when the color picker loses focus' },
+        { name: 'focus', returns: 'EventEmitter<FocusEvent>', description: 'Emitted when the color picker gains focus' }
     ];
 
     configInterface = [
@@ -54,8 +60,8 @@ export class ColorPickerApiComponent {
     ];
 
     typeDefinitions = [
-        { name: 'ColorPickerMode', type: 'palette | custom | text | all', description: 'Available display modes' },
-        { name: 'ColorPickerSize', type: 'small | medium | large', description: 'Available size variants' }
+        { name: 'ColorPickerMode', returns: 'palette | custom | text | all', description: 'Available display modes' },
+        { name: 'ColorPickerSize', returns: 'small | medium | large', description: 'Available size variants' }
     ];
 
     methods = [
@@ -71,6 +77,8 @@ export class ColorPickerApiComponent {
     ];
 
     displayedColumns = ['name', 'type', 'default', 'description'];
+
+    constructor() {
+        super();
+    }
 }
-
-

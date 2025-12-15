@@ -25,7 +25,13 @@ import { AmwAppearance } from '../../../shared/types/amw-appearance.type';
     MatButtonModule,
     MatNativeDateModule
 ],
-    providers: [],
+    providers: [
+        {
+            provide: NG_VALUE_ACCESSOR,
+            useExisting: AmwDatepickerComponent,
+            multi: true
+        }
+    ],
     templateUrl: './amw-datepicker.component.html',
     styleUrl: './amw-datepicker.component.scss',
     encapsulation: ViewEncapsulation.None

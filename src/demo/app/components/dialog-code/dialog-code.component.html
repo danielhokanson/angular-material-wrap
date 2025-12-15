@@ -1,41 +1,155 @@
-<div class="dialog-code">
-  <mat-card>
-    <mat-card-header>
-      <mat-card-title>Dialog Code Examples</mat-card-title>
-      <mat-card-subtitle>Implementation examples and code snippets</mat-card-subtitle>
-    </mat-card-header>
+<div class="code-section">
+  <h3>Code Examples</h3>
+  <p>Interactive examples with live previews. The code is editable for reference, and working examples are shown alongside.</p>
 
-    <mat-card-content>
-      <mat-tab-group>
-        @for (example of codeExamples | keyvalue; track example) {
-          <mat-tab [label]="example.value.title">
-            <div class="dialog-code__tab-content">
-              <h3>{{ example.value.title }}</h3>
-              <p>{{ example.value.description }}</p>
-              <div class="dialog-code__example">
-                <h4>HTML Template</h4>
-                <div class="dialog-code__code-block">
-                  <button mat-icon-button class="dialog-code__copy-btn" (click)="copyToClipboard(example.value.html)">
-                    <mat-icon>content_copy</mat-icon>
-                  </button>
-                  <pre><code>{{ example.value.html }}</code></pre>
-                </div>
-              </div>
-              <div class="dialog-code__example">
-                <h4>TypeScript Component</h4>
-                <div class="dialog-code__code-block">
-                  <button mat-icon-button class="dialog-code__copy-btn" (click)="copyToClipboard(example.value.typescript)">
-                    <mat-icon>content_copy</mat-icon>
-                  </button>
-                  <pre><code>{{ example.value.typescript }}</code></pre>
-                </div>
-              </div>
+  <mat-accordion class="code-examples-accordion">
+    <!-- Basic Dialog -->
+    <mat-expansion-panel>
+      <mat-expansion-panel-header>
+        <mat-panel-title>
+          <mat-icon>code</mat-icon>
+          Basic Dialog
+        </mat-panel-title>
+        <mat-panel-description>Simple dialog with title and content</mat-panel-description>
+      </mat-expansion-panel-header>
+      <div class="example-container">
+        <div class="code-panel">
+          <div class="code-header">
+            <h4>Code</h4>
+            <button mat-icon-button (click)="resetCode('basic')" title="Reset to original">
+              <mat-icon>refresh</mat-icon>
+            </button>
+          </div>
+          <textarea
+            [(ngModel)]="editableCode.basic"
+            class="code-editor"
+            spellcheck="false"></textarea>
+        </div>
+        <div class="preview-panel">
+          <h4>Live Preview</h4>
+          <div class="preview-content">
+            <button mat-raised-button (click)="openDialog()">Open Dialog</button>
+            <div class="preview-note">
+              <mat-icon>info</mat-icon>
+              <span>Click the button to see the dialog in action</span>
             </div>
-          </mat-tab>
-        }
-      </mat-tab-group>
-    </mat-card-content>
-  </mat-card>
+          </div>
+        </div>
+      </div>
+    </mat-expansion-panel>
+
+    <!-- Confirmation Dialog -->
+    <mat-expansion-panel>
+      <mat-expansion-panel-header>
+        <mat-panel-title>
+          <mat-icon>code</mat-icon>
+          Confirmation Dialog
+        </mat-panel-title>
+        <mat-panel-description>Dialog for confirming actions</mat-panel-description>
+      </mat-expansion-panel-header>
+      <div class="example-container">
+        <div class="code-panel">
+          <div class="code-header">
+            <h4>Code</h4>
+            <button mat-icon-button (click)="resetCode('confirmation')" title="Reset to original">
+              <mat-icon>refresh</mat-icon>
+            </button>
+          </div>
+          <textarea
+            [(ngModel)]="editableCode.confirmation"
+            class="code-editor"
+            spellcheck="false"
+            readonly></textarea>
+        </div>
+        <div class="preview-panel">
+          <h4>Live Preview</h4>
+          <div class="preview-content">
+            <button mat-raised-button color="warn" (click)="openConfirmDialog()">
+              Delete Item
+            </button>
+            <div class="preview-note">
+              <mat-icon>info</mat-icon>
+              <span>Opens a confirmation dialog with cancel/confirm options</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </mat-expansion-panel>
+
+    <!-- Alert Dialog -->
+    <mat-expansion-panel>
+      <mat-expansion-panel-header>
+        <mat-panel-title>
+          <mat-icon>code</mat-icon>
+          Alert Dialog
+        </mat-panel-title>
+        <mat-panel-description>Dialog for displaying alerts</mat-panel-description>
+      </mat-expansion-panel-header>
+      <div class="example-container">
+        <div class="code-panel">
+          <div class="code-header">
+            <h4>Code</h4>
+            <button mat-icon-button (click)="resetCode('alert')" title="Reset to original">
+              <mat-icon>refresh</mat-icon>
+            </button>
+          </div>
+          <textarea
+            [(ngModel)]="editableCode.alert"
+            class="code-editor"
+            spellcheck="false"
+            readonly></textarea>
+        </div>
+        <div class="preview-panel">
+          <h4>Live Preview</h4>
+          <div class="preview-content">
+            <button mat-raised-button (click)="openAlertDialog()">
+              Show Alert
+            </button>
+            <div class="preview-note">
+              <mat-icon>info</mat-icon>
+              <span>Displays an alert dialog with a single OK button</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </mat-expansion-panel>
+
+    <!-- Custom Actions Dialog -->
+    <mat-expansion-panel>
+      <mat-expansion-panel-header>
+        <mat-panel-title>
+          <mat-icon>code</mat-icon>
+          Custom Actions Dialog
+        </mat-panel-title>
+        <mat-panel-description>Dialog with multiple custom actions</mat-panel-description>
+      </mat-expansion-panel-header>
+      <div class="example-container">
+        <div class="code-panel">
+          <div class="code-header">
+            <h4>Code</h4>
+            <button mat-icon-button (click)="resetCode('customActions')" title="Reset to original">
+              <mat-icon>refresh</mat-icon>
+            </button>
+          </div>
+          <textarea
+            [(ngModel)]="editableCode.customActions"
+            class="code-editor"
+            spellcheck="false"
+            readonly></textarea>
+        </div>
+        <div class="preview-panel">
+          <h4>Live Preview</h4>
+          <div class="preview-content">
+            <button mat-raised-button color="primary" (click)="openFormDialog()">
+              Open Form Dialog
+            </button>
+            <div class="preview-note">
+              <mat-icon>info</mat-icon>
+              <span>Dialog with multiple action buttons and custom handling</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </mat-expansion-panel>
+  </mat-accordion>
 </div>
-
-

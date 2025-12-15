@@ -1,0 +1,82 @@
+import { Component, ViewEncapsulation } from '@angular/core';
+import { FormsModule } from '@angular/forms';
+import { MatButtonModule } from '@angular/material/button';
+import { MatIconModule } from '@angular/material/icon';
+import { MatExpansionModule } from '@angular/material/expansion';
+import { MatCardModule } from '@angular/material/card';
+import { CommonModule } from '@angular/common';
+import { BaseCodeComponent } from '../base/base-code.component';
+
+type ThemeExamples = 'colorPalette' | 'cssVariables' | 'componentTheming' | 'darkMode' | 'customTheme';
+
+@Component({
+  selector: 'amw-demo-theme-code',
+  standalone: true,
+  imports: [
+    CommonModule,
+    FormsModule,
+    MatButtonModule,
+    MatIconModule,
+    MatExpansionModule,
+    MatCardModule
+  ],
+  encapsulation: ViewEncapsulation.None,
+  templateUrl: './theme-code.component.html',
+  styleUrl: './theme-code.component.scss'
+})
+export class ThemeCodeComponent extends BaseCodeComponent<ThemeExamples> {
+  readonly codeExamples: Record<ThemeExamples, string> = {
+    colorPalette: `<!-- Using Material theme colors -->
+<button mat-raised-button color="primary">Primary</button>
+<button mat-raised-button color="accent">Accent</button>
+<button mat-raised-button color="warn">Warn</button>`,
+
+    cssVariables: `<!-- Using CSS variables in components -->
+<div style="
+  background-color: var(--mdc-theme-primary);
+  color: var(--mdc-theme-on-primary);
+  padding: 16px;
+  border-radius: 8px;">
+  Themed Container
+</div>`,
+
+    componentTheming: `<!-- Component-specific theming -->
+<mat-card>
+  <mat-card-header>
+    <mat-card-title>Themed Card</mat-card-title>
+  </mat-card-header>
+  <mat-card-content>
+    Content styled with theme colors
+  </mat-card-content>
+  <mat-card-actions>
+    <button mat-button color="primary">Action</button>
+  </mat-card-actions>
+</mat-card>`,
+
+    darkMode: `<!-- Dark mode implementation -->
+<div class="dark-theme">
+  <mat-card>
+    <mat-card-content>
+      This content adapts to dark theme
+    </mat-card-content>
+  </mat-card>
+</div>`,
+
+    customTheme: `<!-- Custom theme example -->
+<style>
+  .custom-theme {
+    --mdc-theme-primary: #ff5722;
+    --mdc-theme-on-primary: #ffffff;
+  }
+</style>
+<div class="custom-theme">
+  <button mat-raised-button color="primary">
+    Custom Primary Color
+  </button>
+</div>`
+  };
+
+  constructor() {
+    super();
+  }
+}

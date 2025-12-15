@@ -12,9 +12,18 @@ import { PopoverTrigger } from '../../../../library/src/components/components/am
 import { PopoverService } from '../../../../library/src/components/services/popover.service';
 import { AmwSize } from '../../../../library/src/shared/types';
 
+interface PopoverApiDocumentation {
+    component: any;
+    service: any;
+    interfaces: {
+        PopoverConfig: any;
+        PopoverTrigger: any;
+    };
+}
+
 /**
  * API demo component for popover
- * 
+ *
  * Shows API documentation and usage examples for the popover component
  */
 @Component({
@@ -42,7 +51,7 @@ export class PopoverApiComponent implements OnInit, OnDestroy {
     currentTrigger: PopoverTrigger = {};
 
     /** API documentation */
-    apiDocumentation = {
+    apiDocumentation: PopoverApiDocumentation = {
         component: {
             name: 'AmwPopoverComponent',
             selector: 'amw-popover',
@@ -818,10 +827,12 @@ export class PopoverApiComponent implements OnInit, OnDestroy {
      * @returns TypeScript code
      */
     getBasicUsageTypescript(): string {
-        return `import { Component } from '@angular/core';
+        return `import { Component, OnInit } from '@angular/core';
 import { AmwPopoverComponent } from '@angular-material-wrap/components';
 import { PopoverConfig, PopoverTrigger } from '@angular-material-wrap/components';
+import { BaseApiComponent, ApiDocumentation } from '../base/base-api.component';
 
+@Component
 @Component({
   selector: 'app-example',
   template: \`<!-- HTML template above -->\`
@@ -857,7 +868,9 @@ export class ExampleComponent {
         return `import { Component, OnInit, OnDestroy } from '@angular/core';
 import { PopoverService } from '@angular-material-wrap/components';
 import { Subject, takeUntil } from 'rxjs';
+import { BaseApiComponent, ApiDocumentation } from '../base/base-api.component';
 
+@Component
 @Component({
   selector: 'app-service-example',
   template: \`<!-- HTML template -->\`

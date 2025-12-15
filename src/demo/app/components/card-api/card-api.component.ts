@@ -2,6 +2,7 @@ import { Component, ViewEncapsulation } from '@angular/core';
 
 import { MatCardModule } from '@angular/material/card';
 import { MatTableModule } from '@angular/material/table';
+import { BaseApiComponent, ApiDocumentation } from '../base/base-api.component';
 
 @Component({
     selector: 'amw-demo-card-api',
@@ -14,8 +15,8 @@ import { MatTableModule } from '@angular/material/table';
     templateUrl: './card-api.component.html',
     styleUrl: './card-api.component.scss'
 })
-export class CardApiComponent {
-    apiDocumentation = {
+export class CardApiComponent extends BaseApiComponent {
+    apiDocumentation: ApiDocumentation = {
         inputs: [
             { name: 'config', type: 'CardConfig', default: '{}', description: 'Configuration object for the card' },
             { name: 'variant', type: 'CardVariant', default: "'elevated'", description: 'Visual variant of the card' },
@@ -45,18 +46,20 @@ export class CardApiComponent {
             { name: 'actionClick', type: 'EventEmitter<{action: any; index: number}>', description: 'Emitted when an action button is clicked' },
             { name: 'headerClick', type: 'EventEmitter<void>', description: 'Emitted when the header is clicked' },
             { name: 'imageClick', type: 'EventEmitter<void>', description: 'Emitted when the image is clicked' }
-        ],
-        interfaces: [
+        ]
+    };
+
+    interfaces = [
             {
                 name: 'CardConfig',
                 description: 'Configuration options for the card',
                 properties: [
-                    { name: 'class', type: 'string', description: 'CSS class to apply to the card' },
-                    { name: 'style', type: '{ [key: string]: any }', description: 'Inline styles to apply to the card' },
-                    { name: 'disabled', type: 'boolean', description: 'Whether the card is disabled' },
-                    { name: 'loading', type: 'boolean', description: 'Whether the card is in loading state' },
-                    { name: 'clickable', type: 'boolean', description: 'Whether the card is clickable' },
-                    { name: 'elevation', type: 'number', description: 'Elevation level for shadow' },
+                    { name: 'class', returns: 'string', description: 'CSS class to apply to the card' },
+                    { name: 'style', returns: '{ [key: string]: any }', description: 'Inline styles to apply to the card' },
+                    { name: 'disabled', returns: 'boolean', description: 'Whether the card is disabled' },
+                    { name: 'loading', returns: 'boolean', description: 'Whether the card is in loading state' },
+                    { name: 'clickable', returns: 'boolean', description: 'Whether the card is clickable' },
+                    { name: 'elevation', returns: 'number', description: 'Elevation level for shadow' },
                     { name: 'variant', type: "'elevated' | 'outlined' | 'filled'", description: 'Visual variant of the card' },
                     { name: 'size', type: "'small' | 'medium' | 'large'", description: 'Size variant of the card' },
                     { name: 'theme', type: "'primary' | 'accent' | 'warn'", description: 'Theme variant of the card' }
@@ -66,34 +69,33 @@ export class CardApiComponent {
                 name: 'CardVariant',
                 description: 'Visual variant types for the card',
                 properties: [
-                    { name: 'elevated', type: 'string', description: 'Card with elevation shadow (default)' },
-                    { name: 'outlined', type: 'string', description: 'Card with outlined border' },
-                    { name: 'filled', type: 'string', description: 'Card with filled background' }
+                    { name: 'elevated', returns: 'string', description: 'Card with elevation shadow (default)' },
+                    { name: 'outlined', returns: 'string', description: 'Card with outlined border' },
+                    { name: 'filled', returns: 'string', description: 'Card with filled background' }
                 ]
             },
             {
                 name: 'CardSize',
                 description: 'Size variant types for the card',
                 properties: [
-                    { name: 'small', type: 'string', description: 'Compact card size' },
-                    { name: 'medium', type: 'string', description: 'Standard card size (default)' },
-                    { name: 'large', type: 'string', description: 'Large card size' }
+                    { name: 'small', returns: 'string', description: 'Compact card size' },
+                    { name: 'medium', returns: 'string', description: 'Standard card size (default)' },
+                    { name: 'large', returns: 'string', description: 'Large card size' }
                 ]
             },
             {
                 name: 'CardElevation',
                 description: 'Elevation level types for the card shadow',
                 properties: [
-                    { name: '0', type: 'number', description: 'No elevation' },
-                    { name: '1', type: 'number', description: 'Low elevation (default)' },
-                    { name: '2', type: 'number', description: 'Medium elevation' },
-                    { name: '3', type: 'number', description: 'High elevation' },
-                    { name: '4', type: 'number', description: 'Very high elevation' },
-                    { name: '5', type: 'number', description: 'Maximum elevation' }
+                    { name: '0', returns: 'number', description: 'No elevation' },
+                    { name: '1', returns: 'number', description: 'Low elevation (default)' },
+                    { name: '2', returns: 'number', description: 'Medium elevation' },
+                    { name: '3', returns: 'number', description: 'High elevation' },
+                    { name: '4', returns: 'number', description: 'Very high elevation' },
+                    { name: '5', returns: 'number', description: 'Maximum elevation' }
                 ]
             }
-        ]
-    };
+        ];
 
     getDisplayedColumns(section: string): any[] {
         const data = this.apiDocumentation[section as keyof typeof this.apiDocumentation];
@@ -105,7 +107,10 @@ export class CardApiComponent {
 
     /** API interfaces - computed property */
     get interfacesList(): any[] {
-        const interfaces = this.apiDocumentation.interfaces;
-        return Array.isArray(interfaces) ? interfaces : [];
+        return Array.isArray(this.interfaces) ? this.interfaces : [];
+    }
+
+    constructor() {
+        super();
     }
 }

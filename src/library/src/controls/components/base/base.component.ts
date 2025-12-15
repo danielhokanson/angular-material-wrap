@@ -1,4 +1,4 @@
-import { Component, Input, Output, EventEmitter, Optional, Self, Inject, ViewEncapsulation } from '@angular/core';
+import { Component, Input, Output, EventEmitter, ViewEncapsulation } from '@angular/core';
 import { ControlValueAccessor, NgControl, FormControl } from '@angular/forms';
 import { BaseComponentInterface } from '../../interfaces/base-component.interface';
 
@@ -28,12 +28,11 @@ export abstract class BaseComponent implements BaseComponentInterface {
     protected _onChange = (value: any) => { };
     protected _onTouched = () => { };
 
-    constructor(
-        @Optional() @Self() @Inject(NgControl) protected ngControl?: NgControl
-    ) {
-        if (this.ngControl) {
-            this.ngControl.valueAccessor = this;
-        }
+    // NgControl will be injected by individual components if needed
+    protected ngControl?: NgControl;
+
+    constructor() {
+        // Empty constructor - no NgControl injection to avoid circular dependency
     }
 
     get value(): any {

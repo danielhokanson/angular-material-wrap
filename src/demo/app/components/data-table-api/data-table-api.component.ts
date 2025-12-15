@@ -1,9 +1,10 @@
-import { Component, OnInit, ViewEncapsulation } from '@angular/core';
+import { Component, ViewEncapsulation } from '@angular/core';
 
 import { MatCardModule } from '@angular/material/card';
 import { MatTabsModule } from '@angular/material/tabs';
 import { MatButtonModule } from '@angular/material/button';
 import { MatIconModule } from '@angular/material/icon';
+import { BaseApiComponent, ApiDocumentation } from '../base/base-api.component';
 
 @Component({
     selector: 'amw-demo-data-table-api',
@@ -159,7 +160,12 @@ import { MatIconModule } from '@angular/material/icon';
   `,
     styleUrl: './data-table-api.component.scss'
 })
-export class DataTableApiComponent implements OnInit {
+export class DataTableApiComponent extends BaseApiComponent {
+    apiDocumentation: ApiDocumentation = {
+        inputs: [],
+        outputs: []
+    };
+
     columnInterface = `interface DataTableColumn {{
   key: string;
   title: string;
@@ -199,7 +205,7 @@ export class DataTableApiComponent implements OnInit {
   visible?: (row: any) => boolean;
 }}`;
 
-    constructor() { }
-
-    ngOnInit(): void { }
+    constructor() {
+        super();
+    }
 }

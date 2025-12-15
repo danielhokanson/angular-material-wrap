@@ -1,49 +1,73 @@
 .services-demo {
-    padding: 20px;
-}
+  padding: 24px;
+  max-width: 1400px;
+  margin: 0 auto;
 
-.services-header h1 {
-    margin-bottom: 10px;
-}
+  .services-header {
+    text-align: center;
+    margin-bottom: 32px;
 
-.services-header p {
-    margin-bottom: 20px;
-    color: #666;
-}
+    h1 {
+      margin: 0 0 8px 0;
+      font-size: 2.5rem;
+      font-weight: 300;
+      color: var(--mdc-theme-on-surface);
+    }
 
-.demo-content {
+    p {
+      margin: 0;
+      font-size: 1.1rem;
+      color: var(--mdc-theme-on-surface-variant);
+    }
+  }
+
+  .services-content {
+    .services-main {
+      .service-demo {
+        .service-tabs {
+          margin-top: 16px;
+
+          ::ng-deep .mat-mdc-tab-body-wrapper {
+            padding: 24px 0;
+          }
+        }
+      }
+    }
+  }
+
+  .demo-content {
     padding: 20px 0;
-}
+  }
 
-.demo-section {
+  .demo-section {
     margin-bottom: 30px;
-}
+  }
 
-.message-list {
+  .message-list {
     max-height: 200px;
     overflow-y: auto;
     border: 1px solid #ddd;
     border-radius: 4px;
     padding: 16px;
     background: #f9f9f9;
-}
+  }
 
-.message-item {
+  .message-item {
     padding: 8px 0;
     border-bottom: 1px solid #eee;
-}
+  }
 
-.message-item:last-child {
+  .message-item:last-child {
     border-bottom: none;
-}
+  }
 
-.timestamp {
+  .timestamp {
     float: right;
     color: #666;
     font-size: 0.8em;
-}
+  }
 
-.loading-demo {
+  .loading-demo {
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -52,19 +76,26 @@
     border: 1px solid #ddd;
     border-radius: 4px;
     background: #f9f9f9;
-}
+  }
 
-.loading-demo p {
+  .loading-demo p {
     margin-top: 16px;
     margin-bottom: 0;
-}
+  }
 
-mat-form-field {
+  mat-form-field {
     width: 100%;
     margin-bottom: 16px;
-}
+  }
 
-button {
+  button {
     margin-right: 8px;
     margin-bottom: 8px;
+  }
+
+  .button-group {
+    display: flex;
+    gap: 8px;
+    flex-wrap: wrap;
+  }
 }

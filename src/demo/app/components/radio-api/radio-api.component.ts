@@ -1,4 +1,5 @@
 import { Component, ViewEncapsulation } from '@angular/core';
+import { BaseApiComponent, ApiDocumentation } from '../base/base-api.component';
 
 
 @Component({
@@ -9,59 +10,59 @@ import { Component, ViewEncapsulation } from '@angular/core';
   templateUrl: './radio-api.component.html',
   styleUrl: './radio-api.component.scss'
 })
-export class RadioApiComponent {
-  apiDocumentation = {
+export class RadioApiComponent extends BaseApiComponent {
+  apiDocumentation: ApiDocumentation = {
     inputs: [
       {
-        property: 'label',
+        name: 'label',
         type: 'string',
         default: 'undefined',
         description: 'Label text displayed next to the radio button'
       },
       {
-        property: 'value',
+        name: 'value',
         type: 'any',
         default: 'undefined',
         description: 'Value of the radio button when selected'
       },
       {
-        property: 'checked',
+        name: 'checked',
         type: 'boolean',
         default: 'false',
         description: 'Whether the radio button is checked'
       },
       {
-        property: 'disabled',
+        name: 'disabled',
         type: 'boolean',
         default: 'false',
         description: 'Whether the radio button is disabled'
       },
       {
-        property: 'color',
+        name: 'color',
         type: "'primary' | 'accent' | 'warn'",
         default: "'primary'",
         description: 'Color theme of the radio button'
       },
       {
-        property: 'size',
+        name: 'size',
         type: "'small' | 'medium' | 'large'",
         default: "'medium'",
         description: 'Size of the radio button'
       },
       {
-        property: 'labelPosition',
+        name: 'labelPosition',
         type: "'before' | 'after'",
         default: "'after'",
         description: 'Position of the label relative to the radio button'
       },
       {
-        property: 'name',
+        name: 'name',
         type: 'string',
         default: 'undefined',
         description: 'Name attribute for the radio button (used for grouping)'
       },
       {
-        property: 'required',
+        name: 'required',
         type: 'boolean',
         default: 'false',
         description: 'Whether the radio button is required for form validation'
@@ -69,64 +70,25 @@ export class RadioApiComponent {
     ],
     outputs: [
       {
-        property: 'change',
+        name: 'change',
         type: 'EventEmitter<MatRadioChange>',
         description: 'Emitted when the radio button selection changes'
       },
       {
-        property: 'focus',
+        name: 'focus',
         type: 'EventEmitter<FocusEvent>',
         description: 'Emitted when the radio button gains focus'
       },
       {
-        property: 'blur',
+        name: 'blur',
         type: 'EventEmitter<FocusEvent>',
         description: 'Emitted when the radio button loses focus'
       }
-    ],
-    usage: {
-      description: 'The amw-radio component provides a Material Design radio button with various customization options.',
-      examples: [
-        {
-          title: 'Basic Usage',
-          code: `<amw-radio
-  label="Option 1"
-  [checked]="true">
-</amw-radio>`
-        },
-        {
-          title: 'With Validation',
-          code: `<mat-radio-group formControlName="gender">
-  <amw-radio
-    value="male"
-    label="Male"
-    color="primary">
-  </amw-radio>
-  
-  <amw-radio
-    value="female"
-    label="Female"
-    color="primary">
-  </amw-radio>
-</mat-radio-group>`
-        },
-        {
-          title: 'Radio Group',
-          code: `<mat-radio-group [(ngModel)]="selectedOption">
-  <amw-radio
-    value="option1"
-    label="Option 1"
-    color="primary">
-  </amw-radio>
-  
-  <amw-radio
-    value="option2"
-    label="Option 2"
-    color="primary">
-  </amw-radio>
-</mat-radio-group>`
-        }
-      ]
-    }
+    ]
   };
+
+
+    constructor() {
+        super();
+    }
 }

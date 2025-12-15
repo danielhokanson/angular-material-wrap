@@ -11,9 +11,9 @@
         <div>Default</div>
         <div>Description</div>
       </div>
-      @for (input of apiDocumentation.inputs; track input.property) {
+      @for (input of apiDocumentation.inputs; track input.name) {
         <div class="api-table__row">
-          <div class="api-table__cell api-table__cell--property">{{ input.property }}</div>
+          <div class="api-table__cell api-table__cell--property">{{ input.name }}</div>
           <div class="api-table__cell api-table__cell--type">{{ input.type }}</div>
           <div class="api-table__cell api-table__cell--default">{{ input.default }}</div>
           <div class="api-table__cell api-table__cell--description">{{ input.description }}</div>
@@ -28,9 +28,9 @@
         <div>Type</div>
         <div>Description</div>
       </div>
-      @for (output of apiDocumentation.outputs; track output.property) {
+      @for (output of apiDocumentation.outputs; track output.name) {
         <div class="api-table__row">
-          <div class="api-table__cell api-table__cell--property">{{ output.property }}</div>
+          <div class="api-table__cell api-table__cell--property">{{ output.name }}</div>
           <div class="api-table__cell api-table__cell--type">{{ output.type }}</div>
           <div class="api-table__cell api-table__cell--description">{{ output.description }}</div>
         </div>
@@ -44,27 +44,11 @@
         <div>Returns</div>
         <div>Description</div>
       </div>
-      @for (method of apiDocumentation.methods; track method.method) {
+      @for (method of apiDocumentation.methods; track method.name) {
         <div class="api-table__row">
-          <div class="api-table__cell api-table__cell--property">{{ method.method }}</div>
+          <div class="api-table__cell api-table__cell--property">{{ method.name }}</div>
           <div class="api-table__cell api-table__cell--type">{{ method.returns }}</div>
           <div class="api-table__cell api-table__cell--description">{{ method.description }}</div>
-        </div>
-      }
-    </div>
-
-    <h4>Types</h4>
-    <div class="api-table">
-      <div class="api-table__header">
-        <div>Type</div>
-        <div>Definition</div>
-        <div>Description</div>
-      </div>
-      @for (type of apiDocumentation.types; track type.type) {
-        <div class="api-table__row">
-          <div class="api-table__cell api-table__cell--property">{{ type.type }}</div>
-          <div class="api-table__cell api-table__cell--type">{{ type.definition }}</div>
-          <div class="api-table__cell api-table__cell--description">{{ type.description }}</div>
         </div>
       }
     </div>
@@ -79,7 +63,6 @@
         <li><strong>Responsive:</strong> The component adapts to different screen sizes and orientations</li>
         <li><strong>Customization:</strong> Extensive styling options through CSS custom properties</li>
       </ul>
-    </div>
   </div>
 </div>
 

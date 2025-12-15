@@ -1,22 +1,229 @@
-<div class="amw-demo-switch-code">
-  <div class="code-section">
-    <h3>Code Examples</h3>
-    <p>Copy and paste these code snippets to use the switch component in your application.</p>
+<div class="code-section">
+  <h3>Code Examples</h3>
+  <p>Interactive examples with live previews. The code is editable for reference, and working examples are shown alongside.</p>
 
-    @for (example of codeExamplesArray; track example.title) {
-      <mat-expansion-panel>
-        <mat-expansion-panel-header>
-          <mat-panel-title>{{ example.title }}</mat-panel-title>
-          <mat-panel-description>{{ example.description }}</mat-panel-description>
-        </mat-expansion-panel-header>
-        
-        <div class="code-example">
-          <pre><code>{{ example.code }}</code></pre>
+  <mat-accordion class="code-examples-accordion">
+    <!-- Basic Switch -->
+    <mat-expansion-panel>
+      <mat-expansion-panel-header>
+        <mat-panel-title>
+          <mat-icon>code</mat-icon>
+          Basic Switch
+        </mat-panel-title>
+        <mat-panel-description>Simple switch with two-way binding</mat-panel-description>
+      </mat-expansion-panel-header>
+      <div class="example-container">
+        <div class="code-panel">
+          <div class="code-header">
+            <h4>Code</h4>
+            <button mat-icon-button (click)="resetCode('basic')" title="Reset to original">
+              <mat-icon>refresh</mat-icon>
+            </button>
+          </div>
+          <textarea
+            [(ngModel)]="editableCode.basic"
+            class="code-editor"
+            spellcheck="false"></textarea>
         </div>
-      </mat-expansion-panel>
-    }
-  </div>
+        <div class="preview-panel">
+          <h4>Live Preview</h4>
+          <div class="preview-content">
+            <mat-slide-toggle
+              [(ngModel)]="isEnabled"
+              (change)="onSwitchChange($event)">
+              Toggle Me
+            </mat-slide-toggle>
+            <p>Switch is: {{ isEnabled ? 'Enabled' : 'Disabled' }}</p>
+          </div>
+        </div>
+      </div>
+    </mat-expansion-panel>
+
+    <!-- Configured Switch -->
+    <mat-expansion-panel>
+      <mat-expansion-panel-header>
+        <mat-panel-title>
+          <mat-icon>code</mat-icon>
+          Configured Switch
+        </mat-panel-title>
+        <mat-panel-description>Switch with custom configuration options</mat-panel-description>
+      </mat-expansion-panel-header>
+      <div class="example-container">
+        <div class="code-panel">
+          <div class="code-header">
+            <h4>Code</h4>
+            <button mat-icon-button (click)="resetCode('configured')" title="Reset to original">
+              <mat-icon>refresh</mat-icon>
+            </button>
+          </div>
+          <textarea
+            [(ngModel)]="editableCode.configured"
+            class="code-editor"
+            spellcheck="false"></textarea>
+        </div>
+        <div class="preview-panel">
+          <h4>Live Preview</h4>
+          <div class="preview-content">
+            <mat-slide-toggle
+              [(ngModel)]="notificationsEnabled"
+              color="accent"
+              labelPosition="before"
+              [disabled]="false"
+              [required]="true"
+              (change)="onNotificationChange($event)">
+              Enable Notifications
+            </mat-slide-toggle>
+            <p>Notifications: {{ notificationsEnabled ? 'ON' : 'OFF' }}</p>
+          </div>
+        </div>
+      </div>
+    </mat-expansion-panel>
+
+    <!-- Form Control -->
+    <mat-expansion-panel>
+      <mat-expansion-panel-header>
+        <mat-panel-title>
+          <mat-icon>code</mat-icon>
+          Form Control Integration
+        </mat-panel-title>
+        <mat-panel-description>Using switch with reactive forms</mat-panel-description>
+      </mat-expansion-panel-header>
+      <div class="example-container">
+        <div class="code-panel">
+          <div class="code-header">
+            <h4>Code</h4>
+            <button mat-icon-button (click)="resetCode('formControl')" title="Reset to original">
+              <mat-icon>refresh</mat-icon>
+            </button>
+          </div>
+          <textarea
+            [(ngModel)]="editableCode.formControl"
+            class="code-editor"
+            spellcheck="false"></textarea>
+        </div>
+        <div class="preview-panel">
+          <h4>Live Preview</h4>
+          <div class="preview-content">
+            <mat-slide-toggle [(ngModel)]="notificationsEnabled">
+              Enable Notifications
+            </mat-slide-toggle>
+            <mat-slide-toggle [(ngModel)]="darkModeEnabled">
+              Dark Mode
+            </mat-slide-toggle>
+            <div class="preview-note">
+              <mat-icon>info</mat-icon>
+              <span>This example shows the template syntax. Full reactive forms setup shown in code.</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </mat-expansion-panel>
+
+    <!-- Validation -->
+    <mat-expansion-panel>
+      <mat-expansion-panel-header>
+        <mat-panel-title>
+          <mat-icon>code</mat-icon>
+          Validation
+        </mat-panel-title>
+        <mat-panel-description>Switch with form validation</mat-panel-description>
+      </mat-expansion-panel-header>
+      <div class="example-container">
+        <div class="code-panel">
+          <div class="code-header">
+            <h4>Code</h4>
+            <button mat-icon-button (click)="resetCode('validation')" title="Reset to original">
+              <mat-icon>refresh</mat-icon>
+            </button>
+          </div>
+          <textarea
+            [(ngModel)]="editableCode.validation"
+            class="code-editor"
+            spellcheck="false"></textarea>
+        </div>
+        <div class="preview-panel">
+          <h4>Live Preview</h4>
+          <div class="preview-content">
+            <mat-slide-toggle [(ngModel)]="isEnabled" required>
+              Accept Terms and Conditions
+            </mat-slide-toggle>
+            <div class="preview-note">
+              <mat-icon>info</mat-icon>
+              <span>Full validation setup shown in code example</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </mat-expansion-panel>
+
+    <!-- Sizes -->
+    <mat-expansion-panel>
+      <mat-expansion-panel-header>
+        <mat-panel-title>
+          <mat-icon>code</mat-icon>
+          Sizes
+        </mat-panel-title>
+        <mat-panel-description>Different switch sizes</mat-panel-description>
+      </mat-expansion-panel-header>
+      <div class="example-container">
+        <div class="code-panel">
+          <div class="code-header">
+            <h4>Code</h4>
+            <button mat-icon-button (click)="resetCode('sizes')" title="Reset to original">
+              <mat-icon>refresh</mat-icon>
+            </button>
+          </div>
+          <textarea
+            [(ngModel)]="editableCode.sizes"
+            class="code-editor"
+            spellcheck="false"></textarea>
+        </div>
+        <div class="preview-panel">
+          <h4>Live Preview</h4>
+          <div class="preview-content">
+            <mat-slide-toggle>Small Switch</mat-slide-toggle>
+            <mat-slide-toggle>Medium Switch</mat-slide-toggle>
+            <mat-slide-toggle>Large Switch</mat-slide-toggle>
+            <div class="preview-note">
+              <mat-icon>info</mat-icon>
+              <span>Note: Material slide-toggle doesn't have built-in size variants. Use CSS for custom sizing.</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </mat-expansion-panel>
+
+    <!-- Colors -->
+    <mat-expansion-panel>
+      <mat-expansion-panel-header>
+        <mat-panel-title>
+          <mat-icon>code</mat-icon>
+          Colors
+        </mat-panel-title>
+        <mat-panel-description>Different color themes</mat-panel-description>
+      </mat-expansion-panel-header>
+      <div class="example-container">
+        <div class="code-panel">
+          <div class="code-header">
+            <h4>Code</h4>
+            <button mat-icon-button (click)="resetCode('colors')" title="Reset to original">
+              <mat-icon>refresh</mat-icon>
+            </button>
+          </div>
+          <textarea
+            [(ngModel)]="editableCode.colors"
+            class="code-editor"
+            spellcheck="false"></textarea>
+        </div>
+        <div class="preview-panel">
+          <h4>Live Preview</h4>
+          <div class="preview-content">
+            <mat-slide-toggle color="primary">Primary Switch</mat-slide-toggle>
+            <mat-slide-toggle color="accent">Accent Switch</mat-slide-toggle>
+            <mat-slide-toggle color="warn">Warn Switch</mat-slide-toggle>
+          </div>
+        </div>
+      </div>
+    </mat-expansion-panel>
+  </mat-accordion>
 </div>
-
-
-

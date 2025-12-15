@@ -1,4 +1,5 @@
 import { Component, ViewEncapsulation } from '@angular/core';
+import { BaseApiComponent, ApiDocumentation } from '../base/base-api.component';
 
 
 @Component({
@@ -9,77 +10,77 @@ import { Component, ViewEncapsulation } from '@angular/core';
     templateUrl: './select-api.component.html',
     styleUrl: './select-api.component.scss'
 })
-export class SelectApiComponent {
-    apiDocumentation = {
+export class SelectApiComponent extends BaseApiComponent {
+    apiDocumentation: ApiDocumentation = {
         inputs: [
             {
-                property: 'options',
+                name: 'options',
                 type: 'SelectOption[]',
                 default: '[]',
                 description: 'Array of options to display in the select dropdown'
             },
             {
-                property: 'label',
+                name: 'label',
                 type: 'string',
                 default: 'undefined',
                 description: 'Label text displayed above the select field'
             },
             {
-                property: 'placeholder',
+                name: 'placeholder',
                 type: 'string',
                 default: 'undefined',
                 description: 'Placeholder text shown when no option is selected'
             },
             {
-                property: 'value',
+                name: 'value',
                 type: 'any',
                 default: 'undefined',
                 description: 'Current selected value(s) of the select field'
             },
             {
-                property: 'appearance',
+                name: 'appearance',
                 type: "'outline' | 'fill'",
                 default: "'outline'",
                 description: 'Visual appearance style of the select field'
             },
             {
-                property: 'size',
+                name: 'size',
                 type: "'small' | 'medium' | 'large'",
                 default: "'medium'",
                 description: 'Size of the select field'
             },
             {
-                property: 'disabled',
+                name: 'disabled',
                 type: 'boolean',
                 default: 'false',
                 description: 'Whether the select is disabled'
             },
             {
-                property: 'required',
+                name: 'required',
                 type: 'boolean',
                 default: 'false',
                 description: 'Whether the select is required for form validation'
             },
             {
-                property: 'multiple',
+                name: 'multiple',
                 type: 'boolean',
                 default: 'false',
                 description: 'Whether multiple options can be selected'
             },
             {
-                property: 'icon',
+                name: 'icon',
                 type: 'string',
                 default: 'undefined',
                 description: 'Material icon name to display as prefix'
             },
             {
-                property: 'hint',
+                name: 'hint',
                 type: 'string',
                 default: 'undefined',
                 description: 'Hint text displayed below the select'
             },
             {
-                property: 'error',
+                name: 'error',
                 type: 'string',
                 default: 'undefined',
                 description: 'Error message to display below the select'
@@ -87,67 +88,36 @@ export class SelectApiComponent {
         ],
         outputs: [
             {
-                property: 'valueChange',
+                name: 'valueChange',
                 type: 'EventEmitter<any>',
                 description: 'Emitted when the selected value changes'
             },
             {
-                property: 'selectionChange',
+                name: 'selectionChange',
                 type: 'EventEmitter<MatSelectChange>',
                 description: 'Emitted when the selection changes (includes change event details)'
             },
             {
-                property: 'openedChange',
+                name: 'openedChange',
                 type: 'EventEmitter<boolean>',
                 description: 'Emitted when the select panel is opened or closed'
             }
-        ],
-        interfaces: [
-            {
-                name: 'SelectOption',
-                description: 'Interface for select option objects',
-                properties: [
-                    { name: 'value', type: 'any', description: 'The value of the option' },
-                    { name: 'label', type: 'string', description: 'The display label of the option' },
-                    { name: 'disabled?', type: 'boolean', description: 'Whether the option is disabled' }
-                ]
-            }
-        ],
-        usage: {
-            description: 'The amw-select component provides a Material Design select dropdown with various customization options.',
-            examples: [
-                {
-                    title: 'Basic Usage',
-                    code: `const options = [
-  { value: 'option1', label: 'Option 1' },
-  { value: 'option2', label: 'Option 2' }
-];
+        ]
+    };
 
-<amw-select
-  [options]="options"
-  label="Choose Option"
-  placeholder="Select an option">
-</amw-select>`
-                },
-                {
-                    title: 'With Validation',
-                    code: `<amw-select
-  [options]="countryOptions"
-  label="Country"
-  [required]="true"
-  [error]="countryError">
-</amw-select>`
-                },
-                {
-                    title: 'Multiple Selection',
-                    code: `<amw-select
-  [options]="colorOptions"
-  [multiple]="true"
-  label="Colors"
-  placeholder="Select multiple colors">
-</amw-select>`
-                }
+    interfaces = [
+        {
+            name: 'SelectOption',
+            description: 'Interface for select option objects',
+            properties: [
+                { name: 'value', type: 'any', description: 'The value of the option' },
+                { name: 'label', type: 'string', description: 'The display label of the option' },
+                { name: 'disabled?', type: 'boolean', description: 'Whether the option is disabled' }
             ]
         }
-    };
+    ];
+
+    constructor() {
+        super();
+    }
 }

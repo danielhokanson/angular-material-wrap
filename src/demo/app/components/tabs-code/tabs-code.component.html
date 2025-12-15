@@ -1,0 +1,220 @@
+<div class="code-section">
+  <h3>Code Examples</h3>
+  <p>Interactive examples with live previews. Edit the code to see real-time changes.</p>
+
+  <mat-accordion class="code-examples-accordion">
+    <!-- Basic Tabs -->
+    <mat-expansion-panel>
+      <mat-expansion-panel-header>
+        <mat-panel-title>
+          <mat-icon>code</mat-icon>
+          Basic Tabs
+        </mat-panel-title>
+        <mat-panel-description>Simple tab group with text labels</mat-panel-description>
+      </mat-expansion-panel-header>
+      <div class="example-container">
+        <div class="code-panel">
+          <div class="code-header">
+            <h4>Code</h4>
+            <button mat-icon-button (click)="resetCode('basic')" title="Reset to original">
+              <mat-icon>refresh</mat-icon>
+            </button>
+          </div>
+          <textarea
+            [(ngModel)]="editableCode.basic"
+            class="code-editor"
+            spellcheck="false"></textarea>
+        </div>
+        <div class="preview-panel">
+          <h4>Live Preview</h4>
+          <div class="preview-content">
+            <mat-tab-group>
+              <mat-tab label="First">Content 1</mat-tab>
+              <mat-tab label="Second">Content 2</mat-tab>
+              <mat-tab label="Third">Content 3</mat-tab>
+            </mat-tab-group>
+          </div>
+        </div>
+      </div>
+    </mat-expansion-panel>
+
+    <!-- Tabs with Icons -->
+    <mat-expansion-panel>
+      <mat-expansion-panel-header>
+        <mat-panel-title>
+          <mat-icon>code</mat-icon>
+          Tabs with Icons
+        </mat-panel-title>
+        <mat-panel-description>Tab labels with icon and text</mat-panel-description>
+      </mat-expansion-panel-header>
+      <div class="example-container">
+        <div class="code-panel">
+          <div class="code-header">
+            <h4>Code</h4>
+            <button mat-icon-button (click)="resetCode('icons')" title="Reset to original">
+              <mat-icon>refresh</mat-icon>
+            </button>
+          </div>
+          <textarea
+            [(ngModel)]="editableCode.icons"
+            class="code-editor"
+            spellcheck="false"></textarea>
+        </div>
+        <div class="preview-panel">
+          <h4>Live Preview</h4>
+          <div class="preview-content">
+            <mat-tab-group>
+              <mat-tab>
+                <ng-template mat-tab-label>
+                  <mat-icon>home</mat-icon>
+                  Home
+                </ng-template>
+                Home content
+              </mat-tab>
+              <mat-tab>
+                <ng-template mat-tab-label>
+                  <mat-icon>person</mat-icon>
+                  Profile
+                </ng-template>
+                Profile content
+              </mat-tab>
+              <mat-tab>
+                <ng-template mat-tab-label>
+                  <mat-icon>settings</mat-icon>
+                  Settings
+                </ng-template>
+                Settings content
+              </mat-tab>
+            </mat-tab-group>
+          </div>
+        </div>
+      </div>
+    </mat-expansion-panel>
+
+    <!-- Lazy Loaded Tabs -->
+    <mat-expansion-panel>
+      <mat-expansion-panel-header>
+        <mat-panel-title>
+          <mat-icon>code</mat-icon>
+          Lazy Loaded Tabs
+        </mat-panel-title>
+        <mat-panel-description>Tab content loaded on demand</mat-panel-description>
+      </mat-expansion-panel-header>
+      <div class="example-container">
+        <div class="code-panel">
+          <div class="code-header">
+            <h4>Code</h4>
+            <button mat-icon-button (click)="resetCode('lazy')" title="Reset to original">
+              <mat-icon>refresh</mat-icon>
+            </button>
+          </div>
+          <textarea
+            [(ngModel)]="editableCode.lazy"
+            class="code-editor"
+            spellcheck="false"></textarea>
+        </div>
+        <div class="preview-panel">
+          <h4>Live Preview</h4>
+          <div class="preview-content">
+            <mat-tab-group>
+              <mat-tab label="Eager">
+                This content is loaded immediately
+              </mat-tab>
+              <mat-tab label="Lazy">
+                <ng-template matTabContent>
+                  This content is lazy loaded
+                </ng-template>
+              </mat-tab>
+            </mat-tab-group>
+            <div class="preview-note">
+              <mat-icon>info</mat-icon>
+              <span>Note: Lazy loading requires matTabContent directive</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </mat-expansion-panel>
+
+    <!-- Dynamic Tabs -->
+    <mat-expansion-panel>
+      <mat-expansion-panel-header>
+        <mat-panel-title>
+          <mat-icon>code</mat-icon>
+          Dynamic Tabs
+        </mat-panel-title>
+        <mat-panel-description>Tabs generated from data array</mat-panel-description>
+      </mat-expansion-panel-header>
+      <div class="example-container">
+        <div class="code-panel">
+          <div class="code-header">
+            <h4>Code</h4>
+            <button mat-icon-button (click)="resetCode('dynamic')" title="Reset to original">
+              <mat-icon>refresh</mat-icon>
+            </button>
+          </div>
+          <textarea
+            [(ngModel)]="editableCode.dynamic"
+            class="code-editor"
+            spellcheck="false"></textarea>
+        </div>
+        <div class="preview-panel">
+          <h4>Live Preview</h4>
+          <div class="preview-content">
+            <mat-tab-group [(selectedIndex)]="selectedIndex">
+              @for (tab of dynamicTabs; track tab) {
+                <mat-tab [label]="tab.label">
+                  {{ tab.content }}
+                </mat-tab>
+              }
+            </mat-tab-group>
+            <div class="preview-note">
+              <mat-icon>info</mat-icon>
+              <span>Note: Dynamic tabs require component logic</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </mat-expansion-panel>
+
+    <!-- Styled Tabs -->
+    <mat-expansion-panel>
+      <mat-expansion-panel-header>
+        <mat-panel-title>
+          <mat-icon>code</mat-icon>
+          Styled Tabs
+        </mat-panel-title>
+        <mat-panel-description>Tabs with custom colors and disabled state</mat-panel-description>
+      </mat-expansion-panel-header>
+      <div class="example-container">
+        <div class="code-panel">
+          <div class="code-header">
+            <h4>Code</h4>
+            <button mat-icon-button (click)="resetCode('styled')" title="Reset to original">
+              <mat-icon>refresh</mat-icon>
+            </button>
+          </div>
+          <textarea
+            [(ngModel)]="editableCode.styled"
+            class="code-editor"
+            spellcheck="false"></textarea>
+        </div>
+        <div class="preview-panel">
+          <h4>Live Preview</h4>
+          <div class="preview-content">
+            <mat-tab-group color="accent" backgroundColor="primary">
+              <mat-tab label="Primary Tab">
+                Content with custom colors
+              </mat-tab>
+              <mat-tab label="Accent Tab">
+                More content
+              </mat-tab>
+              <mat-tab label="Disabled" [disabled]="true">
+                Disabled content
+              </mat-tab>
+            </mat-tab-group>
+          </div>
+        </div>
+      </div>
+    </mat-expansion-panel>
+  </mat-accordion>
+</div>

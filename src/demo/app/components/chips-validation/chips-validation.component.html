@@ -1,0 +1,229 @@
+<div class="validation-section">
+  <h3>Form Validation Examples</h3>
+  <p>Interactive forms demonstrating chip input with validation, error handling, and constraints.</p>
+
+  <div class="validation-forms">
+    <!-- Tag Management Form -->
+    <mat-card class="validation-card">
+      <mat-card-header>
+        <mat-card-title>
+          <mat-icon>label</mat-icon>
+          Tag Management
+        </mat-card-title>
+        <mat-card-subtitle>Add tags with min/max constraints (1-10 tags)</mat-card-subtitle>
+      </mat-card-header>
+      <mat-card-content>
+        <form [formGroup]="tagForm">
+          <mat-form-field class="full-width" appearance="outline">
+            <mat-label>Add Tags</mat-label>
+            <mat-chip-grid #tagChipGrid aria-label="Tag selection">
+              @for (tag of tags; track tag) {
+                <mat-chip-row (removed)="removeTag(tag)">
+                  {{ tag.name }}
+                  <button matChipRemove [attr.aria-label]="'remove ' + tag.name">
+                    <mat-icon>cancel</mat-icon>
+                  </button>
+                </mat-chip-row>
+              }
+            </mat-chip-grid>
+            <input
+              placeholder="Type and press Enter..."
+              [matChipInputFor]="tagChipGrid"
+              [matChipInputSeparatorKeyCodes]="separatorKeysCodes"
+              [matChipInputAddOnBlur]="true"
+              (matChipInputTokenEnd)="addTag($event)"
+              [disabled]="hasMaxTags()" />
+            @if (!hasMinTags()) {
+              <mat-error>At least 1 tag is required</mat-error>
+            }
+            @if (hasMaxTags()) {
+              <mat-hint>Maximum tags reached (10/10)</mat-hint>
+            } @else {
+              <mat-hint>{{ tags.length }}/10 tags</mat-hint>
+            }
+          </mat-form-field>
+        </form>
+
+        <div class="validation-status">
+          @if (hasMinTags() && !hasMaxTags()) {
+            <div class="status-message status-message--success">
+              <mat-icon>check_circle</mat-icon>
+              <span>Valid: {{ tags.length }} tags added</span>
+            </div>
+          }
+        </div>
+      </mat-card-content>
+    </mat-card>
+
+    <!-- Skill Level Form -->
+    <mat-card class="validation-card">
+      <mat-card-header>
+        <mat-card-title>
+          <mat-icon>school</mat-icon>
+          Skills with Levels
+        </mat-card-title>
+        <mat-card-subtitle>Add skills with proficiency levels and validation</mat-card-subtitle>
+      </mat-card-header>
+      <mat-card-content>
+        <div class="skill-chips">
+          <mat-chip-set aria-label="Skill selection">
+            @for (skill of skills; track skill) {
+              <mat-chip [color]="getSkillColor(skill.level)" (removed)="removeSkill(skill)">
+                {{ skill.name }} ({{ skill.level }})
+                <button matChipRemove [attr.aria-label]="'remove ' + skill.name">
+                  <mat-icon>cancel</mat-icon>
+                </button>
+              </mat-chip>
+            }
+          </mat-chip-set>
+        </div>
+
+        <form [formGroup]="skillForm" (ngSubmit)="addSkill()" class="skill-form">
+          <div class="form-row">
+            <mat-form-field appearance="outline" class="skill-name-field">
+              <mat-label>Skill Name</mat-label>
+              <input matInput formControlName="skillName" placeholder="e.g., JavaScript" />
+              @if (skillForm.get('skillName')?.invalid && skillForm.get('skillName')?.touched) {
+                <mat-error>{{ getSkillErrorMessage('skillName') }}</mat-error>
+              }
+            </mat-form-field>
+
+            <mat-form-field appearance="outline" class="skill-level-field">
+              <mat-label>Proficiency Level</mat-label>
+              <select matNativeControl formControlName="skillLevel">
+                <option value="beginner">Beginner</option>
+                <option value="intermediate">Intermediate</option>
+                <option value="advanced">Advanced</option>
+              </select>
+            </mat-form-field>
+
+            <button
+              mat-raised-button
+              color="primary"
+              type="submit"
+              [disabled]="skillForm.invalid"
+              class="add-skill-button">
+              <mat-icon>add</mat-icon>
+              Add Skill
+            </button>
+          </div>
+        </form>
+
+        <div class="validation-status">
+          @if (skills.length > 0) {
+            <div class="status-message status-message--success">
+              <mat-icon>check_circle</mat-icon>
+              <span>{{ skills.length }} skill(s) added</span>
+            </div>
+          } @else {
+            <div class="status-message status-message--warning">
+              <mat-icon>warning</mat-icon>
+              <span>Add at least one skill</span>
+            </div>
+          }
+        </div>
+      </mat-card-content>
+    </mat-card>
+
+    <!-- Email Validation Form -->
+    <mat-card class="validation-card">
+      <mat-card-header>
+        <mat-card-title>
+          <mat-icon>email</mat-icon>
+          Email Validation
+        </mat-card-title>
+        <mat-card-subtitle>Add email addresses with format validation</mat-card-subtitle>
+      </mat-card-header>
+      <mat-card-content>
+        <form [formGroup]="emailForm">
+          <mat-form-field class="full-width" appearance="outline">
+            <mat-label>Email Addresses</mat-label>
+            <mat-chip-grid #emailChipGrid aria-label="Email selection">
+              @for (email of emails; track email) {
+                <mat-chip-row (removed)="removeEmail(email)">
+                  <mat-icon matChipAvatar>person</mat-icon>
+                  {{ email }}
+                  <button matChipRemove [attr.aria-label]="'remove ' + email">
+                    <mat-icon>cancel</mat-icon>
+                  </button>
+                </mat-chip-row>
+              }
+            </mat-chip-grid>
+            <input
+              placeholder="Enter email and press Enter..."
+              formControlName="emailInput"
+              [matChipInputFor]="emailChipGrid"
+              [matChipInputSeparatorKeyCodes]="separatorKeysCodes"
+              [matChipInputAddOnBlur]="true"
+              (matChipInputTokenEnd)="addEmail($event)" />
+            @if (emailForm.get('emailInput')?.invalid && emailForm.get('emailInput')?.touched) {
+              <mat-error>{{ getEmailValidationMessage() }}</mat-error>
+            }
+            @if (!hasMinEmails()) {
+              <mat-error>At least 1 email is required</mat-error>
+            } @else {
+              <mat-hint>{{ emails.length }} email(s) added</mat-hint>
+            }
+          </mat-form-field>
+        </form>
+
+        <div class="validation-status">
+          @if (hasMinEmails()) {
+            <div class="status-message status-message--success">
+              <mat-icon>check_circle</mat-icon>
+              <span>Valid: {{ emails.length }} email(s) added</span>
+            </div>
+          }
+        </div>
+      </mat-card-content>
+    </mat-card>
+
+    <!-- Form Actions -->
+    <mat-card class="validation-card validation-card--actions">
+      <mat-card-content>
+        <div class="form-summary">
+          <h4>Form Summary</h4>
+          <div class="summary-items">
+            <div class="summary-item">
+              <mat-icon [class.valid]="hasMinTags()" [class.invalid]="!hasMinTags()">
+                {{ hasMinTags() ? 'check_circle' : 'cancel' }}
+              </mat-icon>
+              <span>Tags: {{ tags.length }} (min: 1)</span>
+            </div>
+            <div class="summary-item">
+              <mat-icon [class.valid]="skills.length > 0" [class.invalid]="skills.length === 0">
+                {{ skills.length > 0 ? 'check_circle' : 'cancel' }}
+              </mat-icon>
+              <span>Skills: {{ skills.length }} (min: 1)</span>
+            </div>
+            <div class="summary-item">
+              <mat-icon [class.valid]="hasMinEmails()" [class.invalid]="!hasMinEmails()">
+                {{ hasMinEmails() ? 'check_circle' : 'cancel' }}
+              </mat-icon>
+              <span>Emails: {{ emails.length }} (min: 1)</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="action-buttons">
+          <button
+            mat-raised-button
+            color="primary"
+            (click)="submitForms()"
+            [disabled]="!areFormsValid()"
+            class="submit-button">
+            <mat-icon>send</mat-icon>
+            Submit All Forms
+          </button>
+
+          @if (!areFormsValid()) {
+            <div class="validation-message">
+              <mat-icon>info</mat-icon>
+              <span>Complete all required fields to submit</span>
+            </div>
+          }
+        </div>
+      </mat-card-content>
+    </mat-card>
+  </div>
+</div>

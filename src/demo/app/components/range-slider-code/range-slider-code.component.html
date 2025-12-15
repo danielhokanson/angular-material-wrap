@@ -1,19 +1,185 @@
-<div class="amw-demo-range-slider-code">
-  <div class="code-section">
-    <h3>Code Examples</h3>
-    <p>Copy and paste these code snippets to use the range slider component in your application.</p>
+<div class="code-section">
+  <h3>Code Examples</h3>
+  <p>Interactive examples with live previews. The code is editable for reference, and working examples are shown alongside.</p>
 
-    @for (example of codeExamplesArray; track example.title) {
-      <mat-expansion-panel>
-        <mat-expansion-panel-header>
-          <mat-panel-title>{{ example.title }}</mat-panel-title>
-          <mat-panel-description>{{ example.description }}</mat-panel-description>
-        </mat-expansion-panel-header>
-        
-        <div class="code-example">
-          <pre><code>{{ example.code }}</code></pre>
+  <mat-accordion class="code-examples-accordion">
+    <!-- Basic Range Slider -->
+    <mat-expansion-panel>
+      <mat-expansion-panel-header>
+        <mat-panel-title>
+          <mat-icon>code</mat-icon>
+          Basic Range Slider
+        </mat-panel-title>
+        <mat-panel-description>Simple range slider with default configuration</mat-panel-description>
+      </mat-expansion-panel-header>
+      <div class="example-container">
+        <div class="code-panel">
+          <div class="code-header">
+            <h4>Code</h4>
+            <button mat-icon-button (click)="resetCode('basic')" title="Reset to original">
+              <mat-icon>refresh</mat-icon>
+            </button>
+          </div>
+          <textarea
+            [(ngModel)]="editableCode.basic"
+            class="code-editor"
+            spellcheck="false"></textarea>
         </div>
-      </mat-expansion-panel>
-    }
-  </div>
+        <div class="preview-panel">
+          <h4>Live Preview</h4>
+          <div class="preview-content">
+            <mat-slider [min]="0" [max]="100">
+              <input matSliderStartThumb [(ngModel)]="startValue">
+              <input matSliderEndThumb [(ngModel)]="endValue">
+            </mat-slider>
+            <p>Range: {{startValue}} - {{endValue}}</p>
+          </div>
+        </div>
+      </div>
+    </mat-expansion-panel>
+
+    <!-- Configured Range Slider -->
+    <mat-expansion-panel>
+      <mat-expansion-panel-header>
+        <mat-panel-title>
+          <mat-icon>code</mat-icon>
+          Configured Range Slider
+        </mat-panel-title>
+        <mat-panel-description>Range slider with custom configuration and styling</mat-panel-description>
+      </mat-expansion-panel-header>
+      <div class="example-container">
+        <div class="code-panel">
+          <div class="code-header">
+            <h4>Code</h4>
+            <button mat-icon-button (click)="resetCode('configured')" title="Reset to original">
+              <mat-icon>refresh</mat-icon>
+            </button>
+          </div>
+          <textarea
+            [(ngModel)]="editableCode.configured"
+            class="code-editor"
+            spellcheck="false"
+            readonly></textarea>
+        </div>
+        <div class="preview-panel">
+          <h4>Live Preview</h4>
+          <div class="preview-content">
+            <mat-slider [min]="0" [max]="1000" [step]="10" [displayWith]="formatLabel">
+              <input matSliderStartThumb [(ngModel)]="priceStart">
+              <input matSliderEndThumb [(ngModel)]="priceEnd">
+            </mat-slider>
+            <p>Price Range: ${{priceStart}} - ${{priceEnd}}</p>
+          </div>
+        </div>
+      </div>
+    </mat-expansion-panel>
+
+    <!-- Vertical Range Slider -->
+    <mat-expansion-panel>
+      <mat-expansion-panel-header>
+        <mat-panel-title>
+          <mat-icon>code</mat-icon>
+          Vertical Range Slider
+        </mat-panel-title>
+        <mat-panel-description>Range slider in vertical orientation</mat-panel-description>
+      </mat-expansion-panel-header>
+      <div class="example-container">
+        <div class="code-panel">
+          <div class="code-header">
+            <h4>Code</h4>
+            <button mat-icon-button (click)="resetCode('vertical')" title="Reset to original">
+              <mat-icon>refresh</mat-icon>
+            </button>
+          </div>
+          <textarea
+            [(ngModel)]="editableCode.vertical"
+            class="code-editor"
+            spellcheck="false"
+            readonly></textarea>
+        </div>
+        <div class="preview-panel">
+          <h4>Live Preview</h4>
+          <div class="preview-content">
+            <div style="height: 300px;">
+              <mat-slider vertical [min]="0" [max]="100">
+                <input matSliderStartThumb [(ngModel)]="startValue">
+                <input matSliderEndThumb [(ngModel)]="endValue">
+              </mat-slider>
+            </div>
+            <p>Vertical Range: {{startValue}} - {{endValue}}</p>
+          </div>
+        </div>
+      </div>
+    </mat-expansion-panel>
+
+    <!-- Reactive Form Integration -->
+    <mat-expansion-panel>
+      <mat-expansion-panel-header>
+        <mat-panel-title>
+          <mat-icon>code</mat-icon>
+          Reactive Form Integration
+        </mat-panel-title>
+        <mat-panel-description>Range slider integrated with Angular reactive forms</mat-panel-description>
+      </mat-expansion-panel-header>
+      <div class="example-container">
+        <div class="code-panel">
+          <div class="code-header">
+            <h4>Code</h4>
+            <button mat-icon-button (click)="resetCode('formControl')" title="Reset to original">
+              <mat-icon>refresh</mat-icon>
+            </button>
+          </div>
+          <textarea
+            [(ngModel)]="editableCode.formControl"
+            class="code-editor"
+            spellcheck="false"
+            readonly></textarea>
+        </div>
+        <div class="preview-panel">
+          <h4>Live Preview</h4>
+          <div class="preview-content">
+            <div class="preview-note">
+              <mat-icon>info</mat-icon>
+              <span>This example shows code for reactive form integration</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </mat-expansion-panel>
+
+    <!-- With Validation -->
+    <mat-expansion-panel>
+      <mat-expansion-panel-header>
+        <mat-panel-title>
+          <mat-icon>code</mat-icon>
+          With Validation
+        </mat-panel-title>
+        <mat-panel-description>Range slider with custom validation and error handling</mat-panel-description>
+      </mat-expansion-panel-header>
+      <div class="example-container">
+        <div class="code-panel">
+          <div class="code-header">
+            <h4>Code</h4>
+            <button mat-icon-button (click)="resetCode('validation')" title="Reset to original">
+              <mat-icon>refresh</mat-icon>
+            </button>
+          </div>
+          <textarea
+            [(ngModel)]="editableCode.validation"
+            class="code-editor"
+            spellcheck="false"
+            readonly></textarea>
+        </div>
+        <div class="preview-panel">
+          <h4>Live Preview</h4>
+          <div class="preview-content">
+            <div class="preview-note">
+              <mat-icon>info</mat-icon>
+              <span>This example shows code for validation with error handling</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </mat-expansion-panel>
+  </mat-accordion>
 </div>

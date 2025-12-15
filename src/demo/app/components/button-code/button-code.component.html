@@ -1,61 +1,248 @@
 <div class="code-section">
   <h3>Code Examples</h3>
-  <p>Here are practical code examples for different button use cases:</p>
+  <p>Interactive examples with live previews. The code is editable for reference, and working examples are shown alongside.</p>
 
-  <mat-expansion-panel>
-    <mat-expansion-panel-header>
-      <mat-panel-title>Basic Button</mat-panel-title>
-    </mat-expansion-panel-header>
-    <div class="code-example">
-      <pre><code>{{ codeExamples.basic }}</code></pre>
-    </div>
-  </mat-expansion-panel>
+  <mat-accordion class="code-examples-accordion">
+    <!-- Basic Buttons -->
+    <mat-expansion-panel>
+      <mat-expansion-panel-header>
+        <mat-panel-title>
+          <mat-icon>code</mat-icon>
+          Basic Buttons
+        </mat-panel-title>
+        <mat-panel-description>Simple text buttons with different colors</mat-panel-description>
+      </mat-expansion-panel-header>
+      <div class="example-container">
+        <div class="code-panel">
+          <div class="code-header">
+            <h4>Code</h4>
+            <button mat-icon-button (click)="resetCode('basic')" title="Reset to original">
+              <mat-icon>refresh</mat-icon>
+            </button>
+          </div>
+          <textarea
+            [(ngModel)]="editableCode.basic"
+            class="code-editor"
+            spellcheck="false"></textarea>
+        </div>
+        <div class="preview-panel">
+          <h4>Live Preview</h4>
+          <div class="preview-content">
+            <button mat-button color="primary">Basic Button</button>
+            <button mat-button color="accent">Accent Button</button>
+            <button mat-button color="warn">Warn Button</button>
+          </div>
+        </div>
+      </div>
+    </mat-expansion-panel>
 
-  <mat-expansion-panel>
-    <mat-expansion-panel-header>
-      <mat-panel-title>Button with Icon</mat-panel-title>
-    </mat-expansion-panel-header>
-    <div class="code-example">
-      <pre><code>{{ codeExamples.withIcon }}</code></pre>
-    </div>
-  </mat-expansion-panel>
+    <!-- Raised Buttons -->
+    <mat-expansion-panel>
+      <mat-expansion-panel-header>
+        <mat-panel-title>
+          <mat-icon>code</mat-icon>
+          Raised Buttons
+        </mat-panel-title>
+        <mat-panel-description>Elevated buttons with shadow</mat-panel-description>
+      </mat-expansion-panel-header>
+      <div class="example-container">
+        <div class="code-panel">
+          <div class="code-header">
+            <h4>Code</h4>
+            <button mat-icon-button (click)="resetCode('raised')" title="Reset to original">
+              <mat-icon>refresh</mat-icon>
+            </button>
+          </div>
+          <textarea
+            [(ngModel)]="editableCode.raised"
+            class="code-editor"
+            spellcheck="false"></textarea>
+        </div>
+        <div class="preview-panel">
+          <h4>Live Preview</h4>
+          <div class="preview-content">
+            <button mat-raised-button color="primary">Raised Button</button>
+            <button mat-raised-button color="accent">Accent Raised</button>
+            <button mat-raised-button color="warn">Warn Raised</button>
+          </div>
+        </div>
+      </div>
+    </mat-expansion-panel>
 
-  <mat-expansion-panel>
-    <mat-expansion-panel-header>
-      <mat-panel-title>Floating Action Button (FAB)</mat-panel-title>
-    </mat-expansion-panel-header>
-    <div class="code-example">
-      <pre><code>{{ codeExamples.fab }}</code></pre>
-    </div>
-  </mat-expansion-panel>
+    <!-- Stroked Buttons -->
+    <mat-expansion-panel>
+      <mat-expansion-panel-header>
+        <mat-panel-title>
+          <mat-icon>code</mat-icon>
+          Stroked Buttons
+        </mat-panel-title>
+        <mat-panel-description>Outlined buttons with border</mat-panel-description>
+      </mat-expansion-panel-header>
+      <div class="example-container">
+        <div class="code-panel">
+          <div class="code-header">
+            <h4>Code</h4>
+            <button mat-icon-button (click)="resetCode('stroked')" title="Reset to original">
+              <mat-icon>refresh</mat-icon>
+            </button>
+          </div>
+          <textarea
+            [(ngModel)]="editableCode.stroked"
+            class="code-editor"
+            spellcheck="false"></textarea>
+        </div>
+        <div class="preview-panel">
+          <h4>Live Preview</h4>
+          <div class="preview-content">
+            <button mat-stroked-button color="primary">Stroked Button</button>
+            <button mat-stroked-button color="accent">Accent Stroked</button>
+            <button mat-stroked-button color="warn">Warn Stroked</button>
+          </div>
+        </div>
+      </div>
+    </mat-expansion-panel>
 
-  <mat-expansion-panel>
-    <mat-expansion-panel-header>
-      <mat-panel-title>Loading State</mat-panel-title>
-    </mat-expansion-panel-header>
-    <div class="code-example">
-      <pre><code>{{ codeExamples.loading }}</code></pre>
-    </div>
-  </mat-expansion-panel>
+    <!-- Flat Buttons -->
+    <mat-expansion-panel>
+      <mat-expansion-panel-header>
+        <mat-panel-title>
+          <mat-icon>code</mat-icon>
+          Flat Buttons
+        </mat-panel-title>
+        <mat-panel-description>Filled buttons without shadow</mat-panel-description>
+      </mat-expansion-panel-header>
+      <div class="example-container">
+        <div class="code-panel">
+          <div class="code-header">
+            <h4>Code</h4>
+            <button mat-icon-button (click)="resetCode('flat')" title="Reset to original">
+              <mat-icon>refresh</mat-icon>
+            </button>
+          </div>
+          <textarea
+            [(ngModel)]="editableCode.flat"
+            class="code-editor"
+            spellcheck="false"></textarea>
+        </div>
+        <div class="preview-panel">
+          <h4>Live Preview</h4>
+          <div class="preview-content">
+            <button mat-flat-button color="primary">Flat Button</button>
+            <button mat-flat-button color="accent">Accent Flat</button>
+            <button mat-flat-button color="warn">Warn Flat</button>
+          </div>
+        </div>
+      </div>
+    </mat-expansion-panel>
 
-  <mat-expansion-panel>
-    <mat-expansion-panel-header>
-      <mat-panel-title>Disabled State</mat-panel-title>
-    </mat-expansion-panel-header>
-    <div class="code-example">
-      <pre><code>{{ codeExamples.disabled }}</code></pre>
-    </div>
-  </mat-expansion-panel>
+    <!-- Icon Buttons -->
+    <mat-expansion-panel>
+      <mat-expansion-panel-header>
+        <mat-panel-title>
+          <mat-icon>code</mat-icon>
+          Icon Buttons
+        </mat-panel-title>
+        <mat-panel-description>Circular buttons with icons</mat-panel-description>
+      </mat-expansion-panel-header>
+      <div class="example-container">
+        <div class="code-panel">
+          <div class="code-header">
+            <h4>Code</h4>
+            <button mat-icon-button (click)="resetCode('icon')" title="Reset to original">
+              <mat-icon>refresh</mat-icon>
+            </button>
+          </div>
+          <textarea
+            [(ngModel)]="editableCode.icon"
+            class="code-editor"
+            spellcheck="false"></textarea>
+        </div>
+        <div class="preview-panel">
+          <h4>Live Preview</h4>
+          <div class="preview-content">
+            <button mat-icon-button color="primary">
+              <mat-icon>favorite</mat-icon>
+            </button>
+            <button mat-icon-button color="accent">
+              <mat-icon>delete</mat-icon>
+            </button>
+            <button mat-icon-button color="warn">
+              <mat-icon>warning</mat-icon>
+            </button>
+          </div>
+        </div>
+      </div>
+    </mat-expansion-panel>
 
-  <mat-expansion-panel>
-    <mat-expansion-panel-header>
-      <mat-panel-title>Event Handling</mat-panel-title>
-    </mat-expansion-panel-header>
-    <div class="code-example">
-      <pre><code>{{ codeExamples.eventHandling }}</code></pre>
-    </div>
-  </mat-expansion-panel>
+    <!-- FAB Buttons -->
+    <mat-expansion-panel>
+      <mat-expansion-panel-header>
+        <mat-panel-title>
+          <mat-icon>code</mat-icon>
+          Floating Action Buttons (FAB)
+        </mat-panel-title>
+        <mat-panel-description>Primary action buttons with elevated appearance</mat-panel-description>
+      </mat-expansion-panel-header>
+      <div class="example-container">
+        <div class="code-panel">
+          <div class="code-header">
+            <h4>Code</h4>
+            <button mat-icon-button (click)="resetCode('fab')" title="Reset to original">
+              <mat-icon>refresh</mat-icon>
+            </button>
+          </div>
+          <textarea
+            [(ngModel)]="editableCode.fab"
+            class="code-editor"
+            spellcheck="false"></textarea>
+        </div>
+        <div class="preview-panel">
+          <h4>Live Preview</h4>
+          <div class="preview-content">
+            <button mat-fab color="primary">
+              <mat-icon>add</mat-icon>
+            </button>
+            <button mat-mini-fab color="accent">
+              <mat-icon>edit</mat-icon>
+            </button>
+            <button mat-mini-fab color="warn">
+              <mat-icon>delete</mat-icon>
+            </button>
+          </div>
+        </div>
+      </div>
+    </mat-expansion-panel>
+
+    <!-- Disabled State -->
+    <mat-expansion-panel>
+      <mat-expansion-panel-header>
+        <mat-panel-title>
+          <mat-icon>code</mat-icon>
+          Disabled State
+        </mat-panel-title>
+        <mat-panel-description>Buttons in disabled state</mat-panel-description>
+      </mat-expansion-panel-header>
+      <div class="example-container">
+        <div class="code-panel">
+          <div class="code-header">
+            <h4>Code</h4>
+            <button mat-icon-button (click)="resetCode('disabled')" title="Reset to original">
+              <mat-icon>refresh</mat-icon>
+            </button>
+          </div>
+          <textarea
+            [(ngModel)]="editableCode.disabled"
+            class="code-editor"
+            spellcheck="false"></textarea>
+        </div>
+        <div class="preview-panel">
+          <h4>Live Preview</h4>
+          <div class="preview-content">
+            <button mat-raised-button color="primary" disabled>Disabled Button</button>
+            <button mat-raised-button color="accent" [disabled]="true">Disabled Accent</button>
+          </div>
+        </div>
+      </div>
+    </mat-expansion-panel>
+  </mat-accordion>
 </div>
-
-
-

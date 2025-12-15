@@ -53,9 +53,7 @@
             "outputPath": "dist/angular-material-wrap-demo",
             "index": "src/demo/index.html",
             "browser": "src/demo/main.ts",
-            "polyfills": [
-              "zone.js"
-            ],
+            "polyfills": [],
             "tsConfig": "src/demo/tsconfig.app.json",
             "inlineStyleLanguage": "scss",
             "assets": [

@@ -5,14 +5,13 @@
       Copy and paste these code examples to use the amw-toggle component in your projects.
     </p>
 
-    @for (example of codeExamples | keyvalue; track example) {
+    @for (example of codeExamples | keyvalue; track example.key) {
       <mat-expansion-panel class="code-example">
         <mat-expansion-panel-header>
-          <mat-panel-title>{{ example.value.title }}</mat-panel-title>
-          <mat-panel-description>{{ example.value.description }}</mat-panel-description>
+          <mat-panel-title>{{ example.key }}</mat-panel-title>
         </mat-expansion-panel-header>
         <div class="code-content">
-          <pre><code>{{ example.value.code }}</code></pre>
+          <pre><code>{{ example.value }}</code></pre>
         </div>
       </mat-expansion-panel>
     }

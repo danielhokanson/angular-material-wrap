@@ -1,4 +1,4 @@
-import { Component, Input, Output, EventEmitter, ViewEncapsulation, forwardRef, OnChanges } from '@angular/core';
+import { Component, Input, Output, EventEmitter, ViewEncapsulation, OnChanges } from '@angular/core';
 
 import { FormsModule, NG_VALUE_ACCESSOR } from '@angular/forms';
 import { MatFormFieldModule } from '@angular/material/form-field';
@@ -20,7 +20,7 @@ import { AmwColor } from '../../../shared/types/amw-color.type';
     providers: [
         {
             provide: NG_VALUE_ACCESSOR,
-            useExisting: forwardRef(() => AmwTimepickerComponent),
+            useExisting: AmwTimepickerComponent,
             multi: true
         }
     ]

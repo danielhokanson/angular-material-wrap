@@ -1,10 +1,9 @@
-<div
-  class="amw-tooltip"
-  [class]="class"
-  [style.max-width]="maxWidth"
-  [innerHTML]="allowHtml ? content : null"
-  >
-  @if (!allowHtml) {
-    {{ content }}
+<div [class]="'amw-tooltip ' + class" [style.max-width]="maxWidth">
+  @if (allowHtml) {
+  <span [innerHTML]="allowHtml ? content : ''"></span>
+
+  }
+  @else {
+  <span>{{ content }}</span>
   }
 </div>

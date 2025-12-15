@@ -28,7 +28,7 @@
                     <span class="sidenav-api__property-description">Description</span>
                     <span class="sidenav-api__property-default">Default</span>
                   </div>
-                  @for (input of getComponentInputs(); track input) {
+                  @for (input of componentInputs; track input) {
                     <div
                       class="sidenav-api__property-row">
                       <span class="sidenav-api__property-name">
@@ -55,7 +55,7 @@
                     <span class="sidenav-api__property-description">Description</span>
                     <span class="sidenav-api__property-parameters">Parameters</span>
                   </div>
-                  @for (output of getComponentOutputs(); track output) {
+                  @for (output of componentOutputs; track output) {
                     <div
                       class="sidenav-api__property-row">
                       <span class="sidenav-api__property-name">{{ output.name }}</span>
@@ -77,7 +77,7 @@
                     <span class="sidenav-api__property-parameters">Parameters</span>
                     <span class="sidenav-api__property-returns">Returns</span>
                   </div>
-                  @for (method of getComponentMethods(); track method) {
+                  @for (method of componentMethods; track method) {
                     <div
                       class="sidenav-api__property-row">
                       <span class="sidenav-api__property-name">{{ method.name }}</span>
@@ -103,7 +103,7 @@
                     <span class="sidenav-api__property-type">Type</span>
                     <span class="sidenav-api__property-description">Description</span>
                   </div>
-                  @for (property of getServiceProperties(); track property) {
+                  @for (property of serviceProperties; track property) {
                     <div
                       class="sidenav-api__property-row">
                       <span class="sidenav-api__property-name">{{ property.name }}</span>
@@ -123,7 +123,7 @@
                     <span class="sidenav-api__property-type">Type</span>
                     <span class="sidenav-api__property-description">Description</span>
                   </div>
-                  @for (observable of getServiceObservables(); track observable) {
+                  @for (observable of serviceObservables; track observable) {
                     <div
                       class="sidenav-api__property-row">
                       <span class="sidenav-api__property-name">{{ observable.name }}</span>
@@ -144,7 +144,7 @@
                     <span class="sidenav-api__property-parameters">Parameters</span>
                     <span class="sidenav-api__property-returns">Returns</span>
                   </div>
-                  @for (method of getServiceMethods(); track method) {
+                  @for (method of serviceMethods; track method) {
                     <div
                       class="sidenav-api__property-row">
                       <span class="sidenav-api__property-name">{{ method.name }}</span>
@@ -171,7 +171,7 @@
                     <span class="sidenav-api__property-description">Description</span>
                     <span class="sidenav-api__property-default">Default</span>
                   </div>
-                  @for (property of getSidenavConfigProperties(); track property) {
+                  @for (property of sidenavConfigProperties; track property) {
                     <div
                       class="sidenav-api__property-row">
                       <span class="sidenav-api__property-name">
@@ -198,7 +198,7 @@
                     <span class="sidenav-api__property-description">Description</span>
                     <span class="sidenav-api__property-required">Required</span>
                   </div>
-                  @for (property of getSidenavItemProperties(); track property) {
+                  @for (property of sidenavItemProperties; track property) {
                     <div
                       class="sidenav-api__property-row">
                       <span class="sidenav-api__property-name">
@@ -227,7 +227,7 @@
                     <span class="sidenav-api__property-description">Description</span>
                     <span class="sidenav-api__property-required">Required</span>
                   </div>
-                  @for (property of getSidenavEventProperties(); track property) {
+                  @for (property of sidenavEventProperties; track property) {
                     <div
                       class="sidenav-api__property-row">
                       <span class="sidenav-api__property-name">

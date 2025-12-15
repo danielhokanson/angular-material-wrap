@@ -1,167 +1,88 @@
 import { Component, ViewEncapsulation } from '@angular/core';
 import { CommonModule } from '@angular/common';
+import { FormsModule } from '@angular/forms';
 import { MatExpansionModule } from '@angular/material/expansion';
+import { MatButtonModule } from '@angular/material/button';
+import { MatIconModule } from '@angular/material/icon';
+import { MatSlideToggleModule } from '@angular/material/slide-toggle';
+import { BaseCodeComponent } from '../base/base-code.component';
+
+type ToggleExamples = 'basic' | 'colors' | 'disabled' | 'labelPosition' | 'ngModel' | 'events' | 'formField';
 
 @Component({
   selector: 'amw-demo-toggle-code',
   standalone: true,
   imports: [
     CommonModule,
-    MatExpansionModule
+    FormsModule,
+    MatExpansionModule,
+    MatButtonModule,
+    MatIconModule,
+    MatSlideToggleModule
   ],
   encapsulation: ViewEncapsulation.None,
   templateUrl: './toggle-code.component.html',
   styleUrl: './toggle-code.component.scss'
 })
-export class ToggleCodeComponent {
-  codeExamples = {
-    basic: {
-      title: 'Basic Toggle',
-      description: 'A simple toggle switch with label',
-      code: `<amw-toggle
-  label="Enable notifications"
-  [checked]="true">
-</amw-toggle>`
-    },
-    withColor: {
-      title: 'Toggle with Color',
-      description: 'Toggles with different color themes',
-      code: `<amw-toggle
-  label="Primary toggle"
-  color="primary"
-  [checked]="true">
-</amw-toggle>
+export class ToggleCodeComponent extends BaseCodeComponent<ToggleExamples> {
+  // State for live preview examples
+  isChecked = true;
+  isDisabled = false;
+  labelPosition: 'before' | 'after' = 'after';
 
-<amw-toggle
-  label="Accent toggle"
-  color="accent"
-  [checked]="false">
-</amw-toggle>
+  // Original code examples (for reset functionality)
+  readonly codeExamples: Record<ToggleExamples, string> = {
+    basic: `<mat-slide-toggle>Enable notifications</mat-slide-toggle>`,
 
-<amw-toggle
-  label="Warn toggle"
-  color="warn"
-  [checked]="false">
-</amw-toggle>`
-    },
-    states: {
-      title: 'Different States',
-      description: 'Toggles in various states',
-      code: `<amw-toggle
-  label="Checked toggle"
-  [checked]="true">
-</amw-toggle>
+    colors: `<mat-slide-toggle color="primary">Primary toggle</mat-slide-toggle>
+<mat-slide-toggle color="accent">Accent toggle</mat-slide-toggle>
+<mat-slide-toggle color="warn">Warn toggle</mat-slide-toggle>`,
 
-<amw-toggle
-  label="Unchecked toggle"
-  [checked]="false">
-</amw-toggle>
+    disabled: `<mat-slide-toggle [checked]="true">Checked toggle</mat-slide-toggle>
+<mat-slide-toggle [checked]="false">Unchecked toggle</mat-slide-toggle>
+<mat-slide-toggle [checked]="true" [disabled]="true">Disabled toggle</mat-slide-toggle>`,
 
-<amw-toggle
-  label="Disabled toggle"
-  [checked]="true"
-  [disabled]="true">
-</amw-toggle>`
-    },
-    labelPosition: {
-      title: 'Label Position',
-      description: 'Toggles with different label positions',
-      code: `<amw-toggle
-  labelPosition="after"
-  label="Label after toggle"
-  [checked]="true">
-</amw-toggle>
+    labelPosition: `<mat-slide-toggle labelPosition="after">Label after toggle</mat-slide-toggle>
+<mat-slide-toggle labelPosition="before">Label before toggle</mat-slide-toggle>`,
 
-<amw-toggle
-  labelPosition="before"
-  label="Label before toggle"
-  [checked]="true">
-</amw-toggle>`
-    },
-    reactiveForm: {
-      title: 'Reactive Form Integration',
-      description: 'Using toggles with Angular reactive forms',
-      code: `// Component TypeScript
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+    ngModel: `<mat-slide-toggle [(ngModel)]="isChecked">
+  Toggle is {{ isChecked ? 'ON' : 'OFF' }}
+</mat-slide-toggle>`,
 
-export class MyComponent {
-  form: FormGroup;
-
-  constructor(private fb: FormBuilder) {
-    this.form = this.fb.group({
-      notifications: [false, Validators.requiredTrue],
-      darkMode: [false],
-      analytics: [false]
-    });
-  }
-}
-
-// Template
-<form [formGroup]="form">
-  <amw-toggle
-    formControlName="notifications"
-    label="Enable notifications"
-    color="primary">
-  </amw-toggle>
-  
-  <amw-toggle
-    formControlName="darkMode"
-    label="Dark mode"
-    color="accent">
-  </amw-toggle>
-  
-  <amw-toggle
-    formControlName="analytics"
-    label="Analytics tracking"
-    color="primary">
-  </amw-toggle>
-</form>`
-    },
-    withEvents: {
-      title: 'Toggle with Events',
-      description: 'Toggles with event handling',
-      code: `<amw-toggle
-  label="Enable feature"
-  [checked]="isEnabled"
+    events: `<mat-slide-toggle
+  [checked]="isChecked"
   (change)="onToggleChange($event)">
-</amw-toggle>
+  Enable feature
+</mat-slide-toggle>
 
 // Component method
 onToggleChange(event: any): void {
-  this.isEnabled = event.checked;
+  this.isChecked = event.checked;
   console.log('Toggle changed:', event.checked);
-}`
-    },
-    settingsGroup: {
-      title: 'Settings Group',
-      description: 'Multiple toggles in a settings panel',
-      code: `<div class="settings-panel">
+}`,
+
+    formField: `<div class="settings-panel">
   <h3>User Preferences</h3>
-  
-  <amw-toggle
-    color="primary"
-    label="Email notifications"
-    [checked]="emailNotifications">
-  </amw-toggle>
-  
-  <amw-toggle
-    color="primary"
-    label="Push notifications"
-    [checked]="pushNotifications">
-  </amw-toggle>
-  
-  <amw-toggle
-    color="accent"
-    label="Dark mode"
-    [checked]="darkMode">
-  </amw-toggle>
-  
-  <amw-toggle
-    color="warn"
-    label="Delete account"
-    [checked]="deleteAccount">
-  </amw-toggle>
+
+  <mat-slide-toggle color="primary">
+    Email notifications
+  </mat-slide-toggle>
+
+  <mat-slide-toggle color="primary">
+    Push notifications
+  </mat-slide-toggle>
+
+  <mat-slide-toggle color="accent">
+    Dark mode
+  </mat-slide-toggle>
+
+  <mat-slide-toggle color="warn">
+    Delete account
+  </mat-slide-toggle>
 </div>`
-    }
   };
+
+  constructor() {
+    super();
+  }
 }

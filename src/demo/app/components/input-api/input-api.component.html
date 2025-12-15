@@ -20,7 +20,7 @@
         <tbody>
           @for (input of apiDocumentation.inputs; track input) {
             <tr>
-              <td><code>{{ input.property }}</code></td>
+              <td><code>{{ input.name }}</code></td>
               <td><code>{{ input.type }}</code></td>
               <td><code>{{ input.default }}</code></td>
               <td>{{ input.description }}</td>
@@ -44,7 +44,7 @@
         <tbody>
           @for (output of apiDocumentation.outputs; track output) {
             <tr>
-              <td><code>{{ output.property }}</code></td>
+              <td><code>{{ output.name }}</code></td>
               <td><code>{{ output.type }}</code></td>
               <td>{{ output.description }}</td>
             </tr>
@@ -52,21 +52,4 @@
         </tbody>
       </table>
     </div>
-
-    <!-- Usage Examples -->
-    <div class="api-section__usage">
-      <h4>Usage Examples</h4>
-      <p>{{ apiDocumentation.usage.description }}</p>
-
-      @for (example of apiDocumentation.usage.examples; track example) {
-        <div class="usage-example">
-          <h5>{{ example.title }}</h5>
-          <pre><code>{{ example.code }}</code></pre>
-        </div>
-      }
-    </div>
-  </div>
-</div>
-
-
 

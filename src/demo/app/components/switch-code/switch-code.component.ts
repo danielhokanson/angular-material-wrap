@@ -1,31 +1,40 @@
 import { Component, ViewEncapsulation } from '@angular/core';
-
+import { FormsModule } from '@angular/forms';
 import { MatExpansionModule } from '@angular/material/expansion';
-import { MatCardModule } from '@angular/material/card';
+import { MatButtonModule } from '@angular/material/button';
+import { MatIconModule } from '@angular/material/icon';
+import { MatSlideToggleModule } from '@angular/material/slide-toggle';
+import { BaseCodeComponent } from '../base/base-code.component';
+
+type SwitchExamples = 'basic' | 'configured' | 'formControl' | 'validation' | 'sizes' | 'colors';
 
 @Component({
   selector: 'amw-demo-switch-code',
   standalone: true,
-  imports: [MatExpansionModule, MatCardModule],
+  imports: [
+    FormsModule,
+    MatExpansionModule,
+    MatButtonModule,
+    MatIconModule,
+    MatSlideToggleModule
+  ],
   encapsulation: ViewEncapsulation.None,
   templateUrl: './switch-code.component.html',
   styleUrl: './switch-code.component.scss'
 })
-export class SwitchCodeComponent {
-  /** Code examples for the component */
-  readonly codeExamplesArray = Object.values({
-    basic: {
-      title: 'Basic Switch',
-      description: 'Simple switch with default configuration',
-      code: `<amw-switch
+export class SwitchCodeComponent extends BaseCodeComponent<SwitchExamples> {
+  // State for preview examples
+  isEnabled = false;
+  notificationsEnabled = true;
+  darkModeEnabled = false;
+
+  readonly codeExamples: Record<SwitchExamples, string> = {
+    basic: `<amw-switch
   [(checked)]="isEnabled"
   (switchChange)="onSwitchChange($event)">
-</amw-switch>`
-    },
-    configured: {
-      title: 'Configured Switch',
-      description: 'Switch with custom configuration and styling',
-      code: `<amw-switch
+</amw-switch>`,
+
+    configured: `<amw-switch
   [(checked)]="notificationsEnabled"
   [size]="'large'"
   [color]="'accent'"
@@ -34,12 +43,9 @@ export class SwitchCodeComponent {
   [required]="true"
   (switchChange)="onNotificationChange($event)">
   Enable Notifications
-</amw-switch>`
-    },
-    formControl: {
-      title: 'Reactive Form Integration',
-      description: 'Switch integrated with Angular reactive forms',
-      code: `// Component
+</amw-switch>`,
+
+    formControl: `// Component
 export class MyComponent {
   form = this.fb.group({
     notificationsEnabled: [false, Validators.requiredTrue],
@@ -56,16 +62,13 @@ export class MyComponent {
     [hasError]="form.get('notificationsEnabled')?.invalid && form.get('notificationsEnabled')?.touched">
     Enable Notifications
   </amw-switch>
-  
+
   <amw-switch formControlName="darkModeEnabled">
     Dark Mode
   </amw-switch>
-</form>`
-    },
-    validation: {
-      title: 'With Validation',
-      description: 'Switch with custom validation and error handling',
-      code: `// Component
+</form>`,
+
+    validation: `// Component
 export class MyComponent {
   form = this.fb.group({
     termsAccepted: [false, [Validators.requiredTrue, this.validateTerms]]
@@ -98,24 +101,26 @@ export class MyComponent {
     [errorMessage]="getErrorMessage('termsAccepted')">
     Accept Terms and Conditions
   </amw-switch>
-</form>`
-    },
-    sizes: {
-      title: 'Size Variations',
-      description: 'Different switch sizes for various use cases',
-      code: `<amw-switch [size]="'small'">Small Switch</amw-switch>
+</form>`,
+
+    sizes: `<amw-switch [size]="'small'">Small Switch</amw-switch>
 <amw-switch [size]="'medium'">Medium Switch</amw-switch>
-<amw-switch [size]="'large'">Large Switch</amw-switch>`
-    },
-    colors: {
-      title: 'Color Themes',
-      description: 'Switch with different Material Design color themes',
-      code: `<amw-switch [color]="'primary'">Primary Switch</amw-switch>
+<amw-switch [size]="'large'">Large Switch</amw-switch>`,
+
+    colors: `<amw-switch [color]="'primary'">Primary Switch</amw-switch>
 <amw-switch [color]="'accent'">Accent Switch</amw-switch>
 <amw-switch [color]="'warn'">Warn Switch</amw-switch>`
-    }
-  });
+  };
+
+  constructor() {
+    super();
+  }
+
+  onSwitchChange(event: any) {
+    console.log('Switch changed:', event);
+  }
+
+  onNotificationChange(event: any) {
+    console.log('Notification setting changed:', event);
+  }
 }
-
-
-

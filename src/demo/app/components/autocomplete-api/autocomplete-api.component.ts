@@ -1,4 +1,5 @@
 import { Component, ViewEncapsulation } from '@angular/core';
+import { BaseApiComponent, ApiDocumentation } from '../base/base-api.component';
 
 
 @Component({
@@ -9,77 +10,77 @@ import { Component, ViewEncapsulation } from '@angular/core';
   templateUrl: './autocomplete-api.component.html',
   styleUrl: './autocomplete-api.component.scss'
 })
-export class AutocompleteApiComponent {
-  apiDocumentation = {
+export class AutocompleteApiComponent extends BaseApiComponent {
+  apiDocumentation: ApiDocumentation = {
     inputs: [
       {
-        property: 'options',
+        name: 'options',
         type: 'AutocompleteOption[]',
         default: '[]',
         description: 'Array of options to display in the autocomplete'
       },
       {
-        property: 'value',
+        name: 'value',
         type: 'any',
         default: 'undefined',
         description: 'Current value of the autocomplete'
       },
       {
-        property: 'placeholder',
+        name: 'placeholder',
         type: 'string',
         default: 'undefined',
         description: 'Placeholder text shown when autocomplete is empty'
       },
       {
-        property: 'label',
+        name: 'label',
         type: 'string',
         default: 'undefined',
         description: 'Label text displayed above the autocomplete'
       },
       {
-        property: 'disabled',
+        name: 'disabled',
         type: 'boolean',
         default: 'false',
         description: 'Whether the autocomplete is disabled'
       },
       {
-        property: 'required',
+        name: 'required',
         type: 'boolean',
         default: 'false',
         description: 'Whether the autocomplete is required for form validation'
       },
       {
-        property: 'multiple',
+        name: 'multiple',
         type: 'boolean',
         default: 'false',
         description: 'Whether multiple selections are allowed'
       },
       {
-        property: 'chips',
+        name: 'chips',
         type: 'boolean',
         default: 'false',
         description: 'Whether to display selected values as chips'
       },
       {
-        property: 'filterable',
+        name: 'filterable',
         type: 'boolean',
         default: 'false',
         description: 'Whether options can be filtered by typing'
       },
       {
-        property: 'displayWith',
+        name: 'displayWith',
         type: 'string | Function',
         default: 'undefined',
         description: 'Function or property name to display options'
       },
       {
-        property: 'appearance',
+        name: 'appearance',
         type: "'outline' | 'fill'",
         default: "'outline'",
         description: 'Visual appearance of the form field'
       },
       {
-        property: 'hint',
+        name: 'hint',
         type: 'string',
         default: 'undefined',
         description: 'Hint text displayed below the autocomplete'
@@ -87,63 +88,34 @@ export class AutocompleteApiComponent {
     ],
     outputs: [
       {
-        property: 'selectionChange',
+        name: 'selectionChange',
         type: 'EventEmitter<MatAutocompleteSelectedEvent>',
         description: 'Emitted when an option is selected'
       },
       {
-        property: 'inputChange',
+        name: 'inputChange',
         type: 'EventEmitter<string>',
         description: 'Emitted when the input value changes'
       },
       {
-        property: 'valueChange',
+        name: 'valueChange',
         type: 'EventEmitter<any>',
         description: 'Emitted when the autocomplete value changes'
       },
       {
-        property: 'focus',
+        name: 'focus',
         type: 'EventEmitter<FocusEvent>',
         description: 'Emitted when the autocomplete gains focus'
       },
       {
-        property: 'blur',
+        name: 'blur',
         type: 'EventEmitter<FocusEvent>',
         description: 'Emitted when the autocomplete loses focus'
       }
-    ],
-    usage: {
-      description: 'The amw-autocomplete component provides a Material Design autocomplete with various customization options and form integration.',
-      examples: [
-        {
-          title: 'Basic Usage',
-          code: `<amw-autocomplete
-  label="Country"
-  placeholder="Select your country..."
-  [options]="countries">
-</amw-autocomplete>`
-        },
-        {
-          title: 'With Validation',
-          code: `<amw-autocomplete
-  formControlName="country"
-  label="Country"
-  placeholder="Select your country..."
-  [options]="countries"
-  [required]="true">
-</amw-autocomplete>`
-        },
-        {
-          title: 'Multiple Selection',
-          code: `<amw-autocomplete
-  label="Skills"
-  placeholder="Select multiple skills..."
-  [options]="skills"
-  [multiple]="true"
-  [chips]="true">
-</amw-autocomplete>`
-        }
-      ]
-    }
+    ]
   };
+
+    constructor() {
+        super();
+    }
 }

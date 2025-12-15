@@ -1,4 +1,4 @@
-import { Component, Input, Output, EventEmitter, ViewEncapsulation, forwardRef } from '@angular/core';
+import { Component, Input, Output, EventEmitter, ViewEncapsulation } from '@angular/core';
 
 import { MatSliderModule } from '@angular/material/slider';
 import { FormsModule, ControlValueAccessor, NG_VALUE_ACCESSOR } from '@angular/forms';
@@ -16,7 +16,7 @@ import { AmwColor } from '../../../shared/types/amw-color.type';
     providers: [
         {
             provide: NG_VALUE_ACCESSOR,
-            useExisting: forwardRef(() => AmwRangeSliderComponent),
+            useExisting: AmwRangeSliderComponent,
             multi: true
         }
     ]

@@ -12,7 +12,7 @@
   <!-- Radio Group Container -->
   <div class="amw-radio-group__container" [class]="'amw-radio-group__container--' + orientation">
     <mat-radio-group
-      [name]="name || 'amw-radio-group-' + generateId()"
+      [name]="name || 'amw-radio-group-' + componentId"
       [value]="internalValue"
       [disabled]="disabled"
       [required]="required"

@@ -2,6 +2,7 @@ import { Component, ViewEncapsulation } from '@angular/core';
 
 import { MatCardModule } from '@angular/material/card';
 import { MatTableModule } from '@angular/material/table';
+import { BaseApiComponent, ApiDocumentation } from '../base/base-api.component';
 
 @Component({
     selector: 'amw-demo-dialog-api',
@@ -14,8 +15,8 @@ import { MatTableModule } from '@angular/material/table';
     templateUrl: './dialog-api.component.html',
     styleUrl: './dialog-api.component.scss'
 })
-export class DialogApiComponent {
-    apiDocumentation = {
+export class DialogApiComponent extends BaseApiComponent {
+    apiDocumentation: ApiDocumentation = {
         inputs: [
             { name: 'config', type: 'DialogConfig', default: '{}', description: 'Configuration object for the dialog' },
             { name: 'type', type: 'DialogType', default: "'standard'", description: 'Type of dialog (standard, alert, confirm, etc.)' },
@@ -54,85 +55,87 @@ export class DialogApiComponent {
             { name: 'closeClick', type: 'EventEmitter<void>', description: 'Emitted when the close button is clicked' }
         ],
         methods: [
-            { name: 'open()', type: 'void', description: 'Opens the dialog' },
-            { name: 'close(result?: any)', type: 'void', description: 'Closes the dialog with optional result' },
-            { name: 'onActionClick(action: any, index: number)', type: 'void', description: 'Handles action button clicks' },
-            { name: 'onCloseClick()', type: 'void', description: 'Handles close button clicks' }
-        ],
-        serviceMethods: [
-            { name: 'alert(message: string, title?: string)', type: 'MatDialogRef<any>', description: 'Opens an alert dialog' },
-            { name: 'confirm(message: string, title?: string)', type: 'Observable<any>', description: 'Opens a confirmation dialog and returns observable' },
-            { name: 'prompt(message: string, title?: string, defaultValue?: string)', type: 'Observable<any>', description: 'Opens a prompt dialog and returns observable' },
-            { name: 'info(message: string, title?: string)', type: 'MatDialogRef<any>', description: 'Opens an info dialog' },
-            { name: 'warning(message: string, title?: string)', type: 'Observable<any>', description: 'Opens a warning dialog and returns observable' },
-            { name: 'error(message: string, title?: string)', type: 'MatDialogRef<any>', description: 'Opens an error dialog' },
-            { name: 'success(message: string, title?: string)', type: 'MatDialogRef<any>', description: 'Opens a success dialog' },
-            { name: 'loading(message?: string, title?: string)', type: 'MatDialogRef<any>', description: 'Opens a loading dialog' },
-            { name: 'openComponent<T>(component: Type<T>, config?: MatDialogConfig)', type: 'MatDialogRef<T>', description: 'Opens a custom component dialog' },
-            { name: 'closeAll()', type: 'void', description: 'Closes all open dialogs' },
-            { name: 'getOpenDialogs()', type: 'MatDialogRef<any>[]', description: 'Gets all currently open dialogs' },
-            { name: 'hasOpenDialogs()', type: 'boolean', description: 'Checks if any dialogs are open' }
-        ],
-        interfaces: [
+            { name: 'open()', returns: 'void', description: 'Opens the dialog' },
+            { name: 'close(result?: any)', returns: 'void', description: 'Closes the dialog with optional result' },
+            { name: 'onActionClick(action: any, index: number)', returns: 'void', description: 'Handles action button clicks' },
+            { name: 'onCloseClick()', returns: 'void', description: 'Handles close button clicks' }
+        ]
+    };
+
+    serviceMethods = [
+            { name: 'alert(message: string, title?: string)', returns: 'MatDialogRef<any>', description: 'Opens an alert dialog' },
+            { name: 'confirm(message: string, title?: string)', returns: 'Observable<any>', description: 'Opens a confirmation dialog and returns observable' },
+            { name: 'prompt(message: string, title?: string, defaultValue?: string)', returns: 'Observable<any>', description: 'Opens a prompt dialog and returns observable' },
+            { name: 'info(message: string, title?: string)', returns: 'MatDialogRef<any>', description: 'Opens an info dialog' },
+            { name: 'warning(message: string, title?: string)', returns: 'Observable<any>', description: 'Opens a warning dialog and returns observable' },
+            { name: 'error(message: string, title?: string)', returns: 'MatDialogRef<any>', description: 'Opens an error dialog' },
+            { name: 'success(message: string, title?: string)', returns: 'MatDialogRef<any>', description: 'Opens a success dialog' },
+            { name: 'loading(message?: string, title?: string)', returns: 'MatDialogRef<any>', description: 'Opens a loading dialog' },
+            { name: 'openComponent<T>(component: Type<T>, config?: MatDialogConfig)', returns: 'MatDialogRef<T>', description: 'Opens a custom component dialog' },
+            { name: 'closeAll()', returns: 'void', description: 'Closes all open dialogs' },
+            { name: 'getOpenDialogs()', returns: 'MatDialogRef<any>[]', description: 'Gets all currently open dialogs' },
+            { name: 'hasOpenDialogs()', returns: 'boolean', description: 'Checks if any dialogs are open' }
+    ];
+
+    interfaces = [
             {
                 name: 'DialogConfig',
                 description: 'Configuration options for the dialog',
                 properties: [
-                    { name: 'width', type: 'string', description: 'Width of the dialog' },
-                    { name: 'height', type: 'string', description: 'Height of the dialog' },
-                    { name: 'maxWidth', type: 'string', description: 'Maximum width of the dialog' },
-                    { name: 'maxHeight', type: 'string', description: 'Maximum height of the dialog' },
-                    { name: 'minWidth', type: 'string', description: 'Minimum width of the dialog' },
-                    { name: 'minHeight', type: 'string', description: 'Minimum height of the dialog' },
-                    { name: 'position', type: '{ top?: string; bottom?: string; left?: string; right?: string }', description: 'Position of the dialog' },
-                    { name: 'hasBackdrop', type: 'boolean', description: 'Whether the dialog has a backdrop' },
-                    { name: 'backdropClass', type: 'string', description: 'CSS class for the backdrop' },
-                    { name: 'panelClass', type: 'string', description: 'CSS class for the dialog panel' },
-                    { name: 'disableClose', type: 'boolean', description: 'Whether to disable closing the dialog' },
-                    { name: 'autoFocus', type: 'boolean', description: 'Whether to auto-focus the dialog' },
-                    { name: 'restoreFocus', type: 'boolean', description: 'Whether to restore focus after closing' },
-                    { name: 'closeOnNavigation', type: 'boolean', description: 'Whether to close on navigation' },
-                    { name: 'autoOpen', type: 'boolean', description: 'Whether to auto-open the dialog' },
-                    { name: 'data', type: 'any', description: 'Data to pass to the dialog' }
+                    { name: 'width', returns: 'string', description: 'Width of the dialog' },
+                    { name: 'height', returns: 'string', description: 'Height of the dialog' },
+                    { name: 'maxWidth', returns: 'string', description: 'Maximum width of the dialog' },
+                    { name: 'maxHeight', returns: 'string', description: 'Maximum height of the dialog' },
+                    { name: 'minWidth', returns: 'string', description: 'Minimum width of the dialog' },
+                    { name: 'minHeight', returns: 'string', description: 'Minimum height of the dialog' },
+                    { name: 'position', returns: '{ top?: string; bottom?: string; left?: string; right?: string }', description: 'Position of the dialog' },
+                    { name: 'hasBackdrop', returns: 'boolean', description: 'Whether the dialog has a backdrop' },
+                    { name: 'backdropClass', returns: 'string', description: 'CSS class for the backdrop' },
+                    { name: 'panelClass', returns: 'string', description: 'CSS class for the dialog panel' },
+                    { name: 'disableClose', returns: 'boolean', description: 'Whether to disable closing the dialog' },
+                    { name: 'autoFocus', returns: 'boolean', description: 'Whether to auto-focus the dialog' },
+                    { name: 'restoreFocus', returns: 'boolean', description: 'Whether to restore focus after closing' },
+                    { name: 'closeOnNavigation', returns: 'boolean', description: 'Whether to close on navigation' },
+                    { name: 'autoOpen', returns: 'boolean', description: 'Whether to auto-open the dialog' },
+                    { name: 'data', returns: 'any', description: 'Data to pass to the dialog' }
                 ]
             },
             {
                 name: 'DialogType',
                 description: 'Type variants for the dialog',
                 properties: [
-                    { name: 'standard', type: 'string', description: 'Standard dialog (default)' },
-                    { name: 'alert', type: 'string', description: 'Alert dialog' },
-                    { name: 'confirm', type: 'string', description: 'Confirmation dialog' },
-                    { name: 'prompt', type: 'string', description: 'Prompt dialog' },
-                    { name: 'info', type: 'string', description: 'Information dialog' },
-                    { name: 'warning', type: 'string', description: 'Warning dialog' },
-                    { name: 'error', type: 'string', description: 'Error dialog' },
-                    { name: 'success', type: 'string', description: 'Success dialog' }
+                    { name: 'standard', returns: 'string', description: 'Standard dialog (default)' },
+                    { name: 'alert', returns: 'string', description: 'Alert dialog' },
+                    { name: 'confirm', returns: 'string', description: 'Confirmation dialog' },
+                    { name: 'prompt', returns: 'string', description: 'Prompt dialog' },
+                    { name: 'info', returns: 'string', description: 'Information dialog' },
+                    { name: 'warning', returns: 'string', description: 'Warning dialog' },
+                    { name: 'error', returns: 'string', description: 'Error dialog' },
+                    { name: 'success', returns: 'string', description: 'Success dialog' }
                 ]
             },
             {
                 name: 'DialogSize',
                 description: 'Size variants for the dialog',
                 properties: [
-                    { name: 'small', type: 'string', description: 'Small dialog (300x200px)' },
-                    { name: 'medium', type: 'string', description: 'Medium dialog (500x400px)' },
-                    { name: 'large', type: 'string', description: 'Large dialog (800x600px)' },
-                    { name: 'fullscreen', type: 'string', description: 'Fullscreen dialog (100vw x 100vh)' }
+                    { name: 'small', returns: 'string', description: 'Small dialog (300x200px)' },
+                    { name: 'medium', returns: 'string', description: 'Medium dialog (500x400px)' },
+                    { name: 'large', returns: 'string', description: 'Large dialog (800x600px)' },
+                    { name: 'fullscreen', returns: 'string', description: 'Fullscreen dialog (100vw x 100vh)' }
                 ]
             },
             {
                 name: 'DialogPosition',
                 description: 'Position variants for the dialog',
                 properties: [
-                    { name: 'center', type: 'string', description: 'Center position (default)' },
-                    { name: 'top', type: 'string', description: 'Top position' },
-                    { name: 'bottom', type: 'string', description: 'Bottom position' },
-                    { name: 'left', type: 'string', description: 'Left position' },
-                    { name: 'right', type: 'string', description: 'Right position' }
+                    { name: 'center', returns: 'string', description: 'Center position (default)' },
+                    { name: 'top', returns: 'string', description: 'Top position' },
+                    { name: 'bottom', returns: 'string', description: 'Bottom position' },
+                    { name: 'left', returns: 'string', description: 'Left position' },
+                    { name: 'right', returns: 'string', description: 'Right position' }
                 ]
             }
-        ]
-    };
+    ];
 
     getDisplayedColumns(section: string): any[] {
         const data = this.apiDocumentation[section as keyof typeof this.apiDocumentation];
@@ -141,6 +144,10 @@ export class DialogApiComponent {
 
     /** API interfaces - computed property */
     get interfacesList() {
-        return this.apiDocumentation.interfaces;
+        return this.interfaces;
+    }
+
+    constructor() {
+        super();
     }
 }

@@ -1,6 +1,7 @@
 import { Component, ViewEncapsulation } from '@angular/core';
 
 import { MatCardModule } from '@angular/material/card';
+import { BaseApiComponent, ApiDocumentation } from '../base/base-api.component';
 
 @Component({
     selector: 'amw-demo-switch-api',
@@ -10,65 +11,65 @@ import { MatCardModule } from '@angular/material/card';
     templateUrl: './switch-api.component.html',
     styleUrl: './switch-api.component.scss'
 })
-export class SwitchApiComponent {
-    apiDocumentation = {
+export class SwitchApiComponent extends BaseApiComponent {
+    apiDocumentation: ApiDocumentation = {
         inputs: [
             {
-                property: 'checked',
+                name: 'checked',
                 type: 'boolean',
                 default: 'false',
                 description: 'Whether the switch is checked (on) or unchecked (off)'
             },
             {
-                property: 'size',
+                name: 'size',
                 type: 'SwitchSize',
                 default: 'medium',
                 description: 'Size of the switch (small, medium, large)'
             },
             {
-                property: 'color',
+                name: 'color',
                 type: 'SwitchColor',
                 default: 'primary',
                 description: 'Color theme for the switch (primary, accent, warn)'
             },
             {
-                property: 'labelPosition',
+                name: 'labelPosition',
                 type: "'before' | 'after'",
                 default: 'after',
                 description: 'Position of the label relative to the switch'
             },
             {
-                property: 'indeterminate',
+                name: 'indeterminate',
                 type: 'boolean',
                 default: 'false',
                 description: 'Whether the switch is in an indeterminate state'
             },
             {
-                property: 'disabled',
+                name: 'disabled',
                 type: 'boolean',
                 default: 'false',
                 description: 'Whether the switch is disabled'
             },
             {
-                property: 'required',
+                name: 'required',
                 type: 'boolean',
                 default: 'false',
                 description: 'Whether the switch is required'
             },
             {
-                property: 'label',
+                name: 'label',
                 type: 'string',
                 default: '""',
                 description: 'Label text for the switch'
             },
             {
-                property: 'errorMessage',
+                name: 'errorMessage',
                 type: 'string',
                 default: '""',
                 description: 'Custom error message to display'
             },
             {
-                property: 'hasError',
+                name: 'hasError',
                 type: 'boolean',
                 default: 'false',
                 description: 'Whether the switch is in an error state'
@@ -76,56 +77,65 @@ export class SwitchApiComponent {
         ],
         outputs: [
             {
-                property: 'checkedChange',
+                name: 'checkedChange',
                 type: 'EventEmitter<boolean>',
                 description: 'Emitted when the checked state changes'
             },
             {
-                property: 'switchChange',
+                name: 'switchChange',
                 type: 'EventEmitter<boolean>',
                 description: 'Emitted when the switch state changes'
             },
             {
-                property: 'valueChange',
+                name: 'valueChange',
                 type: 'EventEmitter<boolean>',
                 description: 'Emitted when the value changes (for form integration)'
             },
             {
-                property: 'blur',
+                name: 'blur',
                 type: 'EventEmitter<FocusEvent>',
                 description: 'Emitted when the switch loses focus'
             },
             {
-                property: 'focus',
+                name: 'focus',
                 type: 'EventEmitter<FocusEvent>',
                 description: 'Emitted when the switch gains focus'
             }
         ],
         methods: [
             {
-                method: 'getConfig()',
+                name: 'getConfig()',
                 returns: 'SwitchConfig',
                 description: 'Returns the current configuration object'
             }
-        ],
-        types: [
-            {
-                type: 'SwitchColor',
-                definition: "'primary' | 'accent' | 'warn'",
-                description: 'Available color themes for the switch'
-            },
-            {
-                type: 'SwitchSize',
-                definition: "'small' | 'medium' | 'large'",
-                description: 'Available sizes for the switch'
-            },
-            {
-                type: 'SwitchConfig',
-                definition: 'interface SwitchConfig { checked: boolean; disabled: boolean; size: SwitchSize; color: SwitchColor; labelPosition: "before" | "after"; indeterminate: boolean; required: boolean; }',
-                description: 'Configuration interface for the switch'
-            }
         ]
     };
+
+    types = [
+        {
+            type: 'SwitchColor',
+            definition: "'primary' | 'accent' | 'warn'",
+            description: 'Available color themes for the switch'
+        },
+        {
+            type: 'SwitchSize',
+            definition: "'small' | 'medium' | 'large'",
+            description: 'Available sizes for the switch'
+        },
+        {
+            type: 'SwitchConfig',
+            definition: 'interface SwitchConfig { checked: boolean; disabled: boolean; size: SwitchSize; color: SwitchColor; labelPosition: "before" | "after"; indeterminate: boolean; required: boolean; }',
+            description: 'Configuration interface for the switch'
+        }
+    ];
+
+
+    constructor() {
+
+        super();
+
+    }
+
 }
 
 

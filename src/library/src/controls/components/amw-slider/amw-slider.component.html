@@ -8,11 +8,13 @@
     [attr.aria-label]="ariaLabel"
     [attr.aria-labelledby]="ariaLabelledby"
     [attr.aria-describedby]="ariaDescribedby"
-    [tabIndex]="tabIndex"
-    (change)="onSliderChange($event)"
-    (input)="onSliderInput($event)"
-    (focus)="onFocus($event)"
-    (blur)="onBlur($event)">
+    [tabIndex]="tabIndex">
+    <input matSliderThumb
+      [value]="value"
+      (valueChange)="onSliderChange($event)"
+      (input)="onSliderInput($event)"
+      (focus)="onFocus($event)"
+      (blur)="onBlur($event)">
   </mat-slider>
 
   @if (hasError && errorMessage) {

@@ -1,0 +1,19 @@
+// Component-specific styles for theme-api
+// Global API table styles are imported from styles/_demo-api-code-shared.scss
+
+// Theme-specific API overrides
+.api-section {
+  .api-section__css-variables {
+    margin-top: 32px;
+  }
+
+  .color-preview {
+    display: inline-block;
+    width: 20px;
+    height: 20px;
+    border-radius: 4px;
+    border: 1px solid var(--mdc-theme-outline, #79747e);
+    vertical-align: middle;
+    margin-right: 8px;
+  }
+}

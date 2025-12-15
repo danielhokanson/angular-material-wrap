@@ -1,4 +1,4 @@
-import { Component, Input, Output, EventEmitter, ViewEncapsulation, forwardRef } from '@angular/core';
+import { Component, Input, Output, EventEmitter, ViewEncapsulation } from '@angular/core';
 
 import { MatSlideToggleModule } from '@angular/material/slide-toggle';
 import { FormsModule, ControlValueAccessor, NG_VALUE_ACCESSOR } from '@angular/forms';
@@ -17,7 +17,7 @@ import { AmwColor } from '../../../shared/types/amw-color.type';
     providers: [
         {
             provide: NG_VALUE_ACCESSOR,
-            useExisting: forwardRef(() => AmwSwitchComponent),
+            useExisting: AmwSwitchComponent,
             multi: true
         }
     ]

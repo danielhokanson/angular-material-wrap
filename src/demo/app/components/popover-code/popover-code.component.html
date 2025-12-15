@@ -1,179 +1,189 @@
-<div class="popover-code">
-  <!-- Header -->
-  <div class="popover-code__header">
-    <h2>Popover Code Examples</h2>
-    <p>Explore code examples and usage patterns for the popover component</p>
-  </div>
+<div class="code-section">
+  <h3>Code Examples</h3>
+  <p>Interactive examples with live previews. The code is editable for reference, and working examples are shown alongside.</p>
 
-  <div class="popover-code__content">
-    <!-- Code Examples -->
-    <div class="popover-code__examples">
-      <h3>Code Examples</h3>
-
-      <div class="popover-code__example-grid">
-        @for (example of codeExamples; track example; let i = $index) {
-          <mat-card
-            class="popover-code__example-card"
-            [class.popover-code__example-card--selected]="selectedExample === example"
-            (click)="loadExample(example)">
-            <mat-card-header>
-              <mat-card-title>{{ example.title }}</mat-card-title>
-              <mat-card-subtitle>{{ example.description }}</mat-card-subtitle>
-            </mat-card-header>
-            <mat-card-content>
-              <div class="popover-code__example-preview">
-                <div class="popover-code__preview-popover">
-                  <div class="popover-code__preview-trigger">
-                    <mat-icon>code</mat-icon>
-                    <span>Preview</span>
-                  </div>
-                  <div class="popover-code__preview-content">
-                    @if (example.config.showArrow) {
-                      <div class="popover-code__preview-arrow"></div>
-                    }
-                    <div class="popover-code__preview-panel">
-                      @if (example.config.showHeader) {
-                        <div class="popover-code__preview-header">
-                          <span>Header</span>
-                          @if (example.config.showClose) {
-                            <mat-icon>close</mat-icon>
-                          }
-                        </div>
-                      }
-                      <div class="popover-code__preview-body">Content</div>
-                      @if (example.config.showFooter) {
-                        <div class="popover-code__preview-footer">
-                          Footer
-                        </div>
-                      }
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </mat-card-content>
-          </mat-card>
-        }
-      </div>
-    </div>
-
-    <!-- Code Display -->
-    <div class="popover-code__display">
-      <h3>{{ selectedExample.title }}</h3>
-      <p>{{ selectedExample.description }}</p>
-
-      <mat-tab-group>
-        <!-- HTML Tab -->
-        <mat-tab label="HTML">
-          <div class="popover-code__code-block">
-            <div class="popover-code__code-header">
-              <span class="popover-code__code-title">HTML Template</span>
-              <button
-                mat-icon-button
-                (click)="copyCode(selectedExample.html, 'HTML')"
-                matTooltip="Copy HTML code">
-                <mat-icon>content_copy</mat-icon>
-              </button>
-            </div>
-            <pre><code [class]="getSyntaxClass('html')">{{ selectedExample.html }}</code></pre>
-          </div>
-        </mat-tab>
-
-        <!-- TypeScript Tab -->
-        <mat-tab label="TypeScript">
-          <div class="popover-code__code-block">
-            <div class="popover-code__code-header">
-              <span class="popover-code__code-title">TypeScript Component</span>
-              <button
-                mat-icon-button
-                (click)="copyCode(selectedExample.typescript, 'TypeScript')"
-                matTooltip="Copy TypeScript code">
-                <mat-icon>content_copy</mat-icon>
-              </button>
-            </div>
-            <pre><code [class]="getSyntaxClass('typescript')">{{ selectedExample.typescript }}</code></pre>
-          </div>
-        </mat-tab>
-
-        <!-- SCSS Tab -->
-        <mat-tab label="SCSS">
-          <div class="popover-code__code-block">
-            <div class="popover-code__code-header">
-              <span class="popover-code__code-title">SCSS Styles</span>
-              <button
-                mat-icon-button
-                (click)="copyCode(selectedExample.scss, 'SCSS')"
-                matTooltip="Copy SCSS code">
-                <mat-icon>content_copy</mat-icon>
-              </button>
-            </div>
-            <pre><code [class]="getSyntaxClass('scss')">{{ selectedExample.scss }}</code></pre>
-          </div>
-        </mat-tab>
-      </mat-tab-group>
-    </div>
-
-    <!-- Live Demo -->
-    <div class="popover-code__demo">
-      <h3>Live Demo</h3>
-      <p>Test the current example configuration</p>
-
-      <div class="popover-code__demo-container">
-        <amw-popover
-          [config]="currentConfig"
-          [trigger]="currentTrigger"
-          [opened]="currentConfig.opened ?? false"
-          (openedChange)="onPopoverOpenedChange($event)"
-          (beforeOpen)="onPopoverBeforeOpen()"
-          (afterOpen)="onPopoverAfterOpen()"
-          (beforeClose)="onPopoverBeforeClose()"
-          (afterClose)="onPopoverAfterClose()">
-
-          <!-- Trigger Template -->
-          <ng-template #trigger>
-            <button mat-raised-button color="primary">
-              <mat-icon>code</mat-icon>
-              {{ selectedExample.title }}
+  <mat-accordion class="code-examples-accordion">
+    <!-- Basic Tooltip -->
+    <mat-expansion-panel>
+      <mat-expansion-panel-header>
+        <mat-panel-title>
+          <mat-icon>code</mat-icon>
+          Basic Tooltip
+        </mat-panel-title>
+        <mat-panel-description>Simple tooltip with hover trigger</mat-panel-description>
+      </mat-expansion-panel-header>
+      <div class="example-container">
+        <div class="code-panel">
+          <div class="code-header">
+            <h4>Code</h4>
+            <button mat-icon-button (click)="resetCode('basic')" title="Reset to original">
+              <mat-icon>refresh</mat-icon>
             </button>
-          </ng-template>
-
-          <!-- Content Template -->
-          <ng-template #content>
-            <div class="popover-code__content">
-              <h4>{{ selectedExample.title }}</h4>
-              <p>{{ selectedExample.description }}</p>
-
-              <div class="popover-code__content-details">
-                <h5>Configuration:</h5>
-                <ul>
-                  <li><strong>Size:</strong> {{ currentConfig.size }}</li>
-                  <li><strong>Position:</strong> {{ currentConfig.position }}</li>
-                  <li><strong>Arrow:</strong> {{ currentConfig.showArrow ? 'Yes' : 'No' }}</li>
-                  <li><strong>Close Button:</strong> {{ currentConfig.showClose ? 'Yes' : 'No' }}</li>
-                  <li><strong>Header:</strong> {{ currentConfig.showHeader ? 'Yes' : 'No' }}</li>
-                  <li><strong>Footer:</strong> {{ currentConfig.showFooter ? 'Yes' : 'No' }}</li>
-                </ul>
-              </div>
-
-              <div class="popover-code__content-details">
-                <h5>Trigger:</h5>
-                <ul>
-                  <li><strong>Type:</strong> {{ currentTrigger.type }}</li>
-                  <li><strong>Toggle:</strong> {{ currentTrigger.toggle ? 'Yes' : 'No' }}</li>
-                  <li><strong>Escape Key:</strong> {{ currentTrigger.escapeKey ? 'Yes' : 'No' }}</li>
-                  <li><strong>Outside Click:</strong> {{ currentTrigger.outsideClick ? 'Yes' : 'No' }}</li>
-                </ul>
-              </div>
-
-              <div class="popover-code__content-actions">
-                <button mat-button (click)="onPopoverBeforeClose()">
-                  <mat-icon>close</mat-icon>
-                  Close
-                </button>
-              </div>
+          </div>
+          <textarea
+            [(ngModel)]="editableCode.basic"
+            class="code-editor"
+            spellcheck="false"></textarea>
+        </div>
+        <div class="preview-panel">
+          <h4>Live Preview</h4>
+          <div class="preview-content">
+            <button mat-raised-button
+                    matTooltip="This is a basic tooltip">
+              Hover Me
+            </button>
+            <div class="preview-note">
+              <mat-icon>info</mat-icon>
+              <span>Hover over the button to see the tooltip</span>
             </div>
-          </ng-template>
-        </amw-popover>
+          </div>
+        </div>
       </div>
-    </div>
-  </div>
+    </mat-expansion-panel>
+
+    <!-- Tooltip Positions -->
+    <mat-expansion-panel>
+      <mat-expansion-panel-header>
+        <mat-panel-title>
+          <mat-icon>code</mat-icon>
+          Tooltip Positions
+        </mat-panel-title>
+        <mat-panel-description>Tooltips in different positions</mat-panel-description>
+      </mat-expansion-panel-header>
+      <div class="example-container">
+        <div class="code-panel">
+          <div class="code-header">
+            <h4>Code</h4>
+            <button mat-icon-button (click)="resetCode('positions')" title="Reset to original">
+              <mat-icon>refresh</mat-icon>
+            </button>
+          </div>
+          <textarea
+            [(ngModel)]="editableCode.positions"
+            class="code-editor"
+            spellcheck="false"
+            readonly></textarea>
+        </div>
+        <div class="preview-panel">
+          <h4>Live Preview</h4>
+          <div class="preview-content">
+            <div class="button-grid">
+              <button mat-button
+                      matTooltip="Tooltip on top"
+                      matTooltipPosition="above">
+                Top
+              </button>
+
+              <button mat-button
+                      matTooltip="Tooltip on right"
+                      matTooltipPosition="after">
+                Right
+              </button>
+
+              <button mat-button
+                      matTooltip="Tooltip on bottom"
+                      matTooltipPosition="below">
+                Bottom
+              </button>
+
+              <button mat-button
+                      matTooltip="Tooltip on left"
+                      matTooltipPosition="before">
+                Left
+              </button>
+            </div>
+            <div class="preview-note">
+              <mat-icon>info</mat-icon>
+              <span>Hover over each button to see different positions</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </mat-expansion-panel>
+
+    <!-- Custom Styling -->
+    <mat-expansion-panel>
+      <mat-expansion-panel-header>
+        <mat-panel-title>
+          <mat-icon>code</mat-icon>
+          Custom Styling
+        </mat-panel-title>
+        <mat-panel-description>Tooltip with custom CSS class</mat-panel-description>
+      </mat-expansion-panel-header>
+      <div class="example-container">
+        <div class="code-panel">
+          <div class="code-header">
+            <h4>Code</h4>
+            <button mat-icon-button (click)="resetCode('styling')" title="Reset to original">
+              <mat-icon>refresh</mat-icon>
+            </button>
+          </div>
+          <textarea
+            [(ngModel)]="editableCode.styling"
+            class="code-editor"
+            spellcheck="false"
+            readonly></textarea>
+        </div>
+        <div class="preview-panel">
+          <h4>Live Preview</h4>
+          <div class="preview-content">
+            <button mat-raised-button
+                    matTooltip="Custom styled tooltip"
+                    matTooltipClass="custom-tooltip"
+                    color="primary">
+              Custom Tooltip
+            </button>
+            <div class="preview-note">
+              <mat-icon>info</mat-icon>
+              <span>Apply custom CSS classes to style tooltips</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </mat-expansion-panel>
+
+    <!-- Interactive Tooltip -->
+    <mat-expansion-panel>
+      <mat-expansion-panel-header>
+        <mat-panel-title>
+          <mat-icon>code</mat-icon>
+          Interactive Tooltip
+        </mat-panel-title>
+        <mat-panel-description>Tooltip with delays and toggle control</mat-panel-description>
+      </mat-expansion-panel-header>
+      <div class="example-container">
+        <div class="code-panel">
+          <div class="code-header">
+            <h4>Code</h4>
+            <button mat-icon-button (click)="resetCode('interactive')" title="Reset to original">
+              <mat-icon>refresh</mat-icon>
+            </button>
+          </div>
+          <textarea
+            [(ngModel)]="editableCode.interactive"
+            class="code-editor"
+            spellcheck="false"
+            readonly></textarea>
+        </div>
+        <div class="preview-panel">
+          <h4>Live Preview</h4>
+          <div class="preview-content">
+            <button mat-raised-button
+                    matTooltip="Click to show/hide"
+                    matTooltipShowDelay="500"
+                    matTooltipHideDelay="200"
+                    [matTooltipDisabled]="tooltipDisabled"
+                    (click)="toggleTooltip()">
+              Toggle Tooltip
+            </button>
+            <p class="status-text">Tooltip is {{ tooltipDisabled ? 'disabled' : 'enabled' }}</p>
+            <div class="preview-note">
+              <mat-icon>info</mat-icon>
+              <span>Click to toggle tooltip state, check console for events</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </mat-expansion-panel>
+  </mat-accordion>
 </div>

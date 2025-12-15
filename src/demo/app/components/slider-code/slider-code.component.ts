@@ -1,95 +1,75 @@
 import { Component, ViewEncapsulation } from '@angular/core';
-import { CommonModule } from '@angular/common';
+import { FormsModule } from '@angular/forms';
 import { MatExpansionModule } from '@angular/material/expansion';
+import { MatButtonModule } from '@angular/material/button';
+import { MatIconModule } from '@angular/material/icon';
+import { MatSliderModule } from '@angular/material/slider';
+import { BaseCodeComponent } from '../base/base-code.component';
+
+type SliderExamples = 'basic' | 'withThumbLabel' | 'withSteps' | 'differentColors' | 'disabled' | 'reactiveForm' | 'withEvents' | 'settingsPanel';
 
 @Component({
   selector: 'amw-demo-slider-code',
   standalone: true,
   imports: [
-    CommonModule,
-    MatExpansionModule
+    FormsModule,
+    MatExpansionModule,
+    MatButtonModule,
+    MatIconModule,
+    MatSliderModule
   ],
   encapsulation: ViewEncapsulation.None,
   templateUrl: './slider-code.component.html',
   styleUrl: './slider-code.component.scss'
 })
-export class SliderCodeComponent {
-  codeExamples = {
-    basic: {
-      title: 'Basic Slider',
-      description: 'A simple slider with default settings',
-      code: `<amw-slider
-  label="Volume"
-  [min]="0"
-  [max]="100"
-  [value]="50">
-</amw-slider>`
-    },
-    withThumbLabel: {
-      title: 'Slider with Thumb Label',
-      description: 'Slider showing current value on the thumb',
-      code: `<amw-slider
-  label="Brightness"
-  [min]="0"
-  [max]="100"
-  [value]="75"
-  [thumbLabel]="true">
-</amw-slider>`
-    },
-    withSteps: {
-      title: 'Slider with Steps',
-      description: 'Slider with discrete step values',
-      code: `<amw-slider
-  label="Rating"
-  [min]="1"
-  [max]="5"
-  [step]="0.5"
-  [value]="3"
-  [thumbLabel]="true">
-</amw-slider>`
-    },
-    differentColors: {
-      title: 'Different Colors',
-      description: 'Sliders with different color themes',
-      code: `<amw-slider
-  label="Primary Slider"
-  color="primary"
-  [min]="0"
-  [max]="100"
-  [value]="50">
-</amw-slider>
+export class SliderCodeComponent extends BaseCodeComponent<SliderExamples> {
+  // State for live preview examples
+  volumeValue = 50;
+  brightnessValue = 75;
+  ratingValue = 3;
+  primaryValue = 50;
+  accentValue = 75;
+  warnValue = 25;
+  eventValue = 50;
 
-<amw-slider
-  label="Accent Slider"
-  color="accent"
-  [min]="0"
-  [max]="100"
-  [value]="75">
-</amw-slider>
+  // Original code examples (for reset functionality)
+  readonly codeExamples: Record<SliderExamples, string> = {
+    basic: `<mat-slider [min]="0" [max]="100">
+  <input matSliderThumb [(ngModel)]="volumeValue">
+</mat-slider>
+<p>Volume: {{volumeValue}}</p>`,
 
-<amw-slider
-  label="Warn Slider"
-  color="warn"
-  [min]="0"
-  [max]="100"
-  [value]="25">
-</amw-slider>`
-    },
-    disabled: {
-      title: 'Disabled Slider',
-      description: 'Slider in disabled state',
-      code: `<amw-slider
-  label="Disabled Slider"
-  [min]="0"
-  [max]="100"
-  [value]="50"
-  [disabled]="true">
-</amw-slider>`
-    },
-    reactiveForm: {
-      title: 'Reactive Form Integration',
-      description: 'Using sliders with Angular reactive forms',
-      code: `// Component TypeScript
+    withThumbLabel: `<mat-slider [min]="0" [max]="100" [displayWith]="formatLabel">
+  <input matSliderThumb [(ngModel)]="brightnessValue">
+</mat-slider>
+<p>Brightness: {{brightnessValue}}%</p>`,
+
+    withSteps: `<mat-slider [min]="1" [max]="5" [step]="0.5" [displayWith]="formatLabel">
+  <input matSliderThumb [(ngModel)]="ratingValue">
+</mat-slider>
+<p>Rating: {{ratingValue}}</p>`,
+
+    differentColors: `<mat-slider color="primary" [min]="0" [max]="100">
+  <input matSliderThumb [(ngModel)]="primaryValue">
+</mat-slider>
+<p>Primary: {{primaryValue}}</p>
+
+<mat-slider color="accent" [min]="0" [max]="100">
+  <input matSliderThumb [(ngModel)]="accentValue">
+</mat-slider>
+<p>Accent: {{accentValue}}</p>
+
+<mat-slider color="warn" [min]="0" [max]="100">
+  <input matSliderThumb [(ngModel)]="warnValue">
+</mat-slider>
+<p>Warn: {{warnValue}}</p>`,
+
+    disabled: `<mat-slider [min]="0" [max]="100" disabled>
+  <input matSliderThumb [value]="50">
+</mat-slider>
+<p>Disabled slider at value 50</p>`,
+
+    reactiveForm: `// Component TypeScript
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 
 export class MyComponent {
@@ -106,96 +86,76 @@ export class MyComponent {
 
 // Template
 <form [formGroup]="form">
-  <amw-slider
-    formControlName="volume"
-    label="Volume"
-    [min]="0"
-    [max]="100"
-    [thumbLabel]="true">
-  </amw-slider>
-  
-  <amw-slider
-    formControlName="brightness"
-    label="Brightness"
-    [min]="10"
-    [max]="100"
-    [thumbLabel]="true">
-  </amw-slider>
-  
-  <amw-slider
-    formControlName="temperature"
-    label="Temperature"
-    [min]="-10"
-    [max]="40"
-    [thumbLabel]="true">
-  </amw-slider>
-</form>`
-    },
-    withEvents: {
-      title: 'Slider with Events',
-      description: 'Sliders with event handling',
-      code: `<amw-slider
-  label="Volume"
-  [min]="0"
-  [max]="100"
-  [value]="volume"
-  (change)="onVolumeChange($event)"
-  (input)="onVolumeInput($event)">
-</amw-slider>
+  <mat-slider [min]="0" [max]="100">
+    <input matSliderThumb formControlName="volume">
+  </mat-slider>
+
+  <mat-slider [min]="10" [max]="100">
+    <input matSliderThumb formControlName="brightness">
+  </mat-slider>
+
+  <mat-slider [min]="-10" [max]="40">
+    <input matSliderThumb formControlName="temperature">
+  </mat-slider>
+</form>`,
+
+    withEvents: `<mat-slider [min]="0" [max]="100">
+  <input matSliderThumb
+    [(ngModel)]="eventValue"
+    (change)="onSliderChange($event)"
+    (input)="onSliderInput($event)">
+</mat-slider>
+<p>Value: {{eventValue}}</p>
 
 // Component methods
-onVolumeChange(event: any): void {
-  this.volume = event.value;
-  console.log('Volume changed to:', this.volume);
+onSliderChange(event: any): void {
+  console.log('Slider changed to:', event.target.value);
 }
 
-onVolumeInput(event: any): void {
-  this.volume = event.value;
-  console.log('Volume input:', this.volume);
-}`
-    },
-    settingsPanel: {
-      title: 'Settings Panel',
-      description: 'Multiple sliders in a settings panel',
-      code: `<div class="settings-panel">
+onSliderInput(event: any): void {
+  console.log('Slider input:', event.target.value);
+}`,
+
+    settingsPanel: `<div class="settings-panel">
   <h3>Audio Settings</h3>
-  
-  <amw-slider
-    label="Master Volume"
-    [min]="0"
-    [max]="100"
-    [value]="masterVolume"
-    [thumbLabel]="true"
-    color="primary">
-  </amw-slider>
-  
-  <amw-slider
-    label="Bass"
-    [min]="-20"
-    [max]="20"
-    [value]="bass"
-    [thumbLabel]="true"
-    color="accent">
-  </amw-slider>
-  
-  <amw-slider
-    label="Treble"
-    [min]="-20"
-    [max]="20"
-    [value]="treble"
-    [thumbLabel]="true"
-    color="accent">
-  </amw-slider>
-  
-  <amw-slider
-    label="Balance"
-    [min]="-100"
-    [max]="100"
-    [value]="balance"
-    [thumbLabel]="true"
-    color="warn">
-  </amw-slider>
+
+  <mat-slider color="primary" [min]="0" [max]="100">
+    <input matSliderThumb [(ngModel)]="masterVolume">
+  </mat-slider>
+  <p>Master Volume: {{masterVolume}}</p>
+
+  <mat-slider color="accent" [min]="-20" [max]="20">
+    <input matSliderThumb [(ngModel)]="bass">
+  </mat-slider>
+  <p>Bass: {{bass}}</p>
+
+  <mat-slider color="accent" [min]="-20" [max]="20">
+    <input matSliderThumb [(ngModel)]="treble">
+  </mat-slider>
+  <p>Treble: {{treble}}</p>
+
+  <mat-slider color="warn" [min]="-100" [max]="100">
+    <input matSliderThumb [(ngModel)]="balance">
+  </mat-slider>
+  <p>Balance: {{balance}}</p>
 </div>`
-    }
   };
+
+  constructor() {
+    super();
+  }
+
+  // Event handlers for event example
+  onSliderChange(event: any) {
+    console.log('Slider changed to:', event.target.value);
+  }
+
+  onSliderInput(event: any) {
+    console.log('Slider input:', event.target.value);
+  }
+
+  // Format label for thumb display
+  formatLabel(value: number): string {
+    return `${value}`;
+  }
 }
