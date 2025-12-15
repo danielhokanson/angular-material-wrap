@@ -1,4 +1,4 @@
-import { Component, Input, Output, EventEmitter, ViewEncapsulation, forwardRef, OnInit, OnChanges, SimpleChanges } from '@angular/core';
+import { Component, Input, Output, EventEmitter, ViewEncapsulation, OnInit, OnChanges, SimpleChanges } from '@angular/core';
 
 import { FormsModule, ReactiveFormsModule, ControlValueAccessor, NG_VALUE_ACCESSOR } from '@angular/forms';
 import { MatRadioModule } from '@angular/material/radio';
@@ -29,7 +29,7 @@ import { RadioGroupOption, RadioGroupConfig } from './interfaces/radio-group.int
     providers: [
         {
             provide: NG_VALUE_ACCESSOR,
-            useExisting: forwardRef(() => AmwRadioGroupComponent),
+            useExisting: AmwRadioGroupComponent,
             multi: true
         }
     ]
@@ -57,10 +57,17 @@ export class AmwRadioGroupComponent extends BaseComponent implements ControlValu
     // Internal state
     internalValue: any = null;
     isFocused: boolean = false;
+    readonly componentId: string;
 
     // ControlValueAccessor implementation
     private onChange = (value: any) => { };
     private onTouched = () => { };
+
+    constructor() {
+        super();
+        // Generate ID once during construction to avoid ExpressionChangedAfterItHasBeenCheckedError
+        this.componentId = this.generateId();
+    }
 
     ngOnInit(): void {
         this.applyConfig();

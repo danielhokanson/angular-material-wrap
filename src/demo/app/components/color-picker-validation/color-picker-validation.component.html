@@ -8,69 +8,40 @@
     <mat-card-content>
       <form [formGroup]="colorPickerForm" (ngSubmit)="onSubmit()">
         <div class="color-picker-validation__form">
-          <mat-form-field appearance="outline">
-            <mat-label>Primary Color *</mat-label>
-            <amw-color-picker
-              formControlName="primaryColor"
-              placeholder="Select primary color"
-              [required]="true"
-            ></amw-color-picker>
-            @if (colorPickerForm.get('primaryColor')?.hasError('required')) {
-              <mat-error>
-                Primary color is required
-              </mat-error>
-            }
-          </mat-form-field>
+          <amw-color-picker
+            label="Primary Color *"
+            formControlName="primaryColor"
+            placeholder="Select primary color"
+            [required]="true"
+            [errorMessage]="colorPickerForm.get('primaryColor')?.hasError('required') ? 'Primary color is required' : ''"
+          ></amw-color-picker>
 
-          <mat-form-field appearance="outline">
-            <mat-label>Secondary Color *</mat-label>
-            <amw-color-picker
-              formControlName="secondaryColor"
-              placeholder="Select secondary color"
-              mode="custom"
-              [required]="true"
-            ></amw-color-picker>
-            @if (colorPickerForm.get('secondaryColor')?.hasError('required')) {
-              <mat-error>
-                Secondary color is required
-              </mat-error>
-            }
-            @if (colorPickerForm.get('secondaryColor')?.hasError('sameColor')) {
-              <mat-error>
-                Secondary color must be different from primary color
-              </mat-error>
-            }
-          </mat-form-field>
+          <amw-color-picker
+            label="Secondary Color *"
+            formControlName="secondaryColor"
+            placeholder="Select secondary color"
+            mode="custom"
+            [required]="true"
+            [errorMessage]="colorPickerForm.get('secondaryColor')?.hasError('required') ? 'Secondary color is required' : colorPickerForm.get('secondaryColor')?.hasError('sameColor') ? 'Secondary color must be different from primary color' : ''"
+          ></amw-color-picker>
 
-          <mat-form-field appearance="outline">
-            <mat-label>Accent Color *</mat-label>
-            <amw-color-picker
-              formControlName="accentColor"
-              placeholder="Select accent color"
-              mode="text"
-              [required]="true"
-            ></amw-color-picker>
-            @if (colorPickerForm.get('accentColor')?.hasError('required')) {
-              <mat-error>
-                Accent color is required
-              </mat-error>
-            }
-          </mat-form-field>
+          <amw-color-picker
+            label="Accent Color *"
+            formControlName="accentColor"
+            placeholder="Select accent color"
+            mode="text"
+            [required]="true"
+            [errorMessage]="colorPickerForm.get('accentColor')?.hasError('required') ? 'Accent color is required' : ''"
+          ></amw-color-picker>
 
-          <mat-form-field appearance="outline">
-            <mat-label>Background Color *</mat-label>
-            <amw-color-picker
-              formControlName="backgroundColor"
-              placeholder="Select background color"
-              mode="all"
-              [required]="true"
-            ></amw-color-picker>
-            @if (colorPickerForm.get('backgroundColor')?.hasError('required')) {
-              <mat-error>
-                Background color is required
-              </mat-error>
-            }
-          </mat-form-field>
+          <amw-color-picker
+            label="Background Color *"
+            formControlName="backgroundColor"
+            placeholder="Select background color"
+            mode="all"
+            [required]="true"
+            [errorMessage]="colorPickerForm.get('backgroundColor')?.hasError('required') ? 'Background color is required' : ''"
+          ></amw-color-picker>
         </div>
 
         <div class="color-picker-validation__actions">

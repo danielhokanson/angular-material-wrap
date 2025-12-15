@@ -6,6 +6,9 @@ import { MatIconModule } from '@angular/material/icon';
 import { MatStepperModule } from '@angular/material/stepper';
 import { MatInputModule } from '@angular/material/input';
 import { MatFormFieldModule } from '@angular/material/form-field';
+import { BaseCodeComponent } from '../base/base-code.component';
+
+type StepperExamples = 'basic' | 'linear' | 'editable' | 'optional' | 'vertical' | 'customIcons';
 
 @Component({
   selector: 'amw-demo-stepper-code',
@@ -24,7 +27,7 @@ import { MatFormFieldModule } from '@angular/material/form-field';
   templateUrl: './stepper-code.component.html',
   styleUrl: './stepper-code.component.scss'
 })
-export class StepperCodeComponent {
+export class StepperCodeComponent extends BaseCodeComponent<StepperExamples> {
   // Form groups for reactive forms example
   firstFormGroup: FormGroup;
   secondFormGroup: FormGroup;
@@ -33,18 +36,8 @@ export class StepperCodeComponent {
   // Linear mode state
   isLinear = false;
 
-  // Editable code examples
-  editableCode = {
-    basic: '',
-    linear: '',
-    editable: '',
-    optional: '',
-    vertical: '',
-    customIcons: ''
-  };
-
   // Original code examples (for reset functionality)
-  readonly codeExamples = {
+  readonly codeExamples: Record<StepperExamples, string> = {
     basic: `<mat-stepper>
   <mat-step>
     <ng-template matStepLabel>Step 1</ng-template>
@@ -211,11 +204,7 @@ export class StepperCodeComponent {
   };
 
   constructor(private fb: FormBuilder) {
-    // Initialize editable code
-    Object.keys(this.codeExamples).forEach(key => {
-      this.editableCode[key as keyof typeof this.codeExamples] =
-        this.codeExamples[key as keyof typeof this.codeExamples];
-    });
+    super();
 
     // Initialize form groups
     this.firstFormGroup = this.fb.group({
@@ -229,10 +218,5 @@ export class StepperCodeComponent {
     this.thirdFormGroup = this.fb.group({
       address: ['', Validators.required]
     });
-  }
-
-  // Reset code to original
-  resetCode(exampleKey: keyof typeof this.codeExamples) {
-    this.editableCode[exampleKey] = this.codeExamples[exampleKey];
   }
 }

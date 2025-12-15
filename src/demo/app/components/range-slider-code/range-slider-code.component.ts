@@ -4,6 +4,9 @@ import { MatExpansionModule } from '@angular/material/expansion';
 import { MatButtonModule } from '@angular/material/button';
 import { MatIconModule } from '@angular/material/icon';
 import { MatSliderModule } from '@angular/material/slider';
+import { BaseCodeComponent } from '../base/base-code.component';
+
+type RangeSliderExamples = 'basic' | 'configured' | 'vertical' | 'formControl' | 'validation';
 
 @Component({
   selector: 'amw-demo-range-slider-code',
@@ -19,24 +22,15 @@ import { MatSliderModule } from '@angular/material/slider';
   templateUrl: './range-slider-code.component.html',
   styleUrl: './range-slider-code.component.scss'
 })
-export class RangeSliderCodeComponent {
+export class RangeSliderCodeComponent extends BaseCodeComponent<RangeSliderExamples> {
   // State for live preview examples
   startValue = 20;
   endValue = 80;
   priceStart = 100;
   priceEnd = 500;
 
-  // Editable code examples
-  editableCode = {
-    basic: '',
-    configured: '',
-    vertical: '',
-    formControl: '',
-    validation: ''
-  };
-
   // Original code examples (for reset functionality)
-  readonly codeExamples = {
+  readonly codeExamples: Record<RangeSliderExamples, string> = {
     basic: `<mat-slider [min]="0" [max]="100">
   <input matSliderStartThumb [(ngModel)]="startValue">
   <input matSliderEndThumb [(ngModel)]="endValue">
@@ -117,20 +111,11 @@ export class MyComponent {
   };
 
   constructor() {
-    // Initialize editable code
-    Object.keys(this.codeExamples).forEach(key => {
-      this.editableCode[key as keyof typeof this.codeExamples] =
-        this.codeExamples[key as keyof typeof this.codeExamples];
-    });
+    super();
   }
 
   // Format label for thumb display
   formatLabel(value: number): string {
     return '$' + value;
-  }
-
-  // Reset code to original
-  resetCode(exampleKey: keyof typeof this.codeExamples) {
-    this.editableCode[exampleKey] = this.codeExamples[exampleKey];
   }
 }

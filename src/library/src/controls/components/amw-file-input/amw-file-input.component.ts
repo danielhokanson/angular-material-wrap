@@ -1,4 +1,4 @@
-import { Component, Input, Output, EventEmitter, ViewEncapsulation, forwardRef, ElementRef, ViewChild, HostListener } from '@angular/core';
+import { Component, Input, Output, EventEmitter, ViewEncapsulation, ElementRef, ViewChild, HostListener } from '@angular/core';
 
 import { FormsModule, NG_VALUE_ACCESSOR } from '@angular/forms';
 import { MatButtonModule } from '@angular/material/button';
@@ -19,7 +19,7 @@ import { FileInputConfig, FileValidationResult, FileUploadProgress, FileInputAcc
     providers: [
         {
             provide: NG_VALUE_ACCESSOR,
-            useExisting: forwardRef(() => AmwFileInputComponent),
+            useExisting: AmwFileInputComponent,
             multi: true
         }
     ]

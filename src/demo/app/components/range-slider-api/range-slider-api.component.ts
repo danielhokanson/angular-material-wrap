@@ -1,6 +1,7 @@
 import { Component, ViewEncapsulation } from '@angular/core';
 
 import { MatCardModule } from '@angular/material/card';
+import { BaseApiComponent, ApiDocumentation } from '../base/base-api.component';
 
 @Component({
     selector: 'amw-demo-range-slider-api',
@@ -10,113 +11,113 @@ import { MatCardModule } from '@angular/material/card';
     templateUrl: './range-slider-api.component.html',
     styleUrl: './range-slider-api.component.scss'
 })
-export class RangeSliderApiComponent {
-    apiDocumentation = {
+export class RangeSliderApiComponent extends BaseApiComponent {
+    apiDocumentation: ApiDocumentation = {
         inputs: [
             {
-                property: 'min',
+                name: 'min',
                 type: 'number',
                 default: '0',
                 description: 'The minimum value for the range slider'
             },
             {
-                property: 'max',
+                name: 'max',
                 type: 'number',
                 default: '100',
                 description: 'The maximum value for the range slider'
             },
             {
-                property: 'step',
+                name: 'step',
                 type: 'number',
                 default: '1',
                 description: 'The step increment for the range slider'
             },
             {
-                property: 'rangeValue',
+                name: 'rangeValue',
                 type: '{ start: number; end: number }',
                 default: '{ start: min, end: max }',
                 description: 'The current range value with start and end properties'
             },
             {
-                property: 'showTicks',
+                name: 'showTicks',
                 type: 'boolean',
                 default: 'false',
                 description: 'Whether to show tick marks on the slider'
             },
             {
-                property: 'showLabels',
+                name: 'showLabels',
                 type: 'boolean',
                 default: 'false',
                 description: 'Whether to show value labels on the slider'
             },
             {
-                property: 'vertical',
+                name: 'vertical',
                 type: 'boolean',
                 default: 'false',
                 description: 'Whether to display the slider vertically'
             },
             {
-                property: 'invert',
+                name: 'invert',
                 type: 'boolean',
                 default: 'false',
                 description: 'Whether to invert the slider direction'
             },
             {
-                property: 'thumbLabel',
+                name: 'thumbLabel',
                 type: 'boolean',
                 default: 'false',
                 description: 'Whether to show thumb labels on hover'
             },
             {
-                property: 'tickInterval',
+                name: 'tickInterval',
                 type: 'number',
                 default: '1',
                 description: 'Interval between tick marks'
             },
             {
-                property: 'valueText',
+                name: 'valueText',
                 type: 'string',
                 default: '""',
                 description: 'Custom text to display for values'
             },
             {
-                property: 'startThumbLabel',
+                name: 'startThumbLabel',
                 type: 'string',
                 default: '""',
                 description: 'Label for the start thumb'
             },
             {
-                property: 'endThumbLabel',
+                name: 'endThumbLabel',
                 type: 'string',
                 default: '""',
                 description: 'Label for the end thumb'
             },
             {
-                property: 'color',
+                name: 'color',
                 type: 'RangeSliderColor',
                 default: 'primary',
                 description: 'Color theme for the slider (primary, accent, warn)'
             },
             {
-                property: 'disabled',
+                name: 'disabled',
                 type: 'boolean',
                 default: 'false',
                 description: 'Whether the slider is disabled'
             },
             {
-                property: 'label',
+                name: 'label',
                 type: 'string',
                 default: '""',
                 description: 'Label text for the range slider'
             },
             {
-                property: 'errorMessage',
+                name: 'errorMessage',
                 type: 'string',
                 default: '""',
                 description: 'Custom error message to display'
             },
             {
-                property: 'hasError',
+                name: 'hasError',
                 type: 'boolean',
                 default: 'false',
                 description: 'Whether the slider is in an error state'
@@ -124,46 +125,55 @@ export class RangeSliderApiComponent {
         ],
         outputs: [
             {
-                property: 'rangeChange',
+                name: 'rangeChange',
                 type: 'EventEmitter<{ start: number; end: number }>',
                 description: 'Emitted when the range value changes'
             },
             {
-                property: 'valueChange',
+                name: 'valueChange',
                 type: 'EventEmitter<{ start: number; end: number }>',
                 description: 'Emitted when the range value changes (for form integration)'
             },
             {
-                property: 'blur',
+                name: 'blur',
                 type: 'EventEmitter<FocusEvent>',
                 description: 'Emitted when the slider loses focus'
             },
             {
-                property: 'focus',
+                name: 'focus',
                 type: 'EventEmitter<FocusEvent>',
                 description: 'Emitted when the slider gains focus'
             }
         ],
         methods: [
             {
-                method: 'getConfig()',
+                name: 'getConfig()',
                 returns: 'RangeSliderConfig',
                 description: 'Returns the current configuration object'
             }
-        ],
-        types: [
-            {
-                type: 'RangeSliderColor',
-                definition: "'primary' | 'accent' | 'warn'",
-                description: 'Available color themes for the range slider'
-            },
-            {
-                type: 'RangeSliderConfig',
-                definition: 'interface RangeSliderConfig { min: number; max: number; step: number; disabled: boolean; showTicks: boolean; showLabels: boolean; vertical: boolean; invert: boolean; thumbLabel: boolean; tickInterval: number; valueText: string; startThumbLabel: string; endThumbLabel: string; }',
-                description: 'Configuration interface for the range slider'
-            }
         ]
     };
+
+    types = [
+        {
+            type: 'RangeSliderColor',
+            definition: "'primary' | 'accent' | 'warn'",
+            description: 'Available color themes for the range slider'
+        },
+        {
+            type: 'RangeSliderConfig',
+            definition: 'interface RangeSliderConfig { min: number; max: number; step: number; disabled: boolean; showTicks: boolean; showLabels: boolean; vertical: boolean; invert: boolean; thumbLabel: boolean; tickInterval: number; valueText: string; startThumbLabel: string; endThumbLabel: string; }',
+            description: 'Configuration interface for the range slider'
+        }
+    ];
+
+
+    constructor() {
+
+        super();
+
+    }
+
 }
 
 

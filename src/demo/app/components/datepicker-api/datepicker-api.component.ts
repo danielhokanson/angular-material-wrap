@@ -1,4 +1,5 @@
 import { Component, ViewEncapsulation } from '@angular/core';
+import { BaseApiComponent, ApiDocumentation } from '../base/base-api.component';
 
 
 @Component({
@@ -9,77 +10,77 @@ import { Component, ViewEncapsulation } from '@angular/core';
   templateUrl: './datepicker-api.component.html',
   styleUrl: './datepicker-api.component.scss'
 })
-export class DatepickerApiComponent {
-  apiDocumentation = {
+export class DatepickerApiComponent extends BaseApiComponent {
+  apiDocumentation: ApiDocumentation = {
     inputs: [
       {
-        property: 'value',
+        name: 'value',
         type: 'Date | null',
         default: 'null',
         description: 'Current value of the datepicker'
       },
       {
-        property: 'placeholder',
+        name: 'placeholder',
         type: 'string',
         default: 'undefined',
         description: 'Placeholder text shown when datepicker is empty'
       },
       {
-        property: 'label',
+        name: 'label',
         type: 'string',
         default: 'undefined',
         description: 'Label text displayed above the datepicker'
       },
       {
-        property: 'disabled',
+        name: 'disabled',
         type: 'boolean',
         default: 'false',
         description: 'Whether the datepicker is disabled'
       },
       {
-        property: 'required',
+        name: 'required',
         type: 'boolean',
         default: 'false',
         description: 'Whether the datepicker is required for form validation'
       },
       {
-        property: 'min',
+        name: 'min',
         type: 'Date | null',
         default: 'null',
         description: 'Minimum selectable date'
       },
       {
-        property: 'max',
+        name: 'max',
         type: 'Date | null',
         default: 'null',
         description: 'Maximum selectable date'
       },
       {
-        property: 'format',
+        name: 'format',
         type: 'string',
         default: "'medium'",
         description: 'Date format for display'
       },
       {
-        property: 'appearance',
+        name: 'appearance',
         type: "'outline' | 'fill'",
         default: "'outline'",
         description: 'Visual appearance of the form field'
       },
       {
-        property: 'hint',
+        name: 'hint',
         type: 'string',
         default: 'undefined',
         description: 'Hint text displayed below the datepicker'
       },
       {
-        property: 'errorMessage',
+        name: 'errorMessage',
         type: 'string',
         default: 'undefined',
         description: 'Custom error message to display'
       },
       {
-        property: 'hasError',
+        name: 'hasError',
         type: 'boolean',
         default: 'false',
         description: 'Whether to show error state'
@@ -87,68 +88,40 @@ export class DatepickerApiComponent {
     ],
     outputs: [
       {
-        property: 'dateChange',
+        name: 'dateChange',
         type: 'EventEmitter<MatDatepickerInputEvent>',
         description: 'Emitted when the date value changes'
       },
       {
-        property: 'opened',
+        name: 'opened',
         type: 'EventEmitter<void>',
         description: 'Emitted when the datepicker is opened'
       },
       {
-        property: 'closed',
+        name: 'closed',
         type: 'EventEmitter<void>',
         description: 'Emitted when the datepicker is closed'
       },
       {
-        property: 'valueChange',
+        name: 'valueChange',
         type: 'EventEmitter<Date | null>',
         description: 'Emitted when the datepicker value changes'
       },
       {
-        property: 'focus',
+        name: 'focus',
         type: 'EventEmitter<FocusEvent>',
         description: 'Emitted when the datepicker gains focus'
       },
       {
-        property: 'blur',
+        name: 'blur',
         type: 'EventEmitter<FocusEvent>',
         description: 'Emitted when the datepicker loses focus'
       }
-    ],
-    usage: {
-      description: 'The amw-datepicker component provides a Material Design datepicker with various customization options and form integration.',
-      examples: [
-        {
-          title: 'Basic Usage',
-          code: `<amw-datepicker
-  label="Select Date"
-  placeholder="Choose a date..."
-  [value]="selectedDate">
-</amw-datepicker>`
-        },
-        {
-          title: 'With Validation',
-          code: `<amw-datepicker
-  formControlName="startDate"
-  label="Start Date"
-  placeholder="Select start date..."
-  [required]="true"
-  [min]="new Date()">
-</amw-datepicker>`
-        },
-        {
-          title: 'Date Range',
-          code: `<amw-datepicker
-  label="Birth Date"
-  placeholder="Select birth date..."
-  [min]="minDate"
-  [max]="maxDate"
-  [value]="birthDate">
-</amw-datepicker>`
-        }
-      ]
-    }
+    ]
   };
+
+
+    constructor() {
+        super();
+    }
 }

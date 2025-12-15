@@ -8,6 +8,9 @@ import { MatAutocompleteModule } from '@angular/material/autocomplete';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
 import { MatOptionModule } from '@angular/material/core';
+import { BaseCodeComponent } from '../base/base-code.component';
+
+type AutocompleteExamples = 'basic' | 'withValidation' | 'withFiltering' | 'multipleSelection' | 'withCustomDisplay' | 'reactiveForm' | 'withEvents' | 'searchForm';
 
 @Component({
   selector: 'amw-demo-autocomplete-code',
@@ -28,7 +31,7 @@ import { MatOptionModule } from '@angular/material/core';
   templateUrl: './autocomplete-code.component.html',
   styleUrl: './autocomplete-code.component.scss'
 })
-export class AutocompleteCodeComponent {
+export class AutocompleteCodeComponent extends BaseCodeComponent<AutocompleteExamples> {
   // State for live preview examples
   countryValue = '';
   skillValue = '';
@@ -40,20 +43,8 @@ export class AutocompleteCodeComponent {
   filteredCountries = [...this.countries];
   filteredSkills = [...this.skills];
 
-  // Editable code examples
-  editableCode = {
-    basic: '',
-    withValidation: '',
-    withFiltering: '',
-    multipleSelection: '',
-    withCustomDisplay: '',
-    reactiveForm: '',
-    withEvents: '',
-    searchForm: ''
-  };
-
   // Original code examples (for reset functionality)
-  readonly codeExamples = {
+  readonly codeExamples: Record<AutocompleteExamples, string> = {
     basic: `<mat-form-field appearance="outline">
   <mat-label>Country</mat-label>
   <input matInput
@@ -257,11 +248,7 @@ onOptionSelected(event: any): void {
   };
 
   constructor() {
-    // Initialize editable code
-    Object.keys(this.codeExamples).forEach(key => {
-      this.editableCode[key as keyof typeof this.codeExamples] =
-        this.codeExamples[key as keyof typeof this.codeExamples];
-    });
+    super();
   }
 
   // Filter methods
@@ -286,10 +273,5 @@ onOptionSelected(event: any): void {
 
   onOptionSelected(event: any): void {
     console.log('Option selected:', event.option.value);
-  }
-
-  // Reset code to original
-  resetCode(exampleKey: keyof typeof this.codeExamples) {
-    this.editableCode[exampleKey] = this.codeExamples[exampleKey];
   }
 }

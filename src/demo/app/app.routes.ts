@@ -8,125 +8,125 @@ export const routes: Routes = [
     },
     {
         path: 'controls',
-        loadComponent: () => import('./components/controls-demo/controls-demo.component').then(m => m.ControlsDemoComponent)
+        loadComponent: () => import('./components/demo-container/demo-container.component').then(m => m.DemoContainerComponent)
     },
     {
         path: 'controls/button',
-        loadComponent: () => import('./components/controls-demo/controls-demo.component').then(m => m.ControlsDemoComponent),
+        loadComponent: () => import('./components/demo-container/demo-container.component').then(m => m.DemoContainerComponent),
         data: { control: 'button' }
     },
     {
         path: 'controls/input',
-        loadComponent: () => import('./components/controls-demo/controls-demo.component').then(m => m.ControlsDemoComponent),
+        loadComponent: () => import('./components/demo-container/demo-container.component').then(m => m.DemoContainerComponent),
         data: { control: 'input' }
     },
     {
         path: 'controls/select',
-        loadComponent: () => import('./components/controls-demo/controls-demo.component').then(m => m.ControlsDemoComponent),
+        loadComponent: () => import('./components/demo-container/demo-container.component').then(m => m.DemoContainerComponent),
         data: { control: 'select' }
     },
     {
         path: 'controls/checkbox',
-        loadComponent: () => import('./components/controls-demo/controls-demo.component').then(m => m.ControlsDemoComponent),
+        loadComponent: () => import('./components/demo-container/demo-container.component').then(m => m.DemoContainerComponent),
         data: { control: 'checkbox' }
     },
     {
         path: 'controls/radio',
-        loadComponent: () => import('./components/controls-demo/controls-demo.component').then(m => m.ControlsDemoComponent),
+        loadComponent: () => import('./components/demo-container/demo-container.component').then(m => m.DemoContainerComponent),
         data: { control: 'radio' }
     },
     {
         path: 'controls/radio-group',
-        loadComponent: () => import('./components/controls-demo/controls-demo.component').then(m => m.ControlsDemoComponent),
+        loadComponent: () => import('./components/demo-container/demo-container.component').then(m => m.DemoContainerComponent),
         data: { control: 'radio-group' }
     },
     {
         path: 'controls/chips',
-        loadComponent: () => import('./components/controls-demo/controls-demo.component').then(m => m.ControlsDemoComponent),
+        loadComponent: () => import('./components/demo-container/demo-container.component').then(m => m.DemoContainerComponent),
         data: { control: 'chips' }
     },
     {
         path: 'controls/slider',
-        loadComponent: () => import('./components/controls-demo/controls-demo.component').then(m => m.ControlsDemoComponent),
+        loadComponent: () => import('./components/demo-container/demo-container.component').then(m => m.DemoContainerComponent),
         data: { control: 'slider' }
     },
     {
         path: 'controls/toggle',
-        loadComponent: () => import('./components/controls-demo/controls-demo.component').then(m => m.ControlsDemoComponent),
+        loadComponent: () => import('./components/demo-container/demo-container.component').then(m => m.DemoContainerComponent),
         data: { control: 'toggle' }
     },
     {
         path: 'controls/textarea',
-        loadComponent: () => import('./components/controls-demo/controls-demo.component').then(m => m.ControlsDemoComponent),
+        loadComponent: () => import('./components/demo-container/demo-container.component').then(m => m.DemoContainerComponent),
         data: { control: 'textarea' }
     },
     {
         path: 'controls/autocomplete',
-        loadComponent: () => import('./components/controls-demo/controls-demo.component').then(m => m.ControlsDemoComponent),
+        loadComponent: () => import('./components/demo-container/demo-container.component').then(m => m.DemoContainerComponent),
         data: { control: 'autocomplete' }
     },
     {
         path: 'controls/datepicker',
-        loadComponent: () => import('./components/controls-demo/controls-demo.component').then(m => m.ControlsDemoComponent),
+        loadComponent: () => import('./components/demo-container/demo-container.component').then(m => m.DemoContainerComponent),
         data: { control: 'datepicker' }
     },
     {
         path: 'controls/range-slider',
-        loadComponent: () => import('./components/controls-demo/controls-demo.component').then(m => m.ControlsDemoComponent),
+        loadComponent: () => import('./components/demo-container/demo-container.component').then(m => m.DemoContainerComponent),
         data: { control: 'range-slider' }
     },
     {
         path: 'controls/switch',
-        loadComponent: () => import('./components/controls-demo/controls-demo.component').then(m => m.ControlsDemoComponent),
+        loadComponent: () => import('./components/demo-container/demo-container.component').then(m => m.DemoContainerComponent),
         data: { control: 'switch' }
     },
     {
         path: 'controls/file-input',
-        loadComponent: () => import('./components/controls-demo/controls-demo.component').then(m => m.ControlsDemoComponent),
+        loadComponent: () => import('./components/demo-container/demo-container.component').then(m => m.DemoContainerComponent),
         data: { control: 'file-input' }
     },
     {
         path: 'controls/timepicker',
-        loadComponent: () => import('./components/controls-demo/controls-demo.component').then(m => m.ControlsDemoComponent),
+        loadComponent: () => import('./components/demo-container/demo-container.component').then(m => m.DemoContainerComponent),
         data: { control: 'timepicker' }
     },
     {
         path: 'controls/color-picker',
-        loadComponent: () => import('./components/controls-demo/controls-demo.component').then(m => m.ControlsDemoComponent),
+        loadComponent: () => import('./components/demo-container/demo-container.component').then(m => m.DemoContainerComponent),
         data: { control: 'color-picker' }
     },
     {
         path: 'controls/data-table',
-        loadComponent: () => import('./components/controls-demo/controls-demo.component').then(m => m.ControlsDemoComponent),
+        loadComponent: () => import('./components/demo-container/demo-container.component').then(m => m.DemoContainerComponent),
         data: { control: 'data-table' }
     },
     {
         path: 'components',
-        loadComponent: () => import('./pages/components-demo/components-demo.component').then(m => m.ComponentsDemoComponent)
+        loadComponent: () => import('./components/demo-container/demo-container.component').then(m => m.DemoContainerComponent)
     },
     {
         path: 'components/card',
-        loadComponent: () => import('./pages/components-demo/components-demo.component').then(m => m.ComponentsDemoComponent),
+        loadComponent: () => import('./components/demo-container/demo-container.component').then(m => m.DemoContainerComponent),
         data: { component: 'card' }
     },
     {
         path: 'components/dialog',
-        loadComponent: () => import('./pages/components-demo/components-demo.component').then(m => m.ComponentsDemoComponent),
+        loadComponent: () => import('./components/demo-container/demo-container.component').then(m => m.DemoContainerComponent),
         data: { component: 'dialog' }
     },
     {
         path: 'components/sidenav',
-        loadComponent: () => import('./pages/components-demo/components-demo.component').then(m => m.ComponentsDemoComponent),
+        loadComponent: () => import('./components/demo-container/demo-container.component').then(m => m.DemoContainerComponent),
         data: { component: 'sidenav' }
     },
     {
         path: 'components/popover',
-        loadComponent: () => import('./pages/components-demo/components-demo.component').then(m => m.ComponentsDemoComponent),
+        loadComponent: () => import('./components/demo-container/demo-container.component').then(m => m.DemoContainerComponent),
         data: { component: 'popover' }
     },
     {
         path: 'components/radio-group',
-        loadComponent: () => import('./pages/components-demo/components-demo.component').then(m => m.ComponentsDemoComponent),
+        loadComponent: () => import('./components/demo-container/demo-container.component').then(m => m.DemoContainerComponent),
         data: { component: 'radio-group' }
     },
     {
@@ -147,7 +147,7 @@ export const routes: Routes = [
     },
     {
         path: 'components/data-table',
-        loadComponent: () => import('./pages/components-demo/components-demo.component').then(m => m.ComponentsDemoComponent),
+        loadComponent: () => import('./components/demo-container/demo-container.component').then(m => m.DemoContainerComponent),
         data: { component: 'data-table' }
     },
     {
@@ -156,22 +156,22 @@ export const routes: Routes = [
     },
     {
         path: 'components/calendar',
-        loadComponent: () => import('./pages/components-demo/components-demo.component').then(m => m.ComponentsDemoComponent),
+        loadComponent: () => import('./components/demo-container/demo-container.component').then(m => m.DemoContainerComponent),
         data: { component: 'calendar' }
     },
     {
         path: 'components/stepper',
-        loadComponent: () => import('./pages/components-demo/components-demo.component').then(m => m.ComponentsDemoComponent),
+        loadComponent: () => import('./components/demo-container/demo-container.component').then(m => m.DemoContainerComponent),
         data: { component: 'stepper' }
     },
     {
         path: 'components/tabs',
-        loadComponent: () => import('./pages/components-demo/components-demo.component').then(m => m.ComponentsDemoComponent),
+        loadComponent: () => import('./components/demo-container/demo-container.component').then(m => m.DemoContainerComponent),
         data: { component: 'tabs' }
     },
     {
         path: 'components/accordion',
-        loadComponent: () => import('./pages/components-demo/components-demo.component').then(m => m.ComponentsDemoComponent),
+        loadComponent: () => import('./components/demo-container/demo-container.component').then(m => m.DemoContainerComponent),
         data: { component: 'accordion' }
     },
     {

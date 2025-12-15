@@ -1,4 +1,4 @@
-import { Component, Input, ViewEncapsulation, ChangeDetectionStrategy } from '@angular/core';
+import { Component, Input, ViewEncapsulation, ChangeDetectorRef } from '@angular/core';
 
 
 @Component({
@@ -6,7 +6,6 @@ import { Component, Input, ViewEncapsulation, ChangeDetectionStrategy } from '@a
     standalone: true,
     imports: [],
     encapsulation: ViewEncapsulation.None,
-    changeDetection: ChangeDetectionStrategy.OnPush,
     templateUrl: './amw-tooltip.component.html',
     styleUrls: ['./amw-tooltip.component.scss']
 })
@@ -15,4 +14,6 @@ export class AmwTooltipComponent {
     @Input() allowHtml: boolean = false;
     @Input() maxWidth: string = '200px';
     @Input() class: string = '';
+
+    constructor(public cdr: ChangeDetectorRef) { }
 }

@@ -5,6 +5,9 @@ import { MatSidenavModule } from '@angular/material/sidenav';
 import { MatButtonModule } from '@angular/material/button';
 import { MatIconModule } from '@angular/material/icon';
 import { MatListModule } from '@angular/material/list';
+import { BaseCodeComponent } from '../base/base-code.component';
+
+type SidenavExamples = 'basic' | 'overlay' | 'push' | 'fixed';
 
 @Component({
     selector: 'app-sidenav-code',
@@ -17,20 +20,13 @@ import { MatListModule } from '@angular/material/list';
         MatIconModule,
         MatListModule
     ],
+    encapsulation: ViewEncapsulation.None,
     templateUrl: './sidenav-code.component.html',
     styleUrl: './sidenav-code.component.scss'
 })
-export class SidenavCodeComponent {
-    // Editable code examples
-    editableCode = {
-        basic: '',
-        overlay: '',
-        push: '',
-        fixed: ''
-    };
-
+export class SidenavCodeComponent extends BaseCodeComponent<SidenavExamples> {
     // Original code examples (for reset functionality)
-    readonly codeExamples = {
+    readonly codeExamples: Record<SidenavExamples, string> = {
         basic: `<mat-drawer-container class="example-container">
   <mat-drawer mode="side" opened>
     <mat-nav-list>
@@ -100,15 +96,6 @@ export class SidenavCodeComponent {
     fixedSidenavOpened = false;
 
     constructor() {
-        // Initialize editable code
-        Object.keys(this.codeExamples).forEach(key => {
-            this.editableCode[key as keyof typeof this.codeExamples] =
-                this.codeExamples[key as keyof typeof this.codeExamples];
-        });
-    }
-
-    // Reset code to original
-    resetCode(exampleKey: keyof typeof this.codeExamples) {
-        this.editableCode[exampleKey] = this.codeExamples[exampleKey];
+        super();
     }
 }

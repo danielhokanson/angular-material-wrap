@@ -5,6 +5,9 @@ import { MatButtonModule } from '@angular/material/button';
 import { MatIconModule } from '@angular/material/icon';
 import { MatInputModule } from '@angular/material/input';
 import { MatFormFieldModule } from '@angular/material/form-field';
+import { BaseCodeComponent } from '../base/base-code.component';
+
+type InputExamples = 'basic' | 'withLabel' | 'withHint' | 'withError' | 'withIcon' | 'disabled' | 'textarea';
 
 @Component({
   selector: 'amw-demo-input-code',
@@ -21,26 +24,15 @@ import { MatFormFieldModule } from '@angular/material/form-field';
   templateUrl: './input-code.component.html',
   styleUrl: './input-code.component.scss'
 })
-export class InputCodeComponent {
+export class InputCodeComponent extends BaseCodeComponent<InputExamples> {
   // State for live preview examples
   basicValue = '';
   emailValue = '';
   disabledValue = 'This field is disabled';
   readonlyValue = 'This field is readonly';
 
-  // Editable code examples
-  editableCode = {
-    basic: '',
-    withLabel: '',
-    withHint: '',
-    withError: '',
-    withIcon: '',
-    disabled: '',
-    textarea: ''
-  };
-
   // Original code examples (for reset functionality)
-  readonly codeExamples = {
+  readonly codeExamples: Record<InputExamples, string> = {
     basic: `<mat-form-field>
   <mat-label>Basic Input</mat-label>
   <input matInput placeholder="Enter text">
@@ -98,15 +90,6 @@ export class InputCodeComponent {
   };
 
   constructor() {
-    // Initialize editable code
-    Object.keys(this.codeExamples).forEach(key => {
-      this.editableCode[key as keyof typeof this.codeExamples] =
-        this.codeExamples[key as keyof typeof this.codeExamples];
-    });
-  }
-
-  // Reset code to original
-  resetCode(exampleKey: keyof typeof this.codeExamples) {
-    this.editableCode[exampleKey] = this.codeExamples[exampleKey];
+    super();
   }
 }

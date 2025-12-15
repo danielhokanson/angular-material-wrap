@@ -5,6 +5,9 @@ import { MatButtonModule } from '@angular/material/button';
 import { MatIconModule } from '@angular/material/icon';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
+import { BaseCodeComponent } from '../base/base-code.component';
+
+type TextareaExamples = 'basic' | 'withValidation' | 'differentSizes' | 'withCharacterCount' | 'reactiveForm' | 'withEvents' | 'contactForm';
 
 @Component({
   selector: 'amw-demo-textarea-code',
@@ -21,26 +24,15 @@ import { MatInputModule } from '@angular/material/input';
   templateUrl: './textarea-code.component.html',
   styleUrl: './textarea-code.component.scss'
 })
-export class TextareaCodeComponent {
+export class TextareaCodeComponent extends BaseCodeComponent<TextareaExamples> {
   // State for live preview examples
   descriptionValue = '';
   projectValue = '';
   noteValue = '';
   messageValue = '';
 
-  // Editable code examples
-  editableCode = {
-    basic: '',
-    withValidation: '',
-    differentSizes: '',
-    withCharacterCount: '',
-    reactiveForm: '',
-    withEvents: '',
-    contactForm: ''
-  };
-
   // Original code examples (for reset functionality)
-  readonly codeExamples = {
+  readonly codeExamples: Record<TextareaExamples, string> = {
     basic: `<mat-form-field appearance="outline">
   <mat-label>Description</mat-label>
   <textarea matInput
@@ -196,11 +188,7 @@ onTextBlur(event: FocusEvent): void {
   };
 
   constructor() {
-    // Initialize editable code
-    Object.keys(this.codeExamples).forEach(key => {
-      this.editableCode[key as keyof typeof this.codeExamples] =
-        this.codeExamples[key as keyof typeof this.codeExamples];
-    });
+    super();
   }
 
   // Event handlers for event example
@@ -214,10 +202,5 @@ onTextBlur(event: FocusEvent): void {
 
   onTextBlur(event: FocusEvent) {
     console.log('Textarea blurred');
-  }
-
-  // Reset code to original
-  resetCode(exampleKey: keyof typeof this.codeExamples) {
-    this.editableCode[exampleKey] = this.codeExamples[exampleKey];
   }
 }

@@ -3,6 +3,9 @@ import { FormsModule } from '@angular/forms';
 import { MatExpansionModule } from '@angular/material/expansion';
 import { MatButtonModule } from '@angular/material/button';
 import { MatIconModule } from '@angular/material/icon';
+import { BaseCodeComponent } from '../base/base-code.component';
+
+type ColorPickerExamples = 'basic' | 'mode' | 'validation' | 'configuration';
 
 @Component({
   selector: 'amw-demo-color-picker-code',
@@ -17,20 +20,12 @@ import { MatIconModule } from '@angular/material/icon';
   templateUrl: './color-picker-code.component.html',
   styleUrl: './color-picker-code.component.scss'
 })
-export class ColorPickerCodeComponent {
+export class ColorPickerCodeComponent extends BaseCodeComponent<ColorPickerExamples> {
   // State for live preview examples
   selectedColor = '#FF5722';
 
-  // Editable code examples
-  editableCode = {
-    basic: '',
-    mode: '',
-    validation: '',
-    configuration: ''
-  };
-
   // Original code examples (for reset functionality)
-  readonly codeExamples = {
+  readonly codeExamples: Record<ColorPickerExamples, string> = {
     basic: `<amw-color-picker
   [value]="selectedColor"
   (colorChange)="onColorChange($event)">
@@ -114,21 +109,12 @@ export class MyComponent {
   };
 
   constructor() {
-    // Initialize editable code
-    Object.keys(this.codeExamples).forEach(key => {
-      this.editableCode[key as keyof typeof this.codeExamples] =
-        this.codeExamples[key as keyof typeof this.codeExamples];
-    });
+    super();
   }
 
   // Event handler for color change
   onColorChange(color: string): void {
     console.log('Selected color:', color);
-  }
-
-  // Reset code to original
-  resetCode(exampleKey: keyof typeof this.codeExamples) {
-    this.editableCode[exampleKey] = this.codeExamples[exampleKey];
   }
 }
 

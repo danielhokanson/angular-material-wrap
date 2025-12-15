@@ -1,14 +1,11 @@
-import { Directive, ElementRef, Input, OnInit, OnDestroy, Renderer2, TemplateRef, ViewContainerRef, ComponentRef, HostListener, Injector } from '@angular/core';
-import { Overlay, OverlayRef, OverlayConfig, FlexibleConnectedPositionStrategy, GlobalPositionStrategy } from '@angular/cdk/overlay';
-import { ComponentPortal, TemplatePortal } from '@angular/cdk/portal';
+import { Directive, ElementRef, Input, OnDestroy, ComponentRef, HostListener, Injector } from '@angular/core';
+import { Overlay, OverlayRef, OverlayConfig } from '@angular/cdk/overlay';
+import { ComponentPortal } from '@angular/cdk/portal';
 import { AmwTooltipComponent } from './amw-tooltip.component';
 
 export interface TooltipConfig {
     content: string;
     position?: 'top' | 'bottom' | 'left' | 'right' | 'auto';
-    delay?: number;
-    showDelay?: number;
-    hideDelay?: number;
     disabled?: boolean;
     maxWidth?: string;
     class?: string;
@@ -19,12 +16,9 @@ export interface TooltipConfig {
     selector: '[amwTooltip]',
     standalone: true
 })
-export class AmwTooltipDirective implements OnInit, OnDestroy {
+export class AmwTooltipDirective implements OnDestroy {
     @Input('amwTooltip') tooltipConfig: TooltipConfig | string = '';
     @Input() tooltipPosition: 'top' | 'bottom' | 'left' | 'right' | 'auto' = 'auto';
-    @Input() tooltipDelay: number = 0;
-    @Input() tooltipShowDelay: number = 0;
-    @Input() tooltipHideDelay: number = 0;
     @Input() tooltipDisabled: boolean = false;
     @Input() tooltipMaxWidth: string = '200px';
     @Input() tooltipClass: string = '';
@@ -32,27 +26,16 @@ export class AmwTooltipDirective implements OnInit, OnDestroy {
 
     private overlayRef: OverlayRef | null = null;
     private tooltipComponent: ComponentRef<AmwTooltipComponent> | null = null;
-    private showTimeout: any;
-    private hideTimeout: any;
     private isVisible = false;
 
     constructor(
         private elementRef: ElementRef,
         private overlay: Overlay,
-        private renderer: Renderer2,
         private injector: Injector
     ) { }
 
-    ngOnInit(): void {
-        // Set up event listeners
-        this.renderer.listen(this.elementRef.nativeElement, 'mouseenter', () => this.show());
-        this.renderer.listen(this.elementRef.nativeElement, 'mouseleave', () => this.hide());
-        this.renderer.listen(this.elementRef.nativeElement, 'focus', () => this.show());
-        this.renderer.listen(this.elementRef.nativeElement, 'blur', () => this.hide());
-    }
-
     ngOnDestroy(): void {
-        this.hide();
+        this.destroyTooltip();
         if (this.overlayRef) {
             this.overlayRef.dispose();
         }
@@ -88,29 +71,11 @@ export class AmwTooltipDirective implements OnInit, OnDestroy {
             return;
         }
 
-        // Clear any existing timeout
-        if (this.hideTimeout) {
-            clearTimeout(this.hideTimeout);
-            this.hideTimeout = null;
-        }
-
-        // Set show delay
-        this.showTimeout = setTimeout(() => {
-            this.createTooltip(config);
-        }, config.showDelay || this.tooltipShowDelay);
+        this.createTooltip(config);
     }
 
     private hide(): void {
-        // Clear any existing timeout
-        if (this.showTimeout) {
-            clearTimeout(this.showTimeout);
-            this.showTimeout = null;
-        }
-
-        // Set hide delay
-        this.hideTimeout = setTimeout(() => {
-            this.destroyTooltip();
-        }, this.getConfig().hideDelay || this.tooltipHideDelay);
+        this.destroyTooltip();
     }
 
     private getConfig(): TooltipConfig {
@@ -118,9 +83,6 @@ export class AmwTooltipDirective implements OnInit, OnDestroy {
             return {
                 content: this.tooltipConfig,
                 position: this.tooltipPosition,
-                delay: this.tooltipDelay,
-                showDelay: this.tooltipShowDelay,
-                hideDelay: this.tooltipHideDelay,
                 disabled: this.tooltipDisabled,
                 maxWidth: this.tooltipMaxWidth,
                 class: this.tooltipClass,
@@ -143,10 +105,18 @@ export class AmwTooltipDirective implements OnInit, OnDestroy {
         this.tooltipComponent = this.overlayRef.attach(tooltipPortal);
 
         // Set tooltip content and configuration
+        const position = config.position || this.tooltipPosition || 'top';
+        const positionClass = `amw-tooltip--${position}`;
+        const customClass = config.class || '';
+        const combinedClass = customClass ? `${positionClass} ${customClass}` : positionClass;
+
         this.tooltipComponent.instance.content = config.content;
         this.tooltipComponent.instance.allowHtml = config.allowHtml || false;
         this.tooltipComponent.instance.maxWidth = config.maxWidth || '200px';
-        this.tooltipComponent.instance.class = config.class || '';
+        this.tooltipComponent.instance.class = combinedClass;
+
+        // Manually trigger change detection for dynamically created component
+        this.tooltipComponent.instance.cdr.detectChanges();
 
         this.isVisible = true;
     }

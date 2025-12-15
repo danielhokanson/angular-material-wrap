@@ -7,6 +7,7 @@ import { MatTableModule } from '@angular/material/table';
 import { MatSortModule } from '@angular/material/sort';
 import { MatPaginatorModule } from '@angular/material/paginator';
 import { MatCheckboxModule } from '@angular/material/checkbox';
+import { BaseCodeComponent } from '../base/base-code.component';
 
 export interface PeriodicElement {
   name: string;
@@ -14,6 +15,8 @@ export interface PeriodicElement {
   weight: number;
   symbol: string;
 }
+
+type DataTableExamples = 'basic' | 'sorting' | 'pagination' | 'selection' | 'actions' | 'filtering';
 
 @Component({
   selector: 'amw-demo-data-table-code',
@@ -32,7 +35,7 @@ export interface PeriodicElement {
   templateUrl: './data-table-code.component.html',
   styleUrl: './data-table-code.component.scss'
 })
-export class DataTableCodeComponent {
+export class DataTableCodeComponent extends BaseCodeComponent<DataTableExamples> {
   // Data for live preview examples
   displayedColumns: string[] = ['position', 'name', 'weight', 'symbol'];
   displayedColumnsWithSelection: string[] = ['select', 'position', 'name', 'weight', 'symbol'];
@@ -48,18 +51,8 @@ export class DataTableCodeComponent {
 
   selection: PeriodicElement[] = [];
 
-  // Editable code examples
-  editableCode = {
-    basic: '',
-    sorting: '',
-    pagination: '',
-    selection: '',
-    actions: '',
-    filtering: ''
-  };
-
   // Original code examples (for reset functionality)
-  readonly codeExamples = {
+  readonly codeExamples: Record<DataTableExamples, string> = {
     basic: `<table mat-table [dataSource]="dataSource">
   <!-- Position Column -->
   <ng-container matColumnDef="position">
@@ -184,16 +177,7 @@ applyFilter(event: Event) {
   };
 
   constructor() {
-    // Initialize editable code
-    Object.keys(this.codeExamples).forEach(key => {
-      this.editableCode[key as keyof typeof this.codeExamples] =
-        this.codeExamples[key as keyof typeof this.codeExamples];
-    });
-  }
-
-  // Reset code to original
-  resetCode(exampleKey: keyof typeof this.codeExamples) {
-    this.editableCode[exampleKey] = this.codeExamples[exampleKey];
+    super();
   }
 
   // Selection methods

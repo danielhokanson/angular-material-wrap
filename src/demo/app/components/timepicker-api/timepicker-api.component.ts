@@ -2,6 +2,7 @@ import { Component, ViewEncapsulation } from '@angular/core';
 
 import { MatCardModule } from '@angular/material/card';
 import { MatTableModule } from '@angular/material/table';
+import { BaseApiComponent, ApiDocumentation } from '../base/base-api.component';
 
 @Component({
     selector: 'amw-demo-timepicker-api',
@@ -14,7 +15,12 @@ import { MatTableModule } from '@angular/material/table';
     templateUrl: './timepicker-api.component.html',
     styleUrl: './timepicker-api.component.scss'
 })
-export class TimepickerApiComponent {
+export class TimepickerApiComponent extends BaseApiComponent {
+    apiDocumentation: ApiDocumentation = {
+        inputs: [],
+        outputs: []
+    };
+
     inputProperties = [
         { name: 'value', type: 'string', default: '', description: 'The current time value in HH:MM or HH:MM:SS format' },
         { name: 'config', type: 'TimepickerConfig', default: '{}', description: 'Configuration object for the timepicker' },
@@ -32,11 +38,11 @@ export class TimepickerApiComponent {
     ];
 
     outputProperties = [
-        { name: 'timeChange', type: 'EventEmitter<string>', description: 'Emitted when the time value changes' },
-        { name: 'timepickerChange', type: 'EventEmitter<string>', description: 'Emitted when the timepicker value changes (alias for timeChange)' },
-        { name: 'valueChange', type: 'EventEmitter<any>', description: 'Emitted when the value changes (inherited from BaseComponent)' },
-        { name: 'blur', type: 'EventEmitter<FocusEvent>', description: 'Emitted when the timepicker loses focus' },
-        { name: 'focus', type: 'EventEmitter<FocusEvent>', description: 'Emitted when the timepicker gains focus' }
+        { name: 'timeChange', returns: 'EventEmitter<string>', description: 'Emitted when the time value changes' },
+        { name: 'timepickerChange', returns: 'EventEmitter<string>', description: 'Emitted when the timepicker value changes (alias for timeChange)' },
+        { name: 'valueChange', returns: 'EventEmitter<any>', description: 'Emitted when the value changes (inherited from BaseComponent)' },
+        { name: 'blur', returns: 'EventEmitter<FocusEvent>', description: 'Emitted when the timepicker loses focus' },
+        { name: 'focus', returns: 'EventEmitter<FocusEvent>', description: 'Emitted when the timepicker gains focus' }
     ];
 
     configInterface = [
@@ -52,8 +58,8 @@ export class TimepickerApiComponent {
     ];
 
     typeDefinitions = [
-        { name: 'TimepickerColor', type: 'primary | accent | warn', description: 'Available color themes' },
-        { name: 'TimepickerSize', type: 'small | medium | large', description: 'Available size variants' }
+        { name: 'TimepickerColor', returns: 'primary | accent | warn', description: 'Available color themes' },
+        { name: 'TimepickerSize', returns: 'small | medium | large', description: 'Available size variants' }
     ];
 
     methods = [
@@ -73,4 +79,8 @@ export class TimepickerApiComponent {
     ];
 
     displayedColumns = ['name', 'type', 'default', 'description'];
+
+    constructor() {
+        super();
+    }
 }

@@ -28,7 +28,13 @@ import { AmwAppearance } from '../../../shared/types/amw-appearance.type';
     MatButtonModule,
     MatOptionModule
 ],
-    providers: [],
+    providers: [
+        {
+            provide: NG_VALUE_ACCESSOR,
+            useExisting: AmwAutocompleteComponent,
+            multi: true
+        }
+    ],
     templateUrl: './amw-autocomplete.component.html',
     styleUrl: './amw-autocomplete.component.scss',
     encapsulation: ViewEncapsulation.None

@@ -4,6 +4,9 @@ import { MatExpansionModule } from '@angular/material/expansion';
 import { MatButtonModule } from '@angular/material/button';
 import { MatIconModule } from '@angular/material/icon';
 import { MatSlideToggleModule } from '@angular/material/slide-toggle';
+import { BaseCodeComponent } from '../base/base-code.component';
+
+type SwitchExamples = 'basic' | 'configured' | 'formControl' | 'validation' | 'sizes' | 'colors';
 
 @Component({
   selector: 'amw-demo-switch-code',
@@ -19,22 +22,13 @@ import { MatSlideToggleModule } from '@angular/material/slide-toggle';
   templateUrl: './switch-code.component.html',
   styleUrl: './switch-code.component.scss'
 })
-export class SwitchCodeComponent {
+export class SwitchCodeComponent extends BaseCodeComponent<SwitchExamples> {
   // State for preview examples
   isEnabled = false;
   notificationsEnabled = true;
   darkModeEnabled = false;
 
-  editableCode = {
-    basic: '',
-    configured: '',
-    formControl: '',
-    validation: '',
-    sizes: '',
-    colors: ''
-  };
-
-  readonly codeExamples = {
+  readonly codeExamples: Record<SwitchExamples, string> = {
     basic: `<amw-switch
   [(checked)]="isEnabled"
   (switchChange)="onSwitchChange($event)">
@@ -119,14 +113,7 @@ export class MyComponent {
   };
 
   constructor() {
-    Object.keys(this.codeExamples).forEach(key => {
-      this.editableCode[key as keyof typeof this.codeExamples] =
-        this.codeExamples[key as keyof typeof this.codeExamples];
-    });
-  }
-
-  resetCode(exampleKey: keyof typeof this.codeExamples) {
-    this.editableCode[exampleKey] = this.codeExamples[exampleKey];
+    super();
   }
 
   onSwitchChange(event: any) {

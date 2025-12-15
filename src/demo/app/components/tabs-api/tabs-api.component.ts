@@ -1,5 +1,6 @@
 import { Component, ViewEncapsulation } from '@angular/core';
 import { MatExpansionModule } from '@angular/material/expansion';
+import { BaseApiComponent, ApiDocumentation } from '../base/base-api.component';
 
 @Component({
   selector: 'amw-demo-tabs-api',
@@ -9,8 +10,8 @@ import { MatExpansionModule } from '@angular/material/expansion';
   templateUrl: './tabs-api.component.html',
   styleUrl: './tabs-api.component.scss'
 })
-export class TabsApiComponent {
-  apiDocumentation = {
+export class TabsApiComponent extends BaseApiComponent {
+  apiDocumentation: ApiDocumentation = {
     inputs: [
       {
         name: 'selectedIndex',
@@ -62,24 +63,16 @@ export class TabsApiComponent {
     ],
     outputs: [
       {
-        name: 'selectedIndexChange',
-        type: 'EventEmitter<number>',
-        description: 'Emitted when the selected tab index changes'
+        name: 'selectedIndexChange', type: 'EventEmitter<number>', description: 'Emitted when the selected tab index changes'
       },
       {
-        name: 'selectedTabChange',
-        type: 'EventEmitter<MatTabChangeEvent>',
-        description: 'Emitted when the selected tab changes'
+        name: 'selectedTabChange', type: 'EventEmitter<MatTabChangeEvent>', description: 'Emitted when the selected tab changes'
       },
       {
-        name: 'focusChange',
-        type: 'EventEmitter<MatTabChangeEvent>',
-        description: 'Emitted when focus changes to a different tab'
+        name: 'focusChange', type: 'EventEmitter<MatTabChangeEvent>', description: 'Emitted when focus changes to a different tab'
       },
       {
-        name: 'animationDone',
-        type: 'EventEmitter<void>',
-        description: 'Emitted when the tab animation completes'
+        name: 'animationDone', type: 'EventEmitter<void>', description: 'Emitted when the tab animation completes'
       }
     ],
     methods: [
@@ -95,4 +88,12 @@ export class TabsApiComponent {
       }
     ]
   };
+
+
+  constructor() {
+
+      super();
+
+  }
+
 }

@@ -5,6 +5,9 @@ import { MatIconModule } from '@angular/material/icon';
 import { MatExpansionModule } from '@angular/material/expansion';
 import { MatCardModule } from '@angular/material/card';
 import { CommonModule } from '@angular/common';
+import { BaseCodeComponent } from '../base/base-code.component';
+
+type ThemeExamples = 'colorPalette' | 'cssVariables' | 'componentTheming' | 'darkMode' | 'customTheme';
 
 @Component({
   selector: 'amw-demo-theme-code',
@@ -21,28 +24,8 @@ import { CommonModule } from '@angular/common';
   templateUrl: './theme-code.component.html',
   styleUrl: './theme-code.component.scss'
 })
-export class ThemeCodeComponent {
-  editableCode = {
-    colorPalette: '',
-    cssVariables: '',
-    componentTheming: '',
-    darkMode: '',
-    customTheme: ''
-  };
-
-  constructor() {
-    this.editableCode.colorPalette = this.codeExamples.colorPalette;
-    this.editableCode.cssVariables = this.codeExamples.cssVariables;
-    this.editableCode.componentTheming = this.codeExamples.componentTheming;
-    this.editableCode.darkMode = this.codeExamples.darkMode;
-    this.editableCode.customTheme = this.codeExamples.customTheme;
-  }
-
-  resetCode(exampleKey: keyof typeof this.codeExamples) {
-    this.editableCode[exampleKey] = this.codeExamples[exampleKey];
-  }
-
-  codeExamples = {
+export class ThemeCodeComponent extends BaseCodeComponent<ThemeExamples> {
+  readonly codeExamples: Record<ThemeExamples, string> = {
     colorPalette: `<!-- Using Material theme colors -->
 <button mat-raised-button color="primary">Primary</button>
 <button mat-raised-button color="accent">Accent</button>
@@ -92,4 +75,8 @@ export class ThemeCodeComponent {
   </button>
 </div>`
   };
+
+  constructor() {
+    super();
+  }
 }

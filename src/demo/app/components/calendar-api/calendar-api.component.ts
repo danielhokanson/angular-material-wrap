@@ -1,5 +1,6 @@
 import { Component, ViewEncapsulation } from '@angular/core';
 import { MatExpansionModule } from '@angular/material/expansion';
+import { BaseApiComponent, ApiDocumentation } from '../base/base-api.component';
 
 @Component({
   selector: 'amw-demo-calendar-api',
@@ -9,8 +10,8 @@ import { MatExpansionModule } from '@angular/material/expansion';
   templateUrl: './calendar-api.component.html',
   styleUrl: './calendar-api.component.scss'
 })
-export class CalendarApiComponent {
-  apiDocumentation = {
+export class CalendarApiComponent extends BaseApiComponent {
+  apiDocumentation: ApiDocumentation = {
     inputs: [
       {
         name: 'selected',
@@ -58,24 +59,16 @@ export class CalendarApiComponent {
     ],
     outputs: [
       {
-        name: 'selectedChange',
-        type: 'EventEmitter<Date | null>',
-        description: 'Emitted when the selected date changes'
+        name: 'selectedChange', type: 'EventEmitter<Date | null>', description: 'Emitted when the selected date changes'
       },
       {
-        name: 'yearSelected',
-        type: 'EventEmitter<Date>',
-        description: 'Emitted when a year is selected in multi-year view'
+        name: 'yearSelected', type: 'EventEmitter<Date>', description: 'Emitted when a year is selected in multi-year view'
       },
       {
-        name: 'monthSelected',
-        type: 'EventEmitter<Date>',
-        description: 'Emitted when a month is selected in year view'
+        name: 'monthSelected', type: 'EventEmitter<Date>', description: 'Emitted when a month is selected in year view'
       },
       {
-        name: 'viewChanged',
-        type: 'EventEmitter<MatCalendarView>',
-        description: 'Emitted when the calendar view changes'
+        name: 'viewChanged', type: 'EventEmitter<MatCalendarView>', description: 'Emitted when the calendar view changes'
       }
     ],
     methods: [
@@ -91,4 +84,12 @@ export class CalendarApiComponent {
       }
     ]
   };
+
+
+  constructor() {
+
+      super();
+
+  }
+
 }

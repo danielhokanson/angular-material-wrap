@@ -3,6 +3,9 @@ import { FormsModule } from '@angular/forms';
 import { MatExpansionModule } from '@angular/material/expansion';
 import { MatButtonModule } from '@angular/material/button';
 import { MatIconModule } from '@angular/material/icon';
+import { BaseCodeComponent } from '../base/base-code.component';
+
+type FileInputExamples = 'basic' | 'configured' | 'formControl' | 'validation' | 'dragDrop' | 'fileTypes';
 
 @Component({
   selector: 'amw-demo-file-input-code',
@@ -17,22 +20,12 @@ import { MatIconModule } from '@angular/material/icon';
   templateUrl: './file-input-code.component.html',
   styleUrl: './file-input-code.component.scss'
 })
-export class FileInputCodeComponent {
+export class FileInputCodeComponent extends BaseCodeComponent<FileInputExamples> {
   // State for live preview examples
   files: File[] = [];
 
-  // Editable code examples
-  editableCode = {
-    basic: '',
-    configured: '',
-    formControl: '',
-    validation: '',
-    dragDrop: '',
-    fileTypes: ''
-  };
-
   // Original code examples (for reset functionality)
-  readonly codeExamples = {
+  readonly codeExamples: Record<FileInputExamples, string> = {
     basic: `<amw-file-input
   [(selectedFiles)]="files"
   (filesChange)="onFilesChange($event)"
@@ -150,11 +143,7 @@ export class MyComponent {
   };
 
   constructor() {
-    // Initialize editable code
-    Object.keys(this.codeExamples).forEach(key => {
-      this.editableCode[key as keyof typeof this.codeExamples] =
-        this.codeExamples[key as keyof typeof this.codeExamples];
-    });
+    super();
   }
 
   // Event handlers for file input
@@ -168,11 +157,6 @@ export class MyComponent {
 
   onFileRemove(file: File): void {
     console.log('File removed:', file);
-  }
-
-  // Reset code to original
-  resetCode(exampleKey: keyof typeof this.codeExamples) {
-    this.editableCode[exampleKey] = this.codeExamples[exampleKey];
   }
 }
 

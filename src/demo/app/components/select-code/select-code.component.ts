@@ -6,6 +6,9 @@ import { MatButtonModule } from '@angular/material/button';
 import { MatIconModule } from '@angular/material/icon';
 import { MatSelectModule } from '@angular/material/select';
 import { MatFormFieldModule } from '@angular/material/form-field';
+import { BaseCodeComponent } from '../base/base-code.component';
+
+type SelectExamples = 'basic' | 'withValue' | 'multiple' | 'optGroups' | 'disabled' | 'customTrigger' | 'errorState';
 
 @Component({
   selector: 'amw-demo-select-code',
@@ -23,7 +26,7 @@ import { MatFormFieldModule } from '@angular/material/form-field';
   templateUrl: './select-code.component.html',
   styleUrl: './select-code.component.scss'
 })
-export class SelectCodeComponent {
+export class SelectCodeComponent extends BaseCodeComponent<SelectExamples> {
   // State for live preview examples
   selectedValue = '';
   selectedFood = '';
@@ -51,19 +54,8 @@ export class SelectCodeComponent {
     { value: 'tomato', viewValue: 'Tomato' }
   ];
 
-  // Editable code examples
-  editableCode = {
-    basic: '',
-    withValue: '',
-    multiple: '',
-    optGroups: '',
-    disabled: '',
-    customTrigger: '',
-    errorState: ''
-  };
-
   // Original code examples (for reset functionality)
-  readonly codeExamples = {
+  readonly codeExamples: Record<SelectExamples, string> = {
     basic: `<mat-form-field>
   <mat-label>Favorite food</mat-label>
   <mat-select>
@@ -145,15 +137,6 @@ export class SelectCodeComponent {
   };
 
   constructor() {
-    // Initialize editable code
-    Object.keys(this.codeExamples).forEach(key => {
-      this.editableCode[key as keyof typeof this.codeExamples] =
-        this.codeExamples[key as keyof typeof this.codeExamples];
-    });
-  }
-
-  // Reset code to original
-  resetCode(exampleKey: keyof typeof this.codeExamples) {
-    this.editableCode[exampleKey] = this.codeExamples[exampleKey];
+    super();
   }
 }

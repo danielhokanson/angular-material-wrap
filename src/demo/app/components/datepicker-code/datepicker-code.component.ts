@@ -3,6 +3,9 @@ import { FormsModule } from '@angular/forms';
 import { MatExpansionModule } from '@angular/material/expansion';
 import { MatButtonModule } from '@angular/material/button';
 import { MatIconModule } from '@angular/material/icon';
+import { BaseCodeComponent } from '../base/base-code.component';
+
+type DatepickerExamples = 'basic' | 'withMinMax' | 'withValidation' | 'differentFormats' | 'disabled' | 'reactiveForm' | 'withEvents' | 'bookingForm';
 
 @Component({
   selector: 'amw-demo-datepicker-code',
@@ -17,27 +20,15 @@ import { MatIconModule } from '@angular/material/icon';
   templateUrl: './datepicker-code.component.html',
   styleUrl: './datepicker-code.component.scss'
 })
-export class DatepickerCodeComponent {
+export class DatepickerCodeComponent extends BaseCodeComponent<DatepickerExamples> {
   // State for live preview examples
   selectedDate = new Date();
   minDate = new Date(1900, 0, 1);
   maxDate = new Date();
   birthDate = new Date(1990, 0, 1);
 
-  // Editable code examples
-  editableCode = {
-    basic: '',
-    withMinMax: '',
-    withValidation: '',
-    differentFormats: '',
-    disabled: '',
-    reactiveForm: '',
-    withEvents: '',
-    bookingForm: ''
-  };
-
   // Original code examples (for reset functionality)
-  readonly codeExamples = {
+  readonly codeExamples: Record<DatepickerExamples, string> = {
     basic: `<amw-datepicker
   label="Select Date"
   placeholder="Choose a date..."
@@ -212,11 +203,7 @@ onDatepickerClosed(): void {
   };
 
   constructor() {
-    // Initialize editable code
-    Object.keys(this.codeExamples).forEach(key => {
-      this.editableCode[key as keyof typeof this.codeExamples] =
-        this.codeExamples[key as keyof typeof this.codeExamples];
-    });
+    super();
   }
 
   // Event handlers for event example
@@ -230,10 +217,5 @@ onDatepickerClosed(): void {
 
   onDatepickerClosed(): void {
     console.log('Datepicker closed');
-  }
-
-  // Reset code to original
-  resetCode(exampleKey: keyof typeof this.codeExamples) {
-    this.editableCode[exampleKey] = this.codeExamples[exampleKey];
   }
 }

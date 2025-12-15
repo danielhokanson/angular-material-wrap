@@ -1,4 +1,5 @@
 import { Component, ViewEncapsulation } from '@angular/core';
+import { BaseApiComponent, ApiDocumentation } from '../base/base-api.component';
 
 @Component({
     selector: 'amw-demo-accordion-api',
@@ -8,8 +9,8 @@ import { Component, ViewEncapsulation } from '@angular/core';
     templateUrl: './accordion-api.component.html',
     styleUrl: './accordion-api.component.scss'
 })
-export class AccordionApiComponent {
-    apiDocumentation = {
+export class AccordionApiComponent extends BaseApiComponent {
+    apiDocumentation: ApiDocumentation = {
         inputs: [
             {
                 name: 'multi',
@@ -56,29 +57,19 @@ export class AccordionApiComponent {
         ],
         outputs: [
             {
-                name: 'opened',
-                type: 'EventEmitter<void>',
-                description: 'Emitted when the panel is opened'
+                name: 'opened', type: 'EventEmitter<void>', description: 'Emitted when the panel is opened'
             },
             {
-                name: 'closed',
-                type: 'EventEmitter<void>',
-                description: 'Emitted when the panel is closed'
+                name: 'closed', type: 'EventEmitter<void>', description: 'Emitted when the panel is closed'
             },
             {
-                name: 'expandedChange',
-                type: 'EventEmitter<boolean>',
-                description: 'Emitted when the expanded state changes'
+                name: 'expandedChange', type: 'EventEmitter<boolean>', description: 'Emitted when the expanded state changes'
             },
             {
-                name: 'afterExpand',
-                type: 'EventEmitter<void>',
-                description: 'Emitted after the panel expansion animation completes'
+                name: 'afterExpand', type: 'EventEmitter<void>', description: 'Emitted after the panel expansion animation completes'
             },
             {
-                name: 'afterCollapse',
-                type: 'EventEmitter<void>',
-                description: 'Emitted after the panel collapse animation completes'
+                name: 'afterCollapse', type: 'EventEmitter<void>', description: 'Emitted after the panel collapse animation completes'
             }
         ],
         methods: [
@@ -97,6 +88,18 @@ export class AccordionApiComponent {
                 returns: 'void',
                 description: 'Toggles the expansion panel state'
             }
+        ],
+        usageNotes: [
+            'Multi-Expansion: Use multi="true" on mat-accordion to allow multiple panels open',
+            'Programmatic Control: Access panel via ViewChild and use open(), close(), toggle() methods',
+            'Lazy Content: Content inside panels is lazy-loaded until first expansion',
+            'Accessibility: Accordion automatically manages ARIA attributes for screen readers',
+            'Animation: Use afterExpand and afterCollapse events to respond after animations complete',
+            'Nested Forms: Expansion panels work great for multi-step forms and progressive disclosure'
         ]
     };
+
+    constructor() {
+        super();
+    }
 }

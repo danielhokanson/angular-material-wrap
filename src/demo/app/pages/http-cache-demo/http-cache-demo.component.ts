@@ -55,12 +55,15 @@ export class HttpCacheDemoComponent implements OnInit {
         this.cacheSize = this.cacheService.size();
         this.cacheConfig = this.configService.getConfigSync();
 
-        // Update IndexedDB size and storage stats
-        this.cacheService.totalSize().subscribe(size => {
-            this.totalCacheSize = size;
-        });
+        // Defer Observable subscriptions to avoid ExpressionChangedAfterItHasBeenCheckedError
+        setTimeout(() => {
+            // Update IndexedDB size and storage stats
+            this.cacheService.totalSize().subscribe(size => {
+                this.totalCacheSize = size;
+            });
 
-        this.updateStorageStats();
+            this.updateStorageStats();
+        }, 0);
     }
 
     makeRequest(url: string): void {

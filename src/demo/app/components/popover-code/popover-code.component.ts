@@ -4,6 +4,9 @@ import { MatExpansionModule } from '@angular/material/expansion';
 import { MatButtonModule } from '@angular/material/button';
 import { MatIconModule } from '@angular/material/icon';
 import { MatTooltipModule } from '@angular/material/tooltip';
+import { BaseCodeComponent } from '../base/base-code.component';
+
+type PopoverExamples = 'basic' | 'positions' | 'styling' | 'interactive';
 
 @Component({
     selector: 'app-popover-code',
@@ -15,20 +18,13 @@ import { MatTooltipModule } from '@angular/material/tooltip';
         MatIconModule,
         MatTooltipModule
     ],
+    encapsulation: ViewEncapsulation.None,
     templateUrl: './popover-code.component.html',
     styleUrl: './popover-code.component.scss'
 })
-export class PopoverCodeComponent {
-    // Editable code examples
-    editableCode = {
-        basic: '',
-        positions: '',
-        styling: '',
-        interactive: ''
-    };
-
+export class PopoverCodeComponent extends BaseCodeComponent<PopoverExamples> {
     // Original code examples (for reset functionality)
-    readonly codeExamples = {
+    readonly codeExamples: Record<PopoverExamples, string> = {
         basic: `<button mat-raised-button
         matTooltip="This is a basic tooltip">
   Hover Me
@@ -83,16 +79,7 @@ export class PopoverCodeComponent {
     tooltipDisabled = false;
 
     constructor() {
-        // Initialize editable code
-        Object.keys(this.codeExamples).forEach(key => {
-            this.editableCode[key as keyof typeof this.codeExamples] =
-                this.codeExamples[key as keyof typeof this.codeExamples];
-        });
-    }
-
-    // Reset code to original
-    resetCode(exampleKey: keyof typeof this.codeExamples) {
-        this.editableCode[exampleKey] = this.codeExamples[exampleKey];
+        super();
     }
 
     // Toggle tooltip state

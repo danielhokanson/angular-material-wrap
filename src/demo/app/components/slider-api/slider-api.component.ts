@@ -1,4 +1,5 @@
 import { Component, ViewEncapsulation } from '@angular/core';
+import { BaseApiComponent, ApiDocumentation } from '../base/base-api.component';
 
 
 @Component({
@@ -9,59 +10,59 @@ import { Component, ViewEncapsulation } from '@angular/core';
   templateUrl: './slider-api.component.html',
   styleUrl: './slider-api.component.scss'
 })
-export class SliderApiComponent {
-  apiDocumentation = {
+export class SliderApiComponent extends BaseApiComponent {
+  apiDocumentation: ApiDocumentation = {
     inputs: [
       {
-        property: 'value',
+        name: 'value',
         type: 'number',
         default: '0',
         description: 'Current value of the slider'
       },
       {
-        property: 'min',
+        name: 'min',
         type: 'number',
         default: '0',
         description: 'Minimum value of the slider'
       },
       {
-        property: 'max',
+        name: 'max',
         type: 'number',
         default: '100',
         description: 'Maximum value of the slider'
       },
       {
-        property: 'step',
+        name: 'step',
         type: 'number',
         default: '1',
         description: 'Step size for discrete values'
       },
       {
-        property: 'disabled',
+        name: 'disabled',
         type: 'boolean',
         default: 'false',
         description: 'Whether the slider is disabled'
       },
       {
-        property: 'thumbLabel',
+        name: 'thumbLabel',
         type: 'boolean',
         default: 'false',
         description: 'Whether to show the current value on the thumb'
       },
       {
-        property: 'color',
+        name: 'color',
         type: "'primary' | 'accent' | 'warn'",
         default: "'primary'",
         description: 'Color theme of the slider'
       },
       {
-        property: 'label',
+        name: 'label',
         type: 'string',
         default: 'undefined',
         description: 'Label text displayed above the slider'
       },
       {
-        property: 'required',
+        name: 'required',
         type: 'boolean',
         default: 'false',
         description: 'Whether the slider is required for form validation'
@@ -69,72 +70,30 @@ export class SliderApiComponent {
     ],
     outputs: [
       {
-        property: 'change',
+        name: 'change',
         type: 'EventEmitter<MatSliderChange>',
         description: 'Emitted when the slider value changes'
       },
       {
-        property: 'input',
+        name: 'input',
         type: 'EventEmitter<MatSliderChange>',
         description: 'Emitted continuously as the user drags the slider'
       },
       {
-        property: 'focus',
+        name: 'focus',
         type: 'EventEmitter<FocusEvent>',
         description: 'Emitted when the slider gains focus'
       },
       {
-        property: 'blur',
+        name: 'blur',
         type: 'EventEmitter<FocusEvent>',
         description: 'Emitted when the slider loses focus'
       }
-    ],
-    usage: {
-      description: 'The amw-slider component provides a Material Design slider with various customization options and form integration.',
-      examples: [
-        {
-          title: 'Basic Usage',
-          code: `<amw-slider
-  label="Volume"
-  [min]="0"
-  [max]="100"
-  [value]="50">
-</amw-slider>`
-        },
-        {
-          title: 'With Validation',
-          code: `<amw-slider
-  formControlName="volume"
-  label="Volume"
-  [min]="0"
-  [max]="100"
-  [required]="true"
-  [thumbLabel]="true">
-</amw-slider>`
-        },
-        {
-          title: 'Settings Panel',
-          code: `<div class="settings-panel">
-  <amw-slider
-    label="Master Volume"
-    [min]="0"
-    [max]="100"
-    [value]="masterVolume"
-    [thumbLabel]="true"
-    color="primary">
-  </amw-slider>
-  
-  <amw-slider
-    label="Bass"
-    [min]="-20"
-    [max]="20"
-    [value]="bass"
-    [thumbLabel]="true"
-    color="accent">
-  </amw-slider>
-</div>`
-        }
-      ]
-    }
+    ]
   };
+
+
+    constructor() {
+        super();
+    }
 }

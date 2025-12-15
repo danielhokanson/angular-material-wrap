@@ -5,6 +5,9 @@ import { MatExpansionModule } from '@angular/material/expansion';
 import { MatButtonModule } from '@angular/material/button';
 import { MatIconModule } from '@angular/material/icon';
 import { MatRadioModule } from '@angular/material/radio';
+import { BaseCodeComponent } from '../base/base-code.component';
+
+type RadioExamples = 'basic' | 'colors' | 'disabled' | 'labelPosition' | 'ngModel' | 'events' | 'dynamicOptions';
 
 @Component({
   selector: 'amw-demo-radio-code',
@@ -21,7 +24,7 @@ import { MatRadioModule } from '@angular/material/radio';
   templateUrl: './radio-code.component.html',
   styleUrl: './radio-code.component.scss'
 })
-export class RadioCodeComponent {
+export class RadioCodeComponent extends BaseCodeComponent<RadioExamples> {
   // State for live preview examples
   selectedSeason = 'winter';
   selectedColor = '';
@@ -30,19 +33,8 @@ export class RadioCodeComponent {
 
   seasons = ['Winter', 'Spring', 'Summer', 'Autumn'];
 
-  // Editable code examples
-  editableCode = {
-    basic: '',
-    colors: '',
-    disabled: '',
-    labelPosition: '',
-    ngModel: '',
-    events: '',
-    dynamicOptions: ''
-  };
-
   // Original code examples (for reset functionality)
-  readonly codeExamples = {
+  readonly codeExamples: Record<RadioExamples, string> = {
     basic: `<mat-radio-group>
   <mat-radio-button value="1">Option 1</mat-radio-button>
   <mat-radio-button value="2">Option 2</mat-radio-button>
@@ -88,16 +80,7 @@ export class RadioCodeComponent {
   };
 
   constructor() {
-    // Initialize editable code
-    Object.keys(this.codeExamples).forEach(key => {
-      this.editableCode[key as keyof typeof this.codeExamples] =
-        this.codeExamples[key as keyof typeof this.codeExamples];
-    });
-  }
-
-  // Reset code to original
-  resetCode(exampleKey: keyof typeof this.codeExamples) {
-    this.editableCode[exampleKey] = this.codeExamples[exampleKey];
+    super();
   }
 
   // Event handlers

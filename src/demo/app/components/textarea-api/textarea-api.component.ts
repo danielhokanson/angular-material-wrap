@@ -1,4 +1,5 @@
 import { Component, ViewEncapsulation } from '@angular/core';
+import { BaseApiComponent, ApiDocumentation } from '../base/base-api.component';
 
 
 @Component({
@@ -9,83 +10,83 @@ import { Component, ViewEncapsulation } from '@angular/core';
   templateUrl: './textarea-api.component.html',
   styleUrl: './textarea-api.component.scss'
 })
-export class TextareaApiComponent {
-  apiDocumentation = {
+export class TextareaApiComponent extends BaseApiComponent {
+  apiDocumentation: ApiDocumentation = {
     inputs: [
       {
-        property: 'label',
+        name: 'label',
         type: 'string',
         default: 'undefined',
         description: 'Label text displayed above the textarea'
       },
       {
-        property: 'placeholder',
+        name: 'placeholder',
         type: 'string',
         default: 'undefined',
         description: 'Placeholder text shown when textarea is empty'
       },
       {
-        property: 'value',
+        name: 'value',
         type: 'string',
         default: 'undefined',
         description: 'Current value of the textarea'
       },
       {
-        property: 'disabled',
+        name: 'disabled',
         type: 'boolean',
         default: 'false',
         description: 'Whether the textarea is disabled'
       },
       {
-        property: 'required',
+        name: 'required',
         type: 'boolean',
         default: 'false',
         description: 'Whether the textarea is required for form validation'
       },
       {
-        property: 'rows',
+        name: 'rows',
         type: 'number',
         default: '4',
         description: 'Number of visible text lines'
       },
       {
-        property: 'cols',
+        name: 'cols',
         type: 'number',
         default: 'undefined',
         description: 'Number of visible character columns'
       },
       {
-        property: 'minlength',
+        name: 'minlength',
         type: 'number',
         default: 'undefined',
         description: 'Minimum number of characters required'
       },
       {
-        property: 'maxlength',
+        name: 'maxlength',
         type: 'number',
         default: 'undefined',
         description: 'Maximum number of characters allowed'
       },
       {
-        property: 'appearance',
+        name: 'appearance',
         type: "'outline' | 'fill'",
         default: "'outline'",
         description: 'Visual appearance of the form field'
       },
       {
-        property: 'hint',
+        name: 'hint',
         type: 'string',
         default: 'undefined',
         description: 'Hint text displayed below the textarea'
       },
       {
-        property: 'errorMessage',
+        name: 'errorMessage',
         type: 'string',
         default: 'undefined',
         description: 'Custom error message to display'
       },
       {
-        property: 'hasError',
+        name: 'hasError',
         type: 'boolean',
         default: 'false',
         description: 'Whether to show error state'
@@ -93,66 +94,25 @@ export class TextareaApiComponent {
     ],
     outputs: [
       {
-        property: 'valueChange',
+        name: 'valueChange',
         type: 'EventEmitter<string>',
         description: 'Emitted when the textarea value changes'
       },
       {
-        property: 'focus',
+        name: 'focus',
         type: 'EventEmitter<FocusEvent>',
         description: 'Emitted when the textarea gains focus'
       },
       {
-        property: 'blur',
+        name: 'blur',
         type: 'EventEmitter<FocusEvent>',
         description: 'Emitted when the textarea loses focus'
       }
-    ],
-    usage: {
-      description: 'The amw-textarea component provides a Material Design textarea with various customization options and form integration.',
-      examples: [
-        {
-          title: 'Basic Usage',
-          code: `<amw-textarea
-  label="Description"
-  placeholder="Enter your description..."
-  [rows]="4">
-</amw-textarea>`
-        },
-        {
-          title: 'With Validation',
-          code: `<amw-textarea
-  formControlName="description"
-  label="Project Description"
-  placeholder="Describe your project..."
-  [required]="true"
-  [minlength]="10"
-  [maxlength]="500"
-  appearance="outline">
-</amw-textarea>`
-        },
-        {
-          title: 'Contact Form',
-          code: `<form [formGroup]="contactForm">
-  <amw-textarea
-    formControlName="message"
-    label="Message"
-    placeholder="Your message here..."
-    [required]="true"
-    [minlength]="20"
-    [rows]="6">
-  </amw-textarea>
-  
-  <amw-textarea
-    formControlName="additional"
-    label="Additional Information"
-    placeholder="Any additional details..."
-    [maxlength]="500"
-    [rows]="4">
-  </amw-textarea>
-</form>`
-        }
-      ]
-    }
+    ]
   };
+
+
+    constructor() {
+        super();
+    }
 }

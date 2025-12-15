@@ -4,6 +4,9 @@ import { MatChipsModule } from '@angular/material/chips';
 import { MatIconModule } from '@angular/material/icon';
 import { MatButtonModule } from '@angular/material/button';
 import { MatExpansionModule } from '@angular/material/expansion';
+import { BaseCodeComponent } from '../base/base-code.component';
+
+type ChipsExamples = 'basic' | 'removable' | 'selectable' | 'input' | 'styled';
 
 @Component({
   selector: 'amw-demo-chips-code',
@@ -13,16 +16,7 @@ import { MatExpansionModule } from '@angular/material/expansion';
   templateUrl: './chips-code.component.html',
   styleUrl: './chips-code.component.scss'
 })
-export class ChipsCodeComponent {
-  // Editable code examples
-  editableCode = {
-    basic: '',
-    removable: '',
-    selectable: '',
-    input: '',
-    styled: ''
-  };
-
+export class ChipsCodeComponent extends BaseCodeComponent<ChipsExamples> {
   // State for removable chips preview
   removableChips = [
     { label: 'Removable Chip', removed: false }
@@ -31,37 +25,8 @@ export class ChipsCodeComponent {
   // State for input chips preview
   inputChips = ['Apple', 'Banana', 'Orange'];
 
-  constructor() {
-    this.editableCode.basic = this.codeExamples.basic;
-    this.editableCode.removable = this.codeExamples.removable;
-    this.editableCode.selectable = this.codeExamples.selectable;
-    this.editableCode.input = this.codeExamples.input;
-    this.editableCode.styled = this.codeExamples.styled;
-  }
-
-  resetCode(exampleKey: keyof typeof this.codeExamples) {
-    this.editableCode[exampleKey] = this.codeExamples[exampleKey];
-  }
-
-  // Remove a chip from removable chips preview
-  removeChip(index: number) {
-    this.removableChips.splice(index, 1);
-  }
-
-  // Remove a chip from input chips preview
-  removeInputChip(index: number) {
-    this.inputChips.splice(index, 1);
-  }
-
-  // Add chip from input field
-  addInputChip(input: HTMLInputElement) {
-    if (input.value.trim()) {
-      this.inputChips.push(input.value.trim());
-      input.value = '';
-    }
-  }
-
-  codeExamples = {
+  // Original code examples (for reset functionality)
+  readonly codeExamples: Record<ChipsExamples, string> = {
     basic: `<mat-chip-set>
   <mat-chip>Tag 1</mat-chip>
   <mat-chip>Tag 2</mat-chip>
@@ -96,4 +61,26 @@ export class ChipsCodeComponent {
   <mat-chip color="warn">Warn</mat-chip>
 </mat-chip-set>`
   };
+
+  constructor() {
+    super();
+  }
+
+  // Remove a chip from removable chips preview
+  removeChip(index: number) {
+    this.removableChips.splice(index, 1);
+  }
+
+  // Remove a chip from input chips preview
+  removeInputChip(index: number) {
+    this.inputChips.splice(index, 1);
+  }
+
+  // Add chip from input field
+  addInputChip(input: HTMLInputElement) {
+    if (input.value.trim()) {
+      this.inputChips.push(input.value.trim());
+      input.value = '';
+    }
+  }
 }

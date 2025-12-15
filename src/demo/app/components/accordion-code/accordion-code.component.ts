@@ -3,6 +3,9 @@ import { FormsModule } from '@angular/forms';
 import { MatExpansionModule } from '@angular/material/expansion';
 import { MatButtonModule } from '@angular/material/button';
 import { MatIconModule } from '@angular/material/icon';
+import { BaseCodeComponent } from '../base/base-code.component';
+
+type AccordionExamples = 'basic' | 'multiExpand' | 'hideToggle' | 'disabled' | 'programmatic' | 'events' | 'togglePosition';
 
 @Component({
   selector: 'amw-demo-accordion-code',
@@ -17,24 +20,13 @@ import { MatIconModule } from '@angular/material/icon';
   templateUrl: './accordion-code.component.html',
   styleUrl: './accordion-code.component.scss'
 })
-export class AccordionCodeComponent {
+export class AccordionCodeComponent extends BaseCodeComponent<AccordionExamples> {
   // State for live preview examples
   step = 0;
   multiExpandMode = false;
 
-  // Editable code examples
-  editableCode = {
-    basic: '',
-    multiExpand: '',
-    hideToggle: '',
-    disabled: '',
-    programmatic: '',
-    events: '',
-    togglePosition: ''
-  };
-
   // Original code examples (for reset functionality)
-  readonly codeExamples = {
+  readonly codeExamples: Record<AccordionExamples, string> = {
     basic: `<mat-accordion>
   <mat-expansion-panel>
     <mat-expansion-panel-header>
@@ -124,11 +116,7 @@ export class AccordionCodeComponent {
   };
 
   constructor() {
-    // Initialize editable code
-    Object.keys(this.codeExamples).forEach(key => {
-      this.editableCode[key as keyof typeof this.codeExamples] =
-        this.codeExamples[key as keyof typeof this.codeExamples];
-    });
+    super();
   }
 
   // Event handlers for event example
@@ -146,11 +134,6 @@ export class AccordionCodeComponent {
 
   onAfterCollapse() {
     console.log('Collapse animation complete');
-  }
-
-  // Reset code to original
-  resetCode(exampleKey: keyof typeof this.codeExamples) {
-    this.editableCode[exampleKey] = this.codeExamples[exampleKey];
   }
 
   // Methods for programmatic control example

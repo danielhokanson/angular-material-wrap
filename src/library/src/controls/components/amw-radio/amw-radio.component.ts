@@ -14,7 +14,13 @@ import { AmwSize } from '../../../shared/types/amw-size.type';
     encapsulation: ViewEncapsulation.None,
     templateUrl: './amw-radio.component.html',
     styleUrl: './amw-radio.component.scss',
-    providers: []
+    providers: [
+        {
+            provide: NG_VALUE_ACCESSOR,
+            useExisting: AmwRadioComponent,
+            multi: true
+        }
+    ]
 })
 export class AmwRadioComponent extends BaseComponent implements ControlValueAccessor {
     @Input() color: AmwColor = 'primary';

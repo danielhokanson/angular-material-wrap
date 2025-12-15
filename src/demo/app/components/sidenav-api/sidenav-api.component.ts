@@ -40,10 +40,32 @@ export class SidenavApiComponent implements OnInit, OnDestroy {
     /** Navigation items */
     navigationItems: SidenavItem[] = [];
 
+    /** Cached API documentation arrays */
+    readonly componentInputs: any[];
+    readonly componentOutputs: any[];
+    readonly componentMethods: any[];
+    readonly serviceMethods: any[];
+    readonly serviceObservables: any[];
+    readonly serviceProperties: any[];
+    readonly sidenavConfigProperties: any[];
+    readonly sidenavItemProperties: any[];
+    readonly sidenavEventProperties: any[];
+
     constructor(
         private sidenavService: SidenavService,
         private snackBar: MatSnackBar
-    ) { }
+    ) {
+        // Initialize cached arrays in constructor
+        this.componentInputs = this.initComponentInputs();
+        this.componentOutputs = this.initComponentOutputs();
+        this.componentMethods = this.initComponentMethods();
+        this.serviceMethods = this.initServiceMethods();
+        this.serviceObservables = this.initServiceObservables();
+        this.serviceProperties = this.initServiceProperties();
+        this.sidenavConfigProperties = this.initSidenavConfigProperties();
+        this.sidenavItemProperties = this.initSidenavItemProperties();
+        this.sidenavEventProperties = this.initSidenavEventProperties();
+    }
 
     ngOnInit(): void {
         this.loadSampleData();
@@ -124,7 +146,7 @@ export class SidenavApiComponent implements OnInit, OnDestroy {
     /**
      * Gets the component inputs
      */
-    getComponentInputs(): any[] {
+    initComponentInputs(): any[] {
         return [
             {
                 name: 'config',
@@ -188,7 +210,7 @@ export class SidenavApiComponent implements OnInit, OnDestroy {
     /**
      * Gets the component outputs
      */
-    getComponentOutputs(): any[] {
+    initComponentOutputs(): any[] {
         return [
             {
                 name: 'openedChange',
@@ -220,7 +242,7 @@ export class SidenavApiComponent implements OnInit, OnDestroy {
     /**
      * Gets the component methods
      */
-    getComponentMethods(): any[] {
+    initComponentMethods(): any[] {
         return [
             {
                 name: 'toggleSidenav',
@@ -276,7 +298,7 @@ export class SidenavApiComponent implements OnInit, OnDestroy {
     /**
      * Gets the service methods
      */
-    getServiceMethods(): any[] {
+    initServiceMethods(): any[] {
         return [
             {
                 name: 'open',
@@ -428,7 +450,7 @@ export class SidenavApiComponent implements OnInit, OnDestroy {
     /**
      * Gets the service observables
      */
-    getServiceObservables(): any[] {
+    initServiceObservables(): any[] {
         return [
             {
                 name: 'opened$',
@@ -461,7 +483,7 @@ export class SidenavApiComponent implements OnInit, OnDestroy {
     /**
      * Gets the service properties
      */
-    getServiceProperties(): any[] {
+    initServiceProperties(): any[] {
         return [
             {
                 name: 'opened',
@@ -489,7 +511,7 @@ export class SidenavApiComponent implements OnInit, OnDestroy {
     /**
      * Gets the SidenavConfig interface properties
      */
-    getSidenavConfigProperties(): any[] {
+    initSidenavConfigProperties(): any[] {
         return [
             {
                 name: 'opened',
@@ -658,7 +680,7 @@ export class SidenavApiComponent implements OnInit, OnDestroy {
     /**
      * Gets the SidenavItem interface properties
      */
-    getSidenavItemProperties(): any[] {
+    initSidenavItemProperties(): any[] {
         return [
             {
                 name: 'id',
@@ -750,7 +772,7 @@ export class SidenavApiComponent implements OnInit, OnDestroy {
     /**
      * Gets the SidenavEvent interface properties
      */
-    getSidenavEventProperties(): any[] {
+    initSidenavEventProperties(): any[] {
         return [
             {
                 name: 'type',

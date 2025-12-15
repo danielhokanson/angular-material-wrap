@@ -5,6 +5,9 @@ import { MatExpansionModule } from '@angular/material/expansion';
 import { MatButtonModule } from '@angular/material/button';
 import { MatIconModule } from '@angular/material/icon';
 import { MatCheckboxModule } from '@angular/material/checkbox';
+import { BaseCodeComponent } from '../base/base-code.component';
+
+type CheckboxExamples = 'basic' | 'colors' | 'states' | 'labelPosition' | 'indeterminate' | 'disabled' | 'events';
 
 @Component({
   selector: 'amw-demo-checkbox-code',
@@ -21,7 +24,7 @@ import { MatCheckboxModule } from '@angular/material/checkbox';
   templateUrl: './checkbox-code.component.html',
   styleUrl: './checkbox-code.component.scss'
 })
-export class CheckboxCodeComponent {
+export class CheckboxCodeComponent extends BaseCodeComponent<CheckboxExamples> {
   // State for live preview examples
   checked = true;
   indeterminate = false;
@@ -40,19 +43,8 @@ export class CheckboxCodeComponent {
     ]
   };
 
-  // Editable code examples
-  editableCode = {
-    basic: '',
-    colors: '',
-    states: '',
-    labelPosition: '',
-    indeterminate: '',
-    disabled: '',
-    events: ''
-  };
-
   // Original code examples (for reset functionality)
-  readonly codeExamples = {
+  readonly codeExamples: Record<CheckboxExamples, string> = {
     basic: `<mat-checkbox>Check me</mat-checkbox>
 <mat-checkbox [checked]="true">Checked</mat-checkbox>
 <mat-checkbox [indeterminate]="true">Indeterminate</mat-checkbox>`,
@@ -95,16 +87,7 @@ export class CheckboxCodeComponent {
   };
 
   constructor() {
-    // Initialize editable code
-    Object.keys(this.codeExamples).forEach(key => {
-      this.editableCode[key as keyof typeof this.codeExamples] =
-        this.codeExamples[key as keyof typeof this.codeExamples];
-    });
-  }
-
-  // Reset code to original
-  resetCode(exampleKey: keyof typeof this.codeExamples) {
-    this.editableCode[exampleKey] = this.codeExamples[exampleKey];
+    super();
   }
 
   // Indeterminate checkbox methods

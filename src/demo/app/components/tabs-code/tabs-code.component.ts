@@ -5,6 +5,9 @@ import { MatIconModule } from '@angular/material/icon';
 import { MatButtonModule } from '@angular/material/button';
 import { MatExpansionModule } from '@angular/material/expansion';
 import { CommonModule } from '@angular/common';
+import { BaseCodeComponent } from '../base/base-code.component';
+
+type TabsExamples = 'basic' | 'icons' | 'lazy' | 'dynamic' | 'styled';
 
 @Component({
   selector: 'amw-demo-tabs-code',
@@ -21,15 +24,7 @@ import { CommonModule } from '@angular/common';
   templateUrl: './tabs-code.component.html',
   styleUrl: './tabs-code.component.scss'
 })
-export class TabsCodeComponent {
-  editableCode = {
-    basic: '',
-    icons: '',
-    lazy: '',
-    dynamic: '',
-    styled: ''
-  };
-
+export class TabsCodeComponent extends BaseCodeComponent<TabsExamples> {
   // Data for dynamic tabs example
   dynamicTabs = [
     { label: 'Tab 1', content: 'Content of tab 1' },
@@ -38,19 +33,7 @@ export class TabsCodeComponent {
   ];
   selectedIndex = 0;
 
-  constructor() {
-    this.editableCode.basic = this.codeExamples.basic;
-    this.editableCode.icons = this.codeExamples.icons;
-    this.editableCode.lazy = this.codeExamples.lazy;
-    this.editableCode.dynamic = this.codeExamples.dynamic;
-    this.editableCode.styled = this.codeExamples.styled;
-  }
-
-  resetCode(exampleKey: keyof typeof this.codeExamples) {
-    this.editableCode[exampleKey] = this.codeExamples[exampleKey];
-  }
-
-  codeExamples = {
+  readonly codeExamples: Record<TabsExamples, string> = {
     basic: `<mat-tab-group>
   <mat-tab label="First">Content 1</mat-tab>
   <mat-tab label="Second">Content 2</mat-tab>
@@ -112,4 +95,8 @@ export class TabsCodeComponent {
   </mat-tab>
 </mat-tab-group>`
   };
+
+  constructor() {
+    super();
+  }
 }

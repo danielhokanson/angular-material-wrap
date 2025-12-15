@@ -3,6 +3,9 @@ import { FormsModule } from '@angular/forms';
 import { MatExpansionModule } from '@angular/material/expansion';
 import { MatButtonModule } from '@angular/material/button';
 import { MatIconModule } from '@angular/material/icon';
+import { BaseCodeComponent } from '../base/base-code.component';
+
+type ButtonExamples = 'basic' | 'raised' | 'stroked' | 'flat' | 'icon' | 'fab' | 'disabled';
 
 @Component({
   selector: 'amw-demo-button-code',
@@ -17,24 +20,13 @@ import { MatIconModule } from '@angular/material/icon';
   templateUrl: './button-code.component.html',
   styleUrl: './button-code.component.scss'
 })
-export class ButtonCodeComponent {
+export class ButtonCodeComponent extends BaseCodeComponent<ButtonExamples> {
   // State for live preview examples
   isLoading = false;
   clickCount = 0;
 
-  // Editable code examples
-  editableCode = {
-    basic: '',
-    raised: '',
-    stroked: '',
-    flat: '',
-    icon: '',
-    fab: '',
-    disabled: ''
-  };
-
   // Original code examples (for reset functionality)
-  readonly codeExamples = {
+  readonly codeExamples: Record<ButtonExamples, string> = {
     basic: `<button mat-button color="primary">Basic Button</button>
 <button mat-button color="accent">Accent Button</button>
 <button mat-button color="warn">Warn Button</button>`,
@@ -76,16 +68,7 @@ export class ButtonCodeComponent {
   };
 
   constructor() {
-    // Initialize editable code
-    Object.keys(this.codeExamples).forEach(key => {
-      this.editableCode[key as keyof typeof this.codeExamples] =
-        this.codeExamples[key as keyof typeof this.codeExamples];
-    });
-  }
-
-  // Reset code to original
-  resetCode(exampleKey: keyof typeof this.codeExamples) {
-    this.editableCode[exampleKey] = this.codeExamples[exampleKey];
+    super();
   }
 
   // Event handlers for examples

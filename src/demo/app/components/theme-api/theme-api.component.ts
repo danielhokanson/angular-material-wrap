@@ -1,5 +1,6 @@
 import { Component, ViewEncapsulation } from '@angular/core';
 import { MatExpansionModule } from '@angular/material/expansion';
+import { BaseApiComponent, ApiDocumentation } from '../base/base-api.component';
 
 @Component({
   selector: 'amw-demo-theme-api',
@@ -9,8 +10,8 @@ import { MatExpansionModule } from '@angular/material/expansion';
   templateUrl: './theme-api.component.html',
   styleUrl: './theme-api.component.scss'
 })
-export class ThemeApiComponent {
-  apiDocumentation = {
+export class ThemeApiComponent extends BaseApiComponent {
+  apiDocumentation: ApiDocumentation = {
     inputs: [
       {
         name: 'color',
@@ -36,9 +37,7 @@ export class ThemeApiComponent {
     ],
     outputs: [
       {
-        name: 'themeChanged',
-        type: 'EventEmitter<string>',
-        description: 'Emitted when theme is changed'
+        name: 'themeChanged', type: 'EventEmitter<string>', description: 'Emitted when theme is changed'
       }
     ],
     methods: [
@@ -52,8 +51,10 @@ export class ThemeApiComponent {
         returns: 'string',
         description: 'Returns the current theme name'
       }
-    ],
-    cssVariables: [
+    ]
+    };
+
+    cssVariables = [
       {
         name: '--mdc-theme-primary',
         type: 'color',
@@ -90,6 +91,9 @@ export class ThemeApiComponent {
         default: '#1c1b1f',
         description: 'Text/icon color on surface backgrounds'
       }
-    ]
-  };
+    ];
+
+  constructor() {
+      super();
+  }
 }

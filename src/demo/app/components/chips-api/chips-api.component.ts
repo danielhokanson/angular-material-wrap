@@ -1,4 +1,5 @@
 import { Component, ViewEncapsulation } from '@angular/core';
+import { BaseApiComponent, ApiDocumentation } from '../base/base-api.component';
 
 @Component({
   selector: 'amw-demo-chips-api',
@@ -8,8 +9,8 @@ import { Component, ViewEncapsulation } from '@angular/core';
   templateUrl: './chips-api.component.html',
   styleUrl: './chips-api.component.scss'
 })
-export class ChipsApiComponent {
-  apiDocumentation = {
+export class ChipsApiComponent extends BaseApiComponent {
+  apiDocumentation: ApiDocumentation = {
     inputs: [
       {
         name: 'selectable',
@@ -55,19 +56,13 @@ export class ChipsApiComponent {
     ],
     outputs: [
       {
-        name: 'selectionChange',
-        type: 'EventEmitter<MatChipSelectionChange>',
-        description: 'Emitted when the chip selection state changes'
+        name: 'selectionChange', type: 'EventEmitter<MatChipSelectionChange>', description: 'Emitted when the chip selection state changes'
       },
       {
-        name: 'destroyed',
-        type: 'EventEmitter<MatChipEvent>',
-        description: 'Emitted when the chip is destroyed'
+        name: 'destroyed', type: 'EventEmitter<MatChipEvent>', description: 'Emitted when the chip is destroyed'
       },
       {
-        name: 'removed',
-        type: 'EventEmitter<MatChipEvent>',
-        description: 'Emitted when the chip is removed'
+        name: 'removed', type: 'EventEmitter<MatChipEvent>', description: 'Emitted when the chip is removed'
       }
     ],
     methods: [
@@ -98,4 +93,12 @@ export class ChipsApiComponent {
       }
     ]
   };
+
+
+  constructor() {
+
+      super();
+
+  }
+
 }

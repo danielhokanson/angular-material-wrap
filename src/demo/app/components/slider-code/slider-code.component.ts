@@ -4,6 +4,9 @@ import { MatExpansionModule } from '@angular/material/expansion';
 import { MatButtonModule } from '@angular/material/button';
 import { MatIconModule } from '@angular/material/icon';
 import { MatSliderModule } from '@angular/material/slider';
+import { BaseCodeComponent } from '../base/base-code.component';
+
+type SliderExamples = 'basic' | 'withThumbLabel' | 'withSteps' | 'differentColors' | 'disabled' | 'reactiveForm' | 'withEvents' | 'settingsPanel';
 
 @Component({
   selector: 'amw-demo-slider-code',
@@ -19,7 +22,7 @@ import { MatSliderModule } from '@angular/material/slider';
   templateUrl: './slider-code.component.html',
   styleUrl: './slider-code.component.scss'
 })
-export class SliderCodeComponent {
+export class SliderCodeComponent extends BaseCodeComponent<SliderExamples> {
   // State for live preview examples
   volumeValue = 50;
   brightnessValue = 75;
@@ -29,20 +32,8 @@ export class SliderCodeComponent {
   warnValue = 25;
   eventValue = 50;
 
-  // Editable code examples
-  editableCode = {
-    basic: '',
-    withThumbLabel: '',
-    withSteps: '',
-    differentColors: '',
-    disabled: '',
-    reactiveForm: '',
-    withEvents: '',
-    settingsPanel: ''
-  };
-
   // Original code examples (for reset functionality)
-  readonly codeExamples = {
+  readonly codeExamples: Record<SliderExamples, string> = {
     basic: `<mat-slider [min]="0" [max]="100">
   <input matSliderThumb [(ngModel)]="volumeValue">
 </mat-slider>
@@ -151,11 +142,7 @@ onSliderInput(event: any): void {
   };
 
   constructor() {
-    // Initialize editable code
-    Object.keys(this.codeExamples).forEach(key => {
-      this.editableCode[key as keyof typeof this.codeExamples] =
-        this.codeExamples[key as keyof typeof this.codeExamples];
-    });
+    super();
   }
 
   // Event handlers for event example
@@ -165,11 +152,6 @@ onSliderInput(event: any): void {
 
   onSliderInput(event: any) {
     console.log('Slider input:', event.target.value);
-  }
-
-  // Reset code to original
-  resetCode(exampleKey: keyof typeof this.codeExamples) {
-    this.editableCode[exampleKey] = this.codeExamples[exampleKey];
   }
 
   // Format label for thumb display

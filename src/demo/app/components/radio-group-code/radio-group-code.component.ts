@@ -6,6 +6,9 @@ import { MatIconModule } from '@angular/material/icon';
 import { MatRadioModule } from '@angular/material/radio';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
+import { BaseCodeComponent } from '../base/base-code.component';
+
+type RadioGroupExamples = 'basic' | 'ngModel' | 'disabled' | 'labelPosition' | 'color' | 'reactiveForm';
 
 @Component({
   selector: 'app-radio-group-code',
@@ -24,7 +27,7 @@ import { MatInputModule } from '@angular/material/input';
   templateUrl: './radio-group-code.component.html',
   styleUrl: './radio-group-code.component.scss'
 })
-export class RadioGroupCodeComponent {
+export class RadioGroupCodeComponent extends BaseCodeComponent<RadioGroupExamples> {
   // State for live preview examples
   selectedValue: string = '';
   selectedColor: string = 'primary';
@@ -34,18 +37,8 @@ export class RadioGroupCodeComponent {
   // Form for reactive forms example
   myForm: FormGroup;
 
-  // Editable code examples
-  editableCode = {
-    basic: '',
-    ngModel: '',
-    disabled: '',
-    labelPosition: '',
-    color: '',
-    reactiveForm: ''
-  };
-
   // Original code examples (for reset functionality)
-  readonly codeExamples = {
+  readonly codeExamples: Record<RadioGroupExamples, string> = {
     basic: `<mat-radio-group>
   <mat-radio-button value="option1">Option 1</mat-radio-button>
   <mat-radio-button value="option2">Option 2</mat-radio-button>
@@ -104,20 +97,11 @@ myForm = this.fb.group({
   };
 
   constructor(private fb: FormBuilder) {
-    // Initialize editable code
-    Object.keys(this.codeExamples).forEach(key => {
-      this.editableCode[key as keyof typeof this.codeExamples] =
-        this.codeExamples[key as keyof typeof this.codeExamples];
-    });
+    super();
 
     // Initialize form
     this.myForm = this.fb.group({
       priority: ['', Validators.required]
     });
-  }
-
-  // Reset code to original
-  resetCode(exampleKey: keyof typeof this.codeExamples) {
-    this.editableCode[exampleKey] = this.codeExamples[exampleKey];
   }
 }

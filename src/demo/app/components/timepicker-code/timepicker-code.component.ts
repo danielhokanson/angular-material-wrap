@@ -3,6 +3,9 @@ import { FormsModule } from '@angular/forms';
 import { MatExpansionModule } from '@angular/material/expansion';
 import { MatButtonModule } from '@angular/material/button';
 import { MatIconModule } from '@angular/material/icon';
+import { BaseCodeComponent } from '../base/base-code.component';
+
+type TimepickerExamples = 'basic' | 'format' | 'seconds' | 'validation' | 'configuration';
 
 @Component({
   selector: 'amw-demo-timepicker-code',
@@ -17,21 +20,12 @@ import { MatIconModule } from '@angular/material/icon';
   templateUrl: './timepicker-code.component.html',
   styleUrl: './timepicker-code.component.scss'
 })
-export class TimepickerCodeComponent {
+export class TimepickerCodeComponent extends BaseCodeComponent<TimepickerExamples> {
   // State for live preview examples
   selectedTime = '14:30';
 
-  // Editable code examples
-  editableCode = {
-    basic: '',
-    format: '',
-    seconds: '',
-    validation: '',
-    configuration: ''
-  };
-
   // Original code examples (for reset functionality)
-  readonly codeExamples = {
+  readonly codeExamples: Record<TimepickerExamples, string> = {
     basic: `<amw-timepicker
   [value]="selectedTime"
   (timeChange)="onTimeChange($event)">
@@ -129,20 +123,11 @@ export class MyComponent {
   };
 
   constructor() {
-    // Initialize editable code
-    Object.keys(this.codeExamples).forEach(key => {
-      this.editableCode[key as keyof typeof this.codeExamples] =
-        this.codeExamples[key as keyof typeof this.codeExamples];
-    });
+    super();
   }
 
   // Event handler for time change
   onTimeChange(time: string): void {
     console.log('Selected time:', time);
-  }
-
-  // Reset code to original
-  resetCode(exampleKey: keyof typeof this.codeExamples) {
-    this.editableCode[exampleKey] = this.codeExamples[exampleKey];
   }
 }

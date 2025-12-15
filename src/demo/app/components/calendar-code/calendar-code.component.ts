@@ -8,6 +8,9 @@ import { MatButtonModule } from '@angular/material/button';
 import { MatExpansionModule } from '@angular/material/expansion';
 import { MatInputModule } from '@angular/material/input';
 import { MatFormFieldModule } from '@angular/material/form-field';
+import { BaseCodeComponent } from '../base/base-code.component';
+
+type CalendarExamples = 'basic' | 'range' | 'minMax' | 'filter' | 'customClass';
 
 @Component({
   selector: 'amw-demo-calendar-code',
@@ -25,47 +28,14 @@ import { MatFormFieldModule } from '@angular/material/form-field';
   templateUrl: './calendar-code.component.html',
   styleUrl: './calendar-code.component.scss'
 })
-export class CalendarCodeComponent {
-  editableCode = {
-    basic: '',
-    range: '',
-    minMax: '',
-    filter: '',
-    customClass: ''
-  };
-
+export class CalendarCodeComponent extends BaseCodeComponent<CalendarExamples> {
   // Example dates for previews
   selectedDate = new Date();
   minDate = new Date(2020, 0, 1);
   maxDate = new Date(2025, 11, 31);
 
-  constructor() {
-    this.editableCode.basic = this.codeExamples.basic;
-    this.editableCode.range = this.codeExamples.range;
-    this.editableCode.minMax = this.codeExamples.minMax;
-    this.editableCode.filter = this.codeExamples.filter;
-    this.editableCode.customClass = this.codeExamples.customClass;
-  }
-
-  resetCode(exampleKey: keyof typeof this.codeExamples) {
-    this.editableCode[exampleKey] = this.codeExamples[exampleKey];
-  }
-
-  // Date filter function for filtered calendar example
-  myFilter = (d: Date | null): boolean => {
-    const day = (d || new Date()).getDay();
-    // Prevent Saturday and Sunday from being selected
-    return day !== 0 && day !== 6;
-  };
-
-  // Custom date class function
-  dateClass = (d: Date): string => {
-    const date = d.getDate();
-    // Highlight dates that are multiples of 5
-    return date % 5 === 0 ? 'special-date' : '';
-  };
-
-  codeExamples = {
+  // Original code examples (for reset functionality)
+  readonly codeExamples: Record<CalendarExamples, string> = {
     basic: `<mat-card>
   <mat-card-header>
     <mat-card-title>Basic Calendar</mat-card-title>
@@ -123,5 +93,23 @@ export class CalendarCodeComponent {
     </mat-calendar>
   </mat-card-content>
 </mat-card>`
+  };
+
+  constructor() {
+    super();
+  }
+
+  // Date filter function for filtered calendar example
+  myFilter = (d: Date | null): boolean => {
+    const day = (d || new Date()).getDay();
+    // Prevent Saturday and Sunday from being selected
+    return day !== 0 && day !== 6;
+  };
+
+  // Custom date class function
+  dateClass = (d: Date): string => {
+    const date = d.getDate();
+    // Highlight dates that are multiples of 5
+    return date % 5 === 0 ? 'special-date' : '';
   };
 }

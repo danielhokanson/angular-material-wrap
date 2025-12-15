@@ -4,6 +4,9 @@ import { MatExpansionModule } from '@angular/material/expansion';
 import { MatButtonModule } from '@angular/material/button';
 import { MatIconModule } from '@angular/material/icon';
 import { MatDialog, MatDialogModule } from '@angular/material/dialog';
+import { BaseCodeComponent } from '../base/base-code.component';
+
+type DialogExamples = 'basic' | 'confirmation' | 'alert' | 'customActions';
 
 @Component({
     selector: 'amw-demo-dialog-code',
@@ -19,17 +22,9 @@ import { MatDialog, MatDialogModule } from '@angular/material/dialog';
     templateUrl: './dialog-code.component.html',
     styleUrl: './dialog-code.component.scss'
 })
-export class DialogCodeComponent {
-    // Editable code examples
-    editableCode = {
-        basic: '',
-        confirmation: '',
-        alert: '',
-        customActions: ''
-    };
-
+export class DialogCodeComponent extends BaseCodeComponent<DialogExamples> {
     // Original code examples (for reset functionality)
-    readonly codeExamples = {
+    readonly codeExamples: Record<DialogExamples, string> = {
         basic: `<button mat-raised-button (click)="openDialog()">Open Dialog</button>`,
 
         confirmation: `<button mat-raised-button color="warn" (click)="openConfirmDialog()">
@@ -46,16 +41,7 @@ export class DialogCodeComponent {
     };
 
     constructor(public dialog: MatDialog) {
-        // Initialize editable code
-        Object.keys(this.codeExamples).forEach(key => {
-            this.editableCode[key as keyof typeof this.codeExamples] =
-                this.codeExamples[key as keyof typeof this.codeExamples];
-        });
-    }
-
-    // Reset code to original
-    resetCode(exampleKey: keyof typeof this.codeExamples) {
-        this.editableCode[exampleKey] = this.codeExamples[exampleKey];
+        super();
     }
 
     // Dialog methods

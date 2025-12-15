@@ -116,15 +116,6 @@
                         <button mat-button amwTooltip="Right tooltip" tooltipPosition="right">Right</button>
                       </div>
                     </div>
-                    <div class="demo-section">
-                      <h4>Tooltip with Delay</h4>
-                      <button mat-button color="warn"
-                        amwTooltip="This tooltip has a 1 second delay"
-                        [tooltipShowDelay]="1000"
-                        [tooltipHideDelay]="500">
-                        Delayed Tooltip
-                      </button>
-                    </div>
                   </div>
                 }
               }
@@ -132,15 +123,190 @@
 
             <mat-tab label="Code" icon="code">
               <div class="code-content">
-                <h3>{{ selectedDirective.name }} Directive Code</h3>
-                <p>Code examples will be available soon.</p>
+                @switch (selectedDirective.id) {
+                  @case ('tooltip') {
+                    <div class="tooltip-code-examples">
+                      <h3>Tooltip Code Examples</h3>
+                      <p>Interactive examples showing different tooltip configurations.</p>
+
+                      <div class="code-example">
+                        <h4>Basic Usage</h4>
+                        <pre><code>{{ tooltipCodeExamples.basic }}</code></pre>
+                        <div class="preview">
+                          <button mat-raised-button color="primary" amwTooltip="This is a tooltip">
+                            Hover me
+                          </button>
+                        </div>
+                      </div>
+
+                      <div class="code-example">
+                        <h4>Tooltip Positions</h4>
+                        <pre><code>{{ tooltipCodeExamples.positions }}</code></pre>
+                        <div class="preview">
+                          <div class="tooltip-demo-grid">
+                            <button mat-button amwTooltip="Top tooltip" tooltipPosition="top">Top</button>
+                            <button mat-button amwTooltip="Bottom tooltip" tooltipPosition="bottom">Bottom</button>
+                            <button mat-button amwTooltip="Left tooltip" tooltipPosition="left">Left</button>
+                            <button mat-button amwTooltip="Right tooltip" tooltipPosition="right">Right</button>
+                            <button mat-button amwTooltip="Auto position" tooltipPosition="auto">Auto</button>
+                          </div>
+                        </div>
+                      </div>
+
+                      <div class="code-example">
+                        <h4>HTML Content</h4>
+                        <pre><code>{{ tooltipCodeExamples.html }}</code></pre>
+                        <div class="preview">
+                          <button mat-raised-button color="accent"
+                            [amwTooltip]="htmlTooltipContent"
+                            [tooltipAllowHtml]="true">
+                            HTML Tooltip
+                          </button>
+                        </div>
+                      </div>
+
+                      <div class="code-example">
+                        <h4>Custom Width and Styling</h4>
+                        <pre><code>{{ tooltipCodeExamples.styling }}</code></pre>
+                        <div class="preview">
+                          <button mat-raised-button
+                            amwTooltip="This is a wider tooltip with custom styling"
+                            tooltipMaxWidth="400px"
+                            tooltipClass="custom-tooltip">
+                            Custom Style
+                          </button>
+                        </div>
+                      </div>
+
+                      <div class="code-example">
+                        <h4>Disabled Tooltip</h4>
+                        <pre><code>{{ tooltipCodeExamples.disabled }}</code></pre>
+                        <div class="preview">
+                          <button mat-raised-button
+                            amwTooltip="This won't show"
+                            [tooltipDisabled]="true">
+                            Tooltip Disabled
+                          </button>
+                        </div>
+                      </div>
+
+                      <div class="code-example">
+                        <h4>Configuration Object</h4>
+                        <pre><code>{{ tooltipCodeExamples.config }}</code></pre>
+                        <div class="preview">
+                          <button mat-raised-button
+                            [amwTooltip]="{
+                              content: 'Configured tooltip',
+                              position: 'top',
+                              maxWidth: '300px',
+                              class: 'custom-class',
+                              allowHtml: false,
+                              disabled: false
+                            }">
+                            Configured Tooltip
+                          </button>
+                        </div>
+                      </div>
+                    </div>
+                  }
+                  @default {
+                    <h3>{{ selectedDirective.name }} Directive Code</h3>
+                    <p>Code examples will be available soon.</p>
+                  }
+                }
               </div>
             </mat-tab>
 
             <mat-tab label="API" icon="description">
               <div class="api-content">
-                <h3>{{ selectedDirective.name }} Directive API</h3>
-                <p>API documentation will be available soon.</p>
+                @switch (selectedDirective.id) {
+                  @case ('tooltip') {
+                    <div class="tooltip-api">
+                      <h3>Tooltip Directive API</h3>
+                      <p>Complete reference for the amwTooltip directive properties and configuration.</p>
+
+                      <div class="api-section__inputs">
+                        <h4>Directive Inputs</h4>
+                        <div class="api-table">
+                          <div class="api-table__header">
+                            <div class="api-table__cell">Property</div>
+                            <div class="api-table__cell">Type</div>
+                            <div class="api-table__cell">Default</div>
+                            <div class="api-table__cell">Description</div>
+                          </div>
+                          @for (input of tooltipApiDocumentation.inputs; track input.name) {
+                            <div class="api-table__row">
+                              <div class="api-table__cell api-table__cell--property">{{ input.name }}</div>
+                              <div class="api-table__cell api-table__cell--type">{{ input.type }}</div>
+                              <div class="api-table__cell api-table__cell--default">{{ input.default }}</div>
+                              <div class="api-table__cell api-table__cell--description">{{ input.description }}</div>
+                            </div>
+                          }
+                        </div>
+                      </div>
+
+                      <div class="api-section__interface">
+                        <h4>TooltipConfig Interface</h4>
+                        <p>Configuration object for tooltip directive when using object syntax.</p>
+                        <div class="api-table">
+                          <div class="api-table__header">
+                            <div class="api-table__cell">Property</div>
+                            <div class="api-table__cell">Type</div>
+                            <div class="api-table__cell">Optional</div>
+                            <div class="api-table__cell">Description</div>
+                          </div>
+                          @for (prop of tooltipApiDocumentation.interface.properties; track prop.name) {
+                            <div class="api-table__row">
+                              <div class="api-table__cell api-table__cell--property">{{ prop.name }}</div>
+                              <div class="api-table__cell api-table__cell--type">{{ prop.type }}</div>
+                              <div class="api-table__cell api-table__cell--default">{{ prop.optional ? 'Yes' : 'No' }}</div>
+                              <div class="api-table__cell api-table__cell--description">{{ prop.description }}</div>
+                            </div>
+                          }
+                        </div>
+                      </div>
+
+                      <div class="api-section__usage">
+                        <h4>Usage Notes</h4>
+                        <ul>
+                          <li><strong>Simple String:</strong> Use <code>amwTooltip="text"</code> for basic tooltips</li>
+                          <li><strong>Configuration Object:</strong> Use <code>[amwTooltip]="config"</code> for advanced options</li>
+                          <li><strong>HTML Content:</strong> Set <code>tooltipAllowHtml="true"</code> to render HTML (use with caution)</li>
+                          <li><strong>Auto Positioning:</strong> The 'auto' position adapts based on available space</li>
+                          <li><strong>Accessibility:</strong> Tooltips show on both hover and keyboard focus</li>
+                          <li><strong>CDK Overlay:</strong> Built on Angular CDK Overlay for robust positioning</li>
+                          <li><strong>Custom Styling:</strong> Use <code>tooltipClass</code> to apply custom CSS classes</li>
+                        </ul>
+                      </div>
+
+                      <div class="api-section__examples">
+                        <h4>Quick Examples</h4>
+                        <div class="example-grid">
+                          <div class="example-item">
+                            <strong>String syntax:</strong>
+                            <code>amwTooltip="Tooltip text"</code>
+                          </div>
+                          <div class="example-item">
+                            <strong>Position:</strong>
+                            <code>tooltipPosition="top"</code>
+                          </div>
+                          <div class="example-item">
+                            <strong>Custom width:</strong>
+                            <code>tooltipMaxWidth="400px"</code>
+                          </div>
+                          <div class="example-item">
+                            <strong>Disable:</strong>
+                            <code>[tooltipDisabled]="true"</code>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  }
+                  @default {
+                    <h3>{{ selectedDirective.name }} Directive API</h3>
+                    <p>API documentation will be available soon.</p>
+                  }
+                }
               </div>
             </mat-tab>
           </mat-tab-group>

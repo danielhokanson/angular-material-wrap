@@ -4,6 +4,9 @@ import { MatExpansionModule } from '@angular/material/expansion';
 import { MatCardModule } from '@angular/material/card';
 import { MatButtonModule } from '@angular/material/button';
 import { MatIconModule } from '@angular/material/icon';
+import { BaseCodeComponent } from '../base/base-code.component';
+
+type CardExamples = 'basic' | 'withImage' | 'clickable' | 'variants';
 
 @Component({
     selector: 'amw-demo-card-code',
@@ -19,17 +22,9 @@ import { MatIconModule } from '@angular/material/icon';
     templateUrl: './card-code.component.html',
     styleUrl: './card-code.component.scss'
 })
-export class CardCodeComponent {
-    // Editable code examples
-    editableCode = {
-        basic: '',
-        withImage: '',
-        clickable: '',
-        variants: ''
-    };
-
+export class CardCodeComponent extends BaseCodeComponent<CardExamples> {
     // Original code examples (for reset functionality)
-    readonly codeExamples = {
+    readonly codeExamples: Record<CardExamples, string> = {
         basic: `<mat-card>
   <mat-card-header>
     <mat-card-title>Card Title</mat-card-title>
@@ -92,16 +87,7 @@ export class CardCodeComponent {
     };
 
     constructor() {
-        // Initialize editable code
-        Object.keys(this.codeExamples).forEach(key => {
-            this.editableCode[key as keyof typeof this.codeExamples] =
-                this.codeExamples[key as keyof typeof this.codeExamples];
-        });
-    }
-
-    // Reset code to original
-    resetCode(exampleKey: keyof typeof this.codeExamples) {
-        this.editableCode[exampleKey] = this.codeExamples[exampleKey];
+        super();
     }
 
     // Event handler for clickable card example

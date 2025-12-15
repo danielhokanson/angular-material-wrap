@@ -78,7 +78,7 @@
         <div class="api-table__cell">Default</div>
         <div class="api-table__cell">Description</div>
       </div>
-      @for (variable of apiDocumentation.cssVariables; track variable.name) {
+      @for (variable of cssVariables; track variable.name) {
         <div class="api-table__row">
           <div class="api-table__cell api-table__cell--property">{{ variable.name }}</div>
           <div class="api-table__cell api-table__cell--type">{{ variable.type }}</div>
