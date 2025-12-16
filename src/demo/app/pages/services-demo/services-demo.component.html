@@ -129,15 +129,518 @@
 
             <mat-tab label="Code" icon="code">
               <div class="code-content">
-                <h3>{{ selectedService.name }} Service Code</h3>
-                <p>Code examples will be available soon.</p>
+                @switch (selectedService.id) {
+                  @case ('messaging') {
+                    <div class="messaging-code-examples">
+                      <h3>Messaging Service Code Examples</h3>
+                      <p>Interactive examples showing different messaging service configurations.</p>
+
+                      <div class="code-example">
+                        <h4>Basic Usage</h4>
+                        <pre><code>{{ messagingServiceCodeExamples.basic }}</code></pre>
+                        <div class="preview">
+                          <button mat-raised-button color="primary" (click)="sendMessage()">
+                            <mat-icon>message</mat-icon>
+                            Show Info Message
+                          </button>
+                        </div>
+                      </div>
+
+                      <div class="code-example">
+                        <h4>Message Types</h4>
+                        <pre><code>{{ messagingServiceCodeExamples.types }}</code></pre>
+                        <div class="preview">
+                          <div class="button-group">
+                            <button mat-button (click)="messagingService.info('Info', 'Information message')">
+                              <mat-icon>info</mat-icon>
+                              Info
+                            </button>
+                            <button mat-button (click)="messagingService.success('Success', 'Success message')">
+                              <mat-icon>check_circle</mat-icon>
+                              Success
+                            </button>
+                            <button mat-button (click)="messagingService.warning('Warning', 'Warning message')">
+                              <mat-icon>warning</mat-icon>
+                              Warning
+                            </button>
+                            <button mat-button (click)="messagingService.error('Error', 'Error message')">
+                              <mat-icon>error</mat-icon>
+                              Error
+                            </button>
+                          </div>
+                        </div>
+                      </div>
+
+                      <div class="code-example">
+                        <h4>Observable Subscription</h4>
+                        <pre><code>{{ messagingServiceCodeExamples.observable }}</code></pre>
+                        <div class="preview">
+                          <p>Current message count: {{ messages.length }}</p>
+                          <button mat-raised-button color="accent" (click)="messagingService.info('Test', 'Observe the count change')">
+                            Add Message
+                          </button>
+                        </div>
+                      </div>
+
+                      <div class="code-example">
+                        <h4>Custom Options</h4>
+                        <pre><code>{{ messagingServiceCodeExamples.options }}</code></pre>
+                        <div class="preview">
+                          <button mat-raised-button color="primary" (click)="messagingService.info('Custom', 'This message has a 10 second duration', { duration: 10000 })">
+                            Show Custom Message
+                          </button>
+                        </div>
+                      </div>
+
+                      <div class="code-example">
+                        <h4>Message Management</h4>
+                        <pre><code>{{ messagingServiceCodeExamples.management }}</code></pre>
+                        <div class="preview">
+                          <div class="button-group">
+                            <button mat-button (click)="clearMessages()">
+                              <mat-icon>clear_all</mat-icon>
+                              Clear All
+                            </button>
+                            <button mat-button (click)="messagingService.clearMessagesByType('warning')">
+                              Clear Warnings
+                            </button>
+                          </div>
+                        </div>
+                      </div>
+
+                      <div class="code-example">
+                        <h4>Advanced Usage with Actions</h4>
+                        <pre><code>{{ messagingServiceCodeExamples.advanced }}</code></pre>
+                        <div class="preview">
+                          <p>This example shows a message with custom action buttons (see code)</p>
+                        </div>
+                      </div>
+                    </div>
+                  }
+                  @case ('loading') {
+                    <div class="loading-code-examples">
+                      <h3>Loading Service Code Examples</h3>
+                      <p>Interactive examples showing different loading service configurations.</p>
+
+                      <div class="code-example">
+                        <h4>Basic Usage</h4>
+                        <pre><code>{{ loadingServiceCodeExamples.basic }}</code></pre>
+                        <div class="preview">
+                          <button mat-raised-button color="primary" (click)="startLoading()" [disabled]="loadingState.isLoading">
+                            <mat-icon>hourglass_empty</mat-icon>
+                            Start Loading
+                          </button>
+                          <button mat-button (click)="stopLoading()" [disabled]="!loadingState.isLoading">
+                            Stop Loading
+                          </button>
+                        </div>
+                      </div>
+
+                      <div class="code-example">
+                        <h4>HTTP Request Pattern</h4>
+                        <pre><code>{{ loadingServiceCodeExamples.httpRequest }}</code></pre>
+                        <div class="preview">
+                          <p>Common pattern for HTTP requests with automatic cleanup using finalize operator</p>
+                        </div>
+                      </div>
+
+                      <div class="code-example">
+                        <h4>Progress Indicator</h4>
+                        <pre><code>{{ loadingServiceCodeExamples.progress }}</code></pre>
+                        <div class="preview">
+                          <mat-form-field appearance="outline" style="width: 200px;">
+                            <mat-label>Progress</mat-label>
+                            <input matInput type="number" [(ngModel)]="loadingProgress" min="0" max="100">
+                          </mat-form-field>
+                          <button mat-button (click)="updateLoadingProgress()" [disabled]="!loadingState.isLoading">
+                            Update Progress
+                          </button>
+                          @if (loadingState.isLoading && loadingState.progress !== undefined) {
+                            <p>Current progress: {{ loadingState.progress }}%</p>
+                          }
+                        </div>
+                      </div>
+
+                      <div class="code-example">
+                        <h4>Observable Subscription</h4>
+                        <pre><code>{{ loadingServiceCodeExamples.observable }}</code></pre>
+                        <div class="preview">
+                          <p>Loading: {{ loadingState.isLoading }}</p>
+                          @if (loadingState.message) {
+                            <p>Message: {{ loadingState.message }}</p>
+                          }
+                        </div>
+                      </div>
+
+                      <div class="code-example">
+                        <h4>Multiple Concurrent Loading States</h4>
+                        <pre><code>{{ loadingServiceCodeExamples.multiple }}</code></pre>
+                        <div class="preview">
+                          <p>This example shows how to manage multiple loading operations simultaneously</p>
+                        </div>
+                      </div>
+
+                      <div class="code-example">
+                        <h4>Dynamic Message Updates</h4>
+                        <pre><code>{{ loadingServiceCodeExamples.dynamic }}</code></pre>
+                        <div class="preview">
+                          <mat-form-field appearance="outline" style="width: 300px;">
+                            <mat-label>Loading Message</mat-label>
+                            <input matInput [(ngModel)]="loadingMessage">
+                          </mat-form-field>
+                          <button mat-button (click)="updateLoadingMessage()" [disabled]="!loadingState.isLoading">
+                            Update Message
+                          </button>
+                        </div>
+                      </div>
+                    </div>
+                  }
+                  @case ('notification') {
+                    <div class="notification-code-examples">
+                      <h3>Notification Service Code Examples</h3>
+                      <p>Interactive examples showing different notification service configurations.</p>
+
+                      <div class="code-example">
+                        <h4>Basic Usage</h4>
+                        <pre><code>{{ notificationServiceCodeExamples.basic }}</code></pre>
+                        <div class="preview">
+                          <button mat-raised-button color="primary" (click)="showNotification()">
+                            <mat-icon>notifications</mat-icon>
+                            Show Notification
+                          </button>
+                        </div>
+                      </div>
+
+                      <div class="code-example">
+                        <h4>Notification Types</h4>
+                        <pre><code>{{ notificationServiceCodeExamples.types }}</code></pre>
+                        <div class="preview">
+                          <div class="button-group">
+                            <button mat-button (click)="notificationService.info('Info', 'Information notification')">
+                              <mat-icon>info</mat-icon>
+                              Info
+                            </button>
+                            <button mat-button (click)="notificationService.success('Success', 'Success notification')">
+                              <mat-icon>check_circle</mat-icon>
+                              Success
+                            </button>
+                            <button mat-button (click)="notificationService.warning('Warning', 'Warning notification')">
+                              <mat-icon>warning</mat-icon>
+                              Warning
+                            </button>
+                            <button mat-button (click)="notificationService.error('Error', 'Error notification')">
+                              <mat-icon>error</mat-icon>
+                              Error
+                            </button>
+                          </div>
+                        </div>
+                      </div>
+
+                      <div class="code-example">
+                        <h4>Custom Options</h4>
+                        <pre><code>{{ notificationServiceCodeExamples.options }}</code></pre>
+                        <div class="preview">
+                          <button mat-raised-button color="primary" (click)="notificationService.info('Custom', 'Custom notification with 10s duration', { duration: 10000, sound: true })">
+                            Show Custom Notification
+                          </button>
+                        </div>
+                      </div>
+
+                      <div class="code-example">
+                        <h4>Persistent Notification</h4>
+                        <pre><code>{{ notificationServiceCodeExamples.persistent }}</code></pre>
+                        <div class="preview">
+                          <button mat-raised-button color="warn" (click)="notificationService.warning('Important', 'This requires manual dismissal', { persistent: true, duration: 0 })">
+                            Show Persistent Notification
+                          </button>
+                        </div>
+                      </div>
+
+                      <div class="code-example">
+                        <h4>Observable Subscription</h4>
+                        <pre><code>{{ notificationServiceCodeExamples.observable }}</code></pre>
+                        <div class="preview">
+                          <p>Active notifications: {{ notifications.length }}</p>
+                          <button mat-button (click)="clearNotifications()">
+                            <mat-icon>clear_all</mat-icon>
+                            Clear All
+                          </button>
+                        </div>
+                      </div>
+
+                      <div class="code-example">
+                        <h4>Browser Notifications</h4>
+                        <pre><code>{{ notificationServiceCodeExamples.browser }}</code></pre>
+                        <div class="preview">
+                          <p>This example shows how to request permission and show native browser notifications</p>
+                        </div>
+                      </div>
+                    </div>
+                  }
+                }
               </div>
             </mat-tab>
 
             <mat-tab label="API" icon="description">
               <div class="api-content">
-                <h3>{{ selectedService.name }} Service API</h3>
-                <p>API documentation will be available soon.</p>
+                @switch (selectedService.id) {
+                  @case ('messaging') {
+                    <div class="messaging-api">
+                      <h3>Messaging Service API</h3>
+                      <p>Complete reference for the AmwMessagingService methods and properties.</p>
+
+                      <div class="api-section__methods">
+                        <h4>Service Methods</h4>
+                        <div class="api-table">
+                          <div class="api-table__header">
+                            <div class="api-table__cell">Method</div>
+                            <div class="api-table__cell">Returns</div>
+                            <div class="api-table__cell">Description</div>
+                          </div>
+                          @for (method of messagingServiceApiDocumentation.methods; track method.name) {
+                            <div class="api-table__row">
+                              <div class="api-table__cell api-table__cell--property">{{ method.name }}</div>
+                              <div class="api-table__cell api-table__cell--type">{{ method.returns }}</div>
+                              <div class="api-table__cell api-table__cell--description">{{ method.description }}</div>
+                            </div>
+                          }
+                        </div>
+                      </div>
+
+                      <div class="api-section__properties">
+                        <h4>Service Properties</h4>
+                        <div class="api-table">
+                          <div class="api-table__header">
+                            <div class="api-table__cell">Property</div>
+                            <div class="api-table__cell">Type</div>
+                            <div class="api-table__cell">Description</div>
+                          </div>
+                          @for (property of messagingServiceApiDocumentation.properties; track property.name) {
+                            <div class="api-table__row">
+                              <div class="api-table__cell api-table__cell--property">{{ property.name }}</div>
+                              <div class="api-table__cell api-table__cell--type">{{ property.type }}</div>
+                              <div class="api-table__cell api-table__cell--description">{{ property.description }}</div>
+                            </div>
+                          }
+                        </div>
+                      </div>
+
+                      <div class="api-section__usage">
+                        <h4>Usage Notes</h4>
+                        <ul>
+                          <li><strong>Dependency Injection:</strong> Inject the service using Angular's DI: <code>constructor(private messagingService: AmwMessagingService)</code></li>
+                          <li><strong>Message Types:</strong> Four message types available: info, success, warning, and error</li>
+                          <li><strong>Auto Dismissal:</strong> Messages auto-dismiss based on type (info: 5s, success: 3s, warning: 7s, error: 10s)</li>
+                          <li><strong>Custom Duration:</strong> Override default duration with options parameter</li>
+                          <li><strong>Observable Stream:</strong> Subscribe to messages$ to track all active messages</li>
+                          <li><strong>Message Actions:</strong> Add custom action buttons to messages for user interaction</li>
+                          <li><strong>Manual Dismissal:</strong> Set dismissible: false to prevent user from closing without action</li>
+                          <li><strong>Type Filtering:</strong> Clear specific message types while keeping others</li>
+                        </ul>
+                      </div>
+
+                      <div class="api-section__examples">
+                        <h4>Quick Examples</h4>
+                        <div class="example-grid">
+                          <div class="example-item">
+                            <strong>Basic usage:</strong>
+                            <code>messagingService.info('Title', 'Content')</code>
+                          </div>
+                          <div class="example-item">
+                            <strong>Custom duration:</strong>
+                            <code>messagingService.success('Title', 'Content', &#123; duration: 5000 &#125;)</code>
+                          </div>
+                          <div class="example-item">
+                            <strong>Remove message:</strong>
+                            <code>messagingService.removeMessage(messageId)</code>
+                          </div>
+                          <div class="example-item">
+                            <strong>Subscribe to stream:</strong>
+                            <code>messagingService.messages$.subscribe(...)</code>
+                          </div>
+                        </div>
+                      </div>
+
+                      <div class="api-section__behavior">
+                        <h4>Behavior Details</h4>
+                        <p><strong>Message Lifecycle:</strong> Messages are added to a queue and automatically removed after their duration expires. Each message receives a unique ID that can be used to manually remove it.</p>
+                        <p><strong>Observable Pattern:</strong> The messages$ observable emits the complete array of current messages whenever it changes. Components can subscribe to track the message queue in real-time.</p>
+                        <p><strong>Action Handlers:</strong> When actions are provided, they appear as buttons in the message. Clicking an action executes its handler function.</p>
+                      </div>
+                    </div>
+                  }
+                  @case ('loading') {
+                    <div class="loading-api">
+                      <h3>Loading Service API</h3>
+                      <p>Complete reference for the AmwLoadingService methods and properties.</p>
+
+                      <div class="api-section__methods">
+                        <h4>Service Methods</h4>
+                        <div class="api-table">
+                          <div class="api-table__header">
+                            <div class="api-table__cell">Method</div>
+                            <div class="api-table__cell">Returns</div>
+                            <div class="api-table__cell">Description</div>
+                          </div>
+                          @for (method of loadingServiceApiDocumentation.methods; track method.name) {
+                            <div class="api-table__row">
+                              <div class="api-table__cell api-table__cell--property">{{ method.name }}</div>
+                              <div class="api-table__cell api-table__cell--type">{{ method.returns }}</div>
+                              <div class="api-table__cell api-table__cell--description">{{ method.description }}</div>
+                            </div>
+                          }
+                        </div>
+                      </div>
+
+                      <div class="api-section__properties">
+                        <h4>Service Properties</h4>
+                        <div class="api-table">
+                          <div class="api-table__header">
+                            <div class="api-table__cell">Property</div>
+                            <div class="api-table__cell">Type</div>
+                            <div class="api-table__cell">Description</div>
+                          </div>
+                          @for (property of loadingServiceApiDocumentation.properties; track property.name) {
+                            <div class="api-table__row">
+                              <div class="api-table__cell api-table__cell--property">{{ property.name }}</div>
+                              <div class="api-table__cell api-table__cell--type">{{ property.type }}</div>
+                              <div class="api-table__cell api-table__cell--description">{{ property.description }}</div>
+                            </div>
+                          }
+                        </div>
+                      </div>
+
+                      <div class="api-section__usage">
+                        <h4>Usage Notes</h4>
+                        <ul>
+                          <li><strong>Dependency Injection:</strong> Inject the service: <code>constructor(private loadingService: AmwLoadingService)</code></li>
+                          <li><strong>Loading Stack:</strong> Service maintains a stack of loading states for concurrent operations</li>
+                          <li><strong>Unique IDs:</strong> Each show() call returns a unique ID for targeted hide() operations</li>
+                          <li><strong>Progress Tracking:</strong> Update progress from 0-100 for long-running operations</li>
+                          <li><strong>Dynamic Messages:</strong> Update loading message while operation is in progress</li>
+                          <li><strong>Observable State:</strong> Subscribe to loading$ to react to state changes in UI</li>
+                          <li><strong>HTTP Integration:</strong> Use with RxJS finalize() operator for automatic cleanup</li>
+                          <li><strong>Overlay Option:</strong> Show overlay to prevent user interaction during loading</li>
+                        </ul>
+                      </div>
+
+                      <div class="api-section__examples">
+                        <h4>Quick Examples</h4>
+                        <div class="example-grid">
+                          <div class="example-item">
+                            <strong>Basic usage:</strong>
+                            <code>const id = loadingService.show('Loading...')</code>
+                          </div>
+                          <div class="example-item">
+                            <strong>With progress:</strong>
+                            <code>loadingService.show('Loading...', &#123; progress: 0 &#125;)</code>
+                          </div>
+                          <div class="example-item">
+                            <strong>Update progress:</strong>
+                            <code>loadingService.updateProgress(50)</code>
+                          </div>
+                          <div class="example-item">
+                            <strong>Hide specific:</strong>
+                            <code>loadingService.hide(id)</code>
+                          </div>
+                        </div>
+                      </div>
+
+                      <div class="api-section__behavior">
+                        <h4>Behavior Details</h4>
+                        <p><strong>Stack Management:</strong> Multiple concurrent loading operations are supported through a stack. Loading state remains active until all operations call hide() or clear() is called.</p>
+                        <p><strong>Progress Clamping:</strong> Progress values are automatically clamped to 0-100 range to prevent invalid values.</p>
+                        <p><strong>State Updates:</strong> The loading$ observable emits whenever loading state changes, including message or progress updates.</p>
+                      </div>
+                    </div>
+                  }
+                  @case ('notification') {
+                    <div class="notification-api">
+                      <h3>Notification Service API</h3>
+                      <p>Complete reference for the AmwNotificationService methods and properties.</p>
+
+                      <div class="api-section__methods">
+                        <h4>Service Methods</h4>
+                        <div class="api-table">
+                          <div class="api-table__header">
+                            <div class="api-table__cell">Method</div>
+                            <div class="api-table__cell">Returns</div>
+                            <div class="api-table__cell">Description</div>
+                          </div>
+                          @for (method of notificationServiceApiDocumentation.methods; track method.name) {
+                            <div class="api-table__row">
+                              <div class="api-table__cell api-table__cell--property">{{ method.name }}</div>
+                              <div class="api-table__cell api-table__cell--type">{{ method.returns }}</div>
+                              <div class="api-table__cell api-table__cell--description">{{ method.description }}</div>
+                            </div>
+                          }
+                        </div>
+                      </div>
+
+                      <div class="api-section__properties">
+                        <h4>Service Properties</h4>
+                        <div class="api-table">
+                          <div class="api-table__header">
+                            <div class="api-table__cell">Property</div>
+                            <div class="api-table__cell">Type</div>
+                            <div class="api-table__cell">Description</div>
+                          </div>
+                          @for (property of notificationServiceApiDocumentation.properties; track property.name) {
+                            <div class="api-table__row">
+                              <div class="api-table__cell api-table__cell--property">{{ property.name }}</div>
+                              <div class="api-table__cell api-table__cell--type">{{ property.type }}</div>
+                              <div class="api-table__cell api-table__cell--description">{{ property.description }}</div>
+                            </div>
+                          }
+                        </div>
+                      </div>
+
+                      <div class="api-section__usage">
+                        <h4>Usage Notes</h4>
+                        <ul>
+                          <li><strong>Dependency Injection:</strong> Inject the service: <code>constructor(private notificationService: AmwNotificationService)</code></li>
+                          <li><strong>Notification Types:</strong> Four types available: info, success, warning, and error</li>
+                          <li><strong>Auto Dismissal:</strong> Notifications auto-dismiss based on type (info: 5s, success: 3s, warning: 7s, error: 10s)</li>
+                          <li><strong>Persistent Notifications:</strong> Set persistent: true to require manual dismissal</li>
+                          <li><strong>Sound Effects:</strong> Optional sound plays when notification appears (enabled by default)</li>
+                          <li><strong>Custom Actions:</strong> Add action buttons for user interaction</li>
+                          <li><strong>Browser Notifications:</strong> Request permission and show native browser notifications</li>
+                          <li><strong>Observable Stream:</strong> Subscribe to notifications$ to track active notifications</li>
+                        </ul>
+                      </div>
+
+                      <div class="api-section__examples">
+                        <h4>Quick Examples</h4>
+                        <div class="example-grid">
+                          <div class="example-item">
+                            <strong>Basic usage:</strong>
+                            <code>notificationService.info('Title', 'Message')</code>
+                          </div>
+                          <div class="example-item">
+                            <strong>Persistent:</strong>
+                            <code>notificationService.warning('Title', 'Message', &#123; persistent: true &#125;)</code>
+                          </div>
+                          <div class="example-item">
+                            <strong>Dismiss:</strong>
+                            <code>notificationService.dismiss(notificationId)</code>
+                          </div>
+                          <div class="example-item">
+                            <strong>Browser notification:</strong>
+                            <code>await notificationService.showBrowserNotification('Title', 'Message')</code>
+                          </div>
+                        </div>
+                      </div>
+
+                      <div class="api-section__behavior">
+                        <h4>Behavior Details</h4>
+                        <p><strong>Notification Lifecycle:</strong> Notifications are added to a queue and automatically dismissed after duration unless persistent flag is set. Each notification has a unique ID for manual dismissal.</p>
+                        <p><strong>Sound Generation:</strong> Service uses Web Audio API to generate notification sounds. Each type has a different frequency for audio differentiation.</p>
+                        <p><strong>Browser Notifications:</strong> Native browser notifications require user permission. Use requestPermission() first, then showBrowserNotification() when granted.</p>
+                        <p><strong>Observable Pattern:</strong> The notifications$ observable emits the complete array of active notifications whenever it changes.</p>
+                      </div>
+                    </div>
+                  }
+                }
               </div>
             </mat-tab>
           </mat-tab-group>

@@ -26,9 +26,13 @@
             spellcheck="false"></textarea>
         </div>
         <div class="preview-panel">
-          <h4>Live Preview</h4>
+          <h4>Preview</h4>
           <div class="preview-content">
-            <p class="preview-note">Note: This is a placeholder preview. Actual timepicker component integration would go here.</p>
+            <amw-timepicker
+              [(value)]="selectedTime"
+              (timeChange)="onTimeChange($event)">
+            </amw-timepicker>
+            <p>Selected time: {{ selectedTime }}</p>
           </div>
         </div>
       </div>
@@ -57,9 +61,14 @@
             spellcheck="false"></textarea>
         </div>
         <div class="preview-panel">
-          <h4>Live Preview</h4>
+          <h4>Preview</h4>
           <div class="preview-content">
-            <p class="preview-note">Note: This is a placeholder preview. Actual timepicker component integration would go here.</p>
+            <amw-timepicker
+              [(value)]="time12h"
+              format="12h"
+              (timeChange)="onTimeChange($event)">
+            </amw-timepicker>
+            <p>Selected time: {{ time12h }}</p>
           </div>
         </div>
       </div>
@@ -88,9 +97,14 @@
             spellcheck="false"></textarea>
         </div>
         <div class="preview-panel">
-          <h4>Live Preview</h4>
+          <h4>Preview</h4>
           <div class="preview-content">
-            <p class="preview-note">Note: This is a placeholder preview. Actual timepicker component integration would go here.</p>
+            <amw-timepicker
+              [(value)]="timeWithSeconds"
+              [showSeconds]="true"
+              (timeChange)="onTimeChange($event)">
+            </amw-timepicker>
+            <p>Selected time: {{ timeWithSeconds }}</p>
           </div>
         </div>
       </div>
@@ -119,9 +133,18 @@
             spellcheck="false"></textarea>
         </div>
         <div class="preview-panel">
-          <h4>Live Preview</h4>
+          <h4>Preview</h4>
           <div class="preview-content">
-            <p class="preview-note">Note: This is a placeholder preview. Actual form component integration would go here.</p>
+            <form [formGroup]="timeForm">
+              <amw-timepicker
+                formControlName="time"
+                label="Select Time *"
+                placeholder="Choose time"
+                [required]="true"
+                [errorMessage]="timeForm.get('time')?.hasError('required') ? 'Time is required' : ''">
+              </amw-timepicker>
+            </form>
+            <p>Form valid: {{ timeForm.valid ? 'Yes' : 'No' }}</p>
           </div>
         </div>
       </div>
@@ -150,9 +173,19 @@
             spellcheck="false"></textarea>
         </div>
         <div class="preview-panel">
-          <h4>Live Preview</h4>
+          <h4>Preview</h4>
           <div class="preview-content">
-            <p class="preview-note">Note: This is a placeholder preview. Actual timepicker component integration would go here.</p>
+            <amw-timepicker
+              [(value)]="advancedTime"
+              color="accent"
+              size="large"
+              [disabled]="isDisabled"
+              (timeChange)="onTimeChange($event)">
+            </amw-timepicker>
+            <p>Selected time: {{ advancedTime }}</p>
+            <button mat-button (click)="isDisabled = !isDisabled">
+              {{ isDisabled ? 'Enable' : 'Disable' }} Timepicker
+            </button>
           </div>
         </div>
       </div>

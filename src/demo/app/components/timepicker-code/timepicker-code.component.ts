@@ -1,9 +1,11 @@
-import { Component, ViewEncapsulation } from '@angular/core';
-import { FormsModule } from '@angular/forms';
+import { Component, ViewEncapsulation, OnInit } from '@angular/core';
+import { FormsModule, ReactiveFormsModule, FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { MatExpansionModule } from '@angular/material/expansion';
 import { MatButtonModule } from '@angular/material/button';
 import { MatIconModule } from '@angular/material/icon';
+import { CommonModule } from '@angular/common';
 import { BaseCodeComponent } from '../base/base-code.component';
+import { AmwTimepickerComponent } from '../../../../library/src/controls/components/amw-timepicker/amw-timepicker.component';
 
 type TimepickerExamples = 'basic' | 'format' | 'seconds' | 'validation' | 'configuration';
 
@@ -11,18 +13,26 @@ type TimepickerExamples = 'basic' | 'format' | 'seconds' | 'validation' | 'confi
   selector: 'amw-demo-timepicker-code',
   standalone: true,
   imports: [
+    CommonModule,
     FormsModule,
+    ReactiveFormsModule,
     MatExpansionModule,
     MatButtonModule,
-    MatIconModule
+    MatIconModule,
+    AmwTimepickerComponent
   ],
   encapsulation: ViewEncapsulation.None,
   templateUrl: './timepicker-code.component.html',
   styleUrl: './timepicker-code.component.scss'
 })
-export class TimepickerCodeComponent extends BaseCodeComponent<TimepickerExamples> {
+export class TimepickerCodeComponent extends BaseCodeComponent<TimepickerExamples> implements OnInit {
   // State for live preview examples
   selectedTime = '14:30';
+  time12h = '02:30 PM';
+  timeWithSeconds = '14:30:45';
+  advancedTime = '09:15';
+  isDisabled = false;
+  timeForm!: FormGroup;
 
   // Original code examples (for reset functionality)
   readonly codeExamples: Record<TimepickerExamples, string> = {
@@ -122,8 +132,17 @@ export class MyComponent {
 }`
   };
 
-  constructor() {
+  constructor(private fb: FormBuilder) {
     super();
+  }
+
+  override ngOnInit(): void {
+    super.ngOnInit();
+
+    // Initialize form for validation example
+    this.timeForm = this.fb.group({
+      time: ['', Validators.required]
+    });
   }
 
   // Event handler for time change

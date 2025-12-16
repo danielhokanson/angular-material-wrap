@@ -1,11 +1,11 @@
-import { Directive, ViewEncapsulation } from '@angular/core';
+import { Directive, OnInit } from '@angular/core';
 
 /**
  * Base class for all -code demo components
  * Provides standard structure for code examples with live previews
  */
 @Directive()
-export abstract class BaseCodeComponent<T extends string = string> {
+export abstract class BaseCodeComponent<T extends string = string> implements OnInit {
   /**
    * Editable code examples that users can modify
    */
@@ -20,7 +20,13 @@ export abstract class BaseCodeComponent<T extends string = string> {
    * View encapsulation is None to allow global styling
    */
   protected constructor() {
-    // Initialize editable code from original examples
+    // Initialization moved to ngOnInit
+  }
+
+  /**
+   * Initialize editable code from code examples on component init
+   */
+  ngOnInit(): void {
     this.initializeEditableCode();
   }
 

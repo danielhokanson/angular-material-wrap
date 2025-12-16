@@ -112,6 +112,7 @@ import { AccordionApiComponent } from '../accordion-api/accordion-api.component'
 import { ChipsValidationComponent } from '../chips-validation/chips-validation.component';
 import { ChipsCodeComponent } from '../chips-code/chips-code.component';
 import { ChipsApiComponent } from '../chips-api/chips-api.component';
+import { ThemeDemoComponent } from '../theme-demo/theme-demo.component';
 import { ThemeValidationComponent } from '../theme-validation/theme-validation.component';
 import { ThemeCodeComponent } from '../theme-code/theme-code.component';
 import { ThemeApiComponent } from '../theme-api/theme-api.component';
@@ -153,7 +154,7 @@ import { ThemeApiComponent } from '../theme-api/theme-api.component';
         TabsDemoComponent, TabsValidationComponent, TabsCodeComponent, TabsApiComponent,
         AccordionDemoComponent, AccordionValidationComponent, AccordionCodeComponent, AccordionApiComponent,
         ChipsValidationComponent, ChipsCodeComponent, ChipsApiComponent,
-        ThemeValidationComponent, ThemeCodeComponent, ThemeApiComponent
+        ThemeDemoComponent, ThemeValidationComponent, ThemeCodeComponent, ThemeApiComponent
     ],
     encapsulation: ViewEncapsulation.None,
     templateUrl: './demo-container.component.html',

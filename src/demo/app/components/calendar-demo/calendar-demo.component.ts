@@ -371,9 +371,41 @@ export class CalendarDemoComponent implements OnInit {
     /**
      * Handle event move
      */
-    onEventMove(event: { event: CalendarEvent<SampleEvent>; newStart: Date; newEnd?: Date }): void {
+    onEventMove(event: { event: CalendarEvent<SampleEvent>; newStart: Date; newEnd?: Date; allDay?: boolean }): void {
         console.log('Move event:', event);
-        this.snackBar.open(`Move: ${event.event.data.title}`, 'Close', { duration: 2000 });
+        console.log('New start:', event.newStart);
+        console.log('New end:', event.newEnd);
+        console.log('All day:', event.allDay);
+
+        // Find and update the event in the events array
+        const moveIndex = this.sampleEvents.findIndex(e => e.id === event.event.id);
+        if (moveIndex !== -1) {
+            const oldEvent = this.sampleEvents[moveIndex];
+            console.log('Old event:', { start: oldEvent.start, end: oldEvent.end, allDay: oldEvent.allDay });
+
+            // Create a new array to trigger change detection
+            this.sampleEvents = this.sampleEvents.map((e, i) =>
+                i === moveIndex
+                    ? {
+                        ...e,
+                        start: new Date(event.newStart),
+                        end: event.newEnd ? new Date(event.newEnd) : new Date(event.newStart),
+                        allDay: event.allDay !== undefined ? event.allDay : e.allDay
+                    }
+                    : e
+            );
+
+            console.log('Updated events array:', this.sampleEvents.map(e => ({ id: e.id, start: e.start, end: e.end, allDay: e.allDay })));
+
+            const allDayText = event.allDay ? ' (all day)' : '';
+            this.snackBar.open(
+                `Moved "${event.event.data.title}" to ${event.newStart.toLocaleString()}${allDayText}`,
+                'Close',
+                { duration: 3000 }
+            );
+        } else {
+            console.error('Event not found in array:', event.event.id);
+        }
     }
 
     /**

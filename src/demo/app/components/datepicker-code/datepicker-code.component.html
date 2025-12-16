@@ -26,9 +26,14 @@
             spellcheck="false"></textarea>
         </div>
         <div class="preview-panel">
-          <h4>Live Preview</h4>
+          <h4>Preview</h4>
           <div class="preview-content">
-            <p class="preview-note">Note: This is a placeholder preview. Actual datepicker component integration would go here.</p>
+            <amw-datepicker
+              label="Select Date"
+              placeholder="Choose a date..."
+              [(ngModel)]="selectedDate">
+            </amw-datepicker>
+            <p>Selected date: {{ selectedDate | date }}</p>
           </div>
         </div>
       </div>
@@ -57,9 +62,16 @@
             spellcheck="false"></textarea>
         </div>
         <div class="preview-panel">
-          <h4>Live Preview</h4>
+          <h4>Preview</h4>
           <div class="preview-content">
-            <p class="preview-note">Note: This is a placeholder preview. Actual datepicker component integration would go here.</p>
+            <amw-datepicker
+              label="Birth Date"
+              placeholder="Select your birth date..."
+              [min]="minDate"
+              [max]="maxDate"
+              [(ngModel)]="birthDate">
+            </amw-datepicker>
+            <p>Selected date: {{ birthDate | date }}</p>
           </div>
         </div>
       </div>
@@ -88,9 +100,20 @@
             spellcheck="false"></textarea>
         </div>
         <div class="preview-panel">
-          <h4>Live Preview</h4>
+          <h4>Preview</h4>
           <div class="preview-content">
-            <p class="preview-note">Note: This is a placeholder preview. Actual datepicker component integration would go here.</p>
+            <form [formGroup]="dateForm">
+              <amw-datepicker
+                formControlName="startDate"
+                label="Start Date *"
+                placeholder="Select start date..."
+                [required]="true"
+                [min]="currentDate"
+                appearance="outline"
+                [errorMessage]="dateForm.get('startDate')?.hasError('required') ? 'Start date is required' : ''">
+              </amw-datepicker>
+            </form>
+            <p>Form valid: {{ dateForm.valid ? 'Yes' : 'No' }}</p>
           </div>
         </div>
       </div>
@@ -119,9 +142,31 @@
             spellcheck="false"></textarea>
         </div>
         <div class="preview-panel">
-          <h4>Live Preview</h4>
+          <h4>Preview</h4>
           <div class="preview-content">
-            <p class="preview-note">Note: This is a placeholder preview. Actual datepicker component integration would go here.</p>
+            <amw-datepicker
+              label="Short Date"
+              placeholder="MM/DD/YYYY"
+              [(ngModel)]="shortDate"
+              format="short">
+            </amw-datepicker>
+            <p>Short format: {{ shortDate | date:'short' }}</p>
+
+            <amw-datepicker
+              label="Long Date"
+              placeholder="Month Day, Year"
+              [(ngModel)]="longDate"
+              format="long">
+            </amw-datepicker>
+            <p>Long format: {{ longDate | date:'long' }}</p>
+
+            <amw-datepicker
+              label="Custom Format"
+              placeholder="DD-MM-YYYY"
+              [(ngModel)]="customDate"
+              format="dd-MM-yyyy">
+            </amw-datepicker>
+            <p>Custom format: {{ customDate | date:'dd-MM-yyyy' }}</p>
           </div>
         </div>
       </div>
@@ -150,9 +195,15 @@
             spellcheck="false"></textarea>
         </div>
         <div class="preview-panel">
-          <h4>Live Preview</h4>
+          <h4>Preview</h4>
           <div class="preview-content">
-            <p class="preview-note">Note: This is a placeholder preview. Actual datepicker component integration would go here.</p>
+            <amw-datepicker
+              label="Disabled Datepicker"
+              placeholder="This is disabled..."
+              [(ngModel)]="selectedDate"
+              [disabled]="true">
+            </amw-datepicker>
+            <p>Selected date: {{ selectedDate | date }}</p>
           </div>
         </div>
       </div>
@@ -181,9 +232,19 @@
             spellcheck="false"></textarea>
         </div>
         <div class="preview-panel">
-          <h4>Live Preview</h4>
+          <h4>Preview</h4>
           <div class="preview-content">
-            <p class="preview-note">Note: This is a placeholder preview. Actual form component integration would go here.</p>
+            <form [formGroup]="dateForm">
+              <amw-datepicker
+                formControlName="startDate"
+                label="Start Date *"
+                placeholder="Select start date..."
+                [min]="minDate"
+                [required]="true">
+              </amw-datepicker>
+            </form>
+            <p>Form valid: {{ dateForm.valid ? 'Yes' : 'No' }}</p>
+            <p>Form value: {{ dateForm.get('startDate')?.value | date }}</p>
           </div>
         </div>
       </div>
@@ -212,13 +273,21 @@
             spellcheck="false"></textarea>
         </div>
         <div class="preview-panel">
-          <h4>Live Preview</h4>
+          <h4>Preview</h4>
           <div class="preview-content">
-            <p class="preview-note">Note: This is a placeholder preview. Actual datepicker component integration would go here.</p>
-            <div class="preview-note">
+            <amw-datepicker
+              label="Event Date"
+              placeholder="Select event date..."
+              [(ngModel)]="eventDate"
+              (dateChange)="onDateChange($event)"
+              (opened)="onDatepickerOpened()"
+              (closed)="onDatepickerClosed()">
+            </amw-datepicker>
+            <p>Selected date: {{ eventDate | date }}</p>
+            <p class="info-note">
               <mat-icon>info</mat-icon>
-              <span>Open your browser console to see event logs</span>
-            </div>
+              Open your browser console to see event logs
+            </p>
           </div>
         </div>
       </div>
@@ -247,9 +316,50 @@
             spellcheck="false"></textarea>
         </div>
         <div class="preview-panel">
-          <h4>Live Preview</h4>
+          <h4>Preview</h4>
           <div class="preview-content">
-            <p class="preview-note">Note: This is a placeholder preview. Actual booking form integration would go here.</p>
+            <form [formGroup]="bookingForm" class="booking-form">
+              <h3>Event Booking</h3>
+
+              <amw-datepicker
+                formControlName="eventDate"
+                label="Event Date *"
+                placeholder="Select event date..."
+                [min]="currentDate"
+                [required]="true">
+              </amw-datepicker>
+
+              <amw-datepicker
+                formControlName="startTime"
+                label="Start Time *"
+                placeholder="Select start time..."
+                [min]="currentDate"
+                [required]="true">
+              </amw-datepicker>
+
+              <amw-datepicker
+                formControlName="endTime"
+                label="End Time *"
+                placeholder="Select end time..."
+                [min]="currentDate"
+                [required]="true">
+              </amw-datepicker>
+
+              <amw-datepicker
+                formControlName="setupDate"
+                label="Setup Date"
+                placeholder="Select setup date..."
+                [min]="currentDate">
+              </amw-datepicker>
+
+              <button
+                mat-raised-button
+                color="primary"
+                [disabled]="bookingForm.invalid">
+                Book Event
+              </button>
+            </form>
+            <p>Form valid: {{ bookingForm.valid ? 'Yes' : 'No' }}</p>
           </div>
         </div>
       </div>

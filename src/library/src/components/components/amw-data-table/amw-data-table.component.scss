@@ -417,6 +417,12 @@
       width: 12px;
       height: 12px;
     }
+
+    // Constrain touch target to match icon area and prevent overlap
+  .mat-mdc-button-touch-target {
+      max-width: 100% !important;
+      max-height: 100% !important;
+    }
   }
 
   /* No Data State */

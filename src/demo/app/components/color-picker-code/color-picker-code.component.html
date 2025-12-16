@@ -26,9 +26,13 @@
             spellcheck="false"></textarea>
         </div>
         <div class="preview-panel">
-          <h4>Live Preview</h4>
+          <h4>Preview</h4>
           <div class="preview-content">
-            <p class="preview-note">Note: This is a placeholder preview. Actual color picker component integration would go here.</p>
+            <amw-color-picker
+              [(value)]="selectedColor"
+              (colorChange)="onColorChange($event)">
+            </amw-color-picker>
+            <p>Selected color: {{ selectedColor }}</p>
           </div>
         </div>
       </div>
@@ -57,9 +61,14 @@
             spellcheck="false"></textarea>
         </div>
         <div class="preview-panel">
-          <h4>Live Preview</h4>
+          <h4>Preview</h4>
           <div class="preview-content">
-            <p class="preview-note">Note: This is a placeholder preview. Actual color picker component integration would go here.</p>
+            <amw-color-picker
+              [(value)]="customColor"
+              mode="custom"
+              (colorChange)="onColorChange($event)">
+            </amw-color-picker>
+            <p>Selected color: {{ customColor }}</p>
           </div>
         </div>
       </div>
@@ -88,9 +97,18 @@
             spellcheck="false"></textarea>
         </div>
         <div class="preview-panel">
-          <h4>Live Preview</h4>
+          <h4>Preview</h4>
           <div class="preview-content">
-            <p class="preview-note">Note: This is a placeholder preview. Actual form component integration would go here.</p>
+            <form [formGroup]="colorForm">
+              <amw-color-picker
+                formControlName="color"
+                label="Select Color *"
+                placeholder="Choose color"
+                [required]="true"
+                [errorMessage]="colorForm.get('color')?.hasError('required') ? 'Color is required' : ''">
+              </amw-color-picker>
+            </form>
+            <p>Form valid: {{ colorForm.valid ? 'Yes' : 'No' }}</p>
           </div>
         </div>
       </div>
@@ -119,9 +137,19 @@
             spellcheck="false"></textarea>
         </div>
         <div class="preview-panel">
-          <h4>Live Preview</h4>
+          <h4>Preview</h4>
           <div class="preview-content">
-            <p class="preview-note">Note: This is a placeholder preview. Actual color picker component integration would go here.</p>
+            <amw-color-picker
+              [(value)]="advancedColor"
+              mode="all"
+              size="large"
+              [disabled]="isDisabled"
+              (colorChange)="onColorChange($event)">
+            </amw-color-picker>
+            <p>Selected color: {{ advancedColor }}</p>
+            <button mat-button (click)="isDisabled = !isDisabled">
+              {{ isDisabled ? 'Enable' : 'Disable' }} Picker
+            </button>
           </div>
         </div>
       </div>

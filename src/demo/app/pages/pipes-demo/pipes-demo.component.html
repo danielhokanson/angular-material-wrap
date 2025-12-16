@@ -76,15 +76,529 @@
 
             <mat-tab label="Code" icon="code">
               <div class="code-content">
-                <h3>{{ selectedPipe.name }} Pipe Code</h3>
-                <p>Code examples will be available soon.</p>
+                @switch (selectedPipe.id) {
+                  @case ('currency') {
+                    <div class="currency-code-examples">
+                      <h3>Currency Pipe Code Examples</h3>
+                      <p>Interactive examples showing different currency formatting options.</p>
+
+                      <div class="code-example">
+                        <h4>Basic Usage</h4>
+                        <pre><code>{{ currencyPipeCodeExamples.basic }}</code></pre>
+                        <div class="preview">
+                          <p>Price: {{ 1234.56 | amwCurrency }}</p>
+                        </div>
+                      </div>
+
+                      <div class="code-example">
+                        <h4>Different Currencies</h4>
+                        <pre><code>{{ currencyPipeCodeExamples.different }}</code></pre>
+                        <div class="preview">
+                          <p>USD: {{ 1234.56 | amwCurrency:'USD' }}</p>
+                          <p>EUR: {{ 1234.56 | amwCurrency:'EUR' }}</p>
+                          <p>GBP: {{ 1234.56 | amwCurrency:'GBP' }}</p>
+                          <p>JPY: {{ 150000 | amwCurrency:'JPY' }}</p>
+                        </div>
+                      </div>
+
+                      <div class="code-example">
+                        <h4>Currency Display Modes</h4>
+                        <pre><code>{{ currencyPipeCodeExamples.display }}</code></pre>
+                        <div class="preview">
+                          <p>Symbol: {{ 1234.56 | amwCurrency:'USD':'symbol' }}</p>
+                          <p>Code: {{ 1234.56 | amwCurrency:'USD':'code' }}</p>
+                          <p>Name: {{ 1234.56 | amwCurrency:'USD':'name' }}</p>
+                        </div>
+                      </div>
+
+                      <div class="code-example">
+                        <h4>Custom Digit Formatting</h4>
+                        <pre><code>{{ currencyPipeCodeExamples.digits }}</code></pre>
+                        <div class="preview">
+                          <p>Default: {{ 1234.567 | amwCurrency:'USD':'symbol':'1.2-2' }}</p>
+                          <p>No decimals: {{ 1234.567 | amwCurrency:'USD':'symbol':'1.0-0' }}</p>
+                          <p>3 decimals: {{ 1234.567 | amwCurrency:'USD':'symbol':'1.3-3' }}</p>
+                          <p>Variable: {{ 1234.567 | amwCurrency:'USD':'symbol':'1.1-3' }}</p>
+                        </div>
+                      </div>
+
+                      <div class="code-example">
+                        <h4>Different Locales</h4>
+                        <pre><code>{{ currencyPipeCodeExamples.locale }}</code></pre>
+                        <div class="preview">
+                          <p>US Format: {{ 1234.56 | amwCurrency:'USD':'symbol':'1.2-2':'en-US' }}</p>
+                          <p>German Format: {{ 1234.56 | amwCurrency:'EUR':'symbol':'1.2-2':'de-DE' }}</p>
+                          <p>French Format: {{ 1234.56 | amwCurrency:'EUR':'symbol':'1.2-2':'fr-FR' }}</p>
+                        </div>
+                      </div>
+
+                      <div class="code-example">
+                        <h4>Component Binding</h4>
+                        <pre><code>{{ currencyPipeCodeExamples.binding }}</code></pre>
+                        <div class="preview">
+                          <mat-form-field appearance="outline">
+                            <mat-label>Amount</mat-label>
+                            <input matInput [(ngModel)]="currencyAmount" type="number">
+                          </mat-form-field>
+                          <p>Total: {{ currencyAmount | amwCurrency:'USD' }}</p>
+                        </div>
+                      </div>
+                    </div>
+                  }
+                  @case ('date') {
+                    <div class="date-code-examples">
+                      <h3>Date Pipe Code Examples</h3>
+                      <p>Interactive examples showing different date formatting options.</p>
+
+                      <div class="code-example">
+                        <h4>Basic Usage</h4>
+                        <pre><code>{{ datePipeCodeExamples.basic }}</code></pre>
+                        <div class="preview">
+                          <p>Today: {{ currentDate | amwDate }}</p>
+                        </div>
+                      </div>
+
+                      <div class="code-example">
+                        <h4>Different Date Formats</h4>
+                        <pre><code>{{ datePipeCodeExamples.formats }}</code></pre>
+                        <div class="preview">
+                          <p>Short: {{ currentDate | amwDate:'short' }}</p>
+                          <p>Medium: {{ currentDate | amwDate:'medium' }}</p>
+                          <p>Long: {{ currentDate | amwDate:'long' }}</p>
+                          <p>Full: {{ currentDate | amwDate:'full' }}</p>
+                        </div>
+                      </div>
+
+                      <div class="code-example">
+                        <h4>Date and Time Separately</h4>
+                        <pre><code>{{ datePipeCodeExamples.dateTime }}</code></pre>
+                        <div class="preview">
+                          <p>Date only: {{ currentDate | amwDate:'date' }}</p>
+                          <p>Time only: {{ currentDate | amwDate:'time' }}</p>
+                          <p>Date & Time: {{ currentDate | amwDate:'datetime' }}</p>
+                        </div>
+                      </div>
+
+                      <div class="code-example">
+                        <h4>Different Locales</h4>
+                        <pre><code>{{ datePipeCodeExamples.locale }}</code></pre>
+                        <div class="preview">
+                          <p>US: {{ currentDate | amwDate:'medium':'':'en-US' }}</p>
+                          <p>German: {{ currentDate | amwDate:'medium':'':'de-DE' }}</p>
+                          <p>French: {{ currentDate | amwDate:'medium':'':'fr-FR' }}</p>
+                          <p>Japanese: {{ currentDate | amwDate:'medium':'':'ja-JP' }}</p>
+                        </div>
+                      </div>
+
+                      <div class="code-example">
+                        <h4>Different Input Types</h4>
+                        <pre><code>{{ datePipeCodeExamples.input }}</code></pre>
+                        <div class="preview">
+                          <p>Date object: {{ currentDate | amwDate }}</p>
+                          <p>ISO string: {{ '2025-01-15T10:30:00' | amwDate }}</p>
+                          <p>Timestamp: {{ 1736939400000 | amwDate }}</p>
+                        </div>
+                      </div>
+
+                      <div class="code-example">
+                        <h4>Form Data Binding</h4>
+                        <pre><code>{{ datePipeCodeExamples.binding }}</code></pre>
+                        <div class="preview">
+                          <p>Current date: {{ currentDate | amwDate:'long' }}</p>
+                        </div>
+                      </div>
+                    </div>
+                  }
+                  @case ('text-transform') {
+                    <div class="text-transform-code-examples">
+                      <h3>Text Transform Pipe Code Examples</h3>
+                      <p>Interactive examples showing different text transformation options.</p>
+
+                      <div class="code-example">
+                        <h4>Basic Usage</h4>
+                        <pre><code>{{ textTransformPipeCodeExamples.basic }}</code></pre>
+                        <div class="preview">
+                          <p>Original: {{ 'hello world' }}</p>
+                          <p>Uppercase: {{ 'hello world' | amwTextTransform:'uppercase' }}</p>
+                        </div>
+                      </div>
+
+                      <div class="code-example">
+                        <h4>Different Case Transformations</h4>
+                        <pre><code>{{ textTransformPipeCodeExamples.casing }}</code></pre>
+                        <div class="preview">
+                          <p>Uppercase: {{ 'hello world' | amwTextTransform:'uppercase' }}</p>
+                          <p>Lowercase: {{ 'HELLO WORLD' | amwTextTransform:'lowercase' }}</p>
+                          <p>Capitalize: {{ 'hello world' | amwTextTransform:'capitalize' }}</p>
+                          <p>Title Case: {{ 'hello world' | amwTextTransform:'titlecase' }}</p>
+                        </div>
+                      </div>
+
+                      <div class="code-example">
+                        <h4>Programming Case Styles</h4>
+                        <pre><code>{{ textTransformPipeCodeExamples.programming }}</code></pre>
+                        <div class="preview">
+                          <p>Camel Case: {{ 'hello world example' | amwTextTransform:'camelcase' }}</p>
+                          <p>Kebab Case: {{ 'hello world example' | amwTextTransform:'kebabcase' }}</p>
+                          <p>Snake Case: {{ 'hello world example' | amwTextTransform:'snakecase' }}</p>
+                        </div>
+                      </div>
+
+                      <div class="code-example">
+                        <h4>Convert Between Styles</h4>
+                        <pre><code>{{ textTransformPipeCodeExamples.conversion }}</code></pre>
+                        <div class="preview">
+                          <p>From camelCase: {{ 'myVariableName' | amwTextTransform:'kebabcase' }}</p>
+                          <p>From PascalCase: {{ 'MyClassName' | amwTextTransform:'snakecase' }}</p>
+                          <p>From snake_case: {{ 'my_variable_name' | amwTextTransform:'camelcase' }}</p>
+                        </div>
+                      </div>
+
+                      <div class="code-example">
+                        <h4>Component Binding</h4>
+                        <pre><code>{{ textTransformPipeCodeExamples.binding }}</code></pre>
+                        <div class="preview">
+                          <mat-form-field appearance="outline">
+                            <mat-label>Text to Transform</mat-label>
+                            <input matInput [(ngModel)]="textValue">
+                          </mat-form-field>
+                          <div class="pipe-result">
+                            <p><strong>Uppercase:</strong> {{ textValue | amwTextTransform:'uppercase' }}</p>
+                            <p><strong>Lowercase:</strong> {{ textValue | amwTextTransform:'lowercase' }}</p>
+                            <p><strong>Title Case:</strong> {{ textValue | amwTextTransform:'titlecase' }}</p>
+                          </div>
+                        </div>
+                      </div>
+
+                      <div class="code-example">
+                        <h4>Chaining with Other Pipes</h4>
+                        <pre><code>{{ textTransformPipeCodeExamples.chaining }}</code></pre>
+                        <div class="preview">
+                          <p>{{ 'john doe' | amwTextTransform:'titlecase' }}</p>
+                          <p>{{ 'user_first_name' | amwTextTransform:'titlecase' }}</p>
+                          <p>{{ '/api/users' | amwTextTransform:'uppercase' }}</p>
+                        </div>
+                      </div>
+                    </div>
+                  }
+                  @default {
+                    <h3>{{ selectedPipe.name }} Pipe Code</h3>
+                    <p>Code examples will be available soon.</p>
+                  }
+                }
               </div>
             </mat-tab>
 
             <mat-tab label="API" icon="description">
               <div class="api-content">
-                <h3>{{ selectedPipe.name }} Pipe API</h3>
-                <p>API documentation will be available soon.</p>
+                @switch (selectedPipe.id) {
+                  @case ('currency') {
+                    <div class="currency-api">
+                      <h3>Currency Pipe API</h3>
+                      <p>Complete reference for the amwCurrency pipe parameters and options.</p>
+
+                      <div class="api-section__parameters">
+                        <h4>Pipe Parameters</h4>
+                        <div class="api-table">
+                          <div class="api-table__header">
+                            <div class="api-table__cell">Parameter</div>
+                            <div class="api-table__cell">Type</div>
+                            <div class="api-table__cell">Default</div>
+                            <div class="api-table__cell">Description</div>
+                          </div>
+                          @for (param of currencyPipeApiDocumentation.parameters; track param.name) {
+                            <div class="api-table__row">
+                              <div class="api-table__cell api-table__cell--property">{{ param.name }}</div>
+                              <div class="api-table__cell api-table__cell--type">{{ param.type }}</div>
+                              <div class="api-table__cell api-table__cell--default">{{ param.default || param.required }}</div>
+                              <div class="api-table__cell api-table__cell--description">{{ param.description }}</div>
+                            </div>
+                          }
+                        </div>
+                      </div>
+
+                      <div class="api-section__currencies">
+                        <h4>Common Currency Codes</h4>
+                        <div class="api-table">
+                          <div class="api-table__header">
+                            <div class="api-table__cell">Code</div>
+                            <div class="api-table__cell">Symbol</div>
+                            <div class="api-table__cell">Name</div>
+                          </div>
+                          @for (currency of currencyPipeApiDocumentation.currencyCodes; track currency.code) {
+                            <div class="api-table__row">
+                              <div class="api-table__cell api-table__cell--property">{{ currency.code }}</div>
+                              <div class="api-table__cell">{{ currency.symbol }}</div>
+                              <div class="api-table__cell">{{ currency.name }}</div>
+                            </div>
+                          }
+                        </div>
+                      </div>
+
+                      <div class="api-section__usage">
+                        <h4>Usage Notes</h4>
+                        <ul>
+                          <li><strong>Basic Usage:</strong> Use <code>{{ '{{ value | amwCurrency }}' }}</code> for default USD formatting</li>
+                          <li><strong>Currency Code:</strong> Supports ISO 4217 currency codes (USD, EUR, GBP, JPY, etc.)</li>
+                          <li><strong>Display Modes:</strong> Choose between symbol ($), code (USD), or name (US dollars)</li>
+                          <li><strong>Digit Formatting:</strong> Format string: <span [textContent]="currencyPipeApiDocumentation.digitFormatString"></span></li>
+                          <li><strong>Locale Support:</strong> Uses Intl.NumberFormat for locale-specific formatting</li>
+                          <li><strong>Null Handling:</strong> Returns null for null, undefined, or empty string values</li>
+                          <li><strong>String Parsing:</strong> Automatically parses string values to numbers</li>
+                          <li><strong>Error Handling:</strong> Falls back to en-US/USD format if locale/currency is invalid</li>
+                        </ul>
+                      </div>
+
+                      <div class="api-section__examples">
+                        <h4>Quick Examples</h4>
+                        <div class="example-grid">
+                          <div class="example-item">
+                            <strong>Basic:</strong>
+                            <code [textContent]="currencyPipeApiDocumentation.quickExamples.basic"></code>
+                          </div>
+                          <div class="example-item">
+                            <strong>EUR with symbol:</strong>
+                            <code [textContent]="currencyPipeApiDocumentation.quickExamples.eurSymbol"></code>
+                          </div>
+                          <div class="example-item">
+                            <strong>No decimals:</strong>
+                            <code [textContent]="currencyPipeApiDocumentation.quickExamples.noDecimals"></code>
+                          </div>
+                          <div class="example-item">
+                            <strong>German locale:</strong>
+                            <code [textContent]="currencyPipeApiDocumentation.quickExamples.germanLocale"></code>
+                          </div>
+                        </div>
+                      </div>
+
+                      <div class="api-section__behavior">
+                        <h4>Formatting Details</h4>
+                        <p><strong>Digit Info Format:</strong></p>
+                        <p>The digitsInfo parameter uses the format: <code [textContent]="currencyPipeApiDocumentation.digitFormatString"></code></p>
+                        <ul>
+                          <li><code>1.2-2</code> - At least 1 integer digit, exactly 2 fraction digits (default)</li>
+                          <li><code>1.0-0</code> - No decimal places</li>
+                          <li><code>1.3-3</code> - Exactly 3 decimal places</li>
+                          <li><code>1.1-3</code> - 1 to 3 decimal places (variable)</li>
+                        </ul>
+                        <p><strong>Locale Formatting:</strong></p>
+                        <ul>
+                          <li>Uses the browser's Intl.NumberFormat API</li>
+                          <li>Automatically applies thousands separators based on locale</li>
+                          <li>Currency symbol placement varies by locale</li>
+                          <li>Decimal separators (. vs ,) adapt to locale</li>
+                        </ul>
+                      </div>
+                    </div>
+                  }
+                  @case ('date') {
+                    <div class="date-api">
+                      <h3>Date Pipe API</h3>
+                      <p>Complete reference for the amwDate pipe parameters and formats.</p>
+
+                      <div class="api-section__parameters">
+                        <h4>Pipe Parameters</h4>
+                        <div class="api-table">
+                          <div class="api-table__header">
+                            <div class="api-table__cell">Parameter</div>
+                            <div class="api-table__cell">Type</div>
+                            <div class="api-table__cell">Default</div>
+                            <div class="api-table__cell">Description</div>
+                          </div>
+                          @for (param of datePipeApiDocumentation.parameters; track param.name) {
+                            <div class="api-table__row">
+                              <div class="api-table__cell api-table__cell--property">{{ param.name }}</div>
+                              <div class="api-table__cell api-table__cell--type">{{ param.type }}</div>
+                              <div class="api-table__cell api-table__cell--default">{{ param.default || param.required }}</div>
+                              <div class="api-table__cell api-table__cell--description">{{ param.description }}</div>
+                            </div>
+                          }
+                        </div>
+                      </div>
+
+                      <div class="api-section__formats">
+                        <h4>Available Formats</h4>
+                        <div class="api-table">
+                          <div class="api-table__header">
+                            <div class="api-table__cell">Format</div>
+                            <div class="api-table__cell">Pattern</div>
+                            <div class="api-table__cell">Example</div>
+                            <div class="api-table__cell">Description</div>
+                          </div>
+                          @for (format of datePipeApiDocumentation.formats; track format.format) {
+                            <div class="api-table__row">
+                              <div class="api-table__cell api-table__cell--property">{{ format.format }}</div>
+                              <div class="api-table__cell api-table__cell--type">{{ format.pattern }}</div>
+                              <div class="api-table__cell">{{ format.example }}</div>
+                              <div class="api-table__cell api-table__cell--description">{{ format.description }}</div>
+                            </div>
+                          }
+                        </div>
+                      </div>
+
+                      <div class="api-section__usage">
+                        <h4>Usage Notes</h4>
+                        <ul>
+                          <li><strong>Basic Usage:</strong> Use <code>{{ '{{ date | amwDate }}' }}</code> for default medium formatting</li>
+                          <li><strong>Input Types:</strong> Accepts Date objects, ISO strings, or Unix timestamps</li>
+                          <li><strong>Predefined Formats:</strong> Choose from short, medium, long, full, date, time, or datetime</li>
+                          <li><strong>Locale Support:</strong> Uses Intl.DateTimeFormat for locale-specific formatting</li>
+                          <li><strong>Null Handling:</strong> Returns null for null, undefined, or empty string values</li>
+                          <li><strong>Invalid Dates:</strong> Returns null if the date cannot be parsed</li>
+                          <li><strong>Timezone:</strong> Currently uses the browser's local timezone</li>
+                          <li><strong>Error Handling:</strong> Falls back to en-US format if locale is invalid</li>
+                        </ul>
+                      </div>
+
+                      <div class="api-section__examples">
+                        <h4>Quick Examples</h4>
+                        <div class="example-grid">
+                          <div class="example-item">
+                            <strong>Basic:</strong>
+                            <code [textContent]="datePipeApiDocumentation.quickExamples.basic"></code>
+                          </div>
+                          <div class="example-item">
+                            <strong>Short format:</strong>
+                            <code [textContent]="datePipeApiDocumentation.quickExamples.shortFormat"></code>
+                          </div>
+                          <div class="example-item">
+                            <strong>Time only:</strong>
+                            <code [textContent]="datePipeApiDocumentation.quickExamples.timeOnly"></code>
+                          </div>
+                          <div class="example-item">
+                            <strong>German locale:</strong>
+                            <code [textContent]="datePipeApiDocumentation.quickExamples.germanLocale"></code>
+                          </div>
+                        </div>
+                      </div>
+
+                      <div class="api-section__behavior">
+                        <h4>Formatting Details</h4>
+                        <p><strong>Input Parsing:</strong></p>
+                        <ul>
+                          <li>Date objects are used directly</li>
+                          <li>String values are parsed using <code>new Date(value)</code></li>
+                          <li>Number values are treated as Unix timestamps</li>
+                          <li>Invalid dates return null</li>
+                        </ul>
+                        <p><strong>Locale Formatting:</strong></p>
+                        <ul>
+                          <li>Uses the browser's Intl.DateTimeFormat API</li>
+                          <li>Month names and weekday names adapt to locale</li>
+                          <li>Date component order varies by locale (MM/DD/YYYY vs DD.MM.YYYY)</li>
+                          <li>12-hour vs 24-hour clock depends on locale</li>
+                        </ul>
+                      </div>
+                    </div>
+                  }
+                  @case ('text-transform') {
+                    <div class="text-transform-api">
+                      <h3>Text Transform Pipe API</h3>
+                      <p>Complete reference for the amwTextTransform pipe parameters and transformations.</p>
+
+                      <div class="api-section__parameters">
+                        <h4>Pipe Parameters</h4>
+                        <div class="api-table">
+                          <div class="api-table__header">
+                            <div class="api-table__cell">Parameter</div>
+                            <div class="api-table__cell">Type</div>
+                            <div class="api-table__cell">Default</div>
+                            <div class="api-table__cell">Description</div>
+                          </div>
+                          @for (param of textTransformPipeApiDocumentation.parameters; track param.name) {
+                            <div class="api-table__row">
+                              <div class="api-table__cell api-table__cell--property">{{ param.name }}</div>
+                              <div class="api-table__cell api-table__cell--type">{{ param.type }}</div>
+                              <div class="api-table__cell api-table__cell--default">{{ param.default || param.required }}</div>
+                              <div class="api-table__cell api-table__cell--description">{{ param.description }}</div>
+                            </div>
+                          }
+                        </div>
+                      </div>
+
+                      <div class="api-section__transforms">
+                        <h4>Available Transformations</h4>
+                        <div class="api-table">
+                          <div class="api-table__header">
+                            <div class="api-table__cell">Transform</div>
+                            <div class="api-table__cell">Description</div>
+                            <div class="api-table__cell">Example</div>
+                          </div>
+                          @for (transform of textTransformPipeApiDocumentation.transforms; track transform.type) {
+                            <div class="api-table__row">
+                              <div class="api-table__cell api-table__cell--property">{{ transform.type }}</div>
+                              <div class="api-table__cell api-table__cell--description">{{ transform.description }}</div>
+                              <div class="api-table__cell">{{ transform.example }}</div>
+                            </div>
+                          }
+                        </div>
+                      </div>
+
+                      <div class="api-section__usage">
+                        <h4>Usage Notes</h4>
+                        <ul>
+                          <li><strong>Basic Usage:</strong> Use <code>{{ '{{ text | amwTextTransform }}' }}</code> for uppercase transformation</li>
+                          <li><strong>Case Transformations:</strong> Support for uppercase, lowercase, capitalize, and titlecase</li>
+                          <li><strong>Programming Styles:</strong> Convert between camelCase, kebab-case, and snake_case</li>
+                          <li><strong>Null Handling:</strong> Returns null for null, undefined, or empty string values</li>
+                          <li><strong>String Only:</strong> Only accepts string values (numbers and other types return null)</li>
+                          <li><strong>Whitespace Handling:</strong> Programming styles remove or replace spaces appropriately</li>
+                          <li><strong>Special Characters:</strong> Programming styles handle hyphens and underscores intelligently</li>
+                          <li><strong>Template Binding:</strong> Works seamlessly with component properties and form inputs</li>
+                        </ul>
+                      </div>
+
+                      <div class="api-section__examples">
+                        <h4>Quick Examples</h4>
+                        <div class="example-grid">
+                          <div class="example-item">
+                            <strong>Uppercase:</strong>
+                            <code [textContent]="textTransformPipeApiDocumentation.quickExamples.uppercase"></code>
+                          </div>
+                          <div class="example-item">
+                            <strong>Title Case:</strong>
+                            <code [textContent]="textTransformPipeApiDocumentation.quickExamples.titleCase"></code>
+                          </div>
+                          <div class="example-item">
+                            <strong>Camel Case:</strong>
+                            <code [textContent]="textTransformPipeApiDocumentation.quickExamples.camelCase"></code>
+                          </div>
+                          <div class="example-item">
+                            <strong>Kebab Case:</strong>
+                            <code [textContent]="textTransformPipeApiDocumentation.quickExamples.kebabCase"></code>
+                          </div>
+                        </div>
+                      </div>
+
+                      <div class="api-section__behavior">
+                        <h4>Transform Details</h4>
+                        <p><strong>Case Transformations:</strong></p>
+                        <ul>
+                          <li><strong>uppercase:</strong> Converts entire string to UPPERCASE</li>
+                          <li><strong>lowercase:</strong> Converts entire string to lowercase</li>
+                          <li><strong>capitalize:</strong> First character uppercase, rest lowercase</li>
+                          <li><strong>titlecase:</strong> First character of each word uppercase</li>
+                        </ul>
+                        <p><strong>Programming Styles:</strong></p>
+                        <ul>
+                          <li><strong>camelcase:</strong> Removes spaces, first word lowercase, subsequent words capitalized (helloWorld)</li>
+                          <li><strong>kebabcase:</strong> Replaces spaces/underscores with hyphens, all lowercase (hello-world)</li>
+                          <li><strong>snakecase:</strong> Replaces spaces/hyphens with underscores, all lowercase (hello_world)</li>
+                        </ul>
+                        <p><strong>Conversion Intelligence:</strong></p>
+                        <ul>
+                          <li>Detects existing formatting (camelCase, PascalCase, etc.)</li>
+                          <li>Handles transitions between uppercase and lowercase letters</li>
+                          <li>Preserves word boundaries when converting between styles</li>
+                        </ul>
+                      </div>
+                    </div>
+                  }
+                  @default {
+                    <h3>{{ selectedPipe.name }} Pipe API</h3>
+                    <p>API documentation will be available soon.</p>
+                  }
+                }
               </div>
             </mat-tab>
           </mat-tab-group>

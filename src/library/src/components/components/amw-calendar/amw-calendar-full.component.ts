@@ -58,6 +58,7 @@ export class AmwCalendarFullComponent<T = any> extends AmwCalendarBaseComponent<
     currentMonthStart: Date = new Date();
 
     // UI state
+    dragOverTarget: string | null = null;
 
     constructor(
         cdr: ChangeDetectorRef,
@@ -146,6 +147,17 @@ export class AmwCalendarFullComponent<T = any> extends AmwCalendarBaseComponent<
             date.setDate(date.getDate() + i);
             this.weekDays.push(date);
         }
+
+        // Generate hour slots for week view time grid
+        this.dayHours = [];
+        const startHour = this.internalConfig.startHour || 6;
+        const endHour = this.internalConfig.endHour || 22;
+
+        for (let hour = startHour; hour <= endHour; hour++) {
+            const date = new Date(this.selectedDate);
+            date.setHours(hour, 0, 0, 0);
+            this.dayHours.push(date);
+        }
     }
 
     /**
@@ -201,34 +213,70 @@ export class AmwCalendarFullComponent<T = any> extends AmwCalendarBaseComponent<
         this.isDragging = false;
         this.dragStartEvent = null;
         this.dragStartPosition = null;
+        this.dragOverTarget = null;
     }
 
     /**
      * Handle drop
      */
-    onDrop(event: DragEvent, targetDate: Date, targetTime?: Date): void {
+    onDrop(event: DragEvent, targetDate: Date, targetTime?: Date, isAllDay: boolean = false): void {
         event.preventDefault();
 
         if (!this.dragStartEvent) return;
 
-        const newStart = targetTime || targetDate;
-        const duration = this.dragStartEvent.end
-            ? this.dragStartEvent.end.getTime() - this.dragStartEvent.start.getTime()
-            : (this.internalConfig.defaultDuration || 60) * 60 * 1000;
+        // Determine new start time and allDay status
+        let newStart: Date;
+        let newEnd: Date;
+        let shouldBeAllDay = isAllDay;
 
-        const newEnd = new Date(newStart.getTime() + duration);
+        if (isAllDay) {
+            // Dropping on all-day area - set to start of day
+            newStart = new Date(targetDate);
+            newStart.setHours(0, 0, 0, 0);
+            newEnd = new Date(newStart);
+            newEnd.setHours(23, 59, 59, 999);
+        } else if (targetTime) {
+            // Dropping on a specific time slot - combine date and time
+            newStart = new Date(targetDate);
+            newStart.setHours(targetTime.getHours(), targetTime.getMinutes(), 0, 0);
 
-        this.moveEvent(this.dragStartEvent, newStart, newEnd);
+            const duration = this.dragStartEvent.end && !this.dragStartEvent.allDay
+                ? this.dragStartEvent.end.getTime() - this.dragStartEvent.start.getTime()
+                : (this.internalConfig.defaultDuration || 60) * 60 * 1000;
+
+            newEnd = new Date(newStart.getTime() + duration);
+        } else {
+            // Month view - use target date
+            newStart = new Date(targetDate);
+            newStart.setHours(0, 0, 0, 0);
+            newEnd = new Date(newStart);
+            newEnd.setHours(23, 59, 59, 999);
+            shouldBeAllDay = true;
+        }
+
+        this.moveEvent(this.dragStartEvent, newStart, newEnd, shouldBeAllDay);
         this.onDragEnd();
     }
 
     /**
      * Handle drag over
      */
-    onDragOver(event: DragEvent): void {
+    onDragOver(event: DragEvent, targetId?: string): void {
         event.preventDefault();
         if (event.dataTransfer) {
             event.dataTransfer.dropEffect = 'move';
+        }
+        if (targetId) {
+            this.dragOverTarget = targetId;
+        }
+    }
+
+    /**
+     * Handle drag leave
+     */
+    onDragLeave(event: DragEvent, targetId?: string): void {
+        if (targetId && this.dragOverTarget === targetId) {
+            this.dragOverTarget = null;
         }
     }
 
@@ -264,8 +312,9 @@ export class AmwCalendarFullComponent<T = any> extends AmwCalendarBaseComponent<
     /**
      * Get all timed events for the selected date (excludes all-day events)
      */
-    getTimedEventsForDate(): CalendarEvent<T>[] {
-        const eventsForDate = this.getEventsForDate(this.selectedDate);
+    getTimedEventsForDate(date?: Date): CalendarEvent<T>[] {
+        const targetDate = date || this.selectedDate;
+        const eventsForDate = this.getEventsForDate(targetDate);
         return eventsForDate.filter(event => !event.allDay);
     }
 
@@ -296,6 +345,32 @@ export class AmwCalendarFullComponent<T = any> extends AmwCalendarBaseComponent<
             left: '104px', // 80px (hour label width) + 12px (padding) + 12px (gap)
             right: '4px',
             width: 'auto' // Let width be determined by left and right positioning
+        };
+    }
+
+    /**
+     * Get event position and size for week view
+     */
+    getEventPositionForWeek(event: CalendarEvent<T>): { top: string; height: string; position?: string } {
+        const startHour = this.internalConfig.startHour || 6;
+        const slotHeight = 70; // Match exact CSS height
+
+        const eventStart = new Date(event.start);
+        const eventEnd = event.end ? new Date(event.end) : new Date(eventStart.getTime() + (this.internalConfig.defaultDuration || 60) * 60 * 1000);
+
+        // Calculate minutes from start of day
+        const startMinutes = eventStart.getHours() * 60 + eventStart.getMinutes();
+        const endMinutes = eventEnd.getHours() * 60 + eventEnd.getMinutes();
+        const startHourMinutes = startHour * 60;
+
+        // Position relative to the first hour slot
+        const top = ((startMinutes - startHourMinutes) / 60) * slotHeight;
+        const height = ((endMinutes - startMinutes) / 60) * slotHeight;
+
+        return {
+            position: 'absolute',
+            top: `${top}px`,
+            height: `${height}px`
         };
     }
 
@@ -386,5 +461,21 @@ export class AmwCalendarFullComponent<T = any> extends AmwCalendarBaseComponent<
             default:
                 return false;
         }
+    }
+
+    /**
+     * Generate a unique ID for a drop target cell
+     */
+    getCellId(date: Date, hour?: Date, type: string = 'cell'): string {
+        const dateStr = date.toISOString().split('T')[0];
+        const hourStr = hour ? `-${hour.getHours()}` : '';
+        return `${type}-${dateStr}${hourStr}`;
+    }
+
+    /**
+     * Check if a cell is currently being hovered during drag
+     */
+    isCellDraggedOver(cellId: string): boolean {
+        return this.dragOverTarget === cellId;
     }
 }

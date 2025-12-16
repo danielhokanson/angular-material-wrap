@@ -116,10 +116,12 @@
               [class.amw-calendar-full__month-cell--current-month]="isCurrentMonth(date)"
               [class.amw-calendar-full__month-cell--today]="isToday(date)"
               [class.amw-calendar-full__month-cell--weekend]="isWeekend(date)"
+              [class.amw-calendar-full__month-cell--drag-over]="isCellDraggedOver(getCellId(date, undefined, 'month'))"
               #cellElement
               (click)="useNewItemSystem ? onCellClickForItem(date, undefined, cellElement) : onCellClick(date)"
               (dblclick)="useNewItemSystem ? onCellClickForItem(date, undefined, cellElement) : onCellDoubleClick(date)"
-              (dragover)="onDragOver($event)"
+              (dragover)="onDragOver($event, getCellId(date, undefined, 'month'))"
+              (dragleave)="onDragLeave($event, getCellId(date, undefined, 'month'))"
               (drop)="onDrop($event, date)">
               <div class="amw-calendar-full__cell-date">
                 {{ date.getDate() }}
@@ -162,8 +164,9 @@
     <!-- Week View -->
     @if (currentView === 'week') {
       <div class="amw-calendar-full__week-view">
-        <!-- Week Day Headers -->
-        <div class="amw-calendar-full__week-header">
+        <!-- Week Day Headers with Time Label -->
+        <div class="amw-calendar-full__week-time-grid-header">
+          <div class="amw-calendar-full__week-time-label">Time</div>
           @for (date of weekDays; track date) {
             <div
               class="amw-calendar-full__week-day-header"
@@ -178,40 +181,85 @@
             </div>
           }
         </div>
-        <!-- Week Grid -->
-        <div class="amw-calendar-full__week-grid">
+
+        <!-- All-Day Events Row -->
+        <div class="amw-calendar-full__week-allday-row">
+          <div class="amw-calendar-full__week-allday-label">All Day</div>
           @for (date of weekDays; track date) {
-            <div
-              class="amw-calendar-full__week-cell"
-              [class.amw-calendar-full__week-cell--today]="isToday(date)"
-              [class.amw-calendar-full__week-cell--weekend]="isWeekend(date)"
-              (click)="onCellClick(date)"
-              (dblclick)="onCellDoubleClick(date)"
-              (dragover)="onDragOver($event)"
-              (drop)="onDrop($event, date)">
-              <div class="amw-calendar-full__cell-events">
-                @for (event of getEventsForDate(date); track event) {
-                  <div
-                    class="amw-calendar-full__event"
-                    [class]="getEventClasses(event).join(' ')"
-                    [style.background-color]="getEventColor(event)"
-                    (click)="onEventClick(event, $event)"
-                    (dblclick)="onEventDoubleClick(event)"
-                    [draggable]="isEventDraggable(event)"
-                    (dragstart)="onDragStart($event, event)"
-                    (dragend)="onDragEnd()">
-                    <span class="amw-calendar-full__event-title">
-                      {{ getEventDisplayText(event) }}
-                    </span>
-                    @if (!event.allDay && internalConfig.showTime) {
-                      <span
-                        class="amw-calendar-full__event-time">
-                        {{ getFormattedTime(event.start) }}
-                      </span>
-                    }
-                  </div>
-                }
+            <div class="amw-calendar-full__week-allday-cell"
+                 [class.amw-calendar-full__week-allday-cell--drag-over]="isCellDraggedOver(getCellId(date, undefined, 'week-allday'))"
+                 (dragover)="onDragOver($event, getCellId(date, undefined, 'week-allday'))"
+                 (dragleave)="onDragLeave($event, getCellId(date, undefined, 'week-allday'))"
+                 (drop)="onDrop($event, date, undefined, true)">
+              @for (event of getAllDayEventsForDate(date); track event) {
+                <div
+                  class="amw-calendar-full__event amw-calendar-full__event--allday"
+                  [class]="getEventClasses(event).join(' ')"
+                  [style.background-color]="getEventColor(event)"
+                  (click)="onEventClick(event, $event)"
+                  (dblclick)="onEventDoubleClick(event)"
+                  [draggable]="isEventDraggable(event)"
+                  (dragstart)="onDragStart($event, event)"
+                  (dragend)="onDragEnd()">
+                  <span class="amw-calendar-full__event-title">
+                    {{ getEventDisplayText(event) }}
+                  </span>
+                </div>
+              }
+            </div>
+          }
+        </div>
+
+        <!-- Time Grid -->
+        <div class="amw-calendar-full__week-time-grid">
+          @for (hour of dayHours; track hour; let i = $index) {
+            <div class="amw-calendar-full__week-hour-row">
+              <!-- Hour Label -->
+              <div class="amw-calendar-full__week-hour-label">
+                {{ getFormattedTime(hour) }}
               </div>
+              <!-- Day Columns -->
+              @for (date of weekDays; track date) {
+                <div
+                  class="amw-calendar-full__week-hour-cell"
+                  [class.amw-calendar-full__week-hour-cell--today]="isToday(date)"
+                  [class.amw-calendar-full__week-hour-cell--weekend]="isWeekend(date)"
+                  [class.amw-calendar-full__week-hour-cell--drag-over]="isCellDraggedOver(getCellId(date, hour, 'week'))"
+                  (click)="onCellClick(date, hour)"
+                  (dblclick)="onCellDoubleClick(date, hour)"
+                  (dragover)="onDragOver($event, getCellId(date, hour, 'week'))"
+                  (dragleave)="onDragLeave($event, getCellId(date, hour, 'week'))"
+                  (drop)="onDrop($event, date, hour)">
+                  <!-- Events will be positioned absolutely within day columns -->
+                </div>
+              }
+            </div>
+          }
+
+          <!-- Absolutely positioned timed events for each day -->
+          @for (date of weekDays; track date; let dayIndex = $index) {
+            <div class="amw-calendar-full__week-day-events"
+                 [style.left]="'calc(80px + (100% - 80px) * ' + dayIndex + ' / 7)'"
+                 [style.width]="'calc((100% - 80px) / 7)'">
+              @for (event of getTimedEventsForDate(date); track event) {
+                <div
+                  class="amw-calendar-full__event"
+                  [class]="getEventClasses(event).join(' ')"
+                  [style.background-color]="getEventColor(event)"
+                  [style]="getEventPositionForWeek(event)"
+                  (click)="onEventClick(event, $event)"
+                  (dblclick)="onEventDoubleClick(event)"
+                  [draggable]="isEventDraggable(event)"
+                  (dragstart)="onDragStart($event, event)"
+                  (dragend)="onDragEnd()">
+                  <span class="amw-calendar-full__event-title">
+                    {{ getEventDisplayText(event) }}
+                  </span>
+                  <span class="amw-calendar-full__event-time">
+                    {{ getFormattedTime(event.start) }}
+                  </span>
+                </div>
+              }
             </div>
           }
         </div>
@@ -232,7 +280,11 @@
             <div class="amw-calendar-full__allday-label">
               All Day
             </div>
-            <div class="amw-calendar-full__allday-events">
+            <div class="amw-calendar-full__allday-events"
+                 [class.amw-calendar-full__allday-events--drag-over]="isCellDraggedOver(getCellId(selectedDate, undefined, 'day-allday'))"
+                 (dragover)="onDragOver($event, getCellId(selectedDate, undefined, 'day-allday'))"
+                 (dragleave)="onDragLeave($event, getCellId(selectedDate, undefined, 'day-allday'))"
+                 (drop)="onDrop($event, selectedDate, undefined, true)">
               @for (event of getAllDayEventsForDate(selectedDate); track event) {
                 <div
                   class="amw-calendar-full__event amw-calendar-full__event--allday"
@@ -264,9 +316,11 @@
             @for (hour of dayHours; track hour; let i = $index) {
               <div
                 class="amw-calendar-full__day-hour"
+                [class.amw-calendar-full__day-hour--drag-over]="isCellDraggedOver(getCellId(selectedDate, hour, 'day'))"
                 (click)="onCellClick(selectedDate, hour)"
                 (dblclick)="onCellDoubleClick(selectedDate, hour)"
-                (dragover)="onDragOver($event)"
+                (dragover)="onDragOver($event, getCellId(selectedDate, hour, 'day'))"
+                (dragleave)="onDragLeave($event, getCellId(selectedDate, hour, 'day'))"
                 (drop)="onDrop($event, selectedDate, hour)">
                 <div class="amw-calendar-full__hour-label">
                   {{ getFormattedTime(hour) }}

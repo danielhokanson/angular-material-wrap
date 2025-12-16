@@ -41,7 +41,7 @@ export abstract class AmwCalendarBaseComponent<T = any> implements OnInit, OnCha
     @Output() eventDoubleClick = new EventEmitter<CalendarEvent<T>>();
     @Output() eventEdit = new EventEmitter<CalendarEvent<T>>();
     @Output() eventDelete = new EventEmitter<CalendarEvent<T>>();
-    @Output() eventMove = new EventEmitter<{ event: CalendarEvent<T>; newStart: Date; newEnd?: Date }>();
+    @Output() eventMove = new EventEmitter<{ event: CalendarEvent<T>; newStart: Date; newEnd?: Date; allDay?: boolean }>();
     @Output() navigationChange = new EventEmitter<CalendarNavigationEvent>();
     @Output() viewChange = new EventEmitter<CalendarView>();
     @Output() dateChange = new EventEmitter<Date>();
@@ -286,10 +286,10 @@ export abstract class AmwCalendarBaseComponent<T = any> implements OnInit, OnCha
     /**
      * Move an event
      */
-    moveEvent(event: CalendarEvent<T>, newStart: Date, newEnd?: Date): void {
+    moveEvent(event: CalendarEvent<T>, newStart: Date, newEnd?: Date, allDay?: boolean): void {
         if (!this.isEventDraggable(event)) return;
 
-        this.eventMove.emit({ event, newStart, newEnd });
+        this.eventMove.emit({ event, newStart, newEnd, allDay });
     }
 
     /**

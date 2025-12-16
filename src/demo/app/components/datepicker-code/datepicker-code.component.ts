@@ -1,9 +1,11 @@
-import { Component, ViewEncapsulation } from '@angular/core';
-import { FormsModule } from '@angular/forms';
+import { Component, ViewEncapsulation, OnInit } from '@angular/core';
+import { FormsModule, ReactiveFormsModule, FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { MatExpansionModule } from '@angular/material/expansion';
 import { MatButtonModule } from '@angular/material/button';
 import { MatIconModule } from '@angular/material/icon';
+import { CommonModule } from '@angular/common';
 import { BaseCodeComponent } from '../base/base-code.component';
+import { AmwDatepickerComponent } from '../../../../library/src/controls/components/amw-datepicker/amw-datepicker.component';
 
 type DatepickerExamples = 'basic' | 'withMinMax' | 'withValidation' | 'differentFormats' | 'disabled' | 'reactiveForm' | 'withEvents' | 'bookingForm';
 
@@ -11,21 +13,32 @@ type DatepickerExamples = 'basic' | 'withMinMax' | 'withValidation' | 'different
   selector: 'amw-demo-datepicker-code',
   standalone: true,
   imports: [
+    CommonModule,
     FormsModule,
+    ReactiveFormsModule,
     MatExpansionModule,
     MatButtonModule,
-    MatIconModule
+    MatIconModule,
+    AmwDatepickerComponent
   ],
   encapsulation: ViewEncapsulation.None,
   templateUrl: './datepicker-code.component.html',
   styleUrl: './datepicker-code.component.scss'
 })
-export class DatepickerCodeComponent extends BaseCodeComponent<DatepickerExamples> {
+export class DatepickerCodeComponent extends BaseCodeComponent<DatepickerExamples> implements OnInit {
   // State for live preview examples
   selectedDate = new Date();
   minDate = new Date(1900, 0, 1);
   maxDate = new Date();
+  currentDate = new Date();
   birthDate = new Date(1990, 0, 1);
+  shortDate = new Date();
+  longDate = new Date();
+  customDate = new Date();
+  eventDate = new Date();
+  isDisabled = false;
+  dateForm!: FormGroup;
+  bookingForm!: FormGroup;
 
   // Original code examples (for reset functionality)
   readonly codeExamples: Record<DatepickerExamples, string> = {
@@ -202,8 +215,25 @@ onDatepickerClosed(): void {
 </form>`
   };
 
-  constructor() {
+  constructor(private fb: FormBuilder) {
     super();
+  }
+
+  override ngOnInit(): void {
+    super.ngOnInit();
+
+    // Initialize form for validation example
+    this.dateForm = this.fb.group({
+      startDate: ['', Validators.required]
+    });
+
+    // Initialize booking form
+    this.bookingForm = this.fb.group({
+      eventDate: ['', Validators.required],
+      startTime: ['', Validators.required],
+      endTime: ['', Validators.required],
+      setupDate: ['']
+    });
   }
 
   // Event handlers for event example

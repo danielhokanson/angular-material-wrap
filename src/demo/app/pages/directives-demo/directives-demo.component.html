@@ -209,6 +209,296 @@
                       </div>
                     </div>
                   }
+                  @case ('auto-focus') {
+                    <div class="auto-focus-code-examples">
+                      <h3>Auto Focus Code Examples</h3>
+                      <p>Interactive examples showing different auto focus configurations.</p>
+
+                      <div class="code-example">
+                        <h4>Basic Usage</h4>
+                        <pre><code>{{ autoFocusCodeExamples.basic }}</code></pre>
+                        <div class="preview">
+                          <mat-form-field appearance="outline">
+                            <mat-label>Auto-focused Input</mat-label>
+                            <input matInput name="basicAutoFocus" [amwAutoFocus]="true" placeholder="Type here...">
+                          </mat-form-field>
+                        </div>
+                      </div>
+
+                      <div class="code-example">
+                        <h4>Auto Focus on Button</h4>
+                        <pre><code>{{ autoFocusCodeExamples.button }}</code></pre>
+                        <div class="preview">
+                          <button mat-raised-button color="primary" [amwAutoFocus]="true">
+                            Auto-focused Button
+                          </button>
+                        </div>
+                      </div>
+
+                      <div class="code-example">
+                        <h4>Delayed Focus</h4>
+                        <pre><code>{{ autoFocusCodeExamples.delayed }}</code></pre>
+                        <div class="preview">
+                          <mat-form-field appearance="outline">
+                            <mat-label>Delayed Focus (500ms)</mat-label>
+                            <input matInput
+                              name="delayedAutoFocus"
+                              [amwAutoFocus]="true"
+                              [amwAutoFocusDelay]="500"
+                              placeholder="Focus after 500ms">
+                          </mat-form-field>
+                        </div>
+                      </div>
+
+                      <div class="code-example">
+                        <h4>Conditional Auto Focus</h4>
+                        <pre><code>{{ autoFocusCodeExamples.conditional }}</code></pre>
+                        <div class="preview">
+                          <mat-form-field appearance="outline">
+                            <mat-label>Conditionally Focused</mat-label>
+                            <input matInput
+                              name="conditionalAutoFocus"
+                              [amwAutoFocus]="true"
+                              placeholder="Focus when condition is true">
+                          </mat-form-field>
+                        </div>
+                      </div>
+
+                      <div class="code-example">
+                        <h4>Container with Auto Focus</h4>
+                        <pre><code>{{ autoFocusCodeExamples.container }}</code></pre>
+                        <div class="preview">
+                          <div [amwAutoFocus]="true" style="border: 1px dashed #ccc; padding: 16px;">
+                            <mat-form-field appearance="outline">
+                              <mat-label>First Input (will be focused)</mat-label>
+                              <input matInput name="firstInput" placeholder="Gets focus">
+                            </mat-form-field>
+                            <mat-form-field appearance="outline">
+                              <mat-label>Second Input</mat-label>
+                              <input matInput name="secondInput" placeholder="Not focused">
+                            </mat-form-field>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  }
+                  @case ('copy-to-clipboard') {
+                    <div class="copy-to-clipboard-code-examples">
+                      <h3>Copy to Clipboard Code Examples</h3>
+                      <p>Interactive examples showing different copy to clipboard configurations.</p>
+
+                      <div class="code-example">
+                        <h4>Basic Usage</h4>
+                        <pre><code>{{ copyToClipboardCodeExamples.basic }}</code></pre>
+                        <div class="preview">
+                          <button mat-raised-button color="primary"
+                            amwCopyToClipboard
+                            [amwCopyToClipboard]="copyText">
+                            <mat-icon>content_copy</mat-icon>
+                            Copy Text
+                          </button>
+                        </div>
+                      </div>
+
+                      <div class="code-example">
+                        <h4>Copy from Input Field</h4>
+                        <pre><code>{{ copyToClipboardCodeExamples.fromInput }}</code></pre>
+                        <div class="preview">
+                          <mat-form-field appearance="outline">
+                            <mat-label>Text to copy</mat-label>
+                            <input matInput name="copyFromInput" [(ngModel)]="copyText">
+                          </mat-form-field>
+                          <button mat-raised-button
+                            amwCopyToClipboard
+                            [amwCopyToClipboard]="copyText">
+                            Copy
+                          </button>
+                        </div>
+                      </div>
+
+                      <div class="code-example">
+                        <h4>With Event Handling</h4>
+                        <pre><code>{{ copyToClipboardCodeExamples.withEvents }}</code></pre>
+                        <div class="preview">
+                          <button mat-raised-button
+                            amwCopyToClipboard
+                            [amwCopyToClipboard]="codeExample"
+                            (amwCopySuccess)="snackBar.open('Copied: ' + $event, 'Close', { duration: 2000 })"
+                            (amwCopyError)="snackBar.open('Copy failed: ' + $event.message, 'Close', { duration: 2000 })">
+                            Copy Code
+                          </button>
+                        </div>
+                      </div>
+
+                      <div class="code-example">
+                        <h4>Custom Messages</h4>
+                        <pre><code>{{ copyToClipboardCodeExamples.customMessages }}</code></pre>
+                        <div class="preview">
+                          <button mat-icon-button
+                            amwCopyToClipboard
+                            [amwCopyToClipboard]="codeExample"
+                            amwCopySuccessMessage="Code copied!"
+                            amwCopyErrorMessage="Failed to copy code">
+                            <mat-icon>content_copy</mat-icon>
+                          </button>
+                        </div>
+                      </div>
+
+                      <div class="code-example">
+                        <h4>Disable Built-in Toast</h4>
+                        <pre><code>{{ copyToClipboardCodeExamples.noToast }}</code></pre>
+                        <div class="preview">
+                          <button mat-raised-button
+                            amwCopyToClipboard
+                            [amwCopyToClipboard]="copyText"
+                            [amwCopyShowToast]="false"
+                            (amwCopySuccess)="snackBar.open('Copied!', 'Close', { duration: 2000 })">
+                            Copy (Custom Notification)
+                          </button>
+                        </div>
+                      </div>
+
+                      <div class="code-example">
+                        <h4>Copy Code Block</h4>
+                        <pre><code>{{ copyToClipboardCodeExamples.codeBlock }}</code></pre>
+                        <div class="preview">
+                          <div class="code-container" style="position: relative; border: 1px solid #ccc; border-radius: 4px; padding: 16px; background: #f5f5f5;">
+                            <pre><code>{{ codeExample }}</code></pre>
+                            <button mat-icon-button
+                              amwCopyToClipboard
+                              [amwCopyToClipboard]="codeExample"
+                              title="Copy code"
+                              style="position: absolute; top: 8px; right: 8px;">
+                              <mat-icon>content_copy</mat-icon>
+                            </button>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  }
+                  @case ('click-outside') {
+                    <div class="click-outside-code-examples">
+                      <h3>Click Outside Code Examples</h3>
+                      <p>Interactive examples showing different click outside detection scenarios.</p>
+
+                      <div class="code-example">
+                        <h4>Basic Usage</h4>
+                        <pre><code>{{ clickOutsideCodeExamples.basic }}</code></pre>
+                        <div class="preview">
+                          <div class="content-box"
+                            (amwClickOutside)="snackBar.open('Clicked outside!', 'Close', { duration: 2000 })"
+                            style="padding: 20px; border: 2px solid #1976d2; border-radius: 4px; background: #e3f2fd; cursor: pointer;">
+                            <h4 style="margin: 0 0 8px 0;">Click outside this box</h4>
+                            <p style="margin: 0;">Click anywhere outside to trigger the event</p>
+                          </div>
+                        </div>
+                      </div>
+
+                      <div class="code-example">
+                        <h4>Dropdown Menu</h4>
+                        <pre><code>{{ clickOutsideCodeExamples.dropdown }}</code></pre>
+                        <div class="preview">
+                          <button mat-raised-button color="primary" (click)="boxClicked = !boxClicked">
+                            {{ boxClicked ? 'Close Menu' : 'Open Menu' }}
+                          </button>
+                          @if (boxClicked) {
+                            <div class="dropdown-menu"
+                              (amwClickOutside)="boxClicked = false"
+                              style="margin-top: 8px; padding: 8px; border: 1px solid #ccc; border-radius: 4px; background: white; box-shadow: 0 2px 4px rgba(0,0,0,0.1);">
+                              <div style="padding: 8px; cursor: pointer;" (click)="boxClicked = false">Option 1</div>
+                              <div style="padding: 8px; cursor: pointer;" (click)="boxClicked = false">Option 2</div>
+                              <div style="padding: 8px; cursor: pointer;" (click)="boxClicked = false">Option 3</div>
+                            </div>
+                          }
+                        </div>
+                      </div>
+
+                      <div class="code-example">
+                        <h4>Modal/Dialog</h4>
+                        <pre><code>{{ clickOutsideCodeExamples.modal }}</code></pre>
+                        <div class="preview">
+                          <button mat-raised-button color="accent" (click)="boxClicked = !boxClicked">
+                            {{ boxClicked ? 'Close Modal' : 'Open Modal' }}
+                          </button>
+                          @if (boxClicked) {
+                            <div style="position: fixed; top: 0; left: 0; right: 0; bottom: 0; background: rgba(0,0,0,0.5); display: flex; align-items: center; justify-content: center; z-index: 1000;">
+                              <div class="modal-content"
+                                (amwClickOutside)="boxClicked = false"
+                                style="background: white; padding: 24px; border-radius: 8px; max-width: 400px; box-shadow: 0 4px 8px rgba(0,0,0,0.2);">
+                                <h3 style="margin-top: 0;">Modal Title</h3>
+                                <p>Click outside this modal to close it</p>
+                                <button mat-button (click)="boxClicked = false">Close</button>
+                              </div>
+                            </div>
+                          }
+                        </div>
+                      </div>
+
+                      <div class="code-example">
+                        <h4>Conditional Handling</h4>
+                        <pre><code>{{ clickOutsideCodeExamples.conditional }}</code></pre>
+                        <div class="preview">
+                          <p style="margin-bottom: 8px; color: #666;">Click the text below to edit, click outside to save</p>
+                          <div class="editable-field"
+                            [class.editing]="boxClicked"
+                            (amwClickOutside)="boxClicked = false"
+                            style="padding: 12px; border: 2px dashed #ccc; border-radius: 4px; cursor: pointer;">
+                            @if (boxClicked) {
+                              <input matInput
+                                name="editableField"
+                                [(ngModel)]="copyText"
+                                [amwAutoFocus]="true"
+                                style="width: 100%; border: none; outline: none; font-size: 14px;">
+                            } @else {
+                              <span (click)="boxClicked = true">{{ copyText }}</span>
+                            }
+                          </div>
+                        </div>
+                      </div>
+
+                      <div class="code-example">
+                        <h4>Multiple Elements</h4>
+                        <pre><code>{{ clickOutsideCodeExamples.multiElement }}</code></pre>
+                        <div class="preview">
+                          <p style="margin-bottom: 8px; color: #666;">Click panels to activate, click outside to deactivate</p>
+                          <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 16px;">
+                            <div class="panel"
+                              [class.active]="boxClicked"
+                              (click)="boxClicked = true"
+                              (amwClickOutside)="boxClicked && (boxClicked = false)"
+                              [style.border]="boxClicked ? '2px solid #1976d2' : '2px solid #ccc'"
+                              [style.background]="boxClicked ? '#e3f2fd' : '#f5f5f5'"
+                              style="padding: 16px; border-radius: 4px; cursor: pointer;">
+                              <h4 style="margin: 0 0 8px 0;">Panel 1</h4>
+                              <p style="margin: 0;">Content for panel 1</p>
+                            </div>
+                            <div style="padding: 16px; border: 2px solid #ccc; border-radius: 4px; background: #f5f5f5;">
+                              <h4 style="margin: 0 0 8px 0;">Panel 2</h4>
+                              <p style="margin: 0;">Content for panel 2</p>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+
+                      <div class="code-example">
+                        <h4>Access Click Event</h4>
+                        <pre><code>{{ clickOutsideCodeExamples.withEvent }}</code></pre>
+                        <div class="preview">
+                          <button mat-raised-button (click)="boxClicked = !boxClicked">
+                            {{ boxClicked ? 'Hide Menu' : 'Show Menu' }}
+                          </button>
+                          @if (boxClicked) {
+                            <div class="context-menu"
+                              (amwClickOutside)="snackBar.open('Click event detected!', 'Close', { duration: 2000 }); boxClicked = false"
+                              style="margin-top: 8px; padding: 16px; border: 1px solid #ccc; border-radius: 4px; background: white; box-shadow: 0 2px 4px rgba(0,0,0,0.1);">
+                              <button mat-menu-item style="display: block; width: 100%; text-align: left; padding: 8px; border: none; background: none; cursor: pointer;">Action 1</button>
+                              <button mat-menu-item style="display: block; width: 100%; text-align: left; padding: 8px; border: none; background: none; cursor: pointer;">Action 2</button>
+                            </div>
+                          }
+                        </div>
+                      </div>
+                    </div>
+                  }
                   @default {
                     <h3>{{ selectedDirective.name }} Directive Code</h3>
                     <p>Code examples will be available soon.</p>
@@ -299,6 +589,271 @@
                             <code>[tooltipDisabled]="true"</code>
                           </div>
                         </div>
+                      </div>
+                    </div>
+                  }
+                  @case ('auto-focus') {
+                    <div class="auto-focus-api">
+                      <h3>Auto Focus Directive API</h3>
+                      <p>Complete reference for the amwAutoFocus directive properties.</p>
+
+                      <div class="api-section__inputs">
+                        <h4>Directive Inputs</h4>
+                        <div class="api-table">
+                          <div class="api-table__header">
+                            <div class="api-table__cell">Property</div>
+                            <div class="api-table__cell">Type</div>
+                            <div class="api-table__cell">Default</div>
+                            <div class="api-table__cell">Description</div>
+                          </div>
+                          @for (input of autoFocusApiDocumentation.inputs; track input.name) {
+                            <div class="api-table__row">
+                              <div class="api-table__cell api-table__cell--property">{{ input.name }}</div>
+                              <div class="api-table__cell api-table__cell--type">{{ input.type }}</div>
+                              <div class="api-table__cell api-table__cell--default">{{ input.default }}</div>
+                              <div class="api-table__cell api-table__cell--description">{{ input.description }}</div>
+                            </div>
+                          }
+                        </div>
+                      </div>
+
+                      <div class="api-section__usage">
+                        <h4>Usage Notes</h4>
+                        <ul>
+                          <li><strong>Basic Usage:</strong> Use <code>[amwAutoFocus]="true"</code> to automatically focus an element</li>
+                          <li><strong>Delayed Focus:</strong> Use <code>[amwAutoFocusDelay]="milliseconds"</code> to delay the focus action</li>
+                          <li><strong>Conditional Focus:</strong> Bind the <code>amwAutoFocus</code> input to a boolean property to control when focus occurs</li>
+                          <li><strong>Container Elements:</strong> When applied to non-focusable elements, the directive will find and focus the first focusable child</li>
+                          <li><strong>Focusable Elements:</strong> Works with input, textarea, select, button, and elements with tabindex</li>
+                          <li><strong>Timing:</strong> Focus occurs in ngOnInit (immediate) or ngAfterViewInit (with delay)</li>
+                          <li><strong>Accessibility:</strong> Ensures keyboard navigation works properly by focusing interactive elements</li>
+                        </ul>
+                      </div>
+
+                      <div class="api-section__examples">
+                        <h4>Quick Examples</h4>
+                        <div class="example-grid">
+                          <div class="example-item">
+                            <strong>Basic:</strong>
+                            <code>[amwAutoFocus]="true"</code>
+                          </div>
+                          <div class="example-item">
+                            <strong>With delay:</strong>
+                            <code>[amwAutoFocusDelay]="500"</code>
+                          </div>
+                          <div class="example-item">
+                            <strong>Conditional:</strong>
+                            <code>[amwAutoFocus]="isVisible"</code>
+                          </div>
+                          <div class="example-item">
+                            <strong>Disabled:</strong>
+                            <code>[amwAutoFocus]="false"</code>
+                          </div>
+                        </div>
+                      </div>
+
+                      <div class="api-section__behavior">
+                        <h4>Behavior Details</h4>
+                        <p><strong>Element Selection Priority:</strong></p>
+                        <ol>
+                          <li>If the host element is focusable (input, button, etc.), it will be focused directly</li>
+                          <li>If the host element is not focusable, the directive searches for the first focusable child element</li>
+                          <li>Focusable children include: input, textarea, select, button, anchor, and elements with tabindex (except tabindex="-1")</li>
+                        </ol>
+                      </div>
+                    </div>
+                  }
+                  @case ('copy-to-clipboard') {
+                    <div class="copy-to-clipboard-api">
+                      <h3>Copy to Clipboard Directive API</h3>
+                      <p>Complete reference for the amwCopyToClipboard directive properties and events.</p>
+
+                      <div class="api-section__inputs">
+                        <h4>Directive Inputs</h4>
+                        <div class="api-table">
+                          <div class="api-table__header">
+                            <div class="api-table__cell">Property</div>
+                            <div class="api-table__cell">Type</div>
+                            <div class="api-table__cell">Default</div>
+                            <div class="api-table__cell">Description</div>
+                          </div>
+                          @for (input of copyToClipboardApiDocumentation.inputs; track input.name) {
+                            <div class="api-table__row">
+                              <div class="api-table__cell api-table__cell--property">{{ input.name }}</div>
+                              <div class="api-table__cell api-table__cell--type">{{ input.type }}</div>
+                              <div class="api-table__cell api-table__cell--default">{{ input.default }}</div>
+                              <div class="api-table__cell api-table__cell--description">{{ input.description }}</div>
+                            </div>
+                          }
+                        </div>
+                      </div>
+
+                      <div class="api-section__outputs">
+                        <h4>Directive Outputs</h4>
+                        <div class="api-table">
+                          <div class="api-table__header">
+                            <div class="api-table__cell">Event</div>
+                            <div class="api-table__cell">Type</div>
+                            <div class="api-table__cell">Description</div>
+                          </div>
+                          @for (output of copyToClipboardApiDocumentation.outputs; track output.name) {
+                            <div class="api-table__row">
+                              <div class="api-table__cell api-table__cell--property">{{ output.name }}</div>
+                              <div class="api-table__cell api-table__cell--type">{{ output.type }}</div>
+                              <div class="api-table__cell api-table__cell--description">{{ output.description }}</div>
+                            </div>
+                          }
+                        </div>
+                      </div>
+
+                      <div class="api-section__usage">
+                        <h4>Usage Notes</h4>
+                        <ul>
+                          <li><strong>Basic Usage:</strong> Use <code>[amwCopyToClipboard]="text"</code> to copy specific text to the clipboard</li>
+                          <li><strong>Auto-detect:</strong> If no text is provided, the directive will attempt to copy the element's text content or value</li>
+                          <li><strong>Toast Notifications:</strong> Built-in toast messages display on success/error by default (can be disabled)</li>
+                          <li><strong>Custom Messages:</strong> Use <code>amwCopySuccessMessage</code> and <code>amwCopyErrorMessage</code> to customize toast messages</li>
+                          <li><strong>Event Handling:</strong> Listen to <code>(amwCopySuccess)</code> and <code>(amwCopyError)</code> for custom handling</li>
+                          <li><strong>Disable Toast:</strong> Set <code>[amwCopyShowToast]="false"</code> to disable built-in notifications</li>
+                          <li><strong>Clipboard API:</strong> Uses the modern Clipboard API for secure copy operations</li>
+                          <li><strong>Browser Support:</strong> Requires HTTPS in production environments (HTTP works on localhost)</li>
+                        </ul>
+                      </div>
+
+                      <div class="api-section__examples">
+                        <h4>Quick Examples</h4>
+                        <div class="example-grid">
+                          <div class="example-item">
+                            <strong>Basic:</strong>
+                            <code>[amwCopyToClipboard]="text"</code>
+                          </div>
+                          <div class="example-item">
+                            <strong>Custom message:</strong>
+                            <code>amwCopySuccessMessage="Copied!"</code>
+                          </div>
+                          <div class="example-item">
+                            <strong>No toast:</strong>
+                            <code>[amwCopyShowToast]="false"</code>
+                          </div>
+                          <div class="example-item">
+                            <strong>With events:</strong>
+                            <code>(amwCopySuccess)="handleCopy($event)"</code>
+                          </div>
+                        </div>
+                      </div>
+
+                      <div class="api-section__behavior">
+                        <h4>Behavior Details</h4>
+                        <p><strong>Copy Priority:</strong></p>
+                        <ol>
+                          <li>If <code>amwCopyToClipboard</code> input has a value, that text will be copied</li>
+                          <li>If the input is empty and the element is an input/textarea, its value will be copied</li>
+                          <li>If the input is empty and the element is not an input, its textContent will be copied</li>
+                        </ol>
+                        <p><strong>Event Sequence:</strong></p>
+                        <ol>
+                          <li>User clicks the element with the directive</li>
+                          <li>Directive attempts to copy text using the Clipboard API</li>
+                          <li>On success: <code>amwCopySuccess</code> event is emitted (if subscribed), toast is shown (if enabled)</li>
+                          <li>On error: <code>amwCopyError</code> event is emitted (if subscribed), error toast is shown (if enabled)</li>
+                        </ol>
+                        <p><strong>Security Considerations:</strong></p>
+                        <ul>
+                          <li>The Clipboard API requires a secure context (HTTPS) in production</li>
+                          <li>Localhost is considered secure for development</li>
+                          <li>Some browsers may prompt the user for clipboard permission</li>
+                        </ul>
+                      </div>
+                    </div>
+                  }
+                  @case ('click-outside') {
+                    <div class="click-outside-api">
+                      <h3>Click Outside Directive API</h3>
+                      <p>Complete reference for the amwClickOutside directive output event.</p>
+
+                      <div class="api-section__outputs">
+                        <h4>Directive Output</h4>
+                        <div class="api-table">
+                          <div class="api-table__header">
+                            <div class="api-table__cell">Event</div>
+                            <div class="api-table__cell">Type</div>
+                            <div class="api-table__cell">Description</div>
+                          </div>
+                          @for (output of clickOutsideApiDocumentation.outputs; track output.name) {
+                            <div class="api-table__row">
+                              <div class="api-table__cell api-table__cell--property">{{ output.name }}</div>
+                              <div class="api-table__cell api-table__cell--type">{{ output.type }}</div>
+                              <div class="api-table__cell api-table__cell--description">{{ output.description }}</div>
+                            </div>
+                          }
+                        </div>
+                      </div>
+
+                      <div class="api-section__usage">
+                        <h4>Usage Notes</h4>
+                        <ul>
+                          <li><strong>Basic Usage:</strong> Use <code>(amwClickOutside)="handler()"</code> to detect clicks outside an element</li>
+                          <li><strong>Event Object:</strong> The emitted Event object contains information about the click (target, coordinates, etc.)</li>
+                          <li><strong>Event Propagation:</strong> Clicks inside the element are stopped from propagating to prevent false triggers</li>
+                          <li><strong>Document Listener:</strong> The directive attaches a listener to the document to detect all clicks</li>
+                          <li><strong>Automatic Cleanup:</strong> The document listener is automatically removed when the directive is destroyed</li>
+                          <li><strong>Common Use Cases:</strong> Closing dropdowns, menus, modals, and dismissing popups</li>
+                          <li><strong>Multiple Elements:</strong> Can be applied to multiple elements independently on the same page</li>
+                          <li><strong>Performance:</strong> Uses Renderer2 for efficient event handling and cleanup</li>
+                        </ul>
+                      </div>
+
+                      <div class="api-section__examples">
+                        <h4>Quick Examples</h4>
+                        <div class="example-grid">
+                          <div class="example-item">
+                            <strong>Basic:</strong>
+                            <code>(amwClickOutside)="close()"</code>
+                          </div>
+                          <div class="example-item">
+                            <strong>With event:</strong>
+                            <code>(amwClickOutside)="handler($event)"</code>
+                          </div>
+                          <div class="example-item">
+                            <strong>Conditional:</strong>
+                            <code>(amwClickOutside)="isOpen && close()"</code>
+                          </div>
+                          <div class="example-item">
+                            <strong>Toggle:</strong>
+                            <code>(amwClickOutside)="isOpen = false"</code>
+                          </div>
+                        </div>
+                      </div>
+
+                      <div class="api-section__behavior">
+                        <h4>Behavior Details</h4>
+                        <p><strong>How It Works:</strong></p>
+                        <ol>
+                          <li>When the directive initializes, it attaches a click listener to the document</li>
+                          <li>When a click occurs anywhere on the page, the directive checks if the click target is inside the element</li>
+                          <li>If the click is outside, the <code>amwClickOutside</code> event is emitted</li>
+                          <li>If the click is inside the element, it stops propagation to prevent the document listener from triggering</li>
+                        </ol>
+                        <p><strong>Event Propagation:</strong></p>
+                        <ul>
+                          <li>Clicks inside the directive's host element have their propagation stopped automatically</li>
+                          <li>This prevents the "click outside" event from triggering when clicking inside the element</li>
+                          <li>The original click event still triggers normally on the clicked element</li>
+                        </ul>
+                        <p><strong>Lifecycle:</strong></p>
+                        <ul>
+                          <li><strong>ngOnInit:</strong> Document click listener is attached</li>
+                          <li><strong>ngOnDestroy:</strong> Document click listener is removed to prevent memory leaks</li>
+                          <li>The directive handles cleanup automatically - no manual cleanup required</li>
+                        </ul>
+                        <p><strong>Common Patterns:</strong></p>
+                        <ul>
+                          <li><strong>Dropdown Menus:</strong> Close menu when clicking outside the dropdown container</li>
+                          <li><strong>Modal Dialogs:</strong> Close modal when clicking the backdrop outside the modal content</li>
+                          <li><strong>Editable Fields:</strong> Save changes when clicking outside an inline edit form</li>
+                          <li><strong>Context Menus:</strong> Dismiss context menu when clicking elsewhere on the page</li>
+                          <li><strong>Popups/Tooltips:</strong> Hide popup when user clicks outside the popup area</li>
+                        </ul>
                       </div>
                     </div>
                   }

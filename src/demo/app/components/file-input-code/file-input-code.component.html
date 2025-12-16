@@ -26,9 +26,15 @@
             spellcheck="false"></textarea>
         </div>
         <div class="preview-panel">
-          <h4>Live Preview</h4>
+          <h4>Preview</h4>
           <div class="preview-content">
-            <p class="preview-note">Note: This is a placeholder preview. Actual file input component integration would go here.</p>
+            <amw-file-input
+              [(selectedFiles)]="basicFiles"
+              (filesChange)="onFilesChange($event)"
+              (fileSelect)="onFileSelect($event)"
+              (fileRemove)="onFileRemove($event)">
+            </amw-file-input>
+            <p *ngIf="basicFiles.length > 0">Selected files: {{ basicFiles.length }}</p>
           </div>
         </div>
       </div>
@@ -57,9 +63,21 @@
             spellcheck="false"></textarea>
         </div>
         <div class="preview-panel">
-          <h4>Live Preview</h4>
+          <h4>Preview</h4>
           <div class="preview-content">
-            <p class="preview-note">Note: This is a placeholder preview. Actual file input component integration would go here.</p>
+            <amw-file-input
+              [multiple]="true"
+              [accept]="'image/*'"
+              [maxSize]="5 * 1024 * 1024"
+              [maxFiles]="5"
+              [showPreview]="true"
+              [allowDragDrop]="true"
+              [selectedFiles]="imageFiles"
+              (filesChange)="onImageFilesChange($event)"
+              placeholder="Upload images (max 5MB each)"
+              buttonText="Choose Images">
+            </amw-file-input>
+            <p *ngIf="imageFiles.length > 0">Selected images: {{ imageFiles.length }}</p>
           </div>
         </div>
       </div>
@@ -88,9 +106,19 @@
             spellcheck="false"></textarea>
         </div>
         <div class="preview-panel">
-          <h4>Live Preview</h4>
+          <h4>Preview</h4>
           <div class="preview-content">
-            <p class="preview-note">Note: This is a placeholder preview. Actual form component integration would go here.</p>
+            <form [formGroup]="fileForm">
+              <amw-file-input
+                formControlName="profileImage"
+                [accept]="'image/*'"
+                [maxSize]="5 * 1024 * 1024"
+                [hasError]="!!(fileForm.get('profileImage')?.invalid && fileForm.get('profileImage')?.touched)">
+                Profile Image
+              </amw-file-input>
+            </form>
+            <p>Form valid: {{ fileForm.valid ? 'Yes' : 'No' }}</p>
+            <p *ngIf="fileForm.get('profileImage')?.hasError('minFiles')">At least one file is required</p>
           </div>
         </div>
       </div>
@@ -119,9 +147,20 @@
             spellcheck="false"></textarea>
         </div>
         <div class="preview-panel">
-          <h4>Live Preview</h4>
+          <h4>Preview</h4>
           <div class="preview-content">
-            <p class="preview-note">Note: This is a placeholder preview. Actual validation component integration would go here.</p>
+            <form [formGroup]="fileForm">
+              <amw-file-input
+                formControlName="documents"
+                [accept]="'.pdf'"
+                [maxSize]="10 * 1024 * 1024"
+                [hasError]="!!(fileForm.get('documents')?.invalid && fileForm.get('documents')?.touched)"
+                [errorMessage]="getErrorMessage('documents')">
+                Upload Documents
+              </amw-file-input>
+            </form>
+            <p>Form valid: {{ fileForm.valid ? 'Yes' : 'No' }}</p>
+            <p *ngIf="fileForm.get('documents')?.errors" class="error-text">{{ getErrorMessage('documents') }}</p>
           </div>
         </div>
       </div>
@@ -150,9 +189,18 @@
             spellcheck="false"></textarea>
         </div>
         <div class="preview-panel">
-          <h4>Live Preview</h4>
+          <h4>Preview</h4>
           <div class="preview-content">
-            <p class="preview-note">Note: This is a placeholder preview. Actual drag & drop component integration would go here.</p>
+            <amw-file-input
+              [allowDragDrop]="true"
+              [multiple]="true"
+              [accept]="'*/*'"
+              [selectedFiles]="dragDropFiles"
+              (filesChange)="onFilesChange($event)"
+              placeholder="Drag and drop files here or click to browse"
+              dropText="Drop files here to upload">
+            </amw-file-input>
+            <p *ngIf="dragDropFiles.length > 0">Dropped files: {{ dragDropFiles.length }}</p>
           </div>
         </div>
       </div>
@@ -181,9 +229,27 @@
             spellcheck="false"></textarea>
         </div>
         <div class="preview-panel">
-          <h4>Live Preview</h4>
+          <h4>Preview</h4>
           <div class="preview-content">
-            <p class="preview-note">Note: This is a placeholder preview. Actual file type restriction examples would go here.</p>
+            <!-- Images only -->
+            <amw-file-input [accept]="'image/*'" [selectedFiles]="imageOnlyFiles">Images</amw-file-input>
+            <p *ngIf="imageOnlyFiles.length > 0">Images: {{ imageOnlyFiles.length }}</p>
+
+            <!-- Specific extensions -->
+            <amw-file-input [accept]="'.jpg,.jpeg,.png,.gif'" [selectedFiles]="specificImageFiles">Specific Images</amw-file-input>
+            <p *ngIf="specificImageFiles.length > 0">Specific images: {{ specificImageFiles.length }}</p>
+
+            <!-- PDF only -->
+            <amw-file-input [accept]="'application/pdf'" [selectedFiles]="pdfFiles">PDF Files</amw-file-input>
+            <p *ngIf="pdfFiles.length > 0">PDFs: {{ pdfFiles.length }}</p>
+
+            <!-- Multiple types -->
+            <amw-file-input [accept]="'image/*,application/pdf'" [selectedFiles]="mixedFiles">Images & PDFs</amw-file-input>
+            <p *ngIf="mixedFiles.length > 0">Mixed files: {{ mixedFiles.length }}</p>
+
+            <!-- Video files -->
+            <amw-file-input [accept]="'video/*'" [selectedFiles]="videoFiles">Video Files</amw-file-input>
+            <p *ngIf="videoFiles.length > 0">Videos: {{ videoFiles.length }}</p>
           </div>
         </div>
       </div>
