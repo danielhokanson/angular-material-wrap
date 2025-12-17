@@ -416,11 +416,11 @@ export class DialogService {
 
     private getDefaultHeight(size?: DialogSize): string {
         switch (size) {
-            case 'small': return '200px';
-            case 'medium': return '400px';
-            case 'large': return '600px';
+            case 'small': return 'auto';
+            case 'medium': return 'auto';
+            case 'large': return 'auto';
             case 'fullscreen': return '100vh';
-            default: return '400px';
+            default: return 'auto';
         }
     }
 
@@ -436,11 +436,11 @@ export class DialogService {
 
     private getDefaultMaxHeight(size?: DialogSize): string {
         switch (size) {
-            case 'small': return '300px';
-            case 'medium': return '500px';
-            case 'large': return '700px';
+            case 'small': return '80vh';
+            case 'medium': return '85vh';
+            case 'large': return '90vh';
             case 'fullscreen': return '100vh';
-            default: return '500px';
+            default: return '85vh';
         }
     }
 
@@ -456,11 +456,11 @@ export class DialogService {
 
     private getDefaultMinHeight(size?: DialogSize): string {
         switch (size) {
-            case 'small': return '150px';
-            case 'medium': return '300px';
-            case 'large': return '400px';
+            case 'small': return 'auto';
+            case 'medium': return 'auto';
+            case 'large': return 'auto';
             case 'fullscreen': return '100vh';
-            default: return '300px';
+            default: return 'auto';
         }
     }
 

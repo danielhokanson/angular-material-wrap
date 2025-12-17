@@ -282,8 +282,31 @@
                     </div>
                   }
                   @default {
-                    <h3>{{ selectedPipe.name }} Pipe Code</h3>
-                    <p>Code examples will be available soon.</p>
+                    <div class="code-content">
+                      <h3>{{ selectedPipe.name }} Pipe Code</h3>
+                      <p>This library provides three custom pipes for common data transformations:</p>
+
+                      <mat-card>
+                        <mat-card-header>
+                          <mat-card-title>Available Pipes</mat-card-title>
+                        </mat-card-header>
+                        <mat-card-content>
+                          <pre><code>// Currency Pipe - Format currency values
+import &#123; AmwCurrencyPipe &#125; from '@angular-material-wrap/pipes';
+Usage: value | amwCurrency:currencyCode:display:digitsInfo:locale
+
+// Date Pipe - Format date values
+import &#123; AmwDatePipe &#125; from '@angular-material-wrap/pipes';
+Usage: date | amwDate:format:timezone:locale
+
+// Text Transform Pipe - Transform text case
+import &#123; AmwTextTransformPipe &#125; from '@angular-material-wrap/pipes';
+Usage: text | amwTextTransform:mode</code></pre>
+                        </mat-card-content>
+                      </mat-card>
+
+                      <p>Select a specific pipe from the navigation to see detailed code examples.</p>
+                    </div>
                   }
                 }
               </div>
@@ -595,8 +618,39 @@
                     </div>
                   }
                   @default {
-                    <h3>{{ selectedPipe.name }} Pipe API</h3>
-                    <p>API documentation will be available soon.</p>
+                    <div class="api-content">
+                      <h3>{{ selectedPipe.name }} Pipe API</h3>
+
+                      <mat-card class="api-reference">
+                        <mat-card-header>
+                          <mat-card-title>Pipe API Overview</mat-card-title>
+                        </mat-card-header>
+                        <mat-card-content>
+                          <h4>AmwCurrencyPipe</h4>
+                          <p>Formats numbers as currency values with internationalization support.</p>
+                          <ul>
+                            <li><strong>Signature:</strong> <code>transform(value: number, currencyCode?: string, display?: 'symbol' | 'code' | 'name', digitsInfo?: string, locale?: string): string</code></li>
+                            <li><strong>Parameters:</strong> value, currencyCode (default: 'USD'), display (default: 'symbol'), digitsInfo, locale</li>
+                          </ul>
+
+                          <h4>AmwDatePipe</h4>
+                          <p>Formats dates with customizable patterns and timezone support.</p>
+                          <ul>
+                            <li><strong>Signature:</strong> <code>transform(value: Date | string | number, format?: string, timezone?: string, locale?: string): string</code></li>
+                            <li><strong>Parameters:</strong> value, format (default: 'mediumDate'), timezone, locale</li>
+                          </ul>
+
+                          <h4>AmwTextTransformPipe</h4>
+                          <p>Transforms text case with multiple formatting options.</p>
+                          <ul>
+                            <li><strong>Signature:</strong> <code>transform(value: string, mode: 'uppercase' | 'lowercase' | 'capitalize' | 'titlecase'): string</code></li>
+                            <li><strong>Parameters:</strong> value, mode (required)</li>
+                          </ul>
+                        </mat-card-content>
+                      </mat-card>
+
+                      <p>Select a specific pipe from the navigation to see detailed API documentation.</p>
+                    </div>
                   }
                 }
               </div>

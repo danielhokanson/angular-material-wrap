@@ -500,8 +500,39 @@
                     </div>
                   }
                   @default {
-                    <h3>{{ selectedDirective.name }} Directive Code</h3>
-                    <p>Code examples will be available soon.</p>
+                    <div class="code-content">
+                      <h3>{{ selectedDirective.name }} Directive Code</h3>
+                      <p>This library provides four utility directives to enhance Angular applications:</p>
+
+                      <mat-card>
+                        <mat-card-header>
+                          <mat-card-title>Available Directives</mat-card-title>
+                        </mat-card-header>
+                        <mat-card-content>
+                          <pre><code>// Tooltip Directive - Custom tooltips with positioning
+import &#123; AmwTooltipDirective &#125; from '@angular-material-wrap/directives';
+
+&lt;button amwTooltip="Click me" position="top"&gt;Hover&lt;/button&gt;
+
+// Click Outside Directive - Detect clicks outside an element
+import &#123; AmwClickOutsideDirective &#125; from '@angular-material-wrap/directives';
+
+&lt;div (amwClickOutside)="handleClickOutside()"&gt;Content&lt;/div&gt;
+
+// Auto Focus Directive - Automatically focus elements
+import &#123; AmwAutoFocusDirective &#125; from '@angular-material-wrap/directives';
+
+&lt;input amwAutoFocus&gt;
+
+// Copy to Clipboard Directive - Copy text to clipboard
+import &#123; AmwCopyToClipboardDirective &#125; from '@angular-material-wrap/directives';
+
+&lt;button [amwCopyToClipboard]="textToCopy"&gt;Copy&lt;/button&gt;</code></pre>
+                        </mat-card-content>
+                      </mat-card>
+
+                      <p>Select a specific directive from the navigation to see detailed code examples.</p>
+                    </div>
                   }
                 }
               </div>
@@ -858,8 +889,51 @@
                     </div>
                   }
                   @default {
-                    <h3>{{ selectedDirective.name }} Directive API</h3>
-                    <p>API documentation will be available soon.</p>
+                    <div class="api-content">
+                      <h3>{{ selectedDirective.name }} Directive API</h3>
+
+                      <mat-card class="api-reference">
+                        <mat-card-header>
+                          <mat-card-title>Directive API Overview</mat-card-title>
+                        </mat-card-header>
+                        <mat-card-content>
+                          <h4>AmwTooltipDirective</h4>
+                          <p>Displays custom tooltips with configurable positioning and styling.</p>
+                          <ul>
+                            <li><strong>Selector:</strong> <code>[amwTooltip]</code></li>
+                            <li><strong>Inputs:</strong> <code>amwTooltip: string</code>, <code>position: 'top' | 'bottom' | 'left' | 'right'</code></li>
+                            <li><strong>Usage:</strong> Add to any element to show a tooltip on hover</li>
+                          </ul>
+
+                          <h4>AmwClickOutsideDirective</h4>
+                          <p>Detects and handles clicks outside of an element.</p>
+                          <ul>
+                            <li><strong>Selector:</strong> <code>[amwClickOutside]</code></li>
+                            <li><strong>Outputs:</strong> <code>(amwClickOutside): EventEmitter&lt;MouseEvent&gt;</code></li>
+                            <li><strong>Usage:</strong> Useful for closing dropdowns, modals, or menus</li>
+                          </ul>
+
+                          <h4>AmwAutoFocusDirective</h4>
+                          <p>Automatically focuses an element when the component is initialized.</p>
+                          <ul>
+                            <li><strong>Selector:</strong> <code>[amwAutoFocus]</code></li>
+                            <li><strong>Inputs:</strong> <code>amwAutoFocus: boolean</code> (default: true)</li>
+                            <li><strong>Usage:</strong> Apply to form inputs for immediate focus</li>
+                          </ul>
+
+                          <h4>AmwCopyToClipboardDirective</h4>
+                          <p>Copies text to the clipboard when an element is clicked.</p>
+                          <ul>
+                            <li><strong>Selector:</strong> <code>[amwCopyToClipboard]</code></li>
+                            <li><strong>Inputs:</strong> <code>amwCopyToClipboard: string</code></li>
+                            <li><strong>Outputs:</strong> <code>(copied): EventEmitter&lt;boolean&gt;</code></li>
+                            <li><strong>Usage:</strong> Attach to buttons to enable copy functionality</li>
+                          </ul>
+                        </mat-card-content>
+                      </mat-card>
+
+                      <p>Select a specific directive from the navigation to see detailed API documentation.</p>
+                    </div>
                   }
                 }
               </div>

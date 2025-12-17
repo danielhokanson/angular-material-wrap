@@ -13,7 +13,7 @@ export { AmwChipsComponent } from './controls/components/amw-chips/amw-chips.com
 export * from './components/components';
 // export * from './components/interfaces';
 // export * from './components/directives';
-// export * from './components/services';
+export * from './components/services';
 // export * from './components/pipes';
 
 // Directives exports

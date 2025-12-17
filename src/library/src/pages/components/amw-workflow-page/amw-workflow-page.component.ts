@@ -87,6 +87,7 @@ export class AmwWorkflowPageComponent implements OnInit, OnDestroy {
     @Output() workflowCancel = new EventEmitter<void>();
     @Output() workflowSave = new EventEmitter<any>();
     @Output() workflowReset = new EventEmitter<void>();
+    @Output() customAction = new EventEmitter<{ action: string; step: WorkflowStep; stepIndex: number; data: any }>();
 
     // Current state
     currentConfig: WorkflowPageConfig = { steps: [] };
@@ -252,8 +253,19 @@ export class AmwWorkflowPageComponent implements OnInit, OnDestroy {
     }
 
     onActionClick(action: string): void {
-        // Implement custom action logic
-        this.snackBar.open(`Action ${action} not implemented`, 'Close', { duration: 3000 });
+        // Emit custom action event with action name, current step, and workflow data
+        const currentStep = this.getCurrentStep();
+        if (currentStep) {
+            this.customAction.emit({
+                action,
+                step: currentStep,
+                stepIndex: this.currentData.currentStep,
+                data: this.currentData.stepData
+            });
+            this.snackBar.open(`Custom action '${action}' triggered for step ${this.currentData.currentStep + 1}`, 'Close', { duration: 3000 });
+        } else {
+            this.snackBar.open(`Invalid workflow state`, 'Close', { duration: 3000 });
+        }
     }
 
     private updateStepStatus(): void {

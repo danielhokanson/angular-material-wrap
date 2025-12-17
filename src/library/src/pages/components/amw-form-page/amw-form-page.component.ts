@@ -102,6 +102,9 @@ export class AmwFormPageComponent implements OnInit, OnDestroy {
     @Output() formChange = new EventEmitter<any>();
     @Output() formCancel = new EventEmitter<void>();
     @Output() formReset = new EventEmitter<void>();
+    @Output() formPreview = new EventEmitter<any>();
+    @Output() formPrint = new EventEmitter<any>();
+    @Output() customAction = new EventEmitter<{ action: string; data: any }>();
 
     // Current state
     currentConfig: FormPageConfig = { sections: [] };
@@ -253,18 +256,29 @@ export class AmwFormPageComponent implements OnInit, OnDestroy {
     }
 
     onPreview(): void {
-        // Implement preview logic
-        this.snackBar.open('Preview functionality not implemented', 'Close', { duration: 3000 });
+        // Emit preview event with current form data
+        const formData = this.form.value;
+        this.formPreview.emit(formData);
+        this.snackBar.open('Preview mode - check console or handle formPreview event', 'Close', { duration: 3000 });
+        console.log('Form Preview Data:', formData);
     }
 
     onPrint(): void {
-        // Implement print logic
-        this.snackBar.open('Print functionality not implemented', 'Close', { duration: 3000 });
+        // Emit print event and trigger browser print dialog
+        const formData = this.form.value;
+        this.formPrint.emit(formData);
+
+        // Trigger browser print dialog after a short delay to allow event handling
+        setTimeout(() => {
+            window.print();
+        }, 100);
     }
 
     onActionClick(action: string): void {
-        // Implement custom action logic
-        this.snackBar.open(`Action ${action} not implemented`, 'Close', { duration: 3000 });
+        // Emit custom action event with action name and form data
+        const formData = this.form.value;
+        this.customAction.emit({ action, data: formData });
+        this.snackBar.open(`Custom action '${action}' triggered`, 'Close', { duration: 3000 });
     }
 
     isSectionVisible(section: FormPageSection): boolean {

@@ -240,8 +240,51 @@ export class AmwListPageComponent implements OnInit, OnDestroy {
     }
 
     onExport(): void {
-        // Implement export logic
-        this.snackBar.open('Export functionality not implemented', 'Close', { duration: 3000 });
+        try {
+            const displayedColumns = this.getDisplayedColumns();
+            const headers = displayedColumns.map(key => this.getColumnTitle(key));
+
+            // Create CSV content
+            const csvRows = [headers.join(',')];
+
+            // Add data rows
+            this.currentData.items.forEach(item => {
+                const row = displayedColumns.map(key => {
+                    const value = item[key];
+                    // Handle values that might contain commas, quotes, or newlines
+                    if (value === null || value === undefined) {
+                        return '';
+                    }
+                    const stringValue = String(value);
+                    if (stringValue.includes(',') || stringValue.includes('"') || stringValue.includes('\n')) {
+                        return `"${stringValue.replace(/"/g, '""')}"`;
+                    }
+                    return stringValue;
+                });
+                csvRows.push(row.join(','));
+            });
+
+            const csvContent = csvRows.join('\n');
+
+            // Create and download the file
+            const blob = new Blob([csvContent], { type: 'text/csv;charset=utf-8;' });
+            const link = document.createElement('a');
+            const url = URL.createObjectURL(blob);
+            const fileName = `${this.currentConfig.title || 'export'}_${new Date().toISOString().split('T')[0]}.csv`;
+
+            link.setAttribute('href', url);
+            link.setAttribute('download', fileName);
+            link.style.visibility = 'hidden';
+            document.body.appendChild(link);
+            link.click();
+            document.body.removeChild(link);
+            URL.revokeObjectURL(url);
+
+            this.snackBar.open(`Exported ${this.currentData.items.length} items to ${fileName}`, 'Close', { duration: 3000 });
+        } catch (error) {
+            console.error('Export failed:', error);
+            this.snackBar.open('Export failed. Please try again.', 'Close', { duration: 3000 });
+        }
     }
 
     getDisplayedColumns(): string[] {

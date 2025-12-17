@@ -277,21 +277,23 @@
                       <mat-icon>cancel</mat-icon>
                     </button>
                   }
-                  <!-- Other actions -->
-                  @for (action of getRowActions(row, i); track action) {
-                    <button
-                      mat-icon-button
-                      [disabled]="isActionDisabled(action, row, i)"
-                      [matTooltip]="action.tooltip || action.label"
-                      [class]="action.cssClass"
-                      (click)="onActionClick(action, row, i)">
-                      @if (action.icon) {
-                        <mat-icon>{{ action.icon }}</mat-icon>
-                      }
-                      @if (!action.icon) {
-                        <span>{{ action.label }}</span>
-                      }
-                    </button>
+                  <!-- Other actions (hidden during edit mode) -->
+                  @if (!isRowEditing(row)) {
+                    @for (action of getRowActions(row, i); track action) {
+                      <button
+                        mat-icon-button
+                        [disabled]="isActionDisabled(action, row, i)"
+                        [matTooltip]="action.tooltip || action.label"
+                        [class]="action.cssClass"
+                        (click)="onActionClick(action, row, i)">
+                        @if (action.icon) {
+                          <mat-icon>{{ action.icon }}</mat-icon>
+                        }
+                        @if (!action.icon) {
+                          <span>{{ action.label }}</span>
+                        }
+                      </button>
+                    }
                   }
                 </div>
               </td>
