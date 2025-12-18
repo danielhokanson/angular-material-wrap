@@ -209,6 +209,165 @@
       </div>
     </mat-tab>
 
+    <!-- Custom Fields Tab -->
+    <mat-tab label="Custom Fields" icon="extension">
+      <div class="tab-content">
+        <mat-card class="demo-card">
+          <mat-card-header>
+            <mat-card-title>Custom Field Templates</mat-card-title>
+            <mat-card-subtitle>Extend calendar items with custom fields using template projection</mat-card-subtitle>
+          </mat-card-header>
+          <mat-card-content>
+            <div class="demo-section">
+              <h3>Meeting Calendar with Custom Fields</h3>
+              <p>This example demonstrates how to add custom fields (location, attendees, meeting URL) to calendar items using template projection.</p>
+
+              <div class="info-box">
+                <mat-icon>info</mat-icon>
+                <div>
+                  <strong>Custom Fields:</strong>
+                  <ul>
+                    <li><strong>Location:</strong> Meeting room or virtual location</li>
+                    <li><strong>Attendees:</strong> Email addresses of participants</li>
+                    <li><strong>Meeting URL:</strong> Video conference link</li>
+                    <li><strong>Notes:</strong> Additional meeting notes</li>
+                  </ul>
+                  <p>Try creating or editing a meeting to see the custom fields in action. Validation ensures location and attendees are provided.</p>
+                </div>
+              </div>
+
+              <!-- Custom Fields Calendar -->
+              <div class="calendar-container">
+                <amw-calendar-full
+                  [items]="meetingItems"
+                  [itemConfig]="itemConfig"
+                  [useNewItemSystem]="true"
+                  [currentDate]="currentDate"
+                  [height]="'800px'"
+                  [validateCustomFields]="validateMeetingFields"
+                  (itemChange)="onMeetingItemChange($event)"
+                  (itemClick)="onItemClick($event)"
+                  (itemDoubleClick)="onItemDoubleClick($event)">
+
+                  <!-- Custom fields template for edit mode -->
+                  <ng-template #customFieldsTemplate let-item let-data="data">
+                    <div class="amw-calendar-item-editor__field">
+                      <label>Location: <span class="required">*</span></label>
+                      <input type="text"
+                        [(ngModel)]="data.location"
+                        placeholder="e.g., Conference Room A or Virtual"
+                        class="amw-calendar-item-editor__input">
+                    </div>
+
+                    <div class="amw-calendar-item-editor__field">
+                      <label>Attendees (comma-separated): <span class="required">*</span></label>
+                      <input type="text"
+                        [ngModel]="attendeesToString(data.attendees)"
+                        (ngModelChange)="data.attendees = stringToAttendees($event)"
+                        placeholder="email1@example.com, email2@example.com"
+                        class="amw-calendar-item-editor__input">
+                    </div>
+
+                    <div class="amw-calendar-item-editor__field">
+                      <label>Meeting URL:</label>
+                      <input type="url"
+                        [(ngModel)]="data.meetingUrl"
+                        placeholder="https://meet.google.com/..."
+                        class="amw-calendar-item-editor__input">
+                    </div>
+
+                    <div class="amw-calendar-item-editor__field">
+                      <label>Notes:</label>
+                      <textarea [(ngModel)]="data.notes"
+                        placeholder="Additional meeting notes"
+                        class="amw-calendar-item-editor__textarea"
+                        rows="3"></textarea>
+                    </div>
+                  </ng-template>
+
+                  <!-- Custom fields template for readonly mode -->
+                  <ng-template #customReadonlyFieldsTemplate let-item let-data="data">
+                    <div class="amw-calendar-item-editor__field">
+                      <label>Location:</label>
+                      <span class="amw-calendar-item-editor__value">{{ data.location || 'No location specified' }}</span>
+                    </div>
+
+                    <div class="amw-calendar-item-editor__field">
+                      <label>Attendees:</label>
+                      <span class="amw-calendar-item-editor__value">
+                        {{ data.attendees?.join(', ') || 'No attendees' }}
+                      </span>
+                    </div>
+
+                    @if (data.meetingUrl) {
+                      <div class="amw-calendar-item-editor__field">
+                        <label>Meeting URL:</label>
+                        <a [href]="data.meetingUrl"
+                           target="_blank"
+                           class="amw-calendar-item-editor__value meeting-link">
+                          <mat-icon>video_call</mat-icon>
+                          Join Meeting
+                        </a>
+                      </div>
+                    }
+
+                    @if (data.notes) {
+                      <div class="amw-calendar-item-editor__field">
+                        <label>Notes:</label>
+                        <span class="amw-calendar-item-editor__value">{{ data.notes }}</span>
+                      </div>
+                    }
+                  </ng-template>
+                </amw-calendar-full>
+              </div>
+            </div>
+
+            <mat-divider></mat-divider>
+
+            <div class="demo-section">
+              <h3>Code Example</h3>
+              <div class="code-example">
+                <pre><code>// Define extended meeting model
+interface MeetingEvent &#123;
+  itemType: string;
+  location: string;
+  attendees: string[];
+  meetingUrl?: string;
+  notes?: string;
+&#125;
+
+// Validation function
+validateMeetingFields = (data: MeetingEvent): boolean => &#123;
+  if (!data.location?.trim()) return false;
+  if (!data.attendees || data.attendees.length === 0) return false;
+  return true;
+&#125;;
+
+// In template
+&lt;amw-calendar-full
+  [items]="meetingItems"
+  [validateCustomFields]="validateMeetingFields"
+  (itemChange)="onMeetingItemChange($event)"&gt;
+
+  &lt;ng-template #customFieldsTemplate let-data="data"&gt;
+    &lt;!-- Edit mode custom fields --&gt;
+    &lt;input [(ngModel)]="data.location" placeholder="Location"&gt;
+    &lt;input [(ngModel)]="data.meetingUrl" placeholder="Meeting URL"&gt;
+  &lt;/ng-template&gt;
+
+  &lt;ng-template #customReadonlyFieldsTemplate let-data="data"&gt;
+    &lt;!-- Readonly mode custom fields --&gt;
+    &lt;div&gt;Location: data.location&lt;/div&gt;
+    &lt;a [href]="data.meetingUrl"&gt;Join Meeting&lt;/a&gt;
+  &lt;/ng-template&gt;
+&lt;/amw-calendar-full&gt;</code></pre>
+              </div>
+            </div>
+          </mat-card-content>
+        </mat-card>
+      </div>
+    </mat-tab>
+
     <!-- Features Tab -->
     <mat-tab label="Features" icon="star">
       <div class="tab-content">

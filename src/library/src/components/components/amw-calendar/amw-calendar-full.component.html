@@ -127,11 +127,14 @@
                 {{ date.getDate() }}
               </div>
               <div class="amw-calendar-full__cell-events">
-                @for (event of getEventsForDate(date); track event) {
+                @for (event of getEventsForDate(date); track trackByEventId($index, event)) {
                   <div
-                    class="amw-calendar-full__event"
-                    [class]="getEventClasses(event).join(' ')"
-                    [style.background-color]="getEventColor(event)"
+                    class="amw-calendar-full__event amw-calendar__event"
+                    [class.amw-calendar__event--all-day]="event.allDay"
+                    [class.amw-calendar__event--editable]="isEventEditable(event)"
+                    [class.amw-calendar__event--draggable]="isEventDraggable(event)"
+                    [ngClass]="event.cssClass"
+                    [style.background-color]="event.color || '#6750a4'"
                     (click)="onEventClick(event, $event)"
                     (dblclick)="onEventDoubleClick(event)"
                     [draggable]="isEventDraggable(event)"
@@ -191,11 +194,14 @@
                  (dragover)="onDragOver($event, getCellId(date, undefined, 'week-allday'))"
                  (dragleave)="onDragLeave($event, getCellId(date, undefined, 'week-allday'))"
                  (drop)="onDrop($event, date, undefined, true)">
-              @for (event of getAllDayEventsForDate(date); track event) {
+              @for (event of getAllDayEventsForDate(date); track trackByEventId($index, event)) {
                 <div
-                  class="amw-calendar-full__event amw-calendar-full__event--allday"
-                  [class]="getEventClasses(event).join(' ')"
-                  [style.background-color]="getEventColor(event)"
+                  class="amw-calendar-full__event amw-calendar-full__event--allday amw-calendar__event"
+                  [class.amw-calendar__event--all-day]="event.allDay"
+                  [class.amw-calendar__event--editable]="isEventEditable(event)"
+                  [class.amw-calendar__event--draggable]="isEventDraggable(event)"
+                  [ngClass]="event.cssClass"
+                  [style.background-color]="event.color || '#6750a4'"
                   (click)="onEventClick(event, $event)"
                   (dblclick)="onEventDoubleClick(event)"
                   [draggable]="isEventDraggable(event)"
@@ -241,11 +247,14 @@
             <div class="amw-calendar-full__week-day-events"
                  [style.left]="'calc(80px + (100% - 80px) * ' + dayIndex + ' / 7)'"
                  [style.width]="'calc((100% - 80px) / 7)'">
-              @for (event of getTimedEventsForDate(date); track event) {
+              @for (event of getTimedEventsForDate(date); track trackByEventId($index, event)) {
                 <div
-                  class="amw-calendar-full__event"
-                  [class]="getEventClasses(event).join(' ')"
-                  [style.background-color]="getEventColor(event)"
+                  class="amw-calendar-full__event amw-calendar__event"
+                  [class.amw-calendar__event--all-day]="event.allDay"
+                  [class.amw-calendar__event--editable]="isEventEditable(event)"
+                  [class.amw-calendar__event--draggable]="isEventDraggable(event)"
+                  [ngClass]="event.cssClass"
+                  [style.background-color]="event.color || '#6750a4'"
                   [style]="getEventPositionForWeek(event)"
                   (click)="onEventClick(event, $event)"
                   (dblclick)="onEventDoubleClick(event)"
@@ -285,11 +294,14 @@
                  (dragover)="onDragOver($event, getCellId(selectedDate, undefined, 'day-allday'))"
                  (dragleave)="onDragLeave($event, getCellId(selectedDate, undefined, 'day-allday'))"
                  (drop)="onDrop($event, selectedDate, undefined, true)">
-              @for (event of getAllDayEventsForDate(selectedDate); track event) {
+              @for (event of getAllDayEventsForDate(selectedDate); track trackByEventId($index, event)) {
                 <div
-                  class="amw-calendar-full__event amw-calendar-full__event--allday"
-                  [class]="getEventClasses(event).join(' ')"
-                  [style.background-color]="getEventColor(event)"
+                  class="amw-calendar-full__event amw-calendar-full__event--allday amw-calendar__event"
+                  [class.amw-calendar__event--all-day]="event.allDay"
+                  [class.amw-calendar__event--editable]="isEventEditable(event)"
+                  [class.amw-calendar__event--draggable]="isEventDraggable(event)"
+                  [ngClass]="event.cssClass"
+                  [style.background-color]="event.color || '#6750a4'"
                   (click)="onEventClick(event, $event)"
                   (dblclick)="onEventDoubleClick(event)"
                   [draggable]="isEventDraggable(event)"
@@ -331,11 +343,14 @@
               </div>
             }
             <!-- Events positioned relative to entire day grid -->
-            @for (event of getTimedEventsForDate(); track event) {
+            @for (event of getTimedEventsForDate(); track trackByEventId($index, event)) {
               <div
-                class="amw-calendar-full__event"
-                [class]="getEventClasses(event).join(' ')"
-                [style.background-color]="getEventColor(event)"
+                class="amw-calendar-full__event amw-calendar__event"
+                [class.amw-calendar__event--all-day]="event.allDay"
+                [class.amw-calendar__event--editable]="isEventEditable(event)"
+                [class.amw-calendar__event--draggable]="isEventDraggable(event)"
+                [ngClass]="event.cssClass"
+                [style.background-color]="event.color || '#6750a4'"
                 [style]="getEventPosition(event)"
                 (click)="onEventClick(event, $event)"
                 (dblclick)="onEventDoubleClick(event)"

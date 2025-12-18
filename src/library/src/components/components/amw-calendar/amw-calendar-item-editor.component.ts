@@ -1,5 +1,5 @@
-import { Component, Input, Output, EventEmitter, OnInit, OnDestroy } from '@angular/core';
-
+import { Component, Input, Output, EventEmitter, OnInit, OnDestroy, ContentChild, TemplateRef } from '@angular/core';
+import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { MatButtonModule } from '@angular/material/button';
 import { MatIconModule } from '@angular/material/icon';
@@ -9,13 +9,14 @@ import { MatSelectModule } from '@angular/material/select';
 import { MatDatepickerModule } from '@angular/material/datepicker';
 import { MatNativeDateModule } from '@angular/material/core';
 import { MatCheckboxModule } from '@angular/material/checkbox';
-import { CalendarItem, CalendarItemEditorContext, CalendarItemTimePattern } from './interfaces/calendar-item.interface';
+import { CalendarItem, CalendarItemEditorContext, CalendarItemTimePattern, CalendarItemTemplateContext } from './interfaces/calendar-item.interface';
 import { Subject } from 'rxjs';
 
 @Component({
     selector: 'amw-calendar-item-editor',
     standalone: true,
     imports: [
+    CommonModule,
     FormsModule,
     MatButtonModule,
     MatIconModule,
@@ -34,6 +35,10 @@ export class AmwCalendarItemEditorComponent<T = any> implements OnInit, OnDestro
     @Output() save = new EventEmitter<CalendarItem<T>>();
     @Output() cancel = new EventEmitter<void>();
     @Output() delete = new EventEmitter<CalendarItem<T>>();
+
+    // Custom field templates projected from parent
+    @ContentChild('customFieldsTemplate') customFieldsTemplate?: TemplateRef<CalendarItemTemplateContext<T>>;
+    @ContentChild('customReadonlyFieldsTemplate') customReadonlyFieldsTemplate?: TemplateRef<CalendarItemTemplateContext<T>>;
 
     item: CalendarItem<T> = {
         id: '',
@@ -60,6 +65,15 @@ export class AmwCalendarItemEditorComponent<T = any> implements OnInit, OnDestro
 
     get isEditing(): boolean {
         return this.context?.isEditing || false;
+    }
+
+    get customFieldsTemplateContext(): CalendarItemTemplateContext<T> {
+        return {
+            $implicit: this.item,
+            item: this.item,
+            data: this.item.data,
+            isEditing: this.isEditing
+        };
     }
 
     getHeaderTitle(): string {
@@ -126,7 +140,7 @@ export class AmwCalendarItemEditorComponent<T = any> implements OnInit, OnDestro
         return date.toTimeString().slice(0, 5);
     }
 
-    onSave(): void {
+    async onSave(): Promise<void> {
         // Update item with form data
         this.item.title = this.item.title || '';
         this.item.description = this.item.description || '';
@@ -140,6 +154,15 @@ export class AmwCalendarItemEditorComponent<T = any> implements OnInit, OnDestro
             itemType: this.itemType,
             completed: this.completed
         } as T;
+
+        // Validate custom fields if validator is provided
+        if (this.context?.validateCustomFields) {
+            const isValid = await Promise.resolve(this.context.validateCustomFields(this.item.data));
+            if (!isValid) {
+                console.warn('Custom field validation failed');
+                return;
+            }
+        }
 
         this.save.emit(this.item);
     }

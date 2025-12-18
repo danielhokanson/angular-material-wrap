@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
-
+import { CommonModule } from '@angular/common';
+import { FormsModule } from '@angular/forms';
 import { MatCardModule } from '@angular/material/card';
 import { MatButtonModule } from '@angular/material/button';
 import { MatIconModule } from '@angular/material/icon';
@@ -26,10 +27,22 @@ interface SampleEvent {
     attendees?: string[];
 }
 
+// Extended meeting event interface with custom fields
+interface MeetingEvent {
+    itemType: string;
+    completed?: boolean;
+    location: string;
+    attendees: string[];
+    meetingUrl?: string;
+    notes?: string;
+}
+
 @Component({
     selector: 'amw-demo-calendar',
     standalone: true,
     imports: [
+    CommonModule,
+    FormsModule,
     MatCardModule,
     MatButtonModule,
     MatIconModule,
@@ -60,6 +73,69 @@ export class CalendarDemoComponent implements OnInit {
         allowedTimePatterns: ['date', 'date-range', 'datetime', 'datetime-range'],
         defaultTimePattern: 'datetime'
     };
+
+    // Sample meeting items with custom fields
+    meetingItems: CalendarItem<MeetingEvent>[] = [
+        {
+            id: 'm1',
+            title: 'Team Standup',
+            description: 'Daily team standup meeting',
+            start: new Date(2024, 0, 15, 9, 0),
+            end: new Date(2024, 0, 15, 9, 30),
+            allDay: false,
+            timePattern: 'datetime-range',
+            color: '#6750a4',
+            editable: true,
+            deletable: true,
+            draggable: true,
+            data: {
+                itemType: 'Meeting',
+                location: 'Conference Room A',
+                attendees: ['john@example.com', 'jane@example.com', 'bob@example.com'],
+                meetingUrl: 'https://meet.google.com/abc-defg-hij',
+                notes: 'Bring your status updates'
+            }
+        },
+        {
+            id: 'm2',
+            title: 'Client Presentation',
+            description: 'Q1 results presentation to client',
+            start: new Date(2024, 0, 16, 14, 0),
+            end: new Date(2024, 0, 16, 15, 30),
+            allDay: false,
+            timePattern: 'datetime-range',
+            color: '#1976d2',
+            editable: true,
+            deletable: true,
+            draggable: true,
+            data: {
+                itemType: 'Meeting',
+                location: 'Virtual',
+                attendees: ['client@company.com', 'sales@example.com'],
+                meetingUrl: 'https://zoom.us/j/123456789',
+                notes: 'Share slides beforehand'
+            }
+        },
+        {
+            id: 'm3',
+            title: 'Project Planning',
+            description: 'Planning session for new feature',
+            start: new Date(2024, 0, 18, 10, 0),
+            end: new Date(2024, 0, 18, 12, 0),
+            allDay: false,
+            timePattern: 'datetime-range',
+            color: '#388e3c',
+            editable: true,
+            deletable: true,
+            draggable: true,
+            data: {
+                itemType: 'Meeting',
+                location: 'Office - Room 301',
+                attendees: ['team@example.com'],
+                notes: 'Review requirements document'
+            }
+        }
+    ];
 
     // Sample events data - demonstrating both date-only and date+time events
     sampleEvents: CalendarEvent<SampleEvent>[] = [
@@ -613,5 +689,72 @@ export class CalendarDemoComponent implements OnInit {
     onItemMove(event: { item: CalendarItem<any>; newStart: Date; newEnd?: Date }): void {
         console.log('Move item:', event);
         this.snackBar.open(`Move: ${event.item.title}`, 'Close', { duration: 2000 });
+    }
+
+    /**
+     * Validate custom meeting fields
+     */
+    validateMeetingFields = (data: MeetingEvent): boolean => {
+        if (!data.location?.trim()) {
+            this.snackBar.open('Location is required for meetings', 'Close', { duration: 3000 });
+            return false;
+        }
+        if (!data.attendees || data.attendees.length === 0) {
+            this.snackBar.open('At least one attendee is required', 'Close', { duration: 3000 });
+            return false;
+        }
+        // Validate email format for attendees
+        const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+        for (const email of data.attendees) {
+            if (!emailRegex.test(email.trim())) {
+                this.snackBar.open(`Invalid email format: ${email}`, 'Close', { duration: 3000 });
+                return false;
+            }
+        }
+        return true;
+    };
+
+    /**
+     * Handle meeting item change
+     */
+    onMeetingItemChange(event: CalendarItemChangeEvent<MeetingEvent>): void {
+        console.log('[Demo] Meeting item changed:', event.type, event.item.title, event.item.id);
+        console.log('[Demo] meetingItems before change:', this.meetingItems.map(m => ({ id: m.id, title: m.title })));
+
+        switch (event.type) {
+            case 'create':
+                this.meetingItems.push(event.item);
+                console.log('[Demo] meetingItems after create:', this.meetingItems.map(m => ({ id: m.id, title: m.title })));
+                this.snackBar.open('Meeting created successfully', 'Close', { duration: 3000 });
+                break;
+            case 'update':
+                const updateIndex = this.meetingItems.findIndex(m => m.id === event.item.id);
+                console.log('[Demo] Update index found:', updateIndex);
+                if (updateIndex !== -1) {
+                    this.meetingItems[updateIndex] = event.item;
+                }
+                console.log('[Demo] meetingItems after update:', this.meetingItems.map(m => ({ id: m.id, title: m.title })));
+                this.snackBar.open('Meeting updated successfully', 'Close', { duration: 3000 });
+                break;
+            case 'delete':
+                this.meetingItems = this.meetingItems.filter(m => m.id !== event.item.id);
+                console.log('[Demo] meetingItems after delete:', this.meetingItems.map(m => ({ id: m.id, title: m.title })));
+                this.snackBar.open('Meeting deleted successfully', 'Close', { duration: 3000 });
+                break;
+        }
+    }
+
+    /**
+     * Convert attendees array to comma-separated string
+     */
+    attendeesToString(attendees: string[] | undefined): string {
+        return attendees?.join(', ') || '';
+    }
+
+    /**
+     * Convert comma-separated string to attendees array
+     */
+    stringToAttendees(value: string): string[] {
+        return value.split(',').map(e => e.trim()).filter(e => e.length > 0);
     }
 }

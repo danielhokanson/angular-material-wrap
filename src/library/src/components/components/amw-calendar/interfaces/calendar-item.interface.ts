@@ -78,4 +78,19 @@ export interface CalendarItemEditorContext<T = any> {
     isEditing: boolean;
     triggerElement?: HTMLElement;
     position?: 'top' | 'bottom' | 'left' | 'right';
+
+    // Custom field template support
+    customFieldsTemplate?: any; // TemplateRef<CalendarItemTemplateContext<T>>
+    customReadonlyFieldsTemplate?: any; // TemplateRef<CalendarItemTemplateContext<T>>
+    validateCustomFields?: (data: T) => boolean | Promise<boolean>;
+}
+
+/**
+ * Template context for custom calendar item fields
+ */
+export interface CalendarItemTemplateContext<T = any> {
+    $implicit: CalendarItem<T>;
+    item: CalendarItem<T>;
+    data: T;
+    isEditing: boolean;
 }

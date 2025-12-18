@@ -255,6 +255,56 @@ export const AppointmentItemType: CalendarItemType<AppointmentData> = {
 };
 
 /**
+ * Example: Meeting item type - datetime-range pattern with attendees
+ */
+export interface MeetingData {
+    itemType: string;
+    completed?: boolean;
+    location: string;
+    attendees: string[];
+    meetingUrl?: string;
+    notes?: string;
+}
+
+export const MeetingItemType: CalendarItemType<MeetingData> = {
+    type: 'meeting',
+    displayName: 'Meeting',
+    icon: 'groups',
+    color: '#6750a4',
+    timePatterns: ['datetime', 'datetime-range'],
+    defaultTimePattern: 'datetime-range',
+    createItem: (date: Date, timePattern: CalendarItemTimePattern): CalendarItem<MeetingData> => {
+        const item: CalendarItem<MeetingData> = {
+            id: Date.now().toString(),
+            title: 'New Meeting',
+            data: {
+                itemType: 'Meeting',
+                location: '',
+                attendees: []
+            },
+            start: date,
+            timePattern,
+            allDay: false
+        };
+
+        if (timePattern === 'datetime') {
+            const endDate = new Date(date);
+            endDate.setHours(endDate.getHours() + 1);
+            item.end = endDate;
+        } else if (timePattern === 'datetime-range') {
+            const endDate = new Date(date);
+            endDate.setHours(endDate.getHours() + 1);
+            item.end = endDate;
+        }
+
+        return item;
+    },
+    validateItem: (item: CalendarItem<MeetingData>): boolean => {
+        return !!(item.data && item.data.location && item.data.attendees && item.data.attendees.length > 0);
+    }
+};
+
+/**
  * All example item types
  */
 export const ExampleItemTypes: CalendarItemType<any>[] = [
@@ -262,5 +312,6 @@ export const ExampleItemTypes: CalendarItemType<any>[] = [
     TaskItemType,         // Supports: date, datetime (with completion)
     MealItemType,         // Supports: datetime
     VacationItemType,     // Supports: date-range
-    AppointmentItemType   // Supports: datetime, datetime-range
+    AppointmentItemType,  // Supports: datetime, datetime-range
+    MeetingItemType       // Supports: datetime, datetime-range (with custom fields)
 ];

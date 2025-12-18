@@ -43,6 +43,14 @@
             <span class="amw-calendar-item-editor__value">{{ completed ? 'Completed' : 'Pending' }}</span>
           </div>
         }
+
+        <!-- Custom readonly fields template outlet -->
+        @if (customReadonlyFieldsTemplate || context.customReadonlyFieldsTemplate) {
+          <ng-container
+            [ngTemplateOutlet]="customReadonlyFieldsTemplate || context.customReadonlyFieldsTemplate"
+            [ngTemplateOutletContext]="customFieldsTemplateContext">
+          </ng-container>
+        }
       </div>
     }
 
@@ -111,6 +119,14 @@
               Completed
             </label>
           </div>
+        }
+
+        <!-- Custom editable fields template outlet -->
+        @if (customFieldsTemplate || context.customFieldsTemplate) {
+          <ng-container
+            [ngTemplateOutlet]="customFieldsTemplate || context.customFieldsTemplate"
+            [ngTemplateOutletContext]="customFieldsTemplateContext">
+          </ng-container>
         }
       </div>
     }

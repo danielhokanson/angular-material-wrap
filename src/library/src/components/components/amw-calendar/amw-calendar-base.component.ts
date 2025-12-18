@@ -1,9 +1,9 @@
-import { Component, Input, Output, EventEmitter, OnInit, OnChanges, OnDestroy, ChangeDetectorRef, SimpleChanges, ViewEncapsulation, ComponentRef } from '@angular/core';
+import { Component, Input, Output, EventEmitter, OnInit, OnChanges, OnDestroy, ChangeDetectorRef, SimpleChanges, ViewEncapsulation, ComponentRef, ContentChild, TemplateRef } from '@angular/core';
 
 import { FormsModule } from '@angular/forms';
 import { Subject, takeUntil } from 'rxjs';
 import { CalendarEvent, CalendarEventChangeEvent, CalendarConfig, CalendarView, CalendarNavigationEvent } from './interfaces';
-import { CalendarItem, CalendarItemChangeEvent, CalendarItemEditorContext, CalendarItemTimePattern } from './interfaces/calendar-item.interface';
+import { CalendarItem, CalendarItemChangeEvent, CalendarItemEditorContext, CalendarItemTimePattern, CalendarItemTemplateContext } from './interfaces/calendar-item.interface';
 import { CalendarItemConfig } from './interfaces/calendar-item-config.interface';
 import { CalendarItemRegistryService } from './services/calendar-item-registry.service';
 import { CalendarItemPopoverService } from './services/calendar-item-popover.service';
@@ -55,6 +55,11 @@ export abstract class AmwCalendarBaseComponent<T = any> implements OnInit, OnCha
     @Output() itemDelete = new EventEmitter<CalendarItem<T>>();
     @Output() itemMove = new EventEmitter<{ item: CalendarItem<T>; newStart: Date; newEnd?: Date }>();
 
+    // Custom field templates
+    @ContentChild('customFieldsTemplate') customFieldsTemplate?: TemplateRef<CalendarItemTemplateContext<T>>;
+    @ContentChild('customReadonlyFieldsTemplate') customReadonlyFieldsTemplate?: TemplateRef<CalendarItemTemplateContext<T>>;
+    @Input() validateCustomFields?: (data: T) => boolean | Promise<boolean>;
+
     // Internal properties
     protected internalEvents: CalendarEvent<T>[] = [];
     protected internalConfig: CalendarConfig<T>;
@@ -91,12 +96,15 @@ export abstract class AmwCalendarBaseComponent<T = any> implements OnInit, OnCha
     }
 
     ngOnChanges(changes: SimpleChanges): void {
-        if (changes['events']) {
-            this.internalEvents = [...(this.events || [])];
-        }
+        // Apply config first so it's available for event processing
         if (changes['config'] && this.config) {
             this.applyConfig();
         }
+
+        if (changes['events']) {
+            this.internalEvents = this.processEvents(this.events || []);
+        }
+
         if (changes['items']) {
             this.internalItems = [...(this.items || [])];
         }
@@ -114,6 +122,33 @@ export abstract class AmwCalendarBaseComponent<T = any> implements OnInit, OnCha
         if (changes['view']) {
             this.currentView = this.view;
         }
+
+        // Manually trigger change detection to prevent ExpressionChangedAfterItHasBeenCheckedError
+        // This is needed because items/events might be set during parent's change detection
+        if (changes['items'] || changes['events']) {
+            setTimeout(() => this.cdr.detectChanges(), 0);
+        }
+    }
+
+    /**
+     * Process events and compute derived properties to avoid change detection issues
+     */
+    private processEvents(events: CalendarEvent<T>[]): CalendarEvent<T>[] {
+        return events.map(event => {
+            // Create a copy and add computed color to avoid change detection issues
+            const processedEvent = { ...event };
+
+            // Pre-compute the color
+            if (!processedEvent.color) {
+                if (this.internalConfig.eventColor) {
+                    processedEvent.color = this.internalConfig.eventColor(event);
+                } else {
+                    processedEvent.color = '#6750a4'; // Default color
+                }
+            }
+
+            return processedEvent;
+        });
     }
 
     ngOnDestroy(): void {
@@ -162,6 +197,13 @@ export abstract class AmwCalendarBaseComponent<T = any> implements OnInit, OnCha
             showTime: true,
             allowCreate: true
         };
+    }
+
+    /**
+     * Track events by ID for ngFor performance
+     */
+    trackByEventId(index: number, event: CalendarEvent<T>): string {
+        return event.id || `event-${index}`;
     }
 
     /**
@@ -229,18 +271,11 @@ export abstract class AmwCalendarBaseComponent<T = any> implements OnInit, OnCha
     }
 
     /**
-     * Get event color
+     * Get event color (pre-computed during event processing)
      */
     getEventColor(event: CalendarEvent<T>): string {
-        if (event.color) {
-            return event.color;
-        }
-
-        if (this.internalConfig.eventColor) {
-            return this.internalConfig.eventColor(event);
-        }
-
-        return '#6750a4'; // Default Material Design primary color
+        // Color is pre-computed in processEvents() to avoid change detection issues
+        return event.color || '#6750a4';
     }
 
     /**
@@ -296,6 +331,8 @@ export abstract class AmwCalendarBaseComponent<T = any> implements OnInit, OnCha
      * Handle event click
      */
     onEventClick(event: CalendarEvent<T>, clickEvent?: Event): void {
+        console.log('[Calendar] Event clicked:', event.title, event.id);
+
         if (clickEvent) {
             clickEvent.stopPropagation();
         }
@@ -360,6 +397,7 @@ export abstract class AmwCalendarBaseComponent<T = any> implements OnInit, OnCha
         triggerElement?: HTMLElement,
         existingItem?: CalendarItem<T>
     ): void {
+        console.log('[Calendar] Opening readonly editor for:', existingItem?.title, existingItem?.id);
 
         const itemTypeDef = this.itemRegistry.getItemType(itemType);
         if (!itemTypeDef) {
@@ -367,7 +405,9 @@ export abstract class AmwCalendarBaseComponent<T = any> implements OnInit, OnCha
             return;
         }
 
-        // Simplified positioning - always try to position near the clicked element
+        // Calculate position based on viewport midpoint
+        // Top 50% = bottom, Bottom 50% = top
+        // Left 50% = right, Right 50% = left
         let preferredPosition: 'top' | 'bottom' | 'left' | 'right' = 'bottom';
 
         if (triggerElement) {
@@ -375,28 +415,34 @@ export abstract class AmwCalendarBaseComponent<T = any> implements OnInit, OnCha
             const viewportWidth = window.innerWidth || document.documentElement.clientWidth;
             const viewportHeight = window.innerHeight || document.documentElement.clientHeight;
 
-            // Simple logic: prefer bottom, fallback to top, then right, then left
-            const spaceBelow = viewportHeight - rect.bottom;
-            const spaceAbove = rect.top;
-            const spaceRight = viewportWidth - rect.right;
-            const spaceLeft = rect.left;
+            // Calculate element center point
+            const elementCenterY = rect.top + (rect.height / 2);
+            const elementCenterX = rect.left + (rect.width / 2);
 
-            // Responsive minimum space based on viewport
-            const minSpace = Math.min(400, viewportWidth * 0.3); // 30% of viewport width
+            // Calculate viewport midpoints
+            const viewportMidY = viewportHeight / 2;
+            const viewportMidX = viewportWidth / 2;
 
-            if (spaceBelow >= minSpace) {
-                preferredPosition = 'bottom';
-            } else if (spaceAbove >= minSpace) {
-                preferredPosition = 'top';
-            } else if (spaceRight >= minSpace) {
-                preferredPosition = 'right';
-            } else if (spaceLeft >= minSpace) {
-                preferredPosition = 'left';
+            // Determine vertical position (top 50% = show below, bottom 50% = show above)
+            const isInTopHalf = elementCenterY < viewportMidY;
+
+            // Determine horizontal position (left 50% = show right, right 50% = show left)
+            const isInLeftHalf = elementCenterX < viewportMidX;
+
+            // Combine vertical and horizontal positioning
+            // Prefer vertical positioning, use horizontal only if there's more horizontal space
+            const verticalSpace = isInTopHalf ?
+                (viewportHeight - rect.bottom) : rect.top;
+            const horizontalSpace = isInLeftHalf ?
+                (viewportWidth - rect.right) : rect.left;
+
+            if (horizontalSpace > verticalSpace * 1.5) {
+                // Use horizontal positioning
+                preferredPosition = isInLeftHalf ? 'right' : 'left';
             } else {
-                // Fallback to bottom if no space is sufficient
-                preferredPosition = 'bottom';
+                // Use vertical positioning
+                preferredPosition = isInTopHalf ? 'bottom' : 'top';
             }
-
         }
 
         const context: CalendarItemEditorContext<T> = {
@@ -407,7 +453,10 @@ export abstract class AmwCalendarBaseComponent<T = any> implements OnInit, OnCha
             isEditing: false, // Read-only mode
             item: existingItem,
             triggerElement,
-            position: preferredPosition
+            position: preferredPosition,
+            customFieldsTemplate: this.customFieldsTemplate,
+            customReadonlyFieldsTemplate: this.customReadonlyFieldsTemplate,
+            validateCustomFields: this.validateCustomFields
         };
 
 
@@ -755,7 +804,9 @@ export abstract class AmwCalendarBaseComponent<T = any> implements OnInit, OnCha
             return;
         }
 
-        // Calculate smart position based on trigger element location
+        // Calculate position based on viewport midpoint
+        // Top 50% = bottom, Bottom 50% = top
+        // Left 50% = right, Right 50% = left
         let preferredPosition: 'top' | 'bottom' | 'left' | 'right' = 'bottom';
 
         if (triggerElement) {
@@ -763,34 +814,34 @@ export abstract class AmwCalendarBaseComponent<T = any> implements OnInit, OnCha
             const viewportWidth = window.innerWidth || document.documentElement.clientWidth;
             const viewportHeight = window.innerHeight || document.documentElement.clientHeight;
 
-            // Determine position based on available space
-            const spaceAbove = rect.top;
-            const spaceBelow = viewportHeight - rect.bottom;
-            const spaceLeft = rect.left;
-            const spaceRight = viewportWidth - rect.right;
+            // Calculate element center point
+            const elementCenterY = rect.top + (rect.height / 2);
+            const elementCenterX = rect.left + (rect.width / 2);
 
-            // Choose the position with the most available space, but prefer vertical positioning
-            // unless there's significantly more horizontal space
-            const maxVerticalSpace = Math.max(spaceAbove, spaceBelow);
-            const maxHorizontalSpace = Math.max(spaceLeft, spaceRight);
+            // Calculate viewport midpoints
+            const viewportMidY = viewportHeight / 2;
+            const viewportMidX = viewportWidth / 2;
 
-            // Only choose horizontal if there's significantly more horizontal space (at least 50% more)
-            if (maxHorizontalSpace > maxVerticalSpace * 1.5) {
-                // Much more horizontal space available
-                if (spaceRight > spaceLeft) {
-                    preferredPosition = 'right';
-                } else {
-                    preferredPosition = 'left';
-                }
+            // Determine vertical position (top 50% = show below, bottom 50% = show above)
+            const isInTopHalf = elementCenterY < viewportMidY;
+
+            // Determine horizontal position (left 50% = show right, right 50% = show left)
+            const isInLeftHalf = elementCenterX < viewportMidX;
+
+            // Combine vertical and horizontal positioning
+            // Prefer vertical positioning, use horizontal only if there's more horizontal space
+            const verticalSpace = isInTopHalf ?
+                (viewportHeight - rect.bottom) : rect.top;
+            const horizontalSpace = isInLeftHalf ?
+                (viewportWidth - rect.right) : rect.left;
+
+            if (horizontalSpace > verticalSpace * 1.5) {
+                // Use horizontal positioning
+                preferredPosition = isInLeftHalf ? 'right' : 'left';
             } else {
-                // Prefer vertical positioning (more natural for popovers)
-                if (spaceBelow > spaceAbove) {
-                    preferredPosition = 'bottom';
-                } else {
-                    preferredPosition = 'top';
-                }
+                // Use vertical positioning
+                preferredPosition = isInTopHalf ? 'bottom' : 'top';
             }
-
         }
 
         const context: CalendarItemEditorContext<T> = {
@@ -801,7 +852,10 @@ export abstract class AmwCalendarBaseComponent<T = any> implements OnInit, OnCha
             isEditing: true, // Always start in editing mode (create or edit)
             item: existingItem,
             triggerElement,
-            position: preferredPosition
+            position: preferredPosition,
+            customFieldsTemplate: this.customFieldsTemplate,
+            customReadonlyFieldsTemplate: this.customReadonlyFieldsTemplate,
+            validateCustomFields: this.validateCustomFields
         };
 
         this.editorRef = this.popoverService.openEditor(context, triggerElement, preferredPosition);
@@ -851,9 +905,14 @@ export abstract class AmwCalendarBaseComponent<T = any> implements OnInit, OnCha
      * Handle item update
      */
     private onItemUpdate(item: CalendarItem<T>): void {
+        console.log('[Calendar] Updating item:', item.title, item.id);
+        console.log('[Calendar] internalItems before update:', this.internalItems.map(i => ({ id: i.id, title: i.title })));
+
         const index = this.internalItems.findIndex(i => i.id === item.id);
         if (index !== -1) {
             this.internalItems[index] = item;
+            console.log('[Calendar] internalItems after update:', this.internalItems.map(i => ({ id: i.id, title: i.title })));
+
             this.itemChange.emit({
                 type: 'update',
                 item
@@ -901,6 +960,8 @@ export abstract class AmwCalendarBaseComponent<T = any> implements OnInit, OnCha
      * Handle item editor cancel
      */
     private onItemEditorCancel(): void {
+        console.log('[Calendar] Editor canceled');
+        console.log('[Calendar] internalItems on cancel:', this.internalItems.map(i => ({ id: i.id, title: i.title })));
         this.popoverService.closeEditor();
         this.editorRef = null;
     }
@@ -935,6 +996,16 @@ export abstract class AmwCalendarBaseComponent<T = any> implements OnInit, OnCha
      * Convert calendar item to event for display compatibility
      */
     private convertItemToEvent(item: CalendarItem<T>): CalendarEvent<T> {
+        // Ensure color is always set to avoid change detection issues
+        let eventColor = item.color;
+        if (!eventColor) {
+            if (this.internalConfig?.eventColor) {
+                eventColor = this.internalConfig.eventColor({ ...item, data: item.data } as CalendarEvent<T>);
+            } else {
+                eventColor = '#6750a4'; // Default color
+            }
+        }
+
         return {
             id: item.id,
             title: item.title,
@@ -942,7 +1013,7 @@ export abstract class AmwCalendarBaseComponent<T = any> implements OnInit, OnCha
             start: item.start,
             end: item.end,
             allDay: item.allDay,
-            color: item.color,
+            color: eventColor,
             editable: item.editable,
             deletable: item.deletable,
             draggable: item.draggable,
