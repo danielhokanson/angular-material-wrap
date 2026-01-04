@@ -1,7 +1,28 @@
 {
   "name": "angular-material-wrap",
-  "version": "0.0.0",
-  "description": "Angular Material Wrap Library",
+  "version": "0.1.0-beta.0",
+  "description": "A comprehensive Angular library providing enhanced Material Design components, complete page layouts, and advanced UI patterns",
+  "author": "Daniel Hokanson",
+  "license": "MIT",
+  "keywords": [
+    "angular",
+    "angular-material",
+    "material-design",
+    "material-design-3",
+    "ui-components",
+    "form-controls",
+    "page-layouts",
+    "theme-management",
+    "typescript"
+  ],
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/danielhokanson/angular-material-wrap.git"
+  },
+  "homepage": "https://github.com/danielhokanson/angular-material-wrap#readme",
+  "bugs": {
+    "url": "https://github.com/danielhokanson/angular-material-wrap/issues"
+  },
   "main": "bundles/angular-material-wrap.umd.js",
   "module": "fesm2015/angular-material-wrap.js",
   "es2015": "fesm2015/angular-material-wrap.js",
@@ -14,7 +35,16 @@
     "tslib": "^2.3.0"
   },
   "peerDependencies": {
-    "@angular/common": "^19.2.0",
-    "@angular/core": "^19.2.0"
+    "@angular/animations": "^21.0.0",
+    "@angular/cdk": "^21.0.0",
+    "@angular/common": "^21.0.0",
+    "@angular/core": "^21.0.0",
+    "@angular/forms": "^21.0.0",
+    "@angular/material": "^21.0.0",
+    "@angular/platform-browser": "^21.0.0"
+  },
+  "engines": {
+    "node": ">=18.0.0",
+    "npm": ">=9.0.0"
   }
 }
