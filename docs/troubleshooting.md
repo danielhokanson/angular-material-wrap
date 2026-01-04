@@ -268,14 +268,14 @@
 3. Update component decorator to use `templateUrl` and `styleUrls`
 
 ```typescript
-// ❌ Wrong - inline template and styles
+// Wrong - inline template and styles
 @Component({
   selector: 'amw-my-component',
   template: '<div>Hello</div>',
   styles: ['.my-class { color: red; }']
 })
 
-// ✅ Correct - external files
+// Correct - external files
 @Component({
   selector: 'amw-my-component',
   templateUrl: './amw-my-component.component.html',
@@ -294,12 +294,12 @@
 3. Use proper naming conventions
 
 ```typescript
-// ❌ Wrong - multiple classes in one file
+// Wrong - multiple classes in one file
 export class MyComponent {}
 export class MyService {}
 export interface MyInterface {}
 
-// ✅ Correct - separate files
+// Correct - separate files
 // amw-my-component.component.ts
 export class AmwMyComponentComponent {}
 

@@ -2,7 +2,7 @@
 
 A comprehensive Angular library providing enhanced Material Design components, complete page layouts, and advanced UI patterns. This project includes both a distributable library and a comprehensive demo application showcasing all capabilities.
 
-## 📚 Documentation
+## Documentation
 
 **Complete documentation is available in the [`docs/`](./docs/) folder.**
 
@@ -12,7 +12,7 @@ A comprehensive Angular library providing enhanced Material Design components, c
 - **[Library API Reference](./docs/library-api.md)** - Complete API documentation
 - **[Development Workflow](./docs/development-workflow.md)** - How to develop, build, and test
 
-## 🚀 Quick Start
+## Quick Start
 
 ```bash
 # Install dependencies
@@ -28,7 +28,7 @@ npm run build:lib
 npm run build:demo
 ```
 
-## 🎯 Four Main Areas
+## Four Main Areas
 
 The library is organized into four main areas:
 
@@ -37,7 +37,7 @@ The library is organized into four main areas:
 3. **Pages** (`/pages`) - Complete page layouts and common page patterns
 4. **Styling** (`/styling`) - Theme management and Material Design 3 implementation
 
-## 🏗️ Project Structure
+## Project Structure
 
 ```
 src/
@@ -77,7 +77,7 @@ src/
     └── tsconfig.*.json
 ```
 
-## 🎯 Key Commands
+## Key Commands
 
 ### Development
 
@@ -98,14 +98,14 @@ src/
 - `npm run test:demo` - Test the demo app
 - `npm test` - Test library (default)
 
-## 🏷️ Naming Conventions
+## Naming Conventions
 
 - **Library components**: `amw-*` prefix (e.g., `amw-button`, `amw-data-table`)
 - **Demo components**: `amw-demo-*` prefix (e.g., `amw-demo-root`)
 - **SCSS classes**: BEM methodology with `amw-` prefix
 - **Interfaces**: Descriptive names (e.g., `ButtonConfig`, `ListPageData`)
 
-## 📖 What's Included
+## What's Included
 
 ### Controls (20+ Components)
 
@@ -133,12 +133,12 @@ src/
 - **Theme Management**: Dynamic theme switching and customization
 - **SCSS Architecture**: BEM methodology with consistent naming
 
-## 📦 Output
+## Output
 
 - Library build output: `dist/angular-material-wrap/`
 - Demo app build output: `dist/angular-material-wrap-demo/`
 
-## 🔧 Technology Stack
+## Technology Stack
 
 - **Angular**: 20.2.0
 - **Angular Material**: 20.2.0

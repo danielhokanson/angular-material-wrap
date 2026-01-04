@@ -4,7 +4,7 @@
 
 I've successfully implemented a comprehensive HTTP caching interceptor for your Angular Material Wrap library. This interceptor provides configurable client-side caching for HTTP GET requests based on URL patterns defined in a configuration file.
 
-## ✅ What Was Created
+## What Was Created
 
 ### 1. **Core Services**
 
@@ -82,7 +82,7 @@ Example:
 - Best practices
 - Troubleshooting tips
 
-## 🚀 How It Works
+## How It Works
 
 ### Request Flow
 
@@ -107,18 +107,18 @@ Example:
 | `api/posts/:param` | `api/posts/123`, `api/posts/draft`     | `api/posts`                  |
 | `api/search/*`     | `api/search/users`, `api/search/x/y/z` | `api/other`                  |
 
-## 📋 Features
+## Features
 
-✅ **Automatic Caching**: GET requests are cached based on URL patterns  
-✅ **Configurable Timeouts**: Different endpoints can have different cache durations  
-✅ **Pattern Matching**: Flexible URL pattern matching with placeholders  
-✅ **In-Flight Deduplication**: Prevents duplicate simultaneous requests  
-✅ **Automatic Expiration**: Cached responses expire after timeout  
-✅ **Cache Management**: API to manually clear or prune cache  
-✅ **Debug Logging**: Console logs for cache hits/misses  
-✅ **Zero Configuration Required**: Works out of the box with sensible defaults
+**Automatic Caching**: GET requests are cached based on URL patterns  
+**Configurable Timeouts**: Different endpoints can have different cache durations  
+**Pattern Matching**: Flexible URL pattern matching with placeholders  
+**In-Flight Deduplication**: Prevents duplicate simultaneous requests  
+**Automatic Expiration**: Cached responses expire after timeout  
+**Cache Management**: API to manually clear or prune cache  
+**Debug Logging**: Console logs for cache hits/misses  
+**Zero Configuration Required**: Works out of the box with sensible defaults
 
-## 🎯 Usage
+## Usage
 
 ### Basic Setup
 
@@ -167,7 +167,7 @@ this.cacheService.pruneExpired();
 const size = this.cacheService.size();
 ```
 
-## 🧪 Testing
+## Testing
 
 1. **Run the demo**:
 
@@ -188,7 +188,7 @@ ng serve --port 4201
    - Click buttons - see which actually hit the network
    - Check console for cache hit/miss logs
 
-## 📝 Configuration Best Practices
+## Configuration Best Practices
 
 ### Recommended Timeouts
 
@@ -215,7 +215,7 @@ ng serve --port 4201
 }
 ```
 
-## ⚠️ Important Notes
+## Important Notes
 
 1. **Only GET Requests**: The interceptor only caches GET requests. POST, PUT, DELETE, etc. are not cached.
 
@@ -237,18 +237,18 @@ this.http.put("api/users/123", data).subscribe(() => {
 
 4. **Memory Usage**: Cached responses are stored in memory. Use `pruneExpired()` or `clear()` periodically if needed.
 
-## 🎉 Summary
+## Summary
 
 You now have a fully functional, production-ready HTTP caching interceptor that:
 
-- ✅ Works automatically with zero configuration
-- ✅ Improves application performance by reducing redundant HTTP requests
-- ✅ Is highly configurable via a simple JSON file
-- ✅ Supports complex URL patterns with placeholders
-- ✅ Prevents duplicate in-flight requests
-- ✅ Provides a clean API for cache management
-- ✅ Includes comprehensive documentation and examples
-- ✅ Has an interactive demo for testing
+- Works automatically with zero configuration
+- Improves application performance by reducing redundant HTTP requests
+- Is highly configurable via a simple JSON file
+- Supports complex URL patterns with placeholders
+- Prevents duplicate in-flight requests
+- Provides a clean API for cache management
+- Includes comprehensive documentation and examples
+- Has an interactive demo for testing
 
 The implementation follows Angular best practices and is fully type-safe with TypeScript!
 

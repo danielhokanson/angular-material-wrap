@@ -4,11 +4,11 @@
 
 The HTTP Cache Interceptor now features **persistent storage** using IndexedDB and **cross-tab synchronization** using BroadcastChannel API. This means your cache:
 
-- ✅ **Survives browser restarts** - Cache persists even after closing/reopening the browser
-- ✅ **Shared across tabs** - All browser tabs/windows share the same cache in real-time
-- ✅ **Handles large datasets** - IndexedDB can efficiently store 10,000+ records
-- ✅ **Two-tier architecture** - Fast in-memory (L1) + persistent IndexedDB (L2)
-- ✅ **Storage monitoring** - Track usage and quota to prevent limits
+- **Survives browser restarts** - Cache persists even after closing/reopening the browser
+- **Shared across tabs** - All browser tabs/windows share the same cache in real-time
+- **Handles large datasets** - IndexedDB can efficiently store 10,000+ records
+- **Two-tier architecture** - Fast in-memory (L1) + persistent IndexedDB (L2)
+- **Storage monitoring** - Track usage and quota to prevent limits
 
 ## Architecture
 
@@ -322,9 +322,9 @@ if (navigator.storage && navigator.storage.persist) {
 
 | Feature          | Chrome | Firefox | Safari     | Edge |
 | ---------------- | ------ | ------- | ---------- | ---- |
-| IndexedDB        | ✅     | ✅      | ✅         | ✅   |
-| BroadcastChannel | ✅     | ✅      | ✅ 15.4+   | ✅   |
-| Storage API      | ✅     | ✅      | ⚠️ Limited | ✅   |
+| IndexedDB        |     |      |         |   |
+| BroadcastChannel |     |      | 15.4+   |   |
+| Storage API      |     |      | Limited |   |
 
 **Graceful Degradation:**
 
@@ -553,13 +553,13 @@ export class DataService {
 
 The enhanced HTTP cache interceptor provides:
 
-✅ **Persistence** - Cache survives browser restarts  
-✅ **Cross-Tab Sharing** - All tabs share the same cache  
-✅ **Large Dataset Support** - 10,000+ records efficiently cached  
-✅ **Two-Tier Performance** - Memory + IndexedDB for optimal speed  
-✅ **Storage Monitoring** - Track and manage storage usage  
-✅ **Automatic Cleanup** - Expired entries are automatically removed  
-✅ **Graceful Degradation** - Falls back if features unavailable
+**Persistence** - Cache survives browser restarts  
+**Cross-Tab Sharing** - All tabs share the same cache  
+**Large Dataset Support** - 10,000+ records efficiently cached  
+**Two-Tier Performance** - Memory + IndexedDB for optimal speed  
+**Storage Monitoring** - Track and manage storage usage  
+**Automatic Cleanup** - Expired entries are automatically removed  
+**Graceful Degradation** - Falls back if features unavailable
 
 This makes it ideal for caching large reference datasets like:
 
