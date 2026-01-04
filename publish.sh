@@ -149,11 +149,18 @@ fi
 # Ask about running tests
 echo ""
 echo -e "${YELLOW}Pre-publish Options:${NC}"
-read -p "Run tests before publishing? (Y/n): " -n 1 -r RUN_TESTS
-echo ""
-if [[ $RUN_TESTS =~ ^[Yy]$ ]] || [[ -z $RUN_TESTS ]]; then
-    RUN_TESTS="yes"
+
+# Check if test files exist before asking
+if find "$LIBRARY_DIR/src" -name "*.spec.ts" -type f | grep -q .; then
+    read -p "Run tests before publishing? (Y/n): " -n 1 -r RUN_TESTS
+    echo ""
+    if [[ $RUN_TESTS =~ ^[Yy]$ ]] || [[ -z $RUN_TESTS ]]; then
+        RUN_TESTS="yes"
+    else
+        RUN_TESTS="no"
+    fi
 else
+    echo "No test files found - skipping test option"
     RUN_TESTS="no"
 fi
 
