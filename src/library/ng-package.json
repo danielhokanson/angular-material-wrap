@@ -3,5 +3,10 @@
   "dest": "../../dist/angular-material-wrap",
   "lib": {
     "entryFile": "src/public-api.ts"
-  }
+  },
+  "assets": [
+    "README.md",
+    "docs/**/*.md",
+    "LICENSE"
+  ]
 }

@@ -6,10 +6,14 @@ A comprehensive Angular library providing enhanced Material Design components, c
 
 **Complete documentation is available in the [`docs/`](./docs/) folder.**
 
-- **[Quick Start for AI Assistants](./docs/cursor-ai-context.md)** - Essential context for AI assistants
+### For Using This Library in Your App
+- **[Implementation Guide](./docs/implementation-guide.md)** - Step-by-step guide for implementing this library in another Angular app (ideal for AI assistants)
+- **[Library API Reference](./docs/library-api.md)** - Complete API documentation
+
+### For Developing This Library
+- **[Quick Start for AI Assistants](./docs/cursor-ai-context.md)** - Essential context for AI assistants working on this library
 - **[Complete Documentation Index](./docs/index.md)** - Full documentation overview
 - **[Project Overview](./docs/project-overview.md)** - High-level project description
-- **[Library API Reference](./docs/library-api.md)** - Complete API documentation
 - **[Development Workflow](./docs/development-workflow.md)** - How to develop, build, and test
 
 ## Quick Start

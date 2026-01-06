@@ -41,28 +41,80 @@ npm install @angular/animations @angular/cdk @angular/common @angular/core @angu
 
 ## Quick Start
 
-### Import Components
+### 1. Configure Animations
+
+Add Angular animations to your application bootstrap (`main.ts`):
+
+```typescript
+import { bootstrapApplication } from '@angular/platform-browser';
+import { provideAnimations } from '@angular/platform-browser/animations';
+import { AppComponent } from './app/app.component';
+
+bootstrapApplication(AppComponent, {
+  providers: [
+    provideAnimations(),
+    // ... other providers
+  ]
+}).catch((err) => console.error(err));
+```
+
+**For module-based apps**, add to your `app.module.ts`:
+
+```typescript
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+
+@NgModule({
+  imports: [BrowserAnimationsModule, /* ... */]
+})
+export class AppModule { }
+```
+
+### 2. Import Library Styles
+
+Add the library styles to your global `styles.scss` file:
+
+```scss
+/* Import Angular Material Wrap Library Styles */
+@use 'angular-material-wrap/styles';
+
+/* Your other styles */
+body {
+  font-family: 'Roboto', sans-serif;
+  margin: 0;
+}
+```
+
+### 3. Import and Use Components
+
+All components are standalone and can be imported directly:
 
 ```typescript
 import { Component } from '@angular/core';
-import { AmwButtonComponent } from 'angular-material-wrap';
+import { AmwButtonComponent, AmwInputComponent } from 'angular-material-wrap';
+import { FormsModule } from '@angular/forms';
 
 @Component({
   selector: 'app-root',
   standalone: true,
-  imports: [AmwButtonComponent],
+  imports: [AmwButtonComponent, AmwInputComponent, FormsModule],
   template: `
+    <amw-input
+      [config]="{ label: 'Username', placeholder: 'Enter username' }"
+      [(ngModel)]="username">
+    </amw-input>
+
     <amw-button
-      label="Click me"
-      type="raised"
-      color="primary"
-      (clicked)="handleClick()">
+      [config]="{ color: 'primary', variant: 'raised' }"
+      (click)="handleClick()">
+      Submit
     </amw-button>
   `
 })
 export class AppComponent {
+  username = '';
+
   handleClick() {
-    console.log('Button clicked!');
+    console.log('Username:', this.username);
   }
 }
 ```
@@ -119,10 +171,14 @@ export class AppComponent implements OnInit {
 
 ## Documentation
 
-For complete documentation, examples, and API reference, visit:
+Complete documentation is included in this package:
+- **[Implementation Guide](./docs/IMPLEMENTATION-GUIDE.md)** - Complete step-by-step guide with examples
+- **[Quick Start for AI](./docs/CLAUDE-QUICK-START.md)** - Concise guide for AI assistants
+- **[API Reference](./docs/API-REFERENCE.md)** - Full API documentation
+
+Additional resources:
 - [GitHub Repository](https://github.com/danielhokanson/angular-material-wrap)
-- [API Documentation](https://github.com/danielhokanson/angular-material-wrap/blob/main/docs/library-api.md)
-- [Development Guide](https://github.com/danielhokanson/angular-material-wrap/blob/main/docs/development-workflow.md)
+- [Issues & Support](https://github.com/danielhokanson/angular-material-wrap/issues)
 
 ## Component Areas
 

@@ -2,7 +2,11 @@
 
 ## Quick Start for AI Assistants
 
-**Start here**: [Cursor AI Context](./cursor-ai-context.md) - Essential context for AI assistants
+### For Using This Library in Your App
+**Start here**: [Implementation Guide](./implementation-guide.md) - Step-by-step guide for implementing this library in another Angular app
+
+### For Developing This Library
+**Start here**: [Cursor AI Context](./cursor-ai-context.md) - Essential context for AI assistants working on this library
 
 ## Complete Documentation
 
@@ -21,6 +25,7 @@
 
 ### API Documentation
 
+- [Implementation Guide](./implementation-guide.md) - How to use this library in another Angular app
 - [Library API](./library-api.md) - Complete API documentation for all components and services
 - [Demo App](./demo-app.md) - Comprehensive demo application structure and features
 
