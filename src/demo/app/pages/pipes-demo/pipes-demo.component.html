@@ -6,14 +6,14 @@
 
   <div class="pipes-content">
     <div class="pipes-main">
-      <mat-card class="pipe-demo">
-        <mat-card-header>
-          <mat-card-title>{{ selectedPipe.name }}</mat-card-title>
-          <mat-card-subtitle>Interactive demo and documentation</mat-card-subtitle>
-        </mat-card-header>
-        <mat-card-content>
-          <mat-tab-group [(selectedIndex)]="selectedTab" class="pipe-tabs">
-            <mat-tab label="Demo" icon="play_arrow">
+      <amw-card class="pipe-demo">
+        <div slot="header">
+          <h2>{{ selectedPipe.name }}</h2>
+          <p class="subtitle">Interactive demo and documentation</p>
+        </div>
+        <div slot="content">
+          <amw-tabs [(selectedIndex)]="selectedTab" class="pipe-tabs">
+            <amw-tab label="Demo" icon="play_arrow">
               @switch (selectedPipe.id) {
                 @case ('currency') {
                   <div class="demo-content">
@@ -70,9 +70,9 @@
                   </div>
                 }
               }
-            </mat-tab>
+            </amw-tab>
 
-            <mat-tab label="Code" icon="code">
+            <amw-tab label="Code" icon="code">
               <div class="code-content">
                 @switch (selectedPipe.id) {
                   @case ('currency') {
@@ -287,11 +287,11 @@
                       <h3>{{ selectedPipe.name }} Pipe Code</h3>
                       <p>This library provides three custom pipes for common data transformations:</p>
 
-                      <mat-card>
-                        <mat-card-header>
-                          <mat-card-title>Available Pipes</mat-card-title>
-                        </mat-card-header>
-                        <mat-card-content>
+                      <amw-card>
+                        <div slot="header">
+                          <h2>Available Pipes</h2>
+                        </div>
+                        <div slot="content">
                           <pre><code>// Currency Pipe - Format currency values
 import &#123; AmwCurrencyPipe &#125; from '@angular-material-wrap/pipes';
 Usage: value | amwCurrency:currencyCode:display:digitsInfo:locale
@@ -303,17 +303,17 @@ Usage: date | amwDate:format:timezone:locale
 // Text Transform Pipe - Transform text case
 import &#123; AmwTextTransformPipe &#125; from '@angular-material-wrap/pipes';
 Usage: text | amwTextTransform:mode</code></pre>
-                        </mat-card-content>
-                      </mat-card>
+                        </div>
+                      </amw-card>
 
                       <p>Select a specific pipe from the navigation to see detailed code examples.</p>
                     </div>
                   }
                 }
               </div>
-            </mat-tab>
+            </amw-tab>
 
-            <mat-tab label="API" icon="description">
+            <amw-tab label="API" icon="description">
               <div class="api-content">
                 @switch (selectedPipe.id) {
                   @case ('currency') {
@@ -622,11 +622,11 @@ Usage: text | amwTextTransform:mode</code></pre>
                     <div class="api-content">
                       <h3>{{ selectedPipe.name }} Pipe API</h3>
 
-                      <mat-card class="api-reference">
-                        <mat-card-header>
-                          <mat-card-title>Pipe API Overview</mat-card-title>
-                        </mat-card-header>
-                        <mat-card-content>
+                      <amw-card class="api-reference">
+                        <div slot="header">
+                          <h2>Pipe API Overview</h2>
+                        </div>
+                        <div slot="content">
                           <h4>AmwCurrencyPipe</h4>
                           <p>Formats numbers as currency values with internationalization support.</p>
                           <ul>
@@ -647,18 +647,18 @@ Usage: text | amwTextTransform:mode</code></pre>
                             <li><strong>Signature:</strong> <code>transform(value: string, mode: 'uppercase' | 'lowercase' | 'capitalize' | 'titlecase'): string</code></li>
                             <li><strong>Parameters:</strong> value, mode (required)</li>
                           </ul>
-                        </mat-card-content>
-                      </mat-card>
+                        </div>
+                      </amw-card>
 
                       <p>Select a specific pipe from the navigation to see detailed API documentation.</p>
                     </div>
                   }
                 }
               </div>
-            </mat-tab>
-          </mat-tab-group>
-        </mat-card-content>
-      </mat-card>
+            </amw-tab>
+          </amw-tabs>
+        </div>
+      </amw-card>
     </div>
   </div>
 </div>

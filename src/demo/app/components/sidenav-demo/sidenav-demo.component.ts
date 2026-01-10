@@ -16,12 +16,11 @@ import { AmwSize } from '../../../../library/src/shared/types';
  * Demo component for showcasing sidenav variations and configurations
  */
 import { MatOptionModule } from '@angular/material/core';
-import { MatSlideToggleModule } from '@angular/material/slide-toggle';
-import { MatCardModule } from '@angular/material/card';
 
 import { AmwButtonComponent } from '../../../../library/src/controls/components/amw-button/amw-button.component';
 import { AmwInputComponent } from '../../../../library/src/controls/components/amw-input/amw-input.component';
 import { AmwSelectComponent } from '../../../../library/src/controls/components/amw-select/amw-select.component';
+import { AmwSwitchComponent } from '../../../../library/src/controls/components/amw-switch/amw-switch.component';
 @Component({
     selector: 'app-sidenav-demo',
     standalone: true,
@@ -31,11 +30,10 @@ import { AmwSelectComponent } from '../../../../library/src/controls/components/
     ReactiveFormsModule,
     AmwSidenavComponent,
     MatOptionModule,
-    MatSlideToggleModule,
-    MatCardModule,
     AmwButtonComponent,
     AmwInputComponent,
-    AmwSelectComponent],
+    AmwSelectComponent,
+    AmwSwitchComponent],
     templateUrl: './sidenav-demo.component.html',
     styleUrl: './sidenav-demo.component.scss'
 })

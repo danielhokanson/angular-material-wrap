@@ -4,17 +4,17 @@
     <p>Comprehensive calendar components with event management and multiple view modes</p>
   </div>
 
-  <mat-tab-group [(selectedIndex)]="selectedTab" class="demo-tabs">
+  <amw-tabs [(selectedIndex)]="selectedTab" class="demo-tabs">
     
     <!-- Full Calendar Tab -->
-    <mat-tab label="Full Calendar" icon="calendar_view_month">
+    <amw-tab label="Full Calendar" icon="calendar_view_month">
       <div class="tab-content">
-        <mat-card class="demo-card">
-          <mat-card-header>
-            <mat-card-title>Full Calendar Component</mat-card-title>
-            <mat-card-subtitle>Full-screen calendar with month, week, and day views</mat-card-subtitle>
-          </mat-card-header>
-          <mat-card-content>
+        <amw-card class="demo-card">
+          <div slot="header">
+            <h2>Full Calendar Component</h2>
+            <p class="subtitle">Full-screen calendar with month, week, and day views</p>
+          </div>
+          <div slot="content">
             <div class="demo-section">
               <h3>Interactive Calendar</h3>
               <p>Full-featured calendar with drag-and-drop, editing, and multiple view modes</p>
@@ -69,20 +69,20 @@
                 </amw-calendar-full>
               </div>
             </div>
-          </mat-card-content>
-        </mat-card>
+          </div>
+        </amw-card>
       </div>
-    </mat-tab>
+    </amw-tab>
 
     <!-- Mini Calendar Tab -->
-    <mat-tab label="Mini Calendar" icon="calendar_today">
+    <amw-tab label="Mini Calendar" icon="calendar_today">
       <div class="tab-content">
-        <mat-card class="demo-card">
-          <mat-card-header>
-            <mat-card-title>Mini Calendar Component</mat-card-title>
-            <mat-card-subtitle>Compact calendar for single day and week views</mat-card-subtitle>
-          </mat-card-header>
-          <mat-card-content>
+        <amw-card class="demo-card">
+          <div slot="header">
+            <h2>Mini Calendar Component</h2>
+            <p class="subtitle">Compact calendar for single day and week views</p>
+          </div>
+          <div slot="content">
             <div class="demo-section">
               <h3>Single Day View</h3>
               <p>Compact calendar showing events for a single day</p>
@@ -125,7 +125,7 @@
               </div>
             </div>
 
-            <mat-divider></mat-divider>
+            <amw-divider></amw-divider>
 
             <div class="demo-section">
               <h3>Week View</h3>
@@ -156,7 +156,7 @@
               </div>
             </div>
 
-            <mat-divider></mat-divider>
+            <amw-divider></amw-divider>
 
             <div class="demo-section">
               <h3>Compact Mode</h3>
@@ -186,20 +186,20 @@
                 </amw-calendar-mini>
               </div>
             </div>
-          </mat-card-content>
-        </mat-card>
+          </div>
+        </amw-card>
       </div>
-    </mat-tab>
+    </amw-tab>
 
     <!-- Custom Fields Tab -->
-    <mat-tab label="Custom Fields" icon="extension">
+    <amw-tab label="Custom Fields" icon="extension">
       <div class="tab-content">
-        <mat-card class="demo-card">
-          <mat-card-header>
-            <mat-card-title>Custom Field Templates</mat-card-title>
-            <mat-card-subtitle>Extend calendar items with custom fields using template projection</mat-card-subtitle>
-          </mat-card-header>
-          <mat-card-content>
+        <amw-card class="demo-card">
+          <div slot="header">
+            <h2>Custom Field Templates</h2>
+            <p class="subtitle">Extend calendar items with custom fields using template projection</p>
+          </div>
+          <div slot="content">
             <div class="demo-section">
               <h3>Meeting Calendar with Custom Fields</h3>
               <p>This example demonstrates how to add custom fields (location, attendees, meeting URL) to calendar items using template projection.</p>
@@ -304,7 +304,7 @@
               </div>
             </div>
 
-            <mat-divider></mat-divider>
+            <amw-divider></amw-divider>
 
             <div class="demo-section">
               <h3>Code Example</h3>
@@ -345,20 +345,20 @@ validateMeetingFields = (data: MeetingEvent): boolean => &#123;
 &lt;/amw-calendar-full&gt;</code></pre>
               </div>
             </div>
-          </mat-card-content>
-        </mat-card>
+          </div>
+        </amw-card>
       </div>
-    </mat-tab>
+    </amw-tab>
 
     <!-- Features Tab -->
-    <mat-tab label="Features" icon="star">
+    <amw-tab label="Features" icon="star">
       <div class="tab-content">
-        <mat-card class="demo-card">
-          <mat-card-header>
-            <mat-card-title>Calendar Features</mat-card-title>
-            <mat-card-subtitle>Comprehensive feature overview</mat-card-subtitle>
-          </mat-card-header>
-          <mat-card-content>
+        <amw-card class="demo-card">
+          <div slot="header">
+            <h2>Calendar Features</h2>
+            <p class="subtitle">Comprehensive feature overview</p>
+          </div>
+          <div slot="content">
             <div class="features-grid">
               <div class="feature-item">
                 <mat-icon>event</mat-icon>
@@ -408,9 +408,9 @@ validateMeetingFields = (data: MeetingEvent): boolean => &#123;
                 <p>Highly configurable with extensive customization options</p>
               </div>
             </div>
-          </mat-card-content>
-        </mat-card>
+          </div>
+        </amw-card>
       </div>
-    </mat-tab>
-  </mat-tab-group>
+    </amw-tab>
+  </amw-tabs>
 </div>

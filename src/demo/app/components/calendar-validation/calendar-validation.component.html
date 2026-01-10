@@ -4,15 +4,15 @@
 
   <div class="validation-forms">
     <!-- Basic Date Picker Form -->
-    <mat-card class="validation-card">
-      <mat-card-header>
-        <mat-card-title>
+    <amw-card class="validation-card">
+      <div slot="header">
+        <h2>
           <mat-icon>event</mat-icon>
           Basic Date Picker
-        </mat-card-title>
-        <mat-card-subtitle>Simple date selection with required validation</mat-card-subtitle>
-      </mat-card-header>
-      <mat-card-content>
+        </h2>
+        <p class="subtitle">Simple date selection with required validation</p>
+      </div>
+      <div slot="content">
         <form [formGroup]="basicDateForm" (ngSubmit)="submitBasicDate()">
           <amw-datepicker
             class="full-width"
@@ -47,19 +47,19 @@
             </div>
           }
         </div>
-      </mat-card-content>
-    </mat-card>
+      </div>
+    </amw-card>
 
     <!-- Date Range Form -->
-    <mat-card class="validation-card">
-      <mat-card-header>
-        <mat-card-title>
+    <amw-card class="validation-card">
+      <div slot="header">
+        <h2>
           <mat-icon>date_range</mat-icon>
           Date Range Selection
-        </mat-card-title>
-        <mat-card-subtitle>Start and end date with range validation</mat-card-subtitle>
-      </mat-card-header>
-      <mat-card-content>
+        </h2>
+        <p class="subtitle">Start and end date with range validation</p>
+      </div>
+      <div slot="content">
         <form [formGroup]="dateRangeForm" (ngSubmit)="submitDateRange()">
           <div class="date-range-fields">
             <amw-datepicker
@@ -111,19 +111,19 @@
             </div>
           }
         </div>
-      </mat-card-content>
-    </mat-card>
+      </div>
+    </amw-card>
 
     <!-- Event Booking Form -->
-    <mat-card class="validation-card">
-      <mat-card-header>
-        <mat-card-title>
+    <amw-card class="validation-card">
+      <div slot="header">
+        <h2>
           <mat-icon>event_available</mat-icon>
           Event Booking
-        </mat-card-title>
-        <mat-card-subtitle>Complex form with multiple date constraints</mat-card-subtitle>
-      </mat-card-header>
-      <mat-card-content>
+        </h2>
+        <p class="subtitle">Complex form with multiple date constraints</p>
+      </div>
+      <div slot="content">
         <form [formGroup]="eventBookingForm" (ngSubmit)="submitEventBooking()">
           <amw-input
             class="full-width"
@@ -183,12 +183,12 @@
             </div>
           }
         </div>
-      </mat-card-content>
-    </mat-card>
+      </div>
+    </amw-card>
 
     <!-- Form Summary -->
-    <mat-card class="validation-card validation-card--summary">
-      <mat-card-content>
+    <amw-card class="validation-card validation-card--summary">
+      <div slot="content">
         <div class="form-summary">
           <h4>Validation Summary</h4>
           <div class="summary-items">
@@ -224,7 +224,7 @@
             <span>All forms are valid!</span>
           </div>
         }
-      </mat-card-content>
-    </mat-card>
+      </div>
+    </amw-card>
   </div>
 </div>

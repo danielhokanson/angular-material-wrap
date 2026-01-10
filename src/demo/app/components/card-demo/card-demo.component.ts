@@ -9,7 +9,6 @@ import { CardConfig, CardVariant, CardElevation } from '../../../../library/src/
 import { AmwSize } from '../../../../library/src/shared/types';
 import { Subscription } from 'rxjs';
 import { MatOptionModule } from '@angular/material/core';
-import { MatCardModule } from '@angular/material/card';
 
 import { AmwButtonComponent } from '../../../../library/src/controls/components/amw-button/amw-button.component';
 import { AmwInputComponent } from '../../../../library/src/controls/components/amw-input/amw-input.component';
@@ -22,7 +21,6 @@ import { AmwCheckboxComponent } from '../../../../library/src/controls/component
     AmwCardComponent,
     MatIconModule,
     MatOptionModule,
-    MatCardModule,
     AmwButtonComponent,
     AmwInputComponent,
     AmwSelectComponent,

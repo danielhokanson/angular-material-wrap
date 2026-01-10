@@ -206,9 +206,8 @@ class ListPageDemoDataSource implements ListPageDataSource {
         };
     }
 }
-import { MatTabsModule } from '@angular/material/tabs';
+import { AmwTabsComponent } from '@angular/material/tabs';
 import { MatChipsModule } from '@angular/material/chips';
-import { MatCardModule } from '@angular/material/card';
 
 @Component({
     selector: 'app-list-page-demo',
@@ -217,9 +216,8 @@ import { MatCardModule } from '@angular/material/card';
     MatIconModule,
     MatTooltipModule,
     AmwListPageComponent,
-    MatTabsModule,
+    AmwTabsComponent,
     MatChipsModule,
-    MatCardModule
 ],
     templateUrl: './list-page-demo.component.html',
     styleUrl: './list-page-demo.component.scss'

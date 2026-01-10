@@ -3,8 +3,6 @@ import { CommonModule } from '@angular/common';
 import { FormsModule, ReactiveFormsModule, FormBuilder, FormGroup } from '@angular/forms';
 import { MatCardModule } from '@angular/material/card';
 import { MatIconModule } from '@angular/material/icon';
-import { MatSelectModule } from '@angular/material/select';
-import { MatCheckboxModule } from '@angular/material/checkbox';
 import { MatChipsModule } from '@angular/material/chips';
 import { MatDividerModule } from '@angular/material/divider';
 import { MatTabsModule } from '@angular/material/tabs';
@@ -14,6 +12,8 @@ import { Subject, takeUntil, BehaviorSubject, Observable, of } from 'rxjs';
 import { delay } from 'rxjs/operators';
 import { AmwTooltipDirective } from '../../../directives';
 import { AmwInputComponent } from '../../../controls/components/amw-input/amw-input.component';
+import { AmwCheckboxComponent } from '../../../controls/components/amw-checkbox/amw-checkbox.component';
+import { AmwSelectComponent } from '../../../controls/components/amw-select/amw-select.component';
 
 // Import interfaces
 import {
@@ -39,9 +39,9 @@ import { AmwButtonComponent } from '../../../controls/components/amw-button/amw-
         MatCardModule,
         AmwButtonComponent,
         AmwInputComponent,
+        AmwCheckboxComponent,
+        AmwSelectComponent,
         MatIconModule,
-        MatSelectModule,
-        MatCheckboxModule,
         MatChipsModule,
         MatDividerModule,
         MatTabsModule,

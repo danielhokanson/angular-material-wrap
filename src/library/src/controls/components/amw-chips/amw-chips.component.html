@@ -166,7 +166,7 @@
         variant="icon"
         icon="add"
         class="amw-chips__add-button"
-        [disabled]="disabled || (maxChips && internalChips.length >= maxChips)"
+        [disabled]="disabled || !!(maxChips && internalChips.length >= maxChips)"
         [amwTooltip]="'Add chip'"
         (click)="focusInput()">
       </amw-button>

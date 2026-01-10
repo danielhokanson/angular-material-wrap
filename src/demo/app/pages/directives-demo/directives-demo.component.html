@@ -6,14 +6,14 @@
 
   <div class="directives-content">
     <div class="directives-main">
-      <mat-card class="directive-demo">
-        <mat-card-header>
-          <mat-card-title>{{ selectedDirective.name }}</mat-card-title>
-          <mat-card-subtitle>Interactive demo and documentation</mat-card-subtitle>
-        </mat-card-header>
-        <mat-card-content>
-          <mat-tab-group [(selectedIndex)]="selectedTab" class="directive-tabs">
-            <mat-tab label="Demo" icon="play_arrow">
+      <amw-card class="directive-demo">
+        <div slot="header">
+          <h2>{{ selectedDirective.name }}</h2>
+          <p class="subtitle">Interactive demo and documentation</p>
+        </div>
+        <div slot="content">
+          <amw-tabs [(selectedIndex)]="selectedTab" class="directive-tabs">
+            <amw-tab label="Demo" icon="play_arrow">
               @switch (selectedDirective.id) {
                 @case ('click-outside') {
                   <div class="demo-content">
@@ -111,9 +111,9 @@
                   </div>
                 }
               }
-            </mat-tab>
+            </amw-tab>
 
-            <mat-tab label="Code" icon="code">
+            <amw-tab label="Code" icon="code">
               <div class="code-content">
                 @switch (selectedDirective.id) {
                   @case ('tooltip') {
@@ -496,11 +496,11 @@
                       <h3>{{ selectedDirective.name }} Directive Code</h3>
                       <p>This library provides four utility directives to enhance Angular applications:</p>
 
-                      <mat-card>
-                        <mat-card-header>
-                          <mat-card-title>Available Directives</mat-card-title>
-                        </mat-card-header>
-                        <mat-card-content>
+                      <amw-card>
+                        <div slot="header">
+                          <h2>Available Directives</h2>
+                        </div>
+                        <div slot="content">
                           <pre><code>// Tooltip Directive - Custom tooltips with positioning
 import &#123; AmwTooltipDirective &#125; from '@angular-material-wrap/directives';
 
@@ -520,17 +520,17 @@ import &#123; AmwAutoFocusDirective &#125; from '@angular-material-wrap/directiv
 import &#123; AmwCopyToClipboardDirective &#125; from '@angular-material-wrap/directives';
 
 &lt;button [amwCopyToClipboard]="textToCopy"&gt;Copy&lt;/button&gt;</code></pre>
-                        </mat-card-content>
-                      </mat-card>
+                        </div>
+                      </amw-card>
 
                       <p>Select a specific directive from the navigation to see detailed code examples.</p>
                     </div>
                   }
                 }
               </div>
-            </mat-tab>
+            </amw-tab>
 
-            <mat-tab label="API" icon="description">
+            <amw-tab label="API" icon="description">
               <div class="api-content">
                 @switch (selectedDirective.id) {
                   @case ('tooltip') {
@@ -884,11 +884,11 @@ import &#123; AmwCopyToClipboardDirective &#125; from '@angular-material-wrap/di
                     <div class="api-content">
                       <h3>{{ selectedDirective.name }} Directive API</h3>
 
-                      <mat-card class="api-reference">
-                        <mat-card-header>
-                          <mat-card-title>Directive API Overview</mat-card-title>
-                        </mat-card-header>
-                        <mat-card-content>
+                      <amw-card class="api-reference">
+                        <div slot="header">
+                          <h2>Directive API Overview</h2>
+                        </div>
+                        <div slot="content">
                           <h4>AmwTooltipDirective</h4>
                           <p>Displays custom tooltips with configurable positioning and styling.</p>
                           <ul>
@@ -921,18 +921,18 @@ import &#123; AmwCopyToClipboardDirective &#125; from '@angular-material-wrap/di
                             <li><strong>Outputs:</strong> <code>(copied): EventEmitter&lt;boolean&gt;</code></li>
                             <li><strong>Usage:</strong> Attach to buttons to enable copy functionality</li>
                           </ul>
-                        </mat-card-content>
-                      </mat-card>
+                        </div>
+                      </amw-card>
 
                       <p>Select a specific directive from the navigation to see detailed API documentation.</p>
                     </div>
                   }
                 }
               </div>
-            </mat-tab>
-          </mat-tab-group>
-        </mat-card-content>
-      </mat-card>
+            </amw-tab>
+          </amw-tabs>
+        </div>
+      </amw-card>
     </div>
   </div>
 </div>

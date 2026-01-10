@@ -5,7 +5,6 @@ import { MatGridListModule } from '@angular/material/grid-list';
 import { MatListModule } from '@angular/material/list';
 import { ViewEncapsulation } from '@angular/core';
 import { MatProgressBarModule } from '@angular/material/progress-bar';
-import { MatCardModule } from '@angular/material/card';
 
 import { AmwButtonComponent } from '../../../../library/src/controls/components/amw-button/amw-button.component';
 @Component({
@@ -15,7 +14,6 @@ import { AmwButtonComponent } from '../../../../library/src/controls/components/
     MatGridListModule,
     MatListModule,
     MatProgressBarModule,
-    MatCardModule,
     AmwButtonComponent],
   encapsulation: ViewEncapsulation.None,
   templateUrl: './dashboard-page.component.html',

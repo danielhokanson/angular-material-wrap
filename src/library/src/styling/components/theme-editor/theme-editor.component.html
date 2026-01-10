@@ -22,7 +22,7 @@
               [(ngModel)]="themeName"
               (ngModelChange)="onThemeNameChange()"
               placeholder="My Custom Theme"
-              required
+              [required]="true"
               appearance="outline"
               class="form-field">
             </amw-input>
@@ -31,7 +31,7 @@
               label="Theme ID"
               [(ngModel)]="themeId"
               placeholder="my-custom-theme"
-              required
+              [required]="true"
               hint="Used internally (auto-generated from name)"
               appearance="outline"
               class="form-field">

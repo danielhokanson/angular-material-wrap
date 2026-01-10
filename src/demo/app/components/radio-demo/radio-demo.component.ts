@@ -4,7 +4,7 @@ import { MatIconModule } from '@angular/material/icon';
 
 import { AmwRadioComponent } from '../../../../library/src/controls/components/amw-radio/amw-radio.component';
 import { AmwSize, AmwColor } from '../../../../library/src/shared/types';
-import { MatRadioModule } from '@angular/material/radio';
+import { AmwRadioComponent } from '@angular/material/radio';
 
 @Component({
     selector: 'amw-demo-radio',
@@ -13,7 +13,7 @@ import { MatRadioModule } from '@angular/material/radio';
     MatIconModule,
     AmwRadioComponent,
     AmwRadioComponent,
-    MatRadioModule
+    AmwRadioComponent
 ],
     encapsulation: ViewEncapsulation.None,
     templateUrl: './radio-demo.component.html',

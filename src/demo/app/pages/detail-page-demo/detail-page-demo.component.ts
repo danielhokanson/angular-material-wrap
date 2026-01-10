@@ -341,8 +341,7 @@ class DetailPageDemoDataSource implements DetailPageDataSource {
         ];
     }
 }
-import { MatTabsModule } from '@angular/material/tabs';
-import { MatCardModule } from '@angular/material/card';
+import { AmwTabsComponent } from '@angular/material/tabs';
 
 @Component({
     selector: 'app-detail-page-demo',
@@ -351,8 +350,7 @@ import { MatCardModule } from '@angular/material/card';
     MatIconModule,
     MatTooltipModule,
     AmwDetailPageComponent,
-    MatTabsModule,
-    MatCardModule
+    AmwTabsComponent,
 ],
     templateUrl: './detail-page-demo.component.html',
     styleUrl: './detail-page-demo.component.scss'

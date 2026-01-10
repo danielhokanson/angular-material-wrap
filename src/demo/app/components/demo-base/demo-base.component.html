@@ -1,10 +1,10 @@
-<mat-card class="demo-card">
-  <mat-card-header>
-    <mat-card-title>{{ title }}</mat-card-title>
-    <mat-card-subtitle *ngIf="description">{{ description }}</mat-card-subtitle>
-  </mat-card-header>
+<amw-card class="demo-card">
+  <div slot="header">
+    <h2>{{ title }}</h2>
+    <p *ngIf="description">{{ description }}</p>
+  </div>
 
-  <mat-card-content>
+  <div slot="content">
     <!-- Controls Section -->
     <div class="demo-controls-section" *ngIf="properties.length > 0">
       <h3>Live Controls</h3>
@@ -34,13 +34,13 @@
             </amw-input>
 
             <!-- Boolean Toggle -->
-            <mat-slide-toggle 
+            <amw-switch
               *ngIf="prop.type === 'boolean'"
               [formControl]="getFormControl(prop.name)"
               (change)="onPropertyChange(prop.name, $event.checked)"
               class="demo-control-toggle">
               {{ prop.name }}
-            </mat-slide-toggle>
+            </amw-switch>
 
             <!-- Select Dropdown -->
             <amw-select
@@ -55,14 +55,14 @@
 
             <!-- Slider -->
             <div *ngIf="prop.type === 'slider'" class="demo-control-slider">
-              <mat-slider 
+              <amw-slider
                 [min]="prop.min || 0"
                 [max]="prop.max || 100"
                 [step]="prop.step || 1"
                 [formControl]="getFormControl(prop.name)"
                 (change)="onSliderChange(prop.name, $event)"
                 class="demo-slider">
-              </mat-slider>
+              </amw-slider>
               <span class="demo-slider-value">{{ getPropertyValue(prop.name) }}</span>
             </div>
           </div>
@@ -77,12 +77,12 @@
     <!-- Form Toggle Section -->
     <div class="demo-form-toggle-section" *ngIf="showFormToggle">
       <h3>Demo Mode</h3>
-      <mat-slide-toggle 
+      <amw-switch
         [checked]="isFormMode"
         (change)="onFormModeToggle()"
         class="demo-form-toggle">
         {{ isFormMode ? 'Form Mode (Reactive Forms)' : 'ngModel Mode (Two-way Binding)' }}
-      </mat-slide-toggle>
+      </amw-switch>
     </div>
 
     <!-- Demo Content Area -->
@@ -95,5 +95,5 @@
       <h3>Usage Example</h3>
       <pre class="demo-code-block"><code>{{ generateCodeExample() }}</code></pre>
     </div>
-  </mat-card-content>
-</mat-card>
+  </div>
+</amw-card>

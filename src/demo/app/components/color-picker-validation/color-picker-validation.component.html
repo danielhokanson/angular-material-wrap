@@ -1,11 +1,11 @@
 <div class="color-picker-validation">
-  <mat-card>
-    <mat-card-header>
-      <mat-card-title>Color Picker Validation Examples</mat-card-title>
-      <mat-card-subtitle>Form validation with color picker controls</mat-card-subtitle>
-    </mat-card-header>
+  <amw-card>
+    <div slot="header">
+      <h2>Color Picker Validation Examples</h2>
+      <p class="subtitle">Form validation with color picker controls</p>
+    </div>
 
-    <mat-card-content>
+    <div slot="content">
       <form [formGroup]="colorPickerForm" (ngSubmit)="onSubmit()">
         <div class="color-picker-validation__form">
           <amw-color-picker
@@ -51,8 +51,8 @@
           </amw-button>
         </div>
       </form>
-    </mat-card-content>
-  </mat-card>
+    </div>
+  </amw-card>
 </div>
 
 

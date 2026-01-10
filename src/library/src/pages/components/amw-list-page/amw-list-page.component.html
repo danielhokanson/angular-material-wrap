@@ -63,16 +63,12 @@
                       </amw-input>
                     }
                     @if (filter.type === 'select') {
-                      <mat-form-field appearance="outline">
-                        <mat-label>{{ filter.label }}</mat-label>
-                        <mat-select [(ngModel)]="currentFilters[filter.key]">
-                          @for (option of filter.options; track option) {
-                            <mat-option [value]="option.value">
-                              {{ option.label }}
-                            </mat-option>
-                          }
-                        </mat-select>
-                      </mat-form-field>
+                      <amw-select
+                        [label]="filter.label"
+                        [(ngModel)]="currentFilters[filter.key]"
+                        [options]="filter.options || []"
+                        appearance="outline">
+                      </amw-select>
                     }
                   </div>
                 }
@@ -100,7 +96,7 @@
             <amw-button
               variant="text"
               [icon]="action.icon"
-              [iconPosition]="action.icon ? 'left' : undefined"
+              [iconPosition]="action.icon ? 'left' : 'left'"
               [color]="action.color || 'primary'"
               (click)="onBulkAction(action)">
               {{ action.label }}
@@ -118,15 +114,15 @@
       @if (currentConfig.showBulkActions) {
         <ng-container matColumnDef="select">
           <th mat-header-cell *matHeaderCellDef>
-            <mat-checkbox [checked]="isAllSelected()"
+            <amw-checkbox [checked]="isAllSelected()"
               [indeterminate]="isIndeterminate()"
               (change)="onSelectAll($event.checked)">
-            </mat-checkbox>
+            </amw-checkbox>
           </th>
           <td mat-cell *matCellDef="let row">
-            <mat-checkbox [checked]="isSelected(row)"
+            <amw-checkbox [checked]="isSelected(row)"
               (change)="onItemSelect(row, $event.checked)">
-            </mat-checkbox>
+            </amw-checkbox>
           </td>
         </ng-container>
       }
@@ -168,7 +164,7 @@
     <!-- Loading State -->
     @if (loading) {
       <div class="amw-list-page__loading">
-        <amw-progress-spinner diameter="40"></amw-progress-spinner>
+        <amw-progress-spinner [diameter]="40"></amw-progress-spinner>
         <p>Loading data...</p>
       </div>
     }

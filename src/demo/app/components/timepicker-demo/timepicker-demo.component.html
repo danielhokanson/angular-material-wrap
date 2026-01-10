@@ -1,12 +1,12 @@
 <div class="timepicker-demo">
   <div class="timepicker-demo__grid">
     @for (variation of timepickerVariations; track variation; let i = $index) {
-      <mat-card class="timepicker-demo__card">
-        <mat-card-header>
-          <mat-card-title>{{ variation.title }}</mat-card-title>
-          <mat-card-subtitle>{{ variation.description }}</mat-card-subtitle>
-        </mat-card-header>
-        <mat-card-content>
+      <amw-card class="timepicker-demo__card">
+        <div slot="header">
+          <h2>{{ variation.title }}</h2>
+          <p class="subtitle">{{ variation.description }}</p>
+        </div>
+        <div slot="content">
           <div class="timepicker-demo__example">
             <amw-timepicker
               [value]="variation.timepicker.value"
@@ -20,8 +20,8 @@
               (timeChange)="onTimeChange($event, i)"
             ></amw-timepicker>
           </div>
-        </mat-card-content>
-      </mat-card>
+        </div>
+      </amw-card>
     }
   </div>
 </div>

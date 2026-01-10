@@ -3,16 +3,14 @@ import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { MatIconModule } from '@angular/material/icon';
 import { ViewEncapsulation } from '@angular/core';
-import { MatCardModule } from '@angular/material/card';
-import { MatTabsModule } from '@angular/material/tabs';
+import { AmwTabsComponent } from '@angular/material/tabs';
 
 @Component({
   selector: 'amw-demo-pages',
   standalone: true,
   imports: [
     MatIconModule,
-    MatCardModule,
-    MatTabsModule
+    AmwTabsComponent
 ],
   encapsulation: ViewEncapsulation.None,
   template: `

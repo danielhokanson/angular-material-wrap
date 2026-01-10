@@ -304,8 +304,7 @@ class SearchPageDemoDataSource implements SearchPageDataSource {
         return highlights;
     }
 }
-import { MatTabsModule } from '@angular/material/tabs';
-import { MatCardModule } from '@angular/material/card';
+import { AmwTabsComponent } from '@angular/material/tabs';
 
 @Component({
     selector: 'app-search-page-demo',
@@ -314,8 +313,7 @@ import { MatCardModule } from '@angular/material/card';
     MatIconModule,
     MatTooltipModule,
     AmwSearchPageComponent,
-    MatTabsModule,
-    MatCardModule
+    AmwTabsComponent,
 ],
     templateUrl: './search-page-demo.component.html',
     styleUrl: './search-page-demo.component.scss'

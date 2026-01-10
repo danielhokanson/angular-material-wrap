@@ -6,12 +6,11 @@ import { AmwRadioGroupComponent } from '../../../../library/src/controls/compone
 import { RadioGroupOption, RadioGroupConfig } from '../../../../library/src/controls/components/amw-radio-group/interfaces/radio-group.interface';
 import { AmwSize } from '../../../../library/src/shared/types/amw-size.type';
 import { MatOptionModule } from '@angular/material/core';
-import { MatSlideToggleModule } from '@angular/material/slide-toggle';
-import { MatCardModule } from '@angular/material/card';
-import { MatDividerModule } from '@angular/material/divider';
+import { AmwDividerComponent } from '@angular/material/divider';
 import { AmwButtonComponent } from '../../../../library/src/controls/components/amw-button/amw-button.component';
 import { AmwInputComponent } from '../../../../library/src/controls/components/amw-input/amw-input.component';
 import { AmwSelectComponent } from '../../../../library/src/controls/components/amw-select/amw-select.component';
+import { AmwSwitchComponent } from '../../../../library/src/controls/components/amw-switch/amw-switch.component';
 
 /**
  * Radio Group Demo Component
@@ -26,12 +25,11 @@ import { AmwSelectComponent } from '../../../../library/src/controls/components/
     MatIconModule,
     AmwRadioGroupComponent,
     MatOptionModule,
-    MatSlideToggleModule,
-    MatCardModule,
-    MatDividerModule,
+    AmwDividerComponent,
     AmwButtonComponent,
     AmwInputComponent,
-    AmwSelectComponent],
+    AmwSelectComponent,
+    AmwSwitchComponent],
     templateUrl: './radio-group-demo.component.html',
     styleUrl: './radio-group-demo.component.scss'
 })

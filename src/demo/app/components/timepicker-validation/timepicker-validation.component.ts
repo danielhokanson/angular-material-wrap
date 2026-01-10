@@ -3,7 +3,6 @@ import { Component, OnInit, ViewEncapsulation } from '@angular/core';
 import { ReactiveFormsModule, FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { AmwNotificationService } from '../../../../library/src/services/amw-notification/amw-notification.service';
 import { AmwTimepickerComponent } from '../../../../library/src/controls/components/amw-timepicker/amw-timepicker.component';
-import { MatCardModule } from '@angular/material/card';
 
 import { AmwButtonComponent } from '../../../../library/src/controls/components/amw-button/amw-button.component';
 @Component({
@@ -11,7 +10,6 @@ import { AmwButtonComponent } from '../../../../library/src/controls/components/
     standalone: true,
     imports: [ReactiveFormsModule,
     AmwTimepickerComponent,
-    MatCardModule,
     AmwButtonComponent],
     encapsulation: ViewEncapsulation.None,
     templateUrl: './timepicker-validation.component.html',

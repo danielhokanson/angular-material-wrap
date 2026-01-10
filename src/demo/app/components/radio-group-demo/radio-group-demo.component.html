@@ -3,12 +3,12 @@
   <p>Demonstrates the AMW Radio Group component with various configurations and use cases.</p>
 
   <!-- Basic Usage -->
-  <mat-card class="demo-card">
-    <mat-card-header>
-      <mat-card-title>Basic Usage</mat-card-title>
-      <mat-card-subtitle>Simple radio group with basic options</mat-card-subtitle>
-    </mat-card-header>
-    <mat-card-content>
+  <amw-card class="demo-card">
+    <div slot="header">
+      <h2>Basic Usage</h2>
+      <p class="subtitle">Simple radio group with basic options</p>
+    </div>
+    <div slot="content">
       <amw-radio-group
         [options]="basicOptions"
         [label]="label"
@@ -26,16 +26,16 @@
       <div class="demo-result">
         <strong>Selected Value:</strong> {{ selectedValue || 'None' }}
       </div>
-    </mat-card-content>
-  </mat-card>
+    </div>
+  </amw-card>
 
   <!-- With Icons -->
-  <mat-card class="demo-card">
-    <mat-card-header>
-      <mat-card-title>With Icons</mat-card-title>
-      <mat-card-subtitle>Radio group with icon options</mat-card-subtitle>
-    </mat-card-header>
-    <mat-card-content>
+  <amw-card class="demo-card">
+    <div slot="header">
+      <h2>With Icons</h2>
+      <p class="subtitle">Radio group with icon options</p>
+    </div>
+    <div slot="content">
       <amw-radio-group
         [options]="iconOptions"
         label="Location Type"
@@ -53,16 +53,16 @@
       <div class="demo-result">
         <strong>Selected Value:</strong> {{ selectedValue2 || 'None' }}
       </div>
-    </mat-card-content>
-  </mat-card>
+    </div>
+  </amw-card>
 
   <!-- With Descriptions -->
-  <mat-card class="demo-card">
-    <mat-card-header>
-      <mat-card-title>With Descriptions</mat-card-title>
-      <mat-card-subtitle>Radio group with detailed option descriptions</mat-card-subtitle>
-    </mat-card-header>
-    <mat-card-content>
+  <amw-card class="demo-card">
+    <div slot="header">
+      <h2>With Descriptions</h2>
+      <p class="subtitle">Radio group with detailed option descriptions</p>
+    </div>
+    <div slot="content">
       <amw-radio-group
         [options]="descriptionOptions"
         label="Subscription Plan"
@@ -80,16 +80,16 @@
       <div class="demo-result">
         <strong>Selected Value:</strong> {{ selectedValue3 || 'None' }}
       </div>
-    </mat-card-content>
-  </mat-card>
+    </div>
+  </amw-card>
 
   <!-- Reactive Forms -->
-  <mat-card class="demo-card">
-    <mat-card-header>
-      <mat-card-title>Reactive Forms</mat-card-title>
-      <mat-card-subtitle>Radio group integrated with Angular reactive forms</mat-card-subtitle>
-    </mat-card-header>
-    <mat-card-content>
+  <amw-card class="demo-card">
+    <div slot="header">
+      <h2>Reactive Forms</h2>
+      <p class="subtitle">Radio group integrated with Angular reactive forms</p>
+    </div>
+    <div slot="content">
       <form [formGroup]="reactiveForm" (ngSubmit)="onSubmit()">
         <amw-radio-group
           [options]="colorOptions"
@@ -109,16 +109,16 @@
             <strong>Form Valid:</strong> {{ reactiveForm.valid }}
           </div>
         </form>
-      </mat-card-content>
-    </mat-card>
+      </div>
+    </amw-card>
 
     <!-- Configuration Controls -->
-    <mat-card class="demo-card">
-      <mat-card-header>
-        <mat-card-title>Configuration Controls</mat-card-title>
-        <mat-card-subtitle>Adjust component properties in real-time</mat-card-subtitle>
-      </mat-card-header>
-      <mat-card-content>
+    <amw-card class="demo-card">
+      <div slot="header">
+        <h2>Configuration Controls</h2>
+        <p class="subtitle">Adjust component properties in real-time</p>
+      </div>
+      <div slot="content">
         <div class="config-controls">
           <div class="config-row">
             <amw-select
@@ -165,27 +165,27 @@
           </div>
 
           <div class="config-row">
-            <mat-slide-toggle [(ngModel)]="disabled">Disabled</mat-slide-toggle>
-            <mat-slide-toggle [(ngModel)]="required">Required</mat-slide-toggle>
+            <amw-switch [(ngModel)]="disabled">Disabled</amw-switch>
+            <amw-switch [(ngModel)]="required">Required</amw-switch>
           </div>
         </div>
 
-        <mat-divider></mat-divider>
+        <amw-divider></amw-divider>
 
         <div class="config-actions">
           <amw-button variant="elevated" color="primary" (click)="resetValues()" icon="refresh" iconPosition="left">Reset Values</amw-button>
         </div>
-      </mat-card-content>
-    </mat-card>
+      </div>
+    </amw-card>
 
     <!-- Configuration Display -->
-    <mat-card class="demo-card">
-      <mat-card-header>
-        <mat-card-title>Current Configuration</mat-card-title>
-        <mat-card-subtitle>JSON representation of current component config</mat-card-subtitle>
-      </mat-card-header>
-      <mat-card-content>
+    <amw-card class="demo-card">
+      <div slot="header">
+        <h2>Current Configuration</h2>
+        <p class="subtitle">JSON representation of current component config</p>
+      </div>
+      <div slot="content">
         <pre class="config-display">{{ currentConfig | json }}</pre>
-      </mat-card-content>
-    </mat-card>
+      </div>
+    </amw-card>
   </div>

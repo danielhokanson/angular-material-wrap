@@ -5,16 +5,16 @@
   </div>
 
   <div class="profile-content">
-    <mat-tab-group>
+    <amw-tabs>
       <!-- Personal Information -->
-      <mat-tab label="Personal Info">
+      <amw-tab label="Personal Info">
         <div class="tab-content">
-          <mat-card>
-            <mat-card-header>
-              <mat-card-title>Personal Information</mat-card-title>
-              <mat-card-subtitle>Update your personal details</mat-card-subtitle>
-            </mat-card-header>
-            <mat-card-content>
+          <amw-card>
+            <div slot="header">
+              <h2>Personal Information</h2>
+              <p class="subtitle">Update your personal details</p>
+            </div>
+            <div slot="content">
               <form [formGroup]="personalForm" class="profile-form">
                 <div class="form-row">
                   <amw-input
@@ -61,20 +61,20 @@
                   <amw-button variant="text" (click)="resetPersonalForm()" icon="refresh" iconPosition="left">Reset</amw-button>
                 </div>
               </form>
-            </mat-card-content>
-          </mat-card>
+            </div>
+          </amw-card>
         </div>
-      </mat-tab>
+      </amw-tab>
 
       <!-- Account Settings -->
-      <mat-tab label="Account">
+      <amw-tab label="Account">
         <div class="tab-content">
-          <mat-card>
-            <mat-card-header>
-              <mat-card-title>Account Settings</mat-card-title>
-              <mat-card-subtitle>Manage your account preferences</mat-card-subtitle>
-            </mat-card-header>
-            <mat-card-content>
+          <amw-card>
+            <div slot="header">
+              <h2>Account Settings</h2>
+              <p class="subtitle">Manage your account preferences</p>
+            </div>
+            <div slot="content">
               <div class="settings-section">
                 <h4>Profile Picture</h4>
                 <div class="profile-picture-section">
@@ -88,7 +88,7 @@
                 </div>
               </div>
 
-              <mat-divider></mat-divider>
+              <amw-divider></amw-divider>
 
               <div class="settings-section">
                 <h4>Password</h4>
@@ -119,20 +119,20 @@
                   </div>
                 </form>
               </div>
-            </mat-card-content>
-          </mat-card>
+            </div>
+          </amw-card>
         </div>
-      </mat-tab>
+      </amw-tab>
 
       <!-- Preferences -->
-      <mat-tab label="Preferences">
+      <amw-tab label="Preferences">
         <div class="tab-content">
-          <mat-card>
-            <mat-card-header>
-              <mat-card-title>Preferences</mat-card-title>
-              <mat-card-subtitle>Customize your experience</mat-card-subtitle>
-            </mat-card-header>
-            <mat-card-content>
+          <amw-card>
+            <div slot="header">
+              <h2>Preferences</h2>
+              <p class="subtitle">Customize your experience</p>
+            </div>
+            <div slot="content">
               <div class="settings-section">
                 <h4>Appearance</h4>
                 <div class="setting-item">
@@ -153,7 +153,7 @@
                 </div>
               </div>
 
-              <mat-divider></mat-divider>
+              <amw-divider></amw-divider>
 
               <div class="settings-section">
                 <h4>Notifications</h4>
@@ -174,10 +174,10 @@
               <div class="form-actions">
                 <amw-button variant="elevated" color="primary" (click)="savePreferences()" icon="save" iconPosition="left">Save Preferences</amw-button>
               </div>
-            </mat-card-content>
-          </mat-card>
+            </div>
+          </amw-card>
         </div>
-      </mat-tab>
-    </mat-tab-group>
+      </amw-tab>
+    </amw-tabs>
   </div>
 </div>

@@ -1,11 +1,11 @@
 <div class="data-table-validation">
-  <mat-card>
-    <mat-card-header>
-      <mat-card-title>Data Table Validation Examples</mat-card-title>
-      <mat-card-subtitle>Form validation with data table controls</mat-card-subtitle>
-    </mat-card-header>
+  <amw-card>
+    <div slot="header">
+      <h2>Data Table Validation Examples</h2>
+      <p class="subtitle">Form validation with data table controls</p>
+    </div>
     
-    <mat-card-content>
+    <div slot="content">
       <form [formGroup]="dataTableForm" (ngSubmit)="onSubmit()">
         <div class="data-table-validation__form">
           <div class="data-table-validation__section">
@@ -74,6 +74,6 @@
           </amw-button>
         </div>
       </form>
-    </mat-card-content>
-  </mat-card>
+    </div>
+  </amw-card>
 </div>

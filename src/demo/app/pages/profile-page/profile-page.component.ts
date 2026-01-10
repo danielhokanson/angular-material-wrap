@@ -1,14 +1,13 @@
 import { Component, OnInit, ViewEncapsulation } from '@angular/core';
 
 import { FormsModule, ReactiveFormsModule, FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { MatCardModule } from '@angular/material/card';
 import { MatIconModule } from '@angular/material/icon';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
 import { MatSelectModule } from '@angular/material/select';
-import { MatSlideToggleModule } from '@angular/material/slide-toggle';
-import { MatDividerModule } from '@angular/material/divider';
-import { MatTabsModule } from '@angular/material/tabs';
+import { AmwSwitchComponent } from '@angular/material/slide-toggle';
+import { AmwDividerComponent } from '@angular/material/divider';
+import { AmwTabsComponent } from '@angular/material/tabs';
 import { MatOptionModule } from '@angular/material/core';
 
 import { AmwButtonComponent } from '../../../../library/src/controls/components/amw-button/amw-button.component';
@@ -20,10 +19,9 @@ import { AmwSwitchComponent } from '../../../../library/src/controls/components/
   standalone: true,
   imports: [FormsModule,
     ReactiveFormsModule,
-    MatCardModule,
     MatIconModule,
-    MatDividerModule,
-    MatTabsModule,
+    AmwDividerComponent,
+    AmwTabsComponent,
     AmwButtonComponent,
     AmwInputComponent,
     AmwSelectComponent,

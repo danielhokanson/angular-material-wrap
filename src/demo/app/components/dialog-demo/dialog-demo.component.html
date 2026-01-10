@@ -1,13 +1,13 @@
 <div class="dialog-demo">
   <!-- Service Methods Section -->
   <div class="dialog-demo__service-section">
-    <mat-card>
-      <mat-card-header>
-        <mat-card-title>Dialog Service Methods</mat-card-title>
-        <mat-card-subtitle>Quick access to common dialog types using the service</mat-card-subtitle>
-      </mat-card-header>
+    <amw-card>
+      <div slot="header">
+        <h2>Dialog Service Methods</h2>
+        <p class="subtitle">Quick access to common dialog types using the service</p>
+      </div>
 
-      <mat-card-content>
+      <div slot="content">
         <div class="dialog-demo__service-buttons">
           <amw-button variant="elevated" color="primary" (click)="openAlert()" icon="warning" iconPosition="left">Alert</amw-button>
           <amw-button variant="elevated" color="accent" (click)="openConfirm()" icon="help_outline" iconPosition="left">Confirm</amw-button>
@@ -17,27 +17,27 @@
           <amw-button variant="elevated" color="primary" (click)="openSuccess()" icon="check_circle" iconPosition="left">Success</amw-button>
           <amw-button variant="elevated" color="accent" (click)="openLoading()" icon="hourglass_empty" iconPosition="left">Loading</amw-button>
         </div>
-      </mat-card-content>
-    </mat-card>
+      </div>
+    </amw-card>
   </div>
 
   <!-- Custom Dialog Variations -->
   <div class="dialog-demo__grid">
     @for (variation of dialogVariations; track variation) {
-      <mat-card class="dialog-demo__card">
-        <mat-card-header>
-          <mat-card-title>{{ variation.title }}</mat-card-title>
-          <mat-card-subtitle>{{ variation.description }}</mat-card-subtitle>
-        </mat-card-header>
-        <mat-card-content>
+      <amw-card class="dialog-demo__card">
+        <div slot="header">
+          <h2>{{ variation.title }}</h2>
+          <p class="subtitle">{{ variation.description }}</p>
+        </div>
+        <div slot="content">
           <div class="dialog-demo__example">
             <amw-button variant="elevated"
               color="primary"
               (click)="openDialog(variation)"
               class="dialog-demo__button" icon="open_in_new" iconPosition="left">Open Dialog</amw-button>
           </div>
-        </mat-card-content>
-      </mat-card>
+        </div>
+      </amw-card>
     }
   </div>
 </div>

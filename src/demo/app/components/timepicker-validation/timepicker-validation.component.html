@@ -1,11 +1,11 @@
 <div class="timepicker-validation">
-  <mat-card>
-    <mat-card-header>
-      <mat-card-title>Timepicker Validation Examples</mat-card-title>
-      <mat-card-subtitle>Form validation with timepicker controls</mat-card-subtitle>
-    </mat-card-header>
+  <amw-card>
+    <div slot="header">
+      <h2>Timepicker Validation Examples</h2>
+      <p class="subtitle">Form validation with timepicker controls</p>
+    </div>
 
-    <mat-card-content>
+    <div slot="content">
       <form [formGroup]="timepickerForm" (ngSubmit)="onSubmit()">
         <div class="timepicker-validation__form">
           <amw-timepicker
@@ -50,6 +50,6 @@
           </amw-button>
         </div>
       </form>
-    </mat-card-content>
-  </mat-card>
+    </div>
+  </amw-card>
 </div>

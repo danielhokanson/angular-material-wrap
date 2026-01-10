@@ -233,8 +233,7 @@ class WorkflowPageDemoDataSource implements WorkflowPageDataSource {
         return of(true).pipe(delay(1000));
     }
 }
-import { MatTabsModule } from '@angular/material/tabs';
-import { MatCardModule } from '@angular/material/card';
+import { AmwTabsComponent } from '@angular/material/tabs';
 
 @Component({
     selector: 'app-workflow-page-demo',
@@ -243,8 +242,7 @@ import { MatCardModule } from '@angular/material/card';
     MatIconModule,
     MatTooltipModule,
     AmwWorkflowPageComponent,
-    MatTabsModule,
-    MatCardModule
+    AmwTabsComponent,
 ],
     templateUrl: './workflow-page-demo.component.html',
     styleUrl: './workflow-page-demo.component.scss'

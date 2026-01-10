@@ -6,14 +6,14 @@
 
   <div class="services-content">
     <div class="services-main">
-      <mat-card class="service-demo">
-        <mat-card-header>
-          <mat-card-title>{{ selectedService.name }}</mat-card-title>
-          <mat-card-subtitle>Interactive demo and documentation</mat-card-subtitle>
-        </mat-card-header>
-        <mat-card-content>
-          <mat-tab-group [(selectedIndex)]="selectedTab" class="service-tabs">
-            <mat-tab label="Demo" icon="play_arrow">
+      <amw-card class="service-demo">
+        <div slot="header">
+          <h2>{{ selectedService.name }}</h2>
+          <p class="subtitle">Interactive demo and documentation</p>
+        </div>
+        <div slot="content">
+          <amw-tabs [(selectedIndex)]="selectedTab" class="service-tabs">
+            <amw-tab label="Demo" icon="play_arrow">
               @switch (selectedService.id) {
                 @case ('messaging') {
                   <div class="demo-content">
@@ -91,9 +91,9 @@
                   </div>
                 }
               }
-            </mat-tab>
+            </amw-tab>
 
-            <mat-tab label="Code" icon="code">
+            <amw-tab label="Code" icon="code">
               <div class="code-content">
                 @switch (selectedService.id) {
                   @case ('messaging') {
@@ -313,9 +313,9 @@
                   }
                 }
               </div>
-            </mat-tab>
+            </amw-tab>
 
-            <mat-tab label="API" icon="description">
+            <amw-tab label="API" icon="description">
               <div class="api-content">
                 @switch (selectedService.id) {
                   @case ('messaging') {
@@ -576,10 +576,10 @@
                   }
                 }
               </div>
-            </mat-tab>
-          </mat-tab-group>
-        </mat-card-content>
-      </mat-card>
+            </amw-tab>
+          </amw-tabs>
+        </div>
+      </amw-card>
     </div>
   </div>
 </div>

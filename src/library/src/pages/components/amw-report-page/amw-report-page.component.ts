@@ -9,9 +9,7 @@ import { MatMenuModule } from '@angular/material/menu';
 import { MatChipsModule } from '@angular/material/chips';
 import { MatDividerModule } from '@angular/material/divider';
 import { MatTableModule } from '@angular/material/table';
-import { MatSlideToggleModule } from '@angular/material/slide-toggle';
 import { MatOptionModule } from '@angular/material/core';
-import { MatSelectModule } from '@angular/material/select';
 import { MatPaginatorModule, PageEvent } from '@angular/material/paginator';
 import { MatSortModule, Sort } from '@angular/material/sort';
 import { Subject, takeUntil, BehaviorSubject, Observable, of } from 'rxjs';
@@ -22,6 +20,8 @@ import { AmwButtonComponent } from '../../../controls/components/amw-button/amw-
 import { AmwTooltipDirective } from '../../../directives';
 import { AmwInputComponent } from '../../../controls/components/amw-input/amw-input.component';
 import { AmwDatepickerComponent } from '../../../controls/components/amw-datepicker/amw-datepicker.component';
+import { AmwSwitchComponent } from '../../../controls/components/amw-switch/amw-switch.component';
+import { AmwSelectComponent } from '../../../controls/components/amw-select/amw-select.component';
 
 // Import interfaces
 import {
@@ -86,15 +86,15 @@ export class DefaultReportPageDataSource implements ReportPageDataSource {
         AmwButtonComponent,
         AmwInputComponent,
         AmwDatepickerComponent,
+        AmwSwitchComponent,
+        AmwSelectComponent,
         AmwTooltipDirective,
         MatMenuModule,
         MatChipsModule,
         MatDividerModule,
         MatTableModule,
-        MatSlideToggleModule,
         AmwProgressBarComponent,
         MatOptionModule,
-        MatSelectModule,
         MatPaginatorModule,
         MatSortModule
     ],

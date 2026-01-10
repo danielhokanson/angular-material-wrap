@@ -4,14 +4,12 @@ import { MatIconModule } from '@angular/material/icon';
 import { AmwNotificationService } from '../../../../library/src/services/amw-notification/amw-notification.service';
 import { DialogService } from '../../../../library/src/components/services/dialog.service';
 import { DialogType, DialogSize, DialogPosition } from '../../../../library/src/components/components/amw-dialog/interfaces';
-import { MatCardModule } from '@angular/material/card';
 
 import { AmwButtonComponent } from '../../../../library/src/controls/components/amw-button/amw-button.component';
 @Component({
     selector: 'amw-demo-dialog',
     standalone: true,
     imports: [MatIconModule,
-    MatCardModule,
     AmwButtonComponent],
     encapsulation: ViewEncapsulation.None,
     templateUrl: './dialog-demo.component.html',

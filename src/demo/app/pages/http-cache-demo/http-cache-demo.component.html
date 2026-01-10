@@ -5,16 +5,16 @@
   </div>
 
   <div class="http-cache-demo__content">
-    <mat-tab-group>
+    <amw-tabs>
       <!-- Demo Tab -->
-      <mat-tab label="Interactive Demo">
+      <amw-tab label="Interactive Demo">
         <div class="tab-content">
-          <mat-card>
-            <mat-card-header>
-              <mat-card-title>Test Cache Behavior</mat-card-title>
-              <mat-card-subtitle>Click buttons multiple times to see caching in action</mat-card-subtitle>
-            </mat-card-header>
-            <mat-card-content>
+          <amw-card>
+            <div slot="header">
+              <h2>Test Cache Behavior</h2>
+              <p class="subtitle">Click buttons multiple times to see caching in action</p>
+            </div>
+            <div slot="content">
               <div class="cache-info">
                 <mat-chip-set>
                   <mat-chip>
@@ -75,20 +75,20 @@
                   <pre>{{ responseData | json }}</pre>
                 </div>
               }
-            </mat-card-content>
-          </mat-card>
+            </div>
+          </amw-card>
         </div>
-      </mat-tab>
+      </amw-tab>
 
       <!-- Configuration Tab -->
-      <mat-tab label="Cache Configuration">
+      <amw-tab label="Cache Configuration">
         <div class="tab-content">
-          <mat-card>
-            <mat-card-header>
-              <mat-card-title>Current Cache Configuration</mat-card-title>
-              <mat-card-subtitle>From assets/cache-map.json</mat-card-subtitle>
-            </mat-card-header>
-            <mat-card-content>
+          <amw-card>
+            <div slot="header">
+              <h2>Current Cache Configuration</h2>
+              <p class="subtitle">From assets/cache-map.json</p>
+            </div>
+            <div slot="content">
               <mat-list>
                 @for (pattern of cacheConfig | keyvalue; track pattern) {
                   <mat-list-item>
@@ -98,19 +98,19 @@
                   </mat-list-item>
                 }
               </mat-list>
-            </mat-card-content>
-          </mat-card>
+            </div>
+          </amw-card>
         </div>
-      </mat-tab>
+      </amw-tab>
 
       <!-- Documentation Tab -->
-      <mat-tab label="How It Works">
+      <amw-tab label="How It Works">
         <div class="tab-content">
-          <mat-card>
-            <mat-card-header>
-              <mat-card-title>HTTP Cache Interceptor</mat-card-title>
-            </mat-card-header>
-            <mat-card-content>
+          <amw-card>
+            <div slot="header">
+              <h2>HTTP Cache Interceptor</h2>
+            </div>
+            <div slot="content">
               <h3>Features</h3>
               <ul>
                 <li><strong>Automatic Caching:</strong> GET requests are automatically cached based on URL patterns</li>
@@ -149,11 +149,11 @@
                 <li><strong>Test Cross-Tab:</strong> Open two tabs, cache data in one - it's available in the other instantly</li>
                 <li><strong>Monitor Storage:</strong> Check the storage usage statistics to see IndexedDB usage</li>
               </ol>
-            </mat-card-content>
-          </mat-card>
+            </div>
+          </amw-card>
         </div>
-      </mat-tab>
-    </mat-tab-group>
+      </amw-tab>
+    </amw-tabs>
   </div>
 </div>
 

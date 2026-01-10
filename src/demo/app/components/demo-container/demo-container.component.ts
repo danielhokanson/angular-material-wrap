@@ -113,8 +113,7 @@ import { ThemeDemoComponent } from '../theme-demo/theme-demo.component';
 import { ThemeValidationComponent } from '../theme-validation/theme-validation.component';
 import { ThemeCodeComponent } from '../theme-code/theme-code.component';
 import { ThemeApiComponent } from '../theme-api/theme-api.component';
-import { MatTabsModule } from '@angular/material/tabs';
-import { MatCardModule } from '@angular/material/card';
+import { AmwTabsComponent } from '@angular/material/tabs';
 
 @Component({
     selector: 'amw-demo-container',
@@ -229,8 +228,7 @@ import { MatCardModule } from '@angular/material/card';
     ThemeValidationComponent,
     ThemeCodeComponent,
     ThemeApiComponent,
-    MatTabsModule,
-    MatCardModule
+    AmwTabsComponent,
 ],
     encapsulation: ViewEncapsulation.None,
     templateUrl: './demo-container.component.html',

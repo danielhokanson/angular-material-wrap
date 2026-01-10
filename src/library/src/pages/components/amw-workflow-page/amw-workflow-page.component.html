@@ -33,7 +33,7 @@
   <div class="amw-workflow-page__progress">
     <amw-progress-bar
       mode="determinate"
-      [value]="getProgressPercentage()"
+      [progressValue]="getProgressPercentage()"
       class="amw-workflow-page__progress-bar">
     </amw-progress-bar>
     <div class="amw-workflow-page__progress-text">
@@ -45,7 +45,7 @@
   <!-- Loading State -->
   @if (loading) {
     <div class="amw-workflow-page__loading">
-      <amw-progress-spinner diameter="40"></amw-progress-spinner>
+      <amw-progress-spinner [diameter]="40"></amw-progress-spinner>
       <p>Loading workflow...</p>
     </div>
   }

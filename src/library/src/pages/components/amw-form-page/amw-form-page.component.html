@@ -43,7 +43,7 @@
   <!-- Loading State -->
   @if (loading) {
     <div class="amw-form-page__loading">
-      <amw-progress-spinner diameter="40"></amw-progress-spinner>
+      <amw-progress-spinner [diameter]="40"></amw-progress-spinner>
       <p>Loading data...</p>
     </div>
   }
@@ -106,31 +106,29 @@
                         [formControlName]="field.key"
                         [placeholder]="field.placeholder || ''"
                         [maxlength]="field.validation?.maxlength || null"
-                        rows="4"
+                        [rows]="4"
                         appearance="outline">
                         <mat-error>{{ getFieldError(field) }}</mat-error>
                       </amw-textarea>
                     }
                     <!-- Select -->
                     @if (field.type === 'select') {
-                      <mat-form-field appearance="outline">
-                        <mat-label>{{ field.label }}</mat-label>
-                        <mat-select [formControlName]="field.key">
-                          @for (option of field.options; track option) {
-                            <mat-option [value]="option.value">
-                              {{ option.label }}
-                            </mat-option>
-                          }
-                        </mat-select>
-                        <mat-error>{{ getFieldError(field) }}</mat-error>
-                      </mat-form-field>
+                      <amw-select
+                        [label]="field.label"
+                        [formControlName]="field.key"
+                        [options]="field.options || []"
+                        appearance="outline">
+                      </amw-select>
+                      @if (getFieldError(field)) {
+                        <div class="field-error">{{ getFieldError(field) }}</div>
+                      }
                     }
                     <!-- Checkbox -->
                     @if (field.type === 'checkbox') {
                       <div class="amw-form-page__checkbox">
-                        <mat-checkbox [formControlName]="field.key">
+                        <amw-checkbox [formControlName]="field.key">
                           {{ field.label }}
-                        </mat-checkbox>
+                        </amw-checkbox>
                         <mat-error>{{ getFieldError(field) }}</mat-error>
                       </div>
                     }
@@ -138,13 +136,13 @@
                     @if (field.type === 'radio') {
                       <div class="amw-form-page__radio">
                         <label class="amw-form-page__radio-label">{{ field.label }}</label>
-                        <mat-radio-group [formControlName]="field.key">
+                        <amw-radio-group [formControlName]="field.key">
                           @for (option of field.options; track option) {
-                            <mat-radio-button [value]="option.value">
+                            <amw-radio [radioValue]="option.value">
                               {{ option.label }}
-                            </mat-radio-button>
+                            </amw-radio>
                           }
-                        </mat-radio-group>
+                        </amw-radio-group>
                         <mat-error>{{ getFieldError(field) }}</mat-error>
                       </div>
                     }

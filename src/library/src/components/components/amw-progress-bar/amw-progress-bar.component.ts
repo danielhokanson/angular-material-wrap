@@ -56,7 +56,7 @@ export class AmwProgressBarComponent extends BaseComponent {
     /** Mode of the progress bar */
     @Input() mode: ProgressBarMode = 'determinate';
     /** Value of the progress (0-100) */
-    @Input() value: number = 0;
+    @Input() progressValue: number = 0;
     /** Buffer value (only for buffer mode, 0-100) */
     @Input() bufferValue: number = 0;
     /** Color of the progress bar */
@@ -66,7 +66,7 @@ export class AmwProgressBarComponent extends BaseComponent {
     /** Whether to show the percentage label */
     @Input() showLabel = false;
     /** Custom label text (overrides percentage) */
-    @Input() label?: string;
+    @Input() override label: string = '';
 
     get progressBarClasses(): string {
         const classes = ['amw-progress-bar'];
@@ -80,7 +80,7 @@ export class AmwProgressBarComponent extends BaseComponent {
             return this.label;
         }
         if (this.showLabel && this.mode === 'determinate') {
-            return `${Math.round(this.value)}%`;
+            return `${Math.round(this.progressValue)}%`;
         }
         return '';
     }

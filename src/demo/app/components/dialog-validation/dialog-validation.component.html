@@ -1,11 +1,11 @@
 <div class="dialog-validation">
-  <mat-card>
-    <mat-card-header>
-      <mat-card-title>Dialog Configuration Validation</mat-card-title>
-      <mat-card-subtitle>Configure and test dialog settings with validation</mat-card-subtitle>
-    </mat-card-header>
+  <amw-card>
+    <div slot="header">
+      <h2>Dialog Configuration Validation</h2>
+      <p class="subtitle">Configure and test dialog settings with validation</p>
+    </div>
 
-    <mat-card-content>
+    <div slot="content">
       <form [formGroup]="dialogForm" (ngSubmit)="onSubmit()">
         <div class="dialog-validation__form">
           <div class="dialog-validation__section">
@@ -81,8 +81,8 @@
           <p><strong>Type:</strong> {{ typeof lastDialogResult }}</p>
         </div>
       }
-    </mat-card-content>
-  </mat-card>
+    </div>
+  </amw-card>
 </div>
 
 

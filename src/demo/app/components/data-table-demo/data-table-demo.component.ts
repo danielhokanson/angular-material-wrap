@@ -21,7 +21,6 @@ import {
  * Data Table Demo Component
  * Demonstrates all features of the AMW Data Table component
  */import { MatChipsModule } from '@angular/material/chips';
-import { MatCardModule } from '@angular/material/card';
 
 import { AmwButtonComponent } from '../../../../library/src/controls/components/amw-button/amw-button.component';
 @Component({
@@ -35,7 +34,6 @@ import { AmwButtonComponent } from '../../../../library/src/controls/components/
     AmwDataTableComponent,
     MatIconModule,
     MatChipsModule,
-    MatCardModule,
     AmwButtonComponent],
     templateUrl: './data-table-demo.component.html',
     styleUrl: './data-table-demo.component.scss'

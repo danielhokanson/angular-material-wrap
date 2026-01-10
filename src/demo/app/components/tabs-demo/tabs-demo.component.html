@@ -4,8 +4,8 @@
 
   <div class="demo-section">
     <h3>Basic Tabs</h3>
-    <mat-tab-group>
-      <mat-tab label="First">
+    <amw-tabs>
+      <amw-tab label="First">
         <div class="tab-content">
           <h4>First Tab Content</h4>
           <p>This is the content of the first tab. You can put any content here.</p>
@@ -14,33 +14,33 @@
             placeholder="Enter some text">
           </amw-input>
         </div>
-      </mat-tab>
-      <mat-tab label="Second">
+      </amw-tab>
+      <amw-tab label="Second">
         <div class="tab-content">
           <h4>Second Tab Content</h4>
           <p>This is the content of the second tab with different content.</p>
           <amw-button variant="elevated" color="primary">Sample Button</amw-button>
         </div>
-      </mat-tab>
-      <mat-tab label="Third">
+      </amw-tab>
+      <amw-tab label="Third">
         <div class="tab-content">
           <h4>Third Tab Content</h4>
           <p>This is the content of the third tab.</p>
-          <mat-card>
-            <mat-card-content>
+          <amw-card>
+            <div slot="content">
               <h5>Sample Card</h5>
               <p>You can include any Angular Material components inside tabs.</p>
-            </mat-card-content>
-          </mat-card>
+            </div>
+          </amw-card>
         </div>
-      </mat-tab>
-    </mat-tab-group>
+      </amw-tab>
+    </amw-tabs>
   </div>
 
   <div class="demo-section">
     <h3>Tabs with Icons</h3>
-    <mat-tab-group>
-      <mat-tab>
+    <amw-tabs>
+      <amw-tab>
         <ng-template mat-tab-label>
           <mat-icon>home</mat-icon>
           Home
@@ -49,8 +49,8 @@
           <h4>Home Tab</h4>
           <p>This tab has a home icon.</p>
         </div>
-      </mat-tab>
-      <mat-tab>
+      </amw-tab>
+      <amw-tab>
         <ng-template mat-tab-label>
           <mat-icon>settings</mat-icon>
           Settings
@@ -59,8 +59,8 @@
           <h4>Settings Tab</h4>
           <p>This tab has a settings icon.</p>
         </div>
-      </mat-tab>
-      <mat-tab>
+      </amw-tab>
+      <amw-tab>
         <ng-template mat-tab-label>
           <mat-icon>info</mat-icon>
           About
@@ -69,8 +69,8 @@
           <h4>About Tab</h4>
           <p>This tab has an info icon.</p>
         </div>
-      </mat-tab>
-    </mat-tab-group>
+      </amw-tab>
+    </amw-tabs>
   </div>
 
   <div class="demo-section">
@@ -79,16 +79,16 @@
       <amw-button variant="elevated" (click)="addTab()">Add Tab</amw-button>
       <amw-button variant="text" (click)="removeTab()" [disabled]="tabs.length <= 1">Remove Tab</amw-button>
     </div>
-    <mat-tab-group [(selectedIndex)]="selectedTabIndex">
+    <amw-tabs [(selectedIndex)]="selectedTabIndex">
       @for (tab of tabs; track tab; let i = $index) {
-        <mat-tab [label]="tab.name">
+        <amw-tab [label]="tab.name">
           <div class="tab-content">
             <h4>{{ tab.name }}</h4>
             <p>This is dynamically created tab #{{ i + 1 }}</p>
             <p>Created at: {{ tab.createdAt | date:'short' }}</p>
           </div>
-        </mat-tab>
+        </amw-tab>
       }
-    </mat-tab-group>
+    </amw-tabs>
   </div>
 </div>

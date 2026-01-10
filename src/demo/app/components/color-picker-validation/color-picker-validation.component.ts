@@ -3,7 +3,6 @@ import { Component, OnInit, ViewEncapsulation } from '@angular/core';
 import { ReactiveFormsModule, FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { AmwNotificationService } from '../../../../library/src/services/amw-notification/amw-notification.service';
 import { AmwColorPickerComponent } from '../../../../library/src/controls/components/amw-color-picker/amw-color-picker.component';
-import { MatCardModule } from '@angular/material/card';
 
 import { AmwButtonComponent } from '../../../../library/src/controls/components/amw-button/amw-button.component';
 @Component({
@@ -12,7 +11,6 @@ import { AmwButtonComponent } from '../../../../library/src/controls/components/
     imports: [ReactiveFormsModule,
     AmwInputComponent,
     AmwColorPickerComponent,
-    MatCardModule,
     AmwButtonComponent],
     encapsulation: ViewEncapsulation.None,
     templateUrl: './color-picker-validation.component.html',

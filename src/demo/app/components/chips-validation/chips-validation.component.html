@@ -4,15 +4,15 @@
 
   <div class="validation-forms">
     <!-- Tag Management Form -->
-    <mat-card class="validation-card">
-      <mat-card-header>
-        <mat-card-title>
+    <amw-card class="validation-card">
+      <div slot="header">
+        <h2>
           <mat-icon>label</mat-icon>
           Tag Management
-        </mat-card-title>
-        <mat-card-subtitle>Add tags with min/max constraints (1-10 tags)</mat-card-subtitle>
-      </mat-card-header>
-      <mat-card-content>
+        </h2>
+        <p class="subtitle">Add tags with min/max constraints (1-10 tags)</p>
+      </div>
+      <div slot="content">
         <form [formGroup]="tagForm">
           <mat-form-field class="full-width" appearance="outline">
             <mat-label>Add Tags</mat-label>
@@ -52,19 +52,19 @@
             </div>
           }
         </div>
-      </mat-card-content>
-    </mat-card>
+      </div>
+    </amw-card>
 
     <!-- Skill Level Form -->
-    <mat-card class="validation-card">
-      <mat-card-header>
-        <mat-card-title>
+    <amw-card class="validation-card">
+      <div slot="header">
+        <h2>
           <mat-icon>school</mat-icon>
           Skills with Levels
-        </mat-card-title>
-        <mat-card-subtitle>Add skills with proficiency levels and validation</mat-card-subtitle>
-      </mat-card-header>
-      <mat-card-content>
+        </h2>
+        <p class="subtitle">Add skills with proficiency levels and validation</p>
+      </div>
+      <div slot="content">
         <div class="skill-chips">
           <mat-chip-set aria-label="Skill selection">
             @for (skill of skills; track skill) {
@@ -121,19 +121,19 @@
             </div>
           }
         </div>
-      </mat-card-content>
-    </mat-card>
+      </div>
+    </amw-card>
 
     <!-- Email Validation Form -->
-    <mat-card class="validation-card">
-      <mat-card-header>
-        <mat-card-title>
+    <amw-card class="validation-card">
+      <div slot="header">
+        <h2>
           <mat-icon>email</mat-icon>
           Email Validation
-        </mat-card-title>
-        <mat-card-subtitle>Add email addresses with format validation</mat-card-subtitle>
-      </mat-card-header>
-      <mat-card-content>
+        </h2>
+        <p class="subtitle">Add email addresses with format validation</p>
+      </div>
+      <div slot="content">
         <form [formGroup]="emailForm">
           <mat-form-field class="full-width" appearance="outline">
             <mat-label>Email Addresses</mat-label>
@@ -174,12 +174,12 @@
             </div>
           }
         </div>
-      </mat-card-content>
-    </mat-card>
+      </div>
+    </amw-card>
 
     <!-- Form Actions -->
-    <mat-card class="validation-card validation-card--actions">
-      <mat-card-content>
+    <amw-card class="validation-card validation-card--actions">
+      <div slot="content">
         <div class="form-summary">
           <h4>Form Summary</h4>
           <div class="summary-items">
@@ -218,7 +218,7 @@
             </div>
           }
         </div>
-      </mat-card-content>
-    </mat-card>
+      </div>
+    </amw-card>
   </div>
 </div>

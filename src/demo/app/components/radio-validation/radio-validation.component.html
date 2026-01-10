@@ -9,7 +9,7 @@
       <!-- Gender Selection -->
       <div class="form-section">
         <h4>Gender Selection (Required)</h4>
-        <mat-radio-group formControlName="gender" class="radio-group">
+        <amw-radio-group formControlName="gender" class="radio-group">
           <amw-radio
             value="male"
             label="Male"
@@ -30,7 +30,7 @@
             label="Prefer not to say"
             color="primary">
           </amw-radio>
-        </mat-radio-group>
+        </amw-radio-group>
         @if (getFieldError('gender')) {
           <div class="field-error">
             {{ getFieldError('gender') }}
@@ -41,7 +41,7 @@
       <!-- Experience Level -->
       <div class="form-section">
         <h4>Experience Level (Required)</h4>
-        <mat-radio-group formControlName="experience" class="radio-group">
+        <amw-radio-group formControlName="experience" class="radio-group">
           <amw-radio
             value="beginner"
             label="Beginner (0-2 years)"
@@ -62,7 +62,7 @@
             label="Expert (10+ years)"
             color="accent">
           </amw-radio>
-        </mat-radio-group>
+        </amw-radio-group>
         @if (getFieldError('experience')) {
           <div class="field-error">
             {{ getFieldError('experience') }}
@@ -73,7 +73,7 @@
       <!-- Communication Preferences -->
       <div class="form-section">
         <h4>Communication Preferences (Required)</h4>
-        <mat-radio-group formControlName="preferences" class="radio-group">
+        <amw-radio-group formControlName="preferences" class="radio-group">
           <amw-radio
             value="email"
             label="Email only"
@@ -94,7 +94,7 @@
             label="No communication"
             color="primary">
           </amw-radio>
-        </mat-radio-group>
+        </amw-radio-group>
         @if (getFieldError('preferences')) {
           <div class="field-error">
             {{ getFieldError('preferences') }}
@@ -105,7 +105,7 @@
       <!-- Subscription Type -->
       <div class="form-section">
         <h4>Subscription Type (Required)</h4>
-        <mat-radio-group formControlName="subscription" class="radio-group">
+        <amw-radio-group formControlName="subscription" class="radio-group">
           <amw-radio
             value="free"
             label="Free Plan"
@@ -126,7 +126,7 @@
             label="Enterprise Plan (Contact Sales)"
             color="accent">
           </amw-radio>
-        </mat-radio-group>
+        </amw-radio-group>
         @if (getFieldError('subscription')) {
           <div class="field-error">
             {{ getFieldError('subscription') }}
@@ -137,7 +137,7 @@
       <!-- Age Group -->
       <div class="form-section">
         <h4>Age Group (Required)</h4>
-        <mat-radio-group formControlName="ageGroup" class="radio-group">
+        <amw-radio-group formControlName="ageGroup" class="radio-group">
           <amw-radio
             value="18-24"
             label="18-24 years"
@@ -168,7 +168,7 @@
             label="65+ years"
             color="warn">
           </amw-radio>
-        </mat-radio-group>
+        </amw-radio-group>
         @if (getFieldError('ageGroup')) {
           <div class="field-error">
             {{ getFieldError('ageGroup') }}

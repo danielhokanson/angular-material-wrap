@@ -16,12 +16,12 @@
 
   <!-- Configuration Panel -->
   @if (showConfig) {
-    <mat-card class="sidenav-demo__config">
-      <mat-card-header>
-        <mat-card-title>Configuration</mat-card-title>
-        <mat-card-subtitle>Customize the sidenav behavior</mat-card-subtitle>
-      </mat-card-header>
-      <mat-card-content>
+    <amw-card class="sidenav-demo__config">
+      <div slot="header">
+        <h2>Configuration</h2>
+        <p class="subtitle">Customize the sidenav behavior</p>
+      </div>
+      <div slot="content">
         <form [formGroup]="configForm" class="sidenav-demo__form">
           <div class="sidenav-demo__form-row">
             <amw-select label="Mode" formControlName="mode">
@@ -64,46 +64,46 @@
             </amw-input>
           </div>
           <div class="sidenav-demo__form-row">
-            <mat-slide-toggle formControlName="opened">
+            <amw-switch formControlName="opened">
               Opened
-            </mat-slide-toggle>
-            <mat-slide-toggle formControlName="showToggle">
+            </amw-switch>
+            <amw-switch formControlName="showToggle">
               Show Toggle Button
-            </mat-slide-toggle>
-            <mat-slide-toggle formControlName="showClose">
+            </amw-switch>
+            <amw-switch formControlName="showClose">
               Show Close Button
-            </mat-slide-toggle>
+            </amw-switch>
           </div>
           <div class="sidenav-demo__form-row">
-            <mat-slide-toggle formControlName="showBackdrop">
+            <amw-switch formControlName="showBackdrop">
               Show Backdrop
-            </mat-slide-toggle>
-            <mat-slide-toggle formControlName="disableClose">
+            </amw-switch>
+            <amw-switch formControlName="disableClose">
               Disable Close
-            </mat-slide-toggle>
-            <mat-slide-toggle formControlName="fixedInViewport">
+            </amw-switch>
+            <amw-switch formControlName="fixedInViewport">
               Fixed in Viewport
-            </mat-slide-toggle>
+            </amw-switch>
           </div>
           <div class="sidenav-demo__form-row">
-            <mat-slide-toggle formControlName="autoFocus">
+            <amw-switch formControlName="autoFocus">
               Auto Focus
-            </mat-slide-toggle>
-            <mat-slide-toggle formControlName="restoreFocus">
+            </amw-switch>
+            <amw-switch formControlName="restoreFocus">
               Restore Focus
-            </mat-slide-toggle>
-            <mat-slide-toggle formControlName="responsive">
+            </amw-switch>
+            <amw-switch formControlName="responsive">
               Responsive
-            </mat-slide-toggle>
+            </amw-switch>
           </div>
           <div class="sidenav-demo__form-row">
-            <mat-slide-toggle formControlName="disabled">
+            <amw-switch formControlName="disabled">
               Disabled
-            </mat-slide-toggle>
+            </amw-switch>
           </div>
         </form>
-      </mat-card-content>
-    </mat-card>
+      </div>
+    </amw-card>
   }
 
   <!-- Variations -->
@@ -116,11 +116,11 @@
           class="sidenav-demo__variation-card"
           [class.sidenav-demo__variation-card--selected]="selectedVariation === variation"
           (click)="loadVariation(variation)">
-          <mat-card-header>
-            <mat-card-title>{{ variation.title }}</mat-card-title>
-            <mat-card-subtitle>{{ variation.description }}</mat-card-subtitle>
-          </mat-card-header>
-          <mat-card-content>
+          <div slot="header">
+            <h2>{{ variation.title }}</h2>
+            <p class="subtitle">{{ variation.description }}</p>
+          </div>
+          <div slot="content">
             <div class="sidenav-demo__variation-preview">
               <div class="sidenav-demo__preview-sidenav">
                 <div class="sidenav-demo__preview-header">
@@ -145,8 +145,8 @@
                 </div>
               </div>
             </div>
-          </mat-card-content>
-        </mat-card>
+          </div>
+        </amw-card>
       }
     </div>
   </div>
@@ -169,13 +169,13 @@
 
         <!-- Main Content -->
         <div class="sidenav-demo__main-content">
-          <mat-card class="sidenav-demo__content-card">
-            <mat-card-header>
-              <mat-card-title>Main Content Area</mat-card-title>
-              <mat-card-subtitle>This is the main content that gets pushed/overlaid by the sidenav</mat-card-subtitle>
-            </mat-card-header>
+          <amw-card class="sidenav-demo__content-card">
+            <div slot="header">
+              <h2>Main Content Area</h2>
+              <p class="subtitle">This is the main content that gets pushed/overlaid by the sidenav</p>
+            </div>
 
-            <mat-card-content>
+            <div slot="content">
               <p>
                 This is the main content area. The sidenav behavior depends on the selected mode:
               </p>
@@ -195,8 +195,8 @@
 
                 <amw-button variant="text" icon="info" iconPosition="left">Info Button</amw-button>
               </div>
-            </mat-card-content>
-          </mat-card>
+            </div>
+          </amw-card>
         </div>
       </amw-sidenav>
     </div>

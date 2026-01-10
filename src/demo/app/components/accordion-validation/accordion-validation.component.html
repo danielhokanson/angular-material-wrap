@@ -2,21 +2,21 @@
   <h3>Form Validation Examples</h3>
   <p>Demonstration of accordion panels with form validation in a multi-step wizard pattern.</p>
 
-  <mat-accordion class="validation-accordion">
+  <amw-accordion class="validation-accordion">
     <!-- Step 1: Personal Information -->
-    <mat-expansion-panel [expanded]="step === 0" (opened)="setStep(0)" hideToggle>
-      <mat-expansion-panel-header>
-        <mat-panel-title>
+    <amw-accordion-item [expanded]="step === 0" (opened)="setStep(0)" hideToggle>
+      <div slot="header">
+        <h3>
           <mat-icon>person</mat-icon>
           Personal Information
-        </mat-panel-title>
-        <mat-panel-description>
+        </h3>
+        <p>
           Enter your basic details
           @if (personalInfoForm.valid) {
             <mat-icon class="status-icon status-icon--valid">check_circle</mat-icon>
           }
-        </mat-panel-description>
-      </mat-expansion-panel-header>
+        </p>
+      </div>
 
       <form [formGroup]="personalInfoForm">
         <amw-input
@@ -53,22 +53,22 @@
           </amw-button>
         </div>
       </form>
-    </mat-expansion-panel>
+    </amw-accordion-item>
 
     <!-- Step 2: Contact Information -->
-    <mat-expansion-panel [expanded]="step === 1" (opened)="setStep(1)" hideToggle>
-      <mat-expansion-panel-header>
-        <mat-panel-title>
+    <amw-accordion-item [expanded]="step === 1" (opened)="setStep(1)" hideToggle>
+      <div slot="header">
+        <h3>
           <mat-icon>contact_phone</mat-icon>
           Contact Information
-        </mat-panel-title>
-        <mat-panel-description>
+        </h3>
+        <p>
           Add your contact details
           @if (contactForm.valid) {
             <mat-icon class="status-icon status-icon--valid">check_circle</mat-icon>
           }
-        </mat-panel-description>
-      </mat-expansion-panel-header>
+        </p>
+      </div>
 
       <form [formGroup]="contactForm">
         <amw-input
@@ -114,27 +114,27 @@
           </amw-button>
         </div>
       </form>
-    </mat-expansion-panel>
+    </amw-accordion-item>
 
     <!-- Step 3: Preferences -->
-    <mat-expansion-panel [expanded]="step === 2" (opened)="setStep(2)" hideToggle>
-      <mat-expansion-panel-header>
-        <mat-panel-title>
+    <amw-accordion-item [expanded]="step === 2" (opened)="setStep(2)" hideToggle>
+      <div slot="header">
+        <h3>
           <mat-icon>settings</mat-icon>
           Preferences
-        </mat-panel-title>
-        <mat-panel-description>
+        </h3>
+        <p>
           Set your preferences
           @if (preferencesForm.valid) {
             <mat-icon class="status-icon status-icon--valid">check_circle</mat-icon>
           }
-        </mat-panel-description>
-      </mat-expansion-panel-header>
+        </p>
+      </div>
 
       <form [formGroup]="preferencesForm">
         <div class="checkbox-group">
-          <mat-checkbox formControlName="newsletter">Subscribe to newsletter</mat-checkbox>
-          <mat-checkbox formControlName="notifications">Enable notifications</mat-checkbox>
+          <amw-checkbox formControlName="newsletter">Subscribe to newsletter</amw-checkbox>
+          <amw-checkbox formControlName="notifications">Enable notifications</amw-checkbox>
         </div>
 
         <div class="button-row">
@@ -147,6 +147,6 @@
           </amw-button>
         </div>
       </form>
-    </mat-expansion-panel>
-  </mat-accordion>
+    </amw-accordion-item>
+  </amw-accordion>
 </div>

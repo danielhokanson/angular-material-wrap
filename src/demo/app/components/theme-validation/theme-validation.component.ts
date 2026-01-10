@@ -3,8 +3,7 @@ import { CommonModule } from '@angular/common';
 import { FormBuilder, FormGroup, Validators, ReactiveFormsModule } from '@angular/forms';
 import { MatIconModule } from '@angular/material/icon';
 import { MatOptionModule } from '@angular/material/core';
-import { MatCardModule } from '@angular/material/card';
-import { MatRadioModule } from '@angular/material/radio';
+import { AmwRadioComponent } from '@angular/material/radio';
 import { AmwButtonComponent } from '../../../../library/src/controls/components/amw-button/amw-button.component';
 import { AmwInputComponent } from '../../../../library/src/controls/components/amw-input/amw-input.component';
 import { AmwSelectComponent } from '../../../../library/src/controls/components/amw-select/amw-select.component';
@@ -25,8 +24,7 @@ interface ThemeConfig {
     ReactiveFormsModule,
     MatIconModule,
     MatOptionModule,
-    MatCardModule,
-    MatRadioModule,
+    AmwRadioComponent,
     AmwButtonComponent,
     AmwInputComponent,
     AmwSelectComponent],

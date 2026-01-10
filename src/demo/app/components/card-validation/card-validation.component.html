@@ -1,11 +1,11 @@
 <div class="card-validation">
-  <mat-card>
-    <mat-card-header>
-      <mat-card-title>Card Selection Validation</mat-card-title>
-      <mat-card-subtitle>Interactive card selection with validation</mat-card-subtitle>
-    </mat-card-header>
+  <amw-card>
+    <div slot="header">
+      <h2>Card Selection Validation</h2>
+      <p class="subtitle">Interactive card selection with validation</p>
+    </div>
 
-    <mat-card-content>
+    <div slot="content">
       <form [formGroup]="cardForm" (ngSubmit)="onSubmit()">
         <div class="card-validation__form">
           <div class="card-validation__section">
@@ -100,8 +100,8 @@
           </amw-button>
         </div>
       </form>
-    </mat-card-content>
-  </mat-card>
+    </div>
+  </amw-card>
 </div>
 
 

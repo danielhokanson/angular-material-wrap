@@ -8,8 +8,8 @@
     <mat-grid-list cols="5" rowHeight="200px" gutterSize="16px">
       <!-- Stats Cards -->
       <mat-grid-tile colspan="1" rowspan="1">
-        <mat-card class="stat-card">
-          <mat-card-content>
+        <amw-card class="stat-card">
+          <div slot="content">
             <div class="stat-icon">
               <mat-icon>widgets</mat-icon>
             </div>
@@ -17,13 +17,13 @@
               <h3>19</h3>
               <p>Components</p>
             </div>
-          </mat-card-content>
-        </mat-card>
+          </div>
+        </amw-card>
       </mat-grid-tile>
 
       <mat-grid-tile colspan="1" rowspan="1">
-        <mat-card class="stat-card">
-          <mat-card-content>
+        <amw-card class="stat-card">
+          <div slot="content">
             <div class="stat-icon">
               <mat-icon>extension</mat-icon>
             </div>
@@ -31,13 +31,13 @@
               <h3>3</h3>
               <p>Directives</p>
             </div>
-          </mat-card-content>
-        </mat-card>
+          </div>
+        </amw-card>
       </mat-grid-tile>
 
       <mat-grid-tile colspan="1" rowspan="1">
-        <mat-card class="stat-card">
-          <mat-card-content>
+        <amw-card class="stat-card">
+          <div slot="content">
             <div class="stat-icon">
               <mat-icon>transform</mat-icon>
             </div>
@@ -45,13 +45,13 @@
               <h3>3</h3>
               <p>Pipes</p>
             </div>
-          </mat-card-content>
-        </mat-card>
+          </div>
+        </amw-card>
       </mat-grid-tile>
 
       <mat-grid-tile colspan="1" rowspan="1">
-        <mat-card class="stat-card">
-          <mat-card-content>
+        <amw-card class="stat-card">
+          <div slot="content">
             <div class="stat-icon">
               <mat-icon>settings</mat-icon>
             </div>
@@ -59,13 +59,13 @@
               <h3>3</h3>
               <p>Services</p>
             </div>
-          </mat-card-content>
-        </mat-card>
+          </div>
+        </amw-card>
       </mat-grid-tile>
 
       <mat-grid-tile colspan="1" rowspan="1">
-        <mat-card class="stat-card">
-          <mat-card-content>
+        <amw-card class="stat-card">
+          <div slot="content">
             <div class="stat-icon">
               <mat-icon>pages</mat-icon>
             </div>
@@ -73,34 +73,34 @@
               <h3>7</h3>
               <p>Pages</p>
             </div>
-          </mat-card-content>
-        </mat-card>
+          </div>
+        </amw-card>
       </mat-grid-tile>
 
       <!-- Quick Actions -->
       <mat-grid-tile colspan="3" rowspan="1">
-        <mat-card class="actions-card">
-          <mat-card-header>
-            <mat-card-title>Quick Actions</mat-card-title>
-            <mat-card-subtitle>Common tasks and shortcuts</mat-card-subtitle>
-          </mat-card-header>
-          <mat-card-content>
+        <amw-card class="actions-card">
+          <div slot="header">
+            <h2>Quick Actions</h2>
+            <p class="subtitle">Common tasks and shortcuts</p>
+          </div>
+          <div slot="content">
             <div class="actions-grid">
               <amw-button variant="elevated" color="primary" icon="add" iconPosition="left">New Component</amw-button>
               <amw-button variant="elevated" color="accent" icon="code" iconPosition="left">View Documentation</amw-button>
               <amw-button variant="elevated" color="warn" icon="bug_report" iconPosition="left">Report Issue</amw-button>
             </div>
-          </mat-card-content>
-        </mat-card>
+          </div>
+        </amw-card>
       </mat-grid-tile>
 
       <!-- Progress Overview -->
       <mat-grid-tile colspan="2" rowspan="1">
-        <mat-card class="progress-card">
-          <mat-card-header>
-            <mat-card-title>Library Progress</mat-card-title>
-          </mat-card-header>
-          <mat-card-content>
+        <amw-card class="progress-card">
+          <div slot="header">
+            <h2>Library Progress</h2>
+          </div>
+          <div slot="content">
             <div class="progress-item">
               <div class="progress-label">
                 <span>Controls</span>
@@ -136,8 +136,8 @@
               </div>
               <mat-progress-bar mode="determinate" value="100"></mat-progress-bar>
             </div>
-          </mat-card-content>
-        </mat-card>
+          </div>
+        </amw-card>
       </mat-grid-tile>
     </mat-grid-list>
   </div>

@@ -8,8 +8,7 @@ import { RadioGroupOption } from '../../../../library/src/controls/components/am
 /**
  * Radio Group Validation Demo Component
  * Demonstrates validation scenarios for the AMW Radio Group component
- */import { MatDividerModule } from '@angular/material/divider';
-import { MatCardModule } from '@angular/material/card';
+ */import { AmwDividerComponent } from '@angular/material/divider';
 
 import { AmwButtonComponent } from '../../../../library/src/controls/components/amw-button/amw-button.component';
 @Component({
@@ -20,8 +19,7 @@ import { AmwButtonComponent } from '../../../../library/src/controls/components/
     ReactiveFormsModule,
     MatIconModule,
     AmwRadioGroupComponent,
-    MatDividerModule,
-    MatCardModule,
+    AmwDividerComponent,
     AmwButtonComponent],
     templateUrl: './radio-group-validation.component.html',
     styleUrl: './radio-group-validation.component.scss'

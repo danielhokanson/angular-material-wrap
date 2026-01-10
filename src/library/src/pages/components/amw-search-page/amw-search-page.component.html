@@ -81,23 +81,20 @@
                     </amw-input>
                   }
                   @if (field.type === 'select') {
-                    <mat-form-field appearance="outline" class="amw-search-page__filter-input">
-                      <mat-label>{{ field.label }}</mat-label>
-                      <mat-select [ngModel]="getFieldValue(field)" (ngModelChange)="setFieldValue(field, $event)">
-                        <mat-option value="">All</mat-option>
-                        @for (option of field.options; track option) {
-                          <mat-option [value]="option.value">
-                            {{ option.label }}
-                          </mat-option>
-                        }
-                      </mat-select>
-                    </mat-form-field>
+                    <amw-select
+                      [label]="field.label"
+                      [ngModel]="getFieldValue(field)"
+                      (ngModelChange)="setFieldValue(field, $event)"
+                      [options]="field.options || []"
+                      appearance="outline"
+                      class="amw-search-page__filter-input">
+                    </amw-select>
                   }
                   @if (field.type === 'boolean') {
                     <div class="amw-search-page__checkbox">
-                      <mat-checkbox [ngModel]="getFieldValue(field)" (ngModelChange)="setFieldValue(field, $event)">
+                      <amw-checkbox [ngModel]="getFieldValue(field)" (ngModelChange)="setFieldValue(field, $event)">
                         {{ field.label }}
-                      </mat-checkbox>
+                      </amw-checkbox>
                     </div>
                   }
                 </div>
@@ -129,16 +126,13 @@
           <div class="amw-search-page__results-controls">
             <!-- Sort Options -->
             @if (currentConfig.showSortOptions && currentConfig.sortOptions) {
-              <mat-form-field appearance="outline">
-                <mat-label>Sort by</mat-label>
-                <mat-select [(ngModel)]="sortField" (selectionChange)="onSortChange()">
-                  @for (option of currentConfig.sortOptions; track option) {
-                    <mat-option [value]="option.value">
-                      {{ option.label }}
-                    </mat-option>
-                  }
-                </mat-select>
-              </mat-form-field>
+              <amw-select
+                label="Sort by"
+                [(ngModel)]="sortField"
+                [options]="currentConfig.sortOptions"
+                (ngModelChange)="onSortChange()"
+                appearance="outline">
+              </amw-select>
             }
             <!-- View Modes -->
             @if (currentConfig.showViewModes && currentConfig.viewModes) {
@@ -161,7 +155,7 @@
       <!-- Loading State -->
       @if (loading) {
         <div class="amw-search-page__loading">
-          <amw-progress-spinner diameter="40"></amw-progress-spinner>
+          <amw-progress-spinner [diameter]="40"></amw-progress-spinner>
           <p>Searching...</p>
         </div>
       }

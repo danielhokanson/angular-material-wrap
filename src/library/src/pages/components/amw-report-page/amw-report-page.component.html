@@ -52,16 +52,17 @@
         <!-- Date Range -->
         @if (!loading && currentData.dateRange) {
         <div class="amw-report-page__date-range">
-          <mat-form-field appearance="outline">
-            <mat-label>Date Range</mat-label>
-            <mat-select name="dateRangePreset" [ngModel]="currentData.dateRange.preset"
-              (ngModelChange)="onDateRangePresetChange($event)">
-              <mat-option value="last7days">Last 7 days</mat-option>
-              <mat-option value="last30days">Last 30 days</mat-option>
-              <mat-option value="last90days">Last 90 days</mat-option>
-              <mat-option value="custom">Custom range</mat-option>
-            </mat-select>
-          </mat-form-field>
+          <amw-select
+            label="Date Range"
+            name="dateRangePreset"
+            [ngModel]="currentData.dateRange.preset"
+            (ngModelChange)="onDateRangePresetChange($event)"
+            appearance="outline">
+            <mat-option value="last7days">Last 7 days</mat-option>
+            <mat-option value="last30days">Last 30 days</mat-option>
+            <mat-option value="last90days">Last 90 days</mat-option>
+            <mat-option value="custom">Custom range</mat-option>
+          </amw-select>
           @if (currentData.dateRange.preset === 'custom') {
           <amw-datepicker
             label="Start Date"
@@ -100,26 +101,26 @@
               </amw-input>
               }
               @if (filter.type === 'select') {
-              <mat-form-field appearance="outline">
-                <mat-label>{{ filter.label }}</mat-label>
-                <mat-select name="filter_{{ filter.key }}" [ngModel]="currentData.filters?.[filter.key]"
-                  (ngModelChange)="onFilterValueChange(filter.key, $event)"
-                  (selectionChange)="onFilterChange(filter.key, $event)">
-                  <mat-option value="">All</mat-option>
-                  @for (option of filter.options; track option) {
-                  <mat-option [value]="option.value">
-                    {{ option.label }}
-                  </mat-option>
-                  }
-                </mat-select>
-              </mat-form-field>
+              <amw-select
+                [label]="filter.label"
+                name="filter_{{ filter.key }}"
+                [ngModel]="currentData.filters?.[filter.key]"
+                (ngModelChange)="onFilterValueChange(filter.key, $event)"
+                appearance="outline">
+                <mat-option value="">All</mat-option>
+                @for (option of filter.options; track option) {
+                <mat-option [value]="option.value">
+                  {{ option.label }}
+                </mat-option>
+                }
+              </amw-select>
               }
               @if (filter.type === 'boolean') {
               <div class="amw-report-page__boolean-filter">
-                <mat-slide-toggle name="filter_{{ filter.key }}" [ngModel]="currentData.filters?.[filter.key]"
-                  (change)="onFilterChange(filter.key, $event.checked)">
+                <amw-switch name="filter_{{ filter.key }}" [ngModel]="currentData.filters?.[filter.key]"
+                  (switchChange)="onFilterChange(filter.key, $event)">
                   {{ filter.label }}
-                </mat-slide-toggle>
+                </amw-switch>
               </div>
               }
             </div>
@@ -134,7 +135,7 @@
   <!-- Loading State -->
   @if (loading) {
   <div class="amw-report-page__loading">
-    <amw-progress-spinner diameter="40"></amw-progress-spinner>
+    <amw-progress-spinner [diameter]="40"></amw-progress-spinner>
     <p>Loading report data...</p>
   </div>
   }
@@ -224,7 +225,7 @@
             @if (widget.type === 'progress') {
             <div class="amw-report-page__progress-widget">
               <div class="amw-report-page__progress-label">{{ widget.data.label }}</div>
-              <amw-progress-bar mode="determinate" [value]="widget.data.value" class="amw-report-page__progress-bar">
+              <amw-progress-bar mode="determinate" [progressValue]="widget.data.value" class="amw-report-page__progress-bar">
               </amw-progress-bar>
               <div class="amw-report-page__progress-value">{{ widget.data.value }}%</div>
             </div>

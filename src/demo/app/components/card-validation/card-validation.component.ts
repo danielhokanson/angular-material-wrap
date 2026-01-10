@@ -6,7 +6,6 @@ import { AmwCardComponent } from '../../../../library/src/components/components/
 import { CardConfig, CardVariant, CardElevation } from '../../../../library/src/components/components/amw-card/interfaces';
 import { AmwSize } from '../../../../library/src/shared/types';
 import { MatFormFieldModule } from '@angular/material/form-field';
-import { MatCardModule } from '@angular/material/card';
 
 import { AmwButtonComponent } from '../../../../library/src/controls/components/amw-button/amw-button.component';
 @Component({
@@ -17,7 +16,6 @@ import { AmwButtonComponent } from '../../../../library/src/controls/components/
     AmwCardComponent,
     AmwCardComponent,
     MatFormFieldModule,
-    MatCardModule,
     AmwButtonComponent],
     encapsulation: ViewEncapsulation.None,
     templateUrl: './card-validation.component.html',

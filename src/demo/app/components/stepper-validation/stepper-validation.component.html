@@ -4,8 +4,8 @@
 
   <div class="demo-section">
     <h4>Required Field Validation</h4>
-    <mat-card>
-      <mat-card-content>
+    <amw-card>
+      <div slot="content">
         <mat-stepper #stepper>
           <mat-step [stepControl]="firstFormGroup">
             <form [formGroup]="firstFormGroup">
@@ -79,7 +79,7 @@
             </div>
           </mat-step>
         </mat-stepper>
-      </mat-card-content>
-    </mat-card>
+      </div>
+    </amw-card>
   </div>
 </div>

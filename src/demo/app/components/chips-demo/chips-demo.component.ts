@@ -6,9 +6,8 @@ import { AmwNotificationService } from '../../../../library/src/services/amw-not
 
 import { AmwChipsComponent } from '../../../../library/src/controls/components/amw-chips/amw-chips.component';
 import { Chip, ChipConfig, ChipEvent, ChipChangeEvent, ChipMenuItem } from '../../../../library/src/controls/components/amw-chips/interfaces';
-import { MatTabsModule } from '@angular/material/tabs';
-import { MatDividerModule } from '@angular/material/divider';
-import { MatCardModule } from '@angular/material/card';
+import { AmwTabsComponent } from '@angular/material/tabs';
+import { AmwDividerComponent } from '@angular/material/divider';
 
 @Component({
     selector: 'amw-demo-chips',
@@ -17,9 +16,8 @@ import { MatCardModule } from '@angular/material/card';
     FormsModule,
     MatIconModule,
     AmwChipsComponent,
-    MatTabsModule,
-    MatDividerModule,
-    MatCardModule
+    AmwTabsComponent,
+    AmwDividerComponent,
 ],
     encapsulation: ViewEncapsulation.None,
     templateUrl: './chips-demo.component.html',

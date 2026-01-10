@@ -3,9 +3,6 @@ import { CommonModule } from '@angular/common';
 import { FormsModule, ReactiveFormsModule, FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { MatCardModule } from '@angular/material/card';
 import { MatIconModule } from '@angular/material/icon';
-import { MatSelectModule } from '@angular/material/select';
-import { MatCheckboxModule } from '@angular/material/checkbox';
-import { MatRadioModule } from '@angular/material/radio';
 import { MatDatepickerModule } from '@angular/material/datepicker';
 import { MatNativeDateModule } from '@angular/material/core';
 import { MatChipsModule } from '@angular/material/chips';
@@ -13,6 +10,7 @@ import { MatDividerModule } from '@angular/material/divider';
 import { MatTabsModule } from '@angular/material/tabs';
 import { MatExpansionModule } from '@angular/material/expansion';
 import { MatSnackBarModule, MatSnackBar } from '@angular/material/snack-bar';
+import { MatFormFieldModule } from '@angular/material/form-field';
 import { Subject, takeUntil, BehaviorSubject, Observable, of } from 'rxjs';
 import { delay } from 'rxjs/operators';
 
@@ -28,6 +26,11 @@ import { AmwProgressSpinnerComponent } from '../../../components/components/amw-
 import { AmwButtonComponent } from '../../../controls/components/amw-button/amw-button.component';
 import { AmwInputComponent } from '../../../controls/components/amw-input/amw-input.component';
 import { AmwTextareaComponent } from '../../../controls/components/amw-textarea/amw-textarea.component';
+import { AmwDatepickerComponent } from '../../../controls/components/amw-datepicker/amw-datepicker.component';
+import { AmwCheckboxComponent } from '../../../controls/components/amw-checkbox/amw-checkbox.component';
+import { AmwRadioGroupComponent } from '../../../controls/components/amw-radio-group/amw-radio-group.component';
+import { AmwRadioComponent } from '../../../controls/components/amw-radio/amw-radio.component';
+import { AmwSelectComponent } from '../../../controls/components/amw-select/amw-select.component';
 
 // Default data source implementation
 @Injectable()
@@ -69,10 +72,12 @@ export class DefaultFormPageDataSource implements FormPageDataSource {
         AmwButtonComponent,
         AmwInputComponent,
         AmwTextareaComponent,
+        AmwDatepickerComponent,
+        AmwCheckboxComponent,
+        AmwRadioGroupComponent,
+        AmwRadioComponent,
+        AmwSelectComponent,
         MatIconModule,
-        MatSelectModule,
-        MatCheckboxModule,
-        MatRadioModule,
         MatDatepickerModule,
         MatNativeDateModule,
         MatChipsModule,
@@ -80,6 +85,7 @@ export class DefaultFormPageDataSource implements FormPageDataSource {
         MatTabsModule,
         MatExpansionModule,
         MatSnackBarModule,
+        MatFormFieldModule,
         AmwProgressSpinnerComponent
     ],
     encapsulation: ViewEncapsulation.None,

@@ -2,6 +2,7 @@ import { Component, Input, Output, EventEmitter, ViewEncapsulation } from '@angu
 import { CommonModule } from '@angular/common';
 import { MatMenuModule } from '@angular/material/menu';
 import { MatIconModule } from '@angular/material/icon';
+import { MatDividerModule } from '@angular/material/divider';
 import { BaseComponent } from '../../../controls/components/base/base.component';
 
 /**
@@ -24,7 +25,8 @@ import { BaseComponent } from '../../../controls/components/base/base.component'
     imports: [
         CommonModule,
         MatMenuModule,
-        MatIconModule
+        MatIconModule,
+        MatDividerModule
     ],
     encapsulation: ViewEncapsulation.None,
     template: `
@@ -43,7 +45,7 @@ import { BaseComponent } from '../../../controls/components/base/base.component'
 })
 export class AmwMenuItemComponent extends BaseComponent {
     /** Label text for the menu item */
-    @Input() label?: string;
+    @Input() override label: string = '';
     /** Icon name for the menu item */
     @Input() icon?: string;
     /** Whether this item is a divider */

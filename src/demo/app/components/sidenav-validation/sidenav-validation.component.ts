@@ -10,11 +10,10 @@ import { SidenavItem } from '../../../../library/src/components/components/amw-s
 import { SidenavService } from '../../../../library/src/components/services/sidenav.service';
 import { AmwSize } from '../../../../library/src/shared/types';
 import { MatOptionModule } from '@angular/material/core';
-import { MatSlideToggleModule } from '@angular/material/slide-toggle';
-import { MatCardModule } from '@angular/material/card';
 import { AmwButtonComponent } from '../../../../library/src/controls/components/amw-button/amw-button.component';
 import { AmwInputComponent } from '../../../../library/src/controls/components/amw-input/amw-input.component';
 import { AmwSelectComponent } from '../../../../library/src/controls/components/amw-select/amw-select.component';
+import { AmwSwitchComponent } from '../../../../library/src/controls/components/amw-switch/amw-switch.component';
 
 /**
  * Validation demo component for sidenav
@@ -28,11 +27,10 @@ import { AmwSelectComponent } from '../../../../library/src/controls/components/
     ReactiveFormsModule,
     AmwSidenavComponent,
     MatOptionModule,
-    MatSlideToggleModule,
-    MatCardModule,
     AmwButtonComponent,
     AmwInputComponent,
-    AmwSelectComponent],
+    AmwSelectComponent,
+    AmwSwitchComponent],
     templateUrl: './sidenav-validation.component.html',
     styleUrl: './sidenav-validation.component.scss'
 })

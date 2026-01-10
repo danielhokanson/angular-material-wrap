@@ -5,16 +5,16 @@
   </div>
 
   <div class="settings-content">
-    <mat-tab-group>
+    <amw-tabs>
       <!-- General Settings -->
-      <mat-tab label="General">
+      <amw-tab label="General">
         <div class="tab-content">
-          <mat-card>
-            <mat-card-header>
-              <mat-card-title>General Settings</mat-card-title>
-              <mat-card-subtitle>Basic application configuration</mat-card-subtitle>
-            </mat-card-header>
-            <mat-card-content>
+          <amw-card>
+            <div slot="header">
+              <h2>General Settings</h2>
+              <p class="subtitle">Basic application configuration</p>
+            </div>
+            <div slot="content">
               <div class="settings-group">
                 <h4>Application</h4>
                 <div class="setting-item">
@@ -43,7 +43,7 @@
                 </div>
               </div>
 
-              <mat-divider></mat-divider>
+              <amw-divider></amw-divider>
 
               <div class="settings-group">
                 <h4>Display</h4>
@@ -75,20 +75,20 @@
                   </div>
                 </div>
               </div>
-            </mat-card-content>
-          </mat-card>
+            </div>
+          </amw-card>
         </div>
-      </mat-tab>
+      </amw-tab>
 
       <!-- Notifications -->
-      <mat-tab label="Notifications">
+      <amw-tab label="Notifications">
         <div class="tab-content">
-          <mat-card>
-            <mat-card-header>
-              <mat-card-title>Notification Settings</mat-card-title>
-              <mat-card-subtitle>Configure how you receive notifications</mat-card-subtitle>
-            </mat-card-header>
-            <mat-card-content>
+          <amw-card>
+            <div slot="header">
+              <h2>Notification Settings</h2>
+              <p class="subtitle">Configure how you receive notifications</p>
+            </div>
+            <div slot="content">
               <div class="settings-group">
                 <h4>Email Notifications</h4>
                 <div class="setting-item">
@@ -121,7 +121,7 @@
                 </div>
               </div>
 
-              <mat-divider></mat-divider>
+              <amw-divider></amw-divider>
 
               <div class="settings-group">
                 <h4>Push Notifications</h4>
@@ -133,20 +133,20 @@
                   <amw-switch [(ngModel)]="pushNotifications"></amw-switch>
                 </div>
               </div>
-            </mat-card-content>
-          </mat-card>
+            </div>
+          </amw-card>
         </div>
-      </mat-tab>
+      </amw-tab>
 
       <!-- Privacy -->
-      <mat-tab label="Privacy">
+      <amw-tab label="Privacy">
         <div class="tab-content">
-          <mat-card>
-            <mat-card-header>
-              <mat-card-title>Privacy Settings</mat-card-title>
-              <mat-card-subtitle>Control your data and privacy preferences</mat-card-subtitle>
-            </mat-card-header>
-            <mat-card-content>
+          <amw-card>
+            <div slot="header">
+              <h2>Privacy Settings</h2>
+              <p class="subtitle">Control your data and privacy preferences</p>
+            </div>
+            <div slot="content">
               <div class="settings-group">
                 <h4>Data Collection</h4>
                 <div class="setting-item">
@@ -166,7 +166,7 @@
                 </div>
               </div>
 
-              <mat-divider></mat-divider>
+              <amw-divider></amw-divider>
 
               <div class="settings-group">
                 <h4>Data Privacy</h4>
@@ -186,24 +186,24 @@
                   <amw-switch [(ngModel)]="errorReporting"></amw-switch>
                 </div>
               </div>
-            </mat-card-content>
-          </mat-card>
+            </div>
+          </amw-card>
         </div>
-      </mat-tab>
+      </amw-tab>
 
       <!-- Advanced -->
-      <mat-tab label="Advanced">
+      <amw-tab label="Advanced">
         <div class="tab-content">
-          <mat-card>
-            <mat-card-header>
-              <mat-card-title>Advanced Settings</mat-card-title>
-              <mat-card-subtitle>Advanced configuration options</mat-card-subtitle>
-            </mat-card-header>
-            <mat-card-content>
-              <mat-expansion-panel>
-                <mat-expansion-panel-header>
-                  <mat-panel-title>API Configuration</mat-panel-title>
-                </mat-expansion-panel-header>
+          <amw-card>
+            <div slot="header">
+              <h2>Advanced Settings</h2>
+              <p class="subtitle">Advanced configuration options</p>
+            </div>
+            <div slot="content">
+              <amw-accordion-item>
+                <div slot="header">
+                  <h3>API Configuration</h3>
+                </div>
                 <div class="setting-item">
                   <div class="setting-info">
                     <span class="setting-label">API Base URL</span>
@@ -216,12 +216,12 @@
                     placeholder="https://api.example.com">
                   </amw-input>
                 </div>
-              </mat-expansion-panel>
+              </amw-accordion-item>
 
-              <mat-expansion-panel>
-                <mat-expansion-panel-header>
-                  <mat-panel-title>Cache Settings</mat-panel-title>
-                </mat-expansion-panel-header>
+              <amw-accordion-item>
+                <div slot="header">
+                  <h3>Cache Settings</h3>
+                </div>
                 <div class="setting-item">
                   <div class="setting-info">
                     <span class="setting-label">Cache Duration</span>
@@ -237,12 +237,12 @@
                     <span class="slider-value">{{ cacheDuration }} minutes</span>
                   </div>
                 </div>
-              </mat-expansion-panel>
+              </amw-accordion-item>
 
-              <mat-expansion-panel>
-                <mat-expansion-panel-header>
-                  <mat-panel-title>Debug Settings</mat-panel-title>
-                </mat-expansion-panel-header>
+              <amw-accordion-item>
+                <div slot="header">
+                  <h3>Debug Settings</h3>
+                </div>
                 <div class="setting-item">
                   <div class="setting-info">
                     <span class="setting-label">Debug Mode</span>
@@ -250,12 +250,12 @@
                   </div>
                   <amw-switch [(ngModel)]="debugMode"></amw-switch>
                 </div>
-              </mat-expansion-panel>
-            </mat-card-content>
-          </mat-card>
+              </amw-accordion-item>
+            </div>
+          </amw-card>
         </div>
-      </mat-tab>
-    </mat-tab-group>
+      </amw-tab>
+    </amw-tabs>
   </div>
 
   <div class="settings-actions">

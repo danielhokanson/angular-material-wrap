@@ -4,10 +4,7 @@ import { FormsModule } from '@angular/forms';
 import { MatIconModule } from '@angular/material/icon';
 
 import { ThemeManagerComponent } from '../../../../library/src/styling/components/theme-manager/theme-manager.component';
-import { MatCardModule } from '@angular/material/card';
-import { MatSliderModule } from '@angular/material/slider';
 import { MatOptionModule } from '@angular/material/core';
-import { MatSlideToggleModule } from '@angular/material/slide-toggle';
 
 import { AmwButtonComponent } from '../../../../library/src/controls/components/amw-button/amw-button.component';
 import { AmwInputComponent } from '../../../../library/src/controls/components/amw-input/amw-input.component';
@@ -15,22 +12,23 @@ import { AmwSelectComponent } from '../../../../library/src/controls/components/
 import { AmwCheckboxComponent } from '../../../../library/src/controls/components/amw-checkbox/amw-checkbox.component';
 import { AmwRadioComponent } from '../../../../library/src/controls/components/amw-radio/amw-radio.component';
 import { AmwRadioGroupComponent } from '../../../../library/src/controls/components/amw-radio-group/amw-radio-group.component';
+import { AmwSwitchComponent } from '../../../../library/src/controls/components/amw-switch/amw-switch.component';
+import { AmwSliderComponent } from '../../../../library/src/controls/components/amw-slider/amw-slider.component';
 @Component({
     selector: 'amw-demo-theme',
     standalone: true,
     imports: [FormsModule,
     MatIconModule,
     ThemeManagerComponent,
-    MatCardModule,
-    MatSliderModule,
     MatOptionModule,
-    MatSlideToggleModule,
     AmwButtonComponent,
     AmwInputComponent,
     AmwSelectComponent,
     AmwCheckboxComponent,
     AmwRadioComponent,
-    AmwRadioGroupComponent],
+    AmwRadioGroupComponent,
+    AmwSwitchComponent,
+    AmwSliderComponent],
     templateUrl: './theme-demo.component.html',
     styleUrl: './theme-demo.component.scss',
     encapsulation: ViewEncapsulation.None

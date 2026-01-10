@@ -5,7 +5,7 @@ import { DemoTab } from './interfaces/demo-tab.interface';
 
 // Re-export for convenience
 export type { DemoTab } from './interfaces/demo-tab.interface';
-import { MatTabsModule } from '@angular/material/tabs';
+import { AmwTabsComponent } from '@angular/material/tabs';
 
 @Component({
     selector: 'amw-demo-tabs',
@@ -13,7 +13,7 @@ import { MatTabsModule } from '@angular/material/tabs';
     imports: [
     CommonModule,
     MatIconModule,
-    MatTabsModule
+    AmwTabsComponent
 ],
     encapsulation: ViewEncapsulation.None,
     templateUrl: './demo-tabs.component.html',

@@ -7,8 +7,7 @@ import { ViewEncapsulation } from '@angular/core';
 import { AmwCurrencyPipe } from '../../../../library/src/pipes/amw-currency/amw-currency.pipe';
 import { AmwDatePipe } from '../../../../library/src/pipes/amw-date/amw-date.pipe';
 import { AmwTextTransformPipe } from '../../../../library/src/pipes/amw-text-transform/amw-text-transform.pipe';
-import { MatTabsModule } from '@angular/material/tabs';
-import { MatCardModule } from '@angular/material/card';
+import { AmwTabsComponent } from '@angular/material/tabs';
 import { AmwInputComponent } from '../../../../library/src/controls/components/amw-input/amw-input.component';
 
 @Component({
@@ -20,8 +19,7 @@ import { AmwInputComponent } from '../../../../library/src/controls/components/a
     AmwCurrencyPipe,
     AmwDatePipe,
     AmwTextTransformPipe,
-    MatTabsModule,
-    MatCardModule,
+    AmwTabsComponent,
     AmwInputComponent
 ],
     encapsulation: ViewEncapsulation.None,

@@ -5,15 +5,15 @@
   <div class="validation-forms">
     <div class="theme-builder">
       <!-- Configuration Panel -->
-      <mat-card class="validation-card config-panel">
-        <mat-card-header>
-          <mat-card-title>
+      <amw-card class="validation-card config-panel">
+        <div slot="header">
+          <h2>
             <mat-icon>palette</mat-icon>
             Theme Configuration
-          </mat-card-title>
-          <mat-card-subtitle>Customize your Material Design theme</mat-card-subtitle>
-        </mat-card-header>
-        <mat-card-content>
+          </h2>
+          <p class="subtitle">Customize your Material Design theme</p>
+        </div>
+        <div slot="content">
           <form [formGroup]="themeForm">
             <!-- Color Configuration -->
             <div class="config-section">
@@ -63,16 +63,16 @@
                 Theme Mode
               </h4>
 
-              <mat-radio-group formControlName="mode" class="mode-radio-group">
-                <mat-radio-button value="light">
+              <amw-radio-group formControlName="mode" class="mode-radio-group">
+                <amw-radio value="light">
                   <mat-icon>light_mode</mat-icon>
                   Light Mode
-                </mat-radio-button>
-                <mat-radio-button value="dark">
+                </amw-radio>
+                <amw-radio value="dark">
                   <mat-icon>dark_mode</mat-icon>
                   Dark Mode
-                </mat-radio-button>
-              </mat-radio-group>
+                </amw-radio>
+              </amw-radio-group>
             </div>
 
             <!-- Density Configuration -->
@@ -135,19 +135,19 @@
               <span>Please fix validation errors before applying theme</span>
             </div>
           }
-        </mat-card-content>
-      </mat-card>
+        </div>
+      </amw-card>
 
       <!-- Preview Panel -->
-      <mat-card class="validation-card preview-panel" [ngStyle]="getPreviewStyles()">
-        <mat-card-header>
-          <mat-card-title>
+      <amw-card class="validation-card preview-panel" [ngStyle]="getPreviewStyles()">
+        <div slot="header">
+          <h2>
             <mat-icon>visibility</mat-icon>
             Preview
-          </mat-card-title>
-          <mat-card-subtitle>See your theme in action</mat-card-subtitle>
-        </mat-card-header>
-        <mat-card-content>
+          </h2>
+          <p class="subtitle">See your theme in action</p>
+        </div>
+        <div slot="content">
           @if (previewEnabled()) {
             <div class="preview-content">
               <!-- Color Swatches -->
@@ -217,8 +217,8 @@
               <amw-button variant="text" (click)="togglePreview()">Enable Preview</amw-button>
             </div>
           }
-        </mat-card-content>
-      </mat-card>
+        </div>
+      </amw-card>
     </div>
   </div>
 </div>

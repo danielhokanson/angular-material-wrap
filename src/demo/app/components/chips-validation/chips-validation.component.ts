@@ -5,7 +5,6 @@ import { COMMA, ENTER } from '@angular/cdk/keycodes';
 import { MatChipInputEvent } from '@angular/material/chips';
 import { MatChipsModule } from '@angular/material/chips';
 import { MatFormFieldModule } from '@angular/material/form-field';
-import { MatCardModule } from '@angular/material/card';
 import { MatOptionModule } from '@angular/material/core';
 import { AmwButtonComponent } from '../../../../library/src/controls/components/amw-button/amw-button.component';
 import { AmwInputComponent } from '../../../../library/src/controls/components/amw-input/amw-input.component';
@@ -27,7 +26,6 @@ interface Skill {
     MatIconModule,
     MatChipsModule,
     MatFormFieldModule,
-    MatCardModule,
     MatOptionModule,
     AmwButtonComponent,
     AmwInputComponent,

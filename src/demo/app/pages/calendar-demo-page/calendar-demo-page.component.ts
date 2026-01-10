@@ -17,9 +17,8 @@ interface SampleEvent {
     priority: 'low' | 'medium' | 'high';
     attendees?: string[];
 }
-import { MatTabsModule } from '@angular/material/tabs';
-import { MatDividerModule } from '@angular/material/divider';
-import { MatCardModule } from '@angular/material/card';
+import { AmwTabsComponent } from '@angular/material/tabs';
+import { AmwDividerComponent } from '@angular/material/divider';
 
 import { AmwButtonComponent } from '../../../../library/src/controls/components/amw-button/amw-button.component';
 @Component({
@@ -29,9 +28,8 @@ import { AmwButtonComponent } from '../../../../library/src/controls/components/
     MatDialogModule,
     AmwCalendarFullComponent,
     AmwCalendarMiniComponent,
-    MatTabsModule,
-    MatDividerModule,
-    MatCardModule,
+    AmwTabsComponent,
+    AmwDividerComponent,
     AmwButtonComponent],
     encapsulation: ViewEncapsulation.None,
     templateUrl: './calendar-demo-page.component.html',

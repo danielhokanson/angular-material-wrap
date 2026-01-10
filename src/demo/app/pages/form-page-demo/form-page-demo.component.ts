@@ -100,9 +100,8 @@ class FormPageDemoDataSource implements FormPageDataSource {
         }).pipe(delay(200));
     }
 }
-import { MatTabsModule } from '@angular/material/tabs';
-import { MatDividerModule } from '@angular/material/divider';
-import { MatCardModule } from '@angular/material/card';
+import { AmwTabsComponent } from '@angular/material/tabs';
+import { AmwDividerComponent } from '@angular/material/divider';
 
 import { AmwButtonComponent } from '../../../../library/src/controls/components/amw-button/amw-button.component';
 @Component({
@@ -111,9 +110,8 @@ import { AmwButtonComponent } from '../../../../library/src/controls/components/
     imports: [MatIconModule,
     MatTooltipModule,
     AmwFormPageComponent,
-    MatTabsModule,
-    MatDividerModule,
-    MatCardModule,
+    AmwTabsComponent,
+    AmwDividerComponent,
     AmwButtonComponent],
     templateUrl: './form-page-demo.component.html',
     styleUrl: './form-page-demo.component.scss'

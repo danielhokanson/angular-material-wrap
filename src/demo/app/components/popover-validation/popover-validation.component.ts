@@ -10,7 +10,6 @@ import { PopoverTrigger } from '../../../../library/src/components/components/am
 import { PopoverService } from '../../../../library/src/components/services/popover.service';
 import { AmwSize } from '../../../../library/src/shared/types';
 import { MatOptionModule } from '@angular/material/core';
-import { MatCardModule } from '@angular/material/card';
 import { AmwButtonComponent } from '../../../../library/src/controls/components/amw-button/amw-button.component';
 import { AmwInputComponent } from '../../../../library/src/controls/components/amw-input/amw-input.component';
 import { AmwSelectComponent } from '../../../../library/src/controls/components/amw-select/amw-select.component';
@@ -27,7 +26,6 @@ import { AmwSelectComponent } from '../../../../library/src/controls/components/
     ReactiveFormsModule,
     AmwPopoverComponent,
     MatOptionModule,
-    MatCardModule,
     AmwButtonComponent,
     AmwInputComponent,
     AmwSelectComponent],

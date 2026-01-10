@@ -5,10 +5,9 @@ import { MatIconModule } from '@angular/material/icon';
 import { MatListModule } from '@angular/material/list';
 import { ViewEncapsulation } from '@angular/core';
 import { HttpCacheService, CacheConfigService } from '../../../../library/src/services/amw-http-cache';
-import { MatTabsModule } from '@angular/material/tabs';
+import { AmwTabsComponent } from '@angular/material/tabs';
 import { MatChipsModule } from '@angular/material/chips';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
-import { MatCardModule } from '@angular/material/card';
 
 import { AmwButtonComponent } from '../../../../library/src/controls/components/amw-button/amw-button.component';
 @Component({
@@ -17,10 +16,9 @@ import { AmwButtonComponent } from '../../../../library/src/controls/components/
     imports: [CommonModule,
     MatIconModule,
     MatListModule,
-    MatTabsModule,
+    AmwTabsComponent,
     MatChipsModule,
     MatProgressSpinnerModule,
-    MatCardModule,
     AmwButtonComponent],
     templateUrl: './http-cache-demo.component.html',
     styleUrl: './http-cache-demo.component.scss',

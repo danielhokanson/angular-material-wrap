@@ -65,7 +65,7 @@ export class AmwButtonComponent extends BaseComponent {
 
     // Spinner properties
     @Input() spinnerSize: number = 20;
-    @Input() spinnerColor: string = 'primary';
+    @Input() spinnerColor: AmwColor = 'primary';
 
     // Text content
     @Input() text: string = '';

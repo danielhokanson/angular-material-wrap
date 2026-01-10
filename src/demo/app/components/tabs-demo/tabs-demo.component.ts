@@ -1,8 +1,7 @@
 import { Component } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { MatIconModule } from '@angular/material/icon';
-import { MatTabsModule } from '@angular/material/tabs';
-import { MatCardModule } from '@angular/material/card';
+import { AmwTabsComponent } from '@angular/material/tabs';
 
 import { AmwButtonComponent } from '../../../../library/src/controls/components/amw-button/amw-button.component';
 import { AmwInputComponent } from '../../../../library/src/controls/components/amw-input/amw-input.component';
@@ -11,8 +10,7 @@ import { AmwInputComponent } from '../../../../library/src/controls/components/a
     standalone: true,
     imports: [CommonModule,
     MatIconModule,
-    MatTabsModule,
-    MatCardModule,
+    AmwTabsComponent,
     AmwButtonComponent,
     AmwInputComponent],
     templateUrl: './tabs-demo.component.html',

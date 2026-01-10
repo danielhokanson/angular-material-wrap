@@ -6,14 +6,14 @@
 
   <div class="demo-content">
     <div class="demo-main">
-      <mat-card class="demo-card">
-        <mat-card-header>
-          <mat-card-title>{{ selectedItem.name }}</mat-card-title>
-          <mat-card-subtitle>Interactive demo and documentation</mat-card-subtitle>
-        </mat-card-header>
-        <mat-card-content>
-          <mat-tab-group [(selectedIndex)]="selectedTab" class="demo-tabs">
-            <mat-tab label="Variations" icon="view_module">
+      <amw-card class="demo-card">
+        <div slot="header">
+          <h2>{{ selectedItem.name }}</h2>
+          <p class="subtitle">Interactive demo and documentation</p>
+        </div>
+        <div slot="content">
+          <amw-tabs [(selectedIndex)]="selectedTab" class="demo-tabs">
+            <amw-tab label="Variations" icon="view_module">
               @switch (selectedItem.id) {
                 @case ('button') { <amw-demo-button></amw-demo-button> }
                 @case ('input') { <amw-demo-input></amw-demo-input> }
@@ -43,9 +43,9 @@
                 @case ('accordion') { <amw-demo-accordion></amw-demo-accordion> }
                 @case ('theme') { <amw-demo-theme></amw-demo-theme> }
               }
-            </mat-tab>
+            </amw-tab>
 
-            <mat-tab label="Validation" icon="verified">
+            <amw-tab label="Validation" icon="verified">
               @switch (selectedItem.id) {
                 @case ('button') { <amw-demo-button-validation></amw-demo-button-validation> }
                 @case ('input') { <amw-demo-input-validation></amw-demo-input-validation> }
@@ -75,9 +75,9 @@
                 @case ('accordion') { <amw-demo-accordion-validation></amw-demo-accordion-validation> }
                 @case ('theme') { <amw-demo-theme-validation></amw-demo-theme-validation> }
               }
-            </mat-tab>
+            </amw-tab>
 
-            <mat-tab label="Code" icon="code">
+            <amw-tab label="Code" icon="code">
               @switch (selectedItem.id) {
                 @case ('button') { <amw-demo-button-code></amw-demo-button-code> }
                 @case ('input') { <amw-demo-input-code></amw-demo-input-code> }
@@ -107,9 +107,9 @@
                 @case ('accordion') { <amw-demo-accordion-code></amw-demo-accordion-code> }
                 @case ('theme') { <amw-demo-theme-code></amw-demo-theme-code> }
               }
-            </mat-tab>
+            </amw-tab>
 
-            <mat-tab label="API" icon="description">
+            <amw-tab label="API" icon="description">
               @switch (selectedItem.id) {
                 @case ('button') { <amw-demo-button-api></amw-demo-button-api> }
                 @case ('input') { <amw-demo-input-api></amw-demo-input-api> }
@@ -139,10 +139,10 @@
                 @case ('accordion') { <amw-demo-accordion-api></amw-demo-accordion-api> }
                 @case ('theme') { <amw-demo-theme-api></amw-demo-theme-api> }
               }
-            </mat-tab>
-          </mat-tab-group>
-        </mat-card-content>
-      </mat-card>
+            </amw-tab>
+          </amw-tabs>
+        </div>
+      </amw-card>
     </div>
   </div>
 </div>

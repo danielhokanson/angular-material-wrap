@@ -3,7 +3,6 @@ import { FormBuilder, FormGroup, Validators, ReactiveFormsModule, ValidationErro
 import { MatNativeDateModule } from '@angular/material/core';
 import { MatIconModule } from '@angular/material/icon';
 import { AmwFormValidationComponent, FormValidationConfig } from 'angular-material-wrap';
-import { MatCardModule } from '@angular/material/card';
 import { AmwButtonComponent } from '../../../../library/src/controls/components/amw-button/amw-button.component';
 import { AmwInputComponent } from '../../../../library/src/controls/components/amw-input/amw-input.component';
 import { AmwDatepickerComponent } from '../../../../library/src/controls/components/amw-datepicker/amw-datepicker.component';
@@ -15,7 +14,6 @@ import { AmwDatepickerComponent } from '../../../../library/src/controls/compone
     MatNativeDateModule,
     MatIconModule,
     AmwFormValidationComponent,
-    MatCardModule,
     AmwButtonComponent,
     AmwInputComponent,
     AmwDatepickerComponent],

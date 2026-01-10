@@ -8,8 +8,7 @@ import {
 } from 'angular-material-wrap';
 import { Observable, of, BehaviorSubject } from 'rxjs';
 import { delay } from 'rxjs/operators';
-import { MatTabsModule } from '@angular/material/tabs';
-import { MatCardModule } from '@angular/material/card';
+import { AmwTabsComponent } from '@angular/material/tabs';
 
 // Sample recipes data
 const RECIPES_DATA = [
@@ -113,8 +112,7 @@ class RecipeDataSource implements MasterDetailDataSource {
   standalone: true,
   imports: [
     AmwMasterDetailPageComponent,
-    MatTabsModule,
-    MatCardModule
+    AmwTabsComponent,
 ],
   template: `
     <div class="demo-page">

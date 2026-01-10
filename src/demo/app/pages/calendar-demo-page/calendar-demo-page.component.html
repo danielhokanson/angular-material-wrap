@@ -4,17 +4,17 @@
     <p>Comprehensive calendar components with event management and multiple view modes</p>
   </div>
 
-  <mat-tab-group [(selectedIndex)]="selectedTab" class="demo-tabs">
+  <amw-tabs [(selectedIndex)]="selectedTab" class="demo-tabs">
     
     <!-- Full Calendar Tab -->
-    <mat-tab label="Full Calendar" icon="calendar_view_month">
+    <amw-tab label="Full Calendar" icon="calendar_view_month">
       <div class="tab-content">
-        <mat-card class="demo-card">
-          <mat-card-header>
-            <mat-card-title>Full Calendar Component</mat-card-title>
-            <mat-card-subtitle>Full-screen calendar with month, week, and day views</mat-card-subtitle>
-          </mat-card-header>
-          <mat-card-content>
+        <amw-card class="demo-card">
+          <div slot="header">
+            <h2>Full Calendar Component</h2>
+            <p class="subtitle">Full-screen calendar with month, week, and day views</p>
+          </div>
+          <div slot="content">
             <div class="demo-section">
               <h3>Interactive Calendar</h3>
               <p>Full-featured calendar with drag-and-drop, editing, and multiple view modes</p>
@@ -51,20 +51,20 @@
                 </amw-calendar-full>
               </div>
             </div>
-          </mat-card-content>
-        </mat-card>
+          </div>
+        </amw-card>
       </div>
-    </mat-tab>
+    </amw-tab>
 
     <!-- Mini Calendar Tab -->
-    <mat-tab label="Mini Calendar" icon="calendar_today">
+    <amw-tab label="Mini Calendar" icon="calendar_today">
       <div class="tab-content">
-        <mat-card class="demo-card">
-          <mat-card-header>
-            <mat-card-title>Mini Calendar Component</mat-card-title>
-            <mat-card-subtitle>Compact calendar for single day and week views</mat-card-subtitle>
-          </mat-card-header>
-          <mat-card-content>
+        <amw-card class="demo-card">
+          <div slot="header">
+            <h2>Mini Calendar Component</h2>
+            <p class="subtitle">Compact calendar for single day and week views</p>
+          </div>
+          <div slot="content">
             <div class="demo-section">
               <h3>Single Day View</h3>
               <p>Compact calendar showing events for a single day</p>
@@ -94,7 +94,7 @@
               </div>
             </div>
 
-            <mat-divider></mat-divider>
+            <amw-divider></amw-divider>
 
             <div class="demo-section">
               <h3>Week View</h3>
@@ -125,7 +125,7 @@
               </div>
             </div>
 
-            <mat-divider></mat-divider>
+            <amw-divider></amw-divider>
 
             <div class="demo-section">
               <h3>Compact Mode</h3>
@@ -155,20 +155,20 @@
                 </amw-calendar-mini>
               </div>
             </div>
-          </mat-card-content>
-        </mat-card>
+          </div>
+        </amw-card>
       </div>
-    </mat-tab>
+    </amw-tab>
 
     <!-- Features Tab -->
-    <mat-tab label="Features" icon="star">
+    <amw-tab label="Features" icon="star">
       <div class="tab-content">
-        <mat-card class="demo-card">
-          <mat-card-header>
-            <mat-card-title>Calendar Features</mat-card-title>
-            <mat-card-subtitle>Comprehensive feature overview</mat-card-subtitle>
-          </mat-card-header>
-          <mat-card-content>
+        <amw-card class="demo-card">
+          <div slot="header">
+            <h2>Calendar Features</h2>
+            <p class="subtitle">Comprehensive feature overview</p>
+          </div>
+          <div slot="content">
             <div class="features-grid">
               <div class="feature-item">
                 <mat-icon>event</mat-icon>
@@ -218,20 +218,20 @@
                 <p>Highly configurable with extensive customization options</p>
               </div>
             </div>
-          </mat-card-content>
-        </mat-card>
+          </div>
+        </amw-card>
       </div>
-    </mat-tab>
+    </amw-tab>
 
     <!-- Code Examples Tab -->
-    <mat-tab label="Code Examples" icon="code">
+    <amw-tab label="Code Examples" icon="code">
       <div class="tab-content">
-        <mat-card class="demo-card">
-          <mat-card-header>
-            <mat-card-title>Usage Examples</mat-card-title>
-            <mat-card-subtitle>Code snippets and implementation examples</mat-card-subtitle>
-          </mat-card-header>
-          <mat-card-content>
+        <amw-card class="demo-card">
+          <div slot="header">
+            <h2>Usage Examples</h2>
+            <p class="subtitle">Code snippets and implementation examples</p>
+          </div>
+          <div slot="content">
             <div class="code-section">
               <h3>Basic Usage</h3>
               <div class="code-block">
@@ -254,7 +254,7 @@
               </div>
             </div>
 
-            <mat-divider></mat-divider>
+            <amw-divider></amw-divider>
 
             <div class="code-section">
               <h3>TypeScript Configuration</h3>
@@ -293,7 +293,7 @@ const myEvents: CalendarEvent&lt;MyEvent&gt;[] = [
               </div>
             </div>
 
-            <mat-divider></mat-divider>
+            <amw-divider></amw-divider>
 
             <div class="code-section">
               <h3>Event Handlers</h3>
@@ -327,9 +327,9 @@ onEventCreate(event: &#123; date: Date; time?: Date &#125;): void &#123;
 &#125;</code></pre>
               </div>
             </div>
-          </mat-card-content>
-        </mat-card>
+          </div>
+        </amw-card>
       </div>
-    </mat-tab>
-  </mat-tab-group>
+    </amw-tab>
+  </amw-tabs>
 </div>

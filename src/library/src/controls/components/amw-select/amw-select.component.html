@@ -57,7 +57,7 @@
       <!-- Loading Option -->
       @if (loading) {
         <mat-option disabled class="amw-select__loading-option">
-          <amw-progress-spinner diameter="20" class="amw-select__loading-spinner"></amw-progress-spinner>
+          <amw-progress-spinner [diameter]="20" class="amw-select__loading-spinner"></amw-progress-spinner>
           {{ loadingText }}
         </mat-option>
       }

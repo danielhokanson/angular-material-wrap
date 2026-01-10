@@ -1,13 +1,13 @@
 <div class="card-demo">
   <!-- Service Controls Section -->
   <div class="card-demo__service-section">
-    <mat-card>
-      <mat-card-header>
-        <mat-card-title>Card Service Demo</mat-card-title>
-        <mat-card-subtitle>Manage cards using the CardService with filtering, sorting, and CRUD operations</mat-card-subtitle>
-      </mat-card-header>
+    <amw-card>
+      <div slot="header">
+        <h2>Card Service Demo</h2>
+        <p class="subtitle">Manage cards using the CardService with filtering, sorting, and CRUD operations</p>
+      </div>
 
-      <mat-card-content>
+      <div slot="content">
         <!-- Search and Filters -->
         <div class="card-demo__controls">
           <amw-input
@@ -84,8 +84,8 @@
           <amw-button variant="text" (click)="getCardStatistics()" icon="analytics" iconPosition="left">Statistics</amw-button>
           <amw-button variant="text" (click)="exportCards()" icon="download" iconPosition="left">Export</amw-button>
         </div>
-      </mat-card-content>
-    </mat-card>
+      </div>
+    </amw-card>
   </div>
 
   <!-- Service Cards Display -->
@@ -131,12 +131,12 @@
     <h3>Static Card Variations</h3>
     <div class="card-demo__grid">
       @for (variation of cardVariations; track variation) {
-        <mat-card class="card-demo__card">
-          <mat-card-header>
-            <mat-card-title>{{ variation.title }}</mat-card-title>
-            <mat-card-subtitle>{{ variation.description }}</mat-card-subtitle>
-          </mat-card-header>
-          <mat-card-content>
+        <amw-card class="card-demo__card">
+          <div slot="header">
+            <h2>{{ variation.title }}</h2>
+            <p class="subtitle">{{ variation.description }}</p>
+          </div>
+          <div slot="content">
             <div class="card-demo__example">
               <amw-card
                 [headerTitle]="variation.card.headerTitle"
@@ -159,8 +159,8 @@
                 (imageClick)="onImageClick()"
               ></amw-card>
             </div>
-          </mat-card-content>
-        </mat-card>
+          </div>
+        </amw-card>
       }
     </div>
   </div>

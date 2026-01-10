@@ -4,9 +4,7 @@ import { FormsModule, ReactiveFormsModule, FormBuilder, FormGroup } from '@angul
 import { MatTableModule } from '@angular/material/table';
 import { MatPaginatorModule, PageEvent } from '@angular/material/paginator';
 import { MatSortModule, Sort } from '@angular/material/sort';
-import { MatCheckboxModule } from '@angular/material/checkbox';
 import { MatIconModule } from '@angular/material/icon';
-import { MatSelectModule } from '@angular/material/select';
 import { MatChipsModule } from '@angular/material/chips';
 import { MatDividerModule } from '@angular/material/divider';
 import { MatTabsModule } from '@angular/material/tabs';
@@ -32,6 +30,8 @@ import { AmwTooltipDirective } from '../../../directives';
 import { AmwProgressSpinnerComponent } from '../../../components/components/amw-progress-spinner/amw-progress-spinner.component';
 import { AmwButtonComponent } from '../../../controls/components/amw-button/amw-button.component';
 import { AmwInputComponent } from '../../../controls/components/amw-input/amw-input.component';
+import { AmwCheckboxComponent } from '../../../controls/components/amw-checkbox/amw-checkbox.component';
+import { AmwSelectComponent } from '../../../controls/components/amw-select/amw-select.component';
 
 
 @Component({
@@ -44,11 +44,11 @@ import { AmwInputComponent } from '../../../controls/components/amw-input/amw-in
         MatTableModule,
         MatPaginatorModule,
         MatSortModule,
-        MatCheckboxModule,
+        AmwCheckboxComponent,
         AmwButtonComponent,
         AmwInputComponent,
+        AmwSelectComponent,
         MatIconModule,
-        MatSelectModule,
         MatChipsModule,
         MatDividerModule,
         MatTabsModule,

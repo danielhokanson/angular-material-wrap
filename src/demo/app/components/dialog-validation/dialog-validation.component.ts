@@ -4,7 +4,6 @@ import { ReactiveFormsModule, FormBuilder, FormGroup, Validators } from '@angula
 import { AmwNotificationService } from '../../../../library/src/services/amw-notification/amw-notification.service';
 import { DialogService } from '../../../../library/src/components/services/dialog.service';
 import { DialogConfig, DialogType, DialogSize } from '../../../../library/src/components/components/amw-dialog/interfaces';
-import { MatCardModule } from '@angular/material/card';
 
 import { AmwButtonComponent } from '../../../../library/src/controls/components/amw-button/amw-button.component';
 import { AmwInputComponent } from '../../../../library/src/controls/components/amw-input/amw-input.component';
@@ -15,7 +14,6 @@ import { AmwCheckboxComponent } from '../../../../library/src/controls/component
     selector: 'amw-demo-dialog-validation',
     standalone: true,
     imports: [ReactiveFormsModule,
-    MatCardModule,
     AmwButtonComponent,
     AmwInputComponent,
     AmwTextareaComponent,

@@ -3,18 +3,18 @@
   <p>Multi-step form using tabs with validation, progress tracking, and error handling.</p>
 
   <div class="validation-forms">
-    <mat-card class="validation-card">
-      <mat-card-header>
-        <mat-card-title>
+    <amw-card class="validation-card">
+      <div slot="header">
+        <h2>
           <mat-icon>fact_check</mat-icon>
           Multi-Step Registration Form
-        </mat-card-title>
-        <mat-card-subtitle>Complete all steps to submit the form</mat-card-subtitle>
-      </mat-card-header>
-      <mat-card-content>
-        <mat-tab-group [(selectedIndex)]="selectedTabIndex" class="registration-tabs">
+        </h2>
+        <p class="subtitle">Complete all steps to submit the form</p>
+      </div>
+      <div slot="content">
+        <amw-tabs [(selectedIndex)]="selectedTabIndex" class="registration-tabs">
           <!-- Step 1: Personal Info -->
-          <mat-tab>
+          <amw-tab>
             <ng-template mat-tab-label>
               <div class="tab-label" [ngClass]="getStepClass(0)">
                 <mat-icon>{{ getStepIcon(0) }}</mat-icon>
@@ -69,10 +69,10 @@
                 }
               </form>
             </div>
-          </mat-tab>
+          </amw-tab>
 
           <!-- Step 2: Account Details -->
-          <mat-tab>
+          <amw-tab>
             <ng-template mat-tab-label>
               <div class="tab-label" [ngClass]="getStepClass(1)">
                 <mat-icon>{{ getStepIcon(1) }}</mat-icon>
@@ -123,10 +123,10 @@
                 </amw-form-validation>
               </form>
             </div>
-          </mat-tab>
+          </amw-tab>
 
           <!-- Step 3: Preferences -->
-          <mat-tab>
+          <amw-tab>
             <ng-template mat-tab-label>
               <div class="tab-label" [ngClass]="getStepClass(2)">
                 <mat-icon>{{ getStepIcon(2) }}</mat-icon>
@@ -174,10 +174,10 @@
                 </amw-select>
               </form>
             </div>
-          </mat-tab>
+          </amw-tab>
 
           <!-- Step 4: Review -->
-          <mat-tab>
+          <amw-tab>
             <ng-template mat-tab-label>
               <div class="tab-label" [ngClass]="getStepClass(3)">
                 <mat-icon>{{ getStepIcon(3) }}</mat-icon>
@@ -234,8 +234,8 @@
                 </div>
               }
             </div>
-          </mat-tab>
-        </mat-tab-group>
+          </amw-tab>
+        </amw-tabs>
 
         <!-- Navigation Buttons -->
         <div class="tab-navigation">
@@ -276,7 +276,7 @@
             }
           </div>
         </div>
-      </mat-card-content>
-    </mat-card>
+      </div>
+    </amw-card>
   </div>
 </div>

@@ -16,12 +16,12 @@
 
   <!-- Configuration Panel -->
   @if (showConfig) {
-    <mat-card class="popover-demo__config">
-      <mat-card-header>
-        <mat-card-title>Configuration</mat-card-title>
-        <mat-card-subtitle>Customize the popover behavior and appearance</mat-card-subtitle>
-      </mat-card-header>
-      <mat-card-content>
+    <amw-card class="popover-demo__config">
+      <div slot="header">
+        <h2>Configuration</h2>
+        <p class="subtitle">Customize the popover behavior and appearance</p>
+      </div>
+      <div slot="content">
         <form [formGroup]="configForm" class="popover-demo__form">
           <div class="popover-demo__form-row">
             <amw-select label="Size" formControlName="size">
@@ -128,74 +128,74 @@
             </amw-select>
           </div>
           <div class="popover-demo__form-row">
-            <mat-slide-toggle formControlName="showArrow">
+            <amw-switch formControlName="showArrow">
               Show Arrow
-            </mat-slide-toggle>
-            <mat-slide-toggle formControlName="showClose">
+            </amw-switch>
+            <amw-switch formControlName="showClose">
               Show Close Button
-            </mat-slide-toggle>
-            <mat-slide-toggle formControlName="showHeader">
+            </amw-switch>
+            <amw-switch formControlName="showHeader">
               Show Header
-            </mat-slide-toggle>
+            </amw-switch>
           </div>
           <div class="popover-demo__form-row">
-            <mat-slide-toggle formControlName="showFooter">
+            <amw-switch formControlName="showFooter">
               Show Footer
-            </mat-slide-toggle>
-            <mat-slide-toggle formControlName="showBackdrop">
+            </amw-switch>
+            <amw-switch formControlName="showBackdrop">
               Show Backdrop
-            </mat-slide-toggle>
-            <mat-slide-toggle formControlName="showScrollbar">
+            </amw-switch>
+            <amw-switch formControlName="showScrollbar">
               Show Scrollbar
-            </mat-slide-toggle>
+            </amw-switch>
           </div>
           <div class="popover-demo__form-row">
-            <mat-slide-toggle formControlName="disabled">
+            <amw-switch formControlName="disabled">
               Disabled
-            </mat-slide-toggle>
-            <mat-slide-toggle formControlName="autoFocus">
+            </amw-switch>
+            <amw-switch formControlName="autoFocus">
               Auto Focus
-            </mat-slide-toggle>
-            <mat-slide-toggle formControlName="restoreFocus">
+            </amw-switch>
+            <amw-switch formControlName="restoreFocus">
               Restore Focus
-            </mat-slide-toggle>
+            </amw-switch>
           </div>
           <div class="popover-demo__form-row">
-            <mat-slide-toggle formControlName="keyboardNavigation">
+            <amw-switch formControlName="keyboardNavigation">
               Keyboard Navigation
-            </mat-slide-toggle>
-            <mat-slide-toggle formControlName="escapeKeyClose">
+            </amw-switch>
+            <amw-switch formControlName="escapeKeyClose">
               Escape Key Close
-            </mat-slide-toggle>
-            <mat-slide-toggle formControlName="clickOutsideClose">
+            </amw-switch>
+            <amw-switch formControlName="clickOutsideClose">
               Click Outside Close
-            </mat-slide-toggle>
+            </amw-switch>
           </div>
           <div class="popover-demo__form-row">
-            <mat-slide-toggle formControlName="hoverOpen">
+            <amw-switch formControlName="hoverOpen">
               Hover Open
-            </mat-slide-toggle>
-            <mat-slide-toggle formControlName="hoverClose">
+            </amw-switch>
+            <amw-switch formControlName="hoverClose">
               Hover Close
-            </mat-slide-toggle>
-            <mat-slide-toggle formControlName="focusOpen">
+            </amw-switch>
+            <amw-switch formControlName="focusOpen">
               Focus Open
-            </mat-slide-toggle>
+            </amw-switch>
           </div>
           <div class="popover-demo__form-row">
-            <mat-slide-toggle formControlName="focusClose">
+            <amw-switch formControlName="focusClose">
               Focus Close
-            </mat-slide-toggle>
-            <mat-slide-toggle formControlName="scrollClose">
+            </amw-switch>
+            <amw-switch formControlName="scrollClose">
               Scroll Close
-            </mat-slide-toggle>
-            <mat-slide-toggle formControlName="resizeClose">
+            </amw-switch>
+            <amw-switch formControlName="resizeClose">
               Resize Close
-            </mat-slide-toggle>
+            </amw-switch>
           </div>
         </form>
-      </mat-card-content>
-    </mat-card>
+      </div>
+    </amw-card>
   }
 
   <!-- Variations -->
@@ -208,11 +208,11 @@
           class="popover-demo__variation-card"
           [class.popover-demo__variation-card--selected]="selectedVariation === variation"
           (click)="loadVariation(variation)">
-          <mat-card-header>
-            <mat-card-title>{{ variation.title }}</mat-card-title>
-            <mat-card-subtitle>{{ variation.description }}</mat-card-subtitle>
-          </mat-card-header>
-          <mat-card-content>
+          <div slot="header">
+            <h2>{{ variation.title }}</h2>
+            <p class="subtitle">{{ variation.description }}</p>
+          </div>
+          <div slot="content">
             <div class="popover-demo__variation-preview">
               <div class="popover-demo__preview-popover">
                 <div class="popover-demo__preview-trigger">
@@ -242,8 +242,8 @@
                 </div>
               </div>
             </div>
-          </mat-card-content>
-        </mat-card>
+          </div>
+        </amw-card>
       }
     </div>
   </div>

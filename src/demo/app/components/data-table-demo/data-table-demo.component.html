@@ -3,11 +3,11 @@
   <p>Comprehensive demonstration of the AMW Data Table component with all features.</p>
 
   <!-- Demo Controls -->
-  <mat-card class="demo-controls">
-    <mat-card-header>
-      <mat-card-title>Demo Controls</mat-card-title>
-    </mat-card-header>
-    <mat-card-content>
+  <amw-card class="demo-controls">
+    <div slot="header">
+      <h2>Demo Controls</h2>
+    </div>
+    <div slot="content">
       <div class="controls-grid">
         <amw-button variant="elevated" color="primary" (click)="addSampleRecord()" icon="add" iconPosition="left">Add Record</amw-button>
 
@@ -19,13 +19,13 @@
 
         <amw-button variant="elevated" (click)="clearSelection()" [disabled]="selectedRows.length === 0" icon="clear" iconPosition="left">Clear Selection</amw-button>
       </div>
-    </mat-card-content>
-  </mat-card>
+    </div>
+  </amw-card>
 
   <!-- Selection Info -->
   @if (selectedRows.length > 0) {
-    <mat-card class="selection-info">
-      <mat-card-content>
+    <amw-card class="selection-info">
+      <div slot="content">
         <div class="selection-details">
           <mat-icon>check_circle</mat-icon>
           <span>{{ selectedRows.length }} row(s) selected</span>
@@ -42,26 +42,26 @@
             }
           </mat-chip-set>
         </div>
-      </mat-card-content>
-    </mat-card>
+      </div>
+    </amw-card>
   }
 
   <!-- Sort Info -->
   @if (currentSort) {
-    <mat-card class="sort-info">
-      <mat-card-content>
+    <amw-card class="sort-info">
+      <div slot="content">
         <div class="sort-details">
           <mat-icon>sort</mat-icon>
           <span>Sorted by: {{ currentSort.column }} ({{ currentSort.direction }})</span>
         </div>
-      </mat-card-content>
-    </mat-card>
+      </div>
+    </amw-card>
   }
 
   <!-- Filter Info -->
   @if (currentFilters.length > 0) {
-    <mat-card class="filter-info">
-      <mat-card-content>
+    <amw-card class="filter-info">
+      <div slot="content">
         <div class="filter-details">
           <mat-icon>filter_list</mat-icon>
           <span>{{ currentFilters.length }} filter(s) applied</span>
@@ -73,17 +73,17 @@
             }
           </mat-chip-set>
         </div>
-      </mat-card-content>
-    </mat-card>
+      </div>
+    </amw-card>
   }
 
   <!-- Data Table -->
-  <mat-card class="data-table-card">
-    <mat-card-header>
-      <mat-card-title>Employee Records</mat-card-title>
-      <mat-card-subtitle>Interactive data table with sorting, filtering, pagination, and selection</mat-card-subtitle>
-    </mat-card-header>
-    <mat-card-content>
+  <amw-card class="data-table-card">
+    <div slot="header">
+      <h2>Employee Records</h2>
+      <p class="subtitle">Interactive data table with sorting, filtering, pagination, and selection</p>
+    </div>
+    <div slot="content">
       <amw-data-table
         [data]="sampleData"
         [config]="tableConfig"
@@ -95,15 +95,15 @@
         (editChange)="onEditChange($event)"
         (actionClick)="onActionClick($event)">
       </amw-data-table>
-    </mat-card-content>
-  </mat-card>
+    </div>
+  </amw-card>
 
   <!-- Feature Highlights -->
-  <mat-card class="features-card">
-    <mat-card-header>
-      <mat-card-title>Features Demonstrated</mat-card-title>
-    </mat-card-header>
-    <mat-card-content>
+  <amw-card class="features-card">
+    <div slot="header">
+      <h2>Features Demonstrated</h2>
+    </div>
+    <div slot="content">
       <div class="features-grid">
         <div class="feature-item">
           <mat-icon>sort</mat-icon>
@@ -141,6 +141,6 @@
           <p>Table adapts to different screen sizes and orientations</p>
         </div>
       </div>
-    </mat-card-content>
-  </mat-card>
+    </div>
+  </amw-card>
 </div>

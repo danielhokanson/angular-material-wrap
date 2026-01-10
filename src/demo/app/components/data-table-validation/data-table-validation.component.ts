@@ -3,7 +3,6 @@ import { Component, OnInit, ViewEncapsulation } from '@angular/core';
 import { MatIconModule } from '@angular/material/icon';
 import { FormsModule, ReactiveFormsModule, FormBuilder, FormGroup, Validators } from '@angular/forms';
 // import { AmwDataTableComponent } from '../../../../library/src/controls/components/amw-data-table/amw-data-table.component';
-import { MatCardModule } from '@angular/material/card';
 
 import { AmwButtonComponent } from '../../../../library/src/controls/components/amw-button/amw-button.component';
 import { AmwInputComponent } from '../../../../library/src/controls/components/amw-input/amw-input.component';
@@ -14,7 +13,6 @@ import { AmwInputComponent } from '../../../../library/src/controls/components/a
     AmwInputComponent,
     FormsModule,
     ReactiveFormsModule,
-    MatCardModule,
     AmwButtonComponent],
     encapsulation: ViewEncapsulation.None,
     template: `

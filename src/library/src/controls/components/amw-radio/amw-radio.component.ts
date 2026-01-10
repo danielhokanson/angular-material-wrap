@@ -31,6 +31,7 @@ export class AmwRadioComponent extends BaseComponent implements ControlValueAcce
     @Input() override required: boolean = false;
     @Input() checked: boolean = false;
     @Input() name: string = '';
+    @Input() radioValue: any;
     @Input() tabIndex?: number;
     @Input() ariaLabel?: string;
     @Input() ariaLabelledby?: string;

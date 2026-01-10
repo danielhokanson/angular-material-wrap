@@ -2,7 +2,6 @@ import { Component, ViewEncapsulation } from '@angular/core';
 
 import { MatIconModule } from '@angular/material/icon';
 import { AmwColorPickerComponent } from '../../../../library/src/controls/components/amw-color-picker/amw-color-picker.component';
-import { MatCardModule } from '@angular/material/card';
 
 @Component({
     selector: 'amw-demo-color-picker',
@@ -10,7 +9,6 @@ import { MatCardModule } from '@angular/material/card';
     imports: [
     MatIconModule,
     AmwColorPickerComponent,
-    MatCardModule
 ],
     encapsulation: ViewEncapsulation.None,
     templateUrl: './color-picker-demo.component.html',

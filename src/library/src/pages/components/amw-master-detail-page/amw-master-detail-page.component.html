@@ -55,7 +55,7 @@
     <div class="amw-master-detail-page__master-list">
       <!-- Loading State -->
       <div *ngIf="loading" class="amw-master-detail-page__master-loading">
-        <amw-progress-spinner diameter="40"></amw-progress-spinner>
+        <amw-progress-spinner [diameter]="40"></amw-progress-spinner>
         <p>Loading...</p>
       </div>
 
@@ -162,8 +162,8 @@
                 *ngFor="let action of visibleActions"
                 variant="text"
                 [icon]="action.icon"
-                [iconPosition]="action.icon ? 'left' : undefined"
-                [color]="action.color"
+                [iconPosition]="action.icon ? 'left' : 'left'"
+                [color]="action.color || 'primary'"
                 [disabled]="isActionDisabled(action)"
                 (click)="onActionClick(action)"
                 [amwTooltip]="action.label"
@@ -178,7 +178,7 @@
 
       <!-- Loading State -->
       <div *ngIf="loadingDetail" class="amw-master-detail-page__detail-loading">
-        <amw-progress-spinner diameter="40"></amw-progress-spinner>
+        <amw-progress-spinner [diameter]="40"></amw-progress-spinner>
         <p>Loading details...</p>
       </div>
 

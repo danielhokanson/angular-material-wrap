@@ -7,13 +7,13 @@
 
   <div class="popover-validation__content">
     <!-- Configuration Form -->
-    <mat-card class="popover-validation__form-card">
-      <mat-card-header>
-        <mat-card-title>Configuration Validation</mat-card-title>
-        <mat-card-subtitle>Test validation rules for popover configuration</mat-card-subtitle>
-      </mat-card-header>
+    <amw-card class="popover-validation__form-card">
+      <div slot="header">
+        <h2>Configuration Validation</h2>
+        <p class="subtitle">Test validation rules for popover configuration</p>
+      </div>
 
-      <mat-card-content>
+      <div slot="content">
         <form [formGroup]="configForm" (ngSubmit)="onSubmit()" class="popover-validation__form">
           <div class="popover-validation__form-row">
             <amw-select
@@ -183,17 +183,17 @@
             <amw-button variant="text" type="button" (click)="resetConfig()" icon="refresh" iconPosition="left">Reset</amw-button>
           </div>
         </form>
-      </mat-card-content>
-    </mat-card>
+      </div>
+    </amw-card>
 
     <!-- Trigger Form -->
-    <mat-card class="popover-validation__form-card">
-      <mat-card-header>
-        <mat-card-title>Trigger Validation</mat-card-title>
-        <mat-card-subtitle>Test validation rules for popover trigger</mat-card-subtitle>
-      </mat-card-header>
+    <amw-card class="popover-validation__form-card">
+      <div slot="header">
+        <h2>Trigger Validation</h2>
+        <p class="subtitle">Test validation rules for popover trigger</p>
+      </div>
 
-      <mat-card-content>
+      <div slot="content">
         <form [formGroup]="triggerForm" (ngSubmit)="onSubmit()" class="popover-validation__form">
           <div class="popover-validation__form-row">
             <amw-select
@@ -253,17 +253,17 @@
             <amw-button variant="text" type="button" (click)="resetTrigger()" icon="refresh" iconPosition="left">Reset</amw-button>
           </div>
         </form>
-      </mat-card-content>
-    </mat-card>
+      </div>
+    </amw-card>
 
     <!-- Live Demo -->
-    <mat-card class="popover-validation__demo-card">
-      <mat-card-header>
-        <mat-card-title>Live Demo</mat-card-title>
-        <mat-card-subtitle>Test the popover with current configuration</mat-card-subtitle>
-      </mat-card-header>
+    <amw-card class="popover-validation__demo-card">
+      <div slot="header">
+        <h2>Live Demo</h2>
+        <p class="subtitle">Test the popover with current configuration</p>
+      </div>
 
-      <mat-card-content>
+      <div slot="content">
         <div class="popover-validation__demo-container">
           <amw-popover
             [config]="currentConfig"
@@ -305,7 +305,7 @@
             </ng-template>
           </amw-popover>
         </div>
-      </mat-card-content>
-    </mat-card>
+      </div>
+    </amw-card>
   </div>
 </div>

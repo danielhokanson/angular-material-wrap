@@ -5,26 +5,26 @@ import { DemoProperty } from './interfaces/demo-property.interface';
 
 // Re-export for convenience
 export type { DemoProperty } from './interfaces/demo-property.interface';
-import { MatSliderModule } from '@angular/material/slider';
 import { MatOptionModule } from '@angular/material/core';
-import { MatSlideToggleModule } from '@angular/material/slide-toggle';
-import { MatCardModule } from '@angular/material/card';
 
+import { AmwCardComponent } from '../../../../library/src/components/components/amw-card/amw-card.component';
 import { AmwButtonComponent } from '../../../../library/src/controls/components/amw-button/amw-button.component';
 import { AmwInputComponent } from '../../../../library/src/controls/components/amw-input/amw-input.component';
 import { AmwSelectComponent } from '../../../../library/src/controls/components/amw-select/amw-select.component';
+import { AmwSwitchComponent } from '../../../../library/src/controls/components/amw-switch/amw-switch.component';
+import { AmwSliderComponent } from '../../../../library/src/controls/components/amw-slider/amw-slider.component';
 @Component({
     selector: 'amw-demo-base',
     standalone: true,
     imports: [CommonModule,
     ReactiveFormsModule,
-    MatSliderModule,
     MatOptionModule,
-    MatSlideToggleModule,
-    MatCardModule,
+    AmwCardComponent,
     AmwButtonComponent,
     AmwInputComponent,
-    AmwSelectComponent],
+    AmwSelectComponent,
+    AmwSwitchComponent,
+    AmwSliderComponent],
     templateUrl: './demo-base.component.html',
     styleUrl: './demo-base.component.scss'
 })

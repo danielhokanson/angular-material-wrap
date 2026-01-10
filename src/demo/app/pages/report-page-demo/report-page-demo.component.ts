@@ -303,8 +303,7 @@ class ReportPageDemoDataSource implements ReportPageDataSource {
         ];
     }
 }
-import { MatTabsModule } from '@angular/material/tabs';
-import { MatCardModule } from '@angular/material/card';
+import { AmwTabsComponent } from '@angular/material/tabs';
 
 @Component({
     selector: 'app-report-page-demo',
@@ -313,8 +312,7 @@ import { MatCardModule } from '@angular/material/card';
     MatIconModule,
     MatTooltipModule,
     AmwReportPageComponent,
-    MatTabsModule,
-    MatCardModule
+    AmwTabsComponent,
 ],
     templateUrl: './report-page-demo.component.html',
     styleUrl: './report-page-demo.component.scss'

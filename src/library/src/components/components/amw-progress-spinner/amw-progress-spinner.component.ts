@@ -48,7 +48,7 @@ export class AmwProgressSpinnerComponent extends BaseComponent {
     /** Mode of the spinner */
     @Input() mode: SpinnerMode = 'indeterminate';
     /** Value of the progress (0-100, only for determinate mode) */
-    @Input() value: number = 0;
+    @Input() progressValue: number = 0;
     /** Diameter of the spinner in pixels */
     @Input() diameter: number = 40;
     /** Stroke width of the spinner */
@@ -60,7 +60,7 @@ export class AmwProgressSpinnerComponent extends BaseComponent {
     /** Whether to show the percentage label (only for determinate mode) */
     @Input() showLabel = false;
     /** Custom label text (overrides percentage) */
-    @Input() label?: string;
+    @Input() override label: string = '';
 
     get spinnerClasses(): string {
         const classes = ['amw-progress-spinner'];
@@ -74,7 +74,7 @@ export class AmwProgressSpinnerComponent extends BaseComponent {
             return this.label;
         }
         if (this.showLabel && this.mode === 'determinate') {
-            return `${Math.round(this.value)}%`;
+            return `${Math.round(this.progressValue)}%`;
         }
         return '';
     }

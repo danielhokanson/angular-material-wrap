@@ -7,13 +7,13 @@
 
   <div class="sidenav-validation__content">
     <!-- Configuration Form -->
-    <mat-card class="sidenav-validation__form-card">
-      <mat-card-header>
-        <mat-card-title>Configuration Validation</mat-card-title>
-        <mat-card-subtitle>Test validation rules for sidenav configuration</mat-card-subtitle>
-      </mat-card-header>
+    <amw-card class="sidenav-validation__form-card">
+      <div slot="header">
+        <h2>Configuration Validation</h2>
+        <p class="subtitle">Test validation rules for sidenav configuration</p>
+      </div>
 
-      <mat-card-content>
+      <div slot="content">
         <form [formGroup]="configForm" (ngSubmit)="onSubmit()" class="sidenav-validation__form">
           <div class="sidenav-validation__form-row">
             <amw-select
@@ -79,17 +79,17 @@
             <amw-button variant="text" type="button" (click)="resetConfig()" icon="refresh" iconPosition="left">Reset</amw-button>
           </div>
         </form>
-      </mat-card-content>
-    </mat-card>
+      </div>
+    </amw-card>
 
     <!-- Item Form -->
-    <mat-card class="sidenav-validation__form-card">
-      <mat-card-header>
-        <mat-card-title>Navigation Item Validation</mat-card-title>
-        <mat-card-subtitle>Test validation rules for navigation items</mat-card-subtitle>
-      </mat-card-header>
+    <amw-card class="sidenav-validation__form-card">
+      <div slot="header">
+        <h2>Navigation Item Validation</h2>
+        <p class="subtitle">Test validation rules for navigation items</p>
+      </div>
 
-      <mat-card-content>
+      <div slot="content">
         <form [formGroup]="itemForm" (ngSubmit)="onItemSubmit()" class="sidenav-validation__form">
           <div class="sidenav-validation__form-row">
             <amw-input
@@ -158,9 +158,9 @@
             </amw-select>
 
             <div class="sidenav-validation__checkbox-group">
-              <mat-slide-toggle formControlName="disabled">
+              <amw-switch formControlName="disabled">
                 Disabled
-              </mat-slide-toggle>
+              </amw-switch>
             </div>
           </div>
 
@@ -170,17 +170,17 @@
             <amw-button variant="text" type="button" (click)="resetItem()" icon="refresh" iconPosition="left">Reset</amw-button>
           </div>
         </form>
-      </mat-card-content>
-    </mat-card>
+      </div>
+    </amw-card>
 
     <!-- Live Demo -->
-    <mat-card class="sidenav-validation__demo-card">
-      <mat-card-header>
-        <mat-card-title>Live Demo</mat-card-title>
-        <mat-card-subtitle>See the sidenav with current configuration</mat-card-subtitle>
-      </mat-card-header>
+    <amw-card class="sidenav-validation__demo-card">
+      <div slot="header">
+        <h2>Live Demo</h2>
+        <p class="subtitle">See the sidenav with current configuration</p>
+      </div>
 
-      <mat-card-content>
+      <div slot="content">
         <div class="sidenav-validation__demo-container">
           <amw-sidenav
             [config]="currentConfig"
@@ -191,13 +191,13 @@
 
             <!-- Main Content -->
             <div class="sidenav-validation__main-content">
-              <mat-card class="sidenav-validation__content-card">
-                <mat-card-header>
-                  <mat-card-title>Validation Demo</mat-card-title>
-                  <mat-card-subtitle>Test the sidenav with different configurations</mat-card-subtitle>
-                </mat-card-header>
+              <amw-card class="sidenav-validation__content-card">
+                <div slot="header">
+                  <h2>Validation Demo</h2>
+                  <p class="subtitle">Test the sidenav with different configurations</p>
+                </div>
 
-                <mat-card-content>
+                <div slot="content">
                   <p>
                     This demo shows how the sidenav component handles validation and error states.
                     Try submitting invalid data to see validation errors in action.
@@ -217,12 +217,12 @@
                       <li><strong>Badge:</strong> Maximum 10 characters</li>
                     </ul>
                   </div>
-                </mat-card-content>
-              </mat-card>
+                </div>
+              </amw-card>
             </div>
           </amw-sidenav>
         </div>
-      </mat-card-content>
-    </mat-card>
+      </div>
+    </amw-card>
   </div>
 </div>

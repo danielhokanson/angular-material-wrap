@@ -3,12 +3,12 @@
   <p>Demonstrates validation scenarios and error handling for the AMW Radio Group component.</p>
 
   <!-- Validation Form -->
-  <mat-card class="validation-card">
-    <mat-card-header>
-      <mat-card-title>Validation Form</mat-card-title>
-      <mat-card-subtitle>All fields are required - try submitting without selecting values</mat-card-subtitle>
-    </mat-card-header>
-    <mat-card-content>
+  <amw-card class="validation-card">
+    <div slot="header">
+      <h2>Validation Form</h2>
+      <p class="subtitle">All fields are required - try submitting without selecting values</p>
+    </div>
+    <div slot="content">
       <form [formGroup]="validationForm" (ngSubmit)="onSubmit()">
         <!-- Required Field -->
         <div class="form-field">
@@ -29,7 +29,7 @@
           }
         </div>
 
-        <mat-divider></mat-divider>
+        <amw-divider></amw-divider>
 
         <!-- Agreement Field -->
         <div class="form-field">
@@ -50,7 +50,7 @@
           }
         </div>
 
-        <mat-divider></mat-divider>
+        <amw-divider></amw-divider>
 
         <!-- Priority Field -->
         <div class="form-field">
@@ -71,7 +71,7 @@
           }
         </div>
 
-        <mat-divider></mat-divider>
+        <amw-divider></amw-divider>
 
         <!-- Size Field -->
         <div class="form-field">
@@ -99,16 +99,16 @@
           <amw-button variant="text" type="button" (click)="resetForm()" icon="refresh" iconPosition="left">Reset</amw-button>
         </div>
       </form>
-    </mat-card-content>
-  </mat-card>
+    </div>
+  </amw-card>
 
   <!-- Validation Status -->
-  <mat-card class="status-card">
-    <mat-card-header>
-      <mat-card-title>Validation Status</mat-card-title>
-      <mat-card-subtitle>Current form validation state</mat-card-subtitle>
-    </mat-card-header>
-    <mat-card-content>
+  <amw-card class="status-card">
+    <div slot="header">
+      <h2>Validation Status</h2>
+      <p class="subtitle">Current form validation state</p>
+    </div>
+    <div slot="content">
       <div class="status-display">
         <div class="status-item">
           <mat-icon [class]="isFormValid ? 'status-valid' : 'status-invalid'">
@@ -130,17 +130,17 @@
           </div>
         }
       </div>
-    </mat-card-content>
-  </mat-card>
+    </div>
+  </amw-card>
 
   <!-- Form Values Display -->
-  <mat-card class="values-card">
-    <mat-card-header>
-      <mat-card-title>Form Values</mat-card-title>
-      <mat-card-subtitle>Current form data</mat-card-subtitle>
-    </mat-card-header>
-    <mat-card-content>
+  <amw-card class="values-card">
+    <div slot="header">
+      <h2>Form Values</h2>
+      <p class="subtitle">Current form data</p>
+    </div>
+    <div slot="content">
       <pre class="values-display">{{ validationForm.value | json }}</pre>
-    </mat-card-content>
-  </mat-card>
+    </div>
+  </amw-card>
 </div>

@@ -5,22 +5,22 @@
   </div>
 
   <div class="search-page-demo__controls">
-    <mat-card class="search-page-demo__controls-card">
-      <mat-card-content>
-        <mat-tab-group [(selectedIndex)]="currentView" (selectedIndexChange)="onViewChange($event === 0 ? 'basic' : 'advanced')">
-          <mat-tab label="Basic View">
+    <amw-card class="search-page-demo__controls-card">
+      <div slot="content">
+        <amw-tabs [(selectedIndex)]="currentView" (selectedIndexChange)="onViewChange($event === 0 ? 'basic' : 'advanced')">
+          <amw-tab label="Basic View">
             <div class="search-page-demo__tab-content">
               <p>Basic search view with essential search and filtering capabilities.</p>
             </div>
-          </mat-tab>
-          <mat-tab label="Advanced View">
+          </amw-tab>
+          <amw-tab label="Advanced View">
             <div class="search-page-demo__tab-content">
               <p>Advanced search view with saved searches, search history, and multiple view modes.</p>
             </div>
-          </mat-tab>
-        </mat-tab-group>
-      </mat-card-content>
-    </mat-card>
+          </amw-tab>
+        </amw-tabs>
+      </div>
+    </amw-card>
   </div>
 
   <div class="search-page-demo__content">
@@ -34,11 +34,11 @@
   </div>
 
   <div class="search-page-demo__info">
-    <mat-card class="search-page-demo__info-card">
-      <mat-card-header>
-        <mat-card-title>Demo Information</mat-card-title>
-      </mat-card-header>
-      <mat-card-content>
+    <amw-card class="search-page-demo__info-card">
+      <div slot="header">
+        <h2>Demo Information</h2>
+      </div>
+      <div slot="content">
         <div class="search-page-demo__info-content">
           <div class="search-page-demo__info-section">
             <h4>Features Demonstrated:</h4>
@@ -78,8 +78,8 @@
             </ul>
           </div>
         </div>
-      </mat-card-content>
-    </mat-card>
+      </div>
+    </amw-card>
   </div>
 </div>
 

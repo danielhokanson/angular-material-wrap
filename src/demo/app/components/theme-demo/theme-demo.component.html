@@ -18,11 +18,11 @@
 
       <div class="preview-grid">
         <!-- Buttons Preview -->
-        <mat-card class="preview-card">
-          <mat-card-header>
-            <mat-card-title>Buttons</mat-card-title>
-          </mat-card-header>
-          <mat-card-content>
+        <amw-card class="preview-card">
+          <div slot="header">
+            <h2>Buttons</h2>
+          </div>
+          <div slot="content">
             <div class="button-group">
               <amw-button variant="elevated" color="primary">Primary</amw-button>
               <amw-button variant="elevated" color="accent">Accent</amw-button>
@@ -30,15 +30,15 @@
               <amw-button variant="outlined">Stroked</amw-button>
               <amw-button variant="filled">Flat</amw-button>
             </div>
-          </mat-card-content>
-        </mat-card>
+          </div>
+        </amw-card>
 
         <!-- Form Controls Preview -->
-        <mat-card class="preview-card">
-          <mat-card-header>
-            <mat-card-title>Form Controls</mat-card-title>
-          </mat-card-header>
-          <mat-card-content>
+        <amw-card class="preview-card">
+          <div slot="header">
+            <h2>Form Controls</h2>
+          </div>
+          <div slot="content">
             <div class="form-group">
               <amw-input
                 label="Name"
@@ -55,21 +55,21 @@
                 label="Country"
                 [(ngModel)]="sampleForm.country">
                 @for (country of countries; track country) {
-                  <mat-option [value]="country.value">
+                  <mat-option [radioValue]="country.value">
                     {{ country.label }}
                   </mat-option>
                 }
               </amw-select>
             </div>
-          </mat-card-content>
-        </mat-card>
+          </div>
+        </amw-card>
 
         <!-- Selection Controls Preview -->
-        <mat-card class="preview-card">
-          <mat-card-header>
-            <mat-card-title>Selection Controls</mat-card-title>
-          </mat-card-header>
-          <mat-card-content>
+        <amw-card class="preview-card">
+          <div slot="header">
+            <h2>Selection Controls</h2>
+          </div>
+          <div slot="content">
             <div class="selection-group">
               <amw-checkbox [(ngModel)]="sampleForm.newsletter">
                 Subscribe to newsletter
@@ -77,45 +77,43 @@
 
               <amw-radio-group [(ngModel)]="sampleForm.notifications">
                 @for (option of notificationOptions; track option) {
-                  <amw-radio [value]="option.value">
+                  <amw-radio [radioValue]="option.value">
                     {{ option.label }}
                   </amw-radio>
                 }
               </amw-radio-group>
 
-              <mat-slide-toggle [(ngModel)]="sampleForm.darkMode">
+              <amw-switch [(ngModel)]="sampleForm.darkMode">
                 Dark mode
-              </mat-slide-toggle>
+              </amw-switch>
             </div>
-          </mat-card-content>
-        </mat-card>
+          </div>
+        </amw-card>
 
         <!-- Slider Preview -->
-        <mat-card class="preview-card">
-          <mat-card-header>
-            <mat-card-title>Slider</mat-card-title>
-          </mat-card-header>
-          <mat-card-content>
+        <amw-card class="preview-card">
+          <div slot="header">
+            <h2>Slider</h2>
+          </div>
+          <div slot="content">
             <div class="slider-group">
               <label>Volume: {{ sampleForm.volume }}%</label>
-              <mat-slider
+              <amw-slider
                 [(ngModel)]="sampleForm.volume"
                 min="0"
                 max="100"
-                step="1"
-                discrete>
-                <input matSliderThumb>
-              </mat-slider>
+                step="1">
+              </amw-slider>
             </div>
-          </mat-card-content>
-        </mat-card>
+          </div>
+        </amw-card>
 
         <!-- Icons and Colors Preview -->
-        <mat-card class="preview-card">
-          <mat-card-header>
-            <mat-card-title>Icons & Colors</mat-card-title>
-          </mat-card-header>
-          <mat-card-content>
+        <amw-card class="preview-card">
+          <div slot="header">
+            <h2>Icons & Colors</h2>
+          </div>
+          <div slot="content">
             <div class="icon-group">
               <mat-icon color="primary">favorite</mat-icon>
               <mat-icon color="accent">star</mat-icon>
@@ -124,15 +122,15 @@
               <mat-icon>settings</mat-icon>
               <mat-icon>person</mat-icon>
             </div>
-          </mat-card-content>
-        </mat-card>
+          </div>
+        </amw-card>
 
         <!-- Typography Preview -->
-        <mat-card class="preview-card">
-          <mat-card-header>
-            <mat-card-title>Typography</mat-card-title>
-          </mat-card-header>
-          <mat-card-content>
+        <amw-card class="preview-card">
+          <div slot="header">
+            <h2>Typography</h2>
+          </div>
+          <div slot="content">
             <div class="typography-group">
               <h1>Heading 1</h1>
               <h2>Heading 2</h2>
@@ -140,8 +138,8 @@
               <p>This is a paragraph with regular text. It demonstrates how the theme affects typography and readability.</p>
               <p class="mat-caption">This is a caption with smaller text.</p>
             </div>
-          </mat-card-content>
-        </mat-card>
+          </div>
+        </amw-card>
       </div>
     </div>
   </div>

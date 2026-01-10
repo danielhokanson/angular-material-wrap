@@ -122,7 +122,7 @@
           <amw-button
             variant="text"
             [icon]="action.icon"
-            [iconPosition]="action.icon ? 'left' : undefined"
+            [iconPosition]="action.icon ? 'left' : 'left'"
             [color]="action.color || 'primary'"
             [disabled]="action.disabled || disabled || loading"
             (click)="onActionClick(action, i)"
@@ -137,7 +137,7 @@
   <!-- Loading Overlay -->
   @if (loading) {
     <div class="amw-dialog__loading">
-      <amw-progress-spinner diameter="40"></amw-progress-spinner>
+      <amw-progress-spinner [diameter]="40"></amw-progress-spinner>
       <p>Loading...</p>
     </div>
   }
