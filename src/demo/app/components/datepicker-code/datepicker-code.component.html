@@ -16,9 +16,7 @@
         <div class="code-panel">
           <div class="code-header">
             <h4>Code</h4>
-            <button mat-icon-button (click)="resetCode('basic')" title="Reset to original">
-              <mat-icon>refresh</mat-icon>
-            </button>
+            <amw-button variant="icon" icon="refresh" (click)="resetCode('basic')" title="Reset to original"></amw-button>
           </div>
           <textarea
             [(ngModel)]="editableCode.basic"
@@ -52,9 +50,7 @@
         <div class="code-panel">
           <div class="code-header">
             <h4>Code</h4>
-            <button mat-icon-button (click)="resetCode('withMinMax')" title="Reset to original">
-              <mat-icon>refresh</mat-icon>
-            </button>
+            <amw-button variant="icon" icon="refresh" (click)="resetCode('withMinMax')" title="Reset to original"></amw-button>
           </div>
           <textarea
             [(ngModel)]="editableCode.withMinMax"
@@ -90,9 +86,7 @@
         <div class="code-panel">
           <div class="code-header">
             <h4>Code</h4>
-            <button mat-icon-button (click)="resetCode('withValidation')" title="Reset to original">
-              <mat-icon>refresh</mat-icon>
-            </button>
+            <amw-button variant="icon" icon="refresh" (click)="resetCode('withValidation')" title="Reset to original"></amw-button>
           </div>
           <textarea
             [(ngModel)]="editableCode.withValidation"
@@ -132,9 +126,7 @@
         <div class="code-panel">
           <div class="code-header">
             <h4>Code</h4>
-            <button mat-icon-button (click)="resetCode('differentFormats')" title="Reset to original">
-              <mat-icon>refresh</mat-icon>
-            </button>
+            <amw-button variant="icon" icon="refresh" (click)="resetCode('differentFormats')" title="Reset to original"></amw-button>
           </div>
           <textarea
             [(ngModel)]="editableCode.differentFormats"
@@ -185,9 +177,7 @@
         <div class="code-panel">
           <div class="code-header">
             <h4>Code</h4>
-            <button mat-icon-button (click)="resetCode('disabled')" title="Reset to original">
-              <mat-icon>refresh</mat-icon>
-            </button>
+            <amw-button variant="icon" icon="refresh" (click)="resetCode('disabled')" title="Reset to original"></amw-button>
           </div>
           <textarea
             [(ngModel)]="editableCode.disabled"
@@ -222,9 +212,7 @@
         <div class="code-panel">
           <div class="code-header">
             <h4>Code</h4>
-            <button mat-icon-button (click)="resetCode('reactiveForm')" title="Reset to original">
-              <mat-icon>refresh</mat-icon>
-            </button>
+            <amw-button variant="icon" icon="refresh" (click)="resetCode('reactiveForm')" title="Reset to original"></amw-button>
           </div>
           <textarea
             [(ngModel)]="editableCode.reactiveForm"
@@ -263,9 +251,7 @@
         <div class="code-panel">
           <div class="code-header">
             <h4>Code</h4>
-            <button mat-icon-button (click)="resetCode('withEvents')" title="Reset to original">
-              <mat-icon>refresh</mat-icon>
-            </button>
+            <amw-button variant="icon" icon="refresh" (click)="resetCode('withEvents')" title="Reset to original"></amw-button>
           </div>
           <textarea
             [(ngModel)]="editableCode.withEvents"
@@ -306,9 +292,7 @@
         <div class="code-panel">
           <div class="code-header">
             <h4>Code</h4>
-            <button mat-icon-button (click)="resetCode('bookingForm')" title="Reset to original">
-              <mat-icon>refresh</mat-icon>
-            </button>
+            <amw-button variant="icon" icon="refresh" (click)="resetCode('bookingForm')" title="Reset to original"></amw-button>
           </div>
           <textarea
             [(ngModel)]="editableCode.bookingForm"
@@ -352,12 +336,11 @@
                 [min]="currentDate">
               </amw-datepicker>
 
-              <button
-                mat-raised-button
+              <amw-button variant="elevated"
                 color="primary"
                 [disabled]="bookingForm.invalid">
                 Book Event
-              </button>
+              </amw-button>
             </form>
             <p>Form valid: {{ bookingForm.valid ? 'Yes' : 'No' }}</p>
           </div>

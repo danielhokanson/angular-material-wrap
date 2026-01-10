@@ -1,25 +1,23 @@
 import { Component, ViewEncapsulation } from '@angular/core';
 import { FormsModule } from '@angular/forms';
-import { MatExpansionModule } from '@angular/material/expansion';
 import { MatSidenavModule } from '@angular/material/sidenav';
-import { MatButtonModule } from '@angular/material/button';
 import { MatIconModule } from '@angular/material/icon';
 import { MatListModule } from '@angular/material/list';
 import { BaseCodeComponent } from '../base/base-code.component';
 
 type SidenavExamples = 'basic' | 'overlay' | 'push' | 'fixed';
+import { MatExpansionModule } from '@angular/material/expansion';
 
+import { AmwButtonComponent } from '../../../../library/src/controls/components/amw-button/amw-button.component';
 @Component({
     selector: 'app-sidenav-code',
     standalone: true,
-    imports: [
-        FormsModule,
-        MatExpansionModule,
-        MatSidenavModule,
-        MatButtonModule,
-        MatIconModule,
-        MatListModule
-    ],
+    imports: [FormsModule,
+    MatSidenavModule,
+    MatIconModule,
+    MatListModule,
+    MatExpansionModule,
+    AmwButtonComponent],
     encapsulation: ViewEncapsulation.None,
     templateUrl: './sidenav-code.component.html',
     styleUrl: './sidenav-code.component.scss'
@@ -49,9 +47,9 @@ export class SidenavCodeComponent extends BaseCodeComponent<SidenavExamples> {
     </mat-nav-list>
   </mat-drawer>
   <mat-drawer-content>
-    <button mat-raised-button (click)="drawer.toggle()">
+    <amw-button variant="elevated" (click)="drawer.toggle()">
       Toggle Sidenav
-    </button>
+    </amw-button>
     <p>Main content here</p>
   </mat-drawer-content>
 </mat-drawer-container>`,
@@ -65,9 +63,9 @@ export class SidenavCodeComponent extends BaseCodeComponent<SidenavExamples> {
     </mat-nav-list>
   </mat-drawer>
   <mat-drawer-content>
-    <button mat-raised-button (click)="drawer.toggle()">
+    <amw-button variant="elevated" (click)="drawer.toggle()">
       Toggle Sidenav
-    </button>
+    </amw-button>
     <p>Main content is pushed when sidenav opens</p>
   </mat-drawer-content>
 </mat-drawer-container>`,
@@ -81,9 +79,9 @@ export class SidenavCodeComponent extends BaseCodeComponent<SidenavExamples> {
     </mat-nav-list>
   </mat-drawer>
   <mat-drawer-content>
-    <button mat-raised-button (click)="drawer.toggle()">
+    <amw-button variant="elevated" (click)="drawer.toggle()">
       Toggle Right Sidenav
-    </button>
+    </amw-button>
     <p>Sidenav positioned on the right</p>
   </mat-drawer-content>
 </mat-drawer-container>`

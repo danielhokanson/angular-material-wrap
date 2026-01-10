@@ -1,37 +1,31 @@
 import { Component, OnInit } from '@angular/core';
 
 import { ActivatedRoute } from '@angular/router';
-import { MatCardModule } from '@angular/material/card';
-import { MatTabsModule } from '@angular/material/tabs';
-import { MatButtonModule } from '@angular/material/button';
 import { MatIconModule } from '@angular/material/icon';
-import { MatFormFieldModule } from '@angular/material/form-field';
-import { MatInputModule } from '@angular/material/input';
-import { MatSnackBarModule, MatSnackBar } from '@angular/material/snack-bar';
+import { AmwNotificationService } from '../../../../library/src/services/amw-notification/amw-notification.service';
 import { FormsModule } from '@angular/forms';
 import { ViewEncapsulation } from '@angular/core';
 import { AmwTooltipDirective } from '../../../../library/src/directives/amw-tooltip/amw-tooltip.directive';
 import { AmwClickOutsideDirective } from '../../../../library/src/directives/amw-click-outside/amw-click-outside.directive';
 import { AmwAutoFocusDirective } from '../../../../library/src/directives/amw-auto-focus/amw-auto-focus.directive';
 import { AmwCopyToClipboardDirective } from '../../../../library/src/directives/amw-copy-to-clipboard/amw-copy-to-clipboard.directive';
-
+import { MatTabsModule } from '@angular/material/tabs';
+import { MatCardModule } from '@angular/material/card';
+import { AmwButtonComponent } from '../../../../library/src/controls/components/amw-button/amw-button.component';
+import { AmwInputComponent } from '../../../../library/src/controls/components/amw-input/amw-input.component';
 @Component({
     selector: 'amw-demo-directives',
     standalone: true,
-    imports: [
-    MatCardModule,
-    MatTabsModule,
-    MatButtonModule,
-    MatIconModule,
-    MatFormFieldModule,
-    MatInputModule,
-    MatSnackBarModule,
+    imports: [MatIconModule,
     FormsModule,
     AmwTooltipDirective,
     AmwClickOutsideDirective,
     AmwAutoFocusDirective,
-    AmwCopyToClipboardDirective
-],
+    AmwCopyToClipboardDirective,
+    MatTabsModule,
+    MatCardModule,
+    AmwButtonComponent,
+    AmwInputComponent],
     encapsulation: ViewEncapsulation.None,
     templateUrl: './directives-demo.component.html',
     styleUrl: './directives-demo.component.scss'
@@ -59,32 +53,34 @@ export class DirectivesDemoComponent implements OnInit {
     // Auto Focus code examples
     autoFocusCodeExamples = {
         basic: `<!-- Basic auto focus on input -->
-<mat-form-field appearance="outline">
-  <mat-label>Auto-focused Input</mat-label>
-  <input matInput [amwAutoFocus]="true" placeholder="Type here...">
-</mat-form-field>`,
+<amw-input
+  label="Auto-focused Input"
+  [amwAutoFocus]="true"
+  placeholder="Type here..."
+  appearance="outline">
+</amw-input>`,
 
         button: `<!-- Auto focus on button -->
-<button mat-raised-button color="primary" [amwAutoFocus]="true">
+<amw-button variant="elevated" color="primary" [amwAutoFocus]="true">
   Auto-focused Button
-</button>`,
+</amw-button>`,
 
         delayed: `<!-- Auto focus with delay -->
-<mat-form-field appearance="outline">
-  <mat-label>Delayed Focus (500ms)</mat-label>
-  <input matInput
-    [amwAutoFocus]="true"
-    [amwAutoFocusDelay]="500"
-    placeholder="Focus after 500ms">
-</mat-form-field>`,
+<amw-input
+  label="Delayed Focus (500ms)"
+  [amwAutoFocus]="true"
+  [amwAutoFocusDelay]="500"
+  placeholder="Focus after 500ms"
+  appearance="outline">
+</amw-input>`,
 
         conditional: `<!-- Conditional auto focus -->
-<mat-form-field appearance="outline">
-  <mat-label>Conditionally Focused</mat-label>
-  <input matInput
-    [amwAutoFocus]="shouldFocus"
-    placeholder="Focus when condition is true">
-</mat-form-field>
+<amw-input
+  label="Conditionally Focused"
+  [amwAutoFocus]="shouldFocus"
+  placeholder="Focus when condition is true"
+  appearance="outline">
+</amw-input>
 
 <!-- Component -->
 export class MyComponent {
@@ -93,26 +89,28 @@ export class MyComponent {
 
         container: `<!-- Auto focus on container (focuses first child) -->
 <div [amwAutoFocus]="true">
-  <mat-form-field appearance="outline">
-    <mat-label>First Input (will be focused)</mat-label>
-    <input matInput placeholder="Gets focus">
-  </mat-form-field>
-  <mat-form-field appearance="outline">
-    <mat-label>Second Input</mat-label>
-    <input matInput placeholder="Not focused">
-  </mat-form-field>
+  <amw-input
+    label="First Input (will be focused)"
+    placeholder="Gets focus"
+    appearance="outline">
+  </amw-input>
+  <amw-input
+    label="Second Input"
+    placeholder="Not focused"
+    appearance="outline">
+  </amw-input>
 </div>`
     };
 
     // Copy to Clipboard code examples
     copyToClipboardCodeExamples = {
         basic: `<!-- Basic copy to clipboard -->
-<button mat-raised-button
+<amw-button variant="elevated"
   amwCopyToClipboard
-  [amwCopyToClipboard]="textToCopy">
-  <mat-icon>content_copy</mat-icon>
+  [amwCopyToClipboard]="textToCopy"
+  icon="content_copy">
   Copy Text
-</button>
+</amw-button>
 
 <!-- Component -->
 export class MyComponent {
@@ -120,24 +118,25 @@ export class MyComponent {
 }`,
 
         fromInput: `<!-- Copy from input field -->
-<mat-form-field appearance="outline">
-  <mat-label>Text to copy</mat-label>
-  <input matInput [(ngModel)]="copyText">
-</mat-form-field>
-<button mat-raised-button
+<amw-input
+  label="Text to copy"
+  [(ngModel)]="copyText"
+  appearance="outline">
+</amw-input>
+<amw-button variant="elevated"
   amwCopyToClipboard
   [amwCopyToClipboard]="copyText">
   Copy
-</button>`,
+</amw-button>`,
 
         withEvents: `<!-- Copy with event handling -->
-<button mat-raised-button
+<amw-button variant="elevated"
   amwCopyToClipboard
   [amwCopyToClipboard]="codeSnippet"
   (amwCopySuccess)="onCopySuccess($event)"
   (amwCopyError)="onCopyError($event)">
   Copy Code
-</button>
+</amw-button>
 
 <!-- Component -->
 export class MyComponent {
@@ -153,22 +152,22 @@ export class MyComponent {
 }`,
 
         customMessages: `<!-- Custom success/error messages -->
-<button mat-icon-button
+<amw-button variant="icon"
+  icon="content_copy"
   amwCopyToClipboard
   [amwCopyToClipboard]="code"
   amwCopySuccessMessage="Code copied!"
   amwCopyErrorMessage="Failed to copy code">
-  <mat-icon>content_copy</mat-icon>
-</button>`,
+</amw-button>`,
 
         noToast: `<!-- Disable built-in toast notification -->
-<button mat-raised-button
+<amw-button variant="elevated"
   amwCopyToClipboard
   [amwCopyToClipboard]="text"
   [amwCopyShowToast]="false"
   (amwCopySuccess)="showCustomNotification($event)">
   Copy (Custom Notification)
-</button>
+</amw-button>
 
 <!-- Component -->
 export class MyComponent {
@@ -176,19 +175,19 @@ export class MyComponent {
 
   showCustomNotification(text: string): void {
     // Show your own snackbar, dialog, etc.
-    this.snackBar.open('Copied!', 'Close', { duration: 2000 });
+    this.notification.info('Info', 'Copied!', { duration: 2000 });
   }
 }`,
 
         codeBlock: `<!-- Copy code block -->
 <div class="code-container">
   <pre><code>{{ codeExample }}</code></pre>
-  <button mat-icon-button
+  <amw-button variant="icon"
+    icon="content_copy"
     amwCopyToClipboard
     [amwCopyToClipboard]="codeExample"
     title="Copy code">
-    <mat-icon>content_copy</mat-icon>
-  </button>
+  </amw-button>
 </div>`
     };
 
@@ -251,9 +250,9 @@ export class MyComponent {
 }`,
 
         dropdown: `<!-- Dropdown menu with click outside -->
-<button mat-raised-button (click)="menuOpen = true">
+<amw-button variant="elevated" (click)="menuOpen = true">
   Open Menu
-</button>
+</amw-button>
 
 <div class="dropdown-menu"
   *ngIf="menuOpen"
@@ -276,7 +275,7 @@ export class MyComponent {
     (amwClickOutside)="closeModal()">
     <h2>Modal Title</h2>
     <p>Click outside this modal to close it</p>
-    <button mat-button (click)="closeModal()">Close</button>
+    <amw-button variant="text" (click)="closeModal()">Close</amw-button>
   </div>
 </div>
 
@@ -351,8 +350,8 @@ export class MyComponent {
   *ngIf="menuVisible"
   (amwClickOutside)="handleOutsideClick($event)">
   <mat-menu>
-    <button mat-menu-item>Action 1</button>
-    <button mat-menu-item>Action 2</button>
+    <amw-button variant="text" mat-menu-item>Action 1</amw-button>
+    <amw-button variant="text" mat-menu-item>Action 2</amw-button>
   </mat-menu>
 </div>
 
@@ -399,41 +398,41 @@ export class MyComponent {
     // Tooltip code examples
     tooltipCodeExamples = {
         basic: `<!-- Basic tooltip with string -->
-<button mat-raised-button amwTooltip="This is a tooltip">
+<amw-button variant="elevated" amwTooltip="This is a tooltip">
   Hover me
-</button>`,
+</amw-button>`,
 
         positions: `<!-- Different tooltip positions -->
-<button mat-button amwTooltip="Top tooltip" tooltipPosition="top">Top</button>
-<button mat-button amwTooltip="Bottom tooltip" tooltipPosition="bottom">Bottom</button>
-<button mat-button amwTooltip="Left tooltip" tooltipPosition="left">Left</button>
-<button mat-button amwTooltip="Right tooltip" tooltipPosition="right">Right</button>
-<button mat-button amwTooltip="Auto position" tooltipPosition="auto">Auto</button>`,
+<amw-button variant="text" amwTooltip="Top tooltip" tooltipPosition="top">Top</amw-button>
+<amw-button variant="text" amwTooltip="Bottom tooltip" tooltipPosition="bottom">Bottom</amw-button>
+<amw-button variant="text" amwTooltip="Left tooltip" tooltipPosition="left">Left</amw-button>
+<amw-button variant="text" amwTooltip="Right tooltip" tooltipPosition="right">Right</amw-button>
+<amw-button variant="text" amwTooltip="Auto position" tooltipPosition="auto">Auto</amw-button>`,
 
         html: `<!-- Tooltip with HTML content -->
-<button mat-raised-button
+<amw-button variant="elevated"
   [amwTooltip]="'<strong>Bold</strong> and <em>italic</em>'"
   [tooltipAllowHtml]="true">
   HTML Tooltip
-</button>`,
+</amw-button>`,
 
         styling: `<!-- Custom width and styling -->
-<button mat-raised-button
+<amw-button variant="elevated"
   amwTooltip="This is a wider tooltip with custom styling"
   tooltipMaxWidth="400px"
   tooltipClass="custom-tooltip">
   Custom Style
-</button>`,
+</amw-button>`,
 
         disabled: `<!-- Disabled tooltip -->
-<button mat-raised-button
+<amw-button variant="elevated"
   amwTooltip="This won't show"
   [tooltipDisabled]="true">
   Tooltip Disabled
-</button>`,
+</amw-button>`,
 
         config: `<!-- Full configuration object -->
-<button mat-raised-button
+<amw-button variant="elevated"
   [amwTooltip]="{
     content: 'Configured tooltip',
     position: 'top',
@@ -443,7 +442,7 @@ export class MyComponent {
     disabled: false
   }">
   Configured Tooltip
-</button>`
+</amw-button>`
     };
 
     // Tooltip API documentation
@@ -528,7 +527,7 @@ export class MyComponent {
         }
     };
 
-    constructor(private route: ActivatedRoute, public snackBar: MatSnackBar) { }
+    constructor(private route: ActivatedRoute, public notification: AmwNotificationService) { }
 
     ngOnInit(): void {
         this.route.data.subscribe(data => {
@@ -547,19 +546,19 @@ export class MyComponent {
     }
 
     onOutsideClick(): void {
-        this.snackBar.open('Click outside detected!', 'Close', { duration: 2000 });
+        this.notification.info('Info', 'Click outside detected!', { duration: 2000 });
     }
 
     copyToClipboard(text?: string): void {
         const textToCopy = text || this.copyText;
         navigator.clipboard.writeText(textToCopy).then(() => {
-            this.snackBar.open('Text copied to clipboard!', 'Close', { duration: 2000 });
+            this.notification.info('Info', 'Text copied to clipboard!', { duration: 2000 });
         });
     }
 
     copyCode(): void {
         navigator.clipboard.writeText(this.codeExample).then(() => {
-            this.snackBar.open('Code copied to clipboard!', 'Close', { duration: 2000 });
+            this.notification.info('Info', 'Code copied to clipboard!', { duration: 2000 });
         });
     }
 }

@@ -1,18 +1,18 @@
 import { Component, Input, Output, EventEmitter, ViewEncapsulation, ElementRef, ViewChild, HostListener } from '@angular/core';
 
 import { FormsModule, NG_VALUE_ACCESSOR } from '@angular/forms';
-import { MatButtonModule } from '@angular/material/button';
 import { MatIconModule } from '@angular/material/icon';
 import { MatProgressBarModule } from '@angular/material/progress-bar';
 import { MatChipsModule } from '@angular/material/chips';
 import { MatCardModule } from '@angular/material/card';
+import { AmwButtonComponent } from '../amw-button/amw-button.component';
 import { BaseComponent } from '../base/base.component';
 import { FileInputConfig, FileValidationResult, FileUploadProgress, FileInputAccept } from './interfaces';
 
 @Component({
     selector: 'amw-file-input',
     standalone: true,
-    imports: [FormsModule, MatButtonModule, MatIconModule, MatProgressBarModule, MatChipsModule, MatCardModule],
+    imports: [FormsModule, AmwButtonComponent, MatIconModule, MatProgressBarModule, MatChipsModule, MatCardModule],
     encapsulation: ViewEncapsulation.None,
     templateUrl: './amw-file-input.component.html',
     styleUrl: './amw-file-input.component.scss',

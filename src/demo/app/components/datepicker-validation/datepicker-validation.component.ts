@@ -1,11 +1,7 @@
 import { Component, OnInit, ViewEncapsulation } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { ReactiveFormsModule, FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { MatFormFieldModule } from '@angular/material/form-field';
-import { MatDatepickerModule } from '@angular/material/datepicker';
-import { MatInputModule } from '@angular/material/input';
-import { MatButtonModule } from '@angular/material/button';
-import { MatSnackBar, MatSnackBarModule } from '@angular/material/snack-bar';
+import { AmwNotificationService } from '../../../../library/src/services/amw-notification/amw-notification.service';
 import { AmwDatepickerComponent } from '../../../../library/src/controls/components/amw-datepicker/amw-datepicker.component';
 import { AmwButtonComponent } from '../../../../library/src/controls/components/amw-button/amw-button.component';
 
@@ -15,14 +11,11 @@ import { AmwButtonComponent } from '../../../../library/src/controls/components/
   imports: [
     CommonModule,
     ReactiveFormsModule,
-    MatFormFieldModule,
-    MatDatepickerModule,
-    MatInputModule,
-    MatButtonModule,
-    MatSnackBarModule,
+    AmwDatepickerComponent,
+    AmwButtonComponent,
     AmwDatepickerComponent,
     AmwButtonComponent
-  ],
+],
   encapsulation: ViewEncapsulation.None,
   templateUrl: './datepicker-validation.component.html',
   styleUrl: './datepicker-validation.component.scss'
@@ -35,7 +28,7 @@ export class DatepickerValidationComponent implements OnInit {
 
   constructor(
     private fb: FormBuilder,
-    private snackBar: MatSnackBar
+    private notification: AmwNotificationService
   ) {
     this.validationForm = this.fb.group({
       birthDate: ['', [Validators.required]],
@@ -50,9 +43,9 @@ export class DatepickerValidationComponent implements OnInit {
 
   onSubmit(): void {
     if (this.validationForm.valid) {
-      this.snackBar.open('Form is valid! All date fields are properly filled.', 'Close', { duration: 3000 });
+      this.notification.success('Success', 'Form is valid! All date fields are properly filled.', { duration: 3000 });
     } else {
-      this.snackBar.open('Form has validation errors. Please check the date fields.', 'Close', { duration: 3000 });
+      this.notification.error('Error', 'Form has validation errors. Please check the date fields.', { duration: 3000 });
     }
   }
 

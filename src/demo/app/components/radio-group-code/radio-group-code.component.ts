@@ -1,28 +1,22 @@
 import { Component, ViewEncapsulation } from '@angular/core';
 import { FormsModule, ReactiveFormsModule, FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { MatExpansionModule } from '@angular/material/expansion';
-import { MatButtonModule } from '@angular/material/button';
 import { MatIconModule } from '@angular/material/icon';
-import { MatRadioModule } from '@angular/material/radio';
-import { MatFormFieldModule } from '@angular/material/form-field';
-import { MatInputModule } from '@angular/material/input';
 import { BaseCodeComponent } from '../base/base-code.component';
 
 type RadioGroupExamples = 'basic' | 'ngModel' | 'disabled' | 'labelPosition' | 'color' | 'reactiveForm';
+import { MatExpansionModule } from '@angular/material/expansion';
+import { MatRadioModule } from '@angular/material/radio';
 
+import { AmwButtonComponent } from '../../../../library/src/controls/components/amw-button/amw-button.component';
 @Component({
   selector: 'app-radio-group-code',
   standalone: true,
-  imports: [
-    FormsModule,
+  imports: [FormsModule,
     ReactiveFormsModule,
-    MatExpansionModule,
-    MatButtonModule,
     MatIconModule,
+    MatExpansionModule,
     MatRadioModule,
-    MatFormFieldModule,
-    MatInputModule
-  ],
+    AmwButtonComponent],
   encapsulation: ViewEncapsulation.None,
   templateUrl: './radio-group-code.component.html',
   styleUrl: './radio-group-code.component.scss'

@@ -1,10 +1,7 @@
 import { Component, OnInit, ViewEncapsulation } from '@angular/core';
 
 import { ReactiveFormsModule, FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { MatFormFieldModule } from '@angular/material/form-field';
-import { MatCheckboxModule } from '@angular/material/checkbox';
-import { MatButtonModule } from '@angular/material/button';
-import { MatSnackBar, MatSnackBarModule } from '@angular/material/snack-bar';
+import { AmwNotificationService } from '../../../../library/src/services/amw-notification/amw-notification.service';
 import { AmwCheckboxComponent } from '../../../../library/src/controls/components/amw-checkbox/amw-checkbox.component';
 import { AmwButtonComponent } from '../../../../library/src/controls/components/amw-button/amw-button.component';
 
@@ -13,10 +10,8 @@ import { AmwButtonComponent } from '../../../../library/src/controls/components/
   standalone: true,
   imports: [
     ReactiveFormsModule,
-    MatFormFieldModule,
-    MatCheckboxModule,
-    MatButtonModule,
-    MatSnackBarModule,
+    AmwCheckboxComponent,
+    AmwButtonComponent,
     AmwCheckboxComponent,
     AmwButtonComponent
 ],
@@ -29,7 +24,7 @@ export class CheckboxValidationComponent implements OnInit {
 
   constructor(
     private fb: FormBuilder,
-    private snackBar: MatSnackBar
+    private notification: AmwNotificationService
   ) {
     this.validationForm = this.fb.group({
       termsAccepted: [false, Validators.requiredTrue],
@@ -46,9 +41,9 @@ export class CheckboxValidationComponent implements OnInit {
 
   onSubmit(): void {
     if (this.validationForm.valid) {
-      this.snackBar.open('Form is valid! All required checkboxes are checked.', 'Close', { duration: 3000 });
+      this.notification.success('Success', 'Form is valid! All required checkboxes are checked.', { duration: 3000 });
     } else {
-      this.snackBar.open('Form has validation errors. Please check all required fields.', 'Close', { duration: 3000 });
+      this.notification.error('Error', 'Form has validation errors. Please check all required fields.', { duration: 3000 });
     }
   }
 

@@ -1,0 +1,254 @@
+<div class="amw-master-detail-page"
+     [class.amw-master-detail-page--stacked]="isStacked"
+     [class.amw-master-detail-page--horizontal]="currentConfig.splitMode === 'horizontal'"
+     [class.amw-master-detail-page--density-compact]="currentConfig.density === 'compact'"
+     [class.amw-master-detail-page--density-comfortable]="currentConfig.density === 'comfortable'"
+     [class.amw-master-detail-page--density-spacious]="currentConfig.density === 'spacious'">
+
+  <!-- Master Panel -->
+  <div class="amw-master-detail-page__master"
+       [style.width.px]="!isStacked ? masterPanelWidth : null"
+       [style.min-width.px]="!isStacked ? 250 : null"
+       [style.max-width.px]="!isStacked ? 600 : null">
+
+    <!-- Master Header -->
+    <div class="amw-master-detail-page__master-header">
+      <h2 class="amw-master-detail-page__master-title">
+        {{ currentConfig.masterTitle }}
+      </h2>
+
+      <div class="amw-master-detail-page__master-actions">
+        <!-- Search Input -->
+        <amw-input *ngIf="currentConfig.showSearch"
+                   class="amw-master-detail-page__search"
+                   [(ngModel)]="searchQuery"
+                   (ngModelChange)="onSearchChange()"
+                   [placeholder]="currentConfig.masterSearchPlaceholder || 'Search...'"
+                   type="text"
+                   appearance="outline">
+          <mat-icon matPrefix>search</mat-icon>
+          <amw-button
+                  variant="icon"
+                  icon="close"
+                  matSuffix
+                  *ngIf="searchQuery"
+                  (click)="searchQuery = ''; onSearchChange()"
+                  aria-label="Clear search">
+          </amw-button>
+        </amw-input>
+
+        <!-- Refresh Button -->
+        <amw-button
+                *ngIf="currentConfig.showRefresh"
+                variant="icon"
+                icon="refresh"
+                (click)="refresh()"
+                [disabled]="loading"
+                [amwTooltip]="'Refresh'"
+                class="amw-master-detail-page__refresh-button"
+                [class.amw-master-detail-page__refresh-button--spinning]="loading">
+        </amw-button>
+      </div>
+    </div>
+
+    <!-- Master List -->
+    <div class="amw-master-detail-page__master-list">
+      <!-- Loading State -->
+      <div *ngIf="loading" class="amw-master-detail-page__master-loading">
+        <amw-progress-spinner diameter="40"></amw-progress-spinner>
+        <p>Loading...</p>
+      </div>
+
+      <!-- Error State -->
+      <div *ngIf="error && !loading" class="amw-master-detail-page__master-error">
+        <mat-icon color="warn">error_outline</mat-icon>
+        <p>{{ error }}</p>
+        <amw-button variant="text" (click)="refresh()">Try Again</amw-button>
+      </div>
+
+      <!-- Empty State -->
+      <div *ngIf="!loading && !error && masterItems.length === 0"
+           class="amw-master-detail-page__master-empty">
+        <mat-icon>inbox</mat-icon>
+        <p>{{ currentConfig.masterEmptyMessage }}</p>
+      </div>
+
+      <!-- Items List -->
+      <div *ngIf="!loading && !error && masterItems.length > 0"
+           class="amw-master-detail-page__master-items">
+        <div *ngFor="let item of masterItems; let i = index"
+             class="amw-master-detail-page__master-item"
+             [class.amw-master-detail-page__master-item--selected]="isSelected(item)"
+             (click)="selectItem(item)"
+             (dblclick)="onItemDoubleClick(item)"
+             (keydown.arrowdown)="navigateNext($any($event))"
+             (keydown.arrowup)="navigatePrevious($any($event))"
+             (keydown.enter)="onItemDoubleClick(item)"
+             [tabindex]="currentConfig.keyboardNavigation ? 0 : -1"
+             role="button"
+             [attr.aria-selected]="isSelected(item)">
+
+          <!-- Multi-select Checkbox -->
+          <div *ngIf="currentConfig.multiSelect"
+               class="amw-master-detail-page__master-item-checkbox">
+            <mat-icon>
+              {{ isSelected(item) ? 'check_box' : 'check_box_outline_blank' }}
+            </mat-icon>
+          </div>
+
+          <!-- Item Content -->
+          <div class="amw-master-detail-page__master-item-content">
+            <div *ngFor="let column of currentConfig.masterColumns"
+                 class="amw-master-detail-page__master-item-field"
+                 [class.amw-master-detail-page__master-item-field--primary]="column === currentConfig.masterColumns[0]">
+
+              <!-- Text Type -->
+              <span *ngIf="!column.type || column.type === 'text'"
+                    class="amw-master-detail-page__master-item-text">
+                <span *ngIf="column.label" class="amw-master-detail-page__master-item-label">
+                  {{ column.label }}:
+                </span>
+                {{ getColumnValue(item, column) }}
+              </span>
+
+              <!-- Date Type -->
+              <span *ngIf="column.type === 'date'"
+                    class="amw-master-detail-page__master-item-text">
+                <span *ngIf="column.label" class="amw-master-detail-page__master-item-label">
+                  {{ column.label }}:
+                </span>
+                {{ getColumnValue(item, column) }}
+              </span>
+
+              <!-- Badge Type -->
+              <mat-chip *ngIf="column.type === 'badge'"
+                        class="amw-master-detail-page__master-item-badge"
+                        [class]="'amw-master-detail-page__master-item-badge--' + (typeof column.badgeColor === 'function' ? column.badgeColor(item[column.key]) : column.badgeColor)">
+                {{ getColumnValue(item, column) }}
+              </mat-chip>
+
+              <!-- Icon Type -->
+              <mat-icon *ngIf="column.type === 'icon'"
+                        class="amw-master-detail-page__master-item-icon">
+                {{ typeof column.icon === 'function' ? column.icon(item) : column.icon }}
+              </mat-icon>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Resize Handle -->
+  <div *ngIf="!isStacked && currentConfig.splitMode !== 'horizontal'"
+       class="amw-master-detail-page__resize-handle"
+       (mousedown)="startResize($event)">
+    <div class="amw-master-detail-page__resize-handle-line"></div>
+  </div>
+
+  <!-- Detail Panel -->
+  <div class="amw-master-detail-page__detail">
+
+    <!-- Detail Header -->
+    <div class="amw-master-detail-page__detail-header">
+      <h2 class="amw-master-detail-page__detail-title">
+        {{ getDetailTitle() }}
+      </h2>
+
+      <!-- Action Buttons -->
+      <div *ngIf="visibleActions.length > 0"
+           class="amw-master-detail-page__detail-actions">
+        <amw-button
+                *ngFor="let action of visibleActions"
+                variant="text"
+                [icon]="action.icon"
+                [iconPosition]="action.icon ? 'left' : undefined"
+                [color]="action.color"
+                [disabled]="isActionDisabled(action)"
+                (click)="onActionClick(action)"
+                [amwTooltip]="action.label"
+                class="amw-master-detail-page__detail-action">
+          {{ action.label }}
+        </amw-button>
+      </div>
+    </div>
+
+    <!-- Detail Content -->
+    <div class="amw-master-detail-page__detail-content">
+
+      <!-- Loading State -->
+      <div *ngIf="loadingDetail" class="amw-master-detail-page__detail-loading">
+        <amw-progress-spinner diameter="40"></amw-progress-spinner>
+        <p>Loading details...</p>
+      </div>
+
+      <!-- Empty State -->
+      <div *ngIf="!selectedItem && !loadingDetail"
+           class="amw-master-detail-page__detail-empty">
+        <mat-icon>arrow_back</mat-icon>
+        <p>{{ currentConfig.detailEmptyMessage }}</p>
+      </div>
+
+      <!-- Detail Data -->
+      <div *ngIf="selectedItem && !loadingDetail && detailData"
+           class="amw-master-detail-page__detail-data">
+
+        <!-- Default Detail Sections -->
+        <div *ngIf="currentConfig.detailSections && currentConfig.detailSections.length > 0">
+          <mat-expansion-panel *ngFor="let section of currentConfig.detailSections"
+                               [expanded]="!section.collapsed"
+                               class="amw-master-detail-page__detail-section">
+            <mat-expansion-panel-header>
+              <mat-panel-title>
+                <mat-icon *ngIf="section.icon">{{ section.icon }}</mat-icon>
+                {{ section.title }}
+              </mat-panel-title>
+            </mat-expansion-panel-header>
+
+            <div class="amw-master-detail-page__detail-fields">
+              <div *ngFor="let field of section.fields"
+                   class="amw-master-detail-page__detail-field">
+                <div class="amw-master-detail-page__detail-field-label">
+                  <mat-icon *ngIf="field.icon" class="amw-master-detail-page__detail-field-icon">
+                    {{ field.icon }}
+                  </mat-icon>
+                  {{ field.label }}
+                </div>
+                <div class="amw-master-detail-page__detail-field-value">
+                  <!-- Text Type -->
+                  <span *ngIf="!field.type || field.type === 'text'">
+                    {{ field.format ? field.format(detailData[field.key]) : detailData[field.key] }}
+                  </span>
+
+                  <!-- Date Type -->
+                  <span *ngIf="field.type === 'date'">
+                    {{ detailData[field.key] | date }}
+                  </span>
+
+                  <!-- Boolean Type -->
+                  <mat-icon *ngIf="field.type === 'boolean'"
+                            [color]="detailData[field.key] ? 'primary' : 'warn'">
+                    {{ detailData[field.key] ? 'check_circle' : 'cancel' }}
+                  </mat-icon>
+
+                  <!-- List Type -->
+                  <ul *ngIf="field.type === 'list' && isArray(detailData[field.key])">
+                    <li *ngFor="let listItem of detailData[field.key]">
+                      {{ listItem }}
+                    </li>
+                  </ul>
+                </div>
+              </div>
+            </div>
+          </mat-expansion-panel>
+        </div>
+
+        <!-- Fallback: Display raw detail data if no sections configured -->
+        <div *ngIf="!currentConfig.detailSections || currentConfig.detailSections.length === 0"
+             class="amw-master-detail-page__detail-raw">
+          <pre>{{ detailData | json }}</pre>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

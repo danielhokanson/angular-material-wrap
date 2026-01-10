@@ -3,13 +3,13 @@ import { CommonModule } from '@angular/common';
 import { MatButtonModule } from '@angular/material/button';
 import { MatRippleModule } from '@angular/material/core';
 import { MatIconModule } from '@angular/material/icon';
-import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { BaseComponent } from '../base/base.component';
 import { ButtonVariant } from './interfaces/button.interface';
 import { AmwSize } from '../../../shared/types/amw-size.type';
 import { ButtonType } from './interfaces/button-type.type';
 import { AmwColor } from '../../../shared/types/amw-color.type';
 import { IconPosition } from './interfaces/icon-position.type';
+import { AmwProgressSpinnerComponent } from '../../../components/components/amw-progress-spinner/amw-progress-spinner.component';
 
 /**
  * AMW Button Component
@@ -18,7 +18,7 @@ import { IconPosition } from './interfaces/icon-position.type';
 @Component({
     selector: 'amw-button',
     standalone: true,
-    imports: [CommonModule, MatButtonModule, MatRippleModule, MatIconModule, MatProgressSpinnerModule],
+    imports: [CommonModule, MatButtonModule, MatRippleModule, MatIconModule, AmwProgressSpinnerComponent],
     encapsulation: ViewEncapsulation.None,
     templateUrl: './amw-button.component.html',
     styleUrl: './amw-button.component.scss'

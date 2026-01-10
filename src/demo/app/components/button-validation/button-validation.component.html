@@ -4,43 +4,48 @@
 
   <form [formGroup]="validationForm" (ngSubmit)="onSubmit()" class="validation-form">
     <div class="form-field">
-      <mat-form-field appearance="outline">
-        <mat-label>Required Field</mat-label>
-        <input matInput formControlName="requiredField" placeholder="This field is required">
-        @if (getFieldError('requiredField')) {
-          <mat-error>{{ getFieldError('requiredField') }}</mat-error>
-        }
-      </mat-form-field>
+      <amw-input
+        formControlName="requiredField"
+        label="Required Field"
+        placeholder="This field is required">
+      </amw-input>
+      @if (getFieldError('requiredField')) {
+        <div class="field-error">{{ getFieldError('requiredField') }}</div>
+      }
     </div>
 
     <div class="form-field">
-      <mat-form-field appearance="outline">
-        <mat-label>Email Field</mat-label>
-        <input matInput formControlName="emailField" placeholder="Enter a valid email">
-        @if (getFieldError('emailField')) {
-          <mat-error>{{ getFieldError('emailField') }}</mat-error>
-        }
-      </mat-form-field>
+      <amw-input
+        formControlName="emailField"
+        label="Email Field"
+        type="email"
+        placeholder="Enter a valid email">
+      </amw-input>
+      @if (getFieldError('emailField')) {
+        <div class="field-error">{{ getFieldError('emailField') }}</div>
+      }
     </div>
 
     <div class="form-field">
-      <mat-form-field appearance="outline">
-        <mat-label>Min Length Field</mat-label>
-        <input matInput formControlName="minLengthField" placeholder="Minimum 5 characters">
-        @if (getFieldError('minLengthField')) {
-          <mat-error>{{ getFieldError('minLengthField') }}</mat-error>
-        }
-      </mat-form-field>
+      <amw-input
+        formControlName="minLengthField"
+        label="Min Length Field"
+        placeholder="Minimum 5 characters">
+      </amw-input>
+      @if (getFieldError('minLengthField')) {
+        <div class="field-error">{{ getFieldError('minLengthField') }}</div>
+      }
     </div>
 
     <div class="form-field">
-      <mat-form-field appearance="outline">
-        <mat-label>Max Length Field</mat-label>
-        <input matInput formControlName="maxLengthField" placeholder="Maximum 10 characters">
-        @if (getFieldError('maxLengthField')) {
-          <mat-error>{{ getFieldError('maxLengthField') }}</mat-error>
-        }
-      </mat-form-field>
+      <amw-input
+        formControlName="maxLengthField"
+        label="Max Length Field"
+        placeholder="Maximum 10 characters">
+      </amw-input>
+      @if (getFieldError('maxLengthField')) {
+        <div class="field-error">{{ getFieldError('maxLengthField') }}</div>
+      }
     </div>
 
     <div class="form-actions">

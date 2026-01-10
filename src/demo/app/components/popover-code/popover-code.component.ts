@@ -1,23 +1,21 @@
 import { Component, ViewEncapsulation } from '@angular/core';
 import { FormsModule } from '@angular/forms';
-import { MatExpansionModule } from '@angular/material/expansion';
-import { MatButtonModule } from '@angular/material/button';
 import { MatIconModule } from '@angular/material/icon';
 import { MatTooltipModule } from '@angular/material/tooltip';
 import { BaseCodeComponent } from '../base/base-code.component';
 
 type PopoverExamples = 'basic' | 'positions' | 'styling' | 'interactive';
+import { MatExpansionModule } from '@angular/material/expansion';
 
+import { AmwButtonComponent } from '../../../../library/src/controls/components/amw-button/amw-button.component';
 @Component({
     selector: 'app-popover-code',
     standalone: true,
-    imports: [
-        FormsModule,
-        MatExpansionModule,
-        MatButtonModule,
-        MatIconModule,
-        MatTooltipModule
-    ],
+    imports: [FormsModule,
+    MatIconModule,
+    MatTooltipModule,
+    MatExpansionModule,
+    AmwButtonComponent],
     encapsulation: ViewEncapsulation.None,
     templateUrl: './popover-code.component.html',
     styleUrl: './popover-code.component.scss'
@@ -25,54 +23,54 @@ type PopoverExamples = 'basic' | 'positions' | 'styling' | 'interactive';
 export class PopoverCodeComponent extends BaseCodeComponent<PopoverExamples> {
     // Original code examples (for reset functionality)
     readonly codeExamples: Record<PopoverExamples, string> = {
-        basic: `<button mat-raised-button
+        basic: `<amw-button variant="elevated"
         matTooltip="This is a basic tooltip">
   Hover Me
-</button>`,
+</amw-button>`,
 
         positions: `<!-- Tooltip on top -->
-<button mat-button
+<amw-button variant="text"
         matTooltip="Tooltip on top"
         matTooltipPosition="above">
   Top
-</button>
+</amw-button>
 
 <!-- Tooltip on right -->
-<button mat-button
+<amw-button variant="text"
         matTooltip="Tooltip on right"
         matTooltipPosition="after">
   Right
-</button>
+</amw-button>
 
 <!-- Tooltip on bottom -->
-<button mat-button
+<amw-button variant="text"
         matTooltip="Tooltip on bottom"
         matTooltipPosition="below">
   Bottom
-</button>
+</amw-button>
 
 <!-- Tooltip on left -->
-<button mat-button
+<amw-button variant="text"
         matTooltip="Tooltip on left"
         matTooltipPosition="before">
   Left
-</button>`,
+</amw-button>`,
 
-        styling: `<button mat-raised-button
+        styling: `<amw-button variant="elevated"
         matTooltip="Custom styled tooltip"
         matTooltipClass="custom-tooltip"
         color="primary">
   Custom Tooltip
-</button>`,
+</amw-button>`,
 
-        interactive: `<button mat-raised-button
+        interactive: `<amw-button variant="elevated"
         matTooltip="Click to show/hide"
         matTooltipShowDelay="500"
         matTooltipHideDelay="200"
         [matTooltipDisabled]="tooltipDisabled"
         (click)="toggleTooltip()">
   Toggle Tooltip
-</button>`
+</amw-button>`
     };
 
     // State for interactive example

@@ -1,25 +1,21 @@
 import { Component, ViewEncapsulation } from '@angular/core';
 import { FormsModule } from '@angular/forms';
-import { MatExpansionModule } from '@angular/material/expansion';
-import { MatButtonModule } from '@angular/material/button';
 import { MatIconModule } from '@angular/material/icon';
-import { MatInputModule } from '@angular/material/input';
-import { MatFormFieldModule } from '@angular/material/form-field';
 import { BaseCodeComponent } from '../base/base-code.component';
 
 type InputExamples = 'basic' | 'withLabel' | 'withHint' | 'withError' | 'withIcon' | 'disabled' | 'textarea';
+import { MatExpansionModule } from '@angular/material/expansion';
+import { MatFormFieldModule } from '@angular/material/form-field';
 
+import { AmwButtonComponent } from '../../../../library/src/controls/components/amw-button/amw-button.component';
 @Component({
   selector: 'amw-demo-input-code',
   standalone: true,
-  imports: [
-    FormsModule,
-    MatExpansionModule,
-    MatButtonModule,
+  imports: [FormsModule,
     MatIconModule,
-    MatInputModule,
-    MatFormFieldModule
-  ],
+    MatExpansionModule,
+    MatFormFieldModule,
+    AmwButtonComponent],
   encapsulation: ViewEncapsulation.None,
   templateUrl: './input-code.component.html',
   styleUrl: './input-code.component.scss'
@@ -33,60 +29,67 @@ export class InputCodeComponent extends BaseCodeComponent<InputExamples> {
 
   // Original code examples (for reset functionality)
   readonly codeExamples: Record<InputExamples, string> = {
-    basic: `<mat-form-field>
-  <mat-label>Basic Input</mat-label>
-  <input matInput placeholder="Enter text">
-</mat-form-field>`,
+    basic: `<amw-input
+  label="Basic Input"
+  placeholder="Enter text">
+</amw-input>`,
 
-    withLabel: `<mat-form-field appearance="fill">
-  <mat-label>Fill Appearance</mat-label>
-  <input matInput placeholder="Placeholder text">
-</mat-form-field>
+    withLabel: `<amw-input
+  label="Fill Appearance"
+  placeholder="Placeholder text"
+  appearance="fill">
+</amw-input>
 
-<mat-form-field appearance="outline">
-  <mat-label>Outline Appearance</mat-label>
-  <input matInput placeholder="Placeholder text">
-</mat-form-field>`,
+<amw-input
+  label="Outline Appearance"
+  placeholder="Placeholder text"
+  appearance="outline">
+</amw-input>`,
 
-    withHint: `<mat-form-field>
-  <mat-label>Username</mat-label>
-  <input matInput placeholder="Enter username">
-  <mat-hint>Choose a unique username</mat-hint>
-</mat-form-field>`,
+    withHint: `<amw-input
+  label="Username"
+  placeholder="Enter username"
+  hint="Choose a unique username">
+</amw-input>`,
 
-    withError: `<mat-form-field>
-  <mat-label>Email</mat-label>
-  <input matInput type="email" placeholder="email@example.com" required>
-  <mat-error>Please enter a valid email</mat-error>
-</mat-form-field>`,
+    withError: `<amw-input
+  label="Email"
+  type="email"
+  placeholder="email@example.com"
+  required>
+</amw-input>`,
 
-    withIcon: `<mat-form-field>
-  <mat-label>Search</mat-label>
-  <input matInput placeholder="Search...">
-  <mat-icon matPrefix>search</mat-icon>
-</mat-form-field>
+    withIcon: `<amw-input
+  label="Search"
+  placeholder="Search..."
+  prefix="search">
+</amw-input>
 
-<mat-form-field>
-  <mat-label>Amount</mat-label>
-  <input matInput type="number" placeholder="0">
-  <span matPrefix>$&nbsp;</span>
-  <span matSuffix>.00</span>
-</mat-form-field>`,
+<amw-input
+  label="Amount"
+  type="number"
+  placeholder="0"
+  prefix="$"
+  suffix=".00">
+</amw-input>`,
 
-    disabled: `<mat-form-field>
-  <mat-label>Disabled Input</mat-label>
-  <input matInput disabled value="Cannot edit this">
-</mat-form-field>
+    disabled: `<amw-input
+  label="Disabled Input"
+  disabled
+  value="Cannot edit this">
+</amw-input>
 
-<mat-form-field>
-  <mat-label>Readonly Input</mat-label>
-  <input matInput readonly value="This is readonly">
-</mat-form-field>`,
+<amw-input
+  label="Readonly Input"
+  readonly
+  value="This is readonly">
+</amw-input>`,
 
-    textarea: `<mat-form-field>
-  <mat-label>Description</mat-label>
-  <textarea matInput rows="4" placeholder="Enter description"></textarea>
-</mat-form-field>`
+    textarea: `<amw-textarea
+  label="Description"
+  rows="4"
+  placeholder="Enter description">
+</amw-textarea>`
   };
 
   constructor() {

@@ -1,21 +1,21 @@
 import { Component, ViewEncapsulation } from '@angular/core';
 import { FormsModule } from '@angular/forms';
-import { MatExpansionModule } from '@angular/material/expansion';
-import { MatButtonModule } from '@angular/material/button';
 import { MatIconModule } from '@angular/material/icon';
+import { MatButtonModule } from '@angular/material/button';
 import { BaseCodeComponent } from '../base/base-code.component';
 
 type ButtonExamples = 'basic' | 'raised' | 'stroked' | 'flat' | 'icon' | 'fab' | 'disabled';
+import { MatExpansionModule } from '@angular/material/expansion';
 
+import { AmwButtonComponent } from '../../../../library/src/controls/components/amw-button/amw-button.component';
 @Component({
   selector: 'amw-demo-button-code',
   standalone: true,
-  imports: [
-    FormsModule,
-    MatExpansionModule,
+  imports: [FormsModule,
+    MatIconModule,
     MatButtonModule,
-    MatIconModule
-  ],
+    MatExpansionModule,
+    AmwButtonComponent],
   encapsulation: ViewEncapsulation.None,
   templateUrl: './button-code.component.html',
   styleUrl: './button-code.component.scss'
@@ -27,44 +27,32 @@ export class ButtonCodeComponent extends BaseCodeComponent<ButtonExamples> {
 
   // Original code examples (for reset functionality)
   readonly codeExamples: Record<ButtonExamples, string> = {
-    basic: `<button mat-button color="primary">Basic Button</button>
-<button mat-button color="accent">Accent Button</button>
-<button mat-button color="warn">Warn Button</button>`,
+    basic: `<amw-button variant="text" color="primary">Basic Button</amw-button>
+<amw-button variant="text" color="accent">Accent Button</amw-button>
+<amw-button variant="text" color="warn">Warn Button</amw-button>`,
 
-    raised: `<button mat-raised-button color="primary">Raised Button</button>
-<button mat-raised-button color="accent">Accent Raised</button>
-<button mat-raised-button color="warn">Warn Raised</button>`,
+    raised: `<amw-button variant="elevated" color="primary">Raised Button</amw-button>
+<amw-button variant="elevated" color="accent">Accent Raised</amw-button>
+<amw-button variant="elevated" color="warn">Warn Raised</amw-button>`,
 
-    stroked: `<button mat-stroked-button color="primary">Stroked Button</button>
-<button mat-stroked-button color="accent">Accent Stroked</button>
-<button mat-stroked-button color="warn">Warn Stroked</button>`,
+    stroked: `<amw-button variant="outlined" color="primary">Stroked Button</amw-button>
+<amw-button variant="outlined" color="accent">Accent Stroked</amw-button>
+<amw-button variant="outlined" color="warn">Warn Stroked</amw-button>`,
 
-    flat: `<button mat-flat-button color="primary">Flat Button</button>
-<button mat-flat-button color="accent">Accent Flat</button>
-<button mat-flat-button color="warn">Warn Flat</button>`,
+    flat: `<amw-button variant="filled" color="primary">Flat Button</amw-button>
+<amw-button variant="filled" color="accent">Accent Flat</amw-button>
+<amw-button variant="filled" color="warn">Warn Flat</amw-button>`,
 
-    icon: `<button mat-icon-button color="primary">
-  <mat-icon>favorite</mat-icon>
-</button>
-<button mat-icon-button color="accent">
-  <mat-icon>delete</mat-icon>
-</button>
-<button mat-icon-button color="warn">
-  <mat-icon>warning</mat-icon>
-</button>`,
+    icon: `<amw-button variant="icon" icon="favorite" color="primary"></amw-button>
+<amw-button variant="icon" icon="delete" color="accent"></amw-button>
+<amw-button variant="icon" icon="warning" color="warn"></amw-button>`,
 
-    fab: `<button mat-fab color="primary">
-  <mat-icon>add</mat-icon>
-</button>
-<button mat-mini-fab color="accent">
-  <mat-icon>edit</mat-icon>
-</button>
-<button mat-mini-fab color="warn">
-  <mat-icon>delete</mat-icon>
-</button>`,
+    fab: `<amw-button variant="fab" icon="add" color="primary"></amw-button>
+<amw-button variant="fab" icon="edit" color="accent" size="small"></amw-button>
+<amw-button variant="fab" icon="delete" color="warn" size="small"></amw-button>`,
 
-    disabled: `<button mat-raised-button color="primary" disabled>Disabled Button</button>
-<button mat-raised-button color="accent" [disabled]="true">Disabled Accent</button>`
+    disabled: `<amw-button variant="elevated" color="primary" disabled>Disabled Button</amw-button>
+<amw-button variant="elevated" color="accent" [disabled]="true">Disabled Accent</amw-button>`
   };
 
   constructor() {
@@ -81,6 +69,4 @@ export class ButtonCodeComponent extends BaseCodeComponent<ButtonExamples> {
     this.isLoading = !this.isLoading;
   }
 }
-
-
 

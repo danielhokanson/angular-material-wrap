@@ -1,39 +1,32 @@
 import { Component, ViewEncapsulation, OnInit, OnDestroy } from '@angular/core';
 
 import { FormsModule } from '@angular/forms';
-import { MatCardModule } from '@angular/material/card';
-import { MatButtonModule } from '@angular/material/button';
 import { MatIconModule } from '@angular/material/icon';
-import { MatChipsModule } from '@angular/material/chips';
-import { MatSnackBar, MatSnackBarModule } from '@angular/material/snack-bar';
-import { MatFormFieldModule } from '@angular/material/form-field';
-import { MatInputModule } from '@angular/material/input';
-import { MatSelectModule } from '@angular/material/select';
-import { MatCheckboxModule } from '@angular/material/checkbox';
-import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
+import { AmwNotificationService } from '../../../../library/src/services/amw-notification/amw-notification.service';
 import { AmwCardComponent } from '../../../../library/src/components/components/amw-card/amw-card.component';
 import { CardService, CardData, CardFilter, CardSort } from '../../../../library/src/components/services/card.service';
 import { CardConfig, CardVariant, CardElevation } from '../../../../library/src/components/components/amw-card/interfaces';
 import { AmwSize } from '../../../../library/src/shared/types';
 import { Subscription } from 'rxjs';
+import { MatOptionModule } from '@angular/material/core';
+import { MatCardModule } from '@angular/material/card';
 
+import { AmwButtonComponent } from '../../../../library/src/controls/components/amw-button/amw-button.component';
+import { AmwInputComponent } from '../../../../library/src/controls/components/amw-input/amw-input.component';
+import { AmwSelectComponent } from '../../../../library/src/controls/components/amw-select/amw-select.component';
+import { AmwCheckboxComponent } from '../../../../library/src/controls/components/amw-checkbox/amw-checkbox.component';
 @Component({
     selector: 'amw-demo-card',
     standalone: true,
-    imports: [
-    FormsModule,
-    MatCardModule,
-    MatButtonModule,
+    imports: [FormsModule,
+    AmwCardComponent,
     MatIconModule,
-    MatChipsModule,
-    MatSnackBarModule,
-    MatFormFieldModule,
-    MatInputModule,
-    MatSelectModule,
-    MatCheckboxModule,
-    MatProgressSpinnerModule,
-    AmwCardComponent
-],
+    MatOptionModule,
+    MatCardModule,
+    AmwButtonComponent,
+    AmwInputComponent,
+    AmwSelectComponent,
+    AmwCheckboxComponent],
     encapsulation: ViewEncapsulation.None,
     templateUrl: './card-demo.component.html',
     styleUrl: './card-demo.component.scss'
@@ -54,7 +47,7 @@ export class CardDemoComponent implements OnInit, OnDestroy {
 
     constructor(
         private cardService: CardService,
-        private snackBar: MatSnackBar
+        private notification: AmwNotificationService
     ) { }
 
     ngOnInit() {
@@ -125,25 +118,19 @@ export class CardDemoComponent implements OnInit, OnDestroy {
             ]
         });
 
-        this.snackBar.open(`Card "${sampleCard.title}" added successfully!`, 'Close', {
-            duration: 3000
-        });
+        this.notification.success('Success', `Card "${sampleCard.title}" added successfully!`, { duration: 3000 });
     }
 
     duplicateCard(card: CardData) {
         const duplicatedCard = this.cardService.duplicateCard(card.id);
         if (duplicatedCard) {
-            this.snackBar.open(`Card "${duplicatedCard.title}" duplicated!`, 'Close', {
-                duration: 3000
-            });
+            this.notification.info('Info', `Card "${duplicatedCard.title}" duplicated!`, { duration: 3000 });
         }
     }
 
     deleteCard(card: CardData) {
         if (this.cardService.removeCard(card.id)) {
-            this.snackBar.open(`Card "${card.title}" deleted!`, 'Close', {
-                duration: 3000
-            });
+            this.notification.success('Success', `Card "${card.title}" deleted!`, { duration: 3000 });
         }
     }
 
@@ -161,7 +148,7 @@ export class CardDemoComponent implements OnInit, OnDestroy {
 
     getCardStatistics() {
         const stats = this.cardService.getCardStatistics();
-        this.snackBar.open(
+        this.notification.open(
             `Total: ${stats.total} | Clickable: ${stats.clickable} | With Images: ${stats.withImages} | With Actions: ${stats.withActions}`,
             'Close',
             { duration: 5000 }
@@ -178,9 +165,7 @@ export class CardDemoComponent implements OnInit, OnDestroy {
         link.click();
         window.URL.revokeObjectURL(url);
 
-        this.snackBar.open('Cards exported successfully!', 'Close', {
-            duration: 3000
-        });
+        this.notification.success('Success', 'Cards exported successfully!', { duration: 3000 });
     }
 
     cardVariations = [

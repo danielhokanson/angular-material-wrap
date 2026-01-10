@@ -1,26 +1,24 @@
 import { Component } from '@angular/core';
-import { FormBuilder, FormGroup, Validators, ReactiveFormsModule } from '@angular/forms';
-import { MatDatepickerModule } from '@angular/material/datepicker';
-import { MatFormFieldModule } from '@angular/material/form-field';
-import { MatInputModule } from '@angular/material/input';
+import { FormBuilder, FormGroup, Validators, ReactiveFormsModule, ValidationErrors } from '@angular/forms';
 import { MatNativeDateModule } from '@angular/material/core';
-import { MatCardModule } from '@angular/material/card';
 import { MatIconModule } from '@angular/material/icon';
-import { MatButtonModule } from '@angular/material/button';
+import { AmwFormValidationComponent, FormValidationConfig } from 'angular-material-wrap';
+import { MatCardModule } from '@angular/material/card';
+import { AmwButtonComponent } from '../../../../library/src/controls/components/amw-button/amw-button.component';
+import { AmwInputComponent } from '../../../../library/src/controls/components/amw-input/amw-input.component';
+import { AmwDatepickerComponent } from '../../../../library/src/controls/components/amw-datepicker/amw-datepicker.component';
 
 @Component({
   selector: 'amw-demo-calendar-validation',
   standalone: true,
-  imports: [
-    ReactiveFormsModule,
-    MatDatepickerModule,
-    MatFormFieldModule,
-    MatInputModule,
+  imports: [ReactiveFormsModule,
     MatNativeDateModule,
-    MatCardModule,
     MatIconModule,
-    MatButtonModule
-  ],
+    AmwFormValidationComponent,
+    MatCardModule,
+    AmwButtonComponent,
+    AmwInputComponent,
+    AmwDatepickerComponent],
   templateUrl: './calendar-validation.component.html',
   styleUrl: './calendar-validation.component.scss'
 })
@@ -39,6 +37,33 @@ export class CalendarValidationComponent {
   minDate = new Date(this.today.getFullYear(), this.today.getMonth(), this.today.getDate());
   maxDate = new Date(this.today.getFullYear() + 1, this.today.getMonth(), this.today.getDate());
 
+  // Form validation configurations
+  dateRangeValidation: FormValidationConfig = {
+    invalidDateRange: {
+      message: 'End date must be after start date',
+      showWhen: (form) => {
+        const startDate = form.get('startDate');
+        const endDate = form.get('endDate');
+        return (startDate?.touched || endDate?.touched) ?? false;
+      },
+      severity: 'error',
+      affectedFields: ['startDate', 'endDate']
+    }
+  };
+
+  eventBookingValidation: FormValidationConfig = {
+    invalidEventBooking: {
+      message: 'Registration deadline must be before event date',
+      showWhen: (form) => {
+        const eventDate = form.get('eventDate');
+        const deadline = form.get('registrationDeadline');
+        return (eventDate?.touched || deadline?.touched) ?? false;
+      },
+      severity: 'error',
+      affectedFields: ['eventDate', 'registrationDeadline']
+    }
+  };
+
   constructor(private fb: FormBuilder) {
     // Basic date picker with required validation
     this.basicDateForm = this.fb.group({
@@ -49,6 +74,8 @@ export class CalendarValidationComponent {
     this.dateRangeForm = this.fb.group({
       startDate: ['', Validators.required],
       endDate: ['', Validators.required]
+    }, {
+      validators: [this.dateRangeValidator.bind(this)]
     });
 
     // Event booking with multiple date fields
@@ -56,6 +83,8 @@ export class CalendarValidationComponent {
       eventName: ['', [Validators.required, Validators.minLength(3)]],
       eventDate: ['', Validators.required],
       registrationDeadline: ['', Validators.required]
+    }, {
+      validators: [this.eventBookingValidator.bind(this)]
     });
   }
 
@@ -87,39 +116,41 @@ export class CalendarValidationComponent {
   }
 
   // Date range validation
-  validateDateRange(): boolean {
-    const startDate = this.dateRangeForm.get('startDate')?.value;
-    const endDate = this.dateRangeForm.get('endDate')?.value;
+  dateRangeValidator(group: FormGroup): ValidationErrors | null {
+    const startDate = group.get('startDate')?.value;
+    const endDate = group.get('endDate')?.value;
 
-    if (startDate && endDate) {
-      return new Date(startDate) <= new Date(endDate);
+    if (!startDate || !endDate) {
+      return null;
     }
-    return true;
+
+    const start = new Date(startDate);
+    const end = new Date(endDate);
+
+    return start <= end ? null : { invalidDateRange: true };
   }
 
-  getDateRangeError(): string {
-    if (!this.validateDateRange()) {
-      return 'End date must be after start date';
-    }
-    return '';
+  validateDateRange(): boolean {
+    return !this.dateRangeForm.hasError('invalidDateRange');
   }
 
   // Event booking validation
-  validateEventBooking(): boolean {
-    const eventDate = this.eventBookingForm.get('eventDate')?.value;
-    const deadline = this.eventBookingForm.get('registrationDeadline')?.value;
+  eventBookingValidator(group: FormGroup): ValidationErrors | null {
+    const eventDate = group.get('eventDate')?.value;
+    const deadline = group.get('registrationDeadline')?.value;
 
-    if (eventDate && deadline) {
-      return new Date(deadline) <= new Date(eventDate);
+    if (!eventDate || !deadline) {
+      return null;
     }
-    return true;
+
+    const event = new Date(eventDate);
+    const registrationDeadline = new Date(deadline);
+
+    return registrationDeadline <= event ? null : { invalidEventBooking: true };
   }
 
-  getEventBookingError(): string {
-    if (!this.validateEventBooking()) {
-      return 'Registration deadline must be before event date';
-    }
-    return '';
+  validateEventBooking(): boolean {
+    return !this.eventBookingForm.hasError('invalidEventBooking');
   }
 
   // Form submission

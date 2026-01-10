@@ -1,23 +1,12 @@
 import { Component, ViewEncapsulation, OnInit } from '@angular/core';
 
-import { MatCardModule } from '@angular/material/card';
-import { MatButtonModule } from '@angular/material/button';
 import { MatIconModule } from '@angular/material/icon';
-import { MatFormFieldModule } from '@angular/material/form-field';
-import { MatInputModule } from '@angular/material/input';
-import { MatSelectModule } from '@angular/material/select';
-import { MatSliderModule } from '@angular/material/slider';
-import { MatSlideToggleModule } from '@angular/material/slide-toggle';
-import { MatToolbarModule } from '@angular/material/toolbar';
 import { MatSidenavModule } from '@angular/material/sidenav';
 import { MatListModule } from '@angular/material/list';
 import { MatTooltipModule } from '@angular/material/tooltip';
 import { MatRippleModule } from '@angular/material/core';
 import { MatOptionModule } from '@angular/material/core';
-import { MatDividerModule } from '@angular/material/divider';
-import { MatExpansionModule } from '@angular/material/expansion';
-import { MatTabsModule } from '@angular/material/tabs';
-import { MatSnackBarModule, MatSnackBar } from '@angular/material/snack-bar';
+import { AmwNotificationService } from '../../../../library/src/services/amw-notification/amw-notification.service';
 import { ReactiveFormsModule, FormBuilder, FormGroup, Validators } from '@angular/forms';
 
 import { AmwSelectComponent } from '../../../../library/src/controls/components/amw-select/amw-select.component';
@@ -30,24 +19,13 @@ import { MatFormFieldAppearance } from '@angular/material/form-field';
     standalone: true,
     imports: [
     ReactiveFormsModule,
-    MatCardModule,
-    MatButtonModule,
     MatIconModule,
-    MatFormFieldModule,
-    MatInputModule,
-    MatSelectModule,
-    MatSliderModule,
-    MatSlideToggleModule,
-    MatToolbarModule,
+    AmwSelectComponent,
     MatSidenavModule,
     MatListModule,
     MatTooltipModule,
     MatRippleModule,
     MatOptionModule,
-    MatDividerModule,
-    MatExpansionModule,
-    MatTabsModule,
-    MatSnackBarModule,
     AmwSelectComponent
 ],
     encapsulation: ViewEncapsulation.None,
@@ -231,7 +209,7 @@ export class SelectDemoComponent implements OnInit {
 
     constructor(
         private fb: FormBuilder,
-        private snackBar: MatSnackBar
+        private notification: AmwNotificationService
     ) {
         this.validationForm = this.fb.group({
             requiredSelect: ['', Validators.required],
@@ -246,17 +224,9 @@ export class SelectDemoComponent implements OnInit {
 
     onSubmit(): void {
         if (this.validationForm.valid) {
-            this.snackBar.open('Form is valid!', 'Close', {
-                duration: 2000,
-                horizontalPosition: 'center',
-                verticalPosition: 'bottom'
-            });
+            this.notification.success('Success', 'Form is valid!', { duration: 2000 });
         } else {
-            this.snackBar.open('Form has validation errors!', 'Close', {
-                duration: 2000,
-                horizontalPosition: 'center',
-                verticalPosition: 'bottom'
-            });
+            this.notification.error('Error', 'Form has validation errors!', { duration: 2000 });
         }
     }
 

@@ -1,21 +1,17 @@
 import { Component } from '@angular/core';
 
-import { MatStepperModule } from '@angular/material/stepper';
-import { MatButtonModule } from '@angular/material/button';
-import { MatFormFieldModule } from '@angular/material/form-field';
-import { MatInputModule } from '@angular/material/input';
 import { ReactiveFormsModule, FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { MatStepperModule } from '@angular/material/stepper';
 
+import { AmwButtonComponent } from '../../../../library/src/controls/components/amw-button/amw-button.component';
+import { AmwInputComponent } from '../../../../library/src/controls/components/amw-input/amw-input.component';
 @Component({
     selector: 'amw-demo-stepper',
     standalone: true,
-    imports: [
-        MatStepperModule,
-        MatButtonModule,
-        MatFormFieldModule,
-        MatInputModule,
-        ReactiveFormsModule
-    ],
+    imports: [ReactiveFormsModule,
+    MatStepperModule,
+    AmwButtonComponent,
+    AmwInputComponent],
     templateUrl: './stepper-demo.component.html',
     styleUrl: './stepper-demo.component.scss'
 })

@@ -16,9 +16,7 @@
         <div class="code-panel">
           <div class="code-header">
             <h4>Code</h4>
-            <button mat-icon-button (click)="resetCode('basic')" title="Reset to original">
-              <mat-icon>refresh</mat-icon>
-            </button>
+            <amw-button variant="icon" icon="refresh" (click)="resetCode('basic')" title="Reset to original"></amw-button>
           </div>
           <textarea
             [(ngModel)]="editableCode.basic"
@@ -54,9 +52,7 @@
         <div class="code-panel">
           <div class="code-header">
             <h4>Code</h4>
-            <button mat-icon-button (click)="resetCode('range')" title="Reset to original">
-              <mat-icon>refresh</mat-icon>
-            </button>
+            <amw-button variant="icon" icon="refresh" (click)="resetCode('range')" title="Reset to original"></amw-button>
           </div>
           <textarea
             [(ngModel)]="editableCode.range"
@@ -95,9 +91,7 @@
         <div class="code-panel">
           <div class="code-header">
             <h4>Code</h4>
-            <button mat-icon-button (click)="resetCode('minMax')" title="Reset to original">
-              <mat-icon>refresh</mat-icon>
-            </button>
+            <amw-button variant="icon" icon="refresh" (click)="resetCode('minMax')" title="Reset to original"></amw-button>
           </div>
           <textarea
             [(ngModel)]="editableCode.minMax"
@@ -137,9 +131,7 @@
         <div class="code-panel">
           <div class="code-header">
             <h4>Code</h4>
-            <button mat-icon-button (click)="resetCode('filter')" title="Reset to original">
-              <mat-icon>refresh</mat-icon>
-            </button>
+            <amw-button variant="icon" icon="refresh" (click)="resetCode('filter')" title="Reset to original"></amw-button>
           </div>
           <textarea
             [(ngModel)]="editableCode.filter"
@@ -182,9 +174,7 @@
         <div class="code-panel">
           <div class="code-header">
             <h4>Code</h4>
-            <button mat-icon-button (click)="resetCode('customClass')" title="Reset to original">
-              <mat-icon>refresh</mat-icon>
-            </button>
+            <amw-button variant="icon" icon="refresh" (click)="resetCode('customClass')" title="Reset to original"></amw-button>
           </div>
           <textarea
             [(ngModel)]="editableCode.customClass"

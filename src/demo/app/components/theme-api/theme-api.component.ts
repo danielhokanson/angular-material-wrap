@@ -1,11 +1,12 @@
 import { Component, ViewEncapsulation } from '@angular/core';
-import { MatExpansionModule } from '@angular/material/expansion';
 import { BaseApiComponent, ApiDocumentation } from '../base/base-api.component';
 
 @Component({
   selector: 'amw-demo-theme-api',
   standalone: true,
-  imports: [MatExpansionModule],
+  imports: [
+    
+],
   encapsulation: ViewEncapsulation.None,
   templateUrl: './theme-api.component.html',
   styleUrl: './theme-api.component.scss'

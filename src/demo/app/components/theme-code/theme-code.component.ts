@@ -1,25 +1,23 @@
 import { Component, ViewEncapsulation } from '@angular/core';
 import { FormsModule } from '@angular/forms';
-import { MatButtonModule } from '@angular/material/button';
 import { MatIconModule } from '@angular/material/icon';
-import { MatExpansionModule } from '@angular/material/expansion';
-import { MatCardModule } from '@angular/material/card';
 import { CommonModule } from '@angular/common';
 import { BaseCodeComponent } from '../base/base-code.component';
 
 type ThemeExamples = 'colorPalette' | 'cssVariables' | 'componentTheming' | 'darkMode' | 'customTheme';
+import { MatExpansionModule } from '@angular/material/expansion';
+import { MatCardModule } from '@angular/material/card';
 
+import { AmwButtonComponent } from '../../../../library/src/controls/components/amw-button/amw-button.component';
 @Component({
   selector: 'amw-demo-theme-code',
   standalone: true,
-  imports: [
-    CommonModule,
+  imports: [CommonModule,
     FormsModule,
-    MatButtonModule,
     MatIconModule,
     MatExpansionModule,
-    MatCardModule
-  ],
+    MatCardModule,
+    AmwButtonComponent],
   encapsulation: ViewEncapsulation.None,
   templateUrl: './theme-code.component.html',
   styleUrl: './theme-code.component.scss'
@@ -27,9 +25,9 @@ type ThemeExamples = 'colorPalette' | 'cssVariables' | 'componentTheming' | 'dar
 export class ThemeCodeComponent extends BaseCodeComponent<ThemeExamples> {
   readonly codeExamples: Record<ThemeExamples, string> = {
     colorPalette: `<!-- Using Material theme colors -->
-<button mat-raised-button color="primary">Primary</button>
-<button mat-raised-button color="accent">Accent</button>
-<button mat-raised-button color="warn">Warn</button>`,
+<amw-button variant="elevated" color="primary">Primary</amw-button>
+<amw-button variant="elevated" color="accent">Accent</amw-button>
+<amw-button variant="elevated" color="warn">Warn</amw-button>`,
 
     cssVariables: `<!-- Using CSS variables in components -->
 <div style="
@@ -49,7 +47,7 @@ export class ThemeCodeComponent extends BaseCodeComponent<ThemeExamples> {
     Content styled with theme colors
   </mat-card-content>
   <mat-card-actions>
-    <button mat-button color="primary">Action</button>
+    <amw-button variant="text" color="primary">Action</amw-button>
   </mat-card-actions>
 </mat-card>`,
 
@@ -70,9 +68,9 @@ export class ThemeCodeComponent extends BaseCodeComponent<ThemeExamples> {
   }
 </style>
 <div class="custom-theme">
-  <button mat-raised-button color="primary">
+  <amw-button variant="elevated" color="primary">
     Custom Primary Color
-  </button>
+  </amw-button>
 </div>`
   };
 

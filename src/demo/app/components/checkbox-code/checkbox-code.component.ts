@@ -1,25 +1,23 @@
 import { Component, ViewEncapsulation } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
-import { MatExpansionModule } from '@angular/material/expansion';
-import { MatButtonModule } from '@angular/material/button';
 import { MatIconModule } from '@angular/material/icon';
-import { MatCheckboxModule } from '@angular/material/checkbox';
 import { BaseCodeComponent } from '../base/base-code.component';
 
 type CheckboxExamples = 'basic' | 'colors' | 'states' | 'labelPosition' | 'indeterminate' | 'disabled' | 'events';
+import { MatExpansionModule } from '@angular/material/expansion';
+import { MatCheckboxModule } from '@angular/material/checkbox';
 
+import { AmwButtonComponent } from '../../../../library/src/controls/components/amw-button/amw-button.component';
 @Component({
   selector: 'amw-demo-checkbox-code',
   standalone: true,
-  imports: [
-    CommonModule,
+  imports: [CommonModule,
     FormsModule,
-    MatExpansionModule,
-    MatButtonModule,
     MatIconModule,
-    MatCheckboxModule
-  ],
+    MatExpansionModule,
+    MatCheckboxModule,
+    AmwButtonComponent],
   encapsulation: ViewEncapsulation.None,
   templateUrl: './checkbox-code.component.html',
   styleUrl: './checkbox-code.component.scss'

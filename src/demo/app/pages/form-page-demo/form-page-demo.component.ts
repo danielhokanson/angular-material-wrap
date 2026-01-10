@@ -1,14 +1,8 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
 
-import { MatCardModule } from '@angular/material/card';
-import { MatButtonModule } from '@angular/material/button';
 import { MatIconModule } from '@angular/material/icon';
-import { MatChipsModule } from '@angular/material/chips';
-import { MatDividerModule } from '@angular/material/divider';
-import { MatTabsModule } from '@angular/material/tabs';
-import { MatExpansionModule } from '@angular/material/expansion';
 import { MatTooltipModule } from '@angular/material/tooltip';
-import { MatSnackBarModule, MatSnackBar } from '@angular/material/snack-bar';
+import { AmwNotificationService } from '../../../../library/src/services/amw-notification/amw-notification.service';
 import { Subject, takeUntil, BehaviorSubject, Observable, of } from 'rxjs';
 import { delay } from 'rxjs/operators';
 
@@ -106,22 +100,21 @@ class FormPageDemoDataSource implements FormPageDataSource {
         }).pipe(delay(200));
     }
 }
+import { MatTabsModule } from '@angular/material/tabs';
+import { MatDividerModule } from '@angular/material/divider';
+import { MatCardModule } from '@angular/material/card';
 
+import { AmwButtonComponent } from '../../../../library/src/controls/components/amw-button/amw-button.component';
 @Component({
     selector: 'app-form-page-demo',
     standalone: true,
-    imports: [
-    MatCardModule,
-    MatButtonModule,
-    MatIconModule,
-    MatChipsModule,
-    MatDividerModule,
-    MatTabsModule,
-    MatExpansionModule,
+    imports: [MatIconModule,
     MatTooltipModule,
-    MatSnackBarModule,
-    AmwFormPageComponent
-],
+    AmwFormPageComponent,
+    MatTabsModule,
+    MatDividerModule,
+    MatCardModule,
+    AmwButtonComponent],
     templateUrl: './form-page-demo.component.html',
     styleUrl: './form-page-demo.component.scss'
 })
@@ -147,7 +140,7 @@ export class FormPageDemoComponent implements OnInit, OnDestroy {
                 icon: 'content_copy',
                 color: 'accent',
                 onClick: (formData: any) => {
-                    this.snackBar.open('Duplicating employee record', 'Close', { duration: 2000 });
+                    this.notification.info('Info', 'Duplicating employee record', { duration: 2000 });
                 }
             },
             {
@@ -156,7 +149,7 @@ export class FormPageDemoComponent implements OnInit, OnDestroy {
                 icon: 'archive',
                 color: 'warn',
                 onClick: (formData: any) => {
-                    this.snackBar.open('Archiving employee record', 'Close', { duration: 2000 });
+                    this.notification.info('Info', 'Archiving employee record', { duration: 2000 });
                 }
             }
         ],
@@ -377,7 +370,7 @@ export class FormPageDemoComponent implements OnInit, OnDestroy {
     currentView = 'basic';
     currentMode = 'edit';
 
-    constructor(private snackBar: MatSnackBar) { }
+    constructor(private notification: AmwNotificationService) { }
 
     ngOnInit(): void {
         // Initialize component
@@ -389,12 +382,12 @@ export class FormPageDemoComponent implements OnInit, OnDestroy {
     }
 
     onFormSubmit(data: any): void {
-        this.snackBar.open('Form submitted successfully', 'Close', { duration: 3000 });
+        this.notification.success('Success', 'Form submitted successfully', { duration: 3000 });
         console.log('Form submitted:', data);
     }
 
     onFormCancel(): void {
-        this.snackBar.open('Form cancelled', 'Close', { duration: 2000 });
+        this.notification.info('Info', 'Form cancelled', { duration: 2000 });
         console.log('Form cancelled');
     }
 
@@ -403,17 +396,17 @@ export class FormPageDemoComponent implements OnInit, OnDestroy {
     }
 
     onFormSave(data: any): void {
-        this.snackBar.open('Form saved successfully', 'Close', { duration: 2000 });
+        this.notification.success('Success', 'Form saved successfully', { duration: 2000 });
         console.log('Form saved:', data);
     }
 
     onFormDelete(): void {
-        this.snackBar.open('Form cancelled', 'Close', { duration: 2000 });
+        this.notification.info('Info', 'Form cancelled', { duration: 2000 });
         console.log('Form cancelled');
     }
 
     onFormReset(): void {
-        this.snackBar.open('Form reset', 'Close', { duration: 2000 });
+        this.notification.info('Info', 'Form reset', { duration: 2000 });
         console.log('Form reset');
     }
 
@@ -434,7 +427,7 @@ export class FormPageDemoComponent implements OnInit, OnDestroy {
                         icon: 'settings',
                         color: 'accent',
                         onClick: (formData: any) => {
-                            this.snackBar.open('Advanced options clicked', 'Close', { duration: 2000 });
+                            this.notification.info('Info', 'Advanced options clicked', { duration: 2000 });
                         }
                     }
                 ]

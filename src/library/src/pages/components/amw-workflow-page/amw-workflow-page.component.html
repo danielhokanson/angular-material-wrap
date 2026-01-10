@@ -11,22 +11,19 @@
 
       <div class="amw-workflow-page__header-actions">
         @if (currentConfig.showCancelButton) {
-          <button mat-raised-button (click)="onCancelWorkflow()">
-            <mat-icon>cancel</mat-icon>
+          <amw-button variant="elevated" icon="cancel" iconPosition="left" (click)="onCancelWorkflow()">
             Cancel
-          </button>
+          </amw-button>
         }
         @if (currentConfig.showSaveButton) {
-          <button mat-raised-button (click)="onSaveWorkflow()">
-            <mat-icon>save</mat-icon>
+          <amw-button variant="elevated" icon="save" iconPosition="left" (click)="onSaveWorkflow()">
             Save
-          </button>
+          </amw-button>
         }
         @if (currentConfig.showResetButton) {
-          <button mat-raised-button (click)="onResetWorkflow()">
-            <mat-icon>refresh</mat-icon>
+          <amw-button variant="elevated" icon="refresh" iconPosition="left" (click)="onResetWorkflow()">
             Reset
-          </button>
+          </amw-button>
         }
       </div>
     </div>
@@ -34,11 +31,11 @@
 
   <!-- Progress Bar -->
   <div class="amw-workflow-page__progress">
-    <mat-progress-bar
+    <amw-progress-bar
       mode="determinate"
       [value]="getProgressPercentage()"
       class="amw-workflow-page__progress-bar">
-    </mat-progress-bar>
+    </amw-progress-bar>
     <div class="amw-workflow-page__progress-text">
       Step {{ currentData.currentStep + 1 }} of {{ currentData.totalSteps }}
       ({{ Math.round(getProgressPercentage()) }}% complete)
@@ -48,7 +45,7 @@
   <!-- Loading State -->
   @if (loading) {
     <div class="amw-workflow-page__loading">
-      <mat-spinner diameter="40"></mat-spinner>
+      <amw-progress-spinner diameter="40"></amw-progress-spinner>
       <p>Loading workflow...</p>
     </div>
   }
@@ -58,7 +55,7 @@
     <div class="amw-workflow-page__error">
       <mat-icon>error</mat-icon>
       <p>{{ error }}</p>
-      <button mat-raised-button color="primary" (click)="loadWorkflow()">Retry</button>
+      <amw-button variant="elevated" color="primary" (click)="loadWorkflow()">Retry</amw-button>
     </div>
   }
 
@@ -118,33 +115,33 @@
       <div class="amw-workflow-page__navigation">
         <div class="amw-workflow-page__navigation-buttons">
           @if (canGoPrevious()) {
-            <button mat-raised-button
+            <amw-button variant="elevated"
+              icon="arrow_back"
+              iconPosition="left"
               (click)="onPreviousStep()"
-              [disabled]="!canGoPrevious()"
-              >
-              <mat-icon>arrow_back</mat-icon>
+              [disabled]="!canGoPrevious()">
               Previous
-            </button>
+            </amw-button>
           }
           @if (canGoNext()) {
-            <button mat-raised-button
+            <amw-button variant="elevated"
+              icon="arrow_forward"
+              iconPosition="right"
               color="primary"
               (click)="onNextStep()"
-              [disabled]="!canGoNext()"
-              >
+              [disabled]="!canGoNext()">
               Next
-              <mat-icon>arrow_forward</mat-icon>
-            </button>
+            </amw-button>
           }
           @if (isWorkflowComplete()) {
-            <button mat-raised-button
+            <amw-button variant="elevated"
+              icon="check"
+              iconPosition="left"
               color="primary"
               (click)="onCompleteWorkflow()"
-              [disabled]="saving"
-              >
-              <mat-icon>check</mat-icon>
+              [disabled]="saving">
               {{ saving ? 'Completing...' : 'Complete Workflow' }}
-            </button>
+            </amw-button>
           }
         </div>
       </div>

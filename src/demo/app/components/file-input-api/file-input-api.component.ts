@@ -1,12 +1,13 @@
 import { Component, ViewEncapsulation } from '@angular/core';
 
-import { MatCardModule } from '@angular/material/card';
 import { BaseApiComponent, ApiDocumentation } from '../base/base-api.component';
 
 @Component({
     selector: 'amw-demo-file-input-api',
     standalone: true,
-    imports: [MatCardModule],
+    imports: [
+    
+],
     encapsulation: ViewEncapsulation.None,
     templateUrl: './file-input-api.component.html',
     styleUrl: './file-input-api.component.scss'
@@ -211,8 +212,6 @@ export class FileInputApiComponent extends BaseApiComponent {
             description: 'Upload progress information for a file'
         }
     ];
-
-
     constructor() {
 
         super();
@@ -220,6 +219,4 @@ export class FileInputApiComponent extends BaseApiComponent {
     }
 
 }
-
-
 

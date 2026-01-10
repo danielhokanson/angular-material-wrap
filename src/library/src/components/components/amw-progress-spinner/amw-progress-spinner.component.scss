@@ -1,0 +1,33 @@
+@use '../../../styles/theme' as theme;
+
+.amw-progress-spinner {
+  display: inline-block;
+}
+
+.amw-progress-spinner__container {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.amw-progress-spinner__label {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  font-size: 12px;
+  font-weight: 500;
+  pointer-events: none;
+}
+
+.amw-progress-spinner--with-label {
+  .amw-progress-spinner__container {
+    padding: 8px;
+  }
+}
+
+// Material 3 theming
+:root {
+  --amw-progress-spinner-color: var(--mat-progress-spinner-color, var(--mat-sys-primary));
+}

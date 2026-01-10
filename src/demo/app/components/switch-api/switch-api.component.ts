@@ -1,12 +1,13 @@
 import { Component, ViewEncapsulation } from '@angular/core';
 
-import { MatCardModule } from '@angular/material/card';
 import { BaseApiComponent, ApiDocumentation } from '../base/base-api.component';
 
 @Component({
     selector: 'amw-demo-switch-api',
     standalone: true,
-    imports: [MatCardModule],
+    imports: [
+    
+],
     encapsulation: ViewEncapsulation.None,
     templateUrl: './switch-api.component.html',
     styleUrl: './switch-api.component.scss'
@@ -128,8 +129,6 @@ export class SwitchApiComponent extends BaseApiComponent {
             description: 'Configuration interface for the switch'
         }
     ];
-
-
     constructor() {
 
         super();
@@ -137,6 +136,4 @@ export class SwitchApiComponent extends BaseApiComponent {
     }
 
 }
-
-
 

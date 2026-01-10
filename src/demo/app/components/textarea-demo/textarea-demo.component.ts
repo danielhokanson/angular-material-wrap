@@ -1,7 +1,5 @@
 import { Component, ViewEncapsulation } from '@angular/core';
 
-import { MatCardModule } from '@angular/material/card';
-import { MatButtonModule } from '@angular/material/button';
 import { MatIconModule } from '@angular/material/icon';
 
 import { AmwTextareaComponent } from '../../../../library/src/controls/components/amw-textarea/amw-textarea.component';
@@ -12,8 +10,6 @@ import { MatFormFieldAppearance } from '@angular/material/form-field';
     selector: 'amw-demo-textarea',
     standalone: true,
     imports: [
-    MatCardModule,
-    MatButtonModule,
     MatIconModule,
     AmwTextareaComponent
 ],

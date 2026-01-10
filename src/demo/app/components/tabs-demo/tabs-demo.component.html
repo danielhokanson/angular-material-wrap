@@ -9,17 +9,17 @@
         <div class="tab-content">
           <h4>First Tab Content</h4>
           <p>This is the content of the first tab. You can put any content here.</p>
-          <mat-form-field appearance="outline">
-            <mat-label>Sample Input</mat-label>
-            <input matInput placeholder="Enter some text">
-          </mat-form-field>
+          <amw-input
+            label="Sample Input"
+            placeholder="Enter some text">
+          </amw-input>
         </div>
       </mat-tab>
       <mat-tab label="Second">
         <div class="tab-content">
           <h4>Second Tab Content</h4>
           <p>This is the content of the second tab with different content.</p>
-          <button mat-raised-button color="primary">Sample Button</button>
+          <amw-button variant="elevated" color="primary">Sample Button</amw-button>
         </div>
       </mat-tab>
       <mat-tab label="Third">
@@ -76,8 +76,8 @@
   <div class="demo-section">
     <h3>Dynamic Tabs</h3>
     <div class="tab-controls">
-      <button mat-raised-button (click)="addTab()">Add Tab</button>
-      <button mat-button (click)="removeTab()" [disabled]="tabs.length <= 1">Remove Tab</button>
+      <amw-button variant="elevated" (click)="addTab()">Add Tab</amw-button>
+      <amw-button variant="text" (click)="removeTab()" [disabled]="tabs.length <= 1">Remove Tab</amw-button>
     </div>
     <mat-tab-group [(selectedIndex)]="selectedTabIndex">
       @for (tab of tabs; track tab; let i = $index) {

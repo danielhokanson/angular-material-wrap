@@ -1,12 +1,8 @@
 import { Component, ViewEncapsulation } from '@angular/core';
 import { FormsModule } from '@angular/forms';
-import { MatExpansionModule } from '@angular/material/expansion';
-import { MatButtonModule } from '@angular/material/button';
 import { MatIconModule } from '@angular/material/icon';
-import { MatTableModule } from '@angular/material/table';
 import { MatSortModule } from '@angular/material/sort';
 import { MatPaginatorModule } from '@angular/material/paginator';
-import { MatCheckboxModule } from '@angular/material/checkbox';
 import { BaseCodeComponent } from '../base/base-code.component';
 
 export interface PeriodicElement {
@@ -17,20 +13,21 @@ export interface PeriodicElement {
 }
 
 type DataTableExamples = 'basic' | 'sorting' | 'pagination' | 'selection' | 'actions' | 'filtering';
+import { MatExpansionModule } from '@angular/material/expansion';
+import { MatCheckboxModule } from '@angular/material/checkbox';
 
+import { AmwButtonComponent } from '../../../../library/src/controls/components/amw-button/amw-button.component';
 @Component({
   selector: 'amw-demo-data-table-code',
   standalone: true,
-  imports: [
-    FormsModule,
-    MatExpansionModule,
-    MatButtonModule,
+  imports: [FormsModule,
     MatIconModule,
-    MatTableModule,
     MatSortModule,
     MatPaginatorModule,
-    MatCheckboxModule
-  ],
+    MatIconModule,
+    MatExpansionModule,
+    MatCheckboxModule,
+    AmwButtonComponent],
   encapsulation: ViewEncapsulation.None,
   templateUrl: './data-table-code.component.html',
   styleUrl: './data-table-code.component.scss'
@@ -46,8 +43,7 @@ export class DataTableCodeComponent extends BaseCodeComponent<DataTableExamples>
     {position: 2, name: 'Helium', weight: 4.0026, symbol: 'He'},
     {position: 3, name: 'Lithium', weight: 6.941, symbol: 'Li'},
     {position: 4, name: 'Beryllium', weight: 9.0122, symbol: 'Be'},
-    {position: 5, name: 'Boron', weight: 10.811, symbol: 'B'},
-  ];
+    {position: 5, name: 'Boron', weight: 10.811, symbol: 'B'}];
 
   selection: PeriodicElement[] = [];
 
@@ -145,12 +141,10 @@ export class DataTableCodeComponent extends BaseCodeComponent<DataTableExamples>
   <ng-container matColumnDef="actions">
     <th mat-header-cell *matHeaderCellDef>Actions</th>
     <td mat-cell *matCellDef="let element">
-      <button mat-icon-button (click)="onEdit(element)">
-        <mat-icon>edit</mat-icon>
-      </button>
-      <button mat-icon-button (click)="onDelete(element)">
-        <mat-icon>delete</mat-icon>
-      </button>
+      <amw-button variant="icon" icon="edit" (click)="onEdit(element)">
+      </amw-button>
+      <amw-button variant="icon" icon="delete" (click)="onDelete(element)">
+      </amw-button>
     </td>
   </ng-container>
 
@@ -158,10 +152,11 @@ export class DataTableCodeComponent extends BaseCodeComponent<DataTableExamples>
   <tr mat-row *matRowDef="let row; columns: displayedColumnsWithActions;"></tr>
 </table>`,
 
-    filtering: `<mat-form-field>
-  <mat-label>Filter</mat-label>
-  <input matInput (keyup)="applyFilter($event)" placeholder="Ex. Hydrogen">
-</mat-form-field>
+    filtering: `<amw-input
+  label="Filter"
+  (input)="applyFilter($event)"
+  placeholder="Ex. Hydrogen">
+</amw-input>
 
 <table mat-table [dataSource]="dataSource">
   <!-- Column definitions here -->

@@ -1,26 +1,24 @@
 import { Component, ViewEncapsulation, OnInit } from '@angular/core';
 import { FormsModule, ReactiveFormsModule, FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { MatExpansionModule } from '@angular/material/expansion';
-import { MatButtonModule } from '@angular/material/button';
 import { MatIconModule } from '@angular/material/icon';
 import { CommonModule } from '@angular/common';
 import { BaseCodeComponent } from '../base/base-code.component';
 import { AmwFileInputComponent } from '../../../../library/src/controls/components/amw-file-input/amw-file-input.component';
 
 type FileInputExamples = 'basic' | 'configured' | 'formControl' | 'validation' | 'dragDrop' | 'fileTypes';
+import { MatExpansionModule } from '@angular/material/expansion';
 
+import { AmwButtonComponent } from '../../../../library/src/controls/components/amw-button/amw-button.component';
 @Component({
   selector: 'amw-demo-file-input-code',
   standalone: true,
-  imports: [
-    CommonModule,
+  imports: [CommonModule,
     FormsModule,
     ReactiveFormsModule,
-    MatExpansionModule,
-    MatButtonModule,
     MatIconModule,
-    AmwFileInputComponent
-  ],
+    AmwFileInputComponent,
+    MatExpansionModule,
+    AmwButtonComponent],
   encapsulation: ViewEncapsulation.None,
   templateUrl: './file-input-code.component.html',
   styleUrl: './file-input-code.component.scss'
@@ -220,6 +218,4 @@ export class MyComponent {
     return '';
   }
 }
-
-
 

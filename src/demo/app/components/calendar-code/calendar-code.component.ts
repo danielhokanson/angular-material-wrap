@@ -1,29 +1,23 @@
 import { Component, ViewEncapsulation } from '@angular/core';
 import { FormsModule } from '@angular/forms';
-import { MatDatepickerModule } from '@angular/material/datepicker';
-import { MatCardModule } from '@angular/material/card';
 import { MatNativeDateModule } from '@angular/material/core';
 import { MatIconModule } from '@angular/material/icon';
-import { MatButtonModule } from '@angular/material/button';
-import { MatExpansionModule } from '@angular/material/expansion';
-import { MatInputModule } from '@angular/material/input';
-import { MatFormFieldModule } from '@angular/material/form-field';
 import { BaseCodeComponent } from '../base/base-code.component';
 
 type CalendarExamples = 'basic' | 'range' | 'minMax' | 'filter' | 'customClass';
+import { MatExpansionModule } from '@angular/material/expansion';
+import { MatCardModule } from '@angular/material/card';
 
+import { AmwButtonComponent } from '../../../../library/src/controls/components/amw-button/amw-button.component';
 @Component({
   selector: 'amw-demo-calendar-code',
   standalone: true,
-  imports: [
-    FormsModule,
-    MatDatepickerModule,
-    MatCardModule,
+  imports: [FormsModule,
     MatNativeDateModule,
     MatIconModule,
-    MatButtonModule,
-    MatExpansionModule
-  ],
+    MatExpansionModule,
+    MatCardModule,
+    AmwButtonComponent],
   encapsulation: ViewEncapsulation.None,
   templateUrl: './calendar-code.component.html',
   styleUrl: './calendar-code.component.scss'

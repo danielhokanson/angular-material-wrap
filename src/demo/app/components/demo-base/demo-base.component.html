@@ -15,23 +15,23 @@
             <div class="demo-control-description" *ngIf="prop.description">{{ prop.description }}</div>
             
             <!-- String Input -->
-            <mat-form-field *ngIf="prop.type === 'string'" appearance="outline" class="demo-control-input">
-              <input 
-                matInput 
-                [formControl]="getFormControl(prop.name)"
-                (input)="onInputChange(prop.name, $event)"
-                [placeholder]="prop.name">
-            </mat-form-field>
+            <amw-input
+              *ngIf="prop.type === 'string'"
+              [formControl]="getFormControl(prop.name)"
+              (input)="onInputChange(prop.name, $event)"
+              [placeholder]="prop.name"
+              class="demo-control-input">
+            </amw-input>
 
             <!-- Number Input -->
-            <mat-form-field *ngIf="prop.type === 'number'" appearance="outline" class="demo-control-input">
-              <input 
-                matInput 
-                type="number"
-                [formControl]="getFormControl(prop.name)"
-                (input)="onNumberInputChange(prop.name, $event)"
-                [placeholder]="prop.name">
-            </mat-form-field>
+            <amw-input
+              *ngIf="prop.type === 'number'"
+              type="number"
+              [formControl]="getFormControl(prop.name)"
+              (input)="onNumberInputChange(prop.name, $event)"
+              [placeholder]="prop.name"
+              class="demo-control-input">
+            </amw-input>
 
             <!-- Boolean Toggle -->
             <mat-slide-toggle 
@@ -43,15 +43,15 @@
             </mat-slide-toggle>
 
             <!-- Select Dropdown -->
-            <mat-form-field *ngIf="prop.type === 'select'" appearance="outline" class="demo-control-input">
-                          <mat-select 
+            <amw-select
+              *ngIf="prop.type === 'select'"
               [formControl]="getFormControl(prop.name)"
-              (selectionChange)="onSelectChange(prop.name, $event)">
-                <mat-option *ngFor="let option of prop.options" [value]="option.value">
-                  {{ option.label }}
-                </mat-option>
-              </mat-select>
-            </mat-form-field>
+              (selectionChange)="onSelectChange(prop.name, $event)"
+              class="demo-control-input">
+              <mat-option *ngFor="let option of prop.options" [value]="option.value">
+                {{ option.label }}
+              </mat-option>
+            </amw-select>
 
             <!-- Slider -->
             <div *ngIf="prop.type === 'slider'" class="demo-control-slider">
@@ -70,7 +70,7 @@
       </div>
 
       <div class="demo-controls-actions">
-        <button mat-button (click)="resetProperties()">Reset</button>
+        <amw-button variant="text" (click)="resetProperties()">Reset</amw-button>
       </div>
     </div>
 

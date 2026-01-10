@@ -1,17 +1,17 @@
 import { Component, Input, Output, EventEmitter, OnInit, OnChanges, OnDestroy, ChangeDetectorRef, SimpleChanges, ViewEncapsulation } from '@angular/core';
 
 import { FormsModule } from '@angular/forms';
-import { MatButtonModule } from '@angular/material/button';
 import { MatIconModule } from '@angular/material/icon';
-import { MatTooltipModule } from '@angular/material/tooltip';
 import { MatCardModule } from '@angular/material/card';
 import { MatChipsModule } from '@angular/material/chips';
-import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { MatDialog } from '@angular/material/dialog';
 import { AmwCalendarBaseComponent } from './amw-calendar-base.component';
 import { CalendarEvent, CalendarEventChangeEvent, CalendarConfig, CalendarView, CalendarNavigationEvent } from './interfaces';
 import { CalendarItemRegistryService } from './services/calendar-item-registry.service';
 import { CalendarItemPopoverService } from './services/calendar-item-popover.service';
+import { AmwProgressSpinnerComponent } from '../amw-progress-spinner/amw-progress-spinner.component';
+import { AmwButtonComponent } from '../../../controls/components/amw-button/amw-button.component';
+import { AmwTooltipDirective } from '../../../directives';
 
 /**
  * AMW Calendar Mini Component
@@ -22,12 +22,12 @@ import { CalendarItemPopoverService } from './services/calendar-item-popover.ser
     standalone: true,
     imports: [
     FormsModule,
-    MatButtonModule,
+    AmwButtonComponent,
     MatIconModule,
-    MatTooltipModule,
+    AmwTooltipDirective,
     MatCardModule,
     MatChipsModule,
-    MatProgressSpinnerModule
+    AmwProgressSpinnerComponent
 ],
     templateUrl: './amw-calendar-mini.component.html',
     styleUrl: './amw-calendar-mini.component.scss',

@@ -1,25 +1,18 @@
 import { Component, OnInit, ViewEncapsulation } from '@angular/core';
 
 import { ReactiveFormsModule, FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { MatFormFieldModule } from '@angular/material/form-field';
-import { MatInputModule } from '@angular/material/input';
-import { MatButtonModule } from '@angular/material/button';
-import { MatSnackBar, MatSnackBarModule } from '@angular/material/snack-bar';
-import { MatCardModule } from '@angular/material/card';
+import { AmwNotificationService } from '../../../../library/src/services/amw-notification/amw-notification.service';
 import { AmwTimepickerComponent } from '../../../../library/src/controls/components/amw-timepicker/amw-timepicker.component';
+import { MatCardModule } from '@angular/material/card';
 
+import { AmwButtonComponent } from '../../../../library/src/controls/components/amw-button/amw-button.component';
 @Component({
     selector: 'amw-demo-timepicker-validation',
     standalone: true,
-    imports: [
-    ReactiveFormsModule,
-    MatFormFieldModule,
-    MatInputModule,
-    MatButtonModule,
-    MatSnackBarModule,
+    imports: [ReactiveFormsModule,
+    AmwTimepickerComponent,
     MatCardModule,
-    AmwTimepickerComponent
-],
+    AmwButtonComponent],
     encapsulation: ViewEncapsulation.None,
     templateUrl: './timepicker-validation.component.html',
     styleUrl: './timepicker-validation.component.scss'
@@ -29,7 +22,7 @@ export class TimepickerValidationComponent implements OnInit {
 
     constructor(
         private fb: FormBuilder,
-        private snackBar: MatSnackBar
+        private notification: AmwNotificationService
     ) {
         this.timepickerForm = this.fb.group({
             startTime: ['', Validators.required],
@@ -72,18 +65,10 @@ export class TimepickerValidationComponent implements OnInit {
 
     onSubmit() {
         if (this.timepickerForm.valid) {
-            this.snackBar.open('Form submitted successfully!', 'Close', {
-                duration: 3000,
-                horizontalPosition: 'center',
-                verticalPosition: 'top'
-            });
+            this.notification.success('Success', 'Form submitted successfully!', { duration: 3000 });
             console.log('Form values:', this.timepickerForm.value);
         } else {
-            this.snackBar.open('Please fill in all required fields correctly', 'Close', {
-                duration: 3000,
-                horizontalPosition: 'center',
-                verticalPosition: 'top'
-            });
+            this.notification.info('Info', 'Please fill in all required fields correctly', { duration: 3000 });
         }
     }
 

@@ -1,23 +1,21 @@
 import { Component, ViewEncapsulation } from '@angular/core';
 import { FormsModule } from '@angular/forms';
-import { MatExpansionModule } from '@angular/material/expansion';
-import { MatCardModule } from '@angular/material/card';
-import { MatButtonModule } from '@angular/material/button';
 import { MatIconModule } from '@angular/material/icon';
 import { BaseCodeComponent } from '../base/base-code.component';
 
 type CardExamples = 'basic' | 'withImage' | 'clickable' | 'variants';
+import { MatExpansionModule } from '@angular/material/expansion';
+import { MatCardModule } from '@angular/material/card';
 
+import { AmwButtonComponent } from '../../../../library/src/controls/components/amw-button/amw-button.component';
 @Component({
     selector: 'amw-demo-card-code',
     standalone: true,
-    imports: [
-        FormsModule,
-        MatExpansionModule,
-        MatCardModule,
-        MatButtonModule,
-        MatIconModule
-    ],
+    imports: [FormsModule,
+    MatIconModule,
+    MatExpansionModule,
+    MatCardModule,
+    AmwButtonComponent],
     encapsulation: ViewEncapsulation.None,
     templateUrl: './card-code.component.html',
     styleUrl: './card-code.component.scss'
@@ -34,8 +32,8 @@ export class CardCodeComponent extends BaseCodeComponent<CardExamples> {
     <p>This is a basic card with title, subtitle, and content.</p>
   </mat-card-content>
   <mat-card-actions>
-    <button mat-button>ACTION 1</button>
-    <button mat-button>ACTION 2</button>
+    <amw-button variant="text">ACTION 1</amw-button>
+    <amw-button variant="text">ACTION 2</amw-button>
   </mat-card-actions>
 </mat-card>`,
 
@@ -49,8 +47,8 @@ export class CardCodeComponent extends BaseCodeComponent<CardExamples> {
     <p>The Shiba Inu is the smallest of the six original and distinct spitz breeds of dog from Japan.</p>
   </mat-card-content>
   <mat-card-actions>
-    <button mat-button>LIKE</button>
-    <button mat-button>SHARE</button>
+    <amw-button variant="text">LIKE</amw-button>
+    <amw-button variant="text">SHARE</amw-button>
   </mat-card-actions>
 </mat-card>`,
 
@@ -95,5 +93,4 @@ export class CardCodeComponent extends BaseCodeComponent<CardExamples> {
         console.log('Card clicked!');
     }
 }
-
 

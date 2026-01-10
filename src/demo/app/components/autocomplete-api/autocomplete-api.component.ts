@@ -1,11 +1,12 @@
 import { Component, ViewEncapsulation } from '@angular/core';
 import { BaseApiComponent, ApiDocumentation } from '../base/base-api.component';
 
-
 @Component({
   selector: 'amw-demo-autocomplete-api',
   standalone: true,
-  imports: [],
+  imports: [
+    
+],
   encapsulation: ViewEncapsulation.None,
   templateUrl: './autocomplete-api.component.html',
   styleUrl: './autocomplete-api.component.scss'

@@ -1,11 +1,7 @@
 import { Component, OnInit, ViewEncapsulation } from '@angular/core';
 
 import { ReactiveFormsModule, FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { MatFormFieldModule } from '@angular/material/form-field';
-import { MatAutocompleteModule } from '@angular/material/autocomplete';
-import { MatInputModule } from '@angular/material/input';
-import { MatButtonModule } from '@angular/material/button';
-import { MatSnackBar, MatSnackBarModule } from '@angular/material/snack-bar';
+import { AmwNotificationService } from '../../../../library/src/services/amw-notification/amw-notification.service';
 import { AmwAutocompleteComponent } from '../../../../library/src/controls/components/amw-autocomplete/amw-autocomplete.component';
 import { AmwButtonComponent } from '../../../../library/src/controls/components/amw-button/amw-button.component';
 
@@ -14,11 +10,8 @@ import { AmwButtonComponent } from '../../../../library/src/controls/components/
   standalone: true,
   imports: [
     ReactiveFormsModule,
-    MatFormFieldModule,
-    MatAutocompleteModule,
-    MatInputModule,
-    MatButtonModule,
-    MatSnackBarModule,
+    AmwAutocompleteComponent,
+    AmwButtonComponent,
     AmwAutocompleteComponent,
     AmwButtonComponent
 ],
@@ -71,7 +64,7 @@ export class AutocompleteValidationComponent implements OnInit {
 
   constructor(
     private fb: FormBuilder,
-    private snackBar: MatSnackBar
+    private notification: AmwNotificationService
   ) {
     this.validationForm = this.fb.group({
       country: ['', [Validators.required]],
@@ -86,9 +79,9 @@ export class AutocompleteValidationComponent implements OnInit {
 
   onSubmit(): void {
     if (this.validationForm.valid) {
-      this.snackBar.open('Form is valid! All autocomplete fields are properly filled.', 'Close', { duration: 3000 });
+      this.notification.success('Success', 'Form is valid! All autocomplete fields are properly filled.', { duration: 3000 });
     } else {
-      this.snackBar.open('Form has validation errors. Please check the autocomplete fields.', 'Close', { duration: 3000 });
+      this.notification.error('Error', 'Form has validation errors. Please check the autocomplete fields.', { duration: 3000 });
     }
   }
 

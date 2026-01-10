@@ -19,34 +19,38 @@
       </mat-expansion-panel-header>
 
       <form [formGroup]="personalInfoForm">
-        <mat-form-field appearance="outline">
-          <mat-label>First Name</mat-label>
-          <input matInput formControlName="firstName" placeholder="Enter your first name">
-          @if (personalInfoForm.get('firstName')?.invalid && personalInfoForm.get('firstName')?.touched) {
-            <mat-error>{{ getErrorMessage(personalInfoForm, 'firstName') }}</mat-error>
-          }
-        </mat-form-field>
+        <amw-input
+          label="First Name"
+          formControlName="firstName"
+          placeholder="Enter your first name">
+        </amw-input>
+        @if (personalInfoForm.get('firstName')?.invalid && personalInfoForm.get('firstName')?.touched) {
+          <div class="field-error">{{ getErrorMessage(personalInfoForm, 'firstName') }}</div>
+        }
 
-        <mat-form-field appearance="outline">
-          <mat-label>Last Name</mat-label>
-          <input matInput formControlName="lastName" placeholder="Enter your last name">
-          @if (personalInfoForm.get('lastName')?.invalid && personalInfoForm.get('lastName')?.touched) {
-            <mat-error>{{ getErrorMessage(personalInfoForm, 'lastName') }}</mat-error>
-          }
-        </mat-form-field>
+        <amw-input
+          label="Last Name"
+          formControlName="lastName"
+          placeholder="Enter your last name">
+        </amw-input>
+        @if (personalInfoForm.get('lastName')?.invalid && personalInfoForm.get('lastName')?.touched) {
+          <div class="field-error">{{ getErrorMessage(personalInfoForm, 'lastName') }}</div>
+        }
 
-        <mat-form-field appearance="outline">
-          <mat-label>Email</mat-label>
-          <input matInput type="email" formControlName="email" placeholder="your@email.com">
-          @if (personalInfoForm.get('email')?.invalid && personalInfoForm.get('email')?.touched) {
-            <mat-error>{{ getErrorMessage(personalInfoForm, 'email') }}</mat-error>
-          }
-        </mat-form-field>
+        <amw-input
+          label="Email"
+          type="email"
+          formControlName="email"
+          placeholder="your@email.com">
+        </amw-input>
+        @if (personalInfoForm.get('email')?.invalid && personalInfoForm.get('email')?.touched) {
+          <div class="field-error">{{ getErrorMessage(personalInfoForm, 'email') }}</div>
+        }
 
         <div class="button-row">
-          <button mat-raised-button color="primary" (click)="nextStep()" [disabled]="!personalInfoForm.valid">
+          <amw-button variant="elevated" color="primary" (click)="nextStep()" [disabled]="!personalInfoForm.valid">
             Next <mat-icon>arrow_forward</mat-icon>
-          </button>
+          </amw-button>
         </div>
       </form>
     </mat-expansion-panel>
@@ -67,45 +71,47 @@
       </mat-expansion-panel-header>
 
       <form [formGroup]="contactForm">
-        <mat-form-field appearance="outline">
-          <mat-label>Phone Number</mat-label>
-          <input matInput formControlName="phone" placeholder="1234567890">
-          @if (contactForm.get('phone')?.invalid && contactForm.get('phone')?.touched) {
-            <mat-error>{{ getErrorMessage(contactForm, 'phone') }}</mat-error>
-          }
-        </mat-form-field>
+        <amw-input
+          label="Phone Number"
+          formControlName="phone"
+          placeholder="1234567890">
+        </amw-input>
+        @if (contactForm.get('phone')?.invalid && contactForm.get('phone')?.touched) {
+          <div class="field-error">{{ getErrorMessage(contactForm, 'phone') }}</div>
+        }
 
-        <mat-form-field appearance="outline">
-          <mat-label>Address</mat-label>
-          <input matInput formControlName="address" placeholder="123 Main St">
-          @if (contactForm.get('address')?.invalid && contactForm.get('address')?.touched) {
-            <mat-error>{{ getErrorMessage(contactForm, 'address') }}</mat-error>
-          }
-        </mat-form-field>
+        <amw-input
+          label="Address"
+          formControlName="address"
+          placeholder="123 Main St">
+        </amw-input>
+        @if (contactForm.get('address')?.invalid && contactForm.get('address')?.touched) {
+          <div class="field-error">{{ getErrorMessage(contactForm, 'address') }}</div>
+        }
 
-        <mat-form-field appearance="outline">
-          <mat-label>City</mat-label>
-          <input matInput formControlName="city" placeholder="Your City">
-          @if (contactForm.get('city')?.invalid && contactForm.get('city')?.touched) {
-            <mat-error>{{ getErrorMessage(contactForm, 'city') }}</mat-error>
-          }
-        </mat-form-field>
+        <amw-input
+          label="City"
+          formControlName="city"
+          placeholder="Your City">
+        </amw-input>
+        @if (contactForm.get('city')?.invalid && contactForm.get('city')?.touched) {
+          <div class="field-error">{{ getErrorMessage(contactForm, 'city') }}</div>
+        }
 
-        <mat-form-field appearance="outline">
-          <mat-label>ZIP Code</mat-label>
-          <input matInput formControlName="zipCode" placeholder="12345">
-          @if (contactForm.get('zipCode')?.invalid && contactForm.get('zipCode')?.touched) {
-            <mat-error>{{ getErrorMessage(contactForm, 'zipCode') }}</mat-error>
-          }
-        </mat-form-field>
+        <amw-input
+          label="ZIP Code"
+          formControlName="zipCode"
+          placeholder="12345">
+        </amw-input>
+        @if (contactForm.get('zipCode')?.invalid && contactForm.get('zipCode')?.touched) {
+          <div class="field-error">{{ getErrorMessage(contactForm, 'zipCode') }}</div>
+        }
 
         <div class="button-row">
-          <button mat-button (click)="prevStep()">
-            <mat-icon>arrow_back</mat-icon> Previous
-          </button>
-          <button mat-raised-button color="primary" (click)="nextStep()" [disabled]="!contactForm.valid">
+          <amw-button variant="text" (click)="prevStep()" icon="arrow_back" iconPosition="left">Previous</amw-button>
+          <amw-button variant="elevated" color="primary" (click)="nextStep()" [disabled]="!contactForm.valid">
             Next <mat-icon>arrow_forward</mat-icon>
-          </button>
+          </amw-button>
         </div>
       </form>
     </mat-expansion-panel>
@@ -132,16 +138,13 @@
         </div>
 
         <div class="button-row">
-          <button mat-button (click)="prevStep()">
-            <mat-icon>arrow_back</mat-icon> Previous
-          </button>
-          <button 
-            mat-raised-button 
+          <amw-button variant="text" (click)="prevStep()" icon="arrow_back" iconPosition="left">Previous</amw-button>
+          <amw-button variant="elevated" 
             color="primary" 
             (click)="onSubmit()" 
             [disabled]="!personalInfoForm.valid || !contactForm.valid || !preferencesForm.valid">
             Submit <mat-icon>check</mat-icon>
-          </button>
+          </amw-button>
         </div>
       </form>
     </mat-expansion-panel>

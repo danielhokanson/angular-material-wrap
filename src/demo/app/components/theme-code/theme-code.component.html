@@ -16,9 +16,7 @@
         <div class="code-panel">
           <div class="code-header">
             <h4>Code</h4>
-            <button mat-icon-button (click)="resetCode('colorPalette')" title="Reset to original">
-              <mat-icon>refresh</mat-icon>
-            </button>
+            <amw-button variant="icon" icon="refresh" (click)="resetCode('colorPalette')" title="Reset to original"></amw-button>
           </div>
           <textarea
             [(ngModel)]="editableCode.colorPalette"
@@ -28,9 +26,9 @@
         <div class="preview-panel">
           <h4>Preview</h4>
           <div class="preview-content">
-            <button mat-raised-button color="primary">Primary</button>
-            <button mat-raised-button color="accent">Accent</button>
-            <button mat-raised-button color="warn">Warn</button>
+            <amw-button variant="elevated" color="primary">Primary</amw-button>
+            <amw-button variant="elevated" color="accent">Accent</amw-button>
+            <amw-button variant="elevated" color="warn">Warn</amw-button>
           </div>
         </div>
       </div>
@@ -49,9 +47,7 @@
         <div class="code-panel">
           <div class="code-header">
             <h4>Code</h4>
-            <button mat-icon-button (click)="resetCode('cssVariables')" title="Reset to original">
-              <mat-icon>refresh</mat-icon>
-            </button>
+            <amw-button variant="icon" icon="refresh" (click)="resetCode('cssVariables')" title="Reset to original"></amw-button>
           </div>
           <textarea
             [(ngModel)]="editableCode.cssVariables"
@@ -86,9 +82,7 @@
         <div class="code-panel">
           <div class="code-header">
             <h4>Code</h4>
-            <button mat-icon-button (click)="resetCode('componentTheming')" title="Reset to original">
-              <mat-icon>refresh</mat-icon>
-            </button>
+            <amw-button variant="icon" icon="refresh" (click)="resetCode('componentTheming')" title="Reset to original"></amw-button>
           </div>
           <textarea
             [(ngModel)]="editableCode.componentTheming"
@@ -106,7 +100,7 @@
                 Content styled with theme colors
               </mat-card-content>
               <mat-card-actions>
-                <button mat-button color="primary">Action</button>
+                <amw-button variant="text" color="primary">Action</amw-button>
               </mat-card-actions>
             </mat-card>
           </div>
@@ -127,9 +121,7 @@
         <div class="code-panel">
           <div class="code-header">
             <h4>Code</h4>
-            <button mat-icon-button (click)="resetCode('darkMode')" title="Reset to original">
-              <mat-icon>refresh</mat-icon>
-            </button>
+            <amw-button variant="icon" icon="refresh" (click)="resetCode('darkMode')" title="Reset to original"></amw-button>
           </div>
           <textarea
             [(ngModel)]="editableCode.darkMode"
@@ -168,9 +160,7 @@
         <div class="code-panel">
           <div class="code-header">
             <h4>Code</h4>
-            <button mat-icon-button (click)="resetCode('customTheme')" title="Reset to original">
-              <mat-icon>refresh</mat-icon>
-            </button>
+            <amw-button variant="icon" icon="refresh" (click)="resetCode('customTheme')" title="Reset to original"></amw-button>
           </div>
           <textarea
             [(ngModel)]="editableCode.customTheme"
@@ -181,9 +171,9 @@
           <h4>Preview</h4>
           <div class="preview-content">
             <div class="custom-theme" style="--mdc-theme-primary: #ff5722; --mdc-theme-on-primary: #ffffff;">
-              <button mat-raised-button color="primary">
+              <amw-button variant="elevated" color="primary">
                 Custom Primary Color
-              </button>
+              </amw-button>
             </div>
             <div class="preview-note">
               <mat-icon>info</mat-icon>

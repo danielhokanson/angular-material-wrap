@@ -1,34 +1,28 @@
 import { Component, OnInit } from '@angular/core';
 
 import { ActivatedRoute } from '@angular/router';
-import { MatCardModule } from '@angular/material/card';
-import { MatTabsModule } from '@angular/material/tabs';
-import { MatButtonModule } from '@angular/material/button';
 import { MatIconModule } from '@angular/material/icon';
-import { MatFormFieldModule } from '@angular/material/form-field';
-import { MatInputModule } from '@angular/material/input';
-import { MatSelectModule } from '@angular/material/select';
 import { FormsModule } from '@angular/forms';
 import { ViewEncapsulation } from '@angular/core';
 import { AmwCurrencyPipe } from '../../../../library/src/pipes/amw-currency/amw-currency.pipe';
 import { AmwDatePipe } from '../../../../library/src/pipes/amw-date/amw-date.pipe';
 import { AmwTextTransformPipe } from '../../../../library/src/pipes/amw-text-transform/amw-text-transform.pipe';
+import { MatTabsModule } from '@angular/material/tabs';
+import { MatCardModule } from '@angular/material/card';
+import { AmwInputComponent } from '../../../../library/src/controls/components/amw-input/amw-input.component';
 
 @Component({
     selector: 'amw-demo-pipes',
     standalone: true,
     imports: [
-    MatCardModule,
-    MatTabsModule,
-    MatButtonModule,
     MatIconModule,
-    MatFormFieldModule,
-    MatInputModule,
-    MatSelectModule,
     FormsModule,
     AmwCurrencyPipe,
     AmwDatePipe,
-    AmwTextTransformPipe
+    AmwTextTransformPipe,
+    MatTabsModule,
+    MatCardModule,
+    AmwInputComponent
 ],
     encapsulation: ViewEncapsulation.None,
     templateUrl: './pipes-demo.component.html',
@@ -118,10 +112,12 @@ French Format: 1 234,56 €
 -->`,
 
         binding: `<!-- Using with component properties -->
-<mat-form-field appearance="outline">
-  <mat-label>Amount</mat-label>
-  <input matInput [(ngModel)]="price" type="number">
-</mat-form-field>
+<amw-input
+  label="Amount"
+  [(ngModel)]="price"
+  type="number"
+  appearance="outline">
+</amw-input>
 <p>Total: {{ price | amwCurrency:'USD' }}</p>
 
 <!-- Component -->
@@ -229,12 +225,11 @@ export class MyComponent {
 }`,
 
         binding: `<!-- Using with form data -->
-<mat-form-field appearance="outline">
-  <mat-label>Select Date</mat-label>
-  <input matInput [matDatepicker]="picker" [(ngModel)]="selectedDate">
-  <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
-  <mat-datepicker #picker></mat-datepicker>
-</mat-form-field>
+<amw-datepicker
+  label="Select Date"
+  [(ngModel)]="selectedDate"
+  appearance="outline">
+</amw-datepicker>
 <p>Selected: {{ selectedDate | amwDate:'long' }}</p>
 
 <!-- Component -->
@@ -366,22 +361,23 @@ From snake_case: myVariableName
 -->`,
 
         binding: `<!-- Using with component properties -->
-<mat-form-field appearance="outline">
-  <mat-label>Text to Transform</mat-label>
-  <input matInput [(ngModel)]="inputText">
-</mat-form-field>
+<amw-input
+  label="Text to Transform"
+  [(ngModel)]="inputText"
+  appearance="outline">
+</amw-input>
 
-<mat-form-field appearance="outline">
-  <mat-label>Transform Type</mat-label>
-  <mat-select [(ngModel)]="transformType">
-    <mat-option value="uppercase">Uppercase</mat-option>
-    <mat-option value="lowercase">Lowercase</mat-option>
-    <mat-option value="titlecase">Title Case</mat-option>
-    <mat-option value="camelcase">Camel Case</mat-option>
-    <mat-option value="kebabcase">Kebab Case</mat-option>
-    <mat-option value="snakecase">Snake Case</mat-option>
-  </mat-select>
-</mat-form-field>
+<amw-select
+  label="Transform Type"
+  [(ngModel)]="transformType"
+  appearance="outline">
+  <mat-option value="uppercase">Uppercase</mat-option>
+  <mat-option value="lowercase">Lowercase</mat-option>
+  <mat-option value="titlecase">Title Case</mat-option>
+  <mat-option value="camelcase">Camel Case</mat-option>
+  <mat-option value="kebabcase">Kebab Case</mat-option>
+  <mat-option value="snakecase">Snake Case</mat-option>
+</amw-select>
 
 <p>Result: {{ inputText | amwTextTransform:transformType }}</p>
 

@@ -19,7 +19,9 @@ export interface DemoSection {
 @Component({
     selector: 'amw-demo-layout',
     standalone: true,
-    imports: [CommonModule],
+    imports: [
+    CommonModule
+],
     template: `
     <div class="demo-layout">
       <div class="demo-section" *ngFor="let section of sections">

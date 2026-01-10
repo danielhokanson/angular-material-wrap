@@ -1,14 +1,7 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
 
-import { MatButtonModule } from '@angular/material/button';
 import { MatIconModule } from '@angular/material/icon';
-import { MatCardModule } from '@angular/material/card';
-import { MatFormFieldModule } from '@angular/material/form-field';
-import { MatInputModule } from '@angular/material/input';
-import { MatSelectModule } from '@angular/material/select';
-import { MatCheckboxModule } from '@angular/material/checkbox';
-import { MatSlideToggleModule } from '@angular/material/slide-toggle';
-import { MatSnackBar, MatSnackBarModule } from '@angular/material/snack-bar';
+import { AmwNotificationService } from '../../../../library/src/services/amw-notification/amw-notification.service';
 import { FormBuilder, FormGroup, Validators, ReactiveFormsModule } from '@angular/forms';
 import { Subject, takeUntil } from 'rxjs';
 import { AmwPopoverComponent } from '../../../../library/src/components/components/amw-popover/amw-popover.component';
@@ -16,28 +9,28 @@ import { PopoverConfig } from '../../../../library/src/components/components/amw
 import { PopoverTrigger } from '../../../../library/src/components/components/amw-popover/interfaces/popover-trigger.interface';
 import { PopoverService } from '../../../../library/src/components/services/popover.service';
 import { AmwSize } from '../../../../library/src/shared/types';
+import { MatOptionModule } from '@angular/material/core';
+import { MatCardModule } from '@angular/material/card';
+import { AmwButtonComponent } from '../../../../library/src/controls/components/amw-button/amw-button.component';
+import { AmwInputComponent } from '../../../../library/src/controls/components/amw-input/amw-input.component';
+import { AmwSelectComponent } from '../../../../library/src/controls/components/amw-select/amw-select.component';
 
 /**
  * Validation demo component for popover
- * 
+ *
  * Demonstrates form validation and error handling for popover configuration
  */
 @Component({
     selector: 'app-popover-validation',
     standalone: true,
-    imports: [
-    MatButtonModule,
-    MatIconModule,
-    MatCardModule,
-    MatFormFieldModule,
-    MatInputModule,
-    MatSelectModule,
-    MatCheckboxModule,
-    MatSlideToggleModule,
-    MatSnackBarModule,
+    imports: [MatIconModule,
     ReactiveFormsModule,
-    AmwPopoverComponent
-],
+    AmwPopoverComponent,
+    MatOptionModule,
+    MatCardModule,
+    AmwButtonComponent,
+    AmwInputComponent,
+    AmwSelectComponent],
     templateUrl: './popover-validation.component.html',
     styleUrl: './popover-validation.component.scss'
 })
@@ -69,7 +62,7 @@ export class PopoverValidationComponent implements OnInit, OnDestroy {
     constructor(
         private fb: FormBuilder,
         private popoverService: PopoverService,
-        private snackBar: MatSnackBar
+        private notification: AmwNotificationService
     ) {
         this.configForm = this.createConfigForm();
         this.triggerForm = this.createTriggerForm();
@@ -351,19 +344,11 @@ export class PopoverValidationComponent implements OnInit, OnDestroy {
             this.popoverService.setConfig(this.currentConfig);
             this.popoverService.setTrigger(this.currentTrigger);
 
-            this.snackBar.open('Configuration updated successfully!', 'Close', {
-                duration: 3000,
-                horizontalPosition: 'end',
-                verticalPosition: 'top'
-            });
+            this.notification.success('Success', 'Configuration updated successfully!', { duration: 3000 });
         } else {
             this.validateConfig();
             this.validateTrigger();
-            this.snackBar.open('Please fix the validation errors', 'Close', {
-                duration: 3000,
-                horizontalPosition: 'end',
-                verticalPosition: 'top'
-            });
+            this.notification.error('Error', 'Please fix the validation errors', { duration: 3000 });
         }
     }
 
@@ -380,44 +365,28 @@ export class PopoverValidationComponent implements OnInit, OnDestroy {
      * Handles popover before open
      */
     onPopoverBeforeOpen(): void {
-        this.snackBar.open('Popover is about to open', 'Close', {
-            duration: 2000,
-            horizontalPosition: 'end',
-            verticalPosition: 'top'
-        });
+        this.notification.info('Info', 'Popover is about to open', { duration: 2000 });
     }
 
     /**
      * Handles popover after open
      */
     onPopoverAfterOpen(): void {
-        this.snackBar.open('Popover opened', 'Close', {
-            duration: 2000,
-            horizontalPosition: 'end',
-            verticalPosition: 'top'
-        });
+        this.notification.info('Info', 'Popover opened', { duration: 2000 });
     }
 
     /**
      * Handles popover before close
      */
     onPopoverBeforeClose(): void {
-        this.snackBar.open('Popover is about to close', 'Close', {
-            duration: 2000,
-            horizontalPosition: 'end',
-            verticalPosition: 'top'
-        });
+        this.notification.info('Info', 'Popover is about to close', { duration: 2000 });
     }
 
     /**
      * Handles popover after close
      */
     onPopoverAfterClose(): void {
-        this.snackBar.open('Popover closed', 'Close', {
-            duration: 2000,
-            horizontalPosition: 'end',
-            verticalPosition: 'top'
-        });
+        this.notification.info('Info', 'Popover closed', { duration: 2000 });
     }
 
     /**

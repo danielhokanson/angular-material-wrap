@@ -1,11 +1,12 @@
 import { Component, ViewEncapsulation } from '@angular/core';
 import { BaseApiComponent, ApiDocumentation } from '../base/base-api.component';
 
-
 @Component({
   selector: 'amw-demo-slider-api',
   standalone: true,
-  imports: [],
+  imports: [
+    
+],
   encapsulation: ViewEncapsulation.None,
   templateUrl: './slider-api.component.html',
   styleUrl: './slider-api.component.scss'
@@ -91,7 +92,6 @@ export class SliderApiComponent extends BaseApiComponent {
       }
     ]
   };
-
 
     constructor() {
         super();

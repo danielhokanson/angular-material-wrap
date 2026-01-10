@@ -1,25 +1,8 @@
 import { Component, ViewEncapsulation, OnInit } from '@angular/core';
 
-import { MatButtonModule } from '@angular/material/button';
 import { MatIconModule } from '@angular/material/icon';
-import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
-import { MatFormFieldModule } from '@angular/material/form-field';
-import { MatInputModule } from '@angular/material/input';
-import { MatSelectModule } from '@angular/material/select';
-import { MatSliderModule } from '@angular/material/slider';
-import { MatSlideToggleModule } from '@angular/material/slide-toggle';
-import { MatCardModule } from '@angular/material/card';
-import { MatToolbarModule } from '@angular/material/toolbar';
-import { MatSidenavModule } from '@angular/material/sidenav';
-import { MatListModule } from '@angular/material/list';
-import { MatTooltipModule } from '@angular/material/tooltip';
-import { MatRippleModule } from '@angular/material/core';
-import { MatOptionModule } from '@angular/material/core';
-import { MatDividerModule } from '@angular/material/divider';
-import { MatExpansionModule } from '@angular/material/expansion';
-import { MatTabsModule } from '@angular/material/tabs';
-import { MatSnackBarModule, MatSnackBar } from '@angular/material/snack-bar';
 import { ReactiveFormsModule, FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { AmwNotificationService } from '../../../../library/src/services/amw-notification/amw-notification.service';
 
 import { AmwButtonComponent } from '../../../../library/src/controls/components/amw-button/amw-button.component';
 import { ButtonVariant } from '../../../../library/src/controls/components/amw-button/interfaces/button.interface';
@@ -30,25 +13,7 @@ import { AmwSize, AmwColor } from '../../../../library/src/shared/types';
     standalone: true,
     imports: [
     ReactiveFormsModule,
-    MatButtonModule,
     MatIconModule,
-    MatProgressSpinnerModule,
-    MatFormFieldModule,
-    MatInputModule,
-    MatSelectModule,
-    MatSliderModule,
-    MatSlideToggleModule,
-    MatCardModule,
-    MatToolbarModule,
-    MatSidenavModule,
-    MatListModule,
-    MatTooltipModule,
-    MatRippleModule,
-    MatOptionModule,
-    MatDividerModule,
-    MatExpansionModule,
-    MatTabsModule,
-    MatSnackBarModule,
     AmwButtonComponent
 ],
     encapsulation: ViewEncapsulation.None,
@@ -191,7 +156,7 @@ export class ButtonDemoComponent implements OnInit {
 
     constructor(
         private fb: FormBuilder,
-        private snackBar: MatSnackBar
+        private notification: AmwNotificationService
     ) {
         this.validationForm = this.fb.group({
             requiredField: ['', Validators.required],
@@ -206,25 +171,19 @@ export class ButtonDemoComponent implements OnInit {
     }
 
     onButtonClick(event: MouseEvent): void {
-        this.snackBar.open('Button clicked!', 'Close', {
-            duration: 2000,
-            horizontalPosition: 'center',
-            verticalPosition: 'bottom'
+        this.notification.info('Button Clicked', 'Button clicked!', {
+            duration: 2000
         });
     }
 
     onSubmit(): void {
         if (this.validationForm.valid) {
-            this.snackBar.open('Form is valid!', 'Close', {
-                duration: 2000,
-                horizontalPosition: 'center',
-                verticalPosition: 'bottom'
+            this.notification.success('Form Valid', 'Form is valid!', {
+                duration: 2000
             });
         } else {
-            this.snackBar.open('Form has validation errors!', 'Close', {
-                duration: 2000,
-                horizontalPosition: 'center',
-                verticalPosition: 'bottom'
+            this.notification.error('Validation Error', 'Form has validation errors!', {
+                duration: 2000
             });
         }
     }

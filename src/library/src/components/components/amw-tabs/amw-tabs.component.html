@@ -52,13 +52,13 @@
           </div>
           <!-- Tab Close Button -->
           @if (currentConfig.showCloseButtons && isTabClosable(i)) {
-            <button
-              mat-icon-button
+            <amw-button
+              variant="icon"
+              icon="close"
               class="amw-tabs__tab-close"
               (click)="closeTab(i); $event.stopPropagation()"
               [disabled]="disabled">
-              <mat-icon>close</mat-icon>
-            </button>
+            </amw-button>
           }
         </div>
       }
@@ -66,13 +66,13 @@
 
     <!-- Add Tab Button -->
     @if (currentConfig.showAddButton) {
-      <button
-        mat-icon-button
+      <amw-button
+        variant="icon"
+        icon="add"
         class="amw-tabs__add-button"
         (click)="addTab()"
         [disabled]="disabled">
-        <mat-icon>add</mat-icon>
-      </button>
+      </amw-button>
     }
   </div>
 
@@ -97,11 +97,11 @@
               </div>
               @if (currentConfig.showCloseButtons && isTabClosable(i)) {
                 <div class="amw-tabs__panel-actions">
-                  <button mat-icon-button
+                  <amw-button variant="icon"
+                    icon="close"
                     (click)="closeTab(i)"
                     [disabled]="disabled">
-                    <mat-icon>close</mat-icon>
-                  </button>
+                  </amw-button>
                 </div>
               }
             </div>
@@ -123,14 +123,15 @@
         <h3>No tabs available</h3>
         <p>Add a new tab to get started</p>
         @if (currentConfig.showAddButton) {
-          <button
-            mat-raised-button
+          <amw-button
+            variant="elevated"
+            icon="add"
+            iconPosition="left"
             color="primary"
             (click)="addTab()"
             [disabled]="disabled">
-            <mat-icon>add</mat-icon>
             Add Tab
-          </button>
+          </amw-button>
         }
       </div>
     </div>

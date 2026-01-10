@@ -1,11 +1,12 @@
 import { Component, ViewEncapsulation } from '@angular/core';
 import { BaseApiComponent, ApiDocumentation } from '../base/base-api.component';
 
-
 @Component({
   selector: 'amw-demo-textarea-api',
   standalone: true,
-  imports: [],
+  imports: [
+    
+],
   encapsulation: ViewEncapsulation.None,
   templateUrl: './textarea-api.component.html',
   styleUrl: './textarea-api.component.scss'
@@ -110,7 +111,6 @@ export class TextareaApiComponent extends BaseApiComponent {
       }
     ]
   };
-
 
     constructor() {
         super();

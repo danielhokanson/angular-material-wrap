@@ -1,12 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 
-import { MatCardModule } from '@angular/material/card';
-import { MatButtonModule } from '@angular/material/button';
 import { MatIconModule } from '@angular/material/icon';
-import { MatTabsModule } from '@angular/material/tabs';
-import { MatSnackBarModule, MatSnackBar } from '@angular/material/snack-bar';
+import { AmwNotificationService } from '../../../../library/src/services/amw-notification/amw-notification.service';
 import { MatDialogModule, MatDialog } from '@angular/material/dialog';
-import { MatDividerModule } from '@angular/material/divider';
 import { ViewEncapsulation } from '@angular/core';
 import { CalendarEvent, CalendarConfig, CalendarEventChangeEvent, CalendarView } from '../../../../library/src/components/components/amw-calendar/interfaces';
 import { AmwCalendarFullComponent } from '../../../../library/src/components/components/amw-calendar/amw-calendar-full.component';
@@ -21,21 +17,22 @@ interface SampleEvent {
     priority: 'low' | 'medium' | 'high';
     attendees?: string[];
 }
+import { MatTabsModule } from '@angular/material/tabs';
+import { MatDividerModule } from '@angular/material/divider';
+import { MatCardModule } from '@angular/material/card';
 
+import { AmwButtonComponent } from '../../../../library/src/controls/components/amw-button/amw-button.component';
 @Component({
     selector: 'amw-demo-calendar-page',
     standalone: true,
-    imports: [
-    MatCardModule,
-    MatButtonModule,
-    MatIconModule,
-    MatTabsModule,
-    MatSnackBarModule,
+    imports: [MatIconModule,
     MatDialogModule,
-    MatDividerModule,
     AmwCalendarFullComponent,
-    AmwCalendarMiniComponent
-],
+    AmwCalendarMiniComponent,
+    MatTabsModule,
+    MatDividerModule,
+    MatCardModule,
+    AmwButtonComponent],
     encapsulation: ViewEncapsulation.None,
     templateUrl: './calendar-demo-page.component.html',
     styleUrl: './calendar-demo-page.component.scss'
@@ -200,7 +197,7 @@ export class CalendarDemoPageComponent implements OnInit {
     currentDate = new Date(2024, 0, 15); // January 15, 2024
 
     constructor(
-        private snackBar: MatSnackBar,
+        private notification: AmwNotificationService,
         private dialog: MatDialog
     ) { }
 
@@ -242,7 +239,7 @@ export class CalendarDemoPageComponent implements OnInit {
             case 'add':
                 // Add new event to the events array
                 this.sampleEvents.push(event.event);
-                this.snackBar.open('Event created', 'Close', { duration: 3000 });
+                this.notification.success('Success', 'Event created', { duration: 3000 });
                 break;
             case 'update':
                 // Update existing event in the events array
@@ -250,12 +247,12 @@ export class CalendarDemoPageComponent implements OnInit {
                 if (updateIndex !== -1) {
                     this.sampleEvents[updateIndex] = event.event;
                 }
-                this.snackBar.open('Event updated', 'Close', { duration: 3000 });
+                this.notification.success('Success', 'Event updated', { duration: 3000 });
                 break;
             case 'delete':
                 // Remove event from the events array
                 this.sampleEvents = this.sampleEvents.filter(e => e.id !== event.event.id);
-                this.snackBar.open('Event deleted', 'Close', { duration: 3000 });
+                this.notification.success('Success', 'Event deleted', { duration: 3000 });
                 break;
             case 'move':
                 // Update event position in the events array
@@ -263,7 +260,7 @@ export class CalendarDemoPageComponent implements OnInit {
                 if (moveIndex !== -1) {
                     this.sampleEvents[moveIndex] = event.event;
                 }
-                this.snackBar.open('Event moved', 'Close', { duration: 3000 });
+                this.notification.info('Info', 'Event moved', { duration: 3000 });
                 break;
         }
     }
@@ -273,7 +270,7 @@ export class CalendarDemoPageComponent implements OnInit {
      */
     onEventClick(event: CalendarEvent<SampleEvent>): void {
         console.log('Event clicked:', event);
-        this.snackBar.open(`Clicked: ${event.data.title}`, 'Close', { duration: 2000 });
+        this.notification.info('Info', `Clicked: ${event.data.title}`, { duration: 2000 });
     }
 
     /**
@@ -281,7 +278,7 @@ export class CalendarDemoPageComponent implements OnInit {
      */
     onEventDoubleClick(event: CalendarEvent<SampleEvent>): void {
         console.log('Event double clicked:', event);
-        this.snackBar.open(`Double clicked: ${event.data.title}`, 'Close', { duration: 2000 });
+        this.notification.info('Info', `Double clicked: ${event.data.title}`, { duration: 2000 });
     }
 
     /**
@@ -293,7 +290,7 @@ export class CalendarDemoPageComponent implements OnInit {
      */
     onEventEdit(event: CalendarEvent<SampleEvent>): void {
         console.log('Edit event:', event);
-        this.snackBar.open(`Edit: ${event.data.title}`, 'Close', { duration: 2000 });
+        this.notification.info('Info', `Edit: ${event.data.title}`, { duration: 2000 });
     }
 
     /**
@@ -301,7 +298,7 @@ export class CalendarDemoPageComponent implements OnInit {
      */
     onEventDelete(event: CalendarEvent<SampleEvent>): void {
         console.log('Delete event:', event);
-        this.snackBar.open(`Delete: ${event.data.title}`, 'Close', { duration: 2000 });
+        this.notification.info('Info', `Delete: ${event.data.title}`, { duration: 2000 });
     }
 
     /**
@@ -309,7 +306,7 @@ export class CalendarDemoPageComponent implements OnInit {
      */
     onEventMove(event: { event: CalendarEvent<SampleEvent>; newStart: Date; newEnd?: Date }): void {
         console.log('Move event:', event);
-        this.snackBar.open(`Move: ${event.event.data.title}`, 'Close', { duration: 2000 });
+        this.notification.info('Info', `Move: ${event.event.data.title}`, { duration: 2000 });
     }
 
     /**
@@ -324,7 +321,7 @@ export class CalendarDemoPageComponent implements OnInit {
      */
     onViewChange(view: CalendarView): void {
         console.log('View changed:', view);
-        this.snackBar.open(`View changed to: ${view}`, 'Close', { duration: 2000 });
+        this.notification.info('Info', `View changed to: ${view}`, { duration: 2000 });
     }
 
     /**
@@ -347,7 +344,7 @@ export class CalendarDemoPageComponent implements OnInit {
      */
     onCellDoubleClick(event: { date: Date; time?: Date }): void {
         console.log('Cell double clicked:', event);
-        this.snackBar.open('Create new event', 'Close', { duration: 2000 });
+        this.notification.info('Info', 'Create new event', { duration: 2000 });
     }
 
     /**
@@ -355,7 +352,7 @@ export class CalendarDemoPageComponent implements OnInit {
      */
     onShowMoreClick(date: Date): void {
         console.log('Show more clicked:', date);
-        this.snackBar.open(`Show more events for ${date.toLocaleDateString()}`, 'Close', { duration: 2000 });
+        this.notification.info('Info', `Show more events for ${date.toLocaleDateString()}`, { duration: 2000 });
     }
 
     /**
@@ -363,7 +360,7 @@ export class CalendarDemoPageComponent implements OnInit {
      */
     onWeekViewToggle(showWeek: boolean): void {
         console.log('Week view toggle:', showWeek);
-        this.snackBar.open(`Week view: ${showWeek ? 'enabled' : 'disabled'}`, 'Close', { duration: 2000 });
+        this.notification.info('Info', `Week view: ${showWeek ? 'enabled' : 'disabled'}`, { duration: 2000 });
     }
 
     /**
@@ -391,7 +388,7 @@ export class CalendarDemoPageComponent implements OnInit {
         };
 
         this.sampleEvents.push(newEvent);
-        this.snackBar.open('Sample event added', 'Close', { duration: 2000 });
+        this.notification.info('Info', 'Sample event added', { duration: 2000 });
     }
 
     /**
@@ -399,7 +396,7 @@ export class CalendarDemoPageComponent implements OnInit {
      */
     clearAllEvents(): void {
         this.sampleEvents = [];
-        this.snackBar.open('All events cleared', 'Close', { duration: 2000 });
+        this.notification.info('Info', 'All events cleared', { duration: 2000 });
     }
 
     /**
@@ -407,6 +404,6 @@ export class CalendarDemoPageComponent implements OnInit {
      */
     resetSampleEvents(): void {
         this.updateEventDates();
-        this.snackBar.open('Sample events reset', 'Close', { duration: 2000 });
+        this.notification.info('Info', 'Sample events reset', { duration: 2000 });
     }
 }

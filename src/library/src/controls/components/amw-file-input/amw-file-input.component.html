@@ -28,12 +28,13 @@
       <div class="amw-file-input__content">
         <mat-icon class="amw-file-input__icon">cloud_upload</mat-icon>
         <p class="amw-file-input__placeholder">{{ placeholderText }}</p>
-        <button mat-raised-button 
+        <amw-button
+                variant="elevated"
                 type="button"
                 [disabled]="disabled"
                 class="amw-file-input__button">
           {{ buttonText }}
-        </button>
+        </amw-button>
       </div>
     }
   </div>
@@ -48,23 +49,25 @@
               <span class="amw-file-input__file-name">{{ file.name }}</span>
               <span class="amw-file-input__file-size">{{ formatFileSize(file.size) }}</span>
             </div>
-            <button mat-icon-button 
+            <amw-button
+                    variant="icon"
+                    icon="close"
                     type="button"
                     (click)="removeFile(file)"
                     class="amw-file-input__remove-button">
-              <mat-icon>close</mat-icon>
-            </button>
+            </amw-button>
           </mat-card-content>
         </mat-card>
       }
       
       @if (selectedFiles.length > 0) {
-        <button mat-button 
+        <amw-button
+                variant="text"
                 type="button"
                 (click)="clearFiles()"
                 class="amw-file-input__clear-button">
           Clear All
-        </button>
+        </amw-button>
       }
     </div>
   }

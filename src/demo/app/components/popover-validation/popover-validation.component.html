@@ -16,215 +16,171 @@
       <mat-card-content>
         <form [formGroup]="configForm" (ngSubmit)="onSubmit()" class="popover-validation__form">
           <div class="popover-validation__form-row">
-            <mat-form-field appearance="outline">
-              <mat-label>Size *</mat-label>
-              <mat-select formControlName="size">
-                @for (option of sizeOptions; track option) {
-                  <mat-option [value]="option.value">
-                    {{ option.label }}
-                  </mat-option>
-                }
-              </mat-select>
-              @if (hasError('size')) {
-                <mat-error>{{ getError('size') }}</mat-error>
+            <amw-select
+              label="Size *"
+              formControlName="size"
+              [required]="true">
+              @for (option of sizeOptions; track option) {
+                <mat-option [value]="option.value">
+                  {{ option.label }}
+                </mat-option>
               }
-            </mat-form-field>
+            </amw-select>
 
-            <mat-form-field appearance="outline">
-              <mat-label>Position *</mat-label>
-              <mat-select formControlName="position">
-                @for (option of positionOptions; track option) {
-                  <mat-option [value]="option.value">
-                    {{ option.label }}
-                  </mat-option>
-                }
-              </mat-select>
-              @if (hasError('position')) {
-                <mat-error>{{ getError('position') }}</mat-error>
+            <amw-select
+              label="Position *"
+              formControlName="position"
+              [required]="true">
+              @for (option of positionOptions; track option) {
+                <mat-option [value]="option.value">
+                  {{ option.label }}
+                </mat-option>
               }
-            </mat-form-field>
+            </amw-select>
 
-            <mat-form-field appearance="outline">
-              <mat-label>Z-Index</mat-label>
-              <input matInput formControlName="zIndex" type="number" placeholder="1000">
-              <mat-hint>0-10000</mat-hint>
-              @if (hasError('zIndex')) {
-                <mat-error>{{ getError('zIndex') }}</mat-error>
-              }
-            </mat-form-field>
+            <amw-input
+              label="Z-Index"
+              formControlName="zIndex"
+              type="number"
+              placeholder="1000"
+              hint="0-10000">
+            </amw-input>
           </div>
 
           <div class="popover-validation__form-row">
-            <mat-form-field appearance="outline">
-              <mat-label>Width</mat-label>
-              <input matInput formControlName="width" placeholder="e.g., 300px">
-              <mat-hint>Enter width with unit (px, %, rem, em, vw, vh)</mat-hint>
-              @if (hasError('width')) {
-                <mat-error>{{ getError('width') }}</mat-error>
-              }
-            </mat-form-field>
+            <amw-input
+              label="Width"
+              formControlName="width"
+              placeholder="e.g., 300px"
+              hint="Enter width with unit (px, %, rem, em, vw, vh)">
+            </amw-input>
 
-            <mat-form-field appearance="outline">
-              <mat-label>Height</mat-label>
-              <input matInput formControlName="height" placeholder="e.g., 200px">
-              <mat-hint>Enter height with unit</mat-hint>
-              @if (hasError('height')) {
-                <mat-error>{{ getError('height') }}</mat-error>
-              }
-            </mat-form-field>
+            <amw-input
+              label="Height"
+              formControlName="height"
+              placeholder="e.g., 200px"
+              hint="Enter height with unit">
+            </amw-input>
 
-            <mat-form-field appearance="outline">
-              <mat-label>Min Width</mat-label>
-              <input matInput formControlName="minWidth" placeholder="e.g., 200px">
-              <mat-hint>Enter minimum width with unit</mat-hint>
-              @if (hasError('minWidth')) {
-                <mat-error>{{ getError('minWidth') }}</mat-error>
-              }
-            </mat-form-field>
+            <amw-input
+              label="Min Width"
+              formControlName="minWidth"
+              placeholder="e.g., 200px"
+              hint="Enter minimum width with unit">
+            </amw-input>
           </div>
 
           <div class="popover-validation__form-row">
-            <mat-form-field appearance="outline">
-              <mat-label>Max Width</mat-label>
-              <input matInput formControlName="maxWidth" placeholder="e.g., 500px">
-              <mat-hint>Enter maximum width with unit</mat-hint>
-              @if (hasError('maxWidth')) {
-                <mat-error>{{ getError('maxWidth') }}</mat-error>
-              }
-            </mat-form-field>
+            <amw-input
+              label="Max Width"
+              formControlName="maxWidth"
+              placeholder="e.g., 500px"
+              hint="Enter maximum width with unit">
+            </amw-input>
 
-            <mat-form-field appearance="outline">
-              <mat-label>Min Height</mat-label>
-              <input matInput formControlName="minHeight" placeholder="e.g., 100px">
-              <mat-hint>Enter minimum height with unit</mat-hint>
-              @if (hasError('minHeight')) {
-                <mat-error>{{ getError('minHeight') }}</mat-error>
-              }
-            </mat-form-field>
+            <amw-input
+              label="Min Height"
+              formControlName="minHeight"
+              placeholder="e.g., 100px"
+              hint="Enter minimum height with unit">
+            </amw-input>
 
-            <mat-form-field appearance="outline">
-              <mat-label>Max Height</mat-label>
-              <input matInput formControlName="maxHeight" placeholder="e.g., 400px">
-              <mat-hint>Enter maximum height with unit</mat-hint>
-              @if (hasError('maxHeight')) {
-                <mat-error>{{ getError('maxHeight') }}</mat-error>
-              }
-            </mat-form-field>
+            <amw-input
+              label="Max Height"
+              formControlName="maxHeight"
+              placeholder="e.g., 400px"
+              hint="Enter maximum height with unit">
+            </amw-input>
           </div>
 
           <div class="popover-validation__form-row">
-            <mat-form-field appearance="outline">
-              <mat-label>Offset X</mat-label>
-              <input matInput formControlName="offsetX" type="number" placeholder="0">
-              <mat-hint>-1000 to 1000</mat-hint>
-              @if (hasError('offsetX')) {
-                <mat-error>{{ getError('offsetX') }}</mat-error>
-              }
-            </mat-form-field>
+            <amw-input
+              label="Offset X"
+              formControlName="offsetX"
+              type="number"
+              placeholder="0"
+              hint="-1000 to 1000">
+            </amw-input>
 
-            <mat-form-field appearance="outline">
-              <mat-label>Offset Y</mat-label>
-              <input matInput formControlName="offsetY" type="number" placeholder="0">
-              <mat-hint>-1000 to 1000</mat-hint>
-              @if (hasError('offsetY')) {
-                <mat-error>{{ getError('offsetY') }}</mat-error>
-              }
-            </mat-form-field>
+            <amw-input
+              label="Offset Y"
+              formControlName="offsetY"
+              type="number"
+              placeholder="0"
+              hint="-1000 to 1000">
+            </amw-input>
 
-            <mat-form-field appearance="outline">
-              <mat-label>Animation Duration</mat-label>
-              <input matInput formControlName="animationDuration" type="number" placeholder="300">
-              <mat-hint>0-5000 milliseconds</mat-hint>
-              @if (hasError('animationDuration')) {
-                <mat-error>{{ getError('animationDuration') }}</mat-error>
-              }
-            </mat-form-field>
+            <amw-input
+              label="Animation Duration"
+              formControlName="animationDuration"
+              type="number"
+              placeholder="300"
+              hint="0-5000 milliseconds">
+            </amw-input>
           </div>
 
           <div class="popover-validation__form-row">
-            <mat-form-field appearance="outline">
-              <mat-label>Animation Easing</mat-label>
-              <mat-select formControlName="animationEasing">
-                @for (option of animationEasingOptions; track option) {
-                  <mat-option [value]="option.value">
-                    {{ option.label }}
-                  </mat-option>
-                }
-              </mat-select>
-              @if (hasError('animationEasing')) {
-                <mat-error>{{ getError('animationEasing') }}</mat-error>
+            <amw-select
+              label="Animation Easing"
+              formControlName="animationEasing">
+              @for (option of animationEasingOptions; track option) {
+                <mat-option [value]="option.value">
+                  {{ option.label }}
+                </mat-option>
               }
-            </mat-form-field>
+            </amw-select>
 
-            <mat-form-field appearance="outline">
-              <mat-label>Header Title</mat-label>
-              <input matInput formControlName="headerTitle" placeholder="Popover Title">
-              <mat-hint>Maximum 100 characters</mat-hint>
-              @if (hasError('headerTitle')) {
-                <mat-error>{{ getError('headerTitle') }}</mat-error>
-              }
-            </mat-form-field>
+            <amw-input
+              label="Header Title"
+              formControlName="headerTitle"
+              placeholder="Popover Title"
+              hint="Maximum 100 characters">
+            </amw-input>
 
-            <mat-form-field appearance="outline">
-              <mat-label>Header Subtitle</mat-label>
-              <input matInput formControlName="headerSubtitle" placeholder="Subtitle text">
-              <mat-hint>Maximum 200 characters</mat-hint>
-              @if (hasError('headerSubtitle')) {
-                <mat-error>{{ getError('headerSubtitle') }}</mat-error>
-              }
-            </mat-form-field>
+            <amw-input
+              label="Header Subtitle"
+              formControlName="headerSubtitle"
+              placeholder="Subtitle text"
+              hint="Maximum 200 characters">
+            </amw-input>
           </div>
 
           <div class="popover-validation__form-row">
-            <mat-form-field appearance="outline">
-              <mat-label>Footer Text</mat-label>
-              <input matInput formControlName="footerText" placeholder="Footer text">
-              <mat-hint>Maximum 200 characters</mat-hint>
-              @if (hasError('footerText')) {
-                <mat-error>{{ getError('footerText') }}</mat-error>
-              }
-            </mat-form-field>
+            <amw-input
+              label="Footer Text"
+              formControlName="footerText"
+              placeholder="Footer text"
+              hint="Maximum 200 characters">
+            </amw-input>
 
-            <mat-form-field appearance="outline">
-              <mat-label>Close Text</mat-label>
-              <input matInput formControlName="closeText" placeholder="Close">
-              <mat-hint>Maximum 50 characters</mat-hint>
-              @if (hasError('closeText')) {
-                <mat-error>{{ getError('closeText') }}</mat-error>
-              }
-            </mat-form-field>
+            <amw-input
+              label="Close Text"
+              formControlName="closeText"
+              placeholder="Close"
+              hint="Maximum 50 characters">
+            </amw-input>
 
-            <mat-form-field appearance="outline">
-              <mat-label>Close Icon</mat-label>
-              <input matInput formControlName="closeIcon" placeholder="close">
-              <mat-hint>Material icon name (alphanumeric and underscores only)</mat-hint>
-              @if (hasError('closeIcon')) {
-                <mat-error>{{ getError('closeIcon') }}</mat-error>
-              }
-            </mat-form-field>
+            <amw-input
+              label="Close Icon"
+              formControlName="closeIcon"
+              placeholder="close"
+              hint="Material icon name (alphanumeric and underscores only)">
+            </amw-input>
           </div>
 
           <div class="popover-validation__form-row">
-            <mat-form-field appearance="outline">
-              <mat-label>Arrow Color</mat-label>
-              <input matInput formControlName="arrowColor" placeholder="#ffffff">
-              <mat-hint>Hex color code (e.g., #ffffff or #fff)</mat-hint>
-              @if (hasError('arrowColor')) {
-                <mat-error>{{ getError('arrowColor') }}</mat-error>
-              }
-            </mat-form-field>
+            <amw-input
+              label="Arrow Color"
+              formControlName="arrowColor"
+              placeholder="#ffffff"
+              hint="Hex color code (e.g., #ffffff or #fff)">
+            </amw-input>
           </div>
 
           <div class="popover-validation__form-actions">
-            <button mat-raised-button color="primary" type="submit">
-              <mat-icon>save</mat-icon>
-              Update Configuration
-            </button>
+            <amw-button variant="elevated" color="primary" type="submit" icon="save" iconPosition="left">Update Configuration</amw-button>
 
-            <button mat-button type="button" (click)="resetConfig()">
-              <mat-icon>refresh</mat-icon>
-              Reset
-            </button>
+            <amw-button variant="text" type="button" (click)="resetConfig()" icon="refresh" iconPosition="left">Reset</amw-button>
           </div>
         </form>
       </mat-card-content>
@@ -240,78 +196,61 @@
       <mat-card-content>
         <form [formGroup]="triggerForm" (ngSubmit)="onSubmit()" class="popover-validation__form">
           <div class="popover-validation__form-row">
-            <mat-form-field appearance="outline">
-              <mat-label>Trigger Type *</mat-label>
-              <mat-select formControlName="type">
-                @for (option of triggerTypeOptions; track option) {
-                  <mat-option [value]="option.value">
-                    {{ option.label }}
-                  </mat-option>
-                }
-              </mat-select>
-              @if (hasError('type')) {
-                <mat-error>{{ getError('type') }}</mat-error>
+            <amw-select
+              label="Trigger Type *"
+              formControlName="type"
+              [required]="true">
+              @for (option of triggerTypeOptions; track option) {
+                <mat-option [value]="option.value">
+                  {{ option.label }}
+                </mat-option>
               }
-            </mat-form-field>
+            </amw-select>
 
-            <mat-form-field appearance="outline">
-              <mat-label>Delay</mat-label>
-              <input matInput formControlName="delay" type="number" placeholder="0">
-              <mat-hint>0-10000 milliseconds</mat-hint>
-              @if (hasError('delay')) {
-                <mat-error>{{ getError('delay') }}</mat-error>
-              }
-            </mat-form-field>
+            <amw-input
+              label="Delay"
+              formControlName="delay"
+              type="number"
+              placeholder="0"
+              hint="0-10000 milliseconds">
+            </amw-input>
 
-            <mat-form-field appearance="outline">
-              <mat-label>Close Delay</mat-label>
-              <input matInput formControlName="closeDelay" type="number" placeholder="0">
-              <mat-hint>0-10000 milliseconds</mat-hint>
-              @if (hasError('closeDelay')) {
-                <mat-error>{{ getError('closeDelay') }}</mat-error>
-              }
-            </mat-form-field>
+            <amw-input
+              label="Close Delay"
+              formControlName="closeDelay"
+              type="number"
+              placeholder="0"
+              hint="0-10000 milliseconds">
+            </amw-input>
           </div>
 
           <div class="popover-validation__form-row">
-            <mat-form-field appearance="outline">
-              <mat-label>ARIA Label</mat-label>
-              <input matInput formControlName="ariaLabel" placeholder="Popover trigger">
-              <mat-hint>Maximum 200 characters</mat-hint>
-              @if (hasError('ariaLabel')) {
-                <mat-error>{{ getError('ariaLabel') }}</mat-error>
-              }
-            </mat-form-field>
+            <amw-input
+              label="ARIA Label"
+              formControlName="ariaLabel"
+              placeholder="Popover trigger"
+              hint="Maximum 200 characters">
+            </amw-input>
 
-            <mat-form-field appearance="outline">
-              <mat-label>ARIA Described By</mat-label>
-              <input matInput formControlName="ariaDescribedBy" placeholder="popover-description">
-              <mat-hint>Maximum 200 characters</mat-hint>
-              @if (hasError('ariaDescribedBy')) {
-                <mat-error>{{ getError('ariaDescribedBy') }}</mat-error>
-              }
-            </mat-form-field>
+            <amw-input
+              label="ARIA Described By"
+              formControlName="ariaDescribedBy"
+              placeholder="popover-description"
+              hint="Maximum 200 characters">
+            </amw-input>
 
-            <mat-form-field appearance="outline">
-              <mat-label>ARIA Controls</mat-label>
-              <input matInput formControlName="ariaControls" placeholder="popover-content">
-              <mat-hint>Maximum 200 characters</mat-hint>
-              @if (hasError('ariaControls')) {
-                <mat-error>{{ getError('ariaControls') }}</mat-error>
-              }
-            </mat-form-field>
+            <amw-input
+              label="ARIA Controls"
+              formControlName="ariaControls"
+              placeholder="popover-content"
+              hint="Maximum 200 characters">
+            </amw-input>
           </div>
 
           <div class="popover-validation__form-actions">
-            <button mat-raised-button color="primary" type="submit">
-              <mat-icon>save</mat-icon>
-              Update Trigger
-            </button>
+            <amw-button variant="elevated" color="primary" type="submit" icon="save" iconPosition="left">Update Trigger</amw-button>
 
-            <button mat-button type="button" (click)="resetTrigger()">
-              <mat-icon>refresh</mat-icon>
-              Reset
-            </button>
+            <amw-button variant="text" type="button" (click)="resetTrigger()" icon="refresh" iconPosition="left">Reset</amw-button>
           </div>
         </form>
       </mat-card-content>
@@ -338,10 +277,7 @@
 
             <!-- Trigger Template -->
             <ng-template #trigger>
-              <button mat-raised-button color="primary">
-                <mat-icon>info</mat-icon>
-                Test Popover
-              </button>
+              <amw-button variant="elevated" color="primary" icon="info" iconPosition="left">Test Popover</amw-button>
             </ng-template>
 
             <!-- Content Template -->

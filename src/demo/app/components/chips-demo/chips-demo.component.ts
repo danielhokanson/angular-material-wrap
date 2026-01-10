@@ -1,28 +1,25 @@
 import { Component, ViewEncapsulation } from '@angular/core';
 
 import { FormsModule } from '@angular/forms';
-import { MatCardModule } from '@angular/material/card';
-import { MatButtonModule } from '@angular/material/button';
 import { MatIconModule } from '@angular/material/icon';
-import { MatDividerModule } from '@angular/material/divider';
-import { MatTabsModule } from '@angular/material/tabs';
-import { MatSnackBarModule, MatSnackBar } from '@angular/material/snack-bar';
+import { AmwNotificationService } from '../../../../library/src/services/amw-notification/amw-notification.service';
 
 import { AmwChipsComponent } from '../../../../library/src/controls/components/amw-chips/amw-chips.component';
 import { Chip, ChipConfig, ChipEvent, ChipChangeEvent, ChipMenuItem } from '../../../../library/src/controls/components/amw-chips/interfaces';
+import { MatTabsModule } from '@angular/material/tabs';
+import { MatDividerModule } from '@angular/material/divider';
+import { MatCardModule } from '@angular/material/card';
 
 @Component({
     selector: 'amw-demo-chips',
     standalone: true,
     imports: [
     FormsModule,
-    MatCardModule,
-    MatButtonModule,
     MatIconModule,
-    MatDividerModule,
+    AmwChipsComponent,
     MatTabsModule,
-    MatSnackBarModule,
-    AmwChipsComponent
+    MatDividerModule,
+    MatCardModule
 ],
     encapsulation: ViewEncapsulation.None,
     templateUrl: './chips-demo.component.html',
@@ -196,7 +193,7 @@ export class ChipsDemoComponent {
         placeholder: 'Projects with menus'
     };
 
-    constructor(private snackBar: MatSnackBar) { }
+    constructor(private notification: AmwNotificationService) { }
 
     /**
      * Email validator function
@@ -224,44 +221,28 @@ export class ChipsDemoComponent {
      * Handle chip add event
      */
     onChipAdd(event: ChipEvent): void {
-        this.snackBar.open(`Added chip: ${event.chip.label}`, 'Close', {
-            duration: 2000,
-            horizontalPosition: 'end',
-            verticalPosition: 'top'
-        });
+        this.notification.info('Info', `Added chip: ${event.chip.label}`, { duration: 2000 });
     }
 
     /**
      * Handle chip remove event
      */
     onChipRemove(event: ChipEvent): void {
-        this.snackBar.open(`Removed chip: ${event.chip.label}`, 'Close', {
-            duration: 2000,
-            horizontalPosition: 'end',
-            verticalPosition: 'top'
-        });
+        this.notification.info('Info', `Removed chip: ${event.chip.label}`, { duration: 2000 });
     }
 
     /**
      * Handle chip select event
      */
     onChipSelect(event: ChipEvent): void {
-        this.snackBar.open(`Selected chip: ${event.chip.label}`, 'Close', {
-            duration: 2000,
-            horizontalPosition: 'end',
-            verticalPosition: 'top'
-        });
+        this.notification.info('Info', `Selected chip: ${event.chip.label}`, { duration: 2000 });
     }
 
     /**
      * Handle chip deselect event
      */
     onChipDeselect(event: ChipEvent): void {
-        this.snackBar.open(`Deselected chip: ${event.chip.label}`, 'Close', {
-            duration: 2000,
-            horizontalPosition: 'end',
-            verticalPosition: 'top'
-        });
+        this.notification.info('Info', `Deselected chip: ${event.chip.label}`, { duration: 2000 });
     }
 
     /**
@@ -306,11 +287,7 @@ export class ChipsDemoComponent {
         this.inputChips = [];
         this.suggestionChips = [];
         this.validationChips = [];
-        this.snackBar.open('All chips cleared', 'Close', {
-            duration: 2000,
-            horizontalPosition: 'end',
-            verticalPosition: 'top'
-        });
+        this.notification.info('Info', 'All chips cleared', { duration: 2000 });
     }
 
     /**
@@ -327,22 +304,14 @@ export class ChipsDemoComponent {
         this.suggestionChips = [...this.suggestionChips, ...sampleChips];
         this.validationChips = [...this.validationChips, ...sampleChips];
 
-        this.snackBar.open('Sample chips added', 'Close', {
-            duration: 2000,
-            horizontalPosition: 'end',
-            verticalPosition: 'top'
-        });
+        this.notification.info('Info', 'Sample chips added', { duration: 2000 });
     }
 
     /**
      * Menu action methods
      */
     editChip(chip: Chip): void {
-        this.snackBar.open(`Edit: ${chip.label}`, 'Close', {
-            duration: 2000,
-            horizontalPosition: 'end',
-            verticalPosition: 'top'
-        });
+        this.notification.info('Info', `Edit: ${chip.label}`, { duration: 2000 });
     }
 
     duplicateChip(chip: Chip): void {
@@ -354,30 +323,18 @@ export class ChipsDemoComponent {
             menuItems: chip.menuItems
         };
         this.menuChips.push(newChip);
-        this.snackBar.open(`Duplicated: ${chip.label}`, 'Close', {
-            duration: 2000,
-            horizontalPosition: 'end',
-            verticalPosition: 'top'
-        });
+        this.notification.info('Info', `Duplicated: ${chip.label}`, { duration: 2000 });
     }
 
     archiveChip(chip: Chip): void {
-        this.snackBar.open(`Archived: ${chip.label}`, 'Close', {
-            duration: 2000,
-            horizontalPosition: 'end',
-            verticalPosition: 'top'
-        });
+        this.notification.info('Info', `Archived: ${chip.label}`, { duration: 2000 });
     }
 
     deleteChip(chip: Chip): void {
         const index = this.menuChips.findIndex(c => c.id === chip.id);
         if (index > -1) {
             this.menuChips.splice(index, 1);
-            this.snackBar.open(`Deleted: ${chip.label}`, 'Close', {
-                duration: 2000,
-                horizontalPosition: 'end',
-                verticalPosition: 'top'
-            });
+            this.notification.success('Success', `Deleted: ${chip.label}`, { duration: 2000 });
         }
     }
 
@@ -385,10 +342,6 @@ export class ChipsDemoComponent {
      * Handle menu item click
      */
     onMenuItemClick(event: { chip: Chip, menuItem: ChipMenuItem }): void {
-        this.snackBar.open(`Menu action: ${event.menuItem.label} on ${event.chip.label}`, 'Close', {
-            duration: 2000,
-            horizontalPosition: 'end',
-            verticalPosition: 'top'
-        });
+        this.notification.info('Info', `Menu action: ${event.menuItem.label} on ${event.chip.label}`, { duration: 2000 });
     }
 }

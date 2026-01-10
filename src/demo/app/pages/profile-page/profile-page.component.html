@@ -17,47 +17,48 @@
             <mat-card-content>
               <form [formGroup]="personalForm" class="profile-form">
                 <div class="form-row">
-                  <mat-form-field appearance="outline">
-                    <mat-label>First Name</mat-label>
-                    <input matInput formControlName="firstName" placeholder="Enter first name">
-                  </mat-form-field>
-                  <mat-form-field appearance="outline">
-                    <mat-label>Last Name</mat-label>
-                    <input matInput formControlName="lastName" placeholder="Enter last name">
-                  </mat-form-field>
+                  <amw-input
+                    label="First Name"
+                    formControlName="firstName"
+                    placeholder="Enter first name">
+                  </amw-input>
+                  <amw-input
+                    label="Last Name"
+                    formControlName="lastName"
+                    placeholder="Enter last name">
+                  </amw-input>
                 </div>
                 
                 <div class="form-row">
-                  <mat-form-field appearance="outline">
-                    <mat-label>Email</mat-label>
-                    <input matInput formControlName="email" type="email" placeholder="Enter email">
-                  </mat-form-field>
-                  <mat-form-field appearance="outline">
-                    <mat-label>Phone</mat-label>
-                    <input matInput formControlName="phone" placeholder="Enter phone number">
-                  </mat-form-field>
+                  <amw-input
+                    label="Email"
+                    formControlName="email"
+                    type="email"
+                    placeholder="Enter email">
+                  </amw-input>
+                  <amw-input
+                    label="Phone"
+                    formControlName="phone"
+                    placeholder="Enter phone number">
+                  </amw-input>
                 </div>
                 
                 <div class="form-row">
-                  <mat-form-field appearance="outline">
-                    <mat-label>Job Title</mat-label>
-                    <input matInput formControlName="jobTitle" placeholder="Enter job title">
-                  </mat-form-field>
-                  <mat-form-field appearance="outline">
-                    <mat-label>Company</mat-label>
-                    <input matInput formControlName="company" placeholder="Enter company">
-                  </mat-form-field>
+                  <amw-input
+                    label="Job Title"
+                    formControlName="jobTitle"
+                    placeholder="Enter job title">
+                  </amw-input>
+                  <amw-input
+                    label="Company"
+                    formControlName="company"
+                    placeholder="Enter company">
+                  </amw-input>
                 </div>
                 
                 <div class="form-actions">
-                  <button mat-raised-button color="primary" (click)="savePersonalInfo()">
-                    <mat-icon>save</mat-icon>
-                    Save Changes
-                  </button>
-                  <button mat-button (click)="resetPersonalForm()">
-                    <mat-icon>refresh</mat-icon>
-                    Reset
-                  </button>
+                  <amw-button variant="elevated" color="primary" (click)="savePersonalInfo()" icon="save" iconPosition="left">Save Changes</amw-button>
+                  <amw-button variant="text" (click)="resetPersonalForm()" icon="refresh" iconPosition="left">Reset</amw-button>
                 </div>
               </form>
             </mat-card-content>
@@ -81,14 +82,8 @@
                     <mat-icon>person</mat-icon>
                   </div>
                   <div class="avatar-actions">
-                    <button mat-raised-button color="primary">
-                      <mat-icon>photo_camera</mat-icon>
-                      Change Photo
-                    </button>
-                    <button mat-button color="warn">
-                      <mat-icon>delete</mat-icon>
-                      Remove Photo
-                    </button>
+                    <amw-button variant="elevated" color="primary" icon="photo_camera" iconPosition="left">Change Photo</amw-button>
+                    <amw-button variant="text" color="warn" icon="delete" iconPosition="left">Remove Photo</amw-button>
                   </div>
                 </div>
               </div>
@@ -98,26 +93,29 @@
               <div class="settings-section">
                 <h4>Password</h4>
                 <form [formGroup]="passwordForm" class="password-form">
-                  <mat-form-field appearance="outline">
-                    <mat-label>Current Password</mat-label>
-                    <input matInput formControlName="currentPassword" type="password" placeholder="Enter current password">
-                  </mat-form-field>
+                  <amw-input
+                    label="Current Password"
+                    formControlName="currentPassword"
+                    type="password"
+                    placeholder="Enter current password">
+                  </amw-input>
                   
-                  <mat-form-field appearance="outline">
-                    <mat-label>New Password</mat-label>
-                    <input matInput formControlName="newPassword" type="password" placeholder="Enter new password">
-                  </mat-form-field>
+                  <amw-input
+                    label="New Password"
+                    formControlName="newPassword"
+                    type="password"
+                    placeholder="Enter new password">
+                  </amw-input>
                   
-                  <mat-form-field appearance="outline">
-                    <mat-label>Confirm New Password</mat-label>
-                    <input matInput formControlName="confirmPassword" type="password" placeholder="Confirm new password">
-                  </mat-form-field>
+                  <amw-input
+                    label="Confirm New Password"
+                    formControlName="confirmPassword"
+                    type="password"
+                    placeholder="Confirm new password">
+                  </amw-input>
                   
                   <div class="form-actions">
-                    <button mat-raised-button color="primary" (click)="changePassword()">
-                      <mat-icon>lock</mat-icon>
-                      Change Password
-                    </button>
+                    <amw-button variant="elevated" color="primary" (click)="changePassword()" icon="lock" iconPosition="left">Change Password</amw-button>
                   </div>
                 </form>
               </div>
@@ -139,26 +137,19 @@
                 <h4>Appearance</h4>
                 <div class="setting-item">
                   <span>Theme</span>
-                  <mat-form-field appearance="outline">
-                    <mat-label>Select Theme</mat-label>
-                    <mat-select [(ngModel)]="selectedTheme">
-                      <mat-option value="light">Light</mat-option>
-                      <mat-option value="dark">Dark</mat-option>
-                      <mat-option value="auto">Auto</mat-option>
-                    </mat-select>
-                  </mat-form-field>
+                  <amw-select
+                    label="Select Theme"
+                    [(ngModel)]="selectedTheme"
+                    [options]="themeOptions">
+                  </amw-select>
                 </div>
                 <div class="setting-item">
                   <span>Language</span>
-                  <mat-form-field appearance="outline">
-                    <mat-label>Select Language</mat-label>
-                    <mat-select [(ngModel)]="selectedLanguage">
-                      <mat-option value="en">English</mat-option>
-                      <mat-option value="es">Spanish</mat-option>
-                      <mat-option value="fr">French</mat-option>
-                      <mat-option value="de">German</mat-option>
-                    </mat-select>
-                  </mat-form-field>
+                  <amw-select
+                    label="Select Language"
+                    [(ngModel)]="selectedLanguage"
+                    [options]="languageOptions">
+                  </amw-select>
                 </div>
               </div>
 
@@ -168,23 +159,20 @@
                 <h4>Notifications</h4>
                 <div class="setting-item">
                   <span>Email notifications</span>
-                  <mat-slide-toggle [(ngModel)]="emailNotifications"></mat-slide-toggle>
+                  <amw-switch [(ngModel)]="emailNotifications"></amw-switch>
                 </div>
                 <div class="setting-item">
                   <span>Push notifications</span>
-                  <mat-slide-toggle [(ngModel)]="pushNotifications"></mat-slide-toggle>
+                  <amw-switch [(ngModel)]="pushNotifications"></amw-switch>
                 </div>
                 <div class="setting-item">
                   <span>Marketing emails</span>
-                  <mat-slide-toggle [(ngModel)]="marketingEmails"></mat-slide-toggle>
+                  <amw-switch [(ngModel)]="marketingEmails"></amw-switch>
                 </div>
               </div>
 
               <div class="form-actions">
-                <button mat-raised-button color="primary" (click)="savePreferences()">
-                  <mat-icon>save</mat-icon>
-                  Save Preferences
-                </button>
+                <amw-button variant="elevated" color="primary" (click)="savePreferences()" icon="save" iconPosition="left">Save Preferences</amw-button>
               </div>
             </mat-card-content>
           </mat-card>

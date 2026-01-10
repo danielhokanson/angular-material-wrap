@@ -10,18 +10,22 @@
       <div class="amw-accordion__header-content">
         <h3 class="amw-accordion__header-title">Accordion</h3>
         <div class="amw-accordion__header-actions">
-          <button mat-button
+          <amw-button
+            variant="text"
+            icon="expand_more"
+            iconPosition="left"
             (click)="expandAll()"
             [disabled]="areAllExpanded() || disabled">
-            <mat-icon>expand_more</mat-icon>
             Expand All
-          </button>
-          <button mat-button
+          </amw-button>
+          <amw-button
+            variant="text"
+            icon="expand_less"
+            iconPosition="left"
             (click)="collapseAll()"
             [disabled]="areAllCollapsed() || disabled">
-            <mat-icon>expand_less</mat-icon>
             Collapse All
-          </button>
+          </amw-button>
         </div>
       </div>
     </div>
@@ -79,11 +83,12 @@
               <!-- Panel Actions -->
               @if (currentConfig.showPanelActions) {
                 <div class="amw-accordion__panel-actions">
-                  <button mat-icon-button
+                  <amw-button
+                    variant="icon"
+                    [icon]="isPanelExpanded(i) ? 'expand_less' : 'expand_more'"
                     (click)="togglePanel(i)"
                     [disabled]="isPanelDisabled(i)">
-                    <mat-icon>{{ isPanelExpanded(i) ? 'expand_less' : 'expand_more' }}</mat-icon>
-                  </button>
+                  </amw-button>
                 </div>
               }
               <!-- Panel Main Content -->

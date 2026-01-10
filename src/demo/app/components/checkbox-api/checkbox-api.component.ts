@@ -1,11 +1,12 @@
 import { Component, ViewEncapsulation } from '@angular/core';
 import { BaseApiComponent, ApiDocumentation } from '../base/base-api.component';
 
-
 @Component({
   selector: 'amw-demo-checkbox-api',
   standalone: true,
-  imports: [],
+  imports: [
+    
+],
   encapsulation: ViewEncapsulation.None,
   templateUrl: './checkbox-api.component.html',
   styleUrl: './checkbox-api.component.scss'

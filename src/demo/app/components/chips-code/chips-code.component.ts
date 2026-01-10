@@ -1,17 +1,21 @@
 import { Component, ViewEncapsulation } from '@angular/core';
 import { FormsModule } from '@angular/forms';
-import { MatChipsModule } from '@angular/material/chips';
 import { MatIconModule } from '@angular/material/icon';
-import { MatButtonModule } from '@angular/material/button';
-import { MatExpansionModule } from '@angular/material/expansion';
 import { BaseCodeComponent } from '../base/base-code.component';
 
 type ChipsExamples = 'basic' | 'removable' | 'selectable' | 'input' | 'styled';
+import { MatExpansionModule } from '@angular/material/expansion';
+import { MatChipsModule } from '@angular/material/chips';
 
+import { AmwButtonComponent } from '../../../../library/src/controls/components/amw-button/amw-button.component';
 @Component({
   selector: 'amw-demo-chips-code',
   standalone: true,
-  imports: [FormsModule, MatChipsModule, MatIconModule, MatButtonModule, MatExpansionModule],
+  imports: [FormsModule,
+    MatIconModule,
+    MatExpansionModule,
+    MatChipsModule,
+    AmwButtonComponent],
   encapsulation: ViewEncapsulation.None,
   templateUrl: './chips-code.component.html',
   styleUrl: './chips-code.component.scss'

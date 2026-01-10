@@ -6,14 +6,19 @@
   @if (triggerTemplate) {
     <ng-container [ngTemplateOutlet]="triggerTemplate"></ng-container>
   } @else {
-    <button mat-button class="amw-popover__trigger-button" [disabled]="isDisabled"
-      (click)="onTriggerClick($event)" (mouseenter)="onTriggerMouseEnter($event)" (mouseleave)="onTriggerMouseLeave($event)"
-      (focus)="onTriggerFocus($event)" (blur)="onTriggerBlur($event)" (keydown)="onTriggerKeyDown($event)">
-      @if (triggerIcon) {
-        <mat-icon>{{ triggerIcon }}</mat-icon>
-      }
+    <amw-button variant="text"
+      [icon]="triggerIcon"
+      [iconPosition]="triggerIcon ? 'left' : undefined"
+      class="amw-popover__trigger-button"
+      [disabled]="isDisabled"
+      (click)="onTriggerClick($event)"
+      (mouseenter)="onTriggerMouseEnter($event)"
+      (mouseleave)="onTriggerMouseLeave($event)"
+      (focus)="onTriggerFocus($event)"
+      (blur)="onTriggerBlur($event)"
+      (keydown)="onTriggerKeyDown($event)">
       {{ triggerText }}
-    </button>
+    </amw-button>
   }
 
   <!-- Default Trigger Template -->
@@ -69,10 +74,12 @@
               }
             </div>
             @if (showClose) {
-              <button mat-icon-button class="amw-popover__close" [attr.aria-label]="closeButtonText"
+              <amw-button variant="icon"
+                [icon]="closeButtonIcon"
+                class="amw-popover__close"
+                [attr.aria-label]="closeButtonText"
                 (click)="onCloseClick()">
-                <mat-icon>{{ closeButtonIcon }}</mat-icon>
-              </button>
+              </amw-button>
             }
           </div>
         </div>

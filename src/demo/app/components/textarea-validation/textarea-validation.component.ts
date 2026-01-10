@@ -1,10 +1,7 @@
 import { Component, OnInit, ViewEncapsulation } from '@angular/core';
 
 import { ReactiveFormsModule, FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { MatFormFieldModule } from '@angular/material/form-field';
-import { MatInputModule } from '@angular/material/input';
-import { MatButtonModule } from '@angular/material/button';
-import { MatSnackBar, MatSnackBarModule } from '@angular/material/snack-bar';
+import { AmwNotificationService } from '../../../../library/src/services/amw-notification/amw-notification.service';
 import { AmwTextareaComponent } from '../../../../library/src/controls/components/amw-textarea/amw-textarea.component';
 import { AmwButtonComponent } from '../../../../library/src/controls/components/amw-button/amw-button.component';
 
@@ -13,10 +10,7 @@ import { AmwButtonComponent } from '../../../../library/src/controls/components/
   standalone: true,
   imports: [
     ReactiveFormsModule,
-    MatFormFieldModule,
-    MatInputModule,
-    MatButtonModule,
-    MatSnackBarModule,
+    AmwButtonComponent,
     AmwTextareaComponent,
     AmwButtonComponent
 ],
@@ -29,7 +23,7 @@ export class TextareaValidationComponent implements OnInit {
 
   constructor(
     private fb: FormBuilder,
-    private snackBar: MatSnackBar
+    private notification: AmwNotificationService
   ) {
     this.validationForm = this.fb.group({
       description: ['', [Validators.required, Validators.minLength(10), Validators.maxLength(500)]],
@@ -44,9 +38,9 @@ export class TextareaValidationComponent implements OnInit {
 
   onSubmit(): void {
     if (this.validationForm.valid) {
-      this.snackBar.open('Form is valid! All textarea fields meet the requirements.', 'Close', { duration: 3000 });
+      this.notification.success('Success', 'Form is valid! All textarea fields meet the requirements.', { duration: 3000 });
     } else {
-      this.snackBar.open('Form has validation errors. Please check the field requirements.', 'Close', { duration: 3000 });
+      this.notification.error('Error', 'Form has validation errors. Please check the field requirements.', { duration: 3000 });
     }
   }
 

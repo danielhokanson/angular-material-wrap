@@ -1,0 +1,70 @@
+@use '../../../styles/theme' as theme;
+
+.amw-toolbar {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+
+  &--static {
+    position: static;
+  }
+
+  &--fixed {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    z-index: 1000;
+  }
+
+  &--sticky {
+    position: sticky;
+    top: 0;
+    z-index: 1000;
+  }
+
+  &--absolute {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+  }
+
+  &--elevated {
+    box-shadow: 0 2px 4px -1px rgba(0, 0, 0, 0.2),
+                0 4px 5px 0 rgba(0, 0, 0, 0.14),
+                0 1px 10px 0 rgba(0, 0, 0, 0.12);
+  }
+}
+
+.amw-toolbar__start,
+.amw-toolbar__end,
+.amw-toolbar__actions {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.amw-toolbar__title {
+  font-size: 20px;
+  font-weight: 500;
+  margin: 0;
+}
+
+.amw-toolbar__content {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  flex: 1;
+}
+
+.amw-toolbar__spacer {
+  flex: 1 1 auto;
+}
+
+// Material 3 theming
+:root {
+  --amw-toolbar-background: var(--mat-toolbar-container-background-color, var(--mat-sys-surface));
+  --amw-toolbar-text-color: var(--mat-toolbar-container-text-color, var(--mat-sys-on-surface));
+  --amw-toolbar-height: var(--mat-toolbar-standard-height, 64px);
+}

@@ -2,27 +2,26 @@ import { Component, Input, Output, EventEmitter, OnInit, OnDestroy, ViewEncapsul
 import { CommonModule } from '@angular/common';
 import { FormsModule, ReactiveFormsModule, FormBuilder, FormGroup } from '@angular/forms';
 import { MatCardModule } from '@angular/material/card';
-import { MatButtonModule } from '@angular/material/button';
 import { MatIconModule } from '@angular/material/icon';
-import { MatFormFieldModule } from '@angular/material/form-field';
-import { MatDatepickerModule } from '@angular/material/datepicker';
-import { MatNativeDateModule } from '@angular/material/core';
-import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { MatTabsModule } from '@angular/material/tabs';
 import { MatExpansionModule } from '@angular/material/expansion';
-import { MatTooltipModule } from '@angular/material/tooltip';
 import { MatMenuModule } from '@angular/material/menu';
 import { MatChipsModule } from '@angular/material/chips';
 import { MatDividerModule } from '@angular/material/divider';
 import { MatTableModule } from '@angular/material/table';
 import { MatSlideToggleModule } from '@angular/material/slide-toggle';
-import { MatProgressBarModule } from '@angular/material/progress-bar';
 import { MatOptionModule } from '@angular/material/core';
 import { MatSelectModule } from '@angular/material/select';
 import { MatPaginatorModule, PageEvent } from '@angular/material/paginator';
 import { MatSortModule, Sort } from '@angular/material/sort';
 import { Subject, takeUntil, BehaviorSubject, Observable, of } from 'rxjs';
 import { delay } from 'rxjs/operators';
+import { AmwProgressSpinnerComponent } from '../../../components/components/amw-progress-spinner/amw-progress-spinner.component';
+import { AmwProgressBarComponent } from '../../../components/components/amw-progress-bar/amw-progress-bar.component';
+import { AmwButtonComponent } from '../../../controls/components/amw-button/amw-button.component';
+import { AmwTooltipDirective } from '../../../directives';
+import { AmwInputComponent } from '../../../controls/components/amw-input/amw-input.component';
+import { AmwDatepickerComponent } from '../../../controls/components/amw-datepicker/amw-datepicker.component';
 
 // Import interfaces
 import {
@@ -80,21 +79,20 @@ export class DefaultReportPageDataSource implements ReportPageDataSource {
         FormsModule,
         ReactiveFormsModule,
         MatCardModule,
-        MatButtonModule,
         MatIconModule,
-        MatFormFieldModule,
-        MatDatepickerModule,
-        MatNativeDateModule,
-        MatProgressSpinnerModule,
+        AmwProgressSpinnerComponent,
         MatTabsModule,
         MatExpansionModule,
-        MatTooltipModule,
+        AmwButtonComponent,
+        AmwInputComponent,
+        AmwDatepickerComponent,
+        AmwTooltipDirective,
         MatMenuModule,
         MatChipsModule,
         MatDividerModule,
         MatTableModule,
         MatSlideToggleModule,
-        MatProgressBarModule,
+        AmwProgressBarComponent,
         MatOptionModule,
         MatSelectModule,
         MatPaginatorModule,

@@ -2,16 +2,12 @@ import { Component, Input, Output, EventEmitter, OnInit, OnDestroy, ViewEncapsul
 import { CommonModule } from '@angular/common';
 import { FormsModule, ReactiveFormsModule, FormBuilder, FormGroup } from '@angular/forms';
 import { MatCardModule } from '@angular/material/card';
-import { MatButtonModule } from '@angular/material/button';
 import { MatIconModule } from '@angular/material/icon';
 import { MatStepperModule } from '@angular/material/stepper';
-import { MatProgressBarModule } from '@angular/material/progress-bar';
 import { MatChipsModule } from '@angular/material/chips';
 import { MatDividerModule } from '@angular/material/divider';
-import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { MatTabsModule } from '@angular/material/tabs';
 import { MatExpansionModule } from '@angular/material/expansion';
-import { MatTooltipModule } from '@angular/material/tooltip';
 import { MatSnackBarModule, MatSnackBar } from '@angular/material/snack-bar';
 import { Subject, takeUntil, BehaviorSubject, Observable, of } from 'rxjs';
 import { delay } from 'rxjs/operators';
@@ -21,6 +17,10 @@ export const WORKFLOW_PAGE_DATA_SOURCE = new InjectionToken<WorkflowPageDataSour
 
 // Import interfaces
 import { WorkflowPageConfig, WorkflowStep, WorkflowData, WorkflowPageDataSource } from './interfaces';
+import { AmwProgressSpinnerComponent } from '../../../components/components/amw-progress-spinner/amw-progress-spinner.component';
+import { AmwProgressBarComponent } from '../../../components/components/amw-progress-bar/amw-progress-bar.component';
+import { AmwTooltipDirective } from '../../../directives';
+import { AmwButtonComponent } from '../../../controls/components/amw-button/amw-button.component';
 
 // Default data source implementation
 @Injectable()
@@ -56,16 +56,16 @@ export class DefaultWorkflowPageDataSource implements WorkflowPageDataSource {
         FormsModule,
         ReactiveFormsModule,
         MatCardModule,
-        MatButtonModule,
+        AmwButtonComponent,
         MatIconModule,
         MatStepperModule,
-        MatProgressBarModule,
+        AmwProgressBarComponent,
         MatChipsModule,
         MatDividerModule,
-        MatProgressSpinnerModule,
+        AmwProgressSpinnerComponent,
         MatTabsModule,
         MatExpansionModule,
-        MatTooltipModule,
+        AmwTooltipDirective,
         MatSnackBarModule
     ],
     encapsulation: ViewEncapsulation.None,

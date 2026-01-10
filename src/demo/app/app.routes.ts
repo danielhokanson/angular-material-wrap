@@ -281,6 +281,14 @@ export const routes: Routes = [
         loadComponent: () => import('./pages/report-page-demo/report-page-demo.component').then(m => m.ReportPageDemoComponent)
     },
     {
+        path: 'pages/master-detail',
+        loadComponent: () => import('./pages/master-detail-page-demo/master-detail-page-demo.component').then(m => m.MasterDetailPageDemoComponent)
+    },
+    {
+        path: 'pages/dashboard-page',
+        loadComponent: () => import('./pages/dashboard-page-demo/dashboard-page-demo.component').then(m => m.DashboardPageDemoComponent)
+    },
+    {
         path: 'components/calendar/demo',
         loadComponent: () => import('./components/calendar-demo/calendar-demo.component').then(m => m.CalendarDemoComponent)
     },

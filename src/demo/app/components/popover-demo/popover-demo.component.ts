@@ -1,15 +1,7 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
 
-import { MatButtonModule } from '@angular/material/button';
 import { MatIconModule } from '@angular/material/icon';
-import { MatCardModule } from '@angular/material/card';
-import { MatDividerModule } from '@angular/material/divider';
-import { MatFormFieldModule } from '@angular/material/form-field';
-import { MatSelectModule } from '@angular/material/select';
-import { MatSlideToggleModule } from '@angular/material/slide-toggle';
-import { MatSliderModule } from '@angular/material/slider';
-import { MatInputModule } from '@angular/material/input';
-import { MatSnackBar, MatSnackBarModule } from '@angular/material/snack-bar';
+import { AmwNotificationService } from '../../../../library/src/services/amw-notification/amw-notification.service';
 import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 import { Subject, takeUntil } from 'rxjs';
 import { AmwPopoverComponent } from '../../../../library/src/components/components/amw-popover/amw-popover.component';
@@ -21,23 +13,25 @@ import { AmwSize } from '../../../../library/src/shared/types';
 /**
  * Demo component for showcasing popover variations and configurations
  */
+import { MatOptionModule } from '@angular/material/core';
+import { MatSlideToggleModule } from '@angular/material/slide-toggle';
+import { MatCardModule } from '@angular/material/card';
+
+import { AmwButtonComponent } from '../../../../library/src/controls/components/amw-button/amw-button.component';
+import { AmwInputComponent } from '../../../../library/src/controls/components/amw-input/amw-input.component';
+import { AmwSelectComponent } from '../../../../library/src/controls/components/amw-select/amw-select.component';
 @Component({
     selector: 'app-popover-demo',
     standalone: true,
-    imports: [
-    MatButtonModule,
-    MatIconModule,
-    MatCardModule,
-    MatDividerModule,
-    MatFormFieldModule,
-    MatSelectModule,
-    MatSlideToggleModule,
-    MatSliderModule,
-    MatInputModule,
-    MatSnackBarModule,
+    imports: [MatIconModule,
     ReactiveFormsModule,
-    AmwPopoverComponent
-],
+    AmwPopoverComponent,
+    MatOptionModule,
+    MatSlideToggleModule,
+    MatCardModule,
+    AmwButtonComponent,
+    AmwInputComponent,
+    AmwSelectComponent],
     templateUrl: './popover-demo.component.html',
     styleUrl: './popover-demo.component.scss'
 })
@@ -261,7 +255,7 @@ export class PopoverDemoComponent implements OnInit, OnDestroy {
     constructor(
         private fb: FormBuilder,
         private popoverService: PopoverService,
-        private snackBar: MatSnackBar
+        private notification: AmwNotificationService
     ) {
         this.configForm = this.createConfigForm();
     }
@@ -360,44 +354,28 @@ export class PopoverDemoComponent implements OnInit, OnDestroy {
      * Handles popover before open
      */
     onPopoverBeforeOpen(): void {
-        this.snackBar.open('Popover is about to open', 'Close', {
-            duration: 2000,
-            horizontalPosition: 'end',
-            verticalPosition: 'top'
-        });
+        this.notification.info('Info', 'Popover is about to open', { duration: 2000 });
     }
 
     /**
      * Handles popover after open
      */
     onPopoverAfterOpen(): void {
-        this.snackBar.open('Popover opened', 'Close', {
-            duration: 2000,
-            horizontalPosition: 'end',
-            verticalPosition: 'top'
-        });
+        this.notification.info('Info', 'Popover opened', { duration: 2000 });
     }
 
     /**
      * Handles popover before close
      */
     onPopoverBeforeClose(): void {
-        this.snackBar.open('Popover is about to close', 'Close', {
-            duration: 2000,
-            horizontalPosition: 'end',
-            verticalPosition: 'top'
-        });
+        this.notification.info('Info', 'Popover is about to close', { duration: 2000 });
     }
 
     /**
      * Handles popover after close
      */
     onPopoverAfterClose(): void {
-        this.snackBar.open('Popover closed', 'Close', {
-            duration: 2000,
-            horizontalPosition: 'end',
-            verticalPosition: 'top'
-        });
+        this.notification.info('Info', 'Popover closed', { duration: 2000 });
     }
 
     /**
@@ -405,22 +383,14 @@ export class PopoverDemoComponent implements OnInit, OnDestroy {
      * @param opened Whether the popover is opened
      */
     onPopoverToggle(opened: boolean): void {
-        this.snackBar.open(`Popover ${opened ? 'opened' : 'closed'}`, 'Close', {
-            duration: 2000,
-            horizontalPosition: 'end',
-            verticalPosition: 'top'
-        });
+        this.notification.info('Info', `Popover ${opened ? 'opened' : 'closed'}`, { duration: 2000 });
     }
 
     /**
      * Handles popover close
      */
     onPopoverClose(): void {
-        this.snackBar.open('Popover closed', 'Close', {
-            duration: 2000,
-            horizontalPosition: 'end',
-            verticalPosition: 'top'
-        });
+        this.notification.info('Info', 'Popover closed', { duration: 2000 });
     }
 
     /**

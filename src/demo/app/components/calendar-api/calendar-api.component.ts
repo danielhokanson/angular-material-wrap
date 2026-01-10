@@ -1,11 +1,12 @@
 import { Component, ViewEncapsulation } from '@angular/core';
-import { MatExpansionModule } from '@angular/material/expansion';
 import { BaseApiComponent, ApiDocumentation } from '../base/base-api.component';
 
 @Component({
   selector: 'amw-demo-calendar-api',
   standalone: true,
-  imports: [MatExpansionModule],
+  imports: [
+    
+],
   encapsulation: ViewEncapsulation.None,
   templateUrl: './calendar-api.component.html',
   styleUrl: './calendar-api.component.scss'
@@ -84,7 +85,6 @@ export class CalendarApiComponent extends BaseApiComponent {
       }
     ]
   };
-
 
   constructor() {
 

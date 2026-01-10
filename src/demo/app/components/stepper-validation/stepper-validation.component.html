@@ -10,58 +10,63 @@
           <mat-step [stepControl]="firstFormGroup">
             <form [formGroup]="firstFormGroup">
               <ng-template matStepLabel>Personal Information</ng-template>
-              <mat-form-field>
-                <mat-label>First Name *</mat-label>
-                <input matInput formControlName="firstName" required>
-                @if (firstFormGroup.get('firstName')?.hasError('required')) {
-                  <mat-error>
-                    First name is required
-                  </mat-error>
-                }
-              </mat-form-field>
-              <mat-form-field>
-                <mat-label>Last Name *</mat-label>
-                <input matInput formControlName="lastName" required>
-                @if (firstFormGroup.get('lastName')?.hasError('required')) {
-                  <mat-error>
-                    Last name is required
-                  </mat-error>
-                }
-              </mat-form-field>
+              <amw-input
+                formControlName="firstName"
+                label="First Name *"
+                [required]="true">
+              </amw-input>
+              @if (firstFormGroup.get('firstName')?.hasError('required')) {
+                <div class="field-error">
+                  First name is required
+                </div>
+              }
+              <amw-input
+                formControlName="lastName"
+                label="Last Name *"
+                [required]="true">
+              </amw-input>
+              @if (firstFormGroup.get('lastName')?.hasError('required')) {
+                <div class="field-error">
+                  Last name is required
+                </div>
+              }
               <div>
-                <button mat-button matStepperNext>Next</button>
+                <amw-button variant="text" matStepperNext>Next</amw-button>
               </div>
             </form>
           </mat-step>
           <mat-step [stepControl]="secondFormGroup">
             <form [formGroup]="secondFormGroup">
               <ng-template matStepLabel>Contact Information</ng-template>
-              <mat-form-field>
-                <mat-label>Email *</mat-label>
-                <input matInput formControlName="email" type="email" required>
-                @if (secondFormGroup.get('email')?.hasError('required')) {
-                  <mat-error>
-                    Email is required
-                  </mat-error>
-                }
-                @if (secondFormGroup.get('email')?.hasError('email')) {
-                  <mat-error>
-                    Please enter a valid email
-                  </mat-error>
-                }
-              </mat-form-field>
-              <mat-form-field>
-                <mat-label>Phone *</mat-label>
-                <input matInput formControlName="phone" required>
-                @if (secondFormGroup.get('phone')?.hasError('required')) {
-                  <mat-error>
-                    Phone is required
-                  </mat-error>
-                }
-              </mat-form-field>
+              <amw-input
+                formControlName="email"
+                label="Email *"
+                type="email"
+                [required]="true">
+              </amw-input>
+              @if (secondFormGroup.get('email')?.hasError('required')) {
+                <div class="field-error">
+                  Email is required
+                </div>
+              }
+              @if (secondFormGroup.get('email')?.hasError('email')) {
+                <div class="field-error">
+                  Please enter a valid email
+                </div>
+              }
+              <amw-input
+                formControlName="phone"
+                label="Phone *"
+                [required]="true">
+              </amw-input>
+              @if (secondFormGroup.get('phone')?.hasError('required')) {
+                <div class="field-error">
+                  Phone is required
+                </div>
+              }
               <div>
-                <button mat-button matStepperPrevious>Back</button>
-                <button mat-button matStepperNext>Next</button>
+                <amw-button variant="text" matStepperPrevious>Back</amw-button>
+                <amw-button variant="text" matStepperNext>Next</amw-button>
               </div>
             </form>
           </mat-step>
@@ -69,8 +74,8 @@
             <ng-template matStepLabel>Review</ng-template>
             <p>Review your information before submitting.</p>
             <div>
-              <button mat-button matStepperPrevious>Back</button>
-              <button mat-button (click)="stepper.reset()">Reset</button>
+              <amw-button variant="text" matStepperPrevious>Back</amw-button>
+              <amw-button variant="text" (click)="stepper.reset()">Reset</amw-button>
             </div>
           </mat-step>
         </mat-stepper>

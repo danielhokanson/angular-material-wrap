@@ -38,19 +38,18 @@
                     <p>This directive automatically focuses an element when it becomes visible.</p>
                     <div class="demo-section">
                       <h4>Input with Auto Focus</h4>
-                      <mat-form-field appearance="outline">
-                        <mat-label>This input will auto-focus</mat-label>
-                        <input matInput
-                          name="autoFocusInput"
-                          placeholder="Type something here"
-                          [amwAutoFocus]="true">
-                      </mat-form-field>
+                      <amw-input
+                        label="This input will auto-focus"
+                        name="autoFocusInput"
+                        placeholder="Type something here"
+                        [amwAutoFocus]="true">
+                      </amw-input>
                     </div>
                     <div class="demo-section">
                       <h4>Button with Auto Focus</h4>
-                      <button mat-raised-button color="primary" [amwAutoFocus]="true">
+                      <amw-button variant="elevated" color="primary" [amwAutoFocus]="true">
                         This button will auto-focus
-                      </button>
+                      </amw-button>
                     </div>
                   </div>
                 }
@@ -60,30 +59,23 @@
                     <p>This directive allows easy copying of text to the clipboard.</p>
                     <div class="demo-section">
                       <h4>Copy Text</h4>
-                      <mat-form-field appearance="outline">
-                        <mat-label>Text to copy</mat-label>
-                        <input matInput
-                          name="copyText"
-                          [(ngModel)]="copyText"
-                          placeholder="Enter text to copy">
-                      </mat-form-field>
-                      <button mat-raised-button color="primary"
+                      <amw-input
+                        label="Text to copy"
+                        name="copyText"
+                        [(ngModel)]="copyText"
+                        placeholder="Enter text to copy">
+                      </amw-input>
+                      <amw-button variant="elevated" color="primary"
                         amwCopyToClipboard
-                        [amwCopyToClipboard]="copyText">
-                        <mat-icon>content_copy</mat-icon>
-                        Copy to Clipboard
-                      </button>
+                        [amwCopyToClipboard]="copyText" icon="content_copy" iconPosition="left">Copy to Clipboard</amw-button>
                     </div>
                     <div class="demo-section">
                       <h4>Copy Code Block</h4>
                       <div class="code-block">
                         <pre>{{ codeExample }}</pre>
-                        <button mat-icon-button
-                          amwCopyToClipboard
+                        <amw-button variant="icon" icon="content_copy"amwCopyToClipboard
                           [amwCopyToClipboard]="codeExample"
-                          title="Copy code">
-                          <mat-icon>content_copy</mat-icon>
-                        </button>
+                          title="Copy code"></amw-button>
                       </div>
                     </div>
                   </div>
@@ -94,26 +86,26 @@
                     <p>Display helpful information on hover or focus with support for HTML content.</p>
                     <div class="demo-section">
                       <h4>Basic Tooltip</h4>
-                      <button mat-raised-button color="primary"
+                      <amw-button variant="elevated" color="primary"
                         amwTooltip="This is a basic tooltip">
                         Hover me
-                      </button>
+                      </amw-button>
                     </div>
                     <div class="demo-section">
                       <h4>Tooltip with HTML Content</h4>
-                      <button mat-raised-button color="accent"
+                      <amw-button variant="elevated" color="accent"
                         [amwTooltip]="htmlTooltipContent"
                         [tooltipAllowHtml]="true">
                         HTML Tooltip
-                      </button>
+                      </amw-button>
                     </div>
                     <div class="demo-section">
                       <h4>Tooltip Positions</h4>
                       <div class="tooltip-demo-grid">
-                        <button mat-button amwTooltip="Top tooltip" tooltipPosition="top">Top</button>
-                        <button mat-button amwTooltip="Bottom tooltip" tooltipPosition="bottom">Bottom</button>
-                        <button mat-button amwTooltip="Left tooltip" tooltipPosition="left">Left</button>
-                        <button mat-button amwTooltip="Right tooltip" tooltipPosition="right">Right</button>
+                        <amw-button variant="text" amwTooltip="Top tooltip" tooltipPosition="top">Top</amw-button>
+                        <amw-button variant="text" amwTooltip="Bottom tooltip" tooltipPosition="bottom">Bottom</amw-button>
+                        <amw-button variant="text" amwTooltip="Left tooltip" tooltipPosition="left">Left</amw-button>
+                        <amw-button variant="text" amwTooltip="Right tooltip" tooltipPosition="right">Right</amw-button>
                       </div>
                     </div>
                   </div>
@@ -133,9 +125,9 @@
                         <h4>Basic Usage</h4>
                         <pre><code>{{ tooltipCodeExamples.basic }}</code></pre>
                         <div class="preview">
-                          <button mat-raised-button color="primary" amwTooltip="This is a tooltip">
+                          <amw-button variant="elevated" color="primary" amwTooltip="This is a tooltip">
                             Hover me
-                          </button>
+                          </amw-button>
                         </div>
                       </div>
 
@@ -144,11 +136,11 @@
                         <pre><code>{{ tooltipCodeExamples.positions }}</code></pre>
                         <div class="preview">
                           <div class="tooltip-demo-grid">
-                            <button mat-button amwTooltip="Top tooltip" tooltipPosition="top">Top</button>
-                            <button mat-button amwTooltip="Bottom tooltip" tooltipPosition="bottom">Bottom</button>
-                            <button mat-button amwTooltip="Left tooltip" tooltipPosition="left">Left</button>
-                            <button mat-button amwTooltip="Right tooltip" tooltipPosition="right">Right</button>
-                            <button mat-button amwTooltip="Auto position" tooltipPosition="auto">Auto</button>
+                            <amw-button variant="text" amwTooltip="Top tooltip" tooltipPosition="top">Top</amw-button>
+                            <amw-button variant="text" amwTooltip="Bottom tooltip" tooltipPosition="bottom">Bottom</amw-button>
+                            <amw-button variant="text" amwTooltip="Left tooltip" tooltipPosition="left">Left</amw-button>
+                            <amw-button variant="text" amwTooltip="Right tooltip" tooltipPosition="right">Right</amw-button>
+                            <amw-button variant="text" amwTooltip="Auto position" tooltipPosition="auto">Auto</amw-button>
                           </div>
                         </div>
                       </div>
@@ -157,11 +149,11 @@
                         <h4>HTML Content</h4>
                         <pre><code>{{ tooltipCodeExamples.html }}</code></pre>
                         <div class="preview">
-                          <button mat-raised-button color="accent"
+                          <amw-button variant="elevated" color="accent"
                             [amwTooltip]="htmlTooltipContent"
                             [tooltipAllowHtml]="true">
                             HTML Tooltip
-                          </button>
+                          </amw-button>
                         </div>
                       </div>
 
@@ -169,12 +161,12 @@
                         <h4>Custom Width and Styling</h4>
                         <pre><code>{{ tooltipCodeExamples.styling }}</code></pre>
                         <div class="preview">
-                          <button mat-raised-button
+                          <amw-button variant="elevated"
                             amwTooltip="This is a wider tooltip with custom styling"
                             tooltipMaxWidth="400px"
                             tooltipClass="custom-tooltip">
                             Custom Style
-                          </button>
+                          </amw-button>
                         </div>
                       </div>
 
@@ -182,11 +174,11 @@
                         <h4>Disabled Tooltip</h4>
                         <pre><code>{{ tooltipCodeExamples.disabled }}</code></pre>
                         <div class="preview">
-                          <button mat-raised-button
+                          <amw-button variant="elevated"
                             amwTooltip="This won't show"
                             [tooltipDisabled]="true">
                             Tooltip Disabled
-                          </button>
+                          </amw-button>
                         </div>
                       </div>
 
@@ -194,7 +186,7 @@
                         <h4>Configuration Object</h4>
                         <pre><code>{{ tooltipCodeExamples.config }}</code></pre>
                         <div class="preview">
-                          <button mat-raised-button
+                          <amw-button variant="elevated"
                             [amwTooltip]="{
                               content: 'Configured tooltip',
                               position: 'top',
@@ -204,7 +196,7 @@
                               disabled: false
                             }">
                             Configured Tooltip
-                          </button>
+                          </amw-button>
                         </div>
                       </div>
                     </div>
@@ -218,10 +210,13 @@
                         <h4>Basic Usage</h4>
                         <pre><code>{{ autoFocusCodeExamples.basic }}</code></pre>
                         <div class="preview">
-                          <mat-form-field appearance="outline">
-                            <mat-label>Auto-focused Input</mat-label>
-                            <input matInput name="basicAutoFocus" [amwAutoFocus]="true" placeholder="Type here...">
-                          </mat-form-field>
+                          <amw-input
+                            label="Auto-focused Input"
+                            name="basicAutoFocus"
+                            [amwAutoFocus]="true"
+                            appearance="outline"
+                            placeholder="Type here...">
+                          </amw-input>
                         </div>
                       </div>
 
@@ -229,9 +224,9 @@
                         <h4>Auto Focus on Button</h4>
                         <pre><code>{{ autoFocusCodeExamples.button }}</code></pre>
                         <div class="preview">
-                          <button mat-raised-button color="primary" [amwAutoFocus]="true">
+                          <amw-button variant="elevated" color="primary" [amwAutoFocus]="true">
                             Auto-focused Button
-                          </button>
+                          </amw-button>
                         </div>
                       </div>
 
@@ -239,14 +234,14 @@
                         <h4>Delayed Focus</h4>
                         <pre><code>{{ autoFocusCodeExamples.delayed }}</code></pre>
                         <div class="preview">
-                          <mat-form-field appearance="outline">
-                            <mat-label>Delayed Focus (500ms)</mat-label>
-                            <input matInput
-                              name="delayedAutoFocus"
-                              [amwAutoFocus]="true"
-                              [amwAutoFocusDelay]="500"
-                              placeholder="Focus after 500ms">
-                          </mat-form-field>
+                          <amw-input
+                            label="Delayed Focus (500ms)"
+                            name="delayedAutoFocus"
+                            [amwAutoFocus]="true"
+                            [amwAutoFocusDelay]="500"
+                            appearance="outline"
+                            placeholder="Focus after 500ms">
+                          </amw-input>
                         </div>
                       </div>
 
@@ -254,13 +249,13 @@
                         <h4>Conditional Auto Focus</h4>
                         <pre><code>{{ autoFocusCodeExamples.conditional }}</code></pre>
                         <div class="preview">
-                          <mat-form-field appearance="outline">
-                            <mat-label>Conditionally Focused</mat-label>
-                            <input matInput
-                              name="conditionalAutoFocus"
-                              [amwAutoFocus]="true"
-                              placeholder="Focus when condition is true">
-                          </mat-form-field>
+                          <amw-input
+                            label="Conditionally Focused"
+                            name="conditionalAutoFocus"
+                            [amwAutoFocus]="true"
+                            appearance="outline"
+                            placeholder="Focus when condition is true">
+                          </amw-input>
                         </div>
                       </div>
 
@@ -269,14 +264,18 @@
                         <pre><code>{{ autoFocusCodeExamples.container }}</code></pre>
                         <div class="preview">
                           <div [amwAutoFocus]="true" style="border: 1px dashed #ccc; padding: 16px;">
-                            <mat-form-field appearance="outline">
-                              <mat-label>First Input (will be focused)</mat-label>
-                              <input matInput name="firstInput" placeholder="Gets focus">
-                            </mat-form-field>
-                            <mat-form-field appearance="outline">
-                              <mat-label>Second Input</mat-label>
-                              <input matInput name="secondInput" placeholder="Not focused">
-                            </mat-form-field>
+                            <amw-input
+                              label="First Input (will be focused)"
+                              name="firstInput"
+                              appearance="outline"
+                              placeholder="Gets focus">
+                            </amw-input>
+                            <amw-input
+                              label="Second Input"
+                              name="secondInput"
+                              appearance="outline"
+                              placeholder="Not focused">
+                            </amw-input>
                           </div>
                         </div>
                       </div>
@@ -291,12 +290,9 @@
                         <h4>Basic Usage</h4>
                         <pre><code>{{ copyToClipboardCodeExamples.basic }}</code></pre>
                         <div class="preview">
-                          <button mat-raised-button color="primary"
+                          <amw-button variant="elevated" color="primary"
                             amwCopyToClipboard
-                            [amwCopyToClipboard]="copyText">
-                            <mat-icon>content_copy</mat-icon>
-                            Copy Text
-                          </button>
+                            [amwCopyToClipboard]="copyText" icon="content_copy" iconPosition="left">Copy Text</amw-button>
                         </div>
                       </div>
 
@@ -304,15 +300,17 @@
                         <h4>Copy from Input Field</h4>
                         <pre><code>{{ copyToClipboardCodeExamples.fromInput }}</code></pre>
                         <div class="preview">
-                          <mat-form-field appearance="outline">
-                            <mat-label>Text to copy</mat-label>
-                            <input matInput name="copyFromInput" [(ngModel)]="copyText">
-                          </mat-form-field>
-                          <button mat-raised-button
+                          <amw-input
+                            label="Text to copy"
+                            name="copyFromInput"
+                            [(ngModel)]="copyText"
+                            appearance="outline">
+                          </amw-input>
+                          <amw-button variant="elevated"
                             amwCopyToClipboard
                             [amwCopyToClipboard]="copyText">
                             Copy
-                          </button>
+                          </amw-button>
                         </div>
                       </div>
 
@@ -320,13 +318,13 @@
                         <h4>With Event Handling</h4>
                         <pre><code>{{ copyToClipboardCodeExamples.withEvents }}</code></pre>
                         <div class="preview">
-                          <button mat-raised-button
+                          <amw-button variant="elevated"
                             amwCopyToClipboard
                             [amwCopyToClipboard]="codeExample"
                             (amwCopySuccess)="snackBar.open('Copied: ' + $event, 'Close', { duration: 2000 })"
                             (amwCopyError)="snackBar.open('Copy failed: ' + $event.message, 'Close', { duration: 2000 })">
                             Copy Code
-                          </button>
+                          </amw-button>
                         </div>
                       </div>
 
@@ -334,13 +332,10 @@
                         <h4>Custom Messages</h4>
                         <pre><code>{{ copyToClipboardCodeExamples.customMessages }}</code></pre>
                         <div class="preview">
-                          <button mat-icon-button
-                            amwCopyToClipboard
+                          <amw-button variant="icon" icon="content_copy"amwCopyToClipboard
                             [amwCopyToClipboard]="codeExample"
                             amwCopySuccessMessage="Code copied!"
-                            amwCopyErrorMessage="Failed to copy code">
-                            <mat-icon>content_copy</mat-icon>
-                          </button>
+                            amwCopyErrorMessage="Failed to copy code"></amw-button>
                         </div>
                       </div>
 
@@ -348,13 +343,13 @@
                         <h4>Disable Built-in Toast</h4>
                         <pre><code>{{ copyToClipboardCodeExamples.noToast }}</code></pre>
                         <div class="preview">
-                          <button mat-raised-button
+                          <amw-button variant="elevated"
                             amwCopyToClipboard
                             [amwCopyToClipboard]="copyText"
                             [amwCopyShowToast]="false"
                             (amwCopySuccess)="snackBar.open('Copied!', 'Close', { duration: 2000 })">
                             Copy (Custom Notification)
-                          </button>
+                          </amw-button>
                         </div>
                       </div>
 
@@ -364,13 +359,10 @@
                         <div class="preview">
                           <div class="code-container" style="position: relative; border: 1px solid #ccc; border-radius: 4px; padding: 16px; background: #f5f5f5;">
                             <pre><code>{{ codeExample }}</code></pre>
-                            <button mat-icon-button
-                              amwCopyToClipboard
+                            <amw-button variant="icon" icon="content_copy"amwCopyToClipboard
                               [amwCopyToClipboard]="codeExample"
                               title="Copy code"
-                              style="position: absolute; top: 8px; right: 8px;">
-                              <mat-icon>content_copy</mat-icon>
-                            </button>
+                              style="position: absolute; top: 8px; right: 8px;"></amw-button>
                           </div>
                         </div>
                       </div>
@@ -398,9 +390,9 @@
                         <h4>Dropdown Menu</h4>
                         <pre><code>{{ clickOutsideCodeExamples.dropdown }}</code></pre>
                         <div class="preview">
-                          <button mat-raised-button color="primary" (click)="boxClicked = !boxClicked">
+                          <amw-button variant="elevated" color="primary" (click)="boxClicked = !boxClicked">
                             {{ boxClicked ? 'Close Menu' : 'Open Menu' }}
-                          </button>
+                          </amw-button>
                           @if (boxClicked) {
                             <div class="dropdown-menu"
                               (amwClickOutside)="boxClicked = false"
@@ -417,9 +409,9 @@
                         <h4>Modal/Dialog</h4>
                         <pre><code>{{ clickOutsideCodeExamples.modal }}</code></pre>
                         <div class="preview">
-                          <button mat-raised-button color="accent" (click)="boxClicked = !boxClicked">
+                          <amw-button variant="elevated" color="accent" (click)="boxClicked = !boxClicked">
                             {{ boxClicked ? 'Close Modal' : 'Open Modal' }}
-                          </button>
+                          </amw-button>
                           @if (boxClicked) {
                             <div style="position: fixed; top: 0; left: 0; right: 0; bottom: 0; background: rgba(0,0,0,0.5); display: flex; align-items: center; justify-content: center; z-index: 1000;">
                               <div class="modal-content"
@@ -427,7 +419,7 @@
                                 style="background: white; padding: 24px; border-radius: 8px; max-width: 400px; box-shadow: 0 4px 8px rgba(0,0,0,0.2);">
                                 <h3 style="margin-top: 0;">Modal Title</h3>
                                 <p>Click outside this modal to close it</p>
-                                <button mat-button (click)="boxClicked = false">Close</button>
+                                <amw-button variant="text" (click)="boxClicked = false">Close</amw-button>
                               </div>
                             </div>
                           }
@@ -444,7 +436,7 @@
                             (amwClickOutside)="boxClicked = false"
                             style="padding: 12px; border: 2px dashed #ccc; border-radius: 4px; cursor: pointer;">
                             @if (boxClicked) {
-                              <input matInput
+                              <input
                                 name="editableField"
                                 [(ngModel)]="copyText"
                                 [amwAutoFocus]="true"
@@ -484,15 +476,15 @@
                         <h4>Access Click Event</h4>
                         <pre><code>{{ clickOutsideCodeExamples.withEvent }}</code></pre>
                         <div class="preview">
-                          <button mat-raised-button (click)="boxClicked = !boxClicked">
+                          <amw-button variant="elevated" (click)="boxClicked = !boxClicked">
                             {{ boxClicked ? 'Hide Menu' : 'Show Menu' }}
-                          </button>
+                          </amw-button>
                           @if (boxClicked) {
                             <div class="context-menu"
                               (amwClickOutside)="snackBar.open('Click event detected!', 'Close', { duration: 2000 }); boxClicked = false"
                               style="margin-top: 8px; padding: 16px; border: 1px solid #ccc; border-radius: 4px; background: white; box-shadow: 0 2px 4px rgba(0,0,0,0.1);">
-                              <button mat-menu-item style="display: block; width: 100%; text-align: left; padding: 8px; border: none; background: none; cursor: pointer;">Action 1</button>
-                              <button mat-menu-item style="display: block; width: 100%; text-align: left; padding: 8px; border: none; background: none; cursor: pointer;">Action 2</button>
+                              <button mat-menu-item style="display: block; width: 100%; text-align: left; padding: 8px; border: none; background: none; cursor: pointer;">Action 1</amw-button>
+                              <button mat-menu-item style="display: block; width: 100%; text-align: left; padding: 8px; border: none; background: none; cursor: pointer;">Action 2</amw-button>
                             </div>
                           }
                         </div>

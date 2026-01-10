@@ -1,33 +1,24 @@
 import { Component, OnInit, ViewEncapsulation } from '@angular/core';
 
 import { ReactiveFormsModule, FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { MatFormFieldModule } from '@angular/material/form-field';
-import { MatInputModule } from '@angular/material/input';
-import { MatButtonModule } from '@angular/material/button';
-import { MatSnackBar, MatSnackBarModule } from '@angular/material/snack-bar';
-import { MatCardModule } from '@angular/material/card';
-import { MatSelectModule } from '@angular/material/select';
-import { MatCheckboxModule } from '@angular/material/checkbox';
-import { MatChipsModule } from '@angular/material/chips';
+import { AmwNotificationService } from '../../../../library/src/services/amw-notification/amw-notification.service';
 import { AmwCardComponent } from '../../../../library/src/components/components/amw-card/amw-card.component';
 import { CardConfig, CardVariant, CardElevation } from '../../../../library/src/components/components/amw-card/interfaces';
 import { AmwSize } from '../../../../library/src/shared/types';
+import { MatFormFieldModule } from '@angular/material/form-field';
+import { MatCardModule } from '@angular/material/card';
 
+import { AmwButtonComponent } from '../../../../library/src/controls/components/amw-button/amw-button.component';
 @Component({
     selector: 'amw-demo-card-validation',
     standalone: true,
-    imports: [
-    ReactiveFormsModule,
+    imports: [ReactiveFormsModule,
+    AmwInputComponent,
+    AmwCardComponent,
+    AmwCardComponent,
     MatFormFieldModule,
-    MatInputModule,
-    MatButtonModule,
-    MatSnackBarModule,
     MatCardModule,
-    MatSelectModule,
-    MatCheckboxModule,
-    MatChipsModule,
-    AmwCardComponent
-],
+    AmwButtonComponent],
     encapsulation: ViewEncapsulation.None,
     templateUrl: './card-validation.component.html',
     styleUrl: './card-validation.component.scss'
@@ -44,7 +35,7 @@ export class CardValidationComponent implements OnInit {
 
     constructor(
         private fb: FormBuilder,
-        private snackBar: MatSnackBar
+        private notification: AmwNotificationService
     ) {
         this.cardForm = this.fb.group({
             selectedCards: [[], Validators.required],
@@ -70,11 +61,7 @@ export class CardValidationComponent implements OnInit {
             // Add to selection
             this.selectedCards = [...currentSelection, card.id];
         } else {
-            this.snackBar.open(`Maximum ${maxSelection} cards can be selected`, 'Close', {
-                duration: 3000,
-                horizontalPosition: 'center',
-                verticalPosition: 'top'
-            });
+            this.notification.info('Info', `Maximum ${maxSelection} cards can be selected`, { duration: 3000 });
             return;
         }
 
@@ -107,11 +94,7 @@ export class CardValidationComponent implements OnInit {
     onSubmit() {
         if (this.cardForm.valid) {
             const selectedCards = this.cardForm.get('selectedCards')?.value || [];
-            this.snackBar.open(`Form submitted successfully! Selected ${selectedCards.length} cards.`, 'Close', {
-                duration: 3000,
-                horizontalPosition: 'center',
-                verticalPosition: 'top'
-            });
+            this.notification.success('Success', `Form submitted successfully! Selected ${selectedCards.length} cards.`, { duration: 3000 });
             console.log('Form values:', this.cardForm.value);
         } else {
             const errors = this.cardForm.get('selectedCards')?.errors;
@@ -127,11 +110,7 @@ export class CardValidationComponent implements OnInit {
                 message = `Please select no more than ${max} cards`;
             }
 
-            this.snackBar.open(message, 'Close', {
-                duration: 3000,
-                horizontalPosition: 'center',
-                verticalPosition: 'top'
-            });
+            this.notification.info('Info', message, { duration: 3000 });
         }
     }
 

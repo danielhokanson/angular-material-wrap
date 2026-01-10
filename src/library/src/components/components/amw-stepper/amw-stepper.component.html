@@ -83,33 +83,36 @@
   <div class="amw-stepper__navigation" *ngIf="currentConfig.showNavigation && !isCompleting">
     <div class="amw-stepper__nav-buttons">
       <!-- Previous Button -->
-      <button mat-button 
+      <amw-button variant="text"
+              icon="arrow_back"
+              iconPosition="left"
               class="amw-stepper__nav-button amw-stepper__nav-button--previous"
               [disabled]="!canGoBack() || disabled"
               (click)="previousStep()">
-        <mat-icon>arrow_back</mat-icon>
         Previous
-      </button>
+      </amw-button>
 
       <!-- Next Button -->
-      <button mat-button 
+      <amw-button variant="text"
+              icon="arrow_forward"
+              iconPosition="right"
               class="amw-stepper__nav-button amw-stepper__nav-button--next"
               [disabled]="!canGoNext() || disabled"
               (click)="nextStep()">
         Next
-        <mat-icon>arrow_forward</mat-icon>
-      </button>
+      </amw-button>
 
       <!-- Complete Button -->
-      <button mat-raised-button 
+      <amw-button variant="elevated"
+              icon="check"
+              iconPosition="left"
               color="primary"
               class="amw-stepper__nav-button amw-stepper__nav-button--complete"
               [disabled]="!canComplete() || disabled"
               (click)="completeStepper()"
               *ngIf="currentConfig.showCompletion && currentStep === steps.length - 1">
-        <mat-icon>check</mat-icon>
         Complete
-      </button>
+      </amw-button>
     </div>
 
     <!-- Stepper Progress -->
@@ -131,9 +134,9 @@
       <mat-icon class="amw-stepper__completion-icon">check_circle</mat-icon>
       <h3>Stepper Completed!</h3>
       <p>All steps have been completed successfully.</p>
-      <button mat-button (click)="resetStepper()">
+      <amw-button variant="text" (click)="resetStepper()">
         Start Over
-      </button>
+      </amw-button>
     </div>
   </div>
 </div>

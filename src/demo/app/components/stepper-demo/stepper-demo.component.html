@@ -5,33 +5,37 @@
     <mat-stepper #stepper>
         <mat-step [stepControl]="firstFormGroup" label="Personal Information">
             <form [formGroup]="firstFormGroup">
-                <mat-form-field appearance="outline">
-                    <mat-label>First Name</mat-label>
-                    <input matInput formControlName="firstName" placeholder="Enter your first name">
-                </mat-form-field>
-                <mat-form-field appearance="outline">
-                    <mat-label>Last Name</mat-label>
-                    <input matInput formControlName="lastName" placeholder="Enter your last name">
-                </mat-form-field>
+                <amw-input
+                    label="First Name"
+                    formControlName="firstName"
+                    placeholder="Enter your first name">
+                </amw-input>
+                <amw-input
+                    label="Last Name"
+                    formControlName="lastName"
+                    placeholder="Enter your last name">
+                </amw-input>
                 <div>
-                    <button mat-button matStepperNext>Next</button>
+                    <amw-button variant="text" matStepperNext>Next</amw-button>
                 </div>
             </form>
         </mat-step>
 
         <mat-step [stepControl]="secondFormGroup" label="Contact Information">
             <form [formGroup]="secondFormGroup">
-                <mat-form-field appearance="outline">
-                    <mat-label>Email</mat-label>
-                    <input matInput formControlName="email" placeholder="Enter your email">
-                </mat-form-field>
-                <mat-form-field appearance="outline">
-                    <mat-label>Phone</mat-label>
-                    <input matInput formControlName="phone" placeholder="Enter your phone number">
-                </mat-form-field>
+                <amw-input
+                    label="Email"
+                    formControlName="email"
+                    placeholder="Enter your email">
+                </amw-input>
+                <amw-input
+                    label="Phone"
+                    formControlName="phone"
+                    placeholder="Enter your phone number">
+                </amw-input>
                 <div>
-                    <button mat-button matStepperPrevious>Back</button>
-                    <button mat-button matStepperNext>Next</button>
+                    <amw-button variant="text" matStepperPrevious>Back</amw-button>
+                    <amw-button variant="text" matStepperNext>Next</amw-button>
                 </div>
             </form>
         </mat-step>
@@ -42,9 +46,9 @@
             <p><strong>Email:</strong> {{ secondFormGroup.value.email }}</p>
             <p><strong>Phone:</strong> {{ secondFormGroup.value.phone }}</p>
             <div>
-                <button mat-button matStepperPrevious>Back</button>
-                <button mat-button (click)="stepper.reset()">Reset</button>
-                <button mat-raised-button color="primary" (click)="onSubmit()">Submit</button>
+                <amw-button variant="text" matStepperPrevious>Back</amw-button>
+                <amw-button variant="text" (click)="stepper.reset()">Reset</amw-button>
+                <amw-button variant="elevated" color="primary" (click)="onSubmit()">Submit</amw-button>
             </div>
         </mat-step>
     </mat-stepper>

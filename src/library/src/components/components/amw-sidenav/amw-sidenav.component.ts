@@ -1,12 +1,10 @@
 import { Component, Input, Output, EventEmitter, OnInit, OnDestroy, TemplateRef, ViewChild, ElementRef, AfterViewInit, ChangeDetectorRef, ViewEncapsulation } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { MatSidenavModule, MatSidenav } from '@angular/material/sidenav';
-import { MatButtonModule } from '@angular/material/button';
 import { MatIconModule } from '@angular/material/icon';
 import { MatListModule } from '@angular/material/list';
 import { MatToolbarModule } from '@angular/material/toolbar';
 import { MatDividerModule } from '@angular/material/divider';
-import { MatTooltipModule } from '@angular/material/tooltip';
 import { MatRippleModule } from '@angular/material/core';
 import { MatBadgeModule } from '@angular/material/badge';
 import { MatExpansionModule } from '@angular/material/expansion';
@@ -16,6 +14,8 @@ import { Subject, takeUntil } from 'rxjs';
 import { BaseComponent } from '../../../controls/components/base/base.component';
 import { SidenavConfig } from './interfaces/sidenav-config.interface';
 import { SidenavItem } from './interfaces/sidenav-item.interface';
+import { AmwTooltipDirective } from '../../../directives';
+import { AmwButtonComponent } from '../../../controls/components/amw-button/amw-button.component';
 
 /**
  * Angular Material Wrap Sidenav Component
@@ -40,12 +40,12 @@ import { SidenavItem } from './interfaces/sidenav-item.interface';
     imports: [
         CommonModule,
         MatSidenavModule,
-        MatButtonModule,
+        AmwButtonComponent,
         MatIconModule,
         MatListModule,
         MatToolbarModule,
         MatDividerModule,
-        MatTooltipModule,
+        AmwTooltipDirective,
         MatRippleModule,
         MatBadgeModule,
         MatExpansionModule,

@@ -1,12 +1,13 @@
 import { Component, ViewEncapsulation } from '@angular/core';
 
-import { MatCardModule } from '@angular/material/card';
 import { BaseApiComponent, ApiDocumentation } from '../base/base-api.component';
 
 @Component({
     selector: 'amw-demo-range-slider-api',
     standalone: true,
-    imports: [MatCardModule],
+    imports: [
+    
+],
     encapsulation: ViewEncapsulation.None,
     templateUrl: './range-slider-api.component.html',
     styleUrl: './range-slider-api.component.scss'
@@ -166,8 +167,6 @@ export class RangeSliderApiComponent extends BaseApiComponent {
             description: 'Configuration interface for the range slider'
         }
     ];
-
-
     constructor() {
 
         super();
@@ -175,6 +174,4 @@ export class RangeSliderApiComponent extends BaseApiComponent {
     }
 
 }
-
-
 

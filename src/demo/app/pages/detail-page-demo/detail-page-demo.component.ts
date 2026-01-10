@@ -1,14 +1,8 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
 
-import { MatCardModule } from '@angular/material/card';
-import { MatButtonModule } from '@angular/material/button';
 import { MatIconModule } from '@angular/material/icon';
-import { MatChipsModule } from '@angular/material/chips';
-import { MatDividerModule } from '@angular/material/divider';
-import { MatTabsModule } from '@angular/material/tabs';
-import { MatExpansionModule } from '@angular/material/expansion';
 import { MatTooltipModule } from '@angular/material/tooltip';
-import { MatSnackBarModule, MatSnackBar } from '@angular/material/snack-bar';
+import { AmwNotificationService } from '../../../../library/src/services/amw-notification/amw-notification.service';
 import { Subject, takeUntil, BehaviorSubject, Observable, of } from 'rxjs';
 import { delay } from 'rxjs/operators';
 
@@ -347,21 +341,18 @@ class DetailPageDemoDataSource implements DetailPageDataSource {
         ];
     }
 }
+import { MatTabsModule } from '@angular/material/tabs';
+import { MatCardModule } from '@angular/material/card';
 
 @Component({
     selector: 'app-detail-page-demo',
     standalone: true,
     imports: [
-    MatCardModule,
-    MatButtonModule,
     MatIconModule,
-    MatChipsModule,
-    MatDividerModule,
-    MatTabsModule,
-    MatExpansionModule,
     MatTooltipModule,
-    MatSnackBarModule,
-    AmwDetailPageComponent
+    AmwDetailPageComponent,
+    MatTabsModule,
+    MatCardModule
 ],
     templateUrl: './detail-page-demo.component.html',
     styleUrl: './detail-page-demo.component.scss'
@@ -386,7 +377,7 @@ export class DetailPageDemoComponent implements OnInit, OnDestroy {
                 icon: 'download',
                 color: 'primary',
                 onClick: (item: any) => {
-                    this.snackBar.open(`Exporting profile for ${item.name}`, 'Close', { duration: 2000 });
+                    this.notification.info('Info', `Exporting profile for ${item.name}`, { duration: 2000 });
                 }
             },
             {
@@ -395,7 +386,7 @@ export class DetailPageDemoComponent implements OnInit, OnDestroy {
                 icon: 'event',
                 color: 'accent',
                 onClick: (item: any) => {
-                    this.snackBar.open(`Scheduling meeting with ${item.name}`, 'Close', { duration: 2000 });
+                    this.notification.info('Info', `Scheduling meeting with ${item.name}`, { duration: 2000 });
                 }
             }
         ]
@@ -408,7 +399,7 @@ export class DetailPageDemoComponent implements OnInit, OnDestroy {
     currentItemId = '1';
     currentView = 'basic';
 
-    constructor(private snackBar: MatSnackBar) { }
+    constructor(private notification: AmwNotificationService) { }
 
     ngOnInit(): void {
         // Initialize component
@@ -424,17 +415,17 @@ export class DetailPageDemoComponent implements OnInit, OnDestroy {
     }
 
     onItemDelete(item: any): void {
-        this.snackBar.open(`Deleting employee ${item?.id || 'unknown'}`, 'Close', { duration: 2000 });
+        this.notification.info('Info', `Deleting employee ${item?.id || 'unknown'}`, { duration: 2000 });
         console.log('Item deleted:', item);
     }
 
     onItemRefresh(item: any): void {
-        this.snackBar.open(`Refreshing employee ${item?.id || 'unknown'}`, 'Close', { duration: 2000 });
+        this.notification.info('Info', `Refreshing employee ${item?.id || 'unknown'}`, { duration: 2000 });
         console.log('Item refreshed:', item);
     }
 
     onBackClick(): void {
-        this.snackBar.open('Navigating back', 'Close', { duration: 2000 });
+        this.notification.info('Info', 'Navigating back', { duration: 2000 });
         console.log('Back clicked');
     }
 
@@ -454,7 +445,7 @@ export class DetailPageDemoComponent implements OnInit, OnDestroy {
                         icon: 'settings',
                         color: 'accent',
                         onClick: (item: any) => {
-                            this.snackBar.open('Advanced actions clicked', 'Close', { duration: 2000 });
+                            this.notification.info('Info', 'Advanced actions clicked', { duration: 2000 });
                         }
                     }
                 ]

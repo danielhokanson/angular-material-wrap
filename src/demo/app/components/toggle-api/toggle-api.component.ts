@@ -1,11 +1,12 @@
 import { Component, ViewEncapsulation } from '@angular/core';
 import { BaseApiComponent, ApiDocumentation } from '../base/base-api.component';
 
-
 @Component({
   selector: 'amw-demo-toggle-api',
   standalone: true,
-  imports: [],
+  imports: [
+    
+],
   encapsulation: ViewEncapsulation.None,
   templateUrl: './toggle-api.component.html',
   styleUrl: './toggle-api.component.scss'
@@ -80,7 +81,6 @@ export class ToggleApiComponent extends BaseApiComponent {
       }
     ]
   };
-
 
     constructor() {
         super();

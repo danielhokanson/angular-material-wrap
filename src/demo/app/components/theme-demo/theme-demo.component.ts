@@ -1,36 +1,36 @@
 import { Component, ViewEncapsulation } from '@angular/core';
 
 import { FormsModule } from '@angular/forms';
-import { MatCardModule } from '@angular/material/card';
-import { MatButtonModule } from '@angular/material/button';
 import { MatIconModule } from '@angular/material/icon';
-import { MatFormFieldModule } from '@angular/material/form-field';
-import { MatInputModule } from '@angular/material/input';
-import { MatSelectModule } from '@angular/material/select';
-import { MatCheckboxModule } from '@angular/material/checkbox';
-import { MatRadioModule } from '@angular/material/radio';
-import { MatSliderModule } from '@angular/material/slider';
-import { MatSlideToggleModule } from '@angular/material/slide-toggle';
 
 import { ThemeManagerComponent } from '../../../../library/src/styling/components/theme-manager/theme-manager.component';
+import { MatCardModule } from '@angular/material/card';
+import { MatSliderModule } from '@angular/material/slider';
+import { MatOptionModule } from '@angular/material/core';
+import { MatSlideToggleModule } from '@angular/material/slide-toggle';
 
+import { AmwButtonComponent } from '../../../../library/src/controls/components/amw-button/amw-button.component';
+import { AmwInputComponent } from '../../../../library/src/controls/components/amw-input/amw-input.component';
+import { AmwSelectComponent } from '../../../../library/src/controls/components/amw-select/amw-select.component';
+import { AmwCheckboxComponent } from '../../../../library/src/controls/components/amw-checkbox/amw-checkbox.component';
+import { AmwRadioComponent } from '../../../../library/src/controls/components/amw-radio/amw-radio.component';
+import { AmwRadioGroupComponent } from '../../../../library/src/controls/components/amw-radio-group/amw-radio-group.component';
 @Component({
     selector: 'amw-demo-theme',
     standalone: true,
-    imports: [
-    FormsModule,
-    MatCardModule,
-    MatButtonModule,
+    imports: [FormsModule,
     MatIconModule,
-    MatFormFieldModule,
-    MatInputModule,
-    MatSelectModule,
-    MatCheckboxModule,
-    MatRadioModule,
+    ThemeManagerComponent,
+    MatCardModule,
     MatSliderModule,
+    MatOptionModule,
     MatSlideToggleModule,
-    ThemeManagerComponent
-],
+    AmwButtonComponent,
+    AmwInputComponent,
+    AmwSelectComponent,
+    AmwCheckboxComponent,
+    AmwRadioComponent,
+    AmwRadioGroupComponent],
     templateUrl: './theme-demo.component.html',
     styleUrl: './theme-demo.component.scss',
     encapsulation: ViewEncapsulation.None

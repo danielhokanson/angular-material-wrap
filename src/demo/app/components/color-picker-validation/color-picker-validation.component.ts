@@ -1,25 +1,19 @@
 import { Component, OnInit, ViewEncapsulation } from '@angular/core';
 
 import { ReactiveFormsModule, FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { MatFormFieldModule } from '@angular/material/form-field';
-import { MatInputModule } from '@angular/material/input';
-import { MatButtonModule } from '@angular/material/button';
-import { MatSnackBar, MatSnackBarModule } from '@angular/material/snack-bar';
-import { MatCardModule } from '@angular/material/card';
+import { AmwNotificationService } from '../../../../library/src/services/amw-notification/amw-notification.service';
 import { AmwColorPickerComponent } from '../../../../library/src/controls/components/amw-color-picker/amw-color-picker.component';
+import { MatCardModule } from '@angular/material/card';
 
+import { AmwButtonComponent } from '../../../../library/src/controls/components/amw-button/amw-button.component';
 @Component({
     selector: 'amw-demo-color-picker-validation',
     standalone: true,
-    imports: [
-    ReactiveFormsModule,
-    MatFormFieldModule,
-    MatInputModule,
-    MatButtonModule,
-    MatSnackBarModule,
+    imports: [ReactiveFormsModule,
+    AmwInputComponent,
+    AmwColorPickerComponent,
     MatCardModule,
-    AmwColorPickerComponent
-],
+    AmwButtonComponent],
     encapsulation: ViewEncapsulation.None,
     templateUrl: './color-picker-validation.component.html',
     styleUrl: './color-picker-validation.component.scss'
@@ -29,7 +23,7 @@ export class ColorPickerValidationComponent implements OnInit {
 
     constructor(
         private fb: FormBuilder,
-        private snackBar: MatSnackBar
+        private notification: AmwNotificationService
     ) {
         this.colorPickerForm = this.fb.group({
             primaryColor: ['', Validators.required],
@@ -68,18 +62,10 @@ export class ColorPickerValidationComponent implements OnInit {
 
     onSubmit() {
         if (this.colorPickerForm.valid) {
-            this.snackBar.open('Form submitted successfully!', 'Close', {
-                duration: 3000,
-                horizontalPosition: 'center',
-                verticalPosition: 'top'
-            });
+            this.notification.success('Success', 'Form submitted successfully!', { duration: 3000 });
             console.log('Form values:', this.colorPickerForm.value);
         } else {
-            this.snackBar.open('Please fill in all required fields correctly', 'Close', {
-                duration: 3000,
-                horizontalPosition: 'center',
-                verticalPosition: 'top'
-            });
+            this.notification.info('Info', 'Please fill in all required fields correctly', { duration: 3000 });
         }
     }
 
@@ -87,5 +73,4 @@ export class ColorPickerValidationComponent implements OnInit {
         this.colorPickerForm.reset();
     }
 }
-
 

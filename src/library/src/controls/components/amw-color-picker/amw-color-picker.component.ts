@@ -4,8 +4,8 @@ import { FormsModule, NG_VALUE_ACCESSOR } from '@angular/forms';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
 import { MatIconModule } from '@angular/material/icon';
-import { MatButtonModule } from '@angular/material/button';
 import { MatChipsModule } from '@angular/material/chips';
+import { AmwButtonComponent } from '../amw-button/amw-button.component';
 import { BaseComponent } from '../base/base.component';
 import { ColorPickerConfig, ColorPickerMode } from './interfaces';
 import { AmwSize } from '../../../shared/types/amw-size.type';
@@ -13,7 +13,7 @@ import { AmwSize } from '../../../shared/types/amw-size.type';
 @Component({
     selector: 'amw-color-picker',
     standalone: true,
-    imports: [FormsModule, MatFormFieldModule, MatInputModule, MatIconModule, MatButtonModule, MatChipsModule],
+    imports: [FormsModule, MatFormFieldModule, MatInputModule, MatIconModule, AmwButtonComponent, MatChipsModule],
     encapsulation: ViewEncapsulation.None,
     templateUrl: './amw-color-picker.component.html',
     styleUrl: './amw-color-picker.component.scss',

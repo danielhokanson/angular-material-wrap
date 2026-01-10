@@ -1,0 +1,37 @@
+<div class="amw-menu-container">
+  <!-- Custom trigger template -->
+  <ng-container *ngIf="triggerTemplate; else defaultTrigger">
+    <ng-container
+      *ngTemplateOutlet="triggerTemplate"
+      [matMenuTriggerFor]="menu"
+      (menuOpened)="onMenuOpened()"
+      (menuClosed)="onMenuClosed()">
+    </ng-container>
+  </ng-container>
+
+  <!-- Default trigger button -->
+  <ng-template #defaultTrigger>
+    <amw-button
+      [variant]="getButtonVariant()"
+      [icon]="triggerIcon"
+      [iconPosition]="triggerLabel && triggerIcon ? 'left' : undefined"
+      [class]="triggerButtonClasses"
+      [color]="triggerColor"
+      [disabled]="disabled"
+      [matMenuTriggerFor]="menu"
+      (menuOpened)="onMenuOpened()"
+      (menuClosed)="onMenuClosed()">
+      <span *ngIf="triggerLabel">{{ triggerLabel }}</span>
+    </amw-button>
+  </ng-template>
+
+  <!-- Menu content -->
+  <mat-menu
+    #menu="matMenu"
+    [class]="menuClasses"
+    [xPosition]="xPosition"
+    [yPosition]="yPosition"
+    [hasBackdrop]="hasBackdrop">
+    <ng-content></ng-content>
+  </mat-menu>
+</div>

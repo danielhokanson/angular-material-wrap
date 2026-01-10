@@ -1,29 +1,26 @@
 import { Component, OnInit, ViewEncapsulation } from '@angular/core';
 
 import { ReactiveFormsModule, FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { MatFormFieldModule } from '@angular/material/form-field';
-import { MatInputModule } from '@angular/material/input';
-import { MatButtonModule } from '@angular/material/button';
-import { MatSnackBar, MatSnackBarModule } from '@angular/material/snack-bar';
-import { MatCardModule } from '@angular/material/card';
-import { MatSelectModule } from '@angular/material/select';
-import { MatCheckboxModule } from '@angular/material/checkbox';
+import { AmwNotificationService } from '../../../../library/src/services/amw-notification/amw-notification.service';
 import { DialogService } from '../../../../library/src/components/services/dialog.service';
 import { DialogConfig, DialogType, DialogSize } from '../../../../library/src/components/components/amw-dialog/interfaces';
+import { MatCardModule } from '@angular/material/card';
 
+import { AmwButtonComponent } from '../../../../library/src/controls/components/amw-button/amw-button.component';
+import { AmwInputComponent } from '../../../../library/src/controls/components/amw-input/amw-input.component';
+import { AmwTextareaComponent } from '../../../../library/src/controls/components/amw-textarea/amw-textarea.component';
+import { AmwSelectComponent } from '../../../../library/src/controls/components/amw-select/amw-select.component';
+import { AmwCheckboxComponent } from '../../../../library/src/controls/components/amw-checkbox/amw-checkbox.component';
 @Component({
     selector: 'amw-demo-dialog-validation',
     standalone: true,
-    imports: [
-    ReactiveFormsModule,
-    MatFormFieldModule,
-    MatInputModule,
-    MatButtonModule,
-    MatSnackBarModule,
+    imports: [ReactiveFormsModule,
     MatCardModule,
-    MatSelectModule,
-    MatCheckboxModule
-],
+    AmwButtonComponent,
+    AmwInputComponent,
+    AmwTextareaComponent,
+    AmwSelectComponent,
+    AmwCheckboxComponent],
     encapsulation: ViewEncapsulation.None,
     templateUrl: './dialog-validation.component.html',
     styleUrl: './dialog-validation.component.scss'
@@ -32,9 +29,27 @@ export class DialogValidationComponent implements OnInit {
     dialogForm: FormGroup;
     lastDialogResult: any = null;
 
+    typeOptions = [
+        { value: 'standard', label: 'Standard' },
+        { value: 'alert', label: 'Alert' },
+        { value: 'confirm', label: 'Confirm' },
+        { value: 'prompt', label: 'Prompt' },
+        { value: 'info', label: 'Info' },
+        { value: 'warning', label: 'Warning' },
+        { value: 'error', label: 'Error' },
+        { value: 'success', label: 'Success' }
+    ];
+
+    sizeOptions = [
+        { value: 'small', label: 'Small' },
+        { value: 'medium', label: 'Medium' },
+        { value: 'large', label: 'Large' },
+        { value: 'fullscreen', label: 'Fullscreen' }
+    ];
+
     constructor(
         private fb: FormBuilder,
-        private snackBar: MatSnackBar,
+        private notification: AmwNotificationService,
         private dialogService: DialogService
     ) {
         this.dialogForm = this.fb.group({
@@ -82,18 +97,10 @@ export class DialogValidationComponent implements OnInit {
 
             dialogRef.afterClosed().subscribe(result => {
                 this.lastDialogResult = result;
-                this.snackBar.open(`Dialog closed with result: ${result || 'undefined'}`, 'Close', {
-                    duration: 3000,
-                    horizontalPosition: 'center',
-                    verticalPosition: 'top'
-                });
+                this.notification.info('Info', `Dialog closed with result: ${result || 'undefined'}`, { duration: 3000 });
             });
         } else {
-            this.snackBar.open('Please fill in all required fields', 'Close', {
-                duration: 3000,
-                horizontalPosition: 'center',
-                verticalPosition: 'top'
-            });
+            this.notification.info('Info', 'Please fill in all required fields', { duration: 3000 });
         }
     }
 
@@ -101,11 +108,7 @@ export class DialogValidationComponent implements OnInit {
         if (this.dialogForm.valid) {
             this.openDialog();
         } else {
-            this.snackBar.open('Please fix the validation errors', 'Close', {
-                duration: 3000,
-                horizontalPosition: 'center',
-                verticalPosition: 'top'
-            });
+            this.notification.error('Error', 'Please fix the validation errors', { duration: 3000 });
         }
     }
 

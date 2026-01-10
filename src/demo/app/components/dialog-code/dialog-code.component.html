@@ -16,9 +16,7 @@
         <div class="code-panel">
           <div class="code-header">
             <h4>Code</h4>
-            <button mat-icon-button (click)="resetCode('basic')" title="Reset to original">
-              <mat-icon>refresh</mat-icon>
-            </button>
+            <amw-button variant="icon" icon="refresh" (click)="resetCode('basic')" title="Reset to original"></amw-button>
           </div>
           <textarea
             [(ngModel)]="editableCode.basic"
@@ -28,7 +26,7 @@
         <div class="preview-panel">
           <h4>Preview</h4>
           <div class="preview-content">
-            <button mat-raised-button (click)="openDialog()">Open Dialog</button>
+            <amw-button variant="elevated" (click)="openDialog()">Open Dialog</amw-button>
             <div class="preview-note">
               <mat-icon>info</mat-icon>
               <span>Click the button to see the dialog in action</span>
@@ -51,9 +49,7 @@
         <div class="code-panel">
           <div class="code-header">
             <h4>Code</h4>
-            <button mat-icon-button (click)="resetCode('confirmation')" title="Reset to original">
-              <mat-icon>refresh</mat-icon>
-            </button>
+            <amw-button variant="icon" icon="refresh" (click)="resetCode('confirmation')" title="Reset to original"></amw-button>
           </div>
           <textarea
             [(ngModel)]="editableCode.confirmation"
@@ -64,9 +60,9 @@
         <div class="preview-panel">
           <h4>Preview</h4>
           <div class="preview-content">
-            <button mat-raised-button color="warn" (click)="openConfirmDialog()">
+            <amw-button variant="elevated" color="warn" (click)="openConfirmDialog()">
               Delete Item
-            </button>
+            </amw-button>
             <div class="preview-note">
               <mat-icon>info</mat-icon>
               <span>Opens a confirmation dialog with cancel/confirm options</span>
@@ -89,9 +85,7 @@
         <div class="code-panel">
           <div class="code-header">
             <h4>Code</h4>
-            <button mat-icon-button (click)="resetCode('alert')" title="Reset to original">
-              <mat-icon>refresh</mat-icon>
-            </button>
+            <amw-button variant="icon" icon="refresh" (click)="resetCode('alert')" title="Reset to original"></amw-button>
           </div>
           <textarea
             [(ngModel)]="editableCode.alert"
@@ -102,9 +96,9 @@
         <div class="preview-panel">
           <h4>Preview</h4>
           <div class="preview-content">
-            <button mat-raised-button (click)="openAlertDialog()">
+            <amw-button variant="elevated" (click)="openAlertDialog()">
               Show Alert
-            </button>
+            </amw-button>
             <div class="preview-note">
               <mat-icon>info</mat-icon>
               <span>Displays an alert dialog with a single OK button</span>
@@ -127,9 +121,7 @@
         <div class="code-panel">
           <div class="code-header">
             <h4>Code</h4>
-            <button mat-icon-button (click)="resetCode('customActions')" title="Reset to original">
-              <mat-icon>refresh</mat-icon>
-            </button>
+            <amw-button variant="icon" icon="refresh" (click)="resetCode('customActions')" title="Reset to original"></amw-button>
           </div>
           <textarea
             [(ngModel)]="editableCode.customActions"
@@ -140,9 +132,9 @@
         <div class="preview-panel">
           <h4>Preview</h4>
           <div class="preview-content">
-            <button mat-raised-button color="primary" (click)="openFormDialog()">
+            <amw-button variant="elevated" color="primary" (click)="openFormDialog()">
               Open Form Dialog
-            </button>
+            </amw-button>
             <div class="preview-note">
               <mat-icon>info</mat-icon>
               <span>Dialog with multiple action buttons and custom handling</span>

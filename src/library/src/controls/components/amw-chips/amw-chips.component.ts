@@ -3,17 +3,18 @@ import { Component, Input, Output, EventEmitter, ViewEncapsulation, OnInit, OnCh
 import { FormsModule, ReactiveFormsModule, ControlValueAccessor, NG_VALUE_ACCESSOR } from '@angular/forms';
 import { MatChipsModule } from '@angular/material/chips';
 import { MatIconModule } from '@angular/material/icon';
-import { MatButtonModule } from '@angular/material/button';
 import { MatInputModule } from '@angular/material/input';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatAutocompleteModule } from '@angular/material/autocomplete';
 import { MatMenuModule } from '@angular/material/menu';
 import { MatTooltipModule } from '@angular/material/tooltip';
-import { MatDividerModule } from '@angular/material/divider';
+import { AmwButtonComponent } from '../amw-button/amw-button.component';
 // import { MatRippleModule } from '@angular/material/ripple';
 import { Subject, takeUntil, debounceTime, distinctUntilChanged } from 'rxjs';
 
 import { Chip, ChipConfig, ChipEvent, ChipChangeEvent, ChipMenuItem } from './interfaces';
+import { AmwTooltipDirective } from '../../../directives';
+import { AmwDividerComponent } from '../../../components/components/amw-divider/amw-divider.component';
 
 /**
  * AMW Chips Component
@@ -23,18 +24,18 @@ import { Chip, ChipConfig, ChipEvent, ChipChangeEvent, ChipMenuItem } from './in
     selector: 'amw-chips',
     standalone: true,
     imports: [
-    FormsModule,
-    ReactiveFormsModule,
-    MatChipsModule,
-    MatIconModule,
-    MatButtonModule,
-    MatInputModule,
-    MatFormFieldModule,
-    MatAutocompleteModule,
-    MatMenuModule,
-    MatTooltipModule,
-    MatDividerModule
-],
+        FormsModule,
+        ReactiveFormsModule,
+        MatChipsModule,
+        MatIconModule,
+        AmwButtonComponent,
+        MatInputModule,
+        MatFormFieldModule,
+        MatAutocompleteModule,
+        MatMenuModule,
+        AmwTooltipDirective,
+        AmwDividerComponent
+    ],
     encapsulation: ViewEncapsulation.None,
     templateUrl: './amw-chips.component.html',
     styleUrl: './amw-chips.component.scss',

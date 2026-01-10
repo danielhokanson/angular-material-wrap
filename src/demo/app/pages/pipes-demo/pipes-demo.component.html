@@ -21,14 +21,13 @@
                     <p>This pipe formats numbers as currency.</p>
                     <div class="demo-section">
                       <h4>Basic Currency Formatting</h4>
-                      <mat-form-field appearance="outline">
-                        <mat-label>Amount</mat-label>
-                        <input matInput
-                          name="currencyAmount"
-                          [(ngModel)]="currencyAmount"
-                          type="number"
-                          placeholder="Enter amount">
-                      </mat-form-field>
+                      <amw-input
+                        label="Amount"
+                        name="currencyAmount"
+                        [(ngModel)]="currencyAmount"
+                        type="number"
+                        placeholder="Enter amount">
+                      </amw-input>
                       <div class="pipe-result">
                         <h4>Result:</h4>
                         <p class="result-text">{{ currencyAmount | amwCurrency:'USD' }}</p>
@@ -55,13 +54,12 @@
                     <p>This pipe transforms text in various ways.</p>
                     <div class="demo-section">
                       <h4>Text Transformation</h4>
-                      <mat-form-field appearance="outline">
-                        <mat-label>Text to Transform</mat-label>
-                        <input matInput
-                          name="textValue"
-                          [(ngModel)]="textValue"
-                          placeholder="Enter text to transform">
-                      </mat-form-field>
+                      <amw-input
+                        label="Text to Transform"
+                        name="textValue"
+                        [(ngModel)]="textValue"
+                        placeholder="Enter text to transform">
+                      </amw-input>
                       <div class="pipe-result">
                         <h4>Results:</h4>
                         <p><strong>Uppercase:</strong> {{ textValue | amwTextTransform:'uppercase' }}</p>
@@ -136,10 +134,12 @@
                         <h4>Component Binding</h4>
                         <pre><code>{{ currencyPipeCodeExamples.binding }}</code></pre>
                         <div class="preview">
-                          <mat-form-field appearance="outline">
-                            <mat-label>Amount</mat-label>
-                            <input matInput [(ngModel)]="currencyAmount" type="number">
-                          </mat-form-field>
+                          <amw-input
+                            label="Amount"
+                            [(ngModel)]="currencyAmount"
+                            type="number"
+                            appearance="outline">
+                          </amw-input>
                           <p>Total: {{ currencyAmount | amwCurrency:'USD' }}</p>
                         </div>
                       </div>
@@ -258,10 +258,11 @@
                         <h4>Component Binding</h4>
                         <pre><code>{{ textTransformPipeCodeExamples.binding }}</code></pre>
                         <div class="preview">
-                          <mat-form-field appearance="outline">
-                            <mat-label>Text to Transform</mat-label>
-                            <input matInput [(ngModel)]="textValue">
-                          </mat-form-field>
+                          <amw-input
+                            label="Text to Transform"
+                            [(ngModel)]="textValue"
+                            appearance="outline">
+                          </amw-input>
                           <div class="pipe-result">
                             <p><strong>Uppercase:</strong> {{ textValue | amwTextTransform:'uppercase' }}</p>
                             <p><strong>Lowercase:</strong> {{ textValue | amwTextTransform:'lowercase' }}</p>

@@ -1,14 +1,11 @@
 import { Component, Input, Output, EventEmitter, OnInit, OnDestroy, ViewEncapsulation, ChangeDetectorRef, Inject, Optional, Injectable } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { MatCardModule } from '@angular/material/card';
-import { MatButtonModule } from '@angular/material/button';
 import { MatIconModule } from '@angular/material/icon';
 import { MatDividerModule } from '@angular/material/divider';
 import { MatTabsModule } from '@angular/material/tabs';
 import { MatExpansionModule } from '@angular/material/expansion';
-import { MatTooltipModule } from '@angular/material/tooltip';
 import { MatSnackBarModule, MatSnackBar } from '@angular/material/snack-bar';
-import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { Subject, takeUntil, BehaviorSubject, Observable, of } from 'rxjs';
 import { delay } from 'rxjs/operators';
 
@@ -22,6 +19,9 @@ import {
     DetailPageDataSource
 } from './interfaces';
 import { DefaultDetailPageDataSource } from './services/default-detail-page-data-source.service';
+import { AmwProgressSpinnerComponent } from '../../../components/components/amw-progress-spinner/amw-progress-spinner.component';
+import { AmwButtonComponent } from '../../../controls/components/amw-button/amw-button.component';
+import { AmwTooltipDirective } from '../../../directives';
 
 
 @Component({
@@ -30,14 +30,14 @@ import { DefaultDetailPageDataSource } from './services/default-detail-page-data
     imports: [
         CommonModule,
         MatCardModule,
-        MatButtonModule,
+        AmwButtonComponent,
         MatIconModule,
         MatDividerModule,
         MatTabsModule,
         MatExpansionModule,
-        MatTooltipModule,
+        AmwTooltipDirective,
         MatSnackBarModule,
-        MatProgressSpinnerModule
+        AmwProgressSpinnerComponent
     ],
     encapsulation: ViewEncapsulation.None,
     templateUrl: './amw-detail-page.component.html',

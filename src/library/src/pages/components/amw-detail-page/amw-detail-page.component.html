@@ -10,32 +10,27 @@
       </div>
 
       <div class="amw-detail-page__header-actions">
-        <button mat-icon-button (click)="onRefresh()" matTooltip="Refresh">
-          <mat-icon>refresh</mat-icon>
-        </button>
+        <amw-button variant="icon" icon="refresh" (click)="onRefresh()" amwTooltip="Refresh">
+        </amw-button>
         @if (currentConfig.showEditButton) {
-          <button mat-raised-button color="primary" (click)="onEdit()">
-            <mat-icon>edit</mat-icon>
+          <amw-button variant="elevated" icon="edit" iconPosition="left" color="primary" (click)="onEdit()">
             Edit
-          </button>
+          </amw-button>
         }
         @if (currentConfig.showDeleteButton) {
-          <button mat-raised-button color="warn" (click)="onDelete()">
-            <mat-icon>delete</mat-icon>
+          <amw-button variant="elevated" icon="delete" iconPosition="left" color="warn" (click)="onDelete()">
             Delete
-          </button>
+          </amw-button>
         }
         @if (currentConfig.showPrintButton) {
-          <button mat-raised-button (click)="onPrint()">
-            <mat-icon>print</mat-icon>
+          <amw-button variant="elevated" icon="print" iconPosition="left" (click)="onPrint()">
             Print
-          </button>
+          </amw-button>
         }
         @if (currentConfig.showShareButton) {
-          <button mat-raised-button (click)="onShare()">
-            <mat-icon>share</mat-icon>
+          <amw-button variant="elevated" icon="share" iconPosition="left" (click)="onShare()">
             Share
-          </button>
+          </amw-button>
         }
       </div>
     </div>
@@ -44,7 +39,7 @@
   <!-- Loading State -->
   @if (loading) {
     <div class="amw-detail-page__loading">
-      <mat-spinner diameter="40"></mat-spinner>
+      <amw-progress-spinner diameter="40"></amw-progress-spinner>
       <p>Loading data...</p>
     </div>
   }
@@ -54,7 +49,7 @@
     <div class="amw-detail-page__error">
       <mat-icon>error</mat-icon>
       <p>{{ error }}</p>
-      <button mat-raised-button color="primary" (click)="onRefresh()">Retry</button>
+      <amw-button variant="elevated" color="primary" (click)="onRefresh()">Retry</amw-button>
     </div>
   }
 

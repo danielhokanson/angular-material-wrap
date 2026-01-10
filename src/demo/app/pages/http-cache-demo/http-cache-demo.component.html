@@ -45,26 +45,17 @@
                 <h3>Test Endpoints</h3>
                 <div class="endpoint-buttons">
                   @for (endpoint of testEndpoints; track endpoint) {
-                    <button mat-raised-button
+                    <amw-button variant="elevated"
                       color="primary"
                       (click)="makeRequest(endpoint.url)"
-                      [disabled]="loading">
-                      <mat-icon>http</mat-icon>
-                      {{ endpoint.label }}
-                    </button>
+                      [disabled]="loading" icon="http" iconPosition="left">{{ endpoint.label }}</amw-button>
                   }
                 </div>
               </div>
 
               <div class="cache-actions">
-                <button mat-raised-button color="accent" (click)="pruneExpired()">
-                  <mat-icon>cleaning_services</mat-icon>
-                  Prune Expired
-                </button>
-                <button mat-raised-button color="warn" (click)="clearCache()">
-                  <mat-icon>delete_sweep</mat-icon>
-                  Clear All Cache
-                </button>
+                <amw-button variant="elevated" color="accent" (click)="pruneExpired()" icon="cleaning_services" iconPosition="left">Prune Expired</amw-button>
+                <amw-button variant="elevated" color="warn" (click)="clearCache()" icon="delete_sweep" iconPosition="left">Clear All Cache</amw-button>
               </div>
 
               @if (loading) {

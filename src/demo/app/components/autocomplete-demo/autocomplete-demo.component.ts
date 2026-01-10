@@ -1,8 +1,6 @@
 import { Component, ViewEncapsulation } from '@angular/core';
 
 import { FormsModule } from '@angular/forms';
-import { MatCardModule } from '@angular/material/card';
-import { MatButtonModule } from '@angular/material/button';
 import { MatIconModule } from '@angular/material/icon';
 
 import { AmwAutocompleteComponent } from '../../../../library/src/controls/components/amw-autocomplete/amw-autocomplete.component';
@@ -14,8 +12,6 @@ import { AutocompleteOption } from '../../../../library/src/controls/components/
     standalone: true,
     imports: [
     FormsModule,
-    MatCardModule,
-    MatButtonModule,
     MatIconModule,
     AmwAutocompleteComponent
 ],

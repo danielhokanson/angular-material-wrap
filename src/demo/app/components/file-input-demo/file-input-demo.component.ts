@@ -1,32 +1,20 @@
 import { Component, ViewEncapsulation } from '@angular/core';
 
 import { FormsModule } from '@angular/forms';
-import { MatFormFieldModule } from '@angular/material/form-field';
-import { MatInputModule } from '@angular/material/input';
-import { MatButtonModule } from '@angular/material/button';
 import { MatIconModule } from '@angular/material/icon';
-import { MatCardModule } from '@angular/material/card';
-import { MatDividerModule } from '@angular/material/divider';
 import { MatButtonToggleModule } from '@angular/material/button-toggle';
-import { MatChipsModule } from '@angular/material/chips';
 
 import { AmwFileInputComponent } from '../../../../library/src/controls/components/amw-file-input/amw-file-input.component';
 
+import { AmwButtonComponent } from '../../../../library/src/controls/components/amw-button/amw-button.component';
 @Component({
     selector: 'amw-demo-file-input',
     standalone: true,
-    imports: [
-    FormsModule,
-    MatFormFieldModule,
-    MatInputModule,
-    MatButtonModule,
+    imports: [FormsModule,
     MatIconModule,
-    MatCardModule,
-    MatDividerModule,
     MatButtonToggleModule,
-    MatChipsModule,
-    AmwFileInputComponent
-],
+    AmwFileInputComponent,
+    AmwButtonComponent],
     encapsulation: ViewEncapsulation.None,
     templateUrl: './file-input-demo.component.html',
     styleUrl: './file-input-demo.component.scss'
@@ -92,6 +80,4 @@ export class FileInputDemoComponent {
         return parseFloat((bytes / Math.pow(k, i)).toFixed(2)) + ' ' + sizes[i];
     }
 }
-
-
 

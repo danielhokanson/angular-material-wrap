@@ -1,38 +1,30 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { ActivatedRoute } from '@angular/router';
-import { MatCardModule } from '@angular/material/card';
-import { MatTabsModule } from '@angular/material/tabs';
-import { MatButtonModule } from '@angular/material/button';
 import { MatIconModule } from '@angular/material/icon';
-import { MatFormFieldModule } from '@angular/material/form-field';
-import { MatInputModule } from '@angular/material/input';
-import { MatSnackBarModule, MatSnackBar } from '@angular/material/snack-bar';
-import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { FormsModule } from '@angular/forms';
 import { ViewEncapsulation } from '@angular/core';
-import { MatChipsModule } from '@angular/material/chips';
 import { Subject, takeUntil } from 'rxjs';
 import { AmwMessagingService, Message } from '../../../../library/src/services/amw-messaging/amw-messaging.service';
 import { AmwLoadingService, LoadingState } from '../../../../library/src/services/amw-loading/amw-loading.service';
 import { AmwNotificationService, Notification } from '../../../../library/src/services/amw-notification/amw-notification.service';
+import { MatTabsModule } from '@angular/material/tabs';
+import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
+import { MatCardModule } from '@angular/material/card';
+import { AmwButtonComponent } from '../../../../library/src/controls/components/amw-button/amw-button.component';
+import { AmwInputComponent } from '../../../../library/src/controls/components/amw-input/amw-input.component';
 
 @Component({
     selector: 'amw-demo-services',
     standalone: true,
-    imports: [
-        CommonModule,
-        MatCardModule,
-        MatTabsModule,
-        MatButtonModule,
-        MatIconModule,
-        MatFormFieldModule,
-        MatInputModule,
-        MatSnackBarModule,
-        MatProgressSpinnerModule,
-        MatChipsModule,
-        FormsModule
-    ],
+    imports: [CommonModule,
+    MatIconModule,
+    FormsModule,
+    MatTabsModule,
+    MatProgressSpinnerModule,
+    MatCardModule,
+    AmwButtonComponent,
+    AmwInputComponent],
     encapsulation: ViewEncapsulation.None,
     templateUrl: './services-demo.component.html',
     styleUrl: './services-demo.component.scss'
@@ -64,7 +56,7 @@ export class ServicesDemoComponent implements OnInit, OnDestroy {
 
     constructor(
         private route: ActivatedRoute,
-        private snackBar: MatSnackBar,
+        private notification: AmwNotificationService,
         public messagingService: AmwMessagingService,
         public loadingService: AmwLoadingService,
         public notificationService: AmwNotificationService
@@ -187,7 +179,7 @@ export class ServicesDemoComponent implements OnInit, OnDestroy {
     }
 
     showInfoNotification(): void {
-        this.snackBar.open('Here is some information for you.', 'Close', { duration: 3000 });
+        this.notification.info('Info', 'Here is some information for you.', { duration: 3000 });
     }
 
     // Helper methods
@@ -206,6 +198,10 @@ export class ServicesDemoComponent implements OnInit, OnDestroy {
         basic: `<!-- Basic messaging with injection -->
 import { Component } from '@angular/core';
 import { AmwMessagingService } from '@angular-material-wrap';
+import { MatFormFieldModule } from '@angular/material/form-field';
+import { MatTabsModule } from '@angular/material/tabs';
+import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
+import { MatCardModule } from '@angular/material/card';
 
 @Component({
   selector: 'app-my-component',
@@ -433,6 +429,10 @@ export class MyComponent {
         basic: `<!-- Basic loading state -->
 import { Component } from '@angular/core';
 import { AmwLoadingService } from '@angular-material-wrap';
+import { MatFormFieldModule } from '@angular/material/form-field';
+import { MatTabsModule } from '@angular/material/tabs';
+import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
+import { MatCardModule } from '@angular/material/card';
 
 @Component({
   selector: 'app-my-component',
@@ -639,6 +639,10 @@ export class MyComponent {
         basic: `<!-- Basic notification -->
 import { Component } from '@angular/core';
 import { AmwNotificationService } from '@angular-material-wrap';
+import { MatFormFieldModule } from '@angular/material/form-field';
+import { MatTabsModule } from '@angular/material/tabs';
+import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
+import { MatCardModule } from '@angular/material/card';
 
 @Component({
   selector: 'app-my-component',
@@ -758,6 +762,7 @@ import { OnInit, OnDestroy } from '@angular/core';
 import { Subject, takeUntil } from 'rxjs';
 import { Notification } from '@angular-material-wrap';
 
+import { AmwButtonComponent } from '../../../../library/src/controls/components/amw-button/amw-button.component';
 export class MyComponent implements OnInit, OnDestroy {
   notifications: Notification[] = [];
   private destroy$ = new Subject<void>();

@@ -1,26 +1,17 @@
 import { Component, ViewEncapsulation, OnInit } from '@angular/core';
 
 import { FormBuilder, FormGroup, Validators, ReactiveFormsModule } from '@angular/forms';
-import { MatFormFieldModule } from '@angular/material/form-field';
-import { MatInputModule } from '@angular/material/input';
-import { MatButtonModule } from '@angular/material/button';
-import { MatSnackBar, MatSnackBarModule } from '@angular/material/snack-bar';
-import { MatCardModule } from '@angular/material/card';
+import { AmwNotificationService } from '../../../../library/src/services/amw-notification/amw-notification.service';
 
 import { AmwSwitchComponent } from '../../../../library/src/controls/components/amw-switch/amw-switch.component';
 
+import { AmwButtonComponent } from '../../../../library/src/controls/components/amw-button/amw-button.component';
 @Component({
     selector: 'amw-demo-switch-validation',
     standalone: true,
-    imports: [
-    ReactiveFormsModule,
-    MatFormFieldModule,
-    MatInputModule,
-    MatButtonModule,
-    MatSnackBarModule,
-    MatCardModule,
-    AmwSwitchComponent
-],
+    imports: [ReactiveFormsModule,
+    AmwSwitchComponent,
+    AmwButtonComponent],
     encapsulation: ViewEncapsulation.None,
     templateUrl: './switch-validation.component.html',
     styleUrl: './switch-validation.component.scss'
@@ -34,7 +25,7 @@ export class SwitchValidationComponent implements OnInit {
 
     constructor(
         private fb: FormBuilder,
-        private snackBar: MatSnackBar
+        private notification: AmwNotificationService
     ) {
         this.validationForm = this.fb.group({
             notificationsEnabled: [false, [Validators.requiredTrue]],
@@ -61,14 +52,10 @@ export class SwitchValidationComponent implements OnInit {
 
     onSubmit(): void {
         if (this.validationForm.valid) {
-            this.snackBar.open('Form submitted successfully!', 'Close', {
-                duration: 3000
-            });
+            this.notification.success('Success', 'Form submitted successfully!', { duration: 3000 });
             console.log('Form values:', this.validationForm.value);
         } else {
-            this.snackBar.open('Please fix the validation errors', 'Close', {
-                duration: 3000
-            });
+            this.notification.error('Error', 'Please fix the validation errors', { duration: 3000 });
             this.markFormGroupTouched();
         }
     }
@@ -105,6 +92,4 @@ export class SwitchValidationComponent implements OnInit {
         return !!(control && control.invalid && control.touched);
     }
 }
-
-
 

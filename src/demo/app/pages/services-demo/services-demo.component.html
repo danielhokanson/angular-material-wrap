@@ -21,37 +21,23 @@
                     <p>This service provides centralized messaging functionality.</p>
                     <div class="demo-section">
                       <h4>Send Message</h4>
-                      <mat-form-field appearance="outline">
-                        <mat-label>Title</mat-label>
-                        <input matInput
-                          name="messageTitle"
-                          [(ngModel)]="messageTitle"
-                          placeholder="Enter message title">
-                      </mat-form-field>
-                      <mat-form-field appearance="outline">
-                        <mat-label>Content</mat-label>
-                        <input matInput
-                          name="messageContent"
-                          [(ngModel)]="messageContent"
-                          placeholder="Enter message content">
-                      </mat-form-field>
+                      <amw-input
+                        label="Title"
+                        name="messageTitle"
+                        [(ngModel)]="messageTitle"
+                        placeholder="Enter message title">
+                      </amw-input>
+                      <amw-input
+                        label="Content"
+                        name="messageContent"
+                        [(ngModel)]="messageContent"
+                        placeholder="Enter message content">
+                      </amw-input>
                       <div class="button-group">
-                        <button mat-raised-button color="primary" (click)="sendMessage()">
-                          <mat-icon>info</mat-icon>
-                          Info
-                        </button>
-                        <button mat-raised-button color="accent" (click)="sendSuccessMessage()">
-                          <mat-icon>check_circle</mat-icon>
-                          Success
-                        </button>
-                        <button mat-raised-button color="warn" (click)="sendWarningMessage()">
-                          <mat-icon>warning</mat-icon>
-                          Warning
-                        </button>
-                        <button mat-raised-button color="warn" (click)="sendErrorMessage()">
-                          <mat-icon>error</mat-icon>
-                          Error
-                        </button>
+                        <amw-button variant="elevated" color="primary" (click)="sendMessage()" icon="info" iconPosition="left">Info</amw-button>
+                        <amw-button variant="elevated" color="accent" (click)="sendSuccessMessage()" icon="check_circle" iconPosition="left">Success</amw-button>
+                        <amw-button variant="elevated" color="warn" (click)="sendWarningMessage()" icon="warning" iconPosition="left">Warning</amw-button>
+                        <amw-button variant="elevated" color="warn" (click)="sendErrorMessage()" icon="error" iconPosition="left">Error</amw-button>
                       </div>
                     </div>
                     <div class="demo-section">
@@ -63,9 +49,7 @@
                               <mat-icon>{{ getMessageIcon(message.type) }}</mat-icon>
                               <span class="message-title">{{ message.title }}</span>
                               @if (message.dismissible) {
-                                <button mat-icon-button (click)="removeMessage(message.id)">
-                                  <mat-icon>close</mat-icon>
-                                </button>
+                                <amw-button variant="icon" icon="close" (click)="removeMessage(message.id)"></amw-button>
                               }
                             </div>
                             <div class="message-content">{{ message.content }}</div>
@@ -73,10 +57,7 @@
                           </div>
                         }
                       </div>
-                      <button mat-button color="warn" (click)="clearMessages()">
-                        <mat-icon>clear</mat-icon>
-                        Clear Messages
-                      </button>
+                      <amw-button variant="text" color="warn" (click)="clearMessages()" icon="clear" iconPosition="left">Clear Messages</amw-button>
                     </div>
                   </div>
                 }
@@ -86,14 +67,8 @@
                     <p>This service manages loading states throughout the application.</p>
                     <div class="demo-section">
                       <h4>Loading States</h4>
-                      <button mat-raised-button color="primary" (click)="startLoading()" [disabled]="loadingState.isLoading">
-                        <mat-icon>play_arrow</mat-icon>
-                        Start Loading
-                      </button>
-                      <button mat-button (click)="stopLoading()" [disabled]="!loadingState.isLoading">
-                        <mat-icon>stop</mat-icon>
-                        Stop Loading
-                      </button>
+                      <amw-button variant="elevated" color="primary" (click)="startLoading()" [disabled]="loadingState.isLoading" icon="play_arrow" iconPosition="left">Start Loading</amw-button>
+                      <amw-button variant="text" (click)="stopLoading()" [disabled]="!loadingState.isLoading" icon="stop" iconPosition="left">Stop Loading</amw-button>
                       @if (loadingState.isLoading) {
                         <div class="loading-demo">
                           <mat-spinner diameter="40"></mat-spinner>
@@ -109,18 +84,9 @@
                     <p>This service provides various types of notifications to users.</p>
                     <div class="demo-section">
                       <h4>Notification Types</h4>
-                      <button mat-raised-button color="primary" (click)="showSuccessNotification()">
-                        <mat-icon>check_circle</mat-icon>
-                        Success
-                      </button>
-                      <button mat-raised-button color="warn" (click)="showErrorNotification()">
-                        <mat-icon>error</mat-icon>
-                        Error
-                      </button>
-                      <button mat-raised-button color="accent" (click)="showInfoNotification()">
-                        <mat-icon>info</mat-icon>
-                        Info
-                      </button>
+                      <amw-button variant="elevated" color="primary" (click)="showSuccessNotification()" icon="check_circle" iconPosition="left">Success</amw-button>
+                      <amw-button variant="elevated" color="warn" (click)="showErrorNotification()" icon="error" iconPosition="left">Error</amw-button>
+                      <amw-button variant="elevated" color="accent" (click)="showInfoNotification()" icon="info" iconPosition="left">Info</amw-button>
                     </div>
                   </div>
                 }
@@ -139,10 +105,7 @@
                         <h4>Basic Usage</h4>
                         <pre><code>{{ messagingServiceCodeExamples.basic }}</code></pre>
                         <div class="preview">
-                          <button mat-raised-button color="primary" (click)="sendMessage()">
-                            <mat-icon>message</mat-icon>
-                            Show Info Message
-                          </button>
+                          <amw-button variant="elevated" color="primary" (click)="sendMessage()" icon="message" iconPosition="left">Show Info Message</amw-button>
                         </div>
                       </div>
 
@@ -151,22 +114,10 @@
                         <pre><code>{{ messagingServiceCodeExamples.types }}</code></pre>
                         <div class="preview">
                           <div class="button-group">
-                            <button mat-button (click)="messagingService.info('Info', 'Information message')">
-                              <mat-icon>info</mat-icon>
-                              Info
-                            </button>
-                            <button mat-button (click)="messagingService.success('Success', 'Success message')">
-                              <mat-icon>check_circle</mat-icon>
-                              Success
-                            </button>
-                            <button mat-button (click)="messagingService.warning('Warning', 'Warning message')">
-                              <mat-icon>warning</mat-icon>
-                              Warning
-                            </button>
-                            <button mat-button (click)="messagingService.error('Error', 'Error message')">
-                              <mat-icon>error</mat-icon>
-                              Error
-                            </button>
+                            <amw-button variant="text" (click)="messagingService.info('Info', 'Information message')" icon="info" iconPosition="left">Info</amw-button>
+                            <amw-button variant="text" (click)="messagingService.success('Success', 'Success message')" icon="check_circle" iconPosition="left">Success</amw-button>
+                            <amw-button variant="text" (click)="messagingService.warning('Warning', 'Warning message')" icon="warning" iconPosition="left">Warning</amw-button>
+                            <amw-button variant="text" (click)="messagingService.error('Error', 'Error message')" icon="error" iconPosition="left">Error</amw-button>
                           </div>
                         </div>
                       </div>
@@ -176,9 +127,9 @@
                         <pre><code>{{ messagingServiceCodeExamples.observable }}</code></pre>
                         <div class="preview">
                           <p>Current message count: {{ messages.length }}</p>
-                          <button mat-raised-button color="accent" (click)="messagingService.info('Test', 'Observe the count change')">
+                          <amw-button variant="elevated" color="accent" (click)="messagingService.info('Test', 'Observe the count change')">
                             Add Message
-                          </button>
+                          </amw-button>
                         </div>
                       </div>
 
@@ -186,9 +137,9 @@
                         <h4>Custom Options</h4>
                         <pre><code>{{ messagingServiceCodeExamples.options }}</code></pre>
                         <div class="preview">
-                          <button mat-raised-button color="primary" (click)="messagingService.info('Custom', 'This message has a 10 second duration', { duration: 10000 })">
+                          <amw-button variant="elevated" color="primary" (click)="messagingService.info('Custom', 'This message has a 10 second duration', { duration: 10000 })">
                             Show Custom Message
-                          </button>
+                          </amw-button>
                         </div>
                       </div>
 
@@ -197,13 +148,10 @@
                         <pre><code>{{ messagingServiceCodeExamples.management }}</code></pre>
                         <div class="preview">
                           <div class="button-group">
-                            <button mat-button (click)="clearMessages()">
-                              <mat-icon>clear_all</mat-icon>
-                              Clear All
-                            </button>
-                            <button mat-button (click)="messagingService.clearMessagesByType('warning')">
+                            <amw-button variant="text" (click)="clearMessages()" icon="clear_all" iconPosition="left">Clear All</amw-button>
+                            <amw-button variant="text" (click)="messagingService.clearMessagesByType('warning')">
                               Clear Warnings
-                            </button>
+                            </amw-button>
                           </div>
                         </div>
                       </div>
@@ -226,13 +174,10 @@
                         <h4>Basic Usage</h4>
                         <pre><code>{{ loadingServiceCodeExamples.basic }}</code></pre>
                         <div class="preview">
-                          <button mat-raised-button color="primary" (click)="startLoading()" [disabled]="loadingState.isLoading">
-                            <mat-icon>hourglass_empty</mat-icon>
-                            Start Loading
-                          </button>
-                          <button mat-button (click)="stopLoading()" [disabled]="!loadingState.isLoading">
+                          <amw-button variant="elevated" color="primary" (click)="startLoading()" [disabled]="loadingState.isLoading" icon="hourglass_empty" iconPosition="left">Start Loading</amw-button>
+                          <amw-button variant="text" (click)="stopLoading()" [disabled]="!loadingState.isLoading">
                             Stop Loading
-                          </button>
+                          </amw-button>
                         </div>
                       </div>
 
@@ -248,13 +193,18 @@
                         <h4>Progress Indicator</h4>
                         <pre><code>{{ loadingServiceCodeExamples.progress }}</code></pre>
                         <div class="preview">
-                          <mat-form-field appearance="outline" style="width: 200px;">
-                            <mat-label>Progress</mat-label>
-                            <input matInput type="number" [(ngModel)]="loadingProgress" min="0" max="100">
-                          </mat-form-field>
-                          <button mat-button (click)="updateLoadingProgress()" [disabled]="!loadingState.isLoading">
+                          <amw-input
+                            label="Progress"
+                            type="number"
+                            [(ngModel)]="loadingProgress"
+                            appearance="outline"
+                            min="0"
+                            max="100"
+                            style="width: 200px;">
+                          </amw-input>
+                          <amw-button variant="text" (click)="updateLoadingProgress()" [disabled]="!loadingState.isLoading">
                             Update Progress
-                          </button>
+                          </amw-button>
                           @if (loadingState.isLoading && loadingState.progress !== undefined) {
                             <p>Current progress: {{ loadingState.progress }}%</p>
                           }
@@ -284,13 +234,15 @@
                         <h4>Dynamic Message Updates</h4>
                         <pre><code>{{ loadingServiceCodeExamples.dynamic }}</code></pre>
                         <div class="preview">
-                          <mat-form-field appearance="outline" style="width: 300px;">
-                            <mat-label>Loading Message</mat-label>
-                            <input matInput [(ngModel)]="loadingMessage">
-                          </mat-form-field>
-                          <button mat-button (click)="updateLoadingMessage()" [disabled]="!loadingState.isLoading">
+                          <amw-input
+                            label="Loading Message"
+                            [(ngModel)]="loadingMessage"
+                            appearance="outline"
+                            style="width: 300px;">
+                          </amw-input>
+                          <amw-button variant="text" (click)="updateLoadingMessage()" [disabled]="!loadingState.isLoading">
                             Update Message
-                          </button>
+                          </amw-button>
                         </div>
                       </div>
                     </div>
@@ -304,10 +256,7 @@
                         <h4>Basic Usage</h4>
                         <pre><code>{{ notificationServiceCodeExamples.basic }}</code></pre>
                         <div class="preview">
-                          <button mat-raised-button color="primary" (click)="showNotification()">
-                            <mat-icon>notifications</mat-icon>
-                            Show Notification
-                          </button>
+                          <amw-button variant="elevated" color="primary" (click)="showNotification()" icon="notifications" iconPosition="left">Show Notification</amw-button>
                         </div>
                       </div>
 
@@ -316,22 +265,10 @@
                         <pre><code>{{ notificationServiceCodeExamples.types }}</code></pre>
                         <div class="preview">
                           <div class="button-group">
-                            <button mat-button (click)="notificationService.info('Info', 'Information notification')">
-                              <mat-icon>info</mat-icon>
-                              Info
-                            </button>
-                            <button mat-button (click)="notificationService.success('Success', 'Success notification')">
-                              <mat-icon>check_circle</mat-icon>
-                              Success
-                            </button>
-                            <button mat-button (click)="notificationService.warning('Warning', 'Warning notification')">
-                              <mat-icon>warning</mat-icon>
-                              Warning
-                            </button>
-                            <button mat-button (click)="notificationService.error('Error', 'Error notification')">
-                              <mat-icon>error</mat-icon>
-                              Error
-                            </button>
+                            <amw-button variant="text" (click)="notificationService.info('Info', 'Information notification')" icon="info" iconPosition="left">Info</amw-button>
+                            <amw-button variant="text" (click)="notificationService.success('Success', 'Success notification')" icon="check_circle" iconPosition="left">Success</amw-button>
+                            <amw-button variant="text" (click)="notificationService.warning('Warning', 'Warning notification')" icon="warning" iconPosition="left">Warning</amw-button>
+                            <amw-button variant="text" (click)="notificationService.error('Error', 'Error notification')" icon="error" iconPosition="left">Error</amw-button>
                           </div>
                         </div>
                       </div>
@@ -340,9 +277,9 @@
                         <h4>Custom Options</h4>
                         <pre><code>{{ notificationServiceCodeExamples.options }}</code></pre>
                         <div class="preview">
-                          <button mat-raised-button color="primary" (click)="notificationService.info('Custom', 'Custom notification with 10s duration', { duration: 10000, sound: true })">
+                          <amw-button variant="elevated" color="primary" (click)="notificationService.info('Custom', 'Custom notification with 10s duration', { duration: 10000, sound: true })">
                             Show Custom Notification
-                          </button>
+                          </amw-button>
                         </div>
                       </div>
 
@@ -350,9 +287,9 @@
                         <h4>Persistent Notification</h4>
                         <pre><code>{{ notificationServiceCodeExamples.persistent }}</code></pre>
                         <div class="preview">
-                          <button mat-raised-button color="warn" (click)="notificationService.warning('Important', 'This requires manual dismissal', { persistent: true, duration: 0 })">
+                          <amw-button variant="elevated" color="warn" (click)="notificationService.warning('Important', 'This requires manual dismissal', { persistent: true, duration: 0 })">
                             Show Persistent Notification
-                          </button>
+                          </amw-button>
                         </div>
                       </div>
 
@@ -361,10 +298,7 @@
                         <pre><code>{{ notificationServiceCodeExamples.observable }}</code></pre>
                         <div class="preview">
                           <p>Active notifications: {{ notifications.length }}</p>
-                          <button mat-button (click)="clearNotifications()">
-                            <mat-icon>clear_all</mat-icon>
-                            Clear All
-                          </button>
+                          <amw-button variant="text" (click)="clearNotifications()" icon="clear_all" iconPosition="left">Clear All</amw-button>
                         </div>
                       </div>
 

@@ -1,37 +1,36 @@
 import { Component, OnInit, ViewEncapsulation } from '@angular/core';
 
-import { MatCardModule } from '@angular/material/card';
-import { MatButtonModule } from '@angular/material/button';
 import { MatIconModule } from '@angular/material/icon';
-import { MatFormFieldModule } from '@angular/material/form-field';
-import { MatInputModule } from '@angular/material/input';
-import { MatSelectModule } from '@angular/material/select';
-import { MatSlideToggleModule } from '@angular/material/slide-toggle';
-import { MatSliderModule } from '@angular/material/slider';
-import { MatDividerModule } from '@angular/material/divider';
-import { MatTabsModule } from '@angular/material/tabs';
-import { MatExpansionModule } from '@angular/material/expansion';
-import { MatChipsModule } from '@angular/material/chips';
 import { FormsModule } from '@angular/forms';
+import { MatSelectModule } from '@angular/material/select';
+import { MatExpansionModule } from '@angular/material/expansion';
+import { MatSliderModule } from '@angular/material/slider';
+import { MatFormFieldModule } from '@angular/material/form-field';
+import { MatOptionModule } from '@angular/material/core';
+import { MatTabsModule } from '@angular/material/tabs';
+import { MatSlideToggleModule } from '@angular/material/slide-toggle';
+import { MatCardModule } from '@angular/material/card';
+import { MatDividerModule } from '@angular/material/divider';
 
+import { AmwButtonComponent } from '../../../../library/src/controls/components/amw-button/amw-button.component';
+import { AmwInputComponent } from '../../../../library/src/controls/components/amw-input/amw-input.component';
+import { AmwSelectComponent } from '../../../../library/src/controls/components/amw-select/amw-select.component';
+import { AmwSliderComponent } from '../../../../library/src/controls/components/amw-slider/amw-slider.component';
+import { AmwSwitchComponent } from '../../../../library/src/controls/components/amw-switch/amw-switch.component';
 @Component({
   selector: 'amw-settings-page',
   standalone: true,
-  imports: [
-    MatCardModule,
-    MatButtonModule,
-    MatIconModule,
-    MatFormFieldModule,
-    MatInputModule,
-    MatSelectModule,
-    MatSlideToggleModule,
-    MatSliderModule,
-    MatDividerModule,
-    MatTabsModule,
+  imports: [MatIconModule,
+    FormsModule,
     MatExpansionModule,
-    MatChipsModule,
-    FormsModule
-],
+    MatTabsModule,
+    MatCardModule,
+    MatDividerModule,
+    AmwButtonComponent,
+    AmwInputComponent,
+    AmwSelectComponent,
+    AmwSliderComponent,
+    AmwSwitchComponent],
   encapsulation: ViewEncapsulation.None,
   templateUrl: './settings-page.component.html',
   styleUrl: './settings-page.component.scss'
@@ -42,6 +41,20 @@ export class SettingsPageComponent implements OnInit {
   defaultLanguage = 'en';
   theme = 'light';
   fontSize = 14;
+
+  // Options for select components
+  languageOptions = [
+    { value: 'en', label: 'English' },
+    { value: 'es', label: 'Spanish' },
+    { value: 'fr', label: 'French' },
+    { value: 'de', label: 'German' }
+  ];
+
+  themeOptions = [
+    { value: 'light', label: 'Light' },
+    { value: 'dark', label: 'Dark' },
+    { value: 'auto', label: 'Auto' }
+  ];
 
   // Notification settings
   emailNotifications = true;

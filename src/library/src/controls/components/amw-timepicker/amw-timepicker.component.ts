@@ -4,7 +4,7 @@ import { FormsModule, NG_VALUE_ACCESSOR } from '@angular/forms';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
 import { MatIconModule } from '@angular/material/icon';
-import { MatButtonModule } from '@angular/material/button';
+import { AmwButtonComponent } from '../amw-button/amw-button.component';
 import { BaseComponent } from '../base/base.component';
 import { TimepickerConfig } from './interfaces';
 import { AmwSize } from '../../../shared/types/amw-size.type';
@@ -13,7 +13,7 @@ import { AmwColor } from '../../../shared/types/amw-color.type';
 @Component({
     selector: 'amw-timepicker',
     standalone: true,
-    imports: [FormsModule, MatFormFieldModule, MatInputModule, MatIconModule, MatButtonModule],
+    imports: [FormsModule, MatFormFieldModule, MatInputModule, MatIconModule, AmwButtonComponent],
     encapsulation: ViewEncapsulation.None,
     templateUrl: './amw-timepicker.component.html',
     styleUrl: './amw-timepicker.component.scss',

@@ -1,16 +1,19 @@
 import { Component, OnInit } from '@angular/core';
 
 import { ActivatedRoute } from '@angular/router';
-import { MatCardModule } from '@angular/material/card';
-import { MatTabsModule } from '@angular/material/tabs';
-import { MatButtonModule } from '@angular/material/button';
 import { MatIconModule } from '@angular/material/icon';
 import { ViewEncapsulation } from '@angular/core';
+import { MatCardModule } from '@angular/material/card';
+import { MatTabsModule } from '@angular/material/tabs';
 
 @Component({
   selector: 'amw-demo-pages',
   standalone: true,
-  imports: [MatCardModule, MatTabsModule, MatButtonModule, MatIconModule],
+  imports: [
+    MatIconModule,
+    MatCardModule,
+    MatTabsModule
+],
   encapsulation: ViewEncapsulation.None,
   template: `
         <div class="pages-demo">

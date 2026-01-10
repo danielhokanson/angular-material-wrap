@@ -10,14 +10,14 @@ import { AmwSelectComponent } from '../../../../library/src/controls/components/
     selector: 'amw-demo-controls',
     standalone: true,
     imports: [
-        CommonModule,
-        ReactiveFormsModule,
-        FormsModule,
-        DemoBaseComponent,
-        AmwButtonComponent,
-        AmwInputComponent,
-        AmwSelectComponent
-    ],
+    CommonModule,
+    ReactiveFormsModule,
+    FormsModule,
+    DemoBaseComponent,
+    AmwButtonComponent,
+    AmwInputComponent,
+    AmwSelectComponent
+],
     templateUrl: './controls-demo.component.html',
     styleUrl: './controls-demo.component.scss'
 })

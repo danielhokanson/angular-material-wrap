@@ -1,20 +1,20 @@
 import { Component, Input, Output, EventEmitter, OnInit, OnChanges, OnDestroy, ChangeDetectorRef, SimpleChanges, ViewEncapsulation } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
-import { MatButtonModule } from '@angular/material/button';
 import { MatIconModule } from '@angular/material/icon';
-import { MatTooltipModule } from '@angular/material/tooltip';
 import { MatMenuModule } from '@angular/material/menu';
 import { MatCardModule } from '@angular/material/card';
 import { MatChipsModule } from '@angular/material/chips';
 import { MatDialogModule, MatDialog } from '@angular/material/dialog';
-import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { AmwCalendarBaseComponent } from './amw-calendar-base.component';
 import { CalendarEvent, CalendarEventChangeEvent, CalendarConfig, CalendarView, CalendarNavigationEvent } from './interfaces';
 import { CalendarItem, CalendarItemChangeEvent } from './interfaces/calendar-item.interface';
 import { CalendarItemConfig } from './interfaces/calendar-item-config.interface';
 import { CalendarItemRegistryService } from './services/calendar-item-registry.service';
 import { CalendarItemPopoverService } from './services/calendar-item-popover.service';
+import { AmwProgressSpinnerComponent } from '../amw-progress-spinner/amw-progress-spinner.component';
+import { AmwButtonComponent } from '../../../controls/components/amw-button/amw-button.component';
+import { AmwTooltipDirective } from '../../../directives';
 
 /**
  * AMW Calendar Full Component
@@ -26,14 +26,14 @@ import { CalendarItemPopoverService } from './services/calendar-item-popover.ser
     imports: [
     CommonModule,
     FormsModule,
-    MatButtonModule,
+    AmwButtonComponent,
     MatIconModule,
-    MatTooltipModule,
+    AmwTooltipDirective,
     MatMenuModule,
     MatCardModule,
     MatChipsModule,
     MatDialogModule,
-    MatProgressSpinnerModule
+    AmwProgressSpinnerComponent
 ],
     templateUrl: './amw-calendar-full.component.html',
     styleUrl: './amw-calendar-full.component.scss',

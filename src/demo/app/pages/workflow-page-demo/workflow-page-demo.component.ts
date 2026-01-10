@@ -1,14 +1,8 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
 
-import { MatCardModule } from '@angular/material/card';
-import { MatButtonModule } from '@angular/material/button';
 import { MatIconModule } from '@angular/material/icon';
-import { MatChipsModule } from '@angular/material/chips';
-import { MatDividerModule } from '@angular/material/divider';
-import { MatTabsModule } from '@angular/material/tabs';
-import { MatExpansionModule } from '@angular/material/expansion';
 import { MatTooltipModule } from '@angular/material/tooltip';
-import { MatSnackBarModule, MatSnackBar } from '@angular/material/snack-bar';
+import { AmwNotificationService } from '../../../../library/src/services/amw-notification/amw-notification.service';
 import { Subject, takeUntil, BehaviorSubject, Observable, of } from 'rxjs';
 import { delay } from 'rxjs/operators';
 
@@ -239,21 +233,18 @@ class WorkflowPageDemoDataSource implements WorkflowPageDataSource {
         return of(true).pipe(delay(1000));
     }
 }
+import { MatTabsModule } from '@angular/material/tabs';
+import { MatCardModule } from '@angular/material/card';
 
 @Component({
     selector: 'app-workflow-page-demo',
     standalone: true,
     imports: [
-    MatCardModule,
-    MatButtonModule,
     MatIconModule,
-    MatChipsModule,
-    MatDividerModule,
-    MatTabsModule,
-    MatExpansionModule,
     MatTooltipModule,
-    MatSnackBarModule,
-    AmwWorkflowPageComponent
+    AmwWorkflowPageComponent,
+    MatTabsModule,
+    MatCardModule
 ],
     templateUrl: './workflow-page-demo.component.html',
     styleUrl: './workflow-page-demo.component.scss'
@@ -271,7 +262,7 @@ export class WorkflowPageDemoComponent implements OnInit, OnDestroy {
     currentWorkflowId = 'employee-onboarding';
     currentView = 'basic';
 
-    constructor(private snackBar: MatSnackBar) { }
+    constructor(private notification: AmwNotificationService) { }
 
     ngOnInit(): void {
         // Initialize component
@@ -284,26 +275,26 @@ export class WorkflowPageDemoComponent implements OnInit, OnDestroy {
 
     onStepChange(event: { step: WorkflowStep; stepIndex: number }): void {
         console.log('Step changed:', event);
-        this.snackBar.open(`Switched to step: ${event.step.title}`, 'Close', { duration: 2000 });
+        this.notification.info('Info', `Switched to step: ${event.step.title}`, { duration: 2000 });
     }
 
     onWorkflowComplete(data: any): void {
-        this.snackBar.open('Workflow completed successfully!', 'Close', { duration: 3000 });
+        this.notification.success('Success', 'Workflow completed successfully!', { duration: 3000 });
         console.log('Workflow completed:', data);
     }
 
     onWorkflowCancel(): void {
-        this.snackBar.open('Workflow cancelled', 'Close', { duration: 2000 });
+        this.notification.info('Info', 'Workflow cancelled', { duration: 2000 });
         console.log('Workflow cancelled');
     }
 
     onWorkflowSave(data: any): void {
-        this.snackBar.open('Workflow saved', 'Close', { duration: 2000 });
+        this.notification.success('Success', 'Workflow saved', { duration: 2000 });
         console.log('Workflow saved:', data);
     }
 
     onWorkflowReset(): void {
-        this.snackBar.open('Workflow reset', 'Close', { duration: 2000 });
+        this.notification.info('Info', 'Workflow reset', { duration: 2000 });
         console.log('Workflow reset');
     }
 
@@ -322,7 +313,7 @@ export class WorkflowPageDemoComponent implements OnInit, OnDestroy {
                         icon: 'settings',
                         color: 'accent',
                         onClick: (data: any) => {
-                            this.snackBar.open('Advanced options clicked', 'Close', { duration: 2000 });
+                            this.notification.info('Info', 'Advanced options clicked', { duration: 2000 });
                         }
                     }
                 ]

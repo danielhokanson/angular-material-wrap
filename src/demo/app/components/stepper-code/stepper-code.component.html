@@ -16,9 +16,7 @@
         <div class="code-panel">
           <div class="code-header">
             <h4>Code</h4>
-            <button mat-icon-button (click)="resetCode('basic')" title="Reset to original">
-              <mat-icon>refresh</mat-icon>
-            </button>
+            <amw-button variant="icon" icon="refresh" (click)="resetCode('basic')" title="Reset to original"></amw-button>
           </div>
           <textarea
             [(ngModel)]="editableCode.basic"
@@ -34,7 +32,7 @@
                 <ng-template matStepLabel>Step 1</ng-template>
                 <p>Content for step 1</p>
                 <div class="step-actions">
-                  <button mat-raised-button matStepperNext>Next</button>
+                  <amw-button variant="elevated" matStepperNext>Next</amw-button>
                 </div>
               </mat-step>
 
@@ -42,8 +40,8 @@
                 <ng-template matStepLabel>Step 2</ng-template>
                 <p>Content for step 2</p>
                 <div class="step-actions">
-                  <button mat-button matStepperPrevious>Back</button>
-                  <button mat-raised-button matStepperNext>Next</button>
+                  <amw-button variant="text" matStepperPrevious>Back</amw-button>
+                  <amw-button variant="elevated" matStepperNext>Next</amw-button>
                 </div>
               </mat-step>
 
@@ -51,7 +49,7 @@
                 <ng-template matStepLabel>Step 3</ng-template>
                 <p>You're done!</p>
                 <div class="step-actions">
-                  <button mat-button matStepperPrevious>Back</button>
+                  <amw-button variant="text" matStepperPrevious>Back</amw-button>
                 </div>
               </mat-step>
             </mat-stepper>
@@ -73,9 +71,7 @@
         <div class="code-panel">
           <div class="code-header">
             <h4>Code</h4>
-            <button mat-icon-button (click)="resetCode('linear')" title="Reset to original">
-              <mat-icon>refresh</mat-icon>
-            </button>
+            <amw-button variant="icon" icon="refresh" (click)="resetCode('linear')" title="Reset to original"></amw-button>
           </div>
           <textarea
             [(ngModel)]="editableCode.linear"
@@ -90,12 +86,13 @@
               <mat-step [stepControl]="firstFormGroup">
                 <form [formGroup]="firstFormGroup">
                   <ng-template matStepLabel>Personal Info</ng-template>
-                  <mat-form-field>
-                    <mat-label>Name</mat-label>
-                    <input matInput formControlName="name" required>
-                  </mat-form-field>
+                  <amw-input
+                    label="Name"
+                    formControlName="name"
+                    required>
+                  </amw-input>
                   <div class="step-actions">
-                    <button mat-raised-button matStepperNext>Next</button>
+                    <amw-button variant="elevated" matStepperNext>Next</amw-button>
                   </div>
                 </form>
               </mat-step>
@@ -103,13 +100,15 @@
               <mat-step [stepControl]="secondFormGroup">
                 <form [formGroup]="secondFormGroup">
                   <ng-template matStepLabel>Contact Info</ng-template>
-                  <mat-form-field>
-                    <mat-label>Email</mat-label>
-                    <input matInput formControlName="email" type="email" required>
-                  </mat-form-field>
+                  <amw-input
+                    label="Email"
+                    formControlName="email"
+                    type="email"
+                    required>
+                  </amw-input>
                   <div class="step-actions">
-                    <button mat-button matStepperPrevious>Back</button>
-                    <button mat-raised-button matStepperNext>Next</button>
+                    <amw-button variant="text" matStepperPrevious>Back</amw-button>
+                    <amw-button variant="elevated" matStepperNext>Next</amw-button>
                   </div>
                 </form>
               </mat-step>
@@ -118,7 +117,7 @@
                 <ng-template matStepLabel>Done</ng-template>
                 <p>All information collected!</p>
                 <div class="step-actions">
-                  <button mat-button matStepperPrevious>Back</button>
+                  <amw-button variant="text" matStepperPrevious>Back</amw-button>
                 </div>
               </mat-step>
             </mat-stepper>
@@ -144,9 +143,7 @@
         <div class="code-panel">
           <div class="code-header">
             <h4>Code</h4>
-            <button mat-icon-button (click)="resetCode('editable')" title="Reset to original">
-              <mat-icon>refresh</mat-icon>
-            </button>
+            <amw-button variant="icon" icon="refresh" (click)="resetCode('editable')" title="Reset to original"></amw-button>
           </div>
           <textarea
             [(ngModel)]="editableCode.editable"
@@ -162,7 +159,7 @@
                 <ng-template matStepLabel>Editable Step</ng-template>
                 <p>This step can be edited after completion</p>
                 <div class="step-actions">
-                  <button mat-raised-button matStepperNext>Next</button>
+                  <amw-button variant="elevated" matStepperNext>Next</amw-button>
                 </div>
               </mat-step>
 
@@ -170,7 +167,7 @@
                 <ng-template matStepLabel>Non-editable Step</ng-template>
                 <p>This step cannot be edited after completion</p>
                 <div class="step-actions">
-                  <button mat-button matStepperPrevious>Back</button>
+                  <amw-button variant="text" matStepperPrevious>Back</amw-button>
                 </div>
               </mat-step>
             </mat-stepper>
@@ -192,9 +189,7 @@
         <div class="code-panel">
           <div class="code-header">
             <h4>Code</h4>
-            <button mat-icon-button (click)="resetCode('optional')" title="Reset to original">
-              <mat-icon>refresh</mat-icon>
-            </button>
+            <amw-button variant="icon" icon="refresh" (click)="resetCode('optional')" title="Reset to original"></amw-button>
           </div>
           <textarea
             [(ngModel)]="editableCode.optional"
@@ -210,7 +205,7 @@
                 <ng-template matStepLabel>Required Step</ng-template>
                 <p>This step is required</p>
                 <div class="step-actions">
-                  <button mat-raised-button matStepperNext>Next</button>
+                  <amw-button variant="elevated" matStepperNext>Next</amw-button>
                 </div>
               </mat-step>
 
@@ -218,8 +213,8 @@
                 <ng-template matStepLabel>Optional Step</ng-template>
                 <p>This step is optional</p>
                 <div class="step-actions">
-                  <button mat-button matStepperPrevious>Back</button>
-                  <button mat-raised-button matStepperNext>Next</button>
+                  <amw-button variant="text" matStepperPrevious>Back</amw-button>
+                  <amw-button variant="elevated" matStepperNext>Next</amw-button>
                 </div>
               </mat-step>
 
@@ -227,7 +222,7 @@
                 <ng-template matStepLabel>Final Step</ng-template>
                 <p>Complete!</p>
                 <div class="step-actions">
-                  <button mat-button matStepperPrevious>Back</button>
+                  <amw-button variant="text" matStepperPrevious>Back</amw-button>
                 </div>
               </mat-step>
             </mat-stepper>
@@ -249,9 +244,7 @@
         <div class="code-panel">
           <div class="code-header">
             <h4>Code</h4>
-            <button mat-icon-button (click)="resetCode('vertical')" title="Reset to original">
-              <mat-icon>refresh</mat-icon>
-            </button>
+            <amw-button variant="icon" icon="refresh" (click)="resetCode('vertical')" title="Reset to original"></amw-button>
           </div>
           <textarea
             [(ngModel)]="editableCode.vertical"
@@ -267,7 +260,7 @@
                 <ng-template matStepLabel>Step 1</ng-template>
                 <p>Content for step 1</p>
                 <div class="step-actions">
-                  <button mat-raised-button matStepperNext>Next</button>
+                  <amw-button variant="elevated" matStepperNext>Next</amw-button>
                 </div>
               </mat-step>
 
@@ -275,8 +268,8 @@
                 <ng-template matStepLabel>Step 2</ng-template>
                 <p>Content for step 2</p>
                 <div class="step-actions">
-                  <button mat-button matStepperPrevious>Back</button>
-                  <button mat-raised-button matStepperNext>Next</button>
+                  <amw-button variant="text" matStepperPrevious>Back</amw-button>
+                  <amw-button variant="elevated" matStepperNext>Next</amw-button>
                 </div>
               </mat-step>
 
@@ -284,7 +277,7 @@
                 <ng-template matStepLabel>Step 3</ng-template>
                 <p>You're done!</p>
                 <div class="step-actions">
-                  <button mat-button matStepperPrevious>Back</button>
+                  <amw-button variant="text" matStepperPrevious>Back</amw-button>
                 </div>
               </mat-step>
             </mat-stepper>
@@ -306,9 +299,7 @@
         <div class="code-panel">
           <div class="code-header">
             <h4>Code</h4>
-            <button mat-icon-button (click)="resetCode('customIcons')" title="Reset to original">
-              <mat-icon>refresh</mat-icon>
-            </button>
+            <amw-button variant="icon" icon="refresh" (click)="resetCode('customIcons')" title="Reset to original"></amw-button>
           </div>
           <textarea
             [(ngModel)]="editableCode.customIcons"
@@ -329,7 +320,7 @@
                 </ng-template>
                 <p>Enter your personal information</p>
                 <div class="step-actions">
-                  <button mat-raised-button matStepperNext>Next</button>
+                  <amw-button variant="elevated" matStepperNext>Next</amw-button>
                 </div>
               </mat-step>
 
@@ -342,8 +333,8 @@
                 </ng-template>
                 <p>Enter your contact details</p>
                 <div class="step-actions">
-                  <button mat-button matStepperPrevious>Back</button>
-                  <button mat-raised-button matStepperNext>Next</button>
+                  <amw-button variant="text" matStepperPrevious>Back</amw-button>
+                  <amw-button variant="elevated" matStepperNext>Next</amw-button>
                 </div>
               </mat-step>
 
@@ -356,7 +347,7 @@
                 </ng-template>
                 <p>All done!</p>
                 <div class="step-actions">
-                  <button mat-button matStepperPrevious>Back</button>
+                  <amw-button variant="text" matStepperPrevious>Back</amw-button>
                 </div>
               </mat-step>
             </mat-stepper>

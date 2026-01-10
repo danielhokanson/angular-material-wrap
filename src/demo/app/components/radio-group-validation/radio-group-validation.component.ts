@@ -1,38 +1,28 @@
 import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule, ReactiveFormsModule, FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { MatCardModule } from '@angular/material/card';
-import { MatButtonModule } from '@angular/material/button';
 import { MatIconModule } from '@angular/material/icon';
-import { MatDividerModule } from '@angular/material/divider';
-import { MatFormFieldModule } from '@angular/material/form-field';
-import { MatInputModule } from '@angular/material/input';
-import { MatSelectModule } from '@angular/material/select';
-import { MatChipsModule } from '@angular/material/chips';
 import { AmwRadioGroupComponent } from '../../../../library/src/controls/components/amw-radio-group/amw-radio-group.component';
 import { RadioGroupOption } from '../../../../library/src/controls/components/amw-radio-group/interfaces/radio-group.interface';
 
 /**
  * Radio Group Validation Demo Component
  * Demonstrates validation scenarios for the AMW Radio Group component
- */
+ */import { MatDividerModule } from '@angular/material/divider';
+import { MatCardModule } from '@angular/material/card';
+
+import { AmwButtonComponent } from '../../../../library/src/controls/components/amw-button/amw-button.component';
 @Component({
     selector: 'app-radio-group-validation',
     standalone: true,
-    imports: [
-        CommonModule,
-        FormsModule,
-        ReactiveFormsModule,
-        MatCardModule,
-        MatButtonModule,
-        MatIconModule,
-        MatDividerModule,
-        MatFormFieldModule,
-        MatInputModule,
-        MatSelectModule,
-        MatChipsModule,
-        AmwRadioGroupComponent
-    ],
+    imports: [CommonModule,
+    FormsModule,
+    ReactiveFormsModule,
+    MatIconModule,
+    AmwRadioGroupComponent,
+    MatDividerModule,
+    MatCardModule,
+    AmwButtonComponent],
     templateUrl: './radio-group-validation.component.html',
     styleUrl: './radio-group-validation.component.scss'
 })

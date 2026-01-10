@@ -1,24 +1,20 @@
 import { Component } from '@angular/core';
 import { CommonModule } from '@angular/common';
+import { MatIconModule } from '@angular/material/icon';
 import { MatTabsModule } from '@angular/material/tabs';
 import { MatCardModule } from '@angular/material/card';
-import { MatButtonModule } from '@angular/material/button';
-import { MatIconModule } from '@angular/material/icon';
-import { MatFormFieldModule } from '@angular/material/form-field';
-import { MatInputModule } from '@angular/material/input';
 
+import { AmwButtonComponent } from '../../../../library/src/controls/components/amw-button/amw-button.component';
+import { AmwInputComponent } from '../../../../library/src/controls/components/amw-input/amw-input.component';
 @Component({
     selector: 'amw-demo-tabs',
     standalone: true,
-    imports: [
-        CommonModule,
-        MatTabsModule,
-        MatCardModule,
-        MatButtonModule,
-        MatIconModule,
-        MatFormFieldModule,
-        MatInputModule
-    ],
+    imports: [CommonModule,
+    MatIconModule,
+    MatTabsModule,
+    MatCardModule,
+    AmwButtonComponent,
+    AmwInputComponent],
     templateUrl: './tabs-demo.component.html',
     styleUrl: './tabs-demo.component.scss'
 })

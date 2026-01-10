@@ -1,21 +1,18 @@
 import { Component, ViewEncapsulation } from '@angular/core';
 
-import { MatCardModule } from '@angular/material/card';
-import { MatButtonModule } from '@angular/material/button';
 import { MatIconModule } from '@angular/material/icon';
-import { MatSnackBar, MatSnackBarModule } from '@angular/material/snack-bar';
+import { AmwNotificationService } from '../../../../library/src/services/amw-notification/amw-notification.service';
 import { DialogService } from '../../../../library/src/components/services/dialog.service';
 import { DialogType, DialogSize, DialogPosition } from '../../../../library/src/components/components/amw-dialog/interfaces';
+import { MatCardModule } from '@angular/material/card';
 
+import { AmwButtonComponent } from '../../../../library/src/controls/components/amw-button/amw-button.component';
 @Component({
     selector: 'amw-demo-dialog',
     standalone: true,
-    imports: [
+    imports: [MatIconModule,
     MatCardModule,
-    MatButtonModule,
-    MatIconModule,
-    MatSnackBarModule
-],
+    AmwButtonComponent],
     encapsulation: ViewEncapsulation.None,
     templateUrl: './dialog-demo.component.html',
     styleUrl: './dialog-demo.component.scss'
@@ -173,7 +170,7 @@ export class DialogDemoComponent {
 
     constructor(
         private dialogService: DialogService,
-        private snackBar: MatSnackBar
+        private notification: AmwNotificationService
     ) { }
 
     openDialog(variation: any) {
@@ -199,11 +196,7 @@ export class DialogDemoComponent {
         });
 
         dialogRef.afterClosed().subscribe(result => {
-            this.snackBar.open(`Dialog closed with result: ${result || 'undefined'}`, 'Close', {
-                duration: 3000,
-                horizontalPosition: 'center',
-                verticalPosition: 'top'
-            });
+            this.notification.info('Info', `Dialog closed with result: ${result || 'undefined'}`, { duration: 3000 });
         });
     }
 
@@ -215,9 +208,9 @@ export class DialogDemoComponent {
     openConfirm() {
         this.dialogService.confirm('Are you sure you want to proceed?', 'Confirm').subscribe(result => {
             if (result === 'confirm') {
-                this.snackBar.open('Confirmed!', 'Close', { duration: 2000 });
+                this.notification.info('Info', 'Confirmed!', { duration: 2000 });
             } else {
-                this.snackBar.open('Cancelled', 'Close', { duration: 2000 });
+                this.notification.info('Info', 'Cancelled', { duration: 2000 });
             }
         });
     }
@@ -229,9 +222,9 @@ export class DialogDemoComponent {
     openWarning() {
         this.dialogService.warning('Please be careful with this action.', 'Warning').subscribe(result => {
             if (result === 'confirm') {
-                this.snackBar.open('Proceeded with warning', 'Close', { duration: 2000 });
+                this.notification.warning('Warning', 'Proceeded with warning', { duration: 2000 });
             } else {
-                this.snackBar.open('Cancelled', 'Close', { duration: 2000 });
+                this.notification.info('Info', 'Cancelled', { duration: 2000 });
             }
         });
     }

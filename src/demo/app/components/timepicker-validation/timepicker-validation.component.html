@@ -44,10 +44,10 @@
         </div>
 
         <div class="timepicker-validation__actions">
-          <button mat-button type="button" (click)="onReset()">Reset</button>
-          <button mat-raised-button color="primary" type="submit" [disabled]="timepickerForm.invalid">
+          <amw-button variant="text" type="button" (click)="onReset()">Reset</amw-button>
+          <amw-button variant="elevated" color="primary" type="submit" [disabled]="timepickerForm.invalid">
             Submit
-          </button>
+          </amw-button>
         </div>
       </form>
     </mat-card-content>

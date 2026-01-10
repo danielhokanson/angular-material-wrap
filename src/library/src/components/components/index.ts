@@ -14,3 +14,19 @@ export * from './amw-tabs/amw-tabs.component';
 
 // Accordion component
 export * from './amw-accordion/amw-accordion.component';
+
+// Menu components
+export * from './amw-menu/amw-menu.component';
+export * from './amw-menu/amw-menu-item.component';
+
+// Progress bar component
+export * from './amw-progress-bar/amw-progress-bar.component';
+
+// Progress spinner component
+export * from './amw-progress-spinner/amw-progress-spinner.component';
+
+// Toolbar component
+export * from './amw-toolbar/amw-toolbar.component';
+
+// Divider component
+export * from './amw-divider/amw-divider.component';

@@ -1,23 +1,21 @@
 import { Component, ViewEncapsulation } from '@angular/core';
 import { FormsModule } from '@angular/forms';
-import { MatExpansionModule } from '@angular/material/expansion';
-import { MatButtonModule } from '@angular/material/button';
 import { MatIconModule } from '@angular/material/icon';
-import { MatSlideToggleModule } from '@angular/material/slide-toggle';
 import { BaseCodeComponent } from '../base/base-code.component';
 
 type SwitchExamples = 'basic' | 'configured' | 'formControl' | 'validation' | 'sizes' | 'colors';
+import { MatExpansionModule } from '@angular/material/expansion';
+import { MatSlideToggleModule } from '@angular/material/slide-toggle';
 
+import { AmwButtonComponent } from '../../../../library/src/controls/components/amw-button/amw-button.component';
 @Component({
   selector: 'amw-demo-switch-code',
   standalone: true,
-  imports: [
-    FormsModule,
-    MatExpansionModule,
-    MatButtonModule,
+  imports: [FormsModule,
     MatIconModule,
-    MatSlideToggleModule
-  ],
+    MatExpansionModule,
+    MatSlideToggleModule,
+    AmwButtonComponent],
   encapsulation: ViewEncapsulation.None,
   templateUrl: './switch-code.component.html',
   styleUrl: './switch-code.component.scss'

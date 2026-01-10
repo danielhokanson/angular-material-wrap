@@ -133,40 +133,40 @@
   </div>
 
   <div class="amw-calendar-item-editor__actions">
-    <button mat-button (click)="onCancel()" class="amw-calendar-item-editor__action">
+    <amw-button variant="text" (click)="onCancel()" class="amw-calendar-item-editor__action">
       {{ isEditing ? 'Cancel' : 'Close' }}
-    </button>
+    </amw-button>
     @if (!isEditing && item.id) {
-      <button
-        mat-button
+      <amw-button
+        variant="text"
         (click)="onDelete()"
         class="amw-calendar-item-editor__action amw-calendar-item-editor__action--danger">
         Delete
-      </button>
+      </amw-button>
     }
     @if (!isEditing) {
-      <button
-        mat-raised-button
+      <amw-button
+        variant="elevated"
         (click)="onEdit()"
         class="amw-calendar-item-editor__action amw-calendar-item-editor__action--primary">
         Edit
-      </button>
+      </amw-button>
     }
     @if (isEditing) {
-      <button
-        mat-raised-button
+      <amw-button
+        variant="elevated"
         (click)="onSave()"
         class="amw-calendar-item-editor__action amw-calendar-item-editor__action--primary">
         {{ isEditing && item.id ? 'Save' : 'Create' }}
-      </button>
+      </amw-button>
     }
     @if (isEditing && item.id) {
-      <button
-        mat-button
+      <amw-button
+        variant="text"
         (click)="onDelete()"
         class="amw-calendar-item-editor__action amw-calendar-item-editor__action--danger">
         Delete
-      </button>
+      </amw-button>
     }
   </div>
 </div>

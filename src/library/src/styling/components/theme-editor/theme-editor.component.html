@@ -17,25 +17,25 @@
         <div class="form-section">
           <h3>Basic Information</h3>
           <div class="form-row">
-            <mat-form-field appearance="outline" class="form-field">
-              <mat-label>Theme Name</mat-label>
-              <input
-                matInput
-                [(ngModel)]="themeName"
-                (ngModelChange)="onThemeNameChange()"
-                placeholder="My Custom Theme"
-                required>
-            </mat-form-field>
+            <amw-input
+              label="Theme Name"
+              [(ngModel)]="themeName"
+              (ngModelChange)="onThemeNameChange()"
+              placeholder="My Custom Theme"
+              required
+              appearance="outline"
+              class="form-field">
+            </amw-input>
 
-            <mat-form-field appearance="outline" class="form-field">
-              <mat-label>Theme ID</mat-label>
-              <input
-                matInput
-                [(ngModel)]="themeId"
-                placeholder="my-custom-theme"
-                required>
-              <mat-hint>Used internally (auto-generated from name)</mat-hint>
-            </mat-form-field>
+            <amw-input
+              label="Theme ID"
+              [(ngModel)]="themeId"
+              placeholder="my-custom-theme"
+              required
+              hint="Used internally (auto-generated from name)"
+              appearance="outline"
+              class="form-field">
+            </amw-input>
           </div>
 
           <div class="form-row">
@@ -49,131 +49,134 @@
           </div>
         </div>
 
-        <mat-divider></mat-divider>
+        <amw-divider></amw-divider>
 
         <!-- Color Palette -->
         <div class="form-section">
           <h3>Color Palette</h3>
           <div class="color-grid">
             <div class="color-item">
-              <mat-form-field appearance="outline" class="color-field">
-                <mat-label>Primary Color</mat-label>
-                <input
-                  matInput
-                  [(ngModel)]="colors.primary"
-                  (ngModelChange)="onColorChange('primary', $event)"
-                  placeholder="#673AB7"
-                  pattern="^#[0-9A-Fa-f]{6}$">
+              <amw-input
+                label="Primary Color"
+                [(ngModel)]="colors.primary"
+                (ngModelChange)="onColorChange('primary', $event)"
+                placeholder="#673AB7"
+                pattern="^#[0-9A-Fa-f]{6}$"
+                appearance="outline"
+                class="color-field">
                 <div class="color-preview" [style.background-color]="colors.primary">
                   <span class="color-text" [style.color]="getColorContrast(colors.primary)">Aa</span>
                 </div>
-              </mat-form-field>
+              </amw-input>
             </div>
 
             <div class="color-item">
-              <mat-form-field appearance="outline" class="color-field">
-                <mat-label>Accent Color</mat-label>
-                <input
-                  matInput
-                  [(ngModel)]="colors.accent"
-                  (ngModelChange)="onColorChange('accent', $event)"
-                  placeholder="#FFC107"
-                  pattern="^#[0-9A-Fa-f]{6}$">
+              <amw-input
+                label="Accent Color"
+                [(ngModel)]="colors.accent"
+                (ngModelChange)="onColorChange('accent', $event)"
+                placeholder="#FFC107"
+                pattern="^#[0-9A-Fa-f]{6}$"
+                appearance="outline"
+                class="color-field">
                 <div class="color-preview" [style.background-color]="colors.accent">
                   <span class="color-text" [style.color]="getColorContrast(colors.accent)">Aa</span>
                 </div>
-              </mat-form-field>
+              </amw-input>
             </div>
 
             <div class="color-item">
-              <mat-form-field appearance="outline" class="color-field">
-                <mat-label>Warn Color</mat-label>
-                <input
-                  matInput
-                  [(ngModel)]="colors.warn"
-                  (ngModelChange)="onColorChange('warn', $event)"
-                  placeholder="#F44336"
-                  pattern="^#[0-9A-Fa-f]{6}$">
+              <amw-input
+                label="Warn Color"
+                [(ngModel)]="colors.warn"
+                (ngModelChange)="onColorChange('warn', $event)"
+                placeholder="#F44336"
+                pattern="^#[0-9A-Fa-f]{6}$"
+                appearance="outline"
+                class="color-field">
                 <div class="color-preview" [style.background-color]="colors.warn">
                   <span class="color-text" [style.color]="getColorContrast(colors.warn)">Aa</span>
                 </div>
-              </mat-form-field>
+              </amw-input>
             </div>
 
             <div class="color-item">
-              <mat-form-field appearance="outline" class="color-field">
-                <mat-label>Background Color</mat-label>
-                <input
-                  matInput
-                  [(ngModel)]="colors.background"
-                  (ngModelChange)="onColorChange('background', $event)"
-                  placeholder="#FAFAFA"
-                  pattern="^#[0-9A-Fa-f]{6}$">
+              <amw-input
+                label="Background Color"
+                [(ngModel)]="colors.background"
+                (ngModelChange)="onColorChange('background', $event)"
+                placeholder="#FAFAFA"
+                pattern="^#[0-9A-Fa-f]{6}$"
+                appearance="outline"
+                class="color-field">
                 <div class="color-preview" [style.background-color]="colors.background">
                   <span class="color-text" [style.color]="getColorContrast(colors.background)">Aa</span>
                 </div>
-              </mat-form-field>
+              </amw-input>
             </div>
 
             <div class="color-item">
-              <mat-form-field appearance="outline" class="color-field">
-                <mat-label>Surface Color</mat-label>
-                <input
-                  matInput
-                  [(ngModel)]="colors.surface"
-                  (ngModelChange)="onColorChange('surface', $event)"
-                  placeholder="#FFFFFF"
-                  pattern="^#[0-9A-Fa-f]{6}$">
+              <amw-input
+                label="Surface Color"
+                [(ngModel)]="colors.surface"
+                (ngModelChange)="onColorChange('surface', $event)"
+                placeholder="#FFFFFF"
+                pattern="^#[0-9A-Fa-f]{6}$"
+                appearance="outline"
+                class="color-field">
                 <div class="color-preview" [style.background-color]="colors.surface">
                   <span class="color-text" [style.color]="getColorContrast(colors.surface)">Aa</span>
                 </div>
-              </mat-form-field>
+              </amw-input>
             </div>
 
             <div class="color-item">
-              <mat-form-field appearance="outline" class="color-field">
-                <mat-label>Foreground Color</mat-label>
-                <input
-                  matInput
-                  [(ngModel)]="colors.foreground"
-                  (ngModelChange)="onColorChange('foreground', $event)"
-                  placeholder="#212121"
-                  pattern="^#[0-9A-Fa-f]{6}$">
+              <amw-input
+                label="Foreground Color"
+                [(ngModel)]="colors.foreground"
+                (ngModelChange)="onColorChange('foreground', $event)"
+                placeholder="#212121"
+                pattern="^#[0-9A-Fa-f]{6}$"
+                appearance="outline"
+                class="color-field">
                 <div class="color-preview" [style.background-color]="colors.foreground">
                   <span class="color-text" [style.color]="getColorContrast(colors.foreground)">Aa</span>
                 </div>
-              </mat-form-field>
+              </amw-input>
             </div>
           </div>
         </div>
 
-        <mat-divider></mat-divider>
+        <amw-divider></amw-divider>
 
         <!-- Actions -->
         <div class="form-actions">
-          <button
-            mat-raised-button
+          <amw-button
+            variant="elevated"
+            icon="save"
+            iconPosition="left"
             color="primary"
             (click)="onSaveTheme()"
             [disabled]="!isValid">
-            <mat-icon>save</mat-icon>
             {{ isEditing() ? 'Update Theme' : 'Create Theme' }}
-          </button>
+          </amw-button>
 
-          <button
-            mat-button
+          <amw-button
+            variant="text"
+            icon="visibility"
+            iconPosition="left"
             (click)="onPreviewTheme()"
             [disabled]="!isValid">
-            <mat-icon>visibility</mat-icon>
             Preview
-          </button>
+          </amw-button>
 
-          <button
-            mat-button
+          <amw-button
+            variant="text"
+            icon="add"
+            iconPosition="left"
             (click)="onNewTheme()">
-            <mat-icon>add</mat-icon>
             New Theme
-          </button>
+          </amw-button>
         </div>
       </div>
     </mat-card-content>
@@ -203,32 +206,32 @@
                 <div
                   class="color-swatch"
                   [style.background-color]="theme.colors.primary"
-                  matTooltip="Primary">
+                  amwTooltip="Primary">
                 </div>
                 <div
                   class="color-swatch"
                   [style.background-color]="theme.colors.accent"
-                  matTooltip="Accent">
+                  amwTooltip="Accent">
                 </div>
                 <div
                   class="color-swatch"
                   [style.background-color]="theme.colors.warn"
-                  matTooltip="Warn">
+                  amwTooltip="Warn">
                 </div>
               </div>
               <div class="theme-actions">
-                <button
-                  mat-icon-button
+                <amw-button
+                  variant="icon"
+                  icon="edit"
                   (click)="onLoadTheme(theme)"
-                  matTooltip="Edit theme">
-                  <mat-icon>edit</mat-icon>
-                </button>
-                <button
-                  mat-icon-button
+                  amwTooltip="Edit theme">
+                </amw-button>
+                <amw-button
+                  variant="icon"
+                  icon="delete"
                   (click)="onDeleteTheme(theme)"
-                  matTooltip="Delete theme">
-                  <mat-icon>delete</mat-icon>
-                </button>
+                  amwTooltip="Delete theme">
+                </amw-button>
               </div>
             </div>
           }

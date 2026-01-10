@@ -1,0 +1,262 @@
+<div class="amw-dashboard-page"
+     [class]="currentConfig.customClass"
+     [class.amw-dashboard-page--density-compact]="currentConfig.density === 'compact'"
+     [class.amw-dashboard-page--density-comfortable]="currentConfig.density === 'comfortable'"
+     [class.amw-dashboard-page--density-spacious]="currentConfig.density === 'spacious'">
+
+  <!-- Header -->
+  <div class="amw-dashboard-page__header">
+    <h1 class="amw-dashboard-page__title">{{ currentConfig.title }}</h1>
+
+    <!-- Header Actions -->
+    <div *ngIf="currentConfig.actions && currentConfig.actions.length > 0"
+         class="amw-dashboard-page__header-actions">
+      <amw-button *ngFor="let action of currentConfig.actions"
+              variant="text"
+              [icon]="action.icon"
+              [iconPosition]="action.icon ? 'left' : undefined"
+              [color]="action.color"
+              [disabled]="action.disabled"
+              [amwTooltip]="action.tooltip || action.label"
+              (click)="onActionClick(action)">
+        {{ action.label }}
+      </amw-button>
+    </div>
+  </div>
+
+  <!-- Stats Pills -->
+  <div class="amw-dashboard-page__stats"
+       [style.--stats-per-row]="currentConfig.statsPerRow">
+    <mat-card *ngFor="let stat of stats"
+              class="amw-dashboard-page__stat"
+              [class]="getStatColorClass(stat)"
+              [class.amw-dashboard-page__stat--clickable]="stat.onClick"
+              (click)="stat.onClick ? onStatClick(stat) : null">
+
+      <!-- Stat Icon -->
+      <div class="amw-dashboard-page__stat-icon" *ngIf="stat.icon">
+        <mat-icon>{{ stat.icon }}</mat-icon>
+      </div>
+
+      <!-- Stat Content -->
+      <div class="amw-dashboard-page__stat-content">
+        <div class="amw-dashboard-page__stat-label">{{ stat.label }}</div>
+
+        <!-- Loading State -->
+        <div *ngIf="stat.loading" class="amw-dashboard-page__stat-loading">
+          <amw-progress-spinner diameter="24"></amw-progress-spinner>
+        </div>
+
+        <!-- Value -->
+        <div *ngIf="!stat.loading" class="amw-dashboard-page__stat-value">
+          {{ stat.format ? stat.format(stat.value) : stat.value }}
+        </div>
+
+        <!-- Subtitle -->
+        <div *ngIf="stat.subtitle && !stat.loading"
+             class="amw-dashboard-page__stat-subtitle">
+          {{ stat.subtitle }}
+        </div>
+
+        <!-- Trend -->
+        <div *ngIf="stat.trend && currentConfig.showTrends && !stat.loading"
+             class="amw-dashboard-page__stat-trend"
+             [class]="getTrendColorClass(stat.trend.direction)">
+          <mat-icon>{{ getTrendIcon(stat.trend.direction) }}</mat-icon>
+          <span>{{ stat.trend.value > 0 ? '+' : '' }}{{ stat.trend.value }}%</span>
+          <span *ngIf="stat.trend.label" class="amw-dashboard-page__stat-trend-label">
+            {{ stat.trend.label }}
+          </span>
+        </div>
+      </div>
+    </mat-card>
+  </div>
+
+  <!-- Toolbar -->
+  <div class="amw-dashboard-page__toolbar">
+    <!-- View Mode Toggles -->
+    <mat-button-toggle-group [value]="currentViewMode"
+                              (change)="onViewModeChange($event.value)"
+                              class="amw-dashboard-page__view-modes"
+                              *ngIf="currentConfig.viewModes.length > 1">
+      <mat-button-toggle *ngFor="let viewMode of currentConfig.viewModes"
+                          [value]="viewMode"
+                          [amwTooltip]="getViewModeLabel(viewMode)">
+        <mat-icon *ngIf="getViewModeIcon(viewMode)">
+          {{ getViewModeIcon(viewMode) }}
+        </mat-icon>
+        <span *ngIf="!getViewModeIcon(viewMode)">
+          {{ getViewModeLabel(viewMode) }}
+        </span>
+      </mat-button-toggle>
+    </mat-button-toggle-group>
+
+    <div class="amw-dashboard-page__toolbar-spacer"></div>
+
+    <!-- Search -->
+    <amw-input *ngIf="currentConfig.showSearch"
+               class="amw-dashboard-page__search"
+               [(ngModel)]="searchQuery"
+               (ngModelChange)="onSearchChange()"
+               [placeholder]="currentConfig.searchPlaceholder || 'Search...'"
+               type="text"
+               appearance="outline">
+      <mat-icon matPrefix>search</mat-icon>
+      <amw-button variant="icon"
+              icon="close"
+              matSuffix
+              *ngIf="searchQuery"
+              (click)="searchQuery = ''; onSearchChange()"
+              aria-label="Clear search">
+      </amw-button>
+    </amw-input>
+
+    <!-- Refresh Button -->
+    <amw-button *ngIf="currentConfig.showRefresh"
+            variant="icon"
+            icon="refresh"
+            (click)="refresh()"
+            [disabled]="loading"
+            [amwTooltip]="'Refresh'"
+            class="amw-dashboard-page__refresh-button"
+            [class.amw-dashboard-page__refresh-button--spinning]="loading">
+    </amw-button>
+
+    <!-- Filters Button (placeholder) -->
+    <amw-button *ngIf="currentConfig.showFilters"
+            variant="icon"
+            icon="filter_list"
+            [amwTooltip]="'Filters'"
+            class="amw-dashboard-page__filters-button">
+    </amw-button>
+  </div>
+
+  <!-- Main Content -->
+  <div class="amw-dashboard-page__content">
+
+    <!-- Loading State -->
+    <div *ngIf="loading" class="amw-dashboard-page__loading">
+      <amw-progress-spinner diameter="60"></amw-progress-spinner>
+      <p>Loading dashboard...</p>
+    </div>
+
+    <!-- Error State -->
+    <div *ngIf="error && !loading" class="amw-dashboard-page__error">
+      <mat-icon color="warn">error_outline</mat-icon>
+      <p>{{ error }}</p>
+      <amw-button variant="text" (click)="refresh()">Try Again</amw-button>
+    </div>
+
+    <!-- Empty State -->
+    <div *ngIf="!loading && !error && items.length === 0"
+         class="amw-dashboard-page__empty">
+      <mat-icon>inbox</mat-icon>
+      <p>{{ currentConfig.emptyMessage }}</p>
+    </div>
+
+    <!-- Grid Layout -->
+    <div *ngIf="!loading && !error && items.length > 0 && currentConfig.contentLayout === 'grid'"
+         class="amw-dashboard-page__grid"
+         [style.--grid-columns]="currentConfig.gridColumns">
+      <mat-card *ngFor="let item of items"
+                class="amw-dashboard-page__grid-item"
+                (click)="onItemClick(item)">
+        <mat-card-header>
+          <mat-card-title>{{ item.title }}</mat-card-title>
+          <mat-card-subtitle *ngIf="item.subtitle">{{ item.subtitle }}</mat-card-subtitle>
+        </mat-card-header>
+        <mat-card-content>
+          <ng-container *ngIf="item.content">{{ item.content }}</ng-container>
+          <ng-container *ngIf="!item.content">
+            <pre>{{ item | json }}</pre>
+          </ng-container>
+        </mat-card-content>
+      </mat-card>
+    </div>
+
+    <!-- List Layout -->
+    <div *ngIf="!loading && !error && items.length > 0 && currentConfig.contentLayout === 'list'"
+         class="amw-dashboard-page__list">
+      <mat-card *ngFor="let item of items"
+                class="amw-dashboard-page__list-item"
+                (click)="onItemClick(item)">
+        <div class="amw-dashboard-page__list-item-content">
+          <div class="amw-dashboard-page__list-item-main">
+            <h3>{{ item.title }}</h3>
+            <p *ngIf="item.subtitle">{{ item.subtitle }}</p>
+          </div>
+          <div *ngIf="item.badge" class="amw-dashboard-page__list-item-badge">
+            <mat-chip>{{ item.badge }}</mat-chip>
+          </div>
+        </div>
+      </mat-card>
+    </div>
+
+    <!-- Calendar Layout (placeholder) -->
+    <div *ngIf="!loading && !error && items.length > 0 && currentConfig.contentLayout === 'calendar'"
+         class="amw-dashboard-page__calendar">
+      <p class="amw-dashboard-page__calendar-placeholder">
+        Calendar view coming soon. Items: {{ items.length }}
+      </p>
+      <div class="amw-dashboard-page__list">
+        <mat-card *ngFor="let item of items"
+                  class="amw-dashboard-page__list-item"
+                  (click)="onItemClick(item)">
+          <div class="amw-dashboard-page__list-item-content">
+            <div class="amw-dashboard-page__list-item-main">
+              <h3>{{ item.title }}</h3>
+              <p *ngIf="item.date">{{ item.date | date }}</p>
+            </div>
+          </div>
+        </mat-card>
+      </div>
+    </div>
+
+    <!-- Widgets Layout -->
+    <div *ngIf="!loading && !error && currentConfig.contentLayout === 'widgets' && currentConfig.widgets"
+         class="amw-dashboard-page__widgets">
+      <mat-expansion-panel *ngFor="let widget of currentConfig.widgets"
+                           [expanded]="!widget.collapsed"
+                           class="amw-dashboard-page__widget">
+        <mat-expansion-panel-header>
+          <mat-panel-title>
+            <mat-icon *ngIf="widget.icon">{{ widget.icon }}</mat-icon>
+            {{ widget.title }}
+          </mat-panel-title>
+        </mat-expansion-panel-header>
+
+        <div class="amw-dashboard-page__widget-content">
+          <div *ngIf="widget.loading" class="amw-dashboard-page__widget-loading">
+            <amw-progress-spinner diameter="40"></amw-progress-spinner>
+          </div>
+
+          <div *ngIf="widget.error && !widget.loading" class="amw-dashboard-page__widget-error">
+            <mat-icon color="warn">error_outline</mat-icon>
+            <p>{{ widget.error }}</p>
+          </div>
+
+          <div *ngIf="!widget.loading && !widget.error && widget.data">
+            <pre>{{ widget.data | json }}</pre>
+          </div>
+        </div>
+      </mat-expansion-panel>
+    </div>
+
+    <!-- Custom Layout (content projection placeholder) -->
+    <div *ngIf="!loading && !error && currentConfig.contentLayout === 'custom'"
+         class="amw-dashboard-page__custom">
+      <p>Custom content projection area. Use ng-content in parent template.</p>
+      <div class="amw-dashboard-page__list">
+        <mat-card *ngFor="let item of items"
+                  class="amw-dashboard-page__list-item"
+                  (click)="onItemClick(item)">
+          <div class="amw-dashboard-page__list-item-content">
+            <div class="amw-dashboard-page__list-item-main">
+              <h3>{{ item.title }}</h3>
+            </div>
+          </div>
+        </mat-card>
+      </div>
+    </div>
+  </div>
+</div>

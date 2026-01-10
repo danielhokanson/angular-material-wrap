@@ -16,9 +16,7 @@
         <div class="code-panel">
           <div class="code-header">
             <h4>Code</h4>
-            <button mat-icon-button (click)="resetCode('basic')" title="Reset to original">
-              <mat-icon>refresh</mat-icon>
-            </button>
+            <amw-button variant="icon" icon="refresh" (click)="resetCode('basic')" title="Reset to original"></amw-button>
           </div>
           <textarea
             [(ngModel)]="editableCode.basic"
@@ -63,9 +61,7 @@
         <div class="code-panel">
           <div class="code-header">
             <h4>Code</h4>
-            <button mat-icon-button (click)="resetCode('multiExpand')" title="Reset to original">
-              <mat-icon>refresh</mat-icon>
-            </button>
+            <amw-button variant="icon" icon="refresh" (click)="resetCode('multiExpand')" title="Reset to original"></amw-button>
           </div>
           <textarea
             [(ngModel)]="editableCode.multiExpand"
@@ -109,9 +105,7 @@
         <div class="code-panel">
           <div class="code-header">
             <h4>Code</h4>
-            <button mat-icon-button (click)="resetCode('hideToggle')" title="Reset to original">
-              <mat-icon>refresh</mat-icon>
-            </button>
+            <amw-button variant="icon" icon="refresh" (click)="resetCode('hideToggle')" title="Reset to original"></amw-button>
           </div>
           <textarea
             [(ngModel)]="editableCode.hideToggle"
@@ -148,9 +142,7 @@
         <div class="code-panel">
           <div class="code-header">
             <h4>Code</h4>
-            <button mat-icon-button (click)="resetCode('disabled')" title="Reset to original">
-              <mat-icon>refresh</mat-icon>
-            </button>
+            <amw-button variant="icon" icon="refresh" (click)="resetCode('disabled')" title="Reset to original"></amw-button>
           </div>
           <textarea
             [(ngModel)]="editableCode.disabled"
@@ -187,9 +179,7 @@
         <div class="code-panel">
           <div class="code-header">
             <h4>Code</h4>
-            <button mat-icon-button (click)="resetCode('programmatic')" title="Reset to original">
-              <mat-icon>refresh</mat-icon>
-            </button>
+            <amw-button variant="icon" icon="refresh" (click)="resetCode('programmatic')" title="Reset to original"></amw-button>
           </div>
           <textarea
             [(ngModel)]="editableCode.programmatic"
@@ -210,9 +200,9 @@
             </mat-accordion>
 
             <div class="control-buttons">
-              <button mat-raised-button (click)="panel.open()">Open</button>
-              <button mat-raised-button (click)="panel.close()">Close</button>
-              <button mat-raised-button (click)="panel.toggle()">Toggle</button>
+              <amw-button variant="elevated" (click)="panel.open()">Open</amw-button>
+              <amw-button variant="elevated" (click)="panel.close()">Close</amw-button>
+              <amw-button variant="elevated" (click)="panel.toggle()">Toggle</amw-button>
             </div>
           </div>
         </div>
@@ -232,9 +222,7 @@
         <div class="code-panel">
           <div class="code-header">
             <h4>Code</h4>
-            <button mat-icon-button (click)="resetCode('events')" title="Reset to original">
-              <mat-icon>refresh</mat-icon>
-            </button>
+            <amw-button variant="icon" icon="refresh" (click)="resetCode('events')" title="Reset to original"></amw-button>
           </div>
           <textarea
             [(ngModel)]="editableCode.events"
@@ -279,9 +267,7 @@
         <div class="code-panel">
           <div class="code-header">
             <h4>Code</h4>
-            <button mat-icon-button (click)="resetCode('togglePosition')" title="Reset to original">
-              <mat-icon>refresh</mat-icon>
-            </button>
+            <amw-button variant="icon" icon="refresh" (click)="resetCode('togglePosition')" title="Reset to original"></amw-button>
           </div>
           <textarea
             [(ngModel)]="editableCode.togglePosition"

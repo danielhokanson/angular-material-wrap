@@ -1,13 +1,15 @@
 import { Component } from '@angular/core';
 import { FormBuilder, FormGroup, Validators, ReactiveFormsModule, FormControl } from '@angular/forms';
-import { MatChipsModule } from '@angular/material/chips';
-import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatIconModule } from '@angular/material/icon';
-import { MatButtonModule } from '@angular/material/button';
-import { MatInputModule } from '@angular/material/input';
-import { MatCardModule } from '@angular/material/card';
 import { COMMA, ENTER } from '@angular/cdk/keycodes';
 import { MatChipInputEvent } from '@angular/material/chips';
+import { MatChipsModule } from '@angular/material/chips';
+import { MatFormFieldModule } from '@angular/material/form-field';
+import { MatCardModule } from '@angular/material/card';
+import { MatOptionModule } from '@angular/material/core';
+import { AmwButtonComponent } from '../../../../library/src/controls/components/amw-button/amw-button.component';
+import { AmwInputComponent } from '../../../../library/src/controls/components/amw-input/amw-input.component';
+import { AmwSelectComponent } from '../../../../library/src/controls/components/amw-select/amw-select.component';
 
 interface Tag {
   name: string;
@@ -21,15 +23,15 @@ interface Skill {
 @Component({
   selector: 'amw-demo-chips-validation',
   standalone: true,
-  imports: [
-    ReactiveFormsModule,
+  imports: [ReactiveFormsModule,
+    MatIconModule,
     MatChipsModule,
     MatFormFieldModule,
-    MatIconModule,
-    MatButtonModule,
-    MatInputModule,
-    MatCardModule
-  ],
+    MatCardModule,
+    MatOptionModule,
+    AmwButtonComponent,
+    AmwInputComponent,
+    AmwSelectComponent],
   templateUrl: './chips-validation.component.html',
   styleUrl: './chips-validation.component.scss'
 })

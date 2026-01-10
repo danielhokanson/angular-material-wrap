@@ -1,23 +1,20 @@
 import { Component, ViewEncapsulation } from '@angular/core';
 import { FormsModule } from '@angular/forms';
-import { MatExpansionModule } from '@angular/material/expansion';
-import { MatButtonModule } from '@angular/material/button';
 import { MatIconModule } from '@angular/material/icon';
-import { MatSliderModule } from '@angular/material/slider';
 import { BaseCodeComponent } from '../base/base-code.component';
 
 type SliderExamples = 'basic' | 'withThumbLabel' | 'withSteps' | 'differentColors' | 'disabled' | 'reactiveForm' | 'withEvents' | 'settingsPanel';
+import { MatExpansionModule } from '@angular/material/expansion';
+import { MatSliderModule } from '@angular/material/slider';
 
 @Component({
   selector: 'amw-demo-slider-code',
   standalone: true,
-  imports: [
-    FormsModule,
-    MatExpansionModule,
-    MatButtonModule,
+  imports: [FormsModule,
     MatIconModule,
-    MatSliderModule
-  ],
+    MatExpansionModule,
+    MatSliderModule,
+    AmwButtonComponent],
   encapsulation: ViewEncapsulation.None,
   templateUrl: './slider-code.component.html',
   styleUrl: './slider-code.component.scss'
@@ -72,6 +69,7 @@ export class SliderCodeComponent extends BaseCodeComponent<SliderExamples> {
     reactiveForm: `// Component TypeScript
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 
+import { AmwButtonComponent } from '../../../../library/src/controls/components/amw-button/amw-button.component';
 export class MyComponent {
   form: FormGroup;
 

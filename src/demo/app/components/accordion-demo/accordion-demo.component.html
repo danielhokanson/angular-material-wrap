@@ -11,14 +11,14 @@
                     <mat-panel-description>Enter your personal details</mat-panel-description>
                 </mat-expansion-panel-header>
                 <div class="panel-content">
-                    <mat-form-field appearance="outline">
-                        <mat-label>First Name</mat-label>
-                        <input matInput placeholder="Enter your first name">
-                    </mat-form-field>
-                    <mat-form-field appearance="outline">
-                        <mat-label>Last Name</mat-label>
-                        <input matInput placeholder="Enter your last name">
-                    </mat-form-field>
+                    <amw-input
+                        label="First Name"
+                        placeholder="Enter your first name">
+                    </amw-input>
+                    <amw-input
+                        label="Last Name"
+                        placeholder="Enter your last name">
+                    </amw-input>
                 </div>
             </mat-expansion-panel>
 
@@ -28,14 +28,14 @@
                     <mat-panel-description>Add your contact details</mat-panel-description>
                 </mat-expansion-panel-header>
                 <div class="panel-content">
-                    <mat-form-field appearance="outline">
-                        <mat-label>Email</mat-label>
-                        <input matInput placeholder="Enter your email">
-                    </mat-form-field>
-                    <mat-form-field appearance="outline">
-                        <mat-label>Phone</mat-label>
-                        <input matInput placeholder="Enter your phone number">
-                    </mat-form-field>
+                    <amw-input
+                        label="Email"
+                        placeholder="Enter your email">
+                    </amw-input>
+                    <amw-input
+                        label="Phone"
+                        placeholder="Enter your phone number">
+                    </amw-input>
                 </div>
             </mat-expansion-panel>
 
@@ -45,9 +45,9 @@
                     <mat-panel-description>Set your preferences</mat-panel-description>
                 </mat-expansion-panel-header>
                 <div class="panel-content">
-                    <mat-checkbox>Receive email notifications</mat-checkbox>
-                    <mat-checkbox>Receive SMS notifications</mat-checkbox>
-                    <mat-checkbox>Subscribe to newsletter</mat-checkbox>
+                    <amw-checkbox>Receive email notifications</amw-checkbox>
+                    <amw-checkbox>Receive SMS notifications</amw-checkbox>
+                    <amw-checkbox>Subscribe to newsletter</amw-checkbox>
                 </div>
             </mat-expansion-panel>
         </mat-accordion>
@@ -66,7 +66,7 @@
                 </mat-expansion-panel-header>
                 <div class="panel-content">
                     <p>This panel contains home-related settings and information.</p>
-                    <button mat-raised-button color="primary">Save Home Settings</button>
+                    <amw-button variant="elevated" color="primary">Save Home Settings</amw-button>
                 </div>
             </mat-expansion-panel>
 
@@ -80,7 +80,7 @@
                 </mat-expansion-panel-header>
                 <div class="panel-content">
                     <p>This panel contains work-related settings and information.</p>
-                    <button mat-raised-button color="accent">Save Work Settings</button>
+                    <amw-button variant="elevated" color="accent">Save Work Settings</amw-button>
                 </div>
             </mat-expansion-panel>
 
@@ -94,7 +94,7 @@
                 </mat-expansion-panel-header>
                 <div class="panel-content">
                     <p>This panel contains general application settings.</p>
-                    <button mat-raised-button>Save Settings</button>
+                    <amw-button variant="elevated">Save Settings</amw-button>
                 </div>
             </mat-expansion-panel>
         </mat-accordion>

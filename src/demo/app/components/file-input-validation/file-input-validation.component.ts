@@ -1,26 +1,17 @@
 import { Component, ViewEncapsulation, OnInit } from '@angular/core';
 
 import { FormBuilder, FormGroup, Validators, ReactiveFormsModule } from '@angular/forms';
-import { MatFormFieldModule } from '@angular/material/form-field';
-import { MatInputModule } from '@angular/material/input';
-import { MatButtonModule } from '@angular/material/button';
-import { MatSnackBar, MatSnackBarModule } from '@angular/material/snack-bar';
-import { MatCardModule } from '@angular/material/card';
+import { AmwNotificationService } from '../../../../library/src/services/amw-notification/amw-notification.service';
 
 import { AmwFileInputComponent } from '../../../../library/src/controls/components/amw-file-input/amw-file-input.component';
 
+import { AmwButtonComponent } from '../../../../library/src/controls/components/amw-button/amw-button.component';
 @Component({
     selector: 'amw-demo-file-input-validation',
     standalone: true,
-    imports: [
-    ReactiveFormsModule,
-    MatFormFieldModule,
-    MatInputModule,
-    MatButtonModule,
-    MatSnackBarModule,
-    MatCardModule,
-    AmwFileInputComponent
-],
+    imports: [ReactiveFormsModule,
+    AmwFileInputComponent,
+    AmwButtonComponent],
     encapsulation: ViewEncapsulation.None,
     templateUrl: './file-input-validation.component.html',
     styleUrl: './file-input-validation.component.scss'
@@ -33,7 +24,7 @@ export class FileInputValidationComponent implements OnInit {
 
     constructor(
         private fb: FormBuilder,
-        private snackBar: MatSnackBar
+        private notification: AmwNotificationService
     ) {
         this.validationForm = this.fb.group({
             profileImage: [[], [Validators.required, this.validateFileCount(1)]],
@@ -117,14 +108,10 @@ export class FileInputValidationComponent implements OnInit {
 
     onSubmit(): void {
         if (this.validationForm.valid) {
-            this.snackBar.open('Form submitted successfully!', 'Close', {
-                duration: 3000
-            });
+            this.notification.success('Success', 'Form submitted successfully!', { duration: 3000 });
             console.log('Form values:', this.validationForm.value);
         } else {
-            this.snackBar.open('Please fix the validation errors', 'Close', {
-                duration: 3000
-            });
+            this.notification.error('Error', 'Please fix the validation errors', { duration: 3000 });
             this.markFormGroupTouched();
         }
     }
@@ -184,6 +171,4 @@ export class FileInputValidationComponent implements OnInit {
         return parseFloat((bytes / Math.pow(k, i)).toFixed(2)) + ' ' + sizes[i];
     }
 }
-
-
 

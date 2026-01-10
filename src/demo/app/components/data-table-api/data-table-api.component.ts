@@ -1,19 +1,17 @@
 import { Component, ViewEncapsulation } from '@angular/core';
 
-import { MatCardModule } from '@angular/material/card';
-import { MatTabsModule } from '@angular/material/tabs';
-import { MatButtonModule } from '@angular/material/button';
 import { MatIconModule } from '@angular/material/icon';
 import { BaseApiComponent, ApiDocumentation } from '../base/base-api.component';
+import { MatTableModule } from '@angular/material/table';
+import { MatCardModule } from '@angular/material/card';
 
 @Component({
     selector: 'amw-demo-data-table-api',
     standalone: true,
     imports: [
-    MatCardModule,
-    MatTabsModule,
-    MatButtonModule,
-    MatIconModule
+    MatIconModule,
+    MatTableModule,
+    MatCardModule
 ],
     encapsulation: ViewEncapsulation.None,
     template: `

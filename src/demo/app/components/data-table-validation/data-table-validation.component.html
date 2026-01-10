@@ -13,17 +13,25 @@
             <p>Select users from the table below. Configure minimum and maximum selection limits.</p>
             
             <div class="data-table-validation__controls">
-              <mat-form-field appearance="outline" class="data-table-validation__control">
-                <mat-label>Minimum Selection</mat-label>
-                <input matInput type="number" formControlName="minSelection" min="1" max="10">
-                <mat-hint>Minimum number of users to select</mat-hint>
-              </mat-form-field>
-              
-              <mat-form-field appearance="outline" class="data-table-validation__control">
-                <mat-label>Maximum Selection</mat-label>
-                <input matInput type="number" formControlName="maxSelection" min="1" max="10">
-                <mat-hint>Maximum number of users to select</mat-hint>
-              </mat-form-field>
+              <amw-input
+                label="Minimum Selection"
+                type="number"
+                formControlName="minSelection"
+                min="1"
+                max="10"
+                hint="Minimum number of users to select"
+                class="data-table-validation__control">
+              </amw-input>
+
+              <amw-input
+                label="Maximum Selection"
+                type="number"
+                formControlName="maxSelection"
+                min="1"
+                max="10"
+                hint="Maximum number of users to select"
+                class="data-table-validation__control">
+              </amw-input>
             </div>
             
             <amw-data-table
@@ -60,10 +68,10 @@
         </div>
 
         <div class="data-table-validation__actions">
-          <button mat-button type="button" (click)="onReset()">Reset</button>
-          <button mat-raised-button color="primary" type="submit" [disabled]="dataTableForm.invalid">
+          <amw-button variant="text" type="button" (click)="onReset()">Reset</amw-button>
+          <amw-button variant="elevated" color="primary" type="submit" [disabled]="dataTableForm.invalid">
             Submit Selection
-          </button>
+          </amw-button>
         </div>
       </form>
     </mat-card-content>

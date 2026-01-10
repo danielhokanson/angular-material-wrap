@@ -16,9 +16,7 @@
         <div class="code-panel">
           <div class="code-header">
             <h4>Code</h4>
-            <button mat-icon-button (click)="resetCode('basic')" title="Reset to original">
-              <mat-icon>refresh</mat-icon>
-            </button>
+            <amw-button variant="icon" icon="refresh" (click)="resetCode('basic')" title="Reset to original"></amw-button>
           </div>
           <textarea
             [(ngModel)]="editableCode.basic"
@@ -28,18 +26,18 @@
         <div class="preview-panel">
           <h4>Preview</h4>
           <div class="preview-content">
-            <mat-form-field appearance="outline">
-              <mat-label>Country</mat-label>
-              <input matInput
-                [(ngModel)]="countryValue"
-                placeholder="Select your country..."
-                [matAutocomplete]="auto">
-              <mat-autocomplete #auto="matAutocomplete">
-                @for (country of countries; track country) {
-                  <mat-option [value]="country">{{country}}</mat-option>
-                }
-              </mat-autocomplete>
-            </mat-form-field>
+            <amw-input
+              label="Country"
+              [(ngModel)]="countryValue"
+              placeholder="Select your country..."
+              [matAutocomplete]="auto"
+              appearance="outline">
+            </amw-input>
+            <mat-autocomplete #auto="matAutocomplete">
+              @for (country of countries; track country) {
+                <mat-option [value]="country">{{country}}</mat-option>
+              }
+            </mat-autocomplete>
           </div>
         </div>
       </div>
@@ -58,9 +56,7 @@
         <div class="code-panel">
           <div class="code-header">
             <h4>Code</h4>
-            <button mat-icon-button (click)="resetCode('withValidation')" title="Reset to original">
-              <mat-icon>refresh</mat-icon>
-            </button>
+            <amw-button variant="icon" icon="refresh" (click)="resetCode('withValidation')" title="Reset to original"></amw-button>
           </div>
           <textarea
             [(ngModel)]="editableCode.withValidation"
@@ -71,19 +67,19 @@
         <div class="preview-panel">
           <h4>Preview</h4>
           <div class="preview-content">
-            <mat-form-field appearance="outline">
-              <mat-label>Country</mat-label>
-              <input matInput
-                placeholder="Select your country..."
-                required
-                [matAutocomplete]="autoValidation">
-              <mat-autocomplete #autoValidation="matAutocomplete">
-                @for (country of countries; track country) {
-                  <mat-option [value]="country">{{country}}</mat-option>
-                }
-              </mat-autocomplete>
-              <mat-hint>Country is required</mat-hint>
-            </mat-form-field>
+            <amw-input
+              label="Country"
+              placeholder="Select your country..."
+              required
+              [matAutocomplete]="autoValidation"
+              hint="Country is required"
+              appearance="outline">
+            </amw-input>
+            <mat-autocomplete #autoValidation="matAutocomplete">
+              @for (country of countries; track country) {
+                <mat-option [value]="country">{{country}}</mat-option>
+              }
+            </mat-autocomplete>
           </div>
         </div>
       </div>
@@ -102,9 +98,7 @@
         <div class="code-panel">
           <div class="code-header">
             <h4>Code</h4>
-            <button mat-icon-button (click)="resetCode('withFiltering')" title="Reset to original">
-              <mat-icon>refresh</mat-icon>
-            </button>
+            <amw-button variant="icon" icon="refresh" (click)="resetCode('withFiltering')" title="Reset to original"></amw-button>
           </div>
           <textarea
             [(ngModel)]="editableCode.withFiltering"
@@ -115,19 +109,19 @@
         <div class="preview-panel">
           <h4>Preview</h4>
           <div class="preview-content">
-            <mat-form-field appearance="outline">
-              <mat-label>Search Skills</mat-label>
-              <input matInput
-                [(ngModel)]="skillValue"
-                (input)="filterSkills($event)"
-                placeholder="Type to search skills..."
-                [matAutocomplete]="autoFilter">
-              <mat-autocomplete #autoFilter="matAutocomplete">
-                @for (skill of filteredSkills; track skill) {
-                  <mat-option [value]="skill">{{skill}}</mat-option>
-                }
-              </mat-autocomplete>
-            </mat-form-field>
+            <amw-input
+              label="Search Skills"
+              [(ngModel)]="skillValue"
+              (input)="filterSkills($event)"
+              placeholder="Type to search skills..."
+              [matAutocomplete]="autoFilter"
+              appearance="outline">
+            </amw-input>
+            <mat-autocomplete #autoFilter="matAutocomplete">
+              @for (skill of filteredSkills; track skill) {
+                <mat-option [value]="skill">{{skill}}</mat-option>
+              }
+            </mat-autocomplete>
           </div>
         </div>
       </div>
@@ -146,9 +140,7 @@
         <div class="code-panel">
           <div class="code-header">
             <h4>Code</h4>
-            <button mat-icon-button (click)="resetCode('multipleSelection')" title="Reset to original">
-              <mat-icon>refresh</mat-icon>
-            </button>
+            <amw-button variant="icon" icon="refresh" (click)="resetCode('multipleSelection')" title="Reset to original"></amw-button>
           </div>
           <textarea
             [(ngModel)]="editableCode.multipleSelection"
@@ -181,9 +173,7 @@
         <div class="code-panel">
           <div class="code-header">
             <h4>Code</h4>
-            <button mat-icon-button (click)="resetCode('withCustomDisplay')" title="Reset to original">
-              <mat-icon>refresh</mat-icon>
-            </button>
+            <amw-button variant="icon" icon="refresh" (click)="resetCode('withCustomDisplay')" title="Reset to original"></amw-button>
           </div>
           <textarea
             [(ngModel)]="editableCode.withCustomDisplay"
@@ -216,9 +206,7 @@
         <div class="code-panel">
           <div class="code-header">
             <h4>Code</h4>
-            <button mat-icon-button (click)="resetCode('reactiveForm')" title="Reset to original">
-              <mat-icon>refresh</mat-icon>
-            </button>
+            <amw-button variant="icon" icon="refresh" (click)="resetCode('reactiveForm')" title="Reset to original"></amw-button>
           </div>
           <textarea
             [(ngModel)]="editableCode.reactiveForm"
@@ -251,9 +239,7 @@
         <div class="code-panel">
           <div class="code-header">
             <h4>Code</h4>
-            <button mat-icon-button (click)="resetCode('withEvents')" title="Reset to original">
-              <mat-icon>refresh</mat-icon>
-            </button>
+            <amw-button variant="icon" icon="refresh" (click)="resetCode('withEvents')" title="Reset to original"></amw-button>
           </div>
           <textarea
             [(ngModel)]="editableCode.withEvents"
@@ -264,19 +250,19 @@
         <div class="preview-panel">
           <h4>Preview</h4>
           <div class="preview-content">
-            <mat-form-field appearance="outline">
-              <mat-label>Search</mat-label>
-              <input matInput
-                [(ngModel)]="searchValue"
-                (input)="onInputChange($event)"
-                placeholder="Type to search..."
-                [matAutocomplete]="autoEvent">
-              <mat-autocomplete #autoEvent="matAutocomplete" (optionSelected)="onOptionSelected($event)">
-                @for (skill of filteredSkills; track skill) {
-                  <mat-option [value]="skill">{{skill}}</mat-option>
-                }
-              </mat-autocomplete>
-            </mat-form-field>
+            <amw-input
+              label="Search"
+              [(ngModel)]="searchValue"
+              (input)="onInputChange($event)"
+              placeholder="Type to search..."
+              [matAutocomplete]="autoEvent"
+              appearance="outline">
+            </amw-input>
+            <mat-autocomplete #autoEvent="matAutocomplete" (optionSelected)="onOptionSelected($event)">
+              @for (skill of filteredSkills; track skill) {
+                <mat-option [value]="skill">{{skill}}</mat-option>
+              }
+            </mat-autocomplete>
             <div class="preview-note">
               <mat-icon>info</mat-icon>
               <span>Open your browser console to see event logs</span>
@@ -299,9 +285,7 @@
         <div class="code-panel">
           <div class="code-header">
             <h4>Code</h4>
-            <button mat-icon-button (click)="resetCode('searchForm')" title="Reset to original">
-              <mat-icon>refresh</mat-icon>
-            </button>
+            <amw-button variant="icon" icon="refresh" (click)="resetCode('searchForm')" title="Reset to original"></amw-button>
           </div>
           <textarea
             [(ngModel)]="editableCode.searchForm"

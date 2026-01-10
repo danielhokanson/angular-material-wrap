@@ -16,16 +16,15 @@
       (blur)="onBlur($event)"
       />
 
-    <button
+    <amw-button
+      variant="icon"
+      icon="palette"
       matSuffix
-      mat-icon-button
       type="button"
       [disabled]="isDisabled"
       (click)="toggleColorPicker()"
-      aria-label="Open color picker"
-      >
-      <mat-icon>palette</mat-icon>
-    </button>
+      aria-label="Open color picker">
+    </amw-button>
 
     @if (hasValidationError) {
       <mat-error>
@@ -51,9 +50,8 @@
     <div class="amw-color-picker__dropdown" (click)="$event.stopPropagation()">
       <div class="amw-color-picker__header">
         <span class="amw-color-picker__title">Select Color</span>
-        <button mat-icon-button (click)="isOpen = false" aria-label="Close">
-          <mat-icon>close</mat-icon>
-        </button>
+        <amw-button variant="icon" icon="close" (click)="isOpen = false" aria-label="Close">
+        </amw-button>
       </div>
       <div class="amw-color-picker__content">
         <!-- Palette Colors -->
@@ -62,19 +60,16 @@
             <div class="amw-color-picker__palette-title">Color Palette</div>
             <div class="amw-color-picker__palette-grid">
               @for (color of paletteColors; track color) {
-                <button
-                  mat-icon-button
+                <amw-button
+                  variant="icon"
+                  [icon]="selectedColor === color ? 'check' : ''"
                   class="amw-color-picker__color-button"
                   [class.amw-color-picker__color-button--selected]="selectedColor === color"
                   [style.background-color]="color"
                   [title]="color"
                   (click)="selectColor(color)"
-                  [disabled]="isDisabled"
-                  >
-                  @if (selectedColor === color) {
-                    <mat-icon class="amw-color-picker__check-icon">check</mat-icon>
-                  }
-                </button>
+                  [disabled]="isDisabled">
+                </amw-button>
               }
             </div>
           </div>
@@ -118,8 +113,8 @@
         }
       </div>
       <div class="amw-color-picker__actions">
-        <button mat-button (click)="isOpen = false">Cancel</button>
-        <button mat-button color="primary" (click)="selectColor(selectedColor)">OK</button>
+        <amw-button variant="text" (click)="isOpen = false">Cancel</amw-button>
+        <amw-button variant="text" color="primary" (click)="selectColor(selectedColor)">OK</amw-button>
       </div>
     </div>
   }

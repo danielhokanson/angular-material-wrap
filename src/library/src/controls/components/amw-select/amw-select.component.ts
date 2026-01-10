@@ -5,12 +5,12 @@ import { MatSelectModule } from '@angular/material/select';
 import { MatFormFieldModule, MatFormFieldAppearance } from '@angular/material/form-field';
 import { MatIconModule } from '@angular/material/icon';
 import { MatButtonModule } from '@angular/material/button';
-import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { MatInputModule } from '@angular/material/input';
 import { BaseComponent } from '../base/base.component';
 import { SelectAppearance } from './interfaces/select-appearance.type';
 import { AmwSize } from '../../../shared/types/amw-size.type';
 import { SelectOption, SelectConfig } from './interfaces/select.interface';
+import { AmwProgressSpinnerComponent } from '../../../components/components/amw-progress-spinner/amw-progress-spinner.component';
 
 /**
  * AMW Select Component
@@ -27,7 +27,7 @@ import { SelectOption, SelectConfig } from './interfaces/select.interface';
         MatFormFieldModule,
         MatIconModule,
         MatButtonModule,
-        MatProgressSpinnerModule,
+        AmwProgressSpinnerComponent,
         MatInputModule
     ],
     encapsulation: ViewEncapsulation.None,

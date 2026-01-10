@@ -1,13 +1,13 @@
 import { Component, Input, Output, EventEmitter, OnInit, OnDestroy, ViewEncapsulation, ChangeDetectorRef, ContentChildren, QueryList, TemplateRef } from '@angular/core';
-
+import { CommonModule } from '@angular/common';
 import { MatTabsModule } from '@angular/material/tabs';
-import { MatButtonModule } from '@angular/material/button';
 import { MatIconModule } from '@angular/material/icon';
 import { MatCardModule } from '@angular/material/card';
 import { MatDividerModule } from '@angular/material/divider';
 import { Subject, takeUntil } from 'rxjs';
 import { BaseComponent } from '../../../controls/components/base/base.component';
 import { TabsConfig, TabItem } from './interfaces';
+import { AmwButtonComponent } from '../../../controls/components/amw-button/amw-button.component';
 
 /**
  * Angular Material Wrap Tabs Component
@@ -30,8 +30,9 @@ import { TabsConfig, TabItem } from './interfaces';
     selector: 'amw-tabs',
     standalone: true,
     imports: [
+    CommonModule,
     MatTabsModule,
-    MatButtonModule,
+    AmwButtonComponent,
     MatIconModule,
     MatCardModule,
     MatDividerModule

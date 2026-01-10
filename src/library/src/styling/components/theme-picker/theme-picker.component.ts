@@ -3,7 +3,6 @@ import { Component, OnInit, signal, computed } from '@angular/core';
 import { MatSelectModule } from '@angular/material/select';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatIconModule } from '@angular/material/icon';
-import { MatButtonModule } from '@angular/material/button';
 import { MatTooltipModule } from '@angular/material/tooltip';
 import { MatDividerModule } from '@angular/material/divider';
 import { MatCardModule } from '@angular/material/card';
@@ -14,14 +13,13 @@ import { ThemeService, ThemeConfig } from '../../services/theme.service';
     selector: 'amw-theme-picker',
     standalone: true,
     imports: [
-    MatSelectModule,
-    MatFormFieldModule,
-    MatIconModule,
-    MatButtonModule,
-    MatTooltipModule,
-    MatDividerModule,
-    MatCardModule
-],
+        MatSelectModule,
+        MatFormFieldModule,
+        MatIconModule,
+        MatTooltipModule,
+        MatDividerModule,
+        MatCardModule
+    ],
     templateUrl: './theme-picker.component.html',
     styleUrl: './theme-picker.component.scss'
 })

@@ -1,26 +1,24 @@
 import { Component, ViewEncapsulation, OnInit } from '@angular/core';
 import { FormsModule, ReactiveFormsModule, FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { MatExpansionModule } from '@angular/material/expansion';
-import { MatButtonModule } from '@angular/material/button';
 import { MatIconModule } from '@angular/material/icon';
 import { CommonModule } from '@angular/common';
 import { BaseCodeComponent } from '../base/base-code.component';
 import { AmwTimepickerComponent } from '../../../../library/src/controls/components/amw-timepicker/amw-timepicker.component';
 
 type TimepickerExamples = 'basic' | 'format' | 'seconds' | 'validation' | 'configuration';
+import { MatExpansionModule } from '@angular/material/expansion';
 
+import { AmwButtonComponent } from '../../../../library/src/controls/components/amw-button/amw-button.component';
 @Component({
   selector: 'amw-demo-timepicker-code',
   standalone: true,
-  imports: [
-    CommonModule,
+  imports: [CommonModule,
     FormsModule,
     ReactiveFormsModule,
-    MatExpansionModule,
-    MatButtonModule,
     MatIconModule,
-    AmwTimepickerComponent
-  ],
+    AmwTimepickerComponent,
+    MatExpansionModule,
+    AmwButtonComponent],
   encapsulation: ViewEncapsulation.None,
   templateUrl: './timepicker-code.component.html',
   styleUrl: './timepicker-code.component.scss'
@@ -81,17 +79,13 @@ export class MyComponent {
 }`,
 
     validation: `<form [formGroup]="timeForm">
-  <mat-form-field appearance="outline">
-    <mat-label>Select Time</mat-label>
-    <amw-timepicker
-      formControlName="time"
-      required
-      placeholder="Choose time">
-    </amw-timepicker>
-    <mat-error *ngIf="timeForm.get('time')?.hasError('required')">
-      Time is required
-    </mat-error>
-  </mat-form-field>
+  <amw-timepicker
+    label="Select Time"
+    formControlName="time"
+    required
+    placeholder="Choose time"
+    appearance="outline">
+  </amw-timepicker>
 </form>
 
 // Component

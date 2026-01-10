@@ -72,28 +72,28 @@
 
     <!-- Clear Button -->
     @if (canClear) {
-      <button
+      <amw-button
+        variant="icon"
+        icon="clear"
         matSuffix
-        mat-icon-button
         type="button"
         (click)="onClear()"
         class="amw-input__clear-button"
         [attr.aria-label]="'Clear input'">
-        <mat-icon>clear</mat-icon>
-      </button>
+      </amw-button>
     }
 
     <!-- Password Toggle Button -->
     @if (canTogglePassword) {
-      <button
+      <amw-button
+        variant="icon"
+        [icon]="showPassword ? 'visibility_off' : 'visibility'"
         matSuffix
-        mat-icon-button
         type="button"
         (click)="onTogglePassword()"
         class="amw-input__password-toggle"
         [attr.aria-label]="showPassword ? 'Hide password' : 'Show password'">
-        <mat-icon>{{ showPassword ? 'visibility_off' : 'visibility' }}</mat-icon>
-      </button>
+      </amw-button>
     }
 
     <!-- Hint Text -->

@@ -29,18 +29,21 @@
           (rangeChange)="basicRange = $event">
         </amw-range-slider>
         <div class="config-controls">
-          <mat-form-field appearance="outline">
-            <mat-label>Min</mat-label>
-            <input matInput type="number" [(ngModel)]="minValue">
-          </mat-form-field>
-          <mat-form-field appearance="outline">
-            <mat-label>Max</mat-label>
-            <input matInput type="number" [(ngModel)]="maxValue">
-          </mat-form-field>
-          <mat-form-field appearance="outline">
-            <mat-label>Step</mat-label>
-            <input matInput type="number" [(ngModel)]="stepValue">
-          </mat-form-field>
+          <amw-input
+            label="Min"
+            type="number"
+            [(ngModel)]="minValue">
+          </amw-input>
+          <amw-input
+            label="Max"
+            type="number"
+            [(ngModel)]="maxValue">
+          </amw-input>
+          <amw-input
+            label="Step"
+            type="number"
+            [(ngModel)]="stepValue">
+          </amw-input>
         </div>
       </div>
 
@@ -55,8 +58,8 @@
           [rangeValue]="basicRange"
           (rangeChange)="basicRange = $event">
         </amw-range-slider>
-        <mat-checkbox [(ngModel)]="showTicks">Show Ticks</mat-checkbox>
-        <mat-checkbox [(ngModel)]="showLabels">Show Labels</mat-checkbox>
+        <amw-checkbox [(ngModel)]="showTicks">Show Ticks</amw-checkbox>
+        <amw-checkbox [(ngModel)]="showLabels">Show Labels</amw-checkbox>
       </div>
 
       <div class="variation-group">
@@ -68,11 +71,11 @@
           [rangeValue]="basicRange"
           (rangeChange)="basicRange = $event">
         </amw-range-slider>
-        <mat-button-toggle-group [(ngModel)]="color">
-          <mat-button-toggle value="primary">Primary</mat-button-toggle>
-          <mat-button-toggle value="accent">Accent</mat-button-toggle>
-          <mat-button-toggle value="warn">Warn</mat-button-toggle>
-        </mat-button-toggle-group>
+        <variant="text"-toggle-group [(ngModel)]="color">
+          <variant="text"-toggle value="primary">Primary</variant="text"-toggle>
+          <variant="text"-toggle value="accent">Accent</variant="text"-toggle>
+          <variant="text"-toggle value="warn">Warn</variant="text"-toggle>
+        </variant="text"-toggle-group>
       </div>
 
       <div class="variation-group">
@@ -84,7 +87,7 @@
           [rangeValue]="basicRange"
           (rangeChange)="basicRange = $event">
         </amw-range-slider>
-        <mat-checkbox [(ngModel)]="vertical">Vertical</mat-checkbox>
+        <amw-checkbox [(ngModel)]="vertical">Vertical</amw-checkbox>
       </div>
     </div>
   </div>

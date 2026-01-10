@@ -18,3 +18,9 @@ export * from './amw-workflow-page/amw-workflow-page.component';
 
 // Report/Analytics Page
 export * from './amw-report-page/amw-report-page.component';
+
+// Master-Detail Page
+export * from './amw-master-detail-page';
+
+// Dashboard Page
+export * from './amw-dashboard-page';

@@ -1,13 +1,14 @@
 import { Component } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { FormBuilder, FormGroup, Validators, ReactiveFormsModule } from '@angular/forms';
-import { MatTabsModule } from '@angular/material/tabs';
-import { MatFormFieldModule } from '@angular/material/form-field';
-import { MatInputModule } from '@angular/material/input';
-import { MatCardModule } from '@angular/material/card';
+import { FormBuilder, FormGroup, Validators, ReactiveFormsModule, ValidationErrors } from '@angular/forms';
 import { MatIconModule } from '@angular/material/icon';
-import { MatButtonModule } from '@angular/material/button';
-import { MatSelectModule } from '@angular/material/select';
+import { AmwFormValidationComponent, FormValidationConfig } from 'angular-material-wrap';
+import { MatOptionModule } from '@angular/material/core';
+import { MatTabsModule } from '@angular/material/tabs';
+import { MatCardModule } from '@angular/material/card';
+import { AmwButtonComponent } from '../../../../library/src/controls/components/amw-button/amw-button.component';
+import { AmwInputComponent } from '../../../../library/src/controls/components/amw-input/amw-input.component';
+import { AmwSelectComponent } from '../../../../library/src/controls/components/amw-select/amw-select.component';
 
 interface Step {
   label: string;
@@ -18,17 +19,16 @@ interface Step {
 @Component({
   selector: 'amw-demo-tabs-validation',
   standalone: true,
-  imports: [
-    CommonModule,
+  imports: [CommonModule,
     ReactiveFormsModule,
-    MatTabsModule,
-    MatFormFieldModule,
-    MatInputModule,
-    MatCardModule,
     MatIconModule,
-    MatButtonModule,
-    MatSelectModule
-  ],
+    AmwFormValidationComponent,
+    MatOptionModule,
+    MatTabsModule,
+    MatCardModule,
+    AmwButtonComponent,
+    AmwInputComponent,
+    AmwSelectComponent],
   templateUrl: './tabs-validation.component.html',
   styleUrl: './tabs-validation.component.scss'
 })
@@ -49,6 +49,16 @@ export class TabsValidationComponent {
   accountDetailsForm: FormGroup;
   preferencesForm: FormGroup;
 
+  // Form validation configuration
+  accountDetailsValidation: FormValidationConfig = {
+    passwordMismatch: {
+      message: 'Passwords do not match.',
+      showWhen: (form) => form.get('confirmPassword')?.touched ?? false,
+      severity: 'error',
+      affectedFields: ['password', 'confirmPassword']
+    }
+  };
+
   constructor(private fb: FormBuilder) {
     // Personal info form
     this.personalInfoForm = this.fb.group({
@@ -58,11 +68,13 @@ export class TabsValidationComponent {
       phone: ['', [Validators.required, Validators.pattern(/^\d{10}$/)]]
     });
 
-    // Account details form
+    // Account details form with password matching validator
     this.accountDetailsForm = this.fb.group({
       username: ['', [Validators.required, Validators.minLength(4)]],
       password: ['', [Validators.required, Validators.minLength(8)]],
       confirmPassword: ['', Validators.required]
+    }, {
+      validators: [this.passwordMatchValidator.bind(this)]
     });
 
     // Preferences form
@@ -142,17 +154,19 @@ export class TabsValidationComponent {
   }
 
   // Password matching validation
-  passwordsMatch(): boolean {
-    const password = this.accountDetailsForm.get('password')?.value;
-    const confirmPassword = this.accountDetailsForm.get('confirmPassword')?.value;
-    return password === confirmPassword;
+  passwordMatchValidator(group: FormGroup): ValidationErrors | null {
+    const password = group.get('password')?.value;
+    const confirmPassword = group.get('confirmPassword')?.value;
+
+    if (!password || !confirmPassword) {
+      return null;
+    }
+
+    return password === confirmPassword ? null : { passwordMismatch: true };
   }
 
-  getPasswordMatchError(): string {
-    if (!this.passwordsMatch() && this.accountDetailsForm.get('confirmPassword')?.touched) {
-      return 'Passwords do not match';
-    }
-    return '';
+  passwordsMatch(): boolean {
+    return !this.accountDetailsForm.hasError('passwordMismatch');
   }
 
   // Check if user can proceed to next step

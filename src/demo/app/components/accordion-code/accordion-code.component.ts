@@ -1,21 +1,19 @@
 import { Component, ViewEncapsulation } from '@angular/core';
 import { FormsModule } from '@angular/forms';
-import { MatExpansionModule } from '@angular/material/expansion';
-import { MatButtonModule } from '@angular/material/button';
 import { MatIconModule } from '@angular/material/icon';
 import { BaseCodeComponent } from '../base/base-code.component';
 
 type AccordionExamples = 'basic' | 'multiExpand' | 'hideToggle' | 'disabled' | 'programmatic' | 'events' | 'togglePosition';
+import { MatExpansionModule } from '@angular/material/expansion';
 
+import { AmwButtonComponent } from '../../../../library/src/controls/components/amw-button/amw-button.component';
 @Component({
   selector: 'amw-demo-accordion-code',
   standalone: true,
-  imports: [
-    FormsModule,
+  imports: [FormsModule,
+    MatIconModule,
     MatExpansionModule,
-    MatButtonModule,
-    MatIconModule
-  ],
+    AmwButtonComponent],
   encapsulation: ViewEncapsulation.None,
   templateUrl: './accordion-code.component.html',
   styleUrl: './accordion-code.component.scss'
@@ -88,9 +86,9 @@ export class AccordionCodeComponent extends BaseCodeComponent<AccordionExamples>
   </mat-expansion-panel>
 </mat-accordion>
 
-<button mat-raised-button (click)="panel.open()">Open</button>
-<button mat-raised-button (click)="panel.close()">Close</button>
-<button mat-raised-button (click)="panel.toggle()">Toggle</button>`,
+<amw-button variant="elevated" (click)="panel.open()">Open</amw-button>
+<amw-button variant="elevated" (click)="panel.close()">Close</amw-button>
+<amw-button variant="elevated" (click)="panel.toggle()">Toggle</amw-button>`,
 
     events: `<mat-accordion>
   <mat-expansion-panel

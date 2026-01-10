@@ -1,26 +1,22 @@
 import { Component, OnInit, ViewEncapsulation } from '@angular/core';
 
-import { MatCardModule } from '@angular/material/card';
-import { MatStepperModule } from '@angular/material/stepper';
-import { MatFormFieldModule } from '@angular/material/form-field';
-import { MatInputModule } from '@angular/material/input';
-import { MatButtonModule } from '@angular/material/button';
 import { MatIconModule } from '@angular/material/icon';
 import { FormsModule, ReactiveFormsModule, FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { MatStepperModule } from '@angular/material/stepper';
+import { MatCardModule } from '@angular/material/card';
+import { AmwButtonComponent } from '../../../../library/src/controls/components/amw-button/amw-button.component';
+import { AmwInputComponent } from '../../../../library/src/controls/components/amw-input/amw-input.component';
 
 @Component({
     selector: 'amw-demo-stepper-validation',
     standalone: true,
-    imports: [
-    MatCardModule,
-    MatStepperModule,
-    MatFormFieldModule,
-    MatInputModule,
-    MatButtonModule,
-    MatIconModule,
+    imports: [MatIconModule,
     FormsModule,
-    ReactiveFormsModule
-],
+    ReactiveFormsModule,
+    MatStepperModule,
+    MatCardModule,
+    AmwButtonComponent,
+    AmwInputComponent],
     encapsulation: ViewEncapsulation.None,
     templateUrl: './stepper-validation.component.html',
     styleUrl: './stepper-validation.component.scss'

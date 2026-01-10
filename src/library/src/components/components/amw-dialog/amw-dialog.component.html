@@ -27,13 +27,13 @@
           {{ title }}
         </h2>
         @if (showCloseButton) {
-          <button
-            mat-icon-button
+          <amw-button
+            variant="icon"
+            icon="close"
             class="amw-dialog__close"
             (click)="onCloseClick()"
             [disabled]="!closable || disabled || loading">
-            <mat-icon>close</mat-icon>
-          </button>
+          </amw-button>
         }
       }
     </div>
@@ -119,17 +119,16 @@
         <ng-container [ngTemplateOutlet]="footerTemplate"></ng-container>
       } @else {
         @for (action of actions; track action; let i = $index) {
-          <button
-            mat-button
+          <amw-button
+            variant="text"
+            [icon]="action.icon"
+            [iconPosition]="action.icon ? 'left' : undefined"
             [color]="action.color || 'primary'"
             [disabled]="action.disabled || disabled || loading"
             (click)="onActionClick(action, i)"
             class="amw-dialog__action">
-            @if (action.icon) {
-              <mat-icon class="amw-dialog__action-icon">{{ action.icon }}</mat-icon>
-            }
             {{ action.label }}
-          </button>
+          </amw-button>
         }
       }
     </div>
@@ -138,7 +137,7 @@
   <!-- Loading Overlay -->
   @if (loading) {
     <div class="amw-dialog__loading">
-      <mat-spinner diameter="40"></mat-spinner>
+      <amw-progress-spinner diameter="40"></amw-progress-spinner>
       <p>Loading...</p>
     </div>
   }

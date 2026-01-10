@@ -1,10 +1,7 @@
 import { Component, OnInit, ViewEncapsulation } from '@angular/core';
 
 import { ReactiveFormsModule, FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { MatFormFieldModule } from '@angular/material/form-field';
-import { MatSlideToggleModule } from '@angular/material/slide-toggle';
-import { MatButtonModule } from '@angular/material/button';
-import { MatSnackBar, MatSnackBarModule } from '@angular/material/snack-bar';
+import { AmwNotificationService } from '../../../../library/src/services/amw-notification/amw-notification.service';
 import { AmwToggleComponent } from '../../../../library/src/controls/components/amw-toggle/amw-toggle.component';
 import { AmwButtonComponent } from '../../../../library/src/controls/components/amw-button/amw-button.component';
 
@@ -13,10 +10,8 @@ import { AmwButtonComponent } from '../../../../library/src/controls/components/
   standalone: true,
   imports: [
     ReactiveFormsModule,
-    MatFormFieldModule,
-    MatSlideToggleModule,
-    MatButtonModule,
-    MatSnackBarModule,
+    AmwToggleComponent,
+    AmwButtonComponent,
     AmwToggleComponent,
     AmwButtonComponent
 ],
@@ -29,7 +24,7 @@ export class ToggleValidationComponent implements OnInit {
 
   constructor(
     private fb: FormBuilder,
-    private snackBar: MatSnackBar
+    private notification: AmwNotificationService
   ) {
     this.validationForm = this.fb.group({
       notifications: [false, Validators.requiredTrue],
@@ -47,9 +42,9 @@ export class ToggleValidationComponent implements OnInit {
 
   onSubmit(): void {
     if (this.validationForm.valid) {
-      this.snackBar.open('Form is valid! All required toggles are properly configured.', 'Close', { duration: 3000 });
+      this.notification.success('Success', 'Form is valid! All required toggles are properly configured.', { duration: 3000 });
     } else {
-      this.snackBar.open('Form has validation errors. Please enable all required features.', 'Close', { duration: 3000 });
+      this.notification.error('Error', 'Form has validation errors. Please enable all required features.', { duration: 3000 });
     }
   }
 

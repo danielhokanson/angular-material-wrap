@@ -1,7 +1,5 @@
 import { Component, ViewEncapsulation } from '@angular/core';
 
-import { MatCardModule } from '@angular/material/card';
-import { MatButtonModule } from '@angular/material/button';
 import { MatIconModule } from '@angular/material/icon';
 
 import { AmwToggleComponent } from '../../../../library/src/controls/components/amw-toggle/amw-toggle.component';
@@ -12,8 +10,6 @@ import { AmwColor } from '../../../../library/src/shared/types';
     selector: 'amw-demo-toggle',
     standalone: true,
     imports: [
-    MatCardModule,
-    MatButtonModule,
     MatIconModule,
     AmwToggleComponent
 ],

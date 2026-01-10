@@ -23,30 +23,18 @@
               <div class="demo-controls">
                 <h4>Event Creation Examples:</h4>
                 <div class="control-group">
-                  <button mat-raised-button 
+                  <amw-button variant="elevated" 
                           color="primary" 
-                          (click)="addSampleEventWithTime()">
-                    <mat-icon>schedule</mat-icon>
-                    Add Time Event (2:00-3:00 PM)
-                  </button>
-                  <button mat-raised-button 
+                          (click)="addSampleEventWithTime()" icon="schedule" iconPosition="left">Add Time Event (2:00-3:00 PM)</amw-button>
+                  <amw-button variant="elevated" 
                           color="accent" 
-                          (click)="addSampleEventDateOnly()">
-                    <mat-icon>event</mat-icon>
-                    Add All-Day Event
-                  </button>
+                          (click)="addSampleEventDateOnly()" icon="event" iconPosition="left">Add All-Day Event</amw-button>
                 </div>
                 <div class="control-group">
-                  <button mat-button 
-                          (click)="clearAllEvents()">
-                    <mat-icon>clear</mat-icon>
-                    Clear All
-                  </button>
-                  <button mat-button 
-                          (click)="resetSampleEvents()">
-                    <mat-icon>refresh</mat-icon>
-                    Reset Sample
-                  </button>
+                  <amw-button variant="text" 
+                          (click)="clearAllEvents()" icon="clear" iconPosition="left">Clear All</amw-button>
+                  <amw-button variant="text" 
+                          (click)="resetSampleEvents()" icon="refresh" iconPosition="left">Reset Sample</amw-button>
                 </div>
               </div>
 
@@ -103,18 +91,12 @@
               <div class="demo-controls">
                 <h4>Quick Event Creation:</h4>
                 <div class="control-group">
-                  <button mat-raised-button 
+                  <amw-button variant="elevated" 
                           color="primary" 
-                          (click)="addSampleEventWithTime()">
-                    <mat-icon>schedule</mat-icon>
-                    Add Time Event
-                  </button>
-                  <button mat-raised-button 
+                          (click)="addSampleEventWithTime()" icon="schedule" iconPosition="left">Add Time Event</amw-button>
+                  <amw-button variant="elevated" 
                           color="accent" 
-                          (click)="addSampleEventDateOnly()">
-                    <mat-icon>event</mat-icon>
-                    Add All-Day Event
-                  </button>
+                          (click)="addSampleEventDateOnly()" icon="event" iconPosition="left">Add All-Day Event</amw-button>
                 </div>
               </div>
               

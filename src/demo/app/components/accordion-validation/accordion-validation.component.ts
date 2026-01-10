@@ -1,24 +1,20 @@
 import { Component, ViewEncapsulation } from '@angular/core';
 import { FormBuilder, FormGroup, Validators, ReactiveFormsModule } from '@angular/forms';
-import { MatExpansionModule } from '@angular/material/expansion';
-import { MatFormFieldModule } from '@angular/material/form-field';
-import { MatInputModule } from '@angular/material/input';
-import { MatButtonModule } from '@angular/material/button';
 import { MatIconModule } from '@angular/material/icon';
+import { MatExpansionModule } from '@angular/material/expansion';
 import { MatCheckboxModule } from '@angular/material/checkbox';
+import { AmwButtonComponent } from '../../../../library/src/controls/components/amw-button/amw-button.component';
+import { AmwInputComponent } from '../../../../library/src/controls/components/amw-input/amw-input.component';
 
 @Component({
   selector: 'amw-demo-accordion-validation',
   standalone: true,
-  imports: [
-    ReactiveFormsModule,
-    MatExpansionModule,
-    MatFormFieldModule,
-    MatInputModule,
-    MatButtonModule,
+  imports: [ReactiveFormsModule,
     MatIconModule,
-    MatCheckboxModule
-  ],
+    MatExpansionModule,
+    MatCheckboxModule,
+    AmwButtonComponent,
+    AmwInputComponent],
   encapsulation: ViewEncapsulation.None,
   templateUrl: './accordion-validation.component.html',
   styleUrl: './accordion-validation.component.scss'

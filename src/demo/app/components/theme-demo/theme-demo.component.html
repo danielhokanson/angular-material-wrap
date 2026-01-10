@@ -24,11 +24,11 @@
           </mat-card-header>
           <mat-card-content>
             <div class="button-group">
-              <button mat-raised-button color="primary">Primary</button>
-              <button mat-raised-button color="accent">Accent</button>
-              <button mat-raised-button color="warn">Warn</button>
-              <button mat-stroked-button>Stroked</button>
-              <button mat-flat-button>Flat</button>
+              <amw-button variant="elevated" color="primary">Primary</amw-button>
+              <amw-button variant="elevated" color="accent">Accent</amw-button>
+              <amw-button variant="elevated" color="warn">Warn</amw-button>
+              <amw-button variant="outlined">Stroked</amw-button>
+              <amw-button variant="filled">Flat</amw-button>
             </div>
           </mat-card-content>
         </mat-card>
@@ -40,26 +40,26 @@
           </mat-card-header>
           <mat-card-content>
             <div class="form-group">
-              <mat-form-field appearance="outline">
-                <mat-label>Name</mat-label>
-                <input matInput [(ngModel)]="sampleForm.name">
-              </mat-form-field>
+              <amw-input
+                label="Name"
+                [(ngModel)]="sampleForm.name">
+              </amw-input>
 
-              <mat-form-field appearance="outline">
-                <mat-label>Email</mat-label>
-                <input matInput type="email" [(ngModel)]="sampleForm.email">
-              </mat-form-field>
+              <amw-input
+                label="Email"
+                type="email"
+                [(ngModel)]="sampleForm.email">
+              </amw-input>
 
-              <mat-form-field appearance="outline">
-                <mat-label>Country</mat-label>
-                <mat-select [(ngModel)]="sampleForm.country">
-                  @for (country of countries; track country) {
-                    <mat-option [value]="country.value">
-                      {{ country.label }}
-                    </mat-option>
-                  }
-                </mat-select>
-              </mat-form-field>
+              <amw-select
+                label="Country"
+                [(ngModel)]="sampleForm.country">
+                @for (country of countries; track country) {
+                  <mat-option [value]="country.value">
+                    {{ country.label }}
+                  </mat-option>
+                }
+              </amw-select>
             </div>
           </mat-card-content>
         </mat-card>
@@ -71,17 +71,17 @@
           </mat-card-header>
           <mat-card-content>
             <div class="selection-group">
-              <mat-checkbox [(ngModel)]="sampleForm.newsletter">
+              <amw-checkbox [(ngModel)]="sampleForm.newsletter">
                 Subscribe to newsletter
-              </mat-checkbox>
+              </amw-checkbox>
 
-              <mat-radio-group [(ngModel)]="sampleForm.notifications">
+              <amw-radio-group [(ngModel)]="sampleForm.notifications">
                 @for (option of notificationOptions; track option) {
-                  <mat-radio-button [value]="option.value">
+                  <amw-radio [value]="option.value">
                     {{ option.label }}
-                  </mat-radio-button>
+                  </amw-radio>
                 }
-              </mat-radio-group>
+              </amw-radio-group>
 
               <mat-slide-toggle [(ngModel)]="sampleForm.darkMode">
                 Dark mode

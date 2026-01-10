@@ -2,21 +2,18 @@ import { Component, Input, Output, EventEmitter, OnInit, OnDestroy, ViewEncapsul
 import { CommonModule } from '@angular/common';
 import { FormsModule, ReactiveFormsModule, FormBuilder, FormGroup } from '@angular/forms';
 import { MatCardModule } from '@angular/material/card';
-import { MatButtonModule } from '@angular/material/button';
 import { MatIconModule } from '@angular/material/icon';
-import { MatInputModule } from '@angular/material/input';
-import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatSelectModule } from '@angular/material/select';
 import { MatCheckboxModule } from '@angular/material/checkbox';
 import { MatChipsModule } from '@angular/material/chips';
 import { MatDividerModule } from '@angular/material/divider';
 import { MatTabsModule } from '@angular/material/tabs';
 import { MatExpansionModule } from '@angular/material/expansion';
-import { MatTooltipModule } from '@angular/material/tooltip';
 import { MatSnackBarModule, MatSnackBar } from '@angular/material/snack-bar';
-import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { Subject, takeUntil, BehaviorSubject, Observable, of } from 'rxjs';
 import { delay } from 'rxjs/operators';
+import { AmwTooltipDirective } from '../../../directives';
+import { AmwInputComponent } from '../../../controls/components/amw-input/amw-input.component';
 
 // Import interfaces
 import {
@@ -28,6 +25,8 @@ import {
     SearchPageDataSource
 } from './interfaces';
 import { DefaultSearchPageDataSource } from './services/default-search-page-data-source.service';
+import { AmwProgressSpinnerComponent } from '../../../components/components/amw-progress-spinner/amw-progress-spinner.component';
+import { AmwButtonComponent } from '../../../controls/components/amw-button/amw-button.component';
 
 
 @Component({
@@ -38,19 +37,18 @@ import { DefaultSearchPageDataSource } from './services/default-search-page-data
         FormsModule,
         ReactiveFormsModule,
         MatCardModule,
-        MatButtonModule,
+        AmwButtonComponent,
+        AmwInputComponent,
         MatIconModule,
-        MatInputModule,
-        MatFormFieldModule,
         MatSelectModule,
         MatCheckboxModule,
         MatChipsModule,
         MatDividerModule,
         MatTabsModule,
         MatExpansionModule,
-        MatTooltipModule,
+        AmwTooltipDirective,
         MatSnackBarModule,
-        MatProgressSpinnerModule
+        AmwProgressSpinnerComponent
     ],
     encapsulation: ViewEncapsulation.None,
     templateUrl: './amw-search-page.component.html',

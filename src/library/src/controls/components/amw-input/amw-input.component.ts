@@ -4,7 +4,7 @@ import { FormsModule, ReactiveFormsModule, ControlValueAccessor, NG_VALUE_ACCESS
 import { MatInputModule } from '@angular/material/input';
 import { MatFormFieldModule, MatFormFieldAppearance } from '@angular/material/form-field';
 import { MatIconModule } from '@angular/material/icon';
-import { MatButtonModule } from '@angular/material/button';
+import { AmwButtonComponent } from '../amw-button/amw-button.component';
 import { BaseComponent } from '../base/base.component';
 import { InputType } from './interfaces/input-type.type';
 import { InputAppearance } from './interfaces/input-appearance.type';
@@ -23,7 +23,7 @@ import { AmwSize } from '../../../shared/types/amw-size.type';
     MatInputModule,
     MatFormFieldModule,
     MatIconModule,
-    MatButtonModule
+    AmwButtonComponent
 ],
     encapsulation: ViewEncapsulation.None,
     templateUrl: './amw-input.component.html',

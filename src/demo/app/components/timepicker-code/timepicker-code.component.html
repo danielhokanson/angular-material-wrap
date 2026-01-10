@@ -16,9 +16,7 @@
         <div class="code-panel">
           <div class="code-header">
             <h4>Code</h4>
-            <button mat-icon-button (click)="resetCode('basic')" title="Reset to original">
-              <mat-icon>refresh</mat-icon>
-            </button>
+            <amw-button variant="icon" icon="refresh" (click)="resetCode('basic')" title="Reset to original"></amw-button>
           </div>
           <textarea
             [(ngModel)]="editableCode.basic"
@@ -51,9 +49,7 @@
         <div class="code-panel">
           <div class="code-header">
             <h4>Code</h4>
-            <button mat-icon-button (click)="resetCode('format')" title="Reset to original">
-              <mat-icon>refresh</mat-icon>
-            </button>
+            <amw-button variant="icon" icon="refresh" (click)="resetCode('format')" title="Reset to original"></amw-button>
           </div>
           <textarea
             [(ngModel)]="editableCode.format"
@@ -87,9 +83,7 @@
         <div class="code-panel">
           <div class="code-header">
             <h4>Code</h4>
-            <button mat-icon-button (click)="resetCode('seconds')" title="Reset to original">
-              <mat-icon>refresh</mat-icon>
-            </button>
+            <amw-button variant="icon" icon="refresh" (click)="resetCode('seconds')" title="Reset to original"></amw-button>
           </div>
           <textarea
             [(ngModel)]="editableCode.seconds"
@@ -123,9 +117,7 @@
         <div class="code-panel">
           <div class="code-header">
             <h4>Code</h4>
-            <button mat-icon-button (click)="resetCode('validation')" title="Reset to original">
-              <mat-icon>refresh</mat-icon>
-            </button>
+            <amw-button variant="icon" icon="refresh" (click)="resetCode('validation')" title="Reset to original"></amw-button>
           </div>
           <textarea
             [(ngModel)]="editableCode.validation"
@@ -163,9 +155,7 @@
         <div class="code-panel">
           <div class="code-header">
             <h4>Code</h4>
-            <button mat-icon-button (click)="resetCode('configuration')" title="Reset to original">
-              <mat-icon>refresh</mat-icon>
-            </button>
+            <amw-button variant="icon" icon="refresh" (click)="resetCode('configuration')" title="Reset to original"></amw-button>
           </div>
           <textarea
             [(ngModel)]="editableCode.configuration"
@@ -183,9 +173,9 @@
               (timeChange)="onTimeChange($event)">
             </amw-timepicker>
             <p>Selected time: {{ advancedTime }}</p>
-            <button mat-button (click)="isDisabled = !isDisabled">
+            <amw-button variant="text" (click)="isDisabled = !isDisabled">
               {{ isDisabled ? 'Enable' : 'Disable' }} Timepicker
-            </button>
+            </amw-button>
           </div>
         </div>
       </div>

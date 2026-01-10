@@ -1,20 +1,16 @@
 import { Component, ViewEncapsulation } from '@angular/core';
 
-import { MatCardModule } from '@angular/material/card';
-import { MatButtonModule } from '@angular/material/button';
 import { MatIconModule } from '@angular/material/icon';
-import { MatChipsModule } from '@angular/material/chips';
 import { AmwColorPickerComponent } from '../../../../library/src/controls/components/amw-color-picker/amw-color-picker.component';
+import { MatCardModule } from '@angular/material/card';
 
 @Component({
     selector: 'amw-demo-color-picker',
     standalone: true,
     imports: [
-    MatCardModule,
-    MatButtonModule,
     MatIconModule,
-    MatChipsModule,
-    AmwColorPickerComponent
+    AmwColorPickerComponent,
+    MatCardModule
 ],
     encapsulation: ViewEncapsulation.None,
     templateUrl: './color-picker-demo.component.html',
@@ -78,5 +74,4 @@ export class ColorPickerDemoComponent {
         console.log(`Color picker ${index} changed to:`, color);
     }
 }
-
 

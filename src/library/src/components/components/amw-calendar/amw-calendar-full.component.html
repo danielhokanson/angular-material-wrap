@@ -7,7 +7,7 @@
   <!-- Loading Spinner -->
   @if (loading) {
     <div class="amw-calendar-full__loading">
-      <mat-spinner diameter="40"></mat-spinner>
+      <amw-progress-spinner diameter="40"></amw-progress-spinner>
       <p>Loading calendar...</p>
     </div>
   }
@@ -17,24 +17,27 @@
     <div class="amw-calendar-full__header">
       <!-- Navigation Controls -->
       <div class="amw-calendar-full__navigation">
-        <button mat-icon-button
+        <amw-button
+          variant="icon"
+          icon="chevron_left"
           (click)="navigatePrevious()"
           [disabled]="disabled"
-          matTooltip="Previous">
-          <mat-icon>chevron_left</mat-icon>
-        </button>
-        <button mat-button
+          amwTooltip="Previous">
+        </amw-button>
+        <amw-button
+          variant="text"
           (click)="navigateToday()"
           [disabled]="disabled"
-          matTooltip="Today">
+          amwTooltip="Today">
           Today
-        </button>
-        <button mat-icon-button
+        </amw-button>
+        <amw-button
+          variant="icon"
+          icon="chevron_right"
           (click)="navigateNext()"
           [disabled]="disabled"
-          matTooltip="Next">
-          <mat-icon>chevron_right</mat-icon>
-        </button>
+          amwTooltip="Next">
+        </amw-button>
       </div>
       <!-- Current Date/Period Display -->
       <div class="amw-calendar-full__current-period">
@@ -57,37 +60,42 @@
       <!-- View Switcher -->
       @if (showViewSwitcher) {
         <div class="amw-calendar-full__view-switcher">
-          <button mat-button
+          <amw-button
+            variant="text"
             [class.amw-calendar-full__view-button--active]="currentView === 'month'"
             (click)="changeView('month')"
             [disabled]="disabled">
             Month
-          </button>
-          <button mat-button
+          </amw-button>
+          <amw-button
+            variant="text"
             [class.amw-calendar-full__view-button--active]="currentView === 'week'"
             (click)="changeView('week')"
             [disabled]="disabled">
             Week
-          </button>
-          <button mat-button
+          </amw-button>
+          <amw-button
+            variant="text"
             [class.amw-calendar-full__view-button--active]="currentView === 'day'"
             (click)="changeView('day')"
             [disabled]="disabled">
             Day
-          </button>
+          </amw-button>
         </div>
       }
       <!-- Create Event/Item Button -->
       @if (showCreateButton && (internalConfig.allowCreate || internalItemConfig.allowCreate)) {
         <div class="amw-calendar-full__actions">
-          <button mat-raised-button
+          <amw-button
+            variant="elevated"
+            icon="add"
+            iconPosition="left"
             color="primary"
             #createButton
             (click)="onCreateButtonClick($event)"
             [disabled]="disabled">
-            <mat-icon>add</mat-icon>
             {{ useNewItemSystem ? 'Create Item' : 'Create Event' }}
-          </button>
+          </amw-button>
         </div>
       }
     </div>

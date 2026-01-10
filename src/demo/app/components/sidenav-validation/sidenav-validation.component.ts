@@ -1,14 +1,7 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
 
-import { MatButtonModule } from '@angular/material/button';
 import { MatIconModule } from '@angular/material/icon';
-import { MatCardModule } from '@angular/material/card';
-import { MatFormFieldModule } from '@angular/material/form-field';
-import { MatInputModule } from '@angular/material/input';
-import { MatSelectModule } from '@angular/material/select';
-import { MatCheckboxModule } from '@angular/material/checkbox';
-import { MatSlideToggleModule } from '@angular/material/slide-toggle';
-import { MatSnackBar, MatSnackBarModule } from '@angular/material/snack-bar';
+import { AmwNotificationService } from '../../../../library/src/services/amw-notification/amw-notification.service';
 import { FormBuilder, FormGroup, Validators, ReactiveFormsModule } from '@angular/forms';
 import { Subject, takeUntil } from 'rxjs';
 import { AmwSidenavComponent } from '../../../../library/src/components/components/amw-sidenav/amw-sidenav.component';
@@ -16,28 +9,30 @@ import { SidenavConfig } from '../../../../library/src/components/components/amw
 import { SidenavItem } from '../../../../library/src/components/components/amw-sidenav/interfaces/sidenav-item.interface';
 import { SidenavService } from '../../../../library/src/components/services/sidenav.service';
 import { AmwSize } from '../../../../library/src/shared/types';
+import { MatOptionModule } from '@angular/material/core';
+import { MatSlideToggleModule } from '@angular/material/slide-toggle';
+import { MatCardModule } from '@angular/material/card';
+import { AmwButtonComponent } from '../../../../library/src/controls/components/amw-button/amw-button.component';
+import { AmwInputComponent } from '../../../../library/src/controls/components/amw-input/amw-input.component';
+import { AmwSelectComponent } from '../../../../library/src/controls/components/amw-select/amw-select.component';
 
 /**
  * Validation demo component for sidenav
- * 
+ *
  * Demonstrates form validation and error handling for sidenav configuration
  */
 @Component({
     selector: 'app-sidenav-validation',
     standalone: true,
-    imports: [
-    MatButtonModule,
-    MatIconModule,
-    MatCardModule,
-    MatFormFieldModule,
-    MatInputModule,
-    MatSelectModule,
-    MatCheckboxModule,
-    MatSlideToggleModule,
-    MatSnackBarModule,
+    imports: [MatIconModule,
     ReactiveFormsModule,
-    AmwSidenavComponent
-],
+    AmwSidenavComponent,
+    MatOptionModule,
+    MatSlideToggleModule,
+    MatCardModule,
+    AmwButtonComponent,
+    AmwInputComponent,
+    AmwSelectComponent],
     templateUrl: './sidenav-validation.component.html',
     styleUrl: './sidenav-validation.component.scss'
 })
@@ -69,7 +64,7 @@ export class SidenavValidationComponent implements OnInit, OnDestroy {
     constructor(
         private fb: FormBuilder,
         private sidenavService: SidenavService,
-        private snackBar: MatSnackBar
+        private notification: AmwNotificationService
     ) {
         this.configForm = this.createConfigForm();
         this.itemForm = this.createItemForm();
@@ -281,18 +276,10 @@ export class SidenavValidationComponent implements OnInit, OnDestroy {
             this.currentConfig = { ...this.configForm.value };
             this.sidenavService.setConfig(this.currentConfig);
 
-            this.snackBar.open('Configuration updated successfully!', 'Close', {
-                duration: 3000,
-                horizontalPosition: 'end',
-                verticalPosition: 'top'
-            });
+            this.notification.success('Success', 'Configuration updated successfully!', { duration: 3000 });
         } else {
             this.validateConfig();
-            this.snackBar.open('Please fix the validation errors', 'Close', {
-                duration: 3000,
-                horizontalPosition: 'end',
-                verticalPosition: 'top'
-            });
+            this.notification.error('Error', 'Please fix the validation errors', { duration: 3000 });
         }
     }
 
@@ -308,20 +295,12 @@ export class SidenavValidationComponent implements OnInit, OnDestroy {
             this.navigationItems.push(newItem);
             this.sidenavService.setItems(this.navigationItems);
 
-            this.snackBar.open('Navigation item added successfully!', 'Close', {
-                duration: 3000,
-                horizontalPosition: 'end',
-                verticalPosition: 'top'
-            });
+            this.notification.success('Success', 'Navigation item added successfully!', { duration: 3000 });
 
             this.itemForm.reset();
         } else {
             this.validateItem();
-            this.snackBar.open('Please fix the validation errors', 'Close', {
-                duration: 3000,
-                horizontalPosition: 'end',
-                verticalPosition: 'top'
-            });
+            this.notification.error('Error', 'Please fix the validation errors', { duration: 3000 });
         }
     }
 
@@ -339,11 +318,7 @@ export class SidenavValidationComponent implements OnInit, OnDestroy {
      * @param item The clicked item
      */
     onItemClick(item: SidenavItem): void {
-        this.snackBar.open(`Clicked: ${item.label}`, 'Close', {
-            duration: 2000,
-            horizontalPosition: 'end',
-            verticalPosition: 'top'
-        });
+        this.notification.info('Info', `Clicked: ${item.label}`, { duration: 2000 });
     }
 
     /**

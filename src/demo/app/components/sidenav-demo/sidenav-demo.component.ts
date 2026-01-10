@@ -1,17 +1,9 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
 
-import { MatButtonModule } from '@angular/material/button';
 import { MatIconModule } from '@angular/material/icon';
-import { MatCardModule } from '@angular/material/card';
-import { MatDividerModule } from '@angular/material/divider';
-import { MatFormFieldModule } from '@angular/material/form-field';
-import { MatSelectModule } from '@angular/material/select';
-import { MatSlideToggleModule } from '@angular/material/slide-toggle';
-import { MatSliderModule } from '@angular/material/slider';
-import { MatInputModule } from '@angular/material/input';
 import { MatBadgeModule } from '@angular/material/badge';
 import { MatTooltipModule } from '@angular/material/tooltip';
-import { MatSnackBar, MatSnackBarModule } from '@angular/material/snack-bar';
+import { AmwNotificationService } from '../../../../library/src/services/amw-notification/amw-notification.service';
 import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 import { Subject, takeUntil } from 'rxjs';
 import { AmwSidenavComponent } from '../../../../library/src/components/components/amw-sidenav/amw-sidenav.component';
@@ -23,25 +15,27 @@ import { AmwSize } from '../../../../library/src/shared/types';
 /**
  * Demo component for showcasing sidenav variations and configurations
  */
+import { MatOptionModule } from '@angular/material/core';
+import { MatSlideToggleModule } from '@angular/material/slide-toggle';
+import { MatCardModule } from '@angular/material/card';
+
+import { AmwButtonComponent } from '../../../../library/src/controls/components/amw-button/amw-button.component';
+import { AmwInputComponent } from '../../../../library/src/controls/components/amw-input/amw-input.component';
+import { AmwSelectComponent } from '../../../../library/src/controls/components/amw-select/amw-select.component';
 @Component({
     selector: 'app-sidenav-demo',
     standalone: true,
-    imports: [
-    MatButtonModule,
-    MatIconModule,
-    MatCardModule,
-    MatDividerModule,
-    MatFormFieldModule,
-    MatSelectModule,
-    MatSlideToggleModule,
-    MatSliderModule,
-    MatInputModule,
+    imports: [MatIconModule,
     MatBadgeModule,
     MatTooltipModule,
-    MatSnackBarModule,
     ReactiveFormsModule,
-    AmwSidenavComponent
-],
+    AmwSidenavComponent,
+    MatOptionModule,
+    MatSlideToggleModule,
+    MatCardModule,
+    AmwButtonComponent,
+    AmwInputComponent,
+    AmwSelectComponent],
     templateUrl: './sidenav-demo.component.html',
     styleUrl: './sidenav-demo.component.scss'
 })
@@ -337,7 +331,7 @@ export class SidenavDemoComponent implements OnInit, OnDestroy {
     constructor(
         private fb: FormBuilder,
         private sidenavService: SidenavService,
-        private snackBar: MatSnackBar
+        private notification: AmwNotificationService
     ) {
         this.configForm = this.createConfigForm();
     }
@@ -414,11 +408,7 @@ export class SidenavDemoComponent implements OnInit, OnDestroy {
      * @param item The clicked item
      */
     onItemClick(item: SidenavItem): void {
-        this.snackBar.open(`Clicked: ${item.label}`, 'Close', {
-            duration: 2000,
-            horizontalPosition: 'end',
-            verticalPosition: 'top'
-        });
+        this.notification.info('Info', `Clicked: ${item.label}`, { duration: 2000 });
     }
 
     /**
@@ -426,22 +416,14 @@ export class SidenavDemoComponent implements OnInit, OnDestroy {
      * @param opened Whether the sidenav is opened
      */
     onSidenavToggle(opened: boolean): void {
-        this.snackBar.open(`Sidenav ${opened ? 'opened' : 'closed'}`, 'Close', {
-            duration: 2000,
-            horizontalPosition: 'end',
-            verticalPosition: 'top'
-        });
+        this.notification.info('Info', `Sidenav ${opened ? 'opened' : 'closed'}`, { duration: 2000 });
     }
 
     /**
      * Handles sidenav close
      */
     onSidenavClose(): void {
-        this.snackBar.open('Sidenav closed', 'Close', {
-            duration: 2000,
-            horizontalPosition: 'end',
-            verticalPosition: 'top'
-        });
+        this.notification.info('Info', 'Sidenav closed', { duration: 2000 });
     }
 
     /**

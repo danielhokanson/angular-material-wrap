@@ -1,13 +1,13 @@
 import { Component, Input, Output, EventEmitter, ViewEncapsulation, forwardRef, ContentChild, TemplateRef } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { MatCardModule } from '@angular/material/card';
-import { MatButtonModule } from '@angular/material/button';
 import { MatIconModule } from '@angular/material/icon';
 import { MatRippleModule } from '@angular/material/core';
-import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { BaseComponent } from '../../../controls/components/base/base.component';
 import { CardConfig, CardVariant, CardElevation } from './interfaces';
 import { AmwSize } from '../../../shared/types/amw-size.type';
+import { AmwProgressSpinnerComponent } from '../amw-progress-spinner/amw-progress-spinner.component';
+import { AmwButtonComponent } from '../../../controls/components/amw-button/amw-button.component';
 
 /**
  * Angular Material Wrap Card Component
@@ -54,10 +54,10 @@ import { AmwSize } from '../../../shared/types/amw-size.type';
     imports: [
         CommonModule,
         MatCardModule,
-        MatButtonModule,
+        AmwButtonComponent,
         MatIconModule,
         MatRippleModule,
-        MatProgressSpinnerModule
+        AmwProgressSpinnerComponent
     ],
     encapsulation: ViewEncapsulation.None,
     templateUrl: './amw-card.component.html',

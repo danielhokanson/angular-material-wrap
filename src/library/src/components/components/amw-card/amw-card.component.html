@@ -55,16 +55,17 @@
       <ng-container [ngTemplateOutlet]="actionTemplate" *ngIf="actionTemplate; else defaultActions"></ng-container>
       
       <ng-template #defaultActions>
-        <button 
+        <amw-button
           *ngFor="let action of actions; let i = index"
-          mat-button
+          variant="text"
+          [icon]="action.icon"
+          [iconPosition]="action.icon ? 'left' : undefined"
           [color]="action.color || 'primary'"
           [disabled]="action.disabled || disabled || loading"
           (click)="onActionClick(action, i, $event)"
           class="amw-card__action">
-          <mat-icon *ngIf="action.icon" class="amw-card__action-icon">{{ action.icon }}</mat-icon>
           {{ action.label }}
-        </button>
+        </amw-button>
       </ng-template>
     </mat-card-actions>
     
@@ -124,16 +125,17 @@
       <ng-container [ngTemplateOutlet]="actionTemplate" *ngIf="actionTemplate; else defaultActions"></ng-container>
       
       <ng-template #defaultActions>
-        <button 
+        <amw-button
           *ngFor="let action of actions; let i = index"
-          mat-button
+          variant="text"
+          [icon]="action.icon"
+          [iconPosition]="action.icon ? 'left' : undefined"
           [color]="action.color || 'primary'"
           [disabled]="action.disabled || disabled || loading"
           (click)="onActionClick(action, i, $event)"
           class="amw-card__action">
-          <mat-icon *ngIf="action.icon" class="amw-card__action-icon">{{ action.icon }}</mat-icon>
           {{ action.label }}
-        </button>
+        </amw-button>
       </ng-template>
     </mat-card-actions>
     
@@ -149,7 +151,7 @@
   
   <!-- Loading Overlay -->
   <div *ngIf="loading" class="amw-card__loading">
-    <mat-spinner diameter="40"></mat-spinner>
+    <amw-progress-spinner diameter="40"></amw-progress-spinner>
     <p>Loading...</p>
   </div>
 </mat-card>

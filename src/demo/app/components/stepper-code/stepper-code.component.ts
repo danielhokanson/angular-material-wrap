@@ -1,28 +1,26 @@
 import { Component, ViewEncapsulation } from '@angular/core';
 import { FormsModule, ReactiveFormsModule, FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { MatExpansionModule } from '@angular/material/expansion';
-import { MatButtonModule } from '@angular/material/button';
 import { MatIconModule } from '@angular/material/icon';
-import { MatStepperModule } from '@angular/material/stepper';
-import { MatInputModule } from '@angular/material/input';
-import { MatFormFieldModule } from '@angular/material/form-field';
 import { BaseCodeComponent } from '../base/base-code.component';
 
 type StepperExamples = 'basic' | 'linear' | 'editable' | 'optional' | 'vertical' | 'customIcons';
+import { MatExpansionModule } from '@angular/material/expansion';
+import { MatStepperModule } from '@angular/material/stepper';
+import { MatFormFieldModule } from '@angular/material/form-field';
 
+import { AmwButtonComponent } from '../../../../library/src/controls/components/amw-button/amw-button.component';
 @Component({
   selector: 'amw-demo-stepper-code',
   standalone: true,
-  imports: [
-    FormsModule,
+  imports: [FormsModule,
     ReactiveFormsModule,
-    MatExpansionModule,
-    MatButtonModule,
     MatIconModule,
+    AmwInputComponent,
+    MatIconModule,
+    MatExpansionModule,
     MatStepperModule,
-    MatInputModule,
-    MatFormFieldModule
-  ],
+    MatFormFieldModule,
+    AmwButtonComponent],
   encapsulation: ViewEncapsulation.None,
   templateUrl: './stepper-code.component.html',
   styleUrl: './stepper-code.component.scss'
@@ -43,7 +41,7 @@ export class StepperCodeComponent extends BaseCodeComponent<StepperExamples> {
     <ng-template matStepLabel>Step 1</ng-template>
     <p>Content for step 1</p>
     <div>
-      <button mat-raised-button matStepperNext>Next</button>
+      <amw-button variant="elevated" matStepperNext>Next</amw-button>
     </div>
   </mat-step>
 
@@ -51,8 +49,8 @@ export class StepperCodeComponent extends BaseCodeComponent<StepperExamples> {
     <ng-template matStepLabel>Step 2</ng-template>
     <p>Content for step 2</p>
     <div>
-      <button mat-button matStepperPrevious>Back</button>
-      <button mat-raised-button matStepperNext>Next</button>
+      <amw-button variant="text" matStepperPrevious>Back</amw-button>
+      <amw-button variant="elevated" matStepperNext>Next</amw-button>
     </div>
   </mat-step>
 
@@ -60,7 +58,7 @@ export class StepperCodeComponent extends BaseCodeComponent<StepperExamples> {
     <ng-template matStepLabel>Step 3</ng-template>
     <p>You're done!</p>
     <div>
-      <button mat-button matStepperPrevious>Back</button>
+      <amw-button variant="text" matStepperPrevious>Back</amw-button>
     </div>
   </mat-step>
 </mat-stepper>`,
@@ -69,12 +67,13 @@ export class StepperCodeComponent extends BaseCodeComponent<StepperExamples> {
   <mat-step [stepControl]="firstFormGroup">
     <form [formGroup]="firstFormGroup">
       <ng-template matStepLabel>Personal Info</ng-template>
-      <mat-form-field>
-        <mat-label>Name</mat-label>
-        <input matInput formControlName="name" required>
-      </mat-form-field>
+      <amw-input
+        label="Name"
+        formControlName="name"
+        required>
+      </amw-input>
       <div>
-        <button mat-raised-button matStepperNext>Next</button>
+        <amw-button variant="elevated" matStepperNext>Next</amw-button>
       </div>
     </form>
   </mat-step>
@@ -82,13 +81,15 @@ export class StepperCodeComponent extends BaseCodeComponent<StepperExamples> {
   <mat-step [stepControl]="secondFormGroup">
     <form [formGroup]="secondFormGroup">
       <ng-template matStepLabel>Contact Info</ng-template>
-      <mat-form-field>
-        <mat-label>Email</mat-label>
-        <input matInput formControlName="email" type="email" required>
-      </mat-form-field>
+      <amw-input
+        label="Email"
+        formControlName="email"
+        type="email"
+        required>
+      </amw-input>
       <div>
-        <button mat-button matStepperPrevious>Back</button>
-        <button mat-raised-button matStepperNext>Next</button>
+        <amw-button variant="text" matStepperPrevious>Back</amw-button>
+        <amw-button variant="elevated" matStepperNext>Next</amw-button>
       </div>
     </form>
   </mat-step>
@@ -99,7 +100,7 @@ export class StepperCodeComponent extends BaseCodeComponent<StepperExamples> {
     <ng-template matStepLabel>Editable Step</ng-template>
     <p>This step can be edited after completion</p>
     <div>
-      <button mat-raised-button matStepperNext>Next</button>
+      <amw-button variant="elevated" matStepperNext>Next</amw-button>
     </div>
   </mat-step>
 
@@ -107,7 +108,7 @@ export class StepperCodeComponent extends BaseCodeComponent<StepperExamples> {
     <ng-template matStepLabel>Non-editable Step</ng-template>
     <p>This step cannot be edited after completion</p>
     <div>
-      <button mat-button matStepperPrevious>Back</button>
+      <amw-button variant="text" matStepperPrevious>Back</amw-button>
     </div>
   </mat-step>
 </mat-stepper>`,
@@ -117,7 +118,7 @@ export class StepperCodeComponent extends BaseCodeComponent<StepperExamples> {
     <ng-template matStepLabel>Required Step</ng-template>
     <p>This step is required</p>
     <div>
-      <button mat-raised-button matStepperNext>Next</button>
+      <amw-button variant="elevated" matStepperNext>Next</amw-button>
     </div>
   </mat-step>
 
@@ -125,8 +126,8 @@ export class StepperCodeComponent extends BaseCodeComponent<StepperExamples> {
     <ng-template matStepLabel>Optional Step</ng-template>
     <p>This step is optional</p>
     <div>
-      <button mat-button matStepperPrevious>Back</button>
-      <button mat-raised-button matStepperNext>Next</button>
+      <amw-button variant="text" matStepperPrevious>Back</amw-button>
+      <amw-button variant="elevated" matStepperNext>Next</amw-button>
     </div>
   </mat-step>
 
@@ -134,7 +135,7 @@ export class StepperCodeComponent extends BaseCodeComponent<StepperExamples> {
     <ng-template matStepLabel>Final Step</ng-template>
     <p>Complete!</p>
     <div>
-      <button mat-button matStepperPrevious>Back</button>
+      <amw-button variant="text" matStepperPrevious>Back</amw-button>
     </div>
   </mat-step>
 </mat-stepper>`,
@@ -144,7 +145,7 @@ export class StepperCodeComponent extends BaseCodeComponent<StepperExamples> {
     <ng-template matStepLabel>Step 1</ng-template>
     <p>Content for step 1</p>
     <div>
-      <button mat-raised-button matStepperNext>Next</button>
+      <amw-button variant="elevated" matStepperNext>Next</amw-button>
     </div>
   </mat-step>
 
@@ -152,8 +153,8 @@ export class StepperCodeComponent extends BaseCodeComponent<StepperExamples> {
     <ng-template matStepLabel>Step 2</ng-template>
     <p>Content for step 2</p>
     <div>
-      <button mat-button matStepperPrevious>Back</button>
-      <button mat-raised-button matStepperNext>Next</button>
+      <amw-button variant="text" matStepperPrevious>Back</amw-button>
+      <amw-button variant="elevated" matStepperNext>Next</amw-button>
     </div>
   </mat-step>
 
@@ -161,7 +162,7 @@ export class StepperCodeComponent extends BaseCodeComponent<StepperExamples> {
     <ng-template matStepLabel>Step 3</ng-template>
     <p>You're done!</p>
     <div>
-      <button mat-button matStepperPrevious>Back</button>
+      <amw-button variant="text" matStepperPrevious>Back</amw-button>
     </div>
   </mat-step>
 </mat-stepper>`,
@@ -174,7 +175,7 @@ export class StepperCodeComponent extends BaseCodeComponent<StepperExamples> {
     </ng-template>
     <p>Enter your personal information</p>
     <div>
-      <button mat-raised-button matStepperNext>Next</button>
+      <amw-button variant="elevated" matStepperNext>Next</amw-button>
     </div>
   </mat-step>
 
@@ -185,8 +186,8 @@ export class StepperCodeComponent extends BaseCodeComponent<StepperExamples> {
     </ng-template>
     <p>Enter your contact details</p>
     <div>
-      <button mat-button matStepperPrevious>Back</button>
-      <button mat-raised-button matStepperNext>Next</button>
+      <amw-button variant="text" matStepperPrevious>Back</amw-button>
+      <amw-button variant="elevated" matStepperNext>Next</amw-button>
     </div>
   </mat-step>
 
@@ -197,7 +198,7 @@ export class StepperCodeComponent extends BaseCodeComponent<StepperExamples> {
     </ng-template>
     <p>All done!</p>
     <div>
-      <button mat-button matStepperPrevious>Back</button>
+      <amw-button variant="text" matStepperPrevious>Back</amw-button>
     </div>
   </mat-step>
 </mat-stepper>`

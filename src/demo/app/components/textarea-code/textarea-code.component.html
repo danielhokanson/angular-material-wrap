@@ -16,9 +16,7 @@
         <div class="code-panel">
           <div class="code-header">
             <h4>Code</h4>
-            <button mat-icon-button (click)="resetCode('basic')" title="Reset to original">
-              <mat-icon>refresh</mat-icon>
-            </button>
+            <amw-button variant="icon" icon="refresh" (click)="resetCode('basic')" title="Reset to original"></amw-button>
           </div>
           <textarea
             [(ngModel)]="editableCode.basic"
@@ -28,13 +26,13 @@
         <div class="preview-panel">
           <h4>Preview</h4>
           <div class="preview-content">
-            <mat-form-field appearance="outline">
-              <mat-label>Description</mat-label>
-              <textarea matInput
-                [(ngModel)]="descriptionValue"
-                placeholder="Enter your description here..."
-                rows="4"></textarea>
-            </mat-form-field>
+            <amw-textarea
+              label="Description"
+              [(ngModel)]="descriptionValue"
+              placeholder="Enter your description here..."
+              rows="4"
+              appearance="outline">
+            </amw-textarea>
           </div>
         </div>
       </div>
@@ -53,9 +51,7 @@
         <div class="code-panel">
           <div class="code-header">
             <h4>Code</h4>
-            <button mat-icon-button (click)="resetCode('withValidation')" title="Reset to original">
-              <mat-icon>refresh</mat-icon>
-            </button>
+            <amw-button variant="icon" icon="refresh" (click)="resetCode('withValidation')" title="Reset to original"></amw-button>
           </div>
           <textarea
             [(ngModel)]="editableCode.withValidation"
@@ -66,17 +62,17 @@
         <div class="preview-panel">
           <h4>Preview</h4>
           <div class="preview-content">
-            <mat-form-field appearance="outline">
-              <mat-label>Project Description</mat-label>
-              <textarea matInput
-                [(ngModel)]="projectValue"
-                placeholder="Describe your project..."
-                minlength="10"
-                maxlength="500"
-                required
-                rows="4"></textarea>
-              <mat-hint>Min 10, Max 500 characters</mat-hint>
-            </mat-form-field>
+            <amw-textarea
+              label="Project Description"
+              [(ngModel)]="projectValue"
+              placeholder="Describe your project..."
+              minlength="10"
+              maxlength="500"
+              required
+              rows="4"
+              hint="Min 10, Max 500 characters"
+              appearance="outline">
+            </amw-textarea>
           </div>
         </div>
       </div>
@@ -95,9 +91,7 @@
         <div class="code-panel">
           <div class="code-header">
             <h4>Code</h4>
-            <button mat-icon-button (click)="resetCode('differentSizes')" title="Reset to original">
-              <mat-icon>refresh</mat-icon>
-            </button>
+            <amw-button variant="icon" icon="refresh" (click)="resetCode('differentSizes')" title="Reset to original"></amw-button>
           </div>
           <textarea
             [(ngModel)]="editableCode.differentSizes"
@@ -108,27 +102,27 @@
         <div class="preview-panel">
           <h4>Preview</h4>
           <div class="preview-content">
-            <mat-form-field appearance="outline">
-              <mat-label>Short Note</mat-label>
-              <textarea matInput
-                [(ngModel)]="noteValue"
-                placeholder="Brief note..."
-                rows="2"></textarea>
-            </mat-form-field>
+            <amw-textarea
+              label="Short Note"
+              [(ngModel)]="noteValue"
+              placeholder="Brief note..."
+              rows="2"
+              appearance="outline">
+            </amw-textarea>
 
-            <mat-form-field appearance="outline">
-              <mat-label>Detailed Description</mat-label>
-              <textarea matInput
-                placeholder="Detailed description..."
-                rows="6"></textarea>
-            </mat-form-field>
+            <amw-textarea
+              label="Detailed Description"
+              placeholder="Detailed description..."
+              rows="6"
+              appearance="outline">
+            </amw-textarea>
 
-            <mat-form-field appearance="outline">
-              <mat-label>Long Text</mat-label>
-              <textarea matInput
-                placeholder="Very long text..."
-                rows="10"></textarea>
-            </mat-form-field>
+            <amw-textarea
+              label="Long Text"
+              placeholder="Very long text..."
+              rows="10"
+              appearance="outline">
+            </amw-textarea>
           </div>
         </div>
       </div>
@@ -147,9 +141,7 @@
         <div class="code-panel">
           <div class="code-header">
             <h4>Code</h4>
-            <button mat-icon-button (click)="resetCode('withCharacterCount')" title="Reset to original">
-              <mat-icon>refresh</mat-icon>
-            </button>
+            <amw-button variant="icon" icon="refresh" (click)="resetCode('withCharacterCount')" title="Reset to original"></amw-button>
           </div>
           <textarea
             [(ngModel)]="editableCode.withCharacterCount"
@@ -160,15 +152,15 @@
         <div class="preview-panel">
           <h4>Preview</h4>
           <div class="preview-content">
-            <mat-form-field appearance="outline">
-              <mat-label>Bio</mat-label>
-              <textarea matInput
-                #bioInput
-                placeholder="Tell us about yourself..."
-                maxlength="200"
-                rows="4"></textarea>
+            <amw-textarea
+              label="Bio"
+              #bioInput
+              placeholder="Tell us about yourself..."
+              maxlength="200"
+              rows="4"
+              appearance="outline">
               <mat-hint align="end">{{bioInput.value.length}}/200</mat-hint>
-            </mat-form-field>
+            </amw-textarea>
           </div>
         </div>
       </div>
@@ -187,9 +179,7 @@
         <div class="code-panel">
           <div class="code-header">
             <h4>Code</h4>
-            <button mat-icon-button (click)="resetCode('reactiveForm')" title="Reset to original">
-              <mat-icon>refresh</mat-icon>
-            </button>
+            <amw-button variant="icon" icon="refresh" (click)="resetCode('reactiveForm')" title="Reset to original"></amw-button>
           </div>
           <textarea
             [(ngModel)]="editableCode.reactiveForm"
@@ -222,9 +212,7 @@
         <div class="code-panel">
           <div class="code-header">
             <h4>Code</h4>
-            <button mat-icon-button (click)="resetCode('withEvents')" title="Reset to original">
-              <mat-icon>refresh</mat-icon>
-            </button>
+            <amw-button variant="icon" icon="refresh" (click)="resetCode('withEvents')" title="Reset to original"></amw-button>
           </div>
           <textarea
             [(ngModel)]="editableCode.withEvents"
@@ -235,16 +223,16 @@
         <div class="preview-panel">
           <h4>Preview</h4>
           <div class="preview-content">
-            <mat-form-field appearance="outline">
-              <mat-label>Message</mat-label>
-              <textarea matInput
-                [(ngModel)]="messageValue"
-                (input)="onTextInput($event)"
-                (focus)="onTextFocus($event)"
-                (blur)="onTextBlur($event)"
-                placeholder="Type your message..."
-                rows="4"></textarea>
-            </mat-form-field>
+            <amw-textarea
+              label="Message"
+              [(ngModel)]="messageValue"
+              (input)="onTextInput($event)"
+              (focus)="onTextFocus($event)"
+              (blur)="onTextBlur($event)"
+              placeholder="Type your message..."
+              rows="4"
+              appearance="outline">
+            </amw-textarea>
             <div class="preview-note">
               <mat-icon>info</mat-icon>
               <span>Open your browser console to see event logs</span>
@@ -267,9 +255,7 @@
         <div class="code-panel">
           <div class="code-header">
             <h4>Code</h4>
-            <button mat-icon-button (click)="resetCode('contactForm')" title="Reset to original">
-              <mat-icon>refresh</mat-icon>
-            </button>
+            <amw-button variant="icon" icon="refresh" (click)="resetCode('contactForm')" title="Reset to original"></amw-button>
           </div>
           <textarea
             [(ngModel)]="editableCode.contactForm"

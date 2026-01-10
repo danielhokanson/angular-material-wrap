@@ -1,15 +1,15 @@
 import { Component, ViewEncapsulation } from '@angular/core';
 
-import { MatCardModule } from '@angular/material/card';
-import { MatTableModule } from '@angular/material/table';
 import { BaseApiComponent, ApiDocumentation } from '../base/base-api.component';
+import { MatTableModule } from '@angular/material/table';
+import { MatCardModule } from '@angular/material/card';
 
 @Component({
     selector: 'amw-demo-dialog-api',
     standalone: true,
     imports: [
-    MatCardModule,
-    MatTableModule
+    MatTableModule,
+    MatCardModule
 ],
     encapsulation: ViewEncapsulation.None,
     templateUrl: './dialog-api.component.html',

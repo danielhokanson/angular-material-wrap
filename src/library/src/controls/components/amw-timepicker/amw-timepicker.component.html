@@ -16,16 +16,15 @@
       (blur)="onBlur($event)"
       />
 
-    <button
+    <amw-button
+      variant="icon"
+      icon="access_time"
       matSuffix
-      mat-icon-button
       type="button"
       [disabled]="isDisabled"
       (click)="toggleTimepicker()"
-      aria-label="Open time picker"
-      >
-      <mat-icon>access_time</mat-icon>
-    </button>
+      aria-label="Open time picker">
+    </amw-button>
 
     @if (hasValidationError) {
       <mat-error>
@@ -39,35 +38,30 @@
     <div class="amw-timepicker__dropdown" (click)="$event.stopPropagation()">
       <div class="amw-timepicker__header">
         <span class="amw-timepicker__title">Select Time</span>
-        <button mat-icon-button (click)="isOpen = false" aria-label="Close">
-          <mat-icon>close</mat-icon>
-        </button>
+        <amw-button variant="icon" icon="close" (click)="isOpen = false" aria-label="Close">
+        </amw-button>
       </div>
       <div class="amw-timepicker__content">
         <!-- Hours -->
         <div class="amw-timepicker__section">
           <div class="amw-timepicker__label">Hours</div>
           <div class="amw-timepicker__controls">
-            <button mat-icon-button (click)="incrementHours()" [disabled]="isDisabled">
-              <mat-icon>keyboard_arrow_up</mat-icon>
-            </button>
+            <amw-button variant="icon" icon="keyboard_arrow_up" (click)="incrementHours()" [disabled]="isDisabled">
+            </amw-button>
             <div class="amw-timepicker__value">{{ displayHours.toString().padStart(2, '0') }}</div>
-            <button mat-icon-button (click)="decrementHours()" [disabled]="isDisabled">
-              <mat-icon>keyboard_arrow_down</mat-icon>
-            </button>
+            <amw-button variant="icon" icon="keyboard_arrow_down" (click)="decrementHours()" [disabled]="isDisabled">
+            </amw-button>
           </div>
         </div>
         <!-- Minutes -->
         <div class="amw-timepicker__section">
           <div class="amw-timepicker__label">Minutes</div>
           <div class="amw-timepicker__controls">
-            <button mat-icon-button (click)="incrementMinutes()" [disabled]="isDisabled">
-              <mat-icon>keyboard_arrow_up</mat-icon>
-            </button>
+            <amw-button variant="icon" icon="keyboard_arrow_up" (click)="incrementMinutes()" [disabled]="isDisabled">
+            </amw-button>
             <div class="amw-timepicker__value">{{ minutes.toString().padStart(2, '0') }}</div>
-            <button mat-icon-button (click)="decrementMinutes()" [disabled]="isDisabled">
-              <mat-icon>keyboard_arrow_down</mat-icon>
-            </button>
+            <amw-button variant="icon" icon="keyboard_arrow_down" (click)="decrementMinutes()" [disabled]="isDisabled">
+            </amw-button>
           </div>
         </div>
         <!-- Seconds (if enabled) -->
@@ -75,13 +69,11 @@
           <div class="amw-timepicker__section">
             <div class="amw-timepicker__label">Seconds</div>
             <div class="amw-timepicker__controls">
-              <button mat-icon-button (click)="incrementSeconds()" [disabled]="isDisabled">
-                <mat-icon>keyboard_arrow_up</mat-icon>
-              </button>
+              <amw-button variant="icon" icon="keyboard_arrow_up" (click)="incrementSeconds()" [disabled]="isDisabled">
+              </amw-button>
               <div class="amw-timepicker__value">{{ seconds.toString().padStart(2, '0') }}</div>
-              <button mat-icon-button (click)="decrementSeconds()" [disabled]="isDisabled">
-                <mat-icon>keyboard_arrow_down</mat-icon>
-              </button>
+              <amw-button variant="icon" icon="keyboard_arrow_down" (click)="decrementSeconds()" [disabled]="isDisabled">
+              </amw-button>
             </div>
           </div>
         }
@@ -90,21 +82,20 @@
           <div class="amw-timepicker__section">
             <div class="amw-timepicker__label">Period</div>
             <div class="amw-timepicker__controls">
-              <button
-                mat-button
+              <amw-button
+                variant="text"
                 [class]="'amw-timepicker__ampm amw-timepicker__ampm--' + (ampm === 'AM' ? 'active' : 'inactive')"
                 (click)="toggleAmPm()"
-                [disabled]="isDisabled"
-                >
+                [disabled]="isDisabled">
                 {{ ampm }}
-              </button>
+              </amw-button>
             </div>
           </div>
         }
       </div>
       <div class="amw-timepicker__actions">
-        <button mat-button (click)="isOpen = false">Cancel</button>
-        <button mat-button color="primary" (click)="selectTime(hours, minutes, seconds)">OK</button>
+        <amw-button variant="text" (click)="isOpen = false">Cancel</amw-button>
+        <amw-button variant="text" color="primary" (click)="selectTime(hours, minutes, seconds)">OK</amw-button>
       </div>
     </div>
   }

@@ -1,22 +1,19 @@
 import { Component, ViewEncapsulation } from '@angular/core';
 
-import { MatCardModule } from '@angular/material/card';
-import { MatButtonModule } from '@angular/material/button';
 import { MatIconModule } from '@angular/material/icon';
-import { MatRadioModule } from '@angular/material/radio';
 
 import { AmwRadioComponent } from '../../../../library/src/controls/components/amw-radio/amw-radio.component';
 import { AmwSize, AmwColor } from '../../../../library/src/shared/types';
+import { MatRadioModule } from '@angular/material/radio';
 
 @Component({
     selector: 'amw-demo-radio',
     standalone: true,
     imports: [
-    MatCardModule,
-    MatButtonModule,
     MatIconModule,
-    MatRadioModule,
-    AmwRadioComponent
+    AmwRadioComponent,
+    AmwRadioComponent,
+    MatRadioModule
 ],
     encapsulation: ViewEncapsulation.None,
     templateUrl: './radio-demo.component.html',

@@ -22,13 +22,12 @@
                     <span class="setting-label">Application Name</span>
                     <span class="setting-description">The name displayed in the application header</span>
                   </div>
-                  <mat-form-field appearance="outline">
-                    <mat-label>Application Name</mat-label>
-                    <input matInput 
-                           name="appName"
-                           [(ngModel)]="appName" 
-                           placeholder="Enter application name">
-                  </mat-form-field>
+                  <amw-input
+                    label="Application Name"
+                    name="appName"
+                    [(ngModel)]="appName"
+                    placeholder="Enter application name">
+                  </amw-input>
                 </div>
                 
                 <div class="setting-item">
@@ -36,15 +35,11 @@
                     <span class="setting-label">Default Language</span>
                     <span class="setting-description">The default language for the application</span>
                   </div>
-                  <mat-form-field appearance="outline">
-                    <mat-label>Language</mat-label>
-                    <mat-select [(ngModel)]="defaultLanguage">
-                      <mat-option value="en">English</mat-option>
-                      <mat-option value="es">Spanish</mat-option>
-                      <mat-option value="fr">French</mat-option>
-                      <mat-option value="de">German</mat-option>
-                    </mat-select>
-                  </mat-form-field>
+                  <amw-select
+                    label="Language"
+                    [(ngModel)]="defaultLanguage"
+                    [options]="languageOptions">
+                  </amw-select>
                 </div>
               </div>
 
@@ -57,14 +52,11 @@
                     <span class="setting-label">Theme</span>
                     <span class="setting-description">Choose your preferred theme</span>
                   </div>
-                  <mat-form-field appearance="outline">
-                    <mat-label>Theme</mat-label>
-                    <mat-select [(ngModel)]="theme">
-                      <mat-option value="light">Light</mat-option>
-                      <mat-option value="dark">Dark</mat-option>
-                      <mat-option value="auto">Auto</mat-option>
-                    </mat-select>
-                  </mat-form-field>
+                  <amw-select
+                    label="Theme"
+                    [(ngModel)]="theme"
+                    [options]="themeOptions">
+                  </amw-select>
                 </div>
                 
                 <div class="setting-item">
@@ -73,9 +65,12 @@
                     <span class="setting-description">Adjust the base font size</span>
                   </div>
                   <div class="slider-container">
-                    <mat-slider min="12" max="20" step="1" [(ngModel)]="fontSize">
-                      <input matSliderThumb>
-                    </mat-slider>
+                    <amw-slider
+                      min="12"
+                      max="20"
+                      step="1"
+                      [(ngModel)]="fontSize">
+                    </amw-slider>
                     <span class="slider-value">{{ fontSize }}px</span>
                   </div>
                 </div>
@@ -101,13 +96,12 @@
                     <span class="setting-label">Email Address</span>
                     <span class="setting-description">Where to send notifications</span>
                   </div>
-                  <mat-form-field appearance="outline">
-                    <mat-label>Email Address</mat-label>
-                    <input matInput 
-                           type="email" 
-                           [(ngModel)]="emailAddress" 
-                           placeholder="user@example.com">
-                  </mat-form-field>
+                  <amw-input
+                    label="Email Address"
+                    type="email"
+                    [(ngModel)]="emailAddress"
+                    placeholder="user@example.com">
+                  </amw-input>
                 </div>
                 
                 <div class="setting-item">
@@ -115,7 +109,7 @@
                     <span class="setting-label">System Notifications</span>
                     <span class="setting-description">Receive system updates and alerts</span>
                   </div>
-                  <mat-slide-toggle [(ngModel)]="systemNotifications"></mat-slide-toggle>
+                  <amw-switch [(ngModel)]="systemNotifications"></amw-switch>
                 </div>
                 
                 <div class="setting-item">
@@ -123,7 +117,7 @@
                     <span class="setting-label">Marketing Emails</span>
                     <span class="setting-description">Receive promotional content and updates</span>
                   </div>
-                  <mat-slide-toggle [(ngModel)]="marketingEmails"></mat-slide-toggle>
+                  <amw-switch [(ngModel)]="marketingEmails"></amw-switch>
                 </div>
               </div>
 
@@ -136,7 +130,7 @@
                     <span class="setting-label">Enable Push Notifications</span>
                     <span class="setting-description">Receive notifications in your browser</span>
                   </div>
-                  <mat-slide-toggle [(ngModel)]="pushNotifications"></mat-slide-toggle>
+                  <amw-switch [(ngModel)]="pushNotifications"></amw-switch>
                 </div>
               </div>
             </mat-card-content>
@@ -160,7 +154,7 @@
                     <span class="setting-label">Usage Analytics</span>
                     <span class="setting-description">Help improve the app by sharing usage data</span>
                   </div>
-                  <mat-slide-toggle [(ngModel)]="usageAnalytics"></mat-slide-toggle>
+                  <amw-switch [(ngModel)]="usageAnalytics"></amw-switch>
                 </div>
                 
                 <div class="setting-item">
@@ -168,7 +162,7 @@
                     <span class="setting-label">Performance Monitoring</span>
                     <span class="setting-description">Monitor app performance and errors</span>
                   </div>
-                  <mat-slide-toggle [(ngModel)]="performanceMonitoring"></mat-slide-toggle>
+                  <amw-switch [(ngModel)]="performanceMonitoring"></amw-switch>
                 </div>
               </div>
 
@@ -181,7 +175,7 @@
                     <span class="setting-label">Analytics Tracking</span>
                     <span class="setting-description">Allow analytics data collection</span>
                   </div>
-                  <mat-slide-toggle [(ngModel)]="analyticsTracking"></mat-slide-toggle>
+                  <amw-switch [(ngModel)]="analyticsTracking"></amw-switch>
                 </div>
                 
                 <div class="setting-item">
@@ -189,7 +183,7 @@
                     <span class="setting-label">Error Reporting</span>
                     <span class="setting-description">Automatically report errors for debugging</span>
                   </div>
-                  <mat-slide-toggle [(ngModel)]="errorReporting"></mat-slide-toggle>
+                  <amw-switch [(ngModel)]="errorReporting"></amw-switch>
                 </div>
               </div>
             </mat-card-content>
@@ -215,13 +209,12 @@
                     <span class="setting-label">API Base URL</span>
                     <span class="setting-description">The base URL for API requests</span>
                   </div>
-                  <mat-form-field appearance="outline">
-                    <mat-label>API Base URL</mat-label>
-                    <input matInput 
-                           name="apiBaseUrl"
-                           [(ngModel)]="apiBaseUrl" 
-                           placeholder="https://api.example.com">
-                  </mat-form-field>
+                  <amw-input
+                    label="API Base URL"
+                    name="apiBaseUrl"
+                    [(ngModel)]="apiBaseUrl"
+                    placeholder="https://api.example.com">
+                  </amw-input>
                 </div>
               </mat-expansion-panel>
 
@@ -235,9 +228,12 @@
                     <span class="setting-description">How long to cache data</span>
                   </div>
                   <div class="slider-container">
-                    <mat-slider min="1" max="60" step="1" [(ngModel)]="cacheDuration">
-                      <input matSliderThumb>
-                    </mat-slider>
+                    <amw-slider
+                      min="1"
+                      max="60"
+                      step="1"
+                      [(ngModel)]="cacheDuration">
+                    </amw-slider>
                     <span class="slider-value">{{ cacheDuration }} minutes</span>
                   </div>
                 </div>
@@ -252,7 +248,7 @@
                     <span class="setting-label">Debug Mode</span>
                     <span class="setting-description">Enable debug logging</span>
                   </div>
-                  <mat-slide-toggle [(ngModel)]="debugMode"></mat-slide-toggle>
+                  <amw-switch [(ngModel)]="debugMode"></amw-switch>
                 </div>
               </mat-expansion-panel>
             </mat-card-content>
@@ -263,14 +259,8 @@
   </div>
 
   <div class="settings-actions">
-    <button mat-raised-button color="primary" (click)="saveSettings()">
-      <mat-icon>save</mat-icon>
-      Save Settings
-    </button>
-    <button mat-button (click)="resetSettings()">
-      <mat-icon>refresh</mat-icon>
-      Reset to Defaults
-    </button>
+    <amw-button variant="elevated" color="primary" (click)="saveSettings()" icon="save" iconPosition="left">Save Settings</amw-button>
+    <amw-button variant="text" (click)="resetSettings()" icon="refresh" iconPosition="left">Reset to Defaults</amw-button>
   </div>
 </div>
 

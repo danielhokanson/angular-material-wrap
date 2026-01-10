@@ -5,18 +5,18 @@ import { MatTableModule } from '@angular/material/table';
 import { MatPaginatorModule, PageEvent } from '@angular/material/paginator';
 import { MatSortModule, Sort } from '@angular/material/sort';
 import { MatCheckboxModule } from '@angular/material/checkbox';
-import { MatButtonModule } from '@angular/material/button';
 import { MatIconModule } from '@angular/material/icon';
 import { MatInputModule } from '@angular/material/input';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatSelectModule } from '@angular/material/select';
 import { MatMenuModule } from '@angular/material/menu';
-import { MatTooltipModule } from '@angular/material/tooltip';
-import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { MatChipsModule } from '@angular/material/chips';
 import { MatSlideToggleModule } from '@angular/material/slide-toggle';
 import { OverlayModule } from '@angular/cdk/overlay';
 import { Subject, takeUntil } from 'rxjs';
+import { AmwTooltipDirective } from '../../../directives';
+import { AmwProgressSpinnerComponent } from '../amw-progress-spinner/amw-progress-spinner.component';
+import { AmwButtonComponent } from '../../../controls/components/amw-button/amw-button.component';
 
 // import { BaseComponent } from '../base/base.component';
 import {
@@ -39,24 +39,24 @@ import { DialogService } from '../../services/dialog.service';
     selector: 'amw-data-table',
     standalone: true,
     imports: [
-    FormsModule,
-    ReactiveFormsModule,
-    MatTableModule,
-    MatPaginatorModule,
-    MatSortModule,
-    MatCheckboxModule,
-    MatButtonModule,
-    MatIconModule,
-    MatInputModule,
-    MatFormFieldModule,
-    MatSelectModule,
-    MatMenuModule,
-    MatTooltipModule,
-    MatProgressSpinnerModule,
-    MatChipsModule,
-    MatSlideToggleModule,
-    OverlayModule
-],
+        FormsModule,
+        ReactiveFormsModule,
+        MatTableModule,
+        MatPaginatorModule,
+        MatSortModule,
+        MatCheckboxModule,
+        AmwButtonComponent,
+        MatIconModule,
+        MatInputModule,
+        MatFormFieldModule,
+        MatSelectModule,
+        MatMenuModule,
+        AmwTooltipDirective,
+        AmwProgressSpinnerComponent,
+        MatChipsModule,
+        MatSlideToggleModule,
+        OverlayModule
+    ],
     encapsulation: ViewEncapsulation.None,
     templateUrl: './amw-data-table.component.html',
     styleUrl: './amw-data-table.component.scss'

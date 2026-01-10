@@ -1,13 +1,13 @@
 import { Component, Input, Output, EventEmitter, OnInit, OnDestroy, ViewEncapsulation, ChangeDetectorRef } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { MatStepperModule } from '@angular/material/stepper';
-import { MatButtonModule } from '@angular/material/button';
 import { MatIconModule } from '@angular/material/icon';
 import { MatCardModule } from '@angular/material/card';
 import { MatDividerModule } from '@angular/material/divider';
 import { Subject, takeUntil } from 'rxjs';
 import { BaseComponent } from '../../../controls/components/base/base.component';
 import { StepperConfig, StepperStep } from './interfaces';
+import { AmwButtonComponent } from '../../../controls/components/amw-button/amw-button.component';
 
 /**
  * Angular Material Wrap Stepper Component
@@ -32,7 +32,7 @@ import { StepperConfig, StepperStep } from './interfaces';
     imports: [
         CommonModule,
         MatStepperModule,
-        MatButtonModule,
+        AmwButtonComponent,
         MatIconModule,
         MatCardModule,
         MatDividerModule

@@ -9,30 +9,15 @@
     </mat-card-header>
     <mat-card-content>
       <div class="controls-grid">
-        <button mat-raised-button color="primary" (click)="addSampleRecord()">
-          <mat-icon>add</mat-icon>
-          Add Record
-        </button>
+        <amw-button variant="elevated" color="primary" (click)="addSampleRecord()" icon="add" iconPosition="left">Add Record</amw-button>
 
-        <button mat-raised-button color="accent" (click)="refreshData()">
-          <mat-icon>refresh</mat-icon>
-          Refresh Data
-        </button>
+        <amw-button variant="elevated" color="accent" (click)="refreshData()" icon="refresh" iconPosition="left">Refresh Data</amw-button>
 
-        <button mat-raised-button (click)="toggleLoading()">
-          <mat-icon>hourglass_empty</mat-icon>
-          Toggle Loading
-        </button>
+        <amw-button variant="elevated" (click)="toggleLoading()" icon="hourglass_empty" iconPosition="left">Toggle Loading</amw-button>
 
-        <button mat-raised-button (click)="exportData()">
-          <mat-icon>download</mat-icon>
-          Export Data
-        </button>
+        <amw-button variant="elevated" (click)="exportData()" icon="download" iconPosition="left">Export Data</amw-button>
 
-        <button mat-raised-button (click)="clearSelection()" [disabled]="selectedRows.length === 0">
-          <mat-icon>clear</mat-icon>
-          Clear Selection
-        </button>
+        <amw-button variant="elevated" (click)="clearSelection()" [disabled]="selectedRows.length === 0" icon="clear" iconPosition="left">Clear Selection</amw-button>
       </div>
     </mat-card-content>
   </mat-card>

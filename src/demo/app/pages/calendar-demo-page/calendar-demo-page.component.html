@@ -21,22 +21,13 @@
               
               <!-- Demo Controls -->
               <div class="demo-controls">
-                <button mat-raised-button 
+                <amw-button variant="elevated" 
                         color="primary" 
-                        (click)="addSampleEvent()">
-                  <mat-icon>add</mat-icon>
-                  Add Sample Event
-                </button>
-                <button mat-button 
-                        (click)="clearAllEvents()">
-                  <mat-icon>clear</mat-icon>
-                  Clear All
-                </button>
-                <button mat-button 
-                        (click)="resetSampleEvents()">
-                  <mat-icon>refresh</mat-icon>
-                  Reset Sample
-                </button>
+                        (click)="addSampleEvent()" icon="add" iconPosition="left">Add Sample Event</amw-button>
+                <amw-button variant="text" 
+                        (click)="clearAllEvents()" icon="clear" iconPosition="left">Clear All</amw-button>
+                <amw-button variant="text" 
+                        (click)="resetSampleEvents()" icon="refresh" iconPosition="left">Reset Sample</amw-button>
               </div>
 
               <!-- Full Calendar Component -->

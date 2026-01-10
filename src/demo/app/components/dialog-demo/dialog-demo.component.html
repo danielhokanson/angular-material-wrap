@@ -9,34 +9,13 @@
 
       <mat-card-content>
         <div class="dialog-demo__service-buttons">
-          <button mat-raised-button color="primary" (click)="openAlert()">
-            <mat-icon>warning</mat-icon>
-            Alert
-          </button>
-          <button mat-raised-button color="accent" (click)="openConfirm()">
-            <mat-icon>help_outline</mat-icon>
-            Confirm
-          </button>
-          <button mat-raised-button color="primary" (click)="openInfo()">
-            <mat-icon>info</mat-icon>
-            Info
-          </button>
-          <button mat-raised-button color="warn" (click)="openWarning()">
-            <mat-icon>warning</mat-icon>
-            Warning
-          </button>
-          <button mat-raised-button color="warn" (click)="openError()">
-            <mat-icon>error</mat-icon>
-            Error
-          </button>
-          <button mat-raised-button color="primary" (click)="openSuccess()">
-            <mat-icon>check_circle</mat-icon>
-            Success
-          </button>
-          <button mat-raised-button color="accent" (click)="openLoading()">
-            <mat-icon>hourglass_empty</mat-icon>
-            Loading
-          </button>
+          <amw-button variant="elevated" color="primary" (click)="openAlert()" icon="warning" iconPosition="left">Alert</amw-button>
+          <amw-button variant="elevated" color="accent" (click)="openConfirm()" icon="help_outline" iconPosition="left">Confirm</amw-button>
+          <amw-button variant="elevated" color="primary" (click)="openInfo()" icon="info" iconPosition="left">Info</amw-button>
+          <amw-button variant="elevated" color="warn" (click)="openWarning()" icon="warning" iconPosition="left">Warning</amw-button>
+          <amw-button variant="elevated" color="warn" (click)="openError()" icon="error" iconPosition="left">Error</amw-button>
+          <amw-button variant="elevated" color="primary" (click)="openSuccess()" icon="check_circle" iconPosition="left">Success</amw-button>
+          <amw-button variant="elevated" color="accent" (click)="openLoading()" icon="hourglass_empty" iconPosition="left">Loading</amw-button>
         </div>
       </mat-card-content>
     </mat-card>
@@ -52,14 +31,10 @@
         </mat-card-header>
         <mat-card-content>
           <div class="dialog-demo__example">
-            <button
-              mat-raised-button
+            <amw-button variant="elevated"
               color="primary"
               (click)="openDialog(variation)"
-              class="dialog-demo__button">
-              <mat-icon>open_in_new</mat-icon>
-              Open Dialog
-            </button>
+              class="dialog-demo__button" icon="open_in_new" iconPosition="left">Open Dialog</amw-button>
           </div>
         </mat-card-content>
       </mat-card>

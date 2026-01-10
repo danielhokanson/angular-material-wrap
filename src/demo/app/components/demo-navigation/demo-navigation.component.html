@@ -8,9 +8,7 @@
     <mat-toolbar class="demo-sidenav-header">
       <span class="mdc-typography--title-large">AMW Library</span>
       <span class="spacer"></span>
-      <button mat-icon-button (click)="toggleSidenav()">
-        <mat-icon>menu</mat-icon>
-      </button>
+      <amw-button variant="icon" icon="menu" (click)="toggleSidenav()"></amw-button>
     </mat-toolbar>
 
     <mat-nav-list class="demo-nav-list">
@@ -49,9 +47,7 @@
 
   <mat-sidenav-content class="demo-content">
     <mat-toolbar class="demo-main-toolbar">
-      <button mat-icon-button (click)="toggleSidenav()" class="demo-menu-button">
-        <mat-icon>menu</mat-icon>
-      </button>
+      <amw-button variant="icon" icon="menu" (click)="toggleSidenav()" class="demo-menu-button"></amw-button>
       <span class="mdc-typography--headline-small">Angular Material Wrap - Demo Application</span>
       <span class="spacer"></span>
       <amw-demo-theme-menu></amw-demo-theme-menu>

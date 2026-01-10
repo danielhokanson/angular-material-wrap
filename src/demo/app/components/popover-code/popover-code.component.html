@@ -16,9 +16,7 @@
         <div class="code-panel">
           <div class="code-header">
             <h4>Code</h4>
-            <button mat-icon-button (click)="resetCode('basic')" title="Reset to original">
-              <mat-icon>refresh</mat-icon>
-            </button>
+            <amw-button variant="icon" icon="refresh" (click)="resetCode('basic')" title="Reset to original"></amw-button>
           </div>
           <textarea
             [(ngModel)]="editableCode.basic"
@@ -28,10 +26,10 @@
         <div class="preview-panel">
           <h4>Preview</h4>
           <div class="preview-content">
-            <button mat-raised-button
+            <amw-button variant="elevated"
                     matTooltip="This is a basic tooltip">
               Hover Me
-            </button>
+            </amw-button>
             <div class="preview-note">
               <mat-icon>info</mat-icon>
               <span>Hover over the button to see the tooltip</span>
@@ -54,9 +52,7 @@
         <div class="code-panel">
           <div class="code-header">
             <h4>Code</h4>
-            <button mat-icon-button (click)="resetCode('positions')" title="Reset to original">
-              <mat-icon>refresh</mat-icon>
-            </button>
+            <amw-button variant="icon" icon="refresh" (click)="resetCode('positions')" title="Reset to original"></amw-button>
           </div>
           <textarea
             [(ngModel)]="editableCode.positions"
@@ -68,29 +64,29 @@
           <h4>Preview</h4>
           <div class="preview-content">
             <div class="button-grid">
-              <button mat-button
+              <amw-button variant="text"
                       matTooltip="Tooltip on top"
                       matTooltipPosition="above">
                 Top
-              </button>
+              </amw-button>
 
-              <button mat-button
+              <amw-button variant="text"
                       matTooltip="Tooltip on right"
                       matTooltipPosition="after">
                 Right
-              </button>
+              </amw-button>
 
-              <button mat-button
+              <amw-button variant="text"
                       matTooltip="Tooltip on bottom"
                       matTooltipPosition="below">
                 Bottom
-              </button>
+              </amw-button>
 
-              <button mat-button
+              <amw-button variant="text"
                       matTooltip="Tooltip on left"
                       matTooltipPosition="before">
                 Left
-              </button>
+              </amw-button>
             </div>
             <div class="preview-note">
               <mat-icon>info</mat-icon>
@@ -114,9 +110,7 @@
         <div class="code-panel">
           <div class="code-header">
             <h4>Code</h4>
-            <button mat-icon-button (click)="resetCode('styling')" title="Reset to original">
-              <mat-icon>refresh</mat-icon>
-            </button>
+            <amw-button variant="icon" icon="refresh" (click)="resetCode('styling')" title="Reset to original"></amw-button>
           </div>
           <textarea
             [(ngModel)]="editableCode.styling"
@@ -127,12 +121,12 @@
         <div class="preview-panel">
           <h4>Preview</h4>
           <div class="preview-content">
-            <button mat-raised-button
+            <amw-button variant="elevated"
                     matTooltip="Custom styled tooltip"
                     matTooltipClass="custom-tooltip"
                     color="primary">
               Custom Tooltip
-            </button>
+            </amw-button>
             <div class="preview-note">
               <mat-icon>info</mat-icon>
               <span>Apply custom CSS classes to style tooltips</span>
@@ -155,9 +149,7 @@
         <div class="code-panel">
           <div class="code-header">
             <h4>Code</h4>
-            <button mat-icon-button (click)="resetCode('interactive')" title="Reset to original">
-              <mat-icon>refresh</mat-icon>
-            </button>
+            <amw-button variant="icon" icon="refresh" (click)="resetCode('interactive')" title="Reset to original"></amw-button>
           </div>
           <textarea
             [(ngModel)]="editableCode.interactive"
@@ -168,14 +160,14 @@
         <div class="preview-panel">
           <h4>Preview</h4>
           <div class="preview-content">
-            <button mat-raised-button
+            <amw-button variant="elevated"
                     matTooltip="Click to show/hide"
                     matTooltipShowDelay="500"
                     matTooltipHideDelay="200"
                     [matTooltipDisabled]="tooltipDisabled"
                     (click)="toggleTooltip()">
               Toggle Tooltip
-            </button>
+            </amw-button>
             <p class="status-text">Tooltip is {{ tooltipDisabled ? 'disabled' : 'enabled' }}</p>
             <div class="preview-note">
               <mat-icon>info</mat-icon>

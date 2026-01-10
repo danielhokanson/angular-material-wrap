@@ -4,7 +4,9 @@ import { BaseApiComponent, ApiDocumentation } from '../base/base-api.component';
 @Component({
   selector: 'amw-demo-chips-api',
   standalone: true,
-  imports: [],
+  imports: [
+    
+],
   encapsulation: ViewEncapsulation.None,
   templateUrl: './chips-api.component.html',
   styleUrl: './chips-api.component.scss'
@@ -93,7 +95,6 @@ export class ChipsApiComponent extends BaseApiComponent {
       }
     ]
   };
-
 
   constructor() {
 

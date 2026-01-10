@@ -8,7 +8,7 @@
   <!-- Loading Spinner -->
   @if (loading) {
     <div class="amw-calendar-mini__loading">
-      <mat-spinner diameter="24"></mat-spinner>
+      <amw-progress-spinner diameter="24"></amw-progress-spinner>
     </div>
   }
 
@@ -17,24 +17,27 @@
     <div class="amw-calendar-mini__header">
       <!-- Navigation Controls -->
       <div class="amw-calendar-mini__navigation">
-        <button mat-icon-button
+        <amw-button
+          variant="icon"
+          icon="chevron_left"
           (click)="navigatePrevious()"
           [disabled]="disabled"
-          matTooltip="Previous">
-          <mat-icon>chevron_left</mat-icon>
-        </button>
-        <button mat-button
+          amwTooltip="Previous">
+        </amw-button>
+        <amw-button
+          variant="text"
           (click)="navigateToday()"
           [disabled]="disabled"
-          matTooltip="Today">
+          amwTooltip="Today">
           Today
-        </button>
-        <button mat-icon-button
+        </amw-button>
+        <amw-button
+          variant="icon"
+          icon="chevron_right"
           (click)="navigateNext()"
           [disabled]="disabled"
-          matTooltip="Next">
-          <mat-icon>chevron_right</mat-icon>
-        </button>
+          amwTooltip="Next">
+        </amw-button>
       </div>
       <!-- Current Date/Period Display -->
       <div class="amw-calendar-mini__current-period">
@@ -51,12 +54,13 @@
       </div>
       <!-- Week View Toggle -->
       <div class="amw-calendar-mini__view-toggle">
-        <button mat-icon-button
+        <amw-button
+          variant="icon"
+          [icon]="showWeekViewInternal ? 'view_day' : 'view_week'"
           (click)="toggleWeekView()"
           [disabled]="disabled"
-          [matTooltip]="showWeekViewInternal ? 'Show single day' : 'Show week view'">
-          <mat-icon>{{ showWeekViewInternal ? 'view_day' : 'view_week' }}</mat-icon>
-        </button>
+          [amwTooltip]="showWeekViewInternal ? 'Show single day' : 'Show week view'">
+        </amw-button>
       </div>
     </div>
   }
@@ -102,26 +106,27 @@
                   </div>
                   <div class="amw-calendar-mini__event-actions">
                     @if (isEventEditable(event)) {
-                      <button
-                        mat-icon-button
+                      <amw-button
+                        variant="icon"
+                        icon="edit"
                         (click)="editEvent(event)"
-                        matTooltip="Edit">
-                        <mat-icon>edit</mat-icon>
-                      </button>
+                        amwTooltip="Edit">
+                      </amw-button>
                     }
                     @if (isEventDeletable(event)) {
-                      <button
-                        mat-icon-button
+                      <amw-button
+                        variant="icon"
+                        icon="delete"
                         (click)="deleteEvent(event)"
-                        matTooltip="Delete">
-                        <mat-icon>delete</mat-icon>
-                      </button>
+                        amwTooltip="Delete">
+                      </amw-button>
                     }
-                    <button mat-icon-button
+                    <amw-button
+                      variant="icon"
+                      icon="info"
                       (click)="onEventDetails(event)"
-                      matTooltip="Details">
-                      <mat-icon>info</mat-icon>
-                    </button>
+                      amwTooltip="Details">
+                    </amw-button>
                   </div>
                 </div>
               }
@@ -129,11 +134,12 @@
               @if (showMoreButton && getRemainingEventsCount(selectedDate) > 0) {
                 <div
                   class="amw-calendar-mini__show-more">
-                  <button mat-button
+                  <amw-button
+                    variant="text"
                     (click)="onShowMoreClick(selectedDate)"
                     [disabled]="disabled">
                     +{{ getRemainingEventsCount(selectedDate) }} more
-                  </button>
+                  </amw-button>
                 </div>
               }
               <!-- No Events Message -->
@@ -191,26 +197,27 @@
                     </div>
                     <div class="amw-calendar-mini__event-actions">
                       @if (isEventEditable(event)) {
-                        <button
-                          mat-icon-button
+                        <amw-button
+                          variant="icon"
+                          icon="edit"
                           (click)="editEvent(event)"
-                          matTooltip="Edit">
-                          <mat-icon>edit</mat-icon>
-                        </button>
+                          amwTooltip="Edit">
+                        </amw-button>
                       }
                       @if (isEventDeletable(event)) {
-                        <button
-                          mat-icon-button
+                        <amw-button
+                          variant="icon"
+                          icon="delete"
                           (click)="deleteEvent(event)"
-                          matTooltip="Delete">
-                          <mat-icon>delete</mat-icon>
-                        </button>
+                          amwTooltip="Delete">
+                        </amw-button>
                       }
-                      <button mat-icon-button
+                      <amw-button
+                        variant="icon"
+                        icon="info"
                         (click)="onEventDetails(event)"
-                        matTooltip="Details">
-                        <mat-icon>info</mat-icon>
-                      </button>
+                        amwTooltip="Details">
+                      </amw-button>
                     </div>
                   </div>
                 }
@@ -218,11 +225,12 @@
                 @if (showMoreButton && getRemainingEventsCount(date) > 0) {
                   <div
                     class="amw-calendar-mini__show-more">
-                    <button mat-button
+                    <amw-button
+                      variant="text"
                       (click)="onShowMoreClick(date)"
                       [disabled]="disabled">
                       +{{ getRemainingEventsCount(date) }}
-                    </button>
+                    </amw-button>
                   </div>
                 }
               </div>

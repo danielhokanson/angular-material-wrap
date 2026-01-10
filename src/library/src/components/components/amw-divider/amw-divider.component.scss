@@ -1,0 +1,18 @@
+@use '../../../styles/theme' as theme;
+
+.amw-divider {
+  &--vertical {
+    display: inline-block;
+    height: auto;
+  }
+
+  &--inset {
+    margin-left: 16px;
+    margin-right: 16px;
+  }
+}
+
+// Material 3 theming
+:root {
+  --amw-divider-color: var(--mat-divider-color, rgba(0, 0, 0, 0.12));
+}

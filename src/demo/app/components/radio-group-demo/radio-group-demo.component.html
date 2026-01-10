@@ -121,50 +121,47 @@
       <mat-card-content>
         <div class="config-controls">
           <div class="config-row">
-            <mat-form-field appearance="outline">
-              <mat-label>Size</mat-label>
-              <mat-select [(value)]="size">
-                @for (option of sizeOptions; track option) {
-                  <mat-option [value]="option.value">
-                    {{ option.label }}
-                  </mat-option>
-                }
-              </mat-select>
-            </mat-form-field>
+            <amw-select
+              label="Size"
+              [(value)]="size">
+              @for (option of sizeOptions; track option) {
+                <mat-option [value]="option.value">
+                  {{ option.label }}
+                </mat-option>
+              }
+            </amw-select>
 
-            <mat-form-field appearance="outline">
-              <mat-label>Orientation</mat-label>
-              <mat-select [(value)]="orientation">
-                @for (option of orientationOptions; track option) {
-                  <mat-option [value]="option.value">
-                    {{ option.label }}
-                  </mat-option>
-                }
-              </mat-select>
-            </mat-form-field>
+            <amw-select
+              label="Orientation"
+              [(value)]="orientation">
+              @for (option of orientationOptions; track option) {
+                <mat-option [value]="option.value">
+                  {{ option.label }}
+                </mat-option>
+              }
+            </amw-select>
 
-            <mat-form-field appearance="outline">
-              <mat-label>Color</mat-label>
-              <mat-select [(value)]="color">
-                @for (option of colorOptionsForDemo; track option) {
-                  <mat-option [value]="option.value">
-                    {{ option.label }}
-                  </mat-option>
-                }
-              </mat-select>
-            </mat-form-field>
+            <amw-select
+              label="Color"
+              [(value)]="color">
+              @for (option of colorOptionsForDemo; track option) {
+                <mat-option [value]="option.value">
+                  {{ option.label }}
+                </mat-option>
+              }
+            </amw-select>
           </div>
 
           <div class="config-row">
-            <mat-form-field appearance="outline">
-              <mat-label>Label</mat-label>
-              <input matInput [(ngModel)]="label">
-            </mat-form-field>
+            <amw-input
+              label="Label"
+              [(ngModel)]="label">
+            </amw-input>
 
-            <mat-form-field appearance="outline">
-              <mat-label>Hint</mat-label>
-              <input matInput [(ngModel)]="hint">
-            </mat-form-field>
+            <amw-input
+              label="Hint"
+              [(ngModel)]="hint">
+            </amw-input>
           </div>
 
           <div class="config-row">
@@ -176,10 +173,7 @@
         <mat-divider></mat-divider>
 
         <div class="config-actions">
-          <button mat-raised-button color="primary" (click)="resetValues()">
-            <mat-icon>refresh</mat-icon>
-            Reset Values
-          </button>
+          <amw-button variant="elevated" color="primary" (click)="resetValues()" icon="refresh" iconPosition="left">Reset Values</amw-button>
         </div>
       </mat-card-content>
     </mat-card>

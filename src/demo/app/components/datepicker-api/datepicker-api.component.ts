@@ -1,11 +1,12 @@
 import { Component, ViewEncapsulation } from '@angular/core';
 import { BaseApiComponent, ApiDocumentation } from '../base/base-api.component';
 
-
 @Component({
   selector: 'amw-demo-datepicker-api',
   standalone: true,
-  imports: [],
+  imports: [
+    
+],
   encapsulation: ViewEncapsulation.None,
   templateUrl: './datepicker-api.component.html',
   styleUrl: './datepicker-api.component.scss'
@@ -119,7 +120,6 @@ export class DatepickerApiComponent extends BaseApiComponent {
       }
     ]
   };
-
 
     constructor() {
         super();

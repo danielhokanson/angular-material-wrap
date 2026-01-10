@@ -17,3 +17,4 @@ export * from './amw-file-input/amw-file-input.component';
 export * from './amw-timepicker/amw-timepicker.component';
 export * from './amw-color-picker/amw-color-picker.component';
 export * from './amw-chips/amw-chips.component';
+export * from './amw-form-validation';

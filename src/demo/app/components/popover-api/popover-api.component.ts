@@ -1,10 +1,7 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
 
-import { MatButtonModule } from '@angular/material/button';
 import { MatIconModule } from '@angular/material/icon';
-import { MatCardModule } from '@angular/material/card';
-import { MatTabsModule } from '@angular/material/tabs';
-import { MatSnackBar, MatSnackBarModule } from '@angular/material/snack-bar';
+import { AmwNotificationService } from '../../../../library/src/services/amw-notification/amw-notification.service';
 import { Subject, takeUntil } from 'rxjs';
 import { AmwPopoverComponent } from '../../../../library/src/components/components/amw-popover/amw-popover.component';
 import { PopoverConfig } from '../../../../library/src/components/components/amw-popover/interfaces/popover-config.interface';
@@ -25,18 +22,15 @@ interface PopoverApiDocumentation {
  * API demo component for popover
  *
  * Shows API documentation and usage examples for the popover component
- */
+ */import { MatTabsModule } from '@angular/material/tabs';
+
 @Component({
     selector: 'app-popover-api',
     standalone: true,
-    imports: [
-    MatButtonModule,
-    MatIconModule,
-    MatCardModule,
+    imports: [MatIconModule,
+    AmwPopoverComponent,
     MatTabsModule,
-    MatSnackBarModule,
-    AmwPopoverComponent
-],
+    AmwButtonComponent],
     templateUrl: './popover-api.component.html',
     styleUrl: './popover-api.component.scss'
 })
@@ -591,7 +585,7 @@ export class PopoverApiComponent implements OnInit, OnDestroy {
 
     constructor(
         private popoverService: PopoverService,
-        private snackBar: MatSnackBar
+        private notification: AmwNotificationService
     ) { }
 
     ngOnInit(): void {
@@ -672,11 +666,7 @@ export class PopoverApiComponent implements OnInit, OnDestroy {
         this.popoverService.events$
             .pipe(takeUntil(this.destroy$))
             .subscribe(event => {
-                this.snackBar.open(`Popover event: ${event.type}`, 'Close', {
-                    duration: 2000,
-                    horizontalPosition: 'end',
-                    verticalPosition: 'top'
-                });
+                this.notification.info('Info', `Popover event: ${event.type}`, { duration: 2000 });
             });
     }
 
@@ -692,44 +682,28 @@ export class PopoverApiComponent implements OnInit, OnDestroy {
      * Handles popover before open
      */
     onPopoverBeforeOpen(): void {
-        this.snackBar.open('Popover is about to open', 'Close', {
-            duration: 2000,
-            horizontalPosition: 'end',
-            verticalPosition: 'top'
-        });
+        this.notification.info('Info', 'Popover is about to open', { duration: 2000 });
     }
 
     /**
      * Handles popover after open
      */
     onPopoverAfterOpen(): void {
-        this.snackBar.open('Popover opened', 'Close', {
-            duration: 2000,
-            horizontalPosition: 'end',
-            verticalPosition: 'top'
-        });
+        this.notification.info('Info', 'Popover opened', { duration: 2000 });
     }
 
     /**
      * Handles popover before close
      */
     onPopoverBeforeClose(): void {
-        this.snackBar.open('Popover is about to close', 'Close', {
-            duration: 2000,
-            horizontalPosition: 'end',
-            verticalPosition: 'top'
-        });
+        this.notification.info('Info', 'Popover is about to close', { duration: 2000 });
     }
 
     /**
      * Handles popover after close
      */
     onPopoverAfterClose(): void {
-        this.snackBar.open('Popover closed', 'Close', {
-            duration: 2000,
-            horizontalPosition: 'end',
-            verticalPosition: 'top'
-        });
+        this.notification.info('Info', 'Popover closed', { duration: 2000 });
     }
 
     /**
@@ -777,11 +751,7 @@ export class PopoverApiComponent implements OnInit, OnDestroy {
      */
     copyCode(code: string, type: string): void {
         navigator.clipboard.writeText(code).then(() => {
-            this.snackBar.open(`${type} code copied to clipboard`, 'Close', {
-                duration: 2000,
-                horizontalPosition: 'end',
-                verticalPosition: 'top'
-            });
+            this.notification.info('Info', `${type} code copied to clipboard`, { duration: 2000 });
         });
     }
 
@@ -814,7 +784,7 @@ export class PopoverApiComponent implements OnInit, OnDestroy {
   [opened]="true"
   (openedChange)="onPopoverToggle($event)">
   <ng-template #trigger>
-    <button mat-button>Click me</button>
+    <amw-button variant="text">Click me</amw-button>
   </ng-template>
   <ng-template #content>
     <div>Popover content</div>
@@ -831,8 +801,10 @@ export class PopoverApiComponent implements OnInit, OnDestroy {
 import { AmwPopoverComponent } from '@angular-material-wrap/components';
 import { PopoverConfig, PopoverTrigger } from '@angular-material-wrap/components';
 import { BaseApiComponent, ApiDocumentation } from '../base/base-api.component';
+import { MatTabsModule } from '@angular/material/tabs';
 
-@Component
+@Componentimport { MatTabsModule } from '@angular/material/tabs';
+
 @Component({
   selector: 'app-example',
   template: \`<!-- HTML template above -->\`
@@ -869,8 +841,11 @@ export class ExampleComponent {
 import { PopoverService } from '@angular-material-wrap/components';
 import { Subject, takeUntil } from 'rxjs';
 import { BaseApiComponent, ApiDocumentation } from '../base/base-api.component';
+import { MatTabsModule } from '@angular/material/tabs';
 
-@Component
+import { AmwButtonComponent } from '../../../../library/src/controls/components/amw-button/amw-button.component';
+@Componentimport { MatTabsModule } from '@angular/material/tabs';
+
 @Component({
   selector: 'app-service-example',
   template: \`<!-- HTML template -->\`

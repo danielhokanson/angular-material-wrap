@@ -8,7 +8,7 @@
   <!-- Loading State -->
   @if (loading) {
     <div class="amw-data-table__loading">
-      <mat-spinner diameter="40"></mat-spinner>
+      <amw-progress-spinner [diameter]="40"></amw-progress-spinner>
       <p class="amw-data-table__loading-message">{{ loadingMessage }}</p>
     </div>
   }
@@ -36,32 +36,32 @@
           <!-- Table Actions -->
           <div class="amw-data-table__actions">
             @if (config?.showRefresh !== false) {
-              <button
-                mat-icon-button
-                matTooltip="Refresh">
-                <mat-icon>refresh</mat-icon>
-              </button>
+              <amw-button
+                variant="icon"
+                icon="refresh"
+                amwTooltip="Refresh">
+              </amw-button>
             }
             @if (config?.showColumnVisibility !== false) {
-              <button
-                mat-icon-button
-                matTooltip="Column Visibility">
-                <mat-icon>view_column</mat-icon>
-              </button>
+              <amw-button
+                variant="icon"
+                icon="view_column"
+                amwTooltip="Column Visibility">
+              </amw-button>
             }
             @if (config?.showExport !== false) {
-              <button
-                mat-icon-button
-                matTooltip="Export">
-                <mat-icon>download</mat-icon>
-              </button>
+              <amw-button
+                variant="icon"
+                icon="download"
+                amwTooltip="Export">
+              </amw-button>
             }
             @if (config?.showSettings !== false) {
-              <button
-                mat-icon-button
-                matTooltip="Settings">
-                <mat-icon>settings</mat-icon>
-              </button>
+              <amw-button
+                variant="icon"
+                icon="settings"
+                amwTooltip="Settings">
+              </amw-button>
             }
           </div>
         </div>
@@ -120,7 +120,7 @@
                 {{ column.label }}
                 @if (column.tooltip) {
                   <mat-icon
-                    matTooltip="{{ column.tooltip }}"
+                    amwTooltip="{{ column.tooltip }}"
                     class="amw-data-table__header-tooltip"
                     [id]="'column-' + column.property + '-description'"
                     [attr.aria-label]="'More information about ' + column.label">
@@ -216,14 +216,20 @@
                       }
                       <!-- Field action buttons -->
                       <div class="amw-data-table__field-actions">
-                        <button mat-icon-button (click)="saveFieldEditing(row, i, column.property)"
-                          matTooltip="Save changes" class="amw-data-table__field-action">
-                          <mat-icon>check</mat-icon>
-                        </button>
-                        <button mat-icon-button (click)="cancelFieldEditing(row, i, column.property)"
-                          matTooltip="Cancel changes" class="amw-data-table__field-action">
-                          <mat-icon>close</mat-icon>
-                        </button>
+                        <amw-button
+                          variant="icon"
+                          icon="check"
+                          (click)="saveFieldEditing(row, i, column.property)"
+                          amwTooltip="Save changes"
+                          class="amw-data-table__field-action">
+                        </amw-button>
+                        <amw-button
+                          variant="icon"
+                          icon="close"
+                          (click)="cancelFieldEditing(row, i, column.property)"
+                          amwTooltip="Cancel changes"
+                          class="amw-data-table__field-action">
+                        </amw-button>
                       </div>
                     </div>
                   </div>
@@ -235,10 +241,13 @@
                     [class.amw-data-table__readonly-cell--editable]="column.editable">
                     <span [innerHTML]="getFormattedCellValue(row, column.property)"></span>
                     @if (column.editable) {
-                      <mat-icon
+                      <amw-button
+                        variant="icon"
+                        icon="edit"
                         class="amw-data-table__edit-icon"
                         (click)="startFieldEditing(row, i, column.property, $event)"
-                      matTooltip="Edit field">edit</mat-icon>
+                        amwTooltip="Edit field">
+                      </amw-button>
                     }
                   </div>
                 }
@@ -253,46 +262,44 @@
                 <div class="amw-data-table__actions-cell">
                   <!-- Edit/Save/Cancel buttons -->
                   @if (config?.editable && !isRowEditing(row) && !hasCustomEditAction()) {
-                    <button
-                      mat-icon-button
-                      matTooltip="Edit row"
+                    <amw-button
+                      variant="icon"
+                      icon="edit"
+                      amwTooltip="Edit row"
                       (click)="startEditing(row, i)">
-                      <mat-icon>edit</mat-icon>
-                    </button>
+                    </amw-button>
                   }
                   @if (config?.editable && isRowEditing(row)) {
-                    <button
-                      mat-icon-button
+                    <amw-button
+                      variant="icon"
+                      icon="save"
                       color="primary"
-                      matTooltip="Save changes"
+                      amwTooltip="Save changes"
                       (click)="saveEditing()">
-                      <mat-icon>save</mat-icon>
-                    </button>
+                    </amw-button>
                   }
                   @if (config?.editable && isRowEditing(row)) {
-                    <button
-                      mat-icon-button
-                      matTooltip="Cancel editing"
+                    <amw-button
+                      variant="icon"
+                      icon="cancel"
+                      amwTooltip="Cancel editing"
                       (click)="cancelEditing()">
-                      <mat-icon>cancel</mat-icon>
-                    </button>
+                    </amw-button>
                   }
                   <!-- Other actions (hidden during edit mode) -->
                   @if (!isRowEditing(row)) {
                     @for (action of getRowActions(row, i); track action) {
-                      <button
-                        mat-icon-button
+                      <amw-button
+                        variant="icon"
+                        [icon]="action.icon"
                         [disabled]="isActionDisabled(action, row, i)"
-                        [matTooltip]="action.tooltip || action.label"
+                        [amwTooltip]="action.tooltip || action.label"
                         [class]="action.cssClass"
                         (click)="onActionClick(action, row, i)">
-                        @if (action.icon) {
-                          <mat-icon>{{ action.icon }}</mat-icon>
-                        }
                         @if (!action.icon) {
-                          <span>{{ action.label }}</span>
+                          {{ action.label }}
                         }
-                      </button>
+                      </amw-button>
                     }
                   }
                 </div>

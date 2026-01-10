@@ -1,15 +1,13 @@
 import { Component, ViewEncapsulation } from '@angular/core';
 
-import { MatCardModule } from '@angular/material/card';
-import { MatTableModule } from '@angular/material/table';
 import { BaseApiComponent, ApiDocumentation } from '../base/base-api.component';
+import { MatCardModule } from '@angular/material/card';
 
 @Component({
     selector: 'amw-demo-color-picker-api',
     standalone: true,
     imports: [
-    MatCardModule,
-    MatTableModule
+    MatCardModule
 ],
     encapsulation: ViewEncapsulation.None,
     templateUrl: './color-picker-api.component.html',

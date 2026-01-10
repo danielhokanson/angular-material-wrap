@@ -1,25 +1,21 @@
 import { Component, ViewEncapsulation, OnInit } from '@angular/core';
 
-import { MatButtonModule } from '@angular/material/button';
 import { MatIconModule } from '@angular/material/icon';
-import { MatFormFieldModule } from '@angular/material/form-field';
-import { MatInputModule } from '@angular/material/input';
-import { MatSnackBarModule, MatSnackBar } from '@angular/material/snack-bar';
+import { AmwNotificationService } from '../../../../library/src/services/amw-notification/amw-notification.service';
 import { ReactiveFormsModule, FormBuilder, FormGroup, Validators } from '@angular/forms';
 
 import { AmwButtonComponent } from '../../../../library/src/controls/components/amw-button/amw-button.component';
+import { MatFormFieldModule } from '@angular/material/form-field';
 
 @Component({
     selector: 'amw-demo-button-validation',
     standalone: true,
     imports: [
     ReactiveFormsModule,
-    MatButtonModule,
+    AmwButtonComponent,
     MatIconModule,
-    MatFormFieldModule,
-    MatInputModule,
-    MatSnackBarModule,
-    AmwButtonComponent
+    AmwButtonComponent,
+    MatFormFieldModule
 ],
     encapsulation: ViewEncapsulation.None,
     templateUrl: './button-validation.component.html',
@@ -30,7 +26,7 @@ export class ButtonValidationComponent implements OnInit {
 
     constructor(
         private fb: FormBuilder,
-        private snackBar: MatSnackBar
+        private notification: AmwNotificationService
     ) {
         this.validationForm = this.fb.group({
             requiredField: ['', Validators.required],
@@ -46,17 +42,9 @@ export class ButtonValidationComponent implements OnInit {
 
     onSubmit(): void {
         if (this.validationForm.valid) {
-            this.snackBar.open('Form is valid!', 'Close', {
-                duration: 2000,
-                horizontalPosition: 'center',
-                verticalPosition: 'bottom'
-            });
+            this.notification.success('Success', 'Form is valid!', { duration: 2000 });
         } else {
-            this.snackBar.open('Form has validation errors!', 'Close', {
-                duration: 2000,
-                horizontalPosition: 'center',
-                verticalPosition: 'bottom'
-            });
+            this.notification.error('Error', 'Form has validation errors!', { duration: 2000 });
         }
     }
 
@@ -71,6 +59,4 @@ export class ButtonValidationComponent implements OnInit {
         return '';
     }
 }
-
-
 

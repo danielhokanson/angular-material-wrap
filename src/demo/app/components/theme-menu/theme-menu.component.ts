@@ -1,25 +1,23 @@
 import { Component, signal } from '@angular/core';
 
-import { MatButtonModule } from '@angular/material/button';
 import { MatIconModule } from '@angular/material/icon';
-import { MatMenuModule } from '@angular/material/menu';
 import { MatTooltipModule } from '@angular/material/tooltip';
-import { MatDividerModule } from '@angular/material/divider';
 import { RouterModule } from '@angular/router';
 
 import { ThemeService, ThemeConfig } from '../../../../library/src/styling/services/theme.service';
+import { MatMenuModule } from '@angular/material/menu';
+import { MatDividerModule } from '@angular/material/divider';
 
+import { AmwButtonComponent } from '../../../../library/src/controls/components/amw-button/amw-button.component';
 @Component({
     selector: 'amw-demo-theme-menu',
     standalone: true,
-    imports: [
-    MatButtonModule,
-    MatIconModule,
-    MatMenuModule,
+    imports: [MatIconModule,
     MatTooltipModule,
+    RouterModule,
+    MatMenuModule,
     MatDividerModule,
-    RouterModule
-],
+    AmwButtonComponent],
     templateUrl: './theme-menu.component.html',
     styleUrl: './theme-menu.component.scss'
 })

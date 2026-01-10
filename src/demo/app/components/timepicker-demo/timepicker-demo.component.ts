@@ -1,20 +1,16 @@
 import { Component, ViewEncapsulation } from '@angular/core';
 
-import { MatCardModule } from '@angular/material/card';
-import { MatButtonModule } from '@angular/material/button';
 import { MatIconModule } from '@angular/material/icon';
-import { MatChipsModule } from '@angular/material/chips';
 import { AmwTimepickerComponent } from '../../../../library/src/controls/components/amw-timepicker/amw-timepicker.component';
+import { MatCardModule } from '@angular/material/card';
 
 @Component({
     selector: 'amw-demo-timepicker',
     standalone: true,
     imports: [
-    MatCardModule,
-    MatButtonModule,
     MatIconModule,
-    MatChipsModule,
-    AmwTimepickerComponent
+    AmwTimepickerComponent,
+    MatCardModule
 ],
     encapsulation: ViewEncapsulation.None,
     templateUrl: './timepicker-demo.component.html',

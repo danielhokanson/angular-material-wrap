@@ -1,10 +1,8 @@
 import { Component, Input, Output, EventEmitter, OnInit, OnDestroy, TemplateRef, ViewChild, ElementRef, AfterViewInit, ChangeDetectorRef, ViewContainerRef, ViewEncapsulation } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { MatButtonModule } from '@angular/material/button';
 import { MatIconModule } from '@angular/material/icon';
 import { MatCardModule } from '@angular/material/card';
 import { MatDividerModule } from '@angular/material/divider';
-import { MatTooltipModule } from '@angular/material/tooltip';
 import { MatRippleModule } from '@angular/material/core';
 import { OverlayModule, Overlay, OverlayRef, OverlayConfig } from '@angular/cdk/overlay';
 import { TemplatePortal } from '@angular/cdk/portal';
@@ -12,6 +10,7 @@ import { Subject, takeUntil, fromEvent } from 'rxjs';
 import { BaseComponent } from '../../../controls/components/base/base.component';
 import { PopoverConfig } from './interfaces/popover-config.interface';
 import { PopoverTrigger } from './interfaces/popover-trigger.interface';
+import { AmwButtonComponent } from '../../../controls/components/amw-button/amw-button.component';
 
 /**
  * Angular Material Wrap Popover Component
@@ -31,7 +30,7 @@ import { PopoverTrigger } from './interfaces/popover-trigger.interface';
  *   (beforeClose)="onBeforeClose()"
  *   (afterClose)="onAfterClose()">
  *   <ng-template #trigger>
- *     <button mat-button>Click me</button>
+ *     <amw-button variant="text">Click me</amw-button>
  *   </ng-template>
  *   <ng-template #content>
  *     <div>Popover content</div>
@@ -44,11 +43,10 @@ import { PopoverTrigger } from './interfaces/popover-trigger.interface';
     standalone: true,
     imports: [
         CommonModule,
-        MatButtonModule,
+        AmwButtonComponent,
         MatIconModule,
         MatCardModule,
         MatDividerModule,
-        MatTooltipModule,
         MatRippleModule,
         OverlayModule
     ],

@@ -3,11 +3,12 @@
     <h2 class="amw-calendar-item-dialog__title">
       {{ data.mode === 'create' ? 'Create Event' : data.event?.title || 'Event Details' }}
     </h2>
-    <button mat-icon-button
+    <amw-button
+      variant="icon"
+      icon="close"
       class="amw-calendar-item-dialog__close"
       (click)="onClose()">
-      <mat-icon>close</mat-icon>
-    </button>
+    </amw-button>
   </div>
 
   <div class="amw-calendar-item-dialog__content">
@@ -140,61 +141,71 @@
   <div class="amw-calendar-item-dialog__actions">
     <!-- Create Mode Actions -->
     @if (data.mode === 'create') {
-      <button mat-button (click)="onCancel()" class="amw-calendar-item-dialog__action">
+      <amw-button variant="text" (click)="onCancel()" class="amw-calendar-item-dialog__action">
         Cancel
-      </button>
-      <button mat-raised-button
+      </amw-button>
+      <amw-button
+        variant="elevated"
         (click)="save()"
         class="amw-calendar-item-dialog__action amw-calendar-item-dialog__action--primary">
         Create
-      </button>
+      </amw-button>
     }
 
     <!-- Edit Mode Actions -->
     @if (data.mode === 'edit') {
-      <button mat-button (click)="onCancel()" class="amw-calendar-item-dialog__action">
+      <amw-button variant="text" (click)="onCancel()" class="amw-calendar-item-dialog__action">
         Cancel
-      </button>
-      <button mat-raised-button
+      </amw-button>
+      <amw-button
+        variant="elevated"
         (click)="save()"
         class="amw-calendar-item-dialog__action amw-calendar-item-dialog__action--primary">
         Save
-      </button>
+      </amw-button>
     }
 
     <!-- Read Mode Actions -->
     @if (data.mode === 'read') {
       @if (isTask() && !isCompleted()) {
-        <button mat-button
+        <amw-button
+          variant="text"
+          icon="check"
+          iconPosition="left"
           (click)="markComplete()"
           class="amw-calendar-item-dialog__action amw-calendar-item-dialog__action--complete">
-          <mat-icon>check</mat-icon>
           Mark Complete
-        </button>
+        </amw-button>
       }
       @if (isTask() && isCompleted()) {
-        <button mat-button
+        <amw-button
+          variant="text"
+          icon="undo"
+          iconPosition="left"
           (click)="markIncomplete()"
           class="amw-calendar-item-dialog__action amw-calendar-item-dialog__action--incomplete">
-          <mat-icon>undo</mat-icon>
           Mark Incomplete
-        </button>
+        </amw-button>
       }
       @if (isEditable()) {
-        <button mat-button
+        <amw-button
+          variant="text"
+          icon="edit"
+          iconPosition="left"
           (click)="edit()"
           class="amw-calendar-item-dialog__action amw-calendar-item-dialog__action--edit">
-          <mat-icon>edit</mat-icon>
           Edit
-        </button>
+        </amw-button>
       }
       @if (isDeletable()) {
-        <button mat-button
+        <amw-button
+          variant="text"
+          icon="delete"
+          iconPosition="left"
           (click)="delete()"
           class="amw-calendar-item-dialog__action amw-calendar-item-dialog__action--delete">
-          <mat-icon>delete</mat-icon>
           Delete
-        </button>
+        </amw-button>
       }
     }
   </div>

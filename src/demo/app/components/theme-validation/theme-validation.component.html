@@ -22,53 +22,38 @@
                 Color Palette
               </h4>
 
-              <mat-form-field appearance="outline" class="full-width">
-                <mat-label>Primary Color</mat-label>
-                <input
-                  matInput
-                  formControlName="primaryColor"
-                  type="color"
-                  class="color-input" />
-                <input
-                  matInput
-                  formControlName="primaryColor"
-                  placeholder="#6750a4" />
-                @if (themeForm.get('primaryColor')?.invalid && themeForm.get('primaryColor')?.touched) {
-                  <mat-error>{{ getErrorMessage('primaryColor') }}</mat-error>
-                }
-              </mat-form-field>
+              <amw-input
+                class="full-width"
+                label="Primary Color"
+                formControlName="primaryColor"
+                type="color"
+                placeholder="#6750a4">
+              </amw-input>
+              @if (themeForm.get('primaryColor')?.invalid && themeForm.get('primaryColor')?.touched) {
+                <div class="field-error">{{ getErrorMessage('primaryColor') }}</div>
+              }
 
-              <mat-form-field appearance="outline" class="full-width">
-                <mat-label>Accent Color</mat-label>
-                <input
-                  matInput
-                  formControlName="accentColor"
-                  type="color"
-                  class="color-input" />
-                <input
-                  matInput
-                  formControlName="accentColor"
-                  placeholder="#625b71" />
-                @if (themeForm.get('accentColor')?.invalid && themeForm.get('accentColor')?.touched) {
-                  <mat-error>{{ getErrorMessage('accentColor') }}</mat-error>
-                }
-              </mat-form-field>
+              <amw-input
+                class="full-width"
+                label="Accent Color"
+                formControlName="accentColor"
+                type="color"
+                placeholder="#625b71">
+              </amw-input>
+              @if (themeForm.get('accentColor')?.invalid && themeForm.get('accentColor')?.touched) {
+                <div class="field-error">{{ getErrorMessage('accentColor') }}</div>
+              }
 
-              <mat-form-field appearance="outline" class="full-width">
-                <mat-label>Warn Color</mat-label>
-                <input
-                  matInput
-                  formControlName="warnColor"
-                  type="color"
-                  class="color-input" />
-                <input
-                  matInput
-                  formControlName="warnColor"
-                  placeholder="#ba1a1a" />
-                @if (themeForm.get('warnColor')?.invalid && themeForm.get('warnColor')?.touched) {
-                  <mat-error>{{ getErrorMessage('warnColor') }}</mat-error>
-                }
-              </mat-form-field>
+              <amw-input
+                class="full-width"
+                label="Warn Color"
+                formControlName="warnColor"
+                type="color"
+                placeholder="#ba1a1a">
+              </amw-input>
+              @if (themeForm.get('warnColor')?.invalid && themeForm.get('warnColor')?.touched) {
+                <div class="field-error">{{ getErrorMessage('warnColor') }}</div>
+              }
             </div>
 
             <!-- Mode Configuration -->
@@ -97,16 +82,16 @@
                 Component Density
               </h4>
 
-              <mat-form-field appearance="outline" class="full-width">
-                <mat-label>Density Level</mat-label>
-                <mat-select formControlName="density">
-                  @for (option of densityOptions; track option.value) {
-                    <mat-option [value]="option.value">
-                      {{ option.name }} - {{ option.description }}
-                    </mat-option>
-                  }
-                </mat-select>
-              </mat-form-field>
+              <amw-select
+                class="full-width"
+                label="Density Level"
+                formControlName="density">
+                @for (option of densityOptions; track option.value) {
+                  <mat-option [value]="option.value">
+                    {{ option.name }} - {{ option.description }}
+                  </mat-option>
+                }
+              </amw-select>
             </div>
 
             <!-- Typography Configuration -->
@@ -116,44 +101,32 @@
                 Typography
               </h4>
 
-              <mat-form-field appearance="outline" class="full-width">
-                <mat-label>Font Family</mat-label>
-                <mat-select formControlName="typography">
-                  @for (option of typographyOptions; track option.value) {
-                    <mat-option [value]="option.value">
-                      {{ option.name }}
-                    </mat-option>
-                  }
-                </mat-select>
-              </mat-form-field>
+              <amw-select
+                class="full-width"
+                label="Font Family"
+                formControlName="typography">
+                @for (option of typographyOptions; track option.value) {
+                  <mat-option [value]="option.value">
+                    {{ option.name }}
+                  </mat-option>
+                }
+              </amw-select>
             </div>
           </form>
 
           <!-- Action Buttons -->
           <div class="config-actions">
-            <button
-              mat-raised-button
+            <amw-button variant="elevated"
               color="primary"
               (click)="applyTheme()"
-              [disabled]="!isFormValid()">
-              <mat-icon>check</mat-icon>
-              Apply Theme
-            </button>
+              [disabled]="!isFormValid()" icon="check" iconPosition="left">Apply Theme</amw-button>
 
-            <button
-              mat-raised-button
-              (click)="resetTheme()">
-              <mat-icon>refresh</mat-icon>
-              Reset to Default
-            </button>
+            <amw-button variant="elevated"
+              (click)="resetTheme()" icon="refresh" iconPosition="left">Reset to Default</amw-button>
 
-            <button
-              mat-raised-button
+            <amw-button variant="elevated"
               (click)="exportTheme()"
-              [disabled]="!isFormValid()">
-              <mat-icon>download</mat-icon>
-              Export Config
-            </button>
+              [disabled]="!isFormValid()" icon="download" iconPosition="left">Export Config</amw-button>
           </div>
 
           @if (!isFormValid()) {
@@ -197,9 +170,9 @@
               <div class="component-samples">
                 <h5>Buttons</h5>
                 <div class="button-group">
-                  <button mat-raised-button class="btn-primary">Primary</button>
-                  <button mat-raised-button class="btn-accent">Accent</button>
-                  <button mat-raised-button class="btn-warn">Warn</button>
+                  <amw-button variant="elevated" class="btn-primary">Primary</amw-button>
+                  <amw-button variant="elevated" class="btn-accent">Accent</amw-button>
+                  <amw-button variant="elevated" class="btn-warn">Warn</amw-button>
                 </div>
 
                 <h5>Text Styles</h5>
@@ -241,7 +214,7 @@
             <div class="preview-disabled">
               <mat-icon>visibility_off</mat-icon>
               <p>Preview disabled</p>
-              <button mat-button (click)="togglePreview()">Enable Preview</button>
+              <amw-button variant="text" (click)="togglePreview()">Enable Preview</amw-button>
             </div>
           }
         </mat-card-content>

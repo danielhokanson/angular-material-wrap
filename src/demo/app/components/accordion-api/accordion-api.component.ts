@@ -4,7 +4,9 @@ import { BaseApiComponent, ApiDocumentation } from '../base/base-api.component';
 @Component({
     selector: 'amw-demo-accordion-api',
     standalone: true,
-    imports: [],
+    imports: [
+    
+],
     encapsulation: ViewEncapsulation.None,
     templateUrl: './accordion-api.component.html',
     styleUrl: './accordion-api.component.scss'

@@ -1,18 +1,9 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
 
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
-import { MatCardModule } from '@angular/material/card';
-import { MatButtonModule } from '@angular/material/button';
 import { MatIconModule } from '@angular/material/icon';
-import { MatFormFieldModule } from '@angular/material/form-field';
-import { MatInputModule } from '@angular/material/input';
-import { MatSelectModule } from '@angular/material/select';
-import { MatCheckboxModule } from '@angular/material/checkbox';
-import { MatSlideToggleModule } from '@angular/material/slide-toggle';
-import { MatDividerModule } from '@angular/material/divider';
-import { MatChipsModule } from '@angular/material/chips';
 import { MatTooltipModule } from '@angular/material/tooltip';
-import { MatSnackBarModule, MatSnackBar } from '@angular/material/snack-bar';
+import { AmwNotificationService } from '../../../../library/src/services/amw-notification/amw-notification.service';
 import { Subject, takeUntil } from 'rxjs';
 
 import { AmwDataTableComponent } from '../../../../library/src/components/components/amw-data-table/amw-data-table.component';
@@ -29,27 +20,23 @@ import {
 /**
  * Data Table Demo Component
  * Demonstrates all features of the AMW Data Table component
- */
+ */import { MatChipsModule } from '@angular/material/chips';
+import { MatCardModule } from '@angular/material/card';
+
+import { AmwButtonComponent } from '../../../../library/src/controls/components/amw-button/amw-button.component';
 @Component({
     selector: 'app-data-table-demo',
     standalone: true,
-    imports: [
-    FormsModule,
+    imports: [FormsModule,
     ReactiveFormsModule,
-    MatCardModule,
-    MatButtonModule,
     MatIconModule,
-    MatFormFieldModule,
-    MatInputModule,
-    MatSelectModule,
-    MatCheckboxModule,
-    MatSlideToggleModule,
-    MatDividerModule,
-    MatChipsModule,
+    AmwInputComponent,
     MatTooltipModule,
-    MatSnackBarModule,
-    AmwDataTableComponent
-],
+    AmwDataTableComponent,
+    MatIconModule,
+    MatChipsModule,
+    MatCardModule,
+    AmwButtonComponent],
     templateUrl: './data-table-demo.component.html',
     styleUrl: './data-table-demo.component.scss'
 })
@@ -291,7 +278,7 @@ export class DataTableDemoComponent implements OnInit, OnDestroy {
     currentFilters: DataTableFilter[] = [];
     loading = false;
 
-    constructor(private snackBar: MatSnackBar) { }
+    constructor(private notification: AmwNotificationService) { }
 
     ngOnInit(): void {
         // Initialize demo
@@ -351,7 +338,7 @@ export class DataTableDemoComponent implements OnInit, OnDestroy {
      * Edit record - this will be called when save is clicked in edit mode
      */
     editRecord(row: any, index: number): void {
-        this.snackBar.open(`Record saved: ${row.name}`, 'Close', { duration: 3000 });
+        this.notification.success('Success', `Record saved: ${row.name}`, { duration: 3000 });
         console.log('Record saved:', row);
     }
 
@@ -359,7 +346,7 @@ export class DataTableDemoComponent implements OnInit, OnDestroy {
      * Delete record
      */
     deleteRecord(row: any, index: number): void {
-        this.snackBar.open(`Delete record: ${row.name}`, 'Close', { duration: 3000 });
+        this.notification.info('Info', `Delete record: ${row.name}`, { duration: 3000 });
     }
 
     /**
@@ -387,7 +374,7 @@ export class DataTableDemoComponent implements OnInit, OnDestroy {
         };
 
         this.sampleData = [...this.sampleData, newRecord];
-        this.snackBar.open('New record added', 'Close', { duration: 3000 });
+        this.notification.info('Info', 'New record added', { duration: 3000 });
     }
 
     /**
@@ -401,7 +388,7 @@ export class DataTableDemoComponent implements OnInit, OnDestroy {
      * Export data
      */
     exportData(): void {
-        this.snackBar.open('Exporting data...', 'Close', { duration: 3000 });
+        this.notification.info('Info', 'Exporting data...', { duration: 3000 });
     }
 
     /**
@@ -414,7 +401,7 @@ export class DataTableDemoComponent implements OnInit, OnDestroy {
         setTimeout(() => {
             this.loading = false;
             this.tableConfig = { ...this.tableConfig, loading: false };
-            this.snackBar.open('Data refreshed', 'Close', { duration: 3000 });
+            this.notification.info('Info', 'Data refreshed', { duration: 3000 });
         }, 2000);
     }
 }

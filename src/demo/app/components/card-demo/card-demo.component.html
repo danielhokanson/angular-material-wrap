@@ -10,84 +10,79 @@
       <mat-card-content>
         <!-- Search and Filters -->
         <div class="card-demo__controls">
-          <mat-form-field appearance="outline" class="card-demo__search">
-            <mat-label>Search Cards</mat-label>
-            <input matInput [(ngModel)]="searchTerm" (input)="onSearch()" placeholder="Search by title, subtitle, or content">
+          <amw-input
+            label="Search Cards"
+            [(ngModel)]="searchTerm"
+            (input)="onSearch()"
+            placeholder="Search by title, subtitle, or content"
+            class="card-demo__search">
             <mat-icon matSuffix>search</mat-icon>
-          </mat-form-field>
+          </amw-input>
 
-          <mat-form-field appearance="outline" class="card-demo__filter">
-            <mat-label>Variant</mat-label>
-            <mat-select [(ngModel)]="selectedVariant" (selectionChange)="onFilterChange()">
-              <mat-option value="">All Variants</mat-option>
-              <mat-option value="elevated">Elevated</mat-option>
-              <mat-option value="outlined">Outlined</mat-option>
-              <mat-option value="filled">Filled</mat-option>
-            </mat-select>
-          </mat-form-field>
+          <amw-select
+            label="Variant"
+            [(ngModel)]="selectedVariant"
+            (selectionChange)="onFilterChange()"
+            class="card-demo__filter">
+            <mat-option value="">All Variants</mat-option>
+            <mat-option value="elevated">Elevated</mat-option>
+            <mat-option value="outlined">Outlined</mat-option>
+            <mat-option value="filled">Filled</mat-option>
+          </amw-select>
 
-          <mat-form-field appearance="outline" class="card-demo__filter">
-            <mat-label>Size</mat-label>
-            <mat-select [(ngModel)]="selectedSize" (selectionChange)="onFilterChange()">
-              <mat-option value="">All Sizes</mat-option>
-              <mat-option value="small">Small</mat-option>
-              <mat-option value="medium">Medium</mat-option>
-              <mat-option value="large">Large</mat-option>
-            </mat-select>
-          </mat-form-field>
+          <amw-select
+            label="Size"
+            [(ngModel)]="selectedSize"
+            (selectionChange)="onFilterChange()"
+            class="card-demo__filter">
+            <mat-option value="">All Sizes</mat-option>
+            <mat-option value="small">Small</mat-option>
+            <mat-option value="medium">Medium</mat-option>
+            <mat-option value="large">Large</mat-option>
+          </amw-select>
         </div>
 
         <!-- Filter Checkboxes -->
         <div class="card-demo__checkboxes">
-          <mat-checkbox [(ngModel)]="showClickableOnly" (change)="onFilterChange()">
+          <amw-checkbox [(ngModel)]="showClickableOnly" (change)="onFilterChange()">
             Clickable Only
-          </mat-checkbox>
-          <mat-checkbox [(ngModel)]="showWithImagesOnly" (change)="onFilterChange()">
+          </amw-checkbox>
+          <amw-checkbox [(ngModel)]="showWithImagesOnly" (change)="onFilterChange()">
             With Images Only
-          </mat-checkbox>
-          <mat-checkbox [(ngModel)]="showWithActionsOnly" (change)="onFilterChange()">
+          </amw-checkbox>
+          <amw-checkbox [(ngModel)]="showWithActionsOnly" (change)="onFilterChange()">
             With Actions Only
-          </mat-checkbox>
+          </amw-checkbox>
         </div>
 
         <!-- Sort Controls -->
         <div class="card-demo__sort">
-          <mat-form-field appearance="outline" class="card-demo__sort-field">
-            <mat-label>Sort By</mat-label>
-            <mat-select [(ngModel)]="sortField" (selectionChange)="onSortChange()">
-              <mat-option value="title">Title</mat-option>
-              <mat-option value="createdAt">Created Date</mat-option>
-              <mat-option value="updatedAt">Updated Date</mat-option>
-            </mat-select>
-          </mat-form-field>
+          <amw-select
+            label="Sort By"
+            [(ngModel)]="sortField"
+            (selectionChange)="onSortChange()"
+            class="card-demo__sort-field">
+            <mat-option value="title">Title</mat-option>
+            <mat-option value="createdAt">Created Date</mat-option>
+            <mat-option value="updatedAt">Updated Date</mat-option>
+          </amw-select>
 
-          <mat-form-field appearance="outline" class="card-demo__sort-field">
-            <mat-label>Direction</mat-label>
-            <mat-select [(ngModel)]="sortDirection" (selectionChange)="onSortChange()">
-              <mat-option value="asc">Ascending</mat-option>
-              <mat-option value="desc">Descending</mat-option>
-            </mat-select>
-          </mat-form-field>
+          <amw-select
+            label="Direction"
+            [(ngModel)]="sortDirection"
+            (selectionChange)="onSortChange()"
+            class="card-demo__sort-field">
+            <mat-option value="asc">Ascending</mat-option>
+            <mat-option value="desc">Descending</mat-option>
+          </amw-select>
         </div>
 
         <!-- Action Buttons -->
         <div class="card-demo__actions">
-          <button mat-raised-button color="primary" (click)="addSampleCard()">
-            <mat-icon>add</mat-icon>
-            Add Sample Card
-          </button>
-          <button mat-button (click)="clearFilters()">
-            <mat-icon>clear</mat-icon>
-            Clear Filters
-          </button>
-          <button mat-button (click)="getCardStatistics()">
-            <mat-icon>analytics</mat-icon>
-            Statistics
-          </button>
-          <button mat-button (click)="exportCards()">
-            <mat-icon>download</mat-icon>
-            Export
-          </button>
+          <amw-button variant="elevated" color="primary" (click)="addSampleCard()" icon="add" iconPosition="left">Add Sample Card</amw-button>
+          <amw-button variant="text" (click)="clearFilters()" icon="clear" iconPosition="left">Clear Filters</amw-button>
+          <amw-button variant="text" (click)="getCardStatistics()" icon="analytics" iconPosition="left">Statistics</amw-button>
+          <amw-button variant="text" (click)="exportCards()" icon="download" iconPosition="left">Export</amw-button>
         </div>
       </mat-card-content>
     </mat-card>
@@ -120,18 +115,10 @@
             class="card-demo__service-card"
             >
             <ng-template #cardActions>
-              <button mat-icon-button (click)="duplicateCard(card)" matTooltip="Duplicate">
-                <mat-icon>content_copy</mat-icon>
-              </button>
-              <button mat-icon-button (click)="toggleCardLoading(card)" matTooltip="Toggle Loading">
-                <mat-icon>{{ card.loading ? 'pause' : 'play_arrow' }}</mat-icon>
-              </button>
-              <button mat-icon-button (click)="toggleCardDisabled(card)" matTooltip="Toggle Disabled">
-                <mat-icon>{{ card.disabled ? 'check_circle' : 'cancel' }}</mat-icon>
-              </button>
-              <button mat-icon-button (click)="deleteCard(card)" matTooltip="Delete" color="warn">
-                <mat-icon>delete</mat-icon>
-              </button>
+              <amw-button variant="icon" icon="content_copy" (click)="duplicateCard(card)" matTooltip="Duplicate"></amw-button>
+              <amw-button variant="icon" icon="{{ card.loading ? 'pause' : 'play_arrow' }}" (click)="toggleCardLoading(card)" matTooltip="Toggle Loading"></amw-button>
+              <amw-button variant="icon" icon="{{ card.disabled ? 'check_circle' : 'cancel' }}" (click)="toggleCardDisabled(card)" matTooltip="Toggle Disabled"></amw-button>
+              <amw-button variant="icon" icon="delete" (click)="deleteCard(card)" matTooltip="Delete" color="warn"></amw-button>
             </ng-template>
           </amw-card>
         }

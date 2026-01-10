@@ -4,7 +4,9 @@ import { BaseApiComponent, ApiDocumentation } from '../base/base-api.component';
 @Component({
     selector: 'amw-demo-button-api',
     standalone: true,
-    imports: [],
+    imports: [
+    
+],
     encapsulation: ViewEncapsulation.None,
     templateUrl: './button-api.component.html',
     styleUrl: './button-api.component.scss'
@@ -86,6 +88,4 @@ export class ButtonApiComponent extends BaseApiComponent {
         super();
     }
 }
-
-
 

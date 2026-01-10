@@ -1,0 +1,38 @@
+@use '../../../styles/theme' as theme;
+
+.amw-menu-container {
+  display: inline-block;
+}
+
+.amw-menu__trigger {
+  &--text {
+    // Text button styles
+  }
+
+  &--raised {
+    // Raised button styles
+  }
+
+  &--stroked {
+    // Stroked button styles
+  }
+
+  &--flat {
+    // Flat button styles
+  }
+
+  &--icon {
+    // Icon button styles
+  }
+}
+
+.amw-menu {
+  // Menu container styles
+}
+
+// Material 3 theming
+:root {
+  --amw-menu-background: var(--mat-menu-container-color, #ffffff);
+  --amw-menu-text-color: var(--mat-menu-item-label-text-color, rgba(0, 0, 0, 0.87));
+  --amw-menu-hover-background: var(--mat-menu-item-hover-state-layer-color, rgba(0, 0, 0, 0.04));
+}

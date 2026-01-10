@@ -1,14 +1,8 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
 
-import { MatCardModule } from '@angular/material/card';
-import { MatButtonModule } from '@angular/material/button';
 import { MatIconModule } from '@angular/material/icon';
-import { MatChipsModule } from '@angular/material/chips';
-import { MatDividerModule } from '@angular/material/divider';
-import { MatTabsModule } from '@angular/material/tabs';
-import { MatExpansionModule } from '@angular/material/expansion';
 import { MatTooltipModule } from '@angular/material/tooltip';
-import { MatSnackBarModule, MatSnackBar } from '@angular/material/snack-bar';
+import { AmwNotificationService } from '../../../../library/src/services/amw-notification/amw-notification.service';
 import { Subject, takeUntil, BehaviorSubject, Observable, of } from 'rxjs';
 import { delay } from 'rxjs/operators';
 
@@ -212,21 +206,20 @@ class ListPageDemoDataSource implements ListPageDataSource {
         };
     }
 }
+import { MatTabsModule } from '@angular/material/tabs';
+import { MatChipsModule } from '@angular/material/chips';
+import { MatCardModule } from '@angular/material/card';
 
 @Component({
     selector: 'app-list-page-demo',
     standalone: true,
     imports: [
-    MatCardModule,
-    MatButtonModule,
     MatIconModule,
-    MatChipsModule,
-    MatDividerModule,
-    MatTabsModule,
-    MatExpansionModule,
     MatTooltipModule,
-    MatSnackBarModule,
-    AmwListPageComponent
+    AmwListPageComponent,
+    MatTabsModule,
+    MatChipsModule,
+    MatCardModule
 ],
     templateUrl: './list-page-demo.component.html',
     styleUrl: './list-page-demo.component.scss'
@@ -354,7 +347,7 @@ export class ListPageDemoComponent implements OnInit, OnDestroy {
                 color: 'primary',
                 requiresSelection: true,
                 onClick: (selectedItems: any[]) => {
-                    this.snackBar.open(`Editing ${selectedItems.length} item(s)`, 'Close', { duration: 2000 });
+                    this.notification.info('Info', `Editing ${selectedItems.length} item(s)`, { duration: 2000 });
                 }
             },
             {
@@ -364,7 +357,7 @@ export class ListPageDemoComponent implements OnInit, OnDestroy {
                 color: 'warn',
                 requiresSelection: true,
                 onClick: (selectedItems: any[]) => {
-                    this.snackBar.open(`Deleting ${selectedItems.length} item(s)`, 'Close', { duration: 2000 });
+                    this.notification.info('Info', `Deleting ${selectedItems.length} item(s)`, { duration: 2000 });
                 }
             },
             {
@@ -374,7 +367,7 @@ export class ListPageDemoComponent implements OnInit, OnDestroy {
                 color: 'accent',
                 requiresSelection: true,
                 onClick: (selectedItems: any[]) => {
-                    this.snackBar.open(`Exporting ${selectedItems.length} item(s)`, 'Close', { duration: 2000 });
+                    this.notification.info('Info', `Exporting ${selectedItems.length} item(s)`, { duration: 2000 });
                 }
             }
         ]
@@ -387,7 +380,7 @@ export class ListPageDemoComponent implements OnInit, OnDestroy {
     selectedItems: any[] = [];
     currentView = 'basic';
 
-    constructor(private snackBar: MatSnackBar) { }
+    constructor(private notification: AmwNotificationService) { }
 
     ngOnInit(): void {
         // Initialize component
@@ -400,22 +393,22 @@ export class ListPageDemoComponent implements OnInit, OnDestroy {
 
     onItemSelect(event: { item: any; selected: boolean }): void {
         console.log('Item selected:', event);
-        this.snackBar.open(`Item ${event.selected ? 'selected' : 'deselected'}`, 'Close', { duration: 2000 });
+        this.notification.info('Info', `Item ${event.selected ? 'selected' : 'deselected'}`, { duration: 2000 });
     }
 
     onItemClick(item: any): void {
-        this.snackBar.open(`Clicked on ${item.name}`, 'Close', { duration: 2000 });
+        this.notification.info('Info', `Clicked on ${item.name}`, { duration: 2000 });
         console.log('Item clicked:', item);
     }
 
     onActionClick(event: { action: string; item: any }): void {
         console.log('Action clicked:', event);
-        this.snackBar.open(`Action ${event.action} performed on item`, 'Close', { duration: 2000 });
+        this.notification.info('Info', `Action ${event.action} performed on item`, { duration: 2000 });
     }
 
     onBulkActionClick(event: { action: string; items: any[] }): void {
         console.log('Bulk action clicked:', event);
-        this.snackBar.open(`Bulk action ${event.action} performed on ${event.items.length} items`, 'Close', { duration: 2000 });
+        this.notification.info('Info', `Bulk action ${event.action} performed on ${event.items.length} items`, { duration: 2000 });
     }
 
     onFilterChange(event: { filters: { [key: string]: any }; searchQuery: string }): void {

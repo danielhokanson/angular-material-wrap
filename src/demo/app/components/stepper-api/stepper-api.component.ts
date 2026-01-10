@@ -5,7 +5,9 @@ import { MatTabsModule } from '@angular/material/tabs';
 @Component({
     selector: 'amw-demo-stepper-api',
     standalone: true,
-    imports: [MatTabsModule],
+    imports: [
+    MatTabsModule
+],
     encapsulation: ViewEncapsulation.None,
     templateUrl: './stepper-api.component.html',
     styleUrl: './stepper-api.component.scss'

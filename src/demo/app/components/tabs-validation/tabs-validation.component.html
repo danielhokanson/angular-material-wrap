@@ -25,39 +25,48 @@
               <h4>Step 1: Personal Information</h4>
               <form [formGroup]="personalInfoForm">
                 <div class="form-row">
-                  <mat-form-field appearance="outline" class="half-width">
-                    <mat-label>First Name</mat-label>
-                    <input matInput formControlName="firstName" placeholder="John" />
-                    @if (personalInfoForm.get('firstName')?.invalid && personalInfoForm.get('firstName')?.touched) {
-                      <mat-error>{{ getErrorMessage(personalInfoForm, 'firstName') }}</mat-error>
-                    }
-                  </mat-form-field>
+                  <amw-input
+                    class="half-width"
+                    label="First Name"
+                    formControlName="firstName"
+                    placeholder="John">
+                  </amw-input>
+                  @if (personalInfoForm.get('firstName')?.invalid && personalInfoForm.get('firstName')?.touched) {
+                    <div class="field-error">{{ getErrorMessage(personalInfoForm, 'firstName') }}</div>
+                  }
 
-                  <mat-form-field appearance="outline" class="half-width">
-                    <mat-label>Last Name</mat-label>
-                    <input matInput formControlName="lastName" placeholder="Doe" />
-                    @if (personalInfoForm.get('lastName')?.invalid && personalInfoForm.get('lastName')?.touched) {
-                      <mat-error>{{ getErrorMessage(personalInfoForm, 'lastName') }}</mat-error>
-                    }
-                  </mat-form-field>
+                  <amw-input
+                    class="half-width"
+                    label="Last Name"
+                    formControlName="lastName"
+                    placeholder="Doe">
+                  </amw-input>
+                  @if (personalInfoForm.get('lastName')?.invalid && personalInfoForm.get('lastName')?.touched) {
+                    <div class="field-error">{{ getErrorMessage(personalInfoForm, 'lastName') }}</div>
+                  }
                 </div>
 
-                <mat-form-field appearance="outline" class="full-width">
-                  <mat-label>Email</mat-label>
-                  <input matInput formControlName="email" type="email" placeholder="john.doe@example.com" />
-                  @if (personalInfoForm.get('email')?.invalid && personalInfoForm.get('email')?.touched) {
-                    <mat-error>{{ getErrorMessage(personalInfoForm, 'email') }}</mat-error>
-                  }
-                </mat-form-field>
+                <amw-input
+                  class="full-width"
+                  label="Email"
+                  formControlName="email"
+                  type="email"
+                  placeholder="john.doe@example.com">
+                </amw-input>
+                @if (personalInfoForm.get('email')?.invalid && personalInfoForm.get('email')?.touched) {
+                  <div class="field-error">{{ getErrorMessage(personalInfoForm, 'email') }}</div>
+                }
 
-                <mat-form-field appearance="outline" class="full-width">
-                  <mat-label>Phone Number</mat-label>
-                  <input matInput formControlName="phone" placeholder="1234567890" />
-                  @if (personalInfoForm.get('phone')?.invalid && personalInfoForm.get('phone')?.touched) {
-                    <mat-error>{{ getErrorMessage(personalInfoForm, 'phone') }}</mat-error>
-                  }
-                  <mat-hint>Enter 10 digits without spaces or dashes</mat-hint>
-                </mat-form-field>
+                <amw-input
+                  class="full-width"
+                  label="Phone Number"
+                  formControlName="phone"
+                  placeholder="1234567890"
+                  hint="Enter 10 digits without spaces or dashes">
+                </amw-input>
+                @if (personalInfoForm.get('phone')?.invalid && personalInfoForm.get('phone')?.touched) {
+                  <div class="field-error">{{ getErrorMessage(personalInfoForm, 'phone') }}</div>
+                }
               </form>
             </div>
           </mat-tab>
@@ -73,38 +82,45 @@
             <div class="tab-content">
               <h4>Step 2: Account Details</h4>
               <form [formGroup]="accountDetailsForm">
-                <mat-form-field appearance="outline" class="full-width">
-                  <mat-label>Username</mat-label>
-                  <input matInput formControlName="username" placeholder="johndoe" />
-                  @if (accountDetailsForm.get('username')?.invalid && accountDetailsForm.get('username')?.touched) {
-                    <mat-error>{{ getErrorMessage(accountDetailsForm, 'username') }}</mat-error>
-                  }
-                  <mat-hint>Minimum 4 characters</mat-hint>
-                </mat-form-field>
-
-                <mat-form-field appearance="outline" class="full-width">
-                  <mat-label>Password</mat-label>
-                  <input matInput formControlName="password" type="password" />
-                  @if (accountDetailsForm.get('password')?.invalid && accountDetailsForm.get('password')?.touched) {
-                    <mat-error>{{ getErrorMessage(accountDetailsForm, 'password') }}</mat-error>
-                  }
-                  <mat-hint>Minimum 8 characters</mat-hint>
-                </mat-form-field>
-
-                <mat-form-field appearance="outline" class="full-width">
-                  <mat-label>Confirm Password</mat-label>
-                  <input matInput formControlName="confirmPassword" type="password" />
-                  @if (getPasswordMatchError()) {
-                    <mat-error>{{ getPasswordMatchError() }}</mat-error>
-                  }
-                </mat-form-field>
-
-                @if (getPasswordMatchError()) {
-                  <div class="password-error">
-                    <mat-icon>error</mat-icon>
-                    <span>{{ getPasswordMatchError() }}</span>
-                  </div>
+                <amw-input
+                  class="full-width"
+                  label="Username"
+                  formControlName="username"
+                  placeholder="johndoe"
+                  hint="Minimum 4 characters">
+                </amw-input>
+                @if (accountDetailsForm.get('username')?.invalid && accountDetailsForm.get('username')?.touched) {
+                  <div class="field-error">{{ getErrorMessage(accountDetailsForm, 'username') }}</div>
                 }
+
+                <amw-input
+                  class="full-width"
+                  label="Password"
+                  formControlName="password"
+                  type="password"
+                  hint="Minimum 8 characters">
+                </amw-input>
+                @if (accountDetailsForm.get('password')?.invalid && accountDetailsForm.get('password')?.touched) {
+                  <div class="field-error">{{ getErrorMessage(accountDetailsForm, 'password') }}</div>
+                }
+
+                <amw-input
+                  class="full-width"
+                  label="Confirm Password"
+                  formControlName="confirmPassword"
+                  type="password">
+                </amw-input>
+                @if (accountDetailsForm.get('confirmPassword')?.invalid && accountDetailsForm.get('confirmPassword')?.touched) {
+                  <div class="field-error">{{ getErrorMessage(accountDetailsForm, 'confirmPassword') }}</div>
+                }
+
+                <!-- Form-level validation using AMW -->
+                <amw-form-validation
+                  [form]="accountDetailsForm"
+                  [errors]="accountDetailsValidation"
+                  displayMode="inline"
+                  position="bottom">
+                </amw-form-validation>
               </form>
             </div>
           </mat-tab>
@@ -120,42 +136,42 @@
             <div class="tab-content">
               <h4>Step 3: Preferences</h4>
               <form [formGroup]="preferencesForm">
-                <mat-form-field appearance="outline" class="full-width">
-                  <mat-label>Language</mat-label>
-                  <mat-select formControlName="language">
-                    <mat-option value="en">English</mat-option>
-                    <mat-option value="es">Spanish</mat-option>
-                    <mat-option value="fr">French</mat-option>
-                    <mat-option value="de">German</mat-option>
-                  </mat-select>
-                  @if (preferencesForm.get('language')?.invalid && preferencesForm.get('language')?.touched) {
-                    <mat-error>{{ getErrorMessage(preferencesForm, 'language') }}</mat-error>
-                  }
-                </mat-form-field>
+                <amw-select
+                  class="full-width"
+                  label="Language"
+                  formControlName="language">
+                  <mat-option value="en">English</mat-option>
+                  <mat-option value="es">Spanish</mat-option>
+                  <mat-option value="fr">French</mat-option>
+                  <mat-option value="de">German</mat-option>
+                </amw-select>
+                @if (preferencesForm.get('language')?.invalid && preferencesForm.get('language')?.touched) {
+                  <div class="field-error">{{ getErrorMessage(preferencesForm, 'language') }}</div>
+                }
 
-                <mat-form-field appearance="outline" class="full-width">
-                  <mat-label>Timezone</mat-label>
-                  <mat-select formControlName="timezone">
-                    <mat-option value="UTC">UTC</mat-option>
-                    <mat-option value="EST">Eastern Time</mat-option>
-                    <mat-option value="CST">Central Time</mat-option>
-                    <mat-option value="MST">Mountain Time</mat-option>
-                    <mat-option value="PST">Pacific Time</mat-option>
-                  </mat-select>
-                  @if (preferencesForm.get('timezone')?.invalid && preferencesForm.get('timezone')?.touched) {
-                    <mat-error>{{ getErrorMessage(preferencesForm, 'timezone') }}</mat-error>
-                  }
-                </mat-form-field>
+                <amw-select
+                  class="full-width"
+                  label="Timezone"
+                  formControlName="timezone">
+                  <mat-option value="UTC">UTC</mat-option>
+                  <mat-option value="EST">Eastern Time</mat-option>
+                  <mat-option value="CST">Central Time</mat-option>
+                  <mat-option value="MST">Mountain Time</mat-option>
+                  <mat-option value="PST">Pacific Time</mat-option>
+                </amw-select>
+                @if (preferencesForm.get('timezone')?.invalid && preferencesForm.get('timezone')?.touched) {
+                  <div class="field-error">{{ getErrorMessage(preferencesForm, 'timezone') }}</div>
+                }
 
-                <mat-form-field appearance="outline" class="full-width">
-                  <mat-label>Notification Preference</mat-label>
-                  <mat-select formControlName="notifications">
-                    <mat-option value="email">Email</mat-option>
-                    <mat-option value="sms">SMS</mat-option>
-                    <mat-option value="both">Both</mat-option>
-                    <mat-option value="none">None</mat-option>
-                  </mat-select>
-                </mat-form-field>
+                <amw-select
+                  class="full-width"
+                  label="Notification Preference"
+                  formControlName="notifications">
+                  <mat-option value="email">Email</mat-option>
+                  <mat-option value="sms">SMS</mat-option>
+                  <mat-option value="both">Both</mat-option>
+                  <mat-option value="none">None</mat-option>
+                </amw-select>
               </form>
             </div>
           </mat-tab>
@@ -223,32 +239,23 @@
 
         <!-- Navigation Buttons -->
         <div class="tab-navigation">
-          <button
-            mat-raised-button
+          <amw-button variant="elevated"
             (click)="previousStep()"
-            [disabled]="selectedTabIndex === 0">
-            <mat-icon>arrow_back</mat-icon>
-            Previous
-          </button>
+            [disabled]="selectedTabIndex === 0" icon="arrow_back" iconPosition="left">Previous</amw-button>
 
           @if (selectedTabIndex < 3) {
-            <button
-              mat-raised-button
+            <amw-button variant="elevated"
               color="primary"
               (click)="nextStep()"
               [disabled]="!canProceed()">
               Next
               <mat-icon>arrow_forward</mat-icon>
-            </button>
+            </amw-button>
           } @else {
-            <button
-              mat-raised-button
+            <amw-button variant="elevated"
               color="primary"
               (click)="submitForm()"
-              [disabled]="!isFormComplete()">
-              <mat-icon>send</mat-icon>
-              Submit
-            </button>
+              [disabled]="!isFormComplete()" icon="send" iconPosition="left">Submit</amw-button>
           }
         </div>
 

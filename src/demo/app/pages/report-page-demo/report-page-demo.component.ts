@@ -1,14 +1,8 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
 
-import { MatCardModule } from '@angular/material/card';
-import { MatButtonModule } from '@angular/material/button';
 import { MatIconModule } from '@angular/material/icon';
-import { MatChipsModule } from '@angular/material/chips';
-import { MatDividerModule } from '@angular/material/divider';
-import { MatTabsModule } from '@angular/material/tabs';
-import { MatExpansionModule } from '@angular/material/expansion';
 import { MatTooltipModule } from '@angular/material/tooltip';
-import { MatSnackBarModule, MatSnackBar } from '@angular/material/snack-bar';
+import { AmwNotificationService } from '../../../../library/src/services/amw-notification/amw-notification.service';
 import { Subject, takeUntil, BehaviorSubject, Observable, of } from 'rxjs';
 import { delay } from 'rxjs/operators';
 
@@ -309,21 +303,18 @@ class ReportPageDemoDataSource implements ReportPageDataSource {
         ];
     }
 }
+import { MatTabsModule } from '@angular/material/tabs';
+import { MatCardModule } from '@angular/material/card';
 
 @Component({
     selector: 'app-report-page-demo',
     standalone: true,
     imports: [
-    MatCardModule,
-    MatButtonModule,
     MatIconModule,
-    MatChipsModule,
-    MatDividerModule,
-    MatTabsModule,
-    MatExpansionModule,
     MatTooltipModule,
-    MatSnackBarModule,
-    AmwReportPageComponent
+    AmwReportPageComponent,
+    MatTabsModule,
+    MatCardModule
 ],
     templateUrl: './report-page-demo.component.html',
     styleUrl: './report-page-demo.component.scss'
@@ -396,7 +387,7 @@ export class ReportPageDemoComponent implements OnInit, OnDestroy {
                 icon: 'schedule',
                 color: 'primary',
                 onClick: (data: any) => {
-                    this.snackBar.open('Scheduling report', 'Close', { duration: 2000 });
+                    this.notification.info('Info', 'Scheduling report', { duration: 2000 });
                 }
             },
             {
@@ -405,7 +396,7 @@ export class ReportPageDemoComponent implements OnInit, OnDestroy {
                 icon: 'share',
                 color: 'accent',
                 onClick: (data: any) => {
-                    this.snackBar.open('Sharing dashboard', 'Close', { duration: 2000 });
+                    this.notification.info('Info', 'Sharing dashboard', { duration: 2000 });
                 }
             }
         ]
@@ -417,7 +408,7 @@ export class ReportPageDemoComponent implements OnInit, OnDestroy {
     // State
     currentView = 'basic';
 
-    constructor(private snackBar: MatSnackBar) { }
+    constructor(private notification: AmwNotificationService) { }
 
     ngOnInit(): void {
         // Initialize component
@@ -429,7 +420,7 @@ export class ReportPageDemoComponent implements OnInit, OnDestroy {
     }
 
     onWidgetClick(event: { widget: ReportWidget; data: any }): void {
-        this.snackBar.open(`Clicked on ${event.widget.title}`, 'Close', { duration: 2000 });
+        this.notification.info('Info', `Clicked on ${event.widget.title}`, { duration: 2000 });
         console.log('Widget clicked:', event);
     }
 
@@ -442,7 +433,7 @@ export class ReportPageDemoComponent implements OnInit, OnDestroy {
     }
 
     onExportClick(event: { format: string; data: any }): void {
-        this.snackBar.open(`Exporting as ${event.format.toUpperCase()}`, 'Close', { duration: 2000 });
+        this.notification.info('Info', `Exporting as ${event.format.toUpperCase()}`, { duration: 2000 });
         console.log('Export clicked:', event);
     }
 
@@ -461,7 +452,7 @@ export class ReportPageDemoComponent implements OnInit, OnDestroy {
                         icon: 'analytics',
                         color: 'accent',
                         onClick: (data: any) => {
-                            this.snackBar.open('Opening advanced analytics', 'Close', { duration: 2000 });
+                            this.notification.info('Info', 'Opening advanced analytics', { duration: 2000 });
                         }
                     }
                 ]

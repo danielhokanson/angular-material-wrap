@@ -4,25 +4,21 @@ import { RouterModule } from '@angular/router';
 import { MatSidenavModule } from '@angular/material/sidenav';
 import { MatListModule } from '@angular/material/list';
 import { MatIconModule } from '@angular/material/icon';
-import { MatButtonModule } from '@angular/material/button';
-import { MatToolbarModule } from '@angular/material/toolbar';
-import { MatExpansionModule } from '@angular/material/expansion';
 
 import { ThemeMenuComponent } from '../theme-menu/theme-menu.component';
+import { MatToolbarModule } from '@angular/material/toolbar';
 
+import { AmwButtonComponent } from '../../../../library/src/controls/components/amw-button/amw-button.component';
 @Component({
     selector: 'amw-demo-navigation',
     standalone: true,
-    imports: [
-    RouterModule,
+    imports: [RouterModule,
     MatSidenavModule,
     MatListModule,
     MatIconModule,
-    MatButtonModule,
+    ThemeMenuComponent,
     MatToolbarModule,
-    MatExpansionModule,
-    ThemeMenuComponent
-],
+    AmwButtonComponent],
     templateUrl: './demo-navigation.component.html',
     styleUrl: './demo-navigation.component.scss'
 })
@@ -126,7 +122,9 @@ export class DemoNavigationComponent {
                 { title: 'Form/Create-Edit', route: '/pages/form', icon: 'edit' },
                 { title: 'Search/Filter', route: '/pages/search', icon: 'search' },
                 { title: 'Workflow/Process', route: '/pages/workflow', icon: 'account_tree' },
-                { title: 'Report/Analytics', route: '/pages/report', icon: 'analytics' }
+                { title: 'Report/Analytics', route: '/pages/report', icon: 'analytics' },
+                { title: 'Master-Detail', route: '/pages/master-detail', icon: 'view_agenda' },
+                { title: 'Dashboard Page', route: '/pages/dashboard-page', icon: 'grid_view' }
             ]
         },
         {

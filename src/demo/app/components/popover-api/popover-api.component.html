@@ -19,12 +19,8 @@
               <h4>Selector</h4>
               <div class="popover-api__code-block">
                 <code>{{ apiDocumentation.component.selector }}</code>
-                <button
-                  mat-icon-button
-                  (click)="copyCode(apiDocumentation.component.selector, 'Selector')"
-                  matTooltip="Copy selector">
-                  <mat-icon>content_copy</mat-icon>
-                </button>
+                <amw-button variant="icon" icon="content_copy" (click)="copyCode(apiDocumentation.component.selector, 'Selector')"
+                  matTooltip="Copy selector"></amw-button>
               </div>
             </div>
 
@@ -251,12 +247,8 @@
               <div class="popover-api__code-block">
                 <div class="popover-api__code-header">
                   <span class="popover-api__code-title">HTML Template</span>
-                  <button
-                    mat-icon-button
-                    (click)="copyCode(getBasicUsageHtml(), 'HTML')"
-                    matTooltip="Copy HTML code">
-                    <mat-icon>content_copy</mat-icon>
-                  </button>
+                  <amw-button variant="icon" icon="content_copy" (click)="copyCode(getBasicUsageHtml(), 'HTML')"
+                    matTooltip="Copy HTML code"></amw-button>
                 </div>
                 <pre><code [class]="getSyntaxClass('html')">{{ getBasicUsageHtml() }}</code></pre>
               </div>
@@ -267,12 +259,8 @@
               <div class="popover-api__code-block">
                 <div class="popover-api__code-header">
                   <span class="popover-api__code-title">TypeScript</span>
-                  <button
-                    mat-icon-button
-                    (click)="copyCode(getBasicUsageTypescript(), 'TypeScript')"
-                    matTooltip="Copy TypeScript code">
-                    <mat-icon>content_copy</mat-icon>
-                  </button>
+                  <amw-button variant="icon" icon="content_copy" (click)="copyCode(getBasicUsageTypescript(), 'TypeScript')"
+                    matTooltip="Copy TypeScript code"></amw-button>
                 </div>
                 <pre><code [class]="getSyntaxClass('typescript')">{{ getBasicUsageTypescript() }}</code></pre>
               </div>
@@ -283,12 +271,8 @@
               <div class="popover-api__code-block">
                 <div class="popover-api__code-header">
                   <span class="popover-api__code-title">Service</span>
-                  <button
-                    mat-icon-button
-                    (click)="copyCode(getServiceUsage(), 'TypeScript')"
-                    matTooltip="Copy TypeScript code">
-                    <mat-icon>content_copy</mat-icon>
-                  </button>
+                  <amw-button variant="icon" icon="content_copy" (click)="copyCode(getServiceUsage(), 'TypeScript')"
+                    matTooltip="Copy TypeScript code"></amw-button>
                 </div>
                 <pre><code [class]="getSyntaxClass('typescript')">{{ getServiceUsage() }}</code></pre>
               </div>
@@ -304,25 +288,13 @@
       <p>Test the popover with current configuration and service methods</p>
 
       <div class="popover-api__demo-actions">
-        <button mat-raised-button color="primary" (click)="testServiceMethods()">
-          <mat-icon>play_arrow</mat-icon>
-          Test Service Methods
-        </button>
+        <amw-button variant="elevated" color="primary" (click)="testServiceMethods()" icon="play_arrow" iconPosition="left">Test Service Methods</amw-button>
 
-        <button mat-raised-button color="accent" (click)="testConfigUpdates()">
-          <mat-icon>settings</mat-icon>
-          Test Config Updates
-        </button>
+        <amw-button variant="elevated" color="accent" (click)="testConfigUpdates()" icon="settings" iconPosition="left">Test Config Updates</amw-button>
 
-        <button mat-raised-button color="warn" (click)="testTriggerUpdates()">
-          <mat-icon>touch_app</mat-icon>
-          Test Trigger Updates
-        </button>
+        <amw-button variant="elevated" color="warn" (click)="testTriggerUpdates()" icon="touch_app" iconPosition="left">Test Trigger Updates</amw-button>
 
-        <button mat-button (click)="resetConfiguration()">
-          <mat-icon>refresh</mat-icon>
-          Reset
-        </button>
+        <amw-button variant="text" (click)="resetConfiguration()" icon="refresh" iconPosition="left">Reset</amw-button>
       </div>
 
       <div class="popover-api__demo-container">
@@ -338,10 +310,7 @@
 
           <!-- Trigger Template -->
           <ng-template #trigger>
-            <button mat-raised-button color="primary">
-              <mat-icon>api</mat-icon>
-              API Demo
-            </button>
+            <amw-button variant="elevated" color="primary" icon="api" iconPosition="left">API Demo</amw-button>
           </ng-template>
 
           <!-- Content Template -->
@@ -376,10 +345,7 @@
               </div>
 
               <div class="popover-api__content-actions">
-                <button mat-button (click)="onPopoverBeforeClose()">
-                  <mat-icon>close</mat-icon>
-                  Close
-                </button>
+                <amw-button variant="text" (click)="onPopoverBeforeClose()" icon="close" iconPosition="left">Close</amw-button>
               </div>
             </div>
           </ng-template>

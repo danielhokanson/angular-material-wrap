@@ -16,9 +16,7 @@
         <div class="code-panel">
           <div class="code-header">
             <h4>Code</h4>
-            <button mat-icon-button (click)="resetCode('basic')" title="Reset to original">
-              <mat-icon>refresh</mat-icon>
-            </button>
+            <amw-button variant="icon" icon="refresh" (click)="resetCode('basic')" title="Reset to original"></amw-button>
           </div>
           <textarea
             [(ngModel)]="editableCode.basic"
@@ -28,10 +26,11 @@
         <div class="preview-panel">
           <h4>Preview</h4>
           <div class="preview-content">
-            <mat-form-field>
-              <mat-label>Basic Input</mat-label>
-              <input matInput placeholder="Enter text" [(ngModel)]="basicValue">
-            </mat-form-field>
+            <amw-input
+              label="Basic Input"
+              placeholder="Enter text"
+              [(ngModel)]="basicValue">
+            </amw-input>
           </div>
         </div>
       </div>
@@ -50,9 +49,7 @@
         <div class="code-panel">
           <div class="code-header">
             <h4>Code</h4>
-            <button mat-icon-button (click)="resetCode('withLabel')" title="Reset to original">
-              <mat-icon>refresh</mat-icon>
-            </button>
+            <amw-button variant="icon" icon="refresh" (click)="resetCode('withLabel')" title="Reset to original"></amw-button>
           </div>
           <textarea
             [(ngModel)]="editableCode.withLabel"
@@ -62,15 +59,17 @@
         <div class="preview-panel">
           <h4>Preview</h4>
           <div class="preview-content">
-            <mat-form-field appearance="fill">
-              <mat-label>Fill Appearance</mat-label>
-              <input matInput placeholder="Placeholder text">
-            </mat-form-field>
+            <amw-input
+              label="Fill Appearance"
+              placeholder="Placeholder text"
+              appearance="fill">
+            </amw-input>
 
-            <mat-form-field appearance="outline">
-              <mat-label>Outline Appearance</mat-label>
-              <input matInput placeholder="Placeholder text">
-            </mat-form-field>
+            <amw-input
+              label="Outline Appearance"
+              placeholder="Placeholder text"
+              appearance="outline">
+            </amw-input>
           </div>
         </div>
       </div>
@@ -89,9 +88,7 @@
         <div class="code-panel">
           <div class="code-header">
             <h4>Code</h4>
-            <button mat-icon-button (click)="resetCode('withHint')" title="Reset to original">
-              <mat-icon>refresh</mat-icon>
-            </button>
+            <amw-button variant="icon" icon="refresh" (click)="resetCode('withHint')" title="Reset to original"></amw-button>
           </div>
           <textarea
             [(ngModel)]="editableCode.withHint"
@@ -101,11 +98,11 @@
         <div class="preview-panel">
           <h4>Preview</h4>
           <div class="preview-content">
-            <mat-form-field>
-              <mat-label>Username</mat-label>
-              <input matInput placeholder="Enter username">
-              <mat-hint>Choose a unique username</mat-hint>
-            </mat-form-field>
+            <amw-input
+              label="Username"
+              placeholder="Enter username"
+              hint="Choose a unique username">
+            </amw-input>
           </div>
         </div>
       </div>
@@ -124,9 +121,7 @@
         <div class="code-panel">
           <div class="code-header">
             <h4>Code</h4>
-            <button mat-icon-button (click)="resetCode('withError')" title="Reset to original">
-              <mat-icon>refresh</mat-icon>
-            </button>
+            <amw-button variant="icon" icon="refresh" (click)="resetCode('withError')" title="Reset to original"></amw-button>
           </div>
           <textarea
             [(ngModel)]="editableCode.withError"
@@ -136,11 +131,14 @@
         <div class="preview-panel">
           <h4>Preview</h4>
           <div class="preview-content">
-            <mat-form-field>
-              <mat-label>Email</mat-label>
-              <input matInput type="email" placeholder="email@example.com" [(ngModel)]="emailValue" required>
+            <amw-input
+              label="Email"
+              type="email"
+              placeholder="email@example.com"
+              [(ngModel)]="emailValue"
+              required>
               <mat-error>Please enter a valid email</mat-error>
-            </mat-form-field>
+            </amw-input>
           </div>
         </div>
       </div>
@@ -159,9 +157,7 @@
         <div class="code-panel">
           <div class="code-header">
             <h4>Code</h4>
-            <button mat-icon-button (click)="resetCode('withIcon')" title="Reset to original">
-              <mat-icon>refresh</mat-icon>
-            </button>
+            <amw-button variant="icon" icon="refresh" (click)="resetCode('withIcon')" title="Reset to original"></amw-button>
           </div>
           <textarea
             [(ngModel)]="editableCode.withIcon"
@@ -171,18 +167,19 @@
         <div class="preview-panel">
           <h4>Preview</h4>
           <div class="preview-content">
-            <mat-form-field>
-              <mat-label>Search</mat-label>
-              <input matInput placeholder="Search...">
+            <amw-input
+              label="Search"
+              placeholder="Search...">
               <mat-icon matPrefix>search</mat-icon>
-            </mat-form-field>
+            </amw-input>
 
-            <mat-form-field>
-              <mat-label>Amount</mat-label>
-              <input matInput type="number" placeholder="0">
+            <amw-input
+              label="Amount"
+              type="number"
+              placeholder="0">
               <span matPrefix>$&nbsp;</span>
               <span matSuffix>.00</span>
-            </mat-form-field>
+            </amw-input>
           </div>
         </div>
       </div>
@@ -201,9 +198,7 @@
         <div class="code-panel">
           <div class="code-header">
             <h4>Code</h4>
-            <button mat-icon-button (click)="resetCode('disabled')" title="Reset to original">
-              <mat-icon>refresh</mat-icon>
-            </button>
+            <amw-button variant="icon" icon="refresh" (click)="resetCode('disabled')" title="Reset to original"></amw-button>
           </div>
           <textarea
             [(ngModel)]="editableCode.disabled"
@@ -213,15 +208,17 @@
         <div class="preview-panel">
           <h4>Preview</h4>
           <div class="preview-content">
-            <mat-form-field>
-              <mat-label>Disabled Input</mat-label>
-              <input matInput disabled [value]="disabledValue">
-            </mat-form-field>
+            <amw-input
+              label="Disabled Input"
+              disabled
+              [value]="disabledValue">
+            </amw-input>
 
-            <mat-form-field>
-              <mat-label>Readonly Input</mat-label>
-              <input matInput readonly [value]="readonlyValue">
-            </mat-form-field>
+            <amw-input
+              label="Readonly Input"
+              readonly
+              [value]="readonlyValue">
+            </amw-input>
           </div>
         </div>
       </div>
@@ -240,9 +237,7 @@
         <div class="code-panel">
           <div class="code-header">
             <h4>Code</h4>
-            <button mat-icon-button (click)="resetCode('textarea')" title="Reset to original">
-              <mat-icon>refresh</mat-icon>
-            </button>
+            <amw-button variant="icon" icon="refresh" (click)="resetCode('textarea')" title="Reset to original"></amw-button>
           </div>
           <textarea
             [(ngModel)]="editableCode.textarea"
@@ -252,10 +247,11 @@
         <div class="preview-panel">
           <h4>Preview</h4>
           <div class="preview-content">
-            <mat-form-field>
-              <mat-label>Description</mat-label>
-              <textarea matInput rows="4" placeholder="Enter description"></textarea>
-            </mat-form-field>
+            <amw-textarea
+              label="Description"
+              rows="4"
+              placeholder="Enter description">
+            </amw-textarea>
           </div>
         </div>
       </div>

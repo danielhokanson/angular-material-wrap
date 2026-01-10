@@ -2,10 +2,7 @@ import { Component, Input, Output, EventEmitter, OnInit, OnDestroy, ViewEncapsul
 import { CommonModule } from '@angular/common';
 import { FormsModule, ReactiveFormsModule, FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { MatCardModule } from '@angular/material/card';
-import { MatButtonModule } from '@angular/material/button';
 import { MatIconModule } from '@angular/material/icon';
-import { MatInputModule } from '@angular/material/input';
-import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatSelectModule } from '@angular/material/select';
 import { MatCheckboxModule } from '@angular/material/checkbox';
 import { MatRadioModule } from '@angular/material/radio';
@@ -15,9 +12,7 @@ import { MatChipsModule } from '@angular/material/chips';
 import { MatDividerModule } from '@angular/material/divider';
 import { MatTabsModule } from '@angular/material/tabs';
 import { MatExpansionModule } from '@angular/material/expansion';
-import { MatTooltipModule } from '@angular/material/tooltip';
 import { MatSnackBarModule, MatSnackBar } from '@angular/material/snack-bar';
-import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { Subject, takeUntil, BehaviorSubject, Observable, of } from 'rxjs';
 import { delay } from 'rxjs/operators';
 
@@ -29,6 +24,10 @@ import {
     FormPageData,
     FormPageDataSource
 } from './interfaces';
+import { AmwProgressSpinnerComponent } from '../../../components/components/amw-progress-spinner/amw-progress-spinner.component';
+import { AmwButtonComponent } from '../../../controls/components/amw-button/amw-button.component';
+import { AmwInputComponent } from '../../../controls/components/amw-input/amw-input.component';
+import { AmwTextareaComponent } from '../../../controls/components/amw-textarea/amw-textarea.component';
 
 // Default data source implementation
 @Injectable()
@@ -67,10 +66,10 @@ export class DefaultFormPageDataSource implements FormPageDataSource {
         FormsModule,
         ReactiveFormsModule,
         MatCardModule,
-        MatButtonModule,
+        AmwButtonComponent,
+        AmwInputComponent,
+        AmwTextareaComponent,
         MatIconModule,
-        MatInputModule,
-        MatFormFieldModule,
         MatSelectModule,
         MatCheckboxModule,
         MatRadioModule,
@@ -80,9 +79,8 @@ export class DefaultFormPageDataSource implements FormPageDataSource {
         MatDividerModule,
         MatTabsModule,
         MatExpansionModule,
-        MatTooltipModule,
         MatSnackBarModule,
-        MatProgressSpinnerModule
+        AmwProgressSpinnerComponent
     ],
     encapsulation: ViewEncapsulation.None,
     templateUrl: './amw-form-page.component.html',

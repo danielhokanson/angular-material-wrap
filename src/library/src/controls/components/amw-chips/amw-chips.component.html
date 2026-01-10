@@ -28,8 +28,8 @@
         [class]="chip.classes"
         [disabled]="chip.disabled"
         [removable]="canRemoveChip(chip)"
-        [matTooltip]="chip.label"
-        [matTooltipDisabled]="chip.label.length < 20"
+        [amwTooltip]="chip.label"
+        [tooltipDisabled]="chip.label.length < 20"
         (click)="canSelectChip(chip) && selectChip(chip, i)"
         (removed)="removeChip(chip, i)"
         [attr.aria-label]="chip.label"
@@ -53,14 +53,14 @@
         <span class="amw-chips__chip-label">{{ chip.label }}</span>
         <!-- Menu Button -->
         @if (shouldShowMenu(chip)) {
-          <button
+          <amw-button
+            variant="icon"
             class="amw-chips__chip-menu"
-            mat-icon-button
             [matMenuTriggerFor]="chipMenu"
             [attr.aria-label]="'Menu for ' + chip.label"
             (click)="openMenu(chip, $event)">
             <span class="amw-chips__menu-icon">⋮</span>
-          </button>
+          </amw-button>
         }
         <!-- Remove Button -->
         @if (canRemoveChip(chip)) {
@@ -94,7 +94,7 @@
       </button>
     }
     @if (getCurrentMenuItems().length > 1) {
-      <mat-divider></mat-divider>
+      <amw-divider></amw-divider>
     }
   </mat-menu>
 
@@ -162,22 +162,23 @@
   @if (!showInput && addable) {
     <div
       class="amw-chips__actions">
-      <button mat-icon-button
+      <amw-button
+        variant="icon"
+        icon="add"
         class="amw-chips__add-button"
         [disabled]="disabled || (maxChips && internalChips.length >= maxChips)"
-        [matTooltip]="'Add chip'"
+        [amwTooltip]="'Add chip'"
         (click)="focusInput()">
-        <mat-icon>add</mat-icon>
-      </button>
+      </amw-button>
       @if (internalChips.length > 0) {
-        <button
-          mat-icon-button
+        <amw-button
+          variant="icon"
+          icon="clear_all"
           class="amw-chips__clear-button"
           [disabled]="disabled"
-          [matTooltip]="'Clear all chips'"
+          [amwTooltip]="'Clear all chips'"
           (click)="clearChips()">
-          <mat-icon>clear_all</mat-icon>
-        </button>
+        </amw-button>
       }
     </div>
   }

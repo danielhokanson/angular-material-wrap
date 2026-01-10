@@ -1,11 +1,7 @@
 <div class="amw-demo-theme-menu">
-  <button
-    mat-icon-button
-    [matMenuTriggerFor]="themeMenu"
+  <amw-button variant="icon" icon="palette"[matMenuTriggerFor]="themeMenu"
     matTooltip="Theme Options"
-    class="theme-menu-button">
-    <mat-icon>palette</mat-icon>
-  </button>
+    class="theme-menu-button"></amw-button>
 
   <mat-menu #themeMenu="matMenu" class="theme-menu">
     <div class="theme-menu-header">
@@ -68,7 +64,7 @@
                 [style.background-color]="theme.colors.accent">
               </div>
             </div>
-          </button>
+          </amw-button>
         }
       </div>
     </div>
@@ -83,14 +79,14 @@
         class="theme-action-item">
         <mat-icon>edit</mat-icon>
         <span>Manage Themes</span>
-      </button>
+      </amw-button>
       <button
         mat-menu-item
         routerLink="/theme"
         class="theme-action-item">
         <mat-icon>add</mat-icon>
         <span>Create Theme</span>
-      </button>
+      </amw-button>
     </div>
   </mat-menu>
 </div>

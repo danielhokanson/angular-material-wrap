@@ -1,28 +1,22 @@
 import { Component, OnInit } from '@angular/core';
 
-import { MatCardModule } from '@angular/material/card';
-import { MatButtonModule } from '@angular/material/button';
 import { MatIconModule } from '@angular/material/icon';
 import { MatGridListModule } from '@angular/material/grid-list';
-import { MatProgressBarModule } from '@angular/material/progress-bar';
-import { MatDividerModule } from '@angular/material/divider';
 import { MatListModule } from '@angular/material/list';
-import { MatTabsModule } from '@angular/material/tabs';
 import { ViewEncapsulation } from '@angular/core';
+import { MatProgressBarModule } from '@angular/material/progress-bar';
+import { MatCardModule } from '@angular/material/card';
 
+import { AmwButtonComponent } from '../../../../library/src/controls/components/amw-button/amw-button.component';
 @Component({
   selector: 'amw-demo-dashboard-page',
   standalone: true,
-  imports: [
-    MatCardModule,
-    MatButtonModule,
-    MatIconModule,
+  imports: [MatIconModule,
     MatGridListModule,
-    MatProgressBarModule,
-    MatDividerModule,
     MatListModule,
-    MatTabsModule
-],
+    MatProgressBarModule,
+    MatCardModule,
+    AmwButtonComponent],
   encapsulation: ViewEncapsulation.None,
   templateUrl: './dashboard-page.component.html',
   styleUrl: './dashboard-page.component.scss'

@@ -11,31 +11,28 @@
 
       <div class="amw-report-page__header-actions">
         @if (currentConfig.showRefresh) {
-        <button mat-icon-button (click)="onRefresh()" matTooltip="Refresh">
-          <mat-icon>refresh</mat-icon>
-        </button>
+        <amw-button variant="icon" icon="refresh" (click)="onRefresh()" [amwTooltip]="'Refresh'">
+        </amw-button>
         }
         @if (currentConfig.showFullscreen) {
-        <button mat-icon-button (click)="onToggleFullscreen()" matTooltip="Toggle Fullscreen">
-          <mat-icon>{{ isFullscreen ? 'fullscreen_exit' : 'fullscreen' }}</mat-icon>
-        </button>
+        <amw-button variant="icon"
+          [icon]="isFullscreen ? 'fullscreen_exit' : 'fullscreen'"
+          (click)="onToggleFullscreen()"
+          [amwTooltip]="'Toggle Fullscreen'">
+        </amw-button>
         }
-        <button mat-icon-button [matMenuTriggerFor]="exportMenu" matTooltip="Export">
-          <mat-icon>download</mat-icon>
-        </button>
+        <amw-button variant="icon" icon="download" [matMenuTriggerFor]="exportMenu" [amwTooltip]="'Export'">
+        </amw-button>
         <mat-menu #exportMenu="matMenu">
-          <button mat-menu-item (click)="onExport('pdf')">
-            <mat-icon>picture_as_pdf</mat-icon>
+          <amw-button variant="text" icon="picture_as_pdf" iconPosition="left" (click)="onExport('pdf')">
             Export as PDF
-          </button>
-          <button mat-menu-item (click)="onExport('excel')">
-            <mat-icon>table_chart</mat-icon>
+          </amw-button>
+          <amw-button variant="text" icon="table_chart" iconPosition="left" (click)="onExport('excel')">
             Export as Excel
-          </button>
-          <button mat-menu-item (click)="onExport('csv')">
-            <mat-icon>text_snippet</mat-icon>
+          </amw-button>
+          <amw-button variant="text" icon="text_snippet" iconPosition="left" (click)="onExport('csv')">
             Export as CSV
-          </button>
+          </amw-button>
         </mat-menu>
       </div>
     </div>
@@ -66,18 +63,22 @@
             </mat-select>
           </mat-form-field>
           @if (currentData.dateRange.preset === 'custom') {
-          <mat-form-field appearance="outline">
-            <mat-label>Start Date</mat-label>
-            <input matInput type="date" name="startDate" [ngModel]="currentData.dateRange.start"
-              (ngModelChange)="onDateRangeStartChange($event)">
-          </mat-form-field>
+          <amw-datepicker
+            label="Start Date"
+            name="startDate"
+            [ngModel]="currentData.dateRange.start"
+            (ngModelChange)="onDateRangeStartChange($event)"
+            appearance="outline">
+          </amw-datepicker>
           }
           @if (currentData.dateRange.preset === 'custom') {
-          <mat-form-field appearance="outline">
-            <mat-label>End Date</mat-label>
-            <input matInput type="date" name="endDate" [ngModel]="currentData.dateRange.end"
-              (ngModelChange)="onDateRangeEndChange($event)">
-          </mat-form-field>
+          <amw-datepicker
+            label="End Date"
+            name="endDate"
+            [ngModel]="currentData.dateRange.end"
+            (ngModelChange)="onDateRangeEndChange($event)"
+            appearance="outline">
+          </amw-datepicker>
           }
         </div>
         }
@@ -89,11 +90,14 @@
             @for (filter of currentConfig.filters; track filter) {
             <div class="amw-report-page__filter-field" [style.display]="filter.visible !== false ? 'block' : 'none'">
               @if (filter.type === 'text') {
-              <mat-form-field appearance="outline">
-                <mat-label>{{ filter.label }}</mat-label>
-                <input matInput name="filter_{{ filter.key }}" [ngModel]="currentData.filters?.[filter.key]"
-                  (ngModelChange)="onFilterValueChange(filter.key, $event)" [placeholder]="filter.placeholder || ''">
-              </mat-form-field>
+              <amw-input
+                [label]="filter.label"
+                name="filter_{{ filter.key }}"
+                [ngModel]="currentData.filters?.[filter.key]"
+                (ngModelChange)="onFilterValueChange(filter.key, $event)"
+                [placeholder]="filter.placeholder || ''"
+                appearance="outline">
+              </amw-input>
               }
               @if (filter.type === 'select') {
               <mat-form-field appearance="outline">
@@ -130,7 +134,7 @@
   <!-- Loading State -->
   @if (loading) {
   <div class="amw-report-page__loading">
-    <mat-spinner diameter="40"></mat-spinner>
+    <amw-progress-spinner diameter="40"></amw-progress-spinner>
     <p>Loading report data...</p>
   </div>
   }
@@ -140,7 +144,7 @@
   <div class="amw-report-page__error">
     <mat-icon>error</mat-icon>
     <p>{{ error }}</p>
-    <button mat-raised-button color="primary" (click)="onRefresh()">Retry</button>
+    <amw-button variant="elevated" color="primary" (click)="onRefresh()">Retry</amw-button>
   </div>
   }
 
@@ -170,9 +174,8 @@
               {{ widget.title }}
             </mat-card-title>
             <div class="amw-report-page__widget-actions">
-              <button mat-icon-button (click)="onRefreshWidget(widget)" matTooltip="Refresh">
-                <mat-icon>refresh</mat-icon>
-              </button>
+              <amw-button variant="icon" icon="refresh" (click)="onRefreshWidget(widget)" [amwTooltip]="'Refresh'">
+              </amw-button>
             </div>
           </mat-card-header>
           <mat-card-content (click)="onWidgetClick(widget)">
@@ -221,8 +224,8 @@
             @if (widget.type === 'progress') {
             <div class="amw-report-page__progress-widget">
               <div class="amw-report-page__progress-label">{{ widget.data.label }}</div>
-              <mat-progress-bar mode="determinate" [value]="widget.data.value" class="amw-report-page__progress-bar">
-              </mat-progress-bar>
+              <amw-progress-bar mode="determinate" [value]="widget.data.value" class="amw-report-page__progress-bar">
+              </amw-progress-bar>
               <div class="amw-report-page__progress-value">{{ widget.data.value }}%</div>
             </div>
             }

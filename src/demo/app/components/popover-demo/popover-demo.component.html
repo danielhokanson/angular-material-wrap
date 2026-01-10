@@ -5,20 +5,12 @@
     <p>Explore different popover configurations and trigger behaviors</p>
 
     <div class="popover-demo__actions">
-      <button
-        mat-raised-button
+      <amw-button variant="elevated"
         color="primary"
-        (click)="toggleConfig()">
-        <mat-icon>{{ showConfig ? 'settings' : 'tune' }}</mat-icon>
-        {{ showConfig ? 'Hide' : 'Show' }} Configuration
-      </button>
+        (click)="toggleConfig()" icon="{{ showConfig ? 'settings' : 'tune' }}" iconPosition="left">{{ showConfig ? 'Hide' : 'Show' }} Configuration</amw-button>
 
-      <button
-        mat-button
-        (click)="resetConfig()">
-        <mat-icon>refresh</mat-icon>
-        Reset
-      </button>
+      <amw-button variant="text"
+        (click)="resetConfig()" icon="refresh" iconPosition="left">Reset</amw-button>
     </div>
   </div>
 
@@ -32,104 +24,108 @@
       <mat-card-content>
         <form [formGroup]="configForm" class="popover-demo__form">
           <div class="popover-demo__form-row">
-            <mat-form-field appearance="outline">
-              <mat-label>Size</mat-label>
-              <mat-select formControlName="size">
-                @for (option of sizeOptions; track option) {
-                  <mat-option [value]="option.value">
-                    {{ option.label }}
-                  </mat-option>
-                }
-              </mat-select>
-            </mat-form-field>
-            <mat-form-field appearance="outline">
-              <mat-label>Position</mat-label>
-              <mat-select formControlName="position">
-                @for (option of positionOptions; track option) {
-                  <mat-option [value]="option.value">
-                    {{ option.label }}
-                  </mat-option>
-                }
-              </mat-select>
-            </mat-form-field>
-            <mat-form-field appearance="outline">
-              <mat-label>Arrow Size</mat-label>
-              <mat-select formControlName="arrowSize">
-                @for (option of arrowSizeOptions; track option) {
-                  <mat-option [value]="option.value">
-                    {{ option.label }}
-                  </mat-option>
-                }
-              </mat-select>
-            </mat-form-field>
+            <amw-select label="Size" formControlName="size">
+              @for (option of sizeOptions; track option) {
+                <mat-option [value]="option.value">
+                  {{ option.label }}
+                </mat-option>
+              }
+            </amw-select>
+            <amw-select label="Position" formControlName="position">
+              @for (option of positionOptions; track option) {
+                <mat-option [value]="option.value">
+                  {{ option.label }}
+                </mat-option>
+              }
+            </amw-select>
+            <amw-select label="Arrow Size" formControlName="arrowSize">
+              @for (option of arrowSizeOptions; track option) {
+                <mat-option [value]="option.value">
+                  {{ option.label }}
+                </mat-option>
+              }
+            </amw-select>
           </div>
           <div class="popover-demo__form-row">
-            <mat-form-field appearance="outline">
-              <mat-label>Width</mat-label>
-              <input matInput formControlName="width" placeholder="e.g., 300px">
-            </mat-form-field>
-            <mat-form-field appearance="outline">
-              <mat-label>Height</mat-label>
-              <input matInput formControlName="height" placeholder="e.g., 200px">
-            </mat-form-field>
-            <mat-form-field appearance="outline">
-              <mat-label>Z-Index</mat-label>
-              <input matInput formControlName="zIndex" type="number" placeholder="1000">
-            </mat-form-field>
+            <amw-input
+              label="Width"
+              formControlName="width"
+              placeholder="e.g., 300px">
+            </amw-input>
+            <amw-input
+              label="Height"
+              formControlName="height"
+              placeholder="e.g., 200px">
+            </amw-input>
+            <amw-input
+              label="Z-Index"
+              formControlName="zIndex"
+              type="number"
+              placeholder="1000">
+            </amw-input>
           </div>
           <div class="popover-demo__form-row">
-            <mat-form-field appearance="outline">
-              <mat-label>Header Title</mat-label>
-              <input matInput formControlName="headerTitle" placeholder="Popover Title">
-            </mat-form-field>
-            <mat-form-field appearance="outline">
-              <mat-label>Header Subtitle</mat-label>
-              <input matInput formControlName="headerSubtitle" placeholder="Subtitle text">
-            </mat-form-field>
-            <mat-form-field appearance="outline">
-              <mat-label>Footer Text</mat-label>
-              <input matInput formControlName="footerText" placeholder="Footer text">
-            </mat-form-field>
+            <amw-input
+              label="Header Title"
+              formControlName="headerTitle"
+              placeholder="Popover Title">
+            </amw-input>
+            <amw-input
+              label="Header Subtitle"
+              formControlName="headerSubtitle"
+              placeholder="Subtitle text">
+            </amw-input>
+            <amw-input
+              label="Footer Text"
+              formControlName="footerText"
+              placeholder="Footer text">
+            </amw-input>
           </div>
           <div class="popover-demo__form-row">
-            <mat-form-field appearance="outline">
-              <mat-label>Close Text</mat-label>
-              <input matInput formControlName="closeText" placeholder="Close">
-            </mat-form-field>
-            <mat-form-field appearance="outline">
-              <mat-label>Close Icon</mat-label>
-              <input matInput formControlName="closeIcon" placeholder="close">
-            </mat-form-field>
-            <mat-form-field appearance="outline">
-              <mat-label>Arrow Color</mat-label>
-              <input matInput formControlName="arrowColor" placeholder="#ffffff">
-            </mat-form-field>
+            <amw-input
+              label="Close Text"
+              formControlName="closeText"
+              placeholder="Close">
+            </amw-input>
+            <amw-input
+              label="Close Icon"
+              formControlName="closeIcon"
+              placeholder="close">
+            </amw-input>
+            <amw-input
+              label="Arrow Color"
+              formControlName="arrowColor"
+              placeholder="#ffffff">
+            </amw-input>
           </div>
           <div class="popover-demo__form-row">
-            <mat-form-field appearance="outline">
-              <mat-label>Offset X</mat-label>
-              <input matInput formControlName="offsetX" type="number" placeholder="0">
-            </mat-form-field>
-            <mat-form-field appearance="outline">
-              <mat-label>Offset Y</mat-label>
-              <input matInput formControlName="offsetY" type="number" placeholder="0">
-            </mat-form-field>
-            <mat-form-field appearance="outline">
-              <mat-label>Animation Duration</mat-label>
-              <input matInput formControlName="animationDuration" type="number" placeholder="300">
-            </mat-form-field>
+            <amw-input
+              label="Offset X"
+              formControlName="offsetX"
+              type="number"
+              placeholder="0">
+            </amw-input>
+            <amw-input
+              label="Offset Y"
+              formControlName="offsetY"
+              type="number"
+              placeholder="0">
+            </amw-input>
+            <amw-input
+              label="Animation Duration"
+              formControlName="animationDuration"
+              type="number"
+              placeholder="300">
+            </amw-input>
           </div>
           <div class="popover-demo__form-row">
-            <mat-form-field appearance="outline">
-              <mat-label>Animation Easing</mat-label>
-              <mat-select formControlName="animationEasing">
-                @for (option of animationEasingOptions; track option) {
-                  <mat-option [value]="option.value">
-                    {{ option.label }}
-                  </mat-option>
-                }
-              </mat-select>
-            </mat-form-field>
+            <amw-select label="Animation Easing" formControlName="animationEasing">
+              @for (option of animationEasingOptions; track option) {
+                <mat-option [value]="option.value">
+                  {{ option.label }}
+                </mat-option>
+              }
+            </amw-select>
           </div>
           <div class="popover-demo__form-row">
             <mat-slide-toggle formControlName="showArrow">
@@ -285,10 +281,7 @@
 
         <!-- Trigger Template -->
         <ng-template #trigger>
-          <button mat-raised-button color="primary">
-            <mat-icon>info</mat-icon>
-            {{ selectedVariation.title }}
-          </button>
+          <amw-button variant="elevated" color="primary" icon="info" iconPosition="left">{{ selectedVariation.title }}</amw-button>
         </ng-template>
 
         <!-- Content Template -->
@@ -320,10 +313,7 @@
             </div>
 
             <div class="popover-demo__content-actions">
-              <button mat-button (click)="onPopoverClose()">
-                <mat-icon>close</mat-icon>
-                Close
-              </button>
+              <amw-button variant="text" (click)="onPopoverClose()" icon="close" iconPosition="left">Close</amw-button>
             </div>
           </div>
         </ng-template>

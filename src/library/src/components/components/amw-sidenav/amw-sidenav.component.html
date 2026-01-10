@@ -1,18 +1,18 @@
 <!-- Sidenav Toggle Button -->
 @if (showToggle) {
-  <button
+  <amw-button
     #toggleButton
-    mat-icon-button
+    variant="icon"
+    [icon]="toggleButtonIcon"
     class="amw-sidenav__toggle"
     [class.amw-sidenav__toggle--mobile]="isMobile"
     [class.amw-sidenav__toggle--tablet]="isTablet"
     [class.amw-sidenav__toggle--desktop]="isDesktop"
     [disabled]="isDisabled"
     [attr.aria-label]="toggleButtonText"
-    [matTooltip]="toggleButtonText"
+    [amwTooltip]="toggleButtonText"
     (click)="toggleSidenav()">
-    <mat-icon>{{ toggleButtonIcon }}</mat-icon>
-  </button>
+  </amw-button>
 }
 
 <!-- Sidenav Container -->
@@ -50,15 +50,15 @@
               <ng-content select="[slot=header]"></ng-content>
             </div>
             @if (showClose) {
-              <button
-                mat-icon-button
+              <amw-button
+                variant="icon"
+                [icon]="closeButtonIcon"
                 class="amw-sidenav__close"
                 [disabled]="isDisabled"
                 [attr.aria-label]="closeButtonText"
-                [matTooltip]="closeButtonText"
+                [amwTooltip]="closeButtonText"
                 (click)="closeSidenav()">
-                <mat-icon>{{ closeButtonIcon }}</mat-icon>
-              </button>
+              </amw-button>
             }
           </div>
         }
@@ -76,7 +76,7 @@
               class="amw-sidenav__list-item"
               [class]="getItemClasses(item)"
               [disabled]="item.disabled"
-              [matTooltip]="item.tooltip"
+              [amwTooltip]="item.tooltip"
               [routerLink]="item.route"
               (click)="onItemClick(item, $event)">
               @if (item.icon) {
@@ -136,7 +136,7 @@
                     class="amw-sidenav__nested-item"
                     [class]="getItemClasses(child)"
                     [disabled]="child.disabled"
-                    [matTooltip]="child.tooltip"
+                    [amwTooltip]="child.tooltip"
                     [routerLink]="child.route"
                     (click)="onItemClick(child, $event)">
                     @if (child.icon) {

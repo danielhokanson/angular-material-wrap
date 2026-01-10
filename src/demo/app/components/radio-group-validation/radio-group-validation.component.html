@@ -94,15 +94,9 @@
 
         <!-- Form Actions -->
         <div class="form-actions">
-          <button mat-raised-button type="submit" color="primary" [disabled]="!isFormValid">
-            <mat-icon>check</mat-icon>
-            Submit Form
-          </button>
+          <amw-button variant="elevated" type="submit" color="primary" [disabled]="!isFormValid" icon="check" iconPosition="left">Submit Form</amw-button>
 
-          <button mat-button type="button" (click)="resetForm()">
-            <mat-icon>refresh</mat-icon>
-            Reset
-          </button>
+          <amw-button variant="text" type="button" (click)="resetForm()" icon="refresh" iconPosition="left">Reset</amw-button>
         </div>
       </form>
     </mat-card-content>

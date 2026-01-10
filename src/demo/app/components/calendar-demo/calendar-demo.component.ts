@@ -1,13 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
-import { MatCardModule } from '@angular/material/card';
-import { MatButtonModule } from '@angular/material/button';
 import { MatIconModule } from '@angular/material/icon';
-import { MatTabsModule } from '@angular/material/tabs';
-import { MatSnackBarModule, MatSnackBar } from '@angular/material/snack-bar';
+import { AmwNotificationService } from '../../../../library/src/services/amw-notification/amw-notification.service';
 import { MatDialogModule, MatDialog } from '@angular/material/dialog';
-import { MatDividerModule } from '@angular/material/divider';
 import { AmwCalendarFullComponent } from '../../../../library/src/components/components/amw-calendar/amw-calendar-full.component';
 import { AmwCalendarMiniComponent } from '../../../../library/src/components/components/amw-calendar/amw-calendar-mini.component';
 import { ViewEncapsulation } from '@angular/core';
@@ -36,23 +32,24 @@ interface MeetingEvent {
     meetingUrl?: string;
     notes?: string;
 }
+import { MatTabsModule } from '@angular/material/tabs';
+import { MatDividerModule } from '@angular/material/divider';
+import { MatCardModule } from '@angular/material/card';
 
+import { AmwButtonComponent } from '../../../../library/src/controls/components/amw-button/amw-button.component';
 @Component({
     selector: 'amw-demo-calendar',
     standalone: true,
-    imports: [
-    CommonModule,
+    imports: [CommonModule,
     FormsModule,
-    MatCardModule,
-    MatButtonModule,
     MatIconModule,
-    MatTabsModule,
-    MatSnackBarModule,
     MatDialogModule,
-    MatDividerModule,
     AmwCalendarFullComponent,
-    AmwCalendarMiniComponent
-],
+    AmwCalendarMiniComponent,
+    MatTabsModule,
+    MatDividerModule,
+    MatCardModule,
+    AmwButtonComponent],
     encapsulation: ViewEncapsulation.None,
     templateUrl: './calendar-demo.component.html',
     styleUrl: './calendar-demo.component.scss'
@@ -330,7 +327,7 @@ export class CalendarDemoComponent implements OnInit {
     currentDate = new Date(2024, 0, 15); // January 15, 2024
 
     constructor(
-        private snackBar: MatSnackBar,
+        private notification: AmwNotificationService,
         private dialog: MatDialog,
         private itemRegistry: CalendarItemRegistryService
     ) { }
@@ -382,7 +379,7 @@ export class CalendarDemoComponent implements OnInit {
             case 'add':
                 // Add new event to the events array
                 this.sampleEvents.push(event.event);
-                this.snackBar.open('Event created', 'Close', { duration: 3000 });
+                this.notification.success('Success', 'Event created', { duration: 3000 });
                 break;
             case 'update':
                 // Update existing event in the events array
@@ -390,12 +387,12 @@ export class CalendarDemoComponent implements OnInit {
                 if (updateIndex !== -1) {
                     this.sampleEvents[updateIndex] = event.event;
                 }
-                this.snackBar.open('Event updated', 'Close', { duration: 3000 });
+                this.notification.success('Success', 'Event updated', { duration: 3000 });
                 break;
             case 'delete':
                 // Remove event from the events array
                 this.sampleEvents = this.sampleEvents.filter(e => e.id !== event.event.id);
-                this.snackBar.open('Event deleted', 'Close', { duration: 3000 });
+                this.notification.success('Success', 'Event deleted', { duration: 3000 });
                 break;
             case 'move':
                 // Update event position in the events array
@@ -403,7 +400,7 @@ export class CalendarDemoComponent implements OnInit {
                 if (moveIndex !== -1) {
                     this.sampleEvents[moveIndex] = event.event;
                 }
-                this.snackBar.open('Event moved', 'Close', { duration: 3000 });
+                this.notification.info('Info', 'Event moved', { duration: 3000 });
                 break;
         }
     }
@@ -413,7 +410,7 @@ export class CalendarDemoComponent implements OnInit {
      */
     onEventClick(event: CalendarEvent<SampleEvent>): void {
         console.log('Event clicked:', event);
-        this.snackBar.open(`Clicked: ${event.data.title}`, 'Close', { duration: 2000 });
+        this.notification.info('Info', `Clicked: ${event.data.title}`, { duration: 2000 });
     }
 
     /**
@@ -421,7 +418,7 @@ export class CalendarDemoComponent implements OnInit {
      */
     onEventDoubleClick(event: CalendarEvent<SampleEvent>): void {
         console.log('Event double clicked:', event);
-        this.snackBar.open(`Double clicked: ${event.data.title}`, 'Close', { duration: 2000 });
+        this.notification.info('Info', `Double clicked: ${event.data.title}`, { duration: 2000 });
     }
 
     /**
@@ -433,7 +430,7 @@ export class CalendarDemoComponent implements OnInit {
      */
     onEventEdit(event: CalendarEvent<SampleEvent>): void {
         console.log('Edit event:', event);
-        this.snackBar.open(`Edit: ${event.data.title}`, 'Close', { duration: 2000 });
+        this.notification.info('Info', `Edit: ${event.data.title}`, { duration: 2000 });
     }
 
     /**
@@ -441,7 +438,7 @@ export class CalendarDemoComponent implements OnInit {
      */
     onEventDelete(event: CalendarEvent<SampleEvent>): void {
         console.log('Delete event:', event);
-        this.snackBar.open(`Delete: ${event.data.title}`, 'Close', { duration: 2000 });
+        this.notification.info('Info', `Delete: ${event.data.title}`, { duration: 2000 });
     }
 
     /**
@@ -474,7 +471,7 @@ export class CalendarDemoComponent implements OnInit {
             console.log('Updated events array:', this.sampleEvents.map(e => ({ id: e.id, start: e.start, end: e.end, allDay: e.allDay })));
 
             const allDayText = event.allDay ? ' (all day)' : '';
-            this.snackBar.open(
+            this.notification.open(
                 `Moved "${event.event.data.title}" to ${event.newStart.toLocaleString()}${allDayText}`,
                 'Close',
                 { duration: 3000 }
@@ -496,7 +493,7 @@ export class CalendarDemoComponent implements OnInit {
      */
     onViewChange(view: CalendarView): void {
         console.log('View changed:', view);
-        this.snackBar.open(`View changed to: ${view}`, 'Close', { duration: 2000 });
+        this.notification.info('Info', `View changed to: ${view}`, { duration: 2000 });
     }
 
     /**
@@ -519,7 +516,7 @@ export class CalendarDemoComponent implements OnInit {
      */
     onCellDoubleClick(event: { date: Date; time?: Date }): void {
         console.log('Cell double clicked:', event);
-        this.snackBar.open('Create new event', 'Close', { duration: 2000 });
+        this.notification.info('Info', 'Create new event', { duration: 2000 });
     }
 
     /**
@@ -527,7 +524,7 @@ export class CalendarDemoComponent implements OnInit {
      */
     onShowMoreClick(date: Date): void {
         console.log('Show more clicked:', date);
-        this.snackBar.open(`Show more events for ${date.toLocaleDateString()}`, 'Close', { duration: 2000 });
+        this.notification.info('Info', `Show more events for ${date.toLocaleDateString()}`, { duration: 2000 });
     }
 
     /**
@@ -535,7 +532,7 @@ export class CalendarDemoComponent implements OnInit {
      */
     onWeekViewToggle(showWeek: boolean): void {
         console.log('Week view toggle:', showWeek);
-        this.snackBar.open(`Week view: ${showWeek ? 'enabled' : 'disabled'}`, 'Close', { duration: 2000 });
+        this.notification.info('Info', `Week view: ${showWeek ? 'enabled' : 'disabled'}`, { duration: 2000 });
     }
 
     /**
@@ -570,7 +567,7 @@ export class CalendarDemoComponent implements OnInit {
         };
 
         this.sampleEvents.push(newEvent);
-        this.snackBar.open('Time-based event added (2:00 PM - 3:00 PM)', 'Close', { duration: 3000 });
+        this.notification.info('Info', 'Time-based event added (2:00 PM - 3:00 PM)', { duration: 3000 });
     }
 
     /**
@@ -605,7 +602,7 @@ export class CalendarDemoComponent implements OnInit {
         };
 
         this.sampleEvents.push(newEvent);
-        this.snackBar.open('All-day event added', 'Close', { duration: 3000 });
+        this.notification.info('Info', 'All-day event added', { duration: 3000 });
     }
 
     /**
@@ -620,7 +617,7 @@ export class CalendarDemoComponent implements OnInit {
      */
     clearAllEvents(): void {
         this.sampleEvents = [];
-        this.snackBar.open('All events cleared', 'Close', { duration: 2000 });
+        this.notification.info('Info', 'All events cleared', { duration: 2000 });
     }
 
     /**
@@ -628,7 +625,7 @@ export class CalendarDemoComponent implements OnInit {
      */
     resetSampleEvents(): void {
         this.updateEventDates();
-        this.snackBar.open('Sample events reset', 'Close', { duration: 2000 });
+        this.notification.info('Info', 'Sample events reset', { duration: 2000 });
     }
 
     // ==========================================================================
@@ -640,7 +637,7 @@ export class CalendarDemoComponent implements OnInit {
      */
     onItemChange(event: CalendarItemChangeEvent<any>): void {
         console.log('Item changed:', event);
-        this.snackBar.open(`Item ${event.type}`, 'Close', { duration: 2000 });
+        this.notification.info('Info', `Item ${event.type}`, { duration: 2000 });
     }
 
     /**
@@ -648,7 +645,7 @@ export class CalendarDemoComponent implements OnInit {
      */
     onItemClick(item: CalendarItem<any>): void {
         console.log('Item clicked:', item);
-        this.snackBar.open(`Clicked: ${item.title}`, 'Close', { duration: 2000 });
+        this.notification.info('Info', `Clicked: ${item.title}`, { duration: 2000 });
     }
 
     /**
@@ -656,7 +653,7 @@ export class CalendarDemoComponent implements OnInit {
      */
     onItemDoubleClick(item: CalendarItem<any>): void {
         console.log('Item double clicked:', item);
-        this.snackBar.open(`Double clicked: ${item.title}`, 'Close', { duration: 2000 });
+        this.notification.info('Info', `Double clicked: ${item.title}`, { duration: 2000 });
     }
 
     /**
@@ -664,7 +661,7 @@ export class CalendarDemoComponent implements OnInit {
      */
     onItemCreate(event: { date: Date; time?: Date }): void {
         console.log('Create item:', event);
-        this.snackBar.open('Create item clicked', 'Close', { duration: 2000 });
+        this.notification.info('Info', 'Create item clicked', { duration: 2000 });
     }
 
     /**
@@ -672,7 +669,7 @@ export class CalendarDemoComponent implements OnInit {
      */
     onItemEdit(item: CalendarItem<any>): void {
         console.log('Edit item:', item);
-        this.snackBar.open(`Edit: ${item.title}`, 'Close', { duration: 2000 });
+        this.notification.info('Info', `Edit: ${item.title}`, { duration: 2000 });
     }
 
     /**
@@ -680,7 +677,7 @@ export class CalendarDemoComponent implements OnInit {
      */
     onItemDelete(item: CalendarItem<any>): void {
         console.log('Delete item:', item);
-        this.snackBar.open(`Delete: ${item.title}`, 'Close', { duration: 2000 });
+        this.notification.info('Info', `Delete: ${item.title}`, { duration: 2000 });
     }
 
     /**
@@ -688,7 +685,7 @@ export class CalendarDemoComponent implements OnInit {
      */
     onItemMove(event: { item: CalendarItem<any>; newStart: Date; newEnd?: Date }): void {
         console.log('Move item:', event);
-        this.snackBar.open(`Move: ${event.item.title}`, 'Close', { duration: 2000 });
+        this.notification.info('Info', `Move: ${event.item.title}`, { duration: 2000 });
     }
 
     /**
@@ -696,18 +693,18 @@ export class CalendarDemoComponent implements OnInit {
      */
     validateMeetingFields = (data: MeetingEvent): boolean => {
         if (!data.location?.trim()) {
-            this.snackBar.open('Location is required for meetings', 'Close', { duration: 3000 });
+            this.notification.info('Info', 'Location is required for meetings', { duration: 3000 });
             return false;
         }
         if (!data.attendees || data.attendees.length === 0) {
-            this.snackBar.open('At least one attendee is required', 'Close', { duration: 3000 });
+            this.notification.info('Info', 'At least one attendee is required', { duration: 3000 });
             return false;
         }
         // Validate email format for attendees
         const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
         for (const email of data.attendees) {
             if (!emailRegex.test(email.trim())) {
-                this.snackBar.open(`Invalid email format: ${email}`, 'Close', { duration: 3000 });
+                this.notification.success('Success', `Invalid email format: ${email}`, { duration: 3000 });
                 return false;
             }
         }
@@ -725,7 +722,7 @@ export class CalendarDemoComponent implements OnInit {
             case 'create':
                 this.meetingItems.push(event.item);
                 console.log('[Demo] meetingItems after create:', this.meetingItems.map(m => ({ id: m.id, title: m.title })));
-                this.snackBar.open('Meeting created successfully', 'Close', { duration: 3000 });
+                this.notification.success('Success', 'Meeting created successfully', { duration: 3000 });
                 break;
             case 'update':
                 const updateIndex = this.meetingItems.findIndex(m => m.id === event.item.id);
@@ -734,12 +731,12 @@ export class CalendarDemoComponent implements OnInit {
                     this.meetingItems[updateIndex] = event.item;
                 }
                 console.log('[Demo] meetingItems after update:', this.meetingItems.map(m => ({ id: m.id, title: m.title })));
-                this.snackBar.open('Meeting updated successfully', 'Close', { duration: 3000 });
+                this.notification.success('Success', 'Meeting updated successfully', { duration: 3000 });
                 break;
             case 'delete':
                 this.meetingItems = this.meetingItems.filter(m => m.id !== event.item.id);
                 console.log('[Demo] meetingItems after delete:', this.meetingItems.map(m => ({ id: m.id, title: m.title })));
-                this.snackBar.open('Meeting deleted successfully', 'Close', { duration: 3000 });
+                this.notification.success('Success', 'Meeting deleted successfully', { duration: 3000 });
                 break;
         }
     }

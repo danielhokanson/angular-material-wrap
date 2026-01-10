@@ -1,33 +1,33 @@
 import { Component, OnInit, ViewEncapsulation } from '@angular/core';
 
+import { FormsModule, ReactiveFormsModule, FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { MatCardModule } from '@angular/material/card';
-import { MatButtonModule } from '@angular/material/button';
 import { MatIconModule } from '@angular/material/icon';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
 import { MatSelectModule } from '@angular/material/select';
-import { MatChipsModule } from '@angular/material/chips';
+import { MatSlideToggleModule } from '@angular/material/slide-toggle';
 import { MatDividerModule } from '@angular/material/divider';
 import { MatTabsModule } from '@angular/material/tabs';
-// import { MatAvatarModule } from '@angular/material/avatar';
-import { FormsModule, ReactiveFormsModule, FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { MatOptionModule } from '@angular/material/core';
 
+import { AmwButtonComponent } from '../../../../library/src/controls/components/amw-button/amw-button.component';
+import { AmwInputComponent } from '../../../../library/src/controls/components/amw-input/amw-input.component';
+import { AmwSelectComponent } from '../../../../library/src/controls/components/amw-select/amw-select.component';
+import { AmwSwitchComponent } from '../../../../library/src/controls/components/amw-switch/amw-switch.component';
 @Component({
   selector: 'amw-profile-page',
   standalone: true,
-  imports: [
+  imports: [FormsModule,
+    ReactiveFormsModule,
     MatCardModule,
-    MatButtonModule,
     MatIconModule,
-    MatFormFieldModule,
-    MatInputModule,
-    MatSelectModule,
-    MatChipsModule,
     MatDividerModule,
     MatTabsModule,
-    FormsModule,
-    ReactiveFormsModule
-],
+    AmwButtonComponent,
+    AmwInputComponent,
+    AmwSelectComponent,
+    AmwSwitchComponent],
   encapsulation: ViewEncapsulation.None,
   templateUrl: './profile-page.component.html',
   styleUrl: './profile-page.component.scss'
@@ -41,6 +41,20 @@ export class ProfilePageComponent implements OnInit {
   emailNotifications = true;
   pushNotifications = false;
   marketingEmails = false;
+
+  // Options for select components
+  themeOptions = [
+    { value: 'light', label: 'Light' },
+    { value: 'dark', label: 'Dark' },
+    { value: 'auto', label: 'Auto' }
+  ];
+
+  languageOptions = [
+    { value: 'en', label: 'English' },
+    { value: 'es', label: 'Spanish' },
+    { value: 'fr', label: 'French' },
+    { value: 'de', label: 'German' }
+  ];
 
   constructor(private fb: FormBuilder) {
     this.personalForm = this.fb.group({

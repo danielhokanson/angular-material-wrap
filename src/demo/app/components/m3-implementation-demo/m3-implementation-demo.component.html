@@ -67,9 +67,9 @@
             <!-- Button Examples -->
             <button *ngIf="component.name.includes('Button')" 
                     [class]="component.class" 
-                    mat-button>
+                    variant="text">
               {{ component.name }}
-            </button>
+            </amw-button>
             
             <!-- Other component examples would go here -->
             <div *ngIf="!component.name.includes('Button')" 
@@ -175,7 +175,7 @@
         <!-- Component Usage -->
         <div class="code-example">
           <h4 class="mdc-typography--title-small">3. Component Usage (Angular)</h4>
-          <pre class="code-block"><code>&lt;button mat-raised-button class="mat-mdc-raised-button"&gt;
+          <pre class="code-block"><code>&lt;button variant="elevated" class="mat-mdc-raised-button"&gt;
   Primary Action
 &lt;/button&gt;
 

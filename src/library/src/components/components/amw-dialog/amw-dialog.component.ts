@@ -1,11 +1,11 @@
 import { Component, Input, Output, EventEmitter, ViewEncapsulation, forwardRef, ContentChild, TemplateRef, OnInit, OnDestroy, Inject } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { MatDialogModule, MatDialog, MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
-import { MatButtonModule } from '@angular/material/button';
 import { MatIconModule } from '@angular/material/icon';
-import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { BaseComponent } from '../../../controls/components/base/base.component';
 import { DialogConfig, DialogType, DialogSize, DialogPosition } from './interfaces';
+import { AmwProgressSpinnerComponent } from '../amw-progress-spinner/amw-progress-spinner.component';
+import { AmwButtonComponent } from '../../../controls/components/amw-button/amw-button.component';
 
 /**
  * Angular Material Wrap Dialog Component
@@ -53,9 +53,9 @@ import { DialogConfig, DialogType, DialogSize, DialogPosition } from './interfac
   imports: [
     CommonModule,
     MatDialogModule,
-    MatButtonModule,
+    AmwButtonComponent,
     MatIconModule,
-    MatProgressSpinnerModule
+    AmwProgressSpinnerComponent
   ],
   encapsulation: ViewEncapsulation.None,
   providers: [

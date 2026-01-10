@@ -22,7 +22,7 @@
                   {{ tag.name }}
                   <button matChipRemove [attr.aria-label]="'remove ' + tag.name">
                     <mat-icon>cancel</mat-icon>
-                  </button>
+                  </amw-button>
                 </mat-chip-row>
               }
             </mat-chip-grid>
@@ -72,7 +72,7 @@
                 {{ skill.name }} ({{ skill.level }})
                 <button matChipRemove [attr.aria-label]="'remove ' + skill.name">
                   <mat-icon>cancel</mat-icon>
-                </button>
+                </amw-button>
               </mat-chip>
             }
           </mat-chip-set>
@@ -80,32 +80,31 @@
 
         <form [formGroup]="skillForm" (ngSubmit)="addSkill()" class="skill-form">
           <div class="form-row">
-            <mat-form-field appearance="outline" class="skill-name-field">
-              <mat-label>Skill Name</mat-label>
-              <input matInput formControlName="skillName" placeholder="e.g., JavaScript" />
-              @if (skillForm.get('skillName')?.invalid && skillForm.get('skillName')?.touched) {
-                <mat-error>{{ getSkillErrorMessage('skillName') }}</mat-error>
-              }
-            </mat-form-field>
+            <amw-input
+              class="skill-name-field"
+              label="Skill Name"
+              formControlName="skillName"
+              placeholder="e.g., JavaScript">
+            </amw-input>
+            @if (skillForm.get('skillName')?.invalid && skillForm.get('skillName')?.touched) {
+              <div class="field-error">{{ getSkillErrorMessage('skillName') }}</div>
+            }
 
-            <mat-form-field appearance="outline" class="skill-level-field">
-              <mat-label>Proficiency Level</mat-label>
-              <select matNativeControl formControlName="skillLevel">
-                <option value="beginner">Beginner</option>
-                <option value="intermediate">Intermediate</option>
-                <option value="advanced">Advanced</option>
-              </select>
-            </mat-form-field>
+            <amw-select
+              appearance="outline"
+              class="skill-level-field"
+              label="Proficiency Level"
+              formControlName="skillLevel">
+              <mat-option value="beginner">Beginner</mat-option>
+              <mat-option value="intermediate">Intermediate</mat-option>
+              <mat-option value="advanced">Advanced</mat-option>
+            </amw-select>
 
-            <button
-              mat-raised-button
+            <amw-button variant="elevated"
               color="primary"
               type="submit"
               [disabled]="skillForm.invalid"
-              class="add-skill-button">
-              <mat-icon>add</mat-icon>
-              Add Skill
-            </button>
+              class="add-skill-button" icon="add" iconPosition="left">Add Skill</amw-button>
           </div>
         </form>
 
@@ -145,7 +144,7 @@
                   {{ email }}
                   <button matChipRemove [attr.aria-label]="'remove ' + email">
                     <mat-icon>cancel</mat-icon>
-                  </button>
+                  </amw-button>
                 </mat-chip-row>
               }
             </mat-chip-grid>
@@ -206,15 +205,11 @@
         </div>
 
         <div class="action-buttons">
-          <button
-            mat-raised-button
+          <amw-button variant="elevated"
             color="primary"
             (click)="submitForms()"
             [disabled]="!areFormsValid()"
-            class="submit-button">
-            <mat-icon>send</mat-icon>
-            Submit All Forms
-          </button>
+            class="submit-button" icon="send" iconPosition="left">Submit All Forms</amw-button>
 
           @if (!areFormsValid()) {
             <div class="validation-message">

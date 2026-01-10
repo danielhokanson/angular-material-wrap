@@ -16,9 +16,7 @@
         <div class="code-panel">
           <div class="code-header">
             <h4>Code</h4>
-            <button mat-icon-button (click)="resetCode('basic')" title="Reset to original">
-              <mat-icon>refresh</mat-icon>
-            </button>
+            <amw-button variant="icon" icon="refresh" (click)="resetCode('basic')" title="Reset to original"></amw-button>
           </div>
           <textarea
             [(ngModel)]="editableCode.basic"
@@ -47,9 +45,9 @@
               </mat-drawer>
               <mat-drawer-content>
                 <div class="sidenav-content-padding">
-                  <button mat-raised-button (click)="sidenavOpened = !sidenavOpened">
+                  <amw-button variant="elevated" (click)="sidenavOpened = !sidenavOpened">
                     Toggle Sidenav
-                  </button>
+                  </amw-button>
                   <p>Main content area. The sidenav stays open by default in side mode.</p>
                 </div>
               </mat-drawer-content>
@@ -72,9 +70,7 @@
         <div class="code-panel">
           <div class="code-header">
             <h4>Code</h4>
-            <button mat-icon-button (click)="resetCode('overlay')" title="Reset to original">
-              <mat-icon>refresh</mat-icon>
-            </button>
+            <amw-button variant="icon" icon="refresh" (click)="resetCode('overlay')" title="Reset to original"></amw-button>
           </div>
           <textarea
             [(ngModel)]="editableCode.overlay"
@@ -104,9 +100,9 @@
               </mat-drawer>
               <mat-drawer-content>
                 <div class="sidenav-content-padding">
-                  <button mat-raised-button (click)="overlaySidenavOpened = !overlaySidenavOpened">
+                  <amw-button variant="elevated" (click)="overlaySidenavOpened = !overlaySidenavOpened">
                     Toggle Sidenav
-                  </button>
+                  </amw-button>
                   <p>The sidenav overlays the content with a backdrop in over mode.</p>
                 </div>
               </mat-drawer-content>
@@ -129,9 +125,7 @@
         <div class="code-panel">
           <div class="code-header">
             <h4>Code</h4>
-            <button mat-icon-button (click)="resetCode('push')" title="Reset to original">
-              <mat-icon>refresh</mat-icon>
-            </button>
+            <amw-button variant="icon" icon="refresh" (click)="resetCode('push')" title="Reset to original"></amw-button>
           </div>
           <textarea
             [(ngModel)]="editableCode.push"
@@ -161,9 +155,9 @@
               </mat-drawer>
               <mat-drawer-content>
                 <div class="sidenav-content-padding">
-                  <button mat-raised-button (click)="pushSidenavOpened = !pushSidenavOpened">
+                  <amw-button variant="elevated" (click)="pushSidenavOpened = !pushSidenavOpened">
                     Toggle Sidenav
-                  </button>
+                  </amw-button>
                   <p>The content is pushed to the side when sidenav opens in push mode.</p>
                 </div>
               </mat-drawer-content>
@@ -186,9 +180,7 @@
         <div class="code-panel">
           <div class="code-header">
             <h4>Code</h4>
-            <button mat-icon-button (click)="resetCode('fixed')" title="Reset to original">
-              <mat-icon>refresh</mat-icon>
-            </button>
+            <amw-button variant="icon" icon="refresh" (click)="resetCode('fixed')" title="Reset to original"></amw-button>
           </div>
           <textarea
             [(ngModel)]="editableCode.fixed"
@@ -218,9 +210,9 @@
               </mat-drawer>
               <mat-drawer-content>
                 <div class="sidenav-content-padding">
-                  <button mat-raised-button (click)="fixedSidenavOpened = !fixedSidenavOpened">
+                  <amw-button variant="elevated" (click)="fixedSidenavOpened = !fixedSidenavOpened">
                     Toggle Right Sidenav
-                  </button>
+                  </amw-button>
                   <p>The sidenav can be positioned on the right side using position="end".</p>
                 </div>
               </mat-drawer-content>

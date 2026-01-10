@@ -1,11 +1,12 @@
 import { Component, ViewEncapsulation } from '@angular/core';
-import { MatExpansionModule } from '@angular/material/expansion';
 import { BaseApiComponent, ApiDocumentation } from '../base/base-api.component';
 
 @Component({
   selector: 'amw-demo-tabs-api',
   standalone: true,
-  imports: [MatExpansionModule],
+  imports: [
+    
+],
   encapsulation: ViewEncapsulation.None,
   templateUrl: './tabs-api.component.html',
   styleUrl: './tabs-api.component.scss'
@@ -88,7 +89,6 @@ export class TabsApiComponent extends BaseApiComponent {
       }
     ]
   };
-
 
   constructor() {
 

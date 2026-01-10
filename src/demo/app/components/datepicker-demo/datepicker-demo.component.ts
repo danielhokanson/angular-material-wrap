@@ -1,8 +1,6 @@
 import { Component, ViewEncapsulation } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
-import { MatCardModule } from '@angular/material/card';
-import { MatButtonModule } from '@angular/material/button';
 import { MatIconModule } from '@angular/material/icon';
 
 import { AmwDatepickerComponent } from '../../../../library/src/controls/components/amw-datepicker/amw-datepicker.component';
@@ -12,13 +10,11 @@ import { AmwSize, AmwAppearance } from '../../../../library/src/shared/types';
     selector: 'amw-demo-datepicker',
     standalone: true,
     imports: [
-        CommonModule,
-        FormsModule,
-        MatCardModule,
-        MatButtonModule,
-        MatIconModule,
-        AmwDatepickerComponent
-    ],
+    CommonModule,
+    FormsModule,
+    MatIconModule,
+    AmwDatepickerComponent
+],
     templateUrl: './datepicker-demo.component.html',
     styleUrl: './datepicker-demo.component.scss',
     encapsulation: ViewEncapsulation.None
