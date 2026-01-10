@@ -4,14 +4,14 @@
 
   <div class="validation-forms">
     <amw-card class="validation-card">
-      <div slot="header">
+      <ng-template #cardHeader>
         <h2>
           <mat-icon>fact_check</mat-icon>
           Multi-Step Registration Form
         </h2>
         <p class="subtitle">Complete all steps to submit the form</p>
-      </div>
-      <div slot="content">
+      </ng-template>
+      <ng-template #cardContent>
         <amw-tabs [(selectedIndex)]="selectedTabIndex" class="registration-tabs">
           <!-- Step 1: Personal Info -->
           <amw-tab>
@@ -20,7 +20,7 @@
                 <mat-icon>{{ getStepIcon(0) }}</mat-icon>
                 <span>{{ steps[0].label }}</span>
               </div>
-            </ng-template>
+      </ng-template>
             <div class="tab-content">
               <h4>Step 1: Personal Information</h4>
               <form [formGroup]="personalInfoForm">
@@ -276,7 +276,7 @@
             }
           </div>
         </div>
-      </div>
-    </amw-card>
+      </ng-template>
+</amw-card>
   </div>
 </div>

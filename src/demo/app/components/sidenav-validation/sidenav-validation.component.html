@@ -8,12 +8,12 @@
   <div class="sidenav-validation__content">
     <!-- Configuration Form -->
     <amw-card class="sidenav-validation__form-card">
-      <div slot="header">
+      <ng-template #cardHeader>
         <h2>Configuration Validation</h2>
         <p class="subtitle">Test validation rules for sidenav configuration</p>
-      </div>
+      </ng-template>
 
-      <div slot="content">
+      <ng-template #cardContent>
         <form [formGroup]="configForm" (ngSubmit)="onSubmit()" class="sidenav-validation__form">
           <div class="sidenav-validation__form-row">
             <amw-select
@@ -48,7 +48,7 @@
                 </mat-option>
               }
             </amw-select>
-          </div>
+          </ng-template>
 
           <div class="sidenav-validation__form-row">
             <amw-input
@@ -79,17 +79,17 @@
             <amw-button variant="text" type="button" (click)="resetConfig()" icon="refresh" iconPosition="left">Reset</amw-button>
           </div>
         </form>
-      </div>
-    </amw-card>
+      </ng-template>
+</amw-card>
 
     <!-- Item Form -->
     <amw-card class="sidenav-validation__form-card">
-      <div slot="header">
+      <ng-template #cardHeader>
         <h2>Navigation Item Validation</h2>
         <p class="subtitle">Test validation rules for navigation items</p>
-      </div>
+      </ng-template>
 
-      <div slot="content">
+      <ng-template #cardContent>
         <form [formGroup]="itemForm" (ngSubmit)="onItemSubmit()" class="sidenav-validation__form">
           <div class="sidenav-validation__form-row">
             <amw-input
@@ -114,7 +114,7 @@
               placeholder="e.g., dashboard"
               hint="Material icon name (alphanumeric and underscores only)">
             </amw-input>
-          </div>
+          </ng-template>
 
           <div class="sidenav-validation__form-row">
             <amw-input
@@ -170,17 +170,17 @@
             <amw-button variant="text" type="button" (click)="resetItem()" icon="refresh" iconPosition="left">Reset</amw-button>
           </div>
         </form>
-      </div>
-    </amw-card>
+      </ng-template>
+</amw-card>
 
     <!-- Live Demo -->
     <amw-card class="sidenav-validation__demo-card">
-      <div slot="header">
+      <ng-template #cardHeader>
         <h2>Live Demo</h2>
         <p class="subtitle">See the sidenav with current configuration</p>
-      </div>
+      </ng-template>
 
-      <div slot="content">
+      <ng-template #cardContent>
         <div class="sidenav-validation__demo-container">
           <amw-sidenav
             [config]="currentConfig"
@@ -192,12 +192,12 @@
             <!-- Main Content -->
             <div class="sidenav-validation__main-content">
               <amw-card class="sidenav-validation__content-card">
-                <div slot="header">
+                <ng-template #cardHeader>
                   <h2>Validation Demo</h2>
                   <p class="subtitle">Test the sidenav with different configurations</p>
-                </div>
+                </ng-template>
 
-                <div slot="content">
+                <ng-template #cardContent>
                   <p>
                     This demo shows how the sidenav component handles validation and error states.
                     Try submitting invalid data to see validation errors in action.
@@ -217,12 +217,12 @@
                       <li><strong>Badge:</strong> Maximum 10 characters</li>
                     </ul>
                   </div>
-                </div>
-              </amw-card>
+      </ng-template>
+</amw-card>
             </div>
           </amw-sidenav>
         </div>
-      </div>
-    </amw-card>
+      </ng-template>
+</amw-card>
   </div>
 </div>

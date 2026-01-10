@@ -2,12 +2,12 @@
   <!-- Service Methods Section -->
   <div class="dialog-demo__service-section">
     <amw-card>
-      <div slot="header">
+      <ng-template #cardHeader>
         <h2>Dialog Service Methods</h2>
         <p class="subtitle">Quick access to common dialog types using the service</p>
-      </div>
+      </ng-template>
 
-      <div slot="content">
+      <ng-template #cardContent>
         <div class="dialog-demo__service-buttons">
           <amw-button variant="elevated" color="primary" (click)="openAlert()" icon="warning" iconPosition="left">Alert</amw-button>
           <amw-button variant="elevated" color="accent" (click)="openConfirm()" icon="help_outline" iconPosition="left">Confirm</amw-button>
@@ -17,27 +17,27 @@
           <amw-button variant="elevated" color="primary" (click)="openSuccess()" icon="check_circle" iconPosition="left">Success</amw-button>
           <amw-button variant="elevated" color="accent" (click)="openLoading()" icon="hourglass_empty" iconPosition="left">Loading</amw-button>
         </div>
-      </div>
-    </amw-card>
+      </ng-template>
+</amw-card>
   </div>
 
   <!-- Custom Dialog Variations -->
   <div class="dialog-demo__grid">
     @for (variation of dialogVariations; track variation) {
       <amw-card class="dialog-demo__card">
-        <div slot="header">
+        <ng-template #cardHeader>
           <h2>{{ variation.title }}</h2>
           <p class="subtitle">{{ variation.description }}</p>
-        </div>
-        <div slot="content">
+        </ng-template>
+        <ng-template #cardContent>
           <div class="dialog-demo__example">
             <amw-button variant="elevated"
               color="primary"
               (click)="openDialog(variation)"
               class="dialog-demo__button" icon="open_in_new" iconPosition="left">Open Dialog</amw-button>
           </div>
-        </div>
-      </amw-card>
+      </ng-template>
+</amw-card>
     }
   </div>
 </div>

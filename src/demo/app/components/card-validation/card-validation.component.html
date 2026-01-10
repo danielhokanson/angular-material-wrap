@@ -1,11 +1,11 @@
 <div class="card-validation">
   <amw-card>
-    <div slot="header">
+    <ng-template #cardHeader>
       <h2>Card Selection Validation</h2>
       <p class="subtitle">Interactive card selection with validation</p>
-    </div>
+    </ng-template>
 
-    <div slot="content">
+    <ng-template #cardContent>
       <form [formGroup]="cardForm" (ngSubmit)="onSubmit()">
         <div class="card-validation__form">
           <div class="card-validation__section">
@@ -32,7 +32,7 @@
                 max="3"
                 hint="Maximum number of cards to select">
               </amw-input>
-            </div>
+            </ng-template>
 
             <div class="card-validation__cards">
               @for (card of cardOptions; track card) {
@@ -57,7 +57,7 @@
                         }
                       </ul>
                     </div>
-                  </ng-template>
+      </ng-template>
                 </amw-card>
               }
             </div>
@@ -100,8 +100,8 @@
           </amw-button>
         </div>
       </form>
-    </div>
-  </amw-card>
+    </ng-template>
+</amw-card>
 </div>
 
 

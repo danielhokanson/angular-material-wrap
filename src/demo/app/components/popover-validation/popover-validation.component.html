@@ -8,12 +8,12 @@
   <div class="popover-validation__content">
     <!-- Configuration Form -->
     <amw-card class="popover-validation__form-card">
-      <div slot="header">
+      <ng-template #cardHeader>
         <h2>Configuration Validation</h2>
         <p class="subtitle">Test validation rules for popover configuration</p>
-      </div>
+      </ng-template>
 
-      <div slot="content">
+      <ng-template #cardContent>
         <form [formGroup]="configForm" (ngSubmit)="onSubmit()" class="popover-validation__form">
           <div class="popover-validation__form-row">
             <amw-select
@@ -45,7 +45,7 @@
               placeholder="1000"
               hint="0-10000">
             </amw-input>
-          </div>
+          </ng-template>
 
           <div class="popover-validation__form-row">
             <amw-input
@@ -183,17 +183,17 @@
             <amw-button variant="text" type="button" (click)="resetConfig()" icon="refresh" iconPosition="left">Reset</amw-button>
           </div>
         </form>
-      </div>
-    </amw-card>
+      </ng-template>
+</amw-card>
 
     <!-- Trigger Form -->
     <amw-card class="popover-validation__form-card">
-      <div slot="header">
+      <ng-template #cardHeader>
         <h2>Trigger Validation</h2>
         <p class="subtitle">Test validation rules for popover trigger</p>
-      </div>
+      </ng-template>
 
-      <div slot="content">
+      <ng-template #cardContent>
         <form [formGroup]="triggerForm" (ngSubmit)="onSubmit()" class="popover-validation__form">
           <div class="popover-validation__form-row">
             <amw-select
@@ -222,7 +222,7 @@
               placeholder="0"
               hint="0-10000 milliseconds">
             </amw-input>
-          </div>
+          </ng-template>
 
           <div class="popover-validation__form-row">
             <amw-input
@@ -253,17 +253,17 @@
             <amw-button variant="text" type="button" (click)="resetTrigger()" icon="refresh" iconPosition="left">Reset</amw-button>
           </div>
         </form>
-      </div>
-    </amw-card>
+      </ng-template>
+</amw-card>
 
     <!-- Live Demo -->
     <amw-card class="popover-validation__demo-card">
-      <div slot="header">
+      <ng-template #cardHeader>
         <h2>Live Demo</h2>
         <p class="subtitle">Test the popover with current configuration</p>
-      </div>
+      </ng-template>
 
-      <div slot="content">
+      <ng-template #cardContent>
         <div class="popover-validation__demo-container">
           <amw-popover
             [config]="currentConfig"
@@ -300,12 +300,12 @@
                     <li><strong>Color field:</strong> Must be valid hex color code</li>
                     <li><strong>Easing field:</strong> Must be valid CSS easing function</li>
                   </ul>
-                </div>
+                </ng-template>
               </div>
             </ng-template>
           </amw-popover>
         </div>
-      </div>
-    </amw-card>
+      </ng-template>
+</amw-card>
   </div>
 </div>

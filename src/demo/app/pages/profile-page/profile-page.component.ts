@@ -6,8 +6,8 @@ import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
 import { MatSelectModule } from '@angular/material/select';
 import { AmwSwitchComponent } from '@angular/material/slide-toggle';
-import { AmwDividerComponent } from '@angular/material/divider';
-import { AmwTabsComponent } from '@angular/material/tabs';
+import { AmwDividerComponent } from '../../../../library/src/components/components/amw-divider/amw-divider.component';
+import { AmwTabsComponent } from '../../../../library/src/components/components/amw-tabs/amw-tabs.component';
 import { MatOptionModule } from '@angular/material/core';
 
 import { AmwButtonComponent } from '../../../../library/src/controls/components/amw-button/amw-button.component';

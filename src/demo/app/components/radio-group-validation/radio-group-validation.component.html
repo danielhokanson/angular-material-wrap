@@ -4,11 +4,11 @@
 
   <!-- Validation Form -->
   <amw-card class="validation-card">
-    <div slot="header">
+    <ng-template #cardHeader>
       <h2>Validation Form</h2>
       <p class="subtitle">All fields are required - try submitting without selecting values</p>
-    </div>
-    <div slot="content">
+    </ng-template>
+    <ng-template #cardContent>
       <form [formGroup]="validationForm" (ngSubmit)="onSubmit()">
         <!-- Required Field -->
         <div class="form-field">
@@ -25,7 +25,7 @@
             <div class="validation-error">
               <mat-icon>error</mat-icon>
               {{ getFieldValidationMessage('requiredField') }}
-            </div>
+            </ng-template>
           }
         </div>
 
@@ -99,16 +99,16 @@
           <amw-button variant="text" type="button" (click)="resetForm()" icon="refresh" iconPosition="left">Reset</amw-button>
         </div>
       </form>
-    </div>
-  </amw-card>
+    </ng-template>
+</amw-card>
 
   <!-- Validation Status -->
   <amw-card class="status-card">
-    <div slot="header">
+    <ng-template #cardHeader>
       <h2>Validation Status</h2>
       <p class="subtitle">Current form validation state</p>
-    </div>
-    <div slot="content">
+    </ng-template>
+    <ng-template #cardContent>
       <div class="status-display">
         <div class="status-item">
           <mat-icon [class]="isFormValid ? 'status-valid' : 'status-invalid'">
@@ -117,7 +117,7 @@
           <span [class]="isFormValid ? 'status-valid' : 'status-invalid'">
             Form {{ isFormValid ? 'Valid' : 'Invalid' }}
           </span>
-        </div>
+        </ng-template>
 
         @if (formErrors.length > 0) {
           <div class="error-list">
@@ -130,17 +130,17 @@
           </div>
         }
       </div>
-    </div>
-  </amw-card>
+    </ng-template>
+</amw-card>
 
   <!-- Form Values Display -->
   <amw-card class="values-card">
-    <div slot="header">
+    <ng-template #cardHeader>
       <h2>Form Values</h2>
       <p class="subtitle">Current form data</p>
-    </div>
-    <div slot="content">
+    </ng-template>
+    <ng-template #cardContent>
       <pre class="values-display">{{ validationForm.value | json }}</pre>
-    </div>
+    </ng-template>
   </amw-card>
 </div>

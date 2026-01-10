@@ -1,11 +1,11 @@
 <div class="color-picker-validation">
   <amw-card>
-    <div slot="header">
+    <ng-template #cardHeader>
       <h2>Color Picker Validation Examples</h2>
       <p class="subtitle">Form validation with color picker controls</p>
-    </div>
+    </ng-template>
 
-    <div slot="content">
+    <ng-template #cardContent>
       <form [formGroup]="colorPickerForm" (ngSubmit)="onSubmit()">
         <div class="color-picker-validation__form">
           <amw-color-picker
@@ -42,7 +42,7 @@
             [required]="true"
             [errorMessage]="colorPickerForm.get('backgroundColor')?.hasError('required') ? 'Background color is required' : ''"
           ></amw-color-picker>
-        </div>
+        </ng-template>
 
         <div class="color-picker-validation__actions">
           <amw-button variant="text" type="button" (click)="onReset()">Reset</amw-button>
@@ -51,8 +51,8 @@
           </amw-button>
         </div>
       </form>
-    </div>
-  </amw-card>
+    </ng-template>
+</amw-card>
 </div>
 
 

@@ -5,7 +5,7 @@ import { DemoTab } from './interfaces/demo-tab.interface';
 
 // Re-export for convenience
 export type { DemoTab } from './interfaces/demo-tab.interface';
-import { AmwTabsComponent } from '@angular/material/tabs';
+import { AmwTabsComponent } from '../../../../library/src/components/components/amw-tabs/amw-tabs.component';
 
 @Component({
     selector: 'amw-demo-tabs',

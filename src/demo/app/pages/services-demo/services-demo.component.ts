@@ -8,7 +8,7 @@ import { Subject, takeUntil } from 'rxjs';
 import { AmwMessagingService, Message } from '../../../../library/src/services/amw-messaging/amw-messaging.service';
 import { AmwLoadingService, LoadingState } from '../../../../library/src/services/amw-loading/amw-loading.service';
 import { AmwNotificationService, Notification } from '../../../../library/src/services/amw-notification/amw-notification.service';
-import { AmwTabsComponent } from '@angular/material/tabs';
+import { AmwTabsComponent } from '../../../../library/src/components/components/amw-tabs/amw-tabs.component';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { AmwButtonComponent } from '../../../../library/src/controls/components/amw-button/amw-button.component';
 import { AmwInputComponent } from '../../../../library/src/controls/components/amw-input/amw-input.component';
@@ -197,7 +197,7 @@ export class ServicesDemoComponent implements OnInit, OnDestroy {
 import { Component } from '@angular/core';
 import { AmwMessagingService } from '@angular-material-wrap';
 import { MatFormFieldModule } from '@angular/material/form-field';
-import { AmwTabsComponent } from '@angular/material/tabs';
+import { AmwTabsComponent } from '../../../../library/src/components/components/amw-tabs/amw-tabs.component';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 
 @Component({
@@ -427,7 +427,7 @@ export class MyComponent {
 import { Component } from '@angular/core';
 import { AmwLoadingService } from '@angular-material-wrap';
 import { MatFormFieldModule } from '@angular/material/form-field';
-import { AmwTabsComponent } from '@angular/material/tabs';
+import { AmwTabsComponent } from '../../../../library/src/components/components/amw-tabs/amw-tabs.component';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 
 @Component({
@@ -636,7 +636,7 @@ export class MyComponent {
 import { Component } from '@angular/core';
 import { AmwNotificationService } from '@angular-material-wrap';
 import { MatFormFieldModule } from '@angular/material/form-field';
-import { AmwTabsComponent } from '@angular/material/tabs';
+import { AmwTabsComponent } from '../../../../library/src/components/components/amw-tabs/amw-tabs.component';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 
 @Component({

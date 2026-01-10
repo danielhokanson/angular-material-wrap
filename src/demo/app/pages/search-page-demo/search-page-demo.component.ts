@@ -304,7 +304,7 @@ class SearchPageDemoDataSource implements SearchPageDataSource {
         return highlights;
     }
 }
-import { AmwTabsComponent } from '@angular/material/tabs';
+import { AmwTabsComponent } from '../../../../library/src/components/components/amw-tabs/amw-tabs.component';
 
 @Component({
     selector: 'app-search-page-demo',

@@ -32,8 +32,8 @@ interface MeetingEvent {
     meetingUrl?: string;
     notes?: string;
 }
-import { AmwTabsComponent } from '@angular/material/tabs';
-import { AmwDividerComponent } from '@angular/material/divider';
+import { AmwTabsComponent } from '../../../../library/src/components/components/amw-tabs/amw-tabs.component';
+import { AmwDividerComponent } from '../../../../library/src/components/components/amw-divider/amw-divider.component';
 
 import { AmwButtonComponent } from '../../../../library/src/controls/components/amw-button/amw-button.component';
 @Component({

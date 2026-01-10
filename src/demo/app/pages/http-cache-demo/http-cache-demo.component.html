@@ -10,11 +10,11 @@
       <amw-tab label="Interactive Demo">
         <div class="tab-content">
           <amw-card>
-            <div slot="header">
+            <ng-template #cardHeader>
               <h2>Test Cache Behavior</h2>
               <p class="subtitle">Click buttons multiple times to see caching in action</p>
-            </div>
-            <div slot="content">
+            </ng-template>
+            <ng-template #cardContent>
               <div class="cache-info">
                 <mat-chip-set>
                   <mat-chip>
@@ -39,7 +39,7 @@
                     </mat-chip>
                   }
                 </mat-chip-set>
-              </div>
+              </ng-template>
 
               <div class="test-endpoints">
                 <h3>Test Endpoints</h3>
@@ -75,8 +75,8 @@
                   <pre>{{ responseData | json }}</pre>
                 </div>
               }
-            </div>
-          </amw-card>
+            </ng-template>
+</amw-card>
         </div>
       </amw-tab>
 
@@ -84,11 +84,11 @@
       <amw-tab label="Cache Configuration">
         <div class="tab-content">
           <amw-card>
-            <div slot="header">
+            <ng-template #cardHeader>
               <h2>Current Cache Configuration</h2>
               <p class="subtitle">From assets/cache-map.json</p>
-            </div>
-            <div slot="content">
+            </ng-template>
+            <ng-template #cardContent>
               <mat-list>
                 @for (pattern of cacheConfig | keyvalue; track pattern) {
                   <mat-list-item>
@@ -98,7 +98,7 @@
                   </mat-list-item>
                 }
               </mat-list>
-            </div>
+            </ng-template>
           </amw-card>
         </div>
       </amw-tab>
@@ -107,10 +107,10 @@
       <amw-tab label="How It Works">
         <div class="tab-content">
           <amw-card>
-            <div slot="header">
+            <ng-template #cardHeader>
               <h2>HTTP Cache Interceptor</h2>
-            </div>
-            <div slot="content">
+            </ng-template>
+            <ng-template #cardContent>
               <h3>Features</h3>
               <ul>
                 <li><strong>Automatic Caching:</strong> GET requests are automatically cached based on URL patterns</li>
@@ -149,7 +149,7 @@
                 <li><strong>Test Cross-Tab:</strong> Open two tabs, cache data in one - it's available in the other instantly</li>
                 <li><strong>Monitor Storage:</strong> Check the storage usage statistics to see IndexedDB usage</li>
               </ol>
-            </div>
+            </ng-template>
           </amw-card>
         </div>
       </amw-tab>

@@ -4,10 +4,10 @@
 
   <!-- Demo Controls -->
   <amw-card class="demo-controls">
-    <div slot="header">
+    <ng-template #cardHeader>
       <h2>Demo Controls</h2>
-    </div>
-    <div slot="content">
+    </ng-template>
+    <ng-template #cardContent>
       <div class="controls-grid">
         <amw-button variant="elevated" color="primary" (click)="addSampleRecord()" icon="add" iconPosition="left">Add Record</amw-button>
 
@@ -19,13 +19,13 @@
 
         <amw-button variant="elevated" (click)="clearSelection()" [disabled]="selectedRows.length === 0" icon="clear" iconPosition="left">Clear Selection</amw-button>
       </div>
-    </div>
-  </amw-card>
+      </ng-template>
+</amw-card>
 
   <!-- Selection Info -->
   @if (selectedRows.length > 0) {
     <amw-card class="selection-info">
-      <div slot="content">
+      <ng-template #cardContent>
         <div class="selection-details">
           <mat-icon>check_circle</mat-icon>
           <span>{{ selectedRows.length }} row(s) selected</span>
@@ -42,26 +42,26 @@
             }
           </mat-chip-set>
         </div>
-      </div>
-    </amw-card>
+      </ng-template>
+</amw-card>
   }
 
   <!-- Sort Info -->
   @if (currentSort) {
     <amw-card class="sort-info">
-      <div slot="content">
+      <ng-template #cardContent>
         <div class="sort-details">
           <mat-icon>sort</mat-icon>
           <span>Sorted by: {{ currentSort.column }} ({{ currentSort.direction }})</span>
         </div>
-      </div>
-    </amw-card>
+      </ng-template>
+</amw-card>
   }
 
   <!-- Filter Info -->
   @if (currentFilters.length > 0) {
     <amw-card class="filter-info">
-      <div slot="content">
+      <ng-template #cardContent>
         <div class="filter-details">
           <mat-icon>filter_list</mat-icon>
           <span>{{ currentFilters.length }} filter(s) applied</span>
@@ -73,17 +73,17 @@
             }
           </mat-chip-set>
         </div>
-      </div>
-    </amw-card>
+      </ng-template>
+</amw-card>
   }
 
   <!-- Data Table -->
   <amw-card class="data-table-card">
-    <div slot="header">
+    <ng-template #cardHeader>
       <h2>Employee Records</h2>
       <p class="subtitle">Interactive data table with sorting, filtering, pagination, and selection</p>
-    </div>
-    <div slot="content">
+    </ng-template>
+    <ng-template #cardContent>
       <amw-data-table
         [data]="sampleData"
         [config]="tableConfig"
@@ -95,21 +95,21 @@
         (editChange)="onEditChange($event)"
         (actionClick)="onActionClick($event)">
       </amw-data-table>
-    </div>
+    </ng-template>
   </amw-card>
 
   <!-- Feature Highlights -->
   <amw-card class="features-card">
-    <div slot="header">
+    <ng-template #cardHeader>
       <h2>Features Demonstrated</h2>
-    </div>
-    <div slot="content">
+    </ng-template>
+    <ng-template #cardContent>
       <div class="features-grid">
         <div class="feature-item">
           <mat-icon>sort</mat-icon>
           <h3>Sorting</h3>
           <p>Click column headers to sort data in ascending or descending order</p>
-        </div>
+        </ng-template>
 
         <div class="feature-item">
           <mat-icon>search</mat-icon>
@@ -141,6 +141,6 @@
           <p>Table adapts to different screen sizes and orientations</p>
         </div>
       </div>
-    </div>
-  </amw-card>
+    </ng-template>
+</amw-card>
 </div>

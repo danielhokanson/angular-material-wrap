@@ -233,7 +233,7 @@ class WorkflowPageDemoDataSource implements WorkflowPageDataSource {
         return of(true).pipe(delay(1000));
     }
 }
-import { AmwTabsComponent } from '@angular/material/tabs';
+import { AmwTabsComponent } from '../../../../library/src/components/components/amw-tabs/amw-tabs.component';
 
 @Component({
     selector: 'app-workflow-page-demo',

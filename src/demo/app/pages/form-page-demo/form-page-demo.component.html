@@ -6,12 +6,12 @@
 
   <div class="form-page-demo__controls">
     <amw-card class="form-page-demo__controls-card">
-      <div slot="content">
+      <ng-template #cardContent>
         <amw-tabs [(selectedIndex)]="currentView" (selectedIndexChange)="onViewChange($event === 0 ? 'basic' : 'advanced')">
           <amw-tab label="Basic View">
             <div class="form-page-demo__tab-content">
               <p>Basic form view with essential fields and validation.</p>
-            </div>
+            </ng-template>
           </amw-tab>
           <amw-tab label="Advanced View">
             <div class="form-page-demo__tab-content">
@@ -36,8 +36,8 @@
                     (click)="onModeChange('view')" icon="visibility" iconPosition="left">View</amw-button>
           </div>
         </div>
-      </div>
-    </amw-card>
+      </ng-template>
+</amw-card>
   </div>
 
   <div class="form-page-demo__content">
@@ -55,10 +55,10 @@
 
   <div class="form-page-demo__info">
     <amw-card class="form-page-demo__info-card">
-      <div slot="header">
+      <ng-template #cardHeader>
         <h2>Demo Information</h2>
-      </div>
-      <div slot="content">
+      </ng-template>
+      <ng-template #cardContent>
         <div class="form-page-demo__info-content">
           <div class="form-page-demo__info-section">
             <h4>Features Demonstrated:</h4>
@@ -71,7 +71,7 @@
               <li>Custom component integration</li>
               <li>Responsive design</li>
             </ul>
-          </div>
+          </ng-template>
           
           <div class="form-page-demo__info-section">
             <h4>Form Sections:</h4>
@@ -94,8 +94,8 @@
             </ul>
           </div>
         </div>
-      </div>
-    </amw-card>
+      </ng-template>
+</amw-card>
   </div>
 </div>
 

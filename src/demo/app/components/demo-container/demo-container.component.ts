@@ -113,7 +113,7 @@ import { ThemeDemoComponent } from '../theme-demo/theme-demo.component';
 import { ThemeValidationComponent } from '../theme-validation/theme-validation.component';
 import { ThemeCodeComponent } from '../theme-code/theme-code.component';
 import { ThemeApiComponent } from '../theme-api/theme-api.component';
-import { AmwTabsComponent } from '@angular/material/tabs';
+import { AmwTabsComponent } from '../../../../library/src/components/components/amw-tabs/amw-tabs.component';
 
 @Component({
     selector: 'amw-demo-container',

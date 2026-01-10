@@ -1,11 +1,11 @@
 <div class="timepicker-validation">
   <amw-card>
-    <div slot="header">
+    <ng-template #cardHeader>
       <h2>Timepicker Validation Examples</h2>
       <p class="subtitle">Form validation with timepicker controls</p>
-    </div>
+    </ng-template>
 
-    <div slot="content">
+    <ng-template #cardContent>
       <form [formGroup]="timepickerForm" (ngSubmit)="onSubmit()">
         <div class="timepicker-validation__form">
           <amw-timepicker
@@ -41,7 +41,7 @@
             [required]="true"
             [errorMessage]="timepickerForm.get('meetingTime')?.hasError('required') ? 'Meeting time is required' : ''"
           ></amw-timepicker>
-        </div>
+        </ng-template>
 
         <div class="timepicker-validation__actions">
           <amw-button variant="text" type="button" (click)="onReset()">Reset</amw-button>
@@ -50,6 +50,6 @@
           </amw-button>
         </div>
       </form>
-    </div>
-  </amw-card>
+    </ng-template>
+</amw-card>
 </div>

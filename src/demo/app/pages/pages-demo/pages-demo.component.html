@@ -4,103 +4,103 @@
 
   <div class="pages-grid">
     <amw-card class="page-card" routerLink="/pages/dashboard">
-      <div slot="header">
+      <ng-template #cardHeader>
         <h2>Dashboard Page</h2>
         <p class="subtitle">Overview with metrics and quick actions</p>
-      </div>
-      <div slot="content">
+      </ng-template>
+      <ng-template #cardContent>
         <p>Comprehensive dashboard with KPIs, charts, and interactive widgets.</p>
-      </div>
+      </ng-template>
     </amw-card>
 
     <amw-card class="page-card" routerLink="/pages/profile">
-      <div slot="header">
+      <ng-template #cardHeader>
         <h2>Profile Page</h2>
         <p class="subtitle">User profile and settings</p>
-      </div>
-      <div slot="content">
+      </ng-template>
+      <ng-template #cardContent>
         <p>User profile management with personal information and preferences.</p>
-      </div>
+      </ng-template>
     </amw-card>
 
     <amw-card class="page-card" routerLink="/pages/settings">
-      <div slot="header">
+      <ng-template #cardHeader>
         <h2>Settings Page</h2>
         <p class="subtitle">Application configuration</p>
-      </div>
-      <div slot="content">
+      </ng-template>
+      <ng-template #cardContent>
         <p>Application settings and configuration options.</p>
-      </div>
+      </ng-template>
     </amw-card>
 
     <amw-card class="page-card" routerLink="/pages/list">
-      <div slot="header">
+      <ng-template #cardHeader>
         <h2>List/Table Page</h2>
         <p class="subtitle">Data browsing and management</p>
-      </div>
-      <div slot="content">
+      </ng-template>
+      <ng-template #cardContent>
         <p>Advanced list view with filtering, sorting, pagination, and bulk operations.</p>
-      </div>
+      </ng-template>
     </amw-card>
 
     <amw-card class="page-card" routerLink="/pages/detail">
-      <div slot="header">
+      <ng-template #cardHeader>
         <h2>Detail/View Page</h2>
         <p class="subtitle">Single record display</p>
-      </div>
-      <div slot="content">
+      </ng-template>
+      <ng-template #cardContent>
         <p>Comprehensive detail view with related data and actions.</p>
-      </div>
+      </ng-template>
     </amw-card>
 
     <amw-card class="page-card" routerLink="/pages/form">
-      <div slot="header">
+      <ng-template #cardHeader>
         <h2>Form/Create-Edit Page</h2>
         <p class="subtitle">Data entry and validation</p>
-      </div>
-      <div slot="content">
+      </ng-template>
+      <ng-template #cardContent>
         <p>Advanced form with validation, auto-save, and state management.</p>
-      </div>
+      </ng-template>
     </amw-card>
 
     <amw-card class="page-card" routerLink="/pages/search">
-      <div slot="header">
+      <ng-template #cardHeader>
         <h2>Search/Filter Page</h2>
         <p class="subtitle">Advanced search capabilities</p>
-      </div>
-      <div slot="content">
+      </ng-template>
+      <ng-template #cardContent>
         <p>Comprehensive search with filters, suggestions, and multiple view modes.</p>
-      </div>
+      </ng-template>
     </amw-card>
 
     <amw-card class="page-card" routerLink="/pages/workflow">
-      <div slot="header">
+      <ng-template #cardHeader>
         <h2>Workflow/Process Page</h2>
         <p class="subtitle">Multi-step operations</p>
-      </div>
-      <div slot="content">
+      </ng-template>
+      <ng-template #cardContent>
         <p>Step-by-step workflow with validation and progress tracking.</p>
-      </div>
+      </ng-template>
     </amw-card>
 
     <amw-card class="page-card" routerLink="/pages/report">
-      <div slot="header">
+      <ng-template #cardHeader>
         <h2>Report/Analytics Page</h2>
         <p class="subtitle">Data visualization and reporting</p>
-      </div>
-      <div slot="content">
+      </ng-template>
+      <ng-template #cardContent>
         <p>Interactive analytics dashboard with widgets and export capabilities.</p>
-      </div>
+      </ng-template>
     </amw-card>
   </div>
 
   <div class="pages-info">
     <amw-card>
-      <div slot="header">
+      <ng-template #cardHeader>
         <h2>Page Stereotypes</h2>
         <p class="subtitle">Common patterns for transactional applications</p>
-      </div>
-      <div slot="content">
+      </ng-template>
+      <ng-template #cardContent>
         <p>These page components represent the 7 most common page stereotypes that cover approximately 80% of functionality in transactional/functional applications:</p>
         <ul>
           <li><strong>List/Table:</strong> Browse hundreds/thousands of records with filtering and sorting</li>
@@ -112,7 +112,7 @@
           <li><strong>Report/Analytics:</strong> Data visualization and reporting</li>
         </ul>
         <p>Each page component is highly customizable, supports real-time updates, and includes comprehensive accessibility features.</p>
-      </div>
+      </ng-template>
     </amw-card>
   </div>
 </div>

@@ -10,11 +10,11 @@
       <amw-tab label="Personal Info">
         <div class="tab-content">
           <amw-card>
-            <div slot="header">
+            <ng-template #cardHeader>
               <h2>Personal Information</h2>
               <p class="subtitle">Update your personal details</p>
-            </div>
-            <div slot="content">
+            </ng-template>
+            <ng-template #cardContent>
               <form [formGroup]="personalForm" class="profile-form">
                 <div class="form-row">
                   <amw-input
@@ -27,7 +27,7 @@
                     formControlName="lastName"
                     placeholder="Enter last name">
                   </amw-input>
-                </div>
+                </ng-template>
                 
                 <div class="form-row">
                   <amw-input
@@ -61,8 +61,8 @@
                   <amw-button variant="text" (click)="resetPersonalForm()" icon="refresh" iconPosition="left">Reset</amw-button>
                 </div>
               </form>
-            </div>
-          </amw-card>
+            </ng-template>
+</amw-card>
         </div>
       </amw-tab>
 
@@ -70,17 +70,17 @@
       <amw-tab label="Account">
         <div class="tab-content">
           <amw-card>
-            <div slot="header">
+            <ng-template #cardHeader>
               <h2>Account Settings</h2>
               <p class="subtitle">Manage your account preferences</p>
-            </div>
-            <div slot="content">
+            </ng-template>
+            <ng-template #cardContent>
               <div class="settings-section">
                 <h4>Profile Picture</h4>
                 <div class="profile-picture-section">
                   <div class="profile-avatar">
                     <mat-icon>person</mat-icon>
-                  </div>
+                  </ng-template>
                   <div class="avatar-actions">
                     <amw-button variant="elevated" color="primary" icon="photo_camera" iconPosition="left">Change Photo</amw-button>
                     <amw-button variant="text" color="warn" icon="delete" iconPosition="left">Remove Photo</amw-button>
@@ -119,8 +119,8 @@
                   </div>
                 </form>
               </div>
-            </div>
-          </amw-card>
+            </ng-template>
+</amw-card>
         </div>
       </amw-tab>
 
@@ -128,11 +128,11 @@
       <amw-tab label="Preferences">
         <div class="tab-content">
           <amw-card>
-            <div slot="header">
+            <ng-template #cardHeader>
               <h2>Preferences</h2>
               <p class="subtitle">Customize your experience</p>
-            </div>
-            <div slot="content">
+            </ng-template>
+            <ng-template #cardContent>
               <div class="settings-section">
                 <h4>Appearance</h4>
                 <div class="setting-item">
@@ -142,7 +142,7 @@
                     [(ngModel)]="selectedTheme"
                     [options]="themeOptions">
                   </amw-select>
-                </div>
+                </ng-template>
                 <div class="setting-item">
                   <span>Language</span>
                   <amw-select
@@ -174,8 +174,8 @@
               <div class="form-actions">
                 <amw-button variant="elevated" color="primary" (click)="savePreferences()" icon="save" iconPosition="left">Save Preferences</amw-button>
               </div>
-            </div>
-          </amw-card>
+            </ng-template>
+</amw-card>
         </div>
       </amw-tab>
     </amw-tabs>

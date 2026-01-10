@@ -17,11 +17,11 @@
   <!-- Configuration Panel -->
   @if (showConfig) {
     <amw-card class="sidenav-demo__config">
-      <div slot="header">
+      <ng-template #cardHeader>
         <h2>Configuration</h2>
         <p class="subtitle">Customize the sidenav behavior</p>
-      </div>
-      <div slot="content">
+      </ng-template>
+      <ng-template #cardContent>
         <form [formGroup]="configForm" class="sidenav-demo__form">
           <div class="sidenav-demo__form-row">
             <amw-select label="Mode" formControlName="mode">
@@ -45,7 +45,7 @@
                 </mat-option>
               }
             </amw-select>
-          </div>
+          </ng-template>
           <div class="sidenav-demo__form-row">
             <amw-input
               label="Width"
@@ -102,8 +102,8 @@
             </amw-switch>
           </div>
         </form>
-      </div>
-    </amw-card>
+      </ng-template>
+</amw-card>
   }
 
   <!-- Variations -->
@@ -116,17 +116,17 @@
           class="sidenav-demo__variation-card"
           [class.sidenav-demo__variation-card--selected]="selectedVariation === variation"
           (click)="loadVariation(variation)">
-          <div slot="header">
+          <ng-template #cardHeader>
             <h2>{{ variation.title }}</h2>
             <p class="subtitle">{{ variation.description }}</p>
-          </div>
-          <div slot="content">
+          </ng-template>
+          <ng-template #cardContent>
             <div class="sidenav-demo__variation-preview">
               <div class="sidenav-demo__preview-sidenav">
                 <div class="sidenav-demo__preview-header">
                   <mat-icon>menu</mat-icon>
                   <span>Menu</span>
-                </div>
+                </ng-template>
                 <div class="sidenav-demo__preview-items">
                   @for (item of variation.items.slice(0, 3); track item) {
                     <div
@@ -145,8 +145,8 @@
                 </div>
               </div>
             </div>
-          </div>
-        </amw-card>
+          </ng-template>
+</amw-card>
       }
     </div>
   </div>
@@ -170,12 +170,12 @@
         <!-- Main Content -->
         <div class="sidenav-demo__main-content">
           <amw-card class="sidenav-demo__content-card">
-            <div slot="header">
+            <ng-template #cardHeader>
               <h2>Main Content Area</h2>
               <p class="subtitle">This is the main content that gets pushed/overlaid by the sidenav</p>
-            </div>
+            </ng-template>
 
-            <div slot="content">
+            <ng-template #cardContent>
               <p>
                 This is the main content area. The sidenav behavior depends on the selected mode:
               </p>
@@ -195,8 +195,8 @@
 
                 <amw-button variant="text" icon="info" iconPosition="left">Info Button</amw-button>
               </div>
-            </div>
-          </amw-card>
+      </ng-template>
+</amw-card>
         </div>
       </amw-sidenav>
     </div>

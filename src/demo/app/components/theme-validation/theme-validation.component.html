@@ -6,14 +6,14 @@
     <div class="theme-builder">
       <!-- Configuration Panel -->
       <amw-card class="validation-card config-panel">
-        <div slot="header">
+        <ng-template #cardHeader>
           <h2>
             <mat-icon>palette</mat-icon>
             Theme Configuration
           </h2>
           <p class="subtitle">Customize your Material Design theme</p>
-        </div>
-        <div slot="content">
+        </ng-template>
+        <ng-template #cardContent>
           <form [formGroup]="themeForm">
             <!-- Color Configuration -->
             <div class="config-section">
@@ -30,7 +30,7 @@
                 placeholder="#6750a4">
               </amw-input>
               @if (themeForm.get('primaryColor')?.invalid && themeForm.get('primaryColor')?.touched) {
-                <div class="field-error">{{ getErrorMessage('primaryColor') }}</div>
+                <div class="field-error">{{ getErrorMessage('primaryColor') }}</ng-template>
               }
 
               <amw-input
@@ -135,19 +135,19 @@
               <span>Please fix validation errors before applying theme</span>
             </div>
           }
-        </div>
-      </amw-card>
+        </ng-template>
+</amw-card>
 
       <!-- Preview Panel -->
       <amw-card class="validation-card preview-panel" [ngStyle]="getPreviewStyles()">
-        <div slot="header">
+        <ng-template #cardHeader>
           <h2>
             <mat-icon>visibility</mat-icon>
             Preview
           </h2>
           <p class="subtitle">See your theme in action</p>
-        </div>
-        <div slot="content">
+        </ng-template>
+        <ng-template #cardContent>
           @if (previewEnabled()) {
             <div class="preview-content">
               <!-- Color Swatches -->
@@ -217,8 +217,8 @@
               <amw-button variant="text" (click)="togglePreview()">Enable Preview</amw-button>
             </div>
           }
-        </div>
-      </amw-card>
+        </ng-template>
+</amw-card>
     </div>
   </div>
 </div>

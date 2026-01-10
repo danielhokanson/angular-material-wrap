@@ -10,11 +10,11 @@
       <amw-tab label="General">
         <div class="tab-content">
           <amw-card>
-            <div slot="header">
+            <ng-template #cardHeader>
               <h2>General Settings</h2>
               <p class="subtitle">Basic application configuration</p>
-            </div>
-            <div slot="content">
+            </ng-template>
+            <ng-template #cardContent>
               <div class="settings-group">
                 <h4>Application</h4>
                 <div class="setting-item">
@@ -75,8 +75,8 @@
                   </div>
                 </div>
               </div>
-            </div>
-          </amw-card>
+            </ng-template>
+</amw-card>
         </div>
       </amw-tab>
 
@@ -84,11 +84,11 @@
       <amw-tab label="Notifications">
         <div class="tab-content">
           <amw-card>
-            <div slot="header">
+            <ng-template #cardHeader>
               <h2>Notification Settings</h2>
               <p class="subtitle">Configure how you receive notifications</p>
-            </div>
-            <div slot="content">
+            </ng-template>
+            <ng-template #cardContent>
               <div class="settings-group">
                 <h4>Email Notifications</h4>
                 <div class="setting-item">
@@ -133,8 +133,8 @@
                   <amw-switch [(ngModel)]="pushNotifications"></amw-switch>
                 </div>
               </div>
-            </div>
-          </amw-card>
+            </ng-template>
+</amw-card>
         </div>
       </amw-tab>
 
@@ -142,11 +142,11 @@
       <amw-tab label="Privacy">
         <div class="tab-content">
           <amw-card>
-            <div slot="header">
+            <ng-template #cardHeader>
               <h2>Privacy Settings</h2>
               <p class="subtitle">Control your data and privacy preferences</p>
-            </div>
-            <div slot="content">
+            </ng-template>
+            <ng-template #cardContent>
               <div class="settings-group">
                 <h4>Data Collection</h4>
                 <div class="setting-item">
@@ -186,8 +186,8 @@
                   <amw-switch [(ngModel)]="errorReporting"></amw-switch>
                 </div>
               </div>
-            </div>
-          </amw-card>
+            </ng-template>
+</amw-card>
         </div>
       </amw-tab>
 
@@ -195,64 +195,57 @@
       <amw-tab label="Advanced">
         <div class="tab-content">
           <amw-card>
-            <div slot="header">
+            <ng-template #cardHeader>
               <h2>Advanced Settings</h2>
               <p class="subtitle">Advanced configuration options</p>
-            </div>
-            <div slot="content">
-              <amw-accordion-item>
-                <div slot="header">
-                  <h3>API Configuration</h3>
-                </div>
-                <div class="setting-item">
-                  <div class="setting-info">
-                    <span class="setting-label">API Base URL</span>
-                    <span class="setting-description">The base URL for API requests</span>
+            </ng-template>
+            <ng-template #cardContent>
+              <amw-accordion>
+                <amw-accordion-panel amwTitle="API Configuration">
+                  <div class="setting-item">
+                    <div class="setting-info">
+                      <span class="setting-label">API Base URL</span>
+                      <span class="setting-description">The base URL for API requests</span>
+                    </div>
+                    <amw-input
+                      label="API Base URL"
+                      name="apiBaseUrl"
+                      [(ngModel)]="apiBaseUrl"
+                      placeholder="https://api.example.com">
+                    </amw-input>
                   </div>
-                  <amw-input
-                    label="API Base URL"
-                    name="apiBaseUrl"
-                    [(ngModel)]="apiBaseUrl"
-                    placeholder="https://api.example.com">
-                  </amw-input>
-                </div>
-              </amw-accordion-item>
+                </amw-accordion-panel>
 
-              <amw-accordion-item>
-                <div slot="header">
-                  <h3>Cache Settings</h3>
-                </div>
-                <div class="setting-item">
-                  <div class="setting-info">
-                    <span class="setting-label">Cache Duration</span>
-                    <span class="setting-description">How long to cache data</span>
+                <amw-accordion-panel amwTitle="Cache Settings">
+                  <div class="setting-item">
+                    <div class="setting-info">
+                      <span class="setting-label">Cache Duration</span>
+                      <span class="setting-description">How long to cache data</span>
+                    </div>
+                    <div class="slider-container">
+                      <amw-slider
+                        min="1"
+                        max="60"
+                        step="1"
+                        [(ngModel)]="cacheDuration">
+                      </amw-slider>
+                      <span class="slider-value">{{ cacheDuration }} minutes</span>
+                    </div>
                   </div>
-                  <div class="slider-container">
-                    <amw-slider
-                      min="1"
-                      max="60"
-                      step="1"
-                      [(ngModel)]="cacheDuration">
-                    </amw-slider>
-                    <span class="slider-value">{{ cacheDuration }} minutes</span>
-                  </div>
-                </div>
-              </amw-accordion-item>
+                </amw-accordion-panel>
 
-              <amw-accordion-item>
-                <div slot="header">
-                  <h3>Debug Settings</h3>
-                </div>
-                <div class="setting-item">
-                  <div class="setting-info">
-                    <span class="setting-label">Debug Mode</span>
-                    <span class="setting-description">Enable debug logging</span>
+                <amw-accordion-panel amwTitle="Debug Settings">
+                  <div class="setting-item">
+                    <div class="setting-info">
+                      <span class="setting-label">Debug Mode</span>
+                      <span class="setting-description">Enable debug logging</span>
+                    </div>
+                    <amw-switch [(ngModel)]="debugMode"></amw-switch>
                   </div>
-                  <amw-switch [(ngModel)]="debugMode"></amw-switch>
-                </div>
-              </amw-accordion-item>
-            </div>
-          </amw-card>
+                </amw-accordion-panel>
+              </amw-accordion>
+            </ng-template>
+</amw-card>
         </div>
       </amw-tab>
     </amw-tabs>

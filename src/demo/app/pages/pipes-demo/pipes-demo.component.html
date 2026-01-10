@@ -7,11 +7,11 @@
   <div class="pipes-content">
     <div class="pipes-main">
       <amw-card class="pipe-demo">
-        <div slot="header">
+        <ng-template #cardHeader>
           <h2>{{ selectedPipe.name }}</h2>
           <p class="subtitle">Interactive demo and documentation</p>
-        </div>
-        <div slot="content">
+        </ng-template>
+        <ng-template #cardContent>
           <amw-tabs [(selectedIndex)]="selectedTab" class="pipe-tabs">
             <amw-tab label="Demo" icon="play_arrow">
               @switch (selectedPipe.id) {
@@ -31,7 +31,7 @@
                       <div class="pipe-result">
                         <h4>Result:</h4>
                         <p class="result-text">{{ currencyAmount | amwCurrency:'USD' }}</p>
-                      </div>
+                      </ng-template>
                     </div>
                   </div>
                 }
@@ -288,10 +288,10 @@
                       <p>This library provides three custom pipes for common data transformations:</p>
 
                       <amw-card>
-                        <div slot="header">
+                        <ng-template #cardHeader>
                           <h2>Available Pipes</h2>
-                        </div>
-                        <div slot="content">
+                        </ng-template>
+                        <ng-template #cardContent>
                           <pre><code>// Currency Pipe - Format currency values
 import &#123; AmwCurrencyPipe &#125; from '@angular-material-wrap/pipes';
 Usage: value | amwCurrency:currencyCode:display:digitsInfo:locale
@@ -303,7 +303,7 @@ Usage: date | amwDate:format:timezone:locale
 // Text Transform Pipe - Transform text case
 import &#123; AmwTextTransformPipe &#125; from '@angular-material-wrap/pipes';
 Usage: text | amwTextTransform:mode</code></pre>
-                        </div>
+                        </ng-template>
                       </amw-card>
 
                       <p>Select a specific pipe from the navigation to see detailed code examples.</p>
@@ -623,10 +623,10 @@ Usage: text | amwTextTransform:mode</code></pre>
                       <h3>{{ selectedPipe.name }} Pipe API</h3>
 
                       <amw-card class="api-reference">
-                        <div slot="header">
+                        <ng-template #cardHeader>
                           <h2>Pipe API Overview</h2>
-                        </div>
-                        <div slot="content">
+                        </ng-template>
+                        <ng-template #cardContent>
                           <h4>AmwCurrencyPipe</h4>
                           <p>Formats numbers as currency values with internationalization support.</p>
                           <ul>
@@ -647,7 +647,7 @@ Usage: text | amwTextTransform:mode</code></pre>
                             <li><strong>Signature:</strong> <code>transform(value: string, mode: 'uppercase' | 'lowercase' | 'capitalize' | 'titlecase'): string</code></li>
                             <li><strong>Parameters:</strong> value, mode (required)</li>
                           </ul>
-                        </div>
+                        </ng-template>
                       </amw-card>
 
                       <p>Select a specific pipe from the navigation to see detailed API documentation.</p>
@@ -657,8 +657,8 @@ Usage: text | amwTextTransform:mode</code></pre>
               </div>
             </amw-tab>
           </amw-tabs>
-        </div>
-      </amw-card>
+        </ng-template>
+</amw-card>
     </div>
   </div>
 </div>

@@ -12,8 +12,9 @@ export * from './amw-stepper/amw-stepper.component';
 // Tabs component
 export * from './amw-tabs/amw-tabs.component';
 
-// Accordion component
+// Accordion components
 export * from './amw-accordion/amw-accordion.component';
+export * from './amw-accordion/amw-accordion-panel.component';
 
 // Menu components
 export * from './amw-menu/amw-menu.component';

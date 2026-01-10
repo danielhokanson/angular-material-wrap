@@ -1,0 +1,13 @@
+/**
+ * AmwAccordionPanel Component Styles
+ *
+ * Wrapper styles for mat-expansion-panel
+ */
+
+amw-accordion-panel {
+    display: block;
+
+    mat-expansion-panel {
+        // Component-specific overrides can go here
+    }
+}

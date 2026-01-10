@@ -1,11 +1,11 @@
 <div class="data-table-validation">
   <amw-card>
-    <div slot="header">
+    <ng-template #cardHeader>
       <h2>Data Table Validation Examples</h2>
       <p class="subtitle">Form validation with data table controls</p>
-    </div>
+    </ng-template>
     
-    <div slot="content">
+    <ng-template #cardContent>
       <form [formGroup]="dataTableForm" (ngSubmit)="onSubmit()">
         <div class="data-table-validation__form">
           <div class="data-table-validation__section">
@@ -32,7 +32,7 @@
                 hint="Maximum number of users to select"
                 class="data-table-validation__control">
               </amw-input>
-            </div>
+            </ng-template>
             
             <amw-data-table
               [value]="users"
@@ -74,6 +74,6 @@
           </amw-button>
         </div>
       </form>
-    </div>
-  </amw-card>
+    </ng-template>
+</amw-card>
 </div>

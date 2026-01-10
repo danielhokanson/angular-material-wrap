@@ -2,12 +2,12 @@
   <!-- Service Controls Section -->
   <div class="card-demo__service-section">
     <amw-card>
-      <div slot="header">
+      <ng-template #cardHeader>
         <h2>Card Service Demo</h2>
         <p class="subtitle">Manage cards using the CardService with filtering, sorting, and CRUD operations</p>
-      </div>
+      </ng-template>
 
-      <div slot="content">
+      <ng-template #cardContent>
         <!-- Search and Filters -->
         <div class="card-demo__controls">
           <amw-input
@@ -40,7 +40,7 @@
             <mat-option value="medium">Medium</mat-option>
             <mat-option value="large">Large</mat-option>
           </amw-select>
-        </div>
+        </ng-template>
 
         <!-- Filter Checkboxes -->
         <div class="card-demo__checkboxes">
@@ -84,8 +84,8 @@
           <amw-button variant="text" (click)="getCardStatistics()" icon="analytics" iconPosition="left">Statistics</amw-button>
           <amw-button variant="text" (click)="exportCards()" icon="download" iconPosition="left">Export</amw-button>
         </div>
-      </div>
-    </amw-card>
+      </ng-template>
+</amw-card>
   </div>
 
   <!-- Service Cards Display -->
@@ -132,11 +132,11 @@
     <div class="card-demo__grid">
       @for (variation of cardVariations; track variation) {
         <amw-card class="card-demo__card">
-          <div slot="header">
+          <ng-template #cardHeader>
             <h2>{{ variation.title }}</h2>
             <p class="subtitle">{{ variation.description }}</p>
-          </div>
-          <div slot="content">
+          </ng-template>
+          <ng-template #cardContent>
             <div class="card-demo__example">
               <amw-card
                 [headerTitle]="variation.card.headerTitle"
@@ -159,8 +159,8 @@
                 (imageClick)="onImageClick()"
               ></amw-card>
             </div>
-          </div>
-        </amw-card>
+      </ng-template>
+</amw-card>
       }
     </div>
   </div>

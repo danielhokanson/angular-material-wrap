@@ -2,11 +2,11 @@
   <div class="color-picker-demo__grid">
     @for (variation of colorPickerVariations; track variation; let i = $index) {
       <amw-card class="color-picker-demo__card">
-        <div slot="header">
+        <ng-template #cardHeader>
           <h2>{{ variation.title }}</h2>
           <p class="subtitle">{{ variation.description }}</p>
-        </div>
-        <div slot="content">
+        </ng-template>
+        <ng-template #cardContent>
           <div class="color-picker-demo__example">
             <amw-color-picker
               [value]="variation.colorPicker.value"
@@ -20,8 +20,8 @@
               (colorChange)="onColorChange($event, i)"
             ></amw-color-picker>
           </div>
-        </div>
-      </amw-card>
+      </ng-template>
+</amw-card>
     }
   </div>
 </div>

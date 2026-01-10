@@ -6,8 +6,8 @@ import { AmwNotificationService } from '../../../../library/src/services/amw-not
 
 import { AmwChipsComponent } from '../../../../library/src/controls/components/amw-chips/amw-chips.component';
 import { Chip, ChipConfig, ChipEvent, ChipChangeEvent, ChipMenuItem } from '../../../../library/src/controls/components/amw-chips/interfaces';
-import { AmwTabsComponent } from '@angular/material/tabs';
-import { AmwDividerComponent } from '@angular/material/divider';
+import { AmwTabsComponent } from '../../../../library/src/components/components/amw-tabs/amw-tabs.component';
+import { AmwDividerComponent } from '../../../../library/src/components/components/amw-divider/amw-divider.component';
 
 @Component({
     selector: 'amw-demo-chips',

@@ -4,8 +4,8 @@
 
   <amw-accordion class="validation-accordion">
     <!-- Step 1: Personal Information -->
-    <amw-accordion-item [expanded]="step === 0" (opened)="setStep(0)" hideToggle>
-      <div slot="header">
+    <amw-accordion-panel [expanded]="step === 0" (opened)="setStep(0)" [hideToggle]="true">
+      <ng-template #header>
         <h3>
           <mat-icon>person</mat-icon>
           Personal Information
@@ -16,7 +16,7 @@
             <mat-icon class="status-icon status-icon--valid">check_circle</mat-icon>
           }
         </p>
-      </div>
+      </ng-template>
 
       <form [formGroup]="personalInfoForm">
         <amw-input
@@ -53,11 +53,11 @@
           </amw-button>
         </div>
       </form>
-    </amw-accordion-item>
+    </amw-accordion-panel>
 
     <!-- Step 2: Contact Information -->
-    <amw-accordion-item [expanded]="step === 1" (opened)="setStep(1)" hideToggle>
-      <div slot="header">
+    <amw-accordion-panel [expanded]="step === 1" (opened)="setStep(1)" [hideToggle]="true">
+      <ng-template #header>
         <h3>
           <mat-icon>contact_phone</mat-icon>
           Contact Information
@@ -68,7 +68,7 @@
             <mat-icon class="status-icon status-icon--valid">check_circle</mat-icon>
           }
         </p>
-      </div>
+      </ng-template>
 
       <form [formGroup]="contactForm">
         <amw-input
@@ -114,11 +114,11 @@
           </amw-button>
         </div>
       </form>
-    </amw-accordion-item>
+    </amw-accordion-panel>
 
     <!-- Step 3: Preferences -->
-    <amw-accordion-item [expanded]="step === 2" (opened)="setStep(2)" hideToggle>
-      <div slot="header">
+    <amw-accordion-panel [expanded]="step === 2" (opened)="setStep(2)" [hideToggle]="true">
+      <ng-template #header>
         <h3>
           <mat-icon>settings</mat-icon>
           Preferences
@@ -129,7 +129,7 @@
             <mat-icon class="status-icon status-icon--valid">check_circle</mat-icon>
           }
         </p>
-      </div>
+      </ng-template>
 
       <form [formGroup]="preferencesForm">
         <div class="checkbox-group">
@@ -147,6 +147,6 @@
           </amw-button>
         </div>
       </form>
-    </amw-accordion-item>
+    </amw-accordion-panel>
   </amw-accordion>
 </div>

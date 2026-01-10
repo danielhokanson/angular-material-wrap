@@ -6,7 +6,7 @@ import { AmwRadioGroupComponent } from '../../../../library/src/controls/compone
 import { RadioGroupOption, RadioGroupConfig } from '../../../../library/src/controls/components/amw-radio-group/interfaces/radio-group.interface';
 import { AmwSize } from '../../../../library/src/shared/types/amw-size.type';
 import { MatOptionModule } from '@angular/material/core';
-import { AmwDividerComponent } from '@angular/material/divider';
+import { AmwDividerComponent } from '../../../../library/src/components/components/amw-divider/amw-divider.component';
 import { AmwButtonComponent } from '../../../../library/src/controls/components/amw-button/amw-button.component';
 import { AmwInputComponent } from '../../../../library/src/controls/components/amw-input/amw-input.component';
 import { AmwSelectComponent } from '../../../../library/src/controls/components/amw-select/amw-select.component';

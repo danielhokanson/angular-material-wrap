@@ -19,10 +19,10 @@
       <div class="preview-grid">
         <!-- Buttons Preview -->
         <amw-card class="preview-card">
-          <div slot="header">
+          <ng-template #cardHeader>
             <h2>Buttons</h2>
-          </div>
-          <div slot="content">
+          </ng-template>
+          <ng-template #cardContent>
             <div class="button-group">
               <amw-button variant="elevated" color="primary">Primary</amw-button>
               <amw-button variant="elevated" color="accent">Accent</amw-button>
@@ -30,15 +30,15 @@
               <amw-button variant="outlined">Stroked</amw-button>
               <amw-button variant="filled">Flat</amw-button>
             </div>
-          </div>
-        </amw-card>
+      </ng-template>
+</amw-card>
 
         <!-- Form Controls Preview -->
         <amw-card class="preview-card">
-          <div slot="header">
+          <ng-template #cardHeader>
             <h2>Form Controls</h2>
-          </div>
-          <div slot="content">
+          </ng-template>
+          <ng-template #cardContent>
             <div class="form-group">
               <amw-input
                 label="Name"
@@ -61,15 +61,15 @@
                 }
               </amw-select>
             </div>
-          </div>
-        </amw-card>
+      </ng-template>
+</amw-card>
 
         <!-- Selection Controls Preview -->
         <amw-card class="preview-card">
-          <div slot="header">
+          <ng-template #cardHeader>
             <h2>Selection Controls</h2>
-          </div>
-          <div slot="content">
+          </ng-template>
+          <ng-template #cardContent>
             <div class="selection-group">
               <amw-checkbox [(ngModel)]="sampleForm.newsletter">
                 Subscribe to newsletter
@@ -87,15 +87,15 @@
                 Dark mode
               </amw-switch>
             </div>
-          </div>
-        </amw-card>
+      </ng-template>
+</amw-card>
 
         <!-- Slider Preview -->
         <amw-card class="preview-card">
-          <div slot="header">
+          <ng-template #cardHeader>
             <h2>Slider</h2>
-          </div>
-          <div slot="content">
+          </ng-template>
+          <ng-template #cardContent>
             <div class="slider-group">
               <label>Volume: {{ sampleForm.volume }}%</label>
               <amw-slider
@@ -105,15 +105,15 @@
                 step="1">
               </amw-slider>
             </div>
-          </div>
-        </amw-card>
+      </ng-template>
+</amw-card>
 
         <!-- Icons and Colors Preview -->
         <amw-card class="preview-card">
-          <div slot="header">
+          <ng-template #cardHeader>
             <h2>Icons & Colors</h2>
-          </div>
-          <div slot="content">
+          </ng-template>
+          <ng-template #cardContent>
             <div class="icon-group">
               <mat-icon color="primary">favorite</mat-icon>
               <mat-icon color="accent">star</mat-icon>
@@ -122,15 +122,15 @@
               <mat-icon>settings</mat-icon>
               <mat-icon>person</mat-icon>
             </div>
-          </div>
-        </amw-card>
+      </ng-template>
+</amw-card>
 
         <!-- Typography Preview -->
         <amw-card class="preview-card">
-          <div slot="header">
+          <ng-template #cardHeader>
             <h2>Typography</h2>
-          </div>
-          <div slot="content">
+          </ng-template>
+          <ng-template #cardContent>
             <div class="typography-group">
               <h1>Heading 1</h1>
               <h2>Heading 2</h2>
@@ -138,8 +138,8 @@
               <p>This is a paragraph with regular text. It demonstrates how the theme affects typography and readability.</p>
               <p class="mat-caption">This is a caption with smaller text.</p>
             </div>
-          </div>
-        </amw-card>
+      </ng-template>
+</amw-card>
       </div>
     </div>
   </div>

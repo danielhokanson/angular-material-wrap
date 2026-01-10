@@ -10,11 +10,11 @@
     <amw-tab label="Full Calendar" icon="calendar_view_month">
       <div class="tab-content">
         <amw-card class="demo-card">
-          <div slot="header">
+          <ng-template #cardHeader>
             <h2>Full Calendar Component</h2>
             <p class="subtitle">Full-screen calendar with month, week, and day views</p>
-          </div>
-          <div slot="content">
+          </ng-template>
+          <ng-template #cardContent>
             <div class="demo-section">
               <h3>Interactive Calendar</h3>
               <p>Full-featured calendar with drag-and-drop, editing, and multiple view modes</p>
@@ -28,7 +28,7 @@
                         (click)="clearAllEvents()" icon="clear" iconPosition="left">Clear All</amw-button>
                 <amw-button variant="text" 
                         (click)="resetSampleEvents()" icon="refresh" iconPosition="left">Reset Sample</amw-button>
-              </div>
+              </ng-template>
 
               <!-- Full Calendar Component -->
               <div class="calendar-container">
@@ -51,8 +51,8 @@
                 </amw-calendar-full>
               </div>
             </div>
-          </div>
-        </amw-card>
+          </ng-template>
+</amw-card>
       </div>
     </amw-tab>
 
@@ -60,11 +60,11 @@
     <amw-tab label="Mini Calendar" icon="calendar_today">
       <div class="tab-content">
         <amw-card class="demo-card">
-          <div slot="header">
+          <ng-template #cardHeader>
             <h2>Mini Calendar Component</h2>
             <p class="subtitle">Compact calendar for single day and week views</p>
-          </div>
-          <div slot="content">
+          </ng-template>
+          <ng-template #cardContent>
             <div class="demo-section">
               <h3>Single Day View</h3>
               <p>Compact calendar showing events for a single day</p>
@@ -91,7 +91,7 @@
                   (showMoreClick)="onShowMoreClick($event)"
                   (weekViewToggle)="onWeekViewToggle($event)">
                 </amw-calendar-mini>
-              </div>
+              </ng-template>
             </div>
 
             <amw-divider></amw-divider>
@@ -155,8 +155,8 @@
                 </amw-calendar-mini>
               </div>
             </div>
-          </div>
-        </amw-card>
+          </ng-template>
+</amw-card>
       </div>
     </amw-tab>
 
@@ -164,17 +164,17 @@
     <amw-tab label="Features" icon="star">
       <div class="tab-content">
         <amw-card class="demo-card">
-          <div slot="header">
+          <ng-template #cardHeader>
             <h2>Calendar Features</h2>
             <p class="subtitle">Comprehensive feature overview</p>
-          </div>
-          <div slot="content">
+          </ng-template>
+          <ng-template #cardContent>
             <div class="features-grid">
               <div class="feature-item">
                 <mat-icon>event</mat-icon>
                 <h4>Event Management</h4>
                 <p>Create, edit, delete, and move events with drag-and-drop support</p>
-              </div>
+              </ng-template>
               
               <div class="feature-item">
                 <mat-icon>view_module</mat-icon>
@@ -218,8 +218,8 @@
                 <p>Highly configurable with extensive customization options</p>
               </div>
             </div>
-          </div>
-        </amw-card>
+          </ng-template>
+</amw-card>
       </div>
     </amw-tab>
 
@@ -227,11 +227,11 @@
     <amw-tab label="Code Examples" icon="code">
       <div class="tab-content">
         <amw-card class="demo-card">
-          <div slot="header">
+          <ng-template #cardHeader>
             <h2>Usage Examples</h2>
             <p class="subtitle">Code snippets and implementation examples</p>
-          </div>
-          <div slot="content">
+          </ng-template>
+          <ng-template #cardContent>
             <div class="code-section">
               <h3>Basic Usage</h3>
               <div class="code-block">
@@ -251,7 +251,7 @@
   [showWeekView]="true"
   [compactMode]="false"&gt;
 &lt;/amw-calendar-mini&gt;</code></pre>
-              </div>
+              </ng-template>
             </div>
 
             <amw-divider></amw-divider>
@@ -327,8 +327,8 @@ onEventCreate(event: &#123; date: Date; time?: Date &#125;): void &#123;
 &#125;</code></pre>
               </div>
             </div>
-          </div>
-        </amw-card>
+          </ng-template>
+</amw-card>
       </div>
     </amw-tab>
   </amw-tabs>

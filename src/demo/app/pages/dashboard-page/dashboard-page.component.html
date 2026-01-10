@@ -9,103 +9,103 @@
       <!-- Stats Cards -->
       <mat-grid-tile colspan="1" rowspan="1">
         <amw-card class="stat-card">
-          <div slot="content">
+          <ng-template #cardContent>
             <div class="stat-icon">
               <mat-icon>widgets</mat-icon>
-            </div>
+            </ng-template>
             <div class="stat-content">
               <h3>19</h3>
               <p>Components</p>
             </div>
-          </div>
-        </amw-card>
+          </ng-template>
+</amw-card>
       </mat-grid-tile>
 
       <mat-grid-tile colspan="1" rowspan="1">
         <amw-card class="stat-card">
-          <div slot="content">
+          <ng-template #cardContent>
             <div class="stat-icon">
               <mat-icon>extension</mat-icon>
-            </div>
+            </ng-template>
             <div class="stat-content">
               <h3>3</h3>
               <p>Directives</p>
             </div>
-          </div>
-        </amw-card>
+          </ng-template>
+</amw-card>
       </mat-grid-tile>
 
       <mat-grid-tile colspan="1" rowspan="1">
         <amw-card class="stat-card">
-          <div slot="content">
+          <ng-template #cardContent>
             <div class="stat-icon">
               <mat-icon>transform</mat-icon>
-            </div>
+            </ng-template>
             <div class="stat-content">
               <h3>3</h3>
               <p>Pipes</p>
             </div>
-          </div>
-        </amw-card>
+          </ng-template>
+</amw-card>
       </mat-grid-tile>
 
       <mat-grid-tile colspan="1" rowspan="1">
         <amw-card class="stat-card">
-          <div slot="content">
+          <ng-template #cardContent>
             <div class="stat-icon">
               <mat-icon>settings</mat-icon>
-            </div>
+            </ng-template>
             <div class="stat-content">
               <h3>3</h3>
               <p>Services</p>
             </div>
-          </div>
-        </amw-card>
+          </ng-template>
+</amw-card>
       </mat-grid-tile>
 
       <mat-grid-tile colspan="1" rowspan="1">
         <amw-card class="stat-card">
-          <div slot="content">
+          <ng-template #cardContent>
             <div class="stat-icon">
               <mat-icon>pages</mat-icon>
-            </div>
+            </ng-template>
             <div class="stat-content">
               <h3>7</h3>
               <p>Pages</p>
             </div>
-          </div>
-        </amw-card>
+          </ng-template>
+</amw-card>
       </mat-grid-tile>
 
       <!-- Quick Actions -->
       <mat-grid-tile colspan="3" rowspan="1">
         <amw-card class="actions-card">
-          <div slot="header">
+          <ng-template #cardHeader>
             <h2>Quick Actions</h2>
             <p class="subtitle">Common tasks and shortcuts</p>
-          </div>
-          <div slot="content">
+          </ng-template>
+          <ng-template #cardContent>
             <div class="actions-grid">
               <amw-button variant="elevated" color="primary" icon="add" iconPosition="left">New Component</amw-button>
               <amw-button variant="elevated" color="accent" icon="code" iconPosition="left">View Documentation</amw-button>
               <amw-button variant="elevated" color="warn" icon="bug_report" iconPosition="left">Report Issue</amw-button>
             </div>
-          </div>
-        </amw-card>
+      </ng-template>
+</amw-card>
       </mat-grid-tile>
 
       <!-- Progress Overview -->
       <mat-grid-tile colspan="2" rowspan="1">
         <amw-card class="progress-card">
-          <div slot="header">
+          <ng-template #cardHeader>
             <h2>Library Progress</h2>
-          </div>
-          <div slot="content">
+          </ng-template>
+          <ng-template #cardContent>
             <div class="progress-item">
               <div class="progress-label">
                 <span>Controls</span>
                 <span>100%</span>
-              </div>
+              </ng-template>
               <mat-progress-bar mode="determinate" value="100"></mat-progress-bar>
             </div>
             <div class="progress-item">
@@ -136,8 +136,8 @@
               </div>
               <mat-progress-bar mode="determinate" value="100"></mat-progress-bar>
             </div>
-          </div>
-        </amw-card>
+          </ng-template>
+</amw-card>
       </mat-grid-tile>
     </mat-grid-list>
   </div>

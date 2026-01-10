@@ -5,14 +5,14 @@
   <div class="validation-forms">
     <!-- Tag Management Form -->
     <amw-card class="validation-card">
-      <div slot="header">
+      <ng-template #cardHeader>
         <h2>
           <mat-icon>label</mat-icon>
           Tag Management
         </h2>
         <p class="subtitle">Add tags with min/max constraints (1-10 tags)</p>
-      </div>
-      <div slot="content">
+      </ng-template>
+      <ng-template #cardContent>
         <form [formGroup]="tagForm">
           <mat-form-field class="full-width" appearance="outline">
             <mat-label>Add Tags</mat-label>
@@ -49,22 +49,22 @@
             <div class="status-message status-message--success">
               <mat-icon>check_circle</mat-icon>
               <span>Valid: {{ tags.length }} tags added</span>
-            </div>
+            </ng-template>
           }
         </div>
-      </div>
-    </amw-card>
+      </ng-template>
+</amw-card>
 
     <!-- Skill Level Form -->
     <amw-card class="validation-card">
-      <div slot="header">
+      <ng-template #cardHeader>
         <h2>
           <mat-icon>school</mat-icon>
           Skills with Levels
         </h2>
         <p class="subtitle">Add skills with proficiency levels and validation</p>
-      </div>
-      <div slot="content">
+      </ng-template>
+      <ng-template #cardContent>
         <div class="skill-chips">
           <mat-chip-set aria-label="Skill selection">
             @for (skill of skills; track skill) {
@@ -76,7 +76,7 @@
               </mat-chip>
             }
           </mat-chip-set>
-        </div>
+        </ng-template>
 
         <form [formGroup]="skillForm" (ngSubmit)="addSkill()" class="skill-form">
           <div class="form-row">
@@ -121,19 +121,19 @@
             </div>
           }
         </div>
-      </div>
-    </amw-card>
+      </ng-template>
+</amw-card>
 
     <!-- Email Validation Form -->
     <amw-card class="validation-card">
-      <div slot="header">
+      <ng-template #cardHeader>
         <h2>
           <mat-icon>email</mat-icon>
           Email Validation
         </h2>
         <p class="subtitle">Add email addresses with format validation</p>
-      </div>
-      <div slot="content">
+      </ng-template>
+      <ng-template #cardContent>
         <form [formGroup]="emailForm">
           <mat-form-field class="full-width" appearance="outline">
             <mat-label>Email Addresses</mat-label>
@@ -171,15 +171,15 @@
             <div class="status-message status-message--success">
               <mat-icon>check_circle</mat-icon>
               <span>Valid: {{ emails.length }} email(s) added</span>
-            </div>
+            </ng-template>
           }
         </div>
-      </div>
-    </amw-card>
+      </ng-template>
+</amw-card>
 
     <!-- Form Actions -->
     <amw-card class="validation-card validation-card--actions">
-      <div slot="content">
+      <ng-template #cardContent>
         <div class="form-summary">
           <h4>Form Summary</h4>
           <div class="summary-items">
@@ -188,7 +188,7 @@
                 {{ hasMinTags() ? 'check_circle' : 'cancel' }}
               </mat-icon>
               <span>Tags: {{ tags.length }} (min: 1)</span>
-            </div>
+            </ng-template>
             <div class="summary-item">
               <mat-icon [class.valid]="skills.length > 0" [class.invalid]="skills.length === 0">
                 {{ skills.length > 0 ? 'check_circle' : 'cancel' }}
@@ -218,7 +218,7 @@
             </div>
           }
         </div>
-      </div>
-    </amw-card>
+      </ng-template>
+</amw-card>
   </div>
 </div>

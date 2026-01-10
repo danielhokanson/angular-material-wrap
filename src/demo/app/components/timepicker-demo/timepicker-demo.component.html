@@ -2,11 +2,11 @@
   <div class="timepicker-demo__grid">
     @for (variation of timepickerVariations; track variation; let i = $index) {
       <amw-card class="timepicker-demo__card">
-        <div slot="header">
+        <ng-template #cardHeader>
           <h2>{{ variation.title }}</h2>
           <p class="subtitle">{{ variation.description }}</p>
-        </div>
-        <div slot="content">
+        </ng-template>
+        <ng-template #cardContent>
           <div class="timepicker-demo__example">
             <amw-timepicker
               [value]="variation.timepicker.value"
@@ -20,8 +20,8 @@
               (timeChange)="onTimeChange($event, i)"
             ></amw-timepicker>
           </div>
-        </div>
-      </amw-card>
+      </ng-template>
+</amw-card>
     }
   </div>
 </div>

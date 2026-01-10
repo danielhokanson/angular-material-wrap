@@ -4,11 +4,11 @@
 
   <!-- Basic Usage -->
   <amw-card class="demo-card">
-    <div slot="header">
+    <ng-template #cardHeader>
       <h2>Basic Usage</h2>
       <p class="subtitle">Simple radio group with basic options</p>
-    </div>
-    <div slot="content">
+    </ng-template>
+    <ng-template #cardContent>
       <amw-radio-group
         [options]="basicOptions"
         [label]="label"
@@ -26,16 +26,16 @@
       <div class="demo-result">
         <strong>Selected Value:</strong> {{ selectedValue || 'None' }}
       </div>
-    </div>
-  </amw-card>
+      </ng-template>
+</amw-card>
 
   <!-- With Icons -->
   <amw-card class="demo-card">
-    <div slot="header">
+    <ng-template #cardHeader>
       <h2>With Icons</h2>
       <p class="subtitle">Radio group with icon options</p>
-    </div>
-    <div slot="content">
+    </ng-template>
+    <ng-template #cardContent>
       <amw-radio-group
         [options]="iconOptions"
         label="Location Type"
@@ -53,16 +53,16 @@
       <div class="demo-result">
         <strong>Selected Value:</strong> {{ selectedValue2 || 'None' }}
       </div>
-    </div>
-  </amw-card>
+      </ng-template>
+</amw-card>
 
   <!-- With Descriptions -->
   <amw-card class="demo-card">
-    <div slot="header">
+    <ng-template #cardHeader>
       <h2>With Descriptions</h2>
       <p class="subtitle">Radio group with detailed option descriptions</p>
-    </div>
-    <div slot="content">
+    </ng-template>
+    <ng-template #cardContent>
       <amw-radio-group
         [options]="descriptionOptions"
         label="Subscription Plan"
@@ -80,16 +80,16 @@
       <div class="demo-result">
         <strong>Selected Value:</strong> {{ selectedValue3 || 'None' }}
       </div>
-    </div>
-  </amw-card>
+      </ng-template>
+</amw-card>
 
   <!-- Reactive Forms -->
   <amw-card class="demo-card">
-    <div slot="header">
+    <ng-template #cardHeader>
       <h2>Reactive Forms</h2>
       <p class="subtitle">Radio group integrated with Angular reactive forms</p>
-    </div>
-    <div slot="content">
+    </ng-template>
+    <ng-template #cardContent>
       <form [formGroup]="reactiveForm" (ngSubmit)="onSubmit()">
         <amw-radio-group
           [options]="colorOptions"
@@ -107,18 +107,18 @@
           <strong>Form Value:</strong> {{ reactiveForm.value | json }}
           <br>
             <strong>Form Valid:</strong> {{ reactiveForm.valid }}
-          </div>
+          </ng-template>
         </form>
-      </div>
-    </amw-card>
+      </ng-template>
+</amw-card>
 
     <!-- Configuration Controls -->
     <amw-card class="demo-card">
-      <div slot="header">
+      <ng-template #cardHeader>
         <h2>Configuration Controls</h2>
         <p class="subtitle">Adjust component properties in real-time</p>
-      </div>
-      <div slot="content">
+      </ng-template>
+      <ng-template #cardContent>
         <div class="config-controls">
           <div class="config-row">
             <amw-select
@@ -150,7 +150,7 @@
                 </mat-option>
               }
             </amw-select>
-          </div>
+          </ng-template>
 
           <div class="config-row">
             <amw-input
@@ -175,17 +175,17 @@
         <div class="config-actions">
           <amw-button variant="elevated" color="primary" (click)="resetValues()" icon="refresh" iconPosition="left">Reset Values</amw-button>
         </div>
-      </div>
-    </amw-card>
+      </ng-template>
+</amw-card>
 
     <!-- Configuration Display -->
     <amw-card class="demo-card">
-      <div slot="header">
+      <ng-template #cardHeader>
         <h2>Current Configuration</h2>
         <p class="subtitle">JSON representation of current component config</p>
-      </div>
-      <div slot="content">
+      </ng-template>
+      <ng-template #cardContent>
         <pre class="config-display">{{ currentConfig | json }}</pre>
-      </div>
+      </ng-template>
     </amw-card>
   </div>

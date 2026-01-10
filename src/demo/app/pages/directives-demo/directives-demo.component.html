@@ -7,11 +7,11 @@
   <div class="directives-content">
     <div class="directives-main">
       <amw-card class="directive-demo">
-        <div slot="header">
+        <ng-template #cardHeader>
           <h2>{{ selectedDirective.name }}</h2>
           <p class="subtitle">Interactive demo and documentation</p>
-        </div>
-        <div slot="content">
+        </ng-template>
+        <ng-template #cardContent>
           <amw-tabs [(selectedIndex)]="selectedTab" class="directive-tabs">
             <amw-tab label="Demo" icon="play_arrow">
               @switch (selectedDirective.id) {
@@ -29,7 +29,7 @@
                       @if (boxClicked) {
                         <p class="click-indicator">Box was clicked!</p>
                       }
-                    </div>
+                    </ng-template>
                   </div>
                 }
                 @case ('auto-focus') {
@@ -497,10 +497,10 @@
                       <p>This library provides four utility directives to enhance Angular applications:</p>
 
                       <amw-card>
-                        <div slot="header">
+                        <ng-template #cardHeader>
                           <h2>Available Directives</h2>
-                        </div>
-                        <div slot="content">
+                        </ng-template>
+                        <ng-template #cardContent>
                           <pre><code>// Tooltip Directive - Custom tooltips with positioning
 import &#123; AmwTooltipDirective &#125; from '@angular-material-wrap/directives';
 
@@ -520,7 +520,7 @@ import &#123; AmwAutoFocusDirective &#125; from '@angular-material-wrap/directiv
 import &#123; AmwCopyToClipboardDirective &#125; from '@angular-material-wrap/directives';
 
 &lt;button [amwCopyToClipboard]="textToCopy"&gt;Copy&lt;/button&gt;</code></pre>
-                        </div>
+                        </ng-template>
                       </amw-card>
 
                       <p>Select a specific directive from the navigation to see detailed code examples.</p>
@@ -885,10 +885,10 @@ import &#123; AmwCopyToClipboardDirective &#125; from '@angular-material-wrap/di
                       <h3>{{ selectedDirective.name }} Directive API</h3>
 
                       <amw-card class="api-reference">
-                        <div slot="header">
+                        <ng-template #cardHeader>
                           <h2>Directive API Overview</h2>
-                        </div>
-                        <div slot="content">
+                        </ng-template>
+                        <ng-template #cardContent>
                           <h4>AmwTooltipDirective</h4>
                           <p>Displays custom tooltips with configurable positioning and styling.</p>
                           <ul>
@@ -921,7 +921,7 @@ import &#123; AmwCopyToClipboardDirective &#125; from '@angular-material-wrap/di
                             <li><strong>Outputs:</strong> <code>(copied): EventEmitter&lt;boolean&gt;</code></li>
                             <li><strong>Usage:</strong> Attach to buttons to enable copy functionality</li>
                           </ul>
-                        </div>
+                        </ng-template>
                       </amw-card>
 
                       <p>Select a specific directive from the navigation to see detailed API documentation.</p>
@@ -931,8 +931,8 @@ import &#123; AmwCopyToClipboardDirective &#125; from '@angular-material-wrap/di
               </div>
             </amw-tab>
           </amw-tabs>
-        </div>
-      </amw-card>
+        </ng-template>
+</amw-card>
     </div>
   </div>
 </div>

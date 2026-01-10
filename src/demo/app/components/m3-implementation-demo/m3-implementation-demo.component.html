@@ -8,13 +8,13 @@
 
   <!-- Color Tokens Section -->
   <amw-card class="m3-implementation-demo__section">
-    <div slot="header">
-      <mat-card-title class="mdc-typography--headline-small">M3 Color Tokens</h2>
-      <mat-card-subtitle class="mdc-typography--body-medium">
+    <ng-template #cardHeader>
+      <h2 class="mdc-typography--headline-small">M3 Color Tokens</h2>
+      <p class="mdc-typography--body-medium">
         Essential CSS custom properties that must be implemented
       </p>
-    </div>
-    <div slot="content">
+    </ng-template>
+    <ng-template #cardContent>
       <div class="color-tokens-grid">
         <div *ngFor="let token of colorTokens" class="color-token-item">
           <div class="color-token-item__preview" [style.background-color]="token.value"></div>
@@ -26,18 +26,18 @@
           </div>
         </div>
       </div>
-    </div>
+    </ng-template>
   </amw-card>
 
   <!-- Typography Scale Section -->
   <amw-card class="m3-implementation-demo__section">
-    <div slot="header">
-      <mat-card-title class="mdc-typography--headline-small">M3 Typography Scale</h2>
-      <mat-card-subtitle class="mdc-typography--body-medium">
+    <ng-template #cardHeader>
+      <h2 class="mdc-typography--headline-small">M3 Typography Scale</h2>
+      <p class="mdc-typography--body-medium">
         Typography classes for consistent text styling
       </p>
-    </div>
-    <div slot="content">
+    </ng-template>
+    <ng-template #cardContent>
       <div class="typography-scale">
         <div *ngFor="let typography of typographyScale" class="typography-item">
           <div class="typography-item__preview" [class]="typography.class">
@@ -49,104 +49,100 @@
           </div>
         </div>
       </div>
-    </div>
+    </ng-template>
   </amw-card>
 
   <!-- Component Classes Section -->
   <amw-card class="m3-implementation-demo__section">
-    <div slot="header">
-      <mat-card-title class="mdc-typography--headline-small">M3 Component Classes</h2>
-      <mat-card-subtitle class="mdc-typography--body-medium">
+    <ng-template #cardHeader>
+      <h2 class="mdc-typography--headline-small">M3 Component Classes</h2>
+      <p class="mdc-typography--body-medium">
         Angular Material component classes with M3 theming
       </p>
-    </div>
-    <div slot="content">
+    </ng-template>
+    <ng-template #cardContent>
       <div class="component-classes-grid">
         <div *ngFor="let component of componentClasses" class="component-class-item">
           <div class="component-class-item__preview">
             <!-- Button Examples -->
-            <button *ngIf="component.name.includes('Button')" 
-                    [class]="component.class" 
-                    variant="text">
+            <button *ngIf="component.name.includes('Button')" [class]="component.class" variant="text">
               {{ component.name }}
-            </amw-button>
-            
-            <!-- Other component examples would go here -->
-            <div *ngIf="!component.name.includes('Button')" 
-                 class="component-placeholder">
-              {{ component.name }}
-            </div>
-          </div>
-          <div class="component-class-item__info">
-            <div class="component-class-item__class mdc-typography--body-small">{{ component.class }}</div>
-            <div class="component-class-item__description mdc-typography--body-small">{{ component.description }}</div>
-          </div>
+              </amw-button>
+
+              <!-- Other component examples would go here -->
+              <div *ngIf="!component.name.includes('Button')" class="component-placeholder">
+                {{ component.name }}
+    </ng-template>
+</div>
+<div class="component-class-item__info">
+  <div class="component-class-item__class mdc-typography--body-small">{{ component.class }}</div>
+  <div class="component-class-item__description mdc-typography--body-small">{{ component.description }}</div>
+</div>
+</div>
+</div>
+</ng-template>
+</amw-card>
+
+<!-- State Layer Colors Section -->
+<amw-card class="m3-implementation-demo__section">
+  <ng-template #cardHeader>
+    <h2 class="mdc-typography--headline-small">M3 State Layer Colors</h2>
+    <p class="mdc-typography--body-medium">
+      Surface variants for proper layering and depth
+    </p>
+  </ng-template>
+  <ng-template #cardContent>
+    <div class="state-layer-colors">
+      <div *ngFor="let layer of stateLayerColors" class="state-layer-item">
+        <div class="state-layer-item__preview" [style.background-color]="'var(' + layer.variable + ')'"
+          [style.color]="'var(--mdc-theme-on-surface)'">
+          {{ layer.name }}
+        </div>
+        <div class="state-layer-item__info">
+          <div class="state-layer-item__variable mdc-typography--body-small">{{ layer.variable }}</div>
+          <div class="state-layer-item__description mdc-typography--body-small">{{ layer.description }}</div>
         </div>
       </div>
     </div>
-  </amw-card>
+  </ng-template>
+</amw-card>
 
-  <!-- State Layer Colors Section -->
-  <amw-card class="m3-implementation-demo__section">
-    <div slot="header">
-      <mat-card-title class="mdc-typography--headline-small">M3 State Layer Colors</h2>
-      <mat-card-subtitle class="mdc-typography--body-medium">
-        Surface variants for proper layering and depth
-      </p>
-    </div>
-    <div slot="content">
-      <div class="state-layer-colors">
-        <div *ngFor="let layer of stateLayerColors" class="state-layer-item">
-          <div class="state-layer-item__preview" 
-               [style.background-color]="'var(' + layer.variable + ')'"
-               [style.color]="'var(--mdc-theme-on-surface)'">
-            {{ layer.name }}
-          </div>
-          <div class="state-layer-item__info">
-            <div class="state-layer-item__variable mdc-typography--body-small">{{ layer.variable }}</div>
-            <div class="state-layer-item__description mdc-typography--body-small">{{ layer.description }}</div>
-          </div>
-        </div>
-      </div>
-    </div>
-  </amw-card>
+<!-- Implementation Requirements Section -->
+<amw-card class="m3-implementation-demo__section">
+  <ng-template #cardHeader>
+    <h2 class="mdc-typography--headline-small">Implementation Requirements</h2>
+    <p class="mdc-typography--body-medium">
+      Essential steps for implementing M3 in consuming applications
+    </p>
+  </ng-template>
+  <ng-template #cardContent>
+    <div class="implementation-requirements">
+      <div *ngFor="let category of implementationRequirements" class="requirement-category">
+        <h3 class="mdc-typography--title-medium">{{ category.category }}</h3>
+        <ul class="requirement-list">
+          <li *ngFor="let item of category.items" class="requirement-item mdc-typography--body-medium">
+            {{ item }}
+          </li>
+        </ul>
+  </ng-template>
+  </div>
+  </ng-template>
+</amw-card>
 
-  <!-- Implementation Requirements Section -->
-  <amw-card class="m3-implementation-demo__section">
-    <div slot="header">
-      <mat-card-title class="mdc-typography--headline-small">Implementation Requirements</h2>
-      <mat-card-subtitle class="mdc-typography--body-medium">
-        Essential steps for implementing M3 in consuming applications
-      </p>
-    </div>
-    <div slot="content">
-      <div class="implementation-requirements">
-        <div *ngFor="let category of implementationRequirements" class="requirement-category">
-          <h3 class="mdc-typography--title-medium">{{ category.category }}</h3>
-          <ul class="requirement-list">
-            <li *ngFor="let item of category.items" class="requirement-item mdc-typography--body-medium">
-              {{ item }}
-            </li>
-          </ul>
-        </div>
-      </div>
-    </div>
-  </amw-card>
-
-  <!-- Code Examples Section -->
-  <amw-card class="m3-implementation-demo__section">
-    <div slot="header">
-      <mat-card-title class="mdc-typography--headline-small">Implementation Examples</h2>
-      <mat-card-subtitle class="mdc-typography--body-medium">
-        Code snippets for implementing M3 in your application
-      </p>
-    </div>
-    <div slot="content">
-      <div class="code-examples">
-        <!-- CSS Implementation -->
-        <div class="code-example">
-          <h4 class="mdc-typography--title-small">1. CSS Custom Properties (styles.scss)</h4>
-          <pre class="code-block"><code>/* Essential M3 Color Tokens */
+<!-- Code Examples Section -->
+<amw-card class="m3-implementation-demo__section">
+  <ng-template #cardHeader>
+    <h2 class="mdc-typography--headline-small">Implementation Examples</h2>
+    <p class="mdc-typography--body-medium">
+      Code snippets for implementing M3 in your application
+    </p>
+  </ng-template>
+  <ng-template #cardContent>
+    <div class="code-examples">
+      <!-- CSS Implementation -->
+      <div class="code-example">
+        <h4 class="mdc-typography--title-small">1. CSS Custom Properties (styles.scss)</h4>
+        <pre class="code-block"><code>/* Essential M3 Color Tokens */
 :root {
   --mdc-theme-primary: #6750A4;
   --mdc-theme-on-primary: #1C1B1F;
@@ -161,21 +157,21 @@
   --mdc-theme-on-primary: #381E72;
   /* ... dark theme variants */
 }</code></pre>
-        </div>
+  </ng-template>
 
-        <!-- Typography Implementation -->
-        <div class="code-example">
-          <h4 class="mdc-typography--title-small">2. Typography Classes (HTML)</h4>
-          <pre class="code-block"><code>&lt;h1 class="mdc-typography--headline-large"&gt;Main Heading&lt;/h1&gt;
+  <!-- Typography Implementation -->
+  <div class="code-example">
+    <h4 class="mdc-typography--title-small">2. Typography Classes (HTML)</h4>
+    <pre class="code-block"><code>&lt;h1 class="mdc-typography--headline-large"&gt;Main Heading&lt;/h1&gt;
 &lt;h2 class="mdc-typography--headline-medium"&gt;Section Heading&lt;/h2&gt;
 &lt;p class="mdc-typography--body-large"&gt;Body text content&lt;/p&gt;
 &lt;span class="mdc-typography--label-medium"&gt;Form Label&lt;/span&gt;</code></pre>
-        </div>
+  </div>
 
-        <!-- Component Usage -->
-        <div class="code-example">
-          <h4 class="mdc-typography--title-small">3. Component Usage (Angular)</h4>
-          <pre class="code-block"><code>&lt;button variant="elevated" class="mat-mdc-raised-button"&gt;
+  <!-- Component Usage -->
+  <div class="code-example">
+    <h4 class="mdc-typography--title-small">3. Component Usage (Angular)</h4>
+    <pre class="code-block"><code>&lt;button variant="elevated" class="mat-mdc-raised-button"&gt;
   Primary Action
 &lt;/button&gt;
 
@@ -186,12 +182,12 @@
 &lt;mat-card class="mat-mdc-card"&gt;
   &lt;mat-card-content&gt;Card content&lt;/mat-card-content&gt;
 &lt;/mat-card&gt;</code></pre>
-        </div>
+  </div>
 
-        <!-- Theme Switching -->
-        <div class="code-example">
-          <h4 class="mdc-typography--title-small">4. Theme Switching (TypeScript)</h4>
-          <pre class="code-block"><code>// Toggle dark theme
+  <!-- Theme Switching -->
+  <div class="code-example">
+    <h4 class="mdc-typography--title-small">4. Theme Switching (TypeScript)</h4>
+    <pre class="code-block"><code>// Toggle dark theme
 toggleDarkTheme() {
   document.documentElement.classList.toggle('dark-theme');
 }
@@ -200,8 +196,8 @@ toggleDarkTheme() {
 applyCustomTheme(primaryColor: string) {
   document.documentElement.style.setProperty('--mdc-theme-primary', primaryColor);
 }</code></pre>
-        </div>
-      </div>
-    </div>
-  </amw-card>
+  </div>
+  </div>
+  </ng-template>
+</amw-card>
 </div>

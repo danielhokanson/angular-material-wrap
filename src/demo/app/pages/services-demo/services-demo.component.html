@@ -7,11 +7,11 @@
   <div class="services-content">
     <div class="services-main">
       <amw-card class="service-demo">
-        <div slot="header">
+        <ng-template #cardHeader>
           <h2>{{ selectedService.name }}</h2>
           <p class="subtitle">Interactive demo and documentation</p>
-        </div>
-        <div slot="content">
+        </ng-template>
+        <ng-template #cardContent>
           <amw-tabs [(selectedIndex)]="selectedTab" class="service-tabs">
             <amw-tab label="Demo" icon="play_arrow">
               @switch (selectedService.id) {
@@ -38,7 +38,7 @@
                         <amw-button variant="elevated" color="accent" (click)="sendSuccessMessage()" icon="check_circle" iconPosition="left">Success</amw-button>
                         <amw-button variant="elevated" color="warn" (click)="sendWarningMessage()" icon="warning" iconPosition="left">Warning</amw-button>
                         <amw-button variant="elevated" color="warn" (click)="sendErrorMessage()" icon="error" iconPosition="left">Error</amw-button>
-                      </div>
+                      </ng-template>
                     </div>
                     <div class="demo-section">
                       <h4>Message History</h4>
@@ -578,8 +578,8 @@
               </div>
             </amw-tab>
           </amw-tabs>
-        </div>
-      </amw-card>
+        </ng-template>
+</amw-card>
     </div>
   </div>
 </div>

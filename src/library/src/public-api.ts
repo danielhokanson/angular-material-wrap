@@ -26,6 +26,8 @@ export * from './components/services';
 // export * from './components/pipes';
 
 // Individual component exports for better tree-shaking
+export { AmwAccordionComponent } from './components/components/amw-accordion/amw-accordion.component';
+export { AmwAccordionPanelComponent } from './components/components/amw-accordion/amw-accordion-panel.component';
 export { AmwMenuComponent, AmwMenuItemComponent } from './components/components/amw-menu';
 export { AmwProgressBarComponent } from './components/components/amw-progress-bar/amw-progress-bar.component';
 export { AmwProgressSpinnerComponent } from './components/components/amw-progress-spinner/amw-progress-spinner.component';

@@ -7,11 +7,11 @@
   <div class="demo-content">
     <div class="demo-main">
       <amw-card class="demo-card">
-        <div slot="header">
+        <ng-template #cardHeader>
           <h2>{{ selectedItem.name }}</h2>
           <p class="subtitle">Interactive demo and documentation</p>
-        </div>
-        <div slot="content">
+        </ng-template>
+        <ng-template #cardContent>
           <amw-tabs [(selectedIndex)]="selectedTab" class="demo-tabs">
             <amw-tab label="Variations" icon="view_module">
               @switch (selectedItem.id) {
@@ -141,7 +141,7 @@
               }
             </amw-tab>
           </amw-tabs>
-        </div>
+        </ng-template>
       </amw-card>
     </div>
   </div>

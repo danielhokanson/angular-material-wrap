@@ -10,11 +10,11 @@
     <amw-tab label="Basic Chips" icon="view_module">
       <div class="tab-content">
         <amw-card class="demo-card">
-          <div slot="header">
+          <ng-template #cardHeader>
             <h2>Basic Chips</h2>
             <p class="subtitle">Simple chips with add/remove functionality</p>
-          </div>
-          <div slot="content">
+          </ng-template>
+          <ng-template #cardContent>
             <div class="demo-section">
               <h3>Default Chips</h3>
               <p>Basic chips with add and remove functionality</p>
@@ -24,7 +24,7 @@
                 (chipRemove)="onChipRemove($event)"
                 (chipsChange)="onChipsChange($event)">
               </amw-chips>
-            </div>
+            </ng-template>
 
             <amw-divider></amw-divider>
 
@@ -37,8 +37,8 @@
                 (chipsChange)="onChipsChange($event)">
               </amw-chips>
             </div>
-          </div>
-        </amw-card>
+          </ng-template>
+</amw-card>
       </div>
     </amw-tab>
   </amw-tabs>

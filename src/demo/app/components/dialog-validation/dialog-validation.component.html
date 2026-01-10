@@ -1,11 +1,11 @@
 <div class="dialog-validation">
   <amw-card>
-    <div slot="header">
+    <ng-template #cardHeader>
       <h2>Dialog Configuration Validation</h2>
       <p class="subtitle">Configure and test dialog settings with validation</p>
-    </div>
+    </ng-template>
 
-    <div slot="content">
+    <ng-template #cardContent>
       <form [formGroup]="dialogForm" (ngSubmit)="onSubmit()">
         <div class="dialog-validation__form">
           <div class="dialog-validation__section">
@@ -22,7 +22,7 @@
               @if (dialogForm.get('title')?.hasError('required')) {
                 <div class="field-error">
                   Title is required
-                </div>
+                </ng-template>
               }
 
               <amw-textarea
@@ -81,8 +81,8 @@
           <p><strong>Type:</strong> {{ typeof lastDialogResult }}</p>
         </div>
       }
-    </div>
-  </amw-card>
+    </ng-template>
+</amw-card>
 </div>
 
 

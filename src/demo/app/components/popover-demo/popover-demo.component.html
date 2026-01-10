@@ -17,11 +17,11 @@
   <!-- Configuration Panel -->
   @if (showConfig) {
     <amw-card class="popover-demo__config">
-      <div slot="header">
+      <ng-template #cardHeader>
         <h2>Configuration</h2>
         <p class="subtitle">Customize the popover behavior and appearance</p>
-      </div>
-      <div slot="content">
+      </ng-template>
+      <ng-template #cardContent>
         <form [formGroup]="configForm" class="popover-demo__form">
           <div class="popover-demo__form-row">
             <amw-select label="Size" formControlName="size">
@@ -45,7 +45,7 @@
                 </mat-option>
               }
             </amw-select>
-          </div>
+          </ng-template>
           <div class="popover-demo__form-row">
             <amw-input
               label="Width"
@@ -194,8 +194,8 @@
             </amw-switch>
           </div>
         </form>
-      </div>
-    </amw-card>
+      </ng-template>
+</amw-card>
   }
 
   <!-- Variations -->
@@ -208,17 +208,17 @@
           class="popover-demo__variation-card"
           [class.popover-demo__variation-card--selected]="selectedVariation === variation"
           (click)="loadVariation(variation)">
-          <div slot="header">
+          <ng-template #cardHeader>
             <h2>{{ variation.title }}</h2>
             <p class="subtitle">{{ variation.description }}</p>
-          </div>
-          <div slot="content">
+          </ng-template>
+          <ng-template #cardContent>
             <div class="popover-demo__variation-preview">
               <div class="popover-demo__preview-popover">
                 <div class="popover-demo__preview-trigger">
                   <mat-icon>info</mat-icon>
                   <span>Trigger</span>
-                </div>
+                </ng-template>
                 <div class="popover-demo__preview-content">
                   @if (variation.config.showArrow) {
                     <div class="popover-demo__preview-arrow"></div>
@@ -242,8 +242,8 @@
                 </div>
               </div>
             </div>
-          </div>
-        </amw-card>
+          </ng-template>
+</amw-card>
       }
     </div>
   </div>

@@ -1,15 +1,11 @@
 import { Component, OnInit, ViewEncapsulation } from '@angular/core';
-
-import { MatIconModule } from '@angular/material/icon';
 import { FormsModule } from '@angular/forms';
-import { MatSelectModule } from '@angular/material/select';
-import { AmwAccordionComponent } from '@angular/material/expansion';
-import { MatSliderModule } from '@angular/material/slider';
-import { MatFormFieldModule } from '@angular/material/form-field';
-import { MatOptionModule } from '@angular/material/core';
-import { AmwTabsComponent } from '@angular/material/tabs';
-import { AmwSwitchComponent } from '@angular/material/slide-toggle';
-import { AmwDividerComponent } from '@angular/material/divider';
+import { MatIconModule } from '@angular/material/icon';
+
+import { AmwAccordionComponent } from '../../../../library/src/components/components/amw-accordion/amw-accordion.component';
+import { AmwAccordionPanelComponent } from '../../../../library/src/components/components/amw-accordion/amw-accordion-panel.component';
+import { AmwTabsComponent } from '../../../../library/src/components/components/amw-tabs/amw-tabs.component';
+import { AmwDividerComponent } from '../../../../library/src/components/components/amw-divider/amw-divider.component';
 
 import { AmwButtonComponent } from '../../../../library/src/controls/components/amw-button/amw-button.component';
 import { AmwInputComponent } from '../../../../library/src/controls/components/amw-input/amw-input.component';
@@ -21,7 +17,7 @@ import { AmwSwitchComponent } from '../../../../library/src/controls/components/
   standalone: true,
   imports: [MatIconModule,
     FormsModule,
-    AmwAccordionComponent,
+    AmwAccordionComponent, AmwAccordionPanelComponent,
     AmwTabsComponent,
     AmwDividerComponent,
     AmwButtonComponent,

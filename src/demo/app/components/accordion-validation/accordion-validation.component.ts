@@ -1,7 +1,8 @@
 import { Component, ViewEncapsulation } from '@angular/core';
 import { FormBuilder, FormGroup, Validators, ReactiveFormsModule } from '@angular/forms';
 import { MatIconModule } from '@angular/material/icon';
-import { AmwAccordionComponent } from '@angular/material/expansion';
+import { AmwAccordionComponent } from '../../../../library/src/components/components/amw-accordion/amw-accordion.component';
+import { AmwAccordionPanelComponent } from '../../../../library/src/components/components/amw-accordion/amw-accordion-panel.component';
 import { AmwButtonComponent } from '../../../../library/src/controls/components/amw-button/amw-button.component';
 import { AmwInputComponent } from '../../../../library/src/controls/components/amw-input/amw-input.component';
 import { AmwCheckboxComponent } from '../../../../library/src/controls/components/amw-checkbox/amw-checkbox.component';
@@ -9,12 +10,15 @@ import { AmwCheckboxComponent } from '../../../../library/src/controls/component
 @Component({
   selector: 'amw-demo-accordion-validation',
   standalone: true,
-  imports: [ReactiveFormsModule,
+  imports: [
+    ReactiveFormsModule,
     MatIconModule,
     AmwAccordionComponent,
+    AmwAccordionPanelComponent,
     AmwButtonComponent,
     AmwInputComponent,
-    AmwCheckboxComponent],
+    AmwCheckboxComponent
+  ],
   encapsulation: ViewEncapsulation.None,
   templateUrl: './accordion-validation.component.html',
   styleUrl: './accordion-validation.component.scss'

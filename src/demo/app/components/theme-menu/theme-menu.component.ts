@@ -6,7 +6,7 @@ import { RouterModule } from '@angular/router';
 
 import { ThemeService, ThemeConfig } from '../../../../library/src/styling/services/theme.service';
 import { MatMenuModule } from '@angular/material/menu';
-import { AmwDividerComponent } from '@angular/material/divider';
+import { AmwDividerComponent } from '../../../../library/src/components/components/amw-divider/amw-divider.component';
 
 import { AmwButtonComponent } from '../../../../library/src/controls/components/amw-button/amw-button.component';
 @Component({

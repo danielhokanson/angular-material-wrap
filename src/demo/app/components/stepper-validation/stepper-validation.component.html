@@ -5,7 +5,7 @@
   <div class="demo-section">
     <h4>Required Field Validation</h4>
     <amw-card>
-      <div slot="content">
+      <ng-template #cardContent>
         <mat-stepper #stepper>
           <mat-step [stepControl]="firstFormGroup">
             <form [formGroup]="firstFormGroup">
@@ -18,7 +18,7 @@
               @if (firstFormGroup.get('firstName')?.hasError('required')) {
                 <div class="field-error">
                   First name is required
-                </div>
+                </ng-template>
               }
               <amw-input
                 formControlName="lastName"
@@ -79,7 +79,7 @@
             </div>
           </mat-step>
         </mat-stepper>
-      </div>
-    </amw-card>
+      </ng-template>
+</amw-card>
   </div>
 </div>
