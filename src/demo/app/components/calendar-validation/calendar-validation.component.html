@@ -23,7 +23,7 @@
             hint="Select a date in the past">
           </amw-datepicker>
           @if (basicDateForm.get('birthDate')?.invalid && basicDateForm.get('birthDate')?.touched) {
-            <div class="field-error">{{ getErrorMessage(basicDateForm, 'birthDate') }}</ng-template>
+            <div class="field-error">{{ getErrorMessage(basicDateForm, 'birthDate') }}</div>
           }
 
           <div class="form-actions">
@@ -71,7 +71,7 @@
               placeholder="MM/DD/YYYY">
             </amw-datepicker>
             @if (dateRangeForm.get('startDate')?.invalid && dateRangeForm.get('startDate')?.touched) {
-              <div class="field-error">{{ getErrorMessage(dateRangeForm, 'startDate') }}</ng-template>
+              <div class="field-error">{{ getErrorMessage(dateRangeForm, 'startDate') }}</div>
             }
 
             <amw-datepicker
@@ -132,7 +132,7 @@
             placeholder="Enter event name">
           </amw-input>
           @if (eventBookingForm.get('eventName')?.invalid && eventBookingForm.get('eventName')?.touched) {
-            <div class="field-error">{{ getErrorMessage(eventBookingForm, 'eventName') }}</ng-template>
+            <div class="field-error">{{ getErrorMessage(eventBookingForm, 'eventName') }}</div>
           }
 
           <amw-datepicker
@@ -197,7 +197,7 @@
                 {{ isBasicDateValid() ? 'check_circle' : 'cancel' }}
               </mat-icon>
               <span>Basic Date Picker</span>
-            </ng-template>
+            </div>
             <div class="summary-item">
               <mat-icon [class.valid]="isDateRangeValid()" [class.invalid]="!isDateRangeValid()">
                 {{ isDateRangeValid() ? 'check_circle' : 'cancel' }}

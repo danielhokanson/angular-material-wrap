@@ -41,7 +41,7 @@
             [required]="true"
             [errorMessage]="timepickerForm.get('meetingTime')?.hasError('required') ? 'Meeting time is required' : ''"
           ></amw-timepicker>
-        </ng-template>
+        </div>
 
         <div class="timepicker-validation__actions">
           <amw-button variant="text" type="button" (click)="onReset()">Reset</amw-button>

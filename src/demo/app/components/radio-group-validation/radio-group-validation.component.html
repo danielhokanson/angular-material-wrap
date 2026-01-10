@@ -25,7 +25,7 @@
             <div class="validation-error">
               <mat-icon>error</mat-icon>
               {{ getFieldValidationMessage('requiredField') }}
-            </ng-template>
+            </div>
           }
         </div>
 
@@ -117,7 +117,7 @@
           <span [class]="isFormValid ? 'status-valid' : 'status-invalid'">
             Form {{ isFormValid ? 'Valid' : 'Invalid' }}
           </span>
-        </ng-template>
+        </div>
 
         @if (formErrors.length > 0) {
           <div class="error-list">
