@@ -1,6 +1,5 @@
 import { Component, ViewEncapsulation } from '@angular/core';
 import { FormsModule, ReactiveFormsModule, FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { MatStepperModule } from '@angular/material/stepper';
 import { BaseCodeComponent } from '../base/base-code.component';
 
 type StepperExamples = 'basic' | 'linear' | 'editable' | 'optional' | 'vertical' | 'customIcons';
@@ -8,17 +7,22 @@ type StepperExamples = 'basic' | 'linear' | 'editable' | 'optional' | 'vertical'
 import { AmwButtonComponent } from '../../../../library/src/controls/components/amw-button/amw-button.component';
 import { AmwInputComponent } from '../../../../library/src/controls/components/amw-input/amw-input.component';
 import { AmwAccordionComponent, AmwAccordionPanelComponent, AmwIconComponent } from '../../../../library/src/components/components';
+import { AmwStepperComponent } from '../../../../library/src/components/components/amw-stepper/amw-stepper.component';
+import { StepperStep, StepperConfig } from '../../../../library/src/components/components/amw-stepper/interfaces';
+
 @Component({
   selector: 'amw-demo-stepper-code',
   standalone: true,
-  imports: [FormsModule,
+  imports: [
+    FormsModule,
     ReactiveFormsModule,
-    MatStepperModule,
     AmwInputComponent,
     AmwButtonComponent,
     AmwAccordionComponent,
     AmwAccordionPanelComponent,
-    AmwIconComponent],
+    AmwIconComponent,
+    AmwStepperComponent
+  ],
   encapsulation: ViewEncapsulation.None,
   templateUrl: './stepper-code.component.html',
   styleUrl: './stepper-code.component.scss'
@@ -29,177 +33,185 @@ export class StepperCodeComponent extends BaseCodeComponent<StepperExamples> {
   secondFormGroup: FormGroup;
   thirdFormGroup: FormGroup;
 
-  // Linear mode state
-  isLinear = false;
+  // Current step for each example
+  basicCurrentStep = 0;
+  linearCurrentStep = 0;
+  editableCurrentStep = 0;
+  optionalCurrentStep = 0;
+  verticalCurrentStep = 0;
+  customIconsCurrentStep = 0;
+
+  // Stepper configurations
+  basicConfig: StepperConfig = {
+    orientation: 'horizontal',
+    linear: false,
+    showLabels: true,
+    showIcons: true,
+    showNavigation: true,
+    showCompletion: false
+  };
+
+  linearConfig: StepperConfig = {
+    orientation: 'horizontal',
+    linear: true,
+    showLabels: true,
+    showIcons: true,
+    showNavigation: true,
+    showCompletion: false
+  };
+
+  verticalConfig: StepperConfig = {
+    orientation: 'vertical',
+    linear: false,
+    showLabels: true,
+    showIcons: true,
+    showNavigation: true,
+    showCompletion: false
+  };
+
+  // Step definitions for each example
+  basicSteps: StepperStep[] = [
+    { label: 'Step 1', description: 'First step', isValid: true },
+    { label: 'Step 2', description: 'Second step', isValid: true },
+    { label: 'Step 3', description: 'Final step', isValid: true }
+  ];
+
+  linearSteps: StepperStep[] = [
+    { label: 'Personal Info', description: 'Enter your name', icon: 'person', isValid: false },
+    { label: 'Contact Info', description: 'Enter your email', icon: 'email', isValid: false },
+    { label: 'Done', description: 'Complete', icon: 'check', isValid: true }
+  ];
+
+  editableSteps: StepperStep[] = [
+    { label: 'Editable Step', description: 'Can be edited after completion', isValid: true },
+    { label: 'Non-editable Step', description: 'Cannot be edited after completion', isValid: true }
+  ];
+
+  optionalSteps: StepperStep[] = [
+    { label: 'Required Step', description: 'This step is required', isValid: true },
+    { label: 'Optional Step', description: 'This step is optional', isOptional: true, isValid: true },
+    { label: 'Final Step', description: 'Complete!', isValid: true }
+  ];
+
+  verticalSteps: StepperStep[] = [
+    { label: 'Step 1', description: 'First step', isValid: true },
+    { label: 'Step 2', description: 'Second step', isValid: true },
+    { label: 'Step 3', description: 'Final step', isValid: true }
+  ];
+
+  customIconSteps: StepperStep[] = [
+    { label: 'Personal Info', description: 'Enter your personal information', icon: 'person', isValid: true },
+    { label: 'Contact', description: 'Enter your contact details', icon: 'email', isValid: true },
+    { label: 'Complete', description: 'All done!', icon: 'check_circle', isValid: true }
+  ];
 
   // Original code examples (for reset functionality)
   readonly codeExamples: Record<StepperExamples, string> = {
-    basic: `<mat-stepper>
-  <mat-step>
-    <ng-template matStepLabel>Step 1</ng-template>
-    <p>Content for step 1</p>
-    <div>
-      <amw-button variant="elevated" matStepperNext>Next</amw-button>
-    </div>
-  </mat-step>
+    basic: `<amw-stepper
+  [config]="basicConfig"
+  [steps]="basicSteps"
+  [currentStep]="currentStep"
+  (stepChange)="onStepChange($event)">
+</amw-stepper>
 
-  <mat-step>
-    <ng-template matStepLabel>Step 2</ng-template>
-    <p>Content for step 2</p>
-    <div>
-      <amw-button variant="text" matStepperPrevious>Back</amw-button>
-      <amw-button variant="elevated" matStepperNext>Next</amw-button>
-    </div>
-  </mat-step>
+// In component:
+basicConfig: StepperConfig = {
+  orientation: 'horizontal',
+  linear: false,
+  showLabels: true,
+  showIcons: true,
+  showNavigation: true
+};
 
-  <mat-step>
-    <ng-template matStepLabel>Step 3</ng-template>
-    <p>You're done!</p>
-    <div>
-      <amw-button variant="text" matStepperPrevious>Back</amw-button>
-    </div>
-  </mat-step>
-</mat-stepper>`,
+basicSteps: StepperStep[] = [
+  { label: 'Step 1', description: 'First step', isValid: true },
+  { label: 'Step 2', description: 'Second step', isValid: true },
+  { label: 'Step 3', description: 'Final step', isValid: true }
+];`,
 
-    linear: `<mat-stepper [linear]="true">
-  <mat-step [stepControl]="firstFormGroup">
-    <form [formGroup]="firstFormGroup">
-      <ng-template matStepLabel>Personal Info</ng-template>
-      <amw-input
-        label="Name"
-        formControlName="name"
-        required>
-      </amw-input>
-      <div>
-        <amw-button variant="elevated" matStepperNext>Next</amw-button>
-      </div>
-    </form>
-  </mat-step>
+    linear: `<amw-stepper
+  [config]="linearConfig"
+  [steps]="linearSteps"
+  [currentStep]="currentStep"
+  (stepChange)="onStepChange($event)">
+</amw-stepper>
 
-  <mat-step [stepControl]="secondFormGroup">
-    <form [formGroup]="secondFormGroup">
-      <ng-template matStepLabel>Contact Info</ng-template>
-      <amw-input
-        label="Email"
-        formControlName="email"
-        type="email"
-        required>
-      </amw-input>
-      <div>
-        <amw-button variant="text" matStepperPrevious>Back</amw-button>
-        <amw-button variant="elevated" matStepperNext>Next</amw-button>
-      </div>
-    </form>
-  </mat-step>
-</mat-stepper>`,
+// In component:
+linearConfig: StepperConfig = {
+  orientation: 'horizontal',
+  linear: true,  // Requires valid steps to proceed
+  showLabels: true,
+  showIcons: true,
+  showNavigation: true
+};
 
-    editable: `<mat-stepper>
-  <mat-step [editable]="true">
-    <ng-template matStepLabel>Editable Step</ng-template>
-    <p>This step can be edited after completion</p>
-    <div>
-      <amw-button variant="elevated" matStepperNext>Next</amw-button>
-    </div>
-  </mat-step>
+linearSteps: StepperStep[] = [
+  { label: 'Personal Info', icon: 'person', isValid: false },
+  { label: 'Contact Info', icon: 'email', isValid: false },
+  { label: 'Done', icon: 'check', isValid: true }
+];
 
-  <mat-step [editable]="false">
-    <ng-template matStepLabel>Non-editable Step</ng-template>
-    <p>This step cannot be edited after completion</p>
-    <div>
-      <amw-button variant="text" matStepperPrevious>Back</amw-button>
-    </div>
-  </mat-step>
-</mat-stepper>`,
+// Update step validity based on form status
+this.formGroup.statusChanges.subscribe(() => {
+  this.linearSteps[0].isValid = this.formGroup.valid;
+});`,
 
-    optional: `<mat-stepper>
-  <mat-step>
-    <ng-template matStepLabel>Required Step</ng-template>
-    <p>This step is required</p>
-    <div>
-      <amw-button variant="elevated" matStepperNext>Next</amw-button>
-    </div>
-  </mat-step>
+    editable: `<amw-stepper
+  [config]="stepperConfig"
+  [steps]="editableSteps"
+  [currentStep]="currentStep"
+  (stepChange)="onStepChange($event)">
+</amw-stepper>
 
-  <mat-step [optional]="true">
-    <ng-template matStepLabel>Optional Step</ng-template>
-    <p>This step is optional</p>
-    <div>
-      <amw-button variant="text" matStepperPrevious>Back</amw-button>
-      <amw-button variant="elevated" matStepperNext>Next</amw-button>
-    </div>
-  </mat-step>
+// Steps can be marked as completed and revisited
+editableSteps: StepperStep[] = [
+  { label: 'Editable Step', isValid: true },
+  { label: 'Non-editable Step', isValid: true }
+];`,
 
-  <mat-step>
-    <ng-template matStepLabel>Final Step</ng-template>
-    <p>Complete!</p>
-    <div>
-      <amw-button variant="text" matStepperPrevious>Back</amw-button>
-    </div>
-  </mat-step>
-</mat-stepper>`,
+    optional: `<amw-stepper
+  [config]="stepperConfig"
+  [steps]="optionalSteps"
+  [currentStep]="currentStep"
+  (stepChange)="onStepChange($event)">
+</amw-stepper>
 
-    vertical: `<mat-stepper orientation="vertical">
-  <mat-step>
-    <ng-template matStepLabel>Step 1</ng-template>
-    <p>Content for step 1</p>
-    <div>
-      <amw-button variant="elevated" matStepperNext>Next</amw-button>
-    </div>
-  </mat-step>
+// Mark steps as optional
+optionalSteps: StepperStep[] = [
+  { label: 'Required Step', isValid: true },
+  { label: 'Optional Step', isOptional: true, isValid: true },
+  { label: 'Final Step', isValid: true }
+];`,
 
-  <mat-step>
-    <ng-template matStepLabel>Step 2</ng-template>
-    <p>Content for step 2</p>
-    <div>
-      <amw-button variant="text" matStepperPrevious>Back</amw-button>
-      <amw-button variant="elevated" matStepperNext>Next</amw-button>
-    </div>
-  </mat-step>
+    vertical: `<amw-stepper
+  [config]="verticalConfig"
+  [steps]="verticalSteps"
+  [currentStep]="currentStep"
+  (stepChange)="onStepChange($event)">
+</amw-stepper>
 
-  <mat-step>
-    <ng-template matStepLabel>Step 3</ng-template>
-    <p>You're done!</p>
-    <div>
-      <amw-button variant="text" matStepperPrevious>Back</amw-button>
-    </div>
-  </mat-step>
-</mat-stepper>`,
+// Use vertical orientation
+verticalConfig: StepperConfig = {
+  orientation: 'vertical',
+  linear: false,
+  showLabels: true,
+  showIcons: true,
+  showNavigation: true
+};`,
 
-    customIcons: `<mat-stepper>
-  <mat-step>
-    <ng-template matStepLabel>
-      <amw-icon name="person"></amw-icon>
-      Personal Info
-    </ng-template>
-    <p>Enter your personal information</p>
-    <div>
-      <amw-button variant="elevated" matStepperNext>Next</amw-button>
-    </div>
-  </mat-step>
+    customIcons: `<amw-stepper
+  [config]="stepperConfig"
+  [steps]="customIconSteps"
+  [currentStep]="currentStep"
+  (stepChange)="onStepChange($event)">
+</amw-stepper>
 
-  <mat-step>
-    <ng-template matStepLabel>
-      <amw-icon name="email"></amw-icon>
-      Contact
-    </ng-template>
-    <p>Enter your contact details</p>
-    <div>
-      <amw-button variant="text" matStepperPrevious>Back</amw-button>
-      <amw-button variant="elevated" matStepperNext>Next</amw-button>
-    </div>
-  </mat-step>
-
-  <mat-step>
-    <ng-template matStepLabel>
-      <amw-icon name="check_circle"></amw-icon>
-      Complete
-    </ng-template>
-    <p>All done!</p>
-    <div>
-      <amw-button variant="text" matStepperPrevious>Back</amw-button>
-    </div>
-  </mat-step>
-</mat-stepper>`
+// Add custom icons to steps
+customIconSteps: StepperStep[] = [
+  { label: 'Personal Info', icon: 'person', isValid: true },
+  { label: 'Contact', icon: 'email', isValid: true },
+  { label: 'Complete', icon: 'check_circle', isValid: true }
+];`
   };
 
   constructor(private fb: FormBuilder) {
@@ -217,5 +229,38 @@ export class StepperCodeComponent extends BaseCodeComponent<StepperExamples> {
     this.thirdFormGroup = this.fb.group({
       address: ['', Validators.required]
     });
+
+    // Subscribe to form changes to update linear step validity
+    this.firstFormGroup.statusChanges.subscribe(() => {
+      this.linearSteps[0].isValid = this.firstFormGroup.valid;
+    });
+
+    this.secondFormGroup.statusChanges.subscribe(() => {
+      this.linearSteps[1].isValid = this.secondFormGroup.valid;
+    });
+  }
+
+  onBasicStepChange(step: number): void {
+    this.basicCurrentStep = step;
+  }
+
+  onLinearStepChange(step: number): void {
+    this.linearCurrentStep = step;
+  }
+
+  onEditableStepChange(step: number): void {
+    this.editableCurrentStep = step;
+  }
+
+  onOptionalStepChange(step: number): void {
+    this.optionalCurrentStep = step;
+  }
+
+  onVerticalStepChange(step: number): void {
+    this.verticalCurrentStep = step;
+  }
+
+  onCustomIconsStepChange(step: number): void {
+    this.customIconsCurrentStep = step;
   }
 }

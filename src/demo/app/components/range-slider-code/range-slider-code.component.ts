@@ -1,21 +1,23 @@
 import { Component, ViewEncapsulation } from '@angular/core';
 import { FormsModule } from '@angular/forms';
-import { MatSliderModule } from '@angular/material/slider';
 import { BaseCodeComponent } from '../base/base-code.component';
 import { AmwButtonComponent } from '../../../../library/src/controls/components/amw-button/amw-button.component';
 import { AmwAccordionComponent, AmwAccordionPanelComponent, AmwIconComponent } from '../../../../library/src/components/components';
+import { AmwSliderComponent } from '../../../../library/src/controls/components/amw-slider/amw-slider.component';
 
 type RangeSliderExamples = 'basic' | 'configured' | 'vertical' | 'formControl' | 'validation';
 
 @Component({
   selector: 'amw-demo-range-slider-code',
   standalone: true,
-  imports: [FormsModule,
-    MatSliderModule,
+  imports: [
+    FormsModule,
     AmwButtonComponent,
     AmwAccordionComponent,
     AmwAccordionPanelComponent,
-    AmwIconComponent],
+    AmwIconComponent,
+    AmwSliderComponent
+  ],
   encapsulation: ViewEncapsulation.None,
   templateUrl: './range-slider-code.component.html',
   styleUrl: './range-slider-code.component.scss'
@@ -29,30 +31,30 @@ export class RangeSliderCodeComponent extends BaseCodeComponent<RangeSliderExamp
 
   // Original code examples (for reset functionality)
   readonly codeExamples: Record<RangeSliderExamples, string> = {
-    basic: `<mat-slider [min]="0" [max]="100">
-  <input matSliderStartThumb [(ngModel)]="startValue">
-  <input matSliderEndThumb [(ngModel)]="endValue">
-</mat-slider>
-<p>Range: {{startValue}} - {{endValue}}</p>`,
+    basic: `<amw-slider
+  [min]="0"
+  [max]="100"
+  [(value)]="sliderValue">
+</amw-slider>
+<p>Value: {{sliderValue}}</p>`,
 
-    configured: `<mat-slider [min]="0" [max]="1000" [step]="10" [displayWith]="formatLabel">
-  <input matSliderStartThumb [(ngModel)]="priceStart">
-  <input matSliderEndThumb [(ngModel)]="priceEnd">
-</mat-slider>
-<p>Price Range: $\{{priceStart}} - $\{{priceEnd}}</p>
-
-// Component method
-formatLabel(value: number): string {
-  return '$' + value;
-}`,
+    configured: `<amw-slider
+  [min]="0"
+  [max]="1000"
+  [step]="10"
+  [(value)]="priceValue">
+</amw-slider>
+<p>Price: \${{priceValue}}</p>`,
 
     vertical: `<div style="height: 300px;">
-  <mat-slider vertical [min]="0" [max]="100">
-    <input matSliderStartThumb [(ngModel)]="startValue">
-    <input matSliderEndThumb [(ngModel)]="endValue">
-  </mat-slider>
+  <amw-slider
+    [vertical]="true"
+    [min]="0"
+    [max]="100"
+    [(value)]="sliderValue">
+  </amw-slider>
 </div>
-<p>Vertical Range: {{startValue}} - {{endValue}}</p>`,
+<p>Vertical Value: {{sliderValue}}</p>`,
 
     formControl: `// Component TypeScript
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
@@ -62,49 +64,46 @@ export class MyComponent {
 
   constructor(private fb: FormBuilder) {
     this.form = this.fb.group({
-      priceStart: [100, Validators.required],
-      priceEnd: [500, Validators.required]
+      priceValue: [100, Validators.required]
     });
   }
 }
 
 // Template
 <form [formGroup]="form">
-  <mat-slider [min]="0" [max]="1000" [step]="10">
-    <input matSliderStartThumb formControlName="priceStart">
-    <input matSliderEndThumb formControlName="priceEnd">
-  </mat-slider>
+  <amw-slider
+    [min]="0"
+    [max]="1000"
+    [step]="10"
+    formControlName="priceValue">
+  </amw-slider>
 </form>`,
 
     validation: `// Component TypeScript
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 
-import { AmwButtonComponent } from '../../../../library/src/controls/components/amw-button/amw-button.component';
 export class MyComponent {
   form: FormGroup;
 
   constructor(private fb: FormBuilder) {
     this.form = this.fb.group({
-      ageStart: [18, [Validators.required, Validators.min(18)]],
-      ageEnd: [65, [Validators.required, Validators.max(100)]]
-    }, { validators: this.rangeValidator });
-  }
-
-  rangeValidator(group: FormGroup) {
-    const start = group.get('ageStart')?.value;
-    const end = group.get('ageEnd')?.value;
-    return start < end ? null : { invalidRange: true };
+      ageValue: [25, [Validators.required, Validators.min(18), Validators.max(100)]]
+    });
   }
 }
 
 // Template
 <form [formGroup]="form">
-  <mat-slider [min]="18" [max]="100">
-    <input matSliderStartThumb formControlName="ageStart">
-    <input matSliderEndThumb formControlName="ageEnd">
-  </mat-slider>
-  @if (form.hasError('invalidRange')) {
-    <div class="error">Start must be less than end</div>
+  <amw-slider
+    [min]="18"
+    [max]="100"
+    formControlName="ageValue">
+  </amw-slider>
+  @if (form.get('ageValue')?.hasError('min')) {
+    <div class="error">Value must be at least 18</div>
+  }
+  @if (form.get('ageValue')?.hasError('max')) {
+    <div class="error">Value must be at most 100</div>
   }
 </form>`
   };

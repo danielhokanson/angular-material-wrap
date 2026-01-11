@@ -1,23 +1,23 @@
 import { Component, ViewEncapsulation } from '@angular/core';
 import { FormsModule } from '@angular/forms';
-import { MatSidenavModule } from '@angular/material/sidenav';
-import { MatListModule } from '@angular/material/list';
 import { BaseCodeComponent } from '../base/base-code.component';
 
 type SidenavExamples = 'basic' | 'overlay' | 'push' | 'fixed';
 
 import { AmwButtonComponent } from '../../../../library/src/controls/components/amw-button/amw-button.component';
-import { AmwAccordionComponent, AmwAccordionPanelComponent, AmwIconComponent } from '../../../../library/src/components/components';
+import { AmwAccordionComponent, AmwAccordionPanelComponent, AmwIconComponent, AmwSidenavComponent } from '../../../../library/src/components/components';
+
 @Component({
     selector: 'app-sidenav-code',
     standalone: true,
-    imports: [FormsModule,
-    MatSidenavModule,
-    MatListModule,
-    AmwButtonComponent,
-    AmwAccordionComponent,
-    AmwAccordionPanelComponent,
-    AmwIconComponent],
+    imports: [
+        FormsModule,
+        AmwButtonComponent,
+        AmwAccordionComponent,
+        AmwAccordionPanelComponent,
+        AmwIconComponent,
+        AmwSidenavComponent
+    ],
     encapsulation: ViewEncapsulation.None,
     templateUrl: './sidenav-code.component.html',
     styleUrl: './sidenav-code.component.scss'
@@ -25,66 +25,90 @@ import { AmwAccordionComponent, AmwAccordionPanelComponent, AmwIconComponent } f
 export class SidenavCodeComponent extends BaseCodeComponent<SidenavExamples> {
     // Original code examples (for reset functionality)
     readonly codeExamples: Record<SidenavExamples, string> = {
-        basic: `<mat-drawer-container class="example-container">
-  <mat-drawer mode="side" opened>
-    <mat-nav-list>
-      <a mat-list-item href="#">Link 1</a>
-      <a mat-list-item href="#">Link 2</a>
-      <a mat-list-item href="#">Link 3</a>
-    </mat-nav-list>
-  </mat-drawer>
-  <mat-drawer-content>
+        basic: `<amw-sidenav [opened]="sidenavOpened" mode="side">
+  <ng-template #sidenavContent>
+    <div class="sidenav-nav-list">
+      <a href="#" class="nav-item">
+        <amw-icon name="home"></amw-icon>
+        <span>Home</span>
+      </a>
+      <a href="#" class="nav-item">
+        <amw-icon name="person"></amw-icon>
+        <span>Profile</span>
+      </a>
+      <a href="#" class="nav-item">
+        <amw-icon name="settings"></amw-icon>
+        <span>Settings</span>
+      </a>
+    </div>
+  </ng-template>
+  <ng-template #mainContent>
     <p>Main content here</p>
-  </mat-drawer-content>
-</mat-drawer-container>`,
+  </ng-template>
+</amw-sidenav>`,
 
-        overlay: `<mat-drawer-container class="example-container">
-  <mat-drawer #drawer mode="over">
-    <mat-nav-list>
-      <a mat-list-item href="#">Link 1</a>
-      <a mat-list-item href="#">Link 2</a>
-      <a mat-list-item href="#">Link 3</a>
-    </mat-nav-list>
-  </mat-drawer>
-  <mat-drawer-content>
-    <amw-button variant="elevated" (click)="drawer.toggle()">
+        overlay: `<amw-sidenav [(opened)]="sidenavOpened" mode="over">
+  <ng-template #sidenavContent>
+    <div class="sidenav-nav-list">
+      <a href="#" class="nav-item">
+        <amw-icon name="home"></amw-icon>
+        <span>Home</span>
+      </a>
+      <a href="#" class="nav-item">
+        <amw-icon name="person"></amw-icon>
+        <span>Profile</span>
+      </a>
+    </div>
+  </ng-template>
+  <ng-template #mainContent>
+    <amw-button variant="elevated" (click)="sidenavOpened = !sidenavOpened">
       Toggle Sidenav
     </amw-button>
     <p>Main content here</p>
-  </mat-drawer-content>
-</mat-drawer-container>`,
+  </ng-template>
+</amw-sidenav>`,
 
-        push: `<mat-drawer-container class="example-container">
-  <mat-drawer #drawer mode="push">
-    <mat-nav-list>
-      <a mat-list-item href="#">Link 1</a>
-      <a mat-list-item href="#">Link 2</a>
-      <a mat-list-item href="#">Link 3</a>
-    </mat-nav-list>
-  </mat-drawer>
-  <mat-drawer-content>
-    <amw-button variant="elevated" (click)="drawer.toggle()">
+        push: `<amw-sidenav [(opened)]="sidenavOpened" mode="push">
+  <ng-template #sidenavContent>
+    <div class="sidenav-nav-list">
+      <a href="#" class="nav-item">
+        <amw-icon name="home"></amw-icon>
+        <span>Home</span>
+      </a>
+      <a href="#" class="nav-item">
+        <amw-icon name="person"></amw-icon>
+        <span>Profile</span>
+      </a>
+    </div>
+  </ng-template>
+  <ng-template #mainContent>
+    <amw-button variant="elevated" (click)="sidenavOpened = !sidenavOpened">
       Toggle Sidenav
     </amw-button>
     <p>Main content is pushed when sidenav opens</p>
-  </mat-drawer-content>
-</mat-drawer-container>`,
+  </ng-template>
+</amw-sidenav>`,
 
-        fixed: `<mat-drawer-container class="example-container" hasBackdrop="false">
-  <mat-drawer #drawer mode="side" position="end">
-    <mat-nav-list>
-      <a mat-list-item href="#">Link 1</a>
-      <a mat-list-item href="#">Link 2</a>
-      <a mat-list-item href="#">Link 3</a>
-    </mat-nav-list>
-  </mat-drawer>
-  <mat-drawer-content>
-    <amw-button variant="elevated" (click)="drawer.toggle()">
+        fixed: `<amw-sidenav [(opened)]="sidenavOpened" mode="side" position="end">
+  <ng-template #sidenavContent>
+    <div class="sidenav-nav-list">
+      <a href="#" class="nav-item">
+        <amw-icon name="home"></amw-icon>
+        <span>Home</span>
+      </a>
+      <a href="#" class="nav-item">
+        <amw-icon name="person"></amw-icon>
+        <span>Profile</span>
+      </a>
+    </div>
+  </ng-template>
+  <ng-template #mainContent>
+    <amw-button variant="elevated" (click)="sidenavOpened = !sidenavOpened">
       Toggle Right Sidenav
     </amw-button>
     <p>Sidenav positioned on the right</p>
-  </mat-drawer-content>
-</mat-drawer-container>`
+  </ng-template>
+</amw-sidenav>`
     };
 
     // Sidenav states

@@ -49,9 +49,9 @@
             <div class="data-table-validation__selection-info" *ngIf="selectedUsers.length > 0">
               <h4>Selected Users ({{ selectedUsers.length }}):</h4>
               <div class="data-table-validation__user-chips">
-                <mat-chip *ngFor="let user of selectedUsers" class="data-table-validation__user-chip">
+                <span *ngFor="let user of selectedUsers" class="chip data-table-validation__user-chip">
                   {{ user.name }} - {{ user.department }}
-                </mat-chip>
+                </span>
               </div>
             </div>
             

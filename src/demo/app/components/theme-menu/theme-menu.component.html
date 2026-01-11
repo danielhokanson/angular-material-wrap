@@ -1,92 +1,85 @@
 <div class="amw-demo-theme-menu">
-  <amw-button variant="icon" icon="palette"[matMenuTriggerFor]="themeMenu"
-    matTooltip="Theme Options"
-    class="theme-menu-button"></amw-button>
-
-  <mat-menu #themeMenu="matMenu" class="theme-menu">
-    <div class="theme-menu-header">
-      <div class="theme-menu-title">
-        <amw-icon name="palette"></amw-icon>
-        Theme Options
-      </div>
-      <div class="theme-menu-subtitle">Switch themes or manage custom themes</div>
-    </div>
-
-    <amw-divider></amw-divider>
-
-    <!-- Current Theme Info -->
-    @if (currentTheme()) {
-      <div class="current-theme-info">
-        <div class="current-theme-label">Current Theme:</div>
-        <div class="current-theme-details">
-          <div class="theme-name">{{ currentTheme()!.displayName }}</div>
-          <div class="theme-meta">{{ getThemeDescription(currentTheme()!) }}</div>
-          <div class="theme-colors">
-            <div
-              class="color-swatch primary"
-              [style.background-color]="currentTheme()!.colors.primary"
-              matTooltip="Primary">
-            </div>
-            <div
-              class="color-swatch accent"
-              [style.background-color]="currentTheme()!.colors.accent"
-              matTooltip="Accent">
-            </div>
-          </div>
-        </div>
-      </div>
-    }
-
-    <amw-divider></amw-divider>
-
-    <!-- Quick Theme Switcher -->
-    <div class="quick-switcher">
-      <div class="quick-switcher-label">Quick Switch:</div>
-      <div class="theme-list">
-        @for (theme of allThemes(); track theme) {
-          <button
-            mat-menu-item
-            (click)="onThemeSelect(theme.id)"
-            [class.active]="currentTheme()?.id === theme.id"
-            class="theme-item">
-            <amw-icon class="theme-icon" [name]="getThemeIcon(theme)"></amw-icon>
-            <div class="theme-details">
-              <div class="theme-name">{{ theme.displayName }}</div>
-              <div class="theme-description">{{ getThemeDescription(theme) }}</div>
-            </div>
+  <amw-popover
+    [showHeader]="true"
+    headerTitle="Theme Options"
+    headerSubtitle="Switch themes or manage custom themes"
+    [showClose]="true"
+    position="bottom-right"
+    size="large">
+    <ng-template #trigger>
+      <amw-button variant="icon" icon="palette"
+        [amwTooltip]="'Theme Options'"
+        class="theme-menu-button"></amw-button>
+    </ng-template>
+    <ng-template #content>
+      <!-- Current Theme Info -->
+      @if (currentTheme()) {
+        <div class="current-theme-info">
+          <div class="current-theme-label">Current Theme:</div>
+          <div class="current-theme-details">
+            <div class="theme-name">{{ currentTheme()!.displayName }}</div>
+            <div class="theme-meta">{{ getThemeDescription(currentTheme()!) }}</div>
             <div class="theme-colors">
               <div
                 class="color-swatch primary"
-                [style.background-color]="theme.colors.primary">
+                [style.background-color]="currentTheme()!.colors.primary"
+                [amwTooltip]="'Primary'">
               </div>
               <div
                 class="color-swatch accent"
-                [style.background-color]="theme.colors.accent">
+                [style.background-color]="currentTheme()!.colors.accent"
+                [amwTooltip]="'Accent'">
               </div>
             </div>
-          </button>
-        }
+          </div>
+        </div>
+      }
+
+      <amw-divider></amw-divider>
+
+      <!-- Quick Theme Switcher -->
+      <div class="quick-switcher">
+        <div class="quick-switcher-label">Quick Switch:</div>
+        <div class="theme-list">
+          @for (theme of allThemes(); track theme) {
+            <button
+              type="button"
+              (click)="onThemeSelect(theme.id)"
+              [class.active]="currentTheme()?.id === theme.id"
+              class="theme-item">
+              <amw-icon class="theme-icon" [name]="getThemeIcon(theme)"></amw-icon>
+              <div class="theme-details">
+                <div class="theme-name">{{ theme.displayName }}</div>
+                <div class="theme-description">{{ getThemeDescription(theme) }}</div>
+              </div>
+              <div class="theme-colors">
+                <div
+                  class="color-swatch primary"
+                  [style.background-color]="theme.colors.primary">
+                </div>
+                <div
+                  class="color-swatch accent"
+                  [style.background-color]="theme.colors.accent">
+                </div>
+              </div>
+            </button>
+          }
+        </div>
       </div>
-    </div>
 
-    <amw-divider></amw-divider>
+      <amw-divider></amw-divider>
 
-    <!-- Theme Management Actions -->
-    <div class="theme-actions">
-      <button
-        mat-menu-item
-        routerLink="/theme"
-        class="theme-action-item">
-        <amw-icon name="edit"></amw-icon>
-        <span>Manage Themes</span>
-      </button>
-      <button
-        mat-menu-item
-        routerLink="/theme"
-        class="theme-action-item">
-        <amw-icon name="add"></amw-icon>
-        <span>Create Theme</span>
-      </button>
-    </div>
-  </mat-menu>
+      <!-- Theme Management Actions -->
+      <div class="theme-actions">
+        <a routerLink="/theme" class="theme-action-item">
+          <amw-icon name="edit"></amw-icon>
+          <span>Manage Themes</span>
+        </a>
+        <a routerLink="/theme" class="theme-action-item">
+          <amw-icon name="add"></amw-icon>
+          <span>Create Theme</span>
+        </a>
+      </div>
+    </ng-template>
+  </amw-popover>
 </div>

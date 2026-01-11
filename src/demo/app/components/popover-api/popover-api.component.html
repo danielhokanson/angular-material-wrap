@@ -19,7 +19,7 @@
               <div class="popover-api__code-block">
                 <code>{{ apiDocumentation.component.selector }}</code>
                 <amw-button variant="icon" icon="content_copy" (click)="copyCode(apiDocumentation.component.selector, 'Selector')"
-                  matTooltip="Copy selector"></amw-button>
+                  amwTooltip="Copy selector"></amw-button>
               </div>
             </div>
 
@@ -242,7 +242,7 @@
                 <div class="popover-api__code-header">
                   <span class="popover-api__code-title">HTML Template</span>
                   <amw-button variant="icon" icon="content_copy" (click)="copyCode(getBasicUsageHtml(), 'HTML')"
-                    matTooltip="Copy HTML code"></amw-button>
+                    amwTooltip="Copy HTML code"></amw-button>
                 </div>
                 <pre><code [class]="getSyntaxClass('html')">{{ getBasicUsageHtml() }}</code></pre>
               </div>
@@ -254,7 +254,7 @@
                 <div class="popover-api__code-header">
                   <span class="popover-api__code-title">TypeScript</span>
                   <amw-button variant="icon" icon="content_copy" (click)="copyCode(getBasicUsageTypescript(), 'TypeScript')"
-                    matTooltip="Copy TypeScript code"></amw-button>
+                    amwTooltip="Copy TypeScript code"></amw-button>
                 </div>
                 <pre><code [class]="getSyntaxClass('typescript')">{{ getBasicUsageTypescript() }}</code></pre>
               </div>
@@ -266,7 +266,7 @@
                 <div class="popover-api__code-header">
                   <span class="popover-api__code-title">Service</span>
                   <amw-button variant="icon" icon="content_copy" (click)="copyCode(getServiceUsage(), 'TypeScript')"
-                    matTooltip="Copy TypeScript code"></amw-button>
+                    amwTooltip="Copy TypeScript code"></amw-button>
                 </div>
                 <pre><code [class]="getSyntaxClass('typescript')">{{ getServiceUsage() }}</code></pre>
               </div>

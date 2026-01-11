@@ -101,10 +101,10 @@ export class CardApiComponent extends BaseApiComponent {
     // Data table configurations
     inputsTableConfig: DataTableConfig = {
         columns: [
-            { property: 'name', label: 'Property', sortable: true },
-            { property: 'type', label: 'Type', sortable: true },
-            { property: 'default', label: 'Default', sortable: false },
-            { property: 'description', label: 'Description', sortable: false }
+            { id: 'name', property: 'name', label: 'Property', type: 'text', sortable: true },
+            { id: 'type', property: 'type', label: 'Type', type: 'text', sortable: true },
+            { id: 'default', property: 'default', label: 'Default', type: 'text', sortable: false },
+            { id: 'description', property: 'description', label: 'Description', type: 'text', sortable: false }
         ],
         paginated: false,
         filterable: false,
@@ -114,9 +114,9 @@ export class CardApiComponent extends BaseApiComponent {
 
     outputsTableConfig: DataTableConfig = {
         columns: [
-            { property: 'name', label: 'Event', sortable: true },
-            { property: 'type', label: 'Type', sortable: true },
-            { property: 'description', label: 'Description', sortable: false }
+            { id: 'name', property: 'name', label: 'Event', type: 'text', sortable: true },
+            { id: 'type', property: 'type', label: 'Type', type: 'text', sortable: true },
+            { id: 'description', property: 'description', label: 'Description', type: 'text', sortable: false }
         ],
         paginated: false,
         filterable: false,
@@ -126,9 +126,9 @@ export class CardApiComponent extends BaseApiComponent {
 
     interfaceTableConfig: DataTableConfig = {
         columns: [
-            { property: 'name', label: 'Property', sortable: true },
-            { property: 'type', label: 'Type', sortable: true },
-            { property: 'description', label: 'Description', sortable: false }
+            { id: 'name', property: 'name', label: 'Property', type: 'text', sortable: true },
+            { id: 'type', property: 'type', label: 'Type', type: 'text', sortable: true },
+            { id: 'description', property: 'description', label: 'Description', type: 'text', sortable: false }
         ],
         paginated: false,
         filterable: false,

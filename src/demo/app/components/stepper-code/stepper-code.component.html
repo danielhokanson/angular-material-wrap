@@ -24,32 +24,12 @@
         <div class="preview-panel">
           <h4>Preview</h4>
           <div class="preview-content">
-            <mat-stepper>
-              <mat-step>
-                <ng-template matStepLabel>Step 1</ng-template>
-                <p>Content for step 1</p>
-                <div class="step-actions">
-                  <amw-button variant="elevated" matStepperNext>Next</amw-button>
-                </div>
-              </mat-step>
-
-              <mat-step>
-                <ng-template matStepLabel>Step 2</ng-template>
-                <p>Content for step 2</p>
-                <div class="step-actions">
-                  <amw-button variant="text" matStepperPrevious>Back</amw-button>
-                  <amw-button variant="elevated" matStepperNext>Next</amw-button>
-                </div>
-              </mat-step>
-
-              <mat-step>
-                <ng-template matStepLabel>Step 3</ng-template>
-                <p>You're done!</p>
-                <div class="step-actions">
-                  <amw-button variant="text" matStepperPrevious>Back</amw-button>
-                </div>
-              </mat-step>
-            </mat-stepper>
+            <amw-stepper
+              [config]="basicConfig"
+              [steps]="basicSteps"
+              [currentStep]="basicCurrentStep"
+              (stepChange)="onBasicStepChange($event)">
+            </amw-stepper>
           </div>
         </div>
       </div>
@@ -76,45 +56,39 @@
         <div class="preview-panel">
           <h4>Preview</h4>
           <div class="preview-content">
-            <mat-stepper [linear]="true">
-              <mat-step [stepControl]="firstFormGroup">
+            <amw-stepper
+              [config]="linearConfig"
+              [steps]="linearSteps"
+              [currentStep]="linearCurrentStep"
+              (stepChange)="onLinearStepChange($event)">
+            </amw-stepper>
+
+            <!-- Form content for linear stepper -->
+            <div class="step-form-content">
+              @if (linearCurrentStep === 0) {
                 <form [formGroup]="firstFormGroup">
-                  <ng-template matStepLabel>Personal Info</ng-template>
                   <amw-input
                     label="Name"
                     formControlName="name"
                     [required]="true">
                   </amw-input>
-                  <div class="step-actions">
-                    <amw-button variant="elevated" matStepperNext>Next</amw-button>
-                  </div>
                 </form>
-              </mat-step>
-
-              <mat-step [stepControl]="secondFormGroup">
+              }
+              @if (linearCurrentStep === 1) {
                 <form [formGroup]="secondFormGroup">
-                  <ng-template matStepLabel>Contact Info</ng-template>
                   <amw-input
                     label="Email"
                     formControlName="email"
                     type="email"
                     [required]="true">
                   </amw-input>
-                  <div class="step-actions">
-                    <amw-button variant="text" matStepperPrevious>Back</amw-button>
-                    <amw-button variant="elevated" matStepperNext>Next</amw-button>
-                  </div>
                 </form>
-              </mat-step>
-
-              <mat-step>
-                <ng-template matStepLabel>Done</ng-template>
+              }
+              @if (linearCurrentStep === 2) {
                 <p>All information collected!</p>
-                <div class="step-actions">
-                  <amw-button variant="text" matStepperPrevious>Back</amw-button>
-                </div>
-              </mat-step>
-            </mat-stepper>
+              }
+            </div>
+
             <div class="preview-note">
               <amw-icon name="info"></amw-icon>
               <span>Linear mode requires valid form data to proceed</span>
@@ -145,23 +119,12 @@
         <div class="preview-panel">
           <h4>Preview</h4>
           <div class="preview-content">
-            <mat-stepper>
-              <mat-step [editable]="true">
-                <ng-template matStepLabel>Editable Step</ng-template>
-                <p>This step can be edited after completion</p>
-                <div class="step-actions">
-                  <amw-button variant="elevated" matStepperNext>Next</amw-button>
-                </div>
-              </mat-step>
-
-              <mat-step [editable]="false">
-                <ng-template matStepLabel>Non-editable Step</ng-template>
-                <p>This step cannot be edited after completion</p>
-                <div class="step-actions">
-                  <amw-button variant="text" matStepperPrevious>Back</amw-button>
-                </div>
-              </mat-step>
-            </mat-stepper>
+            <amw-stepper
+              [config]="basicConfig"
+              [steps]="editableSteps"
+              [currentStep]="editableCurrentStep"
+              (stepChange)="onEditableStepChange($event)">
+            </amw-stepper>
           </div>
         </div>
       </div>
@@ -188,32 +151,12 @@
         <div class="preview-panel">
           <h4>Preview</h4>
           <div class="preview-content">
-            <mat-stepper>
-              <mat-step>
-                <ng-template matStepLabel>Required Step</ng-template>
-                <p>This step is required</p>
-                <div class="step-actions">
-                  <amw-button variant="elevated" matStepperNext>Next</amw-button>
-                </div>
-              </mat-step>
-
-              <mat-step [optional]="true">
-                <ng-template matStepLabel>Optional Step</ng-template>
-                <p>This step is optional</p>
-                <div class="step-actions">
-                  <amw-button variant="text" matStepperPrevious>Back</amw-button>
-                  <amw-button variant="elevated" matStepperNext>Next</amw-button>
-                </div>
-              </mat-step>
-
-              <mat-step>
-                <ng-template matStepLabel>Final Step</ng-template>
-                <p>Complete!</p>
-                <div class="step-actions">
-                  <amw-button variant="text" matStepperPrevious>Back</amw-button>
-                </div>
-              </mat-step>
-            </mat-stepper>
+            <amw-stepper
+              [config]="basicConfig"
+              [steps]="optionalSteps"
+              [currentStep]="optionalCurrentStep"
+              (stepChange)="onOptionalStepChange($event)">
+            </amw-stepper>
           </div>
         </div>
       </div>
@@ -240,32 +183,12 @@
         <div class="preview-panel">
           <h4>Preview</h4>
           <div class="preview-content">
-            <mat-stepper orientation="vertical">
-              <mat-step>
-                <ng-template matStepLabel>Step 1</ng-template>
-                <p>Content for step 1</p>
-                <div class="step-actions">
-                  <amw-button variant="elevated" matStepperNext>Next</amw-button>
-                </div>
-              </mat-step>
-
-              <mat-step>
-                <ng-template matStepLabel>Step 2</ng-template>
-                <p>Content for step 2</p>
-                <div class="step-actions">
-                  <amw-button variant="text" matStepperPrevious>Back</amw-button>
-                  <amw-button variant="elevated" matStepperNext>Next</amw-button>
-                </div>
-              </mat-step>
-
-              <mat-step>
-                <ng-template matStepLabel>Step 3</ng-template>
-                <p>You're done!</p>
-                <div class="step-actions">
-                  <amw-button variant="text" matStepperPrevious>Back</amw-button>
-                </div>
-              </mat-step>
-            </mat-stepper>
+            <amw-stepper
+              [config]="verticalConfig"
+              [steps]="verticalSteps"
+              [currentStep]="verticalCurrentStep"
+              (stepChange)="onVerticalStepChange($event)">
+            </amw-stepper>
           </div>
         </div>
       </div>
@@ -292,47 +215,12 @@
         <div class="preview-panel">
           <h4>Preview</h4>
           <div class="preview-content">
-            <mat-stepper>
-              <mat-step>
-                <ng-template matStepLabel>
-                  <div class="step-label-with-icon">
-                    <amw-icon name="person"></amw-icon>
-                    <span>Personal Info</span>
-                  </div>
-                </ng-template>
-                <p>Enter your personal information</p>
-                <div class="step-actions">
-                  <amw-button variant="elevated" matStepperNext>Next</amw-button>
-                </div>
-              </mat-step>
-
-              <mat-step>
-                <ng-template matStepLabel>
-                  <div class="step-label-with-icon">
-                    <amw-icon name="email"></amw-icon>
-                    <span>Contact</span>
-                  </div>
-                </ng-template>
-                <p>Enter your contact details</p>
-                <div class="step-actions">
-                  <amw-button variant="text" matStepperPrevious>Back</amw-button>
-                  <amw-button variant="elevated" matStepperNext>Next</amw-button>
-                </div>
-              </mat-step>
-
-              <mat-step>
-                <ng-template matStepLabel>
-                  <div class="step-label-with-icon">
-                    <amw-icon name="check_circle"></amw-icon>
-                    <span>Complete</span>
-                  </div>
-                </ng-template>
-                <p>All done!</p>
-                <div class="step-actions">
-                  <amw-button variant="text" matStepperPrevious>Back</amw-button>
-                </div>
-              </mat-step>
-            </mat-stepper>
+            <amw-stepper
+              [config]="basicConfig"
+              [steps]="customIconSteps"
+              [currentStep]="customIconsCurrentStep"
+              (stepChange)="onCustomIconsStepChange($event)">
+            </amw-stepper>
           </div>
         </div>
       </div>

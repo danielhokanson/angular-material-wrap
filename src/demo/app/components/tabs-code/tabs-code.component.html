@@ -2,16 +2,13 @@
   <h3>Code Examples</h3>
   <p>Interactive examples with live previews. Edit the code to see real-time changes.</p>
 
-  <mat-accordion class="code-examples-accordion">
+  <amw-accordion class="code-examples-accordion">
     <!-- Basic Tabs -->
-    <mat-expansion-panel>
-      <mat-expansion-panel-header>
-        <mat-panel-title>
-          <amw-icon name="code"></amw-icon>
-          Basic Tabs
-        </mat-panel-title>
-        <mat-panel-description>Simple tab group with text labels</mat-panel-description>
-      </mat-expansion-panel-header>
+    <amw-accordion-panel amwDescription="Simple tab group with text labels">
+      <ng-template #header>
+        <amw-icon name="code"></amw-icon>
+        Basic Tabs
+      </ng-template>
       <div class="example-container">
         <div class="code-panel">
           <div class="code-header">
@@ -26,25 +23,22 @@
         <div class="preview-panel">
           <h4>Preview</h4>
           <div class="preview-content">
-            <mat-tab-group>
-              <mat-tab label="First">Content 1</mat-tab>
-              <mat-tab label="Second">Content 2</mat-tab>
-              <mat-tab label="Third">Content 3</mat-tab>
-            </mat-tab-group>
+            <amw-tabs>
+              <amw-tab label="First">Content 1</amw-tab>
+              <amw-tab label="Second">Content 2</amw-tab>
+              <amw-tab label="Third">Content 3</amw-tab>
+            </amw-tabs>
           </div>
         </div>
       </div>
-    </mat-expansion-panel>
+    </amw-accordion-panel>
 
     <!-- Tabs with Icons -->
-    <mat-expansion-panel>
-      <mat-expansion-panel-header>
-        <mat-panel-title>
-          <amw-icon name="code"></amw-icon>
-          Tabs with Icons
-        </mat-panel-title>
-        <mat-panel-description>Tab labels with icon and text</mat-panel-description>
-      </mat-expansion-panel-header>
+    <amw-accordion-panel amwDescription="Tab labels with icon and text">
+      <ng-template #header>
+        <amw-icon name="code"></amw-icon>
+        Tabs with Icons
+      </ng-template>
       <div class="example-container">
         <div class="code-panel">
           <div class="code-header">
@@ -59,43 +53,28 @@
         <div class="preview-panel">
           <h4>Preview</h4>
           <div class="preview-content">
-            <mat-tab-group>
-              <mat-tab>
-                <ng-template mat-tab-label>
-                  <amw-icon name="home"></amw-icon>
-                  Home
-                </ng-template>
+            <amw-tabs>
+              <amw-tab label="Home" icon="home">
                 Home content
-              </mat-tab>
-              <mat-tab>
-                <ng-template mat-tab-label>
-                  <amw-icon name="person"></amw-icon>
-                  Profile
-                </ng-template>
+              </amw-tab>
+              <amw-tab label="Profile" icon="person">
                 Profile content
-              </mat-tab>
-              <mat-tab>
-                <ng-template mat-tab-label>
-                  <amw-icon name="settings"></amw-icon>
-                  Settings
-                </ng-template>
+              </amw-tab>
+              <amw-tab label="Settings" icon="settings">
                 Settings content
-              </mat-tab>
-            </mat-tab-group>
+              </amw-tab>
+            </amw-tabs>
           </div>
         </div>
       </div>
-    </mat-expansion-panel>
+    </amw-accordion-panel>
 
     <!-- Lazy Loaded Tabs -->
-    <mat-expansion-panel>
-      <mat-expansion-panel-header>
-        <mat-panel-title>
-          <amw-icon name="code"></amw-icon>
-          Lazy Loaded Tabs
-        </mat-panel-title>
-        <mat-panel-description>Tab content loaded on demand</mat-panel-description>
-      </mat-expansion-panel-header>
+    <amw-accordion-panel amwDescription="Tab content loaded on demand">
+      <ng-template #header>
+        <amw-icon name="code"></amw-icon>
+        Lazy Loaded Tabs
+      </ng-template>
       <div class="example-container">
         <div class="code-panel">
           <div class="code-header">
@@ -110,16 +89,14 @@
         <div class="preview-panel">
           <h4>Preview</h4>
           <div class="preview-content">
-            <mat-tab-group>
-              <mat-tab label="Eager">
+            <amw-tabs>
+              <amw-tab label="Eager">
                 This content is loaded immediately
-              </mat-tab>
-              <mat-tab label="Lazy">
-                <ng-template matTabContent>
-                  This content is lazy loaded
-                </ng-template>
-              </mat-tab>
-            </mat-tab-group>
+              </amw-tab>
+              <amw-tab label="Lazy">
+                This content is lazy loaded
+              </amw-tab>
+            </amw-tabs>
             <div class="preview-note">
               <amw-icon name="info"></amw-icon>
               <span>Note: Lazy loading requires matTabContent directive</span>
@@ -127,17 +104,14 @@
           </div>
         </div>
       </div>
-    </mat-expansion-panel>
+    </amw-accordion-panel>
 
     <!-- Dynamic Tabs -->
-    <mat-expansion-panel>
-      <mat-expansion-panel-header>
-        <mat-panel-title>
-          <amw-icon name="code"></amw-icon>
-          Dynamic Tabs
-        </mat-panel-title>
-        <mat-panel-description>Tabs generated from data array</mat-panel-description>
-      </mat-expansion-panel-header>
+    <amw-accordion-panel amwDescription="Tabs generated from data array">
+      <ng-template #header>
+        <amw-icon name="code"></amw-icon>
+        Dynamic Tabs
+      </ng-template>
       <div class="example-container">
         <div class="code-panel">
           <div class="code-header">
@@ -152,13 +126,13 @@
         <div class="preview-panel">
           <h4>Preview</h4>
           <div class="preview-content">
-            <mat-tab-group [(selectedIndex)]="selectedIndex">
+            <amw-tabs [(selectedIndex)]="selectedIndex">
               @for (tab of dynamicTabs; track tab) {
-                <mat-tab [label]="tab.label">
+                <amw-tab [label]="tab.label">
                   {{ tab.content }}
-                </mat-tab>
+                </amw-tab>
               }
-            </mat-tab-group>
+            </amw-tabs>
             <div class="preview-note">
               <amw-icon name="info"></amw-icon>
               <span>Note: Dynamic tabs require component logic</span>
@@ -166,17 +140,14 @@
           </div>
         </div>
       </div>
-    </mat-expansion-panel>
+    </amw-accordion-panel>
 
     <!-- Styled Tabs -->
-    <mat-expansion-panel>
-      <mat-expansion-panel-header>
-        <mat-panel-title>
-          <amw-icon name="code"></amw-icon>
-          Styled Tabs
-        </mat-panel-title>
-        <mat-panel-description>Tabs with custom colors and disabled state</mat-panel-description>
-      </mat-expansion-panel-header>
+    <amw-accordion-panel amwDescription="Tabs with custom colors and disabled state">
+      <ng-template #header>
+        <amw-icon name="code"></amw-icon>
+        Styled Tabs
+      </ng-template>
       <div class="example-container">
         <div class="code-panel">
           <div class="code-header">
@@ -191,20 +162,20 @@
         <div class="preview-panel">
           <h4>Preview</h4>
           <div class="preview-content">
-            <mat-tab-group color="accent" backgroundColor="primary">
-              <mat-tab label="Primary Tab">
+            <amw-tabs color="accent">
+              <amw-tab label="Primary Tab">
                 Content with custom colors
-              </mat-tab>
-              <mat-tab label="Accent Tab">
+              </amw-tab>
+              <amw-tab label="Accent Tab">
                 More content
-              </mat-tab>
-              <mat-tab label="Disabled" [disabled]="true">
+              </amw-tab>
+              <amw-tab label="Disabled" [disabled]="true">
                 Disabled content
-              </mat-tab>
-            </mat-tab-group>
+              </amw-tab>
+            </amw-tabs>
           </div>
         </div>
       </div>
-    </mat-expansion-panel>
-  </mat-accordion>
+    </amw-accordion-panel>
+  </amw-accordion>
 </div>

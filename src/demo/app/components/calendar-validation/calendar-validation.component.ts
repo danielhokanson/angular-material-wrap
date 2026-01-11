@@ -1,6 +1,5 @@
 import { Component } from '@angular/core';
 import { FormBuilder, FormGroup, Validators, ReactiveFormsModule, ValidationErrors } from '@angular/forms';
-import { MatNativeDateModule } from '@angular/material/core';
 import { AmwFormValidationComponent, FormValidationConfig } from 'angular-material-wrap';
 import { AmwButtonComponent } from '../../../../library/src/controls/components/amw-button/amw-button.component';
 import { AmwInputComponent } from '../../../../library/src/controls/components/amw-input/amw-input.component';
@@ -11,7 +10,6 @@ import { AmwCardComponent, AmwIconComponent } from '../../../../library/src/comp
   selector: 'amw-demo-calendar-validation',
   standalone: true,
   imports: [ReactiveFormsModule,
-    MatNativeDateModule,
     AmwFormValidationComponent,
     AmwButtonComponent,
     AmwInputComponent,

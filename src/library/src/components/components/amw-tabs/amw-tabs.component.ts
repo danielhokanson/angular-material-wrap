@@ -136,7 +136,8 @@ export class AmwTabsComponent extends BaseComponent implements OnInit, OnDestroy
                 badgeCount: child.badgeCount,
                 badgeColor: child.badgeColor,
                 content: '', // Content is handled via template projection
-                contentTemplate: child.contentTemplate
+                contentTemplate: child.contentTemplate,
+                headerTemplate: child.headerTemplate
             }));
             this.cdr.detectChanges();
         }

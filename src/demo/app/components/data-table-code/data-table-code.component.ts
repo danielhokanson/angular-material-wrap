@@ -1,8 +1,6 @@
 import { Component, ViewEncapsulation } from '@angular/core';
+import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
-import { MatSortModule } from '@angular/material/sort';
-import { MatPaginatorModule } from '@angular/material/paginator';
-import { MatTableModule } from '@angular/material/table';
 import { BaseCodeComponent } from '../base/base-code.component';
 
 export interface PeriodicElement {
@@ -20,15 +18,15 @@ import { AmwAccordionComponent, AmwAccordionPanelComponent, AmwIconComponent } f
 @Component({
   selector: 'amw-demo-data-table-code',
   standalone: true,
-  imports: [FormsModule,
-    MatSortModule,
-    MatPaginatorModule,
-    MatTableModule,
+  imports: [
+    CommonModule,
+    FormsModule,
     AmwButtonComponent,
     AmwCheckboxComponent,
     AmwAccordionComponent,
     AmwAccordionPanelComponent,
-    AmwIconComponent],
+    AmwIconComponent
+  ],
   encapsulation: ViewEncapsulation.None,
   templateUrl: './data-table-code.component.html',
   styleUrl: './data-table-code.component.scss'

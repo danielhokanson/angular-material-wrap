@@ -7,15 +7,18 @@ type DialogExamples = 'basic' | 'confirmation' | 'alert' | 'customActions';
 
 import { AmwButtonComponent } from '../../../../library/src/controls/components/amw-button/amw-button.component';
 import { AmwAccordionComponent, AmwAccordionPanelComponent, AmwIconComponent } from '../../../../library/src/components/components';
+
 @Component({
     selector: 'amw-demo-dialog-code',
     standalone: true,
-    imports: [FormsModule,
-    MatDialogModule,
-    AmwButtonComponent,
-    AmwAccordionComponent,
-    AmwAccordionPanelComponent,
-    AmwIconComponent],
+    imports: [
+        FormsModule,
+        MatDialogModule,
+        AmwButtonComponent,
+        AmwAccordionComponent,
+        AmwAccordionPanelComponent,
+        AmwIconComponent
+    ],
     encapsulation: ViewEncapsulation.None,
     templateUrl: './dialog-code.component.html',
     styleUrl: './dialog-code.component.scss'

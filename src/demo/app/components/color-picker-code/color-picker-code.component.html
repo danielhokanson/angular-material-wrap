@@ -2,16 +2,13 @@
   <h3>Code Examples</h3>
   <p>Interactive examples with live previews. The code is editable for reference, and working examples are shown alongside.</p>
 
-  <mat-accordion class="code-examples-accordion">
+  <amw-accordion class="code-examples-accordion">
     <!-- Basic Color Picker -->
-    <mat-expansion-panel>
-      <mat-expansion-panel-header>
-        <mat-panel-title>
-          <amw-icon name="code"></amw-icon>
-          Basic Color Picker
-        </mat-panel-title>
-        <mat-panel-description>Simple color picker with default palette</mat-panel-description>
-      </mat-expansion-panel-header>
+    <amw-accordion-panel amwDescription="Simple color picker with default palette">
+      <ng-template #header>
+        <amw-icon name="code"></amw-icon>
+        Basic Color Picker
+      </ng-template>
       <div class="example-container">
         <div class="code-panel">
           <div class="code-header">
@@ -34,17 +31,14 @@
           </div>
         </div>
       </div>
-    </mat-expansion-panel>
+    </amw-accordion-panel>
 
     <!-- Custom Color Mode -->
-    <mat-expansion-panel>
-      <mat-expansion-panel-header>
-        <mat-panel-title>
-          <amw-icon name="code"></amw-icon>
-          Custom Color Mode
-        </mat-panel-title>
-        <mat-panel-description>Color picker with custom color input</mat-panel-description>
-      </mat-expansion-panel-header>
+    <amw-accordion-panel amwDescription="Color picker with custom color input">
+      <ng-template #header>
+        <amw-icon name="code"></amw-icon>
+        Custom Color Mode
+      </ng-template>
       <div class="example-container">
         <div class="code-panel">
           <div class="code-header">
@@ -68,17 +62,14 @@
           </div>
         </div>
       </div>
-    </mat-expansion-panel>
+    </amw-accordion-panel>
 
     <!-- Form Validation -->
-    <mat-expansion-panel>
-      <mat-expansion-panel-header>
-        <mat-panel-title>
-          <amw-icon name="code"></amw-icon>
-          Form Validation
-        </mat-panel-title>
-        <mat-panel-description>Color picker with form validation</mat-panel-description>
-      </mat-expansion-panel-header>
+    <amw-accordion-panel amwDescription="Color picker with form validation">
+      <ng-template #header>
+        <amw-icon name="code"></amw-icon>
+        Form Validation
+      </ng-template>
       <div class="example-container">
         <div class="code-panel">
           <div class="code-header">
@@ -106,17 +97,14 @@
           </div>
         </div>
       </div>
-    </mat-expansion-panel>
+    </amw-accordion-panel>
 
     <!-- Advanced Configuration -->
-    <mat-expansion-panel>
-      <mat-expansion-panel-header>
-        <mat-panel-title>
-          <amw-icon name="code"></amw-icon>
-          Advanced Configuration
-        </mat-panel-title>
-        <mat-panel-description>Color picker with custom configuration</mat-panel-description>
-      </mat-expansion-panel-header>
+    <amw-accordion-panel amwDescription="Color picker with custom configuration">
+      <ng-template #header>
+        <amw-icon name="code"></amw-icon>
+        Advanced Configuration
+      </ng-template>
       <div class="example-container">
         <div class="code-panel">
           <div class="code-header">
@@ -145,6 +133,6 @@
           </div>
         </div>
       </div>
-    </mat-expansion-panel>
-  </mat-accordion>
+    </amw-accordion-panel>
+  </amw-accordion>
 </div>

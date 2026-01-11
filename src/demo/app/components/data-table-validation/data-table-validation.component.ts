@@ -23,44 +23,53 @@ import { AmwCardComponent, AmwIconComponent } from '../../../../library/src/comp
     <div class="data-table-validation-demo">
       <h3>Data Table Validation Examples</h3>
       <p>Demonstrates various validation scenarios for the data table component.</p>
-      
+
       <div class="demo-section">
         <h4>Required Field Validation</h4>
-        <mat-card>
-          <mat-card-content>
+        <amw-card>
+          <ng-template #cardHeader>
+            <span>Required Field Validation</span>
+          </ng-template>
+          <ng-template #cardContent>
             <p>This example shows validation for required fields in the data table.</p>
             <div class="placeholder-table">
               <p>Data table validation examples will be demonstrated here.</p>
               <p>This would show validation for required fields, email format, and custom rules.</p>
             </div>
-          </mat-card-content>
-        </mat-card>
+          </ng-template>
+        </amw-card>
       </div>
 
       <div class="demo-section">
         <h4>Email Format Validation</h4>
-        <mat-card>
-          <mat-card-content>
+        <amw-card>
+          <ng-template #cardHeader>
+            <span>Email Validation</span>
+          </ng-template>
+          <ng-template #cardContent>
             <p>This example shows email format validation in the data table.</p>
             <div class="placeholder-table">
               <p>Email validation examples will be demonstrated here.</p>
               <p>This would show email format validation in the data table.</p>
             </div>
-          </mat-card-content>
-        </mat-card>
+          </ng-template>
+        </amw-card>
       </div>
 
       <div class="demo-section">
         <h4>Custom Validation Rules</h4>
-        <mat-card>
-          <mat-card-content>
+        <amw-card>
+          <ng-template #cardHeader>
+            <span>Custom Validation</span>
+          </ng-template>
+          <ng-template #cardContent>
             <p>This example shows custom validation rules for the data table.</p>
             <div class="placeholder-table">
               <p>Custom validation examples will be demonstrated here.</p>
               <p>This would show custom validation rules for the data table.</p>
             </div>
-          </mat-card-content>
-        </mat-card>
+          </ng-template>
+        </amw-card>
       </div>
     </div>
   `,

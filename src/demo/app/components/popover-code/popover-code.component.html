@@ -3,11 +3,11 @@
   <p>Interactive examples with live previews. The code is editable for reference, and working examples are shown alongside.</p>
 
   <amw-accordion class="code-examples-accordion">
-    <!-- Basic Tooltip -->
-    <amw-accordion-panel amwDescription="Simple tooltip with hover trigger">
+    <!-- Basic Popover -->
+    <amw-accordion-panel amwDescription="Simple popover with click trigger">
       <ng-template #header>
         <amw-icon name="code"></amw-icon>
-        Basic Tooltip
+        Basic Popover
       </ng-template>
       <div class="example-container">
         <div class="code-panel">
@@ -23,24 +23,28 @@
         <div class="preview-panel">
           <h4>Preview</h4>
           <div class="preview-content">
-            <amw-button variant="elevated"
-                    matTooltip="This is a basic tooltip">
-              Hover Me
-            </amw-button>
+            <amw-popover [config]="{ position: 'bottom', showArrow: true }">
+              <ng-template #trigger>
+                <amw-button variant="elevated">Hover Me</amw-button>
+              </ng-template>
+              <ng-template #content>
+                <p>This is a basic popover</p>
+              </ng-template>
+            </amw-popover>
             <div class="preview-note">
               <amw-icon name="info"></amw-icon>
-              <span>Hover over the button to see the tooltip</span>
+              <span>Click or hover over the button to see the popover</span>
             </div>
           </div>
         </div>
       </div>
     </amw-accordion-panel>
 
-    <!-- Tooltip Positions -->
-    <amw-accordion-panel amwDescription="Tooltips in different positions">
+    <!-- Popover Positions -->
+    <amw-accordion-panel amwDescription="Popovers in different positions">
       <ng-template #header>
         <amw-icon name="code"></amw-icon>
-        Tooltip Positions
+        Popover Positions
       </ng-template>
       <div class="example-container">
         <div class="code-panel">
@@ -58,33 +62,45 @@
           <h4>Preview</h4>
           <div class="preview-content">
             <div class="button-grid">
-              <amw-button variant="text"
-                      matTooltip="Tooltip on top"
-                      matTooltipPosition="above">
-                Top
-              </amw-button>
+              <amw-popover [config]="{ position: 'top', showArrow: true }">
+                <ng-template #trigger>
+                  <amw-button variant="text">Top</amw-button>
+                </ng-template>
+                <ng-template #content>
+                  <p>Popover on top</p>
+                </ng-template>
+              </amw-popover>
 
-              <amw-button variant="text"
-                      matTooltip="Tooltip on right"
-                      matTooltipPosition="after">
-                Right
-              </amw-button>
+              <amw-popover [config]="{ position: 'right', showArrow: true }">
+                <ng-template #trigger>
+                  <amw-button variant="text">Right</amw-button>
+                </ng-template>
+                <ng-template #content>
+                  <p>Popover on right</p>
+                </ng-template>
+              </amw-popover>
 
-              <amw-button variant="text"
-                      matTooltip="Tooltip on bottom"
-                      matTooltipPosition="below">
-                Bottom
-              </amw-button>
+              <amw-popover [config]="{ position: 'bottom', showArrow: true }">
+                <ng-template #trigger>
+                  <amw-button variant="text">Bottom</amw-button>
+                </ng-template>
+                <ng-template #content>
+                  <p>Popover on bottom</p>
+                </ng-template>
+              </amw-popover>
 
-              <amw-button variant="text"
-                      matTooltip="Tooltip on left"
-                      matTooltipPosition="before">
-                Left
-              </amw-button>
+              <amw-popover [config]="{ position: 'left', showArrow: true }">
+                <ng-template #trigger>
+                  <amw-button variant="text">Left</amw-button>
+                </ng-template>
+                <ng-template #content>
+                  <p>Popover on left</p>
+                </ng-template>
+              </amw-popover>
             </div>
             <div class="preview-note">
               <amw-icon name="info"></amw-icon>
-              <span>Hover over each button to see different positions</span>
+              <span>Click each button to see different positions</span>
             </div>
           </div>
         </div>
@@ -92,7 +108,7 @@
     </amw-accordion-panel>
 
     <!-- Custom Styling -->
-    <amw-accordion-panel amwDescription="Tooltip with custom CSS class">
+    <amw-accordion-panel amwDescription="Popover with custom styling">
       <ng-template #header>
         <amw-icon name="code"></amw-icon>
         Custom Styling
@@ -112,26 +128,28 @@
         <div class="preview-panel">
           <h4>Preview</h4>
           <div class="preview-content">
-            <amw-button variant="elevated"
-                    matTooltip="Custom styled tooltip"
-                    matTooltipClass="custom-tooltip"
-                    color="primary">
-              Custom Tooltip
-            </amw-button>
+            <amw-popover [config]="{ position: 'bottom', showArrow: true, size: 'large' }">
+              <ng-template #trigger>
+                <amw-button variant="elevated" color="primary">Custom Popover</amw-button>
+              </ng-template>
+              <ng-template #content>
+                <p>Custom styled popover content</p>
+              </ng-template>
+            </amw-popover>
             <div class="preview-note">
               <amw-icon name="info"></amw-icon>
-              <span>Apply custom CSS classes to style tooltips</span>
+              <span>Apply custom configurations to style popovers</span>
             </div>
           </div>
         </div>
       </div>
     </amw-accordion-panel>
 
-    <!-- Interactive Tooltip -->
-    <amw-accordion-panel amwDescription="Tooltip with delays and toggle control">
+    <!-- Interactive Popover -->
+    <amw-accordion-panel amwDescription="Popover with interactive controls">
       <ng-template #header>
         <amw-icon name="code"></amw-icon>
-        Interactive Tooltip
+        Interactive Popover
       </ng-template>
       <div class="example-container">
         <div class="code-panel">
@@ -148,18 +166,19 @@
         <div class="preview-panel">
           <h4>Preview</h4>
           <div class="preview-content">
-            <amw-button variant="elevated"
-                    matTooltip="Click to show/hide"
-                    matTooltipShowDelay="500"
-                    matTooltipHideDelay="200"
-                    [matTooltipDisabled]="tooltipDisabled"
-                    (click)="toggleTooltip()">
-              Toggle Tooltip
-            </amw-button>
-            <p class="status-text">Tooltip is {{ tooltipDisabled ? 'disabled' : 'enabled' }}</p>
+            <amw-popover
+              [config]="{ position: 'bottom', showArrow: true, showClose: true, disabled: tooltipDisabled }">
+              <ng-template #trigger>
+                <amw-button variant="elevated" (click)="toggleTooltip()">Toggle Popover</amw-button>
+              </ng-template>
+              <ng-template #content>
+                <p>Click to show/hide</p>
+              </ng-template>
+            </amw-popover>
+            <p class="status-text">Popover is {{ tooltipDisabled ? 'disabled' : 'enabled' }}</p>
             <div class="preview-note">
               <amw-icon name="info"></amw-icon>
-              <span>Click to toggle tooltip state, check console for events</span>
+              <span>Click to toggle popover state, check console for events</span>
             </div>
           </div>
         </div>

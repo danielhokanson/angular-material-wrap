@@ -32,22 +32,27 @@
           (dragend)="onDragEnd()">
           <!-- Tab Content -->
           <div class="amw-tabs__tab-content">
-            <!-- Tab Icon -->
-            @if (currentConfig.showIcons && tab.icon) {
-              <mat-icon
-                class="amw-tabs__tab-icon">
-                {{ tab.icon }}
-              </mat-icon>
-            }
-            <!-- Tab Label -->
-            <span class="amw-tabs__tab-label">{{ tab.label }}</span>
-            <!-- Tab Badge -->
-            @if (currentConfig.showBadges && hasTabBadge(i)) {
-              <span
-                class="amw-tabs__tab-badge"
-                [style.background-color]="tab.badgeColor || 'var(--mat-sys-error, #f44336)'">
-                {{ getTabBadgeCount(i) }}
-              </span>
+            @if (tab.headerTemplate) {
+              <!-- Custom Header Template -->
+              <ng-container [ngTemplateOutlet]="tab.headerTemplate"></ng-container>
+            } @else {
+              <!-- Tab Icon -->
+              @if (currentConfig.showIcons && tab.icon) {
+                <mat-icon
+                  class="amw-tabs__tab-icon">
+                  {{ tab.icon }}
+                </mat-icon>
+              }
+              <!-- Tab Label -->
+              <span class="amw-tabs__tab-label">{{ tab.label }}</span>
+              <!-- Tab Badge -->
+              @if (currentConfig.showBadges && hasTabBadge(i)) {
+                <span
+                  class="amw-tabs__tab-badge"
+                  [style.background-color]="tab.badgeColor || 'var(--mat-sys-error, #f44336)'">
+                  {{ getTabBadgeCount(i) }}
+                </span>
+              }
             }
           </div>
           <!-- Tab Close Button -->

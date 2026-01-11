@@ -15,7 +15,7 @@
         <amw-tabs [(selectedIndex)]="selectedTabIndex" class="registration-tabs">
           <!-- Step 1: Personal Info -->
           <amw-tab>
-            <ng-template mat-tab-label>
+            <ng-template #tabHeader>
               <div class="tab-label" [ngClass]="getStepClass(0)">
                 <amw-icon [name]="getStepIcon(0)"></amw-icon>
                 <span>{{ steps[0].label }}</span>
@@ -73,7 +73,7 @@
 
           <!-- Step 2: Account Details -->
           <amw-tab>
-            <ng-template mat-tab-label>
+            <ng-template #tabHeader>
               <div class="tab-label" [ngClass]="getStepClass(1)">
                 <amw-icon [name]="getStepIcon(1)"></amw-icon>
                 <span>{{ steps[1].label }}</span>
@@ -127,7 +127,7 @@
 
           <!-- Step 3: Preferences -->
           <amw-tab>
-            <ng-template mat-tab-label>
+            <ng-template #tabHeader>
               <div class="tab-label" [ngClass]="getStepClass(2)">
                 <amw-icon [name]="getStepIcon(2)"></amw-icon>
                 <span>{{ steps[2].label }}</span>
@@ -168,7 +168,7 @@
 
           <!-- Step 4: Review -->
           <amw-tab>
-            <ng-template mat-tab-label>
+            <ng-template #tabHeader>
               <div class="tab-label" [ngClass]="getStepClass(3)">
                 <amw-icon [name]="getStepIcon(3)"></amw-icon>
                 <span>{{ steps[3].label }}</span>

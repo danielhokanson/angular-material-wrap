@@ -13,6 +13,9 @@ export interface TabItem {
     /** Tab content template (for projected content) */
     contentTemplate?: TemplateRef<any>;
 
+    /** Tab header template (for custom tab headers with icons, badges, etc.) */
+    headerTemplate?: TemplateRef<any>;
+
     /** Tab icon */
     icon?: string;
 

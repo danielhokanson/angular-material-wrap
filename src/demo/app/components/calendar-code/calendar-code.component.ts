@@ -1,7 +1,6 @@
 import { Component, ViewEncapsulation } from '@angular/core';
 import { FormsModule } from '@angular/forms';
-import { MatNativeDateModule } from '@angular/material/core';
-import { MatDatepickerModule } from '@angular/material/datepicker';
+import { MatCalendar } from '@angular/material/datepicker';
 import { BaseCodeComponent } from '../base/base-code.component';
 
 type CalendarExamples = 'basic' | 'range' | 'minMax' | 'filter' | 'customClass';
@@ -12,8 +11,7 @@ import { AmwAccordionComponent, AmwAccordionPanelComponent, AmwIconComponent, Am
   selector: 'amw-demo-calendar-code',
   standalone: true,
   imports: [FormsModule,
-    MatNativeDateModule,
-    MatDatepickerModule,
+    MatCalendar,
     AmwButtonComponent,
     AmwAccordionComponent,
     AmwAccordionPanelComponent,

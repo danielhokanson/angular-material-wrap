@@ -6,16 +6,23 @@
     <h4>Required Field Validation</h4>
     <amw-card>
       <ng-template #cardContent>
-        <mat-stepper #stepper>
-          <mat-step [stepControl]="firstFormGroup">
-            <form [formGroup]="firstFormGroup">
-              <ng-template matStepLabel>Personal Information</ng-template>
+        <amw-stepper
+          [config]="stepperConfig"
+          [steps]="validationSteps"
+          [currentStep]="currentStep"
+          (stepChange)="onStepChange($event)">
+        </amw-stepper>
+
+        <!-- Form content displayed based on current step -->
+        <div class="step-content">
+          @if (currentStep === 0) {
+            <form [formGroup]="firstFormGroup" class="step-form">
               <amw-input
                 formControlName="firstName"
                 label="First Name *"
                 [required]="true">
               </amw-input>
-              @if (firstFormGroup.get('firstName')?.hasError('required')) {
+              @if (firstFormGroup.get('firstName')?.hasError('required') && firstFormGroup.get('firstName')?.touched) {
                 <div class="field-error">
                   First name is required
                 </div>
@@ -25,31 +32,28 @@
                 label="Last Name *"
                 [required]="true">
               </amw-input>
-              @if (firstFormGroup.get('lastName')?.hasError('required')) {
+              @if (firstFormGroup.get('lastName')?.hasError('required') && firstFormGroup.get('lastName')?.touched) {
                 <div class="field-error">
                   Last name is required
                 </div>
               }
-              <div>
-                <amw-button variant="text" matStepperNext>Next</amw-button>
-              </div>
             </form>
-          </mat-step>
-          <mat-step [stepControl]="secondFormGroup">
-            <form [formGroup]="secondFormGroup">
-              <ng-template matStepLabel>Contact Information</ng-template>
+          }
+
+          @if (currentStep === 1) {
+            <form [formGroup]="secondFormGroup" class="step-form">
               <amw-input
                 formControlName="email"
                 label="Email *"
                 type="email"
                 [required]="true">
               </amw-input>
-              @if (secondFormGroup.get('email')?.hasError('required')) {
+              @if (secondFormGroup.get('email')?.hasError('required') && secondFormGroup.get('email')?.touched) {
                 <div class="field-error">
                   Email is required
                 </div>
               }
-              @if (secondFormGroup.get('email')?.hasError('email')) {
+              @if (secondFormGroup.get('email')?.hasError('email') && secondFormGroup.get('email')?.touched) {
                 <div class="field-error">
                   Please enter a valid email
                 </div>
@@ -59,27 +63,30 @@
                 label="Phone *"
                 [required]="true">
               </amw-input>
-              @if (secondFormGroup.get('phone')?.hasError('required')) {
+              @if (secondFormGroup.get('phone')?.hasError('required') && secondFormGroup.get('phone')?.touched) {
                 <div class="field-error">
                   Phone is required
                 </div>
               }
-              <div>
-                <amw-button variant="text" matStepperPrevious>Back</amw-button>
-                <amw-button variant="text" matStepperNext>Next</amw-button>
-              </div>
             </form>
-          </mat-step>
-          <mat-step>
-            <ng-template matStepLabel>Review</ng-template>
-            <p>Review your information before submitting.</p>
-            <div>
-              <amw-button variant="text" matStepperPrevious>Back</amw-button>
-              <amw-button variant="text" (click)="stepper.reset()">Reset</amw-button>
+          }
+
+          @if (currentStep === 2) {
+            <div class="review-section">
+              <p>Review your information before submitting.</p>
+              <div class="review-data">
+                <p><strong>First Name:</strong> {{ firstFormGroup.value.firstName }}</p>
+                <p><strong>Last Name:</strong> {{ firstFormGroup.value.lastName }}</p>
+                <p><strong>Email:</strong> {{ secondFormGroup.value.email }}</p>
+                <p><strong>Phone:</strong> {{ secondFormGroup.value.phone }}</p>
+              </div>
+              <div class="review-actions">
+                <amw-button variant="text" (click)="resetStepper()">Reset</amw-button>
+              </div>
             </div>
-          </mat-step>
-        </mat-stepper>
+          }
+        </div>
       </ng-template>
-</amw-card>
+    </amw-card>
   </div>
 </div>

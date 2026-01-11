@@ -1,60 +1,30 @@
-<mat-sidenav-container class="demo-sidenav-container">
-  <mat-sidenav
-    #sidenav
-    mode="side"
-    [opened]="isSidenavOpen"
-    class="demo-sidenav">
+<amw-sidenav
+  [config]="sidenavConfig"
+  [items]="navigationItems"
+  [opened]="isSidenavOpen"
+  [showToggle]="false"
+  [showClose]="false"
+  (openedChange)="onSidenavToggle($event)"
+  (itemClick)="onItemClick($event)">
 
-    <mat-toolbar class="demo-sidenav-header">
+  <!-- Header Template -->
+  <ng-template #headerTemplate>
+    <amw-toolbar class="demo-sidenav-header">
       <span class="mdc-typography--title-large">AMW Library</span>
       <span class="spacer"></span>
       <amw-button variant="icon" icon="menu" (click)="toggleSidenav()"></amw-button>
-    </mat-toolbar>
+    </amw-toolbar>
+  </ng-template>
 
-    <mat-nav-list class="demo-nav-list">
-      @for (item of navigationItems; track item) {
-        <!-- Main navigation item with expansion -->
-        <mat-list-item
-          [routerLink]="item.route"
-          routerLinkActive="active"
-          [routerLinkActiveOptions]="{exact: false}"
-          class="demo-nav-item"
-          (click)="toggleExpansion(item)">
-          <mat-icon matListItemIcon>{{ item.icon }}</mat-icon>
-          <div matListItemTitle class="mdc-typography--title-medium">{{ item.title }}</div>
-          <div matListItemLine class="demo-nav-description mdc-typography--body-small">{{ item.description }}</div>
-          <mat-icon matListItemMeta class="demo-expand-icon"
-            [class.rotated]="item.expanded">
-            expand_more
-          </mat-icon>
-        </mat-list-item>
-        <!-- Submenu items -->
-        <div class="demo-submenu" [class.expanded]="item.expanded">
-          @for (child of item.children; track child) {
-            <mat-list-item
-              [routerLink]="child.route"
-              routerLinkActive="active"
-              [routerLinkActiveOptions]="{exact: false}"
-              class="demo-submenu-item">
-              <mat-icon matListItemIcon class="demo-submenu-icon">{{ child.icon }}</mat-icon>
-              <div matListItemTitle class="mdc-typography--body-medium">{{ child.title }}</div>
-            </mat-list-item>
-          }
-        </div>
-      }
-    </mat-nav-list>
-  </mat-sidenav>
+  <!-- Main Content (projected into sidenav content area) -->
+  <amw-toolbar class="demo-main-toolbar">
+    <amw-button variant="icon" icon="menu" (click)="toggleSidenav()" class="demo-menu-button"></amw-button>
+    <span class="mdc-typography--headline-small">Angular Material Wrap - Demo Application</span>
+    <span class="spacer"></span>
+    <amw-demo-theme-menu></amw-demo-theme-menu>
+  </amw-toolbar>
 
-  <mat-sidenav-content class="demo-content">
-    <mat-toolbar class="demo-main-toolbar">
-      <amw-button variant="icon" icon="menu" (click)="toggleSidenav()" class="demo-menu-button"></amw-button>
-      <span class="mdc-typography--headline-small">Angular Material Wrap - Demo Application</span>
-      <span class="spacer"></span>
-      <amw-demo-theme-menu></amw-demo-theme-menu>
-    </mat-toolbar>
-
-    <div class="demo-content-area">
-      <router-outlet></router-outlet>
-    </div>
-  </mat-sidenav-content>
-</mat-sidenav-container>
+  <div class="demo-content-area">
+    <router-outlet></router-outlet>
+  </div>
+</amw-sidenav>

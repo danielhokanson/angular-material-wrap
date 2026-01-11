@@ -23,32 +23,32 @@
         <div class="preview-panel">
           <h4>Preview</h4>
           <div class="preview-content">
-            <mat-drawer-container class="example-sidenav-container">
-              <mat-drawer mode="side" [opened]="sidenavOpened">
-                <mat-nav-list>
-                  <a mat-list-item href="#">
-                    <amw-icon name="home" matListItemIcon></amw-icon>
-                    <span matListItemTitle>Home</span>
+            <amw-sidenav [opened]="sidenavOpened" mode="side">
+              <ng-template #sidenavContent>
+                <div class="sidenav-nav-list">
+                  <a href="#" class="nav-item">
+                    <amw-icon name="home"></amw-icon>
+                    <span>Home</span>
                   </a>
-                  <a mat-list-item href="#">
-                    <amw-icon name="person" matListItemIcon></amw-icon>
-                    <span matListItemTitle>Profile</span>
+                  <a href="#" class="nav-item">
+                    <amw-icon name="person"></amw-icon>
+                    <span>Profile</span>
                   </a>
-                  <a mat-list-item href="#">
-                    <amw-icon name="settings" matListItemIcon></amw-icon>
-                    <span matListItemTitle>Settings</span>
+                  <a href="#" class="nav-item">
+                    <amw-icon name="settings"></amw-icon>
+                    <span>Settings</span>
                   </a>
-                </mat-nav-list>
-              </mat-drawer>
-              <mat-drawer-content>
+                </div>
+              </ng-template>
+              <ng-template #mainContent>
                 <div class="sidenav-content-padding">
                   <amw-button variant="elevated" (click)="sidenavOpened = !sidenavOpened">
                     Toggle Sidenav
                   </amw-button>
                   <p>Main content area. The sidenav stays open by default in side mode.</p>
                 </div>
-              </mat-drawer-content>
-            </mat-drawer-container>
+              </ng-template>
+            </amw-sidenav>
           </div>
         </div>
       </div>
@@ -75,32 +75,32 @@
         <div class="preview-panel">
           <h4>Preview</h4>
           <div class="preview-content">
-            <mat-drawer-container class="example-sidenav-container">
-              <mat-drawer mode="over" [(opened)]="overlaySidenavOpened">
-                <mat-nav-list>
-                  <a mat-list-item href="#">
-                    <amw-icon name="home" matListItemIcon></amw-icon>
-                    <span matListItemTitle>Home</span>
+            <amw-sidenav [(opened)]="overlaySidenavOpened" mode="over">
+              <ng-template #sidenavContent>
+                <div class="sidenav-nav-list">
+                  <a href="#" class="nav-item">
+                    <amw-icon name="home"></amw-icon>
+                    <span>Home</span>
                   </a>
-                  <a mat-list-item href="#">
-                    <amw-icon name="person" matListItemIcon></amw-icon>
-                    <span matListItemTitle>Profile</span>
+                  <a href="#" class="nav-item">
+                    <amw-icon name="person"></amw-icon>
+                    <span>Profile</span>
                   </a>
-                  <a mat-list-item href="#">
-                    <amw-icon name="settings" matListItemIcon></amw-icon>
-                    <span matListItemTitle>Settings</span>
+                  <a href="#" class="nav-item">
+                    <amw-icon name="settings"></amw-icon>
+                    <span>Settings</span>
                   </a>
-                </mat-nav-list>
-              </mat-drawer>
-              <mat-drawer-content>
+                </div>
+              </ng-template>
+              <ng-template #mainContent>
                 <div class="sidenav-content-padding">
                   <amw-button variant="elevated" (click)="overlaySidenavOpened = !overlaySidenavOpened">
                     Toggle Sidenav
                   </amw-button>
                   <p>The sidenav overlays the content with a backdrop in over mode.</p>
                 </div>
-              </mat-drawer-content>
-            </mat-drawer-container>
+              </ng-template>
+            </amw-sidenav>
           </div>
         </div>
       </div>
@@ -127,32 +127,32 @@
         <div class="preview-panel">
           <h4>Preview</h4>
           <div class="preview-content">
-            <mat-drawer-container class="example-sidenav-container">
-              <mat-drawer mode="push" [(opened)]="pushSidenavOpened">
-                <mat-nav-list>
-                  <a mat-list-item href="#">
-                    <amw-icon name="home" matListItemIcon></amw-icon>
-                    <span matListItemTitle>Home</span>
+            <amw-sidenav [(opened)]="pushSidenavOpened" mode="push">
+              <ng-template #sidenavContent>
+                <div class="sidenav-nav-list">
+                  <a href="#" class="nav-item">
+                    <amw-icon name="home"></amw-icon>
+                    <span>Home</span>
                   </a>
-                  <a mat-list-item href="#">
-                    <amw-icon name="person" matListItemIcon></amw-icon>
-                    <span matListItemTitle>Profile</span>
+                  <a href="#" class="nav-item">
+                    <amw-icon name="person"></amw-icon>
+                    <span>Profile</span>
                   </a>
-                  <a mat-list-item href="#">
-                    <amw-icon name="settings" matListItemIcon></amw-icon>
-                    <span matListItemTitle>Settings</span>
+                  <a href="#" class="nav-item">
+                    <amw-icon name="settings"></amw-icon>
+                    <span>Settings</span>
                   </a>
-                </mat-nav-list>
-              </mat-drawer>
-              <mat-drawer-content>
+                </div>
+              </ng-template>
+              <ng-template #mainContent>
                 <div class="sidenav-content-padding">
                   <amw-button variant="elevated" (click)="pushSidenavOpened = !pushSidenavOpened">
                     Toggle Sidenav
                   </amw-button>
                   <p>The content is pushed to the side when sidenav opens in push mode.</p>
                 </div>
-              </mat-drawer-content>
-            </mat-drawer-container>
+              </ng-template>
+            </amw-sidenav>
           </div>
         </div>
       </div>
@@ -179,32 +179,32 @@
         <div class="preview-panel">
           <h4>Preview</h4>
           <div class="preview-content">
-            <mat-drawer-container class="example-sidenav-container" hasBackdrop="false">
-              <mat-drawer mode="side" position="end" [(opened)]="fixedSidenavOpened">
-                <mat-nav-list>
-                  <a mat-list-item href="#">
-                    <amw-icon name="home" matListItemIcon></amw-icon>
-                    <span matListItemTitle>Home</span>
+            <amw-sidenav [(opened)]="fixedSidenavOpened" mode="side" position="end">
+              <ng-template #sidenavContent>
+                <div class="sidenav-nav-list">
+                  <a href="#" class="nav-item">
+                    <amw-icon name="home"></amw-icon>
+                    <span>Home</span>
                   </a>
-                  <a mat-list-item href="#">
-                    <amw-icon name="person" matListItemIcon></amw-icon>
-                    <span matListItemTitle>Profile</span>
+                  <a href="#" class="nav-item">
+                    <amw-icon name="person"></amw-icon>
+                    <span>Profile</span>
                   </a>
-                  <a mat-list-item href="#">
-                    <amw-icon name="settings" matListItemIcon></amw-icon>
-                    <span matListItemTitle>Settings</span>
+                  <a href="#" class="nav-item">
+                    <amw-icon name="settings"></amw-icon>
+                    <span>Settings</span>
                   </a>
-                </mat-nav-list>
-              </mat-drawer>
-              <mat-drawer-content>
+                </div>
+              </ng-template>
+              <ng-template #mainContent>
                 <div class="sidenav-content-padding">
                   <amw-button variant="elevated" (click)="fixedSidenavOpened = !fixedSidenavOpened">
                     Toggle Right Sidenav
                   </amw-button>
                   <p>The sidenav can be positioned on the right side using position="end".</p>
                 </div>
-              </mat-drawer-content>
-            </mat-drawer-container>
+              </ng-template>
+            </amw-sidenav>
           </div>
         </div>
       </div>

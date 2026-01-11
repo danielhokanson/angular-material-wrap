@@ -23,11 +23,12 @@
         <div class="preview-panel">
           <h4>Preview</h4>
           <div class="preview-content">
-            <mat-slider [min]="0" [max]="100">
-              <input matSliderStartThumb [(ngModel)]="startValue">
-              <input matSliderEndThumb [(ngModel)]="endValue">
-            </mat-slider>
-            <p>Range: {{startValue}} - {{endValue}}</p>
+            <amw-slider
+              [min]="0"
+              [max]="100"
+              [(value)]="startValue">
+            </amw-slider>
+            <p>Value: {{startValue}}</p>
           </div>
         </div>
       </div>
@@ -54,11 +55,13 @@
         <div class="preview-panel">
           <h4>Preview</h4>
           <div class="preview-content">
-            <mat-slider [min]="0" [max]="1000" [step]="10" [displayWith]="formatLabel">
-              <input matSliderStartThumb [(ngModel)]="priceStart">
-              <input matSliderEndThumb [(ngModel)]="priceEnd">
-            </mat-slider>
-            <p>Price Range: ${{priceStart}} - ${{priceEnd}}</p>
+            <amw-slider
+              [min]="0"
+              [max]="1000"
+              [step]="10"
+              [(value)]="priceStart">
+            </amw-slider>
+            <p>Price: ${{priceStart}}</p>
           </div>
         </div>
       </div>
@@ -86,12 +89,14 @@
           <h4>Preview</h4>
           <div class="preview-content">
             <div style="height: 300px;">
-              <mat-slider vertical [min]="0" [max]="100">
-                <input matSliderStartThumb [(ngModel)]="startValue">
-                <input matSliderEndThumb [(ngModel)]="endValue">
-              </mat-slider>
+              <amw-slider
+                [vertical]="true"
+                [min]="0"
+                [max]="100"
+                [(value)]="endValue">
+              </amw-slider>
             </div>
-            <p>Vertical Range: {{startValue}} - {{endValue}}</p>
+            <p>Vertical Value: {{endValue}}</p>
           </div>
         </div>
       </div>

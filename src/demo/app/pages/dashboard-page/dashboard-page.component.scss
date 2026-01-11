@@ -5,14 +5,14 @@
 
   .dashboard-header {
     margin-bottom: 32px;
-    
+
     h1 {
       margin: 0 0 8px 0;
       color: #1976d2;
       font-size: 2.5rem;
       font-weight: 300;
     }
-    
+
     p {
       margin: 0;
       color: #666;
@@ -21,97 +21,139 @@
   }
 
   .dashboard-content {
-    mat-grid-list {
-      margin: 0;
+    .dashboard-grid {
+      display: flex;
+      flex-direction: column;
+      gap: 16px;
+    }
+
+    .stats-row {
+      display: grid;
+      grid-template-columns: repeat(5, 1fr);
+      gap: 16px;
+    }
+
+    .bottom-row {
+      display: grid;
+      grid-template-columns: 3fr 2fr;
+      gap: 16px;
     }
   }
 
   .stat-card {
-    height: 100%;
+    height: 200px;
     display: flex;
     flex-direction: column;
-    
-    mat-card-content {
-      display: flex;
-      align-items: center;
-      flex: 1;
-      padding: 24px;
-      
-      .stat-icon {
-        margin-right: 16px;
-        
-        mat-icon {
-          font-size: 2.5rem;
-          width: 2.5rem;
-          height: 2.5rem;
-          color: #1976d2;
-        }
-      }
-      
-      .stat-content {
-        h3 {
-          margin: 0 0 4px 0;
-          font-size: 2rem;
-          font-weight: 500;
-          color: #333;
-        }
-        
-        p {
-          margin: 0;
-          color: #666;
-          font-size: 0.9rem;
-        }
+
+    .stat-icon {
+      margin-right: 16px;
+
+      amw-icon {
+        font-size: 2.5rem;
+        width: 2.5rem;
+        height: 2.5rem;
+        color: #1976d2;
       }
     }
-  }
 
-  .activity-card {
-    height: 100%;
-    
-    mat-card-content {
-      padding: 0;
-      
-      mat-list {
-        padding: 0;
+    .stat-content {
+      h3 {
+        margin: 0 0 4px 0;
+        font-size: 2rem;
+        font-weight: 500;
+        color: #333;
+      }
+
+      p {
+        margin: 0;
+        color: #666;
+        font-size: 0.9rem;
       }
     }
   }
 
   .actions-card {
-    height: 100%;
-    
-    .action-buttons {
+    height: 200px;
+
+    .actions-grid {
       display: flex;
-      flex-direction: column;
       gap: 12px;
-      
-      button {
-        width: 100%;
-        justify-content: flex-start;
-        
-        mat-icon {
-          margin-right: 8px;
-        }
-      }
+      flex-wrap: wrap;
     }
   }
 
   .progress-card {
-    height: 100%;
-    
+    height: 200px;
+
     .progress-item {
-      margin-bottom: 16px;
-      
+      margin-bottom: 12px;
+
       &:last-child {
         margin-bottom: 0;
       }
-      
+
       .progress-label {
         display: flex;
         justify-content: space-between;
         margin-bottom: 4px;
         font-size: 0.9rem;
         color: #666;
+      }
+
+      .progress-bar {
+        height: 8px;
+        background-color: #e0e0e0;
+        border-radius: 4px;
+        overflow: hidden;
+
+        .progress-bar-fill {
+          height: 100%;
+          background-color: #1976d2;
+          border-radius: 4px;
+          transition: width 0.3s ease;
+        }
+      }
+    }
+  }
+}
+
+// Responsive adjustments
+@media (max-width: 1200px) {
+  .dashboard-page {
+    .dashboard-content {
+      .stats-row {
+        grid-template-columns: repeat(3, 1fr);
+      }
+
+      .bottom-row {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    .stat-card,
+    .actions-card,
+    .progress-card {
+      height: auto;
+      min-height: 150px;
+    }
+  }
+}
+
+@media (max-width: 768px) {
+  .dashboard-page {
+    .dashboard-content {
+      .stats-row {
+        grid-template-columns: repeat(2, 1fr);
+      }
+    }
+  }
+}
+
+@media (max-width: 480px) {
+  .dashboard-page {
+    .dashboard-content {
+      .stats-row {
+        grid-template-columns: 1fr;
       }
     }
   }

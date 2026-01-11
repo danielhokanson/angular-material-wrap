@@ -46,11 +46,9 @@
             <amw-select
               *ngIf="prop.type === 'select'"
               [formControl]="getFormControl(prop.name)"
+              [options]="prop.options"
               (selectionChange)="onSelectChange(prop.name, $event)"
               class="demo-control-input">
-              <mat-option *ngFor="let option of prop.options" [value]="option.value">
-                {{ option.label }}
-              </mat-option>
             </amw-select>
 
             <!-- Slider -->

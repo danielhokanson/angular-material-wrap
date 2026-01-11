@@ -23,7 +23,7 @@
         <div class="preview-panel">
           <h4>Preview</h4>
           <div class="preview-content">
-            <mat-slide-toggle>Enable notifications</mat-slide-toggle>
+            <amw-switch>Enable notifications</amw-switch>
           </div>
         </div>
       </div>
@@ -49,9 +49,9 @@
         <div class="preview-panel">
           <h4>Preview</h4>
           <div class="preview-content">
-            <mat-slide-toggle color="primary">Primary toggle</mat-slide-toggle>
-            <mat-slide-toggle color="accent">Accent toggle</mat-slide-toggle>
-            <mat-slide-toggle color="warn">Warn toggle</mat-slide-toggle>
+            <amw-switch color="primary">Primary toggle</amw-switch>
+            <amw-switch color="accent">Accent toggle</amw-switch>
+            <amw-switch color="warn">Warn toggle</amw-switch>
           </div>
         </div>
       </div>
@@ -77,9 +77,9 @@
         <div class="preview-panel">
           <h4>Preview</h4>
           <div class="preview-content">
-            <mat-slide-toggle [checked]="true">Checked toggle</mat-slide-toggle>
-            <mat-slide-toggle [checked]="false">Unchecked toggle</mat-slide-toggle>
-            <mat-slide-toggle [checked]="true" [disabled]="true">Disabled toggle</mat-slide-toggle>
+            <amw-switch [checked]="true">Checked toggle</amw-switch>
+            <amw-switch [checked]="false">Unchecked toggle</amw-switch>
+            <amw-switch [checked]="true" [disabled]="true">Disabled toggle</amw-switch>
           </div>
         </div>
       </div>
@@ -105,8 +105,8 @@
         <div class="preview-panel">
           <h4>Preview</h4>
           <div class="preview-content">
-            <mat-slide-toggle labelPosition="after">Label after toggle</mat-slide-toggle>
-            <mat-slide-toggle labelPosition="before">Label before toggle</mat-slide-toggle>
+            <amw-switch labelPosition="after">Label after toggle</amw-switch>
+            <amw-switch labelPosition="before">Label before toggle</amw-switch>
           </div>
         </div>
       </div>
@@ -132,9 +132,9 @@
         <div class="preview-panel">
           <h4>Preview</h4>
           <div class="preview-content">
-            <mat-slide-toggle [(ngModel)]="isChecked">
+            <amw-switch [(checked)]="isChecked">
               Toggle is {{ isChecked ? 'ON' : 'OFF' }}
-            </mat-slide-toggle>
+            </amw-switch>
           </div>
         </div>
       </div>
@@ -160,11 +160,11 @@
         <div class="preview-panel">
           <h4>Preview</h4>
           <div class="preview-content">
-            <mat-slide-toggle
-              [checked]="isChecked"
-              (change)="isChecked = $event.checked">
+            <amw-switch
+              [(checked)]="isChecked"
+              (switchChange)="isChecked = $event">
               Enable feature
-            </mat-slide-toggle>
+            </amw-switch>
             <p>Toggle state: {{ isChecked ? 'Enabled' : 'Disabled' }}</p>
           </div>
         </div>
@@ -194,21 +194,21 @@
             <div class="settings-panel">
               <h3>User Preferences</h3>
 
-              <mat-slide-toggle color="primary">
+              <amw-switch color="primary">
                 Email notifications
-              </mat-slide-toggle>
+              </amw-switch>
 
-              <mat-slide-toggle color="primary">
+              <amw-switch color="primary">
                 Push notifications
-              </mat-slide-toggle>
+              </amw-switch>
 
-              <mat-slide-toggle color="accent">
+              <amw-switch color="accent">
                 Dark mode
-              </mat-slide-toggle>
+              </amw-switch>
 
-              <mat-slide-toggle color="warn">
+              <amw-switch color="warn">
                 Delete account
-              </mat-slide-toggle>
+              </amw-switch>
             </div>
           </div>
         </div>

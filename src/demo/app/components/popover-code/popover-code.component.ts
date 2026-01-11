@@ -1,21 +1,24 @@
 import { Component, ViewEncapsulation } from '@angular/core';
 import { FormsModule } from '@angular/forms';
-import { MatTooltipModule } from '@angular/material/tooltip';
 import { BaseCodeComponent } from '../base/base-code.component';
 
 type PopoverExamples = 'basic' | 'positions' | 'styling' | 'interactive';
 
 import { AmwButtonComponent } from '../../../../library/src/controls/components/amw-button/amw-button.component';
 import { AmwAccordionComponent, AmwAccordionPanelComponent, AmwIconComponent } from '../../../../library/src/components/components';
+import { AmwPopoverComponent } from '../../../../library/src/components/components/amw-popover/amw-popover.component';
+
 @Component({
     selector: 'app-popover-code',
     standalone: true,
-    imports: [FormsModule,
-    MatTooltipModule,
-    AmwButtonComponent,
-    AmwAccordionComponent,
-    AmwAccordionPanelComponent,
-    AmwIconComponent],
+    imports: [
+        FormsModule,
+        AmwButtonComponent,
+        AmwAccordionComponent,
+        AmwAccordionPanelComponent,
+        AmwIconComponent,
+        AmwPopoverComponent
+    ],
     encapsulation: ViewEncapsulation.None,
     templateUrl: './popover-code.component.html',
     styleUrl: './popover-code.component.scss'
@@ -23,54 +26,73 @@ import { AmwAccordionComponent, AmwAccordionPanelComponent, AmwIconComponent } f
 export class PopoverCodeComponent extends BaseCodeComponent<PopoverExamples> {
     // Original code examples (for reset functionality)
     readonly codeExamples: Record<PopoverExamples, string> = {
-        basic: `<amw-button variant="elevated"
-        matTooltip="This is a basic tooltip">
-  Hover Me
-</amw-button>`,
+        basic: `<amw-popover [config]="{ position: 'bottom', showArrow: true }">
+  <ng-template #trigger>
+    <amw-button variant="elevated">Hover Me</amw-button>
+  </ng-template>
+  <ng-template #content>
+    <p>This is a basic popover</p>
+  </ng-template>
+</amw-popover>`,
 
-        positions: `<!-- Tooltip on top -->
-<amw-button variant="text"
-        matTooltip="Tooltip on top"
-        matTooltipPosition="above">
-  Top
-</amw-button>
+        positions: `<!-- Popover on top -->
+<amw-popover [config]="{ position: 'top', showArrow: true }">
+  <ng-template #trigger>
+    <amw-button variant="text">Top</amw-button>
+  </ng-template>
+  <ng-template #content>
+    <p>Popover on top</p>
+  </ng-template>
+</amw-popover>
 
-<!-- Tooltip on right -->
-<amw-button variant="text"
-        matTooltip="Tooltip on right"
-        matTooltipPosition="after">
-  Right
-</amw-button>
+<!-- Popover on right -->
+<amw-popover [config]="{ position: 'right', showArrow: true }">
+  <ng-template #trigger>
+    <amw-button variant="text">Right</amw-button>
+  </ng-template>
+  <ng-template #content>
+    <p>Popover on right</p>
+  </ng-template>
+</amw-popover>
 
-<!-- Tooltip on bottom -->
-<amw-button variant="text"
-        matTooltip="Tooltip on bottom"
-        matTooltipPosition="below">
-  Bottom
-</amw-button>
+<!-- Popover on bottom -->
+<amw-popover [config]="{ position: 'bottom', showArrow: true }">
+  <ng-template #trigger>
+    <amw-button variant="text">Bottom</amw-button>
+  </ng-template>
+  <ng-template #content>
+    <p>Popover on bottom</p>
+  </ng-template>
+</amw-popover>
 
-<!-- Tooltip on left -->
-<amw-button variant="text"
-        matTooltip="Tooltip on left"
-        matTooltipPosition="before">
-  Left
-</amw-button>`,
+<!-- Popover on left -->
+<amw-popover [config]="{ position: 'left', showArrow: true }">
+  <ng-template #trigger>
+    <amw-button variant="text">Left</amw-button>
+  </ng-template>
+  <ng-template #content>
+    <p>Popover on left</p>
+  </ng-template>
+</amw-popover>`,
 
-        styling: `<amw-button variant="elevated"
-        matTooltip="Custom styled tooltip"
-        matTooltipClass="custom-tooltip"
-        color="primary">
-  Custom Tooltip
-</amw-button>`,
+        styling: `<amw-popover [config]="{ position: 'bottom', showArrow: true, size: 'large' }">
+  <ng-template #trigger>
+    <amw-button variant="elevated" color="primary">Custom Popover</amw-button>
+  </ng-template>
+  <ng-template #content>
+    <p>Custom styled popover content</p>
+  </ng-template>
+</amw-popover>`,
 
-        interactive: `<amw-button variant="elevated"
-        matTooltip="Click to show/hide"
-        matTooltipShowDelay="500"
-        matTooltipHideDelay="200"
-        [matTooltipDisabled]="tooltipDisabled"
-        (click)="toggleTooltip()">
-  Toggle Tooltip
-</amw-button>`
+        interactive: `<amw-popover
+  [config]="{ position: 'bottom', showArrow: true, showClose: true, disabled: popoverDisabled }">
+  <ng-template #trigger>
+    <amw-button variant="elevated" (click)="togglePopover()">Toggle Popover</amw-button>
+  </ng-template>
+  <ng-template #content>
+    <p>Click to show/hide</p>
+  </ng-template>
+</amw-popover>`
     };
 
     // State for interactive example

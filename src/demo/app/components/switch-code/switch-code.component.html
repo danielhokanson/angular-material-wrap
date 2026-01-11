@@ -23,11 +23,11 @@
         <div class="preview-panel">
           <h4>Preview</h4>
           <div class="preview-content">
-            <mat-slide-toggle
-              [(ngModel)]="isEnabled"
-              (change)="onSwitchChange($event)">
+            <amw-switch
+              [(checked)]="isEnabled"
+              (switchChange)="onSwitchChange($event)">
               Toggle Me
-            </mat-slide-toggle>
+            </amw-switch>
             <p>Switch is: {{ isEnabled ? 'Enabled' : 'Disabled' }}</p>
           </div>
         </div>
@@ -54,15 +54,15 @@
         <div class="preview-panel">
           <h4>Preview</h4>
           <div class="preview-content">
-            <mat-slide-toggle
-              [(ngModel)]="notificationsEnabled"
+            <amw-switch
+              [(checked)]="notificationsEnabled"
               color="accent"
               labelPosition="before"
               [disabled]="false"
               [required]="true"
-              (change)="onNotificationChange($event)">
+              (switchChange)="onNotificationChange($event)">
               Enable Notifications
-            </mat-slide-toggle>
+            </amw-switch>
             <p>Notifications: {{ notificationsEnabled ? 'ON' : 'OFF' }}</p>
           </div>
         </div>
@@ -89,12 +89,12 @@
         <div class="preview-panel">
           <h4>Preview</h4>
           <div class="preview-content">
-            <mat-slide-toggle [(ngModel)]="notificationsEnabled">
+            <amw-switch [(checked)]="notificationsEnabled">
               Enable Notifications
-            </mat-slide-toggle>
-            <mat-slide-toggle [(ngModel)]="darkModeEnabled">
+            </amw-switch>
+            <amw-switch [(checked)]="darkModeEnabled">
               Dark Mode
-            </mat-slide-toggle>
+            </amw-switch>
             <div class="preview-note">
               <amw-icon name="info"></amw-icon>
               <span>This example shows the template syntax. Full reactive forms setup shown in code.</span>
@@ -124,9 +124,9 @@
         <div class="preview-panel">
           <h4>Preview</h4>
           <div class="preview-content">
-            <mat-slide-toggle [(ngModel)]="isEnabled" required>
+            <amw-switch [(checked)]="isEnabled" [required]="true">
               Accept Terms and Conditions
-            </mat-slide-toggle>
+            </amw-switch>
             <div class="preview-note">
               <amw-icon name="info"></amw-icon>
               <span>Full validation setup shown in code example</span>
@@ -156,13 +156,9 @@
         <div class="preview-panel">
           <h4>Preview</h4>
           <div class="preview-content">
-            <mat-slide-toggle>Small Switch</mat-slide-toggle>
-            <mat-slide-toggle>Medium Switch</mat-slide-toggle>
-            <mat-slide-toggle>Large Switch</mat-slide-toggle>
-            <div class="preview-note">
-              <amw-icon name="info"></amw-icon>
-              <span>Note: Material slide-toggle doesn't have built-in size variants. Use CSS for custom sizing.</span>
-            </div>
+            <amw-switch size="small">Small Switch</amw-switch>
+            <amw-switch size="medium">Medium Switch</amw-switch>
+            <amw-switch size="large">Large Switch</amw-switch>
           </div>
         </div>
       </div>
@@ -188,9 +184,9 @@
         <div class="preview-panel">
           <h4>Preview</h4>
           <div class="preview-content">
-            <mat-slide-toggle color="primary">Primary Switch</mat-slide-toggle>
-            <mat-slide-toggle color="accent">Accent Switch</mat-slide-toggle>
-            <mat-slide-toggle color="warn">Warn Switch</mat-slide-toggle>
+            <amw-switch color="primary">Primary Switch</amw-switch>
+            <amw-switch color="accent">Accent Switch</amw-switch>
+            <amw-switch color="warn">Warn Switch</amw-switch>
           </div>
         </div>
       </div>

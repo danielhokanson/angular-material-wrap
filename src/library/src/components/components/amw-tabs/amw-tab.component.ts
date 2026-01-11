@@ -8,12 +8,24 @@ import { CommonModule } from '@angular/common';
  *
  * @example
  * ```html
+ * <!-- Simple usage with label and icon inputs -->
  * <amw-tabs>
- *   <amw-tab label="First Tab">
- *     <p>Content for first tab</p>
+ *   <amw-tab label="Home" icon="home">
+ *     <p>Content for home tab</p>
  *   </amw-tab>
- *   <amw-tab label="Second Tab">
- *     <p>Content for second tab</p>
+ *   <amw-tab label="Settings" icon="settings">
+ *     <p>Content for settings tab</p>
+ *   </amw-tab>
+ * </amw-tabs>
+ *
+ * <!-- Complex usage with custom header template -->
+ * <amw-tabs>
+ *   <amw-tab>
+ *     <ng-template #tabHeader>
+ *       <amw-icon name="home"></amw-icon>
+ *       <span>Custom Header</span>
+ *     </ng-template>
+ *     <p>Content for tab with custom header</p>
  *   </amw-tab>
  * </amw-tabs>
  * ```
@@ -25,9 +37,6 @@ import { CommonModule } from '@angular/common';
     template: `
         <ng-template #tabContent>
             <ng-content></ng-content>
-        </ng-template>
-        <ng-template #tabLabel>
-            <ng-content select="[mat-tab-label]"></ng-content>
         </ng-template>
     `
 })
@@ -53,16 +62,13 @@ export class AmwTabComponent implements AfterContentInit {
     /** Reference to the tab content template */
     @ViewChild('tabContent', { static: true }) contentTemplate!: TemplateRef<any>;
 
-    /** Reference to the tab label template (for custom labels with icons) */
-    @ViewChild('tabLabel', { static: true }) labelTemplate!: TemplateRef<any>;
+    /** Custom header template provided by the user (for complex tab headers) */
+    @ContentChild('tabHeader') headerTemplate?: TemplateRef<any>;
 
-    /** Custom label template provided by the user */
-    @ContentChild('matTabLabel') customLabelTemplate?: TemplateRef<any>;
-
-    /** Whether this tab has custom label content */
-    hasCustomLabel: boolean = false;
+    /** Whether this tab has a custom header template */
+    hasCustomHeader: boolean = false;
 
     ngAfterContentInit(): void {
-        this.hasCustomLabel = this.customLabelTemplate !== undefined;
+        this.hasCustomHeader = this.headerTemplate !== undefined;
     }
 }

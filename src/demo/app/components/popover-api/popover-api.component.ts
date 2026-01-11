@@ -7,6 +7,7 @@ import { PopoverTrigger } from '../../../../library/src/components/components/am
 import { PopoverService } from '../../../../library/src/components/services/popover.service';
 import { AmwButtonComponent } from '../../../../library/src/controls/components/amw-button/amw-button.component';
 import { AmwTabsComponent, AmwTabComponent, AmwIconComponent } from '../../../../library/src/components/components';
+import { AmwTooltipDirective } from '../../../../library/src/directives';
 import { TabItem } from '../../../../library/src/components/components/amw-tabs/interfaces';
 
 interface PopoverApiDocumentation {
@@ -31,8 +32,9 @@ interface PopoverApiDocumentation {
         AmwTabsComponent,
         AmwTabComponent,
         AmwButtonComponent,
-        AmwIconComponent
-],
+        AmwIconComponent,
+        AmwTooltipDirective
+    ],
     templateUrl: './popover-api.component.html',
     styleUrl: './popover-api.component.scss'
 })
