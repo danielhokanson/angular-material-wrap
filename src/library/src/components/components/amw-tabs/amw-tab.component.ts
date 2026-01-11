@@ -1,5 +1,4 @@
-import { Component, Input, TemplateRef, ViewChild, ContentChild, AfterContentInit } from '@angular/core';
-import { CommonModule } from '@angular/common';
+import { Component, TemplateRef, input, viewChild, contentChild, computed } from '@angular/core';
 
 /**
  * Angular Material Wrap Tab Component
@@ -33,42 +32,37 @@ import { CommonModule } from '@angular/common';
 @Component({
     selector: 'amw-tab',
     standalone: true,
-    imports: [CommonModule],
     template: `
         <ng-template #tabContent>
             <ng-content></ng-content>
         </ng-template>
     `
 })
-export class AmwTabComponent implements AfterContentInit {
+export class AmwTabComponent {
     /** Label for the tab */
-    @Input() label: string = '';
+    readonly label = input('');
 
     /** Icon for the tab */
-    @Input() icon?: string;
+    readonly icon = input<string | undefined>();
 
     /** Whether the tab is disabled */
-    @Input() disabled: boolean = false;
+    readonly disabled = input(false);
 
     /** Whether the tab is closable */
-    @Input() closable: boolean = false;
+    readonly closable = input(false);
 
     /** Badge count for the tab */
-    @Input() badgeCount?: number;
+    readonly badgeCount = input<number | undefined>();
 
     /** Badge color for the tab */
-    @Input() badgeColor?: string;
+    readonly badgeColor = input<string | undefined>();
 
     /** Reference to the tab content template */
-    @ViewChild('tabContent', { static: true }) contentTemplate!: TemplateRef<any>;
+    readonly contentTemplate = viewChild.required<TemplateRef<any>>('tabContent');
 
     /** Custom header template provided by the user (for complex tab headers) */
-    @ContentChild('tabHeader') headerTemplate?: TemplateRef<any>;
+    readonly headerTemplate = contentChild<TemplateRef<any>>('tabHeader');
 
     /** Whether this tab has a custom header template */
-    hasCustomHeader: boolean = false;
-
-    ngAfterContentInit(): void {
-        this.hasCustomHeader = this.headerTemplate !== undefined;
-    }
+    readonly hasCustomHeader = computed(() => this.headerTemplate() !== undefined);
 }

@@ -1,16 +1,20 @@
 <mat-toolbar
-  [class]="toolbarClasses"
-  [color]="color">
+  [class]="toolbarClasses()"
+  [color]="color()">
 
   <!-- Start section (left) -->
-  <div *ngIf="startTemplate" class="amw-toolbar__start">
-    <ng-container *ngTemplateOutlet="startTemplate"></ng-container>
-  </div>
+  @if (startTemplate()) {
+    <div class="amw-toolbar__start">
+      <ng-container [ngTemplateOutlet]="startTemplate()!"></ng-container>
+    </div>
+  }
 
   <!-- Title section (center) -->
-  <div *ngIf="title" class="amw-toolbar__title">
-    <span>{{ title }}</span>
-  </div>
+  @if (title()) {
+    <div class="amw-toolbar__title">
+      <span>{{ title() }}</span>
+    </div>
+  }
 
   <!-- Default content -->
   <div class="amw-toolbar__content">
@@ -21,12 +25,16 @@
   <span class="amw-toolbar__spacer"></span>
 
   <!-- Actions section (right) -->
-  <div *ngIf="actionsTemplate" class="amw-toolbar__actions">
-    <ng-container *ngTemplateOutlet="actionsTemplate"></ng-container>
-  </div>
+  @if (actionsTemplate()) {
+    <div class="amw-toolbar__actions">
+      <ng-container [ngTemplateOutlet]="actionsTemplate()!"></ng-container>
+    </div>
+  }
 
   <!-- End section (right) -->
-  <div *ngIf="endTemplate" class="amw-toolbar__end">
-    <ng-container *ngTemplateOutlet="endTemplate"></ng-container>
-  </div>
+  @if (endTemplate()) {
+    <div class="amw-toolbar__end">
+      <ng-container [ngTemplateOutlet]="endTemplate()!"></ng-container>
+    </div>
+  }
 </mat-toolbar>

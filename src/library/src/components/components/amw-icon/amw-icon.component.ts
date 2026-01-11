@@ -1,7 +1,6 @@
-import { Component, Input, ViewEncapsulation, HostBinding } from '@angular/core';
+import { Component, ViewEncapsulation, input, computed } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { MatIconModule } from '@angular/material/icon';
-import { BaseComponent } from '../../../controls/components/base/base.component';
 
 /**
  * Angular Material Wrap Icon Component
@@ -35,13 +34,16 @@ import { BaseComponent } from '../../../controls/components/base/base.component'
         MatIconModule
     ],
     encapsulation: ViewEncapsulation.None,
+    host: {
+        'class': 'amw-icon'
+    },
     template: `
         <mat-icon
-            [fontSet]="fontSet"
-            [fontIcon]="fontIcon"
-            [inline]="inline"
-            [ngClass]="iconClasses">
-            {{ name }}
+            [fontSet]="fontSet()"
+            [fontIcon]="fontIcon()"
+            [inline]="inline()"
+            [ngClass]="iconClasses()">
+            {{ name() }}
         </mat-icon>
     `,
     styles: [`
@@ -65,41 +67,34 @@ import { BaseComponent } from '../../../controls/components/base/base.component'
         .amw-icon--warn { color: var(--mat-warn-color, #B3261E); }
     `]
 })
-export class AmwIconComponent extends BaseComponent {
+export class AmwIconComponent {
     /** The name of the icon to display (from Material Icons font) */
-    @Input() name = '';
+    readonly name = input('');
 
     /** The color theme of the icon */
-    @Input() color?: 'primary' | 'accent' | 'warn';
+    readonly color = input<'primary' | 'accent' | 'warn' | undefined>();
 
     /** The size of the icon */
-    @Input() size?: 'small' | 'medium' | 'large';
+    readonly size = input<'small' | 'medium' | 'large' | undefined>();
 
     /** The font set to use (default is 'material-icons') */
-    @Input() fontSet = '';
+    readonly fontSet = input('');
 
     /** The CSS class for the font icon (when using icon fonts other than Material Icons) */
-    @Input() fontIcon = '';
+    readonly fontIcon = input('');
 
     /** Whether the icon should be inlined with text */
-    @Input() inline = false;
+    readonly inline = input(false);
 
     /** Custom CSS class for the icon */
-    @Input() iconClass?: string;
+    readonly iconClass = input<string | undefined>();
 
-    @HostBinding('class')
-    get hostClasses(): string {
-        return 'amw-icon';
-    }
-
-    get iconClasses(): Record<string, boolean> {
-        return {
-            'amw-icon--small': this.size === 'small',
-            'amw-icon--large': this.size === 'large',
-            'amw-icon--primary': this.color === 'primary',
-            'amw-icon--accent': this.color === 'accent',
-            'amw-icon--warn': this.color === 'warn',
-            [this.iconClass || '']: !!this.iconClass
-        };
-    }
+    readonly iconClasses = computed(() => ({
+        'amw-icon--small': this.size() === 'small',
+        'amw-icon--large': this.size() === 'large',
+        'amw-icon--primary': this.color() === 'primary',
+        'amw-icon--accent': this.color() === 'accent',
+        'amw-icon--warn': this.color() === 'warn',
+        [this.iconClass() || '']: !!this.iconClass()
+    }));
 }

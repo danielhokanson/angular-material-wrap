@@ -1,11 +1,13 @@
-<div [class]="progressBarClasses">
+<div [class]="progressBarClasses()">
   <mat-progress-bar
-    [mode]="mode"
-    [value]="progressValue"
-    [bufferValue]="bufferValue"
-    [color]="color">
+    [mode]="mode()"
+    [value]="progressValue()"
+    [bufferValue]="bufferValue()"
+    [color]="color()">
   </mat-progress-bar>
-  <div *ngIf="displayLabel" class="amw-progress-bar__label">
-    {{ displayLabel }}
-  </div>
+  @if (displayLabel()) {
+    <div class="amw-progress-bar__label">
+      {{ displayLabel() }}
+    </div>
+  }
 </div>

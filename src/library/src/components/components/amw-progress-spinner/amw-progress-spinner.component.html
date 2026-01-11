@@ -1,14 +1,16 @@
-<div [class]="spinnerClasses">
+<div [class]="spinnerClasses()">
   <div class="amw-progress-spinner__container">
     <mat-progress-spinner
-      [mode]="mode"
-      [value]="progressValue"
-      [diameter]="diameter"
-      [strokeWidth]="strokeWidth"
-      [color]="color">
+      [mode]="mode()"
+      [value]="progressValue()"
+      [diameter]="diameter()"
+      [strokeWidth]="strokeWidth()"
+      [color]="color()">
     </mat-progress-spinner>
-    <div *ngIf="displayLabel" class="amw-progress-spinner__label">
-      {{ displayLabel }}
-    </div>
+    @if (displayLabel()) {
+      <div class="amw-progress-spinner__label">
+        {{ displayLabel() }}
+      </div>
+    }
   </div>
 </div>

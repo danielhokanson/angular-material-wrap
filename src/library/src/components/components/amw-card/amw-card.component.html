@@ -1,157 +1,188 @@
-<mat-card 
-  [class]="cardClasses"
-  [style]="cardStyles"
-  [attr.aria-disabled]="disabled"
-  [attr.aria-busy]="loading">
-  
+<mat-card
+  [class]="cardClasses()"
+  [style]="cardStyles()"
+  [attr.aria-disabled]="disabled()"
+  [attr.aria-busy]="loading()">
+
   <!-- Clickable wrapper -->
-  <div 
-    *ngIf="clickable"
-    (click)="onCardClick()"
-    class="amw-card__ripple-container"
-    role="button"
-    tabindex="0">
-    
+  @if (clickable()) {
+    <div
+      (click)="onCardClick()"
+      class="amw-card__ripple-container"
+      role="button"
+      tabindex="0">
+
+      <!-- Card Image -->
+      @if (hasImage() && imagePosition() === 'top') {
+        <img
+          mat-card-image
+          [src]="image()"
+          [alt]="imageAlt()"
+          [class]="imageClasses">
+      }
+
+      <!-- Card Header -->
+      @if (hasHeader()) {
+        <mat-card-header>
+          @if (headerTemplate()) {
+            <ng-container [ngTemplateOutlet]="headerTemplate()!"></ng-container>
+          } @else {
+            @if (headerIcon()) {
+              <div mat-card-avatar class="amw-card__avatar">
+                <mat-icon>{{ headerIcon() }}</mat-icon>
+              </div>
+            }
+            <mat-card-title>{{ headerTitle() }}</mat-card-title>
+            @if (headerSubtitle()) {
+              <mat-card-subtitle>{{ headerSubtitle() }}</mat-card-subtitle>
+            }
+          }
+        </mat-card-header>
+      }
+
+      <!-- Card Content -->
+      @if (hasContent()) {
+        <mat-card-content>
+          @if (contentTemplate()) {
+            <ng-container [ngTemplateOutlet]="contentTemplate()!"></ng-container>
+          } @else {
+            <p class="amw-card__content-text">{{ content() }}</p>
+          }
+        </mat-card-content>
+      }
+
+      <!-- Card Image (bottom) -->
+      @if (hasImage() && imagePosition() === 'bottom') {
+        <img
+          mat-card-image
+          [src]="image()"
+          [alt]="imageAlt()"
+          [class]="imageClasses">
+      }
+
+      <!-- Card Actions -->
+      @if (hasActions()) {
+        <mat-card-actions [align]="actionAlignment">
+          @if (actionTemplate()) {
+            <ng-container [ngTemplateOutlet]="actionTemplate()!"></ng-container>
+          } @else {
+            @for (action of actions(); track action; let i = $index) {
+              <amw-button
+                variant="text"
+                [icon]="action.icon"
+                [iconPosition]="'left'"
+                [color]="action.color || 'primary'"
+                [disabled]="action.disabled || disabled() || loading()"
+                (click)="onActionClick(action, i, $event)"
+                class="amw-card__action">
+                {{ action.label }}
+              </amw-button>
+            }
+          }
+        </mat-card-actions>
+      }
+
+      <!-- Card Footer -->
+      @if (hasFooter()) {
+        <mat-card-footer>
+          @if (footerTemplate()) {
+            <ng-container [ngTemplateOutlet]="footerTemplate()!"></ng-container>
+          } @else {
+            <p class="amw-card__footer-text">{{ footerContent() }}</p>
+          }
+        </mat-card-footer>
+      }
+
+    </div>
+  } @else {
+    <!-- Non-clickable content -->
     <!-- Card Image -->
-    <img 
-      *ngIf="hasImage && imagePosition === 'top'"
-      mat-card-image
-      [src]="image"
-      [alt]="imageAlt"
-      [class]="imageClasses">
-    
+    @if (hasImage() && imagePosition() === 'top') {
+      <img
+        mat-card-image
+        [src]="image()"
+        [alt]="imageAlt()"
+        [class]="imageClasses">
+    }
+
     <!-- Card Header -->
-    <mat-card-header *ngIf="hasHeader">
-      <ng-container [ngTemplateOutlet]="headerTemplate" *ngIf="headerTemplate; else defaultHeader"></ng-container>
-      
-      <ng-template #defaultHeader>
-        <div mat-card-avatar *ngIf="headerIcon" class="amw-card__avatar">
-          <mat-icon>{{ headerIcon }}</mat-icon>
-        </div>
-        <mat-card-title>{{ headerTitle }}</mat-card-title>
-        <mat-card-subtitle *ngIf="headerSubtitle">{{ headerSubtitle }}</mat-card-subtitle>
-      </ng-template>
-    </mat-card-header>
-    
+    @if (hasHeader()) {
+      <mat-card-header>
+        @if (headerTemplate()) {
+          <ng-container [ngTemplateOutlet]="headerTemplate()!"></ng-container>
+        } @else {
+          @if (headerIcon()) {
+            <div mat-card-avatar class="amw-card__avatar">
+              <mat-icon>{{ headerIcon() }}</mat-icon>
+            </div>
+          }
+          <mat-card-title>{{ headerTitle() }}</mat-card-title>
+          @if (headerSubtitle()) {
+            <mat-card-subtitle>{{ headerSubtitle() }}</mat-card-subtitle>
+          }
+        }
+      </mat-card-header>
+    }
+
     <!-- Card Content -->
-    <mat-card-content *ngIf="hasContent">
-      <ng-container [ngTemplateOutlet]="contentTemplate" *ngIf="contentTemplate; else defaultContent"></ng-container>
-      
-      <ng-template #defaultContent>
-        <p class="amw-card__content-text">{{ content }}</p>
-      </ng-template>
-    </mat-card-content>
-    
+    @if (hasContent()) {
+      <mat-card-content>
+        @if (contentTemplate()) {
+          <ng-container [ngTemplateOutlet]="contentTemplate()!"></ng-container>
+        } @else {
+          <p class="amw-card__content-text">{{ content() }}</p>
+        }
+      </mat-card-content>
+    }
+
     <!-- Card Image (bottom) -->
-    <img 
-      *ngIf="hasImage && imagePosition === 'bottom'"
-      mat-card-image
-      [src]="image"
-      [alt]="imageAlt"
-      [class]="imageClasses">
-    
+    @if (hasImage() && imagePosition() === 'bottom') {
+      <img
+        mat-card-image
+        [src]="image()"
+        [alt]="imageAlt()"
+        [class]="imageClasses">
+    }
+
     <!-- Card Actions -->
-    <mat-card-actions *ngIf="hasActions" [align]="actionAlignment">
-      <ng-container [ngTemplateOutlet]="actionTemplate" *ngIf="actionTemplate; else defaultActions"></ng-container>
-      
-      <ng-template #defaultActions>
-        <amw-button
-          *ngFor="let action of actions; let i = index"
-          variant="text"
-          [icon]="action.icon"
-          [iconPosition]="'left'"
-          [color]="action.color || 'primary'"
-          [disabled]="action.disabled || disabled || loading"
-          (click)="onActionClick(action, i, $event)"
-          class="amw-card__action">
-          {{ action.label }}
-        </amw-button>
-      </ng-template>
-    </mat-card-actions>
-    
+    @if (hasActions()) {
+      <mat-card-actions [align]="actionAlignment">
+        @if (actionTemplate()) {
+          <ng-container [ngTemplateOutlet]="actionTemplate()!"></ng-container>
+        } @else {
+          @for (action of actions(); track action; let i = $index) {
+            <amw-button
+              variant="text"
+              [icon]="action.icon"
+              [iconPosition]="'left'"
+              [color]="action.color || 'primary'"
+              [disabled]="action.disabled || disabled() || loading()"
+              (click)="onActionClick(action, i, $event)"
+              class="amw-card__action">
+              {{ action.label }}
+            </amw-button>
+          }
+        }
+      </mat-card-actions>
+    }
+
     <!-- Card Footer -->
-    <mat-card-footer *ngIf="hasFooter">
-      <ng-container [ngTemplateOutlet]="footerTemplate" *ngIf="footerTemplate; else defaultFooter"></ng-container>
-      
-      <ng-template #defaultFooter>
-        <p class="amw-card__footer-text">{{ footerContent }}</p>
-      </ng-template>
-    </mat-card-footer>
-    
-  </div>
-  
-  <!-- Non-clickable content -->
-  <ng-container *ngIf="!clickable">
-    <!-- Card Image -->
-    <img 
-      *ngIf="hasImage && imagePosition === 'top'"
-      mat-card-image
-      [src]="image"
-      [alt]="imageAlt"
-      [class]="imageClasses">
-    
-    <!-- Card Header -->
-    <mat-card-header *ngIf="hasHeader">
-      <ng-container [ngTemplateOutlet]="headerTemplate" *ngIf="headerTemplate; else defaultHeader"></ng-container>
-      
-      <ng-template #defaultHeader>
-        <div mat-card-avatar *ngIf="headerIcon" class="amw-card__avatar">
-          <mat-icon>{{ headerIcon }}</mat-icon>
-        </div>
-        <mat-card-title>{{ headerTitle }}</mat-card-title>
-        <mat-card-subtitle *ngIf="headerSubtitle">{{ headerSubtitle }}</mat-card-subtitle>
-      </ng-template>
-    </mat-card-header>
-    
-    <!-- Card Content -->
-    <mat-card-content *ngIf="hasContent">
-      <ng-container [ngTemplateOutlet]="contentTemplate" *ngIf="contentTemplate; else defaultContent"></ng-container>
-      
-      <ng-template #defaultContent>
-        <p class="amw-card__content-text">{{ content }}</p>
-      </ng-template>
-    </mat-card-content>
-    
-    <!-- Card Image (bottom) -->
-    <img 
-      *ngIf="hasImage && imagePosition === 'bottom'"
-      mat-card-image
-      [src]="image"
-      [alt]="imageAlt"
-      [class]="imageClasses">
-    
-    <!-- Card Actions -->
-    <mat-card-actions *ngIf="hasActions" [align]="actionAlignment">
-      <ng-container [ngTemplateOutlet]="actionTemplate" *ngIf="actionTemplate; else defaultActions"></ng-container>
-      
-      <ng-template #defaultActions>
-        <amw-button
-          *ngFor="let action of actions; let i = index"
-          variant="text"
-          [icon]="action.icon"
-          [iconPosition]="'left'"
-          [color]="action.color || 'primary'"
-          [disabled]="action.disabled || disabled || loading"
-          (click)="onActionClick(action, i, $event)"
-          class="amw-card__action">
-          {{ action.label }}
-        </amw-button>
-      </ng-template>
-    </mat-card-actions>
-    
-    <!-- Card Footer -->
-    <mat-card-footer *ngIf="hasFooter">
-      <ng-container [ngTemplateOutlet]="footerTemplate" *ngIf="footerTemplate; else defaultFooter"></ng-container>
-      
-      <ng-template #defaultFooter>
-        <p class="amw-card__footer-text">{{ footerContent }}</p>
-      </ng-template>
-    </mat-card-footer>
-  </ng-container>
-  
+    @if (hasFooter()) {
+      <mat-card-footer>
+        @if (footerTemplate()) {
+          <ng-container [ngTemplateOutlet]="footerTemplate()!"></ng-container>
+        } @else {
+          <p class="amw-card__footer-text">{{ footerContent() }}</p>
+        }
+      </mat-card-footer>
+    }
+  }
+
   <!-- Loading Overlay -->
-  <div *ngIf="loading" class="amw-card__loading">
-    <amw-progress-spinner [diameter]="40"></amw-progress-spinner>
-    <p>Loading...</p>
-  </div>
+  @if (loading()) {
+    <div class="amw-card__loading">
+      <amw-progress-spinner [diameter]="40"></amw-progress-spinner>
+      <p>Loading...</p>
+    </div>
+  }
 </mat-card>

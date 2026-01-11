@@ -1,7 +1,6 @@
-import { Component, Input, ViewEncapsulation, ContentChild, TemplateRef } from '@angular/core';
-import { CommonModule } from '@angular/common';
+import { Component, ViewEncapsulation, TemplateRef, input, contentChild, computed } from '@angular/core';
+import { NgTemplateOutlet } from '@angular/common';
 import { MatToolbarModule } from '@angular/material/toolbar';
-import { BaseComponent } from '../../../controls/components/base/base.component';
 import { AmwColor } from '../../../shared/types/amw-color.type';
 
 export type ToolbarPosition = 'static' | 'fixed' | 'sticky' | 'absolute';
@@ -41,34 +40,36 @@ export type ToolbarPosition = 'static' | 'fixed' | 'sticky' | 'absolute';
     selector: 'amw-toolbar',
     standalone: true,
     imports: [
-        CommonModule,
+        NgTemplateOutlet,
         MatToolbarModule
     ],
     encapsulation: ViewEncapsulation.None,
     templateUrl: './amw-toolbar.component.html',
     styleUrl: './amw-toolbar.component.scss'
 })
-export class AmwToolbarComponent extends BaseComponent {
+export class AmwToolbarComponent {
     /** Color of the toolbar */
-    @Input() color: AmwColor = 'primary';
+    readonly color = input<AmwColor>('primary');
     /** Title text for the toolbar */
-    @Input() title?: string;
+    readonly title = input<string | undefined>();
     /** Position of the toolbar */
-    @Input() position: ToolbarPosition = 'static';
+    readonly position = input<ToolbarPosition>('static');
     /** Custom CSS class for the toolbar */
-    @Input() toolbarClass?: string;
+    readonly toolbarClass = input<string | undefined>();
     /** Whether the toolbar should be elevated */
-    @Input() elevated = false;
+    readonly elevated = input(false);
 
-    @ContentChild('toolbarStart') startTemplate?: TemplateRef<any>;
-    @ContentChild('toolbarEnd') endTemplate?: TemplateRef<any>;
-    @ContentChild('toolbarActions') actionsTemplate?: TemplateRef<any>;
+    readonly startTemplate = contentChild<TemplateRef<any>>('toolbarStart');
+    readonly endTemplate = contentChild<TemplateRef<any>>('toolbarEnd');
+    readonly actionsTemplate = contentChild<TemplateRef<any>>('toolbarActions');
 
-    get toolbarClasses(): string {
+    readonly toolbarClasses = computed(() => {
         const classes = ['amw-toolbar'];
-        if (this.toolbarClass) classes.push(this.toolbarClass);
-        if (this.position) classes.push(`amw-toolbar--${this.position}`);
-        if (this.elevated) classes.push('amw-toolbar--elevated');
+        const customClass = this.toolbarClass();
+        if (customClass) classes.push(customClass);
+        const pos = this.position();
+        if (pos) classes.push(`amw-toolbar--${pos}`);
+        if (this.elevated()) classes.push('amw-toolbar--elevated');
         return classes.join(' ');
-    }
+    });
 }

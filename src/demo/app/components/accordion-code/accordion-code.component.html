@@ -162,9 +162,9 @@
             </amw-accordion>
 
             <div class="control-buttons">
-              <amw-button variant="elevated" (click)="panel.expanded = true">Open</amw-button>
-              <amw-button variant="elevated" (click)="panel.expanded = false">Close</amw-button>
-              <amw-button variant="elevated" (click)="panel.expanded = !panel.expanded">Toggle</amw-button>
+              <amw-button variant="elevated" (click)="panel.expanded.set(true)">Open</amw-button>
+              <amw-button variant="elevated" (click)="panel.expanded.set(false)">Close</amw-button>
+              <amw-button variant="elevated" (click)="panel.expanded.set(!panel.expanded())">Toggle</amw-button>
             </div>
           </div>
         </div>

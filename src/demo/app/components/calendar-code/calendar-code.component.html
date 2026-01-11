@@ -25,7 +25,7 @@
           <div class="preview-content">
             <amw-card headerTitle="Basic Calendar">
               <ng-template #cardContent>
-                <mat-calendar [(selected)]="selectedDate"></mat-calendar>
+                <amw-calendar-picker [(selected)]="selectedDate"></amw-calendar-picker>
               </ng-template>
             </amw-card>
           </div>
@@ -55,10 +55,10 @@
           <div class="preview-content">
             <amw-card headerTitle="Date Range Calendar">
               <ng-template #cardContent>
-                <mat-calendar
+                <amw-calendar-picker
                   [(selected)]="selectedDate"
                   [startView]="'month'">
-                </mat-calendar>
+                </amw-calendar-picker>
               </ng-template>
             </amw-card>
           </div>
@@ -88,11 +88,11 @@
           <div class="preview-content">
             <amw-card headerTitle="Min/Max Date Calendar">
               <ng-template #cardContent>
-                <mat-calendar
+                <amw-calendar-picker
                   [(selected)]="selectedDate"
                   [minDate]="minDate"
                   [maxDate]="maxDate">
-                </mat-calendar>
+                </amw-calendar-picker>
               </ng-template>
             </amw-card>
           </div>
@@ -122,10 +122,10 @@
           <div class="preview-content">
             <amw-card headerTitle="Filtered Calendar">
               <ng-template #cardContent>
-                <mat-calendar
+                <amw-calendar-picker
                   [(selected)]="selectedDate"
                   [dateFilter]="myFilter">
-                </mat-calendar>
+                </amw-calendar-picker>
               </ng-template>
             </amw-card>
             <div class="preview-note">
@@ -159,10 +159,10 @@
           <div class="preview-content">
             <amw-card headerTitle="Custom Styled Calendar">
               <ng-template #cardContent>
-                <mat-calendar
+                <amw-calendar-picker
                   [(selected)]="selectedDate"
                   [dateClass]="dateClass">
-                </mat-calendar>
+                </amw-calendar-picker>
               </ng-template>
             </amw-card>
             <div class="preview-note">

@@ -1,9 +1,8 @@
-import { Component, Input, Output, EventEmitter, ViewEncapsulation, ViewChild, TemplateRef, ContentChildren, QueryList } from '@angular/core';
-import { CommonModule } from '@angular/common';
+import { Component, ViewEncapsulation, TemplateRef, QueryList, input, output, viewChild, contentChildren, computed } from '@angular/core';
+import { NgTemplateOutlet } from '@angular/common';
 import { MatMenuModule, MatMenuTrigger } from '@angular/material/menu';
 import { MatIconModule } from '@angular/material/icon';
 import { AmwButtonComponent } from '../../../controls/components/amw-button/amw-button.component';
-import { BaseComponent } from '../../../controls/components/base/base.component';
 import { AmwMenuItemComponent } from './amw-menu-item.component';
 
 export type MenuPosition = 'before' | 'after' | 'above' | 'below';
@@ -28,7 +27,7 @@ export type MenuPosition = 'before' | 'after' | 'above' | 'below';
     selector: 'amw-menu',
     standalone: true,
     imports: [
-        CommonModule,
+        NgTemplateOutlet,
         MatMenuModule,
         AmwButtonComponent,
         MatIconModule
@@ -37,55 +36,58 @@ export type MenuPosition = 'before' | 'after' | 'above' | 'below';
     templateUrl: './amw-menu.component.html',
     styleUrl: './amw-menu.component.scss'
 })
-export class AmwMenuComponent extends BaseComponent {
+export class AmwMenuComponent {
     /** Label for the trigger button */
-    @Input() triggerLabel?: string;
+    readonly triggerLabel = input<string | undefined>();
     /** Icon for the trigger button */
-    @Input() triggerIcon?: string;
+    readonly triggerIcon = input<string | undefined>();
     /** Variant of the trigger button */
-    @Input() triggerVariant: 'text' | 'raised' | 'stroked' | 'flat' | 'icon' = 'text';
+    readonly triggerVariant = input<'text' | 'raised' | 'stroked' | 'flat' | 'icon'>('text');
     /** Color of the trigger button */
-    @Input() triggerColor: 'primary' | 'accent' | 'warn' = 'primary';
+    readonly triggerColor = input<'primary' | 'accent' | 'warn'>('primary');
     /** Position of the menu relative to trigger */
-    @Input() xPosition: 'before' | 'after' = 'after';
+    readonly xPosition = input<'before' | 'after'>('after');
     /** Position of the menu relative to trigger */
-    @Input() yPosition: 'above' | 'below' = 'below';
+    readonly yPosition = input<'above' | 'below'>('below');
     /** Whether to close menu on item click */
-    @Input() closeOnClick = true;
+    readonly closeOnClick = input(true);
     /** Custom CSS class for the menu */
-    @Input() menuClass?: string;
+    readonly menuClass = input<string | undefined>();
     /** Whether the menu has a backdrop */
-    @Input() hasBackdrop = true;
+    readonly hasBackdrop = input(true);
     /** Custom trigger template */
-    @Input() triggerTemplate?: TemplateRef<any>;
+    readonly triggerTemplate = input<TemplateRef<any> | undefined>();
+    /** Whether the menu is disabled */
+    readonly disabled = input(false);
 
     /** Emitted when menu is opened */
-    @Output() menuOpened = new EventEmitter<void>();
+    readonly menuOpened = output<void>();
     /** Emitted when menu is closed */
-    @Output() menuClosed = new EventEmitter<void>();
+    readonly menuClosed = output<void>();
 
-    @ViewChild(MatMenuTrigger) menuTrigger?: MatMenuTrigger;
-    @ContentChildren(AmwMenuItemComponent) menuItems?: QueryList<AmwMenuItemComponent>;
+    readonly menuTrigger = viewChild(MatMenuTrigger);
+    readonly menuItems = contentChildren(AmwMenuItemComponent);
 
     /**
      * Opens the menu
      */
     openMenu() {
-        this.menuTrigger?.openMenu();
+        this.menuTrigger()?.openMenu();
     }
 
     /**
      * Closes the menu
      */
     closeMenu() {
-        this.menuTrigger?.closeMenu();
+        this.menuTrigger()?.closeMenu();
     }
 
     /**
      * Toggles the menu
      */
     toggleMenu() {
-        if (this.menuTrigger?.menuOpen) {
+        const trigger = this.menuTrigger();
+        if (trigger?.menuOpen) {
             this.closeMenu();
         } else {
             this.openMenu();
@@ -100,22 +102,24 @@ export class AmwMenuComponent extends BaseComponent {
         this.menuClosed.emit();
     }
 
-    get triggerButtonClasses(): string {
+    readonly triggerButtonClasses = computed(() => {
         const classes = ['amw-menu__trigger'];
-        if (this.triggerVariant) classes.push(`amw-menu__trigger--${this.triggerVariant}`);
+        const variant = this.triggerVariant();
+        if (variant) classes.push(`amw-menu__trigger--${variant}`);
         return classes.join(' ');
-    }
+    });
 
-    get menuClasses(): string {
+    readonly menuClasses = computed(() => {
         const classes = ['amw-menu'];
-        if (this.menuClass) classes.push(this.menuClass);
+        const customClass = this.menuClass();
+        if (customClass) classes.push(customClass);
         return classes.join(' ');
-    }
+    });
 
     /**
      * Maps Material button variant to AmwButton variant
      */
-    getButtonVariant(): 'text' | 'elevated' | 'outlined' | 'filled' | 'icon' {
+    readonly buttonVariant = computed((): 'text' | 'elevated' | 'outlined' | 'filled' | 'icon' => {
         const variantMap: Record<string, 'text' | 'elevated' | 'outlined' | 'filled' | 'icon'> = {
             'text': 'text',
             'raised': 'elevated',
@@ -123,6 +127,6 @@ export class AmwMenuComponent extends BaseComponent {
             'flat': 'filled',
             'icon': 'icon'
         };
-        return variantMap[this.triggerVariant] || 'text';
-    }
+        return variantMap[this.triggerVariant()] || 'text';
+    });
 }

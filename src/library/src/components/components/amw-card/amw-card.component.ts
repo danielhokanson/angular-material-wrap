@@ -1,9 +1,8 @@
-import { Component, Input, Output, EventEmitter, ViewEncapsulation, forwardRef, ContentChild, TemplateRef } from '@angular/core';
-import { CommonModule } from '@angular/common';
+import { Component, ViewEncapsulation, forwardRef, TemplateRef, input, output, contentChild, computed } from '@angular/core';
+import { NgTemplateOutlet } from '@angular/common';
 import { MatCardModule } from '@angular/material/card';
 import { MatIconModule } from '@angular/material/icon';
 import { MatRippleModule } from '@angular/material/core';
-import { BaseComponent } from '../../../controls/components/base/base.component';
 import { CardConfig, CardVariant, CardElevation } from './interfaces';
 import { AmwSize } from '../../../shared/types/amw-size.type';
 import { AmwProgressSpinnerComponent } from '../amw-progress-spinner/amw-progress-spinner.component';
@@ -11,10 +10,10 @@ import { AmwButtonComponent } from '../../../controls/components/amw-button/amw-
 
 /**
  * Angular Material Wrap Card Component
- * 
+ *
  * A comprehensive card component that wraps Angular Material's mat-card
  * with additional features and Material 3 theming support.
- * 
+ *
  * @example
  * ```html
  * <amw-card
@@ -29,7 +28,7 @@ import { AmwButtonComponent } from '../../../controls/components/amw-button/amw-
  *   (actionClick)="onActionClick($event)">
  * </amw-card>
  * ```
- * 
+ *
  * @example
  * ```typescript
  * export class MyComponent {
@@ -37,11 +36,11 @@ import { AmwButtonComponent } from '../../../controls/components/amw-button/amw-
  *     { label: 'Edit', icon: 'edit', color: 'primary' },
  *     { label: 'Delete', icon: 'delete', color: 'warn' }
  *   ];
- * 
+ *
  *   onCardClick() {
  *     console.log('Card clicked!');
  *   }
- * 
+ *
  *   onActionClick(event: { action: any; index: number }) {
  *     console.log('Action clicked:', event.action.label);
  *   }
@@ -52,7 +51,7 @@ import { AmwButtonComponent } from '../../../controls/components/amw-button/amw-
     selector: 'amw-card',
     standalone: true,
     imports: [
-        CommonModule,
+        NgTemplateOutlet,
         MatCardModule,
         AmwButtonComponent,
         MatIconModule,
@@ -69,157 +68,158 @@ import { AmwButtonComponent } from '../../../controls/components/amw-button/amw-
         }
     ]
 })
-export class AmwCardComponent extends BaseComponent {
+export class AmwCardComponent {
     /** Card configuration object */
-    @Input() config: CardConfig = {};
+    readonly config = input<CardConfig>({});
     /** Visual variant of the card */
-    @Input() variant: CardVariant = 'elevated';
+    readonly variant = input<CardVariant>('elevated');
     /** Size variant of the card */
-    @Input() size: AmwSize = 'medium';
+    readonly size = input<AmwSize>('medium');
     /** Elevation level for shadow */
-    @Input() elevation: CardElevation = 1;
+    readonly elevation = input<CardElevation>(1);
     /** Whether the card is clickable */
-    @Input() clickable = false;
+    readonly clickable = input(false);
     /** Whether the card is disabled */
-    @Input() override disabled = false;
+    readonly disabled = input(false);
     /** Whether the card is in loading state */
-    @Input() loading = false;
+    readonly loading = input(false);
     /** Title text for the card header */
-    @Input() headerTitle = '';
+    readonly headerTitle = input('');
     /** Subtitle text for the card header */
-    @Input() headerSubtitle = '';
+    readonly headerSubtitle = input('');
     /** Material icon name for the header */
-    @Input() headerIcon = '';
+    readonly headerIcon = input('');
     /** Image URL for the header avatar */
-    @Input() headerImage = '';
+    readonly headerImage = input('');
     /** Text content for the card body */
-    @Input() content = '';
+    readonly content = input('');
     /** Array of action buttons */
-    @Input() actions: { label: string; icon?: string; color?: 'primary' | 'accent' | 'warn'; disabled?: boolean }[] = [];
+    readonly actions = input<{ label: string; icon?: string; color?: 'primary' | 'accent' | 'warn'; disabled?: boolean }[]>([]);
     /** Whether to show action buttons */
-    @Input() showActions = true;
+    readonly showActions = input(true);
     /** Whether to show the header */
-    @Input() showHeader = true;
+    readonly showHeader = input(true);
     /** Whether to show the content */
-    @Input() showContent = true;
+    readonly showContent = input(true);
     /** Whether to show the footer */
-    @Input() showFooter = false;
+    readonly showFooter = input(false);
     /** Text content for the card footer */
-    @Input() footerContent = '';
+    readonly footerContent = input('');
     /** Image URL for the card image */
-    @Input() image = '';
+    readonly image = input('');
     /** Alt text for the card image */
-    @Input() imageAlt = '';
+    readonly imageAlt = input('');
     /** Height of the card image */
-    @Input() imageHeight = '200px';
+    readonly imageHeight = input('200px');
     /** Position of the card image */
-    @Input() imagePosition: 'top' | 'bottom' = 'top';
+    readonly imagePosition = input<'top' | 'bottom'>('top');
 
     /** Emitted when the card is clicked */
-    @Output() cardClick = new EventEmitter<void>();
+    readonly cardClick = output<void>();
     /** Emitted when an action button is clicked */
-    @Output() actionClick = new EventEmitter<{ action: any; index: number }>();
+    readonly actionClick = output<{ action: any; index: number }>();
     /** Emitted when the header is clicked */
-    @Output() headerClick = new EventEmitter<void>();
+    readonly headerClick = output<void>();
     /** Emitted when the image is clicked */
-    @Output() imageClick = new EventEmitter<void>();
+    readonly imageClick = output<void>();
 
-    @ContentChild('cardHeader') headerTemplate?: TemplateRef<any>;
-    @ContentChild('cardContent') contentTemplate?: TemplateRef<any>;
-    @ContentChild('cardActions') actionsTemplate?: TemplateRef<any>;
-    @ContentChild('cardFooter') footerTemplate?: TemplateRef<any>;
+    readonly headerTemplate = contentChild<TemplateRef<any>>('cardHeader');
+    readonly contentTemplate = contentChild<TemplateRef<any>>('cardContent');
+    readonly actionsTemplate = contentChild<TemplateRef<any>>('cardActions');
+    readonly footerTemplate = contentChild<TemplateRef<any>>('cardFooter');
 
     /**
      * Handles card click events
-     * 
+     *
      * Only emits if card is clickable, not disabled, and not loading
      */
     onCardClick() {
-        if (!this.disabled && !this.loading && this.clickable) {
+        if (!this.disabled() && !this.loading() && this.clickable()) {
             this.cardClick.emit();
         }
     }
 
     /**
      * Handles action button click events
-     * 
+     *
      * @param action - The action object that was clicked
      * @param index - The index of the action in the actions array
      */
     onActionClick(action: any, index: number, event?: Event) {
-        if (!action.disabled && !this.disabled && !this.loading) {
+        if (!action.disabled && !this.disabled() && !this.loading()) {
             this.actionClick.emit({ action, index });
         }
     }
 
     onHeaderClick() {
-        if (!this.disabled && !this.loading) {
+        if (!this.disabled() && !this.loading()) {
             this.headerClick.emit();
         }
     }
 
     onImageClick() {
-        if (!this.disabled && !this.loading) {
+        if (!this.disabled() && !this.loading()) {
             this.imageClick.emit();
         }
     }
 
-    get cardClasses(): string {
+    readonly cardClasses = computed(() => {
         const classes = ['amw-card'];
+        const v = this.variant();
+        const s = this.size();
+        const cfg = this.config();
 
-        if (this.variant) classes.push(`amw-card--${this.variant}`);
-        if (this.size) classes.push(`amw-card--${this.size}`);
-        if (this.clickable) classes.push('amw-card--clickable');
-        if (this.disabled) classes.push('amw-card--disabled');
-        if (this.loading) classes.push('amw-card--loading');
-        if (this.config.class) classes.push(this.config.class);
+        if (v) classes.push(`amw-card--${v}`);
+        if (s) classes.push(`amw-card--${s}`);
+        if (this.clickable()) classes.push('amw-card--clickable');
+        if (this.disabled()) classes.push('amw-card--disabled');
+        if (this.loading()) classes.push('amw-card--loading');
+        if (cfg.class) classes.push(cfg.class);
 
         return classes.join(' ');
-    }
+    });
 
-    get cardStyles(): { [key: string]: string } {
+    readonly cardStyles = computed(() => {
         const styles: { [key: string]: string } = {};
+        const elev = this.elevation();
+        const cfg = this.config();
 
-        if (this.elevation) {
-            styles['--amw-card-elevation'] = `var(--mdc-elevation-level${this.elevation})`;
+        if (elev) {
+            styles['--amw-card-elevation'] = `var(--mdc-elevation-level${elev})`;
         }
 
-        if (this.config.style) {
-            Object.assign(styles, this.config.style);
+        if (cfg.style) {
+            Object.assign(styles, cfg.style);
         }
 
         return styles;
-    }
+    });
 
-    get hasImage(): boolean {
-        return !!(this.image || this.headerImage);
-    }
+    readonly hasImage = computed(() => {
+        return !!(this.image() || this.headerImage());
+    });
 
-    get hasHeader(): boolean {
-        return this.showHeader && (!!this.headerTitle || !!this.headerSubtitle || !!this.headerIcon || !!this.headerImage || !!this.headerTemplate);
-    }
+    readonly hasHeader = computed(() => {
+        return this.showHeader() && (!!this.headerTitle() || !!this.headerSubtitle() || !!this.headerIcon() || !!this.headerImage() || !!this.headerTemplate());
+    });
 
-    get hasContent(): boolean {
-        return this.showContent && (!!this.content || !!this.contentTemplate);
-    }
+    readonly hasContent = computed(() => {
+        return this.showContent() && (!!this.content() || !!this.contentTemplate());
+    });
 
-    get hasActions(): boolean {
-        return this.showActions && (this.actions.length > 0 || !!this.actionsTemplate);
-    }
+    readonly hasActions = computed(() => {
+        return this.showActions() && (this.actions().length > 0 || !!this.actionsTemplate());
+    });
 
-    get hasFooter(): boolean {
-        return this.showFooter && (!!this.footerContent || !!this.footerTemplate);
-    }
+    readonly hasFooter = computed(() => {
+        return this.showFooter() && (!!this.footerContent() || !!this.footerTemplate());
+    });
 
-    get imageClasses(): string {
-        return 'amw-card__image';
-    }
+    readonly imageClasses = 'amw-card__image';
 
-    get actionAlignment(): 'start' | 'end' {
-        return 'end';
-    }
+    readonly actionAlignment: 'start' | 'end' = 'end';
 
-    get actionTemplate(): TemplateRef<any> | null {
-        return this.actionsTemplate || null;
-    }
+    readonly actionTemplate = computed(() => {
+        return this.actionsTemplate() || null;
+    });
 }

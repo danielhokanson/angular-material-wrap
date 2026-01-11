@@ -1,9 +1,7 @@
-import { Component, Input, Output, EventEmitter, ViewEncapsulation } from '@angular/core';
-import { CommonModule } from '@angular/common';
+import { Component, ViewEncapsulation, input, output, computed } from '@angular/core';
 import { MatMenuModule } from '@angular/material/menu';
 import { MatIconModule } from '@angular/material/icon';
 import { MatDividerModule } from '@angular/material/divider';
-import { BaseComponent } from '../../../controls/components/base/base.component';
 
 /**
  * Angular Material Wrap Menu Item Component
@@ -23,57 +21,58 @@ import { BaseComponent } from '../../../controls/components/base/base.component'
     selector: 'amw-menu-item',
     standalone: true,
     imports: [
-        CommonModule,
         MatMenuModule,
         MatIconModule,
         MatDividerModule
     ],
     encapsulation: ViewEncapsulation.None,
     template: `
-        <button
-            *ngIf="!isDivider"
-            mat-menu-item
-            [class]="itemClasses"
-            [disabled]="disabled"
-            (click)="onItemClick($event)">
-            <mat-icon *ngIf="icon" [class]="iconClasses">{{ icon }}</mat-icon>
-            <span [class]="labelClasses">{{ label }}</span>
-        </button>
-        <mat-divider *ngIf="isDivider"></mat-divider>
+        @if (!isDivider()) {
+            <button
+                mat-menu-item
+                [class]="itemClasses()"
+                [disabled]="disabled()"
+                (click)="onItemClick($event)">
+                @if (icon()) {
+                    <mat-icon [class]="iconClasses">{{ icon() }}</mat-icon>
+                }
+                <span [class]="labelClasses">{{ label() }}</span>
+            </button>
+        } @else {
+            <mat-divider></mat-divider>
+        }
     `,
     styleUrl: './amw-menu-item.component.scss'
 })
-export class AmwMenuItemComponent extends BaseComponent {
+export class AmwMenuItemComponent {
     /** Label text for the menu item */
-    @Input() override label: string = '';
+    readonly label = input('');
     /** Icon name for the menu item */
-    @Input() icon?: string;
+    readonly icon = input<string | undefined>();
     /** Whether this item is a divider */
-    @Input() isDivider = false;
+    readonly isDivider = input(false);
     /** Custom CSS class for the item */
-    @Input() itemClass?: string;
+    readonly itemClass = input<string | undefined>();
+    /** Whether the menu item is disabled */
+    readonly disabled = input(false);
 
     /** Emitted when the menu item is clicked */
-    @Output() itemClick = new EventEmitter<MouseEvent>();
+    readonly itemClick = output<MouseEvent>();
 
     onItemClick(event: MouseEvent) {
-        if (!this.disabled) {
+        if (!this.disabled()) {
             this.itemClick.emit(event);
         }
     }
 
-    get itemClasses(): string {
+    readonly itemClasses = computed(() => {
         const classes = ['amw-menu-item'];
-        if (this.itemClass) classes.push(this.itemClass);
-        if (this.disabled) classes.push('amw-menu-item--disabled');
+        const customClass = this.itemClass();
+        if (customClass) classes.push(customClass);
+        if (this.disabled()) classes.push('amw-menu-item--disabled');
         return classes.join(' ');
-    }
+    });
 
-    get iconClasses(): string {
-        return 'amw-menu-item__icon';
-    }
-
-    get labelClasses(): string {
-        return 'amw-menu-item__label';
-    }
+    readonly iconClasses = 'amw-menu-item__icon';
+    readonly labelClasses = 'amw-menu-item__label';
 }

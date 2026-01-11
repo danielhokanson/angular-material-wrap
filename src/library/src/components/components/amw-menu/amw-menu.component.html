@@ -1,37 +1,37 @@
 <div class="amw-menu-container">
   <!-- Custom trigger template -->
-  <ng-container *ngIf="triggerTemplate; else defaultTrigger">
+  @if (triggerTemplate()) {
     <ng-container
-      *ngTemplateOutlet="triggerTemplate"
+      [ngTemplateOutlet]="triggerTemplate()!"
       [matMenuTriggerFor]="menu"
       (menuOpened)="onMenuOpened()"
       (menuClosed)="onMenuClosed()">
     </ng-container>
-  </ng-container>
-
-  <!-- Default trigger button -->
-  <ng-template #defaultTrigger>
+  } @else {
+    <!-- Default trigger button -->
     <amw-button
-      [variant]="getButtonVariant()"
-      [icon]="triggerIcon"
-      [iconPosition]="triggerLabel && triggerIcon ? 'left' : 'left'"
-      [class]="triggerButtonClasses"
-      [color]="triggerColor"
-      [disabled]="disabled"
+      [variant]="buttonVariant()"
+      [icon]="triggerIcon()"
+      [iconPosition]="triggerLabel() && triggerIcon() ? 'left' : 'left'"
+      [class]="triggerButtonClasses()"
+      [color]="triggerColor()"
+      [disabled]="disabled()"
       [matMenuTriggerFor]="menu"
       (menuOpened)="onMenuOpened()"
       (menuClosed)="onMenuClosed()">
-      <span *ngIf="triggerLabel">{{ triggerLabel }}</span>
+      @if (triggerLabel()) {
+        <span>{{ triggerLabel() }}</span>
+      }
     </amw-button>
-  </ng-template>
+  }
 
   <!-- Menu content -->
   <mat-menu
     #menu="matMenu"
-    [class]="menuClasses"
-    [xPosition]="xPosition"
-    [yPosition]="yPosition"
-    [hasBackdrop]="hasBackdrop">
+    [class]="menuClasses()"
+    [xPosition]="xPosition()"
+    [yPosition]="yPosition()"
+    [hasBackdrop]="hasBackdrop()">
     <ng-content></ng-content>
   </mat-menu>
 </div>

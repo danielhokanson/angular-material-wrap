@@ -1,17 +1,16 @@
 import { Component, ViewEncapsulation } from '@angular/core';
 import { FormsModule } from '@angular/forms';
-import { MatCalendar } from '@angular/material/datepicker';
 import { BaseCodeComponent } from '../base/base-code.component';
 
 type CalendarExamples = 'basic' | 'range' | 'minMax' | 'filter' | 'customClass';
 
 import { AmwButtonComponent } from '../../../../library/src/controls/components/amw-button/amw-button.component';
-import { AmwAccordionComponent, AmwAccordionPanelComponent, AmwIconComponent, AmwCardComponent } from '../../../../library/src/components/components';
+import { AmwAccordionComponent, AmwAccordionPanelComponent, AmwIconComponent, AmwCardComponent, AmwCalendarPickerComponent } from '../../../../library/src/components/components';
 @Component({
   selector: 'amw-demo-calendar-code',
   standalone: true,
   imports: [FormsModule,
-    MatCalendar,
+    AmwCalendarPickerComponent,
     AmwButtonComponent,
     AmwAccordionComponent,
     AmwAccordionPanelComponent,
@@ -23,7 +22,7 @@ import { AmwAccordionComponent, AmwAccordionPanelComponent, AmwIconComponent, Am
 })
 export class CalendarCodeComponent extends BaseCodeComponent<CalendarExamples> {
   // Example dates for previews
-  selectedDate = new Date();
+  selectedDate: Date | null = new Date();
   minDate = new Date(2020, 0, 1);
   maxDate = new Date(2025, 11, 31);
 
@@ -31,44 +30,44 @@ export class CalendarCodeComponent extends BaseCodeComponent<CalendarExamples> {
   readonly codeExamples: Record<CalendarExamples, string> = {
     basic: `<amw-card headerTitle="Basic Calendar">
   <ng-template #cardContent>
-    <mat-calendar [(selected)]="selectedDate"></mat-calendar>
+    <amw-calendar-picker [(selected)]="selectedDate"></amw-calendar-picker>
   </ng-template>
 </amw-card>`,
 
     range: `<amw-card headerTitle="Date Range Calendar">
   <ng-template #cardContent>
-    <mat-calendar
+    <amw-calendar-picker
       [(selected)]="selectedDate"
       [startView]="'month'">
-    </mat-calendar>
+    </amw-calendar-picker>
   </ng-template>
 </amw-card>`,
 
     minMax: `<amw-card headerTitle="Min/Max Date Calendar">
   <ng-template #cardContent>
-    <mat-calendar
+    <amw-calendar-picker
       [(selected)]="selectedDate"
       [minDate]="minDate"
       [maxDate]="maxDate">
-    </mat-calendar>
+    </amw-calendar-picker>
   </ng-template>
 </amw-card>`,
 
     filter: `<amw-card headerTitle="Filtered Calendar">
   <ng-template #cardContent>
-    <mat-calendar
+    <amw-calendar-picker
       [(selected)]="selectedDate"
       [dateFilter]="myFilter">
-    </mat-calendar>
+    </amw-calendar-picker>
   </ng-template>
 </amw-card>`,
 
     customClass: `<amw-card headerTitle="Custom Styled Calendar">
   <ng-template #cardContent>
-    <mat-calendar
+    <amw-calendar-picker
       [(selected)]="selectedDate"
       [dateClass]="dateClass">
-    </mat-calendar>
+    </amw-calendar-picker>
   </ng-template>
 </amw-card>`
   };

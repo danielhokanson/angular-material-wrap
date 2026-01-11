@@ -1,7 +1,5 @@
-import { Component, Input, ViewEncapsulation } from '@angular/core';
-import { CommonModule } from '@angular/common';
+import { Component, ViewEncapsulation, input, computed } from '@angular/core';
 import { MatProgressBarModule } from '@angular/material/progress-bar';
-import { BaseComponent } from '../../../controls/components/base/base.component';
 import { AmwColor } from '../../../shared/types/amw-color.type';
 
 export type ProgressBarMode = 'determinate' | 'indeterminate' | 'buffer' | 'query';
@@ -45,43 +43,50 @@ export type ProgressBarMode = 'determinate' | 'indeterminate' | 'buffer' | 'quer
     selector: 'amw-progress-bar',
     standalone: true,
     imports: [
-        CommonModule,
         MatProgressBarModule
     ],
     encapsulation: ViewEncapsulation.None,
     templateUrl: './amw-progress-bar.component.html',
     styleUrl: './amw-progress-bar.component.scss'
 })
-export class AmwProgressBarComponent extends BaseComponent {
+export class AmwProgressBarComponent {
     /** Mode of the progress bar */
-    @Input() mode: ProgressBarMode = 'determinate';
+    readonly mode = input<ProgressBarMode>('determinate');
+
     /** Value of the progress (0-100) */
-    @Input() progressValue: number = 0;
+    readonly progressValue = input(0);
+
     /** Buffer value (only for buffer mode, 0-100) */
-    @Input() bufferValue: number = 0;
+    readonly bufferValue = input(0);
+
     /** Color of the progress bar */
-    @Input() color: AmwColor = 'primary';
+    readonly color = input<AmwColor>('primary');
+
     /** Custom CSS class for the progress bar */
-    @Input() progressClass?: string;
+    readonly progressClass = input<string | undefined>();
+
     /** Whether to show the percentage label */
-    @Input() showLabel = false;
+    readonly showLabel = input(false);
+
     /** Custom label text (overrides percentage) */
-    @Input() override label: string = '';
+    readonly label = input('');
 
-    get progressBarClasses(): string {
+    readonly progressBarClasses = computed(() => {
         const classes = ['amw-progress-bar'];
-        if (this.progressClass) classes.push(this.progressClass);
-        if (this.showLabel) classes.push('amw-progress-bar--with-label');
+        const customClass = this.progressClass();
+        if (customClass) classes.push(customClass);
+        if (this.showLabel()) classes.push('amw-progress-bar--with-label');
         return classes.join(' ');
-    }
+    });
 
-    get displayLabel(): string {
-        if (this.label) {
-            return this.label;
+    readonly displayLabel = computed(() => {
+        const labelValue = this.label();
+        if (labelValue) {
+            return labelValue;
         }
-        if (this.showLabel && this.mode === 'determinate') {
-            return `${Math.round(this.progressValue)}%`;
+        if (this.showLabel() && this.mode() === 'determinate') {
+            return `${Math.round(this.progressValue())}%`;
         }
         return '';
-    }
+    });
 }

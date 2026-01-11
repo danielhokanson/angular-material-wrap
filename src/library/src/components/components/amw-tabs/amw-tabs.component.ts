@@ -129,15 +129,15 @@ export class AmwTabsComponent extends BaseComponent implements OnInit, OnDestroy
     private syncTabsFromChildren(): void {
         if (this.tabChildren) {
             this.tabs = this.tabChildren.toArray().map(child => ({
-                label: child.label,
-                icon: child.icon,
-                isDisabled: child.disabled,
-                isClosable: child.closable,
-                badgeCount: child.badgeCount,
-                badgeColor: child.badgeColor,
+                label: child.label(),
+                icon: child.icon(),
+                isDisabled: child.disabled(),
+                isClosable: child.closable(),
+                badgeCount: child.badgeCount(),
+                badgeColor: child.badgeColor(),
                 content: '', // Content is handled via template projection
-                contentTemplate: child.contentTemplate,
-                headerTemplate: child.headerTemplate
+                contentTemplate: child.contentTemplate(),
+                headerTemplate: child.headerTemplate()
             }));
             this.cdr.detectChanges();
         }

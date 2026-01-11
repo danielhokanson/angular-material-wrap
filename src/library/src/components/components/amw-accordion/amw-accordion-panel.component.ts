@@ -1,8 +1,7 @@
-import { Component, Input, Output, EventEmitter, ContentChild, TemplateRef, ViewEncapsulation } from '@angular/core';
+import { Component, TemplateRef, ViewEncapsulation, input, output, contentChild, computed, model } from '@angular/core';
+import { NgTemplateOutlet } from '@angular/common';
 import { MatExpansionModule } from '@angular/material/expansion';
-import { CommonModule } from '@angular/common';
 import { MatIconModule } from '@angular/material/icon';
-import { BaseComponent } from '../../../controls/components/base/base.component';
 
 /**
  * Angular Material Wrap Accordion Panel Component
@@ -33,67 +32,92 @@ import { BaseComponent } from '../../../controls/components/base/base.component'
     selector: 'amw-accordion-panel',
     standalone: true,
     imports: [
-        CommonModule,
+        NgTemplateOutlet,
         MatExpansionModule,
         MatIconModule
     ],
     encapsulation: ViewEncapsulation.None,
     template: `
         <mat-expansion-panel
-            [expanded]="expanded"
-            [disabled]="disabled"
-            [hideToggle]="hideToggle"
-            (opened)="opened.emit()"
-            (closed)="closed.emit()"
-            (expandedChange)="expandedChange.emit($event)">
+            [expanded]="expanded()"
+            [disabled]="disabled()"
+            [hideToggle]="hideToggle()"
+            (opened)="onOpened()"
+            (closed)="onClosed()"
+            (expandedChange)="onExpandedChange($event)">
 
-            <mat-expansion-panel-header *ngIf="hasHeader">
-                <mat-panel-title>
-                    <ng-container *ngIf="headerTemplate" [ngTemplateOutlet]="headerTemplate"></ng-container>
-                    <ng-container *ngIf="!headerTemplate && amwTitle">{{ amwTitle }}</ng-container>
-                </mat-panel-title>
-                <mat-panel-description *ngIf="amwDescription">
-                    {{ amwDescription }}
-                </mat-panel-description>
-            </mat-expansion-panel-header>
+            @if (hasHeader()) {
+                <mat-expansion-panel-header>
+                    <mat-panel-title>
+                        @if (headerTemplate()) {
+                            <ng-container [ngTemplateOutlet]="headerTemplate()!"></ng-container>
+                        } @else if (amwTitle()) {
+                            {{ amwTitle() }}
+                        }
+                    </mat-panel-title>
+                    @if (amwDescription()) {
+                        <mat-panel-description>
+                            {{ amwDescription() }}
+                        </mat-panel-description>
+                    }
+                </mat-expansion-panel-header>
+            }
 
             <ng-content></ng-content>
         </mat-expansion-panel>
     `,
     styleUrls: ['./amw-accordion-panel.component.scss']
 })
-export class AmwAccordionPanelComponent extends BaseComponent {
+export class AmwAccordionPanelComponent {
     /** Simple title for the panel header */
-    @Input() amwTitle = '';
+    readonly amwTitle = input('');
 
     /** Optional description shown in the header */
-    @Input() amwDescription = '';
+    readonly amwDescription = input('');
 
-    /** Whether the panel is expanded */
-    @Input() expanded = false;
+    /** Whether the panel is expanded (supports two-way binding) */
+    readonly expanded = model(false);
 
     /** Whether the panel is disabled */
-    @Input() override disabled = false;
+    readonly disabled = input(false);
 
     /** Whether to hide the toggle indicator */
-    @Input() hideToggle = false;
+    readonly hideToggle = input(false);
 
     /** Emitted when the panel is opened */
-    @Output() opened = new EventEmitter<void>();
+    readonly opened = output<void>();
 
     /** Emitted when the panel is closed */
-    @Output() closed = new EventEmitter<void>();
+    readonly closed = output<void>();
 
     /** Emitted when the expanded state changes */
-    @Output() expandedChange = new EventEmitter<boolean>();
+    readonly expandedChange = output<boolean>();
 
     /** Custom header template reference */
-    @ContentChild('header') headerTemplate?: TemplateRef<any>;
+    readonly headerTemplate = contentChild<TemplateRef<any>>('header');
 
     /**
      * Determines if the panel should show a header
      */
-    get hasHeader(): boolean {
-        return !!(this.headerTemplate || this.amwTitle || this.amwDescription);
+    readonly hasHeader = computed(() => {
+        return !!(this.headerTemplate() || this.amwTitle() || this.amwDescription());
+    });
+
+    /** Handles panel opened event */
+    onOpened(): void {
+        this.expanded.set(true);
+        this.opened.emit();
+    }
+
+    /** Handles panel closed event */
+    onClosed(): void {
+        this.expanded.set(false);
+        this.closed.emit();
+    }
+
+    /** Handles expanded state change */
+    onExpandedChange(isExpanded: boolean): void {
+        this.expanded.set(isExpanded);
+        this.expandedChange.emit(isExpanded);
     }
 }

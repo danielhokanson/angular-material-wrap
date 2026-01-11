@@ -1,7 +1,5 @@
-import { Component, Input, ViewEncapsulation } from '@angular/core';
-import { CommonModule } from '@angular/common';
+import { Component, ViewEncapsulation, input, computed } from '@angular/core';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
-import { BaseComponent } from '../../../controls/components/base/base.component';
 import { AmwColor } from '../../../shared/types/amw-color.type';
 
 export type SpinnerMode = 'determinate' | 'indeterminate';
@@ -37,45 +35,53 @@ export type SpinnerMode = 'determinate' | 'indeterminate';
     selector: 'amw-progress-spinner',
     standalone: true,
     imports: [
-        CommonModule,
         MatProgressSpinnerModule
     ],
     encapsulation: ViewEncapsulation.None,
     templateUrl: './amw-progress-spinner.component.html',
     styleUrl: './amw-progress-spinner.component.scss'
 })
-export class AmwProgressSpinnerComponent extends BaseComponent {
+export class AmwProgressSpinnerComponent {
     /** Mode of the spinner */
-    @Input() mode: SpinnerMode = 'indeterminate';
+    readonly mode = input<SpinnerMode>('indeterminate');
+
     /** Value of the progress (0-100, only for determinate mode) */
-    @Input() progressValue: number = 0;
+    readonly progressValue = input(0);
+
     /** Diameter of the spinner in pixels */
-    @Input() diameter: number = 40;
+    readonly diameter = input(40);
+
     /** Stroke width of the spinner */
-    @Input() strokeWidth?: number;
+    readonly strokeWidth = input<number | undefined>();
+
     /** Color of the spinner */
-    @Input() color: AmwColor = 'primary';
+    readonly color = input<AmwColor>('primary');
+
     /** Custom CSS class for the spinner */
-    @Input() spinnerClass?: string;
+    readonly spinnerClass = input<string | undefined>();
+
     /** Whether to show the percentage label (only for determinate mode) */
-    @Input() showLabel = false;
+    readonly showLabel = input(false);
+
     /** Custom label text (overrides percentage) */
-    @Input() override label: string = '';
+    readonly label = input('');
 
-    get spinnerClasses(): string {
+    readonly spinnerClasses = computed(() => {
         const classes = ['amw-progress-spinner'];
-        if (this.spinnerClass) classes.push(this.spinnerClass);
-        if (this.showLabel) classes.push('amw-progress-spinner--with-label');
+        const customClass = this.spinnerClass();
+        if (customClass) classes.push(customClass);
+        if (this.showLabel()) classes.push('amw-progress-spinner--with-label');
         return classes.join(' ');
-    }
+    });
 
-    get displayLabel(): string {
-        if (this.label) {
-            return this.label;
+    readonly displayLabel = computed(() => {
+        const labelValue = this.label();
+        if (labelValue) {
+            return labelValue;
         }
-        if (this.showLabel && this.mode === 'determinate') {
-            return `${Math.round(this.progressValue)}%`;
+        if (this.showLabel() && this.mode() === 'determinate') {
+            return `${Math.round(this.progressValue())}%`;
         }
         return '';
-    }
+    });
 }

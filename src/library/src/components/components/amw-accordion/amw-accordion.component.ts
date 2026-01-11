@@ -1,7 +1,5 @@
-import { Component, Input, ViewEncapsulation } from '@angular/core';
+import { Component, ViewEncapsulation, input } from '@angular/core';
 import { MatExpansionModule } from '@angular/material/expansion';
-import { CommonModule } from '@angular/common';
-import { BaseComponent } from '../../../controls/components/base/base.component';
 
 /**
  * Angular Material Wrap Accordion Container Component
@@ -36,31 +34,30 @@ import { BaseComponent } from '../../../controls/components/base/base.component'
     selector: 'amw-accordion',
     standalone: true,
     imports: [
-        CommonModule,
         MatExpansionModule
     ],
     encapsulation: ViewEncapsulation.None,
     template: `
         <mat-accordion
-            [multi]="multi"
-            [displayMode]="displayMode"
-            [togglePosition]="togglePosition"
-            [hideToggle]="hideToggle">
+            [multi]="multi()"
+            [displayMode]="displayMode()"
+            [togglePosition]="togglePosition()"
+            [hideToggle]="hideToggle()">
             <ng-content></ng-content>
         </mat-accordion>
     `,
     styleUrls: ['./amw-accordion.component.scss']
 })
-export class AmwAccordionComponent extends BaseComponent {
+export class AmwAccordionComponent {
     /** Whether multiple panels can be expanded simultaneously */
-    @Input() multi = false;
+    readonly multi = input(false);
 
     /** Display mode for the accordion */
-    @Input() displayMode: 'default' | 'flat' = 'default';
+    readonly displayMode = input<'default' | 'flat'>('default');
 
     /** Position of the toggle indicator */
-    @Input() togglePosition: 'before' | 'after' = 'after';
+    readonly togglePosition = input<'before' | 'after'>('after');
 
     /** Whether to hide the toggle indicator for all panels */
-    @Input() hideToggle = false;
+    readonly hideToggle = input(false);
 }
