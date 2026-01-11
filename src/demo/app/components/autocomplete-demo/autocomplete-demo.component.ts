@@ -1,19 +1,19 @@
 import { Component, ViewEncapsulation } from '@angular/core';
 
 import { FormsModule } from '@angular/forms';
-import { MatIconModule } from '@angular/material/icon';
 
 import { AmwAutocompleteComponent } from '../../../../library/src/controls/components/amw-autocomplete/amw-autocomplete.component';
 import { AmwSize, AmwAppearance } from '../../../../library/src/shared/types';
 import { AutocompleteOption } from '../../../../library/src/controls/components/amw-autocomplete/interfaces/autocomplete-option.interface';
+import { AmwIconComponent } from '../../../../library/src/components/components';
 
 @Component({
     selector: 'amw-demo-autocomplete',
     standalone: true,
     imports: [
     FormsModule,
-    MatIconModule,
-    AmwAutocompleteComponent
+    AmwAutocompleteComponent,
+    AmwIconComponent
 ],
     templateUrl: './autocomplete-demo.component.html',
     styleUrl: './autocomplete-demo.component.scss',

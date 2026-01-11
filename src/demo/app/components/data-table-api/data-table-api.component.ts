@@ -1,26 +1,23 @@
 import { Component, ViewEncapsulation } from '@angular/core';
 
-import { MatIconModule } from '@angular/material/icon';
 import { BaseApiComponent, ApiDocumentation } from '../base/base-api.component';
-import { MatTableModule } from '@angular/material/table';
-import { MatCardModule } from '@angular/material/card';
+import { AmwTabsComponent, AmwTabComponent } from '../../../../library/src/components/components';
 
 @Component({
     selector: 'amw-demo-data-table-api',
     standalone: true,
     imports: [
-    MatIconModule,
-    MatTableModule,
-    MatCardModule
-],
+        AmwTabsComponent,
+        AmwTabComponent,
+    ],
     encapsulation: ViewEncapsulation.None,
     template: `
     <div class="data-table-api-demo">
       <h3>Data Table API Documentation</h3>
       <p>Complete API reference for the data table component.</p>
-      
-      <mat-tab-group>
-        <mat-tab label="Inputs">
+
+      <amw-tabs>
+        <amw-tab label="Inputs">
           <div class="api-section">
             <h4>Component Inputs</h4>
             <div class="api-table">
@@ -62,9 +59,9 @@ import { MatCardModule } from '@angular/material/card';
               </table>
             </div>
           </div>
-        </mat-tab>
-        
-        <mat-tab label="Outputs">
+        </amw-tab>
+
+        <amw-tab label="Outputs">
           <div class="api-section">
             <h4>Component Outputs</h4>
             <div class="api-table">
@@ -101,22 +98,22 @@ import { MatCardModule } from '@angular/material/card';
               </table>
             </div>
           </div>
-        </mat-tab>
-        
-        <mat-tab label="Interfaces">
+        </amw-tab>
+
+        <amw-tab label="Interfaces">
           <div class="api-section">
             <h4>DataTableColumn Interface</h4>
             <pre><code>{{ columnInterface }}</code></pre>
-            
+
             <h4>DataTableConfig Interface</h4>
             <pre><code>{{ configInterface }}</code></pre>
-            
+
             <h4>DataTableAction Interface</h4>
             <pre><code>{{ actionInterface }}</code></pre>
           </div>
-        </mat-tab>
-        
-        <mat-tab label="Methods">
+        </amw-tab>
+
+        <amw-tab label="Methods">
           <div class="api-section">
             <h4>Public Methods</h4>
             <div class="api-table">
@@ -152,8 +149,8 @@ import { MatCardModule } from '@angular/material/card';
               </table>
             </div>
           </div>
-        </mat-tab>
-      </mat-tab-group>
+        </amw-tab>
+      </amw-tabs>
     </div>
   `,
     styleUrl: './data-table-api.component.scss'

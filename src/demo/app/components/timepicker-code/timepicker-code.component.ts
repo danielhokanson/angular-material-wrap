@@ -1,24 +1,24 @@
 import { Component, ViewEncapsulation, OnInit } from '@angular/core';
 import { FormsModule, ReactiveFormsModule, FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { MatIconModule } from '@angular/material/icon';
 import { CommonModule } from '@angular/common';
 import { BaseCodeComponent } from '../base/base-code.component';
 import { AmwTimepickerComponent } from '../../../../library/src/controls/components/amw-timepicker/amw-timepicker.component';
 
 type TimepickerExamples = 'basic' | 'format' | 'seconds' | 'validation' | 'configuration';
-import { MatExpansionModule } from '@angular/material/expansion';
 
 import { AmwButtonComponent } from '../../../../library/src/controls/components/amw-button/amw-button.component';
+import { AmwAccordionComponent, AmwAccordionPanelComponent, AmwIconComponent } from '../../../../library/src/components/components';
 @Component({
   selector: 'amw-demo-timepicker-code',
   standalone: true,
   imports: [CommonModule,
     FormsModule,
     ReactiveFormsModule,
-    MatIconModule,
     AmwTimepickerComponent,
-    MatExpansionModule,
-    AmwButtonComponent],
+    AmwButtonComponent,
+    AmwAccordionComponent,
+    AmwAccordionPanelComponent,
+    AmwIconComponent],
   encapsulation: ViewEncapsulation.None,
   templateUrl: './timepicker-code.component.html',
   styleUrl: './timepicker-code.component.scss'

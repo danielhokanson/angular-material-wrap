@@ -1,26 +1,27 @@
 import { Component, OnInit } from '@angular/core';
 
 import { ActivatedRoute } from '@angular/router';
-import { MatIconModule } from '@angular/material/icon';
 import { FormsModule } from '@angular/forms';
 import { ViewEncapsulation } from '@angular/core';
 import { AmwCurrencyPipe } from '../../../../library/src/pipes/amw-currency/amw-currency.pipe';
 import { AmwDatePipe } from '../../../../library/src/pipes/amw-date/amw-date.pipe';
 import { AmwTextTransformPipe } from '../../../../library/src/pipes/amw-text-transform/amw-text-transform.pipe';
-import { AmwTabsComponent } from '../../../../library/src/components/components/amw-tabs/amw-tabs.component';
+import { AmwTabsComponent, AmwTabComponent, AmwCardComponent, AmwIconComponent } from '../../../../library/src/components/components';
 import { AmwInputComponent } from '../../../../library/src/controls/components/amw-input/amw-input.component';
 
 @Component({
     selector: 'amw-demo-pipes',
     standalone: true,
     imports: [
-    MatIconModule,
     FormsModule,
     AmwCurrencyPipe,
     AmwDatePipe,
     AmwTextTransformPipe,
     AmwTabsComponent,
-    AmwInputComponent
+    AmwTabComponent,
+    AmwCardComponent,
+    AmwIconComponent,
+    AmwInputComponent,
 ],
     encapsulation: ViewEncapsulation.None,
     templateUrl: './pipes-demo.component.html',

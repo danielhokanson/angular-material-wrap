@@ -2,16 +2,13 @@
   <h3>Code Examples</h3>
   <p>Interactive examples with live previews. The code is editable for reference, and working examples are shown alongside.</p>
 
-  <mat-accordion class="code-examples-accordion">
+  <amw-accordion class="code-examples-accordion">
     <!-- Basic Input -->
-    <mat-expansion-panel>
-      <mat-expansion-panel-header>
-        <mat-panel-title>
-          <mat-icon>code</mat-icon>
-          Basic Input
-        </mat-panel-title>
-        <mat-panel-description>Simple input with label and placeholder</mat-panel-description>
-      </mat-expansion-panel-header>
+    <amw-accordion-panel amwDescription="Simple input with label and placeholder">
+      <ng-template #header>
+        <amw-icon name="code"></amw-icon>
+        Basic Input
+      </ng-template>
       <div class="example-container">
         <div class="code-panel">
           <div class="code-header">
@@ -34,17 +31,14 @@
           </div>
         </div>
       </div>
-    </mat-expansion-panel>
+    </amw-accordion-panel>
 
     <!-- Input Appearances -->
-    <mat-expansion-panel>
-      <mat-expansion-panel-header>
-        <mat-panel-title>
-          <mat-icon>code</mat-icon>
-          Input Appearances
-        </mat-panel-title>
-        <mat-panel-description>Different visual styles for inputs</mat-panel-description>
-      </mat-expansion-panel-header>
+    <amw-accordion-panel amwDescription="Different visual styles for inputs">
+      <ng-template #header>
+        <amw-icon name="code"></amw-icon>
+        Input Appearances
+      </ng-template>
       <div class="example-container">
         <div class="code-panel">
           <div class="code-header">
@@ -73,17 +67,14 @@
           </div>
         </div>
       </div>
-    </mat-expansion-panel>
+    </amw-accordion-panel>
 
     <!-- Input with Hint -->
-    <mat-expansion-panel>
-      <mat-expansion-panel-header>
-        <mat-panel-title>
-          <mat-icon>code</mat-icon>
-          Input with Hint
-        </mat-panel-title>
-        <mat-panel-description>Display helpful hint text below input</mat-panel-description>
-      </mat-expansion-panel-header>
+    <amw-accordion-panel amwDescription="Display helpful hint text below input">
+      <ng-template #header>
+        <amw-icon name="code"></amw-icon>
+        Input with Hint
+      </ng-template>
       <div class="example-container">
         <div class="code-panel">
           <div class="code-header">
@@ -106,17 +97,14 @@
           </div>
         </div>
       </div>
-    </mat-expansion-panel>
+    </amw-accordion-panel>
 
     <!-- Input with Error -->
-    <mat-expansion-panel>
-      <mat-expansion-panel-header>
-        <mat-panel-title>
-          <mat-icon>code</mat-icon>
-          Input with Error
-        </mat-panel-title>
-        <mat-panel-description>Display error messages for validation</mat-panel-description>
-      </mat-expansion-panel-header>
+    <amw-accordion-panel amwDescription="Display error messages for validation">
+      <ng-template #header>
+        <amw-icon name="code"></amw-icon>
+        Input with Error
+      </ng-template>
       <div class="example-container">
         <div class="code-panel">
           <div class="code-header">
@@ -136,23 +124,19 @@
               type="email"
               placeholder="email@example.com"
               [(ngModel)]="emailValue"
-              required>
-              <mat-error>Please enter a valid email</mat-error>
+              [required]="true">
             </amw-input>
           </div>
         </div>
       </div>
-    </mat-expansion-panel>
+    </amw-accordion-panel>
 
     <!-- Input with Icons -->
-    <mat-expansion-panel>
-      <mat-expansion-panel-header>
-        <mat-panel-title>
-          <mat-icon>code</mat-icon>
-          Input with Icons/Affixes
-        </mat-panel-title>
-        <mat-panel-description>Add prefix and suffix content</mat-panel-description>
-      </mat-expansion-panel-header>
+    <amw-accordion-panel amwDescription="Add prefix and suffix content">
+      <ng-template #header>
+        <amw-icon name="code"></amw-icon>
+        Input with Icons/Affixes
+      </ng-template>
       <div class="example-container">
         <div class="code-panel">
           <div class="code-header">
@@ -170,7 +154,7 @@
             <amw-input
               label="Search"
               placeholder="Search...">
-              <mat-icon matPrefix>search</mat-icon>
+              <amw-icon matPrefix name="search"></amw-icon>
             </amw-input>
 
             <amw-input
@@ -183,17 +167,14 @@
           </div>
         </div>
       </div>
-    </mat-expansion-panel>
+    </amw-accordion-panel>
 
     <!-- Disabled/Readonly States -->
-    <mat-expansion-panel>
-      <mat-expansion-panel-header>
-        <mat-panel-title>
-          <mat-icon>code</mat-icon>
-          Disabled and Readonly States
-        </mat-panel-title>
-        <mat-panel-description>Non-editable input variants</mat-panel-description>
-      </mat-expansion-panel-header>
+    <amw-accordion-panel amwDescription="Non-editable input variants">
+      <ng-template #header>
+        <amw-icon name="code"></amw-icon>
+        Disabled and Readonly States
+      </ng-template>
       <div class="example-container">
         <div class="code-panel">
           <div class="code-header">
@@ -210,29 +191,26 @@
           <div class="preview-content">
             <amw-input
               label="Disabled Input"
-              disabled
+              [disabled]="true"
               [value]="disabledValue">
             </amw-input>
 
             <amw-input
               label="Readonly Input"
-              readonly
+              [readonly]="true"
               [value]="readonlyValue">
             </amw-input>
           </div>
         </div>
       </div>
-    </mat-expansion-panel>
+    </amw-accordion-panel>
 
     <!-- Textarea -->
-    <mat-expansion-panel>
-      <mat-expansion-panel-header>
-        <mat-panel-title>
-          <mat-icon>code</mat-icon>
-          Textarea
-        </mat-panel-title>
-        <mat-panel-description>Multi-line text input</mat-panel-description>
-      </mat-expansion-panel-header>
+    <amw-accordion-panel amwDescription="Multi-line text input">
+      <ng-template #header>
+        <amw-icon name="code"></amw-icon>
+        Textarea
+      </ng-template>
       <div class="example-container">
         <div class="code-panel">
           <div class="code-header">
@@ -249,12 +227,12 @@
           <div class="preview-content">
             <amw-textarea
               label="Description"
-              rows="4"
+              [rows]="4"
               placeholder="Enter description">
             </amw-textarea>
           </div>
         </div>
       </div>
-    </mat-expansion-panel>
-  </mat-accordion>
+    </amw-accordion-panel>
+  </amw-accordion>
 </div>

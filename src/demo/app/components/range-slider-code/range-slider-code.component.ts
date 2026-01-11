@@ -1,20 +1,21 @@
 import { Component, ViewEncapsulation } from '@angular/core';
 import { FormsModule } from '@angular/forms';
-import { MatIconModule } from '@angular/material/icon';
+import { MatSliderModule } from '@angular/material/slider';
 import { BaseCodeComponent } from '../base/base-code.component';
+import { AmwButtonComponent } from '../../../../library/src/controls/components/amw-button/amw-button.component';
+import { AmwAccordionComponent, AmwAccordionPanelComponent, AmwIconComponent } from '../../../../library/src/components/components';
 
 type RangeSliderExamples = 'basic' | 'configured' | 'vertical' | 'formControl' | 'validation';
-import { MatExpansionModule } from '@angular/material/expansion';
-import { MatSliderModule } from '@angular/material/slider';
 
 @Component({
   selector: 'amw-demo-range-slider-code',
   standalone: true,
   imports: [FormsModule,
-    MatIconModule,
-    MatExpansionModule,
     MatSliderModule,
-    AmwButtonComponent],
+    AmwButtonComponent,
+    AmwAccordionComponent,
+    AmwAccordionPanelComponent,
+    AmwIconComponent],
   encapsulation: ViewEncapsulation.None,
   templateUrl: './range-slider-code.component.html',
   styleUrl: './range-slider-code.component.scss'
@@ -103,7 +104,7 @@ export class MyComponent {
     <input matSliderEndThumb formControlName="ageEnd">
   </mat-slider>
   @if (form.hasError('invalidRange')) {
-    <mat-error>Start must be less than end</mat-error>
+    <div class="error">Start must be less than end</div>
   }
 </form>`
   };

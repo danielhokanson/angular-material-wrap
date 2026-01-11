@@ -7,13 +7,13 @@
     <amw-accordion-panel [expanded]="step === 0" (opened)="setStep(0)" [hideToggle]="true">
       <ng-template #header>
         <h3>
-          <mat-icon>person</mat-icon>
+          <amw-icon name="person"></amw-icon>
           Personal Information
         </h3>
         <p>
           Enter your basic details
           @if (personalInfoForm.valid) {
-            <mat-icon class="status-icon status-icon--valid">check_circle</mat-icon>
+            <amw-icon name="check_circle" class="status-icon status-icon--valid"></amw-icon>
           }
         </p>
       </ng-template>
@@ -49,7 +49,7 @@
 
         <div class="button-row">
           <amw-button variant="elevated" color="primary" (click)="nextStep()" [disabled]="!personalInfoForm.valid">
-            Next <mat-icon>arrow_forward</mat-icon>
+            Next <amw-icon name="arrow_forward"></amw-icon>
           </amw-button>
         </div>
       </form>
@@ -59,13 +59,13 @@
     <amw-accordion-panel [expanded]="step === 1" (opened)="setStep(1)" [hideToggle]="true">
       <ng-template #header>
         <h3>
-          <mat-icon>contact_phone</mat-icon>
+          <amw-icon name="contact_phone"></amw-icon>
           Contact Information
         </h3>
         <p>
           Add your contact details
           @if (contactForm.valid) {
-            <mat-icon class="status-icon status-icon--valid">check_circle</mat-icon>
+            <amw-icon name="check_circle" class="status-icon status-icon--valid"></amw-icon>
           }
         </p>
       </ng-template>
@@ -110,7 +110,7 @@
         <div class="button-row">
           <amw-button variant="text" (click)="prevStep()" icon="arrow_back" iconPosition="left">Previous</amw-button>
           <amw-button variant="elevated" color="primary" (click)="nextStep()" [disabled]="!contactForm.valid">
-            Next <mat-icon>arrow_forward</mat-icon>
+            Next <amw-icon name="arrow_forward"></amw-icon>
           </amw-button>
         </div>
       </form>
@@ -120,13 +120,13 @@
     <amw-accordion-panel [expanded]="step === 2" (opened)="setStep(2)" [hideToggle]="true">
       <ng-template #header>
         <h3>
-          <mat-icon>settings</mat-icon>
+          <amw-icon name="settings"></amw-icon>
           Preferences
         </h3>
         <p>
           Set your preferences
           @if (preferencesForm.valid) {
-            <mat-icon class="status-icon status-icon--valid">check_circle</mat-icon>
+            <amw-icon name="check_circle" class="status-icon status-icon--valid"></amw-icon>
           }
         </p>
       </ng-template>
@@ -143,7 +143,7 @@
             color="primary" 
             (click)="onSubmit()" 
             [disabled]="!personalInfoForm.valid || !contactForm.valid || !preferencesForm.valid">
-            Submit <mat-icon>check</mat-icon>
+            Submit <amw-icon name="check"></amw-icon>
           </amw-button>
         </div>
       </form>

@@ -1,30 +1,32 @@
 import { Component, ViewEncapsulation, OnInit, OnDestroy } from '@angular/core';
 
 import { FormsModule } from '@angular/forms';
-import { MatIconModule } from '@angular/material/icon';
 import { AmwNotificationService } from '../../../../library/src/services/amw-notification/amw-notification.service';
-import { AmwCardComponent } from '../../../../library/src/components/components/amw-card/amw-card.component';
+import { AmwCardComponent, AmwIconComponent } from '../../../../library/src/components/components';
 import { CardService, CardData, CardFilter, CardSort } from '../../../../library/src/components/services/card.service';
 import { CardConfig, CardVariant, CardElevation } from '../../../../library/src/components/components/amw-card/interfaces';
 import { AmwSize } from '../../../../library/src/shared/types';
 import { Subscription } from 'rxjs';
-import { MatOptionModule } from '@angular/material/core';
 
 import { AmwButtonComponent } from '../../../../library/src/controls/components/amw-button/amw-button.component';
 import { AmwInputComponent } from '../../../../library/src/controls/components/amw-input/amw-input.component';
 import { AmwSelectComponent } from '../../../../library/src/controls/components/amw-select/amw-select.component';
 import { AmwCheckboxComponent } from '../../../../library/src/controls/components/amw-checkbox/amw-checkbox.component';
+import { AmwTooltipDirective } from '../../../../library/src/directives';
+
 @Component({
     selector: 'amw-demo-card',
     standalone: true,
-    imports: [FormsModule,
-    AmwCardComponent,
-    MatIconModule,
-    MatOptionModule,
-    AmwButtonComponent,
-    AmwInputComponent,
-    AmwSelectComponent,
-    AmwCheckboxComponent],
+    imports: [
+        FormsModule,
+        AmwCardComponent,
+        AmwIconComponent,
+        AmwButtonComponent,
+        AmwInputComponent,
+        AmwSelectComponent,
+        AmwCheckboxComponent,
+        AmwTooltipDirective
+    ],
     encapsulation: ViewEncapsulation.None,
     templateUrl: './card-demo.component.html',
     styleUrl: './card-demo.component.scss'
@@ -42,6 +44,31 @@ export class CardDemoComponent implements OnInit, OnDestroy {
     sortDirection: 'asc' | 'desc' = 'desc';
     isLoading = false;
     private subscription = new Subscription();
+
+    // Options for selects
+    variantOptions = [
+        { value: '', label: 'All Variants' },
+        { value: 'elevated', label: 'Elevated' },
+        { value: 'outlined', label: 'Outlined' },
+        { value: 'filled', label: 'Filled' }
+    ];
+
+    sizeOptions = [
+        { value: '', label: 'All Sizes' },
+        { value: 'small', label: 'Small' },
+        { value: 'medium', label: 'Medium' },
+        { value: 'large', label: 'Large' }
+    ];
+
+    sortFieldOptions = [
+        { value: 'createdAt', label: 'Created At' },
+        { value: 'title', label: 'Title' }
+    ];
+
+    sortDirectionOptions = [
+        { value: 'asc', label: 'Ascending' },
+        { value: 'desc', label: 'Descending' }
+    ];
 
     constructor(
         private cardService: CardService,
@@ -146,9 +173,9 @@ export class CardDemoComponent implements OnInit, OnDestroy {
 
     getCardStatistics() {
         const stats = this.cardService.getCardStatistics();
-        this.notification.open(
+        this.notification.info(
+            'Card Statistics',
             `Total: ${stats.total} | Clickable: ${stats.clickable} | With Images: ${stats.withImages} | With Actions: ${stats.withActions}`,
-            'Close',
             { duration: 5000 }
         );
     }

@@ -1,19 +1,17 @@
 import { Component, ViewEncapsulation } from '@angular/core';
 
 import { FormsModule } from '@angular/forms';
-import { MatIconModule } from '@angular/material/icon';
-import { MatButtonToggleModule } from '@angular/material/button-toggle';
 
 import { AmwSwitchComponent } from '../../../../library/src/controls/components/amw-switch/amw-switch.component';
+import { AmwIconComponent } from '../../../../library/src/components/components';
 
 @Component({
     selector: 'amw-demo-switch',
     standalone: true,
     imports: [
     FormsModule,
-    MatIconModule,
-    MatButtonToggleModule,
-    AmwSwitchComponent
+    AmwSwitchComponent,
+    AmwIconComponent
 ],
     encapsulation: ViewEncapsulation.None,
     templateUrl: './switch-demo.component.html',

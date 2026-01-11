@@ -1,8 +1,7 @@
 import { Component, ViewEncapsulation, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
-import { MatIconModule } from '@angular/material/icon';
-
 import { DEMO_CONFIGS, DemoItem } from './demo-registry';
+import { AmwTabsComponent, AmwTabComponent, AmwIconComponent, AmwCardComponent } from '../../../../library/src/components/components';
 
 // Import all child components
 import { ButtonDemoComponent } from '../button-demo/button-demo.component';
@@ -113,13 +112,14 @@ import { ThemeDemoComponent } from '../theme-demo/theme-demo.component';
 import { ThemeValidationComponent } from '../theme-validation/theme-validation.component';
 import { ThemeCodeComponent } from '../theme-code/theme-code.component';
 import { ThemeApiComponent } from '../theme-api/theme-api.component';
-import { AmwTabsComponent } from '../../../../library/src/components/components/amw-tabs/amw-tabs.component';
-
 @Component({
     selector: 'amw-demo-container',
     standalone: true,
     imports: [
-    MatIconModule,
+    AmwTabsComponent,
+    AmwTabComponent,
+    AmwIconComponent,
+    AmwCardComponent,
     ButtonDemoComponent,
     ButtonValidationComponent,
     ButtonCodeComponent,
@@ -227,9 +227,8 @@ import { AmwTabsComponent } from '../../../../library/src/components/components/
     ThemeDemoComponent,
     ThemeValidationComponent,
     ThemeCodeComponent,
-    ThemeApiComponent,
-    AmwTabsComponent,
-],
+    ThemeApiComponent
+  ],
     encapsulation: ViewEncapsulation.None,
     templateUrl: './demo-container.component.html',
     styleUrl: './demo-container.component.scss'

@@ -2,16 +2,16 @@
   <h3>Code Examples</h3>
   <p>Interactive examples with live previews. The code is editable for reference, and working examples are shown alongside.</p>
 
-  <mat-accordion class="code-examples-accordion">
+  <amw-accordion class="code-examples-accordion">
     <!-- Basic File Input -->
-    <mat-expansion-panel>
-      <mat-expansion-panel-header>
-        <mat-panel-title>
-          <mat-icon>code</mat-icon>
+    <amw-accordion-panel>
+      <ng-template #panelHeader>
+        <div class="panel-title">
+          <amw-icon name="code"></amw-icon>
           Basic File Input
-        </mat-panel-title>
-        <mat-panel-description>Simple file input with default configuration</mat-panel-description>
-      </mat-expansion-panel-header>
+        </div>
+        <div class="panel-description">Simple file input with default configuration</div>
+      </ng-template>
       <div class="example-container">
         <div class="code-panel">
           <div class="code-header">
@@ -36,17 +36,17 @@
           </div>
         </div>
       </div>
-    </mat-expansion-panel>
+    </amw-accordion-panel>
 
     <!-- Configured File Input -->
-    <mat-expansion-panel>
-      <mat-expansion-panel-header>
-        <mat-panel-title>
-          <mat-icon>code</mat-icon>
+    <amw-accordion-panel>
+      <ng-template #panelHeader>
+        <div class="panel-title">
+          <amw-icon name="code"></amw-icon>
           Configured File Input
-        </mat-panel-title>
-        <mat-panel-description>File input with custom configuration and restrictions</mat-panel-description>
-      </mat-expansion-panel-header>
+        </div>
+        <div class="panel-description">File input with custom configuration and restrictions</div>
+      </ng-template>
       <div class="example-container">
         <div class="code-panel">
           <div class="code-header">
@@ -77,17 +77,17 @@
           </div>
         </div>
       </div>
-    </mat-expansion-panel>
+    </amw-accordion-panel>
 
     <!-- Reactive Form Integration -->
-    <mat-expansion-panel>
-      <mat-expansion-panel-header>
-        <mat-panel-title>
-          <mat-icon>code</mat-icon>
+    <amw-accordion-panel>
+      <ng-template #panelHeader>
+        <div class="panel-title">
+          <amw-icon name="code"></amw-icon>
           Reactive Form Integration
-        </mat-panel-title>
-        <mat-panel-description>File input integrated with Angular reactive forms</mat-panel-description>
-      </mat-expansion-panel-header>
+        </div>
+        <div class="panel-description">File input integrated with Angular reactive forms</div>
+      </ng-template>
       <div class="example-container">
         <div class="code-panel">
           <div class="code-header">
@@ -116,17 +116,17 @@
           </div>
         </div>
       </div>
-    </mat-expansion-panel>
+    </amw-accordion-panel>
 
     <!-- With Custom Validation -->
-    <mat-expansion-panel>
-      <mat-expansion-panel-header>
-        <mat-panel-title>
-          <mat-icon>code</mat-icon>
+    <amw-accordion-panel>
+      <ng-template #panelHeader>
+        <div class="panel-title">
+          <amw-icon name="code"></amw-icon>
           With Custom Validation
-        </mat-panel-title>
-        <mat-panel-description>File input with custom validation and error handling</mat-panel-description>
-      </mat-expansion-panel-header>
+        </div>
+        <div class="panel-description">File input with custom validation and error handling</div>
+      </ng-template>
       <div class="example-container">
         <div class="code-panel">
           <div class="code-header">
@@ -156,17 +156,17 @@
           </div>
         </div>
       </div>
-    </mat-expansion-panel>
+    </amw-accordion-panel>
 
     <!-- Drag & Drop Configuration -->
-    <mat-expansion-panel>
-      <mat-expansion-panel-header>
-        <mat-panel-title>
-          <mat-icon>code</mat-icon>
+    <amw-accordion-panel>
+      <ng-template #panelHeader>
+        <div class="panel-title">
+          <amw-icon name="code"></amw-icon>
           Drag & Drop Configuration
-        </mat-panel-title>
-        <mat-panel-description>File input with drag and drop functionality</mat-panel-description>
-      </mat-expansion-panel-header>
+        </div>
+        <div class="panel-description">File input with drag and drop functionality</div>
+      </ng-template>
       <div class="example-container">
         <div class="code-panel">
           <div class="code-header">
@@ -194,17 +194,17 @@
           </div>
         </div>
       </div>
-    </mat-expansion-panel>
+    </amw-accordion-panel>
 
     <!-- File Type Restrictions -->
-    <mat-expansion-panel>
-      <mat-expansion-panel-header>
-        <mat-panel-title>
-          <mat-icon>code</mat-icon>
+    <amw-accordion-panel>
+      <ng-template #panelHeader>
+        <div class="panel-title">
+          <amw-icon name="code"></amw-icon>
           File Type Restrictions
-        </mat-panel-title>
-        <mat-panel-description>Different file type restrictions and MIME types</mat-panel-description>
-      </mat-expansion-panel-header>
+        </div>
+        <div class="panel-description">Different file type restrictions and MIME types</div>
+      </ng-template>
       <div class="example-container">
         <div class="code-panel">
           <div class="code-header">
@@ -241,6 +241,6 @@
           </div>
         </div>
       </div>
-    </mat-expansion-panel>
-  </mat-accordion>
+    </amw-accordion-panel>
+  </amw-accordion>
 </div>

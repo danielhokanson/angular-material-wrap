@@ -6,7 +6,7 @@
     <amw-card class="validation-card">
       <ng-template #cardHeader>
         <h2>
-          <mat-icon>fact_check</mat-icon>
+          <amw-icon name="fact_check"></amw-icon>
           Multi-Step Registration Form
         </h2>
         <p class="subtitle">Complete all steps to submit the form</p>
@@ -17,7 +17,7 @@
           <amw-tab>
             <ng-template mat-tab-label>
               <div class="tab-label" [ngClass]="getStepClass(0)">
-                <mat-icon>{{ getStepIcon(0) }}</mat-icon>
+                <amw-icon [name]="getStepIcon(0)"></amw-icon>
                 <span>{{ steps[0].label }}</span>
               </div>
       </ng-template>
@@ -75,7 +75,7 @@
           <amw-tab>
             <ng-template mat-tab-label>
               <div class="tab-label" [ngClass]="getStepClass(1)">
-                <mat-icon>{{ getStepIcon(1) }}</mat-icon>
+                <amw-icon [name]="getStepIcon(1)"></amw-icon>
                 <span>{{ steps[1].label }}</span>
               </div>
             </ng-template>
@@ -129,7 +129,7 @@
           <amw-tab>
             <ng-template mat-tab-label>
               <div class="tab-label" [ngClass]="getStepClass(2)">
-                <mat-icon>{{ getStepIcon(2) }}</mat-icon>
+                <amw-icon [name]="getStepIcon(2)"></amw-icon>
                 <span>{{ steps[2].label }}</span>
               </div>
             </ng-template>
@@ -139,11 +139,8 @@
                 <amw-select
                   class="full-width"
                   label="Language"
-                  formControlName="language">
-                  <mat-option value="en">English</mat-option>
-                  <mat-option value="es">Spanish</mat-option>
-                  <mat-option value="fr">French</mat-option>
-                  <mat-option value="de">German</mat-option>
+                  formControlName="language"
+                  [options]="languageOptions">
                 </amw-select>
                 @if (preferencesForm.get('language')?.invalid && preferencesForm.get('language')?.touched) {
                   <div class="field-error">{{ getErrorMessage(preferencesForm, 'language') }}</div>
@@ -152,12 +149,8 @@
                 <amw-select
                   class="full-width"
                   label="Timezone"
-                  formControlName="timezone">
-                  <mat-option value="UTC">UTC</mat-option>
-                  <mat-option value="EST">Eastern Time</mat-option>
-                  <mat-option value="CST">Central Time</mat-option>
-                  <mat-option value="MST">Mountain Time</mat-option>
-                  <mat-option value="PST">Pacific Time</mat-option>
+                  formControlName="timezone"
+                  [options]="timezoneOptions">
                 </amw-select>
                 @if (preferencesForm.get('timezone')?.invalid && preferencesForm.get('timezone')?.touched) {
                   <div class="field-error">{{ getErrorMessage(preferencesForm, 'timezone') }}</div>
@@ -166,11 +159,8 @@
                 <amw-select
                   class="full-width"
                   label="Notification Preference"
-                  formControlName="notifications">
-                  <mat-option value="email">Email</mat-option>
-                  <mat-option value="sms">SMS</mat-option>
-                  <mat-option value="both">Both</mat-option>
-                  <mat-option value="none">None</mat-option>
+                  formControlName="notifications"
+                  [options]="notificationOptions">
                 </amw-select>
               </form>
             </div>
@@ -180,7 +170,7 @@
           <amw-tab>
             <ng-template mat-tab-label>
               <div class="tab-label" [ngClass]="getStepClass(3)">
-                <mat-icon>{{ getStepIcon(3) }}</mat-icon>
+                <amw-icon [name]="getStepIcon(3)"></amw-icon>
                 <span>{{ steps[3].label }}</span>
               </div>
             </ng-template>
@@ -229,7 +219,7 @@
 
               @if (!isFormComplete()) {
                 <div class="validation-warning">
-                  <mat-icon>warning</mat-icon>
+                  <amw-icon name="warning"></amw-icon>
                   <span>Please complete all previous steps before submitting</span>
                 </div>
               }
@@ -249,7 +239,7 @@
               (click)="nextStep()"
               [disabled]="!canProceed()">
               Next
-              <mat-icon>arrow_forward</mat-icon>
+              <amw-icon name="arrow_forward"></amw-icon>
             </amw-button>
           } @else {
             <amw-button variant="elevated"

@@ -8,9 +8,8 @@
   <div class="popover-api__content">
     <!-- API Documentation -->
     <div class="popover-api__documentation">
-      <mat-tab-group>
-        <!-- Component Tab -->
-        <mat-tab label="Component">
+      <amw-tabs [tabs]="apiTabs" [selectedIndex]="selectedApiTab" (selectedIndexChange)="selectedApiTab = $event">
+        <amw-tab label="Component">
           <div class="popover-api__tab-content">
             <h3>{{ apiDocumentation.component.name }}</h3>
             <p>{{ apiDocumentation.component.description }}</p>
@@ -76,14 +75,12 @@
               </div>
             </div>
           </div>
-        </mat-tab>
+        </amw-tab>
 
-        <!-- Interfaces Tab -->
-        <mat-tab label="Interfaces">
+        <amw-tab label="Interfaces">
           <div class="popover-api__tab-content">
-            <mat-tab-group>
-              <!-- PopoverConfig Tab -->
-              <mat-tab label="PopoverConfig">
+            <amw-tabs [tabs]="interfaceTabs" [selectedIndex]="selectedInterfaceTab" (selectedIndexChange)="selectedInterfaceTab = $event">
+              <amw-tab label="PopoverConfig">
                 <div class="popover-api__tab-content">
                   <h3>PopoverConfig</h3>
                   <p>{{ apiDocumentation.interfaces.PopoverConfig.description }}</p>
@@ -127,10 +124,9 @@
                     </div>
                   </div>
                 </div>
-              </mat-tab>
+              </amw-tab>
 
-              <!-- PopoverTrigger Tab -->
-              <mat-tab label="PopoverTrigger">
+              <amw-tab label="PopoverTrigger">
                 <div class="popover-api__tab-content">
                   <h3>PopoverTrigger</h3>
                   <p>{{ apiDocumentation.interfaces.PopoverTrigger.description }}</p>
@@ -174,13 +170,12 @@
                     </div>
                   </div>
                 </div>
-              </mat-tab>
-            </mat-tab-group>
+              </amw-tab>
+            </amw-tabs>
           </div>
-        </mat-tab>
+        </amw-tab>
 
-        <!-- Service Tab -->
-        <mat-tab label="Service">
+        <amw-tab label="Service">
           <div class="popover-api__tab-content">
             <h3>{{ apiDocumentation.service.name }}</h3>
             <p>{{ apiDocumentation.service.description }}</p>
@@ -235,10 +230,9 @@
               </div>
             </div>
           </div>
-        </mat-tab>
+        </amw-tab>
 
-        <!-- Examples Tab -->
-        <mat-tab label="Examples">
+        <amw-tab label="Examples">
           <div class="popover-api__tab-content">
             <h3>Usage Examples</h3>
 
@@ -278,8 +272,8 @@
               </div>
             </div>
           </div>
-        </mat-tab>
-      </mat-tab-group>
+        </amw-tab>
+      </amw-tabs>
     </div>
 
     <!-- Live Demo -->

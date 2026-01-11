@@ -1,22 +1,20 @@
 import { Component } from '@angular/core';
 import { BaseApiComponent, ApiDocumentation } from '../base/base-api.component';
-
-import { MatIconModule } from '@angular/material/icon';
+import { AmwTabsComponent, AmwTabComponent, AmwCardComponent, AmwIconComponent } from '../../../../library/src/components/components';
 
 /**
  * Radio Group API Documentation Component
  * Provides comprehensive API documentation for the AMW Radio Group component
- */import { MatTabsModule } from '@angular/material/tabs';
-import { MatCardModule } from '@angular/material/card';
-
+ */
 @Component({
     selector: 'app-radio-group-api',
     standalone: true,
     imports: [
-    MatIconModule,
-    MatTabsModule,
-    MatCardModule
-],
+        AmwTabsComponent,
+        AmwTabComponent,
+        AmwCardComponent,
+        AmwIconComponent,
+    ],
     templateUrl: './radio-group-api.component.html',
     styleUrl: './radio-group-api.component.scss'
 })

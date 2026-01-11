@@ -1,15 +1,6 @@
 import { Component, OnInit, ViewEncapsulation } from '@angular/core';
-
 import { FormsModule, ReactiveFormsModule, FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { MatIconModule } from '@angular/material/icon';
-import { MatFormFieldModule } from '@angular/material/form-field';
-import { MatInputModule } from '@angular/material/input';
-import { MatSelectModule } from '@angular/material/select';
-import { AmwSwitchComponent } from '@angular/material/slide-toggle';
-import { AmwDividerComponent } from '../../../../library/src/components/components/amw-divider/amw-divider.component';
-import { AmwTabsComponent } from '../../../../library/src/components/components/amw-tabs/amw-tabs.component';
-import { MatOptionModule } from '@angular/material/core';
-
+import { AmwDividerComponent, AmwTabsComponent, AmwTabComponent, AmwCardComponent, AmwIconComponent } from '../../../../library/src/components/components';
 import { AmwButtonComponent } from '../../../../library/src/controls/components/amw-button/amw-button.component';
 import { AmwInputComponent } from '../../../../library/src/controls/components/amw-input/amw-input.component';
 import { AmwSelectComponent } from '../../../../library/src/controls/components/amw-select/amw-select.component';
@@ -17,15 +8,19 @@ import { AmwSwitchComponent } from '../../../../library/src/controls/components/
 @Component({
   selector: 'amw-profile-page',
   standalone: true,
-  imports: [FormsModule,
+  imports: [
+    FormsModule,
     ReactiveFormsModule,
-    MatIconModule,
     AmwDividerComponent,
     AmwTabsComponent,
+    AmwTabComponent,
+    AmwCardComponent,
+    AmwIconComponent,
     AmwButtonComponent,
     AmwInputComponent,
     AmwSelectComponent,
-    AmwSwitchComponent],
+    AmwSwitchComponent,
+],
   encapsulation: ViewEncapsulation.None,
   templateUrl: './profile-page.component.html',
   styleUrl: './profile-page.component.scss'

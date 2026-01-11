@@ -1,23 +1,23 @@
 import { Component, ViewEncapsulation } from '@angular/core';
 import { FormsModule } from '@angular/forms';
-import { MatIconModule } from '@angular/material/icon';
 import { CommonModule } from '@angular/common';
 import { BaseCodeComponent } from '../base/base-code.component';
 
 type TabsExamples = 'basic' | 'icons' | 'lazy' | 'dynamic' | 'styled';
-import { MatExpansionModule } from '@angular/material/expansion';
-import { MatTabsModule } from '@angular/material/tabs';
 
 import { AmwButtonComponent } from '../../../../library/src/controls/components/amw-button/amw-button.component';
+import { AmwAccordionComponent, AmwAccordionPanelComponent, AmwIconComponent, AmwTabsComponent, AmwTabComponent } from '../../../../library/src/components/components';
 @Component({
   selector: 'amw-demo-tabs-code',
   standalone: true,
   imports: [CommonModule,
     FormsModule,
-    MatIconModule,
-    MatExpansionModule,
-    MatTabsModule,
-    AmwButtonComponent],
+    AmwButtonComponent,
+    AmwAccordionComponent,
+    AmwAccordionPanelComponent,
+    AmwIconComponent,
+    AmwTabsComponent,
+    AmwTabComponent],
   encapsulation: ViewEncapsulation.None,
   templateUrl: './tabs-code.component.html',
   styleUrl: './tabs-code.component.scss'
@@ -32,66 +32,52 @@ export class TabsCodeComponent extends BaseCodeComponent<TabsExamples> {
   selectedIndex = 0;
 
   readonly codeExamples: Record<TabsExamples, string> = {
-    basic: `<mat-tab-group>
-  <mat-tab label="First">Content 1</mat-tab>
-  <mat-tab label="Second">Content 2</mat-tab>
-  <mat-tab label="Third">Content 3</mat-tab>
-</mat-tab-group>`,
+    basic: `<amw-tabs>
+  <amw-tab label="First">Content 1</amw-tab>
+  <amw-tab label="Second">Content 2</amw-tab>
+  <amw-tab label="Third">Content 3</amw-tab>
+</amw-tabs>`,
 
-    icons: `<mat-tab-group>
-  <mat-tab>
-    <ng-template mat-tab-label>
-      <mat-icon>home</mat-icon>
-      Home
-    </ng-template>
+    icons: `<amw-tabs>
+  <amw-tab label="Home" icon="home">
     Home content
-  </mat-tab>
-  <mat-tab>
-    <ng-template mat-tab-label>
-      <mat-icon>person</mat-icon>
-      Profile
-    </ng-template>
+  </amw-tab>
+  <amw-tab label="Profile" icon="person">
     Profile content
-  </mat-tab>
-  <mat-tab>
-    <ng-template mat-tab-label>
-      <mat-icon>settings</mat-icon>
-      Settings
-    </ng-template>
+  </amw-tab>
+  <amw-tab label="Settings" icon="settings">
     Settings content
-  </mat-tab>
-</mat-tab-group>`,
+  </amw-tab>
+</amw-tabs>`,
 
-    lazy: `<mat-tab-group>
-  <mat-tab label="Eager">
+    lazy: `<amw-tabs>
+  <amw-tab label="Eager">
     This content is loaded immediately
-  </mat-tab>
-  <mat-tab label="Lazy">
-    <ng-template matTabContent>
-      This content is lazy loaded
-    </ng-template>
-  </mat-tab>
-</mat-tab-group>`,
+  </amw-tab>
+  <amw-tab label="Lazy">
+    This content is lazy loaded
+  </amw-tab>
+</amw-tabs>`,
 
-    dynamic: `<mat-tab-group [(selectedIndex)]="selectedIndex">
+    dynamic: `<amw-tabs [(selectedIndex)]="selectedIndex">
   @for (tab of tabs; track tab) {
-    <mat-tab [label]="tab.label">
+    <amw-tab [label]="tab.label">
       {{ tab.content }}
-    </mat-tab>
+    </amw-tab>
   }
-</mat-tab-group>`,
+</amw-tabs>`,
 
-    styled: `<mat-tab-group color="accent" backgroundColor="primary">
-  <mat-tab label="Primary Tab">
+    styled: `<amw-tabs color="accent">
+  <amw-tab label="Primary Tab">
     Content with custom colors
-  </mat-tab>
-  <mat-tab label="Accent Tab">
+  </amw-tab>
+  <amw-tab label="Accent Tab">
     More content
-  </mat-tab>
-  <mat-tab label="Disabled" [disabled]="true">
+  </amw-tab>
+  <amw-tab label="Disabled" [disabled]="true">
     Disabled content
-  </mat-tab>
-</mat-tab-group>`
+  </amw-tab>
+</amw-tabs>`
   };
 
   constructor() {

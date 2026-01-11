@@ -1,11 +1,5 @@
 import { Component, ViewEncapsulation, OnInit } from '@angular/core';
 
-import { MatIconModule } from '@angular/material/icon';
-import { MatSidenavModule } from '@angular/material/sidenav';
-import { MatListModule } from '@angular/material/list';
-import { MatTooltipModule } from '@angular/material/tooltip';
-import { MatRippleModule } from '@angular/material/core';
-import { MatOptionModule } from '@angular/material/core';
 import { AmwNotificationService } from '../../../../library/src/services/amw-notification/amw-notification.service';
 import { ReactiveFormsModule, FormBuilder, FormGroup, Validators } from '@angular/forms';
 
@@ -13,20 +7,15 @@ import { AmwSelectComponent } from '../../../../library/src/controls/components/
 import { AmwSize } from '../../../../library/src/shared/types';
 import { SelectOption } from '../../../../library/src/controls/components/amw-select/interfaces/select.interface';
 import { MatFormFieldAppearance } from '@angular/material/form-field';
+import { AmwIconComponent } from '../../../../library/src/components/components';
 
 @Component({
     selector: 'amw-demo-select',
     standalone: true,
     imports: [
     ReactiveFormsModule,
-    MatIconModule,
     AmwSelectComponent,
-    MatSidenavModule,
-    MatListModule,
-    MatTooltipModule,
-    MatRippleModule,
-    MatOptionModule,
-    AmwSelectComponent
+    AmwIconComponent
 ],
     encapsulation: ViewEncapsulation.None,
     templateUrl: './select-demo.component.html',

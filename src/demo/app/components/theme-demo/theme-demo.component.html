@@ -53,12 +53,8 @@
 
               <amw-select
                 label="Country"
-                [(ngModel)]="sampleForm.country">
-                @for (country of countries; track country) {
-                  <mat-option [radioValue]="country.value">
-                    {{ country.label }}
-                  </mat-option>
-                }
+                [(ngModel)]="sampleForm.country"
+                [options]="countries">
               </amw-select>
             </div>
       </ng-template>
@@ -100,9 +96,9 @@
               <label>Volume: {{ sampleForm.volume }}%</label>
               <amw-slider
                 [(ngModel)]="sampleForm.volume"
-                min="0"
-                max="100"
-                step="1">
+                [min]="0"
+                [max]="100"
+                [step]="1">
               </amw-slider>
             </div>
       </ng-template>
@@ -115,12 +111,12 @@
           </ng-template>
           <ng-template #cardContent>
             <div class="icon-group">
-              <mat-icon color="primary">favorite</mat-icon>
-              <mat-icon color="accent">star</mat-icon>
-              <mat-icon color="warn">warning</mat-icon>
-              <mat-icon>home</mat-icon>
-              <mat-icon>settings</mat-icon>
-              <mat-icon>person</mat-icon>
+              <amw-icon name="favorite" color="primary"></amw-icon>
+              <amw-icon name="star" color="accent"></amw-icon>
+              <amw-icon name="warning" color="warn"></amw-icon>
+              <amw-icon name="home"></amw-icon>
+              <amw-icon name="settings"></amw-icon>
+              <amw-icon name="person"></amw-icon>
             </div>
       </ng-template>
 </amw-card>

@@ -1,3 +1,5 @@
+import { TemplateRef } from '@angular/core';
+
 /**
  * Tab item interface
  */
@@ -5,8 +7,11 @@ export interface TabItem {
     /** Tab label */
     label: string;
 
-    /** Tab content */
-    content: string;
+    /** Tab content (string for simple content) */
+    content?: string;
+
+    /** Tab content template (for projected content) */
+    contentTemplate?: TemplateRef<any>;
 
     /** Tab icon */
     icon?: string;

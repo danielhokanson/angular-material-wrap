@@ -1,8 +1,5 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
 
-import { MatIconModule } from '@angular/material/icon';
-import { MatBadgeModule } from '@angular/material/badge';
-import { MatTooltipModule } from '@angular/material/tooltip';
 import { AmwNotificationService } from '../../../../library/src/services/amw-notification/amw-notification.service';
 import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 import { Subject, takeUntil } from 'rxjs';
@@ -15,25 +12,30 @@ import { AmwSize } from '../../../../library/src/shared/types';
 /**
  * Demo component for showcasing sidenav variations and configurations
  */
-import { MatOptionModule } from '@angular/material/core';
 
 import { AmwButtonComponent } from '../../../../library/src/controls/components/amw-button/amw-button.component';
 import { AmwInputComponent } from '../../../../library/src/controls/components/amw-input/amw-input.component';
 import { AmwSelectComponent } from '../../../../library/src/controls/components/amw-select/amw-select.component';
 import { AmwSwitchComponent } from '../../../../library/src/controls/components/amw-switch/amw-switch.component';
+import { AmwCardComponent } from '../../../../library/src/components/components/amw-card/amw-card.component';
+import { AmwTabsComponent } from '../../../../library/src/components/components/amw-tabs/amw-tabs.component';
+import { AmwTabComponent } from '../../../../library/src/components/components/amw-tabs/amw-tab.component';
+import { AmwIconComponent } from '../../../../library/src/components/components';
+
 @Component({
     selector: 'app-sidenav-demo',
     standalone: true,
-    imports: [MatIconModule,
-    MatBadgeModule,
-    MatTooltipModule,
-    ReactiveFormsModule,
-    AmwSidenavComponent,
-    MatOptionModule,
-    AmwButtonComponent,
-    AmwInputComponent,
-    AmwSelectComponent,
-    AmwSwitchComponent],
+    imports: [
+        ReactiveFormsModule,
+        AmwSidenavComponent,
+        AmwButtonComponent,
+        AmwInputComponent,
+        AmwSelectComponent,
+        AmwSwitchComponent,
+        AmwCardComponent,
+        AmwTabsComponent,
+        AmwTabComponent,
+        AmwIconComponent],
     templateUrl: './sidenav-demo.component.html',
     styleUrl: './sidenav-demo.component.scss'
 })

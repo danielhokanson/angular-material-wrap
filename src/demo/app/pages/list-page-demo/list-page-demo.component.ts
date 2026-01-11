@@ -1,7 +1,5 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
 
-import { MatIconModule } from '@angular/material/icon';
-import { MatTooltipModule } from '@angular/material/tooltip';
 import { AmwNotificationService } from '../../../../library/src/services/amw-notification/amw-notification.service';
 import { Subject, takeUntil, BehaviorSubject, Observable, of } from 'rxjs';
 import { delay } from 'rxjs/operators';
@@ -206,18 +204,19 @@ class ListPageDemoDataSource implements ListPageDataSource {
         };
     }
 }
-import { AmwTabsComponent } from '../../../../library/src/components/components/amw-tabs/amw-tabs.component';
-import { MatChipsModule } from '@angular/material/chips';
+import { AmwTabsComponent, AmwTabComponent, AmwCardComponent, AmwIconComponent } from '../../../../library/src/components/components';
+import { AmwChipsComponent } from '../../../../library/src/controls/components/amw-chips/amw-chips.component';
 
 @Component({
     selector: 'app-list-page-demo',
     standalone: true,
     imports: [
-    MatIconModule,
-    MatTooltipModule,
     AmwListPageComponent,
     AmwTabsComponent,
-    MatChipsModule,
+    AmwTabComponent,
+    AmwCardComponent,
+    AmwIconComponent,
+    AmwChipsComponent,
 ],
     templateUrl: './list-page-demo.component.html',
     styleUrl: './list-page-demo.component.scss'
@@ -376,7 +375,7 @@ export class ListPageDemoComponent implements OnInit, OnDestroy {
 
     // State
     selectedItems: any[] = [];
-    currentView = 'basic';
+    currentViewIndex = 0;
 
     constructor(private notification: AmwNotificationService) { }
 
@@ -421,10 +420,10 @@ export class ListPageDemoComponent implements OnInit, OnDestroy {
         console.log('Page changed:', event);
     }
 
-    onViewChange(view: string): void {
-        this.currentView = view;
+    onViewChange(index: number): void {
+        this.currentViewIndex = index;
 
-        if (view === 'advanced') {
+        if (index === 1) {
             this.listConfig = {
                 ...this.listConfig,
                 showFilters: true,

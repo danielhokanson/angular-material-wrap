@@ -1,10 +1,8 @@
 import { Component, ViewEncapsulation } from '@angular/core';
 
 import { FormsModule } from '@angular/forms';
-import { MatIconModule } from '@angular/material/icon';
 
 import { ThemeManagerComponent } from '../../../../library/src/styling/components/theme-manager/theme-manager.component';
-import { MatOptionModule } from '@angular/material/core';
 
 import { AmwButtonComponent } from '../../../../library/src/controls/components/amw-button/amw-button.component';
 import { AmwInputComponent } from '../../../../library/src/controls/components/amw-input/amw-input.component';
@@ -14,13 +12,13 @@ import { AmwRadioComponent } from '../../../../library/src/controls/components/a
 import { AmwRadioGroupComponent } from '../../../../library/src/controls/components/amw-radio-group/amw-radio-group.component';
 import { AmwSwitchComponent } from '../../../../library/src/controls/components/amw-switch/amw-switch.component';
 import { AmwSliderComponent } from '../../../../library/src/controls/components/amw-slider/amw-slider.component';
+import { AmwCardComponent, AmwIconComponent } from '../../../../library/src/components/components';
+
 @Component({
     selector: 'amw-demo-theme',
     standalone: true,
     imports: [FormsModule,
-    MatIconModule,
     ThemeManagerComponent,
-    MatOptionModule,
     AmwButtonComponent,
     AmwInputComponent,
     AmwSelectComponent,
@@ -28,7 +26,9 @@ import { AmwSliderComponent } from '../../../../library/src/controls/components/
     AmwRadioComponent,
     AmwRadioGroupComponent,
     AmwSwitchComponent,
-    AmwSliderComponent],
+    AmwSliderComponent,
+    AmwCardComponent,
+    AmwIconComponent],
     templateUrl: './theme-demo.component.html',
     styleUrl: './theme-demo.component.scss',
     encapsulation: ViewEncapsulation.None

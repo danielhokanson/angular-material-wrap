@@ -1,7 +1,5 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
 
-import { MatIconModule } from '@angular/material/icon';
-import { MatTooltipModule } from '@angular/material/tooltip';
 import { AmwNotificationService } from '../../../../library/src/services/amw-notification/amw-notification.service';
 import { Subject, takeUntil, BehaviorSubject, Observable, of } from 'rxjs';
 import { delay } from 'rxjs/operators';
@@ -233,16 +231,17 @@ class WorkflowPageDemoDataSource implements WorkflowPageDataSource {
         return of(true).pipe(delay(1000));
     }
 }
-import { AmwTabsComponent } from '../../../../library/src/components/components/amw-tabs/amw-tabs.component';
+import { AmwTabsComponent, AmwTabComponent, AmwCardComponent, AmwIconComponent } from '../../../../library/src/components/components';
 
 @Component({
     selector: 'app-workflow-page-demo',
     standalone: true,
     imports: [
-    MatIconModule,
-    MatTooltipModule,
     AmwWorkflowPageComponent,
     AmwTabsComponent,
+    AmwTabComponent,
+    AmwCardComponent,
+    AmwIconComponent,
 ],
     templateUrl: './workflow-page-demo.component.html',
     styleUrl: './workflow-page-demo.component.scss'
@@ -258,7 +257,7 @@ export class WorkflowPageDemoComponent implements OnInit, OnDestroy {
 
     // State
     currentWorkflowId = 'employee-onboarding';
-    currentView = 'basic';
+    currentViewIndex = 0;
 
     constructor(private notification: AmwNotificationService) { }
 
@@ -296,10 +295,10 @@ export class WorkflowPageDemoComponent implements OnInit, OnDestroy {
         console.log('Workflow reset');
     }
 
-    onViewChange(view: string): void {
-        this.currentView = view;
+    onViewChange(index: number): void {
+        this.currentViewIndex = index;
 
-        if (view === 'advanced') {
+        if (index === 1) {
             this.workflowConfig = {
                 ...this.workflowConfig,
                 showPreviewButton: true,

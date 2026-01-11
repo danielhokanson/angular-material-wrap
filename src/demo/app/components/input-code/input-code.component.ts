@@ -1,21 +1,25 @@
 import { Component, ViewEncapsulation } from '@angular/core';
 import { FormsModule } from '@angular/forms';
-import { MatIconModule } from '@angular/material/icon';
 import { BaseCodeComponent } from '../base/base-code.component';
+import { AmwButtonComponent } from '../../../../library/src/controls/components/amw-button/amw-button.component';
+import { AmwInputComponent } from '../../../../library/src/controls/components/amw-input/amw-input.component';
+import { AmwTextareaComponent } from '../../../../library/src/controls/components/amw-textarea/amw-textarea.component';
+import { AmwAccordionComponent, AmwAccordionPanelComponent, AmwIconComponent } from '../../../../library/src/components/components';
 
 type InputExamples = 'basic' | 'withLabel' | 'withHint' | 'withError' | 'withIcon' | 'disabled' | 'textarea';
-import { MatExpansionModule } from '@angular/material/expansion';
-import { MatFormFieldModule } from '@angular/material/form-field';
 
-import { AmwButtonComponent } from '../../../../library/src/controls/components/amw-button/amw-button.component';
 @Component({
   selector: 'amw-demo-input-code',
   standalone: true,
-  imports: [FormsModule,
-    MatIconModule,
-    MatExpansionModule,
-    MatFormFieldModule,
-    AmwButtonComponent],
+  imports: [
+    FormsModule,
+    AmwButtonComponent,
+    AmwInputComponent,
+    AmwTextareaComponent,
+    AmwAccordionComponent,
+    AmwAccordionPanelComponent,
+    AmwIconComponent
+  ],
   encapsulation: ViewEncapsulation.None,
   templateUrl: './input-code.component.html',
   styleUrl: './input-code.component.scss'

@@ -1,6 +1,5 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
 
-import { MatIconModule } from '@angular/material/icon';
 import { AmwNotificationService } from '../../../../library/src/services/amw-notification/amw-notification.service';
 import { FormBuilder, FormGroup, Validators, ReactiveFormsModule } from '@angular/forms';
 import { Subject, takeUntil } from 'rxjs';
@@ -9,11 +8,11 @@ import { SidenavConfig } from '../../../../library/src/components/components/amw
 import { SidenavItem } from '../../../../library/src/components/components/amw-sidenav/interfaces/sidenav-item.interface';
 import { SidenavService } from '../../../../library/src/components/services/sidenav.service';
 import { AmwSize } from '../../../../library/src/shared/types';
-import { MatOptionModule } from '@angular/material/core';
 import { AmwButtonComponent } from '../../../../library/src/controls/components/amw-button/amw-button.component';
 import { AmwInputComponent } from '../../../../library/src/controls/components/amw-input/amw-input.component';
 import { AmwSelectComponent } from '../../../../library/src/controls/components/amw-select/amw-select.component';
 import { AmwSwitchComponent } from '../../../../library/src/controls/components/amw-switch/amw-switch.component';
+import { AmwCardComponent, AmwIconComponent } from '../../../../library/src/components/components';
 
 /**
  * Validation demo component for sidenav
@@ -23,14 +22,16 @@ import { AmwSwitchComponent } from '../../../../library/src/controls/components/
 @Component({
     selector: 'app-sidenav-validation',
     standalone: true,
-    imports: [MatIconModule,
+    imports: [
     ReactiveFormsModule,
     AmwSidenavComponent,
-    MatOptionModule,
     AmwButtonComponent,
     AmwInputComponent,
     AmwSelectComponent,
-    AmwSwitchComponent],
+    AmwSwitchComponent,
+    AmwCardComponent,
+    AmwIconComponent
+],
     templateUrl: './sidenav-validation.component.html',
     styleUrl: './sidenav-validation.component.scss'
 })

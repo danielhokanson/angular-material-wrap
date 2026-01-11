@@ -1,8 +1,8 @@
 import { Component, ViewEncapsulation } from '@angular/core';
 import { FormsModule } from '@angular/forms';
-import { MatIconModule } from '@angular/material/icon';
 import { MatSortModule } from '@angular/material/sort';
 import { MatPaginatorModule } from '@angular/material/paginator';
+import { MatTableModule } from '@angular/material/table';
 import { BaseCodeComponent } from '../base/base-code.component';
 
 export interface PeriodicElement {
@@ -13,21 +13,22 @@ export interface PeriodicElement {
 }
 
 type DataTableExamples = 'basic' | 'sorting' | 'pagination' | 'selection' | 'actions' | 'filtering';
-import { MatExpansionModule } from '@angular/material/expansion';
-import { MatCheckboxModule } from '@angular/material/checkbox';
 
 import { AmwButtonComponent } from '../../../../library/src/controls/components/amw-button/amw-button.component';
+import { AmwCheckboxComponent } from '../../../../library/src/controls/components/amw-checkbox/amw-checkbox.component';
+import { AmwAccordionComponent, AmwAccordionPanelComponent, AmwIconComponent } from '../../../../library/src/components/components';
 @Component({
   selector: 'amw-demo-data-table-code',
   standalone: true,
   imports: [FormsModule,
-    MatIconModule,
     MatSortModule,
     MatPaginatorModule,
-    MatIconModule,
-    MatExpansionModule,
-    MatCheckboxModule,
-    AmwButtonComponent],
+    MatTableModule,
+    AmwButtonComponent,
+    AmwCheckboxComponent,
+    AmwAccordionComponent,
+    AmwAccordionPanelComponent,
+    AmwIconComponent],
   encapsulation: ViewEncapsulation.None,
   templateUrl: './data-table-code.component.html',
   styleUrl: './data-table-code.component.scss'
@@ -117,14 +118,14 @@ export class DataTableCodeComponent extends BaseCodeComponent<DataTableExamples>
   <!-- Checkbox Column -->
   <ng-container matColumnDef="select">
     <th mat-header-cell *matHeaderCellDef>
-      <mat-checkbox (change)="toggleAll()"
+      <amw-checkbox (change)="toggleAll()"
                     [checked]="isAllSelected()">
-      </mat-checkbox>
+      </amw-checkbox>
     </th>
     <td mat-cell *matCellDef="let row">
-      <mat-checkbox (change)="toggleRow(row)"
+      <amw-checkbox (change)="toggleRow(row)"
                     [checked]="isSelected(row)">
-      </mat-checkbox>
+      </amw-checkbox>
     </td>
   </ng-container>
 

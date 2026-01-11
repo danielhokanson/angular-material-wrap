@@ -1,23 +1,22 @@
 import { Component, ViewEncapsulation } from '@angular/core';
 import { FormsModule } from '@angular/forms';
-import { MatIconModule } from '@angular/material/icon';
 import { CommonModule } from '@angular/common';
 import { BaseCodeComponent } from '../base/base-code.component';
 
 type ThemeExamples = 'colorPalette' | 'cssVariables' | 'componentTheming' | 'darkMode' | 'customTheme';
-import { MatExpansionModule } from '@angular/material/expansion';
-import { MatCardModule } from '@angular/material/card';
 
 import { AmwButtonComponent } from '../../../../library/src/controls/components/amw-button/amw-button.component';
+import { AmwAccordionComponent, AmwAccordionPanelComponent, AmwIconComponent, AmwCardComponent } from '../../../../library/src/components/components';
 @Component({
   selector: 'amw-demo-theme-code',
   standalone: true,
   imports: [CommonModule,
     FormsModule,
-    MatIconModule,
-    MatExpansionModule,
-    MatCardModule,
-    AmwButtonComponent],
+    AmwButtonComponent,
+    AmwAccordionComponent,
+    AmwAccordionPanelComponent,
+    AmwIconComponent,
+    AmwCardComponent],
   encapsulation: ViewEncapsulation.None,
   templateUrl: './theme-code.component.html',
   styleUrl: './theme-code.component.scss'
@@ -39,25 +38,22 @@ export class ThemeCodeComponent extends BaseCodeComponent<ThemeExamples> {
 </div>`,
 
     componentTheming: `<!-- Component-specific theming -->
-<mat-card>
-  <mat-card-header>
-    <mat-card-title>Themed Card</mat-card-title>
-  </mat-card-header>
-  <mat-card-content>
+<amw-card headerTitle="Themed Card">
+  <ng-template #cardContent>
     Content styled with theme colors
-  </mat-card-content>
-  <mat-card-actions>
+  </ng-template>
+  <ng-template #cardActions>
     <amw-button variant="text" color="primary">Action</amw-button>
-  </mat-card-actions>
-</mat-card>`,
+  </ng-template>
+</amw-card>`,
 
     darkMode: `<!-- Dark mode implementation -->
 <div class="dark-theme">
-  <mat-card>
-    <mat-card-content>
+  <amw-card headerTitle="Dark Theme Card">
+    <ng-template #cardContent>
       This content adapts to dark theme
-    </mat-card-content>
-  </mat-card>
+    </ng-template>
+  </amw-card>
 </div>`,
 
     customTheme: `<!-- Custom theme example -->

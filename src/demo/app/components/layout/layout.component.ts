@@ -7,7 +7,8 @@ import { DemoNavigationComponent } from '../demo-navigation/demo-navigation.comp
     selector: 'amw-demo-layout',
     standalone: true,
     imports: [
-    RouterOutlet
+    RouterOutlet,
+    DemoNavigationComponent
 ],
     encapsulation: ViewEncapsulation.None,
     templateUrl: './layout.component.html',

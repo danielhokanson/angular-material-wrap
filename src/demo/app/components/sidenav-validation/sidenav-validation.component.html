@@ -19,34 +19,22 @@
             <amw-select
               label="Mode *"
               formControlName="mode"
+              [options]="modeOptions"
               [required]="true">
-              @for (option of modeOptions; track option) {
-                <mat-option [value]="option.value">
-                  {{ option.label }}
-                </mat-option>
-              }
             </amw-select>
 
             <amw-select
               label="Size *"
               formControlName="size"
+              [options]="sizeOptions"
               [required]="true">
-              @for (option of sizeOptions; track option) {
-                <mat-option [value]="option.value">
-                  {{ option.label }}
-                </mat-option>
-              }
             </amw-select>
 
             <amw-select
               label="Position *"
               formControlName="position"
+              [options]="positionOptions"
               [required]="true">
-              @for (option of positionOptions; track option) {
-                <mat-option [value]="option.value">
-                  {{ option.label }}
-                </mat-option>
-              }
             </amw-select>
           </div>
 
@@ -149,12 +137,8 @@
 
             <amw-select
               label="Badge Color"
-              formControlName="badgeColor">
-              @for (option of badgeColorOptions; track option) {
-                <mat-option [value]="option.value">
-                  {{ option.label }}
-                </mat-option>
-              }
+              formControlName="badgeColor"
+              [options]="badgeColorOptions">
             </amw-select>
 
             <div class="sidenav-validation__checkbox-group">

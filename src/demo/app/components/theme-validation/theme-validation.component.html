@@ -8,7 +8,7 @@
       <amw-card class="validation-card config-panel">
         <ng-template #cardHeader>
           <h2>
-            <mat-icon>palette</mat-icon>
+            <amw-icon name="palette"></amw-icon>
             Theme Configuration
           </h2>
           <p class="subtitle">Customize your Material Design theme</p>
@@ -18,39 +18,42 @@
             <!-- Color Configuration -->
             <div class="config-section">
               <h4>
-                <mat-icon>color_lens</mat-icon>
+                <amw-icon name="color_lens"></amw-icon>
                 Color Palette
               </h4>
 
-              <amw-input
-                class="full-width"
-                label="Primary Color"
-                formControlName="primaryColor"
-                type="color"
-                placeholder="#6750a4">
-              </amw-input>
+              <div class="color-field">
+                <label>Primary Color</label>
+                <amw-color-picker
+                  formControlName="primaryColor"
+                  [showPalette]="true"
+                  [showCustom]="true">
+                </amw-color-picker>
+              </div>
               @if (themeForm.get('primaryColor')?.invalid && themeForm.get('primaryColor')?.touched) {
                 <div class="field-error">{{ getErrorMessage('primaryColor') }}</div>
               }
 
-              <amw-input
-                class="full-width"
-                label="Accent Color"
-                formControlName="accentColor"
-                type="color"
-                placeholder="#625b71">
-              </amw-input>
+              <div class="color-field">
+                <label>Accent Color</label>
+                <amw-color-picker
+                  formControlName="accentColor"
+                  [showPalette]="true"
+                  [showCustom]="true">
+                </amw-color-picker>
+              </div>
               @if (themeForm.get('accentColor')?.invalid && themeForm.get('accentColor')?.touched) {
                 <div class="field-error">{{ getErrorMessage('accentColor') }}</div>
               }
 
-              <amw-input
-                class="full-width"
-                label="Warn Color"
-                formControlName="warnColor"
-                type="color"
-                placeholder="#ba1a1a">
-              </amw-input>
+              <div class="color-field">
+                <label>Warn Color</label>
+                <amw-color-picker
+                  formControlName="warnColor"
+                  [showPalette]="true"
+                  [showCustom]="true">
+                </amw-color-picker>
+              </div>
               @if (themeForm.get('warnColor')?.invalid && themeForm.get('warnColor')?.touched) {
                 <div class="field-error">{{ getErrorMessage('warnColor') }}</div>
               }
@@ -59,17 +62,17 @@
             <!-- Mode Configuration -->
             <div class="config-section">
               <h4>
-                <mat-icon>{{ getModeIcon() }}</mat-icon>
+                <amw-icon [name]="getModeIcon()"></amw-icon>
                 Theme Mode
               </h4>
 
               <amw-radio-group formControlName="mode" class="mode-radio-group">
                 <amw-radio value="light">
-                  <mat-icon>light_mode</mat-icon>
+                  <amw-icon name="light_mode"></amw-icon>
                   Light Mode
                 </amw-radio>
                 <amw-radio value="dark">
-                  <mat-icon>dark_mode</mat-icon>
+                  <amw-icon name="dark_mode"></amw-icon>
                   Dark Mode
                 </amw-radio>
               </amw-radio-group>
@@ -78,38 +81,30 @@
             <!-- Density Configuration -->
             <div class="config-section">
               <h4>
-                <mat-icon>height</mat-icon>
+                <amw-icon name="height"></amw-icon>
                 Component Density
               </h4>
 
               <amw-select
                 class="full-width"
                 label="Density Level"
-                formControlName="density">
-                @for (option of densityOptions; track option.value) {
-                  <mat-option [value]="option.value">
-                    {{ option.name }} - {{ option.description }}
-                  </mat-option>
-                }
+                formControlName="density"
+                [options]="densityOptions">
               </amw-select>
             </div>
 
             <!-- Typography Configuration -->
             <div class="config-section">
               <h4>
-                <mat-icon>text_fields</mat-icon>
+                <amw-icon name="text_fields"></amw-icon>
                 Typography
               </h4>
 
               <amw-select
                 class="full-width"
                 label="Font Family"
-                formControlName="typography">
-                @for (option of typographyOptions; track option.value) {
-                  <mat-option [value]="option.value">
-                    {{ option.name }}
-                  </mat-option>
-                }
+                formControlName="typography"
+                [options]="typographyOptions">
               </amw-select>
             </div>
           </form>
@@ -131,7 +126,7 @@
 
           @if (!isFormValid()) {
             <div class="validation-warning">
-              <mat-icon>warning</mat-icon>
+              <amw-icon name="warning"></amw-icon>
               <span>Please fix validation errors before applying theme</span>
             </div>
           }
@@ -142,7 +137,7 @@
       <amw-card class="validation-card preview-panel" [ngStyle]="getPreviewStyles()">
         <ng-template #cardHeader>
           <h2>
-            <mat-icon>visibility</mat-icon>
+            <amw-icon name="visibility"></amw-icon>
             Preview
           </h2>
           <p class="subtitle">See your theme in action</p>
@@ -212,7 +207,7 @@
             </div>
           } @else {
             <div class="preview-disabled">
-              <mat-icon>visibility_off</mat-icon>
+              <amw-icon name="visibility_off"></amw-icon>
               <p>Preview disabled</p>
               <amw-button variant="text" (click)="togglePreview()">Enable Preview</amw-button>
             </div>

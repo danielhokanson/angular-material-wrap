@@ -1,10 +1,8 @@
 import { Component } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormBuilder, FormGroup, Validators, ReactiveFormsModule, ValidationErrors } from '@angular/forms';
-import { MatIconModule } from '@angular/material/icon';
 import { AmwFormValidationComponent, FormValidationConfig } from 'angular-material-wrap';
-import { MatOptionModule } from '@angular/material/core';
-import { AmwTabsComponent } from '../../../../library/src/components/components/amw-tabs/amw-tabs.component';
+import { AmwTabsComponent, AmwTabComponent, AmwCardComponent, AmwIconComponent } from '../../../../library/src/components/components';
 import { AmwButtonComponent } from '../../../../library/src/controls/components/amw-button/amw-button.component';
 import { AmwInputComponent } from '../../../../library/src/controls/components/amw-input/amw-input.component';
 import { AmwSelectComponent } from '../../../../library/src/controls/components/amw-select/amw-select.component';
@@ -18,21 +16,47 @@ interface Step {
 @Component({
   selector: 'amw-demo-tabs-validation',
   standalone: true,
-  imports: [CommonModule,
+  imports: [
+    CommonModule,
     ReactiveFormsModule,
-    MatIconModule,
     AmwFormValidationComponent,
-    MatOptionModule,
     AmwTabsComponent,
+    AmwTabComponent,
+    AmwCardComponent,
+    AmwIconComponent,
     AmwButtonComponent,
     AmwInputComponent,
-    AmwSelectComponent],
+    AmwSelectComponent,
+],
   templateUrl: './tabs-validation.component.html',
   styleUrl: './tabs-validation.component.scss'
 })
 export class TabsValidationComponent {
   // Multi-step form with tabs
   selectedTabIndex = 0;
+
+  // Select options
+  languageOptions = [
+    { value: 'en', label: 'English' },
+    { value: 'es', label: 'Spanish' },
+    { value: 'fr', label: 'French' },
+    { value: 'de', label: 'German' }
+  ];
+
+  timezoneOptions = [
+    { value: 'UTC', label: 'UTC' },
+    { value: 'EST', label: 'Eastern Time' },
+    { value: 'CST', label: 'Central Time' },
+    { value: 'MST', label: 'Mountain Time' },
+    { value: 'PST', label: 'Pacific Time' }
+  ];
+
+  notificationOptions = [
+    { value: 'email', label: 'Email' },
+    { value: 'sms', label: 'SMS' },
+    { value: 'both', label: 'Both' },
+    { value: 'none', label: 'None' }
+  ];
 
   // Step tracking
   steps: Step[] = [

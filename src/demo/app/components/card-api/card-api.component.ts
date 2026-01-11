@@ -1,16 +1,17 @@
 import { Component, ViewEncapsulation } from '@angular/core';
 
 import { BaseApiComponent, ApiDocumentation } from '../base/base-api.component';
-import { MatTableModule } from '@angular/material/table';
-import { MatCardModule } from '@angular/material/card';
+import { AmwCardComponent, AmwIconComponent, AmwDataTableComponent } from '../../../../library/src/components/components';
+import { DataTableConfig } from '../../../../library/src/components/components/amw-data-table/interfaces/data-table.interface';
 
 @Component({
     selector: 'amw-demo-card-api',
     standalone: true,
     imports: [
-    MatTableModule,
-    MatCardModule
-],
+        AmwCardComponent,
+        AmwIconComponent,
+        AmwDataTableComponent
+    ],
     encapsulation: ViewEncapsulation.None,
     templateUrl: './card-api.component.html',
     styleUrl: './card-api.component.scss'
@@ -54,12 +55,12 @@ export class CardApiComponent extends BaseApiComponent {
                 name: 'CardConfig',
                 description: 'Configuration options for the card',
                 properties: [
-                    { name: 'class', returns: 'string', description: 'CSS class to apply to the card' },
-                    { name: 'style', returns: '{ [key: string]: any }', description: 'Inline styles to apply to the card' },
-                    { name: 'disabled', returns: 'boolean', description: 'Whether the card is disabled' },
-                    { name: 'loading', returns: 'boolean', description: 'Whether the card is in loading state' },
-                    { name: 'clickable', returns: 'boolean', description: 'Whether the card is clickable' },
-                    { name: 'elevation', returns: 'number', description: 'Elevation level for shadow' },
+                    { name: 'class', type: 'string', description: 'CSS class to apply to the card' },
+                    { name: 'style', type: '{ [key: string]: any }', description: 'Inline styles to apply to the card' },
+                    { name: 'disabled', type: 'boolean', description: 'Whether the card is disabled' },
+                    { name: 'loading', type: 'boolean', description: 'Whether the card is in loading state' },
+                    { name: 'clickable', type: 'boolean', description: 'Whether the card is clickable' },
+                    { name: 'elevation', type: 'number', description: 'Elevation level for shadow' },
                     { name: 'variant', type: "'elevated' | 'outlined' | 'filled'", description: 'Visual variant of the card' },
                     { name: 'size', type: "'small' | 'medium' | 'large'", description: 'Size variant of the card' },
                     { name: 'theme', type: "'primary' | 'accent' | 'warn'", description: 'Theme variant of the card' }
@@ -69,33 +70,71 @@ export class CardApiComponent extends BaseApiComponent {
                 name: 'CardVariant',
                 description: 'Visual variant types for the card',
                 properties: [
-                    { name: 'elevated', returns: 'string', description: 'Card with elevation shadow (default)' },
-                    { name: 'outlined', returns: 'string', description: 'Card with outlined border' },
-                    { name: 'filled', returns: 'string', description: 'Card with filled background' }
+                    { name: 'elevated', type: 'string', description: 'Card with elevation shadow (default)' },
+                    { name: 'outlined', type: 'string', description: 'Card with outlined border' },
+                    { name: 'filled', type: 'string', description: 'Card with filled background' }
                 ]
             },
             {
                 name: 'CardSize',
                 description: 'Size variant types for the card',
                 properties: [
-                    { name: 'small', returns: 'string', description: 'Compact card size' },
-                    { name: 'medium', returns: 'string', description: 'Standard card size (default)' },
-                    { name: 'large', returns: 'string', description: 'Large card size' }
+                    { name: 'small', type: 'string', description: 'Compact card size' },
+                    { name: 'medium', type: 'string', description: 'Standard card size (default)' },
+                    { name: 'large', type: 'string', description: 'Large card size' }
                 ]
             },
             {
                 name: 'CardElevation',
                 description: 'Elevation level types for the card shadow',
                 properties: [
-                    { name: '0', returns: 'number', description: 'No elevation' },
-                    { name: '1', returns: 'number', description: 'Low elevation (default)' },
-                    { name: '2', returns: 'number', description: 'Medium elevation' },
-                    { name: '3', returns: 'number', description: 'High elevation' },
-                    { name: '4', returns: 'number', description: 'Very high elevation' },
-                    { name: '5', returns: 'number', description: 'Maximum elevation' }
+                    { name: '0', type: 'number', description: 'No elevation' },
+                    { name: '1', type: 'number', description: 'Low elevation (default)' },
+                    { name: '2', type: 'number', description: 'Medium elevation' },
+                    { name: '3', type: 'number', description: 'High elevation' },
+                    { name: '4', type: 'number', description: 'Very high elevation' },
+                    { name: '5', type: 'number', description: 'Maximum elevation' }
                 ]
             }
         ];
+
+    // Data table configurations
+    inputsTableConfig: DataTableConfig = {
+        columns: [
+            { property: 'name', label: 'Property', sortable: true },
+            { property: 'type', label: 'Type', sortable: true },
+            { property: 'default', label: 'Default', sortable: false },
+            { property: 'description', label: 'Description', sortable: false }
+        ],
+        paginated: false,
+        filterable: false,
+        showHeader: false,
+        showFooter: false
+    };
+
+    outputsTableConfig: DataTableConfig = {
+        columns: [
+            { property: 'name', label: 'Event', sortable: true },
+            { property: 'type', label: 'Type', sortable: true },
+            { property: 'description', label: 'Description', sortable: false }
+        ],
+        paginated: false,
+        filterable: false,
+        showHeader: false,
+        showFooter: false
+    };
+
+    interfaceTableConfig: DataTableConfig = {
+        columns: [
+            { property: 'name', label: 'Property', sortable: true },
+            { property: 'type', label: 'Type', sortable: true },
+            { property: 'description', label: 'Description', sortable: false }
+        ],
+        paginated: false,
+        filterable: false,
+        showHeader: false,
+        showFooter: false
+    };
 
     getDisplayedColumns(section: string): any[] {
         const data = this.apiDocumentation[section as keyof typeof this.apiDocumentation];

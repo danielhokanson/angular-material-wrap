@@ -1,14 +1,12 @@
 import { Component } from '@angular/core';
-import { FormBuilder, FormGroup, Validators, ReactiveFormsModule, FormControl } from '@angular/forms';
-import { MatIconModule } from '@angular/material/icon';
-import { COMMA, ENTER } from '@angular/cdk/keycodes';
-import { MatChipInputEvent } from '@angular/material/chips';
-import { MatChipsModule } from '@angular/material/chips';
-import { MatFormFieldModule } from '@angular/material/form-field';
-import { MatOptionModule } from '@angular/material/core';
+import { FormBuilder, FormGroup, Validators, ReactiveFormsModule } from '@angular/forms';
+import { AmwCardComponent, AmwIconComponent } from '../../../../library/src/components/components';
 import { AmwButtonComponent } from '../../../../library/src/controls/components/amw-button/amw-button.component';
 import { AmwInputComponent } from '../../../../library/src/controls/components/amw-input/amw-input.component';
 import { AmwSelectComponent } from '../../../../library/src/controls/components/amw-select/amw-select.component';
+import { SelectOption } from '../../../../library/src/controls/components/amw-select/interfaces/select-option.interface';
+import { AmwChipsComponent } from '../../../../library/src/controls/components/amw-chips/amw-chips.component';
+import { Chip, ChipEvent } from '../../../../library/src/controls/components/amw-chips/interfaces';
 
 interface Tag {
   name: string;
@@ -22,69 +20,88 @@ interface Skill {
 @Component({
   selector: 'amw-demo-chips-validation',
   standalone: true,
-  imports: [ReactiveFormsModule,
-    MatIconModule,
-    MatChipsModule,
-    MatFormFieldModule,
-    MatOptionModule,
+  imports: [
+    ReactiveFormsModule,
+    AmwCardComponent,
+    AmwIconComponent,
+    AmwChipsComponent,
     AmwButtonComponent,
     AmwInputComponent,
-    AmwSelectComponent],
+    AmwSelectComponent,
+  ],
   templateUrl: './chips-validation.component.html',
   styleUrl: './chips-validation.component.scss'
 })
 export class ChipsValidationComponent {
-  readonly separatorKeysCodes = [ENTER, COMMA] as const;
+  // Form for skills with validation
+  skillForm: FormGroup;
 
-  // Form for tag management
-  tagForm: FormGroup;
+  // Skill level options for select
+  skillLevelOptions: SelectOption[] = [
+    { value: 'beginner', label: 'Beginner' },
+    { value: 'intermediate', label: 'Intermediate' },
+    { value: 'advanced', label: 'Advanced' }
+  ];
+
+  // Tag data
   tags: Tag[] = [
     { name: 'Angular' },
     { name: 'TypeScript' }
   ];
 
-  // Form for skills with validation
-  skillForm: FormGroup;
+  // Chip representation of tags
+  get tagChips(): Chip[] {
+    return this.tags.map((tag, index) => ({
+      id: `tag-${index}`,
+      label: tag.name,
+      removable: true
+    }));
+  }
+
+  // Skills data
   skills: Skill[] = [
     { name: 'JavaScript', level: 'advanced' },
     { name: 'CSS', level: 'intermediate' }
   ];
 
-  // Form for email chips with validation
-  emailForm: FormGroup;
+  // Chip representation of skills
+  get skillChips(): Chip[] {
+    return this.skills.map((skill, index) => ({
+      id: `skill-${index}`,
+      label: `${skill.name} (${skill.level})`,
+      removable: true
+    }));
+  }
+
+  // Email data
   emails: string[] = ['user@example.com'];
 
-  constructor(private fb: FormBuilder) {
-    // Tag form with minimum tags validation
-    this.tagForm = this.fb.group({
-      tagInput: ['']
-    });
+  // Chip representation of emails
+  get emailChips(): Chip[] {
+    return this.emails.map((email, index) => ({
+      id: `email-${index}`,
+      label: email,
+      removable: true
+    }));
+  }
 
+  constructor(private fb: FormBuilder) {
     // Skill form with validation
     this.skillForm = this.fb.group({
       skillName: ['', [Validators.required, Validators.minLength(2)]],
       skillLevel: ['beginner', Validators.required]
     });
-
-    // Email form with email validation
-    this.emailForm = this.fb.group({
-      emailInput: ['', [Validators.email]]
-    });
   }
 
   // Tag management methods
-  addTag(event: MatChipInputEvent): void {
-    const value = (event.value || '').trim();
-
-    if (value && this.tags.length < 10) {
-      this.tags.push({ name: value });
+  onTagAdd(event: ChipEvent): void {
+    if (event.chip && this.tags.length < 10) {
+      this.tags.push({ name: event.chip.label });
     }
-
-    event.chipInput!.clear();
   }
 
-  removeTag(tag: Tag): void {
-    const index = this.tags.indexOf(tag);
+  onTagRemove(event: ChipEvent): void {
+    const index = this.tags.findIndex(t => t.name === event.chip.label);
     if (index >= 0) {
       this.tags.splice(index, 1);
     }
@@ -117,18 +134,15 @@ export class ChipsValidationComponent {
     }
   }
 
-  removeSkill(skill: Skill): void {
-    const index = this.skills.indexOf(skill);
-    if (index >= 0) {
-      this.skills.splice(index, 1);
-    }
-  }
-
-  getSkillColor(level: string): 'primary' | 'accent' | 'warn' {
-    switch (level) {
-      case 'advanced': return 'warn';
-      case 'intermediate': return 'accent';
-      default: return 'primary';
+  onSkillChipRemove(event: ChipEvent): void {
+    // Extract skill name from label (format: "SkillName (level)")
+    const labelMatch = event.chip.label.match(/^(.+)\s+\(/);
+    if (labelMatch) {
+      const skillName = labelMatch[1];
+      const index = this.skills.findIndex(s => s.name === skillName);
+      if (index >= 0) {
+        this.skills.splice(index, 1);
+      }
     }
   }
 
@@ -143,20 +157,15 @@ export class ChipsValidationComponent {
   }
 
   // Email management methods
-  addEmail(event: MatChipInputEvent): void {
-    const value = (event.value || '').trim();
-
-    if (value && this.isValidEmail(value)) {
-      if (!this.emails.includes(value)) {
-        this.emails.push(value);
-      }
-      event.chipInput!.clear();
-      this.emailForm.get('emailInput')?.setValue('');
+  onEmailAdd(event: ChipEvent): void {
+    const email = event.chip.label.trim();
+    if (email && this.isValidEmail(email) && !this.emails.includes(email)) {
+      this.emails.push(email);
     }
   }
 
-  removeEmail(email: string): void {
-    const index = this.emails.indexOf(email);
+  onEmailRemove(event: ChipEvent): void {
+    const index = this.emails.indexOf(event.chip.label);
     if (index >= 0) {
       this.emails.splice(index, 1);
     }
@@ -172,8 +181,6 @@ export class ChipsValidationComponent {
   }
 
   getEmailValidationMessage(): string {
-    const emailControl = this.emailForm.get('emailInput');
-    if (emailControl?.hasError('email')) return 'Invalid email format';
     if (!this.hasMinEmails()) return 'At least 1 email is required';
     return '';
   }

@@ -1,24 +1,26 @@
 import { Component, ViewEncapsulation } from '@angular/core';
 
 import { FormsModule } from '@angular/forms';
-import { MatIconModule } from '@angular/material/icon';
-import { MatButtonToggleModule } from '@angular/material/button-toggle';
 
 import { AmwRangeSliderComponent } from '../../../../library/src/controls/components/amw-range-slider/amw-range-slider.component';
-
+import { AmwIconComponent } from '../../../../library/src/components/components';
 import { AmwButtonComponent } from '../../../../library/src/controls/components/amw-button/amw-button.component';
 import { AmwInputComponent } from '../../../../library/src/controls/components/amw-input/amw-input.component';
 import { AmwCheckboxComponent } from '../../../../library/src/controls/components/amw-checkbox/amw-checkbox.component';
+import { AmwSelectComponent } from '../../../../library/src/controls/components/amw-select/amw-select.component';
+
 @Component({
     selector: 'amw-demo-range-slider',
     standalone: true,
-    imports: [FormsModule,
-    MatIconModule,
-    MatButtonToggleModule,
-    AmwRangeSliderComponent,
-    AmwButtonComponent,
-    AmwInputComponent,
-    AmwCheckboxComponent],
+    imports: [
+        FormsModule,
+        AmwRangeSliderComponent,
+        AmwButtonComponent,
+        AmwInputComponent,
+        AmwCheckboxComponent,
+        AmwIconComponent,
+        AmwSelectComponent,
+    ],
     encapsulation: ViewEncapsulation.None,
     templateUrl: './range-slider-demo.component.html',
     styleUrl: './range-slider-demo.component.scss'

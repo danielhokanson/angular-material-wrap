@@ -35,10 +35,10 @@ export abstract class BaseComponent implements BaseComponentInterface {
         // Empty constructor - no NgControl injection to avoid circular dependency
     }
 
+    @Input()
     get value(): any {
         return this._value;
     }
-
     set value(val: any) {
         if (val !== this._value) {
             this._value = val;

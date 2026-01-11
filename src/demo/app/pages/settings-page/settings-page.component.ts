@@ -1,12 +1,6 @@
 import { Component, OnInit, ViewEncapsulation } from '@angular/core';
 import { FormsModule } from '@angular/forms';
-import { MatIconModule } from '@angular/material/icon';
-
-import { AmwAccordionComponent } from '../../../../library/src/components/components/amw-accordion/amw-accordion.component';
-import { AmwAccordionPanelComponent } from '../../../../library/src/components/components/amw-accordion/amw-accordion-panel.component';
-import { AmwTabsComponent } from '../../../../library/src/components/components/amw-tabs/amw-tabs.component';
-import { AmwDividerComponent } from '../../../../library/src/components/components/amw-divider/amw-divider.component';
-
+import { AmwAccordionComponent, AmwAccordionPanelComponent, AmwTabsComponent, AmwTabComponent, AmwDividerComponent, AmwCardComponent, AmwIconComponent } from '../../../../library/src/components/components';
 import { AmwButtonComponent } from '../../../../library/src/controls/components/amw-button/amw-button.component';
 import { AmwInputComponent } from '../../../../library/src/controls/components/amw-input/amw-input.component';
 import { AmwSelectComponent } from '../../../../library/src/controls/components/amw-select/amw-select.component';
@@ -15,16 +9,21 @@ import { AmwSwitchComponent } from '../../../../library/src/controls/components/
 @Component({
   selector: 'amw-settings-page',
   standalone: true,
-  imports: [MatIconModule,
+  imports: [
     FormsModule,
-    AmwAccordionComponent, AmwAccordionPanelComponent,
+    AmwAccordionComponent,
+    AmwAccordionPanelComponent,
     AmwTabsComponent,
+    AmwTabComponent,
     AmwDividerComponent,
+    AmwCardComponent,
+    AmwIconComponent,
     AmwButtonComponent,
     AmwInputComponent,
     AmwSelectComponent,
     AmwSliderComponent,
-    AmwSwitchComponent],
+    AmwSwitchComponent,
+],
   encapsulation: ViewEncapsulation.None,
   templateUrl: './settings-page.component.html',
   styleUrl: './settings-page.component.scss'

@@ -1,12 +1,14 @@
 import { Component, signal } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormBuilder, FormGroup, Validators, ReactiveFormsModule } from '@angular/forms';
-import { MatIconModule } from '@angular/material/icon';
-import { MatOptionModule } from '@angular/material/core';
-import { AmwRadioComponent } from '@angular/material/radio';
 import { AmwButtonComponent } from '../../../../library/src/controls/components/amw-button/amw-button.component';
 import { AmwInputComponent } from '../../../../library/src/controls/components/amw-input/amw-input.component';
 import { AmwSelectComponent } from '../../../../library/src/controls/components/amw-select/amw-select.component';
+import { AmwCardComponent } from '../../../../library/src/components/components/amw-card/amw-card.component';
+import { AmwRadioGroupComponent } from '../../../../library/src/controls/components/amw-radio-group/amw-radio-group.component';
+import { AmwRadioComponent } from '../../../../library/src/controls/components/amw-radio/amw-radio.component';
+import { AmwColorPickerComponent } from '../../../../library/src/controls/components/amw-color-picker/amw-color-picker.component';
+import { AmwIconComponent } from '../../../../library/src/components/components/amw-icon/amw-icon.component';
 
 interface ThemeConfig {
   primaryColor: string;
@@ -20,14 +22,18 @@ interface ThemeConfig {
 @Component({
   selector: 'amw-demo-theme-validation',
   standalone: true,
-  imports: [CommonModule,
+  imports: [
+    CommonModule,
     ReactiveFormsModule,
-    MatIconModule,
-    MatOptionModule,
-    AmwRadioComponent,
     AmwButtonComponent,
     AmwInputComponent,
-    AmwSelectComponent],
+    AmwSelectComponent,
+    AmwCardComponent,
+    AmwRadioGroupComponent,
+    AmwRadioComponent,
+    AmwColorPickerComponent,
+    AmwIconComponent,
+  ],
   templateUrl: './theme-validation.component.html',
   styleUrl: './theme-validation.component.scss'
 })
@@ -60,16 +66,16 @@ export class ThemeValidationComponent {
 
   // Typography options
   typographyOptions = [
-    { name: 'Roboto', value: 'roboto' },
-    { name: 'Montserrat', value: 'montserrat' },
-    { name: 'Open Sans', value: 'open-sans' }
+    { value: 'roboto', label: 'Roboto' },
+    { value: 'montserrat', label: 'Montserrat' },
+    { value: 'open-sans', label: 'Open Sans' }
   ];
 
   // Density options
   densityOptions = [
-    { name: 'Default', value: 'default', description: 'Standard spacing' },
-    { name: 'Comfortable', value: 'comfortable', description: 'More space' },
-    { name: 'Compact', value: 'compact', description: 'Less space' }
+    { value: 'default', label: 'Default - Standard spacing' },
+    { value: 'comfortable', label: 'Comfortable - More space' },
+    { value: 'compact', label: 'Compact - Less space' }
   ];
 
   constructor(private fb: FormBuilder) {

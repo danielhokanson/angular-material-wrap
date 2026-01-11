@@ -1,16 +1,20 @@
 import { Component, ViewEncapsulation } from '@angular/core';
 
-import { MatIconModule } from '@angular/material/icon';
 import { AmwNotificationService } from '../../../../library/src/services/amw-notification/amw-notification.service';
 import { DialogService } from '../../../../library/src/components/services/dialog.service';
 import { DialogType, DialogSize, DialogPosition } from '../../../../library/src/components/components/amw-dialog/interfaces';
 
 import { AmwButtonComponent } from '../../../../library/src/controls/components/amw-button/amw-button.component';
+import { AmwCardComponent, AmwIconComponent } from '../../../../library/src/components/components';
+
 @Component({
     selector: 'amw-demo-dialog',
     standalone: true,
-    imports: [MatIconModule,
-    AmwButtonComponent],
+    imports: [
+    AmwButtonComponent,
+    AmwCardComponent,
+    AmwIconComponent
+],
     encapsulation: ViewEncapsulation.None,
     templateUrl: './dialog-demo.component.html',
     styleUrl: './dialog-demo.component.scss'

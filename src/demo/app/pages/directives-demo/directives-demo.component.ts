@@ -1,7 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 
 import { ActivatedRoute } from '@angular/router';
-import { MatIconModule } from '@angular/material/icon';
 import { AmwNotificationService } from '../../../../library/src/services/amw-notification/amw-notification.service';
 import { FormsModule } from '@angular/forms';
 import { ViewEncapsulation } from '@angular/core';
@@ -9,21 +8,26 @@ import { AmwTooltipDirective } from '../../../../library/src/directives/amw-tool
 import { AmwClickOutsideDirective } from '../../../../library/src/directives/amw-click-outside/amw-click-outside.directive';
 import { AmwAutoFocusDirective } from '../../../../library/src/directives/amw-auto-focus/amw-auto-focus.directive';
 import { AmwCopyToClipboardDirective } from '../../../../library/src/directives/amw-copy-to-clipboard/amw-copy-to-clipboard.directive';
-import { AmwTabsComponent } from '../../../../library/src/components/components/amw-tabs/amw-tabs.component';
+import { AmwTabsComponent, AmwTabComponent, AmwCardComponent, AmwIconComponent } from '../../../../library/src/components/components';
 import { AmwButtonComponent } from '../../../../library/src/controls/components/amw-button/amw-button.component';
 import { AmwInputComponent } from '../../../../library/src/controls/components/amw-input/amw-input.component';
+
 @Component({
     selector: 'amw-demo-directives',
     standalone: true,
-    imports: [MatIconModule,
+    imports: [
     FormsModule,
     AmwTooltipDirective,
     AmwClickOutsideDirective,
     AmwAutoFocusDirective,
     AmwCopyToClipboardDirective,
     AmwTabsComponent,
+    AmwTabComponent,
+    AmwCardComponent,
+    AmwIconComponent,
     AmwButtonComponent,
-    AmwInputComponent],
+    AmwInputComponent,
+],
     encapsulation: ViewEncapsulation.None,
     templateUrl: './directives-demo.component.html',
     styleUrl: './directives-demo.component.scss'

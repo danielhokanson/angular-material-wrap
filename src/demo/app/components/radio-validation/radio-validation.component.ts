@@ -4,7 +4,6 @@ import { ReactiveFormsModule, FormBuilder, FormGroup, Validators } from '@angula
 import { AmwNotificationService } from '../../../../library/src/services/amw-notification/amw-notification.service';
 import { AmwRadioComponent } from '../../../../library/src/controls/components/amw-radio/amw-radio.component';
 import { AmwButtonComponent } from '../../../../library/src/controls/components/amw-button/amw-button.component';
-import { AmwRadioComponent } from '@angular/material/radio';
 
 @Component({
   selector: 'amw-demo-radio-validation',
@@ -13,10 +12,7 @@ import { AmwRadioComponent } from '@angular/material/radio';
     ReactiveFormsModule,
     AmwRadioComponent,
     AmwButtonComponent,
-    AmwRadioComponent,
-    AmwButtonComponent,
-    AmwRadioComponent
-],
+  ],
   encapsulation: ViewEncapsulation.None,
   templateUrl: './radio-validation.component.html',
   styleUrl: './radio-validation.component.scss'

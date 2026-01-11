@@ -1,26 +1,29 @@
 import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule, ReactiveFormsModule, FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { MatIconModule } from '@angular/material/icon';
 import { AmwRadioGroupComponent } from '../../../../library/src/controls/components/amw-radio-group/amw-radio-group.component';
 import { RadioGroupOption } from '../../../../library/src/controls/components/amw-radio-group/interfaces/radio-group.interface';
+import { AmwDividerComponent } from '../../../../library/src/components/components/amw-divider/amw-divider.component';
+import { AmwButtonComponent } from '../../../../library/src/controls/components/amw-button/amw-button.component';
+import { AmwCardComponent, AmwIconComponent } from '../../../../library/src/components/components';
 
 /**
  * Radio Group Validation Demo Component
  * Demonstrates validation scenarios for the AMW Radio Group component
- */import { AmwDividerComponent } from '../../../../library/src/components/components/amw-divider/amw-divider.component';
-
-import { AmwButtonComponent } from '../../../../library/src/controls/components/amw-button/amw-button.component';
+ */
 @Component({
     selector: 'app-radio-group-validation',
     standalone: true,
-    imports: [CommonModule,
+    imports: [
+    CommonModule,
     FormsModule,
     ReactiveFormsModule,
-    MatIconModule,
     AmwRadioGroupComponent,
     AmwDividerComponent,
-    AmwButtonComponent],
+    AmwButtonComponent,
+    AmwCardComponent,
+    AmwIconComponent
+],
     templateUrl: './radio-group-validation.component.html',
     styleUrl: './radio-group-validation.component.scss'
 })

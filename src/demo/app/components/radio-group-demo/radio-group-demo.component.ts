@@ -1,16 +1,16 @@
 import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule, ReactiveFormsModule, FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { MatIconModule } from '@angular/material/icon';
 import { AmwRadioGroupComponent } from '../../../../library/src/controls/components/amw-radio-group/amw-radio-group.component';
 import { RadioGroupOption, RadioGroupConfig } from '../../../../library/src/controls/components/amw-radio-group/interfaces/radio-group.interface';
 import { AmwSize } from '../../../../library/src/shared/types/amw-size.type';
-import { MatOptionModule } from '@angular/material/core';
 import { AmwDividerComponent } from '../../../../library/src/components/components/amw-divider/amw-divider.component';
 import { AmwButtonComponent } from '../../../../library/src/controls/components/amw-button/amw-button.component';
 import { AmwInputComponent } from '../../../../library/src/controls/components/amw-input/amw-input.component';
 import { AmwSelectComponent } from '../../../../library/src/controls/components/amw-select/amw-select.component';
 import { AmwSwitchComponent } from '../../../../library/src/controls/components/amw-switch/amw-switch.component';
+import { AmwCardComponent } from '../../../../library/src/components/components/amw-card/amw-card.component';
+import { AmwIconComponent } from '../../../../library/src/components/components';
 
 /**
  * Radio Group Demo Component
@@ -22,14 +22,14 @@ import { AmwSwitchComponent } from '../../../../library/src/controls/components/
     imports: [CommonModule,
     FormsModule,
     ReactiveFormsModule,
-    MatIconModule,
     AmwRadioGroupComponent,
-    MatOptionModule,
     AmwDividerComponent,
     AmwButtonComponent,
     AmwInputComponent,
     AmwSelectComponent,
-    AmwSwitchComponent],
+    AmwSwitchComponent,
+    AmwCardComponent,
+    AmwIconComponent],
     templateUrl: './radio-group-demo.component.html',
     styleUrl: './radio-group-demo.component.scss'
 })

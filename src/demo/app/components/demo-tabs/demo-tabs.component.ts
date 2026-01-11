@@ -1,19 +1,19 @@
 import { Component, Input, Output, EventEmitter, ViewEncapsulation } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { MatIconModule } from '@angular/material/icon';
 import { DemoTab } from './interfaces/demo-tab.interface';
+import { AmwTabsComponent, AmwTabComponent, AmwIconComponent } from '../../../../library/src/components/components';
 
 // Re-export for convenience
 export type { DemoTab } from './interfaces/demo-tab.interface';
-import { AmwTabsComponent } from '../../../../library/src/components/components/amw-tabs/amw-tabs.component';
 
 @Component({
     selector: 'amw-demo-tabs',
     standalone: true,
     imports: [
     CommonModule,
-    MatIconModule,
-    AmwTabsComponent
+    AmwTabsComponent,
+    AmwTabComponent,
+    AmwIconComponent
 ],
     encapsulation: ViewEncapsulation.None,
     templateUrl: './demo-tabs.component.html',

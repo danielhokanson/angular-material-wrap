@@ -1,22 +1,23 @@
 import { Component } from '@angular/core';
 import { FormBuilder, FormGroup, Validators, ReactiveFormsModule, ValidationErrors } from '@angular/forms';
 import { MatNativeDateModule } from '@angular/material/core';
-import { MatIconModule } from '@angular/material/icon';
 import { AmwFormValidationComponent, FormValidationConfig } from 'angular-material-wrap';
 import { AmwButtonComponent } from '../../../../library/src/controls/components/amw-button/amw-button.component';
 import { AmwInputComponent } from '../../../../library/src/controls/components/amw-input/amw-input.component';
 import { AmwDatepickerComponent } from '../../../../library/src/controls/components/amw-datepicker/amw-datepicker.component';
+import { AmwCardComponent, AmwIconComponent } from '../../../../library/src/components/components';
 
 @Component({
   selector: 'amw-demo-calendar-validation',
   standalone: true,
   imports: [ReactiveFormsModule,
     MatNativeDateModule,
-    MatIconModule,
     AmwFormValidationComponent,
     AmwButtonComponent,
     AmwInputComponent,
-    AmwDatepickerComponent],
+    AmwDatepickerComponent,
+    AmwCardComponent,
+    AmwIconComponent],
   templateUrl: './calendar-validation.component.html',
   styleUrl: './calendar-validation.component.scss'
 })

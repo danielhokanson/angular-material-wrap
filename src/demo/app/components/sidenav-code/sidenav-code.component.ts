@@ -1,23 +1,23 @@
 import { Component, ViewEncapsulation } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { MatSidenavModule } from '@angular/material/sidenav';
-import { MatIconModule } from '@angular/material/icon';
 import { MatListModule } from '@angular/material/list';
 import { BaseCodeComponent } from '../base/base-code.component';
 
 type SidenavExamples = 'basic' | 'overlay' | 'push' | 'fixed';
-import { MatExpansionModule } from '@angular/material/expansion';
 
 import { AmwButtonComponent } from '../../../../library/src/controls/components/amw-button/amw-button.component';
+import { AmwAccordionComponent, AmwAccordionPanelComponent, AmwIconComponent } from '../../../../library/src/components/components';
 @Component({
     selector: 'app-sidenav-code',
     standalone: true,
     imports: [FormsModule,
     MatSidenavModule,
-    MatIconModule,
     MatListModule,
-    MatExpansionModule,
-    AmwButtonComponent],
+    AmwButtonComponent,
+    AmwAccordionComponent,
+    AmwAccordionPanelComponent,
+    AmwIconComponent],
     encapsulation: ViewEncapsulation.None,
     templateUrl: './sidenav-code.component.html',
     styleUrl: './sidenav-code.component.scss'

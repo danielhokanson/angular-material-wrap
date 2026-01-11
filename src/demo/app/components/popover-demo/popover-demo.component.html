@@ -24,27 +24,9 @@
       <ng-template #cardContent>
         <form [formGroup]="configForm" class="popover-demo__form">
           <div class="popover-demo__form-row">
-            <amw-select label="Size" formControlName="size">
-              @for (option of sizeOptions; track option) {
-                <mat-option [value]="option.value">
-                  {{ option.label }}
-                </mat-option>
-              }
-            </amw-select>
-            <amw-select label="Position" formControlName="position">
-              @for (option of positionOptions; track option) {
-                <mat-option [value]="option.value">
-                  {{ option.label }}
-                </mat-option>
-              }
-            </amw-select>
-            <amw-select label="Arrow Size" formControlName="arrowSize">
-              @for (option of arrowSizeOptions; track option) {
-                <mat-option [value]="option.value">
-                  {{ option.label }}
-                </mat-option>
-              }
-            </amw-select>
+            <amw-select label="Size" formControlName="size" [options]="sizeOptions"></amw-select>
+            <amw-select label="Position" formControlName="position" [options]="positionOptions"></amw-select>
+            <amw-select label="Arrow Size" formControlName="arrowSize" [options]="arrowSizeOptions"></amw-select>
           </div>
           <div class="popover-demo__form-row">
             <amw-input
@@ -119,13 +101,7 @@
             </amw-input>
           </div>
           <div class="popover-demo__form-row">
-            <amw-select label="Animation Easing" formControlName="animationEasing">
-              @for (option of animationEasingOptions; track option) {
-                <mat-option [value]="option.value">
-                  {{ option.label }}
-                </mat-option>
-              }
-            </amw-select>
+            <amw-select label="Animation Easing" formControlName="animationEasing" [options]="animationEasingOptions"></amw-select>
           </div>
           <div class="popover-demo__form-row">
             <amw-switch formControlName="showArrow">
@@ -204,7 +180,7 @@
 
     <div class="popover-demo__variation-grid">
       @for (variation of popoverVariations; track variation; let i = $index) {
-        <mat-card
+        <amw-card
           class="popover-demo__variation-card"
           [class.popover-demo__variation-card--selected]="selectedVariation === variation"
           (click)="loadVariation(variation)">
@@ -216,7 +192,7 @@
             <div class="popover-demo__variation-preview">
               <div class="popover-demo__preview-popover">
                 <div class="popover-demo__preview-trigger">
-                  <mat-icon>info</mat-icon>
+                  <amw-icon name="info"></amw-icon>
                   <span>Trigger</span>
                 </div>
                 <div class="popover-demo__preview-content">
@@ -228,7 +204,7 @@
                       <div class="popover-demo__preview-header">
                         <span>Header</span>
                         @if (variation.config.showClose) {
-                          <mat-icon>close</mat-icon>
+                          <amw-icon name="close"></amw-icon>
                         }
                       </div>
                     }

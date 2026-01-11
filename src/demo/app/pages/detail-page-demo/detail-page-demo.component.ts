@@ -1,7 +1,5 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
 
-import { MatIconModule } from '@angular/material/icon';
-import { MatTooltipModule } from '@angular/material/tooltip';
 import { AmwNotificationService } from '../../../../library/src/services/amw-notification/amw-notification.service';
 import { Subject, takeUntil, BehaviorSubject, Observable, of } from 'rxjs';
 import { delay } from 'rxjs/operators';
@@ -341,16 +339,17 @@ class DetailPageDemoDataSource implements DetailPageDataSource {
         ];
     }
 }
-import { AmwTabsComponent } from '../../../../library/src/components/components/amw-tabs/amw-tabs.component';
+import { AmwTabsComponent, AmwTabComponent, AmwCardComponent, AmwIconComponent } from '../../../../library/src/components/components';
 
 @Component({
     selector: 'app-detail-page-demo',
     standalone: true,
     imports: [
-    MatIconModule,
-    MatTooltipModule,
     AmwDetailPageComponent,
     AmwTabsComponent,
+    AmwTabComponent,
+    AmwCardComponent,
+    AmwIconComponent,
 ],
     templateUrl: './detail-page-demo.component.html',
     styleUrl: './detail-page-demo.component.scss'
@@ -395,7 +394,7 @@ export class DetailPageDemoComponent implements OnInit, OnDestroy {
 
     // State
     currentItemId = '1';
-    currentView = 'basic';
+    currentViewIndex = 0;
 
     constructor(private notification: AmwNotificationService) { }
 
@@ -427,10 +426,10 @@ export class DetailPageDemoComponent implements OnInit, OnDestroy {
         console.log('Back clicked');
     }
 
-    onViewChange(view: string): void {
-        this.currentView = view;
+    onViewChange(index: number): void {
+        this.currentViewIndex = index;
 
-        if (view === 'advanced') {
+        if (index === 1) {
             this.detailConfig = {
                 ...this.detailConfig,
                 showPrintButton: true,

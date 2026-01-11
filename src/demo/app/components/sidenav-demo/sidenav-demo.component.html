@@ -24,27 +24,9 @@
       <ng-template #cardContent>
         <form [formGroup]="configForm" class="sidenav-demo__form">
           <div class="sidenav-demo__form-row">
-            <amw-select label="Mode" formControlName="mode">
-              @for (option of modeOptions; track option) {
-                <mat-option [value]="option.value">
-                  {{ option.label }}
-                </mat-option>
-              }
-            </amw-select>
-            <amw-select label="Size" formControlName="size">
-              @for (option of sizeOptions; track option) {
-                <mat-option [value]="option.value">
-                  {{ option.label }}
-                </mat-option>
-              }
-            </amw-select>
-            <amw-select label="Position" formControlName="position">
-              @for (option of positionOptions; track option) {
-                <mat-option [value]="option.value">
-                  {{ option.label }}
-                </mat-option>
-              }
-            </amw-select>
+            <amw-select label="Mode" formControlName="mode" [options]="modeOptions"></amw-select>
+            <amw-select label="Size" formControlName="size" [options]="sizeOptions"></amw-select>
+            <amw-select label="Position" formControlName="position" [options]="positionOptions"></amw-select>
           </div>
           <div class="sidenav-demo__form-row">
             <amw-input
@@ -112,7 +94,7 @@
 
     <div class="sidenav-demo__variation-grid">
       @for (variation of sidenavVariations; track variation; let i = $index) {
-        <mat-card
+        <amw-card
           class="sidenav-demo__variation-card"
           [class.sidenav-demo__variation-card--selected]="selectedVariation === variation"
           (click)="loadVariation(variation)">
@@ -124,7 +106,7 @@
             <div class="sidenav-demo__variation-preview">
               <div class="sidenav-demo__preview-sidenav">
                 <div class="sidenav-demo__preview-header">
-                  <mat-icon>menu</mat-icon>
+                  <amw-icon name="menu"></amw-icon>
                   <span>Menu</span>
                 </div>
                 <div class="sidenav-demo__preview-items">
@@ -132,7 +114,7 @@
                     <div
                       class="sidenav-demo__preview-item">
                       @if (item.icon) {
-                        <mat-icon>{{ item.icon }}</mat-icon>
+                        <amw-icon [name]="item.icon"></amw-icon>
                       }
                       <span>{{ item.label }}</span>
                     </div>

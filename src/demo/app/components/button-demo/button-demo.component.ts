@@ -1,20 +1,20 @@
 import { Component, ViewEncapsulation, OnInit } from '@angular/core';
 
-import { MatIconModule } from '@angular/material/icon';
 import { ReactiveFormsModule, FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { AmwNotificationService } from '../../../../library/src/services/amw-notification/amw-notification.service';
 
 import { AmwButtonComponent } from '../../../../library/src/controls/components/amw-button/amw-button.component';
 import { ButtonVariant } from '../../../../library/src/controls/components/amw-button/interfaces/button.interface';
 import { AmwSize, AmwColor } from '../../../../library/src/shared/types';
+import { AmwIconComponent } from '../../../../library/src/components/components';
 
 @Component({
     selector: 'amw-demo-button',
     standalone: true,
     imports: [
     ReactiveFormsModule,
-    MatIconModule,
-    AmwButtonComponent
+    AmwButtonComponent,
+    AmwIconComponent
 ],
     encapsulation: ViewEncapsulation.None,
     templateUrl: './button-demo.component.html',

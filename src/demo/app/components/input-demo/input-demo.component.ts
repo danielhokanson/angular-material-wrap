@@ -1,11 +1,5 @@
 import { Component, ViewEncapsulation, OnInit } from '@angular/core';
 
-import { MatIconModule } from '@angular/material/icon';
-import { MatSidenavModule } from '@angular/material/sidenav';
-import { MatListModule } from '@angular/material/list';
-import { MatTooltipModule } from '@angular/material/tooltip';
-import { MatRippleModule } from '@angular/material/core';
-import { MatOptionModule } from '@angular/material/core';
 import { AmwNotificationService } from '../../../../library/src/services/amw-notification/amw-notification.service';
 import { ReactiveFormsModule, FormBuilder, FormGroup, Validators } from '@angular/forms';
 
@@ -14,6 +8,7 @@ import { AmwButtonComponent } from '../../../../library/src/controls/components/
 import { InputType } from '../../../../library/src/controls/components/amw-input/interfaces/input-type.type';
 import { InputAppearance } from '../../../../library/src/controls/components/amw-input/interfaces/input-appearance.type';
 import { AmwSize } from '../../../../library/src/shared/types';
+import { AmwIconComponent } from '../../../../library/src/components/components';
 
 @Component({
     selector: 'amw-demo-input',
@@ -21,14 +16,8 @@ import { AmwSize } from '../../../../library/src/shared/types';
     imports: [
     ReactiveFormsModule,
     AmwButtonComponent,
-    MatIconModule,
     AmwInputComponent,
-    MatSidenavModule,
-    MatListModule,
-    MatTooltipModule,
-    MatRippleModule,
-    MatOptionModule,
-    AmwInputComponent
+    AmwIconComponent
 ],
     encapsulation: ViewEncapsulation.None,
     templateUrl: './input-demo.component.html',

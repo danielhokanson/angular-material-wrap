@@ -1,16 +1,15 @@
 import { Component, ViewEncapsulation } from '@angular/core';
 
-import { MatIconModule } from '@angular/material/icon';
-
 import { AmwSliderComponent } from '../../../../library/src/controls/components/amw-slider/amw-slider.component';
+import { AmwIconComponent } from '../../../../library/src/components/components';
 // Note: SliderSize type doesn't exist, using string for now
 
 @Component({
     selector: 'amw-demo-slider',
     standalone: true,
     imports: [
-    MatIconModule,
-    AmwSliderComponent
+    AmwSliderComponent,
+    AmwIconComponent
 ],
     encapsulation: ViewEncapsulation.None,
     templateUrl: './slider-demo.component.html',

@@ -1,23 +1,26 @@
 import { Component, ViewEncapsulation, OnInit } from '@angular/core';
 import { FormsModule, ReactiveFormsModule, FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { MatIconModule } from '@angular/material/icon';
 import { CommonModule } from '@angular/common';
 import { BaseCodeComponent } from '../base/base-code.component';
 import { AmwDatepickerComponent } from '../../../../library/src/controls/components/amw-datepicker/amw-datepicker.component';
+import { AmwButtonComponent } from '../../../../library/src/controls/components/amw-button/amw-button.component';
+import { AmwAccordionComponent, AmwAccordionPanelComponent, AmwIconComponent } from '../../../../library/src/components/components';
 
 type DatepickerExamples = 'basic' | 'withMinMax' | 'withValidation' | 'differentFormats' | 'disabled' | 'reactiveForm' | 'withEvents' | 'bookingForm';
-import { MatExpansionModule } from '@angular/material/expansion';
 
 @Component({
   selector: 'amw-demo-datepicker-code',
   standalone: true,
-  imports: [CommonModule,
+  imports: [
+    CommonModule,
     FormsModule,
     ReactiveFormsModule,
-    MatIconModule,
     AmwDatepickerComponent,
-    MatExpansionModule,
-    AmwButtonComponent],
+    AmwButtonComponent,
+    AmwAccordionComponent,
+    AmwAccordionPanelComponent,
+    AmwIconComponent
+  ],
   encapsulation: ViewEncapsulation.None,
   templateUrl: './datepicker-code.component.html',
   styleUrl: './datepicker-code.component.scss'

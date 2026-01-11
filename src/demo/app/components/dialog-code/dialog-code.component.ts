@@ -1,21 +1,21 @@
 import { Component, ViewEncapsulation } from '@angular/core';
 import { FormsModule } from '@angular/forms';
-import { MatIconModule } from '@angular/material/icon';
 import { MatDialog, MatDialogModule } from '@angular/material/dialog';
 import { BaseCodeComponent } from '../base/base-code.component';
 
 type DialogExamples = 'basic' | 'confirmation' | 'alert' | 'customActions';
-import { MatExpansionModule } from '@angular/material/expansion';
 
 import { AmwButtonComponent } from '../../../../library/src/controls/components/amw-button/amw-button.component';
+import { AmwAccordionComponent, AmwAccordionPanelComponent, AmwIconComponent } from '../../../../library/src/components/components';
 @Component({
     selector: 'amw-demo-dialog-code',
     standalone: true,
     imports: [FormsModule,
     MatDialogModule,
-    MatIconModule,
-    MatExpansionModule,
-    AmwButtonComponent],
+    AmwButtonComponent,
+    AmwAccordionComponent,
+    AmwAccordionPanelComponent,
+    AmwIconComponent],
     encapsulation: ViewEncapsulation.None,
     templateUrl: './dialog-code.component.html',
     styleUrl: './dialog-code.component.scss'
@@ -82,16 +82,15 @@ export class DialogCodeComponent extends BaseCodeComponent<DialogExamples> {
     }
 }
 
-// Simple Dialog Componentimport { MatExpansionModule } from '@angular/material/expansion';
-
+// Simple Dialog Component
 @Component({
     selector: 'simple-dialog',
     standalone: true,
     imports: [
     FormsModule,
     MatDialogModule,
-    MatIconModule,
-    MatExpansionModule
+    AmwButtonComponent,
+    AmwIconComponent
 ],
     template: `
         <h2 mat-dialog-title>Simple Dialog</h2>
@@ -106,16 +105,15 @@ export class DialogCodeComponent extends BaseCodeComponent<DialogExamples> {
 })
 export class SimpleDialogComponent {}
 
-// Confirm Dialog Componentimport { MatExpansionModule } from '@angular/material/expansion';
-
+// Confirm Dialog Component
 @Component({
     selector: 'confirm-dialog',
     standalone: true,
     imports: [
     FormsModule,
     MatDialogModule,
-    MatIconModule,
-    MatExpansionModule
+    AmwButtonComponent,
+    AmwIconComponent
 ],
     template: `
         <h2 mat-dialog-title>Confirm Delete</h2>
@@ -130,20 +128,19 @@ export class SimpleDialogComponent {}
 })
 export class ConfirmDialogComponent {}
 
-// Alert Dialog Componentimport { MatExpansionModule } from '@angular/material/expansion';
-
+// Alert Dialog Component
 @Component({
     selector: 'alert-dialog',
     standalone: true,
     imports: [
     FormsModule,
     MatDialogModule,
-    MatIconModule,
-    MatExpansionModule
+    AmwButtonComponent,
+    AmwIconComponent
 ],
     template: `
         <h2 mat-dialog-title>
-            <mat-icon color="warn">warning</mat-icon>
+            <amw-icon name="warning" color="warn"></amw-icon>
             Alert
         </h2>
         <mat-dialog-content>
@@ -156,16 +153,15 @@ export class ConfirmDialogComponent {}
 })
 export class AlertDialogComponent {}
 
-// Form Dialog Componentimport { MatExpansionModule } from '@angular/material/expansion';
-
+// Form Dialog Component
 @Component({
     selector: 'form-dialog',
     standalone: true,
     imports: [
     FormsModule,
     MatDialogModule,
-    MatIconModule,
-    MatExpansionModule
+    AmwButtonComponent,
+    AmwIconComponent
 ],
     template: `
         <h2 mat-dialog-title>Form Dialog</h2>

@@ -7,7 +7,7 @@
   <div class="report-page-demo__controls">
     <amw-card class="report-page-demo__controls-card">
       <ng-template #cardContent>
-        <amw-tabs [(selectedIndex)]="currentView" (selectedIndexChange)="onViewChange($event === 0 ? 'basic' : 'advanced')">
+        <amw-tabs [(selectedIndex)]="currentViewIndex" (selectedIndexChange)="onViewChange($event)">
           <amw-tab label="Basic View">
             <div class="report-page-demo__tab-content">
               <p>Basic report view with essential widgets and metrics.</p>

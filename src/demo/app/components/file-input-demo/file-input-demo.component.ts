@@ -1,20 +1,22 @@
 import { Component, ViewEncapsulation } from '@angular/core';
 
 import { FormsModule } from '@angular/forms';
-import { MatIconModule } from '@angular/material/icon';
-import { MatButtonToggleModule } from '@angular/material/button-toggle';
 
 import { AmwFileInputComponent } from '../../../../library/src/controls/components/amw-file-input/amw-file-input.component';
-
+import { AmwIconComponent } from '../../../../library/src/components/components';
 import { AmwButtonComponent } from '../../../../library/src/controls/components/amw-button/amw-button.component';
+import { AmwCheckboxComponent } from '../../../../library/src/controls/components/amw-checkbox/amw-checkbox.component';
+
 @Component({
     selector: 'amw-demo-file-input',
     standalone: true,
-    imports: [FormsModule,
-    MatIconModule,
-    MatButtonToggleModule,
-    AmwFileInputComponent,
-    AmwButtonComponent],
+    imports: [
+        FormsModule,
+        AmwFileInputComponent,
+        AmwButtonComponent,
+        AmwIconComponent,
+        AmwCheckboxComponent,
+    ],
     encapsulation: ViewEncapsulation.None,
     templateUrl: './file-input-demo.component.html',
     styleUrl: './file-input-demo.component.scss'

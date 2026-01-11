@@ -2,16 +2,13 @@
   <h3>Code Examples</h3>
   <p>Interactive examples with live previews. The code is editable for reference, and working examples are shown alongside.</p>
 
-  <mat-accordion class="code-examples-accordion">
+  <amw-accordion class="code-examples-accordion">
     <!-- Basic Stepper -->
-    <mat-expansion-panel>
-      <mat-expansion-panel-header>
-        <mat-panel-title>
-          <mat-icon>code</mat-icon>
-          Basic Stepper
-        </mat-panel-title>
-        <mat-panel-description>Simple horizontal stepper with navigation buttons</mat-panel-description>
-      </mat-expansion-panel-header>
+    <amw-accordion-panel amwDescription="Simple horizontal stepper with navigation buttons">
+      <ng-template #header>
+        <amw-icon name="code"></amw-icon>
+        Basic Stepper
+      </ng-template>
       <div class="example-container">
         <div class="code-panel">
           <div class="code-header">
@@ -56,17 +53,14 @@
           </div>
         </div>
       </div>
-    </mat-expansion-panel>
+    </amw-accordion-panel>
 
     <!-- Linear Stepper -->
-    <mat-expansion-panel>
-      <mat-expansion-panel-header>
-        <mat-panel-title>
-          <mat-icon>code</mat-icon>
-          Linear Stepper
-        </mat-panel-title>
-        <mat-panel-description>Form validation with linear progression</mat-panel-description>
-      </mat-expansion-panel-header>
+    <amw-accordion-panel amwDescription="Form validation with linear progression">
+      <ng-template #header>
+        <amw-icon name="code"></amw-icon>
+        Linear Stepper
+      </ng-template>
       <div class="example-container">
         <div class="code-panel">
           <div class="code-header">
@@ -89,7 +83,7 @@
                   <amw-input
                     label="Name"
                     formControlName="name"
-                    required>
+                    [required]="true">
                   </amw-input>
                   <div class="step-actions">
                     <amw-button variant="elevated" matStepperNext>Next</amw-button>
@@ -104,7 +98,7 @@
                     label="Email"
                     formControlName="email"
                     type="email"
-                    required>
+                    [required]="true">
                   </amw-input>
                   <div class="step-actions">
                     <amw-button variant="text" matStepperPrevious>Back</amw-button>
@@ -122,23 +116,20 @@
               </mat-step>
             </mat-stepper>
             <div class="preview-note">
-              <mat-icon>info</mat-icon>
+              <amw-icon name="info"></amw-icon>
               <span>Linear mode requires valid form data to proceed</span>
             </div>
           </div>
         </div>
       </div>
-    </mat-expansion-panel>
+    </amw-accordion-panel>
 
     <!-- Editable Steps -->
-    <mat-expansion-panel>
-      <mat-expansion-panel-header>
-        <mat-panel-title>
-          <mat-icon>code</mat-icon>
-          Editable Steps
-        </mat-panel-title>
-        <mat-panel-description>Control whether completed steps can be edited</mat-panel-description>
-      </mat-expansion-panel-header>
+    <amw-accordion-panel amwDescription="Control whether completed steps can be edited">
+      <ng-template #header>
+        <amw-icon name="code"></amw-icon>
+        Editable Steps
+      </ng-template>
       <div class="example-container">
         <div class="code-panel">
           <div class="code-header">
@@ -174,17 +165,14 @@
           </div>
         </div>
       </div>
-    </mat-expansion-panel>
+    </amw-accordion-panel>
 
     <!-- Optional Steps -->
-    <mat-expansion-panel>
-      <mat-expansion-panel-header>
-        <mat-panel-title>
-          <mat-icon>code</mat-icon>
-          Optional Steps
-        </mat-panel-title>
-        <mat-panel-description>Mark steps as optional in the workflow</mat-panel-description>
-      </mat-expansion-panel-header>
+    <amw-accordion-panel amwDescription="Mark steps as optional in the workflow">
+      <ng-template #header>
+        <amw-icon name="code"></amw-icon>
+        Optional Steps
+      </ng-template>
       <div class="example-container">
         <div class="code-panel">
           <div class="code-header">
@@ -229,17 +217,14 @@
           </div>
         </div>
       </div>
-    </mat-expansion-panel>
+    </amw-accordion-panel>
 
     <!-- Vertical Stepper -->
-    <mat-expansion-panel>
-      <mat-expansion-panel-header>
-        <mat-panel-title>
-          <mat-icon>code</mat-icon>
-          Vertical Stepper
-        </mat-panel-title>
-        <mat-panel-description>Display steps vertically instead of horizontally</mat-panel-description>
-      </mat-expansion-panel-header>
+    <amw-accordion-panel amwDescription="Display steps vertically instead of horizontally">
+      <ng-template #header>
+        <amw-icon name="code"></amw-icon>
+        Vertical Stepper
+      </ng-template>
       <div class="example-container">
         <div class="code-panel">
           <div class="code-header">
@@ -284,17 +269,14 @@
           </div>
         </div>
       </div>
-    </mat-expansion-panel>
+    </amw-accordion-panel>
 
     <!-- Custom Icons -->
-    <mat-expansion-panel>
-      <mat-expansion-panel-header>
-        <mat-panel-title>
-          <mat-icon>code</mat-icon>
-          Custom Icons in Labels
-        </mat-panel-title>
-        <mat-panel-description>Add icons to step labels for better UX</mat-panel-description>
-      </mat-expansion-panel-header>
+    <amw-accordion-panel amwDescription="Add icons to step labels for better UX">
+      <ng-template #header>
+        <amw-icon name="code"></amw-icon>
+        Custom Icons in Labels
+      </ng-template>
       <div class="example-container">
         <div class="code-panel">
           <div class="code-header">
@@ -314,7 +296,7 @@
               <mat-step>
                 <ng-template matStepLabel>
                   <div class="step-label-with-icon">
-                    <mat-icon>person</mat-icon>
+                    <amw-icon name="person"></amw-icon>
                     <span>Personal Info</span>
                   </div>
                 </ng-template>
@@ -327,7 +309,7 @@
               <mat-step>
                 <ng-template matStepLabel>
                   <div class="step-label-with-icon">
-                    <mat-icon>email</mat-icon>
+                    <amw-icon name="email"></amw-icon>
                     <span>Contact</span>
                   </div>
                 </ng-template>
@@ -341,7 +323,7 @@
               <mat-step>
                 <ng-template matStepLabel>
                   <div class="step-label-with-icon">
-                    <mat-icon>check_circle</mat-icon>
+                    <amw-icon name="check_circle"></amw-icon>
                     <span>Complete</span>
                   </div>
                 </ng-template>
@@ -354,6 +336,6 @@
           </div>
         </div>
       </div>
-    </mat-expansion-panel>
-  </mat-accordion>
+    </amw-accordion-panel>
+  </amw-accordion>
 </div>

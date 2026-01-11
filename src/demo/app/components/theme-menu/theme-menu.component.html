@@ -6,7 +6,7 @@
   <mat-menu #themeMenu="matMenu" class="theme-menu">
     <div class="theme-menu-header">
       <div class="theme-menu-title">
-        <mat-icon>palette</mat-icon>
+        <amw-icon name="palette"></amw-icon>
         Theme Options
       </div>
       <div class="theme-menu-subtitle">Switch themes or manage custom themes</div>
@@ -49,7 +49,7 @@
             (click)="onThemeSelect(theme.id)"
             [class.active]="currentTheme()?.id === theme.id"
             class="theme-item">
-            <mat-icon class="theme-icon">{{ getThemeIcon(theme) }}</mat-icon>
+            <amw-icon class="theme-icon" [name]="getThemeIcon(theme)"></amw-icon>
             <div class="theme-details">
               <div class="theme-name">{{ theme.displayName }}</div>
               <div class="theme-description">{{ getThemeDescription(theme) }}</div>
@@ -64,7 +64,7 @@
                 [style.background-color]="theme.colors.accent">
               </div>
             </div>
-          </amw-button>
+          </button>
         }
       </div>
     </div>
@@ -77,16 +77,16 @@
         mat-menu-item
         routerLink="/theme"
         class="theme-action-item">
-        <mat-icon>edit</mat-icon>
+        <amw-icon name="edit"></amw-icon>
         <span>Manage Themes</span>
-      </amw-button>
+      </button>
       <button
         mat-menu-item
         routerLink="/theme"
         class="theme-action-item">
-        <mat-icon>add</mat-icon>
+        <amw-icon name="add"></amw-icon>
         <span>Create Theme</span>
-      </amw-button>
+      </button>
     </div>
   </mat-menu>
 </div>

@@ -1,23 +1,23 @@
 import { Component, ViewEncapsulation } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
-import { MatIconModule } from '@angular/material/icon';
 import { BaseCodeComponent } from '../base/base-code.component';
 
 type ToggleExamples = 'basic' | 'colors' | 'disabled' | 'labelPosition' | 'ngModel' | 'events' | 'formField';
-import { MatExpansionModule } from '@angular/material/expansion';
-import { MatSlideToggleModule } from '@angular/material/slide-toggle';
 
 import { AmwButtonComponent } from '../../../../library/src/controls/components/amw-button/amw-button.component';
+import { AmwSwitchComponent } from '../../../../library/src/controls/components/amw-switch/amw-switch.component';
+import { AmwAccordionComponent, AmwAccordionPanelComponent, AmwIconComponent } from '../../../../library/src/components/components';
 @Component({
   selector: 'amw-demo-toggle-code',
   standalone: true,
   imports: [CommonModule,
     FormsModule,
-    MatIconModule,
-    MatExpansionModule,
-    MatSlideToggleModule,
-    AmwButtonComponent],
+    AmwButtonComponent,
+    AmwSwitchComponent,
+    AmwAccordionComponent,
+    AmwAccordionPanelComponent,
+    AmwIconComponent],
   encapsulation: ViewEncapsulation.None,
   templateUrl: './toggle-code.component.html',
   styleUrl: './toggle-code.component.scss'
@@ -30,28 +30,28 @@ export class ToggleCodeComponent extends BaseCodeComponent<ToggleExamples> {
 
   // Original code examples (for reset functionality)
   readonly codeExamples: Record<ToggleExamples, string> = {
-    basic: `<mat-slide-toggle>Enable notifications</mat-slide-toggle>`,
+    basic: `<amw-switch>Enable notifications</amw-switch>`,
 
-    colors: `<mat-slide-toggle color="primary">Primary toggle</mat-slide-toggle>
-<mat-slide-toggle color="accent">Accent toggle</mat-slide-toggle>
-<mat-slide-toggle color="warn">Warn toggle</mat-slide-toggle>`,
+    colors: `<amw-switch color="primary">Primary toggle</amw-switch>
+<amw-switch color="accent">Accent toggle</amw-switch>
+<amw-switch color="warn">Warn toggle</amw-switch>`,
 
-    disabled: `<mat-slide-toggle [checked]="true">Checked toggle</mat-slide-toggle>
-<mat-slide-toggle [checked]="false">Unchecked toggle</mat-slide-toggle>
-<mat-slide-toggle [checked]="true" [disabled]="true">Disabled toggle</mat-slide-toggle>`,
+    disabled: `<amw-switch [checked]="true">Checked toggle</amw-switch>
+<amw-switch [checked]="false">Unchecked toggle</amw-switch>
+<amw-switch [checked]="true" [disabled]="true">Disabled toggle</amw-switch>`,
 
-    labelPosition: `<mat-slide-toggle labelPosition="after">Label after toggle</mat-slide-toggle>
-<mat-slide-toggle labelPosition="before">Label before toggle</mat-slide-toggle>`,
+    labelPosition: `<amw-switch labelPosition="after">Label after toggle</amw-switch>
+<amw-switch labelPosition="before">Label before toggle</amw-switch>`,
 
-    ngModel: `<mat-slide-toggle [(ngModel)]="isChecked">
+    ngModel: `<amw-switch [(ngModel)]="isChecked">
   Toggle is {{ isChecked ? 'ON' : 'OFF' }}
-</mat-slide-toggle>`,
+</amw-switch>`,
 
-    events: `<mat-slide-toggle
+    events: `<amw-switch
   [checked]="isChecked"
-  (change)="onToggleChange($event)">
+  (switchChange)="onToggleChange($event)">
   Enable feature
-</mat-slide-toggle>
+</amw-switch>
 
 // Component method
 onToggleChange(event: any): void {
@@ -62,21 +62,21 @@ onToggleChange(event: any): void {
     formField: `<div class="settings-panel">
   <h3>User Preferences</h3>
 
-  <mat-slide-toggle color="primary">
+  <amw-switch color="primary">
     Email notifications
-  </mat-slide-toggle>
+  </amw-switch>
 
-  <mat-slide-toggle color="primary">
+  <amw-switch color="primary">
     Push notifications
-  </mat-slide-toggle>
+  </amw-switch>
 
-  <mat-slide-toggle color="accent">
+  <amw-switch color="accent">
     Dark mode
-  </mat-slide-toggle>
+  </amw-switch>
 
-  <mat-slide-toggle color="warn">
+  <amw-switch color="warn">
     Delete account
-  </mat-slide-toggle>
+  </amw-switch>
 </div>`
   };
 

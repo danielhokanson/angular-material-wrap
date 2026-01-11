@@ -5,7 +5,6 @@ import { DemoProperty } from './interfaces/demo-property.interface';
 
 // Re-export for convenience
 export type { DemoProperty } from './interfaces/demo-property.interface';
-import { MatOptionModule } from '@angular/material/core';
 
 import { AmwCardComponent } from '../../../../library/src/components/components/amw-card/amw-card.component';
 import { AmwButtonComponent } from '../../../../library/src/controls/components/amw-button/amw-button.component';
@@ -18,7 +17,6 @@ import { AmwSliderComponent } from '../../../../library/src/controls/components/
     standalone: true,
     imports: [CommonModule,
     ReactiveFormsModule,
-    MatOptionModule,
     AmwCardComponent,
     AmwButtonComponent,
     AmwInputComponent,

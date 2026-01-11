@@ -1,20 +1,23 @@
 import { Component, ViewEncapsulation } from '@angular/core';
 import { FormsModule } from '@angular/forms';
-import { MatIconModule } from '@angular/material/icon';
 import { BaseCodeComponent } from '../base/base-code.component';
+import { AmwButtonComponent } from '../../../../library/src/controls/components/amw-button/amw-button.component';
+import { AmwTextareaComponent } from '../../../../library/src/controls/components/amw-textarea/amw-textarea.component';
+import { AmwAccordionComponent, AmwAccordionPanelComponent, AmwIconComponent } from '../../../../library/src/components/components';
 
 type TextareaExamples = 'basic' | 'withValidation' | 'differentSizes' | 'withCharacterCount' | 'reactiveForm' | 'withEvents' | 'contactForm';
-import { MatExpansionModule } from '@angular/material/expansion';
-import { MatFormFieldModule } from '@angular/material/form-field';
 
 @Component({
   selector: 'amw-demo-textarea-code',
   standalone: true,
-  imports: [FormsModule,
-    MatIconModule,
-    MatExpansionModule,
-    MatFormFieldModule,
-    AmwButtonComponent],
+  imports: [
+    FormsModule,
+    AmwButtonComponent,
+    AmwTextareaComponent,
+    AmwAccordionComponent,
+    AmwAccordionPanelComponent,
+    AmwIconComponent
+  ],
   encapsulation: ViewEncapsulation.None,
   templateUrl: './textarea-code.component.html',
   styleUrl: './textarea-code.component.scss'

@@ -1,7 +1,5 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
 
-import { MatIconModule } from '@angular/material/icon';
-import { MatTooltipModule } from '@angular/material/tooltip';
 import { AmwNotificationService } from '../../../../library/src/services/amw-notification/amw-notification.service';
 import { Subject, takeUntil, BehaviorSubject, Observable, of } from 'rxjs';
 import { delay } from 'rxjs/operators';
@@ -303,16 +301,17 @@ class ReportPageDemoDataSource implements ReportPageDataSource {
         ];
     }
 }
-import { AmwTabsComponent } from '../../../../library/src/components/components/amw-tabs/amw-tabs.component';
+import { AmwTabsComponent, AmwTabComponent, AmwCardComponent, AmwIconComponent } from '../../../../library/src/components/components';
 
 @Component({
     selector: 'app-report-page-demo',
     standalone: true,
     imports: [
-    MatIconModule,
-    MatTooltipModule,
     AmwReportPageComponent,
     AmwTabsComponent,
+    AmwTabComponent,
+    AmwCardComponent,
+    AmwIconComponent,
 ],
     templateUrl: './report-page-demo.component.html',
     styleUrl: './report-page-demo.component.scss'
@@ -404,7 +403,7 @@ export class ReportPageDemoComponent implements OnInit, OnDestroy {
     dataSource = new ReportPageDemoDataSource();
 
     // State
-    currentView = 'basic';
+    currentViewIndex = 0;
 
     constructor(private notification: AmwNotificationService) { }
 
@@ -435,10 +434,10 @@ export class ReportPageDemoComponent implements OnInit, OnDestroy {
         console.log('Export clicked:', event);
     }
 
-    onViewChange(view: string): void {
-        this.currentView = view;
+    onViewChange(index: number): void {
+        this.currentViewIndex = index;
 
-        if (view === 'advanced') {
+        if (index === 1) {
             this.reportConfig = {
                 ...this.reportConfig,
                 showFullscreen: true,

@@ -16,29 +16,22 @@
             (input)="onSearch()"
             placeholder="Search by title, subtitle, or content"
             class="card-demo__search">
-            <mat-icon matSuffix>search</mat-icon>
           </amw-input>
 
           <amw-select
             label="Variant"
             [(ngModel)]="selectedVariant"
             (selectionChange)="onFilterChange()"
+            [options]="variantOptions"
             class="card-demo__filter">
-            <mat-option value="">All Variants</mat-option>
-            <mat-option value="elevated">Elevated</mat-option>
-            <mat-option value="outlined">Outlined</mat-option>
-            <mat-option value="filled">Filled</mat-option>
           </amw-select>
 
           <amw-select
             label="Size"
             [(ngModel)]="selectedSize"
             (selectionChange)="onFilterChange()"
+            [options]="sizeOptions"
             class="card-demo__filter">
-            <mat-option value="">All Sizes</mat-option>
-            <mat-option value="small">Small</mat-option>
-            <mat-option value="medium">Medium</mat-option>
-            <mat-option value="large">Large</mat-option>
           </amw-select>
         </div>
 
@@ -61,19 +54,16 @@
             label="Sort By"
             [(ngModel)]="sortField"
             (selectionChange)="onSortChange()"
+            [options]="sortFieldOptions"
             class="card-demo__sort-field">
-            <mat-option value="title">Title</mat-option>
-            <mat-option value="createdAt">Created Date</mat-option>
-            <mat-option value="updatedAt">Updated Date</mat-option>
           </amw-select>
 
           <amw-select
             label="Direction"
             [(ngModel)]="sortDirection"
             (selectionChange)="onSortChange()"
+            [options]="sortDirectionOptions"
             class="card-demo__sort-field">
-            <mat-option value="asc">Ascending</mat-option>
-            <mat-option value="desc">Descending</mat-option>
           </amw-select>
         </div>
 
@@ -85,7 +75,7 @@
           <amw-button variant="text" (click)="exportCards()" icon="download" iconPosition="left">Export</amw-button>
         </div>
       </ng-template>
-</amw-card>
+    </amw-card>
   </div>
 
   <!-- Service Cards Display -->
@@ -115,10 +105,10 @@
             class="card-demo__service-card"
             >
             <ng-template #cardActions>
-              <amw-button variant="icon" icon="content_copy" (click)="duplicateCard(card)" matTooltip="Duplicate"></amw-button>
-              <amw-button variant="icon" icon="{{ card.loading ? 'pause' : 'play_arrow' }}" (click)="toggleCardLoading(card)" matTooltip="Toggle Loading"></amw-button>
-              <amw-button variant="icon" icon="{{ card.disabled ? 'check_circle' : 'cancel' }}" (click)="toggleCardDisabled(card)" matTooltip="Toggle Disabled"></amw-button>
-              <amw-button variant="icon" icon="delete" (click)="deleteCard(card)" matTooltip="Delete" color="warn"></amw-button>
+              <amw-button variant="icon" icon="content_copy" (click)="duplicateCard(card)" amwTooltip="Duplicate"></amw-button>
+              <amw-button variant="icon" icon="{{ card.loading ? 'pause' : 'play_arrow' }}" (click)="toggleCardLoading(card)" amwTooltip="Toggle Loading"></amw-button>
+              <amw-button variant="icon" icon="{{ card.disabled ? 'check_circle' : 'cancel' }}" (click)="toggleCardDisabled(card)" amwTooltip="Toggle Disabled"></amw-button>
+              <amw-button variant="icon" icon="delete" (click)="deleteCard(card)" amwTooltip="Delete" color="warn"></amw-button>
             </ng-template>
           </amw-card>
         }
@@ -159,8 +149,8 @@
                 (imageClick)="onImageClick()"
               ></amw-card>
             </div>
-      </ng-template>
-</amw-card>
+          </ng-template>
+        </amw-card>
       }
     </div>
   </div>

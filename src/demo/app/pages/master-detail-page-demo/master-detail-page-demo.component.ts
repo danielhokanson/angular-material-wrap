@@ -8,7 +8,7 @@ import {
 } from 'angular-material-wrap';
 import { Observable, of, BehaviorSubject } from 'rxjs';
 import { delay } from 'rxjs/operators';
-import { AmwTabsComponent } from '../../../../library/src/components/components/amw-tabs/amw-tabs.component';
+import { AmwTabsComponent, AmwTabComponent, AmwCardComponent, AmwIconComponent } from '../../../../library/src/components/components';
 
 // Sample recipes data
 const RECIPES_DATA = [
@@ -113,14 +113,17 @@ class RecipeDataSource implements MasterDetailDataSource {
   imports: [
     AmwMasterDetailPageComponent,
     AmwTabsComponent,
+    AmwTabComponent,
+    AmwCardComponent,
+    AmwIconComponent,
 ],
   template: `
     <div class="demo-page">
       <h1>Master-Detail Page Component</h1>
       <p>A split-pane layout with a master list and detail panel, perfect for curation queues, file browsers, and data exploration.</p>
 
-      <mat-tab-group>
-        <mat-tab label="Demo">
+      <amw-tabs>
+        <amw-tab label="Demo">
           <div class="demo-container">
             <amw-master-detail-page
               [config]="config"
@@ -129,11 +132,11 @@ class RecipeDataSource implements MasterDetailDataSource {
               (actionClick)="onActionClick($event)">
             </amw-master-detail-page>
           </div>
-        </mat-tab>
+        </amw-tab>
 
-        <mat-tab label="Code">
-          <mat-card>
-            <mat-card-content>
+        <amw-tab label="Code">
+          <amw-card>
+            <ng-template #cardContent>
               <h3>Component Usage</h3>
               <pre><code>import &#123; AmwMasterDetailPageComponent, MasterDetailConfig &#125; from 'angular-material-wrap';
 
@@ -181,13 +184,13 @@ const config: MasterDetailConfig = &#123;
                 <li>Detail sections with expansion panels</li>
                 <li>Action buttons with conditional visibility</li>
               </ul>
-            </mat-card-content>
-          </mat-card>
-        </mat-tab>
+            </ng-template>
+          </amw-card>
+        </amw-tab>
 
-        <mat-tab label="API">
-          <mat-card>
-            <mat-card-content>
+        <amw-tab label="API">
+          <amw-card>
+            <ng-template #cardContent>
               <h3>Inputs</h3>
               <ul>
                 <li><code>@Input() config: MasterDetailConfig</code> - Configuration object</li>
@@ -219,10 +222,10 @@ const config: MasterDetailConfig = &#123;
   responsiveBreakpoint?: number;
   density?: 'compact' | 'comfortable' | 'spacious';
 &#125;</code></pre>
-            </mat-card-content>
-          </mat-card>
-        </mat-tab>
-      </mat-tab-group>
+            </ng-template>
+          </amw-card>
+        </amw-tab>
+      </amw-tabs>
     </div>
   `,
   styles: [`
@@ -237,7 +240,8 @@ const config: MasterDetailConfig = &#123;
       border-radius: 4px;
     }
 
-    mat-card {
+    amw-card {
+      display: block;
       margin-top: 20px;
     }
 

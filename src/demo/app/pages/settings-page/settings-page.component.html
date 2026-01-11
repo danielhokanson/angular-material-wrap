@@ -66,9 +66,9 @@
                   </div>
                   <div class="slider-container">
                     <amw-slider
-                      min="12"
-                      max="20"
-                      step="1"
+                      [min]="12"
+                      [max]="20"
+                      [step]="1"
                       [(ngModel)]="fontSize">
                     </amw-slider>
                     <span class="slider-value">{{ fontSize }}px</span>
@@ -224,9 +224,9 @@
                     </div>
                     <div class="slider-container">
                       <amw-slider
-                        min="1"
-                        max="60"
-                        step="1"
+                        [min]="1"
+                        [max]="60"
+                        [step]="1"
                         [(ngModel)]="cacheDuration">
                       </amw-slider>
                       <span class="slider-value">{{ cacheDuration }} minutes</span>

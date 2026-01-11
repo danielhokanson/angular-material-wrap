@@ -2,16 +2,13 @@
   <h3>Code Examples</h3>
   <p>Interactive examples with live previews. The code is editable for reference, and working examples are shown alongside.</p>
 
-  <mat-accordion class="code-examples-accordion">
+  <amw-accordion class="code-examples-accordion">
     <!-- Basic Textarea -->
-    <mat-expansion-panel>
-      <mat-expansion-panel-header>
-        <mat-panel-title>
-          <mat-icon>code</mat-icon>
-          Basic Textarea
-        </mat-panel-title>
-        <mat-panel-description>A simple textarea with label and placeholder</mat-panel-description>
-      </mat-expansion-panel-header>
+    <amw-accordion-panel amwDescription="A simple textarea with label and placeholder">
+      <ng-template #header>
+        <amw-icon name="code"></amw-icon>
+        Basic Textarea
+      </ng-template>
       <div class="example-container">
         <div class="code-panel">
           <div class="code-header">
@@ -30,23 +27,20 @@
               label="Description"
               [(ngModel)]="descriptionValue"
               placeholder="Enter your description here..."
-              rows="4"
+              [rows]="4"
               appearance="outline">
             </amw-textarea>
           </div>
         </div>
       </div>
-    </mat-expansion-panel>
+    </amw-accordion-panel>
 
     <!-- Textarea with Validation -->
-    <mat-expansion-panel>
-      <mat-expansion-panel-header>
-        <mat-panel-title>
-          <mat-icon>code</mat-icon>
-          Textarea with Validation
-        </mat-panel-title>
-        <mat-panel-description>Textarea with character limits and validation</mat-panel-description>
-      </mat-expansion-panel-header>
+    <amw-accordion-panel amwDescription="Textarea with character limits and validation">
+      <ng-template #header>
+        <amw-icon name="code"></amw-icon>
+        Textarea with Validation
+      </ng-template>
       <div class="example-container">
         <div class="code-panel">
           <div class="code-header">
@@ -68,25 +62,22 @@
               placeholder="Describe your project..."
               minlength="10"
               maxlength="500"
-              required
-              rows="4"
+              [required]="true"
+              [rows]="4"
               hint="Min 10, Max 500 characters"
               appearance="outline">
             </amw-textarea>
           </div>
         </div>
       </div>
-    </mat-expansion-panel>
+    </amw-accordion-panel>
 
     <!-- Different Sizes -->
-    <mat-expansion-panel>
-      <mat-expansion-panel-header>
-        <mat-panel-title>
-          <mat-icon>code</mat-icon>
-          Different Sizes
-        </mat-panel-title>
-        <mat-panel-description>Textareas with different row counts</mat-panel-description>
-      </mat-expansion-panel-header>
+    <amw-accordion-panel amwDescription="Textareas with different row counts">
+      <ng-template #header>
+        <amw-icon name="code"></amw-icon>
+        Different Sizes
+      </ng-template>
       <div class="example-container">
         <div class="code-panel">
           <div class="code-header">
@@ -106,37 +97,34 @@
               label="Short Note"
               [(ngModel)]="noteValue"
               placeholder="Brief note..."
-              rows="2"
+              [rows]="2"
               appearance="outline">
             </amw-textarea>
 
             <amw-textarea
               label="Detailed Description"
               placeholder="Detailed description..."
-              rows="6"
+              [rows]="6"
               appearance="outline">
             </amw-textarea>
 
             <amw-textarea
               label="Long Text"
               placeholder="Very long text..."
-              rows="10"
+              [rows]="10"
               appearance="outline">
             </amw-textarea>
           </div>
         </div>
       </div>
-    </mat-expansion-panel>
+    </amw-accordion-panel>
 
     <!-- With Character Count -->
-    <mat-expansion-panel>
-      <mat-expansion-panel-header>
-        <mat-panel-title>
-          <mat-icon>code</mat-icon>
-          With Character Count
-        </mat-panel-title>
-        <mat-panel-description>Textarea with character count display</mat-panel-description>
-      </mat-expansion-panel-header>
+    <amw-accordion-panel amwDescription="Textarea with character count display">
+      <ng-template #header>
+        <amw-icon name="code"></amw-icon>
+        With Character Count
+      </ng-template>
       <div class="example-container">
         <div class="code-panel">
           <div class="code-header">
@@ -157,24 +145,20 @@
               #bioInput
               placeholder="Tell us about yourself..."
               maxlength="200"
-              rows="4"
+              [rows]="4"
               appearance="outline">
-              <mat-hint align="end">{{bioInput.value.length}}/200</mat-hint>
             </amw-textarea>
           </div>
         </div>
       </div>
-    </mat-expansion-panel>
+    </amw-accordion-panel>
 
     <!-- Reactive Form Integration -->
-    <mat-expansion-panel>
-      <mat-expansion-panel-header>
-        <mat-panel-title>
-          <mat-icon>code</mat-icon>
-          Reactive Form Integration
-        </mat-panel-title>
-        <mat-panel-description>Using textareas with Angular reactive forms</mat-panel-description>
-      </mat-expansion-panel-header>
+    <amw-accordion-panel amwDescription="Using textareas with Angular reactive forms">
+      <ng-template #header>
+        <amw-icon name="code"></amw-icon>
+        Reactive Form Integration
+      </ng-template>
       <div class="example-container">
         <div class="code-panel">
           <div class="code-header">
@@ -191,23 +175,20 @@
           <h4>Preview</h4>
           <div class="preview-content">
             <div class="preview-note">
-              <mat-icon>info</mat-icon>
+              <amw-icon name="info"></amw-icon>
               <span>This example shows code for reactive form integration</span>
             </div>
           </div>
         </div>
       </div>
-    </mat-expansion-panel>
+    </amw-accordion-panel>
 
     <!-- Textarea with Events -->
-    <mat-expansion-panel>
-      <mat-expansion-panel-header>
-        <mat-panel-title>
-          <mat-icon>code</mat-icon>
-          Textarea with Events
-        </mat-panel-title>
-        <mat-panel-description>Textareas with event handling</mat-panel-description>
-      </mat-expansion-panel-header>
+    <amw-accordion-panel amwDescription="Textareas with event handling">
+      <ng-template #header>
+        <amw-icon name="code"></amw-icon>
+        Textarea with Events
+      </ng-template>
       <div class="example-container">
         <div class="code-panel">
           <div class="code-header">
@@ -230,27 +211,24 @@
               (focus)="onTextFocus($event)"
               (blur)="onTextBlur($event)"
               placeholder="Type your message..."
-              rows="4"
+              [rows]="4"
               appearance="outline">
             </amw-textarea>
             <div class="preview-note">
-              <mat-icon>info</mat-icon>
+              <amw-icon name="info"></amw-icon>
               <span>Open your browser console to see event logs</span>
             </div>
           </div>
         </div>
       </div>
-    </mat-expansion-panel>
+    </amw-accordion-panel>
 
     <!-- Contact Form Example -->
-    <mat-expansion-panel>
-      <mat-expansion-panel-header>
-        <mat-panel-title>
-          <mat-icon>code</mat-icon>
-          Contact Form Example
-        </mat-panel-title>
-        <mat-panel-description>Complete contact form with multiple textareas</mat-panel-description>
-      </mat-expansion-panel-header>
+    <amw-accordion-panel amwDescription="Complete contact form with multiple textareas">
+      <ng-template #header>
+        <amw-icon name="code"></amw-icon>
+        Contact Form Example
+      </ng-template>
       <div class="example-container">
         <div class="code-panel">
           <div class="code-header">
@@ -267,12 +245,12 @@
           <h4>Preview</h4>
           <div class="preview-content">
             <div class="preview-note">
-              <mat-icon>info</mat-icon>
+              <amw-icon name="info"></amw-icon>
               <span>This example shows code for a contact form with multiple textareas</span>
             </div>
           </div>
         </div>
       </div>
-    </mat-expansion-panel>
-  </mat-accordion>
+    </amw-accordion-panel>
+  </amw-accordion>
 </div>

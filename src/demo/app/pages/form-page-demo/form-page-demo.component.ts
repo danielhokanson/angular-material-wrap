@@ -1,7 +1,5 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
 
-import { MatIconModule } from '@angular/material/icon';
-import { MatTooltipModule } from '@angular/material/tooltip';
 import { AmwNotificationService } from '../../../../library/src/services/amw-notification/amw-notification.service';
 import { Subject, takeUntil, BehaviorSubject, Observable, of } from 'rxjs';
 import { delay } from 'rxjs/operators';
@@ -100,19 +98,21 @@ class FormPageDemoDataSource implements FormPageDataSource {
         }).pipe(delay(200));
     }
 }
-import { AmwTabsComponent } from '../../../../library/src/components/components/amw-tabs/amw-tabs.component';
-import { AmwDividerComponent } from '../../../../library/src/components/components/amw-divider/amw-divider.component';
-
+import { AmwTabsComponent, AmwTabComponent, AmwDividerComponent, AmwCardComponent, AmwIconComponent } from '../../../../library/src/components/components';
 import { AmwButtonComponent } from '../../../../library/src/controls/components/amw-button/amw-button.component';
+
 @Component({
     selector: 'app-form-page-demo',
     standalone: true,
-    imports: [MatIconModule,
-    MatTooltipModule,
+    imports: [
     AmwFormPageComponent,
     AmwTabsComponent,
+    AmwTabComponent,
     AmwDividerComponent,
-    AmwButtonComponent],
+    AmwButtonComponent,
+    AmwCardComponent,
+    AmwIconComponent,
+],
     templateUrl: './form-page-demo.component.html',
     styleUrl: './form-page-demo.component.scss'
 })
@@ -365,7 +365,7 @@ export class FormPageDemoComponent implements OnInit, OnDestroy {
 
     // State
     currentItemId = '1';
-    currentView = 'basic';
+    currentViewIndex = 0;
     currentMode = 'edit';
 
     constructor(private notification: AmwNotificationService) { }
@@ -408,10 +408,10 @@ export class FormPageDemoComponent implements OnInit, OnDestroy {
         console.log('Form reset');
     }
 
-    onViewChange(view: string): void {
-        this.currentView = view;
+    onViewChange(index: number): void {
+        this.currentViewIndex = index;
 
-        if (view === 'advanced') {
+        if (index === 1) {
             this.formConfig = {
                 ...this.formConfig,
                 showPreviewButton: true,

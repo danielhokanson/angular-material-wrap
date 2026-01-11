@@ -1,13 +1,13 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
-
-import { MatIconModule } from '@angular/material/icon';
 import { AmwNotificationService } from '../../../../library/src/services/amw-notification/amw-notification.service';
 import { Subject, takeUntil } from 'rxjs';
 import { AmwPopoverComponent } from '../../../../library/src/components/components/amw-popover/amw-popover.component';
 import { PopoverConfig } from '../../../../library/src/components/components/amw-popover/interfaces/popover-config.interface';
 import { PopoverTrigger } from '../../../../library/src/components/components/amw-popover/interfaces/popover-trigger.interface';
 import { PopoverService } from '../../../../library/src/components/services/popover.service';
-import { AmwSize } from '../../../../library/src/shared/types';
+import { AmwButtonComponent } from '../../../../library/src/controls/components/amw-button/amw-button.component';
+import { AmwTabsComponent, AmwTabComponent, AmwIconComponent } from '../../../../library/src/components/components';
+import { TabItem } from '../../../../library/src/components/components/amw-tabs/interfaces';
 
 interface PopoverApiDocumentation {
     component: any;
@@ -22,15 +22,17 @@ interface PopoverApiDocumentation {
  * API demo component for popover
  *
  * Shows API documentation and usage examples for the popover component
- */import { MatTabsModule } from '@angular/material/tabs';
-
+ */
 @Component({
     selector: 'app-popover-api',
     standalone: true,
-    imports: [MatIconModule,
-    AmwPopoverComponent,
-    MatTabsModule,
-    AmwButtonComponent],
+    imports: [
+        AmwPopoverComponent,
+        AmwTabsComponent,
+        AmwTabComponent,
+        AmwButtonComponent,
+        AmwIconComponent
+],
     templateUrl: './popover-api.component.html',
     styleUrl: './popover-api.component.scss'
 })
@@ -43,6 +45,24 @@ export class PopoverApiComponent implements OnInit, OnDestroy {
 
     /** Current popover trigger */
     currentTrigger: PopoverTrigger = {};
+
+    /** Tab indices */
+    selectedApiTab: number = 0;
+    selectedInterfaceTab: number = 0;
+
+    /** Tab items for API documentation */
+    apiTabs: TabItem[] = [
+        { label: 'Component', content: '' },
+        { label: 'Interfaces', content: '' },
+        { label: 'Service', content: '' },
+        { label: 'Examples', content: '' }
+    ];
+
+    /** Tab items for interfaces */
+    interfaceTabs: TabItem[] = [
+        { label: 'PopoverConfig', content: '' },
+        { label: 'PopoverTrigger', content: '' }
+    ];
 
     /** API documentation */
     apiDocumentation: PopoverApiDocumentation = {

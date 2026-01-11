@@ -2,16 +2,13 @@
   <h3>Code Examples</h3>
   <p>Interactive examples with live previews. The code is editable for reference, and working examples are shown alongside.</p>
 
-  <mat-accordion class="code-examples-accordion">
+  <amw-accordion class="code-examples-accordion">
     <!-- Basic Sidenav -->
-    <mat-expansion-panel>
-      <mat-expansion-panel-header>
-        <mat-panel-title>
-          <mat-icon>code</mat-icon>
-          Basic Sidenav
-        </mat-panel-title>
-        <mat-panel-description>Side mode with navigation list</mat-panel-description>
-      </mat-expansion-panel-header>
+    <amw-accordion-panel amwDescription="Side mode with navigation list">
+      <ng-template #header>
+        <amw-icon name="code"></amw-icon>
+        Basic Sidenav
+      </ng-template>
       <div class="example-container">
         <div class="code-panel">
           <div class="code-header">
@@ -30,15 +27,15 @@
               <mat-drawer mode="side" [opened]="sidenavOpened">
                 <mat-nav-list>
                   <a mat-list-item href="#">
-                    <mat-icon matListItemIcon>home</mat-icon>
+                    <amw-icon name="home" matListItemIcon></amw-icon>
                     <span matListItemTitle>Home</span>
                   </a>
                   <a mat-list-item href="#">
-                    <mat-icon matListItemIcon>person</mat-icon>
+                    <amw-icon name="person" matListItemIcon></amw-icon>
                     <span matListItemTitle>Profile</span>
                   </a>
                   <a mat-list-item href="#">
-                    <mat-icon matListItemIcon>settings</mat-icon>
+                    <amw-icon name="settings" matListItemIcon></amw-icon>
                     <span matListItemTitle>Settings</span>
                   </a>
                 </mat-nav-list>
@@ -55,17 +52,14 @@
           </div>
         </div>
       </div>
-    </mat-expansion-panel>
+    </amw-accordion-panel>
 
     <!-- Overlay Mode -->
-    <mat-expansion-panel>
-      <mat-expansion-panel-header>
-        <mat-panel-title>
-          <mat-icon>code</mat-icon>
-          Overlay Mode
-        </mat-panel-title>
-        <mat-panel-description>Sidenav overlays content with backdrop</mat-panel-description>
-      </mat-expansion-panel-header>
+    <amw-accordion-panel amwDescription="Sidenav overlays content with backdrop">
+      <ng-template #header>
+        <amw-icon name="code"></amw-icon>
+        Overlay Mode
+      </ng-template>
       <div class="example-container">
         <div class="code-panel">
           <div class="code-header">
@@ -85,15 +79,15 @@
               <mat-drawer mode="over" [(opened)]="overlaySidenavOpened">
                 <mat-nav-list>
                   <a mat-list-item href="#">
-                    <mat-icon matListItemIcon>home</mat-icon>
+                    <amw-icon name="home" matListItemIcon></amw-icon>
                     <span matListItemTitle>Home</span>
                   </a>
                   <a mat-list-item href="#">
-                    <mat-icon matListItemIcon>person</mat-icon>
+                    <amw-icon name="person" matListItemIcon></amw-icon>
                     <span matListItemTitle>Profile</span>
                   </a>
                   <a mat-list-item href="#">
-                    <mat-icon matListItemIcon>settings</mat-icon>
+                    <amw-icon name="settings" matListItemIcon></amw-icon>
                     <span matListItemTitle>Settings</span>
                   </a>
                 </mat-nav-list>
@@ -110,17 +104,14 @@
           </div>
         </div>
       </div>
-    </mat-expansion-panel>
+    </amw-accordion-panel>
 
     <!-- Push Mode -->
-    <mat-expansion-panel>
-      <mat-expansion-panel-header>
-        <mat-panel-title>
-          <mat-icon>code</mat-icon>
-          Push Mode
-        </mat-panel-title>
-        <mat-panel-description>Sidenav pushes content to the side</mat-panel-description>
-      </mat-expansion-panel-header>
+    <amw-accordion-panel amwDescription="Sidenav pushes content to the side">
+      <ng-template #header>
+        <amw-icon name="code"></amw-icon>
+        Push Mode
+      </ng-template>
       <div class="example-container">
         <div class="code-panel">
           <div class="code-header">
@@ -140,15 +131,15 @@
               <mat-drawer mode="push" [(opened)]="pushSidenavOpened">
                 <mat-nav-list>
                   <a mat-list-item href="#">
-                    <mat-icon matListItemIcon>home</mat-icon>
+                    <amw-icon name="home" matListItemIcon></amw-icon>
                     <span matListItemTitle>Home</span>
                   </a>
                   <a mat-list-item href="#">
-                    <mat-icon matListItemIcon>person</mat-icon>
+                    <amw-icon name="person" matListItemIcon></amw-icon>
                     <span matListItemTitle>Profile</span>
                   </a>
                   <a mat-list-item href="#">
-                    <mat-icon matListItemIcon>settings</mat-icon>
+                    <amw-icon name="settings" matListItemIcon></amw-icon>
                     <span matListItemTitle>Settings</span>
                   </a>
                 </mat-nav-list>
@@ -165,17 +156,14 @@
           </div>
         </div>
       </div>
-    </mat-expansion-panel>
+    </amw-accordion-panel>
 
     <!-- Fixed Position -->
-    <mat-expansion-panel>
-      <mat-expansion-panel-header>
-        <mat-panel-title>
-          <mat-icon>code</mat-icon>
-          Fixed Position
-        </mat-panel-title>
-        <mat-panel-description>Sidenav on the right side</mat-panel-description>
-      </mat-expansion-panel-header>
+    <amw-accordion-panel amwDescription="Sidenav on the right side">
+      <ng-template #header>
+        <amw-icon name="code"></amw-icon>
+        Fixed Position
+      </ng-template>
       <div class="example-container">
         <div class="code-panel">
           <div class="code-header">
@@ -195,15 +183,15 @@
               <mat-drawer mode="side" position="end" [(opened)]="fixedSidenavOpened">
                 <mat-nav-list>
                   <a mat-list-item href="#">
-                    <mat-icon matListItemIcon>home</mat-icon>
+                    <amw-icon name="home" matListItemIcon></amw-icon>
                     <span matListItemTitle>Home</span>
                   </a>
                   <a mat-list-item href="#">
-                    <mat-icon matListItemIcon>person</mat-icon>
+                    <amw-icon name="person" matListItemIcon></amw-icon>
                     <span matListItemTitle>Profile</span>
                   </a>
                   <a mat-list-item href="#">
-                    <mat-icon matListItemIcon>settings</mat-icon>
+                    <amw-icon name="settings" matListItemIcon></amw-icon>
                     <span matListItemTitle>Settings</span>
                   </a>
                 </mat-nav-list>
@@ -220,6 +208,6 @@
           </div>
         </div>
       </div>
-    </mat-expansion-panel>
-  </mat-accordion>
+    </amw-accordion-panel>
+  </amw-accordion>
 </div>

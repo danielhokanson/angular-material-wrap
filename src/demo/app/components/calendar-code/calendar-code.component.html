@@ -2,16 +2,13 @@
   <h3>Code Examples</h3>
   <p>Interactive examples with live previews. Edit the code to see real-time changes.</p>
 
-  <mat-accordion class="code-examples-accordion">
+  <amw-accordion class="code-examples-accordion">
     <!-- Basic Calendar -->
-    <mat-expansion-panel>
-      <mat-expansion-panel-header>
-        <mat-panel-title>
-          <mat-icon>code</mat-icon>
-          Basic Calendar
-        </mat-panel-title>
-        <mat-panel-description>Simple calendar with date selection</mat-panel-description>
-      </mat-expansion-panel-header>
+    <amw-accordion-panel amwDescription="Simple calendar with date selection">
+      <ng-template #header>
+        <amw-icon name="code"></amw-icon>
+        Basic Calendar
+      </ng-template>
       <div class="example-container">
         <div class="code-panel">
           <div class="code-header">
@@ -26,28 +23,22 @@
         <div class="preview-panel">
           <h4>Preview</h4>
           <div class="preview-content">
-            <mat-card>
-              <mat-card-header>
-                <mat-card-title>Basic Calendar</mat-card-title>
-              </mat-card-header>
-              <mat-card-content>
+            <amw-card headerTitle="Basic Calendar">
+              <ng-template #cardContent>
                 <mat-calendar [(selected)]="selectedDate"></mat-calendar>
-              </mat-card-content>
-            </mat-card>
+              </ng-template>
+            </amw-card>
           </div>
         </div>
       </div>
-    </mat-expansion-panel>
+    </amw-accordion-panel>
 
     <!-- Date Range Calendar -->
-    <mat-expansion-panel>
-      <mat-expansion-panel-header>
-        <mat-panel-title>
-          <mat-icon>code</mat-icon>
-          Date Range Calendar
-        </mat-panel-title>
-        <mat-panel-description>Calendar with start view configuration</mat-panel-description>
-      </mat-expansion-panel-header>
+    <amw-accordion-panel amwDescription="Calendar with start view configuration">
+      <ng-template #header>
+        <amw-icon name="code"></amw-icon>
+        Date Range Calendar
+      </ng-template>
       <div class="example-container">
         <div class="code-panel">
           <div class="code-header">
@@ -62,31 +53,25 @@
         <div class="preview-panel">
           <h4>Preview</h4>
           <div class="preview-content">
-            <mat-card>
-              <mat-card-header>
-                <mat-card-title>Date Range Calendar</mat-card-title>
-              </mat-card-header>
-              <mat-card-content>
+            <amw-card headerTitle="Date Range Calendar">
+              <ng-template #cardContent>
                 <mat-calendar
                   [(selected)]="selectedDate"
                   [startView]="'month'">
                 </mat-calendar>
-              </mat-card-content>
-            </mat-card>
+              </ng-template>
+            </amw-card>
           </div>
         </div>
       </div>
-    </mat-expansion-panel>
+    </amw-accordion-panel>
 
     <!-- Min/Max Date Calendar -->
-    <mat-expansion-panel>
-      <mat-expansion-panel-header>
-        <mat-panel-title>
-          <mat-icon>code</mat-icon>
-          Min/Max Date Calendar
-        </mat-panel-title>
-        <mat-panel-description>Calendar with date range restrictions</mat-panel-description>
-      </mat-expansion-panel-header>
+    <amw-accordion-panel amwDescription="Calendar with date range restrictions">
+      <ng-template #header>
+        <amw-icon name="code"></amw-icon>
+        Min/Max Date Calendar
+      </ng-template>
       <div class="example-container">
         <div class="code-panel">
           <div class="code-header">
@@ -101,32 +86,26 @@
         <div class="preview-panel">
           <h4>Preview</h4>
           <div class="preview-content">
-            <mat-card>
-              <mat-card-header>
-                <mat-card-title>Min/Max Date Calendar</mat-card-title>
-              </mat-card-header>
-              <mat-card-content>
+            <amw-card headerTitle="Min/Max Date Calendar">
+              <ng-template #cardContent>
                 <mat-calendar
                   [(selected)]="selectedDate"
                   [minDate]="minDate"
                   [maxDate]="maxDate">
                 </mat-calendar>
-              </mat-card-content>
-            </mat-card>
+              </ng-template>
+            </amw-card>
           </div>
         </div>
       </div>
-    </mat-expansion-panel>
+    </amw-accordion-panel>
 
     <!-- Filtered Calendar -->
-    <mat-expansion-panel>
-      <mat-expansion-panel-header>
-        <mat-panel-title>
-          <mat-icon>code</mat-icon>
-          Filtered Calendar
-        </mat-panel-title>
-        <mat-panel-description>Calendar with custom date filter</mat-panel-description>
-      </mat-expansion-panel-header>
+    <amw-accordion-panel amwDescription="Calendar with custom date filter">
+      <ng-template #header>
+        <amw-icon name="code"></amw-icon>
+        Filtered Calendar
+      </ng-template>
       <div class="example-container">
         <div class="code-panel">
           <div class="code-header">
@@ -141,35 +120,29 @@
         <div class="preview-panel">
           <h4>Preview</h4>
           <div class="preview-content">
-            <mat-card>
-              <mat-card-header>
-                <mat-card-title>Filtered Calendar</mat-card-title>
-              </mat-card-header>
-              <mat-card-content>
+            <amw-card headerTitle="Filtered Calendar">
+              <ng-template #cardContent>
                 <mat-calendar
                   [(selected)]="selectedDate"
                   [dateFilter]="myFilter">
                 </mat-calendar>
-              </mat-card-content>
-            </mat-card>
+              </ng-template>
+            </amw-card>
             <div class="preview-note">
-              <mat-icon>info</mat-icon>
+              <amw-icon name="info"></amw-icon>
               <span>Note: Weekends are disabled in this example</span>
             </div>
           </div>
         </div>
       </div>
-    </mat-expansion-panel>
+    </amw-accordion-panel>
 
     <!-- Custom Styled Calendar -->
-    <mat-expansion-panel>
-      <mat-expansion-panel-header>
-        <mat-panel-title>
-          <mat-icon>code</mat-icon>
-          Custom Styled Calendar
-        </mat-panel-title>
-        <mat-panel-description>Calendar with custom date classes</mat-panel-description>
-      </mat-expansion-panel-header>
+    <amw-accordion-panel amwDescription="Calendar with custom date classes">
+      <ng-template #header>
+        <amw-icon name="code"></amw-icon>
+        Custom Styled Calendar
+      </ng-template>
       <div class="example-container">
         <div class="code-panel">
           <div class="code-header">
@@ -184,24 +157,21 @@
         <div class="preview-panel">
           <h4>Preview</h4>
           <div class="preview-content">
-            <mat-card>
-              <mat-card-header>
-                <mat-card-title>Custom Styled Calendar</mat-card-title>
-              </mat-card-header>
-              <mat-card-content>
+            <amw-card headerTitle="Custom Styled Calendar">
+              <ng-template #cardContent>
                 <mat-calendar
                   [(selected)]="selectedDate"
                   [dateClass]="dateClass">
                 </mat-calendar>
-              </mat-card-content>
-            </mat-card>
+              </ng-template>
+            </amw-card>
             <div class="preview-note">
-              <mat-icon>info</mat-icon>
+              <amw-icon name="info"></amw-icon>
               <span>Note: Dates that are multiples of 5 are highlighted</span>
             </div>
           </div>
         </div>
       </div>
-    </mat-expansion-panel>
-  </mat-accordion>
+    </amw-accordion-panel>
+  </amw-accordion>
 </div>

@@ -1,28 +1,27 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
 
-import { MatIconModule } from '@angular/material/icon';
 import { AmwNotificationService } from '../../../../library/src/services/amw-notification/amw-notification.service';
 import { Subject, takeUntil } from 'rxjs';
 import { AmwSidenavComponent } from '../../../../library/src/components/components/amw-sidenav/amw-sidenav.component';
 import { SidenavConfig } from '../../../../library/src/components/components/amw-sidenav/interfaces/sidenav-config.interface';
 import { SidenavItem } from '../../../../library/src/components/components/amw-sidenav/interfaces/sidenav-item.interface';
 import { SidenavService } from '../../../../library/src/components/services/sidenav.service';
+import { AmwTabsComponent, AmwTabComponent, AmwCardComponent, AmwIconComponent } from '../../../../library/src/components/components';
 
 /**
  * API documentation component for sidenav
- * 
+ *
  * Shows comprehensive API documentation for the sidenav component and service
- */import { MatTabsModule } from '@angular/material/tabs';
-import { MatCardModule } from '@angular/material/card';
-
+ */
 @Component({
     selector: 'app-sidenav-api',
     standalone: true,
     imports: [
-    MatIconModule,
     AmwSidenavComponent,
-    MatTabsModule,
-    MatCardModule
+    AmwTabsComponent,
+    AmwTabComponent,
+    AmwCardComponent,
+    AmwIconComponent
 ],
     templateUrl: './sidenav-api.component.html',
     styleUrl: './sidenav-api.component.scss'

@@ -27,20 +27,16 @@
     <amw-card class="selection-info">
       <ng-template #cardContent>
         <div class="selection-details">
-          <mat-icon>check_circle</mat-icon>
+          <amw-icon name="check_circle"></amw-icon>
           <span>{{ selectedRows.length }} row(s) selected</span>
-          <mat-chip-set>
+          <div class="chip-list">
             @for (row of selectedRows.slice(0, 3); track row) {
-              <mat-chip>
-                {{ row.name }}
-              </mat-chip>
+              <span class="chip">{{ row.name }}</span>
             }
             @if (selectedRows.length > 3) {
-              <mat-chip>
-                +{{ selectedRows.length - 3 }} more
-              </mat-chip>
+              <span class="chip">+{{ selectedRows.length - 3 }} more</span>
             }
-          </mat-chip-set>
+          </div>
         </div>
       </ng-template>
 </amw-card>
@@ -51,7 +47,7 @@
     <amw-card class="sort-info">
       <ng-template #cardContent>
         <div class="sort-details">
-          <mat-icon>sort</mat-icon>
+          <amw-icon name="sort"></amw-icon>
           <span>Sorted by: {{ currentSort.column }} ({{ currentSort.direction }})</span>
         </div>
       </ng-template>
@@ -63,15 +59,13 @@
     <amw-card class="filter-info">
       <ng-template #cardContent>
         <div class="filter-details">
-          <mat-icon>filter_list</mat-icon>
+          <amw-icon name="filter_list"></amw-icon>
           <span>{{ currentFilters.length }} filter(s) applied</span>
-          <mat-chip-set>
+          <div class="chip-list">
             @for (filter of currentFilters; track filter) {
-              <mat-chip>
-                {{ filter.column }}: {{ filter.value }}
-              </mat-chip>
+              <span class="chip">{{ filter.column }}: {{ filter.value }}</span>
             }
-          </mat-chip-set>
+          </div>
         </div>
       </ng-template>
 </amw-card>
@@ -106,37 +100,37 @@
     <ng-template #cardContent>
       <div class="features-grid">
         <div class="feature-item">
-          <mat-icon>sort</mat-icon>
+          <amw-icon name="sort"></amw-icon>
           <h3>Sorting</h3>
           <p>Click column headers to sort data in ascending or descending order</p>
         </div>
 
         <div class="feature-item">
-          <mat-icon>search</mat-icon>
+          <amw-icon name="search"></amw-icon>
           <h3>Filtering</h3>
           <p>Use the global search to filter across all columns</p>
         </div>
 
         <div class="feature-item">
-          <mat-icon>view_list</mat-icon>
+          <amw-icon name="view_list"></amw-icon>
           <h3>Pagination</h3>
           <p>Navigate through pages with configurable page sizes</p>
         </div>
 
         <div class="feature-item">
-          <mat-icon>check_box</mat-icon>
+          <amw-icon name="check_box"></amw-icon>
           <h3>Selection</h3>
           <p>Select single or multiple rows with checkboxes</p>
         </div>
 
         <div class="feature-item">
-          <mat-icon>edit</mat-icon>
+          <amw-icon name="edit"></amw-icon>
           <h3>Actions</h3>
           <p>Perform actions on individual rows with action buttons</p>
         </div>
 
         <div class="feature-item">
-          <mat-icon>responsive</mat-icon>
+          <amw-icon name="responsive"></amw-icon>
           <h3>Responsive</h3>
           <p>Table adapts to different screen sizes and orientations</p>
         </div>

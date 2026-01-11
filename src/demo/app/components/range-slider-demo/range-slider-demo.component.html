@@ -71,11 +71,7 @@
           [rangeValue]="basicRange"
           (rangeChange)="basicRange = $event">
         </amw-range-slider>
-        <variant="text"-toggle-group [(ngModel)]="color">
-          <variant="text"-toggle value="primary">Primary</variant="text"-toggle>
-          <variant="text"-toggle value="accent">Accent</variant="text"-toggle>
-          <variant="text"-toggle value="warn">Warn</variant="text"-toggle>
-        </variant="text"-toggle-group>
+        <amw-select label="Color" [(ngModel)]="color" [options]="[{value: 'primary', label: 'Primary'}, {value: 'accent', label: 'Accent'}, {value: 'warn', label: 'Warn'}]"></amw-select>
       </div>
 
       <div class="variation-group">

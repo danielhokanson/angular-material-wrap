@@ -321,8 +321,8 @@
                           <amw-button variant="elevated"
                             amwCopyToClipboard
                             [amwCopyToClipboard]="codeExample"
-                            (amwCopySuccess)="snackBar.open('Copied: ' + $event, 'Close', { duration: 2000 })"
-                            (amwCopyError)="snackBar.open('Copy failed: ' + $event.message, 'Close', { duration: 2000 })">
+                            (amwCopySuccess)="notification.info('Copied', 'Copied: ' + $event, { duration: 2000 })"
+                            (amwCopyError)="notification.error('Error', 'Copy failed: ' + $event.message, { duration: 2000 })">
                             Copy Code
                           </amw-button>
                         </div>
@@ -347,7 +347,7 @@
                             amwCopyToClipboard
                             [amwCopyToClipboard]="copyText"
                             [amwCopyShowToast]="false"
-                            (amwCopySuccess)="snackBar.open('Copied!', 'Close', { duration: 2000 })">
+                            (amwCopySuccess)="notification.info('Success', 'Copied!', { duration: 2000 })">
                             Copy (Custom Notification)
                           </amw-button>
                         </div>
@@ -378,7 +378,7 @@
                         <pre><code>{{ clickOutsideCodeExamples.basic }}</code></pre>
                         <div class="preview">
                           <div class="content-box"
-                            (amwClickOutside)="snackBar.open('Clicked outside!', 'Close', { duration: 2000 })"
+                            (amwClickOutside)="notification.info('Click Outside', 'Clicked outside!', { duration: 2000 })"
                             style="padding: 20px; border: 2px solid #1976d2; border-radius: 4px; background: #e3f2fd; cursor: pointer;">
                             <h4 style="margin: 0 0 8px 0;">Click outside this box</h4>
                             <p style="margin: 0;">Click anywhere outside to trigger the event</p>
@@ -481,10 +481,10 @@
                           </amw-button>
                           @if (boxClicked) {
                             <div class="context-menu"
-                              (amwClickOutside)="snackBar.open('Click event detected!', 'Close', { duration: 2000 }); boxClicked = false"
+                              (amwClickOutside)="notification.info('Click Outside', 'Click event detected!', { duration: 2000 }); boxClicked = false"
                               style="margin-top: 8px; padding: 16px; border: 1px solid #ccc; border-radius: 4px; background: white; box-shadow: 0 2px 4px rgba(0,0,0,0.1);">
-                              <button mat-menu-item style="display: block; width: 100%; text-align: left; padding: 8px; border: none; background: none; cursor: pointer;">Action 1</amw-button>
-                              <button mat-menu-item style="display: block; width: 100%; text-align: left; padding: 8px; border: none; background: none; cursor: pointer;">Action 2</amw-button>
+                              <button mat-menu-item style="display: block; width: 100%; text-align: left; padding: 8px; border: none; background: none; cursor: pointer;">Action 1</button>
+                              <button mat-menu-item style="display: block; width: 100%; text-align: left; padding: 8px; border: none; background: none; cursor: pointer;">Action 2</button>
                             </div>
                           }
                         </div>

@@ -2,16 +2,13 @@
   <h3>Code Examples</h3>
   <p>Interactive examples with live previews. The code is editable for reference, and working examples are shown alongside.</p>
 
-  <mat-accordion class="code-examples-accordion">
+  <amw-accordion class="code-examples-accordion">
     <!-- Basic Select -->
-    <mat-expansion-panel>
-      <mat-expansion-panel-header>
-        <mat-panel-title>
-          <mat-icon>code</mat-icon>
-          Basic Select
-        </mat-panel-title>
-        <mat-panel-description>Simple dropdown selection</mat-panel-description>
-      </mat-expansion-panel-header>
+    <amw-accordion-panel amwDescription="Simple dropdown selection">
+      <ng-template #header>
+        <amw-icon name="code"></amw-icon>
+        Basic Select
+      </ng-template>
       <div class="example-container">
         <div class="code-panel">
           <div class="code-header">
@@ -26,28 +23,22 @@
         <div class="preview-panel">
           <h4>Preview</h4>
           <div class="preview-content">
-            <mat-form-field>
-              <mat-label>Favorite food</mat-label>
-              <mat-select [(ngModel)]="selectedFood">
-                <mat-option value="steak">Steak</mat-option>
-                <mat-option value="pizza">Pizza</mat-option>
-                <mat-option value="tacos">Tacos</mat-option>
-              </mat-select>
-            </mat-form-field>
+            <amw-select
+              label="Favorite food"
+              [(ngModel)]="selectedFood"
+              [options]="foods">
+            </amw-select>
           </div>
         </div>
       </div>
-    </mat-expansion-panel>
+    </amw-accordion-panel>
 
     <!-- Select with Value Binding -->
-    <mat-expansion-panel>
-      <mat-expansion-panel-header>
-        <mat-panel-title>
-          <mat-icon>code</mat-icon>
-          Select with Value Binding
-        </mat-panel-title>
-        <mat-panel-description>Two-way data binding example</mat-panel-description>
-      </mat-expansion-panel-header>
+    <amw-accordion-panel amwDescription="Two-way data binding example">
+      <ng-template #header>
+        <amw-icon name="code"></amw-icon>
+        Select with Value Binding
+      </ng-template>
       <div class="example-container">
         <div class="code-panel">
           <div class="code-header">
@@ -62,29 +53,23 @@
         <div class="preview-panel">
           <h4>Preview</h4>
           <div class="preview-content">
-            <mat-form-field>
-              <mat-label>Select your car</mat-label>
-              <mat-select [(value)]="selectedCar">
-                <mat-option value="volvo">Volvo</mat-option>
-                <mat-option value="saab">Saab</mat-option>
-                <mat-option value="mercedes">Mercedes</mat-option>
-              </mat-select>
-            </mat-form-field>
+            <amw-select
+              label="Select your car"
+              [(ngModel)]="selectedCar"
+              [options]="cars">
+            </amw-select>
             <p>You selected: {{selectedCar}}</p>
           </div>
         </div>
       </div>
-    </mat-expansion-panel>
+    </amw-accordion-panel>
 
     <!-- Multiple Selection -->
-    <mat-expansion-panel>
-      <mat-expansion-panel-header>
-        <mat-panel-title>
-          <mat-icon>code</mat-icon>
-          Multiple Selection
-        </mat-panel-title>
-        <mat-panel-description>Select multiple options at once</mat-panel-description>
-      </mat-expansion-panel-header>
+    <amw-accordion-panel amwDescription="Select multiple options at once">
+      <ng-template #header>
+        <amw-icon name="code"></amw-icon>
+        Multiple Selection
+      </ng-template>
       <div class="example-container">
         <div class="code-panel">
           <div class="code-header">
@@ -99,31 +84,23 @@
         <div class="preview-panel">
           <h4>Preview</h4>
           <div class="preview-content">
-            <mat-form-field>
-              <mat-label>Toppings</mat-label>
-              <mat-select multiple [(ngModel)]="selectedMultiple">
-                <mat-option value="extra-cheese">Extra cheese</mat-option>
-                <mat-option value="mushroom">Mushroom</mat-option>
-                <mat-option value="onion">Onion</mat-option>
-                <mat-option value="pepperoni">Pepperoni</mat-option>
-                <mat-option value="sausage">Sausage</mat-option>
-                <mat-option value="tomato">Tomato</mat-option>
-              </mat-select>
-            </mat-form-field>
+            <amw-select
+              label="Toppings"
+              [multiple]="true"
+              [(ngModel)]="selectedMultiple"
+              [options]="toppings">
+            </amw-select>
           </div>
         </div>
       </div>
-    </mat-expansion-panel>
+    </amw-accordion-panel>
 
     <!-- Option Groups -->
-    <mat-expansion-panel>
-      <mat-expansion-panel-header>
-        <mat-panel-title>
-          <mat-icon>code</mat-icon>
-          Option Groups
-        </mat-panel-title>
-        <mat-panel-description>Organize options into groups</mat-panel-description>
-      </mat-expansion-panel-header>
+    <amw-accordion-panel amwDescription="Organize options into groups">
+      <ng-template #header>
+        <amw-icon name="code"></amw-icon>
+        Option Groups
+      </ng-template>
       <div class="example-container">
         <div class="code-panel">
           <div class="code-header">
@@ -138,37 +115,21 @@
         <div class="preview-panel">
           <h4>Preview</h4>
           <div class="preview-content">
-            <mat-form-field>
-              <mat-label>Pokemon</mat-label>
-              <mat-select>
-                <mat-optgroup label="Grass">
-                  <mat-option value="bulbasaur">Bulbasaur</mat-option>
-                  <mat-option value="oddish">Oddish</mat-option>
-                </mat-optgroup>
-                <mat-optgroup label="Water">
-                  <mat-option value="squirtle">Squirtle</mat-option>
-                  <mat-option value="psyduck">Psyduck</mat-option>
-                </mat-optgroup>
-                <mat-optgroup label="Fire">
-                  <mat-option value="charmander">Charmander</mat-option>
-                  <mat-option value="vulpix">Vulpix</mat-option>
-                </mat-optgroup>
-              </mat-select>
-            </mat-form-field>
+            <amw-select
+              label="Pokemon"
+              [groups]="pokemonGroups">
+            </amw-select>
           </div>
         </div>
       </div>
-    </mat-expansion-panel>
+    </amw-accordion-panel>
 
     <!-- Disabled State -->
-    <mat-expansion-panel>
-      <mat-expansion-panel-header>
-        <mat-panel-title>
-          <mat-icon>code</mat-icon>
-          Disabled State
-        </mat-panel-title>
-        <mat-panel-description>Non-interactive select</mat-panel-description>
-      </mat-expansion-panel-header>
+    <amw-accordion-panel amwDescription="Non-interactive select">
+      <ng-template #header>
+        <amw-icon name="code"></amw-icon>
+        Disabled State
+      </ng-template>
       <div class="example-container">
         <div class="code-panel">
           <div class="code-header">
@@ -183,27 +144,25 @@
         <div class="preview-panel">
           <h4>Preview</h4>
           <div class="preview-content">
-            <mat-form-field>
-              <mat-label>Disabled select</mat-label>
-              <mat-select disabled>
-                <mat-option value="option1">Option 1</mat-option>
-                <mat-option value="option2">Option 2</mat-option>
-              </mat-select>
-            </mat-form-field>
+            <amw-select
+              label="Disabled select"
+              [disabled]="true"
+              [options]="[
+                { value: 'option1', label: 'Option 1' },
+                { value: 'option2', label: 'Option 2' }
+              ]">
+            </amw-select>
           </div>
         </div>
       </div>
-    </mat-expansion-panel>
+    </amw-accordion-panel>
 
     <!-- Custom Trigger -->
-    <mat-expansion-panel>
-      <mat-expansion-panel-header>
-        <mat-panel-title>
-          <mat-icon>code</mat-icon>
-          Custom Trigger
-        </mat-panel-title>
-        <mat-panel-description>Customize the display trigger</mat-panel-description>
-      </mat-expansion-panel-header>
+    <amw-accordion-panel amwDescription="Customize the display trigger">
+      <ng-template #header>
+        <amw-icon name="code"></amw-icon>
+        Custom Trigger
+      </ng-template>
       <div class="example-container">
         <div class="code-panel">
           <div class="code-header">
@@ -218,31 +177,21 @@
         <div class="preview-panel">
           <h4>Preview</h4>
           <div class="preview-content">
-            <mat-form-field>
-              <mat-label>Favorite food</mat-label>
-              <mat-select #select>
-                <mat-select-trigger>
-                  {{select.value?.viewValue || 'None'}}
-                </mat-select-trigger>
-                <mat-option *ngFor="let food of foods" [value]="food">
-                  {{food.viewValue}}
-                </mat-option>
-              </mat-select>
-            </mat-form-field>
+            <amw-select
+              label="Favorite food"
+              [options]="foods">
+            </amw-select>
           </div>
         </div>
       </div>
-    </mat-expansion-panel>
+    </amw-accordion-panel>
 
     <!-- Error State -->
-    <mat-expansion-panel>
-      <mat-expansion-panel-header>
-        <mat-panel-title>
-          <mat-icon>code</mat-icon>
-          Error State
-        </mat-panel-title>
-        <mat-panel-description>Display validation errors</mat-panel-description>
-      </mat-expansion-panel-header>
+    <amw-accordion-panel amwDescription="Display validation errors">
+      <ng-template #header>
+        <amw-icon name="code"></amw-icon>
+        Error State
+      </ng-template>
       <div class="example-container">
         <div class="code-panel">
           <div class="code-header">
@@ -257,18 +206,15 @@
         <div class="preview-panel">
           <h4>Preview</h4>
           <div class="preview-content">
-            <mat-form-field>
-              <mat-label>Favorite food</mat-label>
-              <mat-select [(ngModel)]="selectedValue" required>
-                <mat-option value="steak">Steak</mat-option>
-                <mat-option value="pizza">Pizza</mat-option>
-                <mat-option value="tacos">Tacos</mat-option>
-              </mat-select>
-              <mat-error>Please make a selection</mat-error>
-            </mat-form-field>
+            <amw-select
+              label="Favorite food"
+              [(ngModel)]="selectedValue"
+              [required]="true"
+              [options]="foods">
+            </amw-select>
           </div>
         </div>
       </div>
-    </mat-expansion-panel>
-  </mat-accordion>
+    </amw-accordion-panel>
+  </amw-accordion>
 </div>

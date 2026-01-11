@@ -2,16 +2,13 @@
   <h3>Code Examples</h3>
   <p>Interactive examples with live previews. The code is editable for reference, and working examples are shown alongside.</p>
 
-  <mat-accordion class="code-examples-accordion">
+  <amw-accordion class="code-examples-accordion">
     <!-- Basic Checkbox -->
-    <mat-expansion-panel>
-      <mat-expansion-panel-header>
-        <mat-panel-title>
-          <mat-icon>code</mat-icon>
-          Basic Checkbox
-        </mat-panel-title>
-        <mat-panel-description>Simple checkbox with different states</mat-panel-description>
-      </mat-expansion-panel-header>
+    <amw-accordion-panel amwDescription="Simple checkbox with different states">
+      <ng-template #header>
+        <amw-icon name="code"></amw-icon>
+        Basic Checkbox
+      </ng-template>
       <div class="example-container">
         <div class="code-panel">
           <div class="code-header">
@@ -26,23 +23,20 @@
         <div class="preview-panel">
           <h4>Preview</h4>
           <div class="preview-content">
-            <mat-checkbox>Check me</mat-checkbox>
-            <mat-checkbox [checked]="true">Checked</mat-checkbox>
-            <mat-checkbox [indeterminate]="true">Indeterminate</mat-checkbox>
+            <amw-checkbox>Check me</amw-checkbox>
+            <amw-checkbox [checked]="true">Checked</amw-checkbox>
+            <amw-checkbox [indeterminate]="true">Indeterminate</amw-checkbox>
           </div>
         </div>
       </div>
-    </mat-expansion-panel>
+    </amw-accordion-panel>
 
     <!-- Checkbox Colors -->
-    <mat-expansion-panel>
-      <mat-expansion-panel-header>
-        <mat-panel-title>
-          <mat-icon>code</mat-icon>
-          Checkbox Colors
-        </mat-panel-title>
-        <mat-panel-description>Different color themes</mat-panel-description>
-      </mat-expansion-panel-header>
+    <amw-accordion-panel amwDescription="Different color themes">
+      <ng-template #header>
+        <amw-icon name="code"></amw-icon>
+        Checkbox Colors
+      </ng-template>
       <div class="example-container">
         <div class="code-panel">
           <div class="code-header">
@@ -57,23 +51,20 @@
         <div class="preview-panel">
           <h4>Preview</h4>
           <div class="preview-content">
-            <mat-checkbox color="primary" [checked]="true">Primary</mat-checkbox>
-            <mat-checkbox color="accent" [checked]="true">Accent</mat-checkbox>
-            <mat-checkbox color="warn" [checked]="true">Warn</mat-checkbox>
+            <amw-checkbox color="primary" [checked]="true">Primary</amw-checkbox>
+            <amw-checkbox color="accent" [checked]="true">Accent</amw-checkbox>
+            <amw-checkbox color="warn" [checked]="true">Warn</amw-checkbox>
           </div>
         </div>
       </div>
-    </mat-expansion-panel>
+    </amw-accordion-panel>
 
     <!-- Checkbox States -->
-    <mat-expansion-panel>
-      <mat-expansion-panel-header>
-        <mat-panel-title>
-          <mat-icon>code</mat-icon>
-          Checkbox States
-        </mat-panel-title>
-        <mat-panel-description>Checked, unchecked, and indeterminate</mat-panel-description>
-      </mat-expansion-panel-header>
+    <amw-accordion-panel amwDescription="Checked, unchecked, and indeterminate">
+      <ng-template #header>
+        <amw-icon name="code"></amw-icon>
+        Checkbox States
+      </ng-template>
       <div class="example-container">
         <div class="code-panel">
           <div class="code-header">
@@ -88,23 +79,20 @@
         <div class="preview-panel">
           <h4>Preview</h4>
           <div class="preview-content">
-            <mat-checkbox [checked]="true">Checked</mat-checkbox>
-            <mat-checkbox [checked]="false">Unchecked</mat-checkbox>
-            <mat-checkbox [indeterminate]="true">Indeterminate</mat-checkbox>
+            <amw-checkbox [checked]="true">Checked</amw-checkbox>
+            <amw-checkbox [checked]="false">Unchecked</amw-checkbox>
+            <amw-checkbox [indeterminate]="true">Indeterminate</amw-checkbox>
           </div>
         </div>
       </div>
-    </mat-expansion-panel>
+    </amw-accordion-panel>
 
     <!-- Label Position -->
-    <mat-expansion-panel>
-      <mat-expansion-panel-header>
-        <mat-panel-title>
-          <mat-icon>code</mat-icon>
-          Label Position
-        </mat-panel-title>
-        <mat-panel-description>Position label before or after checkbox</mat-panel-description>
-      </mat-expansion-panel-header>
+    <amw-accordion-panel amwDescription="Position label before or after checkbox">
+      <ng-template #header>
+        <amw-icon name="code"></amw-icon>
+        Label Position
+      </ng-template>
       <div class="example-container">
         <div class="code-panel">
           <div class="code-header">
@@ -119,22 +107,19 @@
         <div class="preview-panel">
           <h4>Preview</h4>
           <div class="preview-content">
-            <mat-checkbox labelPosition="before">Label before</mat-checkbox>
-            <mat-checkbox labelPosition="after">Label after</mat-checkbox>
+            <amw-checkbox labelPosition="before">Label before</amw-checkbox>
+            <amw-checkbox labelPosition="after">Label after</amw-checkbox>
           </div>
         </div>
       </div>
-    </mat-expansion-panel>
+    </amw-accordion-panel>
 
     <!-- Indeterminate with Nested List -->
-    <mat-expansion-panel>
-      <mat-expansion-panel-header>
-        <mat-panel-title>
-          <mat-icon>code</mat-icon>
-          Indeterminate State
-        </mat-panel-title>
-        <mat-panel-description>Parent checkbox with child checkboxes</mat-panel-description>
-      </mat-expansion-panel-header>
+    <amw-accordion-panel amwDescription="Parent checkbox with child checkboxes">
+      <ng-template #header>
+        <amw-icon name="code"></amw-icon>
+        Indeterminate State
+      </ng-template>
       <div class="example-container">
         <div class="code-panel">
           <div class="code-header">
@@ -149,35 +134,34 @@
         <div class="preview-panel">
           <h4>Preview</h4>
           <div class="preview-content">
-            <mat-checkbox
+            <amw-checkbox
               [checked]="allComplete"
               [indeterminate]="someComplete()"
               (change)="setAll($event.checked)">
               {{task.name}}
-            </mat-checkbox>
+            </amw-checkbox>
             <ul>
-              <li *ngFor="let subtask of task.subtasks">
-                <mat-checkbox
-                  [(ngModel)]="subtask.completed"
-                  (ngModelChange)="updateAllComplete()">
-                  {{subtask.name}}
-                </mat-checkbox>
-              </li>
+              @for (subtask of task.subtasks; track subtask.name) {
+                <li>
+                  <amw-checkbox
+                    [(ngModel)]="subtask.completed"
+                    (ngModelChange)="updateAllComplete()">
+                    {{subtask.name}}
+                  </amw-checkbox>
+                </li>
+              }
             </ul>
           </div>
         </div>
       </div>
-    </mat-expansion-panel>
+    </amw-accordion-panel>
 
     <!-- Disabled State -->
-    <mat-expansion-panel>
-      <mat-expansion-panel-header>
-        <mat-panel-title>
-          <mat-icon>code</mat-icon>
-          Disabled State
-        </mat-panel-title>
-        <mat-panel-description>Non-interactive checkboxes</mat-panel-description>
-      </mat-expansion-panel-header>
+    <amw-accordion-panel amwDescription="Non-interactive checkboxes">
+      <ng-template #header>
+        <amw-icon name="code"></amw-icon>
+        Disabled State
+      </ng-template>
       <div class="example-container">
         <div class="code-panel">
           <div class="code-header">
@@ -192,22 +176,19 @@
         <div class="preview-panel">
           <h4>Preview</h4>
           <div class="preview-content">
-            <mat-checkbox [disabled]="true">Disabled unchecked</mat-checkbox>
-            <mat-checkbox [disabled]="true" [checked]="true">Disabled checked</mat-checkbox>
+            <amw-checkbox [disabled]="true">Disabled unchecked</amw-checkbox>
+            <amw-checkbox [disabled]="true" [checked]="true">Disabled checked</amw-checkbox>
           </div>
         </div>
       </div>
-    </mat-expansion-panel>
+    </amw-accordion-panel>
 
     <!-- Event Handling -->
-    <mat-expansion-panel>
-      <mat-expansion-panel-header>
-        <mat-panel-title>
-          <mat-icon>code</mat-icon>
-          Event Handling
-        </mat-panel-title>
-        <mat-panel-description>Listen to checkbox change events</mat-panel-description>
-      </mat-expansion-panel-header>
+    <amw-accordion-panel amwDescription="Listen to checkbox change events">
+      <ng-template #header>
+        <amw-icon name="code"></amw-icon>
+        Event Handling
+      </ng-template>
       <div class="example-container">
         <div class="code-panel">
           <div class="code-header">
@@ -222,18 +203,18 @@
         <div class="preview-panel">
           <h4>Preview</h4>
           <div class="preview-content">
-            <mat-checkbox
+            <amw-checkbox
               (change)="onCheckboxChange($event)"
               (indeterminateChange)="onIndeterminateChange($event)">
               Event tracking
-            </mat-checkbox>
+            </amw-checkbox>
             <div class="preview-note">
-              <mat-icon>info</mat-icon>
+              <amw-icon name="info"></amw-icon>
               <span>Open your browser console to see event logs</span>
             </div>
           </div>
         </div>
       </div>
-    </mat-expansion-panel>
-  </mat-accordion>
+    </amw-accordion-panel>
+  </amw-accordion>
 </div>

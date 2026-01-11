@@ -1,6 +1,5 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
 
-import { MatIconModule } from '@angular/material/icon';
 import { AmwNotificationService } from '../../../../library/src/services/amw-notification/amw-notification.service';
 import { FormBuilder, FormGroup, Validators, ReactiveFormsModule } from '@angular/forms';
 import { Subject, takeUntil } from 'rxjs';
@@ -9,10 +8,10 @@ import { PopoverConfig } from '../../../../library/src/components/components/amw
 import { PopoverTrigger } from '../../../../library/src/components/components/amw-popover/interfaces/popover-trigger.interface';
 import { PopoverService } from '../../../../library/src/components/services/popover.service';
 import { AmwSize } from '../../../../library/src/shared/types';
-import { MatOptionModule } from '@angular/material/core';
 import { AmwButtonComponent } from '../../../../library/src/controls/components/amw-button/amw-button.component';
 import { AmwInputComponent } from '../../../../library/src/controls/components/amw-input/amw-input.component';
 import { AmwSelectComponent } from '../../../../library/src/controls/components/amw-select/amw-select.component';
+import { AmwCardComponent, AmwIconComponent } from '../../../../library/src/components/components';
 
 /**
  * Validation demo component for popover
@@ -22,13 +21,15 @@ import { AmwSelectComponent } from '../../../../library/src/controls/components/
 @Component({
     selector: 'app-popover-validation',
     standalone: true,
-    imports: [MatIconModule,
+    imports: [
     ReactiveFormsModule,
     AmwPopoverComponent,
-    MatOptionModule,
     AmwButtonComponent,
     AmwInputComponent,
-    AmwSelectComponent],
+    AmwSelectComponent,
+    AmwCardComponent,
+    AmwIconComponent
+],
     templateUrl: './popover-validation.component.html',
     styleUrl: './popover-validation.component.scss'
 })
@@ -471,14 +472,14 @@ export class PopoverValidationComponent implements OnInit, OnDestroy {
     }
 
     /** Size options for select dropdown */
-    readonly sizeOptions = [
+    readonly sizeOptions: { value: string; label: string }[] = [
         { value: 'small', label: 'Small' },
         { value: 'medium', label: 'Medium' },
         { value: 'large', label: 'Large' }
     ];
 
     /** Position options for select dropdown */
-    readonly positionOptions = [
+    readonly positionOptions: { value: string; label: string }[] = [
         { value: 'top', label: 'Top' },
         { value: 'bottom', label: 'Bottom' },
         { value: 'left', label: 'Left' },
@@ -490,7 +491,7 @@ export class PopoverValidationComponent implements OnInit, OnDestroy {
     ];
 
     /** Trigger type options for select dropdown */
-    readonly triggerTypeOptions = [
+    readonly triggerTypeOptions: { value: string; label: string }[] = [
         { value: 'click', label: 'Click' },
         { value: 'hover', label: 'Hover' },
         { value: 'focus', label: 'Focus' },
@@ -498,7 +499,7 @@ export class PopoverValidationComponent implements OnInit, OnDestroy {
     ];
 
     /** Animation easing options for select dropdown */
-    readonly animationEasingOptions = [
+    readonly animationEasingOptions: { value: string; label: string }[] = [
         { value: 'cubic-bezier(0.4, 0, 0.2, 1)', label: 'Standard' },
         { value: 'cubic-bezier(0.25, 0.8, 0.25, 1)', label: 'Decelerated' },
         { value: 'cubic-bezier(0.4, 0, 1, 1)', label: 'Accelerated' },

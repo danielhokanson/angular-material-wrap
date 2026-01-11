@@ -76,7 +76,7 @@
               class="amw-sidenav__list-item"
               [class]="getItemClasses(item)"
               [disabled]="item.disabled"
-              [amwTooltip]="item.tooltip"
+              [amwTooltip]="item.tooltip || ''"
               [routerLink]="item.route"
               (click)="onItemClick(item, $event)">
               @if (item.icon) {
@@ -136,7 +136,7 @@
                     class="amw-sidenav__nested-item"
                     [class]="getItemClasses(child)"
                     [disabled]="child.disabled"
-                    [amwTooltip]="child.tooltip"
+                    [amwTooltip]="child.tooltip || ''"
                     [routerLink]="child.route"
                     (click)="onItemClick(child, $event)">
                     @if (child.icon) {

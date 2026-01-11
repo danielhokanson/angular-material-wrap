@@ -7,7 +7,7 @@
   <div class="list-page-demo__controls">
     <amw-card class="list-page-demo__controls-card">
       <ng-template #cardContent>
-        <amw-tabs [(selectedIndex)]="currentView" (selectedIndexChange)="onViewChange($event === 0 ? 'basic' : 'advanced')">
+        <amw-tabs [(selectedIndex)]="currentViewIndex" (selectedIndexChange)="onViewChange($event)">
           <amw-tab label="Basic View">
             <div class="list-page-demo__tab-content">
               <p>Basic list view with essential features: search, sorting, and pagination.</p>
@@ -69,14 +69,10 @@
               <p>No items selected</p>
             }
             @if (selectedItems.length > 0) {
-              <div class="list-page-demo__selected-items">
-                <mat-chip-set>
+              <div class="list-page-demo__selected-items chip-list">
                   @for (item of selectedItems; track item) {
-                    <mat-chip>
-                      {{ item.name }}
-                    </mat-chip>
+                    <span class="chip">{{ item.name }}</span>
                   }
-                </mat-chip-set>
               </div>
             }
           </div>

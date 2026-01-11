@@ -1,20 +1,23 @@
 import { Component, ViewEncapsulation } from '@angular/core';
 import { FormsModule } from '@angular/forms';
-import { MatIconModule } from '@angular/material/icon';
 import { BaseCodeComponent } from '../base/base-code.component';
+import { AmwButtonComponent } from '../../../../library/src/controls/components/amw-button/amw-button.component';
+import { AmwSliderComponent } from '../../../../library/src/controls/components/amw-slider/amw-slider.component';
+import { AmwAccordionComponent, AmwAccordionPanelComponent, AmwIconComponent } from '../../../../library/src/components/components';
 
 type SliderExamples = 'basic' | 'withThumbLabel' | 'withSteps' | 'differentColors' | 'disabled' | 'reactiveForm' | 'withEvents' | 'settingsPanel';
-import { MatExpansionModule } from '@angular/material/expansion';
-import { MatSliderModule } from '@angular/material/slider';
 
 @Component({
   selector: 'amw-demo-slider-code',
   standalone: true,
-  imports: [FormsModule,
-    MatIconModule,
-    MatExpansionModule,
-    MatSliderModule,
-    AmwButtonComponent],
+  imports: [
+    FormsModule,
+    AmwButtonComponent,
+    AmwSliderComponent,
+    AmwAccordionComponent,
+    AmwAccordionPanelComponent,
+    AmwIconComponent
+  ],
   encapsulation: ViewEncapsulation.None,
   templateUrl: './slider-code.component.html',
   styleUrl: './slider-code.component.scss'

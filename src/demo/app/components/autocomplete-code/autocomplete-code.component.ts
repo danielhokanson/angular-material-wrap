@@ -1,26 +1,29 @@
 import { Component, ViewEncapsulation } from '@angular/core';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { CommonModule } from '@angular/common';
-import { MatIconModule } from '@angular/material/icon';
-import { MatOptionModule } from '@angular/material/core';
 import { BaseCodeComponent } from '../base/base-code.component';
 
-type AutocompleteExamples = 'basic' | 'withValidation' | 'withFiltering' | 'multipleSelection' | 'withCustomDisplay' | 'reactiveForm' | 'withEvents' | 'searchForm';
-import { MatExpansionModule } from '@angular/material/expansion';
-import { MatFormFieldModule } from '@angular/material/form-field';
 import { AmwButtonComponent } from '../../../../library/src/controls/components/amw-button/amw-button.component';
+import { AmwAccordionComponent, AmwAccordionPanelComponent, AmwIconComponent } from '../../../../library/src/components/components';
+import { AmwInputComponent } from '../../../../library/src/controls/components/amw-input/amw-input.component';
+import { AmwAutocompleteComponent } from '../../../../library/src/controls/components/amw-autocomplete/amw-autocomplete.component';
+
+type AutocompleteExamples = 'basic' | 'withValidation' | 'withFiltering' | 'multipleSelection' | 'withCustomDisplay' | 'reactiveForm' | 'withEvents' | 'searchForm';
 
 @Component({
   selector: 'amw-demo-autocomplete-code',
   standalone: true,
-  imports: [CommonModule,
+  imports: [
+    CommonModule,
     FormsModule,
     ReactiveFormsModule,
-    MatIconModule,
-    MatOptionModule,
-    MatExpansionModule,
-    MatFormFieldModule,
-    AmwButtonComponent],
+    AmwButtonComponent,
+    AmwAccordionComponent,
+    AmwAccordionPanelComponent,
+    AmwIconComponent,
+    AmwInputComponent,
+    AmwAutocompleteComponent,
+  ],
   encapsulation: ViewEncapsulation.None,
   templateUrl: './autocomplete-code.component.html',
   styleUrl: './autocomplete-code.component.scss'
@@ -37,102 +40,83 @@ export class AutocompleteCodeComponent extends BaseCodeComponent<AutocompleteExa
   filteredCountries = [...this.countries];
   filteredSkills = [...this.skills];
 
+  // Options for amw-autocomplete
+  countryOptions = this.countries.map(c => ({ value: c, label: c }));
+  skillOptions = this.skills.map(s => ({ value: s, label: s }));
+
   // Original code examples (for reset functionality)
   readonly codeExamples: Record<AutocompleteExamples, string> = {
-    basic: `<amw-input
+    basic: `<amw-autocomplete
   label="Country"
   [(ngModel)]="countryValue"
   placeholder="Select your country..."
-  appearance="outline"
-  [matAutocomplete]="auto">
-  <mat-autocomplete #auto="matAutocomplete">
-    @for (country of countries; track country) {
-      <mat-option [value]="country">{{country}}</mat-option>
-    }
-  </mat-autocomplete>
-</amw-input>`,
+  [options]="countryOptions"
+  appearance="outline">
+</amw-autocomplete>
 
-    withValidation: `<amw-input
+// Component
+countryOptions = [
+  { value: 'United States', label: 'United States' },
+  { value: 'Canada', label: 'Canada' },
+  { value: 'United Kingdom', label: 'United Kingdom' }
+];`,
+
+    withValidation: `<amw-autocomplete
   label="Country"
   [(ngModel)]="countryValue"
   placeholder="Select your country..."
+  [options]="countryOptions"
   appearance="outline"
-  required
-  hint="Country is required"
-  [matAutocomplete]="autoValidation">
-  <mat-autocomplete #autoValidation="matAutocomplete">
-    @for (country of countries; track country) {
-      <mat-option [value]="country">{{country}}</mat-option>
-    }
-  </mat-autocomplete>
-</amw-input>`,
+  [required]="true"
+  hint="Country is required">
+</amw-autocomplete>`,
 
-    withFiltering: `<amw-input
+    withFiltering: `<amw-autocomplete
   label="Search Skills"
   [(ngModel)]="skillValue"
-  (input)="filterSkills($event)"
   placeholder="Type to search skills..."
-  appearance="outline"
-  [matAutocomplete]="autoFilter">
-  <mat-autocomplete #autoFilter="matAutocomplete">
-    @for (skill of filteredSkills; track skill) {
-      <mat-option [value]="skill">{{skill}}</mat-option>
-    }
-  </mat-autocomplete>
-</amw-input>
+  [options]="filteredSkillOptions"
+  (input)="filterSkills($event)"
+  appearance="outline">
+</amw-autocomplete>
 
 // Component method
 filterSkills(event: any): void {
   const value = event.target.value.toLowerCase();
-  this.filteredSkills = this.skills.filter(skill =>
-    skill.toLowerCase().includes(value)
+  this.filteredSkillOptions = this.skillOptions.filter(skill =>
+    skill.label.toLowerCase().includes(value)
   );
 }`,
 
-    multipleSelection: `// For multiple selection, use mat-chip-grid with autocomplete
-<amw-input
-  label="Skills"
-  appearance="outline">
-  <mat-chip-grid #chipGrid>
-    @for (skill of selectedSkills; track skill) {
-      <mat-chip-row (removed)="removeSkill(skill)">
-        {{skill}}
-        <button matChipRemove>
-          <mat-icon>cancel</mat-icon>
-        </button>
-      </mat-chip-row>
-    }
-  </mat-chip-grid>
-  <input
-    placeholder="Select skills..."
-    [matChipInputFor]="chipGrid"
-    [matAutocomplete]="autoMulti">
-  <mat-autocomplete #autoMulti="matAutocomplete" (optionSelected)="addSkill($event)">
-    @for (skill of skills; track skill) {
-      <mat-option [value]="skill">{{skill}}</mat-option>
-    }
-  </mat-autocomplete>
-</amw-input>`,
+    multipleSelection: `// For multiple selection, use amw-chips with autocomplete
+<amw-chips
+  [chips]="selectedSkillChips"
+  [addable]="true"
+  [removable]="true"
+  (chipAdd)="addSkill($event)"
+  (chipRemove)="removeSkill($event)">
+</amw-chips>
 
-    withCustomDisplay: `<amw-input
+// With autocomplete suggestions
+<amw-autocomplete
+  label="Add Skills"
+  [options]="availableSkillOptions"
+  (optionSelected)="onSkillSelected($event)"
+  appearance="outline">
+</amw-autocomplete>`,
+
+    withCustomDisplay: `<amw-autocomplete
   label="Users"
   placeholder="Search users..."
-  appearance="outline"
-  [matAutocomplete]="autoCustom">
-  <mat-autocomplete #autoCustom="matAutocomplete" [displayWith]="displayUser">
-    @for (user of users; track user.id) {
-      <mat-option [value]="user">
-        <span>{{user.name}}</span>
-        <small>({{user.email}})</small>
-      </mat-option>
-    }
-  </mat-autocomplete>
-</amw-input>
+  [options]="userOptions"
+  [displayWith]="displayUser"
+  appearance="outline">
+</amw-autocomplete>
 
 // Component data and method
-users = [
-  { id: 1, name: 'John Doe', email: 'john@example.com' },
-  { id: 2, name: 'Jane Smith', email: 'jane@example.com' }
+userOptions = [
+  { value: { id: 1, name: 'John Doe', email: 'john@example.com' }, label: 'John Doe (john@example.com)' },
+  { value: { id: 2, name: 'Jane Smith', email: 'jane@example.com' }, label: 'Jane Smith (jane@example.com)' }
 ];
 
 displayUser(user: any): string {
@@ -144,59 +128,39 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 
 export class MyComponent {
   form: FormGroup;
-  countries = ['United States', 'Canada', 'United Kingdom'];
-  skills = ['Angular', 'React', 'Vue.js'];
+  countryOptions = [
+    { value: 'United States', label: 'United States' },
+    { value: 'Canada', label: 'Canada' },
+    { value: 'United Kingdom', label: 'United Kingdom' }
+  ];
 
   constructor(private fb: FormBuilder) {
     this.form = this.fb.group({
-      country: ['', Validators.required],
-      skill: ['', Validators.required]
+      country: ['', Validators.required]
     });
   }
 }
 
 // Template
 <form [formGroup]="form">
-  <amw-input
+  <amw-autocomplete
     label="Country"
     formControlName="country"
     placeholder="Select country..."
-    appearance="outline"
-    [matAutocomplete]="autoCountry">
-    <mat-autocomplete #autoCountry="matAutocomplete">
-      @for (country of countries; track country) {
-        <mat-option [value]="country">{{country}}</mat-option>
-      }
-    </mat-autocomplete>
-  </amw-input>
-
-  <amw-input
-    label="Skill"
-    formControlName="skill"
-    placeholder="Select skill..."
-    appearance="outline"
-    [matAutocomplete]="autoSkill">
-    <mat-autocomplete #autoSkill="matAutocomplete">
-      @for (skill of skills; track skill) {
-        <mat-option [value]="skill">{{skill}}</mat-option>
-      }
-    </mat-autocomplete>
-  </amw-input>
+    [options]="countryOptions"
+    appearance="outline">
+  </amw-autocomplete>
 </form>`,
 
-    withEvents: `<amw-input
+    withEvents: `<amw-autocomplete
   label="Search"
   [(ngModel)]="searchValue"
-  (input)="onInputChange($event)"
   placeholder="Type to search..."
-  appearance="outline"
-  [matAutocomplete]="autoEvent">
-  <mat-autocomplete #autoEvent="matAutocomplete" (optionSelected)="onOptionSelected($event)">
-    @for (option of filteredOptions; track option) {
-      <mat-option [value]="option">{{option}}</mat-option>
-    }
-  </mat-autocomplete>
-</amw-input>
+  [options]="filteredOptions"
+  (input)="onInputChange($event)"
+  (optionSelected)="onOptionSelected($event)"
+  appearance="outline">
+</amw-autocomplete>
 
 // Component methods
 onInputChange(event: any): void {
@@ -205,36 +169,26 @@ onInputChange(event: any): void {
 }
 
 onOptionSelected(event: any): void {
-  console.log('Option selected:', event.option.value);
+  console.log('Option selected:', event);
 }`,
 
     searchForm: `<form class="search-form">
   <h3>Advanced Search</h3>
 
-  <amw-input
+  <amw-autocomplete
     label="Category"
     placeholder="Select category..."
+    [options]="categoryOptions"
     appearance="outline"
-    required
-    [matAutocomplete]="autoCategory">
-    <mat-autocomplete #autoCategory="matAutocomplete">
-      @for (category of categories; track category) {
-        <mat-option [value]="category">{{category}}</mat-option>
-      }
-    </mat-autocomplete>
-  </amw-input>
+    [required]="true">
+  </amw-autocomplete>
 
-  <amw-input
+  <amw-autocomplete
     label="Location"
     placeholder="Enter or select location..."
-    appearance="outline"
-    [matAutocomplete]="autoLocation">
-    <mat-autocomplete #autoLocation="matAutocomplete">
-      @for (location of locations; track location) {
-        <mat-option [value]="location">{{location}}</mat-option>
-      }
-    </mat-autocomplete>
-  </amw-input>
+    [options]="locationOptions"
+    appearance="outline">
+  </amw-autocomplete>
 
   <amw-button variant="elevated" color="primary" type="submit">
     Search
@@ -247,26 +201,26 @@ onOptionSelected(event: any): void {
   }
 
   // Filter methods
-  filterSkills(event: any): void {
-    const value = event.target.value.toLowerCase();
+  filterSkills(value: string): void {
+    const search = value.toLowerCase();
     this.filteredSkills = this.skills.filter(skill =>
-      skill.toLowerCase().includes(value)
+      skill.toLowerCase().includes(search)
     );
   }
 
-  filterCountries(event: any): void {
-    const value = event.target.value.toLowerCase();
+  filterCountries(value: string): void {
+    const search = value.toLowerCase();
     this.filteredCountries = this.countries.filter(country =>
-      country.toLowerCase().includes(value)
+      country.toLowerCase().includes(search)
     );
   }
 
   // Event handlers
   onInputChange(event: any): void {
-    console.log('Input changed:', event.target.value);
+    console.log('Input changed:', event.target?.value || event);
   }
 
   onOptionSelected(event: any): void {
-    console.log('Option selected:', event.option.value);
+    console.log('Option selected:', event);
   }
 }

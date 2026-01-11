@@ -2,16 +2,13 @@
   <h3>Code Examples</h3>
   <p>Interactive examples with live previews. The code is editable for reference, and working examples are shown alongside.</p>
 
-  <mat-accordion class="code-examples-accordion">
+  <amw-accordion class="code-examples-accordion">
     <!-- Basic Card -->
-    <mat-expansion-panel>
-      <mat-expansion-panel-header>
-        <mat-panel-title>
-          <mat-icon>code</mat-icon>
-          Basic Card
-        </mat-panel-title>
-        <mat-panel-description>Simple card with title, subtitle, and content</mat-panel-description>
-      </mat-expansion-panel-header>
+    <amw-accordion-panel amwDescription="Simple card with title, subtitle, and content">
+      <ng-template #header>
+        <amw-icon name="code"></amw-icon>
+        Basic Card
+      </ng-template>
       <div class="example-container">
         <div class="code-panel">
           <div class="code-header">
@@ -26,33 +23,23 @@
         <div class="preview-panel">
           <h4>Preview</h4>
           <div class="preview-content">
-            <mat-card>
-              <mat-card-header>
-                <mat-card-title>Card Title</mat-card-title>
-                <mat-card-subtitle>Card subtitle</mat-card-subtitle>
-              </mat-card-header>
-              <mat-card-content>
-                <p>This is a basic card with title, subtitle, and content.</p>
-              </mat-card-content>
-              <mat-card-actions>
-                <amw-button variant="text">ACTION 1</amw-button>
-                <amw-button variant="text">ACTION 2</amw-button>
-              </mat-card-actions>
-            </mat-card>
+            <amw-card
+              headerTitle="Card Title"
+              headerSubtitle="Card subtitle"
+              content="This is a basic card with title, subtitle, and content."
+              [actions]="[{ label: 'ACTION 1' }, { label: 'ACTION 2' }]">
+            </amw-card>
           </div>
         </div>
       </div>
-    </mat-expansion-panel>
+    </amw-accordion-panel>
 
     <!-- Card with Image -->
-    <mat-expansion-panel>
-      <mat-expansion-panel-header>
-        <mat-panel-title>
-          <mat-icon>code</mat-icon>
-          Card with Image
-        </mat-panel-title>
-        <mat-panel-description>Card featuring an image with content</mat-panel-description>
-      </mat-expansion-panel-header>
+    <amw-accordion-panel amwDescription="Card featuring an image with content">
+      <ng-template #header>
+        <amw-icon name="code"></amw-icon>
+        Card with Image
+      </ng-template>
       <div class="example-container">
         <div class="code-panel">
           <div class="code-header">
@@ -68,34 +55,25 @@
         <div class="preview-panel">
           <h4>Preview</h4>
           <div class="preview-content">
-            <mat-card>
-              <mat-card-header>
-                <mat-card-title>Shiba Inu</mat-card-title>
-                <mat-card-subtitle>Dog Breed</mat-card-subtitle>
-              </mat-card-header>
-              <img mat-card-image src="https://material.angular.io/assets/img/examples/shiba2.jpg" alt="Photo of a Shiba Inu">
-              <mat-card-content>
-                <p>The Shiba Inu is the smallest of the six original and distinct spitz breeds of dog from Japan.</p>
-              </mat-card-content>
-              <mat-card-actions>
-                <amw-button variant="text">LIKE</amw-button>
-                <amw-button variant="text">SHARE</amw-button>
-              </mat-card-actions>
-            </mat-card>
+            <amw-card
+              headerTitle="Shiba Inu"
+              headerSubtitle="Dog Breed"
+              image="https://material.angular.io/assets/img/examples/shiba2.jpg"
+              imageAlt="Photo of a Shiba Inu"
+              content="The Shiba Inu is the smallest of the six original and distinct spitz breeds of dog from Japan."
+              [actions]="[{ label: 'LIKE' }, { label: 'SHARE' }]">
+            </amw-card>
           </div>
         </div>
       </div>
-    </mat-expansion-panel>
+    </amw-accordion-panel>
 
     <!-- Clickable Card -->
-    <mat-expansion-panel>
-      <mat-expansion-panel-header>
-        <mat-panel-title>
-          <mat-icon>code</mat-icon>
-          Clickable Card
-        </mat-panel-title>
-        <mat-panel-description>Interactive card that responds to clicks</mat-panel-description>
-      </mat-expansion-panel-header>
+    <amw-accordion-panel amwDescription="Interactive card that responds to clicks">
+      <ng-template #header>
+        <amw-icon name="code"></amw-icon>
+        Clickable Card
+      </ng-template>
       <div class="example-container">
         <div class="code-panel">
           <div class="code-header">
@@ -111,33 +89,29 @@
         <div class="preview-panel">
           <h4>Preview</h4>
           <div class="preview-content">
-            <mat-card class="example-card" (click)="onCardClick()">
-              <mat-card-header>
-                <mat-card-title>Interactive Card</mat-card-title>
-                <mat-card-subtitle>Click anywhere on this card</mat-card-subtitle>
-              </mat-card-header>
-              <mat-card-content>
-                <p>This entire card is clickable and will respond to user interactions.</p>
-              </mat-card-content>
-            </mat-card>
+            <amw-card
+              headerTitle="Interactive Card"
+              headerSubtitle="Click anywhere on this card"
+              content="This entire card is clickable and will respond to user interactions."
+              [clickable]="true"
+              (cardClick)="onCardClick()"
+              class="example-card">
+            </amw-card>
             <div class="preview-note">
-              <mat-icon>info</mat-icon>
+              <amw-icon name="info"></amw-icon>
               <span>Open your browser console to see click events</span>
             </div>
           </div>
         </div>
       </div>
-    </mat-expansion-panel>
+    </amw-accordion-panel>
 
     <!-- Card Variants -->
-    <mat-expansion-panel>
-      <mat-expansion-panel-header>
-        <mat-panel-title>
-          <mat-icon>code</mat-icon>
-          Card Variants
-        </mat-panel-title>
-        <mat-panel-description>Different card styles and appearances</mat-panel-description>
-      </mat-expansion-panel-header>
+    <amw-accordion-panel amwDescription="Different card styles and appearances">
+      <ng-template #header>
+        <amw-icon name="code"></amw-icon>
+        Card Variants
+      </ng-template>
       <div class="example-container">
         <div class="code-panel">
           <div class="code-header">
@@ -154,27 +128,22 @@
           <h4>Preview</h4>
           <div class="preview-content">
             <div class="card-variants-container">
-              <mat-card appearance="outlined">
-                <mat-card-header>
-                  <mat-card-title>Outlined Card</mat-card-title>
-                </mat-card-header>
-                <mat-card-content>
-                  <p>This card uses an outlined appearance.</p>
-                </mat-card-content>
-              </mat-card>
+              <amw-card
+                headerTitle="Outlined Card"
+                content="This card uses an outlined appearance."
+                variant="outlined">
+              </amw-card>
 
-              <mat-card appearance="raised">
-                <mat-card-header>
-                  <mat-card-title>Raised Card</mat-card-title>
-                </mat-card-header>
-                <mat-card-content>
-                  <p>This card uses a raised appearance with elevation.</p>
-                </mat-card-content>
-              </mat-card>
+              <amw-card
+                headerTitle="Raised Card"
+                content="This card uses a raised appearance with elevation."
+                variant="elevated"
+                [elevation]="3">
+              </amw-card>
             </div>
           </div>
         </div>
       </div>
-    </mat-expansion-panel>
-  </mat-accordion>
+    </amw-accordion-panel>
+  </amw-accordion>
 </div>

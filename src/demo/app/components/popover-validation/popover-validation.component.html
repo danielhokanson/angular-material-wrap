@@ -19,23 +19,15 @@
             <amw-select
               label="Size *"
               formControlName="size"
-              [required]="true">
-              @for (option of sizeOptions; track option) {
-                <mat-option [value]="option.value">
-                  {{ option.label }}
-                </mat-option>
-              }
+              [required]="true"
+              [options]="sizeOptions">
             </amw-select>
 
             <amw-select
               label="Position *"
               formControlName="position"
-              [required]="true">
-              @for (option of positionOptions; track option) {
-                <mat-option [value]="option.value">
-                  {{ option.label }}
-                </mat-option>
-              }
+              [required]="true"
+              [options]="positionOptions">
             </amw-select>
 
             <amw-input
@@ -122,12 +114,8 @@
           <div class="popover-validation__form-row">
             <amw-select
               label="Animation Easing"
-              formControlName="animationEasing">
-              @for (option of animationEasingOptions; track option) {
-                <mat-option [value]="option.value">
-                  {{ option.label }}
-                </mat-option>
-              }
+              formControlName="animationEasing"
+              [options]="animationEasingOptions">
             </amw-select>
 
             <amw-input
@@ -199,12 +187,8 @@
             <amw-select
               label="Trigger Type *"
               formControlName="type"
-              [required]="true">
-              @for (option of triggerTypeOptions; track option) {
-                <mat-option [value]="option.value">
-                  {{ option.label }}
-                </mat-option>
-              }
+              [required]="true"
+              [options]="triggerTypeOptions">
             </amw-select>
 
             <amw-input

@@ -2,16 +2,16 @@
   <h3>Code Examples</h3>
   <p>Interactive examples with live previews. The code is editable for reference, and working examples are shown alongside.</p>
 
-  <mat-accordion class="code-examples-accordion">
+  <amw-accordion class="code-examples-accordion">
     <!-- Basic Datepicker -->
-    <mat-expansion-panel>
-      <mat-expansion-panel-header>
-        <mat-panel-title>
-          <mat-icon>code</mat-icon>
+    <amw-accordion-panel>
+      <ng-template #panelHeader>
+        <div class="panel-title">
+          <amw-icon name="code"></amw-icon>
           Basic Datepicker
-        </mat-panel-title>
-        <mat-panel-description>A simple datepicker with default settings</mat-panel-description>
-      </mat-expansion-panel-header>
+        </div>
+        <div class="panel-description">A simple datepicker with default settings</div>
+      </ng-template>
       <div class="example-container">
         <div class="code-panel">
           <div class="code-header">
@@ -35,17 +35,17 @@
           </div>
         </div>
       </div>
-    </mat-expansion-panel>
+    </amw-accordion-panel>
 
     <!-- With Min/Max Dates -->
-    <mat-expansion-panel>
-      <mat-expansion-panel-header>
-        <mat-panel-title>
-          <mat-icon>code</mat-icon>
+    <amw-accordion-panel>
+      <ng-template #panelHeader>
+        <div class="panel-title">
+          <amw-icon name="code"></amw-icon>
           Datepicker with Min/Max Dates
-        </mat-panel-title>
-        <mat-panel-description>Datepicker with date range restrictions</mat-panel-description>
-      </mat-expansion-panel-header>
+        </div>
+        <div class="panel-description">Datepicker with date range restrictions</div>
+      </ng-template>
       <div class="example-container">
         <div class="code-panel">
           <div class="code-header">
@@ -71,17 +71,17 @@
           </div>
         </div>
       </div>
-    </mat-expansion-panel>
+    </amw-accordion-panel>
 
     <!-- With Validation -->
-    <mat-expansion-panel>
-      <mat-expansion-panel-header>
-        <mat-panel-title>
-          <mat-icon>code</mat-icon>
+    <amw-accordion-panel>
+      <ng-template #panelHeader>
+        <div class="panel-title">
+          <amw-icon name="code"></amw-icon>
           Datepicker with Validation
-        </mat-panel-title>
-        <mat-panel-description>Datepicker with required validation</mat-panel-description>
-      </mat-expansion-panel-header>
+        </div>
+        <div class="panel-description">Datepicker with required validation</div>
+      </ng-template>
       <div class="example-container">
         <div class="code-panel">
           <div class="code-header">
@@ -111,17 +111,17 @@
           </div>
         </div>
       </div>
-    </mat-expansion-panel>
+    </amw-accordion-panel>
 
     <!-- Different Formats -->
-    <mat-expansion-panel>
-      <mat-expansion-panel-header>
-        <mat-panel-title>
-          <mat-icon>code</mat-icon>
+    <amw-accordion-panel>
+      <ng-template #panelHeader>
+        <div class="panel-title">
+          <amw-icon name="code"></amw-icon>
           Different Date Formats
-        </mat-panel-title>
-        <mat-panel-description>Datepickers with various display formats</mat-panel-description>
-      </mat-expansion-panel-header>
+        </div>
+        <div class="panel-description">Datepickers with various display formats</div>
+      </ng-template>
       <div class="example-container">
         <div class="code-panel">
           <div class="code-header">
@@ -162,17 +162,17 @@
           </div>
         </div>
       </div>
-    </mat-expansion-panel>
+    </amw-accordion-panel>
 
     <!-- Disabled State -->
-    <mat-expansion-panel>
-      <mat-expansion-panel-header>
-        <mat-panel-title>
-          <mat-icon>code</mat-icon>
+    <amw-accordion-panel>
+      <ng-template #panelHeader>
+        <div class="panel-title">
+          <amw-icon name="code"></amw-icon>
           Disabled Datepicker
-        </mat-panel-title>
-        <mat-panel-description>Datepicker in disabled state</mat-panel-description>
-      </mat-expansion-panel-header>
+        </div>
+        <div class="panel-description">Datepicker in disabled state</div>
+      </ng-template>
       <div class="example-container">
         <div class="code-panel">
           <div class="code-header">
@@ -197,17 +197,17 @@
           </div>
         </div>
       </div>
-    </mat-expansion-panel>
+    </amw-accordion-panel>
 
     <!-- Reactive Form Integration -->
-    <mat-expansion-panel>
-      <mat-expansion-panel-header>
-        <mat-panel-title>
-          <mat-icon>code</mat-icon>
+    <amw-accordion-panel>
+      <ng-template #panelHeader>
+        <div class="panel-title">
+          <amw-icon name="code"></amw-icon>
           Reactive Form Integration
-        </mat-panel-title>
-        <mat-panel-description>Using datepickers with Angular reactive forms</mat-panel-description>
-      </mat-expansion-panel-header>
+        </div>
+        <div class="panel-description">Using datepickers with Angular reactive forms</div>
+      </ng-template>
       <div class="example-container">
         <div class="code-panel">
           <div class="code-header">
@@ -236,17 +236,17 @@
           </div>
         </div>
       </div>
-    </mat-expansion-panel>
+    </amw-accordion-panel>
 
     <!-- With Events -->
-    <mat-expansion-panel>
-      <mat-expansion-panel-header>
-        <mat-panel-title>
-          <mat-icon>code</mat-icon>
+    <amw-accordion-panel>
+      <ng-template #panelHeader>
+        <div class="panel-title">
+          <amw-icon name="code"></amw-icon>
           Datepicker with Events
-        </mat-panel-title>
-        <mat-panel-description>Datepickers with event handling</mat-panel-description>
-      </mat-expansion-panel-header>
+        </div>
+        <div class="panel-description">Datepickers with event handling</div>
+      </ng-template>
       <div class="example-container">
         <div class="code-panel">
           <div class="code-header">
@@ -271,23 +271,23 @@
             </amw-datepicker>
             <p>Selected date: {{ eventDate | date }}</p>
             <p class="info-note">
-              <mat-icon>info</mat-icon>
+              <amw-icon name="info"></amw-icon>
               Open your browser console to see event logs
             </p>
           </div>
         </div>
       </div>
-    </mat-expansion-panel>
+    </amw-accordion-panel>
 
     <!-- Booking Form Example -->
-    <mat-expansion-panel>
-      <mat-expansion-panel-header>
-        <mat-panel-title>
-          <mat-icon>code</mat-icon>
+    <amw-accordion-panel>
+      <ng-template #panelHeader>
+        <div class="panel-title">
+          <amw-icon name="code"></amw-icon>
           Booking Form Example
-        </mat-panel-title>
-        <mat-panel-description>Complete booking form with multiple datepickers</mat-panel-description>
-      </mat-expansion-panel-header>
+        </div>
+        <div class="panel-description">Complete booking form with multiple datepickers</div>
+      </ng-template>
       <div class="example-container">
         <div class="code-panel">
           <div class="code-header">
@@ -346,6 +346,6 @@
           </div>
         </div>
       </div>
-    </mat-expansion-panel>
-  </mat-accordion>
+    </amw-accordion-panel>
+  </amw-accordion>
 </div>

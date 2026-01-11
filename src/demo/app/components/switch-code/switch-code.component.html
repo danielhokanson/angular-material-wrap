@@ -2,16 +2,13 @@
   <h3>Code Examples</h3>
   <p>Interactive examples with live previews. The code is editable for reference, and working examples are shown alongside.</p>
 
-  <mat-accordion class="code-examples-accordion">
+  <amw-accordion class="code-examples-accordion">
     <!-- Basic Switch -->
-    <mat-expansion-panel>
-      <mat-expansion-panel-header>
-        <mat-panel-title>
-          <mat-icon>code</mat-icon>
-          Basic Switch
-        </mat-panel-title>
-        <mat-panel-description>Simple switch with two-way binding</mat-panel-description>
-      </mat-expansion-panel-header>
+    <amw-accordion-panel amwDescription="Simple switch with two-way binding">
+      <ng-template #header>
+        <amw-icon name="code"></amw-icon>
+        Basic Switch
+      </ng-template>
       <div class="example-container">
         <div class="code-panel">
           <div class="code-header">
@@ -35,17 +32,14 @@
           </div>
         </div>
       </div>
-    </mat-expansion-panel>
+    </amw-accordion-panel>
 
     <!-- Configured Switch -->
-    <mat-expansion-panel>
-      <mat-expansion-panel-header>
-        <mat-panel-title>
-          <mat-icon>code</mat-icon>
-          Configured Switch
-        </mat-panel-title>
-        <mat-panel-description>Switch with custom configuration options</mat-panel-description>
-      </mat-expansion-panel-header>
+    <amw-accordion-panel amwDescription="Switch with custom configuration options">
+      <ng-template #header>
+        <amw-icon name="code"></amw-icon>
+        Configured Switch
+      </ng-template>
       <div class="example-container">
         <div class="code-panel">
           <div class="code-header">
@@ -73,17 +67,14 @@
           </div>
         </div>
       </div>
-    </mat-expansion-panel>
+    </amw-accordion-panel>
 
     <!-- Form Control -->
-    <mat-expansion-panel>
-      <mat-expansion-panel-header>
-        <mat-panel-title>
-          <mat-icon>code</mat-icon>
-          Form Control Integration
-        </mat-panel-title>
-        <mat-panel-description>Using switch with reactive forms</mat-panel-description>
-      </mat-expansion-panel-header>
+    <amw-accordion-panel amwDescription="Using switch with reactive forms">
+      <ng-template #header>
+        <amw-icon name="code"></amw-icon>
+        Form Control Integration
+      </ng-template>
       <div class="example-container">
         <div class="code-panel">
           <div class="code-header">
@@ -105,23 +96,20 @@
               Dark Mode
             </mat-slide-toggle>
             <div class="preview-note">
-              <mat-icon>info</mat-icon>
+              <amw-icon name="info"></amw-icon>
               <span>This example shows the template syntax. Full reactive forms setup shown in code.</span>
             </div>
           </div>
         </div>
       </div>
-    </mat-expansion-panel>
+    </amw-accordion-panel>
 
     <!-- Validation -->
-    <mat-expansion-panel>
-      <mat-expansion-panel-header>
-        <mat-panel-title>
-          <mat-icon>code</mat-icon>
-          Validation
-        </mat-panel-title>
-        <mat-panel-description>Switch with form validation</mat-panel-description>
-      </mat-expansion-panel-header>
+    <amw-accordion-panel amwDescription="Switch with form validation">
+      <ng-template #header>
+        <amw-icon name="code"></amw-icon>
+        Validation
+      </ng-template>
       <div class="example-container">
         <div class="code-panel">
           <div class="code-header">
@@ -140,23 +128,20 @@
               Accept Terms and Conditions
             </mat-slide-toggle>
             <div class="preview-note">
-              <mat-icon>info</mat-icon>
+              <amw-icon name="info"></amw-icon>
               <span>Full validation setup shown in code example</span>
             </div>
           </div>
         </div>
       </div>
-    </mat-expansion-panel>
+    </amw-accordion-panel>
 
     <!-- Sizes -->
-    <mat-expansion-panel>
-      <mat-expansion-panel-header>
-        <mat-panel-title>
-          <mat-icon>code</mat-icon>
-          Sizes
-        </mat-panel-title>
-        <mat-panel-description>Different switch sizes</mat-panel-description>
-      </mat-expansion-panel-header>
+    <amw-accordion-panel amwDescription="Different switch sizes">
+      <ng-template #header>
+        <amw-icon name="code"></amw-icon>
+        Sizes
+      </ng-template>
       <div class="example-container">
         <div class="code-panel">
           <div class="code-header">
@@ -175,23 +160,20 @@
             <mat-slide-toggle>Medium Switch</mat-slide-toggle>
             <mat-slide-toggle>Large Switch</mat-slide-toggle>
             <div class="preview-note">
-              <mat-icon>info</mat-icon>
+              <amw-icon name="info"></amw-icon>
               <span>Note: Material slide-toggle doesn't have built-in size variants. Use CSS for custom sizing.</span>
             </div>
           </div>
         </div>
       </div>
-    </mat-expansion-panel>
+    </amw-accordion-panel>
 
     <!-- Colors -->
-    <mat-expansion-panel>
-      <mat-expansion-panel-header>
-        <mat-panel-title>
-          <mat-icon>code</mat-icon>
-          Colors
-        </mat-panel-title>
-        <mat-panel-description>Different color themes</mat-panel-description>
-      </mat-expansion-panel-header>
+    <amw-accordion-panel amwDescription="Different color themes">
+      <ng-template #header>
+        <amw-icon name="code"></amw-icon>
+        Colors
+      </ng-template>
       <div class="example-container">
         <div class="code-panel">
           <div class="code-header">
@@ -212,6 +194,6 @@
           </div>
         </div>
       </div>
-    </mat-expansion-panel>
-  </mat-accordion>
+    </amw-accordion-panel>
+  </amw-accordion>
 </div>

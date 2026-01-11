@@ -1,22 +1,22 @@
 import { Component, ViewEncapsulation } from '@angular/core';
 import { FormsModule, ReactiveFormsModule, FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { MatIconModule } from '@angular/material/icon';
 import { BaseCodeComponent } from '../base/base-code.component';
 
 type RadioGroupExamples = 'basic' | 'ngModel' | 'disabled' | 'labelPosition' | 'color' | 'reactiveForm';
-import { MatExpansionModule } from '@angular/material/expansion';
-import { MatRadioModule } from '@angular/material/radio';
 
 import { AmwButtonComponent } from '../../../../library/src/controls/components/amw-button/amw-button.component';
+import { AmwRadioGroupComponent } from '../../../../library/src/controls/components/amw-radio-group/amw-radio-group.component';
+import { AmwAccordionComponent, AmwAccordionPanelComponent, AmwIconComponent } from '../../../../library/src/components/components';
 @Component({
   selector: 'app-radio-group-code',
   standalone: true,
   imports: [FormsModule,
     ReactiveFormsModule,
-    MatIconModule,
-    MatExpansionModule,
-    MatRadioModule,
-    AmwButtonComponent],
+    AmwButtonComponent,
+    AmwRadioGroupComponent,
+    AmwAccordionComponent,
+    AmwAccordionPanelComponent,
+    AmwIconComponent],
   encapsulation: ViewEncapsulation.None,
   templateUrl: './radio-group-code.component.html',
   styleUrl: './radio-group-code.component.scss'
@@ -33,55 +33,60 @@ export class RadioGroupCodeComponent extends BaseCodeComponent<RadioGroupExample
 
   // Original code examples (for reset functionality)
   readonly codeExamples: Record<RadioGroupExamples, string> = {
-    basic: `<mat-radio-group>
-  <mat-radio-button value="option1">Option 1</mat-radio-button>
-  <mat-radio-button value="option2">Option 2</mat-radio-button>
-  <mat-radio-button value="option3">Option 3</mat-radio-button>
-</mat-radio-group>`,
+    basic: `<amw-radio-group
+  [options]="[
+    { value: 'option1', label: 'Option 1' },
+    { value: 'option2', label: 'Option 2' },
+    { value: 'option3', label: 'Option 3' }
+  ]">
+</amw-radio-group>`,
 
-    ngModel: `<mat-radio-group [(ngModel)]="selectedValue">
-  <mat-radio-button value="yes">Yes</mat-radio-button>
-  <mat-radio-button value="no">No</mat-radio-button>
-  <mat-radio-button value="maybe">Maybe</mat-radio-button>
-</mat-radio-group>
+    ngModel: `<amw-radio-group
+  [(ngModel)]="selectedValue"
+  [options]="[
+    { value: 'yes', label: 'Yes' },
+    { value: 'no', label: 'No' },
+    { value: 'maybe', label: 'Maybe' }
+  ]">
+</amw-radio-group>
 
 <p>Selected: {{selectedValue}}</p>`,
 
-    disabled: `<mat-radio-group>
-  <mat-radio-button value="enabled">Enabled</mat-radio-button>
-  <mat-radio-button value="disabled" [disabled]="true">
-    Disabled
-  </mat-radio-button>
-  <mat-radio-button value="enabled2">Enabled</mat-radio-button>
-</mat-radio-group>`,
+    disabled: `<amw-radio-group
+  [options]="[
+    { value: 'enabled', label: 'Enabled' },
+    { value: 'disabled', label: 'Disabled', disabled: true },
+    { value: 'enabled2', label: 'Enabled' }
+  ]">
+</amw-radio-group>`,
 
-    labelPosition: `<mat-radio-group [(ngModel)]="selectedAlign">
-  <mat-radio-button value="before" labelPosition="before">
-    Label Before
-  </mat-radio-button>
-  <mat-radio-button value="after" labelPosition="after">
-    Label After
-  </mat-radio-button>
-</mat-radio-group>`,
+    labelPosition: `<amw-radio-group
+  [(ngModel)]="selectedAlign"
+  labelPosition="before"
+  [options]="[
+    { value: 'before', label: 'Label Before' },
+    { value: 'after', label: 'Label After' }
+  ]">
+</amw-radio-group>`,
 
-    color: `<mat-radio-group [(ngModel)]="selectedColor">
-  <mat-radio-button value="primary" color="primary">
-    Primary
-  </mat-radio-button>
-  <mat-radio-button value="accent" color="accent">
-    Accent
-  </mat-radio-button>
-  <mat-radio-button value="warn" color="warn">
-    Warn
-  </mat-radio-button>
-</mat-radio-group>`,
+    color: `<amw-radio-group
+  [(ngModel)]="selectedColor"
+  [options]="[
+    { value: 'primary', label: 'Primary' },
+    { value: 'accent', label: 'Accent' },
+    { value: 'warn', label: 'Warn' }
+  ]">
+</amw-radio-group>`,
 
     reactiveForm: `<form [formGroup]="myForm">
-  <mat-radio-group formControlName="priority">
-    <mat-radio-button value="low">Low</mat-radio-button>
-    <mat-radio-button value="medium">Medium</mat-radio-button>
-    <mat-radio-button value="high">High</mat-radio-button>
-  </mat-radio-group>
+  <amw-radio-group
+    formControlName="priority"
+    [options]="[
+      { value: 'low', label: 'Low' },
+      { value: 'medium', label: 'Medium' },
+      { value: 'high', label: 'High' }
+    ]">
+  </amw-radio-group>
 </form>
 
 // In component:

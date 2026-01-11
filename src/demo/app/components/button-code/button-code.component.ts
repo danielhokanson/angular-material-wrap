@@ -1,19 +1,21 @@
 import { Component, ViewEncapsulation } from '@angular/core';
 import { FormsModule } from '@angular/forms';
-import { MatIconModule } from '@angular/material/icon';
 import { BaseCodeComponent } from '../base/base-code.component';
+import { AmwButtonComponent } from '../../../../library/src/controls/components/amw-button/amw-button.component';
+import { AmwAccordionComponent, AmwAccordionPanelComponent, AmwIconComponent } from '../../../../library/src/components/components';
 
 type ButtonExamples = 'basic' | 'raised' | 'stroked' | 'flat' | 'icon' | 'fab' | 'disabled';
-import { MatExpansionModule } from '@angular/material/expansion';
 
-import { AmwButtonComponent } from '../../../../library/src/controls/components/amw-button/amw-button.component';
 @Component({
   selector: 'amw-demo-button-code',
   standalone: true,
-  imports: [FormsModule,
-    MatIconModule,
-    MatExpansionModule,
-    AmwButtonComponent],
+  imports: [
+    FormsModule,
+    AmwButtonComponent,
+    AmwAccordionComponent,
+    AmwAccordionPanelComponent,
+    AmwIconComponent
+  ],
   encapsulation: ViewEncapsulation.None,
   templateUrl: './button-code.component.html',
   styleUrl: './button-code.component.scss'

@@ -4,6 +4,8 @@ import { ReactiveFormsModule, FormBuilder, FormGroup, Validators } from '@angula
 import { AmwNotificationService } from '../../../../library/src/services/amw-notification/amw-notification.service';
 import { DialogService } from '../../../../library/src/components/services/dialog.service';
 import { DialogConfig, DialogType, DialogSize } from '../../../../library/src/components/components/amw-dialog/interfaces';
+import { AmwCardComponent } from '../../../../library/src/components/components/amw-card/amw-card.component';
+import { AmwIconComponent } from '../../../../library/src/components/components';
 
 import { AmwButtonComponent } from '../../../../library/src/controls/components/amw-button/amw-button.component';
 import { AmwInputComponent } from '../../../../library/src/controls/components/amw-input/amw-input.component';
@@ -18,7 +20,9 @@ import { AmwCheckboxComponent } from '../../../../library/src/controls/component
     AmwInputComponent,
     AmwTextareaComponent,
     AmwSelectComponent,
-    AmwCheckboxComponent],
+    AmwCheckboxComponent,
+    AmwCardComponent,
+    AmwIconComponent],
     encapsulation: ViewEncapsulation.None,
     templateUrl: './dialog-validation.component.html',
     styleUrl: './dialog-validation.component.scss'

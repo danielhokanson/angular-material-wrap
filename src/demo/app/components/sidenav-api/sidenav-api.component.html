@@ -7,16 +7,16 @@
 
   <div class="sidenav-api__content">
     <!-- API Tabs -->
-    <mat-card class="sidenav-api__api-card">
-      <mat-card-header>
-        <mat-card-title>API Reference</mat-card-title>
-        <mat-card-subtitle>Component, service, and interface documentation</mat-card-subtitle>
-      </mat-card-header>
+    <amw-card class="sidenav-api__api-card">
+      <ng-template #cardHeader>
+        <h2>API Reference</h2>
+        <p class="subtitle">Component, service, and interface documentation</p>
+      </ng-template>
 
-      <mat-card-content>
-        <mat-tab-group class="sidenav-api__tabs">
+      <ng-template #cardContent>
+        <amw-tabs class="sidenav-api__tabs">
           <!-- Component Tab -->
-          <mat-tab label="Component">
+          <amw-tab label="Component">
             <div class="sidenav-api__tab-content">
               <!-- Inputs -->
               <div class="sidenav-api__section">
@@ -89,10 +89,10 @@
                 </div>
               </div>
             </div>
-          </mat-tab>
+          </amw-tab>
 
           <!-- Service Tab -->
-          <mat-tab label="Service">
+          <amw-tab label="Service">
             <div class="sidenav-api__tab-content">
               <!-- Properties -->
               <div class="sidenav-api__section">
@@ -156,10 +156,10 @@
                 </div>
               </div>
             </div>
-          </mat-tab>
+          </amw-tab>
 
           <!-- Interfaces Tab -->
-          <mat-tab label="Interfaces">
+          <amw-tab label="Interfaces">
             <div class="sidenav-api__tab-content">
               <!-- SidenavConfig -->
               <div class="sidenav-api__section">
@@ -246,19 +246,19 @@
                 </div>
               </div>
             </div>
-          </mat-tab>
-        </mat-tab-group>
-      </mat-card-content>
-    </mat-card>
+          </amw-tab>
+        </amw-tabs>
+      </ng-template>
+    </amw-card>
 
     <!-- Live Demo -->
-    <mat-card class="sidenav-api__demo-card">
-      <mat-card-header>
-        <mat-card-title>Live Demo</mat-card-title>
-        <mat-card-subtitle>Test the sidenav component with the current configuration</mat-card-subtitle>
-      </mat-card-header>
+    <amw-card class="sidenav-api__demo-card">
+      <ng-template #cardHeader>
+        <h2>Live Demo</h2>
+        <p class="subtitle">Test the sidenav component with the current configuration</p>
+      </ng-template>
 
-      <mat-card-content>
+      <ng-template #cardContent>
         <div class="sidenav-api__demo-container">
           <amw-sidenav
             [config]="currentConfig"
@@ -269,13 +269,13 @@
 
             <!-- Main Content -->
             <div class="sidenav-api__main-content">
-              <mat-card class="sidenav-api__content-card">
-                <mat-card-header>
-                  <mat-card-title>API Documentation</mat-card-title>
-                  <mat-card-subtitle>Explore the sidenav component API</mat-card-subtitle>
-                </mat-card-header>
+              <amw-card class="sidenav-api__content-card">
+                <ng-template #cardHeader>
+                  <h2>API Documentation</h2>
+                  <p class="subtitle">Explore the sidenav component API</p>
+                </ng-template>
 
-                <mat-card-content>
+                <ng-template #cardContent>
                   <p>
                     This documentation provides comprehensive information about the sidenav component,
                     including all inputs, outputs, methods, and interfaces.
@@ -290,12 +290,12 @@
                       <li>Handle events and user interactions</li>
                     </ol>
                   </div>
-                </mat-card-content>
-              </mat-card>
+                </ng-template>
+              </amw-card>
             </div>
           </amw-sidenav>
         </div>
-      </mat-card-content>
-    </mat-card>
+      </ng-template>
+    </amw-card>
   </div>
 </div>

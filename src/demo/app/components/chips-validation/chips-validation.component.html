@@ -7,76 +7,52 @@
     <amw-card class="validation-card">
       <ng-template #cardHeader>
         <h2>
-          <mat-icon>label</mat-icon>
+          <amw-icon name="label"></amw-icon>
           Tag Management
         </h2>
         <p class="subtitle">Add tags with min/max constraints (1-10 tags)</p>
       </ng-template>
       <ng-template #cardContent>
-        <form [formGroup]="tagForm">
-          <mat-form-field class="full-width" appearance="outline">
-            <mat-label>Add Tags</mat-label>
-            <mat-chip-grid #tagChipGrid aria-label="Tag selection">
-              @for (tag of tags; track tag) {
-                <mat-chip-row (removed)="removeTag(tag)">
-                  {{ tag.name }}
-                  <button matChipRemove [attr.aria-label]="'remove ' + tag.name">
-                    <mat-icon>cancel</mat-icon>
-                  </button>
-                </mat-chip-row>
-              }
-            </mat-chip-grid>
-            <input
-              placeholder="Type and press Enter..."
-              [matChipInputFor]="tagChipGrid"
-              [matChipInputSeparatorKeyCodes]="separatorKeysCodes"
-              [matChipInputAddOnBlur]="true"
-              (matChipInputTokenEnd)="addTag($event)"
-              [disabled]="hasMaxTags()" />
-            @if (!hasMinTags()) {
-              <mat-error>At least 1 tag is required</mat-error>
-            }
-            @if (hasMaxTags()) {
-              <mat-hint>Maximum tags reached (10/10)</mat-hint>
-            } @else {
-              <mat-hint>{{ tags.length }}/10 tags</mat-hint>
-            }
-          </mat-form-field>
-        </form>
+        <amw-chips
+          [chips]="tagChips"
+          [addable]="!hasMaxTags()"
+          [removable]="true"
+          [maxChips]="10"
+          [minChips]="1"
+          placeholder="Type and press Enter..."
+          [hasError]="!hasMinTags()"
+          [errorMessage]="getTagsValidationMessage()"
+          (chipAdd)="onTagAdd($event)"
+          (chipRemove)="onTagRemove($event)">
+        </amw-chips>
 
         <div class="validation-status">
           @if (hasMinTags() && !hasMaxTags()) {
             <div class="status-message status-message--success">
-              <mat-icon>check_circle</mat-icon>
+              <amw-icon name="check_circle"></amw-icon>
               <span>Valid: {{ tags.length }} tags added</span>
             </div>
           }
         </div>
       </ng-template>
-</amw-card>
+    </amw-card>
 
     <!-- Skill Level Form -->
     <amw-card class="validation-card">
       <ng-template #cardHeader>
         <h2>
-          <mat-icon>school</mat-icon>
+          <amw-icon name="school"></amw-icon>
           Skills with Levels
         </h2>
         <p class="subtitle">Add skills with proficiency levels and validation</p>
       </ng-template>
       <ng-template #cardContent>
-        <div class="skill-chips">
-          <mat-chip-set aria-label="Skill selection">
-            @for (skill of skills; track skill) {
-              <mat-chip [color]="getSkillColor(skill.level)" (removed)="removeSkill(skill)">
-                {{ skill.name }} ({{ skill.level }})
-                <button matChipRemove [attr.aria-label]="'remove ' + skill.name">
-                  <mat-icon>cancel</mat-icon>
-                </button>
-              </mat-chip>
-            }
-          </mat-chip-set>
-        </div>
+        <amw-chips
+          [chips]="skillChips"
+          [addable]="false"
+          [removable]="true"
+          (chipRemove)="onSkillChipRemove($event)">
+        </amw-chips>
 
         <form [formGroup]="skillForm" (ngSubmit)="addSkill()" class="skill-form">
           <div class="form-row">
@@ -94,10 +70,8 @@
               appearance="outline"
               class="skill-level-field"
               label="Proficiency Level"
-              formControlName="skillLevel">
-              <mat-option value="beginner">Beginner</mat-option>
-              <mat-option value="intermediate">Intermediate</mat-option>
-              <mat-option value="advanced">Advanced</mat-option>
+              formControlName="skillLevel"
+              [options]="skillLevelOptions">
             </amw-select>
 
             <amw-button variant="elevated"
@@ -111,71 +85,51 @@
         <div class="validation-status">
           @if (skills.length > 0) {
             <div class="status-message status-message--success">
-              <mat-icon>check_circle</mat-icon>
+              <amw-icon name="check_circle"></amw-icon>
               <span>{{ skills.length }} skill(s) added</span>
             </div>
           } @else {
             <div class="status-message status-message--warning">
-              <mat-icon>warning</mat-icon>
+              <amw-icon name="warning"></amw-icon>
               <span>Add at least one skill</span>
             </div>
           }
         </div>
       </ng-template>
-</amw-card>
+    </amw-card>
 
     <!-- Email Validation Form -->
     <amw-card class="validation-card">
       <ng-template #cardHeader>
         <h2>
-          <mat-icon>email</mat-icon>
+          <amw-icon name="email"></amw-icon>
           Email Validation
         </h2>
         <p class="subtitle">Add email addresses with format validation</p>
       </ng-template>
       <ng-template #cardContent>
-        <form [formGroup]="emailForm">
-          <mat-form-field class="full-width" appearance="outline">
-            <mat-label>Email Addresses</mat-label>
-            <mat-chip-grid #emailChipGrid aria-label="Email selection">
-              @for (email of emails; track email) {
-                <mat-chip-row (removed)="removeEmail(email)">
-                  <mat-icon matChipAvatar>person</mat-icon>
-                  {{ email }}
-                  <button matChipRemove [attr.aria-label]="'remove ' + email">
-                    <mat-icon>cancel</mat-icon>
-                  </button>
-                </mat-chip-row>
-              }
-            </mat-chip-grid>
-            <input
-              placeholder="Enter email and press Enter..."
-              formControlName="emailInput"
-              [matChipInputFor]="emailChipGrid"
-              [matChipInputSeparatorKeyCodes]="separatorKeysCodes"
-              [matChipInputAddOnBlur]="true"
-              (matChipInputTokenEnd)="addEmail($event)" />
-            @if (emailForm.get('emailInput')?.invalid && emailForm.get('emailInput')?.touched) {
-              <mat-error>{{ getEmailValidationMessage() }}</mat-error>
-            }
-            @if (!hasMinEmails()) {
-              <mat-error>At least 1 email is required</mat-error>
-            } @else {
-              <mat-hint>{{ emails.length }} email(s) added</mat-hint>
-            }
-          </mat-form-field>
-        </form>
+        <amw-chips
+          [chips]="emailChips"
+          [addable]="true"
+          [removable]="true"
+          [minChips]="1"
+          placeholder="Enter email and press Enter..."
+          [hasError]="!hasMinEmails()"
+          [errorMessage]="getEmailValidationMessage()"
+          (chipAdd)="onEmailAdd($event)"
+          (chipRemove)="onEmailRemove($event)">
+        </amw-chips>
 
         <div class="validation-status">
           @if (hasMinEmails()) {
             <div class="status-message status-message--success">
-              <mat-icon>check_circle</mat-icon>
+              <amw-icon name="check_circle"></amw-icon>
               <span>Valid: {{ emails.length }} email(s) added</span>
             </div>
           }
         </div>
       </ng-template>
-</amw-card>
+    </amw-card>
 
     <!-- Form Actions -->
     <amw-card class="validation-card validation-card--actions">
@@ -184,21 +138,15 @@
           <h4>Form Summary</h4>
           <div class="summary-items">
             <div class="summary-item">
-              <mat-icon [class.valid]="hasMinTags()" [class.invalid]="!hasMinTags()">
-                {{ hasMinTags() ? 'check_circle' : 'cancel' }}
-              </mat-icon>
+              <amw-icon [name]="hasMinTags() ? 'check_circle' : 'cancel'" [class.valid]="hasMinTags()" [class.invalid]="!hasMinTags()"></amw-icon>
               <span>Tags: {{ tags.length }} (min: 1)</span>
             </div>
             <div class="summary-item">
-              <mat-icon [class.valid]="skills.length > 0" [class.invalid]="skills.length === 0">
-                {{ skills.length > 0 ? 'check_circle' : 'cancel' }}
-              </mat-icon>
+              <amw-icon [name]="skills.length > 0 ? 'check_circle' : 'cancel'" [class.valid]="skills.length > 0" [class.invalid]="skills.length === 0"></amw-icon>
               <span>Skills: {{ skills.length }} (min: 1)</span>
             </div>
             <div class="summary-item">
-              <mat-icon [class.valid]="hasMinEmails()" [class.invalid]="!hasMinEmails()">
-                {{ hasMinEmails() ? 'check_circle' : 'cancel' }}
-              </mat-icon>
+              <amw-icon [name]="hasMinEmails() ? 'check_circle' : 'cancel'" [class.valid]="hasMinEmails()" [class.invalid]="!hasMinEmails()"></amw-icon>
               <span>Emails: {{ emails.length }} (min: 1)</span>
             </div>
           </div>
@@ -213,12 +161,12 @@
 
           @if (!areFormsValid()) {
             <div class="validation-message">
-              <mat-icon>info</mat-icon>
+              <amw-icon name="info"></amw-icon>
               <span>Complete all required fields to submit</span>
             </div>
           }
         </div>
       </ng-template>
-</amw-card>
+    </amw-card>
   </div>
 </div>

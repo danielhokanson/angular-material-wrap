@@ -107,8 +107,12 @@
             </div>
           }
           <div class="amw-tabs__panel-main">
-            <div class="amw-tabs__panel-content" [innerHTML]="tab.content">
-            </div>
+            @if (tab.contentTemplate) {
+              <ng-container [ngTemplateOutlet]="tab.contentTemplate"></ng-container>
+            } @else {
+              <div class="amw-tabs__panel-content" [innerHTML]="tab.content">
+              </div>
+            }
           </div>
         </div>
       </div>

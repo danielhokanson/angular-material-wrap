@@ -1,25 +1,25 @@
 import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { HttpClient } from '@angular/common/http';
-import { MatIconModule } from '@angular/material/icon';
-import { MatListModule } from '@angular/material/list';
 import { ViewEncapsulation } from '@angular/core';
 import { HttpCacheService, CacheConfigService } from '../../../../library/src/services/amw-http-cache';
-import { AmwTabsComponent } from '../../../../library/src/components/components/amw-tabs/amw-tabs.component';
-import { MatChipsModule } from '@angular/material/chips';
-import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
-
+import { AmwTabsComponent, AmwTabComponent, AmwCardComponent, AmwIconComponent, AmwProgressSpinnerComponent } from '../../../../library/src/components/components';
 import { AmwButtonComponent } from '../../../../library/src/controls/components/amw-button/amw-button.component';
+import { AmwChipsComponent } from '../../../../library/src/controls/components/amw-chips/amw-chips.component';
+
 @Component({
     selector: 'amw-demo-http-cache',
     standalone: true,
-    imports: [CommonModule,
-    MatIconModule,
-    MatListModule,
+    imports: [
+    CommonModule,
     AmwTabsComponent,
-    MatChipsModule,
-    MatProgressSpinnerModule,
-    AmwButtonComponent],
+    AmwTabComponent,
+    AmwCardComponent,
+    AmwIconComponent,
+    AmwProgressSpinnerComponent,
+    AmwButtonComponent,
+    AmwChipsComponent,
+],
     templateUrl: './http-cache-demo.component.html',
     styleUrl: './http-cache-demo.component.scss',
     encapsulation: ViewEncapsulation.None

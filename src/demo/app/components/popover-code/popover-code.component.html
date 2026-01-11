@@ -2,16 +2,13 @@
   <h3>Code Examples</h3>
   <p>Interactive examples with live previews. The code is editable for reference, and working examples are shown alongside.</p>
 
-  <mat-accordion class="code-examples-accordion">
+  <amw-accordion class="code-examples-accordion">
     <!-- Basic Tooltip -->
-    <mat-expansion-panel>
-      <mat-expansion-panel-header>
-        <mat-panel-title>
-          <mat-icon>code</mat-icon>
-          Basic Tooltip
-        </mat-panel-title>
-        <mat-panel-description>Simple tooltip with hover trigger</mat-panel-description>
-      </mat-expansion-panel-header>
+    <amw-accordion-panel amwDescription="Simple tooltip with hover trigger">
+      <ng-template #header>
+        <amw-icon name="code"></amw-icon>
+        Basic Tooltip
+      </ng-template>
       <div class="example-container">
         <div class="code-panel">
           <div class="code-header">
@@ -31,23 +28,20 @@
               Hover Me
             </amw-button>
             <div class="preview-note">
-              <mat-icon>info</mat-icon>
+              <amw-icon name="info"></amw-icon>
               <span>Hover over the button to see the tooltip</span>
             </div>
           </div>
         </div>
       </div>
-    </mat-expansion-panel>
+    </amw-accordion-panel>
 
     <!-- Tooltip Positions -->
-    <mat-expansion-panel>
-      <mat-expansion-panel-header>
-        <mat-panel-title>
-          <mat-icon>code</mat-icon>
-          Tooltip Positions
-        </mat-panel-title>
-        <mat-panel-description>Tooltips in different positions</mat-panel-description>
-      </mat-expansion-panel-header>
+    <amw-accordion-panel amwDescription="Tooltips in different positions">
+      <ng-template #header>
+        <amw-icon name="code"></amw-icon>
+        Tooltip Positions
+      </ng-template>
       <div class="example-container">
         <div class="code-panel">
           <div class="code-header">
@@ -89,23 +83,20 @@
               </amw-button>
             </div>
             <div class="preview-note">
-              <mat-icon>info</mat-icon>
+              <amw-icon name="info"></amw-icon>
               <span>Hover over each button to see different positions</span>
             </div>
           </div>
         </div>
       </div>
-    </mat-expansion-panel>
+    </amw-accordion-panel>
 
     <!-- Custom Styling -->
-    <mat-expansion-panel>
-      <mat-expansion-panel-header>
-        <mat-panel-title>
-          <mat-icon>code</mat-icon>
-          Custom Styling
-        </mat-panel-title>
-        <mat-panel-description>Tooltip with custom CSS class</mat-panel-description>
-      </mat-expansion-panel-header>
+    <amw-accordion-panel amwDescription="Tooltip with custom CSS class">
+      <ng-template #header>
+        <amw-icon name="code"></amw-icon>
+        Custom Styling
+      </ng-template>
       <div class="example-container">
         <div class="code-panel">
           <div class="code-header">
@@ -128,23 +119,20 @@
               Custom Tooltip
             </amw-button>
             <div class="preview-note">
-              <mat-icon>info</mat-icon>
+              <amw-icon name="info"></amw-icon>
               <span>Apply custom CSS classes to style tooltips</span>
             </div>
           </div>
         </div>
       </div>
-    </mat-expansion-panel>
+    </amw-accordion-panel>
 
     <!-- Interactive Tooltip -->
-    <mat-expansion-panel>
-      <mat-expansion-panel-header>
-        <mat-panel-title>
-          <mat-icon>code</mat-icon>
-          Interactive Tooltip
-        </mat-panel-title>
-        <mat-panel-description>Tooltip with delays and toggle control</mat-panel-description>
-      </mat-expansion-panel-header>
+    <amw-accordion-panel amwDescription="Tooltip with delays and toggle control">
+      <ng-template #header>
+        <amw-icon name="code"></amw-icon>
+        Interactive Tooltip
+      </ng-template>
       <div class="example-container">
         <div class="code-panel">
           <div class="code-header">
@@ -170,12 +158,12 @@
             </amw-button>
             <p class="status-text">Tooltip is {{ tooltipDisabled ? 'disabled' : 'enabled' }}</p>
             <div class="preview-note">
-              <mat-icon>info</mat-icon>
+              <amw-icon name="info"></amw-icon>
               <span>Click to toggle tooltip state, check console for events</span>
             </div>
           </div>
         </div>
       </div>
-    </mat-expansion-panel>
-  </mat-accordion>
+    </amw-accordion-panel>
+  </amw-accordion>
 </div>

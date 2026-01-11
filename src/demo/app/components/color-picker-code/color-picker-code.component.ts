@@ -1,24 +1,24 @@
 import { Component, ViewEncapsulation, OnInit } from '@angular/core';
 import { FormsModule, ReactiveFormsModule, FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { MatIconModule } from '@angular/material/icon';
 import { CommonModule } from '@angular/common';
 import { BaseCodeComponent } from '../base/base-code.component';
 import { AmwColorPickerComponent } from '../../../../library/src/controls/components/amw-color-picker/amw-color-picker.component';
 
 type ColorPickerExamples = 'basic' | 'mode' | 'validation' | 'configuration';
-import { MatExpansionModule } from '@angular/material/expansion';
 
 import { AmwButtonComponent } from '../../../../library/src/controls/components/amw-button/amw-button.component';
+import { AmwAccordionComponent, AmwAccordionPanelComponent, AmwIconComponent } from '../../../../library/src/components/components';
 @Component({
   selector: 'amw-demo-color-picker-code',
   standalone: true,
   imports: [CommonModule,
     FormsModule,
     ReactiveFormsModule,
-    MatIconModule,
     AmwColorPickerComponent,
-    MatExpansionModule,
-    AmwButtonComponent],
+    AmwButtonComponent,
+    AmwAccordionComponent,
+    AmwAccordionPanelComponent,
+    AmwIconComponent],
   encapsulation: ViewEncapsulation.None,
   templateUrl: './color-picker-code.component.html',
   styleUrl: './color-picker-code.component.scss'

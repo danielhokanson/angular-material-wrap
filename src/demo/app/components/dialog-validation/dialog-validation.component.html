@@ -30,7 +30,7 @@
                 label="Content *"
                 formControlName="content"
                 placeholder="Dialog content"
-                rows="3">
+                [rows]="3">
               </amw-textarea>
               @if (dialogForm.get('content')?.hasError('required')) {
                 <div class="field-error">

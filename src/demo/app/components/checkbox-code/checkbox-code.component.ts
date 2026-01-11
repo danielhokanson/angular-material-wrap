@@ -1,23 +1,23 @@
 import { Component, ViewEncapsulation } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
-import { MatIconModule } from '@angular/material/icon';
 import { BaseCodeComponent } from '../base/base-code.component';
 
 type CheckboxExamples = 'basic' | 'colors' | 'states' | 'labelPosition' | 'indeterminate' | 'disabled' | 'events';
-import { MatExpansionModule } from '@angular/material/expansion';
-import { MatCheckboxModule } from '@angular/material/checkbox';
 
 import { AmwButtonComponent } from '../../../../library/src/controls/components/amw-button/amw-button.component';
+import { AmwCheckboxComponent } from '../../../../library/src/controls/components/amw-checkbox/amw-checkbox.component';
+import { AmwAccordionComponent, AmwAccordionPanelComponent, AmwIconComponent } from '../../../../library/src/components/components';
 @Component({
   selector: 'amw-demo-checkbox-code',
   standalone: true,
   imports: [CommonModule,
     FormsModule,
-    MatIconModule,
-    MatExpansionModule,
-    MatCheckboxModule,
-    AmwButtonComponent],
+    AmwButtonComponent,
+    AmwCheckboxComponent,
+    AmwAccordionComponent,
+    AmwAccordionPanelComponent,
+    AmwIconComponent],
   encapsulation: ViewEncapsulation.None,
   templateUrl: './checkbox-code.component.html',
   styleUrl: './checkbox-code.component.scss'
@@ -43,45 +43,45 @@ export class CheckboxCodeComponent extends BaseCodeComponent<CheckboxExamples> {
 
   // Original code examples (for reset functionality)
   readonly codeExamples: Record<CheckboxExamples, string> = {
-    basic: `<mat-checkbox>Check me</mat-checkbox>
-<mat-checkbox [checked]="true">Checked</mat-checkbox>
-<mat-checkbox [indeterminate]="true">Indeterminate</mat-checkbox>`,
+    basic: `<amw-checkbox>Check me</amw-checkbox>
+<amw-checkbox [checked]="true">Checked</amw-checkbox>
+<amw-checkbox [indeterminate]="true">Indeterminate</amw-checkbox>`,
 
-    colors: `<mat-checkbox color="primary" [checked]="true">Primary</mat-checkbox>
-<mat-checkbox color="accent" [checked]="true">Accent</mat-checkbox>
-<mat-checkbox color="warn" [checked]="true">Warn</mat-checkbox>`,
+    colors: `<amw-checkbox color="primary" [checked]="true">Primary</amw-checkbox>
+<amw-checkbox color="accent" [checked]="true">Accent</amw-checkbox>
+<amw-checkbox color="warn" [checked]="true">Warn</amw-checkbox>`,
 
-    states: `<mat-checkbox [checked]="true">Checked</mat-checkbox>
-<mat-checkbox [checked]="false">Unchecked</mat-checkbox>
-<mat-checkbox [indeterminate]="true">Indeterminate</mat-checkbox>`,
+    states: `<amw-checkbox [checked]="true">Checked</amw-checkbox>
+<amw-checkbox [checked]="false">Unchecked</amw-checkbox>
+<amw-checkbox [indeterminate]="true">Indeterminate</amw-checkbox>`,
 
-    labelPosition: `<mat-checkbox labelPosition="before">Label before</mat-checkbox>
-<mat-checkbox labelPosition="after">Label after</mat-checkbox>`,
+    labelPosition: `<amw-checkbox labelPosition="before">Label before</amw-checkbox>
+<amw-checkbox labelPosition="after">Label after</amw-checkbox>`,
 
-    indeterminate: `<mat-checkbox
+    indeterminate: `<amw-checkbox
   [checked]="allComplete"
   [indeterminate]="someComplete()"
   (change)="setAll($event.checked)">
   {{task.name}}
-</mat-checkbox>
+</amw-checkbox>
 <ul>
   <li *ngFor="let subtask of task.subtasks">
-    <mat-checkbox
+    <amw-checkbox
       [(ngModel)]="subtask.completed"
       (ngModelChange)="updateAllComplete()">
       {{subtask.name}}
-    </mat-checkbox>
+    </amw-checkbox>
   </li>
 </ul>`,
 
-    disabled: `<mat-checkbox [disabled]="true">Disabled unchecked</mat-checkbox>
-<mat-checkbox [disabled]="true" [checked]="true">Disabled checked</mat-checkbox>`,
+    disabled: `<amw-checkbox [disabled]="true">Disabled unchecked</amw-checkbox>
+<amw-checkbox [disabled]="true" [checked]="true">Disabled checked</amw-checkbox>`,
 
-    events: `<mat-checkbox
+    events: `<amw-checkbox
   (change)="onCheckboxChange($event)"
   (indeterminateChange)="onIndeterminateChange($event)">
   Event tracking
-</mat-checkbox>`
+</amw-checkbox>`
   };
 
   constructor() {

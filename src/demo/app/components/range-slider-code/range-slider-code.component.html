@@ -2,16 +2,13 @@
   <h3>Code Examples</h3>
   <p>Interactive examples with live previews. The code is editable for reference, and working examples are shown alongside.</p>
 
-  <mat-accordion class="code-examples-accordion">
+  <amw-accordion class="code-examples-accordion">
     <!-- Basic Range Slider -->
-    <mat-expansion-panel>
-      <mat-expansion-panel-header>
-        <mat-panel-title>
-          <mat-icon>code</mat-icon>
-          Basic Range Slider
-        </mat-panel-title>
-        <mat-panel-description>Simple range slider with default configuration</mat-panel-description>
-      </mat-expansion-panel-header>
+    <amw-accordion-panel amwDescription="Simple range slider with default configuration">
+      <ng-template #header>
+        <amw-icon name="code"></amw-icon>
+        Basic Range Slider
+      </ng-template>
       <div class="example-container">
         <div class="code-panel">
           <div class="code-header">
@@ -34,17 +31,14 @@
           </div>
         </div>
       </div>
-    </mat-expansion-panel>
+    </amw-accordion-panel>
 
     <!-- Configured Range Slider -->
-    <mat-expansion-panel>
-      <mat-expansion-panel-header>
-        <mat-panel-title>
-          <mat-icon>code</mat-icon>
-          Configured Range Slider
-        </mat-panel-title>
-        <mat-panel-description>Range slider with custom configuration and styling</mat-panel-description>
-      </mat-expansion-panel-header>
+    <amw-accordion-panel amwDescription="Range slider with custom configuration and styling">
+      <ng-template #header>
+        <amw-icon name="code"></amw-icon>
+        Configured Range Slider
+      </ng-template>
       <div class="example-container">
         <div class="code-panel">
           <div class="code-header">
@@ -68,17 +62,14 @@
           </div>
         </div>
       </div>
-    </mat-expansion-panel>
+    </amw-accordion-panel>
 
     <!-- Vertical Range Slider -->
-    <mat-expansion-panel>
-      <mat-expansion-panel-header>
-        <mat-panel-title>
-          <mat-icon>code</mat-icon>
-          Vertical Range Slider
-        </mat-panel-title>
-        <mat-panel-description>Range slider in vertical orientation</mat-panel-description>
-      </mat-expansion-panel-header>
+    <amw-accordion-panel amwDescription="Range slider in vertical orientation">
+      <ng-template #header>
+        <amw-icon name="code"></amw-icon>
+        Vertical Range Slider
+      </ng-template>
       <div class="example-container">
         <div class="code-panel">
           <div class="code-header">
@@ -104,17 +95,14 @@
           </div>
         </div>
       </div>
-    </mat-expansion-panel>
+    </amw-accordion-panel>
 
     <!-- Reactive Form Integration -->
-    <mat-expansion-panel>
-      <mat-expansion-panel-header>
-        <mat-panel-title>
-          <mat-icon>code</mat-icon>
-          Reactive Form Integration
-        </mat-panel-title>
-        <mat-panel-description>Range slider integrated with Angular reactive forms</mat-panel-description>
-      </mat-expansion-panel-header>
+    <amw-accordion-panel amwDescription="Range slider integrated with Angular reactive forms">
+      <ng-template #header>
+        <amw-icon name="code"></amw-icon>
+        Reactive Form Integration
+      </ng-template>
       <div class="example-container">
         <div class="code-panel">
           <div class="code-header">
@@ -131,23 +119,20 @@
           <h4>Preview</h4>
           <div class="preview-content">
             <div class="preview-note">
-              <mat-icon>info</mat-icon>
+              <amw-icon name="info"></amw-icon>
               <span>This example shows code for reactive form integration</span>
             </div>
           </div>
         </div>
       </div>
-    </mat-expansion-panel>
+    </amw-accordion-panel>
 
     <!-- With Validation -->
-    <mat-expansion-panel>
-      <mat-expansion-panel-header>
-        <mat-panel-title>
-          <mat-icon>code</mat-icon>
-          With Validation
-        </mat-panel-title>
-        <mat-panel-description>Range slider with custom validation and error handling</mat-panel-description>
-      </mat-expansion-panel-header>
+    <amw-accordion-panel amwDescription="Range slider with custom validation and error handling">
+      <ng-template #header>
+        <amw-icon name="code"></amw-icon>
+        With Validation
+      </ng-template>
       <div class="example-container">
         <div class="code-panel">
           <div class="code-header">
@@ -164,12 +149,12 @@
           <h4>Preview</h4>
           <div class="preview-content">
             <div class="preview-note">
-              <mat-icon>info</mat-icon>
+              <amw-icon name="info"></amw-icon>
               <span>This example shows code for validation with error handling</span>
             </div>
           </div>
         </div>
       </div>
-    </mat-expansion-panel>
-  </mat-accordion>
+    </amw-accordion-panel>
+  </amw-accordion>
 </div>

@@ -2,16 +2,13 @@
   <h3>Code Examples</h3>
   <p>Interactive examples with live previews. Edit the code to see real-time changes.</p>
 
-  <mat-accordion class="code-examples-accordion">
+  <amw-accordion class="code-examples-accordion">
     <!-- Basic Chips -->
-    <mat-expansion-panel>
-      <mat-expansion-panel-header>
-        <mat-panel-title>
-          <mat-icon>code</mat-icon>
-          Basic Chip Set
-        </mat-panel-title>
-        <mat-panel-description>Simple chip collection</mat-panel-description>
-      </mat-expansion-panel-header>
+    <amw-accordion-panel amwDescription="Simple chip collection">
+      <ng-template #header>
+        <amw-icon name="code"></amw-icon>
+        Basic Chip Set
+      </ng-template>
       <div class="example-container">
         <div class="code-panel">
           <div class="code-header">
@@ -26,25 +23,22 @@
         <div class="preview-panel">
           <h4>Preview</h4>
           <div class="preview-content">
-            <mat-chip-set>
-              <mat-chip>Tag 1</mat-chip>
-              <mat-chip>Tag 2</mat-chip>
-              <mat-chip>Tag 3</mat-chip>
-            </mat-chip-set>
+            <amw-chips
+              [chips]="basicChips"
+              [addable]="false"
+              [removable]="false">
+            </amw-chips>
           </div>
         </div>
       </div>
-    </mat-expansion-panel>
+    </amw-accordion-panel>
 
     <!-- Removable Chips -->
-    <mat-expansion-panel>
-      <mat-expansion-panel-header>
-        <mat-panel-title>
-          <mat-icon>code</mat-icon>
-          Removable Chips
-        </mat-panel-title>
-        <mat-panel-description>Chips with remove functionality</mat-panel-description>
-      </mat-expansion-panel-header>
+    <amw-accordion-panel amwDescription="Chips with remove functionality">
+      <ng-template #header>
+        <amw-icon name="code"></amw-icon>
+        Removable Chips
+      </ng-template>
       <div class="example-container">
         <div class="code-panel">
           <div class="code-header">
@@ -59,30 +53,23 @@
         <div class="preview-panel">
           <h4>Preview</h4>
           <div class="preview-content">
-            <mat-chip-set>
-              @for (chip of removableChips; let i = $index; track chip.label) {
-                @if (!chip.removed) {
-                  <mat-chip [removable]="true" (removed)="removeChip(i)">
-                    {{ chip.label }}
-                    <mat-icon matChipRemove>cancel</mat-icon>
-                  </mat-chip>
-                }
-              }
-            </mat-chip-set>
+            <amw-chips
+              [chips]="removableChipsList"
+              [removable]="true"
+              [addable]="false"
+              (chipRemove)="onChipRemove($event)">
+            </amw-chips>
           </div>
         </div>
       </div>
-    </mat-expansion-panel>
+    </amw-accordion-panel>
 
     <!-- Selectable Chips -->
-    <mat-expansion-panel>
-      <mat-expansion-panel-header>
-        <mat-panel-title>
-          <mat-icon>code</mat-icon>
-          Selectable Chips
-        </mat-panel-title>
-        <mat-panel-description>Chips that can be selected</mat-panel-description>
-      </mat-expansion-panel-header>
+    <amw-accordion-panel amwDescription="Chips that can be selected">
+      <ng-template #header>
+        <amw-icon name="code"></amw-icon>
+        Selectable Chips
+      </ng-template>
       <div class="example-container">
         <div class="code-panel">
           <div class="code-header">
@@ -97,24 +84,24 @@
         <div class="preview-panel">
           <h4>Preview</h4>
           <div class="preview-content">
-            <mat-chip-listbox>
-              <mat-chip-option [selected]="true">Selected</mat-chip-option>
-              <mat-chip-option>Not Selected</mat-chip-option>
-            </mat-chip-listbox>
+            <amw-chips
+              [chips]="selectableChips"
+              [selectable]="true"
+              [addable]="false"
+              [removable]="false"
+              (chipSelect)="onChipSelect($event)">
+            </amw-chips>
           </div>
         </div>
       </div>
-    </mat-expansion-panel>
+    </amw-accordion-panel>
 
     <!-- Chip Input -->
-    <mat-expansion-panel>
-      <mat-expansion-panel-header>
-        <mat-panel-title>
-          <mat-icon>code</mat-icon>
-          Chip Input
-        </mat-panel-title>
-        <mat-panel-description>Add chips with input field</mat-panel-description>
-      </mat-expansion-panel-header>
+    <amw-accordion-panel amwDescription="Add chips with input field">
+      <ng-template #header>
+        <amw-icon name="code"></amw-icon>
+        Chip Input
+      </ng-template>
       <div class="example-container">
         <div class="code-panel">
           <div class="code-header">
@@ -129,34 +116,25 @@
         <div class="preview-panel">
           <h4>Preview</h4>
           <div class="preview-content">
-            <mat-chip-set>
-              @for (item of inputChips; let i = $index; track item) {
-                <mat-chip [removable]="true" (removed)="removeInputChip(i)">
-                  {{ item }}
-                  <mat-icon matChipRemove>cancel</mat-icon>
-                </mat-chip>
-              }
-            </mat-chip-set>
-            <input
-              type="text"
-              placeholder="Add a chip"
-              #chipInput
-              (keyup.enter)="addInputChip(chipInput)"
-              style="margin-top: 8px; padding: 8px; border: 1px solid #ccc; border-radius: 4px;" />
+            <amw-chips
+              [chips]="inputChipsList"
+              [addable]="true"
+              [removable]="true"
+              placeholder="Add a chip..."
+              (chipAdd)="onChipAdd($event)"
+              (chipRemove)="onInputChipRemove($event)">
+            </amw-chips>
           </div>
         </div>
       </div>
-    </mat-expansion-panel>
+    </amw-accordion-panel>
 
     <!-- Styled Chips -->
-    <mat-expansion-panel>
-      <mat-expansion-panel-header>
-        <mat-panel-title>
-          <mat-icon>code</mat-icon>
-          Styled Chips
-        </mat-panel-title>
-        <mat-panel-description>Chips with color themes</mat-panel-description>
-      </mat-expansion-panel-header>
+    <amw-accordion-panel amwDescription="Chips with color themes">
+      <ng-template #header>
+        <amw-icon name="code"></amw-icon>
+        Styled Chips
+      </ng-template>
       <div class="example-container">
         <div class="code-panel">
           <div class="code-header">
@@ -171,14 +149,14 @@
         <div class="preview-panel">
           <h4>Preview</h4>
           <div class="preview-content">
-            <mat-chip-set>
-              <mat-chip color="primary">Primary</mat-chip>
-              <mat-chip color="accent">Accent</mat-chip>
-              <mat-chip color="warn">Warn</mat-chip>
-            </mat-chip-set>
+            <amw-chips
+              [chips]="styledChips"
+              [addable]="false"
+              [removable]="false">
+            </amw-chips>
           </div>
         </div>
       </div>
-    </mat-expansion-panel>
-  </mat-accordion>
+    </amw-accordion-panel>
+  </amw-accordion>
 </div>

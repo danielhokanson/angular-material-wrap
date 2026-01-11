@@ -123,32 +123,20 @@
           <div class="config-row">
             <amw-select
               label="Size"
-              [(value)]="size">
-              @for (option of sizeOptions; track option) {
-                <mat-option [value]="option.value">
-                  {{ option.label }}
-                </mat-option>
-              }
+              [(ngModel)]="size"
+              [options]="sizeOptions">
             </amw-select>
 
             <amw-select
               label="Orientation"
-              [(value)]="orientation">
-              @for (option of orientationOptions; track option) {
-                <mat-option [value]="option.value">
-                  {{ option.label }}
-                </mat-option>
-              }
+              [(ngModel)]="orientation"
+              [options]="orientationOptions">
             </amw-select>
 
             <amw-select
               label="Color"
-              [(value)]="color">
-              @for (option of colorOptionsForDemo; track option) {
-                <mat-option [value]="option.value">
-                  {{ option.label }}
-                </mat-option>
-              }
+              [(ngModel)]="color"
+              [options]="colorOptionsForDemo">
             </amw-select>
           </div>
 

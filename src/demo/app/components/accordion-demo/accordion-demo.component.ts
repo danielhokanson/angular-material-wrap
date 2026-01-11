@@ -1,9 +1,6 @@
 import { Component } from '@angular/core';
 
-import { MatIconModule } from '@angular/material/icon';
-
-import { AmwAccordionComponent } from '../../../../library/src/components/components/amw-accordion/amw-accordion.component';
-import { AmwAccordionPanelComponent } from '../../../../library/src/components/components/amw-accordion/amw-accordion-panel.component';
+import { AmwAccordionComponent, AmwAccordionPanelComponent, AmwIconComponent } from '../../../../library/src/components/components';
 import { AmwButtonComponent } from '../../../../library/src/controls/components/amw-button/amw-button.component';
 import { AmwInputComponent } from '../../../../library/src/controls/components/amw-input/amw-input.component';
 import { AmwCheckboxComponent } from '../../../../library/src/controls/components/amw-checkbox/amw-checkbox.component';
@@ -12,12 +9,12 @@ import { AmwCheckboxComponent } from '../../../../library/src/controls/component
     selector: 'amw-demo-accordion',
     standalone: true,
     imports: [
-        MatIconModule,
         AmwAccordionComponent,
         AmwAccordionPanelComponent,
         AmwButtonComponent,
         AmwInputComponent,
-        AmwCheckboxComponent
+        AmwCheckboxComponent,
+        AmwIconComponent
     ],
     templateUrl: './accordion-demo.component.html',
     styleUrl: './accordion-demo.component.scss'

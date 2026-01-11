@@ -7,7 +7,7 @@
   <div class="search-page-demo__controls">
     <amw-card class="search-page-demo__controls-card">
       <ng-template #cardContent>
-        <amw-tabs [(selectedIndex)]="currentView" (selectedIndexChange)="onViewChange($event === 0 ? 'basic' : 'advanced')">
+        <amw-tabs [(selectedIndex)]="currentViewIndex" (selectedIndexChange)="onViewChange($event)">
           <amw-tab label="Basic View">
             <div class="search-page-demo__tab-content">
               <p>Basic search view with essential search and filtering capabilities.</p>

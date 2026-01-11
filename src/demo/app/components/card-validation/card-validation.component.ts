@@ -1,22 +1,19 @@
 import { Component, OnInit, ViewEncapsulation } from '@angular/core';
-
 import { ReactiveFormsModule, FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { AmwNotificationService } from '../../../../library/src/services/amw-notification/amw-notification.service';
 import { AmwCardComponent } from '../../../../library/src/components/components/amw-card/amw-card.component';
-import { CardConfig, CardVariant, CardElevation } from '../../../../library/src/components/components/amw-card/interfaces';
-import { AmwSize } from '../../../../library/src/shared/types';
-import { MatFormFieldModule } from '@angular/material/form-field';
-
 import { AmwButtonComponent } from '../../../../library/src/controls/components/amw-button/amw-button.component';
+import { AmwInputComponent } from '../../../../library/src/controls/components/amw-input/amw-input.component';
+
 @Component({
     selector: 'amw-demo-card-validation',
     standalone: true,
-    imports: [ReactiveFormsModule,
-    AmwInputComponent,
-    AmwCardComponent,
-    AmwCardComponent,
-    MatFormFieldModule,
-    AmwButtonComponent],
+    imports: [
+        ReactiveFormsModule,
+        AmwInputComponent,
+        AmwCardComponent,
+        AmwButtonComponent
+    ],
     encapsulation: ViewEncapsulation.None,
     templateUrl: './card-validation.component.html',
     styleUrl: './card-validation.component.scss'

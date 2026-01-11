@@ -16,29 +16,29 @@
             </ng-template>
             <ng-template #cardContent>
               <div class="cache-info">
-                <mat-chip-set>
-                  <mat-chip>
-                    <mat-icon>memory</mat-icon>
+                <div class="chip-list">
+                  <span class="chip">
+                    <amw-icon name="memory"></amw-icon>
                     Memory: {{ cacheSize }} entries
-                  </mat-chip>
-                  <mat-chip>
-                    <mat-icon>storage</mat-icon>
+                  </span>
+                  <span class="chip">
+                    <amw-icon name="storage"></amw-icon>
                     IndexedDB: {{ totalCacheSize }} entries
-                  </mat-chip>
-                  <mat-chip>
-                    <mat-icon>pie_chart</mat-icon>
+                  </span>
+                  <span class="chip">
+                    <amw-icon name="pie_chart"></amw-icon>
                     Storage: {{ storageUsage }}
-                  </mat-chip>
+                  </span>
                   @if (lastRequestTime !== null) {
-                    <mat-chip [class.cached]="lastRequestTime < 10">
-                      <mat-icon>timer</mat-icon>
+                    <span class="chip" [class.cached]="lastRequestTime < 10">
+                      <amw-icon name="timer"></amw-icon>
                       Response Time: {{ lastRequestTime.toFixed(2) }}ms
                       @if (lastRequestTime < 10) {
                         <span class="cached-badge">CACHED</span>
                       }
-                    </mat-chip>
+                    </span>
                   }
-                </mat-chip-set>
+                </div>
               </div>
 
               <div class="test-endpoints">
@@ -59,12 +59,12 @@
               </div>
 
               @if (loading) {
-                <mat-spinner diameter="40"></mat-spinner>
+                <amw-progress-spinner [diameter]="40"></amw-progress-spinner>
               }
 
               @if (errorMessage) {
                 <div class="error-message">
-                  <mat-icon>warning</mat-icon>
+                  <amw-icon name="warning"></amw-icon>
                   <p>{{ errorMessage }}</p>
                 </div>
               }
@@ -76,7 +76,7 @@
                 </div>
               }
             </ng-template>
-</amw-card>
+          </amw-card>
         </div>
       </amw-tab>
 
@@ -89,15 +89,17 @@
               <p class="subtitle">From assets/cache-map.json</p>
             </ng-template>
             <ng-template #cardContent>
-              <mat-list>
+              <div class="config-list">
                 @for (pattern of cacheConfig | keyvalue; track pattern) {
-                  <mat-list-item>
-                    <span matListItemTitle>{{ pattern.key }}</span>
-                    <span matListItemLine>Timeout: {{ pattern.value }} ms</span>
-                    <mat-icon matListItemIcon>schedule</mat-icon>
-                  </mat-list-item>
+                  <div class="config-item">
+                    <amw-icon name="schedule"></amw-icon>
+                    <div class="config-details">
+                      <span class="config-pattern">{{ pattern.key }}</span>
+                      <span class="config-timeout">Timeout: {{ pattern.value }} ms</span>
+                    </div>
+                  </div>
                 }
-              </mat-list>
+              </div>
             </ng-template>
           </amw-card>
         </div>
@@ -156,4 +158,3 @@
     </amw-tabs>
   </div>
 </div>
-

@@ -2,16 +2,13 @@
   <h3>Code Examples</h3>
   <p>Interactive examples with live previews. The code is editable for reference, and working examples are shown alongside.</p>
 
-  <mat-accordion class="code-examples-accordion">
+  <amw-accordion class="code-examples-accordion">
     <!-- Basic Buttons -->
-    <mat-expansion-panel>
-      <mat-expansion-panel-header>
-        <mat-panel-title>
-          <mat-icon>code</mat-icon>
-          Basic Buttons
-        </mat-panel-title>
-        <mat-panel-description>Simple text buttons with different colors</mat-panel-description>
-      </mat-expansion-panel-header>
+    <amw-accordion-panel amwDescription="Simple text buttons with different colors">
+      <ng-template #header>
+        <amw-icon name="code"></amw-icon>
+        Basic Buttons
+      </ng-template>
       <div class="example-container">
         <div class="code-panel">
           <div class="code-header">
@@ -32,17 +29,14 @@
           </div>
         </div>
       </div>
-    </mat-expansion-panel>
+    </amw-accordion-panel>
 
     <!-- Raised Buttons -->
-    <mat-expansion-panel>
-      <mat-expansion-panel-header>
-        <mat-panel-title>
-          <mat-icon>code</mat-icon>
-          Raised Buttons
-        </mat-panel-title>
-        <mat-panel-description>Elevated buttons with shadow</mat-panel-description>
-      </mat-expansion-panel-header>
+    <amw-accordion-panel amwDescription="Elevated buttons with shadow">
+      <ng-template #header>
+        <amw-icon name="code"></amw-icon>
+        Raised Buttons
+      </ng-template>
       <div class="example-container">
         <div class="code-panel">
           <div class="code-header">
@@ -63,17 +57,14 @@
           </div>
         </div>
       </div>
-    </mat-expansion-panel>
+    </amw-accordion-panel>
 
     <!-- Stroked Buttons -->
-    <mat-expansion-panel>
-      <mat-expansion-panel-header>
-        <mat-panel-title>
-          <mat-icon>code</mat-icon>
-          Stroked Buttons
-        </mat-panel-title>
-        <mat-panel-description>Outlined buttons with border</mat-panel-description>
-      </mat-expansion-panel-header>
+    <amw-accordion-panel amwDescription="Outlined buttons with border">
+      <ng-template #header>
+        <amw-icon name="code"></amw-icon>
+        Stroked Buttons
+      </ng-template>
       <div class="example-container">
         <div class="code-panel">
           <div class="code-header">
@@ -94,17 +85,14 @@
           </div>
         </div>
       </div>
-    </mat-expansion-panel>
+    </amw-accordion-panel>
 
     <!-- Flat Buttons -->
-    <mat-expansion-panel>
-      <mat-expansion-panel-header>
-        <mat-panel-title>
-          <mat-icon>code</mat-icon>
-          Flat Buttons
-        </mat-panel-title>
-        <mat-panel-description>Filled buttons without shadow</mat-panel-description>
-      </mat-expansion-panel-header>
+    <amw-accordion-panel amwDescription="Filled buttons without shadow">
+      <ng-template #header>
+        <amw-icon name="code"></amw-icon>
+        Flat Buttons
+      </ng-template>
       <div class="example-container">
         <div class="code-panel">
           <div class="code-header">
@@ -125,17 +113,14 @@
           </div>
         </div>
       </div>
-    </mat-expansion-panel>
+    </amw-accordion-panel>
 
     <!-- Icon Buttons -->
-    <mat-expansion-panel>
-      <mat-expansion-panel-header>
-        <mat-panel-title>
-          <mat-icon>code</mat-icon>
-          Icon Buttons
-        </mat-panel-title>
-        <mat-panel-description>Circular buttons with icons</mat-panel-description>
-      </mat-expansion-panel-header>
+    <amw-accordion-panel amwDescription="Circular buttons with icons">
+      <ng-template #header>
+        <amw-icon name="code"></amw-icon>
+        Icon Buttons
+      </ng-template>
       <div class="example-container">
         <div class="code-panel">
           <div class="code-header">
@@ -156,17 +141,14 @@
           </div>
         </div>
       </div>
-    </mat-expansion-panel>
+    </amw-accordion-panel>
 
     <!-- FAB Buttons -->
-    <mat-expansion-panel>
-      <mat-expansion-panel-header>
-        <mat-panel-title>
-          <mat-icon>code</mat-icon>
-          Floating Action Buttons (FAB)
-        </mat-panel-title>
-        <mat-panel-description>Primary action buttons with elevated appearance</mat-panel-description>
-      </mat-expansion-panel-header>
+    <amw-accordion-panel amwDescription="Primary action buttons with elevated appearance">
+      <ng-template #header>
+        <amw-icon name="code"></amw-icon>
+        Floating Action Buttons (FAB)
+      </ng-template>
       <div class="example-container">
         <div class="code-panel">
           <div class="code-header">
@@ -187,17 +169,14 @@
           </div>
         </div>
       </div>
-    </mat-expansion-panel>
+    </amw-accordion-panel>
 
     <!-- Disabled State -->
-    <mat-expansion-panel>
-      <mat-expansion-panel-header>
-        <mat-panel-title>
-          <mat-icon>code</mat-icon>
-          Disabled State
-        </mat-panel-title>
-        <mat-panel-description>Buttons in disabled state</mat-panel-description>
-      </mat-expansion-panel-header>
+    <amw-accordion-panel amwDescription="Buttons in disabled state">
+      <ng-template #header>
+        <amw-icon name="code"></amw-icon>
+        Disabled State
+      </ng-template>
       <div class="example-container">
         <div class="code-panel">
           <div class="code-header">
@@ -212,11 +191,11 @@
         <div class="preview-panel">
           <h4>Preview</h4>
           <div class="preview-content">
-            <amw-button variant="elevated" color="primary" disabled>Disabled Button</amw-button>
+            <amw-button variant="elevated" color="primary" [disabled]="true">Disabled Button</amw-button>
             <amw-button variant="elevated" color="accent" [disabled]="true">Disabled Accent</amw-button>
           </div>
         </div>
       </div>
-    </mat-expansion-panel>
-  </mat-accordion>
+    </amw-accordion-panel>
+  </amw-accordion>
 </div>

@@ -23,7 +23,7 @@
 
           @if (getFieldValidationMessage('requiredField')) {
             <div class="validation-error">
-              <mat-icon>error</mat-icon>
+              <amw-icon name="error"></amw-icon>
               {{ getFieldValidationMessage('requiredField') }}
             </div>
           }
@@ -44,7 +44,7 @@
 
           @if (getFieldValidationMessage('agreement')) {
             <div class="validation-error">
-              <mat-icon>error</mat-icon>
+              <amw-icon name="error"></amw-icon>
               {{ getFieldValidationMessage('agreement') }}
             </div>
           }
@@ -65,7 +65,7 @@
 
           @if (getFieldValidationMessage('priority')) {
             <div class="validation-error">
-              <mat-icon>error</mat-icon>
+              <amw-icon name="error"></amw-icon>
               {{ getFieldValidationMessage('priority') }}
             </div>
           }
@@ -86,7 +86,7 @@
 
           @if (getFieldValidationMessage('size')) {
             <div class="validation-error">
-              <mat-icon>error</mat-icon>
+              <amw-icon name="error"></amw-icon>
               {{ getFieldValidationMessage('size') }}
             </div>
           }
@@ -111,9 +111,7 @@
     <ng-template #cardContent>
       <div class="status-display">
         <div class="status-item">
-          <mat-icon [class]="isFormValid ? 'status-valid' : 'status-invalid'">
-            {{ isFormValid ? 'check_circle' : 'error' }}
-          </mat-icon>
+          <amw-icon [name]="isFormValid ? 'check_circle' : 'error'" [class]="isFormValid ? 'status-valid' : 'status-invalid'"></amw-icon>
           <span [class]="isFormValid ? 'status-valid' : 'status-invalid'">
             Form {{ isFormValid ? 'Valid' : 'Invalid' }}
           </span>

@@ -1,4 +1,4 @@
-import { Component, Input, Output, EventEmitter, OnInit, OnDestroy, ViewEncapsulation, ChangeDetectorRef, ContentChildren, QueryList, TemplateRef } from '@angular/core';
+import { Component, Input, Output, EventEmitter, OnInit, OnDestroy, AfterContentInit, ViewEncapsulation, ChangeDetectorRef, ContentChildren, QueryList, TemplateRef } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { MatTabsModule } from '@angular/material/tabs';
 import { MatIconModule } from '@angular/material/icon';
@@ -8,6 +8,7 @@ import { Subject, takeUntil } from 'rxjs';
 import { BaseComponent } from '../../../controls/components/base/base.component';
 import { TabsConfig, TabItem } from './interfaces';
 import { AmwButtonComponent } from '../../../controls/components/amw-button/amw-button.component';
+import { AmwTabComponent } from './amw-tab.component';
 
 /**
  * Angular Material Wrap Tabs Component
@@ -41,12 +42,22 @@ import { AmwButtonComponent } from '../../../controls/components/amw-button/amw-
     templateUrl: './amw-tabs.component.html',
     styleUrl: './amw-tabs.component.scss'
 })
-export class AmwTabsComponent extends BaseComponent implements OnInit, OnDestroy {
+export class AmwTabsComponent extends BaseComponent implements OnInit, OnDestroy, AfterContentInit {
+    /** Query for projected AmwTabComponent children */
+    @ContentChildren(AmwTabComponent) tabChildren!: QueryList<AmwTabComponent>;
+
     /** Tabs configuration */
     @Input() config?: TabsConfig;
 
     /** Array of tab items */
     @Input() tabs: TabItem[] = [];
+
+    /** Selected tab index (two-way binding support) */
+    @Input() selectedIndex: number = 0;
+    @Output() selectedIndexChange = new EventEmitter<number>();
+
+    /** Whether component is using content projection */
+    useContentProjection: boolean = false;
 
     /** Active tab index */
     @Input() activeTab: number = 0;
@@ -99,6 +110,38 @@ export class AmwTabsComponent extends BaseComponent implements OnInit, OnDestroy
         this.validateTabs();
     }
 
+    ngAfterContentInit(): void {
+        // Check if content projection is being used
+        if (this.tabChildren && this.tabChildren.length > 0) {
+            this.useContentProjection = true;
+            this.syncTabsFromChildren();
+
+            // Subscribe to changes in the tab children
+            this.tabChildren.changes.pipe(takeUntil(this.destroy$)).subscribe(() => {
+                this.syncTabsFromChildren();
+            });
+        }
+    }
+
+    /**
+     * Synchronizes the tabs array from projected AmwTabComponent children
+     */
+    private syncTabsFromChildren(): void {
+        if (this.tabChildren) {
+            this.tabs = this.tabChildren.toArray().map(child => ({
+                label: child.label,
+                icon: child.icon,
+                isDisabled: child.disabled,
+                isClosable: child.closable,
+                badgeCount: child.badgeCount,
+                badgeColor: child.badgeColor,
+                content: '', // Content is handled via template projection
+                contentTemplate: child.contentTemplate
+            }));
+            this.cdr.detectChanges();
+        }
+    }
+
     ngOnDestroy(): void {
         this.destroy$.next();
         this.destroy$.complete();
@@ -140,7 +183,9 @@ export class AmwTabsComponent extends BaseComponent implements OnInit, OnDestroy
     changeTab(tabIndex: number): void {
         if (this.isValidTabIndex(tabIndex) && this.canActivateTab(tabIndex)) {
             this.activeTab = tabIndex;
+            this.selectedIndex = tabIndex;
             this.tabChange.emit(tabIndex);
+            this.selectedIndexChange.emit(tabIndex);
             this.cdr.detectChanges();
         }
     }

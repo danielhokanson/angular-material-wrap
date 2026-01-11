@@ -1,8 +1,6 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
 
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
-import { MatIconModule } from '@angular/material/icon';
-import { MatTooltipModule } from '@angular/material/tooltip';
 import { AmwNotificationService } from '../../../../library/src/services/amw-notification/amw-notification.service';
 import { Subject, takeUntil } from 'rxjs';
 
@@ -17,24 +15,26 @@ import {
     DataTableEditEvent
 } from '../../../../library/src/components/components/amw-data-table/interfaces/data-table.interface';
 
+import { AmwButtonComponent } from '../../../../library/src/controls/components/amw-button/amw-button.component';
+import { AmwInputComponent } from '../../../../library/src/controls/components/amw-input/amw-input.component';
+import { AmwIconComponent, AmwCardComponent } from '../../../../library/src/components/components';
+
 /**
  * Data Table Demo Component
  * Demonstrates all features of the AMW Data Table component
- */import { MatChipsModule } from '@angular/material/chips';
-
-import { AmwButtonComponent } from '../../../../library/src/controls/components/amw-button/amw-button.component';
+ */
 @Component({
     selector: 'app-data-table-demo',
     standalone: true,
-    imports: [FormsModule,
-    ReactiveFormsModule,
-    MatIconModule,
-    AmwInputComponent,
-    MatTooltipModule,
-    AmwDataTableComponent,
-    MatIconModule,
-    MatChipsModule,
-    AmwButtonComponent],
+    imports: [
+        FormsModule,
+        ReactiveFormsModule,
+        AmwInputComponent,
+        AmwDataTableComponent,
+        AmwButtonComponent,
+        AmwIconComponent,
+        AmwCardComponent,
+],
     templateUrl: './data-table-demo.component.html',
     styleUrl: './data-table-demo.component.scss'
 })

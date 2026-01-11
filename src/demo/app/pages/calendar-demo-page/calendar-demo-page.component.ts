@@ -1,12 +1,12 @@
 import { Component, OnInit } from '@angular/core';
 
-import { MatIconModule } from '@angular/material/icon';
 import { AmwNotificationService } from '../../../../library/src/services/amw-notification/amw-notification.service';
-import { MatDialogModule, MatDialog } from '@angular/material/dialog';
 import { ViewEncapsulation } from '@angular/core';
 import { CalendarEvent, CalendarConfig, CalendarEventChangeEvent, CalendarView } from '../../../../library/src/components/components/amw-calendar/interfaces';
 import { AmwCalendarFullComponent } from '../../../../library/src/components/components/amw-calendar/amw-calendar-full.component';
 import { AmwCalendarMiniComponent } from '../../../../library/src/components/components/amw-calendar/amw-calendar-mini.component';
+import { AmwTabsComponent, AmwTabComponent, AmwDividerComponent, AmwCardComponent, AmwIconComponent, AmwDialogComponent } from '../../../../library/src/components/components';
+import { AmwButtonComponent } from '../../../../library/src/controls/components/amw-button/amw-button.component';
 
 // Sample event data interface
 interface SampleEvent {
@@ -17,20 +17,21 @@ interface SampleEvent {
     priority: 'low' | 'medium' | 'high';
     attendees?: string[];
 }
-import { AmwTabsComponent } from '../../../../library/src/components/components/amw-tabs/amw-tabs.component';
-import { AmwDividerComponent } from '../../../../library/src/components/components/amw-divider/amw-divider.component';
 
-import { AmwButtonComponent } from '../../../../library/src/controls/components/amw-button/amw-button.component';
 @Component({
     selector: 'amw-demo-calendar-page',
     standalone: true,
-    imports: [MatIconModule,
-    MatDialogModule,
+    imports: [
     AmwCalendarFullComponent,
     AmwCalendarMiniComponent,
     AmwTabsComponent,
+    AmwTabComponent,
     AmwDividerComponent,
-    AmwButtonComponent],
+    AmwCardComponent,
+    AmwIconComponent,
+    AmwDialogComponent,
+    AmwButtonComponent,
+],
     encapsulation: ViewEncapsulation.None,
     templateUrl: './calendar-demo-page.component.html',
     styleUrl: './calendar-demo-page.component.scss'
@@ -195,8 +196,7 @@ export class CalendarDemoPageComponent implements OnInit {
     currentDate = new Date(2024, 0, 15); // January 15, 2024
 
     constructor(
-        private notification: AmwNotificationService,
-        private dialog: MatDialog
+        private notification: AmwNotificationService
     ) { }
 
     ngOnInit(): void {

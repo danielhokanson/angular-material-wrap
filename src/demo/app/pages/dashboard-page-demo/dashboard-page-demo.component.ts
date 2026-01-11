@@ -7,6 +7,7 @@ import {
 } from 'angular-material-wrap';
 import { Observable, BehaviorSubject } from 'rxjs';
 import { delay } from 'rxjs/operators';
+import { AmwTabsComponent, AmwTabComponent, AmwCardComponent } from '../../../../library/src/components/components';
 
 // Custom data source
 class MealPlanDataSource implements DashboardDataSource {
@@ -84,15 +85,18 @@ class MealPlanDataSource implements DashboardDataSource {
   selector: 'app-dashboard-page-demo',
   standalone: true,
   imports: [
-    AmwDashboardPageComponent
+    AmwDashboardPageComponent,
+    AmwTabsComponent,
+    AmwTabComponent,
+    AmwCardComponent
 ],
   template: `
     <div class="demo-page">
       <h1>Dashboard Page Component</h1>
       <p>A comprehensive dashboard layout with stats pills, view mode toggles, and flexible content areas for analytics and data visualization.</p>
 
-      <mat-tab-group>
-        <mat-tab label="Demo">
+      <amw-tabs>
+        <amw-tab label="Demo">
           <div class="demo-container">
             <amw-dashboard-page
               [config]="config"
@@ -102,11 +106,11 @@ class MealPlanDataSource implements DashboardDataSource {
               (itemClick)="onItemClick($event)">
             </amw-dashboard-page>
           </div>
-        </mat-tab>
+        </amw-tab>
 
-        <mat-tab label="Code">
-          <mat-card>
-            <mat-card-content>
+        <amw-tab label="Code">
+          <amw-card>
+            <ng-template #cardContent>
               <h3>Component Usage</h3>
               <pre><code>import &#123; AmwDashboardPageComponent, DashboardConfig &#125; from 'angular-material-wrap';
 
@@ -143,13 +147,13 @@ const config: DashboardConfig = &#123;
                 <li>Customizable stats per row</li>
                 <li>Loading and empty states</li>
               </ul>
-            </mat-card-content>
-          </mat-card>
-        </mat-tab>
+            </ng-template>
+          </amw-card>
+        </amw-tab>
 
-        <mat-tab label="API">
-          <mat-card>
-            <mat-card-content>
+        <amw-tab label="API">
+          <amw-card>
+            <ng-template #cardContent>
               <h3>Inputs</h3>
               <ul>
                 <li><code>@Input() config: DashboardConfig</code> - Configuration object</li>
@@ -193,10 +197,10 @@ const config: DashboardConfig = &#123;
   density?: 'compact' | 'comfortable' | 'spacious';
   showTrends?: boolean;
 &#125;</code></pre>
-            </mat-card-content>
-          </mat-card>
-        </mat-tab>
-      </mat-tab-group>
+            </ng-template>
+          </amw-card>
+        </amw-tab>
+      </amw-tabs>
     </div>
   `,
   styles: [`

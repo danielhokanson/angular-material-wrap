@@ -3,22 +3,22 @@ import { Component } from '@angular/core';
 import { RouterModule } from '@angular/router';
 import { MatSidenavModule } from '@angular/material/sidenav';
 import { MatListModule } from '@angular/material/list';
-import { MatIconModule } from '@angular/material/icon';
-
-import { ThemeMenuComponent } from '../theme-menu/theme-menu.component';
 import { MatToolbarModule } from '@angular/material/toolbar';
 
+import { ThemeMenuComponent } from '../theme-menu/theme-menu.component';
+
 import { AmwButtonComponent } from '../../../../library/src/controls/components/amw-button/amw-button.component';
+import { AmwIconComponent } from '../../../../library/src/components/components';
 @Component({
     selector: 'amw-demo-navigation',
     standalone: true,
     imports: [RouterModule,
     MatSidenavModule,
     MatListModule,
-    MatIconModule,
     ThemeMenuComponent,
     MatToolbarModule,
-    AmwButtonComponent],
+    AmwButtonComponent,
+    AmwIconComponent],
     templateUrl: './demo-navigation.component.html',
     styleUrl: './demo-navigation.component.scss'
 })

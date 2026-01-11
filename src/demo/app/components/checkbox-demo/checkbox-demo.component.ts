@@ -1,16 +1,15 @@
 import { Component, ViewEncapsulation } from '@angular/core';
 
-import { MatIconModule } from '@angular/material/icon';
-
 import { AmwCheckboxComponent } from '../../../../library/src/controls/components/amw-checkbox/amw-checkbox.component';
 import { AmwSize, AmwColor } from '../../../../library/src/shared/types';
+import { AmwIconComponent } from '../../../../library/src/components/components';
 
 @Component({
     selector: 'amw-demo-checkbox',
     standalone: true,
     imports: [
-    MatIconModule,
-    AmwCheckboxComponent
+    AmwCheckboxComponent,
+    AmwIconComponent
 ],
     encapsulation: ViewEncapsulation.None,
     templateUrl: './checkbox-demo.component.html',

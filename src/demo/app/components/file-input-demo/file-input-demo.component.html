@@ -27,10 +27,7 @@
           (filesChange)="basicFiles = $event">
           Upload Multiple Files
         </amw-file-input>
-        <variant="text"-toggle-group [(ngModel)]="multiple">
-          <variant="text"-toggle [value]="false">Single</variant="text"-toggle>
-          <variant="text"-toggle [value]="true">Multiple</variant="text"-toggle>
-        </variant="text"-toggle-group>
+        <amw-checkbox [(ngModel)]="multiple">Allow Multiple</amw-checkbox>
       </div>
 
       <div class="variation-group">

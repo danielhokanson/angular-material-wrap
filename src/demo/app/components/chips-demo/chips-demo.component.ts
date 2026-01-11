@@ -1,23 +1,26 @@
 import { Component, ViewEncapsulation } from '@angular/core';
 
 import { FormsModule } from '@angular/forms';
-import { MatIconModule } from '@angular/material/icon';
 import { AmwNotificationService } from '../../../../library/src/services/amw-notification/amw-notification.service';
 
 import { AmwChipsComponent } from '../../../../library/src/controls/components/amw-chips/amw-chips.component';
 import { Chip, ChipConfig, ChipEvent, ChipChangeEvent, ChipMenuItem } from '../../../../library/src/controls/components/amw-chips/interfaces';
 import { AmwTabsComponent } from '../../../../library/src/components/components/amw-tabs/amw-tabs.component';
+import { AmwTabComponent } from '../../../../library/src/components/components/amw-tabs/amw-tab.component';
 import { AmwDividerComponent } from '../../../../library/src/components/components/amw-divider/amw-divider.component';
+import { AmwCardComponent, AmwIconComponent } from '../../../../library/src/components/components';
 
 @Component({
     selector: 'amw-demo-chips',
     standalone: true,
     imports: [
     FormsModule,
-    MatIconModule,
     AmwChipsComponent,
     AmwTabsComponent,
+    AmwTabComponent,
     AmwDividerComponent,
+    AmwCardComponent,
+    AmwIconComponent
 ],
     encapsulation: ViewEncapsulation.None,
     templateUrl: './chips-demo.component.html',

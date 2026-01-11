@@ -2,16 +2,13 @@
   <h3>Code Examples</h3>
   <p>Interactive examples with live previews. The code is editable for reference, and working examples are shown alongside.</p>
 
-  <mat-accordion class="code-examples-accordion">
+  <amw-accordion class="code-examples-accordion">
     <!-- Basic Slider -->
-    <mat-expansion-panel>
-      <mat-expansion-panel-header>
-        <mat-panel-title>
-          <mat-icon>code</mat-icon>
-          Basic Slider
-        </mat-panel-title>
-        <mat-panel-description>A simple slider with default settings</mat-panel-description>
-      </mat-expansion-panel-header>
+    <amw-accordion-panel amwDescription="A simple slider with default settings">
+      <ng-template #header>
+        <amw-icon name="code"></amw-icon>
+        Basic Slider
+      </ng-template>
       <div class="example-container">
         <div class="code-panel">
           <div class="code-header">
@@ -26,24 +23,19 @@
         <div class="preview-panel">
           <h4>Preview</h4>
           <div class="preview-content">
-            <mat-slider [min]="0" [max]="100">
-              <input matSliderThumb [(ngModel)]="volumeValue">
-            </mat-slider>
+            <amw-slider [min]="0" [max]="100" [(ngModel)]="volumeValue"></amw-slider>
             <p>Volume: {{volumeValue}}</p>
           </div>
         </div>
       </div>
-    </mat-expansion-panel>
+    </amw-accordion-panel>
 
     <!-- Slider with Thumb Label -->
-    <mat-expansion-panel>
-      <mat-expansion-panel-header>
-        <mat-panel-title>
-          <mat-icon>code</mat-icon>
-          Slider with Thumb Label
-        </mat-panel-title>
-        <mat-panel-description>Slider showing current value on the thumb</mat-panel-description>
-      </mat-expansion-panel-header>
+    <amw-accordion-panel amwDescription="Slider showing current value on the thumb">
+      <ng-template #header>
+        <amw-icon name="code"></amw-icon>
+        Slider with Thumb Label
+      </ng-template>
       <div class="example-container">
         <div class="code-panel">
           <div class="code-header">
@@ -59,24 +51,19 @@
         <div class="preview-panel">
           <h4>Preview</h4>
           <div class="preview-content">
-            <mat-slider [min]="0" [max]="100" [displayWith]="formatLabel">
-              <input matSliderThumb [(ngModel)]="brightnessValue">
-            </mat-slider>
+            <amw-slider [min]="0" [max]="100" [thumbLabel]="true" [(ngModel)]="brightnessValue"></amw-slider>
             <p>Brightness: {{brightnessValue}}%</p>
           </div>
         </div>
       </div>
-    </mat-expansion-panel>
+    </amw-accordion-panel>
 
     <!-- Slider with Steps -->
-    <mat-expansion-panel>
-      <mat-expansion-panel-header>
-        <mat-panel-title>
-          <mat-icon>code</mat-icon>
-          Slider with Steps
-        </mat-panel-title>
-        <mat-panel-description>Slider with discrete step values</mat-panel-description>
-      </mat-expansion-panel-header>
+    <amw-accordion-panel amwDescription="Slider with discrete step values">
+      <ng-template #header>
+        <amw-icon name="code"></amw-icon>
+        Slider with Steps
+      </ng-template>
       <div class="example-container">
         <div class="code-panel">
           <div class="code-header">
@@ -92,24 +79,19 @@
         <div class="preview-panel">
           <h4>Preview</h4>
           <div class="preview-content">
-            <mat-slider [min]="1" [max]="5" [step]="0.5" [displayWith]="formatLabel">
-              <input matSliderThumb [(ngModel)]="ratingValue">
-            </mat-slider>
+            <amw-slider [min]="1" [max]="5" [step]="0.5" [thumbLabel]="true" [(ngModel)]="ratingValue"></amw-slider>
             <p>Rating: {{ratingValue}}</p>
           </div>
         </div>
       </div>
-    </mat-expansion-panel>
+    </amw-accordion-panel>
 
     <!-- Different Colors -->
-    <mat-expansion-panel>
-      <mat-expansion-panel-header>
-        <mat-panel-title>
-          <mat-icon>code</mat-icon>
-          Different Colors
-        </mat-panel-title>
-        <mat-panel-description>Sliders with different color themes</mat-panel-description>
-      </mat-expansion-panel-header>
+    <amw-accordion-panel amwDescription="Sliders with different color themes">
+      <ng-template #header>
+        <amw-icon name="code"></amw-icon>
+        Different Colors
+      </ng-template>
       <div class="example-container">
         <div class="code-panel">
           <div class="code-header">
@@ -125,34 +107,25 @@
         <div class="preview-panel">
           <h4>Preview</h4>
           <div class="preview-content">
-            <mat-slider color="primary" [min]="0" [max]="100">
-              <input matSliderThumb [(ngModel)]="primaryValue">
-            </mat-slider>
+            <amw-slider color="primary" [min]="0" [max]="100" [(ngModel)]="primaryValue"></amw-slider>
             <p>Primary: {{primaryValue}}</p>
 
-            <mat-slider color="accent" [min]="0" [max]="100">
-              <input matSliderThumb [(ngModel)]="accentValue">
-            </mat-slider>
+            <amw-slider color="accent" [min]="0" [max]="100" [(ngModel)]="accentValue"></amw-slider>
             <p>Accent: {{accentValue}}</p>
 
-            <mat-slider color="warn" [min]="0" [max]="100">
-              <input matSliderThumb [(ngModel)]="warnValue">
-            </mat-slider>
+            <amw-slider color="warn" [min]="0" [max]="100" [(ngModel)]="warnValue"></amw-slider>
             <p>Warn: {{warnValue}}</p>
           </div>
         </div>
       </div>
-    </mat-expansion-panel>
+    </amw-accordion-panel>
 
     <!-- Disabled Slider -->
-    <mat-expansion-panel>
-      <mat-expansion-panel-header>
-        <mat-panel-title>
-          <mat-icon>code</mat-icon>
-          Disabled Slider
-        </mat-panel-title>
-        <mat-panel-description>Slider in disabled state</mat-panel-description>
-      </mat-expansion-panel-header>
+    <amw-accordion-panel amwDescription="Slider in disabled state">
+      <ng-template #header>
+        <amw-icon name="code"></amw-icon>
+        Disabled Slider
+      </ng-template>
       <div class="example-container">
         <div class="code-panel">
           <div class="code-header">
@@ -168,24 +141,19 @@
         <div class="preview-panel">
           <h4>Preview</h4>
           <div class="preview-content">
-            <mat-slider [min]="0" [max]="100" disabled>
-              <input matSliderThumb [value]="50">
-            </mat-slider>
+            <amw-slider [min]="0" [max]="100" [disabled]="true" [value]="50"></amw-slider>
             <p>Disabled slider at value 50</p>
           </div>
         </div>
       </div>
-    </mat-expansion-panel>
+    </amw-accordion-panel>
 
     <!-- Reactive Form Integration -->
-    <mat-expansion-panel>
-      <mat-expansion-panel-header>
-        <mat-panel-title>
-          <mat-icon>code</mat-icon>
-          Reactive Form Integration
-        </mat-panel-title>
-        <mat-panel-description>Using sliders with Angular reactive forms</mat-panel-description>
-      </mat-expansion-panel-header>
+    <amw-accordion-panel amwDescription="Using sliders with Angular reactive forms">
+      <ng-template #header>
+        <amw-icon name="code"></amw-icon>
+        Reactive Form Integration
+      </ng-template>
       <div class="example-container">
         <div class="code-panel">
           <div class="code-header">
@@ -202,23 +170,20 @@
           <h4>Preview</h4>
           <div class="preview-content">
             <div class="preview-note">
-              <mat-icon>info</mat-icon>
+              <amw-icon name="info"></amw-icon>
               <span>This example shows code for reactive form integration</span>
             </div>
           </div>
         </div>
       </div>
-    </mat-expansion-panel>
+    </amw-accordion-panel>
 
     <!-- Slider with Events -->
-    <mat-expansion-panel>
-      <mat-expansion-panel-header>
-        <mat-panel-title>
-          <mat-icon>code</mat-icon>
-          Slider with Events
-        </mat-panel-title>
-        <mat-panel-description>Sliders with event handling</mat-panel-description>
-      </mat-expansion-panel-header>
+    <amw-accordion-panel amwDescription="Sliders with event handling">
+      <ng-template #header>
+        <amw-icon name="code"></amw-icon>
+        Slider with Events
+      </ng-template>
       <div class="example-container">
         <div class="code-panel">
           <div class="code-header">
@@ -234,31 +199,27 @@
         <div class="preview-panel">
           <h4>Preview</h4>
           <div class="preview-content">
-            <mat-slider [min]="0" [max]="100">
-              <input matSliderThumb
-                [(ngModel)]="eventValue"
-                (change)="onSliderChange($event)"
-                (input)="onSliderInput($event)">
-            </mat-slider>
+            <amw-slider [min]="0" [max]="100"
+              [(ngModel)]="eventValue"
+              (change)="onSliderChange($event)"
+              (input)="onSliderInput($event)">
+            </amw-slider>
             <p>Value: {{eventValue}}</p>
             <div class="preview-note">
-              <mat-icon>info</mat-icon>
+              <amw-icon name="info"></amw-icon>
               <span>Open your browser console to see event logs</span>
             </div>
           </div>
         </div>
       </div>
-    </mat-expansion-panel>
+    </amw-accordion-panel>
 
     <!-- Settings Panel -->
-    <mat-expansion-panel>
-      <mat-expansion-panel-header>
-        <mat-panel-title>
-          <mat-icon>code</mat-icon>
-          Settings Panel
-        </mat-panel-title>
-        <mat-panel-description>Multiple sliders in a settings panel</mat-panel-description>
-      </mat-expansion-panel-header>
+    <amw-accordion-panel amwDescription="Multiple sliders in a settings panel">
+      <ng-template #header>
+        <amw-icon name="code"></amw-icon>
+        Settings Panel
+      </ng-template>
       <div class="example-container">
         <div class="code-panel">
           <div class="code-header">
@@ -275,12 +236,12 @@
           <h4>Preview</h4>
           <div class="preview-content">
             <div class="preview-note">
-              <mat-icon>info</mat-icon>
+              <amw-icon name="info"></amw-icon>
               <span>This example shows code for a settings panel with multiple sliders</span>
             </div>
           </div>
         </div>
       </div>
-    </mat-expansion-panel>
-  </mat-accordion>
+    </amw-accordion-panel>
+  </amw-accordion>
 </div>

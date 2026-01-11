@@ -1,9 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
-import { MatIconModule } from '@angular/material/icon';
 import { AmwNotificationService } from '../../../../library/src/services/amw-notification/amw-notification.service';
-import { MatDialogModule, MatDialog } from '@angular/material/dialog';
 import { AmwCalendarFullComponent } from '../../../../library/src/components/components/amw-calendar/amw-calendar-full.component';
 import { AmwCalendarMiniComponent } from '../../../../library/src/components/components/amw-calendar/amw-calendar-mini.component';
 import { ViewEncapsulation } from '@angular/core';
@@ -36,18 +34,22 @@ import { AmwTabsComponent } from '../../../../library/src/components/components/
 import { AmwDividerComponent } from '../../../../library/src/components/components/amw-divider/amw-divider.component';
 
 import { AmwButtonComponent } from '../../../../library/src/controls/components/amw-button/amw-button.component';
+import { AmwCardComponent } from '../../../../library/src/components/components/amw-card/amw-card.component';
+import { AmwTabComponent } from '../../../../library/src/components/components/amw-tabs/amw-tab.component';
+import { AmwIconComponent } from '../../../../library/src/components/components';
 @Component({
     selector: 'amw-demo-calendar',
     standalone: true,
     imports: [CommonModule,
-    FormsModule,
-    MatIconModule,
-    MatDialogModule,
-    AmwCalendarFullComponent,
-    AmwCalendarMiniComponent,
-    AmwTabsComponent,
-    AmwDividerComponent,
-    AmwButtonComponent],
+        FormsModule,
+        AmwCalendarFullComponent,
+        AmwCalendarMiniComponent,
+        AmwTabsComponent,
+        AmwTabComponent,
+        AmwCardComponent,
+        AmwDividerComponent,
+        AmwButtonComponent,
+        AmwIconComponent],
     encapsulation: ViewEncapsulation.None,
     templateUrl: './calendar-demo.component.html',
     styleUrl: './calendar-demo.component.scss'
@@ -326,7 +328,6 @@ export class CalendarDemoComponent implements OnInit {
 
     constructor(
         private notification: AmwNotificationService,
-        private dialog: MatDialog,
         private itemRegistry: CalendarItemRegistryService
     ) { }
 
@@ -469,9 +470,9 @@ export class CalendarDemoComponent implements OnInit {
             console.log('Updated events array:', this.sampleEvents.map(e => ({ id: e.id, start: e.start, end: e.end, allDay: e.allDay })));
 
             const allDayText = event.allDay ? ' (all day)' : '';
-            this.notification.open(
+            this.notification.info(
+                'Event Moved',
                 `Moved "${event.event.data.title}" to ${event.newStart.toLocaleString()}${allDayText}`,
-                'Close',
                 { duration: 3000 }
             );
         } else {

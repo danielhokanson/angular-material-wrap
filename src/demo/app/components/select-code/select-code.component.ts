@@ -1,27 +1,23 @@
 import { Component, ViewEncapsulation } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
-import { MatIconModule } from '@angular/material/icon';
 import { BaseCodeComponent } from '../base/base-code.component';
 
 type SelectExamples = 'basic' | 'withValue' | 'multiple' | 'optGroups' | 'disabled' | 'customTrigger' | 'errorState';
-import { MatSelectModule } from '@angular/material/select';
-import { MatExpansionModule } from '@angular/material/expansion';
-import { MatFormFieldModule } from '@angular/material/form-field';
-import { MatOptionModule } from '@angular/material/core';
 
 import { AmwButtonComponent } from '../../../../library/src/controls/components/amw-button/amw-button.component';
+import { AmwSelectComponent } from '../../../../library/src/controls/components/amw-select/amw-select.component';
+import { AmwAccordionComponent, AmwAccordionPanelComponent, AmwIconComponent } from '../../../../library/src/components/components';
 @Component({
   selector: 'amw-demo-select-code',
   standalone: true,
   imports: [CommonModule,
     FormsModule,
-    MatIconModule,
-    MatSelectModule,
-    MatExpansionModule,
-    MatFormFieldModule,
-    MatOptionModule,
-    AmwButtonComponent],
+    AmwButtonComponent,
+    AmwSelectComponent,
+    AmwAccordionComponent,
+    AmwAccordionPanelComponent,
+    AmwIconComponent],
   encapsulation: ViewEncapsulation.None,
   templateUrl: './select-code.component.html',
   styleUrl: './select-code.component.scss'
@@ -34,83 +30,95 @@ export class SelectCodeComponent extends BaseCodeComponent<SelectExamples> {
   selectedCar = '';
 
   foods = [
-    { value: 'steak', viewValue: 'Steak' },
-    { value: 'pizza', viewValue: 'Pizza' },
-    { value: 'tacos', viewValue: 'Tacos' }
+    { value: 'steak', label: 'Steak' },
+    { value: 'pizza', label: 'Pizza' },
+    { value: 'tacos', label: 'Tacos' }
   ];
 
   cars = [
-    { value: 'volvo', viewValue: 'Volvo' },
-    { value: 'saab', viewValue: 'Saab' },
-    { value: 'mercedes', viewValue: 'Mercedes' }
+    { value: 'volvo', label: 'Volvo' },
+    { value: 'saab', label: 'Saab' },
+    { value: 'mercedes', label: 'Mercedes' }
   ];
 
   toppings = [
-    { value: 'extra-cheese', viewValue: 'Extra cheese' },
-    { value: 'mushroom', viewValue: 'Mushroom' },
-    { value: 'onion', viewValue: 'Onion' },
-    { value: 'pepperoni', viewValue: 'Pepperoni' },
-    { value: 'sausage', viewValue: 'Sausage' },
-    { value: 'tomato', viewValue: 'Tomato' }
+    { value: 'extra-cheese', label: 'Extra cheese' },
+    { value: 'mushroom', label: 'Mushroom' },
+    { value: 'onion', label: 'Onion' },
+    { value: 'pepperoni', label: 'Pepperoni' },
+    { value: 'sausage', label: 'Sausage' },
+    { value: 'tomato', label: 'Tomato' }
   ];
+
+  pokemonGroups: { [key: string]: { value: string; label: string }[] } = {
+    'Grass': [
+      { value: 'bulbasaur', label: 'Bulbasaur' },
+      { value: 'oddish', label: 'Oddish' }
+    ],
+    'Water': [
+      { value: 'squirtle', label: 'Squirtle' },
+      { value: 'psyduck', label: 'Psyduck' }
+    ],
+    'Fire': [
+      { value: 'charmander', label: 'Charmander' },
+      { value: 'vulpix', label: 'Vulpix' }
+    ]
+  };
 
   // Original code examples (for reset functionality)
   readonly codeExamples: Record<SelectExamples, string> = {
-    basic: `<amw-select label="Favorite food">
-  <mat-option value="steak">Steak</mat-option>
-  <mat-option value="pizza">Pizza</mat-option>
-  <mat-option value="tacos">Tacos</mat-option>
+    basic: `<amw-select
+  label="Favorite food"
+  [options]="[
+    { value: 'steak', label: 'Steak' },
+    { value: 'pizza', label: 'Pizza' },
+    { value: 'tacos', label: 'Tacos' }
+  ]">
 </amw-select>`,
 
-    withValue: `<amw-select label="Select your car" [(value)]="selectedCar">
-  <mat-option value="volvo">Volvo</mat-option>
-  <mat-option value="saab">Saab</mat-option>
-  <mat-option value="mercedes">Mercedes</mat-option>
+    withValue: `<amw-select
+  label="Select your car"
+  [(ngModel)]="selectedCar"
+  [options]="cars">
 </amw-select>
 <p>You selected: {{selectedCar}}</p>`,
 
-    multiple: `<amw-select label="Toppings" multiple>
-  <mat-option value="extra-cheese">Extra cheese</mat-option>
-  <mat-option value="mushroom">Mushroom</mat-option>
-  <mat-option value="onion">Onion</mat-option>
-  <mat-option value="pepperoni">Pepperoni</mat-option>
-  <mat-option value="sausage">Sausage</mat-option>
-  <mat-option value="tomato">Tomato</mat-option>
+    multiple: `<amw-select
+  label="Toppings"
+  [multiple]="true"
+  [options]="toppings">
 </amw-select>`,
 
-    optGroups: `<amw-select label="Pokemon">
-  <mat-optgroup label="Grass">
-    <mat-option value="bulbasaur">Bulbasaur</mat-option>
-    <mat-option value="oddish">Oddish</mat-option>
-  </mat-optgroup>
-  <mat-optgroup label="Water">
-    <mat-option value="squirtle">Squirtle</mat-option>
-    <mat-option value="psyduck">Psyduck</mat-option>
-  </mat-optgroup>
-  <mat-optgroup label="Fire">
-    <mat-option value="charmander">Charmander</mat-option>
-    <mat-option value="vulpix">Vulpix</mat-option>
-  </mat-optgroup>
+    optGroups: `<amw-select
+  label="Pokemon"
+  [options]="[
+    { value: 'bulbasaur', label: 'Bulbasaur', group: 'Grass' },
+    { value: 'oddish', label: 'Oddish', group: 'Grass' },
+    { value: 'squirtle', label: 'Squirtle', group: 'Water' },
+    { value: 'psyduck', label: 'Psyduck', group: 'Water' },
+    { value: 'charmander', label: 'Charmander', group: 'Fire' },
+    { value: 'vulpix', label: 'Vulpix', group: 'Fire' }
+  ]">
 </amw-select>`,
 
-    disabled: `<amw-select label="Disabled select" disabled>
-  <mat-option value="option1">Option 1</mat-option>
-  <mat-option value="option2">Option 2</mat-option>
+    disabled: `<amw-select
+  label="Disabled select"
+  [disabled]="true"
+  [options]="[
+    { value: 'option1', label: 'Option 1' },
+    { value: 'option2', label: 'Option 2' }
+  ]">
 </amw-select>`,
 
-    customTrigger: `<amw-select label="Favorite food" #select>
-  <mat-select-trigger>
-    {{select.value?.viewValue || 'None'}}
-  </mat-select-trigger>
-  <mat-option *ngFor="let food of foods" [value]="food">
-    {{food.viewValue}}
-  </mat-option>
+    customTrigger: `<amw-select
+  label="Favorite food"
+  [options]="foods">
 </amw-select>`,
 
-    errorState: `<amw-select label="Favorite food" required>
-  <mat-option value="steak">Steak</mat-option>
-  <mat-option value="pizza">Pizza</mat-option>
-  <mat-option value="tacos">Tacos</mat-option>
+    errorState: `<amw-select
+  label="Favorite food"
+  [required]="true"
+  [options]="foods">
 </amw-select>`
   };
 

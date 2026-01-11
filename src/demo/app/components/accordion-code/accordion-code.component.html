@@ -2,16 +2,13 @@
   <h3>Code Examples</h3>
   <p>Interactive examples with live previews. The code is editable for reference, and working examples are shown alongside.</p>
 
-  <mat-accordion class="code-examples-accordion">
+  <amw-accordion class="code-examples-accordion">
     <!-- Basic Accordion -->
-    <mat-expansion-panel>
-      <mat-expansion-panel-header>
-        <mat-panel-title>
-          <mat-icon>code</mat-icon>
-          Basic Accordion
-        </mat-panel-title>
-        <mat-panel-description>Simple accordion with title and description</mat-panel-description>
-      </mat-expansion-panel-header>
+    <amw-accordion-panel>
+      <ng-template #header>
+        <amw-icon name="code"></amw-icon>
+        Basic Accordion
+      </ng-template>
       <div class="example-container">
         <div class="code-panel">
           <div class="code-header">
@@ -26,37 +23,26 @@
         <div class="preview-panel">
           <h4>Preview</h4>
           <div class="preview-content">
-            <mat-accordion>
-              <mat-expansion-panel>
-                <mat-expansion-panel-header>
-                  <mat-panel-title>Panel 1</mat-panel-title>
-                  <mat-panel-description>First panel content</mat-panel-description>
-                </mat-expansion-panel-header>
+            <amw-accordion>
+              <amw-accordion-panel amwTitle="Panel 1" amwDescription="First panel content">
                 <p>First panel content</p>
-              </mat-expansion-panel>
+              </amw-accordion-panel>
 
-              <mat-expansion-panel>
-                <mat-expansion-panel-header>
-                  <mat-panel-title>Panel 2</mat-panel-title>
-                  <mat-panel-description>Second panel content</mat-panel-description>
-                </mat-expansion-panel-header>
+              <amw-accordion-panel amwTitle="Panel 2" amwDescription="Second panel content">
                 <p>Second panel content</p>
-              </mat-expansion-panel>
-            </mat-accordion>
+              </amw-accordion-panel>
+            </amw-accordion>
           </div>
         </div>
       </div>
-    </mat-expansion-panel>
+    </amw-accordion-panel>
 
     <!-- Multi-Expansion Mode -->
-    <mat-expansion-panel>
-      <mat-expansion-panel-header>
-        <mat-panel-title>
-          <mat-icon>code</mat-icon>
-          Multi-Expansion Mode
-        </mat-panel-title>
-        <mat-panel-description>Allow multiple panels to be open simultaneously</mat-panel-description>
-      </mat-expansion-panel-header>
+    <amw-accordion-panel>
+      <ng-template #header>
+        <amw-icon name="code"></amw-icon>
+        Multi-Expansion Mode
+      </ng-template>
       <div class="example-container">
         <div class="code-panel">
           <div class="code-header">
@@ -72,35 +58,26 @@
         <div class="preview-panel">
           <h4>Preview</h4>
           <div class="preview-content">
-            <mat-accordion [multi]="true">
-              <mat-expansion-panel>
-                <mat-expansion-panel-header>
-                  <mat-panel-title>Panel 1</mat-panel-title>
-                </mat-expansion-panel-header>
+            <amw-accordion [multi]="true">
+              <amw-accordion-panel amwTitle="Panel 1">
                 <p>Content 1 - can stay open with others</p>
-              </mat-expansion-panel>
+              </amw-accordion-panel>
 
-              <mat-expansion-panel>
-                <mat-expansion-panel-header>
-                  <mat-panel-title>Panel 2</mat-panel-title>
-                </mat-expansion-panel-header>
+              <amw-accordion-panel amwTitle="Panel 2">
                 <p>Content 2 - can stay open with others</p>
-              </mat-expansion-panel>
-            </mat-accordion>
+              </amw-accordion-panel>
+            </amw-accordion>
           </div>
         </div>
       </div>
-    </mat-expansion-panel>
+    </amw-accordion-panel>
 
     <!-- Hide Toggle Indicator -->
-    <mat-expansion-panel>
-      <mat-expansion-panel-header>
-        <mat-panel-title>
-          <mat-icon>code</mat-icon>
-          Hide Toggle Indicator
-        </mat-panel-title>
-        <mat-panel-description>Remove the expansion indicator icon</mat-panel-description>
-      </mat-expansion-panel-header>
+    <amw-accordion-panel>
+      <ng-template #header>
+        <amw-icon name="code"></amw-icon>
+        Hide Toggle Indicator
+      </ng-template>
       <div class="example-container">
         <div class="code-panel">
           <div class="code-header">
@@ -116,28 +93,22 @@
         <div class="preview-panel">
           <h4>Preview</h4>
           <div class="preview-content">
-            <mat-accordion>
-              <mat-expansion-panel [hideToggle]="true">
-                <mat-expansion-panel-header>
-                  <mat-panel-title>No Toggle Indicator</mat-panel-title>
-                </mat-expansion-panel-header>
+            <amw-accordion>
+              <amw-accordion-panel amwTitle="No Toggle Indicator" [hideToggle]="true">
                 <p>Panel without toggle indicator</p>
-              </mat-expansion-panel>
-            </mat-accordion>
+              </amw-accordion-panel>
+            </amw-accordion>
           </div>
         </div>
       </div>
-    </mat-expansion-panel>
+    </amw-accordion-panel>
 
     <!-- Disabled State -->
-    <mat-expansion-panel>
-      <mat-expansion-panel-header>
-        <mat-panel-title>
-          <mat-icon>code</mat-icon>
-          Disabled State
-        </mat-panel-title>
-        <mat-panel-description>Prevent user interaction with panel</mat-panel-description>
-      </mat-expansion-panel-header>
+    <amw-accordion-panel>
+      <ng-template #header>
+        <amw-icon name="code"></amw-icon>
+        Disabled State
+      </ng-template>
       <div class="example-container">
         <div class="code-panel">
           <div class="code-header">
@@ -153,28 +124,22 @@
         <div class="preview-panel">
           <h4>Preview</h4>
           <div class="preview-content">
-            <mat-accordion>
-              <mat-expansion-panel [disabled]="true">
-                <mat-expansion-panel-header>
-                  <mat-panel-title>Disabled Panel</mat-panel-title>
-                </mat-expansion-panel-header>
+            <amw-accordion>
+              <amw-accordion-panel amwTitle="Disabled Panel" [disabled]="true">
                 <p>This content cannot be accessed</p>
-              </mat-expansion-panel>
-            </mat-accordion>
+              </amw-accordion-panel>
+            </amw-accordion>
           </div>
         </div>
       </div>
-    </mat-expansion-panel>
+    </amw-accordion-panel>
 
     <!-- Programmatic Control -->
-    <mat-expansion-panel>
-      <mat-expansion-panel-header>
-        <mat-panel-title>
-          <mat-icon>code</mat-icon>
-          Programmatic Control
-        </mat-panel-title>
-        <mat-panel-description>Control panel state with methods</mat-panel-description>
-      </mat-expansion-panel-header>
+    <amw-accordion-panel>
+      <ng-template #header>
+        <amw-icon name="code"></amw-icon>
+        Programmatic Control
+      </ng-template>
       <div class="example-container">
         <div class="code-panel">
           <div class="code-header">
@@ -190,34 +155,28 @@
         <div class="preview-panel">
           <h4>Preview</h4>
           <div class="preview-content">
-            <mat-accordion>
-              <mat-expansion-panel #panel>
-                <mat-expansion-panel-header>
-                  <mat-panel-title>Programmatically Controlled</mat-panel-title>
-                </mat-expansion-panel-header>
+            <amw-accordion>
+              <amw-accordion-panel #panel amwTitle="Programmatically Controlled">
                 <p>Control this panel with methods</p>
-              </mat-expansion-panel>
-            </mat-accordion>
+              </amw-accordion-panel>
+            </amw-accordion>
 
             <div class="control-buttons">
-              <amw-button variant="elevated" (click)="panel.open()">Open</amw-button>
-              <amw-button variant="elevated" (click)="panel.close()">Close</amw-button>
-              <amw-button variant="elevated" (click)="panel.toggle()">Toggle</amw-button>
+              <amw-button variant="elevated" (click)="panel.expanded = true">Open</amw-button>
+              <amw-button variant="elevated" (click)="panel.expanded = false">Close</amw-button>
+              <amw-button variant="elevated" (click)="panel.expanded = !panel.expanded">Toggle</amw-button>
             </div>
           </div>
         </div>
       </div>
-    </mat-expansion-panel>
+    </amw-accordion-panel>
 
     <!-- Event Handling -->
-    <mat-expansion-panel>
-      <mat-expansion-panel-header>
-        <mat-panel-title>
-          <mat-icon>code</mat-icon>
-          Event Handling
-        </mat-panel-title>
-        <mat-panel-description>Listen to panel state changes</mat-panel-description>
-      </mat-expansion-panel-header>
+    <amw-accordion-panel>
+      <ng-template #header>
+        <amw-icon name="code"></amw-icon>
+        Event Handling
+      </ng-template>
       <div class="example-container">
         <div class="code-panel">
           <div class="code-header">
@@ -233,36 +192,29 @@
         <div class="preview-panel">
           <h4>Preview</h4>
           <div class="preview-content">
-            <mat-accordion>
-              <mat-expansion-panel
+            <amw-accordion>
+              <amw-accordion-panel
+                amwTitle="Event Handling"
                 (opened)="onOpened()"
-                (closed)="onClosed()"
-                (afterExpand)="onAfterExpand()"
-                (afterCollapse)="onAfterCollapse()">
-                <mat-expansion-panel-header>
-                  <mat-panel-title>Event Handling</mat-panel-title>
-                </mat-expansion-panel-header>
+                (closed)="onClosed()">
                 <p>Check console for event logs</p>
-              </mat-expansion-panel>
-            </mat-accordion>
+              </amw-accordion-panel>
+            </amw-accordion>
             <div class="preview-note">
-              <mat-icon>info</mat-icon>
+              <amw-icon name="info"></amw-icon>
               <span>Open your browser console to see event logs</span>
             </div>
           </div>
         </div>
       </div>
-    </mat-expansion-panel>
+    </amw-accordion-panel>
 
     <!-- Toggle Position -->
-    <mat-expansion-panel>
-      <mat-expansion-panel-header>
-        <mat-panel-title>
-          <mat-icon>code</mat-icon>
-          Toggle Position
-        </mat-panel-title>
-        <mat-panel-description>Position the toggle indicator before the title</mat-panel-description>
-      </mat-expansion-panel-header>
+    <amw-accordion-panel>
+      <ng-template #header>
+        <amw-icon name="code"></amw-icon>
+        Toggle Position
+      </ng-template>
       <div class="example-container">
         <div class="code-panel">
           <div class="code-header">
@@ -278,17 +230,14 @@
         <div class="preview-panel">
           <h4>Preview</h4>
           <div class="preview-content">
-            <mat-accordion>
-              <mat-expansion-panel [togglePosition]="'before'">
-                <mat-expansion-panel-header>
-                  <mat-panel-title>Toggle Before Title</mat-panel-title>
-                </mat-expansion-panel-header>
+            <amw-accordion [togglePosition]="'before'">
+              <amw-accordion-panel amwTitle="Toggle Before Title">
                 <p>Toggle indicator on the left</p>
-              </mat-expansion-panel>
-            </mat-accordion>
+              </amw-accordion-panel>
+            </amw-accordion>
           </div>
         </div>
       </div>
-    </mat-expansion-panel>
-  </mat-accordion>
+    </amw-accordion-panel>
+  </amw-accordion>
 </div>

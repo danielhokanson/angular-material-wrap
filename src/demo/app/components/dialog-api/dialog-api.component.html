@@ -1,160 +1,132 @@
 <div class="dialog-api">
-  <mat-card>
-    <mat-card-header>
-      <mat-card-title>Dialog API Documentation</mat-card-title>
-      <mat-card-subtitle>Complete API reference for the amw-dialog component</mat-card-subtitle>
-    </mat-card-header>
-
-    <mat-card-content>
+  <amw-card>
+    <ng-template #cardHeader>
+      <h2>Dialog API Documentation</h2>
+      <p>Complete API reference for the amw-dialog component</p>
+    </ng-template>
+    <ng-template #cardContent>
       <!-- Inputs -->
       <div class="dialog-api__section">
         <h3>Inputs</h3>
-        <mat-table [dataSource]="getDisplayedColumns('inputs')" class="dialog-api__table">
-          <ng-container matColumnDef="name">
-            <mat-header-cell *matHeaderCellDef>Property</mat-header-cell>
-            <mat-cell *matCellDef="let element">
-              <code>{{ element.name }}</code>
-            </mat-cell>
-          </ng-container>
-
-          <ng-container matColumnDef="type">
-            <mat-header-cell *matHeaderCellDef>Type</mat-header-cell>
-            <mat-cell *matCellDef="let element">
-              <code>{{ element.type }}</code>
-            </mat-cell>
-          </ng-container>
-
-          <ng-container matColumnDef="default">
-            <mat-header-cell *matHeaderCellDef>Default</mat-header-cell>
-            <mat-cell *matCellDef="let element">
-              <code>{{ element.default }}</code>
-            </mat-cell>
-          </ng-container>
-
-          <ng-container matColumnDef="description">
-            <mat-header-cell *matHeaderCellDef>Description</mat-header-cell>
-            <mat-cell *matCellDef="let element">{{ element.description }}</mat-cell>
-          </ng-container>
-
-          <mat-header-row *matHeaderRowDef="['name', 'type', 'default', 'description']"></mat-header-row>
-          <mat-row *matRowDef="let row; columns: ['name', 'type', 'default', 'description'];"></mat-row>
-        </mat-table>
+        <table class="dialog-api__table">
+          <thead>
+            <tr>
+              <th>Property</th>
+              <th>Type</th>
+              <th>Default</th>
+              <th>Description</th>
+            </tr>
+          </thead>
+          <tbody>
+            @for (element of getDisplayedColumns('inputs'); track element.name) {
+              <tr>
+                <td><code>{{ element.name }}</code></td>
+                <td><code>{{ element.type }}</code></td>
+                <td><code>{{ element.default }}</code></td>
+                <td>{{ element.description }}</td>
+              </tr>
+            }
+          </tbody>
+        </table>
       </div>
 
       <!-- Outputs -->
       <div class="dialog-api__section">
         <h3>Outputs</h3>
-        <mat-table [dataSource]="getDisplayedColumns('outputs')" class="dialog-api__table">
-          <ng-container matColumnDef="name">
-            <mat-header-cell *matHeaderCellDef>Event</mat-header-cell>
-            <mat-cell *matCellDef="let element">
-              <code>{{ element.name }}</code>
-            </mat-cell>
-          </ng-container>
-
-          <ng-container matColumnDef="type">
-            <mat-header-cell *matHeaderCellDef>Type</mat-header-cell>
-            <mat-cell *matCellDef="let element">
-              <code>{{ element.type }}</code>
-            </mat-cell>
-          </ng-container>
-
-          <ng-container matColumnDef="description">
-            <mat-header-cell *matHeaderCellDef>Description</mat-header-cell>
-            <mat-cell *matCellDef="let element">{{ element.description }}</mat-cell>
-          </ng-container>
-
-          <mat-header-row *matHeaderRowDef="['name', 'type', 'description']"></mat-header-row>
-          <mat-row *matRowDef="let row; columns: ['name', 'type', 'description'];"></mat-row>
-        </mat-table>
+        <table class="dialog-api__table">
+          <thead>
+            <tr>
+              <th>Event</th>
+              <th>Type</th>
+              <th>Description</th>
+            </tr>
+          </thead>
+          <tbody>
+            @for (element of getDisplayedColumns('outputs'); track element.name) {
+              <tr>
+                <td><code>{{ element.name }}</code></td>
+                <td><code>{{ element.type }}</code></td>
+                <td>{{ element.description }}</td>
+              </tr>
+            }
+          </tbody>
+        </table>
       </div>
 
       <!-- Methods -->
       <div class="dialog-api__section">
         <h3>Component Methods</h3>
-        <mat-table [dataSource]="getDisplayedColumns('methods')" class="dialog-api__table">
-          <ng-container matColumnDef="name">
-            <mat-header-cell *matHeaderCellDef>Method</mat-header-cell>
-            <mat-cell *matCellDef="let element">
-              <code>{{ element.name }}</code>
-            </mat-cell>
-          </ng-container>
-
-          <ng-container matColumnDef="type">
-            <mat-header-cell *matHeaderCellDef>Return Type</mat-header-cell>
-            <mat-cell *matCellDef="let element">
-              <code>{{ element.type }}</code>
-            </mat-cell>
-          </ng-container>
-
-          <ng-container matColumnDef="description">
-            <mat-header-cell *matHeaderCellDef>Description</mat-header-cell>
-            <mat-cell *matCellDef="let element">{{ element.description }}</mat-cell>
-          </ng-container>
-
-          <mat-header-row *matHeaderRowDef="['name', 'type', 'description']"></mat-header-row>
-          <mat-row *matRowDef="let row; columns: ['name', 'type', 'description'];"></mat-row>
-        </mat-table>
+        <table class="dialog-api__table">
+          <thead>
+            <tr>
+              <th>Method</th>
+              <th>Return Type</th>
+              <th>Description</th>
+            </tr>
+          </thead>
+          <tbody>
+            @for (element of getDisplayedColumns('methods'); track element.name) {
+              <tr>
+                <td><code>{{ element.name }}</code></td>
+                <td><code>{{ element.type }}</code></td>
+                <td>{{ element.description }}</td>
+              </tr>
+            }
+          </tbody>
+        </table>
       </div>
 
       <!-- Service Methods -->
       <div class="dialog-api__section">
         <h3>DialogService Methods</h3>
-        <mat-table [dataSource]="getDisplayedColumns('serviceMethods')" class="dialog-api__table">
-          <ng-container matColumnDef="name">
-            <mat-header-cell *matHeaderCellDef>Method</mat-header-cell>
-            <mat-cell *matCellDef="let element">
-              <code>{{ element.name }}</code>
-            </mat-cell>
-          </ng-container>
-
-          <ng-container matColumnDef="type">
-            <mat-header-cell *matHeaderCellDef>Return Type</mat-header-cell>
-            <mat-cell *matCellDef="let element">
-              <code>{{ element.type }}</code>
-            </mat-cell>
-          </ng-container>
-
-          <ng-container matColumnDef="description">
-            <mat-header-cell *matHeaderCellDef>Description</mat-header-cell>
-            <mat-cell *matCellDef="let element">{{ element.description }}</mat-cell>
-          </ng-container>
-
-          <mat-header-row *matHeaderRowDef="['name', 'type', 'description']"></mat-header-row>
-          <mat-row *matRowDef="let row; columns: ['name', 'type', 'description'];"></mat-row>
-        </mat-table>
+        <table class="dialog-api__table">
+          <thead>
+            <tr>
+              <th>Method</th>
+              <th>Return Type</th>
+              <th>Description</th>
+            </tr>
+          </thead>
+          <tbody>
+            @for (element of serviceMethods; track element.name) {
+              <tr>
+                <td><code>{{ element.name }}</code></td>
+                <td><code>{{ element.returns }}</code></td>
+                <td>{{ element.description }}</td>
+              </tr>
+            }
+          </tbody>
+        </table>
       </div>
 
       <!-- Interfaces -->
       <div class="dialog-api__section">
         <h3>Interfaces</h3>
-        @for (interface of interfacesList; track interface) {
+        @for (interface of interfacesList; track interface.name) {
           <div class="dialog-api__interface">
             <h4>{{ interface.name }}</h4>
             <p>{{ interface.description }}</p>
-            <mat-table [dataSource]="interface.properties" class="dialog-api__table">
-              <ng-container matColumnDef="name">
-                <mat-header-cell *matHeaderCellDef>Property</mat-header-cell>
-                <mat-cell *matCellDef="let element">
-                  <code>{{ element.name }}</code>
-                </mat-cell>
-              </ng-container>
-              <ng-container matColumnDef="type">
-                <mat-header-cell *matHeaderCellDef>Type</mat-header-cell>
-                <mat-cell *matCellDef="let element">
-                  <code>{{ element.type }}</code>
-                </mat-cell>
-              </ng-container>
-              <ng-container matColumnDef="description">
-                <mat-header-cell *matHeaderCellDef>Description</mat-header-cell>
-                <mat-cell *matCellDef="let element">{{ element.description }}</mat-cell>
-              </ng-container>
-              <mat-header-row *matHeaderRowDef="['name', 'type', 'description']"></mat-header-row>
-              <mat-row *matRowDef="let row; columns: ['name', 'type', 'description'];"></mat-row>
-            </mat-table>
+            <table class="dialog-api__table">
+              <thead>
+                <tr>
+                  <th>Property</th>
+                  <th>Type</th>
+                  <th>Description</th>
+                </tr>
+              </thead>
+              <tbody>
+                @for (prop of interface.properties; track prop.name) {
+                  <tr>
+                    <td><code>{{ prop.name }}</code></td>
+                    <td><code>{{ prop.returns }}</code></td>
+                    <td>{{ prop.description }}</td>
+                  </tr>
+                }
+              </tbody>
+            </table>
           </div>
         }
       </div>
-    </mat-card-content>
-  </mat-card>
+    </ng-template>
+  </amw-card>
 </div>

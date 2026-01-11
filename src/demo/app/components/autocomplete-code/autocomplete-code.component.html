@@ -1,17 +1,14 @@
 <div class="code-section">
   <h3>Code Examples</h3>
-  <p>Interactive examples with live previews. The code is editable for reference, and working examples are shown alongside.</p>
+  <p>Code examples demonstrating amw-autocomplete usage patterns.</p>
 
-  <mat-accordion class="code-examples-accordion">
+  <amw-accordion class="code-examples-accordion">
     <!-- Basic Autocomplete -->
-    <mat-expansion-panel>
-      <mat-expansion-panel-header>
-        <mat-panel-title>
-          <mat-icon>code</mat-icon>
-          Basic Autocomplete
-        </mat-panel-title>
-        <mat-panel-description>A simple autocomplete with predefined options</mat-panel-description>
-      </mat-expansion-panel-header>
+    <amw-accordion-panel amwDescription="A simple autocomplete with predefined options">
+      <ng-template #header>
+        <amw-icon name="code"></amw-icon>
+        Basic Autocomplete
+      </ng-template>
       <div class="example-container">
         <div class="code-panel">
           <div class="code-header">
@@ -26,32 +23,24 @@
         <div class="preview-panel">
           <h4>Preview</h4>
           <div class="preview-content">
-            <amw-input
+            <amw-autocomplete
               label="Country"
               [(ngModel)]="countryValue"
               placeholder="Select your country..."
-              [matAutocomplete]="auto"
+              [options]="countryOptions"
               appearance="outline">
-            </amw-input>
-            <mat-autocomplete #auto="matAutocomplete">
-              @for (country of countries; track country) {
-                <mat-option [value]="country">{{country}}</mat-option>
-              }
-            </mat-autocomplete>
+            </amw-autocomplete>
           </div>
         </div>
       </div>
-    </mat-expansion-panel>
+    </amw-accordion-panel>
 
     <!-- Autocomplete with Validation -->
-    <mat-expansion-panel>
-      <mat-expansion-panel-header>
-        <mat-panel-title>
-          <mat-icon>code</mat-icon>
-          Autocomplete with Validation
-        </mat-panel-title>
-        <mat-panel-description>Autocomplete with required validation</mat-panel-description>
-      </mat-expansion-panel-header>
+    <amw-accordion-panel amwDescription="Autocomplete with required validation">
+      <ng-template #header>
+        <amw-icon name="code"></amw-icon>
+        Autocomplete with Validation
+      </ng-template>
       <div class="example-container">
         <div class="code-panel">
           <div class="code-header">
@@ -67,33 +56,25 @@
         <div class="preview-panel">
           <h4>Preview</h4>
           <div class="preview-content">
-            <amw-input
+            <amw-autocomplete
               label="Country"
               placeholder="Select your country..."
-              required
-              [matAutocomplete]="autoValidation"
+              [options]="countryOptions"
+              [required]="true"
               hint="Country is required"
               appearance="outline">
-            </amw-input>
-            <mat-autocomplete #autoValidation="matAutocomplete">
-              @for (country of countries; track country) {
-                <mat-option [value]="country">{{country}}</mat-option>
-              }
-            </mat-autocomplete>
+            </amw-autocomplete>
           </div>
         </div>
       </div>
-    </mat-expansion-panel>
+    </amw-accordion-panel>
 
     <!-- Autocomplete with Filtering -->
-    <mat-expansion-panel>
-      <mat-expansion-panel-header>
-        <mat-panel-title>
-          <mat-icon>code</mat-icon>
-          Autocomplete with Filtering
-        </mat-panel-title>
-        <mat-panel-description>Autocomplete that filters options as you type</mat-panel-description>
-      </mat-expansion-panel-header>
+    <amw-accordion-panel amwDescription="Autocomplete that filters options as you type">
+      <ng-template #header>
+        <amw-icon name="code"></amw-icon>
+        Autocomplete with Filtering
+      </ng-template>
       <div class="example-container">
         <div class="code-panel">
           <div class="code-header">
@@ -109,33 +90,24 @@
         <div class="preview-panel">
           <h4>Preview</h4>
           <div class="preview-content">
-            <amw-input
+            <amw-autocomplete
               label="Search Skills"
               [(ngModel)]="skillValue"
-              (input)="filterSkills($event)"
               placeholder="Type to search skills..."
-              [matAutocomplete]="autoFilter"
+              [options]="skillOptions"
               appearance="outline">
-            </amw-input>
-            <mat-autocomplete #autoFilter="matAutocomplete">
-              @for (skill of filteredSkills; track skill) {
-                <mat-option [value]="skill">{{skill}}</mat-option>
-              }
-            </mat-autocomplete>
+            </amw-autocomplete>
           </div>
         </div>
       </div>
-    </mat-expansion-panel>
+    </amw-accordion-panel>
 
     <!-- Multiple Selection -->
-    <mat-expansion-panel>
-      <mat-expansion-panel-header>
-        <mat-panel-title>
-          <mat-icon>code</mat-icon>
-          Multiple Selection
-        </mat-panel-title>
-        <mat-panel-description>Autocomplete allowing multiple selections</mat-panel-description>
-      </mat-expansion-panel-header>
+    <amw-accordion-panel amwDescription="Autocomplete allowing multiple selections">
+      <ng-template #header>
+        <amw-icon name="code"></amw-icon>
+        Multiple Selection
+      </ng-template>
       <div class="example-container">
         <div class="code-panel">
           <div class="code-header">
@@ -152,23 +124,20 @@
           <h4>Preview</h4>
           <div class="preview-content">
             <div class="preview-note">
-              <mat-icon>info</mat-icon>
+              <amw-icon name="info"></amw-icon>
               <span>This example shows code for multiple selection with chips</span>
             </div>
           </div>
         </div>
       </div>
-    </mat-expansion-panel>
+    </amw-accordion-panel>
 
     <!-- Custom Display Format -->
-    <mat-expansion-panel>
-      <mat-expansion-panel-header>
-        <mat-panel-title>
-          <mat-icon>code</mat-icon>
-          Custom Display Format
-        </mat-panel-title>
-        <mat-panel-description>Autocomplete with custom option display</mat-panel-description>
-      </mat-expansion-panel-header>
+    <amw-accordion-panel amwDescription="Autocomplete with custom option display">
+      <ng-template #header>
+        <amw-icon name="code"></amw-icon>
+        Custom Display Format
+      </ng-template>
       <div class="example-container">
         <div class="code-panel">
           <div class="code-header">
@@ -185,23 +154,20 @@
           <h4>Preview</h4>
           <div class="preview-content">
             <div class="preview-note">
-              <mat-icon>info</mat-icon>
+              <amw-icon name="info"></amw-icon>
               <span>This example shows code for custom display formatting</span>
             </div>
           </div>
         </div>
       </div>
-    </mat-expansion-panel>
+    </amw-accordion-panel>
 
     <!-- Reactive Form Integration -->
-    <mat-expansion-panel>
-      <mat-expansion-panel-header>
-        <mat-panel-title>
-          <mat-icon>code</mat-icon>
-          Reactive Form Integration
-        </mat-panel-title>
-        <mat-panel-description>Using autocomplete with Angular reactive forms</mat-panel-description>
-      </mat-expansion-panel-header>
+    <amw-accordion-panel amwDescription="Using autocomplete with Angular reactive forms">
+      <ng-template #header>
+        <amw-icon name="code"></amw-icon>
+        Reactive Form Integration
+      </ng-template>
       <div class="example-container">
         <div class="code-panel">
           <div class="code-header">
@@ -218,23 +184,20 @@
           <h4>Preview</h4>
           <div class="preview-content">
             <div class="preview-note">
-              <mat-icon>info</mat-icon>
+              <amw-icon name="info"></amw-icon>
               <span>This example shows code for reactive form integration</span>
             </div>
           </div>
         </div>
       </div>
-    </mat-expansion-panel>
+    </amw-accordion-panel>
 
     <!-- Autocomplete with Events -->
-    <mat-expansion-panel>
-      <mat-expansion-panel-header>
-        <mat-panel-title>
-          <mat-icon>code</mat-icon>
-          Autocomplete with Events
-        </mat-panel-title>
-        <mat-panel-description>Autocomplete with event handling</mat-panel-description>
-      </mat-expansion-panel-header>
+    <amw-accordion-panel amwDescription="Autocomplete with event handling">
+      <ng-template #header>
+        <amw-icon name="code"></amw-icon>
+        Autocomplete with Events
+      </ng-template>
       <div class="example-container">
         <div class="code-panel">
           <div class="code-header">
@@ -250,37 +213,29 @@
         <div class="preview-panel">
           <h4>Preview</h4>
           <div class="preview-content">
-            <amw-input
+            <amw-autocomplete
               label="Search"
               [(ngModel)]="searchValue"
-              (input)="onInputChange($event)"
               placeholder="Type to search..."
-              [matAutocomplete]="autoEvent"
+              [options]="skillOptions"
+              (optionSelected)="onOptionSelected($event)"
               appearance="outline">
-            </amw-input>
-            <mat-autocomplete #autoEvent="matAutocomplete" (optionSelected)="onOptionSelected($event)">
-              @for (skill of filteredSkills; track skill) {
-                <mat-option [value]="skill">{{skill}}</mat-option>
-              }
-            </mat-autocomplete>
+            </amw-autocomplete>
             <div class="preview-note">
-              <mat-icon>info</mat-icon>
+              <amw-icon name="info"></amw-icon>
               <span>Open your browser console to see event logs</span>
             </div>
           </div>
         </div>
       </div>
-    </mat-expansion-panel>
+    </amw-accordion-panel>
 
     <!-- Search Form Example -->
-    <mat-expansion-panel>
-      <mat-expansion-panel-header>
-        <mat-panel-title>
-          <mat-icon>code</mat-icon>
-          Search Form Example
-        </mat-panel-title>
-        <mat-panel-description>Complete search form with multiple autocompletes</mat-panel-description>
-      </mat-expansion-panel-header>
+    <amw-accordion-panel amwDescription="Complete search form with multiple autocompletes">
+      <ng-template #header>
+        <amw-icon name="code"></amw-icon>
+        Search Form Example
+      </ng-template>
       <div class="example-container">
         <div class="code-panel">
           <div class="code-header">
@@ -297,12 +252,12 @@
           <h4>Preview</h4>
           <div class="preview-content">
             <div class="preview-note">
-              <mat-icon>info</mat-icon>
+              <amw-icon name="info"></amw-icon>
               <span>This example shows code for a search form with multiple autocompletes</span>
             </div>
           </div>
         </div>
       </div>
-    </mat-expansion-panel>
-  </mat-accordion>
+    </amw-accordion-panel>
+  </amw-accordion>
 </div>

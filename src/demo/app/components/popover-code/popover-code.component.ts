@@ -1,21 +1,21 @@
 import { Component, ViewEncapsulation } from '@angular/core';
 import { FormsModule } from '@angular/forms';
-import { MatIconModule } from '@angular/material/icon';
 import { MatTooltipModule } from '@angular/material/tooltip';
 import { BaseCodeComponent } from '../base/base-code.component';
 
 type PopoverExamples = 'basic' | 'positions' | 'styling' | 'interactive';
-import { MatExpansionModule } from '@angular/material/expansion';
 
 import { AmwButtonComponent } from '../../../../library/src/controls/components/amw-button/amw-button.component';
+import { AmwAccordionComponent, AmwAccordionPanelComponent, AmwIconComponent } from '../../../../library/src/components/components';
 @Component({
     selector: 'app-popover-code',
     standalone: true,
     imports: [FormsModule,
-    MatIconModule,
     MatTooltipModule,
-    MatExpansionModule,
-    AmwButtonComponent],
+    AmwButtonComponent,
+    AmwAccordionComponent,
+    AmwAccordionPanelComponent,
+    AmwIconComponent],
     encapsulation: ViewEncapsulation.None,
     templateUrl: './popover-code.component.html',
     styleUrl: './popover-code.component.scss'

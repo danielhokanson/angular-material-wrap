@@ -1,28 +1,30 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { ActivatedRoute } from '@angular/router';
-import { MatIconModule } from '@angular/material/icon';
 import { FormsModule } from '@angular/forms';
 import { ViewEncapsulation } from '@angular/core';
 import { Subject, takeUntil } from 'rxjs';
 import { AmwMessagingService, Message } from '../../../../library/src/services/amw-messaging/amw-messaging.service';
 import { AmwLoadingService, LoadingState } from '../../../../library/src/services/amw-loading/amw-loading.service';
 import { AmwNotificationService, Notification } from '../../../../library/src/services/amw-notification/amw-notification.service';
-import { AmwTabsComponent } from '../../../../library/src/components/components/amw-tabs/amw-tabs.component';
-import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
+import { AmwTabsComponent, AmwTabComponent, AmwCardComponent, AmwIconComponent, AmwProgressSpinnerComponent } from '../../../../library/src/components/components';
 import { AmwButtonComponent } from '../../../../library/src/controls/components/amw-button/amw-button.component';
 import { AmwInputComponent } from '../../../../library/src/controls/components/amw-input/amw-input.component';
 
 @Component({
     selector: 'amw-demo-services',
     standalone: true,
-    imports: [CommonModule,
-    MatIconModule,
+    imports: [
+    CommonModule,
     FormsModule,
     AmwTabsComponent,
-    MatProgressSpinnerModule,
+    AmwTabComponent,
+    AmwCardComponent,
+    AmwIconComponent,
+    AmwProgressSpinnerComponent,
     AmwButtonComponent,
-    AmwInputComponent],
+    AmwInputComponent,
+],
     encapsulation: ViewEncapsulation.None,
     templateUrl: './services-demo.component.html',
     styleUrl: './services-demo.component.scss'

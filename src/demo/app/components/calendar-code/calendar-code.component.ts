@@ -1,23 +1,24 @@
 import { Component, ViewEncapsulation } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { MatNativeDateModule } from '@angular/material/core';
-import { MatIconModule } from '@angular/material/icon';
+import { MatDatepickerModule } from '@angular/material/datepicker';
 import { BaseCodeComponent } from '../base/base-code.component';
 
 type CalendarExamples = 'basic' | 'range' | 'minMax' | 'filter' | 'customClass';
-import { MatExpansionModule } from '@angular/material/expansion';
-import { MatCardModule } from '@angular/material/card';
 
 import { AmwButtonComponent } from '../../../../library/src/controls/components/amw-button/amw-button.component';
+import { AmwAccordionComponent, AmwAccordionPanelComponent, AmwIconComponent, AmwCardComponent } from '../../../../library/src/components/components';
 @Component({
   selector: 'amw-demo-calendar-code',
   standalone: true,
   imports: [FormsModule,
     MatNativeDateModule,
-    MatIconModule,
-    MatExpansionModule,
-    MatCardModule,
-    AmwButtonComponent],
+    MatDatepickerModule,
+    AmwButtonComponent,
+    AmwAccordionComponent,
+    AmwAccordionPanelComponent,
+    AmwIconComponent,
+    AmwCardComponent],
   encapsulation: ViewEncapsulation.None,
   templateUrl: './calendar-code.component.html',
   styleUrl: './calendar-code.component.scss'
@@ -30,63 +31,48 @@ export class CalendarCodeComponent extends BaseCodeComponent<CalendarExamples> {
 
   // Original code examples (for reset functionality)
   readonly codeExamples: Record<CalendarExamples, string> = {
-    basic: `<mat-card>
-  <mat-card-header>
-    <mat-card-title>Basic Calendar</mat-card-title>
-  </mat-card-header>
-  <mat-card-content>
+    basic: `<amw-card headerTitle="Basic Calendar">
+  <ng-template #cardContent>
     <mat-calendar [(selected)]="selectedDate"></mat-calendar>
-  </mat-card-content>
-</mat-card>`,
+  </ng-template>
+</amw-card>`,
 
-    range: `<mat-card>
-  <mat-card-header>
-    <mat-card-title>Date Range Calendar</mat-card-title>
-  </mat-card-header>
-  <mat-card-content>
+    range: `<amw-card headerTitle="Date Range Calendar">
+  <ng-template #cardContent>
     <mat-calendar
       [(selected)]="selectedDate"
       [startView]="'month'">
     </mat-calendar>
-  </mat-card-content>
-</mat-card>`,
+  </ng-template>
+</amw-card>`,
 
-    minMax: `<mat-card>
-  <mat-card-header>
-    <mat-card-title>Min/Max Date Calendar</mat-card-title>
-  </mat-card-header>
-  <mat-card-content>
+    minMax: `<amw-card headerTitle="Min/Max Date Calendar">
+  <ng-template #cardContent>
     <mat-calendar
       [(selected)]="selectedDate"
       [minDate]="minDate"
       [maxDate]="maxDate">
     </mat-calendar>
-  </mat-card-content>
-</mat-card>`,
+  </ng-template>
+</amw-card>`,
 
-    filter: `<mat-card>
-  <mat-card-header>
-    <mat-card-title>Filtered Calendar</mat-card-title>
-  </mat-card-header>
-  <mat-card-content>
+    filter: `<amw-card headerTitle="Filtered Calendar">
+  <ng-template #cardContent>
     <mat-calendar
       [(selected)]="selectedDate"
       [dateFilter]="myFilter">
     </mat-calendar>
-  </mat-card-content>
-</mat-card>`,
+  </ng-template>
+</amw-card>`,
 
-    customClass: `<mat-card>
-  <mat-card-header>
-    <mat-card-title>Custom Styled Calendar</mat-card-title>
-  </mat-card-header>
-  <mat-card-content>
+    customClass: `<amw-card headerTitle="Custom Styled Calendar">
+  <ng-template #cardContent>
     <mat-calendar
       [(selected)]="selectedDate"
       [dateClass]="dateClass">
     </mat-calendar>
-  </mat-card-content>
-</mat-card>`
+  </ng-template>
+</amw-card>`
   };
 
   constructor() {

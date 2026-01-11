@@ -7,7 +7,7 @@
   <div class="form-page-demo__controls">
     <amw-card class="form-page-demo__controls-card">
       <ng-template #cardContent>
-        <amw-tabs [(selectedIndex)]="currentView" (selectedIndexChange)="onViewChange($event === 0 ? 'basic' : 'advanced')">
+        <amw-tabs [(selectedIndex)]="currentViewIndex" (selectedIndexChange)="onViewChange($event)">
           <amw-tab label="Basic View">
             <div class="form-page-demo__tab-content">
               <p>Basic form view with essential fields and validation.</p>

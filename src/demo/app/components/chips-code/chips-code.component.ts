@@ -1,90 +1,159 @@
 import { Component, ViewEncapsulation } from '@angular/core';
 import { FormsModule } from '@angular/forms';
-import { MatIconModule } from '@angular/material/icon';
 import { BaseCodeComponent } from '../base/base-code.component';
 
 type ChipsExamples = 'basic' | 'removable' | 'selectable' | 'input' | 'styled';
-import { MatExpansionModule } from '@angular/material/expansion';
-import { MatChipsModule } from '@angular/material/chips';
 
 import { AmwButtonComponent } from '../../../../library/src/controls/components/amw-button/amw-button.component';
+import { AmwChipsComponent } from '../../../../library/src/controls/components/amw-chips/amw-chips.component';
+import { AmwAccordionComponent, AmwAccordionPanelComponent, AmwIconComponent } from '../../../../library/src/components/components';
+import { Chip, ChipEvent } from '../../../../library/src/controls/components/amw-chips/interfaces';
+
 @Component({
   selector: 'amw-demo-chips-code',
   standalone: true,
-  imports: [FormsModule,
-    MatIconModule,
-    MatExpansionModule,
-    MatChipsModule,
-    AmwButtonComponent],
+  imports: [
+    FormsModule,
+    AmwButtonComponent,
+    AmwChipsComponent,
+    AmwAccordionComponent,
+    AmwAccordionPanelComponent,
+    AmwIconComponent
+  ],
   encapsulation: ViewEncapsulation.None,
   templateUrl: './chips-code.component.html',
   styleUrl: './chips-code.component.scss'
 })
 export class ChipsCodeComponent extends BaseCodeComponent<ChipsExamples> {
-  // State for removable chips preview
-  removableChips = [
-    { label: 'Removable Chip', removed: false }
+  // Basic chips data
+  basicChips: Chip[] = [
+    { id: '1', label: 'Tag 1' },
+    { id: '2', label: 'Tag 2' },
+    { id: '3', label: 'Tag 3' }
   ];
 
-  // State for input chips preview
-  inputChips = ['Apple', 'Banana', 'Orange'];
+  // Removable chips data
+  removableChipsList: Chip[] = [
+    { id: '1', label: 'Removable Chip 1', removable: true },
+    { id: '2', label: 'Removable Chip 2', removable: true },
+    { id: '3', label: 'Removable Chip 3', removable: true }
+  ];
+
+  // Selectable chips data
+  selectableChips: Chip[] = [
+    { id: '1', label: 'Selected', selected: true },
+    { id: '2', label: 'Not Selected', selected: false }
+  ];
+
+  // Input chips data
+  inputChipsList: Chip[] = [
+    { id: '1', label: 'Apple' },
+    { id: '2', label: 'Banana' },
+    { id: '3', label: 'Orange' }
+  ];
+
+  // Styled chips data
+  styledChips: Chip[] = [
+    { id: '1', label: 'Primary', color: 'primary' },
+    { id: '2', label: 'Accent', color: 'accent' },
+    { id: '3', label: 'Warn', color: 'warn' }
+  ];
 
   // Original code examples (for reset functionality)
   readonly codeExamples: Record<ChipsExamples, string> = {
-    basic: `<mat-chip-set>
-  <mat-chip>Tag 1</mat-chip>
-  <mat-chip>Tag 2</mat-chip>
-  <mat-chip>Tag 3</mat-chip>
-</mat-chip-set>`,
+    basic: `<amw-chips
+  [chips]="chips"
+  [addable]="false"
+  [removable]="false">
+</amw-chips>
 
-    removable: `<mat-chip-set>
-  <mat-chip [removable]="true" (removed)="remove()">
-    Removable Chip
-    <mat-icon matChipRemove>cancel</mat-icon>
-  </mat-chip>
-</mat-chip-set>`,
+// Component
+chips: Chip[] = [
+  { id: '1', label: 'Tag 1' },
+  { id: '2', label: 'Tag 2' },
+  { id: '3', label: 'Tag 3' }
+];`,
 
-    selectable: `<mat-chip-listbox>
-  <mat-chip-option [selected]="true">Selected</mat-chip-option>
-  <mat-chip-option>Not Selected</mat-chip-option>
-</mat-chip-listbox>`,
+    removable: `<amw-chips
+  [chips]="chips"
+  [removable]="true"
+  (chipRemove)="onRemove($event)">
+</amw-chips>
 
-    input: `<mat-chip-grid #chipGrid>
-  @for (item of items; track item) {
-    <mat-chip-row (removed)="remove(item)">
-      {{ item }}
-      <mat-icon matChipRemove>cancel</mat-icon>
-    </mat-chip-row>
-  }
-  <input [matChipInputFor]="chipGrid" />
-</mat-chip-grid>`,
+// Component
+chips: Chip[] = [
+  { id: '1', label: 'Removable Chip', removable: true }
+];
 
-    styled: `<mat-chip-set>
-  <mat-chip color="primary">Primary</mat-chip>
-  <mat-chip color="accent">Accent</mat-chip>
-  <mat-chip color="warn">Warn</mat-chip>
-</mat-chip-set>`
+onRemove(event: ChipEvent) {
+  console.log('Removed:', event.chip);
+}`,
+
+    selectable: `<amw-chips
+  [chips]="chips"
+  [selectable]="true"
+  (chipSelect)="onSelect($event)">
+</amw-chips>
+
+// Component
+chips: Chip[] = [
+  { id: '1', label: 'Selected', selected: true },
+  { id: '2', label: 'Not Selected', selected: false }
+];`,
+
+    input: `<amw-chips
+  [chips]="chips"
+  [addable]="true"
+  [removable]="true"
+  placeholder="Add a chip..."
+  (chipAdd)="onAdd($event)"
+  (chipRemove)="onRemove($event)">
+</amw-chips>
+
+// Component
+chips: Chip[] = [
+  { id: '1', label: 'Apple' },
+  { id: '2', label: 'Banana' }
+];`,
+
+    styled: `<amw-chips
+  [chips]="chips"
+  [addable]="false"
+  [removable]="false">
+</amw-chips>
+
+// Component
+chips: Chip[] = [
+  { id: '1', label: 'Primary', color: 'primary' },
+  { id: '2', label: 'Accent', color: 'accent' },
+  { id: '3', label: 'Warn', color: 'warn' }
+];`
   };
 
   constructor() {
     super();
   }
 
-  // Remove a chip from removable chips preview
-  removeChip(index: number) {
-    this.removableChips.splice(index, 1);
+  // Event handlers
+  onChipRemove(event: ChipEvent) {
+    const index = this.removableChipsList.findIndex(c => c.id === event.chip.id);
+    if (index > -1) {
+      this.removableChipsList.splice(index, 1);
+    }
   }
 
-  // Remove a chip from input chips preview
-  removeInputChip(index: number) {
-    this.inputChips.splice(index, 1);
+  onChipSelect(event: ChipEvent) {
+    console.log('Chip selected:', event.chip);
   }
 
-  // Add chip from input field
-  addInputChip(input: HTMLInputElement) {
-    if (input.value.trim()) {
-      this.inputChips.push(input.value.trim());
-      input.value = '';
+  onChipAdd(event: ChipEvent) {
+    console.log('Chip added:', event.chip);
+  }
+
+  onInputChipRemove(event: ChipEvent) {
+    const index = this.inputChipsList.findIndex(c => c.id === event.chip.id);
+    if (index > -1) {
+      this.inputChipsList.splice(index, 1);
     }
   }
 }

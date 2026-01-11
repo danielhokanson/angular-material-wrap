@@ -1,11 +1,11 @@
 import { Component, ViewEncapsulation, OnInit } from '@angular/core';
 
-import { MatIconModule } from '@angular/material/icon';
 import { AmwNotificationService } from '../../../../library/src/services/amw-notification/amw-notification.service';
 import { ReactiveFormsModule, FormBuilder, FormGroup, Validators } from '@angular/forms';
 
 import { AmwButtonComponent } from '../../../../library/src/controls/components/amw-button/amw-button.component';
-import { MatFormFieldModule } from '@angular/material/form-field';
+import { AmwInputComponent } from '../../../../library/src/controls/components/amw-input/amw-input.component';
+import { AmwIconComponent } from '../../../../library/src/components/components';
 
 @Component({
     selector: 'amw-demo-button-validation',
@@ -13,9 +13,8 @@ import { MatFormFieldModule } from '@angular/material/form-field';
     imports: [
     ReactiveFormsModule,
     AmwButtonComponent,
-    MatIconModule,
-    AmwButtonComponent,
-    MatFormFieldModule
+    AmwInputComponent,
+    AmwIconComponent
 ],
     encapsulation: ViewEncapsulation.None,
     templateUrl: './button-validation.component.html',

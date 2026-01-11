@@ -1,26 +1,24 @@
 import { Component, ViewEncapsulation } from '@angular/core';
 import { FormsModule, ReactiveFormsModule, FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { MatIconModule } from '@angular/material/icon';
+import { MatStepperModule } from '@angular/material/stepper';
 import { BaseCodeComponent } from '../base/base-code.component';
 
 type StepperExamples = 'basic' | 'linear' | 'editable' | 'optional' | 'vertical' | 'customIcons';
-import { MatExpansionModule } from '@angular/material/expansion';
-import { MatStepperModule } from '@angular/material/stepper';
-import { MatFormFieldModule } from '@angular/material/form-field';
 
 import { AmwButtonComponent } from '../../../../library/src/controls/components/amw-button/amw-button.component';
+import { AmwInputComponent } from '../../../../library/src/controls/components/amw-input/amw-input.component';
+import { AmwAccordionComponent, AmwAccordionPanelComponent, AmwIconComponent } from '../../../../library/src/components/components';
 @Component({
   selector: 'amw-demo-stepper-code',
   standalone: true,
   imports: [FormsModule,
     ReactiveFormsModule,
-    MatIconModule,
-    AmwInputComponent,
-    MatIconModule,
-    MatExpansionModule,
     MatStepperModule,
-    MatFormFieldModule,
-    AmwButtonComponent],
+    AmwInputComponent,
+    AmwButtonComponent,
+    AmwAccordionComponent,
+    AmwAccordionPanelComponent,
+    AmwIconComponent],
   encapsulation: ViewEncapsulation.None,
   templateUrl: './stepper-code.component.html',
   styleUrl: './stepper-code.component.scss'
@@ -170,7 +168,7 @@ export class StepperCodeComponent extends BaseCodeComponent<StepperExamples> {
     customIcons: `<mat-stepper>
   <mat-step>
     <ng-template matStepLabel>
-      <mat-icon>person</mat-icon>
+      <amw-icon name="person"></amw-icon>
       Personal Info
     </ng-template>
     <p>Enter your personal information</p>
@@ -181,7 +179,7 @@ export class StepperCodeComponent extends BaseCodeComponent<StepperExamples> {
 
   <mat-step>
     <ng-template matStepLabel>
-      <mat-icon>email</mat-icon>
+      <amw-icon name="email"></amw-icon>
       Contact
     </ng-template>
     <p>Enter your contact details</p>
@@ -193,7 +191,7 @@ export class StepperCodeComponent extends BaseCodeComponent<StepperExamples> {
 
   <mat-step>
     <ng-template matStepLabel>
-      <mat-icon>check_circle</mat-icon>
+      <amw-icon name="check_circle"></amw-icon>
       Complete
     </ng-template>
     <p>All done!</p>

@@ -46,7 +46,7 @@
                         @for (message of messages; track message) {
                           <div class="message-item" [class]="'message-' + message.type">
                             <div class="message-header">
-                              <mat-icon>{{ getMessageIcon(message.type) }}</mat-icon>
+                              <amw-icon [name]="getMessageIcon(message.type)"></amw-icon>
                               <span class="message-title">{{ message.title }}</span>
                               @if (message.dismissible) {
                                 <amw-button variant="icon" icon="close" (click)="removeMessage(message.id)"></amw-button>
@@ -71,7 +71,7 @@
                       <amw-button variant="text" (click)="stopLoading()" [disabled]="!loadingState.isLoading" icon="stop" iconPosition="left">Stop Loading</amw-button>
                       @if (loadingState.isLoading) {
                         <div class="loading-demo">
-                          <mat-spinner diameter="40"></mat-spinner>
+                          <div class="spinner"></div>
                           <p>Loading in progress...</p>
                         </div>
                       }
@@ -198,8 +198,8 @@
                             type="number"
                             [(ngModel)]="loadingProgress"
                             appearance="outline"
-                            min="0"
-                            max="100"
+                            [min]="0"
+                            [max]="100"
                             style="width: 200px;">
                           </amw-input>
                           <amw-button variant="text" (click)="updateLoadingProgress()" [disabled]="!loadingState.isLoading">
