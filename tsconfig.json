@@ -20,7 +20,10 @@
     "baseUrl": ".",
     "paths": {
       "angular-material-wrap": [
-        "dist/angular-material-wrap"
+        "src/library/src/public-api.ts"
+      ],
+      "angular-material-wrap/*": [
+        "src/library/src/*"
       ]
     }
   },

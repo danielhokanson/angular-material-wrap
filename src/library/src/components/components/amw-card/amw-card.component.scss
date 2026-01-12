@@ -1,15 +1,63 @@
-
 @use '@angular/material' as mat;
+
+// Host element - display block by default, height controlled by consumer
+:host {
+  display: block;
+}
+
+// The mat-card wrapper
+mat-card.amw-card {
+  display: flex;
+  flex-direction: column;
+  position: relative;
+  background: var(--mdc-theme-surface, #ffffff);
+  border-radius: var(--mdc-shape-medium, 12px);
+  overflow: hidden;
+  transition: all 0.2s ease-in-out;
+  border: 1px solid var(--mdc-theme-outline-variant, rgba(0, 0, 0, 0.12));
+  box-shadow: var(--amw-card-elevation, 0 2px 4px rgba(0, 0, 0, 0.1), 0 4px 8px rgba(0, 0, 0, 0.08));
+
+  // Header with proper padding - override Material defaults
+  .mat-mdc-card-header,
+  mat-card-header {
+    padding: 16px 16px 8px 16px !important;
+  }
+
+  // Make content area flex-grow to push actions to bottom - override Material defaults
+  .mat-mdc-card-content,
+  mat-card-content {
+    flex: 1;
+    padding: 16px !important;
+  }
+
+  // Actions should stay at bottom - override Material defaults
+  .mat-mdc-card-actions,
+  mat-card-actions {
+    margin-top: auto;
+    padding: 8px 16px 16px 16px !important;
+  }
+}
+
+// Modifier class for cards that should fill their container height
+:host(.amw-card--fill-height),
+:host-context(.amw-card--fill-height) {
+  height: 100%;
+
+  mat-card.amw-card {
+    height: 100%;
+  }
+}
 
 .amw-card {
   position: relative;
   display: flex;
   flex-direction: column;
-  background: var(--mdc-theme-surface);
-  border-radius: var(--mdc-shape-medium);
+  background: var(--mdc-theme-surface, #ffffff);
+  border-radius: var(--mdc-shape-medium, 12px);
   overflow: hidden;
   transition: all 0.2s ease-in-out;
-  box-shadow: var(--amw-card-elevation, var(--mdc-elevation-level1));
+  border: 1px solid var(--mdc-theme-outline-variant, rgba(0, 0, 0, 0.12));
+  box-shadow: var(--amw-card-elevation, 0 2px 4px rgba(0, 0, 0, 0.1), 0 4px 8px rgba(0, 0, 0, 0.08));
 
   &--elevated {
     box-shadow: var(--amw-card-elevation, var(--mdc-elevation-level2));

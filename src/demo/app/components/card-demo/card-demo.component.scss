@@ -58,12 +58,19 @@
 
   &__service-grid {
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
     gap: 16px;
+    align-items: stretch;
   }
 
   &__service-card {
     position: relative;
+    height: 100%;
+
+    // Make the amw-card fill its container
+    > amw-card {
+      height: 100%;
+    }
   }
 
   &__variations {
@@ -77,18 +84,43 @@
 
   &__grid {
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    grid-template-columns: repeat(4, 1fr);
     gap: 24px;
+    align-items: stretch;
+
+    @media (max-width: 1400px) {
+      grid-template-columns: repeat(3, 1fr);
+    }
+
+    @media (max-width: 1100px) {
+      grid-template-columns: repeat(2, 1fr);
+    }
+
+    @media (max-width: 768px) {
+      grid-template-columns: 1fr;
+    }
   }
 
   &__card {
-    max-width: 100%;
+    height: 100%;
+
+    // Make the outer wrapper card fill its container
+    > amw-card {
+      height: 100%;
+    }
   }
 
   &__example {
     min-height: 200px;
     display: flex;
-    align-items: center;
+    align-items: flex-start;
     justify-content: center;
+    padding: 16px 0;
+
+    // The nested demo card should NOT stretch - natural height only
+    amw-card {
+      max-width: 280px;
+      width: 100%;
+    }
   }
 }
