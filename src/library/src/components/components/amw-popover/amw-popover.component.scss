@@ -49,14 +49,14 @@
     z-index: 1000 !important;
     pointer-events: auto !important; // Override CDK overlay's pointer-events: none
     padding: 0 !important; // Remove default padding, let content handle it
-    min-width: 200px !important;
+    min-width: 200px; // Base min-width, can be overridden by size modifiers
     font-family: 'Roboto', 'Helvetica Neue', sans-serif !important;
     font-size: 14px !important;
     line-height: 1.5 !important;
     
-    // Ensure solid background in all cases
-    * {
-      background-color: inherit !important;
+    // Ensure solid background in all cases, but allow explicit inline styles
+    *:not([style*="background"]) {
+      background-color: inherit;
     }
 
     &--small {
@@ -74,6 +74,10 @@
       max-width: 400px;
     }
 
+    &--extra-large {
+      min-width: 480px;
+      max-width: 520px;
+    }
 
     &--with-header {
       .amw-popover__content {

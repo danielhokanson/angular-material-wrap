@@ -5,7 +5,7 @@
     headerSubtitle="Switch themes or manage custom themes"
     [showClose]="true"
     position="bottom-right"
-    size="large">
+    size="extra-large">
     <ng-template #trigger>
       <amw-button variant="icon" icon="palette"
         [amwTooltip]="'Theme Options'"
@@ -23,12 +23,12 @@
               <div class="theme-colors">
                 <div
                   class="color-swatch primary"
-                  [style.background-color]="currentTheme()!.colors.primary"
+                  [ngStyle]="getColorStyle(currentTheme(), 'primary')"
                   [amwTooltip]="'Primary'">
                 </div>
                 <div
                   class="color-swatch accent"
-                  [style.background-color]="currentTheme()!.colors.accent"
+                  [ngStyle]="getColorStyle(currentTheme(), 'accent')"
                   [amwTooltip]="'Accent'">
                 </div>
               </div>
@@ -56,11 +56,11 @@
                 <div class="theme-colors">
                   <div
                     class="color-swatch primary"
-                    [style.background-color]="theme.colors.primary">
+                    [ngStyle]="getColorStyle(theme, 'primary')">
                   </div>
                   <div
                     class="color-swatch accent"
-                    [style.background-color]="theme.colors.accent">
+                    [ngStyle]="getColorStyle(theme, 'accent')">
                   </div>
                 </div>
               </button>

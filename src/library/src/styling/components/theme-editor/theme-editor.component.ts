@@ -171,11 +171,13 @@ export class ThemeEditorComponent implements OnInit {
 
         if (success) {
             this.snackBar.open(
-                `Theme ${this.isEditing() ? 'updated' : 'created'} successfully!`,
+                `Theme ${this.isEditing() ? 'updated' : 'created'} successfully! Applying theme...`,
                 'Close',
                 { duration: 3000 }
             );
             this.loadCustomThemes();
+            // Automatically switch to the newly created/updated theme
+            this.themeService.setTheme(theme.id);
             this.resetForm();
         } else {
             this.snackBar.open(

@@ -1,8 +1,9 @@
-import { AmwSize } from '../../../../shared/types';
+/** Popover-specific size type that includes extra-large */
+export type PopoverSize = 'small' | 'medium' | 'large' | 'extra-large';
 
 /**
  * Configuration interface for amw-popover component
- * 
+ *
  * Defines the properties and behavior options for the Angular Material Wrap popover component
  */
 export interface PopoverConfig {
@@ -10,7 +11,7 @@ export interface PopoverConfig {
     opened?: boolean;
 
     /** The size of the popover */
-    size?: AmwSize;
+    size?: PopoverSize;
 
     /** The width of the popover */
     width?: string | number;

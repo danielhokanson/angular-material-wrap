@@ -115,8 +115,9 @@ export class ThemeService {
     public allThemes = computed(() => [...this.builtInThemes, ...this.customThemes()]);
 
     constructor() {
-        this.loadThemeFromStorage();
+        // Load custom themes FIRST so they're available when loading stored theme
         this.loadCustomThemesFromStorage();
+        this.loadThemeFromStorage();
         // Ensure M3 theme is applied on initialization
         this.loadMaterialTheme(this.currentTheme().name);
     }
@@ -272,80 +273,257 @@ export class ThemeService {
         root.style.setProperty('--mat-surface', theme.colors.surface);
         root.style.setProperty('--mat-foreground', theme.colors.foreground);
 
-        // Apply Material theme
-        this.loadMaterialTheme(theme.name);
+        // Apply Material theme with full theme config
+        this.applyM3Theme(theme);
     }
 
     /**
-     * Load Material theme CSS
+     * Load Material theme CSS (for initialization)
      */
     private loadMaterialTheme(themeName: string): void {
-        // For M3 themes, we use CSS custom properties instead of prebuilt themes
-        // This allows for dynamic theming with our custom color palettes
-        this.applyM3Theme(themeName);
+        const theme = this.allThemes().find(t => t.name === themeName) || this.currentTheme();
+        this.applyM3Theme(theme);
     }
 
-    private applyM3Theme(themeName: string): void {
-        // Apply M3 theme using CSS custom properties
-        const theme = this.builtInThemes.find(t => t.name === themeName) || this.builtInThemes[0];
+    /**
+     * Calculate luminance of a color for contrast calculations
+     */
+    private getLuminance(hex: string): number {
+        const rgb = this.hexToRgb(hex);
+        const [r, g, b] = [rgb.r, rgb.g, rgb.b].map(c => {
+            c = c / 255;
+            return c <= 0.03928 ? c / 12.92 : Math.pow((c + 0.055) / 1.055, 2.4);
+        });
+        return 0.2126 * r + 0.7152 * g + 0.0722 * b;
+    }
+
+    /**
+     * Convert hex to RGB
+     */
+    private hexToRgb(hex: string): { r: number; g: number; b: number } {
+        const result = /^#?([a-f\d]{2})([a-f\d]{2})([a-f\d]{2})$/i.exec(hex);
+        return result ? {
+            r: parseInt(result[1], 16),
+            g: parseInt(result[2], 16),
+            b: parseInt(result[3], 16)
+        } : { r: 0, g: 0, b: 0 };
+    }
+
+    /**
+     * Get contrast text color (white or black) for a given background
+     */
+    private getContrastColor(bgColor: string): string {
+        const luminance = this.getLuminance(bgColor);
+        return luminance > 0.179 ? '#000000' : '#FFFFFF';
+    }
+
+    /**
+     * Lighten a color by a percentage
+     */
+    private lightenColor(hex: string, percent: number): string {
+        const rgb = this.hexToRgb(hex);
+        const r = Math.min(255, Math.round(rgb.r + (255 - rgb.r) * percent));
+        const g = Math.min(255, Math.round(rgb.g + (255 - rgb.g) * percent));
+        const b = Math.min(255, Math.round(rgb.b + (255 - rgb.b) * percent));
+        return `#${r.toString(16).padStart(2, '0')}${g.toString(16).padStart(2, '0')}${b.toString(16).padStart(2, '0')}`.toUpperCase();
+    }
+
+    /**
+     * Darken a color by a percentage
+     */
+    private darkenColor(hex: string, percent: number): string {
+        const rgb = this.hexToRgb(hex);
+        const r = Math.max(0, Math.round(rgb.r * (1 - percent)));
+        const g = Math.max(0, Math.round(rgb.g * (1 - percent)));
+        const b = Math.max(0, Math.round(rgb.b * (1 - percent)));
+        return `#${r.toString(16).padStart(2, '0')}${g.toString(16).padStart(2, '0')}${b.toString(16).padStart(2, '0')}`.toUpperCase();
+    }
+
+    /**
+     * Generate surface container variants based on background color
+     */
+    private generateSurfaceContainers(surface: string, isDark: boolean): {
+        container: string;
+        containerHigh: string;
+        containerHighest: string;
+        containerLow: string;
+        containerLowest: string;
+        dim: string;
+        bright: string;
+    } {
+        if (isDark) {
+            return {
+                container: this.lightenColor(surface, 0.05),
+                containerHigh: this.lightenColor(surface, 0.08),
+                containerHighest: this.lightenColor(surface, 0.11),
+                containerLow: this.lightenColor(surface, 0.02),
+                containerLowest: this.darkenColor(surface, 0.04),
+                dim: this.darkenColor(surface, 0.08),
+                bright: this.lightenColor(surface, 0.15)
+            };
+        } else {
+            return {
+                container: this.darkenColor(surface, 0.02),
+                containerHigh: this.darkenColor(surface, 0.04),
+                containerHighest: this.darkenColor(surface, 0.06),
+                containerLow: this.lightenColor(surface, 0.02),
+                containerLowest: '#FFFFFF',
+                dim: this.darkenColor(surface, 0.08),
+                bright: '#FFFBFE'
+            };
+        }
+    }
+
+    private applyM3Theme(theme: ThemeConfig): void {
+        const root = document.documentElement;
+        const isDark = theme.isDark;
+
+        // Calculate contrast colors based on theme colors
+        const onPrimary = this.getContrastColor(theme.colors.primary);
+        const onSecondary = this.getContrastColor(theme.colors.accent);
+        const onError = this.getContrastColor(theme.colors.warn);
+
+        // Generate container colors
+        const primaryContainer = isDark
+            ? this.darkenColor(theme.colors.primary, 0.3)
+            : this.lightenColor(theme.colors.primary, 0.8);
+        const onPrimaryContainer = this.getContrastColor(primaryContainer);
+
+        const secondaryContainer = isDark
+            ? this.darkenColor(theme.colors.accent, 0.3)
+            : this.lightenColor(theme.colors.accent, 0.8);
+        const onSecondaryContainer = this.getContrastColor(secondaryContainer);
+
+        const errorContainer = isDark
+            ? this.darkenColor(theme.colors.warn, 0.3)
+            : this.lightenColor(theme.colors.warn, 0.8);
+        const onErrorContainer = this.getContrastColor(errorContainer);
+
+        // Generate surface variants
+        const surfaceVariant = isDark
+            ? this.lightenColor(theme.colors.surface, 0.12)
+            : this.darkenColor(theme.colors.surface, 0.08);
+        const onSurfaceVariant = isDark
+            ? this.lightenColor(theme.colors.foreground, 0.2)
+            : this.darkenColor(theme.colors.foreground, 0.3);
+
+        // Generate outline colors
+        const outline = isDark
+            ? this.lightenColor(theme.colors.surface, 0.35)
+            : this.darkenColor(theme.colors.surface, 0.45);
+        const outlineVariant = isDark
+            ? this.lightenColor(theme.colors.surface, 0.18)
+            : this.darkenColor(theme.colors.surface, 0.2);
+
+        // Generate surface containers
+        const containers = this.generateSurfaceContainers(theme.colors.surface, isDark);
 
         // Set complete M3 color token system
-        document.documentElement.style.setProperty('--mdc-theme-primary', theme.colors.primary);
-        document.documentElement.style.setProperty('--mdc-theme-on-primary', theme.isDark ? '#381E72' : '#FFFFFF');
-        document.documentElement.style.setProperty('--mdc-theme-primary-container', theme.isDark ? '#4F378B' : '#EADDFF');
-        document.documentElement.style.setProperty('--mdc-theme-on-primary-container', theme.isDark ? '#EADDFF' : '#21005D');
+        root.style.setProperty('--mdc-theme-primary', theme.colors.primary);
+        root.style.setProperty('--mdc-theme-on-primary', onPrimary);
+        root.style.setProperty('--mdc-theme-primary-container', primaryContainer);
+        root.style.setProperty('--mdc-theme-on-primary-container', onPrimaryContainer);
 
-        document.documentElement.style.setProperty('--mdc-theme-secondary', theme.colors.accent);
-        document.documentElement.style.setProperty('--mdc-theme-on-secondary', theme.isDark ? '#332D41' : '#FFFFFF');
-        document.documentElement.style.setProperty('--mdc-theme-secondary-container', theme.isDark ? '#4A4458' : '#E8DEF8');
-        document.documentElement.style.setProperty('--mdc-theme-on-secondary-container', theme.isDark ? '#E8DEF8' : '#1D192B');
+        root.style.setProperty('--mdc-theme-secondary', theme.colors.accent);
+        root.style.setProperty('--mdc-theme-on-secondary', onSecondary);
+        root.style.setProperty('--mdc-theme-secondary-container', secondaryContainer);
+        root.style.setProperty('--mdc-theme-on-secondary-container', onSecondaryContainer);
 
-        document.documentElement.style.setProperty('--mdc-theme-tertiary', theme.isDark ? '#EFB8C8' : '#7D5260');
-        document.documentElement.style.setProperty('--mdc-theme-on-tertiary', theme.isDark ? '#492532' : '#FFFFFF');
-        document.documentElement.style.setProperty('--mdc-theme-tertiary-container', theme.isDark ? '#633B48' : '#FFD8E4');
-        document.documentElement.style.setProperty('--mdc-theme-on-tertiary-container', theme.isDark ? '#FFD8E4' : '#31111D');
+        // Tertiary based on accent
+        const tertiary = isDark
+            ? this.lightenColor(theme.colors.accent, 0.3)
+            : this.darkenColor(theme.colors.accent, 0.1);
+        const tertiaryContainer = isDark
+            ? this.darkenColor(tertiary, 0.3)
+            : this.lightenColor(tertiary, 0.8);
+        root.style.setProperty('--mdc-theme-tertiary', tertiary);
+        root.style.setProperty('--mdc-theme-on-tertiary', this.getContrastColor(tertiary));
+        root.style.setProperty('--mdc-theme-tertiary-container', tertiaryContainer);
+        root.style.setProperty('--mdc-theme-on-tertiary-container', this.getContrastColor(tertiaryContainer));
 
-        document.documentElement.style.setProperty('--mdc-theme-error', theme.colors.warn);
-        document.documentElement.style.setProperty('--mdc-theme-on-error', theme.isDark ? '#690005' : '#FFFFFF');
-        document.documentElement.style.setProperty('--mdc-theme-error-container', theme.isDark ? '#93000A' : '#FFDAD6');
-        document.documentElement.style.setProperty('--mdc-theme-on-error-container', theme.isDark ? '#FFDAD6' : '#410002');
+        root.style.setProperty('--mdc-theme-error', theme.colors.warn);
+        root.style.setProperty('--mdc-theme-on-error', onError);
+        root.style.setProperty('--mdc-theme-error-container', errorContainer);
+        root.style.setProperty('--mdc-theme-on-error-container', onErrorContainer);
 
-        document.documentElement.style.setProperty('--mdc-theme-surface', theme.colors.surface);
-        document.documentElement.style.setProperty('--mdc-theme-on-surface', theme.colors.foreground);
-        document.documentElement.style.setProperty('--mdc-theme-surface-variant', theme.isDark ? '#49454F' : '#E7E0EC');
-        document.documentElement.style.setProperty('--mdc-theme-on-surface-variant', theme.isDark ? '#CAC4D0' : '#49454F');
+        root.style.setProperty('--mdc-theme-surface', theme.colors.surface);
+        root.style.setProperty('--mdc-theme-on-surface', theme.colors.foreground);
+        root.style.setProperty('--mdc-theme-surface-variant', surfaceVariant);
+        root.style.setProperty('--mdc-theme-on-surface-variant', onSurfaceVariant);
 
-        document.documentElement.style.setProperty('--mdc-theme-outline', theme.isDark ? '#938F99' : '#79747E');
-        document.documentElement.style.setProperty('--mdc-theme-outline-variant', theme.isDark ? '#49454F' : '#CAC4D0');
+        root.style.setProperty('--mdc-theme-outline', outline);
+        root.style.setProperty('--mdc-theme-outline-variant', outlineVariant);
 
-        document.documentElement.style.setProperty('--mdc-theme-background', theme.colors.background);
-        document.documentElement.style.setProperty('--mdc-theme-on-background', theme.colors.foreground);
+        root.style.setProperty('--mdc-theme-background', theme.colors.background);
+        root.style.setProperty('--mdc-theme-on-background', theme.colors.foreground);
 
         // Surface container variants
-        document.documentElement.style.setProperty('--mdc-theme-surface-container', theme.isDark ? '#211F26' : '#F3EDF7');
-        document.documentElement.style.setProperty('--mdc-theme-surface-container-high', theme.isDark ? '#2B2930' : '#ECE6F0');
-        document.documentElement.style.setProperty('--mdc-theme-surface-container-highest', theme.isDark ? '#36343B' : '#E6E0E9');
-        document.documentElement.style.setProperty('--mdc-theme-surface-container-low', theme.isDark ? '#1F1D24' : '#F7F2FA');
-        document.documentElement.style.setProperty('--mdc-theme-surface-container-lowest', theme.isDark ? '#161218' : '#FFFFFF');
-
-        document.documentElement.style.setProperty('--mdc-theme-surface-dim', theme.isDark ? '#141218' : '#DDD8DD');
-        document.documentElement.style.setProperty('--mdc-theme-surface-bright', theme.isDark ? '#3C383E' : '#FFFBFE');
+        root.style.setProperty('--mdc-theme-surface-container', containers.container);
+        root.style.setProperty('--mdc-theme-surface-container-high', containers.containerHigh);
+        root.style.setProperty('--mdc-theme-surface-container-highest', containers.containerHighest);
+        root.style.setProperty('--mdc-theme-surface-container-low', containers.containerLow);
+        root.style.setProperty('--mdc-theme-surface-container-lowest', containers.containerLowest);
+        root.style.setProperty('--mdc-theme-surface-dim', containers.dim);
+        root.style.setProperty('--mdc-theme-surface-bright', containers.bright);
 
         // State layer colors
-        document.documentElement.style.setProperty('--mdc-theme-surface-tint', theme.colors.primary);
-        document.documentElement.style.setProperty('--mdc-theme-inverse-surface', theme.isDark ? '#E6E1E5' : '#313033');
-        document.documentElement.style.setProperty('--mdc-theme-inverse-on-surface', theme.isDark ? '#313033' : '#F4EFF4');
-        document.documentElement.style.setProperty('--mdc-theme-inverse-primary', theme.isDark ? '#6750A4' : '#D0BCFF');
+        root.style.setProperty('--mdc-theme-surface-tint', theme.colors.primary);
+        root.style.setProperty('--mdc-theme-inverse-surface', isDark ? theme.colors.foreground : this.darkenColor(theme.colors.surface, 0.8));
+        root.style.setProperty('--mdc-theme-inverse-on-surface', isDark ? theme.colors.surface : this.lightenColor(theme.colors.foreground, 0.9));
+        root.style.setProperty('--mdc-theme-inverse-primary', isDark
+            ? this.darkenColor(theme.colors.primary, 0.3)
+            : this.lightenColor(theme.colors.primary, 0.5));
 
         // Scrim and shadow
-        document.documentElement.style.setProperty('--mdc-theme-scrim', '#000000');
-        document.documentElement.style.setProperty('--mdc-theme-shadow', '#000000');
+        root.style.setProperty('--mdc-theme-scrim', '#000000');
+        root.style.setProperty('--mdc-theme-shadow', '#000000');
 
-        // Set dark mode - ensure it's applied to the document element
-        if (theme.isDark) {
-            document.documentElement.classList.add('dark-theme');
+        // Set Angular Material 19 --mat-sys-* system variables for M3 components
+        root.style.setProperty('--mat-sys-primary', theme.colors.primary);
+        root.style.setProperty('--mat-sys-on-primary', onPrimary);
+        root.style.setProperty('--mat-sys-primary-container', primaryContainer);
+        root.style.setProperty('--mat-sys-on-primary-container', onPrimaryContainer);
+        root.style.setProperty('--mat-sys-secondary', theme.colors.accent);
+        root.style.setProperty('--mat-sys-on-secondary', onSecondary);
+        root.style.setProperty('--mat-sys-secondary-container', secondaryContainer);
+        root.style.setProperty('--mat-sys-on-secondary-container', onSecondaryContainer);
+        root.style.setProperty('--mat-sys-tertiary', tertiary);
+        root.style.setProperty('--mat-sys-on-tertiary', this.getContrastColor(tertiary));
+        root.style.setProperty('--mat-sys-tertiary-container', tertiaryContainer);
+        root.style.setProperty('--mat-sys-on-tertiary-container', this.getContrastColor(tertiaryContainer));
+        root.style.setProperty('--mat-sys-error', theme.colors.warn);
+        root.style.setProperty('--mat-sys-on-error', onError);
+        root.style.setProperty('--mat-sys-error-container', errorContainer);
+        root.style.setProperty('--mat-sys-on-error-container', onErrorContainer);
+        root.style.setProperty('--mat-sys-surface', theme.colors.surface);
+        root.style.setProperty('--mat-sys-on-surface', theme.colors.foreground);
+        root.style.setProperty('--mat-sys-surface-variant', surfaceVariant);
+        root.style.setProperty('--mat-sys-on-surface-variant', onSurfaceVariant);
+        root.style.setProperty('--mat-sys-outline', outline);
+        root.style.setProperty('--mat-sys-outline-variant', outlineVariant);
+        root.style.setProperty('--mat-sys-background', theme.colors.background);
+        root.style.setProperty('--mat-sys-on-background', theme.colors.foreground);
+        root.style.setProperty('--mat-sys-surface-container', containers.container);
+        root.style.setProperty('--mat-sys-surface-container-high', containers.containerHigh);
+        root.style.setProperty('--mat-sys-surface-container-highest', containers.containerHighest);
+        root.style.setProperty('--mat-sys-surface-container-low', containers.containerLow);
+        root.style.setProperty('--mat-sys-surface-container-lowest', containers.containerLowest);
+        root.style.setProperty('--mat-sys-surface-dim', containers.dim);
+        root.style.setProperty('--mat-sys-surface-bright', containers.bright);
+        root.style.setProperty('--mat-sys-surface-tint', theme.colors.primary);
+        root.style.setProperty('--mat-sys-inverse-surface', isDark ? theme.colors.foreground : this.darkenColor(theme.colors.surface, 0.8));
+        root.style.setProperty('--mat-sys-inverse-on-surface', isDark ? theme.colors.surface : this.lightenColor(theme.colors.foreground, 0.9));
+        root.style.setProperty('--mat-sys-inverse-primary', isDark
+            ? this.darkenColor(theme.colors.primary, 0.3)
+            : this.lightenColor(theme.colors.primary, 0.5));
+        root.style.setProperty('--mat-sys-scrim', '#000000');
+        root.style.setProperty('--mat-sys-shadow', '#000000');
+
+        // Set dark mode class
+        if (isDark) {
+            root.classList.add('dark-theme');
         } else {
-            document.documentElement.classList.remove('dark-theme');
+            root.classList.remove('dark-theme');
         }
     }
 

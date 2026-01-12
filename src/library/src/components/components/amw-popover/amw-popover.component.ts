@@ -79,7 +79,7 @@ export class AmwPopoverComponent implements OnInit, OnDestroy, AfterViewInit, Af
     content = input<string>('');
 
     /** Popover size */
-    size = input<'small' | 'medium' | 'large'>('medium');
+    size = input<'small' | 'medium' | 'large' | 'extra-large'>('medium');
 
     /** Whether the popover is disabled */
     disabled = input<boolean>(false);
@@ -256,7 +256,8 @@ export class AmwPopoverComponent implements OnInit, OnDestroy, AfterViewInit, Af
      * Initializes the popover configuration
      */
     private initializeConfig(): void {
-        this.currentConfig = {
+        // Start with defaults
+        const defaults: PopoverConfig = {
             opened: false,
             size: 'medium',
             position: 'bottom',
@@ -286,8 +287,34 @@ export class AmwPopoverComponent implements OnInit, OnDestroy, AfterViewInit, Af
             windowVisibilityChangeClose: false,
             animationDuration: 300,
             animationEasing: 'cubic-bezier(0.4, 0, 0.2, 1)',
-            zIndex: 1000,
-            ...this.config()
+            zIndex: 1000
+        };
+
+        // Individual inputs take precedence over config object and defaults
+        const inputOverrides: PopoverConfig = {
+            size: this.size(),
+            position: this.position(),
+            showArrow: this.showArrow(),
+            showClose: this.showClose(),
+            showHeader: this.showHeader(),
+            showFooter: this.showFooter(),
+            showBackdrop: this.backdrop(),
+            disabled: this.disabled(),
+            headerTitle: this.headerTitle(),
+            headerSubtitle: this.headerSubtitle(),
+            footerText: this.footerText(),
+            closeText: this.closeButtonText(),
+            closeIcon: this.closeButtonIcon(),
+            arrowSize: this.arrowSize(),
+            arrowColor: this.arrowColor(),
+            zIndex: this.zIndex()
+        };
+
+        // Merge: defaults < config() < individual inputs
+        this.currentConfig = {
+            ...defaults,
+            ...this.config(),
+            ...inputOverrides
         };
 
         this.currentTrigger = {
@@ -540,6 +567,8 @@ export class AmwPopoverComponent implements OnInit, OnDestroy, AfterViewInit, Af
                 return '200px';
             case 'large':
                 return '400px';
+            case 'extra-large':
+                return '500px';
             case 'medium':
             default:
                 return '300px';

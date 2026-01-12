@@ -10,12 +10,16 @@
 /* Include Angular Material core styles */
 @include mat.core();
 
-/* Create comprehensive M3 theme with proper color mapping */
+/* Create comprehensive M3 theme with system variables for runtime theming */
 $m3-theme: mat.define-theme((
   color: (
     theme-type: light,
     primary: mat.$violet-palette,
     tertiary: mat.$cyan-palette,
+    use-system-variables: true,
+  ),
+  typography: (
+    use-system-variables: true,
   ),
   density: (
     scale: 0
@@ -112,6 +116,10 @@ $m3-theme: mat.define-theme((
       theme-type: dark,
       primary: mat.$violet-palette,
       tertiary: mat.$cyan-palette,
+      use-system-variables: true,
+    ),
+    typography: (
+      use-system-variables: true,
     ),
     density: (
       scale: 0
