@@ -2,6 +2,8 @@
   padding: 24px;
   max-width: 1400px;
   margin: 0 auto;
+  background: var(--mdc-theme-background);
+  color: var(--mdc-theme-on-background);
 
   .directives-header {
     text-align: center;
@@ -37,6 +39,7 @@
 
   .demo-content {
     padding: 20px 0;
+    color: var(--mdc-theme-on-surface);
   }
 
   .demo-box {
@@ -44,31 +47,37 @@
   }
 
   .demo-box.clicked {
-    background-color: #e3f2fd;
-    border-color: #2196f3 !important;
+    background-color: var(--mdc-theme-primary-container);
+    border-color: var(--mdc-theme-primary) !important;
   }
 
   .click-indicator {
-    color: #2196f3;
+    color: var(--mdc-theme-primary);
     font-weight: bold;
   }
 
   .demo-section {
     margin-bottom: 30px;
+
+    h4 {
+      color: var(--mdc-theme-on-surface);
+    }
   }
 
   .code-block {
     position: relative;
-    background: #f5f5f5;
-    border: 1px solid #ddd;
+    background: var(--mdc-theme-surface-container);
+    border: 1px solid var(--mdc-theme-outline-variant);
     border-radius: 4px;
     padding: 16px;
     margin: 16px 0;
+    color: var(--mdc-theme-on-surface);
   }
 
   .code-block pre {
     margin: 0;
     font-family: 'Courier New', monospace;
+    color: var(--mdc-theme-on-surface);
   }
 
   .code-block button {

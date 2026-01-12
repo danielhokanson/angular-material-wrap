@@ -756,7 +756,7 @@ mat-card.amw-card mat-card-header {
     margin: 0 0 4px 0;
     font-size: 1.25rem;
     font-weight: 500;
-    color: var(--mdc-theme-on-surface, #1c1b1f);
+    color: var(--mdc-theme-on-surface) !important;
     line-height: 1.4;
   }
 
@@ -764,30 +764,33 @@ mat-card.amw-card mat-card-header {
   p.subtitle {
     margin: 0;
     font-size: 0.875rem;
-    color: var(--mdc-theme-on-surface-variant, #49454f);
+    color: var(--mdc-theme-on-surface-variant) !important;
     line-height: 1.4;
   }
 }
 
 /* Page header styling */
 .demo-header,
-.page-header {
+.page-header,
+.services-header,
+.pipes-header,
+.directives-header {
   text-align: center;
   padding: 24px;
-  background: var(--mdc-theme-surface, #ffffff);
-  border-bottom: 1px solid var(--mdc-theme-outline-variant, rgba(0, 0, 0, 0.12));
+  background: var(--mdc-theme-surface) !important;
+  border-bottom: 1px solid var(--mdc-theme-outline-variant);
 
   h1 {
     margin: 0 0 8px 0;
     font-size: 2rem;
     font-weight: 400;
-    color: var(--mdc-theme-on-surface, #1c1b1f);
+    color: var(--mdc-theme-on-surface) !important;
   }
 
   p {
     margin: 0;
     font-size: 1rem;
-    color: var(--mdc-theme-on-surface-variant, #49454f);
+    color: var(--mdc-theme-on-surface-variant) !important;
   }
 }
 

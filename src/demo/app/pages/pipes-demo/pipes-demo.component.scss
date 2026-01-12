@@ -2,6 +2,8 @@
   padding: 24px;
   max-width: 1400px;
   margin: 0 auto;
+  background: var(--mdc-theme-background);
+  color: var(--mdc-theme-on-background);
 
   .pipes-header {
     text-align: center;
@@ -37,25 +39,31 @@
 
   .demo-content {
     padding: 20px 0;
+    color: var(--mdc-theme-on-surface);
   }
 
   .demo-section {
     margin-bottom: 30px;
+
+    h4 {
+      color: var(--mdc-theme-on-surface);
+    }
   }
 
   .pipe-result {
     margin-top: 20px;
     padding: 16px;
-    background: #f5f5f5;
+    background: var(--mdc-theme-surface-container);
     border-radius: 4px;
-    border: 1px solid #ddd;
+    border: 1px solid var(--mdc-theme-outline-variant);
+    color: var(--mdc-theme-on-surface);
   }
 
   .result-text {
     font-family: 'Courier New', monospace;
     font-size: 1.1em;
     font-weight: bold;
-    color: #2196f3;
+    color: var(--mdc-theme-primary);
     margin: 8px 0;
   }
 

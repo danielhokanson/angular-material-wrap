@@ -2,6 +2,8 @@
   padding: 24px;
   max-width: 1400px;
   margin: 0 auto;
+  background: var(--mdc-theme-background);
+  color: var(--mdc-theme-on-background);
 
   .services-header {
     text-align: center;
@@ -37,24 +39,30 @@
 
   .demo-content {
     padding: 20px 0;
+    color: var(--mdc-theme-on-surface);
   }
 
   .demo-section {
     margin-bottom: 30px;
+
+    h4 {
+      color: var(--mdc-theme-on-surface);
+    }
   }
 
   .message-list {
     max-height: 200px;
     overflow-y: auto;
-    border: 1px solid #ddd;
+    border: 1px solid var(--mdc-theme-outline-variant);
     border-radius: 4px;
     padding: 16px;
-    background: #f9f9f9;
+    background: var(--mdc-theme-surface-container);
   }
 
   .message-item {
     padding: 8px 0;
-    border-bottom: 1px solid #eee;
+    border-bottom: 1px solid var(--mdc-theme-outline-variant);
+    color: var(--mdc-theme-on-surface);
   }
 
   .message-item:last-child {
@@ -63,7 +71,7 @@
 
   .timestamp {
     float: right;
-    color: #666;
+    color: var(--mdc-theme-on-surface-variant);
     font-size: 0.8em;
   }
 
@@ -73,14 +81,15 @@
     align-items: center;
     padding: 20px;
     margin: 20px 0;
-    border: 1px solid #ddd;
+    border: 1px solid var(--mdc-theme-outline-variant);
     border-radius: 4px;
-    background: #f9f9f9;
+    background: var(--mdc-theme-surface-container);
   }
 
   .loading-demo p {
     margin-top: 16px;
     margin-bottom: 0;
+    color: var(--mdc-theme-on-surface);
   }
 
   amw-input,
