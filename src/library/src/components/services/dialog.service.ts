@@ -486,7 +486,6 @@ export class DialogService {
             }
         }
 
-        console.log('getBackdropClass input:', type, 'output:', baseClass);
         return baseClass;
     }
 
@@ -508,7 +507,6 @@ export class DialogService {
             }
         }
 
-        console.log('getPanelClass input:', { type, size }, 'output:', baseClass);
         return baseClass;
     }
 

@@ -88,12 +88,8 @@ export class CalendarItemPopoverService {
         triggerElement?: HTMLElement,
         position: 'top' | 'bottom' | 'left' | 'right' = 'bottom'
     ): PositionStrategy {
-        console.log('createPositionStrategy called with:', { triggerElement, position });
-
         if (triggerElement) {
-            console.log('Using trigger element for positioning:', triggerElement);
             const rect = triggerElement.getBoundingClientRect();
-            console.log('Trigger element bounds:', rect);
 
             // Try a more direct approach - use global positioning with calculated coordinates
             const viewportWidth = window.innerWidth || document.documentElement.clientWidth;

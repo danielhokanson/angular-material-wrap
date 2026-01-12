@@ -85,6 +85,7 @@
     background: var(--mat-sys-surface);
     border-right: 1px solid var(--mat-sys-outline-variant);
     box-shadow: var(--mat-sys-elevation-1);
+    overflow-x: hidden;
 
     &--mobile {
       width: 280px;
@@ -152,6 +153,7 @@
   &__content {
     flex: 1;
     overflow-y: auto;
+    overflow-x: hidden;
     padding: 8px 0;
   }
 

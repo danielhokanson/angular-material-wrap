@@ -8,8 +8,9 @@ import { MatDividerModule } from '@angular/material/divider';
 import { MatRippleModule } from '@angular/material/core';
 import { MatBadgeModule } from '@angular/material/badge';
 import { MatExpansionModule } from '@angular/material/expansion';
-import { RouterModule } from '@angular/router';
+import { RouterModule, Router, NavigationEnd } from '@angular/router';
 import { BreakpointObserver, Breakpoints } from '@angular/cdk/layout';
+import { filter } from 'rxjs/operators';
 import { Subject, takeUntil } from 'rxjs';
 import { BaseComponent } from '../../../controls/components/base/base.component';
 import { SidenavConfig } from './interfaces/sidenav-config.interface';
@@ -191,7 +192,8 @@ export class AmwSidenavComponent extends BaseComponent implements OnInit, OnDest
 
     constructor(
         private breakpointObserver: BreakpointObserver,
-        private cdr: ChangeDetectorRef
+        private cdr: ChangeDetectorRef,
+        private router: Router
     ) {
         super();
     }
@@ -199,6 +201,8 @@ export class AmwSidenavComponent extends BaseComponent implements OnInit, OnDest
     ngOnInit(): void {
         this.setupBreakpointObserver();
         this.initializeSidenav();
+        this.syncWithCurrentRoute();
+        this.subscribeToRouteChanges();
     }
 
     ngAfterViewInit(): void {
@@ -278,6 +282,75 @@ export class AmwSidenavComponent extends BaseComponent implements OnInit, OnDest
     private initializeSidenav(): void {
         // Set initial opened state
         this.opened.set(this.defaultOpened());
+    }
+
+    /**
+     * Syncs the active item with the current route
+     */
+    private syncWithCurrentRoute(): void {
+        const currentUrl = this.router.url;
+        this.activateItemByRoute(currentUrl);
+    }
+
+    /**
+     * Subscribes to route changes to update active item
+     */
+    private subscribeToRouteChanges(): void {
+        this.router.events
+            .pipe(
+                filter((event): event is NavigationEnd => event instanceof NavigationEnd),
+                takeUntil(this.destroy$)
+            )
+            .subscribe((event: NavigationEnd) => {
+                this.activateItemByRoute(event.urlAfterRedirects || event.url);
+            });
+    }
+
+    /**
+     * Finds and activates the item matching the given route
+     * @param url The current URL to match
+     */
+    private activateItemByRoute(url: string): void {
+        // Clear all active states first
+        this.items().forEach(item => {
+            this.setItemActive(item, false);
+            if (item.children) {
+                item.children.forEach(child => this.setItemActive(child, false));
+            }
+        });
+
+        // Find and activate the matching item
+        let foundItem: SidenavItem | null = null;
+        let parentItem: SidenavItem | null = null;
+
+        for (const item of this.items()) {
+            // Check children first (more specific routes)
+            if (item.children) {
+                for (const child of item.children) {
+                    if (child.route && url.startsWith(child.route)) {
+                        foundItem = child;
+                        parentItem = item;
+                        break;
+                    }
+                }
+            }
+
+            // If no child matched, check the parent item
+            if (!foundItem && item.route && url.startsWith(item.route)) {
+                foundItem = item;
+            }
+
+            if (foundItem) break;
+        }
+
+        // Activate the found item and expand its parent
+        if (foundItem) {
+            this.setItemActive(foundItem, true);
+            if (parentItem) {
+                parentItem.expanded = true;
+            }
+            this.cdr.detectChanges();
+        }
     }
 
     /**

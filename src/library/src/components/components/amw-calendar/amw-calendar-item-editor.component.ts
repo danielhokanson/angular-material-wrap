@@ -1,4 +1,4 @@
-import { Component, input, output, OnInit, OnDestroy, contentChild, TemplateRef, effect } from '@angular/core';
+import { Component, input, output, OnInit, OnDestroy, contentChild, TemplateRef, effect, ViewEncapsulation } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { MatIconModule } from '@angular/material/icon';
@@ -29,6 +29,7 @@ import { Subject } from 'rxjs';
 ],
     templateUrl: './amw-calendar-item-editor.component.html',
     styleUrls: ['./amw-calendar-item-editor.component.scss'],
+    encapsulation: ViewEncapsulation.None,
     host: { 'data-amw-id': 'amw-calendar-item-editor' }
 })
 export class AmwCalendarItemEditorComponent<T = any> implements OnInit, OnDestroy {

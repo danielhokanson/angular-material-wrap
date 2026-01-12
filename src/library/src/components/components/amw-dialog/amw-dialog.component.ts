@@ -1,4 +1,4 @@
-import { Component, input, output, ViewEncapsulation, forwardRef, contentChild, TemplateRef, OnInit, OnDestroy, Inject, computed } from '@angular/core';
+import { Component, input, output, ViewEncapsulation, forwardRef, contentChild, TemplateRef, OnInit, OnDestroy, Inject, computed, Optional } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { MatDialogModule, MatDialog, MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { MatIconModule } from '@angular/material/icon';
@@ -134,8 +134,8 @@ export class AmwDialogComponent implements OnInit, OnDestroy {
 
   constructor(
     private dialog: MatDialog,
-    @Inject(MAT_DIALOG_DATA) public data: any = {},
-    private matDialogRef: MatDialogRef<AmwDialogComponent>
+    @Optional() @Inject(MAT_DIALOG_DATA) public data: any = {},
+    @Optional() private matDialogRef: MatDialogRef<AmwDialogComponent>
   ) {}
 
   ngOnInit() {

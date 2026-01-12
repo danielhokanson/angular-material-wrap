@@ -320,89 +320,12 @@ export class AmwPopoverComponent implements OnInit, OnDestroy, AfterViewInit, Af
 
     /**
      * Sets up event listeners
+     * Note: Click, hover, and focus triggers are handled via template bindings
+     * in the HTML (onTriggerClick, onTriggerMouseEnter, etc.)
+     * This method only sets up global event listeners.
      */
     private setupEventListeners(): void {
-        if (this.currentTrigger.type === 'click') {
-            this.setupClickTrigger();
-        } else if (this.currentTrigger.type === 'hover') {
-            this.setupHoverTrigger();
-        } else if (this.currentTrigger.type === 'focus') {
-            this.setupFocusTrigger();
-        }
-
         this.setupGlobalEventListeners();
-    }
-
-    /**
-     * Sets up click trigger
-     */
-    private setupClickTrigger(): void {
-        if (this.triggerRef) {
-            fromEvent(this.triggerRef.nativeElement, 'click')
-                .pipe(takeUntil(this.destroy$))
-                .subscribe(event => {
-                    if (this.currentTrigger.preventDefault) {
-                        event.preventDefault();
-                    }
-                    if (this.currentTrigger.stopPropagation) {
-                        event.stopPropagation();
-                    }
-                    this.togglePopover();
-                });
-        }
-    }
-
-    /**
-     * Sets up hover trigger
-     */
-    private setupHoverTrigger(): void {
-        if (this.triggerRef) {
-            fromEvent(this.triggerRef.nativeElement, 'mouseenter')
-                .pipe(takeUntil(this.destroy$))
-                .subscribe(() => {
-                    if (this.currentTrigger.delay) {
-                        this.hoverTimeout = window.setTimeout(() => {
-                            this.openPopover();
-                        }, this.currentTrigger.delay);
-                    } else {
-                        this.openPopover();
-                    }
-                });
-
-            fromEvent(this.triggerRef.nativeElement, 'mouseleave')
-                .pipe(takeUntil(this.destroy$))
-                .subscribe(() => {
-                    if (this.hoverTimeout) {
-                        clearTimeout(this.hoverTimeout);
-                    }
-                    if (this.currentTrigger.closeDelay) {
-                        this.closeTimeout = window.setTimeout(() => {
-                            this.closePopover();
-                        }, this.currentTrigger.closeDelay);
-                    } else {
-                        this.closePopover();
-                    }
-                });
-        }
-    }
-
-    /**
-     * Sets up focus trigger
-     */
-    private setupFocusTrigger(): void {
-        if (this.triggerRef) {
-            fromEvent(this.triggerRef.nativeElement, 'focus')
-                .pipe(takeUntil(this.destroy$))
-                .subscribe(() => {
-                    this.openPopover();
-                });
-
-            fromEvent(this.triggerRef.nativeElement, 'blur')
-                .pipe(takeUntil(this.destroy$))
-                .subscribe(() => {
-                    this.closePopover();
-                });
-        }
     }
 
     /**
@@ -427,42 +350,37 @@ export class AmwPopoverComponent implements OnInit, OnDestroy, AfterViewInit, Af
                 .pipe(takeUntil(this.destroy$))
                 .subscribe((event: Event) => {
                     const mouseEvent = event as MouseEvent;
-                    if (this.opened() && this.overlayRef && !this.overlayRef.overlayElement.contains(mouseEvent.target as Node)) {
+                    const target = mouseEvent.target as Node;
+                    const isInsideOverlay = this.overlayRef?.overlayElement?.contains(target);
+                    const isInsideTrigger = this.triggerRef?.nativeElement?.contains(target);
+
+                    if (this.opened() && this.overlayRef && !isInsideOverlay && !isInsideTrigger) {
                         this.closePopover();
                     }
                 });
         }
 
-        // Scroll
+        // Scroll - only close if scroll happens outside the popover
         if (this.currentTrigger.scroll) {
+            // Helper to check if scroll is inside popover
+            const isScrollInsidePopover = (event: Event): boolean => {
+                const target = event.target as Node | null;
+                if (!target || !this.overlayRef?.overlayElement) return false;
+                return this.overlayRef.overlayElement.contains(target);
+            };
+
             fromEvent(window, 'scroll')
                 .pipe(takeUntil(this.destroy$))
-                .subscribe(() => {
-                    if (this.opened()) {
-                        this.closePopover();
-                    }
-                });
-
-            fromEvent(document, 'scroll')
-                .pipe(takeUntil(this.destroy$))
-                .subscribe(() => {
-                    if (this.opened()) {
-                        this.closePopover();
-                    }
-                });
-
-            fromEvent(document.body, 'scroll')
-                .pipe(takeUntil(this.destroy$))
-                .subscribe(() => {
-                    if (this.opened()) {
+                .subscribe((event: Event) => {
+                    if (this.opened() && !isScrollInsidePopover(event)) {
                         this.closePopover();
                     }
                 });
 
             fromEvent(document, 'scroll', { capture: true })
                 .pipe(takeUntil(this.destroy$))
-                .subscribe(() => {
-                    if (this.opened()) {
+                .subscribe((event: Event) => {
+                    if (this.opened() && !isScrollInsidePopover(event)) {
                         this.closePopover();
                     }
                 });

@@ -1,4 +1,4 @@
-import { Component, signal } from '@angular/core';
+import { Component, signal, ViewEncapsulation } from '@angular/core';
 import { RouterModule } from '@angular/router';
 
 import { ThemeService, ThemeConfig } from '../../../../library/src/styling/services/theme.service';
@@ -17,7 +17,8 @@ import { AmwTooltipDirective } from '../../../../library/src/directives';
     AmwPopoverComponent,
     AmwTooltipDirective],
     templateUrl: './theme-menu.component.html',
-    styleUrl: './theme-menu.component.scss'
+    styleUrl: './theme-menu.component.scss',
+    encapsulation: ViewEncapsulation.None
 })
 export class ThemeMenuComponent {
     currentTheme = signal<ThemeConfig | null>(null);

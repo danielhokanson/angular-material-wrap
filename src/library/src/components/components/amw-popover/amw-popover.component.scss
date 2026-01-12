@@ -16,23 +16,23 @@
   }
 
   &__trigger-button {
-    color: var(--mat-sys-primary);
+    color: var(--mdc-theme-primary);
     font-weight: 500;
     text-transform: none;
     letter-spacing: normal;
 
     &:hover {
-      background-color: var(--mat-sys-primary-container);
-      color: var(--mat-sys-on-primary-container);
+      background-color: var(--mdc-theme-primary-container);
+      color: var(--mdc-theme-on-primary-container);
     }
 
     &:focus {
-      outline: 2px solid var(--mat-sys-primary);
+      outline: 2px solid var(--mdc-theme-primary);
       outline-offset: 2px;
     }
 
     &[disabled] {
-      color: var(--mat-sys-on-surface);
+      color: var(--mdc-theme-on-surface);
       opacity: 0.38;
     }
   }
@@ -77,13 +77,13 @@
 
     &--with-header {
       .amw-popover__content {
-        border-top: 1px solid var(--mat-sys-outline-variant);
+        border-top: 1px solid var(--mdc-theme-outline-variant);
       }
     }
 
     &--with-footer {
       .amw-popover__content {
-        border-bottom: 1px solid var(--mat-sys-outline-variant);
+        border-bottom: 1px solid var(--mdc-theme-outline-variant);
       }
     }
 
@@ -94,16 +94,16 @@
         }
 
         &::-webkit-scrollbar-track {
-          background: var(--mat-sys-surface-variant);
+          background: var(--mdc-theme-surface-variant);
           border-radius: 3px;
         }
 
         &::-webkit-scrollbar-thumb {
-          background: var(--mat-sys-outline);
+          background: var(--mdc-theme-outline);
           border-radius: 3px;
 
           &:hover {
-            background: var(--mat-sys-outline-variant);
+            background: var(--mdc-theme-outline-variant);
           }
         }
       }
@@ -117,8 +117,8 @@
 
   // Speech Bubble Content Container
   &__bubble-content {
-    background: var(--mat-sys-surface, #ffffff) !important;
-    border: 1px solid var(--mat-sys-outline-variant, #e0e0e0) !important;
+    background: var(--mdc-theme-surface, #ffffff) !important;
+    border: 1px solid var(--mdc-theme-outline-variant, #e0e0e0) !important;
     border-radius: 16px !important;
     box-shadow: 0 8px 24px rgba(0, 0, 0, 0.12), 0 4px 8px rgba(0, 0, 0, 0.08) !important;
     overflow: visible !important;
@@ -149,7 +149,7 @@
       left: 50%;
       transform: translateX(-50%);
       border-width: 0 12px 12px 12px !important;
-      border-color: transparent transparent var(--mat-sys-surface, #ffffff) transparent !important;
+      border-color: transparent transparent var(--mdc-theme-surface, #ffffff) transparent !important;
     }
 
     // Arrow pointing down (when popover is above trigger)
@@ -158,7 +158,7 @@
       left: 50%;
       transform: translateX(-50%);
       border-width: 12px 12px 0 12px !important;
-      border-color: var(--mat-sys-surface, #ffffff) transparent transparent transparent !important;
+      border-color: var(--mdc-theme-surface, #ffffff) transparent transparent transparent !important;
     }
 
     // Arrow pointing left (when popover is to the right of trigger)
@@ -167,7 +167,7 @@
       top: 50%;
       transform: translateY(-50%);
       border-width: 12px 12px 12px 0 !important;
-      border-color: transparent var(--mat-sys-surface, #ffffff) transparent transparent !important;
+      border-color: transparent var(--mdc-theme-surface, #ffffff) transparent transparent !important;
     }
 
     // Arrow pointing right (when popover is to the left of trigger)
@@ -176,15 +176,15 @@
       top: 50%;
       transform: translateY(-50%);
       border-width: 12px 0 12px 12px !important;
-      border-color: transparent transparent transparent var(--mat-sys-surface, #ffffff) !important;
+      border-color: transparent transparent transparent var(--mdc-theme-surface, #ffffff) !important;
     }
   }
 
   // Header
   &__header {
     padding: 16px 20px !important;
-    border-bottom: 1px solid var(--mat-sys-outline-variant) !important;
-    background: var(--mat-sys-surface-container) !important;
+    border-bottom: 1px solid var(--mdc-theme-outline-variant) !important;
+    background: var(--mdc-theme-surface-container) !important;
     display: flex !important;
     align-items: flex-start !important;
     justify-content: space-between !important;
@@ -204,14 +204,14 @@
       margin: 0 0 4px 0;
       font-size: 1.125rem;
       font-weight: 500;
-      color: var(--mat-sys-on-surface);
+      color: var(--mdc-theme-on-surface);
       line-height: 1.4;
     }
 
     &-subtitle {
       margin: 0;
       font-size: 0.875rem;
-      color: var(--mat-sys-on-surface-variant);
+      color: var(--mdc-theme-on-surface-variant);
       line-height: 1.4;
     }
   }
@@ -221,7 +221,7 @@
     top: 8px !important;
     right: 8px !important;
     z-index: 10 !important;
-    color: var(--mat-sys-on-surface-variant) !important;
+    color: var(--mdc-theme-on-surface-variant) !important;
     transition: color 0.2s cubic-bezier(0.4, 0, 0.2, 1) !important;
     background: transparent !important;
     border: none !important;
@@ -233,13 +233,13 @@
     justify-content: center !important;
 
     &:hover {
-      color: var(--mat-sys-on-surface) !important;
-      background: var(--mat-sys-surface-variant) !important;
+      color: var(--mdc-theme-on-surface) !important;
+      background: var(--mdc-theme-surface-variant) !important;
       border-radius: 50% !important;
     }
 
     &:focus {
-      outline: 2px solid var(--mat-sys-primary) !important;
+      outline: 2px solid var(--mdc-theme-primary) !important;
       outline-offset: 2px !important;
     }
   }
@@ -249,7 +249,7 @@
     padding: 16px 20px !important;
     max-height: 300px !important;
     overflow-y: auto !important;
-    color: var(--mat-sys-on-surface) !important;
+    color: var(--mdc-theme-on-surface) !important;
     line-height: 1.6 !important;
     background: transparent !important;
     display: block !important;
@@ -264,11 +264,11 @@
     }
 
     &::-webkit-scrollbar-thumb {
-      background: var(--mat-sys-outline);
+      background: var(--mdc-theme-outline);
       border-radius: 3px;
 
       &:hover {
-        background: var(--mat-sys-outline-variant);
+        background: var(--mdc-theme-outline-variant);
       }
     }
   }
@@ -280,7 +280,7 @@
     p {
       margin: 0 0 16px 0 !important;
       font-size: 0.875rem !important;
-      color: var(--mat-sys-on-surface-variant) !important;
+      color: var(--mdc-theme-on-surface-variant) !important;
       display: block !important;
       background: transparent !important;
 
@@ -293,15 +293,15 @@
   // Footer
   &__footer {
     padding: 16px 20px !important;
-    border-top: 1px solid var(--mat-sys-outline-variant) !important;
-    background: var(--mat-sys-surface-container) !important;
+    border-top: 1px solid var(--mdc-theme-outline-variant) !important;
+    background: var(--mdc-theme-surface-container) !important;
     font-size: 12px !important;
-    color: var(--mat-sys-on-surface-variant) !important;
+    color: var(--mdc-theme-on-surface-variant) !important;
 
     &-text {
       margin: 0;
       font-size: 0.875rem;
-      color: var(--mat-sys-on-surface-variant);
+      color: var(--mdc-theme-on-surface-variant);
       line-height: 1.4;
     }
   }
@@ -385,18 +385,18 @@
   // Dark Theme Adjustments
   .mat-theme-dark & {
     &__popover {
-      background: var(--mat-sys-surface);
-      box-shadow: var(--mat-sys-elevation-3);
+      background: var(--mdc-theme-surface);
+      box-shadow: 0 8px 24px rgba(0, 0, 0, 0.24), 0 4px 8px rgba(0, 0, 0, 0.16);
     }
 
     &__header {
-      background: var(--mat-sys-surface-container);
-      border-bottom-color: var(--mat-sys-outline-variant);
+      background: var(--mdc-theme-surface-container);
+      border-bottom-color: var(--mdc-theme-outline-variant);
     }
 
     &__footer {
-      background: var(--mat-sys-surface-container);
-      border-top-color: var(--mat-sys-outline-variant);
+      background: var(--mdc-theme-surface-container);
+      border-top-color: var(--mdc-theme-outline-variant);
     }
 
     &__backdrop {
@@ -407,7 +407,7 @@
   // High Contrast Mode
   @media (prefers-contrast: high) {
     &__popover {
-      border: 2px solid var(--mat-sys-outline);
+      border: 2px solid var(--mdc-theme-outline);
     }
 
     &__header {
