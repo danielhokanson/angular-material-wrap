@@ -56,93 +56,75 @@
           <h3>Color Palette</h3>
           <div class="color-grid">
             <div class="color-item">
-              <amw-input
+              <amw-color-picker
                 label="Primary Color"
                 [(ngModel)]="colors.primary"
-                (ngModelChange)="onColorChange('primary', $event)"
-                placeholder="#673AB7"
-                pattern="^#[0-9A-Fa-f]{6}$"
-                appearance="outline"
+                (colorChange)="onColorChange('primary', $event)"
+                [showInput]="true"
+                [showPreview]="true"
+                [showPalette]="true"
                 class="color-field">
-                <div class="color-preview" [style.background-color]="colors.primary">
-                  <span class="color-text" [style.color]="getColorContrast(colors.primary)">Aa</span>
-                </div>
-              </amw-input>
+              </amw-color-picker>
             </div>
 
             <div class="color-item">
-              <amw-input
+              <amw-color-picker
                 label="Accent Color"
                 [(ngModel)]="colors.accent"
-                (ngModelChange)="onColorChange('accent', $event)"
-                placeholder="#FFC107"
-                pattern="^#[0-9A-Fa-f]{6}$"
-                appearance="outline"
+                (colorChange)="onColorChange('accent', $event)"
+                [showInput]="true"
+                [showPreview]="true"
+                [showPalette]="true"
                 class="color-field">
-                <div class="color-preview" [style.background-color]="colors.accent">
-                  <span class="color-text" [style.color]="getColorContrast(colors.accent)">Aa</span>
-                </div>
-              </amw-input>
+              </amw-color-picker>
             </div>
 
             <div class="color-item">
-              <amw-input
+              <amw-color-picker
                 label="Warn Color"
                 [(ngModel)]="colors.warn"
-                (ngModelChange)="onColorChange('warn', $event)"
-                placeholder="#F44336"
-                pattern="^#[0-9A-Fa-f]{6}$"
-                appearance="outline"
+                (colorChange)="onColorChange('warn', $event)"
+                [showInput]="true"
+                [showPreview]="true"
+                [showPalette]="true"
                 class="color-field">
-                <div class="color-preview" [style.background-color]="colors.warn">
-                  <span class="color-text" [style.color]="getColorContrast(colors.warn)">Aa</span>
-                </div>
-              </amw-input>
+              </amw-color-picker>
             </div>
 
             <div class="color-item">
-              <amw-input
+              <amw-color-picker
                 label="Background Color"
                 [(ngModel)]="colors.background"
-                (ngModelChange)="onColorChange('background', $event)"
-                placeholder="#FAFAFA"
-                pattern="^#[0-9A-Fa-f]{6}$"
-                appearance="outline"
+                (colorChange)="onColorChange('background', $event)"
+                [showInput]="true"
+                [showPreview]="true"
+                [showPalette]="true"
                 class="color-field">
-                <div class="color-preview" [style.background-color]="colors.background">
-                  <span class="color-text" [style.color]="getColorContrast(colors.background)">Aa</span>
-                </div>
-              </amw-input>
+              </amw-color-picker>
             </div>
 
             <div class="color-item">
-              <amw-input
+              <amw-color-picker
                 label="Surface Color"
                 [(ngModel)]="colors.surface"
-                (ngModelChange)="onColorChange('surface', $event)"
-                placeholder="#FFFFFF"
-                pattern="^#[0-9A-Fa-f]{6}$"
-                appearance="outline"
+                (colorChange)="onColorChange('surface', $event)"
+                [showInput]="true"
+                [showPreview]="true"
+                [showPalette]="true"
                 class="color-field">
-                <div class="color-preview" [style.background-color]="colors.surface">
-                  <span class="color-text" [style.color]="getColorContrast(colors.surface)">Aa</span>
-                </div>
-              </amw-input>
+              </amw-color-picker>
             </div>
 
             <div class="color-item">
-              <amw-input
+              <amw-color-picker
                 label="Foreground Color"
                 [(ngModel)]="colors.foreground"
-                (ngModelChange)="onColorChange('foreground', $event)"
-                placeholder="#212121"
-                pattern="^#[0-9A-Fa-f]{6}$"
-                appearance="outline"
+                (colorChange)="onColorChange('foreground', $event)"
+                [showInput]="true"
+                [showPreview]="true"
+                [showPalette]="true"
                 class="color-field">
-                <div class="color-preview" [style.background-color]="colors.foreground">
-                  <span class="color-text" [style.color]="getColorContrast(colors.foreground)">Aa</span>
-                </div>
-              </amw-input>
+              </amw-color-picker>
             </div>
           </div>
         </div>

@@ -42,18 +42,18 @@
   }
 
   &__dropdown {
-    position: absolute;
-    top: 100%;
-    left: 0;
-    right: 0;
-    z-index: 1000;
     background: var(--mdc-theme-surface);
     border: 1px solid var(--mdc-theme-outline);
-    border-radius: var(--mdc-shape-small);
-    box-shadow: var(--mdc-elevation-level2);
-    margin-top: 4px;
+    border-radius: var(--mdc-shape-small, 8px);
+    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.15), 0 4px 8px rgba(0, 0, 0, 0.1);
     min-width: 320px;
     max-width: 400px;
+    max-height: 80vh;
+    overflow-y: auto;
+  }
+
+  &__backdrop {
+    background: transparent;
   }
 
   &__header {
@@ -128,10 +128,86 @@
     margin-bottom: 16px;
   }
 
+  &__gradient-area {
+    position: relative;
+    width: 100%;
+    height: 150px;
+    border-radius: var(--mdc-shape-extra-small);
+    cursor: crosshair;
+    user-select: none;
+    margin-bottom: 12px;
+  }
+
+  &__gradient-white {
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(to right, #fff, transparent);
+    border-radius: var(--mdc-shape-extra-small);
+  }
+
+  &__gradient-black {
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(to bottom, transparent, #000);
+    border-radius: var(--mdc-shape-extra-small);
+  }
+
+  &__gradient-cursor {
+    position: absolute;
+    width: 16px;
+    height: 16px;
+    border: 2px solid white;
+    border-radius: 50%;
+    box-shadow: 0 0 0 1px rgba(0, 0, 0, 0.3), inset 0 0 0 1px rgba(0, 0, 0, 0.3);
+    transform: translate(-50%, -50%);
+    pointer-events: none;
+  }
+
+  &__hue-slider {
+    position: relative;
+    width: 100%;
+    height: 16px;
+    border-radius: 8px;
+    background: linear-gradient(
+      to right,
+      #ff0000 0%,
+      #ffff00 17%,
+      #00ff00 33%,
+      #00ffff 50%,
+      #0000ff 67%,
+      #ff00ff 83%,
+      #ff0000 100%
+    );
+    cursor: pointer;
+    user-select: none;
+    margin-bottom: 12px;
+  }
+
+  &__hue-cursor {
+    position: absolute;
+    top: 50%;
+    width: 8px;
+    height: 20px;
+    background: white;
+    border: 1px solid rgba(0, 0, 0, 0.3);
+    border-radius: 4px;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.2);
+    transform: translate(-50%, -50%);
+    pointer-events: none;
+  }
+
   &__custom-input {
     display: flex;
     align-items: center;
     gap: 8px;
+  }
+
+  &__custom-preview {
+    width: 40px;
+    height: 40px;
+    border-radius: var(--mdc-shape-extra-small);
+    border: 1px solid var(--mdc-theme-outline);
+    flex-shrink: 0;
   }
 
   &__color-input {

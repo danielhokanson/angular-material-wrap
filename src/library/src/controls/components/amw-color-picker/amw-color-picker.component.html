@@ -1,5 +1,5 @@
 <div class="amw-color-picker" [class]="'amw-color-picker--' + size() + ' amw-color-picker--' + mode()">
-  <mat-form-field [appearance]="config().appearance || 'outline'">
+  <mat-form-field [appearance]="config().appearance || 'outline'" cdkOverlayOrigin #trigger="cdkOverlayOrigin">
     @if (label()) {
       <mat-label>{{ label() }}</mat-label>
     }
@@ -45,8 +45,16 @@
     </div>
   }
 
-  <!-- Color Picker Dropdown -->
-  @if (isOpen()) {
+  <!-- Color Picker Dropdown - Using CDK Overlay to escape container clipping -->
+  <ng-template
+    cdkConnectedOverlay
+    [cdkConnectedOverlayOrigin]="trigger"
+    [cdkConnectedOverlayOpen]="isOpen()"
+    [cdkConnectedOverlayPositions]="overlayPositions"
+    [cdkConnectedOverlayHasBackdrop]="true"
+    [cdkConnectedOverlayBackdropClass]="'amw-color-picker__backdrop'"
+    (backdropClick)="isOpen.set(false)"
+    (detach)="isOpen.set(false)">
     <div class="amw-color-picker__dropdown" (click)="$event.stopPropagation()">
       <div class="amw-color-picker__header">
         <span class="amw-color-picker__title">Select Color</span>
@@ -74,18 +82,43 @@
             </div>
           </div>
         }
-        <!-- Custom Color Input -->
+        <!-- Custom Color Gradient Picker -->
         @if (showCustom()) {
           <div class="amw-color-picker__custom">
             <div class="amw-color-picker__custom-title">Custom Color</div>
+
+            <!-- HSV Gradient Area -->
+            <div
+              class="amw-color-picker__gradient-area"
+              #gradientArea
+              (mousedown)="onGradientMouseDown($event)"
+              [style.background]="gradientBackground()">
+              <div class="amw-color-picker__gradient-white"></div>
+              <div class="amw-color-picker__gradient-black"></div>
+              <div
+                class="amw-color-picker__gradient-cursor"
+                [style.left]="gradientCursorX()"
+                [style.top]="gradientCursorY()">
+              </div>
+            </div>
+
+            <!-- Hue Slider -->
+            <div
+              class="amw-color-picker__hue-slider"
+              #hueSlider
+              (mousedown)="onHueMouseDown($event)">
+              <div
+                class="amw-color-picker__hue-cursor"
+                [style.left]="hueCursorX()">
+              </div>
+            </div>
+
+            <!-- Color Preview and Hex Input -->
             <div class="amw-color-picker__custom-input">
-              <input
-                type="color"
-                [value]="customColor()"
-                (change)="onCustomColorChange($any($event.target).value)"
-                [disabled]="isDisabled"
-                class="amw-color-picker__color-input"
-                />
+              <div
+                class="amw-color-picker__custom-preview"
+                [style.background-color]="hsvColor()">
+              </div>
               <input
                 type="text"
                 [value]="customColor()"
@@ -117,5 +150,5 @@
         <amw-button variant="text" color="primary" (click)="selectColor(selectedColor())">OK</amw-button>
       </div>
     </div>
-  }
+  </ng-template>
 </div>

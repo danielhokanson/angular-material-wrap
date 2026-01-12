@@ -11,6 +11,7 @@ import { AmwDividerComponent } from '../../../components/components/amw-divider/
 import { AmwButtonComponent } from '../../../controls/components/amw-button/amw-button.component';
 import { AmwTooltipDirective } from '../../../directives/amw-tooltip/amw-tooltip.directive';
 import { AmwInputComponent } from '../../../controls/components/amw-input/amw-input.component';
+import { AmwColorPickerComponent } from '../../../controls/components/amw-color-picker/amw-color-picker.component';
 
 @Component({
     selector: 'amw-theme-editor',
@@ -19,6 +20,7 @@ import { AmwInputComponent } from '../../../controls/components/amw-input/amw-in
     FormsModule,
     AmwButtonComponent,
     AmwInputComponent,
+    AmwColorPickerComponent,
     MatIconModule,
     MatCardModule,
     MatSlideToggleModule,
