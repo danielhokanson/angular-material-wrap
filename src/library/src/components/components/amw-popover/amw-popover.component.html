@@ -1,83 +1,81 @@
-<div #triggerRef class="amw-popover__trigger" [class.amw-popover__trigger--disabled]="isDisabled"
-  [attr.aria-expanded]="opened" [attr.aria-haspopup]="true" [attr.aria-controls]="popoverId"
-  [attr.aria-describedby]="opened ? popoverId : null" [attr.tabindex]="isDisabled ? -1 : 0">
+<div #triggerRef class="amw-popover__trigger" [class.amw-popover__trigger--disabled]="disabled()"
+  [attr.aria-expanded]="opened()" [attr.aria-haspopup]="true" [attr.aria-controls]="actualPopoverId()"
+  [attr.aria-describedby]="opened() ? actualPopoverId() : null" [attr.tabindex]="disabled() ? -1 : 0"
+  (click)="onTriggerClick($event)"
+  (mouseenter)="onTriggerMouseEnter($event)"
+  (mouseleave)="onTriggerMouseLeave($event)"
+  (focus)="onTriggerFocus($event)"
+  (blur)="onTriggerBlur($event)"
+  (keydown)="onTriggerKeyDown($event)">
 
   <!-- Custom Trigger Template -->
-  @if (triggerTemplate) {
-    <ng-container [ngTemplateOutlet]="triggerTemplate"></ng-container>
+  @if (resolvedTriggerTemplate()) {
+    <ng-container [ngTemplateOutlet]="resolvedTriggerTemplate()!"></ng-container>
   } @else {
     <amw-button variant="text"
-      [icon]="triggerIcon"
+      [icon]="triggerIcon()"
       [iconPosition]="'left'"
       class="amw-popover__trigger-button"
-      [disabled]="isDisabled"
-      (click)="onTriggerClick($event)"
-      (mouseenter)="onTriggerMouseEnter($event)"
-      (mouseleave)="onTriggerMouseLeave($event)"
-      (focus)="onTriggerFocus($event)"
-      (blur)="onTriggerBlur($event)"
-      (keydown)="onTriggerKeyDown($event)">
-      {{ triggerText }}
+      [disabled]="disabled()">
+      {{ triggerText() }}
     </amw-button>
   }
-
-  <!-- Default Trigger Template -->
 </div>
 
 <!-- Popover Content Template for Overlay -->
 <ng-template #contentRef>
-  <div [id]="popoverId" class="amw-popover__popover" [class.amw-popover__popover--visible]="opened"
-    [class.amw-popover__popover--small]="size === 'small'" [class.amw-popover__popover--medium]="size === 'medium'"
-    [class.amw-popover__popover--large]="size === 'large'" [class.amw-popover__popover--with-arrow]="showArrow"
-    [class.amw-popover__popover--with-header]="showHeader" [class.amw-popover__popover--with-footer]="showFooter"
-    [class.amw-popover__popover--with-scrollbar]="scrollable" [class.amw-popover__popover--disabled]="isDisabled"
-    [attr.role]="'dialog'" [attr.aria-hidden]="!opened" [attr.aria-labelledby]="headerTitle ? popoverId + '-title' : null"
-    [attr.aria-describedby]="contentTemplate ? popoverId + '-content' : null">
+  <div [id]="actualPopoverId()" class="amw-popover__popover" [class.amw-popover__popover--visible]="opened()"
+    [class.amw-popover__popover--small]="size() === 'small'" [class.amw-popover__popover--medium]="size() === 'medium'"
+    [class.amw-popover__popover--large]="size() === 'large'" [class.amw-popover__popover--with-arrow]="showArrow()"
+    [class.amw-popover__popover--with-header]="showHeader()" [class.amw-popover__popover--with-footer]="showFooter()"
+    [class.amw-popover__popover--with-scrollbar]="scrollable()" [class.amw-popover__popover--disabled]="disabled()"
+    [attr.role]="'dialog'" [attr.aria-hidden]="!opened()" [attr.aria-labelledby]="headerTitle() ? actualPopoverId() + '-title' : null"
+    [attr.aria-describedby]="resolvedContentTemplate() ? actualPopoverId() + '-content' : null">
 
     <!-- Speech Bubble Content Container -->
-    <div class="amw-popover__bubble-content" [attr.data-position]="position" [attr.data-show-arrow]="showArrow">
+    <div class="amw-popover__bubble-content" [attr.data-position]="position()" [attr.data-show-arrow]="showArrow()">
 
       <!-- Arrow pointing up (when popover is below trigger) -->
-      @if (showArrow && (position === 'bottom' || position === 'bottom-left' || position === 'bottom-right')) {
+      @if (showArrow() && (position() === 'bottom' || position() === 'bottom-left' || position() === 'bottom-right')) {
         <div
         class="amw-popover__arrow amw-popover__arrow--up"></div>
       }
 
       <!-- Arrow pointing down (when popover is above trigger) -->
-      @if (showArrow && (position === 'top' || position === 'top-left' || position === 'top-right')) {
+      @if (showArrow() && (position() === 'top' || position() === 'top-left' || position() === 'top-right')) {
         <div
         class="amw-popover__arrow amw-popover__arrow--down"></div>
       }
 
       <!-- Arrow pointing left (when popover is to the right of trigger) -->
-      @if (showArrow && (position === 'right')) {
+      @if (showArrow() && (position() === 'right')) {
         <div
         class="amw-popover__arrow amw-popover__arrow--left"></div>
       }
 
       <!-- Arrow pointing right (when popover is to the left of trigger) -->
-      @if (showArrow && (position === 'left')) {
+      @if (showArrow() && (position() === 'left')) {
         <div
         class="amw-popover__arrow amw-popover__arrow--right"></div>
       }
 
       <!-- Header -->
-      @if (showHeader) {
+      @if (showHeader()) {
         <div class="amw-popover__header">
           <div class="amw-popover__header-content">
             <div class="amw-popover__header-text">
-              @if (headerTitle) {
-                <h3 class="amw-popover__header-title" [id]="popoverId + '-title'">{{ headerTitle }}</h3>
+              @if (headerTitle()) {
+                <h3 class="amw-popover__header-title" [id]="actualPopoverId() + '-title'">{{ headerTitle() }}</h3>
               }
-              @if (headerSubtitle) {
-                <p class="amw-popover__header-subtitle">{{ headerSubtitle }}</p>
+              @if (headerSubtitle()) {
+                <p class="amw-popover__header-subtitle">{{ headerSubtitle() }}</p>
               }
             </div>
-            @if (showClose) {
+            @if (showClose()) {
               <amw-button variant="icon"
-                [icon]="closeButtonIcon"
+                [icon]="closeButtonIcon()"
                 class="amw-popover__close"
-                [attr.aria-label]="closeButtonText"
+                [attr.aria-label]="closeButtonText()"
                 (click)="onCloseClick()">
               </amw-button>
             }
@@ -86,13 +84,13 @@
       }
 
       <!-- Content -->
-      <div class="amw-popover__content" [id]="popoverId + '-content'">
+      <div class="amw-popover__content" [id]="actualPopoverId() + '-content'">
         <!-- Custom Content Template -->
-        @if (contentTemplate) {
-          <ng-container [ngTemplateOutlet]="contentTemplate"></ng-container>
+        @if (resolvedContentTemplate()) {
+          <ng-container [ngTemplateOutlet]="resolvedContentTemplate()!"></ng-container>
         } @else {
           <div class="amw-popover__default-content">
-            <p>{{ content }}</p>
+            <p>{{ content() }}</p>
           </div>
         }
 
@@ -100,9 +98,9 @@
       </div>
 
       <!-- Footer -->
-      @if (showFooter) {
+      @if (showFooter()) {
         <div class="amw-popover__footer">
-          <p class="amw-popover__footer-text">{{ footerText }}</p>
+          <p class="amw-popover__footer-text">{{ footerText() }}</p>
         </div>
       }
     </div>

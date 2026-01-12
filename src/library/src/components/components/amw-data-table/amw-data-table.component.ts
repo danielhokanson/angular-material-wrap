@@ -1,4 +1,4 @@
-import { Component, Input, Output, EventEmitter, ViewEncapsulation, OnInit, OnChanges, SimpleChanges, OnDestroy, ChangeDetectorRef, Inject } from '@angular/core';
+import { Component, input, output, ViewEncapsulation, OnInit, OnDestroy, ChangeDetectorRef, Inject, effect } from '@angular/core';
 
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { MatTableModule } from '@angular/material/table';
@@ -58,24 +58,25 @@ import { DialogService } from '../../services/dialog.service';
         OverlayModule
     ],
     encapsulation: ViewEncapsulation.None,
+    host: { 'data-amw-id': 'amw-data-table' },
     templateUrl: './amw-data-table.component.html',
     styleUrl: './amw-data-table.component.scss'
 })
-export class AmwDataTableComponent implements OnInit, OnChanges, OnDestroy {
+export class AmwDataTableComponent implements OnInit, OnDestroy {
     // Input properties
-    @Input() data: any[] = [];
-    @Input() config: DataTableConfig | null = null;
-    @Input() loading: boolean = false;
-    @Input() loadingMessage: string = 'Loading...';
-    @Input() emptyMessage: string = 'No data available';
+    data = input<any[]>([]);
+    config = input<DataTableConfig | null>(null);
+    loading = input<boolean>(false);
+    loadingMessage = input<string>('Loading...');
+    emptyMessage = input<string>('No data available');
 
     // Output events
-    @Output() sortChange = new EventEmitter<DataTableSort>();
-    @Output() filterChange = new EventEmitter<DataTableFilter[]>();
-    @Output() pageChange = new EventEmitter<PageEvent>();
-    @Output() selectionChange = new EventEmitter<DataTableSelectionEvent>();
-    @Output() editChange = new EventEmitter<DataTableEditEvent>();
-    @Output() actionClick = new EventEmitter<{ action: DataTableAction; row: any; index: number }>();
+    sortChange = output<DataTableSort>();
+    filterChange = output<DataTableFilter[]>();
+    pageChange = output<PageEvent>();
+    selectionChange = output<DataTableSelectionEvent>();
+    editChange = output<DataTableEditEvent>();
+    actionClick = output<{ action: DataTableAction; row: any; index: number }>();
 
     // Internal state
     displayedColumns: string[] = [];
@@ -113,17 +114,20 @@ export class AmwDataTableComponent implements OnInit, OnChanges, OnDestroy {
         private cdr: ChangeDetectorRef,
         @Inject(DialogService) private dialogService: DialogService
     ) {
-        // Component initialization
+        // Effect to reinitialize when data or config changes
+        effect(() => {
+            // Read signals to register dependencies
+            const data = this.data();
+            const config = this.config();
+            // Reinitialize component when signals change
+            if (config) {
+                this.initializeComponent();
+            }
+        });
     }
 
     ngOnInit(): void {
         this.initializeComponent();
-    }
-
-    ngOnChanges(changes: SimpleChanges): void {
-        if (changes['data'] || changes['config']) {
-            this.initializeComponent();
-        }
     }
 
     ngOnDestroy(): void {
@@ -135,7 +139,8 @@ export class AmwDataTableComponent implements OnInit, OnChanges, OnDestroy {
      * Initialize component
      */
     private initializeComponent(): void {
-        if (this.config) {
+        const configValue = this.config();
+        if (configValue) {
             this.setupColumns();
             this.setupPagination();
             this.applyFilters();
@@ -146,15 +151,16 @@ export class AmwDataTableComponent implements OnInit, OnChanges, OnDestroy {
      * Setup table columns
      */
     private setupColumns(): void {
-        if (!this.config?.columns) return;
+        const configValue = this.config();
+        if (!configValue?.columns) return;
 
-        this.displayedColumns = this.config.columns
-            .filter(col => col.visible !== false)
-            .map(col => col.property);
+        this.displayedColumns = configValue.columns
+            .filter((col: DataTableColumn) => col.visible !== false)
+            .map((col: DataTableColumn) => col.property);
 
         // Add selection column if enabled
-        if (this.config.selectable && this.config.selectionMode !== 'none') {
-            if (this.config.selectionPosition === 'start') {
+        if (configValue.selectable && configValue.selectionMode !== 'none') {
+            if (configValue.selectionPosition === 'start') {
                 this.displayedColumns.unshift('select');
             } else {
                 this.displayedColumns.push('select');
@@ -162,8 +168,8 @@ export class AmwDataTableComponent implements OnInit, OnChanges, OnDestroy {
         }
 
         // Add actions column if enabled
-        if (this.config.actions && this.config.actions.length > 0) {
-            if (this.config.actionsPosition === 'start') {
+        if (configValue.actions && configValue.actions.length > 0) {
+            if (configValue.actionsPosition === 'start') {
                 this.displayedColumns.unshift('actions');
             } else {
                 this.displayedColumns.push('actions');
@@ -175,15 +181,16 @@ export class AmwDataTableComponent implements OnInit, OnChanges, OnDestroy {
      * Setup pagination
      */
     private setupPagination(): void {
-        if (!this.config?.paginated) return;
+        const configValue = this.config();
+        if (!configValue?.paginated) return;
 
         this.pagination = {
             pageIndex: 0,
-            pageSize: this.config.defaultPageSize || 10,
-            length: this.data.length,
-            pageSizeOptions: this.config.pageSizeOptions || [5, 10, 25, 50, 100],
-            showFirstLastButtons: this.config.showFirstLastButtons !== false,
-            hidePageSize: this.config.showPageSizeSelector === false
+            pageSize: configValue.defaultPageSize || 10,
+            length: this.data().length,
+            pageSizeOptions: configValue.pageSizeOptions || [5, 10, 25, 50, 100],
+            showFirstLastButtons: configValue.showFirstLastButtons !== false,
+            hidePageSize: configValue.showPageSizeSelector === false
         };
     }
 
@@ -191,12 +198,13 @@ export class AmwDataTableComponent implements OnInit, OnChanges, OnDestroy {
      * Apply filters to data
      */
     private applyFilters(): void {
-        let filtered = [...this.data];
+        let filtered = [...this.data()];
 
         // Apply global filter
+        const configValue = this.config();
         if (this.globalFilter) {
             filtered = filtered.filter(row =>
-                this.config?.columns?.some(col =>
+                configValue?.columns?.some((col: DataTableColumn) =>
                     col.filterable !== false &&
                     this.matchesFilter(row[col.property], this.globalFilter, col)
                 )
@@ -356,7 +364,7 @@ export class AmwDataTableComponent implements OnInit, OnChanges, OnDestroy {
      * Get paginated data
      */
     getPaginatedData(): any[] {
-        if (!this.config?.paginated) {
+        if (!this.config()?.paginated) {
             return this.filteredData;
         }
 
@@ -414,7 +422,7 @@ export class AmwDataTableComponent implements OnInit, OnChanges, OnDestroy {
 
         this.selectionChange.emit({
             selected: Array.from(this.selectedRows),
-            mode: this.config?.selectionMode || 'multiple',
+            mode: this.config()?.selectionMode || 'multiple',
             allSelected: this.isAllSelected(),
             someSelected: this.selectedRows.size > 0,
             count: this.selectedRows.size
@@ -435,7 +443,7 @@ export class AmwDataTableComponent implements OnInit, OnChanges, OnDestroy {
 
         this.selectionChange.emit({
             selected: Array.from(this.selectedRows),
-            mode: this.config?.selectionMode || 'multiple',
+            mode: this.config()?.selectionMode || 'multiple',
             allSelected: selected,
             someSelected: false,
             count: this.selectedRows.size
@@ -480,7 +488,7 @@ export class AmwDataTableComponent implements OnInit, OnChanges, OnDestroy {
         }
 
         // Handle special edit action - trigger inline editing mode
-        if (action.id === 'edit' && this.config?.editable) {
+        if (action.id === 'edit' && this.config()?.editable) {
             // Store the custom save handler if it exists
             this.customSaveHandler = action.handler || null;
             this.startEditing(row, index);
@@ -535,9 +543,10 @@ export class AmwDataTableComponent implements OnInit, OnChanges, OnDestroy {
      * Get actions for a row
      */
     getRowActions(row: any, index: number): DataTableAction[] {
-        if (!this.config?.actions) return [];
+        const configValue = this.config();
+        if (!configValue?.actions) return [];
 
-        return this.config.actions.filter(action =>
+        return configValue.actions.filter((action: DataTableAction) =>
             this.isActionVisible(action, row, index)
         );
     }
@@ -546,14 +555,16 @@ export class AmwDataTableComponent implements OnInit, OnChanges, OnDestroy {
      * Check if actions are available
      */
     hasActions(): boolean {
-        return !!(this.config?.actions && this.config.actions.length > 0);
+        const configValue = this.config();
+        return !!(configValue?.actions && configValue.actions.length > 0);
     }
 
     /**
      * Check if there's a custom edit action defined
      */
     hasCustomEditAction(): boolean {
-        return !!(this.config?.actions && this.config.actions.some(action =>
+        const configValue = this.config();
+        return !!(configValue?.actions && configValue.actions.some((action: DataTableAction) =>
             action.id === 'edit' || action.label?.toLowerCase().includes('edit')
         ));
     }
@@ -655,7 +666,8 @@ export class AmwDataTableComponent implements OnInit, OnChanges, OnDestroy {
      * Start editing a row
      */
     startEditing(row: any, index: number): void {
-        if (!this.config?.editable) return;
+        const configValue = this.config();
+        if (!configValue?.editable) return;
 
         // Clear any existing field editing state for this row
         this.clearFieldEditingForRow(index);
@@ -667,7 +679,7 @@ export class AmwDataTableComponent implements OnInit, OnChanges, OnDestroy {
         this.editingState = {};
 
         // Mark all columns as not being edited initially
-        this.config.columns?.forEach(col => {
+        configValue.columns?.forEach((col: DataTableColumn) => {
             this.editingState[col.property] = false;
         });
     }
@@ -721,8 +733,9 @@ export class AmwDataTableComponent implements OnInit, OnChanges, OnDestroy {
     validateEditing(): boolean {
         this.editingErrors = {};
         let isValid = true;
+        const configValue = this.config();
 
-        this.config?.columns?.forEach(col => {
+        configValue?.columns?.forEach((col: DataTableColumn) => {
             if (col.editable && col.validation) {
                 const value = this.editingValues[col.property];
                 const errors: string[] = [];
@@ -846,7 +859,7 @@ export class AmwDataTableComponent implements OnInit, OnChanges, OnDestroy {
      * Get column configuration
      */
     getColumnConfig(property: string): DataTableColumn | undefined {
-        return this.config?.columns?.find(col => col.property === property);
+        return this.config()?.columns?.find((col: DataTableColumn) => col.property === property);
     }
 
     /**
@@ -888,7 +901,7 @@ export class AmwDataTableComponent implements OnInit, OnChanges, OnDestroy {
             classes.push('amw-data-table__row--editing');
         }
 
-        if (this.config?.striped && index % 2 === 1) {
+        if (this.config()?.striped && index % 2 === 1) {
             classes.push('amw-data-table__row--striped');
         }
 

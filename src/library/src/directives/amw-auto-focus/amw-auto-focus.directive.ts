@@ -1,12 +1,12 @@
-import { Directive, ElementRef, Input, OnInit, AfterViewInit, Renderer2 } from '@angular/core';
+import { Directive, ElementRef, input, OnInit, AfterViewInit, Renderer2 } from '@angular/core';
 
 @Directive({
     selector: '[amwAutoFocus]',
     standalone: true
 })
 export class AmwAutoFocusDirective implements OnInit, AfterViewInit {
-    @Input() amwAutoFocus: boolean = true;
-    @Input() amwAutoFocusDelay: number = 0;
+    amwAutoFocus = input<boolean>(true);
+    amwAutoFocusDelay = input<number>(0);
 
     constructor(
         private elementRef: ElementRef,
@@ -15,17 +15,17 @@ export class AmwAutoFocusDirective implements OnInit, AfterViewInit {
 
     ngOnInit(): void {
         // Focus immediately if no delay
-        if (this.amwAutoFocus && this.amwAutoFocusDelay === 0) {
+        if (this.amwAutoFocus() && this.amwAutoFocusDelay() === 0) {
             this.focusElement();
         }
     }
 
     ngAfterViewInit(): void {
         // Focus with delay if specified
-        if (this.amwAutoFocus && this.amwAutoFocusDelay > 0) {
+        if (this.amwAutoFocus() && this.amwAutoFocusDelay() > 0) {
             setTimeout(() => {
                 this.focusElement();
-            }, this.amwAutoFocusDelay);
+            }, this.amwAutoFocusDelay());
         }
     }
 

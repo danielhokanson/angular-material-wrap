@@ -1,4 +1,4 @@
-import { Component, Input, Output, EventEmitter, OnInit, OnDestroy, TemplateRef, ViewChild, ElementRef, AfterViewInit, ChangeDetectorRef, ViewContainerRef, ViewEncapsulation } from '@angular/core';
+import { Component, OnInit, OnDestroy, TemplateRef, ViewChild, ElementRef, AfterViewInit, AfterContentInit, ChangeDetectorRef, ViewContainerRef, ViewEncapsulation, ContentChild, input, output, model, signal, computed } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { MatIconModule } from '@angular/material/icon';
 import { MatCardModule } from '@angular/material/card';
@@ -7,24 +7,22 @@ import { MatRippleModule } from '@angular/material/core';
 import { OverlayModule, Overlay, OverlayRef, OverlayConfig } from '@angular/cdk/overlay';
 import { TemplatePortal } from '@angular/cdk/portal';
 import { Subject, takeUntil, fromEvent } from 'rxjs';
-import { BaseComponent } from '../../../controls/components/base/base.component';
 import { PopoverConfig } from './interfaces/popover-config.interface';
 import { PopoverTrigger } from './interfaces/popover-trigger.interface';
 import { AmwButtonComponent } from '../../../controls/components/amw-button/amw-button.component';
 
 /**
  * Angular Material Wrap Popover Component
- * 
+ *
  * A flexible popover component that provides positioning, triggering, and content management
  * with comprehensive configuration options and accessibility support.
- * 
+ *
  * @example
  * ```html
  * <amw-popover
  *   [config]="popoverConfig"
  *   [trigger]="popoverTrigger"
- *   [opened]="true"
- *   (openedChange)="onPopoverToggle($event)"
+ *   [(opened)]="isOpen"
  *   (beforeOpen)="onBeforeOpen()"
  *   (afterOpen)="onAfterOpen()"
  *   (beforeClose)="onBeforeClose()"
@@ -54,114 +52,132 @@ import { AmwButtonComponent } from '../../../controls/components/amw-button/amw-
     styleUrl: './amw-popover.component.scss',
     encapsulation: ViewEncapsulation.None
 })
-export class AmwPopoverComponent extends BaseComponent implements OnInit, OnDestroy, AfterViewInit {
+export class AmwPopoverComponent implements OnInit, OnDestroy, AfterViewInit, AfterContentInit {
+    // Signal-based inputs
     /** Configuration object for the popover */
-    @Input() config: PopoverConfig = {};
+    config = input<PopoverConfig>({});
 
     /** Trigger configuration for the popover */
-    @Input() trigger: PopoverTrigger = {};
+    trigger = input<PopoverTrigger>({});
 
-    /** Whether the popover is opened */
-    @Input() opened: boolean = false;
+    /** Whether the popover is opened (two-way bindable) */
+    opened = model<boolean>(false);
 
-    /** Custom trigger template */
-    @Input() triggerTemplate?: TemplateRef<any>;
+    /** Custom trigger template (via input) */
+    triggerTemplate = input<TemplateRef<any> | undefined>(undefined);
 
-    /** Custom content template */
-    @Input() contentTemplate?: TemplateRef<any>;
+    /** Custom content template (via input) */
+    contentTemplate = input<TemplateRef<any> | undefined>(undefined);
 
     /** Custom header template */
-    @Input() headerTemplate?: TemplateRef<any>;
+    headerTemplate = input<TemplateRef<any> | undefined>(undefined);
 
     /** Custom footer template */
-    @Input() footerTemplate?: TemplateRef<any>;
+    footerTemplate = input<TemplateRef<any> | undefined>(undefined);
 
     /** Popover content text */
-    @Input() content: string = '';
+    content = input<string>('');
 
     /** Popover size */
-    @Input() size: 'small' | 'medium' | 'large' = 'medium';
+    size = input<'small' | 'medium' | 'large'>('medium');
+
+    /** Whether the popover is disabled */
+    disabled = input<boolean>(false);
 
     /** Whether to show arrow */
-    @Input() showArrow: boolean = false;
+    showArrow = input<boolean>(false);
 
     /** Whether to show header */
-    @Input() showHeader: boolean = false;
+    showHeader = input<boolean>(false);
 
     /** Whether to show footer */
-    @Input() showFooter: boolean = false;
+    showFooter = input<boolean>(false);
 
     /** Whether to show close button */
-    @Input() showClose: boolean = true;
+    showClose = input<boolean>(true);
 
     /** Header title */
-    @Input() headerTitle: string = '';
+    headerTitle = input<string>('');
 
     /** Header subtitle */
-    @Input() headerSubtitle: string = '';
+    headerSubtitle = input<string>('');
 
     /** Footer text */
-    @Input() footerText: string = '';
+    footerText = input<string>('');
 
     /** Close button text */
-    @Input() closeButtonText: string = 'Close';
+    closeButtonText = input<string>('Close');
 
     /** Close button icon */
-    @Input() closeButtonIcon: string = 'close';
+    closeButtonIcon = input<string>('close');
 
     /** Arrow size */
-    @Input() arrowSize: 'small' | 'medium' | 'large' = 'medium';
+    arrowSize = input<'small' | 'medium' | 'large'>('medium');
 
     /** Arrow color */
-    @Input() arrowColor: string = 'var(--mat-sys-surface)';
+    arrowColor = input<string>('var(--mat-sys-surface)');
 
     /** Whether content is scrollable */
-    @Input() scrollable: boolean = false;
+    scrollable = input<boolean>(false);
 
     /** Z-index for the popover */
-    @Input() zIndex: number = 1000;
+    zIndex = input<number>(1000);
 
     /** Popover position */
-    @Input() position: 'top' | 'bottom' | 'left' | 'right' | 'top-left' | 'top-right' | 'bottom-left' | 'bottom-right' = 'bottom';
+    position = input<'top' | 'bottom' | 'left' | 'right' | 'top-left' | 'top-right' | 'bottom-left' | 'bottom-right'>('bottom');
 
     /** Whether to show backdrop */
-    @Input() backdrop: boolean = false;
+    backdrop = input<boolean>(false);
 
     /** Trigger icon */
-    @Input() triggerIcon: string = '';
+    triggerIcon = input<string>('');
 
     /** Trigger text */
-    @Input() triggerText: string = 'Click me';
+    triggerText = input<string>('Click me');
 
     /** Popover ID */
-    @Input() popoverId: string = '';
+    popoverId = input<string>('');
 
-    /** Event emitted when popover opened state changes */
-    @Output() openedChange = new EventEmitter<boolean>();
-
+    // Signal-based outputs
     /** Event emitted before popover opens */
-    @Output() beforeOpen = new EventEmitter<void>();
+    beforeOpen = output<void>();
 
     /** Event emitted after popover opens */
-    @Output() afterOpen = new EventEmitter<void>();
+    afterOpen = output<void>();
 
     /** Event emitted before popover closes */
-    @Output() beforeClose = new EventEmitter<void>();
+    beforeClose = output<void>();
 
     /** Event emitted after popover closes */
-    @Output() afterClose = new EventEmitter<void>();
+    afterClose = output<void>();
 
     /** Event emitted when popover is toggled */
-    @Output() toggle = new EventEmitter<boolean>();
+    toggle = output<boolean>();
 
     /** Event emitted when popover is closed */
-    @Output() close = new EventEmitter<void>();
+    close = output<void>();
+
+    /** Custom trigger template (via content projection) */
+    @ContentChild('trigger') projectedTriggerTemplate?: TemplateRef<any>;
+
+    /** Custom content template (via content projection) */
+    @ContentChild('content') projectedContentTemplate?: TemplateRef<any>;
 
     /** Reference to the trigger element */
     @ViewChild('triggerRef', { static: true }) triggerRef?: ElementRef<HTMLElement>;
 
     /** Reference to the content template */
     @ViewChild('contentRef', { static: false }) contentRef?: TemplateRef<any>;
+
+    // Internal signals for resolved templates
+    resolvedTriggerTemplate = signal<TemplateRef<any> | undefined>(undefined);
+    resolvedContentTemplate = signal<TemplateRef<any> | undefined>(undefined);
+
+    // Internal signal for generated popover ID
+    private generatedPopoverId = signal<string>('');
+
+    // Computed signal for actual popover ID
+    actualPopoverId = computed(() => this.popoverId() || this.generatedPopoverId());
 
     /** Overlay reference */
     private overlayRef?: OverlayRef;
@@ -194,18 +210,22 @@ export class AmwPopoverComponent extends BaseComponent implements OnInit, OnDest
         private overlay: Overlay,
         private cdr: ChangeDetectorRef,
         private viewContainerRef: ViewContainerRef
-    ) {
-        super();
-    }
+    ) {}
 
     ngOnInit(): void {
         this.initializeConfig();
-        this.setupGlobalEventListeners(); // Only global listeners, no trigger-specific ones
+        this.setupGlobalEventListeners();
 
         // Generate unique ID if not provided
-        if (!this.popoverId) {
-            this.popoverId = `amw-popover-${Math.random().toString(36).substr(2, 9)}`;
+        if (!this.popoverId()) {
+            this.generatedPopoverId.set(`amw-popover-${Math.random().toString(36).substr(2, 9)}`);
         }
+    }
+
+    ngAfterContentInit(): void {
+        // Use projected templates if input templates are not provided
+        this.resolvedTriggerTemplate.set(this.triggerTemplate() || this.projectedTriggerTemplate);
+        this.resolvedContentTemplate.set(this.contentTemplate() || this.projectedContentTemplate);
     }
 
     ngAfterViewInit(): void {
@@ -267,7 +287,7 @@ export class AmwPopoverComponent extends BaseComponent implements OnInit, OnDest
             animationDuration: 300,
             animationEasing: 'cubic-bezier(0.4, 0, 0.2, 1)',
             zIndex: 1000,
-            ...this.config
+            ...this.config()
         };
 
         this.currentTrigger = {
@@ -294,7 +314,7 @@ export class AmwPopoverComponent extends BaseComponent implements OnInit, OnDest
             ariaAttributes: true,
             ariaExpanded: false,
             ariaHasPopup: true,
-            ...this.trigger
+            ...this.trigger()
         };
     }
 
@@ -395,7 +415,7 @@ export class AmwPopoverComponent extends BaseComponent implements OnInit, OnDest
                 .pipe(takeUntil(this.destroy$))
                 .subscribe((event: Event) => {
                     const keyboardEvent = event as KeyboardEvent;
-                    if (keyboardEvent.key === 'Escape' && this.opened) {
+                    if (keyboardEvent.key === 'Escape' && this.opened()) {
                         this.closePopover();
                     }
                 });
@@ -407,7 +427,7 @@ export class AmwPopoverComponent extends BaseComponent implements OnInit, OnDest
                 .pipe(takeUntil(this.destroy$))
                 .subscribe((event: Event) => {
                     const mouseEvent = event as MouseEvent;
-                    if (this.opened && this.overlayRef && !this.overlayRef.overlayElement.contains(mouseEvent.target as Node)) {
+                    if (this.opened() && this.overlayRef && !this.overlayRef.overlayElement.contains(mouseEvent.target as Node)) {
                         this.closePopover();
                     }
                 });
@@ -415,15 +435,10 @@ export class AmwPopoverComponent extends BaseComponent implements OnInit, OnDest
 
         // Scroll
         if (this.currentTrigger.scroll) {
-            console.log('Setting up scroll listener, scroll enabled:', this.currentTrigger.scroll);
-
-            // Listen to scroll events on window, document, and document.body
             fromEvent(window, 'scroll')
                 .pipe(takeUntil(this.destroy$))
                 .subscribe(() => {
-                    console.log('Window scroll event fired, opened:', this.opened);
-                    if (this.opened) {
-                        console.log('Closing popover due to window scroll');
+                    if (this.opened()) {
                         this.closePopover();
                     }
                 });
@@ -431,9 +446,7 @@ export class AmwPopoverComponent extends BaseComponent implements OnInit, OnDest
             fromEvent(document, 'scroll')
                 .pipe(takeUntil(this.destroy$))
                 .subscribe(() => {
-                    console.log('Document scroll event fired, opened:', this.opened);
-                    if (this.opened) {
-                        console.log('Closing popover due to document scroll');
+                    if (this.opened()) {
                         this.closePopover();
                     }
                 });
@@ -441,25 +454,18 @@ export class AmwPopoverComponent extends BaseComponent implements OnInit, OnDest
             fromEvent(document.body, 'scroll')
                 .pipe(takeUntil(this.destroy$))
                 .subscribe(() => {
-                    console.log('Body scroll event fired, opened:', this.opened);
-                    if (this.opened) {
-                        console.log('Closing popover due to body scroll');
+                    if (this.opened()) {
                         this.closePopover();
                     }
                 });
 
-            // Also listen to scroll events on all scrollable containers
             fromEvent(document, 'scroll', { capture: true })
                 .pipe(takeUntil(this.destroy$))
                 .subscribe(() => {
-                    console.log('Captured scroll event fired, opened:', this.opened);
-                    if (this.opened) {
-                        console.log('Closing popover due to captured scroll');
+                    if (this.opened()) {
                         this.closePopover();
                     }
                 });
-        } else {
-            console.log('Scroll listener not set up, scroll disabled:', this.currentTrigger.scroll);
         }
 
         // Resize
@@ -467,8 +473,7 @@ export class AmwPopoverComponent extends BaseComponent implements OnInit, OnDest
             fromEvent(window, 'resize')
                 .pipe(takeUntil(this.destroy$))
                 .subscribe(() => {
-                    if (this.opened && this.overlayRef) {
-                        // Reposition the popover instead of closing it
+                    if (this.opened() && this.overlayRef) {
                         this.positionPopover();
                     }
                 });
@@ -479,7 +484,7 @@ export class AmwPopoverComponent extends BaseComponent implements OnInit, OnDest
             fromEvent(window, 'orientationchange')
                 .pipe(takeUntil(this.destroy$))
                 .subscribe(() => {
-                    if (this.opened) {
+                    if (this.opened()) {
                         this.closePopover();
                     }
                 });
@@ -490,7 +495,7 @@ export class AmwPopoverComponent extends BaseComponent implements OnInit, OnDest
             fromEvent(window, 'blur')
                 .pipe(takeUntil(this.destroy$))
                 .subscribe(() => {
-                    if (this.opened) {
+                    if (this.opened()) {
                         this.closePopover();
                     }
                 });
@@ -501,7 +506,7 @@ export class AmwPopoverComponent extends BaseComponent implements OnInit, OnDest
             fromEvent(window, 'focus')
                 .pipe(takeUntil(this.destroy$))
                 .subscribe(() => {
-                    if (this.opened) {
+                    if (this.opened()) {
                         this.closePopover();
                     }
                 });
@@ -512,8 +517,7 @@ export class AmwPopoverComponent extends BaseComponent implements OnInit, OnDest
             fromEvent(window, 'resize')
                 .pipe(takeUntil(this.destroy$))
                 .subscribe(() => {
-                    if (this.opened && this.overlayRef) {
-                        // Reposition the popover instead of closing it
+                    if (this.opened() && this.overlayRef) {
                         this.positionPopover();
                     }
                 });
@@ -524,7 +528,7 @@ export class AmwPopoverComponent extends BaseComponent implements OnInit, OnDest
             fromEvent(window, 'scroll')
                 .pipe(takeUntil(this.destroy$))
                 .subscribe(() => {
-                    if (this.opened) {
+                    if (this.opened()) {
                         this.closePopover();
                     }
                 });
@@ -534,8 +538,7 @@ export class AmwPopoverComponent extends BaseComponent implements OnInit, OnDest
         fromEvent(window, 'resize')
             .pipe(takeUntil(this.destroy$))
             .subscribe(() => {
-                if (this.opened) {
-                    // Check if this is a zoom event by comparing innerWidth/innerHeight ratio
+                if (this.opened()) {
                     const currentZoom = window.innerWidth / window.outerWidth;
                     if (this.lastZoomLevel && Math.abs(currentZoom - this.lastZoomLevel) > 0.01) {
                         this.closePopover();
@@ -549,7 +552,7 @@ export class AmwPopoverComponent extends BaseComponent implements OnInit, OnDest
             fromEvent(window, 'orientationchange')
                 .pipe(takeUntil(this.destroy$))
                 .subscribe(() => {
-                    if (this.opened) {
+                    if (this.opened()) {
                         this.closePopover();
                     }
                 });
@@ -560,7 +563,7 @@ export class AmwPopoverComponent extends BaseComponent implements OnInit, OnDest
             fromEvent(document, 'visibilitychange')
                 .pipe(takeUntil(this.destroy$))
                 .subscribe(() => {
-                    if (this.opened) {
+                    if (this.opened()) {
                         this.closePopover();
                     }
                 });
@@ -576,7 +579,6 @@ export class AmwPopoverComponent extends BaseComponent implements OnInit, OnDest
             return;
         }
 
-        // Use global positioning strategy as fallback when trigger dimensions are unreliable
         const overlayConfig: OverlayConfig = {
             positionStrategy: this.overlay.position().global()
                 .centerHorizontally()
@@ -592,120 +594,19 @@ export class AmwPopoverComponent extends BaseComponent implements OnInit, OnDest
 
         this.overlayRef = this.overlay.create(overlayConfig);
 
-        // Add a listener to see when the overlay is attached
         this.overlayRef.attachments().subscribe(() => {
             // Overlay attached
         });
 
-        // Add a listener to see when the overlay is detached
         this.overlayRef.detachments().subscribe(() => {
             // Overlay detached
         });
 
-        // Add a listener to see when the overlay is clicked
         this.overlayRef.backdropClick().subscribe(() => {
             if (this.currentConfig.clickOutsideClose) {
                 this.closePopover();
             }
         });
-    }
-
-    /**
-     * Gets the position configuration
-     */
-    private getPositionConfig(): any[] {
-        const positions = [];
-        const position = this.currentConfig.position || 'bottom';
-        const offsetX = this.currentConfig.offsetX || 0;
-        const offsetY = this.currentConfig.offsetY || 0;
-
-        console.log('AmwPopover: Position config - position:', position, 'offsetX:', offsetX, 'offsetY:', offsetY);
-
-        switch (position) {
-            case 'top':
-                positions.push({
-                    originX: 'center',
-                    originY: 'top',
-                    overlayX: 'center',
-                    overlayY: 'bottom',
-                    offsetX,
-                    offsetY: -offsetY
-                });
-                break;
-            case 'bottom':
-                positions.push({
-                    originX: 'center',
-                    originY: 'bottom',
-                    overlayX: 'center',
-                    overlayY: 'top',
-                    offsetX,
-                    offsetY
-                });
-                break;
-            case 'left':
-                positions.push({
-                    originX: 'start',
-                    originY: 'center',
-                    overlayX: 'end',
-                    overlayY: 'center',
-                    offsetX: -offsetX,
-                    offsetY
-                });
-                break;
-            case 'right':
-                positions.push({
-                    originX: 'end',
-                    originY: 'center',
-                    overlayX: 'start',
-                    overlayY: 'center',
-                    offsetX,
-                    offsetY
-                });
-                break;
-            case 'top-left':
-                positions.push({
-                    originX: 'start',
-                    originY: 'top',
-                    overlayX: 'start',
-                    overlayY: 'bottom',
-                    offsetX,
-                    offsetY: -offsetY
-                });
-                break;
-            case 'top-right':
-                positions.push({
-                    originX: 'end',
-                    originY: 'top',
-                    overlayX: 'end',
-                    overlayY: 'bottom',
-                    offsetX: -offsetX,
-                    offsetY: -offsetY
-                });
-                break;
-            case 'bottom-left':
-                positions.push({
-                    originX: 'start',
-                    originY: 'bottom',
-                    overlayX: 'start',
-                    overlayY: 'top',
-                    offsetX,
-                    offsetY
-                });
-                break;
-            case 'bottom-right':
-                positions.push({
-                    originX: 'end',
-                    originY: 'bottom',
-                    overlayX: 'end',
-                    overlayY: 'top',
-                    offsetX: -offsetX,
-                    offsetY
-                });
-                break;
-        }
-
-        console.log('AmwPopover: Generated positions:', positions);
-        return positions;
     }
 
     /**
@@ -728,59 +629,42 @@ export class AmwPopoverComponent extends BaseComponent implements OnInit, OnDest
     }
 
     /**
-     * Gets the popover height
-     */
-    private getPopoverHeight(): string | number | undefined {
-        if (this.currentConfig.height) {
-            return this.currentConfig.height;
-        }
-
-        return 'auto';
-    }
-
-    /**
      * Opens the popover
      */
     openPopover(): void {
-        if (this.isOpening || this.isClosing || this.opened || this.currentConfig.disabled) {
+        if (this.isOpening || this.isClosing || this.opened() || this.currentConfig.disabled) {
             return;
         }
 
         this.isOpening = true;
         this.beforeOpen.emit();
 
-
         if (this.overlayRef && !this.overlayRef.hasAttached()) {
-            // Use TemplatePortal with the content template instead of ComponentPortal
             if (this.contentRef) {
                 const portal = new TemplatePortal(this.contentRef, this.viewContainerRef);
                 this.overlayRef.attach(portal);
             } else {
-                // Fallback: Create content directly
                 this.createFallbackContent();
             }
 
-            // Position the popover manually after attachment
             setTimeout(() => {
                 this.positionPopover();
             }, 0);
         }
 
-        this.opened = true;
-        this.openedChange.emit(true);
+        this.opened.set(true);
         this.toggle.emit(true);
         this.afterOpen.emit();
 
         this.isOpening = false;
-        this.cdr.detectChanges(); // Re-enable change detection for proper rendering
-
+        this.cdr.detectChanges();
     }
 
     /**
      * Closes the popover
      */
     closePopover(): void {
-        if (this.isOpening || this.isClosing || !this.opened) {
+        if (this.isOpening || this.isClosing || !this.opened()) {
             return;
         }
 
@@ -791,20 +675,18 @@ export class AmwPopoverComponent extends BaseComponent implements OnInit, OnDest
             this.overlayRef.detach();
         }
 
-        this.opened = false;
-        this.openedChange.emit(false);
+        this.opened.set(false);
         this.close.emit();
         this.afterClose.emit();
 
         this.isClosing = false;
-        // REMOVED: this.cdr.detectChanges(); - can cause infinite loops
     }
 
     /**
      * Toggles the popover
      */
     togglePopover(): void {
-        if (this.opened) {
+        if (this.opened()) {
             this.closePopover();
         } else {
             this.openPopover();
@@ -822,9 +704,8 @@ export class AmwPopoverComponent extends BaseComponent implements OnInit, OnDest
      * Handles trigger click event
      */
     onTriggerClick(event: Event): void {
-        if (this.isDisabled || this.isOpening || this.isClosing) return;
+        if (this.disabled() || this.isOpening || this.isClosing) return;
 
-        // Prevent event bubbling to avoid duplicate handling
         event.stopPropagation();
 
         if (this.currentTrigger.type === 'click') {
@@ -836,9 +717,8 @@ export class AmwPopoverComponent extends BaseComponent implements OnInit, OnDest
      * Handles trigger mouse enter event
      */
     onTriggerMouseEnter(event: Event): void {
-        if (this.isDisabled || this.isOpening || this.isClosing || this.currentTrigger.type !== 'hover') return;
+        if (this.disabled() || this.isOpening || this.isClosing || this.currentTrigger.type !== 'hover') return;
 
-        // Clear any existing close timeout
         if (this.closeTimeout) {
             clearTimeout(this.closeTimeout);
             this.closeTimeout = undefined;
@@ -857,9 +737,8 @@ export class AmwPopoverComponent extends BaseComponent implements OnInit, OnDest
      * Handles trigger mouse leave event
      */
     onTriggerMouseLeave(event: Event): void {
-        if (this.isDisabled || this.isOpening || this.isClosing || this.currentTrigger.type !== 'hover') return;
+        if (this.disabled() || this.isOpening || this.isClosing || this.currentTrigger.type !== 'hover') return;
 
-        // Clear any existing hover timeout
         if (this.hoverTimeout) {
             clearTimeout(this.hoverTimeout);
             this.hoverTimeout = undefined;
@@ -878,7 +757,7 @@ export class AmwPopoverComponent extends BaseComponent implements OnInit, OnDest
      * Handles trigger focus event
      */
     onTriggerFocus(event: Event): void {
-        if (this.isDisabled || this.isOpening || this.isClosing || this.currentTrigger.type !== 'focus') return;
+        if (this.disabled() || this.isOpening || this.isClosing || this.currentTrigger.type !== 'focus') return;
         this.openPopover();
     }
 
@@ -886,7 +765,7 @@ export class AmwPopoverComponent extends BaseComponent implements OnInit, OnDest
      * Handles trigger blur event
      */
     onTriggerBlur(event: Event): void {
-        if (this.isDisabled || this.isOpening || this.isClosing || this.currentTrigger.type !== 'focus') return;
+        if (this.disabled() || this.isOpening || this.isClosing || this.currentTrigger.type !== 'focus') return;
         this.closePopover();
     }
 
@@ -894,13 +773,13 @@ export class AmwPopoverComponent extends BaseComponent implements OnInit, OnDest
      * Handles trigger keydown event
      */
     onTriggerKeyDown(event: KeyboardEvent): void {
-        if (this.isDisabled || this.isOpening || this.isClosing) return;
+        if (this.disabled() || this.isOpening || this.isClosing) return;
 
         if (event.key === 'Enter' || event.key === ' ') {
             event.preventDefault();
             event.stopPropagation();
             this.togglePopover();
-        } else if (event.key === 'Escape' && this.opened) {
+        } else if (event.key === 'Escape' && this.opened()) {
             event.preventDefault();
             event.stopPropagation();
             this.closePopover();
@@ -915,7 +794,6 @@ export class AmwPopoverComponent extends BaseComponent implements OnInit, OnDest
             this.closePopover();
         }
     }
-
 
     /**
      * Gets the CSS classes for the popover
@@ -1051,10 +929,10 @@ export class AmwPopoverComponent extends BaseComponent implements OnInit, OnDest
         const overlayElement = this.overlayRef.overlayElement;
         if (overlayElement) {
             overlayElement.innerHTML = `
-                <div id="${this.popoverId}" class="amw-popover__popover amw-popover__popover--visible amw-popover__popover--medium" role="dialog" aria-hidden="false">
-                    <div class="amw-popover__content" id="${this.popoverId}-content">
+                <div id="${this.actualPopoverId()}" class="amw-popover__popover amw-popover__popover--visible amw-popover__popover--medium" role="dialog" aria-hidden="false">
+                    <div class="amw-popover__content" id="${this.actualPopoverId()}-content">
                         <div class="amw-popover__default-content">
-                            <p>${this.content || 'Popover content'}</p>
+                            <p>${this.content() || 'Popover content'}</p>
                         </div>
                     </div>
                 </div>
@@ -1073,23 +951,19 @@ export class AmwPopoverComponent extends BaseComponent implements OnInit, OnDest
 
         if (!overlayElement) return;
 
-        // Get trigger position
         const triggerRect = triggerElement.getBoundingClientRect();
         const viewportWidth = window.innerWidth;
         const viewportHeight = window.innerHeight;
 
-        // Get popover dimensions
         const popoverRect = overlayElement.getBoundingClientRect();
-        const popoverWidth = popoverRect.width || 300; // fallback to config width
-        const popoverHeight = popoverRect.height || 200; // fallback height
+        const popoverWidth = popoverRect.width || 300;
+        const popoverHeight = popoverRect.height || 200;
 
-
-        // Calculate position based on configured position
         let left: number;
         let top: number;
         const gap = 8;
 
-        switch (this.position) {
+        switch (this.position()) {
             case 'right':
                 left = triggerRect.right + gap;
                 top = triggerRect.top + (triggerRect.height / 2) - (popoverHeight / 2);
@@ -1123,7 +997,6 @@ export class AmwPopoverComponent extends BaseComponent implements OnInit, OnDest
                 top = triggerRect.bottom + gap;
                 break;
             default:
-                // Default to right
                 left = triggerRect.right + gap;
                 top = triggerRect.top + (triggerRect.height / 2) - (popoverHeight / 2);
         }
@@ -1138,12 +1011,10 @@ export class AmwPopoverComponent extends BaseComponent implements OnInit, OnDest
             top = viewportHeight - popoverHeight - gap;
         }
 
-        // Apply position
         overlayElement.style.position = 'fixed';
         overlayElement.style.left = `${left}px`;
         overlayElement.style.top = `${top}px`;
         overlayElement.style.transform = 'none';
-
     }
 
     /**
@@ -1161,4 +1032,3 @@ export class AmwPopoverComponent extends BaseComponent implements OnInit, OnDest
         }
     }
 }
-

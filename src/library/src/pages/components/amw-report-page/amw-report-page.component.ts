@@ -1,4 +1,4 @@
-import { Component, Input, Output, EventEmitter, OnInit, OnDestroy, ViewEncapsulation, ChangeDetectorRef, Inject, Optional, Injectable } from '@angular/core';
+import { Component, input, output, OnInit, OnDestroy, ViewEncapsulation, ChangeDetectorRef, Inject, Optional, Injectable } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule, ReactiveFormsModule, FormBuilder, FormGroup } from '@angular/forms';
 import { MatCardModule } from '@angular/material/card';
@@ -106,15 +106,17 @@ export class DefaultReportPageDataSource implements ReportPageDataSource {
     ]
 })
 export class AmwReportPageComponent implements OnInit, OnDestroy {
-    @Input() config: ReportPageConfig = { widgets: [] };
-    @Input() dataSource?: ReportPageDataSource;
-    @Input() autoRefresh = false;
-    @Input() refreshInterval = 300000; // 5 minutes
+    // Signal inputs
+    config = input<ReportPageConfig>({ widgets: [] });
+    dataSource = input<ReportPageDataSource | undefined>(undefined);
+    autoRefresh = input<boolean>(false);
+    refreshInterval = input<number>(300000); // 5 minutes
 
-    @Output() widgetClick = new EventEmitter<{ widget: ReportWidget; data: any }>();
-    @Output() filterChange = new EventEmitter<{ filters: { [key: string]: any }; dateRange: DateRange }>();
-    @Output() dateRangeChange = new EventEmitter<DateRange>();
-    @Output() exportClick = new EventEmitter<{ format: string; data: any }>();
+    // Signal outputs
+    widgetClick = output<{ widget: ReportWidget; data: any }>();
+    filterChange = output<{ filters: { [key: string]: any }; dateRange: DateRange }>();
+    dateRangeChange = output<DateRange>();
+    exportClick = output<{ format: string; data: any }>();
 
     // Current state
     currentConfig: ReportPageConfig = { widgets: [] };
@@ -170,7 +172,7 @@ export class AmwReportPageComponent implements OnInit, OnDestroy {
             customActions: [],
             customClasses: [],
             customStyles: {},
-            ...this.config
+            ...this.config()
         };
 
         this.currentData.dateRange = this.currentConfig.dateRange || this.currentData.dateRange;
@@ -180,7 +182,7 @@ export class AmwReportPageComponent implements OnInit, OnDestroy {
         this.loading = true;
         this.error = null;
 
-        const dataSource = this.dataSource || this.injectedDataSource;
+        const dataSource = this.dataSource() || this.injectedDataSource;
         if (!dataSource) {
             this.error = 'No data source provided';
             this.loading = false;
@@ -255,7 +257,9 @@ export class AmwReportPageComponent implements OnInit, OnDestroy {
     }
 
     onDateRangeChange(): void {
-        this.dateRangeChange.emit(this.currentData.dateRange);
+        if (this.currentData.dateRange) {
+            this.dateRangeChange.emit(this.currentData.dateRange);
+        }
         this.loadData();
     }
 

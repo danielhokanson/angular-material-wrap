@@ -50,10 +50,28 @@
       display: flex;
       flex-direction: column;
 
+      // Card header styling - amw-card uses mat-card internally
       mat-card-header {
         padding: 16px 24px;
         border-bottom: 1px solid var(--mdc-theme-outline-variant);
+        display: flex;
+        flex-direction: column;
 
+        // Custom header template content (h2 and .subtitle)
+        h2 {
+          margin: 0;
+          font-size: 1.5rem;
+          font-weight: 400;
+          color: var(--mdc-theme-on-surface);
+        }
+
+        .subtitle {
+          margin: 4px 0 0 0;
+          font-size: 0.875rem;
+          color: var(--mdc-theme-on-surface-variant);
+        }
+
+        // Standard card title/subtitle
         mat-card-title {
           font-size: 1.5rem;
           font-weight: 400;
@@ -82,50 +100,54 @@
     .demo-tabs {
       height: 100%;
 
-      ::ng-deep .mat-mdc-tab-group {
+      // AMW Tabs styling (uses BEM-style classes)
+      .amw-tabs {
         height: 100%;
+        box-shadow: none;
+        border-radius: 0;
+        background: transparent;
+      }
 
-        .mat-mdc-tab-header {
-          border-bottom: 1px solid var(--mdc-theme-outline-variant);
-          background: var(--mdc-theme-surface);
+      .amw-tabs__header {
+        border-bottom: 1px solid var(--mdc-theme-outline-variant);
+        background: var(--mdc-theme-surface);
+        min-height: 48px;
+      }
+
+      .amw-tabs__list {
+        gap: 0;
+      }
+
+      .amw-tabs__tab {
+        min-width: 120px;
+        height: 48px;
+        padding: 12px 24px;
+        border-radius: 0;
+
+        &--disabled {
+          opacity: 0.38;
         }
+      }
 
-        .mat-mdc-tab-labels {
-          .mat-mdc-tab {
-            min-width: 120px;
-            height: 48px;
+      .amw-tabs__tab-content {
+        display: flex;
+        align-items: center;
+        gap: 8px;
+      }
 
-            .mat-mdc-tab-label-content {
-              display: flex;
-              align-items: center;
-              gap: 8px;
-            }
+      .amw-tabs__content {
+        height: calc(100% - 49px);
+        flex: 1;
+      }
 
-            &.mat-mdc-tab-disabled {
-              opacity: 0.38;
-            }
-          }
-        }
+      .amw-tabs__panel {
+        height: 100%;
+      }
 
-        .mat-mdc-tab-body-wrapper {
-          height: calc(100% - 48px);
-          flex: 1;
-        }
-
-        .mat-mdc-tab-body {
-          height: 100%;
-        }
-
-        .mat-mdc-tab-body-content {
-          height: 100%;
-          overflow: auto;
-          padding: 24px;
-
-          // Remove padding for full-width content
-          &.no-padding {
-            padding: 0;
-          }
-        }
+      .amw-tabs__panel-body {
+        height: 100%;
+        overflow: auto;
+        padding: 24px;
       }
     }
 
@@ -173,7 +195,7 @@
     }
 
     .demo-tabs {
-      ::ng-deep .mat-mdc-tab-body-content {
+      .amw-tabs__panel-body {
         padding: 16px;
       }
     }
@@ -197,17 +219,16 @@
     }
 
     .demo-tabs {
-      ::ng-deep .mat-mdc-tab-labels {
-        .mat-mdc-tab {
-          min-width: 80px;
-
-          .mat-mdc-tab-label-content {
-            font-size: 0.875rem;
-          }
-        }
+      .amw-tabs__tab {
+        min-width: 80px;
+        padding: 12px 16px;
       }
 
-      ::ng-deep .mat-mdc-tab-body-content {
+      .amw-tabs__tab-label {
+        font-size: 0.875rem;
+      }
+
+      .amw-tabs__panel-body {
         padding: 12px;
       }
     }

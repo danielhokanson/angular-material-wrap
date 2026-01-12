@@ -32,17 +32,17 @@
     margin-bottom: 32px;
     background: var(--mat-sys-surface-container);
 
-    .mat-card-header {
+    .amw-card-header {
       padding-bottom: 16px;
     }
 
-    .mat-card-title {
+    .amw-card-title {
       color: var(--mat-sys-on-surface);
       font-size: 1.25rem;
       font-weight: 500;
     }
 
-    .mat-card-subtitle {
+    .amw-card-subtitle {
       color: var(--mat-sys-on-surface-variant);
       font-size: 0.875rem;
     }
@@ -97,17 +97,17 @@
       box-shadow: var(--mat-sys-elevation-2);
     }
 
-    .mat-card-header {
+    .amw-card-header {
       padding-bottom: 8px;
     }
 
-    .mat-card-title {
+    .amw-card-title {
       color: var(--mat-sys-on-surface);
       font-size: 1rem;
       font-weight: 500;
     }
 
-    .mat-card-subtitle {
+    .amw-card-subtitle {
       color: var(--mat-sys-on-surface-variant);
       font-size: 0.875rem;
     }
@@ -139,7 +139,7 @@
     font-size: 0.75rem;
     font-weight: 500;
 
-    mat-icon {
+    amw-icon {
       font-size: 16px;
       width: 16px;
       height: 16px;
@@ -184,7 +184,7 @@
     font-size: 0.7rem;
     color: var(--mat-sys-on-surface);
 
-    mat-icon {
+    amw-icon {
       font-size: 12px;
       width: 12px;
       height: 12px;
@@ -319,7 +319,7 @@
   }
 
   // Dark Theme Adjustments
-  .mat-theme-dark & {
+  .amw-theme-dark & {
     &__config {
       background: var(--mat-sys-surface-container);
     }

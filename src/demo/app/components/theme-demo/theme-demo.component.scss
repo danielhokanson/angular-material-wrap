@@ -52,15 +52,15 @@
         gap: 24px;
 
         .preview-card {
-          .mat-mdc-card-header {
-            .mat-mdc-card-title {
+          .amw-card__header {
+            .amw-card__title {
               font-size: 1.2rem;
               font-weight: 500;
               color: var(--mat-foreground);
             }
           }
 
-          .mat-mdc-card-content {
+          .amw-card__content {
             .button-group {
               display: flex;
               flex-wrap: wrap;
@@ -77,7 +77,7 @@
               flex-direction: column;
               gap: 16px;
 
-              .mat-mdc-form-field {
+              amw-input {
                 width: 100%;
               }
             }
@@ -87,7 +87,7 @@
               flex-direction: column;
               gap: 16px;
 
-              .mat-mdc-radio-group {
+              amw-radio-group {
                 display: flex;
                 flex-direction: column;
                 gap: 8px;
@@ -105,7 +105,7 @@
                 opacity: 0.8;
               }
 
-              .mat-mdc-slider {
+              amw-slider {
                 width: 100%;
               }
             }
@@ -116,7 +116,7 @@
               gap: 16px;
               align-items: center;
 
-              mat-icon {
+              amw-icon {
                 font-size: 24px;
                 width: 24px;
                 height: 24px;
@@ -186,13 +186,13 @@
 
       .preview-grid {
         .preview-card {
-          .mat-mdc-card-header {
-            .mat-mdc-card-title {
+          .amw-card__header {
+            .amw-card__title {
               color: var(--mat-foreground);
             }
           }
 
-          .mat-mdc-card-content {
+          .amw-card__content {
             .slider-group {
               label {
                 color: var(--mat-foreground);

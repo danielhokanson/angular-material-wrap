@@ -1,8 +1,7 @@
 import {
   Component,
-  Input,
-  Output,
-  EventEmitter,
+  input,
+  output,
   OnInit,
   OnDestroy,
   ViewEncapsulation,
@@ -91,62 +90,62 @@ export class AmwMasterDetailPageComponent implements OnInit, OnDestroy {
   /**
    * Configuration for the master-detail view
    */
-  @Input() config!: MasterDetailConfig;
+  config = input.required<MasterDetailConfig>();
 
   /**
    * Data source for loading data
    */
-  @Input() dataSource?: MasterDetailDataSource;
+  dataSource = input<MasterDetailDataSource | undefined>(undefined);
 
   /**
    * ID of item to select initially
    */
-  @Input() selectedItemId?: string;
+  selectedItemId = input<string | undefined>(undefined);
 
   /**
    * Whether to enable real-time updates
    */
-  @Input() realTimeUpdates = false;
+  realTimeUpdates = input<boolean>(false);
 
   /**
    * Whether to auto-refresh data
    */
-  @Input() autoRefresh = false;
+  autoRefresh = input<boolean>(false);
 
   /**
    * Auto-refresh interval in milliseconds
    */
-  @Input() refreshInterval = 30000;
+  refreshInterval = input<number>(30000);
 
   /**
    * Emits when an item is selected
    */
-  @Output() itemSelect = new EventEmitter<{ item: any; selected: boolean }>();
+  itemSelect = output<{ item: any; selected: boolean }>();
 
   /**
    * Emits when an item is double-clicked
    */
-  @Output() itemDoubleClick = new EventEmitter<any>();
+  itemDoubleClick = output<any>();
 
   /**
    * Emits when an action is clicked
    */
-  @Output() actionClick = new EventEmitter<{ action: string; item: any }>();
+  actionClick = output<{ action: string; item: any }>();
 
   /**
    * Emits when a bulk action is clicked
    */
-  @Output() bulkActionClick = new EventEmitter<{ action: string; items: any[] }>();
+  bulkActionClick = output<{ action: string; items: any[] }>();
 
   /**
    * Emits when master data is loaded
    */
-  @Output() masterDataLoad = new EventEmitter<MasterDetailData>();
+  masterDataLoad = output<MasterDetailData>();
 
   /**
    * Emits when detail data is loaded
    */
-  @Output() detailDataLoad = new EventEmitter<any>();
+  detailDataLoad = output<any>();
 
   // Current state
   currentConfig!: MasterDetailConfig;
@@ -177,11 +176,12 @@ export class AmwMasterDetailPageComponent implements OnInit, OnDestroy {
     this.checkResponsive();
     this.loadMasterData();
 
-    if (this.selectedItemId) {
-      this.selectItemById(this.selectedItemId);
+    const selectedId = this.selectedItemId();
+    if (selectedId) {
+      this.selectItemById(selectedId);
     }
 
-    if (this.autoRefresh) {
+    if (this.autoRefresh()) {
       this.startAutoRefresh();
     }
   }
@@ -212,7 +212,7 @@ export class AmwMasterDetailPageComponent implements OnInit, OnDestroy {
       splitMode: 'vertical',
       responsiveBreakpoint: 768,
       density: 'comfortable',
-      ...this.config
+      ...this.config()
     };
 
     this.masterPanelWidth = this.currentConfig.masterWidth!;
@@ -222,7 +222,7 @@ export class AmwMasterDetailPageComponent implements OnInit, OnDestroy {
    * Load master panel data
    */
   loadMasterData(): void {
-    const source = this.dataSource || new DefaultMasterDetailDataSource();
+    const source = this.dataSource() || new DefaultMasterDetailDataSource();
 
     this.loading = true;
     this.error = null;
@@ -235,13 +235,13 @@ export class AmwMasterDetailPageComponent implements OnInit, OnDestroy {
       })
       .pipe(takeUntil(this.destroy$))
       .subscribe({
-        next: (data) => {
+        next: (data: MasterDetailData) => {
           this.masterItems = data.items;
           this.loading = false;
           this.masterDataLoad.emit(data);
           this.cdr.detectChanges();
         },
-        error: (err) => {
+        error: (err: any) => {
           this.error = 'Failed to load data';
           this.loading = false;
           console.error('Master data load error:', err);
@@ -254,7 +254,7 @@ export class AmwMasterDetailPageComponent implements OnInit, OnDestroy {
    * Load detail data for selected item
    */
   private loadDetailData(itemId: string): void {
-    const source = this.dataSource || new DefaultMasterDetailDataSource();
+    const source = this.dataSource() || new DefaultMasterDetailDataSource();
 
     this.loadingDetail = true;
 
@@ -262,13 +262,13 @@ export class AmwMasterDetailPageComponent implements OnInit, OnDestroy {
       .getDetailData(itemId)
       .pipe(takeUntil(this.destroy$))
       .subscribe({
-        next: (data) => {
+        next: (data: any) => {
           this.detailData = data;
           this.loadingDetail = false;
           this.detailDataLoad.emit(data);
           this.cdr.detectChanges();
         },
-        error: (err) => {
+        error: (err: any) => {
           this.loadingDetail = false;
           console.error('Detail data load error:', err);
           this.cdr.detectChanges();
@@ -343,7 +343,7 @@ export class AmwMasterDetailPageComponent implements OnInit, OnDestroy {
   private startAutoRefresh(): void {
     this.refreshInterval$ = setInterval(() => {
       this.refresh();
-    }, this.refreshInterval);
+    }, this.refreshInterval());
   }
 
   /**

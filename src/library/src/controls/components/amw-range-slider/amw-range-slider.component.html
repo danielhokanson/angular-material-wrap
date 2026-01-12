@@ -1,20 +1,20 @@
 <div class="amw-range-slider"
-  [class.amw-range-slider--disabled]="disabled"
-  [class.amw-range-slider--vertical]="vertical">
+  [class.amw-range-slider--disabled]="disabled()"
+  [class.amw-range-slider--vertical]="vertical()">
 
-  @if (label) {
-    <label class="amw-range-slider__label">{{ label }}</label>
+  @if (label()) {
+    <label class="amw-range-slider__label">{{ label() }}</label>
   }
 
   <div class="amw-range-slider__container">
     <!-- Range Slider with Start and End Thumbs -->
     <mat-slider
       class="amw-range-slider__slider"
-      [min]="min"
-      [max]="max"
-      [step]="step"
-      [disabled]="disabled"
-      [showTickMarks]="showTicks"
+      [min]="min()"
+      [max]="max()"
+      [step]="step()"
+      [disabled]="disabled()"
+      [showTickMarks]="showTicks()"
       [color]="getMaterialColor()">
       <input matSliderStartThumb
         [ngModel]="startValue"
@@ -25,22 +25,22 @@
     </mat-slider>
   </div>
 
-  @if (errorMessage || hasError) {
+  @if (errorMessage() || hasError()) {
     <div class="amw-range-slider__error">
-      {{ errorMessage }}
+      {{ errorMessage() }}
     </div>
   }
 
-  @if (startThumbLabel || endThumbLabel) {
+  @if (startThumbLabel() || endThumbLabel()) {
     <div class="amw-range-slider__labels">
-      @if (startThumbLabel) {
+      @if (startThumbLabel()) {
         <span class="amw-range-slider__thumb-label amw-range-slider__thumb-label--start">
-          {{ startThumbLabel }}
+          {{ startThumbLabel() }}
         </span>
       }
-      @if (endThumbLabel) {
+      @if (endThumbLabel()) {
         <span class="amw-range-slider__thumb-label amw-range-slider__thumb-label--end">
-          {{ endThumbLabel }}
+          {{ endThumbLabel() }}
         </span>
       }
     </div>

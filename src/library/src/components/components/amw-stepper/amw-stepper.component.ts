@@ -1,10 +1,10 @@
-import { Component, Input, Output, EventEmitter, OnInit, OnDestroy, ViewEncapsulation, ChangeDetectorRef } from '@angular/core';
+import { Component, input, output, signal, model, computed, OnInit, OnDestroy, ViewEncapsulation, ChangeDetectorRef } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { MatStepperModule } from '@angular/material/stepper';
 import { MatIconModule } from '@angular/material/icon';
 import { MatCardModule } from '@angular/material/card';
 import { MatDividerModule } from '@angular/material/divider';
-import { Subject, takeUntil } from 'rxjs';
+import { Subject } from 'rxjs';
 import { BaseComponent } from '../../../controls/components/base/base.component';
 import { StepperConfig, StepperStep } from './interfaces';
 import { AmwButtonComponent } from '../../../controls/components/amw-button/amw-button.component';
@@ -43,61 +43,65 @@ import { AmwButtonComponent } from '../../../controls/components/amw-button/amw-
 })
 export class AmwStepperComponent extends BaseComponent implements OnInit, OnDestroy {
     /** Stepper configuration */
-    @Input() config?: StepperConfig;
+    config = input<StepperConfig | undefined>(undefined);
 
     /** Array of stepper steps */
-    @Input() steps: StepperStep[] = [];
+    steps = input<StepperStep[]>([]);
 
     /** Current active step index */
-    @Input() currentStep: number = 0;
+    currentStepIndex = input<number>(0);
 
     /** Whether the stepper is disabled */
-    @Input() override disabled: boolean = false;
+    override disabled = input<boolean>(false);
 
     /** Whether the stepper is linear (must complete steps in order) */
-    @Input() linear: boolean = true;
+    linear = input<boolean>(true);
 
     /** Whether the stepper is vertical */
-    @Input() vertical: boolean = false;
+    vertical = input<boolean>(false);
 
     /** Whether to show step labels */
-    @Input() showLabels: boolean = true;
+    showLabels = input<boolean>(true);
 
     /** Whether to show step icons */
-    @Input() showIcons: boolean = true;
+    showIcons = input<boolean>(true);
 
     /** Whether to show step descriptions */
-    @Input() showDescriptions: boolean = true;
+    showDescriptions = input<boolean>(true);
 
     /** Whether to show navigation buttons */
-    @Input() showNavigation: boolean = true;
+    showNavigation = input<boolean>(true);
 
     /** Whether to show completion button */
-    @Input() showCompletion: boolean = true;
+    showCompletion = input<boolean>(true);
 
     /** Step change event */
-    @Output() stepChange = new EventEmitter<number>();
+    stepChange = output<number>();
 
     /** Stepper completed event */
-    @Output() completed = new EventEmitter<void>();
+    completed = output<void>();
 
     /** Step validation event */
-    @Output() stepValidated = new EventEmitter<{ stepIndex: number; isValid: boolean }>();
+    stepValidated = output<{ stepIndex: number; isValid: boolean }>();
 
     /** Current stepper configuration */
-    currentConfig: StepperConfig = {};
+    currentConfig = signal<StepperConfig>({});
 
     /** Subject for component destruction */
     private destroy$ = new Subject<void>();
 
     /** Whether the stepper is currently completing */
-    isCompleting = false;
+    isCompleting = signal<boolean>(false);
+
+    /** Current step - model signal for two-way binding */
+    currentStep = model<number>(0);
 
     constructor(private cdr: ChangeDetectorRef) {
         super();
     }
 
     ngOnInit(): void {
+        this.currentStep.set(this.currentStepIndex());
         this.initializeConfig();
         this.validateSteps();
     }
@@ -111,7 +115,7 @@ export class AmwStepperComponent extends BaseComponent implements OnInit, OnDest
      * Initializes the stepper configuration
      */
     private initializeConfig(): void {
-        this.currentConfig = {
+        this.currentConfig.set({
             orientation: 'horizontal',
             linear: true,
             showLabels: true,
@@ -124,15 +128,15 @@ export class AmwStepperComponent extends BaseComponent implements OnInit, OnDest
             validateSteps: true,
             animationDuration: 300,
             animationEasing: 'cubic-bezier(0.4, 0, 0.2, 1)',
-            ...this.config
-        };
+            ...this.config()
+        });
     }
 
     /**
      * Validates all steps
      */
     private validateSteps(): void {
-        this.steps.forEach((step, index) => {
+        this.steps().forEach((step, index) => {
             if (step.validator) {
                 const isValid = step.validator(step);
                 step.isValid = isValid;
@@ -146,7 +150,7 @@ export class AmwStepperComponent extends BaseComponent implements OnInit, OnDest
      */
     nextStep(): void {
         if (this.canGoNext()) {
-            const nextStep = this.currentStep + 1;
+            const nextStep = this.currentStep() + 1;
             this.goToStep(nextStep);
         }
     }
@@ -156,7 +160,7 @@ export class AmwStepperComponent extends BaseComponent implements OnInit, OnDest
      */
     previousStep(): void {
         if (this.canGoBack()) {
-            const prevStep = this.currentStep - 1;
+            const prevStep = this.currentStep() - 1;
             this.goToStep(prevStep);
         }
     }
@@ -166,7 +170,7 @@ export class AmwStepperComponent extends BaseComponent implements OnInit, OnDest
      */
     goToStep(stepIndex: number): void {
         if (this.isValidStepIndex(stepIndex) && this.canGoToStep(stepIndex)) {
-            this.currentStep = stepIndex;
+            this.currentStep.set(stepIndex);
             this.stepChange.emit(stepIndex);
             this.cdr.detectChanges();
         }
@@ -177,7 +181,7 @@ export class AmwStepperComponent extends BaseComponent implements OnInit, OnDest
      */
     completeStepper(): void {
         if (this.canComplete()) {
-            this.isCompleting = true;
+            this.isCompleting.set(true);
             this.completed.emit();
             this.cdr.detectChanges();
         }
@@ -187,9 +191,9 @@ export class AmwStepperComponent extends BaseComponent implements OnInit, OnDest
      * Resets the stepper
      */
     resetStepper(): void {
-        this.currentStep = 0;
-        this.isCompleting = false;
-        this.steps.forEach(step => {
+        this.currentStep.set(0);
+        this.isCompleting.set(false);
+        this.steps().forEach(step => {
             step.isCompleted = false;
             step.isValid = true;
         });
@@ -200,15 +204,15 @@ export class AmwStepperComponent extends BaseComponent implements OnInit, OnDest
      * Checks if can go to next step
      */
     canGoNext(): boolean {
-        return this.currentStep < this.steps.length - 1 &&
-            (!this.currentConfig.linear || this.isCurrentStepValid());
+        return this.currentStep() < this.steps().length - 1 &&
+            (!this.currentConfig().linear || this.isCurrentStepValid());
     }
 
     /**
      * Checks if can go to previous step
      */
     canGoBack(): boolean {
-        return this.currentStep > 0 && (this.currentConfig.allowBackNavigation ?? true);
+        return this.currentStep() > 0 && (this.currentConfig().allowBackNavigation ?? true);
     }
 
     /**
@@ -217,9 +221,9 @@ export class AmwStepperComponent extends BaseComponent implements OnInit, OnDest
     canGoToStep(stepIndex: number): boolean {
         if (!this.isValidStepIndex(stepIndex)) return false;
 
-        if (this.currentConfig.linear) {
+        if (this.currentConfig().linear) {
             // In linear mode, can only go to current step or next step
-            return stepIndex <= this.currentStep + 1;
+            return stepIndex <= this.currentStep() + 1;
         }
 
         return true;
@@ -229,59 +233,59 @@ export class AmwStepperComponent extends BaseComponent implements OnInit, OnDest
      * Checks if can complete stepper
      */
     canComplete(): boolean {
-        return this.currentStep === this.steps.length - 1 &&
+        return this.currentStep() === this.steps().length - 1 &&
             this.isCurrentStepValid() &&
-            !this.isCompleting;
+            !this.isCompleting();
     }
 
     /**
      * Checks if current step is valid
      */
     isCurrentStepValid(): boolean {
-        const currentStep = this.steps[this.currentStep];
-        return currentStep ? (currentStep.isValid ?? true) : true;
+        const currentStepData = this.steps()[this.currentStep()];
+        return currentStepData ? (currentStepData.isValid ?? true) : true;
     }
 
     /**
      * Checks if step index is valid
      */
     private isValidStepIndex(stepIndex: number): boolean {
-        return stepIndex >= 0 && stepIndex < this.steps.length;
+        return stepIndex >= 0 && stepIndex < this.steps().length;
     }
 
     /**
      * Gets the current step
      */
     getCurrentStep(): StepperStep | undefined {
-        return this.steps[this.currentStep];
+        return this.steps()[this.currentStep()];
     }
 
     /**
      * Gets the progress percentage
      */
     getProgress(): number {
-        return ((this.currentStep + 1) / this.steps.length) * 100;
+        return ((this.currentStep() + 1) / this.steps().length) * 100;
     }
 
     /**
      * Checks if step is completed
      */
     isStepCompleted(stepIndex: number): boolean {
-        return this.steps[stepIndex]?.isCompleted ?? false;
+        return this.steps()[stepIndex]?.isCompleted ?? false;
     }
 
     /**
      * Checks if step is active
      */
     isStepActive(stepIndex: number): boolean {
-        return stepIndex === this.currentStep;
+        return stepIndex === this.currentStep();
     }
 
     /**
      * Checks if step is accessible
      */
     isStepAccessible(stepIndex: number): boolean {
-        if (!this.currentConfig.linear) return true;
-        return stepIndex <= this.currentStep + 1;
+        if (!this.currentConfig().linear) return true;
+        return stepIndex <= this.currentStep() + 1;
     }
 }

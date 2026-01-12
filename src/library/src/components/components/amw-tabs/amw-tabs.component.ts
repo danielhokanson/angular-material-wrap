@@ -1,4 +1,4 @@
-import { Component, Input, Output, EventEmitter, OnInit, OnDestroy, AfterContentInit, ViewEncapsulation, ChangeDetectorRef, ContentChildren, QueryList, TemplateRef } from '@angular/core';
+import { Component, input, output, signal, model, OnInit, OnDestroy, AfterContentInit, ViewEncapsulation, ChangeDetectorRef, ContentChildren, QueryList } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { MatTabsModule } from '@angular/material/tabs';
 import { MatIconModule } from '@angular/material/icon';
@@ -47,59 +47,58 @@ export class AmwTabsComponent extends BaseComponent implements OnInit, OnDestroy
     @ContentChildren(AmwTabComponent) tabChildren!: QueryList<AmwTabComponent>;
 
     /** Tabs configuration */
-    @Input() config?: TabsConfig;
+    config = input<TabsConfig | undefined>(undefined);
 
     /** Array of tab items */
-    @Input() tabs: TabItem[] = [];
+    tabs = model<TabItem[]>([]);
 
     /** Selected tab index (two-way binding support) */
-    @Input() selectedIndex: number = 0;
-    @Output() selectedIndexChange = new EventEmitter<number>();
+    selectedIndex = model<number>(0);
 
     /** Whether component is using content projection */
-    useContentProjection: boolean = false;
+    useContentProjection = signal<boolean>(false);
 
     /** Active tab index */
-    @Input() activeTab: number = 0;
+    activeTab = signal<number>(0);
 
     /** Whether the tabs are disabled */
-    @Input() override disabled: boolean = false;
+    override disabled = input<boolean>(false);
 
     /** Whether to show tab icons */
-    @Input() showIcons: boolean = true;
+    showIcons = input<boolean>(true);
 
     /** Whether to show tab badges */
-    @Input() showBadges: boolean = true;
+    showBadges = input<boolean>(true);
 
     /** Whether to show close buttons */
-    @Input() showCloseButtons: boolean = false;
+    showCloseButtons = input<boolean>(false);
 
     /** Whether tabs are closable */
-    @Input() closable: boolean = false;
+    closable = input<boolean>(false);
 
     /** Whether tabs are draggable */
-    @Input() draggable: boolean = false;
+    draggable = input<boolean>(false);
 
     /** Tab change event */
-    @Output() tabChange = new EventEmitter<number>();
+    tabChange = output<number>();
 
     /** Tab close event */
-    @Output() tabClose = new EventEmitter<number>();
+    tabClose = output<number>();
 
     /** Tab add event */
-    @Output() tabAdd = new EventEmitter<void>();
+    tabAdd = output<void>();
 
     /** Tab reorder event */
-    @Output() tabReorder = new EventEmitter<{ from: number; to: number }>();
+    tabReorder = output<{ from: number; to: number }>();
 
     /** Current tabs configuration */
-    currentConfig: TabsConfig = {};
+    currentConfig = signal<TabsConfig>({});
 
     /** Subject for component destruction */
     private destroy$ = new Subject<void>();
 
     /** Whether tabs are being reordered */
-    isReordering = false;
+    isReordering = signal<boolean>(false);
 
     constructor(private cdr: ChangeDetectorRef) {
         super();
@@ -113,7 +112,7 @@ export class AmwTabsComponent extends BaseComponent implements OnInit, OnDestroy
     ngAfterContentInit(): void {
         // Check if content projection is being used
         if (this.tabChildren && this.tabChildren.length > 0) {
-            this.useContentProjection = true;
+            this.useContentProjection.set(true);
             this.syncTabsFromChildren();
 
             // Subscribe to changes in the tab children
@@ -128,7 +127,7 @@ export class AmwTabsComponent extends BaseComponent implements OnInit, OnDestroy
      */
     private syncTabsFromChildren(): void {
         if (this.tabChildren) {
-            this.tabs = this.tabChildren.toArray().map(child => ({
+            this.tabs.set(this.tabChildren.toArray().map(child => ({
                 label: child.label(),
                 icon: child.icon(),
                 isDisabled: child.disabled(),
@@ -138,7 +137,7 @@ export class AmwTabsComponent extends BaseComponent implements OnInit, OnDestroy
                 content: '', // Content is handled via template projection
                 contentTemplate: child.contentTemplate(),
                 headerTemplate: child.headerTemplate()
-            }));
+            })));
             this.cdr.detectChanges();
         }
     }
@@ -152,25 +151,26 @@ export class AmwTabsComponent extends BaseComponent implements OnInit, OnDestroy
      * Initializes the tabs configuration
      */
     private initializeConfig(): void {
-        this.currentConfig = {
+        this.currentConfig.set({
             orientation: 'horizontal',
             alignment: 'start',
             showIcons: true,
             showBadges: true,
             showCloseButtons: false,
+            showPanelHeaders: false,
             closable: false,
             draggable: false,
             animationDuration: 300,
             animationEasing: 'cubic-bezier(0.4, 0, 0.2, 1)',
-            ...this.config
-        };
+            ...this.config()
+        });
     }
 
     /**
      * Validates all tabs
      */
     private validateTabs(): void {
-        this.tabs.forEach((tab, index) => {
+        this.tabs().forEach((tab: TabItem, index: number) => {
             if (tab.validator) {
                 const isValid = tab.validator(tab);
                 tab.isValid = isValid;
@@ -183,10 +183,9 @@ export class AmwTabsComponent extends BaseComponent implements OnInit, OnDestroy
      */
     changeTab(tabIndex: number): void {
         if (this.isValidTabIndex(tabIndex) && this.canActivateTab(tabIndex)) {
-            this.activeTab = tabIndex;
-            this.selectedIndex = tabIndex;
+            this.activeTab.set(tabIndex);
+            this.selectedIndex.set(tabIndex);
             this.tabChange.emit(tabIndex);
-            this.selectedIndexChange.emit(tabIndex);
             this.cdr.detectChanges();
         }
     }
@@ -196,11 +195,13 @@ export class AmwTabsComponent extends BaseComponent implements OnInit, OnDestroy
      */
     closeTab(tabIndex: number): void {
         if (this.isValidTabIndex(tabIndex) && this.canCloseTab(tabIndex)) {
-            this.tabs.splice(tabIndex, 1);
+            const currentTabs = [...this.tabs()];
+            currentTabs.splice(tabIndex, 1);
+            this.tabs.set(currentTabs);
 
             // Adjust active tab if necessary
-            if (this.activeTab >= this.tabs.length) {
-                this.activeTab = Math.max(0, this.tabs.length - 1);
+            if (this.activeTab() >= this.tabs().length) {
+                this.activeTab.set(Math.max(0, this.tabs().length - 1));
             }
 
             this.tabClose.emit(tabIndex);
@@ -213,14 +214,14 @@ export class AmwTabsComponent extends BaseComponent implements OnInit, OnDestroy
      */
     addTab(): void {
         const newTab: TabItem = {
-            label: `Tab ${this.tabs.length + 1}`,
+            label: `Tab ${this.tabs().length + 1}`,
             content: '',
             isDisabled: false,
             isClosable: true
         };
 
-        this.tabs.push(newTab);
-        this.activeTab = this.tabs.length - 1;
+        this.tabs.update(tabs => [...tabs, newTab]);
+        this.activeTab.set(this.tabs().length - 1);
         this.tabAdd.emit();
         this.cdr.detectChanges();
     }
@@ -230,16 +231,18 @@ export class AmwTabsComponent extends BaseComponent implements OnInit, OnDestroy
      */
     reorderTabs(fromIndex: number, toIndex: number): void {
         if (this.isValidTabIndex(fromIndex) && this.isValidTabIndex(toIndex)) {
-            const tab = this.tabs.splice(fromIndex, 1)[0];
-            this.tabs.splice(toIndex, 0, tab);
+            const currentTabs = [...this.tabs()];
+            const tab = currentTabs.splice(fromIndex, 1)[0];
+            currentTabs.splice(toIndex, 0, tab);
+            this.tabs.set(currentTabs);
 
             // Update active tab index
-            if (this.activeTab === fromIndex) {
-                this.activeTab = toIndex;
-            } else if (this.activeTab > fromIndex && this.activeTab <= toIndex) {
-                this.activeTab--;
-            } else if (this.activeTab < fromIndex && this.activeTab >= toIndex) {
-                this.activeTab++;
+            if (this.activeTab() === fromIndex) {
+                this.activeTab.set(toIndex);
+            } else if (this.activeTab() > fromIndex && this.activeTab() <= toIndex) {
+                this.activeTab.update(val => val - 1);
+            } else if (this.activeTab() < fromIndex && this.activeTab() >= toIndex) {
+                this.activeTab.update(val => val + 1);
             }
 
             this.tabReorder.emit({ from: fromIndex, to: toIndex });
@@ -251,14 +254,14 @@ export class AmwTabsComponent extends BaseComponent implements OnInit, OnDestroy
      * Checks if tab index is valid
      */
     private isValidTabIndex(tabIndex: number): boolean {
-        return tabIndex >= 0 && tabIndex < this.tabs.length;
+        return tabIndex >= 0 && tabIndex < this.tabs().length;
     }
 
     /**
      * Checks if tab can be activated
      */
     private canActivateTab(tabIndex: number): boolean {
-        const tab = this.tabs[tabIndex];
+        const tab = this.tabs()[tabIndex];
         return tab && !tab.isDisabled;
     }
 
@@ -266,43 +269,43 @@ export class AmwTabsComponent extends BaseComponent implements OnInit, OnDestroy
      * Checks if tab can be closed
      */
     private canCloseTab(tabIndex: number): boolean {
-        const tab = this.tabs[tabIndex];
-        return tab && tab.isClosable !== false && this.tabs.length > 1;
+        const tab = this.tabs()[tabIndex];
+        return tab && tab.isClosable !== false && this.tabs().length > 1;
     }
 
     /**
      * Gets the active tab
      */
     getActiveTab(): TabItem | undefined {
-        return this.tabs[this.activeTab];
+        return this.tabs()[this.activeTab()];
     }
 
     /**
      * Checks if tab is active
      */
     isTabActive(tabIndex: number): boolean {
-        return tabIndex === this.activeTab;
+        return tabIndex === this.activeTab();
     }
 
     /**
      * Checks if tab is disabled
      */
     isTabDisabled(tabIndex: number): boolean {
-        return this.tabs[tabIndex]?.isDisabled || false;
+        return this.tabs()[tabIndex]?.isDisabled || false;
     }
 
     /**
      * Checks if tab is closable
      */
     isTabClosable(tabIndex: number): boolean {
-        return this.tabs[tabIndex]?.isClosable !== false;
+        return this.tabs()[tabIndex]?.isClosable !== false;
     }
 
     /**
      * Gets tab badge count
      */
     getTabBadgeCount(tabIndex: number): number {
-        return this.tabs[tabIndex]?.badgeCount || 0;
+        return this.tabs()[tabIndex]?.badgeCount || 0;
     }
 
     /**
@@ -316,9 +319,9 @@ export class AmwTabsComponent extends BaseComponent implements OnInit, OnDestroy
      * Handles drag start
      */
     onDragStart(event: DragEvent, tabIndex: number): void {
-        if (this.currentConfig.draggable) {
+        if (this.currentConfig().draggable) {
             event.dataTransfer?.setData('text/plain', tabIndex.toString());
-            this.isReordering = true;
+            this.isReordering.set(true);
         }
     }
 
@@ -326,7 +329,7 @@ export class AmwTabsComponent extends BaseComponent implements OnInit, OnDestroy
      * Handles drag over
      */
     onDragOver(event: DragEvent): void {
-        if (this.currentConfig.draggable) {
+        if (this.currentConfig().draggable) {
             event.preventDefault();
         }
     }
@@ -335,11 +338,11 @@ export class AmwTabsComponent extends BaseComponent implements OnInit, OnDestroy
      * Handles drop
      */
     onDrop(event: DragEvent, targetIndex: number): void {
-        if (this.currentConfig.draggable) {
+        if (this.currentConfig().draggable) {
             event.preventDefault();
             const sourceIndex = parseInt(event.dataTransfer?.getData('text/plain') || '0');
             this.reorderTabs(sourceIndex, targetIndex);
-            this.isReordering = false;
+            this.isReordering.set(false);
         }
     }
 
@@ -347,6 +350,6 @@ export class AmwTabsComponent extends BaseComponent implements OnInit, OnDestroy
      * Handles drag end
      */
     onDragEnd(): void {
-        this.isReordering = false;
+        this.isReordering.set(false);
     }
 }

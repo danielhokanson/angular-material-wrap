@@ -1,4 +1,4 @@
-import { Component, Input, Output, EventEmitter, ViewEncapsulation, forwardRef } from '@angular/core';
+import { Component, input, output, ViewEncapsulation } from '@angular/core';
 
 import { FormsModule, ReactiveFormsModule, ControlValueAccessor, NG_VALUE_ACCESSOR } from '@angular/forms';
 import { MatInputModule } from '@angular/material/input';
@@ -7,12 +7,13 @@ import { MatIconModule } from '@angular/material/icon';
 import { AmwButtonComponent } from '../amw-button/amw-button.component';
 import { BaseComponent } from '../base/base.component';
 import { InputType } from './interfaces/input-type.type';
-import { InputAppearance } from './interfaces/input-appearance.type';
-import { AmwSize } from '../../../shared/types/amw-size.type';
 
 /**
  * AMW Input Component
  * A comprehensive wrapper around Angular Material Input with enhanced functionality
+ * Inherits from BaseComponent: disabled, required, label, placeholder, errorMessage, hasError,
+ * name, id, tabIndex, size, color, ariaLabel, ariaLabelledby, ariaDescribedby, ariaRequired,
+ * ariaInvalid, hint, readonly, value, change, focus, blur
  */
 @Component({
     selector: 'amw-input',
@@ -36,49 +37,37 @@ import { AmwSize } from '../../../shared/types/amw-size.type';
         }
     ]
 })
-export class AmwInputComponent extends BaseComponent implements ControlValueAccessor {
-    // Basic input properties
-    @Input() type: InputType = 'text';
-    @Input() appearance: MatFormFieldAppearance = 'outline';
-    @Input() size: AmwSize = 'medium';
-    @Input() override placeholder: string = '';
-    @Input() override label: string = '';
-    @Input() hint: string = '';
-    @Input() prefix: string = '';
-    @Input() suffix: string = '';
-    @Input() readonly: boolean = false;
-    @Input() maxlength: number | null = null;
-    @Input() minlength: number | null = null;
-    @Input() max: number | null = null;
-    @Input() min: number | null = null;
-    @Input() step: number | null = null;
-    @Input() pattern: string = '';
-    @Input() autocomplete: string = '';
-    @Input() autofocus: boolean = false;
-    @Input() name: string = '';
-    @Input() id: string = '';
-    @Input() tabIndex?: number;
+export class AmwInputComponent extends BaseComponent<string> implements ControlValueAccessor {
+    // Input-specific properties (inherited from BaseComponent: disabled, required, label, placeholder,
+    // errorMessage, hasError, name, id, tabIndex, size, color, ariaLabel, ariaLabelledby,
+    // ariaDescribedby, ariaRequired, ariaInvalid, hint, readonly, value, change, focus, blur)
 
-    // Accessibility properties
-    @Input() ariaLabel: string = '';
-    @Input() ariaLabelledby: string = '';
-    @Input() ariaDescribedby: string = '';
-    @Input() ariaRequired: boolean = false;
-    @Input() ariaInvalid: boolean = false;
+    type = input<InputType>('text');
+    appearance = input<MatFormFieldAppearance>('outline');
+    prefix = input<string>('');
+    suffix = input<string>('');
+    maxlength = input<number | null>(null);
+    minlength = input<number | null>(null);
+    max = input<number | null>(null);
+    min = input<number | null>(null);
+    step = input<number | null>(null);
+    pattern = input<string>('');
+    autocomplete = input<string>('');
+    autofocus = input<boolean>(false);
 
     // Icon properties
-    @Input() startIcon: string = '';
-    @Input() endIcon: string = '';
+    startIcon = input<string>('');
+    endIcon = input<string>('');
 
     // Feature properties
-    @Input() clearable: boolean = false;
-    @Input() showPasswordToggle: boolean = false;
-    @Input() showCharacterCount: boolean = false;
-    @Input() showValidationOnBlur: boolean = true;
-    @Input() showValidationOnChange: boolean = false;
+    clearable = input<boolean>(false);
+    showPasswordToggle = input<boolean>(false);
+    showCharacterCount = input<boolean>(false);
+    showValidationOnBlur = input<boolean>(true);
+    showValidationOnChange = input<boolean>(false);
 
     // Validation messages
-    @Input() validationMessages: {
+    validationMessages = input<{
         required?: string;
         email?: string;
         minlength?: string;
@@ -86,72 +75,52 @@ export class AmwInputComponent extends BaseComponent implements ControlValueAcce
         pattern?: string;
         min?: string;
         max?: string;
-    } = {};
+    }>({});
 
     // Internal state
-    internalValue: string | number = '';
     showPassword: boolean = false;
     characterCount: number = 0;
 
-    // Events
-    @Output() input = new EventEmitter<Event>();
-    @Output() change = new EventEmitter<Event>();
-    @Output() override blur = new EventEmitter<FocusEvent>();
-    @Output() override focus = new EventEmitter<FocusEvent>();
-    @Output() keydown = new EventEmitter<KeyboardEvent>();
-    @Output() keyup = new EventEmitter<KeyboardEvent>();
-    @Output() clear = new EventEmitter<void>();
-    @Output() togglePassword = new EventEmitter<boolean>();
+    // Input-specific events
+    inputEvent = output<Event>();
+    keydown = output<KeyboardEvent>();
+    keyup = output<KeyboardEvent>();
+    clear = output<void>();
+    togglePassword = output<boolean>();
 
-    // ControlValueAccessor implementation
-    private onChange = (value: any) => { };
-    private onTouched = () => { };
-
-    override writeValue(value: any): void {
-        this.internalValue = value || '';
+    override writeValue(val: any): void {
+        this.value.set(val || '');
         this.updateCharacterCount();
-    }
-
-    override registerOnChange(fn: any): void {
-        this.onChange = fn;
-    }
-
-    override registerOnTouched(fn: any): void {
-        this.onTouched = fn;
-    }
-
-    override setDisabledState(isDisabled: boolean): void {
-        this.disabled = isDisabled;
     }
 
     // Event handlers
     onInput(event: Event): void {
         const target = event.target as HTMLInputElement;
-        this.internalValue = target.value;
+        this.value.set(target.value);
         this.updateCharacterCount();
-        this.onChange(this.internalValue);
-        this.input.emit(event);
+        this._onChange(this.value());
+        this.inputEvent.emit(event);
 
-        if (this.showValidationOnChange) {
+        if (this.showValidationOnChange()) {
             this.validateInput();
         }
     }
 
     onChangeEvent(event: Event): void {
-        this.change.emit(event);
+        const target = event.target as HTMLInputElement;
+        this.change.emit(target.value);
     }
 
     override onBlur(event: FocusEvent): void {
-        this.onTouched();
-        this.blur.emit(event);
+        super.onBlur(event);
 
-        if (this.showValidationOnBlur) {
+        if (this.showValidationOnBlur()) {
             this.validateInput();
         }
     }
 
     override onFocus(event: FocusEvent): void {
-        this.focus.emit(event);
+        super.onFocus(event);
     }
 
     onKeydown(event: KeyboardEvent): void {
@@ -163,9 +132,9 @@ export class AmwInputComponent extends BaseComponent implements ControlValueAcce
     }
 
     onClear(): void {
-        this.internalValue = '';
+        this.value.set('');
         this.updateCharacterCount();
-        this.onChange(this.internalValue);
+        this._onChange(this.value());
         this.clear.emit();
     }
 
@@ -176,69 +145,75 @@ export class AmwInputComponent extends BaseComponent implements ControlValueAcce
 
     // Helper methods
     private updateCharacterCount(): void {
-        if (this.showCharacterCount && typeof this.internalValue === 'string') {
-            this.characterCount = this.internalValue.length;
+        const val = this.value();
+        if (this.showCharacterCount() && typeof val === 'string') {
+            this.characterCount = val.length;
         }
     }
 
     private validateInput(): void {
         // Basic validation logic
-        this.hasError = this.required && !this.internalValue;
+        this.hasError.set(this.required() && !this.value());
     }
 
     get inputType(): string {
-        if (this.type === 'password' && this.showPasswordToggle) {
+        if (this.type() === 'password' && this.showPasswordToggle()) {
             return this.showPassword ? 'text' : 'password';
         }
-        return this.type;
+        return this.type();
     }
 
     get hasValue(): boolean {
-        return this.internalValue !== '' && this.internalValue != null;
+        const val = this.value();
+        return val !== '' && val != null;
     }
 
     get canClear(): boolean {
-        return this.clearable && this.hasValue && !this.disabled && !this.readonly;
+        return this.clearable() && this.hasValue && !this.disabled() && !this.readonly();
     }
 
     get canTogglePassword(): boolean {
-        return this.showPasswordToggle && this.type === 'password' && !this.disabled && !this.readonly;
+        return this.showPasswordToggle() && this.type() === 'password' && !this.disabled() && !this.readonly();
     }
 
     get characterCountText(): string {
-        if (!this.showCharacterCount || !this.maxlength) return '';
-        return `${this.characterCount}/${this.maxlength}`;
+        const maxLen = this.maxlength();
+        if (!this.showCharacterCount() || !maxLen) return '';
+        return `${this.characterCount}/${maxLen}`;
     }
 
     get isOverLimit(): boolean {
-        return this.maxlength ? this.characterCount > this.maxlength : false;
+        const maxLen = this.maxlength();
+        return maxLen ? this.characterCount > maxLen : false;
     }
 
     override get errorText(): string {
-        if (this.errorMessage) return this.errorMessage;
+        const errorMsg = this.errorMessage();
+        if (errorMsg) return errorMsg;
 
+        const messages = this.validationMessages();
         if (this.ngControl?.control) {
             const control = this.ngControl.control;
             if (control.hasError('required')) {
-                return this.validationMessages.required || 'This field is required';
+                return messages.required || 'This field is required';
             }
             if (control.hasError('email')) {
-                return this.validationMessages.email || 'Please enter a valid email';
+                return messages.email || 'Please enter a valid email';
             }
             if (control.hasError('minlength')) {
-                return this.validationMessages.minlength || `Minimum length is ${control.errors?.['minlength'].requiredLength}`;
+                return messages.minlength || `Minimum length is ${control.errors?.['minlength'].requiredLength}`;
             }
             if (control.hasError('maxlength')) {
-                return this.validationMessages.maxlength || `Maximum length is ${control.errors?.['maxlength'].requiredLength}`;
+                return messages.maxlength || `Maximum length is ${control.errors?.['maxlength'].requiredLength}`;
             }
             if (control.hasError('pattern')) {
-                return this.validationMessages.pattern || 'Please enter a valid format';
+                return messages.pattern || 'Please enter a valid format';
             }
             if (control.hasError('min')) {
-                return this.validationMessages.min || `Minimum value is ${control.errors?.['min'].min}`;
+                return messages.min || `Minimum value is ${control.errors?.['min'].min}`;
             }
             if (control.hasError('max')) {
-                return this.validationMessages.max || `Maximum value is ${control.errors?.['max'].max}`;
+                return messages.max || `Maximum value is ${control.errors?.['max'].max}`;
             }
         }
 
@@ -246,6 +221,6 @@ export class AmwInputComponent extends BaseComponent implements ControlValueAcce
     }
 
     override get hasValidationError(): boolean {
-        return this.hasError || (this.ngControl?.control?.invalid) || false;
+        return this.hasError() || (this.ngControl?.control?.invalid) || false;
     }
 }

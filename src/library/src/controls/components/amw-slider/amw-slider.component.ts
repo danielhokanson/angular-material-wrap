@@ -1,9 +1,8 @@
-import { Component, Input, Output, EventEmitter, ViewEncapsulation, forwardRef } from '@angular/core';
+import { Component, input, output, signal, ViewEncapsulation } from '@angular/core';
 
 import { FormsModule, ReactiveFormsModule, ControlValueAccessor, NG_VALUE_ACCESSOR } from '@angular/forms';
 import { MatSliderModule } from '@angular/material/slider';
 import { BaseComponent } from '../base/base.component';
-import { AmwColor } from '../../../shared/types/amw-color.type';
 
 @Component({
     selector: 'amw-slider',
@@ -20,116 +19,87 @@ import { AmwColor } from '../../../shared/types/amw-color.type';
         }
     ]
 })
-export class AmwSliderComponent extends BaseComponent implements ControlValueAccessor {
-    @Input() color: AmwColor = 'primary';
-    @Input() override disabled: boolean = false;
-    @Input() min: number = 0;
-    @Input() max: number = 100;
-    @Input() step: number = 1;
-    @Input() thumbLabel: boolean = false;
-    @Input() tickInterval: number | 'auto' = 0;
-    @Input() vertical: boolean = false;
-    @Input() invert: boolean = false;
-    @Input() ariaLabel?: string;
-    @Input() ariaLabelledby?: string;
-    @Input() ariaDescribedby?: string;
-    @Input() tabIndex?: number;
-    @Input() name?: string;
-    @Input() id?: string;
-    @Input() override errorMessage: string = '';
-    @Input() override hasError: boolean = false;
+export class AmwSliderComponent extends BaseComponent<number> implements ControlValueAccessor {
+    // Slider-specific properties (inherited from BaseComponent: disabled, required, label, placeholder,
+    // errorMessage, hasError, name, id, tabIndex, size, color, ariaLabel, ariaLabelledby, ariaDescribedby,
+    // ariaRequired, ariaInvalid, hint, readonly, value, change, focus, blur)
 
-    // Events
-    @Output() change = new EventEmitter<{ value: number; source: any }>();
-    @Output() input = new EventEmitter<{ value: number; source: any }>();
-    @Output() override focus = new EventEmitter<FocusEvent>();
-    @Output() override blur = new EventEmitter<FocusEvent>();
+    min = input<number>(0);
+    max = input<number>(100);
+    step = input<number>(1);
+    thumbLabel = input<boolean>(false);
+    tickInterval = input<number | 'auto'>(0);
+    vertical = input<boolean>(false);
+    invert = input<boolean>(false);
 
-    // ControlValueAccessor implementation
-    override _value: number = 0;
-    override _onChange = (value: number) => { };
-    override _onTouched = () => { };
+    // Slider-specific events
+    inputEvent = output<{ value: number; source: any }>();
+    sliderChange = output<{ value: number; source: any }>();
 
-    override get value(): number {
-        return this._value;
-    }
+    // Internal writable signal for disabled state (for setDisabledState)
+    private _disabledInternal = signal<boolean>(false);
 
-    override set value(val: number) {
-        this._value = val;
-        this._onChange(val);
-    }
-
-    override writeValue(value: number): void {
-        this._value = value || 0;
-    }
-
-    override registerOnChange(fn: (value: number) => void): void {
-        this._onChange = fn;
-    }
-
-    override registerOnTouched(fn: () => void): void {
-        this._onTouched = fn;
+    override writeValue(val: number | null): void {
+        this.value.set(val || 0);
     }
 
     override setDisabledState(isDisabled: boolean): void {
-        this.disabled = isDisabled;
+        this._disabledInternal.set(isDisabled);
+    }
+
+    /** Get the effective disabled state (from input or programmatic) */
+    getDisabled(): boolean {
+        return this.disabled() || this._disabledInternal();
     }
 
     onSliderChange(event: any): void {
-        this.value = event.value;
-        this.change.emit({
-            value: this.value,
-            source: event.source
-        });
-        this._onChange(this.value);
+        this.value.set(event.value);
+        const payload = { value: event.value, source: event.source };
+        this.sliderChange.emit(payload);
+        this.change.emit(event.value);
+        this._onChange(event.value);
         this._onTouched();
     }
 
     onSliderInput(event: any): void {
-        this.value = event.value;
-        this.input.emit({
-            value: this.value,
+        this.value.set(event.value);
+        this.inputEvent.emit({
+            value: event.value,
             source: event.source
         });
     }
 
     override onFocus(event: FocusEvent): void {
-        this.focus.emit(event);
+        super.onFocus(event);
     }
 
     override onBlur(event: FocusEvent): void {
-        this.blur.emit(event);
-        this._onTouched();
-    }
-
-    getMaterialColor(): 'primary' | 'accent' | 'warn' {
-        return this.color === 'basic' ? 'primary' : this.color as 'primary' | 'accent' | 'warn';
+        super.onBlur(event);
     }
 
     getSliderClasses(): string {
         const classes = ['amw-slider'];
 
-        if (this.color) {
-            classes.push(`amw-slider--${this.color}`);
+        if (this.color()) {
+            classes.push(`amw-slider--${this.color()}`);
         }
 
-        if (this.disabled) {
+        if (this.getDisabled()) {
             classes.push('amw-slider--disabled');
         }
 
-        if (this.hasError) {
+        if (this.hasError()) {
             classes.push('amw-slider--error');
         }
 
-        if (this.vertical) {
+        if (this.vertical()) {
             classes.push('amw-slider--vertical');
         }
 
-        if (this.invert) {
+        if (this.invert()) {
             classes.push('amw-slider--invert');
         }
 
         return classes.join(' ');
     }
-
 }

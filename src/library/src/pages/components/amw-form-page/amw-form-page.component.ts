@@ -1,4 +1,4 @@
-import { Component, Input, Output, EventEmitter, OnInit, OnDestroy, ViewEncapsulation, ChangeDetectorRef, Inject, Optional, Injectable } from '@angular/core';
+import { Component, input, output, OnInit, OnDestroy, ViewEncapsulation, ChangeDetectorRef, Inject, Optional, Injectable } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule, ReactiveFormsModule, FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { MatCardModule } from '@angular/material/card';
@@ -96,19 +96,19 @@ export class DefaultFormPageDataSource implements FormPageDataSource {
     ]
 })
 export class AmwFormPageComponent implements OnInit, OnDestroy {
-    @Input() config: FormPageConfig = { sections: [] };
-    @Input() itemId?: string;
-    @Input() dataSource?: FormPageDataSource;
-    @Input() autoSave = false;
-    @Input() autoSaveInterval = 30000; // 30 seconds
+    config = input<FormPageConfig>({ sections: [] });
+    itemId = input<string | undefined>(undefined);
+    dataSource = input<FormPageDataSource | undefined>(undefined);
+    autoSave = input<boolean>(false);
+    autoSaveInterval = input<number>(30000); // 30 seconds
 
-    @Output() formSubmit = new EventEmitter<any>();
-    @Output() formChange = new EventEmitter<any>();
-    @Output() formCancel = new EventEmitter<void>();
-    @Output() formReset = new EventEmitter<void>();
-    @Output() formPreview = new EventEmitter<any>();
-    @Output() formPrint = new EventEmitter<any>();
-    @Output() customAction = new EventEmitter<{ action: string; data: any }>();
+    formSubmit = output<any>();
+    formChange = output<any>();
+    formCancel = output<void>();
+    formReset = output<void>();
+    formPreview = output<any>();
+    formPrint = output<any>();
+    customAction = output<{ action: string; data: any }>();
 
     // Current state
     currentConfig: FormPageConfig = { sections: [] };
@@ -140,7 +140,7 @@ export class AmwFormPageComponent implements OnInit, OnDestroy {
     ngOnInit(): void {
         this.initializeConfig();
         this.initializeForm();
-        if (this.itemId) {
+        if (this.itemId()) {
             this.loadData();
         }
     }
@@ -164,7 +164,7 @@ export class AmwFormPageComponent implements OnInit, OnDestroy {
             customActions: [],
             customClasses: [],
             customStyles: {},
-            ...this.config
+            ...this.config()
         };
     }
 
@@ -189,19 +189,20 @@ export class AmwFormPageComponent implements OnInit, OnDestroy {
     }
 
     loadData(): void {
-        if (!this.itemId) return;
+        const itemIdValue = this.itemId();
+        if (!itemIdValue) return;
 
         this.loading = true;
         this.error = null;
 
-        const dataSource = this.dataSource || this.injectedDataSource;
-        if (!dataSource) {
+        const dataSourceValue = this.dataSource() || this.injectedDataSource;
+        if (!dataSourceValue) {
             this.error = 'No data source provided';
             this.loading = false;
             return;
         }
 
-        dataSource.getData(this.itemId).pipe(
+        dataSourceValue.getData(itemIdValue).pipe(
             takeUntil(this.destroy$)
         ).subscribe({
             next: (data) => {
@@ -224,9 +225,9 @@ export class AmwFormPageComponent implements OnInit, OnDestroy {
             this.saving = true;
             const formData = this.form.value;
 
-            const dataSource = this.dataSource || this.injectedDataSource;
-            if (dataSource) {
-                dataSource.saveData(formData).pipe(
+            const dataSourceValue = this.dataSource() || this.injectedDataSource;
+            if (dataSourceValue) {
+                dataSourceValue.saveData(formData).pipe(
                     takeUntil(this.destroy$)
                 ).subscribe({
                     next: (success) => {

@@ -25,8 +25,8 @@
   }
 
   .demo-tabs {
-    .mat-mdc-tab-group {
-      .mat-mdc-tab-header {
+    .amw-tabs {
+      .amw-tabs__header {
         border-bottom: 1px solid var(--mdc-theme-outline-variant, #cac4d0);
       }
     }
@@ -40,14 +40,14 @@
     margin-bottom: 24px;
     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
 
-    .mat-mdc-card-header {
-      .mat-mdc-card-title {
+    .amw-card__header {
+      .amw-card__title {
         font-size: 20px;
         font-weight: 500;
         color: var(--mdc-theme-on-surface, #1c1b1f);
       }
 
-      .mat-mdc-card-subtitle {
+      .amw-card__subtitle {
         font-size: 14px;
         color: var(--mdc-theme-on-surface-variant, #49454f);
       }
@@ -133,7 +133,7 @@
       box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
     }
 
-    mat-icon {
+    amw-icon {
       font-size: 48px;
       width: 48px;
       height: 48px;
@@ -213,7 +213,7 @@
     .feature-item {
       padding: 16px;
 
-      mat-icon {
+      amw-icon {
         font-size: 36px;
         width: 36px;
         height: 36px;
@@ -246,7 +246,7 @@
     .feature-item {
       padding: 12px;
 
-      mat-icon {
+      amw-icon {
         font-size: 32px;
         width: 32px;
         height: 32px;

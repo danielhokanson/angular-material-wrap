@@ -1,32 +1,32 @@
 <div class="amw-select">
   <mat-form-field
-    [appearance]="appearance"
-    [class]="'amw-select__field ' + selectClasses"
-    [floatLabel]="label ? 'always' : 'auto'"
-    [hideRequiredMarker]="!required"
+    [appearance]="appearance()"
+    [class]="'amw-select__field ' + selectClasses()"
+    [floatLabel]="label() ? 'always' : 'auto'"
+    [hideRequiredMarker]="!required()"
     [class.mat-form-field-invalid]="hasValidationError">
 
     <!-- Label -->
-    @if (label) {
-      <mat-label [innerHTML]="label"></mat-label>
+    @if (label()) {
+      <mat-label [innerHTML]="label()"></mat-label>
     }
 
     <!-- Select Element -->
     <mat-select
-      [placeholder]="placeholder"
-      [disabled]="disabled"
-      [required]="required"
-      [multiple]="multiple"
-      [compareWith]="compareWith"
-      [value]="internalValue"
-      [panelClass]="panelClass"
-      [disableRipple]="disableRipple"
-      [attr.aria-label]="ariaLabel"
-      [attr.aria-labelledby]="ariaLabelledby"
-      [attr.aria-describedby]="ariaDescribedby"
-      [attr.tabindex]="tabIndex"
-      [attr.autofocus]="autofocus"
-      [attr.id]="id"
+      [placeholder]="placeholder()"
+      [disabled]="disabled()"
+      [required]="required()"
+      [multiple]="multiple()"
+      [compareWith]="compareWith()"
+      [value]="internalValue()"
+      [panelClass]="panelClass()"
+      [disableRipple]="disableRipple()"
+      [attr.aria-label]="ariaLabel()"
+      [attr.aria-labelledby]="ariaLabelledby()"
+      [attr.aria-describedby]="ariaDescribedby()"
+      [attr.tabindex]="tabIndex()"
+      [attr.autofocus]="autofocus()"
+      [attr.id]="id()"
       (selectionChange)="onSelectionChange($event.value)"
       (openedChange)="onOpenedChange($event)"
       (focus)="onFocus($event)"
@@ -34,12 +34,12 @@
       class="amw-select__field">
 
       <!-- Search Box (if enabled) -->
-      @if (searchable && showSearchBox) {
+      @if (searchable() && showSearchBox()) {
         <mat-option disabled class="amw-select__search-option">
           <input
             matInput
-            [placeholder]="searchPlaceholder"
-            [value]="searchValue"
+            [placeholder]="searchPlaceholder()"
+            [value]="searchValue()"
             (input)="onSearchChange($any($event.target).value || '')"
             class="amw-select__search-input"
             (click)="$event.stopPropagation()">
@@ -47,7 +47,7 @@
       }
 
       <!-- Clear Button (if enabled) -->
-      @if (canClear) {
+      @if (canClear()) {
         <mat-option (click)="onClear()" class="amw-select__clear-option">
           <mat-icon class="amw-select__clear-icon">clear</mat-icon>
           Clear Selection
@@ -55,22 +55,22 @@
       }
 
       <!-- Loading Option -->
-      @if (loading) {
+      @if (loading()) {
         <mat-option disabled class="amw-select__loading-option">
           <amw-progress-spinner [diameter]="20" class="amw-select__loading-spinner"></amw-progress-spinner>
-          {{ loadingText }}
+          {{ loadingText() }}
         </mat-option>
       }
 
       <!-- No Options Message -->
-      @if (!loading && !hasOptions) {
+      @if (!loading() && !hasOptions()) {
         <mat-option disabled class="amw-select__no-options">
-          {{ noOptionsText }}
+          {{ noOptionsText() }}
         </mat-option>
       }
 
       <!-- Regular Options -->
-      @for (option of filteredOptions; track option) {
+      @for (option of filteredOptions(); track option) {
         <mat-option
           [value]="option.value"
           [disabled]="option.disabled"
@@ -91,7 +91,7 @@
       }
 
       <!-- Grouped Options -->
-      @for (group of filteredGroups | keyvalue; track group) {
+      @for (group of filteredGroups() | keyvalue; track group) {
         <mat-optgroup
           [label]="group.key"
           class="amw-select__group">
@@ -119,8 +119,8 @@
     </mat-select>
 
     <!-- Hint Text -->
-    @if (hint && !hasValidationError) {
-      <mat-hint class="amw-select__hint">{{ hint }}</mat-hint>
+    @if (hint() && !hasValidationError) {
+      <mat-hint class="amw-select__hint">{{ hint() }}</mat-hint>
     }
 
     <!-- Error Message -->

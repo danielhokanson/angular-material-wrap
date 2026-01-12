@@ -116,12 +116,12 @@
           <th mat-header-cell *matHeaderCellDef>
             <amw-checkbox [checked]="isAllSelected()"
               [indeterminate]="isIndeterminate()"
-              (change)="onSelectAll($event.checked)">
+              (change)="onSelectAll(!!$event)">
             </amw-checkbox>
           </th>
           <td mat-cell *matCellDef="let row">
             <amw-checkbox [checked]="isSelected(row)"
-              (change)="onItemSelect(row, $event.checked)">
+              (change)="onItemSelect(row, !!$event)">
             </amw-checkbox>
           </td>
         </ng-container>

@@ -30,17 +30,17 @@
   &__form-card {
     background: var(--mat-sys-surface-container);
 
-    .mat-card-header {
+    .amw-card__header {
       padding-bottom: 16px;
     }
 
-    .mat-card-title {
+    .amw-card__title {
       color: var(--mat-sys-on-surface);
       font-size: 1.25rem;
       font-weight: 500;
     }
 
-    .mat-card-subtitle {
+    .amw-card__subtitle {
       color: var(--mat-sys-on-surface-variant);
       font-size: 0.875rem;
     }
@@ -71,17 +71,17 @@
   &__demo-card {
     background: var(--mat-sys-surface-container);
 
-    .mat-card-header {
+    .amw-card__header {
       padding-bottom: 16px;
     }
 
-    .mat-card-title {
+    .amw-card__title {
       color: var(--mat-sys-on-surface);
       font-size: 1.25rem;
       font-weight: 500;
     }
 
-    .mat-card-subtitle {
+    .amw-card__subtitle {
       color: var(--mat-sys-on-surface-variant);
       font-size: 0.875rem;
     }
@@ -150,25 +150,27 @@
   }
 
   // Form Field Styling
-  .mat-form-field {
+  amw-input,
+  amw-select,
+  amw-textarea {
     width: 100%;
 
-    &.mat-form-field-invalid {
-      .mat-form-field-outline {
+    &:host.ng-invalid {
+      .amw-input__outline {
         color: var(--mat-sys-error);
       }
 
-      .mat-form-field-label {
+      .amw-input__label {
         color: var(--mat-sys-error);
       }
     }
 
-    .mat-form-field-hint {
+    .amw-input__hint {
       color: var(--mat-sys-on-surface-variant);
       font-size: 0.75rem;
     }
 
-    .mat-error {
+    .amw-input__error {
       color: var(--mat-sys-error);
       font-size: 0.75rem;
       margin-top: 4px;
@@ -176,7 +178,7 @@
   }
 
   // Button Styling
-  .mat-raised-button {
+  amw-button {
     &[color="primary"] {
       background-color: var(--mat-sys-primary);
       color: var(--mat-sys-on-primary);
@@ -188,7 +190,7 @@
     }
   }
 
-  .mat-button {
+  amw-button {
     color: var(--mat-sys-primary);
 
     &:hover {
@@ -246,9 +248,11 @@
 
   // High Contrast Mode
   @media (prefers-contrast: high) {
-    .mat-form-field {
-      &.mat-form-field-invalid {
-        .mat-form-field-outline {
+    amw-input,
+    amw-select,
+    amw-textarea {
+      &:host.ng-invalid {
+        .amw-input__outline {
           border-width: 2px;
         }
       }

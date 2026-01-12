@@ -1,40 +1,40 @@
 <div [class]="getTextareaClasses()">
-  <mat-form-field [appearance]="appearance">
-    @if (label) {
-      <mat-label [innerHTML]="label"></mat-label>
+  <mat-form-field [appearance]="appearance()">
+    @if (label()) {
+      <mat-label [innerHTML]="label()"></mat-label>
     }
     <textarea
       matInput
-      [placeholder]="placeholder"
-      [disabled]="disabled"
-      [required]="required"
-      [value]="value"
-      [name]="name"
-      [id]="id"
-      [tabIndex]="tabIndex"
-      [attr.maxlength]="maxLength"
-      [attr.minlength]="minLength"
-      [rows]="rows"
-      [cols]="cols"
-      [wrap]="wrap"
-      [readonly]="readonly"
-      [spellcheck]="spellcheck"
-      [attr.autocomplete]="autocomplete"
-      [attr.aria-label]="ariaLabel"
-      [attr.aria-labelledby]="ariaLabelledby"
-      [attr.aria-describedby]="ariaDescribedby"
-      [attr.aria-required]="ariaRequired"
-      [attr.aria-invalid]="ariaInvalid"
+      [placeholder]="placeholder()"
+      [disabled]="disabled()"
+      [required]="required()"
+      [value]="value()"
+      [name]="name()"
+      [id]="id()"
+      [tabIndex]="tabIndex()"
+      [attr.maxlength]="maxLength()"
+      [attr.minlength]="minLength()"
+      [rows]="rows()"
+      [cols]="cols()"
+      [wrap]="wrap()"
+      [readonly]="readonly()"
+      [spellcheck]="spellcheck()"
+      [attr.autocomplete]="autocomplete()"
+      [attr.aria-label]="ariaLabel()"
+      [attr.aria-labelledby]="ariaLabelledby()"
+      [attr.aria-describedby]="ariaDescribedby()"
+      [attr.aria-required]="ariaRequired()"
+      [attr.aria-invalid]="ariaInvalid()"
       (change)="onTextareaChange($event)"
       (input)="onTextareaInput($event)"
       (focus)="onFocus($event)"
       (blur)="onBlur($event)">
     </textarea>
-    @if (hint) {
-      <mat-hint>{{ hint }}</mat-hint>
+    @if (hint()) {
+      <mat-hint>{{ hint() }}</mat-hint>
     }
-    @if (hasError && errorMessage) {
-      <mat-error>{{ errorMessage }}</mat-error>
+    @if (hasError() && errorMessage()) {
+      <mat-error>{{ errorMessage() }}</mat-error>
     }
   </mat-form-field>
 </div>

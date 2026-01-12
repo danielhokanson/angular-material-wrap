@@ -1,16 +1,16 @@
 <!-- Sidenav Toggle Button -->
-@if (showToggle) {
+@if (showToggle()) {
   <amw-button
     #toggleButton
     variant="icon"
-    [icon]="toggleButtonIcon"
+    [icon]="toggleButtonIcon()"
     class="amw-sidenav__toggle"
-    [class.amw-sidenav__toggle--mobile]="isMobile"
-    [class.amw-sidenav__toggle--tablet]="isTablet"
-    [class.amw-sidenav__toggle--desktop]="isDesktop"
+    [class.amw-sidenav__toggle--mobile]="isMobile()"
+    [class.amw-sidenav__toggle--tablet]="isTablet()"
+    [class.amw-sidenav__toggle--desktop]="isDesktop()"
     [disabled]="isDisabled"
-    [attr.aria-label]="toggleButtonText"
-    [amwTooltip]="toggleButtonText"
+    [attr.aria-label]="toggleButtonText()"
+    [amwTooltip]="toggleButtonText()"
     (click)="toggleSidenav()">
   </amw-button>
 }
@@ -18,45 +18,45 @@
 <!-- Sidenav Container -->
 <mat-sidenav-container
   class="amw-sidenav__container"
-  [class.amw-sidenav__container--mobile]="isMobile"
-  [class.amw-sidenav__container--tablet]="isTablet"
-  [class.amw-sidenav__container--desktop]="isDesktop"
-  [class.amw-sidenav__container--responsive]="isResponsive"
+  [class.amw-sidenav__container--mobile]="isMobile()"
+  [class.amw-sidenav__container--tablet]="isTablet()"
+  [class.amw-sidenav__container--desktop]="isDesktop()"
+  [class.amw-sidenav__container--responsive]="isResponsive()"
   [class.amw-sidenav__container--disabled]="isDisabled">
 
   <!-- Sidenav -->
   <mat-sidenav
     #sidenav
     [class]="getSidenavClasses()"
-    [mode]="sidenavMode"
-    [opened]="opened"
-    [disableClose]="disableClose"
-    [fixedInViewport]="fixedInViewport"
-    [autoFocus]="autoFocus"
-    [position]="position"
-    [style.width]="sidenavWidth"
-    [style.min-width]="config.minWidth"
-    [style.max-width]="config.maxWidth"
+    [mode]="sidenavMode()"
+    [opened]="opened()"
+    [disableClose]="disableClose()"
+    [fixedInViewport]="fixedInViewport()"
+    [autoFocus]="autoFocus()"
+    [position]="position()"
+    [style.width]="sidenavWidth()"
+    [style.min-width]="config()?.minWidth"
+    [style.max-width]="config()?.maxWidth"
     (openedChange)="onSidenavOpenedChange($event)">
 
     <!-- Sidenav Header -->
-    @if (headerTemplate || showClose) {
+    @if (headerTemplate() || showClose()) {
       <div class="amw-sidenav__header">
-        @if (headerTemplate) {
-          <ng-container *ngTemplateOutlet="headerTemplate"></ng-container>
+        @if (headerTemplate()) {
+          <ng-container *ngTemplateOutlet="headerTemplate()"></ng-container>
         } @else {
           <div class="amw-sidenav__header-content">
             <div class="amw-sidenav__header-title">
               <ng-content select="[slot=header]"></ng-content>
             </div>
-            @if (showClose) {
+            @if (showClose()) {
               <amw-button
                 variant="icon"
-                [icon]="closeButtonIcon"
+                [icon]="closeButtonIcon()"
                 class="amw-sidenav__close"
                 [disabled]="isDisabled"
-                [attr.aria-label]="closeButtonText"
-                [amwTooltip]="closeButtonText"
+                [attr.aria-label]="closeButtonText()"
+                [amwTooltip]="closeButtonText()"
                 (click)="closeSidenav()">
               </amw-button>
             }
@@ -69,7 +69,7 @@
     <div class="amw-sidenav__content">
       <!-- Navigation Items -->
       <mat-nav-list class="amw-sidenav__nav-list">
-        @for (item of items; track trackByItem($index, item)) {
+        @for (item of items(); track trackByItem($index, item)) {
           <!-- Regular Navigation Item -->
           @if (!item.children || item.children.length === 0) {
             <mat-list-item
@@ -78,7 +78,7 @@
               [disabled]="item.disabled"
               [amwTooltip]="item.tooltip || ''"
               [routerLink]="item.route"
-              (click)="onItemClick(item, $event)">
+              (click)="onItemClickHandler(item, $event)">
               @if (item.icon) {
                 <mat-icon
                   matListItemIcon
@@ -138,7 +138,7 @@
                     [disabled]="child.disabled"
                     [amwTooltip]="child.tooltip || ''"
                     [routerLink]="child.route"
-                    (click)="onItemClick(child, $event)">
+                    (click)="onItemClickHandler(child, $event)">
                     @if (child.icon) {
                       <mat-icon
                         matListItemIcon
@@ -172,9 +172,9 @@
     </div>
 
     <!-- Sidenav Footer -->
-    @if (footerTemplate) {
+    @if (footerTemplate()) {
       <div class="amw-sidenav__footer">
-        <ng-container *ngTemplateOutlet="footerTemplate"></ng-container>
+        <ng-container *ngTemplateOutlet="footerTemplate()"></ng-container>
       </div>
     }
   </mat-sidenav>

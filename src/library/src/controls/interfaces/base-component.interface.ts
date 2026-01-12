@@ -1,18 +1,20 @@
 import { ControlValueAccessor } from '@angular/forms';
+import { InputSignal, WritableSignal } from '@angular/core';
 
 /**
  * Base interface for all AMW components that can work both inside and outside forms
+ * Uses Angular signals for reactive properties
  */
 export interface BaseComponentInterface extends ControlValueAccessor {
     /**
-     * Whether the component is disabled
+     * Whether the component is disabled (signal)
      */
-    disabled?: boolean;
+    disabled: InputSignal<boolean>;
 
     /**
-     * Whether the component is required
+     * Whether the component is required (signal)
      */
-    required?: boolean;
+    required: InputSignal<boolean>;
 
     /**
      * The value of the component
@@ -20,22 +22,22 @@ export interface BaseComponentInterface extends ControlValueAccessor {
     value?: any;
 
     /**
-     * Placeholder text
+     * Placeholder text (signal)
      */
-    placeholder?: string;
+    placeholder: InputSignal<string>;
 
     /**
-     * Label text
+     * Label text (signal)
      */
-    label?: string;
+    label: InputSignal<string>;
 
     /**
-     * Error message to display
+     * Error message to display (signal)
      */
-    errorMessage?: string;
+    errorMessage: InputSignal<string>;
 
     /**
-     * Whether the component has an error
+     * Whether the component has an error (signal)
      */
-    hasError?: boolean;
+    hasError: WritableSignal<boolean>;
 }

@@ -42,7 +42,7 @@
       margin-top: 24px;
       
       button {
-        mat-icon {
+        amw-icon {
           margin-right: 8px;
         }
       }
@@ -74,7 +74,7 @@
       justify-content: center;
       font-size: 2.5rem;
       
-      mat-icon {
+      amw-icon {
         font-size: 2.5rem;
         width: 2.5rem;
         height: 2.5rem;
@@ -90,7 +90,7 @@
       button {
         justify-content: flex-start;
         
-        mat-icon {
+        amw-icon {
           margin-right: 8px;
         }
       }
@@ -106,7 +106,7 @@
     button {
       align-self: flex-start;
       
-      mat-icon {
+      amw-icon {
         margin-right: 8px;
       }
     }
@@ -121,7 +121,7 @@
       font-size: 1.1rem;
     }
     
-    mat-form-field {
+    amw-input, amw-select, amw-textarea {
       width: 100%;
       max-width: 300px;
     }
@@ -152,7 +152,7 @@
     margin-top: 24px;
     
     button {
-      mat-icon {
+      amw-icon {
         margin-right: 8px;
       }
     }

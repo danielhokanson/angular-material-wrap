@@ -1,4 +1,4 @@
-import { Component, Input, Output, EventEmitter, OnInit, OnChanges, OnDestroy, ChangeDetectorRef, SimpleChanges, ViewEncapsulation } from '@angular/core';
+import { Component, input, output, OnInit, OnDestroy, ChangeDetectorRef, ViewEncapsulation, effect } from '@angular/core';
 
 import { FormsModule } from '@angular/forms';
 import { MatIconModule } from '@angular/material/icon';
@@ -6,7 +6,7 @@ import { MatCardModule } from '@angular/material/card';
 import { MatChipsModule } from '@angular/material/chips';
 import { MatDialog } from '@angular/material/dialog';
 import { AmwCalendarBaseComponent } from './amw-calendar-base.component';
-import { CalendarEvent, CalendarEventChangeEvent, CalendarConfig, CalendarView, CalendarNavigationEvent } from './interfaces';
+import { CalendarEvent, CalendarView } from './interfaces';
 import { CalendarItemRegistryService } from './services/calendar-item-registry.service';
 import { CalendarItemPopoverService } from './services/calendar-item-popover.service';
 import { AmwProgressSpinnerComponent } from '../amw-progress-spinner/amw-progress-spinner.component';
@@ -31,19 +31,20 @@ import { AmwTooltipDirective } from '../../../directives';
 ],
     templateUrl: './amw-calendar-mini.component.html',
     styleUrl: './amw-calendar-mini.component.scss',
-    encapsulation: ViewEncapsulation.None
+    encapsulation: ViewEncapsulation.None,
+    host: { 'data-amw-id': 'amw-calendar-mini' }
 })
-export class AmwCalendarMiniComponent<T = any> extends AmwCalendarBaseComponent<T> implements OnInit, OnChanges, OnDestroy {
+export class AmwCalendarMiniComponent<T = any> extends AmwCalendarBaseComponent<T> implements OnInit, OnDestroy {
     // Additional input properties for mini calendar
-    @Input() showWeekView: boolean = false;
-    @Input() maxEventsPerDay: number = 3;
-    @Input() showMoreButton: boolean = true;
-    @Input() compactMode: boolean = false;
-    @Input() showNavigation: boolean = true;
+    showWeekView = input<boolean>(false);
+    maxEventsPerDay = input<number>(3);
+    showMoreButton = input<boolean>(true);
+    compactMode = input<boolean>(false);
+    showNavigation = input<boolean>(true);
 
     // Additional output events
-    @Output() showMoreClick = new EventEmitter<Date>();
-    @Output() weekViewToggle = new EventEmitter<boolean>();
+    showMoreClick = output<Date>();
+    weekViewToggle = output<boolean>();
 
     // View-specific properties
     weekDays: Date[] = [];
@@ -60,21 +61,19 @@ export class AmwCalendarMiniComponent<T = any> extends AmwCalendarBaseComponent<
         dialog: MatDialog
     ) {
         super(cdr, itemRegistry, popoverService, dialog);
+
+        // Effect to handle changes to showWeekView
+        effect(() => {
+            const showWeekViewValue = this.showWeekView();
+            this.showWeekViewInternal = showWeekViewValue;
+            this.generateWeekData();
+        });
     }
 
     override ngOnInit(): void {
         super.ngOnInit();
-        this.showWeekViewInternal = this.showWeekView;
+        this.showWeekViewInternal = this.showWeekView();
         this.generateWeekData();
-    }
-
-    override ngOnChanges(changes: SimpleChanges): void {
-        super.ngOnChanges(changes);
-
-        if (changes['selectedDate'] || changes['showWeekView']) {
-            this.showWeekViewInternal = this.showWeekView;
-            this.generateWeekData();
-        }
     }
 
     /**
@@ -149,7 +148,7 @@ export class AmwCalendarMiniComponent<T = any> extends AmwCalendarBaseComponent<
      */
     getEventsForDateLimited(date: Date): CalendarEvent<T>[] {
         const events = this.getEventsForDate(date);
-        return events.slice(0, this.maxEventsPerDay);
+        return events.slice(0, this.maxEventsPerDay());
     }
 
     /**
@@ -157,7 +156,7 @@ export class AmwCalendarMiniComponent<T = any> extends AmwCalendarBaseComponent<
      */
     getRemainingEventsCount(date: Date): number {
         const totalEvents = this.getEventsForDate(date).length;
-        return Math.max(0, totalEvents - this.maxEventsPerDay);
+        return Math.max(0, totalEvents - this.maxEventsPerDay());
     }
 
     /**
@@ -190,7 +189,7 @@ export class AmwCalendarMiniComponent<T = any> extends AmwCalendarBaseComponent<
      * Get formatted date for mini display
      */
     getFormattedDateMini(date: Date): string {
-        if (this.compactMode) {
+        if (this.compactMode()) {
             return `${date.getDate()}`;
         }
         return `${this.getDayOfWeekName(date)} ${date.getDate()}`;
@@ -203,7 +202,7 @@ export class AmwCalendarMiniComponent<T = any> extends AmwCalendarBaseComponent<
         const start = this.weekDays[0];
         const end = this.weekDays[6];
 
-        if (this.compactMode) {
+        if (this.compactMode()) {
             return `${start.getDate()}-${end.getDate()} ${this.getMonthName(start)}`;
         }
 
@@ -230,7 +229,7 @@ export class AmwCalendarMiniComponent<T = any> extends AmwCalendarBaseComponent<
      */
     getEventDisplayTextMini(event: CalendarEvent<T>): string {
         const text = this.getEventDisplayText(event);
-        if (this.compactMode && text.length > 20) {
+        if (this.compactMode() && text.length > 20) {
             return text.substring(0, 17) + '...';
         }
         return text;
@@ -246,7 +245,7 @@ export class AmwCalendarMiniComponent<T = any> extends AmwCalendarBaseComponent<
             classes.push('amw-calendar-mini__event--all-day');
         }
 
-        if (this.compactMode) {
+        if (this.compactMode()) {
             classes.push('amw-calendar-mini__event--compact');
         }
 
@@ -271,7 +270,7 @@ export class AmwCalendarMiniComponent<T = any> extends AmwCalendarBaseComponent<
             classes.push('amw-calendar-mini__day--current-week');
         }
 
-        if (this.compactMode) {
+        if (this.compactMode()) {
             classes.push('amw-calendar-mini__day--compact');
         }
 
@@ -316,7 +315,7 @@ export class AmwCalendarMiniComponent<T = any> extends AmwCalendarBaseComponent<
             return 'All day';
         }
 
-        if (this.compactMode) {
+        if (this.compactMode()) {
             return this.getFormattedTime(event.start);
         }
 

@@ -52,7 +52,7 @@
             opacity: 1;
           }
 
-          mat-icon {
+          amw-icon {
             font-size: 20px;
             width: 20px;
             height: 20px;
@@ -114,7 +114,7 @@
         font-size: 13px;
         color: #d32f2f;
 
-        mat-icon {
+        amw-icon {
           font-size: 18px;
           width: 18px;
           height: 18px;
@@ -138,7 +138,7 @@
         .dynamic-preview {
           min-height: 100px;
 
-          ::ng-deep mat-tab-group {
+          .amw-tabs {
             width: 100%;
           }
         }
@@ -155,7 +155,7 @@
           font-size: 13px;
           color: var(--mdc-theme-on-surface-variant, #49454f);
 
-          mat-icon {
+          amw-icon {
             font-size: 18px;
             width: 18px;
             height: 18px;
@@ -166,7 +166,7 @@
             background-color: rgba(76, 175, 80, 0.1);
             border-left-color: #4caf50;
 
-            mat-icon {
+            amw-icon {
               color: #4caf50;
             }
 
@@ -180,14 +180,14 @@
   }
 
   // Header styling for code examples
-  mat-expansion-panel-header {
-    mat-panel-title {
+  .amw-accordion__panel-header {
+    .amw-accordion__panel-title {
       display: flex;
       align-items: center;
       gap: 12px;
       font-weight: 500;
 
-      mat-icon {
+      amw-icon {
         color: var(--mdc-theme-primary, #6750a4);
         font-size: 20px;
         width: 20px;
@@ -195,7 +195,7 @@
       }
     }
 
-    mat-panel-description {
+    .amw-accordion__panel-description {
       color: var(--mdc-theme-on-surface-variant, #49454f);
     }
   }

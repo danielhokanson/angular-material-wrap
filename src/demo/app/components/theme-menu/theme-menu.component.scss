@@ -1,8 +1,8 @@
 .amw-demo-theme-menu {
   .theme-menu-button {
     color: var(--mat-foreground);
-    
-    mat-icon {
+
+    amw-icon {
       color: var(--mat-primary);
     }
   }
@@ -25,7 +25,7 @@
         color: var(--mat-foreground);
         margin-bottom: 4px;
 
-        mat-icon {
+        amw-icon {
           color: var(--mat-primary);
         }
       }
@@ -160,7 +160,7 @@
         padding: 8px 16px;
         min-height: 40px;
 
-        mat-icon {
+        amw-icon {
           color: var(--mat-primary);
           font-size: 18px;
           width: 18px;

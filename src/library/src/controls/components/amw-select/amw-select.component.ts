@@ -1,4 +1,4 @@
-import { Component, Input, Output, EventEmitter, ViewEncapsulation, forwardRef, OnInit, OnChanges, SimpleChanges } from '@angular/core';
+import { Component, input, output, signal, computed, ViewEncapsulation, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule, ReactiveFormsModule, ControlValueAccessor, NG_VALUE_ACCESSOR } from '@angular/forms';
 import { MatSelectModule } from '@angular/material/select';
@@ -7,14 +7,15 @@ import { MatIconModule } from '@angular/material/icon';
 import { MatButtonModule } from '@angular/material/button';
 import { MatInputModule } from '@angular/material/input';
 import { BaseComponent } from '../base/base.component';
-import { SelectAppearance } from './interfaces/select-appearance.type';
-import { AmwSize } from '../../../shared/types/amw-size.type';
-import { SelectOption, SelectConfig } from './interfaces/select.interface';
+import { SelectOption } from './interfaces/select.interface';
 import { AmwProgressSpinnerComponent } from '../../../components/components/amw-progress-spinner/amw-progress-spinner.component';
 
 /**
  * AMW Select Component
  * A comprehensive wrapper around Angular Material Select with enhanced functionality
+ * Inherits from BaseComponent: disabled, required, label, placeholder, errorMessage, hasError,
+ * name, id, tabIndex, size, color, ariaLabel, ariaLabelledby, ariaDescribedby, ariaRequired,
+ * ariaInvalid, hint, readonly, value, change, focus, blur
  */
 @Component({
     selector: 'amw-select',
@@ -41,95 +42,108 @@ import { AmwProgressSpinnerComponent } from '../../../components/components/amw-
         }
     ]
 })
-export class AmwSelectComponent extends BaseComponent implements ControlValueAccessor, OnInit, OnChanges {
-    // Basic select properties
-    @Input() appearance: MatFormFieldAppearance = 'outline';
-    @Input() size: AmwSize = 'medium';
-    @Input() override placeholder: string = '';
-    @Input() override label: string = '';
-    @Input() hint: string = '';
-    @Input() multiple: boolean = false;
-    @Input() compareWith: (a: any, b: any) => boolean = (a, b) => a === b;
-    @Input() options: SelectOption[] = [];
-    @Input() groups: { [key: string]: SelectOption[] } = {};
-    @Input() searchable: boolean = false;
-    @Input() clearable: boolean = false;
-    @Input() loading: boolean = false;
-    @Input() autofocus: boolean = false;
-    @Input() name: string = '';
-    @Input() id: string = '';
-    @Input() form: string = '';
+export class AmwSelectComponent extends BaseComponent<any> implements ControlValueAccessor, OnInit {
+    // Select-specific properties (inherited from BaseComponent: disabled, required, label, placeholder,
+    // errorMessage, hasError, name, id, tabIndex, size, color, ariaLabel, ariaLabelledby,
+    // ariaDescribedby, ariaRequired, ariaInvalid, hint, readonly, value, change, focus, blur)
+
+    appearance = input<MatFormFieldAppearance>('outline');
+    multiple = input<boolean>(false);
+    compareWith = input<(a: any, b: any) => boolean>((a, b) => a === b);
+    options = input<SelectOption[]>([]);
+    groups = input<{ [key: string]: SelectOption[] }>({});
+    searchable = input<boolean>(false);
+    clearable = input<boolean>(false);
+    loading = input<boolean>(false);
+    autofocus = input<boolean>(false);
+    form = input<string>('');
 
     // Panel properties
-    @Input() panelClass: string | string[] = '';
-    @Input() overlayPanelClass: string | string[] = '';
-    @Input() disableRipple: boolean = false;
-    @Input() disableOptionCentering: boolean = false;
-    @Input() typeaheadDebounceInterval: number = 300;
-    @Input() maxHeight: number = 256;
-    @Input() width: number | null = null;
-    @Input() autoWidth: boolean = true;
-    @Input() hideSingleSelectionIndicator: boolean = false;
+    panelClass = input<string | string[]>('');
+    overlayPanelClass = input<string | string[]>('');
+    disableRipple = input<boolean>(false);
+    disableOptionCentering = input<boolean>(false);
+    typeaheadDebounceInterval = input<number>(300);
+    maxHeight = input<number>(256);
+    width = input<number | null>(null);
+    autoWidth = input<boolean>(true);
+    hideSingleSelectionIndicator = input<boolean>(false);
 
     // UI properties
-    @Input() showClearButton: boolean = false;
-    @Input() showSearchBox: boolean = false;
-    @Input() searchPlaceholder: string = 'Search...';
-    @Input() noOptionsText: string = 'No options available';
-    @Input() loadingText: string = 'Loading...';
+    showClearButton = input<boolean>(false);
+    showSearchBox = input<boolean>(false);
+    searchPlaceholder = input<string>('Search...');
+    noOptionsText = input<string>('No options available');
+    loadingText = input<string>('Loading...');
 
     // Template properties
-    @Input() customTrigger: boolean = false;
-    @Input() customOptionTemplate: boolean = false;
-    @Input() customLabelTemplate: boolean = false;
-    @Input() customEmptyTemplate: boolean = false;
-    @Input() customLoadingTemplate: boolean = false;
-    @Input() customErrorTemplate: boolean = false;
-
-    // Accessibility properties
-    @Input() ariaLabel: string = '';
-    @Input() ariaLabelledby: string = '';
-    @Input() ariaDescribedby: string = '';
-    @Input() tabIndex: number = 0;
+    customTrigger = input<boolean>(false);
+    customOptionTemplate = input<boolean>(false);
+    customLabelTemplate = input<boolean>(false);
+    customEmptyTemplate = input<boolean>(false);
+    customLoadingTemplate = input<boolean>(false);
+    customErrorTemplate = input<boolean>(false);
 
     // Validation messages
-    @Input() validationMessages: {
+    validationMessages = input<{
         required?: string;
         invalid?: string;
         noOptions?: string;
-    } = {};
+    }>({});
 
     // Internal state
-    internalValue: any = null;
-    searchValue: string = '';
-    filteredOptions: SelectOption[] = [];
-    filteredGroups: { [key: string]: SelectOption[] } = {};
-    isOpen: boolean = false;
+    internalValue = signal<any>(null);
+    searchValue = signal<string>('');
+    isOpen = signal<boolean>(false);
 
-    // Events
-    @Output() selectionChange = new EventEmitter<any>();
-    @Output() openedChange = new EventEmitter<boolean>();
-    @Output() searchChange = new EventEmitter<string>();
-    @Output() clear = new EventEmitter<void>();
-    @Output() override focus = new EventEmitter<FocusEvent>();
-    @Output() override blur = new EventEmitter<FocusEvent>();
+    // Computed filtered options
+    filteredOptions = computed(() => {
+        const opts = this.options();
+        const search = this.searchValue();
+        if (this.searchable() && search) {
+            return opts.filter(option =>
+                option.label.toLowerCase().includes(search.toLowerCase()) ||
+                (option.description && option.description.toLowerCase().includes(search.toLowerCase()))
+            );
+        }
+        return [...opts];
+    });
+
+    filteredGroups = computed(() => {
+        const grps = this.groups();
+        const search = this.searchValue();
+        if (this.searchable() && search) {
+            const filtered: { [key: string]: SelectOption[] } = {};
+            Object.keys(grps).forEach(groupKey => {
+                const filteredGroup = grps[groupKey].filter(option =>
+                    option.label.toLowerCase().includes(search.toLowerCase()) ||
+                    (option.description && option.description.toLowerCase().includes(search.toLowerCase()))
+                );
+                if (filteredGroup.length > 0) {
+                    filtered[groupKey] = filteredGroup;
+                }
+            });
+            return filtered;
+        }
+        return { ...grps };
+    });
+
+    // Select-specific events
+    selectionChange = output<any>();
+    openedChange = output<boolean>();
+    searchChange = output<string>();
+    clear = output<void>();
 
     // ControlValueAccessor implementation
-    private onChange = (value: any) => { };
+    private onChange = (_value: any) => { };
     private onTouched = () => { };
 
     ngOnInit(): void {
-        this.updateFilteredOptions();
-    }
-
-    ngOnChanges(changes: SimpleChanges): void {
-        if (changes['options'] || changes['groups'] || changes['searchValue']) {
-            this.updateFilteredOptions();
-        }
+        // Filtered options are now computed, no manual update needed
     }
 
     override writeValue(value: any): void {
-        this.internalValue = value;
+        this.internalValue.set(value);
     }
 
     override registerOnChange(fn: any): void {
@@ -140,108 +154,89 @@ export class AmwSelectComponent extends BaseComponent implements ControlValueAcc
         this.onTouched = fn;
     }
 
-    override setDisabledState(isDisabled: boolean): void {
-        this.disabled = isDisabled;
+    override setDisabledState(_isDisabled: boolean): void {
+        // Note: disabled is a signal input from BaseComponent and can't be set directly
+        // The parent component should bind to [disabled] input instead
     }
 
     // Event handlers
     onSelectionChange(value: any): void {
-        this.internalValue = value;
+        this.internalValue.set(value);
         this.onChange(value);
         this.selectionChange.emit(value);
     }
 
     onOpenedChange(isOpen: boolean): void {
-        this.isOpen = isOpen;
+        this.isOpen.set(isOpen);
         this.openedChange.emit(isOpen);
     }
 
     onSearchChange(searchValue: string): void {
-        this.searchValue = searchValue;
+        this.searchValue.set(searchValue);
         this.searchChange.emit(searchValue);
-        this.updateFilteredOptions();
     }
 
     onClear(): void {
-        this.internalValue = this.multiple ? [] : null;
-        this.onChange(this.internalValue);
+        const newValue = this.multiple() ? [] : null;
+        this.internalValue.set(newValue);
+        this.onChange(newValue);
         this.clear.emit();
     }
 
     override onFocus(event: FocusEvent): void {
-        this.focus.emit(event);
+        super.onFocus(event);
     }
 
     override onBlur(event: FocusEvent): void {
         this.onTouched();
-        this.blur.emit(event);
+        super.onBlur(event);
     }
 
-    // Helper methods
-    private updateFilteredOptions(): void {
-        if (this.searchable && this.searchValue) {
-            this.filteredOptions = this.options.filter(option =>
-                option.label.toLowerCase().includes(this.searchValue.toLowerCase()) ||
-                (option.description && option.description.toLowerCase().includes(this.searchValue.toLowerCase()))
-            );
-
-            if (Object.keys(this.groups).length > 0) {
-                this.filteredGroups = {};
-                Object.keys(this.groups).forEach(groupKey => {
-                    const filteredGroup = this.groups[groupKey].filter(option =>
-                        option.label.toLowerCase().includes(this.searchValue.toLowerCase()) ||
-                        (option.description && option.description.toLowerCase().includes(this.searchValue.toLowerCase()))
-                    );
-                    if (filteredGroup.length > 0) {
-                        this.filteredGroups[groupKey] = filteredGroup;
-                    }
-                });
-            }
-        } else {
-            this.filteredOptions = [...this.options];
-            this.filteredGroups = { ...this.groups };
+    // Computed properties
+    displayValue = computed(() => {
+        const value = this.internalValue();
+        if (this.multiple() && Array.isArray(value)) {
+            return value.map(val => this.getOptionLabel(val)).join(', ');
         }
-    }
-
-    get displayValue(): string {
-        if (this.multiple && Array.isArray(this.internalValue)) {
-            return this.internalValue.map(val => this.getOptionLabel(val)).join(', ');
-        }
-        return this.getOptionLabel(this.internalValue);
-    }
+        return this.getOptionLabel(value);
+    });
 
     private getOptionLabel(value: any): string {
         if (value == null) return '';
-
-        const option = this.options.find(opt => this.compareWith(opt.value, value));
+        const opts = this.options();
+        const compareFn = this.compareWith();
+        const option = opts.find(opt => compareFn(opt.value, value));
         return option ? option.label : String(value);
     }
 
-    get hasValue(): boolean {
-        if (this.multiple) {
-            return Array.isArray(this.internalValue) && this.internalValue.length > 0;
+    hasValue = computed(() => {
+        const value = this.internalValue();
+        if (this.multiple()) {
+            return Array.isArray(value) && value.length > 0;
         }
-        return this.internalValue != null && this.internalValue !== '';
-    }
+        return value != null && value !== '';
+    });
 
-    get canClear(): boolean {
-        return this.clearable && this.hasValue && !this.disabled;
-    }
+    canClear = computed(() => {
+        return this.clearable() && this.hasValue() && !this.disabled();
+    });
 
-    get hasOptions(): boolean {
-        return this.filteredOptions.length > 0 || Object.keys(this.filteredGroups).length > 0;
-    }
+    hasOptions = computed(() => {
+        return this.filteredOptions().length > 0 || Object.keys(this.filteredGroups()).length > 0;
+    });
 
     override get errorText(): string {
-        if (this.errorMessage) return this.errorMessage;
+        const errorMsg = this.errorMessage();
+        if (errorMsg) return errorMsg;
 
         if (this.ngControl?.control) {
             const control = this.ngControl.control;
+            const msgs = this.validationMessages();
             if (control.hasError('required')) {
-                return this.validationMessages.required || 'This field is required';
+                return msgs.required || 'This field is required';
             }
             if (control.hasError('invalid')) {
-                return this.validationMessages.invalid || 'Please select a valid option';
+                return msgs.invalid || 'Please select a valid option';
             }
         }
 
@@ -249,10 +244,10 @@ export class AmwSelectComponent extends BaseComponent implements ControlValueAcc
     }
 
     override get hasValidationError(): boolean {
-        return this.hasError || (this.ngControl?.control?.invalid) || false;
+        return this.hasError() || (this.ngControl?.control?.invalid) || false;
     }
 
-    get selectClasses(): string {
-        return `amw-select amw-select--${this.size} amw-select--${this.appearance} ${this.multiple ? 'amw-select--multiple' : ''} ${this.disabled ? 'amw-select--disabled' : ''} ${this.hasValidationError ? 'amw-select--error' : ''}`;
-    }
+    selectClasses = computed(() => {
+        return `amw-select amw-select--${this.size()} amw-select--${this.appearance()} ${this.multiple() ? 'amw-select--multiple' : ''} ${this.disabled() ? 'amw-select--disabled' : ''} ${this.hasValidationError ? 'amw-select--error' : ''}`;
+    });
 }

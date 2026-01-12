@@ -1,4 +1,4 @@
-import { Component, Input, Output, EventEmitter, OnInit, OnDestroy, TemplateRef, ViewChild, ElementRef, AfterViewInit, ChangeDetectorRef, ViewEncapsulation } from '@angular/core';
+import { Component, input, output, model, signal, computed, OnInit, OnDestroy, TemplateRef, ViewChild, ElementRef, AfterViewInit, ChangeDetectorRef, ViewEncapsulation } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { MatSidenavModule, MatSidenav } from '@angular/material/sidenav';
 import { MatIconModule } from '@angular/material/icon';
@@ -57,40 +57,37 @@ import { AmwButtonComponent } from '../../../controls/components/amw-button/amw-
 })
 export class AmwSidenavComponent extends BaseComponent implements OnInit, OnDestroy, AfterViewInit {
     /** Configuration object for the sidenav */
-    @Input() config: SidenavConfig = {};
+    config = input<SidenavConfig>({});
 
     /** Navigation items to display in the sidenav */
-    @Input() items: SidenavItem[] = [];
+    items = input<SidenavItem[]>([]);
 
-    /** Whether the sidenav is opened */
-    @Input() opened: boolean = false;
+    /** Whether the sidenav is opened (two-way binding) */
+    opened = model<boolean>(false);
 
     /** Custom header template */
-    @Input() headerTemplate?: TemplateRef<any>;
+    headerTemplate = input<TemplateRef<any> | undefined>(undefined);
 
     /** Custom footer template */
-    @Input() footerTemplate?: TemplateRef<any>;
+    footerTemplate = input<TemplateRef<any> | undefined>(undefined);
 
     /** Custom item template */
-    @Input() itemTemplate?: TemplateRef<any>;
+    itemTemplate = input<TemplateRef<any> | undefined>(undefined);
 
     /** Whether to show the toggle button */
-    @Input() showToggle: boolean = true;
+    showToggle = input<boolean>(true);
 
     /** Whether to show the close button */
-    @Input() showClose: boolean = true;
-
-    /** Event emitted when sidenav opened state changes */
-    @Output() openedChange = new EventEmitter<boolean>();
+    showClose = input<boolean>(true);
 
     /** Event emitted when a navigation item is clicked */
-    @Output() itemClick = new EventEmitter<SidenavItem>();
+    itemClick = output<SidenavItem>();
 
     /** Event emitted when sidenav is toggled */
-    @Output() toggle = new EventEmitter<boolean>();
+    toggleEvent = output<boolean>();
 
     /** Event emitted when sidenav is closed */
-    @Output() close = new EventEmitter<void>();
+    closeEvent = output<void>();
 
     /** Reference to the MatSidenav */
     @ViewChild('sidenav', { static: true }) sidenav!: MatSidenav;
@@ -102,45 +99,44 @@ export class AmwSidenavComponent extends BaseComponent implements OnInit, OnDest
     private destroy$ = new Subject<void>();
 
     /** Whether the component is in mobile view */
-    isMobile = false;
+    isMobile = signal<boolean>(false);
 
     /** Whether the component is in tablet view */
-    isTablet = false;
+    isTablet = signal<boolean>(false);
 
     /** Whether the component is in desktop view */
-    isDesktop = false;
+    isDesktop = signal<boolean>(false);
 
     /** Current breakpoint */
-    currentBreakpoint = '';
+    currentBreakpoint = signal<string>('');
 
     /** Whether the sidenav is responsive */
-    get isResponsive(): boolean {
-        return this.config.responsive !== false;
-    }
+    isResponsive = computed(() => this.config().responsive !== false);
 
     /** Current sidenav mode */
-    get sidenavMode(): 'over' | 'push' | 'side' {
-        if (this.isMobile && this.isResponsive) {
+    sidenavMode = computed<'over' | 'push' | 'side'>(() => {
+        if (this.isMobile() && this.isResponsive()) {
             return 'over';
         }
-        return this.config.mode || 'side';
-    }
+        return this.config().mode || 'side';
+    });
 
     /** Whether the sidenav should be opened by default */
-    get defaultOpened(): boolean {
-        if (this.isMobile && this.isResponsive) {
+    defaultOpened = computed(() => {
+        if (this.isMobile() && this.isResponsive()) {
             return false;
         }
-        return this.config.opened ?? true;
-    }
+        return this.config().opened ?? true;
+    });
 
     /** Sidenav width */
-    get sidenavWidth(): string {
-        if (this.config.width) {
-            return typeof this.config.width === 'number' ? `${this.config.width}px` : this.config.width;
+    sidenavWidth = computed(() => {
+        const cfg = this.config();
+        if (cfg.width) {
+            return typeof cfg.width === 'number' ? `${cfg.width}px` : cfg.width;
         }
 
-        switch (this.config.size) {
+        switch (cfg.size) {
             case 'small':
                 return '200px';
             case 'large':
@@ -149,77 +145,49 @@ export class AmwSidenavComponent extends BaseComponent implements OnInit, OnDest
             default:
                 return '280px';
         }
-    }
+    });
 
     /** Toggle button text */
-    get toggleButtonText(): string {
-        return this.config.toggleText || 'Toggle Menu';
-    }
+    toggleButtonText = computed(() => this.config().toggleText || 'Toggle Menu');
 
     /** Toggle button icon */
-    get toggleButtonIcon(): string {
-        return this.config.toggleIcon || 'menu';
-    }
+    toggleButtonIcon = computed(() => this.config().toggleIcon || 'menu');
 
     /** Close button text */
-    get closeButtonText(): string {
-        return this.config.closeText || 'Close';
-    }
+    closeButtonText = computed(() => this.config().closeText || 'Close');
 
     /** Close button icon */
-    get closeButtonIcon(): string {
-        return this.config.closeIcon || 'close';
-    }
+    closeButtonIcon = computed(() => this.config().closeIcon || 'close');
 
     /** Whether to show the backdrop */
-    get showBackdrop(): boolean {
-        return this.config.showBackdrop !== false;
-    }
+    showBackdrop = computed(() => this.config().showBackdrop !== false);
 
     /** Whether the sidenav is disabled */
-    override get isDisabled(): boolean {
-        return this.config.disabled || false;
-    }
+    isDisabledComputed = computed(() => this.config().disabled || false);
 
     /** Whether the sidenav can be closed when clicking outside */
-    get disableClose(): boolean {
-        return this.config.disableClose || false;
-    }
+    disableClose = computed(() => this.config().disableClose || false);
 
     /** Whether the sidenav is fixed in viewport */
-    get fixedInViewport(): boolean {
-        return this.config.fixedInViewport || false;
-    }
+    fixedInViewport = computed(() => this.config().fixedInViewport || false);
 
     /** Whether to auto focus */
-    get autoFocus(): boolean {
-        return this.config.autoFocus !== false;
-    }
+    autoFocus = computed(() => this.config().autoFocus !== false);
 
     /** Whether to restore focus */
-    get restoreFocus(): boolean {
-        return this.config.restoreFocus !== false;
-    }
+    restoreFocus = computed(() => this.config().restoreFocus !== false);
 
     /** Sidenav position */
-    get position(): 'start' | 'end' {
-        return this.config.position || 'start';
-    }
+    position = computed<'start' | 'end'>(() => this.config().position || 'start');
 
     /** Panel class */
-    get panelClass(): string {
-        return this.config.panelClass || '';
-    }
+    panelClass = computed(() => this.config().panelClass || '');
 
     /** Backdrop class */
-    get backdropClass(): string {
-        return this.config.backdropClass || '';
-    }
+    backdropClass = computed(() => this.config().backdropClass || '');
 
     /** Responsive breakpoint */
-    get responsiveBreakpoint(): string {
-        return this.config.responsiveBreakpoint || '768px';
-    }
+    responsiveBreakpoint = computed(() => this.config().responsiveBreakpoint || '768px');
 
     constructor(
         private breakpointObserver: BreakpointObserver,
@@ -241,11 +209,10 @@ export class AmwSidenavComponent extends BaseComponent implements OnInit, OnDest
 
     /**
      * Handles sidenav opened change event
-     * @param opened Whether the sidenav is opened
+     * @param openedValue Whether the sidenav is opened
      */
-    onSidenavOpenedChange(opened: boolean): void {
-        this.opened = opened;
-        this.openedChange.emit(opened);
+    onSidenavOpenedChange(openedValue: boolean): void {
+        this.opened.set(openedValue);
     }
 
     ngOnDestroy(): void {
@@ -265,11 +232,11 @@ export class AmwSidenavComponent extends BaseComponent implements OnInit, OnDest
             ])
             .pipe(takeUntil(this.destroy$))
             .subscribe(result => {
-                this.isMobile = this.breakpointObserver.isMatched(Breakpoints.Handset);
-                this.isTablet = this.breakpointObserver.isMatched(Breakpoints.Tablet);
-                this.isDesktop = this.breakpointObserver.isMatched(Breakpoints.Web);
+                this.isMobile.set(this.breakpointObserver.isMatched(Breakpoints.Handset));
+                this.isTablet.set(this.breakpointObserver.isMatched(Breakpoints.Tablet));
+                this.isDesktop.set(this.breakpointObserver.isMatched(Breakpoints.Web));
 
-                this.currentBreakpoint = this.getCurrentBreakpoint();
+                this.currentBreakpoint.set(this.getCurrentBreakpoint());
 
                 // Update sidenav behavior based on breakpoint
                 this.updateSidenavBehavior();
@@ -282,9 +249,9 @@ export class AmwSidenavComponent extends BaseComponent implements OnInit, OnDest
      * Gets the current breakpoint name
      */
     private getCurrentBreakpoint(): string {
-        if (this.isMobile) return 'mobile';
-        if (this.isTablet) return 'tablet';
-        if (this.isDesktop) return 'desktop';
+        if (this.isMobile()) return 'mobile';
+        if (this.isTablet()) return 'tablet';
+        if (this.isDesktop()) return 'desktop';
         return 'unknown';
     }
 
@@ -294,12 +261,12 @@ export class AmwSidenavComponent extends BaseComponent implements OnInit, OnDest
     private updateSidenavBehavior(): void {
         if (this.sidenav) {
             // Update mode based on breakpoint
-            this.sidenav.mode = this.sidenavMode;
+            this.sidenav.mode = this.sidenavMode();
 
             // Update opened state based on breakpoint
-            if (this.isMobile && this.isResponsive) {
+            if (this.isMobile() && this.isResponsive()) {
                 this.sidenav.close();
-            } else if (this.isDesktop && this.isResponsive) {
+            } else if (this.isDesktop() && this.isResponsive()) {
                 this.sidenav.open();
             }
         }
@@ -310,16 +277,16 @@ export class AmwSidenavComponent extends BaseComponent implements OnInit, OnDest
      */
     private initializeSidenav(): void {
         // Set initial opened state
-        this.opened = this.defaultOpened;
+        this.opened.set(this.defaultOpened());
     }
 
     /**
      * Toggles the sidenav open/closed state
      */
     toggleSidenav(): void {
-        if (this.sidenav && !this.isDisabled) {
+        if (this.sidenav && !this.isDisabledComputed()) {
             this.sidenav.toggle();
-            this.toggle.emit(this.sidenav.opened);
+            this.toggleEvent.emit(this.sidenav.opened);
         }
     }
 
@@ -327,7 +294,7 @@ export class AmwSidenavComponent extends BaseComponent implements OnInit, OnDest
      * Opens the sidenav
      */
     openSidenav(): void {
-        if (this.sidenav && !this.isDisabled) {
+        if (this.sidenav && !this.isDisabledComputed()) {
             this.sidenav.open();
         }
     }
@@ -336,9 +303,9 @@ export class AmwSidenavComponent extends BaseComponent implements OnInit, OnDest
      * Closes the sidenav
      */
     closeSidenav(): void {
-        if (this.sidenav && !this.isDisabled) {
+        if (this.sidenav && !this.isDisabledComputed()) {
             this.sidenav.close();
-            this.close.emit();
+            this.closeEvent.emit();
         }
     }
 
@@ -347,7 +314,7 @@ export class AmwSidenavComponent extends BaseComponent implements OnInit, OnDest
      * @param item The clicked navigation item
      * @param event The click event
      */
-    onItemClick(item: SidenavItem, event?: Event): void {
+    onItemClickHandler(item: SidenavItem, event?: Event): void {
         if (item.disabled) {
             event?.preventDefault();
             event?.stopPropagation();
@@ -361,7 +328,7 @@ export class AmwSidenavComponent extends BaseComponent implements OnInit, OnDest
         this.itemClick.emit(item);
 
         // Close sidenav on mobile after item click
-        if (this.isMobile && this.isResponsive) {
+        if (this.isMobile() && this.isResponsive()) {
             this.closeSidenav();
         }
     }
@@ -385,7 +352,7 @@ export class AmwSidenavComponent extends BaseComponent implements OnInit, OnDest
      * @param activeItem The item to set as active
      */
     private updateActiveItem(activeItem: SidenavItem): void {
-        this.items.forEach(item => {
+        this.items().forEach(item => {
             this.setItemActive(item, false);
             if (item.children) {
                 item.children.forEach(child => this.setItemActive(child, false));
@@ -438,15 +405,15 @@ export class AmwSidenavComponent extends BaseComponent implements OnInit, OnDest
     getSidenavClasses(): string {
         const classes = ['amw-sidenav'];
 
-        if (this.isMobile) {
+        if (this.isMobile()) {
             classes.push('amw-sidenav--mobile');
-        } else if (this.isTablet) {
+        } else if (this.isTablet()) {
             classes.push('amw-sidenav--tablet');
-        } else if (this.isDesktop) {
+        } else if (this.isDesktop()) {
             classes.push('amw-sidenav--desktop');
         }
 
-        if (this.isResponsive) {
+        if (this.isResponsive()) {
             classes.push('amw-sidenav--responsive');
         }
 
@@ -464,8 +431,9 @@ export class AmwSidenavComponent extends BaseComponent implements OnInit, OnDest
     getSidenavContentClasses(): string {
         const classes = ['amw-sidenav__content'];
 
-        if (this.panelClass) {
-            classes.push(this.panelClass);
+        const panelClassValue = this.panelClass();
+        if (panelClassValue) {
+            classes.push(panelClassValue);
         }
 
         return classes.join(' ');
@@ -478,8 +446,9 @@ export class AmwSidenavComponent extends BaseComponent implements OnInit, OnDest
     getBackdropClasses(): string {
         const classes = ['amw-sidenav__backdrop'];
 
-        if (this.backdropClass) {
-            classes.push(this.backdropClass);
+        const backdropClassValue = this.backdropClass();
+        if (backdropClassValue) {
+            classes.push(backdropClassValue);
         }
 
         return classes.join(' ');

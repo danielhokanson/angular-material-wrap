@@ -1,4 +1,4 @@
-import { Component, Input, Output, EventEmitter, OnInit, OnDestroy, ContentChild, TemplateRef } from '@angular/core';
+import { Component, input, output, OnInit, OnDestroy, contentChild, TemplateRef, effect } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { MatIconModule } from '@angular/material/icon';
@@ -9,7 +9,7 @@ import { MatDatepickerModule } from '@angular/material/datepicker';
 import { MatNativeDateModule } from '@angular/material/core';
 import { MatCheckboxModule } from '@angular/material/checkbox';
 import { AmwButtonComponent } from '../../../controls/components/amw-button/amw-button.component';
-import { CalendarItem, CalendarItemEditorContext, CalendarItemTimePattern, CalendarItemTemplateContext } from './interfaces/calendar-item.interface';
+import { CalendarItem, CalendarItemEditorContext, CalendarItemTemplateContext } from './interfaces/calendar-item.interface';
 import { Subject } from 'rxjs';
 
 @Component({
@@ -28,17 +28,18 @@ import { Subject } from 'rxjs';
     MatCheckboxModule
 ],
     templateUrl: './amw-calendar-item-editor.component.html',
-    styleUrls: ['./amw-calendar-item-editor.component.scss']
+    styleUrls: ['./amw-calendar-item-editor.component.scss'],
+    host: { 'data-amw-id': 'amw-calendar-item-editor' }
 })
 export class AmwCalendarItemEditorComponent<T = any> implements OnInit, OnDestroy {
-    @Input() context!: CalendarItemEditorContext<T>;
-    @Output() save = new EventEmitter<CalendarItem<T>>();
-    @Output() cancel = new EventEmitter<void>();
-    @Output() delete = new EventEmitter<CalendarItem<T>>();
+    context = input.required<CalendarItemEditorContext<T>>();
+    save = output<CalendarItem<T>>();
+    cancel = output<void>();
+    delete = output<CalendarItem<T>>();
 
     // Custom field templates projected from parent
-    @ContentChild('customFieldsTemplate') customFieldsTemplate?: TemplateRef<CalendarItemTemplateContext<T>>;
-    @ContentChild('customReadonlyFieldsTemplate') customReadonlyFieldsTemplate?: TemplateRef<CalendarItemTemplateContext<T>>;
+    customFieldsTemplate = contentChild<TemplateRef<CalendarItemTemplateContext<T>>>('customFieldsTemplate');
+    customReadonlyFieldsTemplate = contentChild<TemplateRef<CalendarItemTemplateContext<T>>>('customReadonlyFieldsTemplate');
 
     item: CalendarItem<T> = {
         id: '',
@@ -64,7 +65,7 @@ export class AmwCalendarItemEditorComponent<T = any> implements OnInit, OnDestro
     private destroy$ = new Subject<void>();
 
     get isEditing(): boolean {
-        return this.context?.isEditing || false;
+        return this.context()?.isEditing || false;
     }
 
     get customFieldsTemplateContext(): CalendarItemTemplateContext<T> {
@@ -101,11 +102,15 @@ export class AmwCalendarItemEditorComponent<T = any> implements OnInit, OnDestro
 
     onEdit(): void {
         // Switch to edit mode
-        this.context.isEditing = true;
+        const ctx = this.context();
+        if (ctx) {
+            ctx.isEditing = true;
+        }
     }
 
     ngOnInit(): void {
-        if (this.context) {
+        const ctx = this.context();
+        if (ctx) {
             this.initializeFromContext();
         }
     }
@@ -116,16 +121,17 @@ export class AmwCalendarItemEditorComponent<T = any> implements OnInit, OnDestro
     }
 
     private initializeFromContext(): void {
-        if (this.context.item) {
+        const ctx = this.context();
+        if (ctx.item) {
             // Editing existing item
-            this.item = { ...this.context.item };
+            this.item = { ...ctx.item };
         } else {
             // Creating new item
-            this.item.start = this.context.startDate;
-            this.item.end = this.context.endDate || this.context.startDate;
+            this.item.start = ctx.startDate;
+            this.item.end = ctx.endDate || ctx.startDate;
         }
 
-        this.itemType = this.context.itemType;
+        this.itemType = ctx.itemType;
         this.startDate = this.formatDateForInput(this.item.start);
         this.startTime = this.formatTimeForInput(this.item.start);
         this.endTime = this.item.end ? this.formatTimeForInput(this.item.end) : '10:00';
@@ -156,8 +162,9 @@ export class AmwCalendarItemEditorComponent<T = any> implements OnInit, OnDestro
         } as T;
 
         // Validate custom fields if validator is provided
-        if (this.context?.validateCustomFields) {
-            const isValid = await Promise.resolve(this.context.validateCustomFields(this.item.data));
+        const ctx = this.context();
+        if (ctx?.validateCustomFields) {
+            const isValid = await Promise.resolve(ctx.validateCustomFields(this.item.data));
             if (!isValid) {
                 console.warn('Custom field validation failed');
                 return;

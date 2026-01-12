@@ -1,24 +1,24 @@
-<div class="amw-autocomplete" [class]="'amw-autocomplete--' + size">
-  <mat-form-field [appearance]="appearance" class="amw-autocomplete__field">
-    @if (label) {
-      <mat-label [innerHTML]="label"></mat-label>
+<div class="amw-autocomplete" [class]="'amw-autocomplete--' + size()">
+  <mat-form-field [appearance]="appearance()" class="amw-autocomplete__field">
+    @if (label()) {
+      <mat-label [innerHTML]="label()"></mat-label>
     }
 
     <input
       matInput
-      [placeholder]="placeholder"
+      [placeholder]="placeholder()"
       [value]="inputValue"
       (input)="onInputChange($event)"
       (blur)="onTouched()"
-      [required]="required"
-      [disabled]="disabled"
-      [readonly]="readonly"
-      [attr.minlength]="minLength || null"
-      [attr.maxlength]="maxLength || null"
+      [required]="required()"
+      [disabled]="disabled()"
+      [readonly]="readonly()"
+      [attr.minlength]="minLength() || null"
+      [attr.maxlength]="maxLength() || null"
       [matAutocomplete]="auto"
       class="amw-autocomplete__input">
 
-    @if (!multiple && clearable && (selectedValue || inputValue)) {
+    @if (!multiple() && clearable() && (selectedValue || inputValue)) {
       <mat-icon
         matSuffix
         (click)="onClear()"
@@ -27,22 +27,22 @@
       </mat-icon>
     }
 
-    @if (hint) {
-      <mat-hint class="amw-autocomplete__hint">{{ hint }}</mat-hint>
+    @if (hint()) {
+      <mat-hint class="amw-autocomplete__hint">{{ hint() }}</mat-hint>
     }
   </mat-form-field>
 
   <!-- Multiple selection chips -->
-  @if (multiple && selectedValues.length > 0) {
+  @if (multiple() && selectedValues.length > 0) {
     <div class="amw-autocomplete__chips">
       <mat-chip-set>
         @for (value of selectedValues; track value) {
           <mat-chip
-            [removable]="!disabled"
+            [removable]="!disabled()"
             (removed)="onChipRemoved(value)"
             class="amw-autocomplete__chip">
             <span [innerHTML]="getSelectedOption(value)?.label || value"></span>
-            @if (!disabled) {
+            @if (!disabled()) {
               <button matChipRemove>
                 <mat-icon>cancel</mat-icon>
               </button>
@@ -58,7 +58,7 @@
     #auto="matAutocomplete"
     (opened)="onOpened()"
     (closed)="onClosed()"
-    [displayWith]="displayWith"
+    [displayWith]="displayWith()"
     class="amw-autocomplete__panel">
 
     @for (option of filteredOptions; track option) {
@@ -71,7 +71,7 @@
       </mat-option>
     }
 
-    @if (filteredOptions.length === 0 && inputValue.length >= minLength) {
+    @if (filteredOptions.length === 0 && inputValue.length >= minLength()) {
       <mat-option
         disabled
         class="amw-autocomplete__no-results">

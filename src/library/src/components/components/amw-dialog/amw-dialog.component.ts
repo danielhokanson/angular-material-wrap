@@ -1,8 +1,7 @@
-import { Component, Input, Output, EventEmitter, ViewEncapsulation, forwardRef, ContentChild, TemplateRef, OnInit, OnDestroy, Inject } from '@angular/core';
+import { Component, input, output, ViewEncapsulation, forwardRef, contentChild, TemplateRef, OnInit, OnDestroy, Inject, computed } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { MatDialogModule, MatDialog, MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { MatIconModule } from '@angular/material/icon';
-import { BaseComponent } from '../../../controls/components/base/base.component';
 import { DialogConfig, DialogType, DialogSize, DialogPosition } from './interfaces';
 import { AmwProgressSpinnerComponent } from '../amw-progress-spinner/amw-progress-spinner.component';
 import { AmwButtonComponent } from '../../../controls/components/amw-button/amw-button.component';
@@ -66,83 +65,82 @@ import { AmwButtonComponent } from '../../../controls/components/amw-button/amw-
   ],
   templateUrl: './amw-dialog.component.html'
 })
-export class AmwDialogComponent extends BaseComponent implements OnInit, OnDestroy {
-  @Input() config: DialogConfig = {};
-  @Input() type: DialogType = 'standard';
-  @Input() size: DialogSize = 'medium';
-  @Input() position: DialogPosition = 'center';
-  @Input() title = '';
-  @Input() content = '';
-  @Input() actions: { label: string; icon?: string; color?: 'primary' | 'accent' | 'warn'; disabled?: boolean; action?: string }[] = [];
-  @Input() showCloseButton = true;
-  @Input() showHeader = true;
-  @Input() showFooter = true;
-  @Input() loading = false;
-  @Input() override disabled = false;
-  @Input() closable = true;
-  @Input() backdrop = true;
-  @Input() escapeKeyClose = true;
-  @Input() clickOutsideClose = true;
-  @Input() maxWidth = '';
-  @Input() maxHeight = '';
-  @Input() minWidth = '';
-  @Input() minHeight = '';
-  @Input() width = '';
-  @Input() height = '';
-  @Input() autoFocus = true;
-  @Input() restoreFocus = true;
-  @Input() hasBackdrop = true;
-  @Input() backdropClass = '';
-  @Input() panelClass = '';
+export class AmwDialogComponent implements OnInit, OnDestroy {
+  // Input signals
+  config = input<DialogConfig>({});
+  type = input<DialogType>('standard');
+  size = input<DialogSize>('medium');
+  position = input<DialogPosition>('center');
+  title = input<string>('');
+  content = input<string>('');
+  actions = input<{ label: string; icon?: string; color?: 'primary' | 'accent' | 'warn'; disabled?: boolean; action?: string }[]>([]);
+  showCloseButton = input<boolean>(true);
+  showHeader = input<boolean>(true);
+  showFooter = input<boolean>(true);
+  loading = input<boolean>(false);
+  disabled = input<boolean>(false);
+  closable = input<boolean>(true);
+  backdrop = input<boolean>(true);
+  escapeKeyClose = input<boolean>(true);
+  clickOutsideClose = input<boolean>(true);
+  maxWidth = input<string>('');
+  maxHeight = input<string>('');
+  minWidth = input<string>('');
+  minHeight = input<string>('');
+  width = input<string>('');
+  height = input<string>('');
+  autoFocus = input<boolean>(true);
+  restoreFocus = input<boolean>(true);
+  hasBackdrop = input<boolean>(true);
+  backdropClass = input<string>('');
+  panelClass = input<string>('');
 
-  @Output() dialogOpen = new EventEmitter<void>();
-  @Output() dialogClose = new EventEmitter<any>();
-  @Output() dialogAfterOpen = new EventEmitter<void>();
-  @Output() dialogAfterClose = new EventEmitter<any>();
-  @Output() actionClick = new EventEmitter<{ action: any; index: number }>();
-  @Output() closeClick = new EventEmitter<void>();
+  // Output signals
+  dialogOpen = output<void>();
+  dialogClose = output<any>();
+  dialogAfterOpen = output<void>();
+  dialogAfterClose = output<any>();
+  actionClick = output<{ action: any; index: number }>();
+  closeClick = output<void>();
 
-  @ContentChild('dialogHeader') headerTemplate?: TemplateRef<any>;
-  @ContentChild('dialogContent') contentTemplate?: TemplateRef<any>;
-  @ContentChild('dialogFooter') footerTemplate?: TemplateRef<any>;
+  // Content child signals
+  headerTemplate = contentChild<TemplateRef<any>>('dialogHeader');
+  contentTemplate = contentChild<TemplateRef<any>>('dialogContent');
+  footerTemplate = contentChild<TemplateRef<any>>('dialogFooter');
 
   private dialogRef?: MatDialogRef<any>;
+
+  // Computed values that combine input signals with injected data
+  effectiveTitle = computed(() => this.data?.title || this.title());
+  effectiveContent = computed(() => this.data?.content || this.content());
+  effectiveType = computed(() => this.data?.type ? this.sanitizeClassName(this.data.type) as DialogType : this.type());
+  effectiveSize = computed(() => this.data?.size ? this.sanitizeClassName(this.data.size) as DialogSize : this.size());
+  effectivePosition = computed(() => this.data?.position ? this.sanitizeClassName(this.data.position) as DialogPosition : this.position());
+  effectiveActions = computed(() => this.data?.actions || this.actions());
+  effectiveShowCloseButton = computed(() => this.data?.showCloseButton !== undefined ? this.data.showCloseButton : this.showCloseButton());
+  effectiveShowHeader = computed(() => this.data?.showHeader !== undefined ? this.data.showHeader : this.showHeader());
+  effectiveShowFooter = computed(() => this.data?.showFooter !== undefined ? this.data.showFooter : this.showFooter());
+  effectiveLoading = computed(() => this.data?.loading || this.loading());
+  effectiveDisabled = computed(() => this.data?.disabled || this.disabled());
+  effectiveClosable = computed(() => this.data?.closable !== undefined ? this.data.closable : this.closable());
+  effectiveBackdrop = computed(() => this.data?.backdrop !== undefined ? this.data.backdrop : this.backdrop());
+  effectiveEscapeKeyClose = computed(() => this.data?.escapeKeyClose !== undefined ? this.data.escapeKeyClose : this.escapeKeyClose());
+  effectiveClickOutsideClose = computed(() => this.data?.clickOutsideClose !== undefined ? this.data.clickOutsideClose : this.clickOutsideClose());
+  effectiveAutoFocus = computed(() => this.data?.autoFocus !== undefined ? this.data.autoFocus : this.autoFocus());
+  effectiveRestoreFocus = computed(() => this.data?.restoreFocus !== undefined ? this.data.restoreFocus : this.restoreFocus());
+  effectiveHasBackdrop = computed(() => this.data?.hasBackdrop !== undefined ? this.data.hasBackdrop : this.hasBackdrop());
+  effectiveBackdropClass = computed(() => this.data?.backdropClass ? this.sanitizeClassName(this.data.backdropClass) : this.backdropClass());
+  effectivePanelClass = computed(() => this.data?.panelClass ? this.sanitizeClassName(this.data.panelClass) : this.panelClass());
 
   constructor(
     private dialog: MatDialog,
     @Inject(MAT_DIALOG_DATA) public data: any = {},
     private matDialogRef: MatDialogRef<AmwDialogComponent>
-  ) {
-    super();
-
-    // Initialize properties from injected data
-    if (this.data) {
-      this.title = this.data.title || this.title;
-      this.content = this.data.content || this.content;
-      this.type = this.data.type ? this.sanitizeClassName(this.data.type) as DialogType : this.type;
-      this.size = this.data.size ? this.sanitizeClassName(this.data.size) as DialogSize : this.size;
-      this.position = this.data.position ? this.sanitizeClassName(this.data.position) as DialogPosition : this.position;
-      this.actions = this.data.actions || this.actions;
-      this.showCloseButton = this.data.showCloseButton !== undefined ? this.data.showCloseButton : this.showCloseButton;
-      this.showHeader = this.data.showHeader !== undefined ? this.data.showHeader : this.showHeader;
-      this.showFooter = this.data.showFooter !== undefined ? this.data.showFooter : this.showFooter;
-      this.loading = this.data.loading || this.loading;
-      this.disabled = this.data.disabled || this.disabled;
-      this.closable = this.data.closable !== undefined ? this.data.closable : this.closable;
-      this.backdrop = this.data.backdrop !== undefined ? this.data.backdrop : this.backdrop;
-      this.escapeKeyClose = this.data.escapeKeyClose !== undefined ? this.data.escapeKeyClose : this.escapeKeyClose;
-      this.clickOutsideClose = this.data.clickOutsideClose !== undefined ? this.data.clickOutsideClose : this.clickOutsideClose;
-      this.autoFocus = this.data.autoFocus !== undefined ? this.data.autoFocus : this.autoFocus;
-      this.restoreFocus = this.data.restoreFocus !== undefined ? this.data.restoreFocus : this.restoreFocus;
-      this.hasBackdrop = this.data.hasBackdrop !== undefined ? this.data.hasBackdrop : this.hasBackdrop;
-      this.backdropClass = this.data.backdropClass ? this.sanitizeClassName(this.data.backdropClass) : this.backdropClass;
-      this.panelClass = this.data.panelClass ? this.sanitizeClassName(this.data.panelClass) : this.panelClass;
-    }
-  }
+  ) {}
 
   ngOnInit() {
     // Auto-open dialog if configured
-    if (this.config.autoOpen) {
+    if (this.config().autoOpen) {
       this.open();
     }
   }
@@ -154,7 +152,7 @@ export class AmwDialogComponent extends BaseComponent implements OnInit, OnDestr
   }
 
   open() {
-    if (this.disabled || this.loading) {
+    if (this.effectiveDisabled() || this.effectiveLoading()) {
       return;
     }
 
@@ -163,20 +161,20 @@ export class AmwDialogComponent extends BaseComponent implements OnInit, OnDestr
     this.dialogRef = this.dialog.open(AmwDialogComponent, {
       ...dialogConfig,
       data: {
-        title: this.title,
-        content: this.content,
-        actions: this.actions,
-        showCloseButton: this.showCloseButton,
-        showHeader: this.showHeader,
-        showFooter: this.showFooter,
-        loading: this.loading,
-        disabled: this.disabled,
-        closable: this.closable,
-        type: this.type,
-        size: this.size,
-        headerTemplate: this.headerTemplate,
-        contentTemplate: this.contentTemplate,
-        footerTemplate: this.footerTemplate,
+        title: this.effectiveTitle(),
+        content: this.effectiveContent(),
+        actions: this.effectiveActions(),
+        showCloseButton: this.effectiveShowCloseButton(),
+        showHeader: this.effectiveShowHeader(),
+        showFooter: this.effectiveShowFooter(),
+        loading: this.effectiveLoading(),
+        disabled: this.effectiveDisabled(),
+        closable: this.effectiveClosable(),
+        type: this.effectiveType(),
+        size: this.effectiveSize(),
+        headerTemplate: this.headerTemplate(),
+        contentTemplate: this.contentTemplate(),
+        footerTemplate: this.footerTemplate(),
         onActionClick: (action: any, index: number) => this.onActionClick(action, index),
         onCloseClick: () => this.onCloseClick()
       }
@@ -201,7 +199,7 @@ export class AmwDialogComponent extends BaseComponent implements OnInit, OnDestr
   }
 
   onActionClick(action: any, index: number) {
-    if (!action.disabled && !this.disabled && !this.loading) {
+    if (!action.disabled && !this.effectiveDisabled() && !this.effectiveLoading()) {
       this.actionClick.emit({ action, index });
 
       // Handle built-in actions
@@ -216,7 +214,7 @@ export class AmwDialogComponent extends BaseComponent implements OnInit, OnDestr
   }
 
   onCloseClick() {
-    if (this.closable && !this.disabled && !this.loading) {
+    if (this.effectiveClosable() && !this.effectiveDisabled() && !this.effectiveLoading()) {
       this.closeClick.emit();
       this.close('close');
     }
@@ -224,27 +222,30 @@ export class AmwDialogComponent extends BaseComponent implements OnInit, OnDestr
 
   get dialogClasses(): string {
     const classes = ['amw-dialog'];
+    const typeValue = this.effectiveType();
+    const sizeValue = this.effectiveSize();
+    const positionValue = this.effectivePosition();
 
     // Default to 'standard' if no type is specified
-    const dialogType = this.type && typeof this.type === 'string' && this.type.trim() ? this.type : 'standard';
+    const dialogType = typeValue && typeof typeValue === 'string' && typeValue.trim() ? typeValue : 'standard';
     const cleanType = this.sanitizeClassName(dialogType);
     if (cleanType) {
       classes.push(`amw-dialog--${cleanType}`);
     }
-    if (this.size && typeof this.size === 'string' && this.size.trim()) {
-      const cleanSize = this.sanitizeClassName(this.size);
+    if (sizeValue && typeof sizeValue === 'string' && sizeValue.trim()) {
+      const cleanSize = this.sanitizeClassName(sizeValue);
       if (cleanSize) {
         classes.push(`amw-dialog--${cleanSize}`);
       }
     }
-    if (this.position && typeof this.position === 'string' && this.position.trim()) {
-      const cleanPosition = this.sanitizeClassName(this.position);
+    if (positionValue && typeof positionValue === 'string' && positionValue.trim()) {
+      const cleanPosition = this.sanitizeClassName(positionValue);
       if (cleanPosition) {
         classes.push(`amw-dialog--${cleanPosition}`);
       }
     }
-    if (this.disabled) classes.push('amw-dialog--disabled');
-    if (this.loading) classes.push('amw-dialog--loading');
+    if (this.effectiveDisabled()) classes.push('amw-dialog--disabled');
+    if (this.effectiveLoading()) classes.push('amw-dialog--loading');
 
     const result = classes.join(' ');
 
@@ -291,32 +292,34 @@ export class AmwDialogComponent extends BaseComponent implements OnInit, OnDestr
     const config: any = {
       width: this.getDialogWidth(),
       height: this.getDialogHeight(),
-      maxWidth: this.maxWidth || this.getMaxWidth(),
-      maxHeight: this.maxHeight || this.getMaxHeight(),
-      minWidth: this.minWidth || this.getMinWidth(),
-      minHeight: this.minHeight || this.getMinHeight(),
+      maxWidth: this.maxWidth() || this.getMaxWidth(),
+      maxHeight: this.maxHeight() || this.getMaxHeight(),
+      minWidth: this.minWidth() || this.getMinWidth(),
+      minHeight: this.minHeight() || this.getMinHeight(),
       position: this.getDialogPosition(),
-      hasBackdrop: this.hasBackdrop,
-      backdropClass: this.backdropClass || this.getBackdropClass(),
-      panelClass: this.panelClass || this.getPanelClass(),
-      disableClose: !this.closable || !this.escapeKeyClose,
-      autoFocus: this.autoFocus,
-      restoreFocus: this.restoreFocus,
+      hasBackdrop: this.effectiveHasBackdrop(),
+      backdropClass: this.effectiveBackdropClass() || this.getBackdropClass(),
+      panelClass: this.effectivePanelClass() || this.getPanelClass(),
+      disableClose: !this.effectiveClosable() || !this.effectiveEscapeKeyClose(),
+      autoFocus: this.effectiveAutoFocus(),
+      restoreFocus: this.effectiveRestoreFocus(),
       closeOnNavigation: true
     };
 
     // Apply custom config
-    if (this.config) {
-      Object.assign(config, this.config);
+    const configValue = this.config();
+    if (configValue) {
+      Object.assign(config, configValue);
     }
 
     return config;
   }
 
   private getDialogWidth(): string {
-    if (this.width) return this.width;
+    const widthValue = this.width();
+    if (widthValue) return widthValue;
 
-    switch (this.size) {
+    switch (this.effectiveSize()) {
       case 'small': return '300px';
       case 'medium': return '500px';
       case 'large': return '800px';
@@ -326,9 +329,10 @@ export class AmwDialogComponent extends BaseComponent implements OnInit, OnDestr
   }
 
   private getDialogHeight(): string {
-    if (this.height) return this.height;
+    const heightValue = this.height();
+    if (heightValue) return heightValue;
 
-    switch (this.size) {
+    switch (this.effectiveSize()) {
       case 'small': return '200px';
       case 'medium': return '400px';
       case 'large': return '600px';
@@ -338,7 +342,7 @@ export class AmwDialogComponent extends BaseComponent implements OnInit, OnDestr
   }
 
   private getMaxWidth(): string {
-    switch (this.size) {
+    switch (this.effectiveSize()) {
       case 'small': return '400px';
       case 'medium': return '600px';
       case 'large': return '900px';
@@ -348,7 +352,7 @@ export class AmwDialogComponent extends BaseComponent implements OnInit, OnDestr
   }
 
   private getMaxHeight(): string {
-    switch (this.size) {
+    switch (this.effectiveSize()) {
       case 'small': return '300px';
       case 'medium': return '500px';
       case 'large': return '700px';
@@ -358,7 +362,7 @@ export class AmwDialogComponent extends BaseComponent implements OnInit, OnDestr
   }
 
   private getMinWidth(): string {
-    switch (this.size) {
+    switch (this.effectiveSize()) {
       case 'small': return '250px';
       case 'medium': return '400px';
       case 'large': return '600px';
@@ -368,7 +372,7 @@ export class AmwDialogComponent extends BaseComponent implements OnInit, OnDestr
   }
 
   private getMinHeight(): string {
-    switch (this.size) {
+    switch (this.effectiveSize()) {
       case 'small': return '150px';
       case 'medium': return '300px';
       case 'large': return '400px';
@@ -378,7 +382,7 @@ export class AmwDialogComponent extends BaseComponent implements OnInit, OnDestr
   }
 
   private getDialogPosition() {
-    switch (this.position) {
+    switch (this.effectivePosition()) {
       case 'top': return { top: '20px' };
       case 'bottom': return { bottom: '20px' };
       case 'left': return { left: '20px' };
@@ -390,19 +394,24 @@ export class AmwDialogComponent extends BaseComponent implements OnInit, OnDestr
 
   private getBackdropClass(): string {
     const classes = ['amw-dialog-backdrop'];
+    const typeValue = this.effectiveType();
+    const sizeValue = this.effectiveSize();
 
-    if (this.type) classes.push(`amw-dialog-backdrop--${this.type}`);
-    if (this.size) classes.push(`amw-dialog-backdrop--${this.size}`);
+    if (typeValue) classes.push(`amw-dialog-backdrop--${typeValue}`);
+    if (sizeValue) classes.push(`amw-dialog-backdrop--${sizeValue}`);
 
     return classes.join(' ');
   }
 
   private getPanelClass(): string {
     const classes = ['amw-dialog-panel'];
+    const typeValue = this.effectiveType();
+    const sizeValue = this.effectiveSize();
+    const positionValue = this.effectivePosition();
 
-    if (this.type) classes.push(`amw-dialog-panel--${this.type}`);
-    if (this.size) classes.push(`amw-dialog-panel--${this.size}`);
-    if (this.position) classes.push(`amw-dialog-panel--${this.position}`);
+    if (typeValue) classes.push(`amw-dialog-panel--${typeValue}`);
+    if (sizeValue) classes.push(`amw-dialog-panel--${sizeValue}`);
+    if (positionValue) classes.push(`amw-dialog-panel--${positionValue}`);
 
     return classes.join(' ');
   }

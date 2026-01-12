@@ -1,11 +1,11 @@
 <div class="amw-calendar-full"
   [class]="internalConfig.cssClass"
-  [class.amw-calendar-full--loading]="loading"
-  [class.amw-calendar-full--disabled]="disabled"
-  [style.height]="height">
+  [class.amw-calendar-full--loading]="loading()"
+  [class.amw-calendar-full--disabled]="disabled()"
+  [style.height]="height()">
 
   <!-- Loading Spinner -->
-  @if (loading) {
+  @if (loading()) {
     <div class="amw-calendar-full__loading">
       <amw-progress-spinner [diameter]="40"></amw-progress-spinner>
       <p>Loading calendar...</p>
@@ -13,7 +13,7 @@
   }
 
   <!-- Calendar Header -->
-  @if (showNavigation) {
+  @if (showNavigation()) {
     <div class="amw-calendar-full__header">
       <!-- Navigation Controls -->
       <div class="amw-calendar-full__navigation">
@@ -21,13 +21,13 @@
           variant="icon"
           icon="chevron_left"
           (click)="navigatePrevious()"
-          [disabled]="disabled"
+          [disabled]="disabled()"
           amwTooltip="Previous">
         </amw-button>
         <amw-button
           variant="text"
           (click)="navigateToday()"
-          [disabled]="disabled"
+          [disabled]="disabled()"
           amwTooltip="Today">
           Today
         </amw-button>
@@ -35,7 +35,7 @@
           variant="icon"
           icon="chevron_right"
           (click)="navigateNext()"
-          [disabled]="disabled"
+          [disabled]="disabled()"
           amwTooltip="Next">
         </amw-button>
       </div>
@@ -58,33 +58,33 @@
         }
       </div>
       <!-- View Switcher -->
-      @if (showViewSwitcher) {
+      @if (showViewSwitcher()) {
         <div class="amw-calendar-full__view-switcher">
           <amw-button
             variant="text"
             [class.amw-calendar-full__view-button--active]="currentView === 'month'"
             (click)="changeView('month')"
-            [disabled]="disabled">
+            [disabled]="disabled()">
             Month
           </amw-button>
           <amw-button
             variant="text"
             [class.amw-calendar-full__view-button--active]="currentView === 'week'"
             (click)="changeView('week')"
-            [disabled]="disabled">
+            [disabled]="disabled()">
             Week
           </amw-button>
           <amw-button
             variant="text"
             [class.amw-calendar-full__view-button--active]="currentView === 'day'"
             (click)="changeView('day')"
-            [disabled]="disabled">
+            [disabled]="disabled()">
             Day
           </amw-button>
         </div>
       }
       <!-- Create Event/Item Button -->
-      @if (showCreateButton && (internalConfig.allowCreate || internalItemConfig.allowCreate)) {
+      @if (showCreateButton() && (internalConfig.allowCreate || internalItemConfig.allowCreate)) {
         <div class="amw-calendar-full__actions">
           <amw-button
             variant="elevated"
@@ -93,8 +93,8 @@
             color="primary"
             #createButton
             (click)="onCreateButtonClick($event)"
-            [disabled]="disabled">
-            {{ useNewItemSystem ? 'Create Item' : 'Create Event' }}
+            [disabled]="disabled()">
+            {{ useNewItemSystem() ? 'Create Item' : 'Create Event' }}
           </amw-button>
         </div>
       }
@@ -126,8 +126,8 @@
               [class.amw-calendar-full__month-cell--weekend]="isWeekend(date)"
               [class.amw-calendar-full__month-cell--drag-over]="isCellDraggedOver(getCellId(date, undefined, 'month'))"
               #cellElement
-              (click)="useNewItemSystem ? onCellClickForItem(date, undefined, cellElement) : onCellClick(date)"
-              (dblclick)="useNewItemSystem ? onCellClickForItem(date, undefined, cellElement) : onCellDoubleClick(date)"
+              (click)="useNewItemSystem() ? onCellClickForItem(date, undefined, cellElement) : onCellClick(date)"
+              (dblclick)="useNewItemSystem() ? onCellClickForItem(date, undefined, cellElement) : onCellDoubleClick(date)"
               (dragover)="onDragOver($event, getCellId(date, undefined, 'month'))"
               (dragleave)="onDragLeave($event, getCellId(date, undefined, 'month'))"
               (drop)="onDrop($event, date)">

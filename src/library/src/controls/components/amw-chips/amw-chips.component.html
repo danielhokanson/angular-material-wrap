@@ -1,20 +1,20 @@
 <div class="amw-chips"
-  [class]="config.classes"
-  [class.amw-chips--disabled]="disabled"
-  [class.amw-chips--error]="hasError"
-  [class.amw-chips--small]="size === 'small'"
-  [class.amw-chips--medium]="size === 'medium'"
-  [class.amw-chips--large]="size === 'large'"
-  [class.amw-chips--filled]="appearance === 'filled'"
-  [class.amw-chips--outlined]="appearance === 'outlined'"
-  [attr.aria-label]="ariaLabel"
-  [attr.aria-describedby]="ariaDescribedby">
+  [class]="config().classes"
+  [class.amw-chips--disabled]="isDisabled"
+  [class.amw-chips--error]="hasErrorState()"
+  [class.amw-chips--small]="size() === 'small'"
+  [class.amw-chips--medium]="size() === 'medium'"
+  [class.amw-chips--large]="size() === 'large'"
+  [class.amw-chips--filled]="appearance() === 'filled'"
+  [class.amw-chips--outlined]="appearance() === 'outlined'"
+  [attr.aria-label]="ariaLabel()"
+  [attr.aria-describedby]="ariaDescribedby()">
 
   <!-- Chips Container -->
   <mat-chip-set
     class="amw-chips__container"
-    [class.amw-chips__container--selectable]="selectable"
-    [class.amw-chips__container--multiple]="multiple">
+    [class.amw-chips__container--selectable]="selectable()"
+    [class.amw-chips__container--multiple]="multiple()">
 
     <!-- Individual Chips -->
     @for (chip of internalChips; track trackByChipId(i, chip); let i = $index) {
@@ -99,22 +99,22 @@
   </mat-menu>
 
   <!-- Input Field (if enabled) -->
-  @if (showInput && addable) {
+  @if (showInput() && addable()) {
     <mat-form-field
       class="amw-chips__input"
       appearance="outline"
       [class.amw-chips__input--focused]="isInputFocused">
-      @if (placeholder) {
-        <mat-label>{{ placeholder }}</mat-label>
+      @if (placeholder()) {
+        <mat-label>{{ placeholder() }}</mat-label>
       }
       <input matInput
         class="amw-chips__input-field"
         [(ngModel)]="inputValue"
-        [disabled]="disabled"
-        [required]="required"
-        [placeholder]="placeholder"
+        [disabled]="isDisabled"
+        [required]="required()"
+        [placeholder]="placeholder()"
         [attr.aria-label]="'Add chip input'"
-        [attr.aria-describedby]="ariaDescribedby"
+        [attr.aria-describedby]="ariaDescribedby()"
         (keydown)="onInputKeydown($event)"
         (input)="onInputChange($event.target.value)"
         (focus)="onInputFocus()"
@@ -134,24 +134,24 @@
         }
       </mat-autocomplete>
       <!-- Error State -->
-      @if (hasError && errorMessage) {
+      @if (hasErrorState() && getErrorMessage()) {
         <mat-error
           class="amw-chips__error">
-          {{ errorMessage }}
+          {{ getErrorMessage() }}
         </mat-error>
       }
       <!-- Hint Text -->
-      @if (!hasError && (maxChips || minChips)) {
+      @if (!hasErrorState() && (maxChips() || minChips())) {
         <mat-hint
           class="amw-chips__hint">
-          @if (maxChips) {
-            <span>Max {{ maxChips }} chips</span>
+          @if (maxChips()) {
+            <span>Max {{ maxChips() }} chips</span>
           }
-          @if (minChips && maxChips) {
+          @if (minChips() && maxChips()) {
             <span> • </span>
           }
-          @if (minChips) {
-            <span>Min {{ minChips }} chips</span>
+          @if (minChips()) {
+            <span>Min {{ minChips() }} chips</span>
           }
         </mat-hint>
       }
@@ -159,14 +159,14 @@
   }
 
   <!-- Action Buttons -->
-  @if (!showInput && addable) {
+  @if (!showInput() && addable()) {
     <div
       class="amw-chips__actions">
       <amw-button
         variant="icon"
         icon="add"
         class="amw-chips__add-button"
-        [disabled]="disabled || !!(maxChips && internalChips.length >= maxChips)"
+        [disabled]="isDisabled || !!(maxChips() && internalChips.length >= maxChips()!)"
         [amwTooltip]="'Add chip'"
         (click)="focusInput()">
       </amw-button>
@@ -175,7 +175,7 @@
           variant="icon"
           icon="clear_all"
           class="amw-chips__clear-button"
-          [disabled]="disabled"
+          [disabled]="isDisabled"
           [amwTooltip]="'Clear all chips'"
           (click)="clearChips()">
         </amw-button>
@@ -184,12 +184,12 @@
   }
 
   <!-- Hidden Input for Focus Management -->
-  @if (!showInput && addable) {
+  @if (!showInput() && addable()) {
     <input
       #hiddenInput
       class="amw-chips__hidden-input"
-      [disabled]="disabled"
-      [placeholder]="placeholder"
+      [disabled]="isDisabled"
+      [placeholder]="placeholder()"
       (keydown)="onInputKeydown($event)"
       (input)="onInputChange($event.target.value)"
       (focus)="onInputFocus()"

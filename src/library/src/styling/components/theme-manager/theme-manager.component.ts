@@ -16,7 +16,8 @@ import { ThemeEditorComponent } from '../theme-editor/theme-editor.component';
     ThemeEditorComponent
 ],
     templateUrl: './theme-manager.component.html',
-    styleUrl: './theme-manager.component.scss'
+    styleUrl: './theme-manager.component.scss',
+    host: { 'data-amw-id': 'amw-theme-manager' }
 })
 export class ThemeManagerComponent {
     selectedTab = signal(0);

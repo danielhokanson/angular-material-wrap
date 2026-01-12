@@ -146,8 +146,8 @@
         [showClose]="currentConfig.showClose ?? false"
         (openedChange)="onSidenavOpenedChange($event)"
         (itemClick)="onItemClick($event)"
-        (toggle)="onSidenavToggle($event)"
-        (close)="onSidenavClose()">
+        (toggleEvent)="onSidenavToggle($event)"
+        (closeEvent)="onSidenavClose()">
 
         <!-- Main Content -->
         <div class="sidenav-demo__main-content">

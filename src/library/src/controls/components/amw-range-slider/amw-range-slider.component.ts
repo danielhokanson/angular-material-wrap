@@ -1,11 +1,16 @@
-import { Component, Input, Output, EventEmitter, ViewEncapsulation } from '@angular/core';
+import { Component, input, output, signal, ViewEncapsulation, effect } from '@angular/core';
 
 import { MatSliderModule } from '@angular/material/slider';
 import { FormsModule, ControlValueAccessor, NG_VALUE_ACCESSOR } from '@angular/forms';
 import { BaseComponent } from '../base/base.component';
 import { RangeSliderConfig } from './interfaces';
-import { AmwColor } from '../../../shared/types/amw-color.type';
 
+/**
+ * AMW Range Slider Component
+ * Inherits from BaseComponent: disabled, required, label, placeholder, errorMessage, hasError,
+ * name, id, tabIndex, size, color, ariaLabel, ariaLabelledby, ariaDescribedby, ariaRequired,
+ * ariaInvalid, hint, readonly, value, change, focus, blur
+ */
 @Component({
     selector: 'amw-range-slider',
     standalone: true,
@@ -21,62 +26,76 @@ import { AmwColor } from '../../../shared/types/amw-color.type';
         }
     ]
 })
-export class AmwRangeSliderComponent extends BaseComponent implements ControlValueAccessor {
-    @Input() min = 0;
-    @Input() max = 100;
-    @Input() step = 1;
-    @Input() showTicks = false;
-    @Input() showLabels = false;
-    @Input() vertical = false;
-    @Input() invert = false;
-    @Input() thumbLabel = false;
-    @Input() tickInterval = 1;
-    @Input() valueText = '';
-    @Input() startThumbLabel = '';
-    @Input() endThumbLabel = '';
-    @Input() color: AmwColor = 'primary';
+export class AmwRangeSliderComponent extends BaseComponent<{ start: number; end: number }> implements ControlValueAccessor {
+    // Range slider-specific properties (inherited from BaseComponent: disabled, required, label,
+    // placeholder, errorMessage, hasError, name, id, tabIndex, size, color, ariaLabel,
+    // ariaLabelledby, ariaDescribedby, ariaRequired, ariaInvalid, hint, readonly, value, change, focus, blur)
 
-    @Output() rangeChange = new EventEmitter<{ start: number; end: number }>();
-    @Output() rangeValueChange = new EventEmitter<{ start: number; end: number }>();
+    min = input<number>(0);
+    max = input<number>(100);
+    step = input<number>(1);
+    showTicks = input<boolean>(false);
+    showLabels = input<boolean>(false);
+    vertical = input<boolean>(false);
+    invert = input<boolean>(false);
+    thumbLabel = input<boolean>(false);
+    tickInterval = input<number>(1);
+    valueText = input<string>('');
+    startThumbLabel = input<string>('');
+    endThumbLabel = input<string>('');
 
-    // Internal range values
-    private _rangeValue: { start: number; end: number } = { start: this.min, end: this.max };
+    rangeChange = output<{ start: number; end: number }>();
+    rangeValueChange = output<{ start: number; end: number }>();
 
-    @Input()
-    get rangeValue(): { start: number; end: number } {
-        return this._rangeValue;
+    // Internal range values as signal
+    private _rangeValue = signal<{ start: number; end: number }>({ start: 0, end: 100 });
+
+    // Input for rangeValue using model-like pattern
+    rangeValueInput = input<{ start: number; end: number } | undefined>(undefined, { alias: 'rangeValue' });
+
+    constructor() {
+        super();
+        // Effect to sync rangeValueInput with internal signal
+        effect(() => {
+            const inputValue = this.rangeValueInput();
+            if (inputValue !== undefined) {
+                this._rangeValue.set(inputValue);
+                this.value.set(inputValue);
+                this.rangeChange.emit(inputValue);
+                this.rangeValueChange.emit(inputValue);
+            }
+        });
     }
 
-    set rangeValue(value: { start: number; end: number }) {
-        if (this._rangeValue !== value) {
-            this._rangeValue = value;
-            this.value = value;
-            this.rangeChange.emit(value);
-            this.rangeValueChange.emit(value);
-        }
+    get rangeValue(): { start: number; end: number } {
+        return this._rangeValue();
     }
 
     get startValue(): number {
-        return this._rangeValue.start;
+        return this._rangeValue().start;
     }
 
-    set startValue(value: number) {
-        if (this._rangeValue.start !== value) {
-            this._rangeValue = { ...this._rangeValue, start: value };
-            this.value = this._rangeValue;
-            this.rangeChange.emit(this._rangeValue);
+    set startValue(val: number) {
+        const current = this._rangeValue();
+        if (current.start !== val) {
+            const newValue = { ...current, start: val };
+            this._rangeValue.set(newValue);
+            this.value.set(newValue);
+            this.rangeChange.emit(newValue);
         }
     }
 
     get endValue(): number {
-        return this._rangeValue.end;
+        return this._rangeValue().end;
     }
 
-    set endValue(value: number) {
-        if (this._rangeValue.end !== value) {
-            this._rangeValue = { ...this._rangeValue, end: value };
-            this.value = this._rangeValue;
-            this.rangeChange.emit(this._rangeValue);
+    set endValue(val: number) {
+        const current = this._rangeValue();
+        if (current.end !== val) {
+            const newValue = { ...current, end: val };
+            this._rangeValue.set(newValue);
+            this.value.set(newValue);
+            this.rangeChange.emit(newValue);
         }
     }
 
@@ -88,25 +107,21 @@ export class AmwRangeSliderComponent extends BaseComponent implements ControlVal
         this.endValue = value;
     }
 
-    getMaterialColor(): 'primary' | 'accent' | 'warn' {
-        return this.color === 'basic' ? 'primary' : this.color as 'primary' | 'accent' | 'warn';
-    }
-
     getConfig(): RangeSliderConfig {
         return {
-            min: this.min,
-            max: this.max,
-            step: this.step,
-            disabled: this.disabled,
-            showTicks: this.showTicks,
-            showLabels: this.showLabels,
-            vertical: this.vertical,
-            invert: this.invert,
-            thumbLabel: this.thumbLabel,
-            tickInterval: this.tickInterval,
-            valueText: this.valueText,
-            startThumbLabel: this.startThumbLabel,
-            endThumbLabel: this.endThumbLabel
+            min: this.min(),
+            max: this.max(),
+            step: this.step(),
+            disabled: this.disabled(),
+            showTicks: this.showTicks(),
+            showLabels: this.showLabels(),
+            vertical: this.vertical(),
+            invert: this.invert(),
+            thumbLabel: this.thumbLabel(),
+            tickInterval: this.tickInterval(),
+            valueText: this.valueText(),
+            startThumbLabel: this.startThumbLabel(),
+            endThumbLabel: this.endThumbLabel()
         };
     }
 }

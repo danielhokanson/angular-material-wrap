@@ -27,7 +27,8 @@ import { AmwInputComponent } from '../../../controls/components/amw-input/amw-in
     MatSnackBarModule
 ],
     templateUrl: './theme-editor.component.html',
-    styleUrl: './theme-editor.component.scss'
+    styleUrl: './theme-editor.component.scss',
+    host: { 'data-amw-id': 'amw-theme-editor' }
 })
 export class ThemeEditorComponent implements OnInit {
     // Form data

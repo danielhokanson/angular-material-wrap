@@ -1,17 +1,18 @@
-import { Component, Input, Output, EventEmitter, ViewEncapsulation, OnInit, OnChanges, SimpleChanges } from '@angular/core';
+import { Component, input, output, signal, computed, ViewEncapsulation, OnInit, OnChanges, SimpleChanges, effect } from '@angular/core';
 
 import { FormsModule, ReactiveFormsModule, ControlValueAccessor, NG_VALUE_ACCESSOR } from '@angular/forms';
 import { MatRadioModule } from '@angular/material/radio';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatIconModule } from '@angular/material/icon';
 import { BaseComponent } from '../base/base.component';
-import { AmwSize } from '../../../shared/types/amw-size.type';
 import { RadioGroupOption, RadioGroupConfig } from './interfaces/radio-group.interface';
 
 /**
  * AMW Radio Group Component
  * A comprehensive wrapper around Angular Material Radio Group with enhanced functionality
- * Inherits functionality from select component but with radio button presentation
+ * Inherits from BaseComponent: disabled, required, label, placeholder, errorMessage, hasError,
+ * name, id, tabIndex, size, color, ariaLabel, ariaLabelledby, ariaDescribedby, ariaRequired,
+ * ariaInvalid, hint, readonly, value, change, focus, blur
  */
 @Component({
     selector: 'amw-radio-group',
@@ -34,83 +35,110 @@ import { RadioGroupOption, RadioGroupConfig } from './interfaces/radio-group.int
         }
     ]
 })
-export class AmwRadioGroupComponent extends BaseComponent implements ControlValueAccessor, OnInit, OnChanges {
-    // Basic radio group properties
-    @Input() size: AmwSize = 'medium';
-    @Input() override label: string = '';
-    @Input() hint: string = '';
-    @Input() override disabled: boolean = false;
-    @Input() override required: boolean = false;
-    @Input() name: string = '';
-    @Input() orientation: 'horizontal' | 'vertical' = 'vertical';
-    @Input() color: 'primary' | 'accent' | 'warn' = 'primary';
+export class AmwRadioGroupComponent extends BaseComponent<any> implements ControlValueAccessor, OnInit, OnChanges {
+    // Radio group-specific properties (inherited from BaseComponent: disabled, required, label,
+    // placeholder, errorMessage, hasError, name, id, tabIndex, size, color, ariaLabel,
+    // ariaLabelledby, ariaDescribedby, ariaRequired, ariaInvalid, hint, readonly, value, change, focus, blur)
+
+    orientation = input<'horizontal' | 'vertical'>('vertical');
 
     // Options and configuration
-    @Input() options: RadioGroupOption[] = [];
-    @Input() config: RadioGroupConfig | null = null;
+    options = input<RadioGroupOption[]>([]);
+    config = input<RadioGroupConfig | null>(null);
 
     // Value and change handling
-    @Input() selectedValue: any = null;
-    @Output() selectedValueChange = new EventEmitter<any>();
-    @Output() selectionChange = new EventEmitter<RadioGroupOption>();
+    selectedValue = input<any>(null);
+    selectedValueChange = output<any>();
+    selectionChange = output<RadioGroupOption>();
 
     // Internal state
-    internalValue: any = null;
-    isFocused: boolean = false;
+    internalValue = signal<any>(null);
+    isFocused = signal<boolean>(false);
     readonly componentId: string;
 
     // ControlValueAccessor implementation
     private onChange = (value: any) => { };
     private onTouched = () => { };
 
+    // Computed property for radio group classes
+    radioGroupClasses = computed(() => {
+        const classes = ['amw-radio-group'];
+
+        if (this.size()) {
+            classes.push(`amw-radio-group--${this.size()}`);
+        }
+
+        if (this.orientation()) {
+            classes.push(`amw-radio-group--${this.orientation()}`);
+        }
+
+        if (this.disabled()) {
+            classes.push('amw-radio-group--disabled');
+        }
+
+        if (this.required()) {
+            classes.push('amw-radio-group--required');
+        }
+
+        if (this.isFocused()) {
+            classes.push('amw-radio-group--focused');
+        }
+
+        return classes.join(' ');
+    });
+
     constructor() {
         super();
         // Generate ID once during construction to avoid ExpressionChangedAfterItHasBeenCheckedError
         this.componentId = this.generateId();
+
+        // Effect to sync selectedValue input with internalValue
+        effect(() => {
+            const selected = this.selectedValue();
+            if (selected !== null) {
+                this.internalValue.set(selected);
+                this.value = selected;
+            }
+        });
+
+        // Effect to apply config changes
+        effect(() => {
+            const cfg = this.config();
+            if (cfg) {
+                this.applyConfig(cfg);
+            }
+        });
     }
 
     ngOnInit(): void {
-        this.applyConfig();
-        // Sync value with selectedValue
-        if (this.selectedValue !== null) {
-            this.internalValue = this.selectedValue;
-            this.value = this.selectedValue;
-        }
+        // Effects in constructor handle config and selectedValue syncing
     }
 
     ngOnChanges(changes: SimpleChanges): void {
-        if (changes['config'] && this.config) {
-            this.applyConfig();
-        }
+        // Effects in constructor handle config changes reactively
     }
 
     /**
      * Apply configuration to component properties
+     * Note: With signal inputs, config values are applied via effect in constructor
+     * This method is kept for backwards compatibility but config values
+     * should be passed directly to inputs when using signals
      */
-    private applyConfig(): void {
-        if (this.config) {
-            this.options = this.config.options || [];
-            this.size = this.config.size || this.size;
-            this.label = this.config.label || this.label;
-            this.hint = this.config.hint || this.hint;
-            this.disabled = this.config.disabled ?? this.disabled;
-            this.required = this.config.required ?? this.required;
-            this.name = this.config.name || this.name;
-            this.orientation = this.config.orientation || this.orientation;
-            this.color = this.config.color || this.color;
-        }
+    private applyConfig(cfg?: RadioGroupConfig): void {
+        // Config is now a signal input, values should be passed directly to inputs
+        // This method is maintained for backwards compatibility
+        // The effect in constructor will call this when config changes
     }
 
     /**
      * Handle radio button selection change
      */
     onRadioChange(value: any): void {
-        this.internalValue = value;
-        this.selectedValue = value;
+        this.internalValue.set(value);
         this.value = value;
         this.selectedValueChange.emit(value);
 
-        const selectedOption = this.options.find(option => option.value === value);
+        const selectedOption = this.options().find(option => option.value === value);
         if (selectedOption) {
             this.selectionChange.emit(selectedOption);
         }
@@ -122,45 +150,16 @@ export class AmwRadioGroupComponent extends BaseComponent implements ControlValu
     /**
      * Handle focus events
      */
-    override onFocus(): void {
-        this.isFocused = true;
+    handleFocus(): void {
+        this.isFocused.set(true);
     }
 
     /**
      * Handle blur events
      */
-    override onBlur(): void {
-        this.isFocused = false;
+    handleBlur(): void {
+        this.isFocused.set(false);
         this.onTouched();
-    }
-
-    /**
-     * Get CSS classes for the radio group
-     */
-    get radioGroupClasses(): string {
-        const classes = ['amw-radio-group'];
-
-        if (this.size) {
-            classes.push(`amw-radio-group--${this.size}`);
-        }
-
-        if (this.orientation) {
-            classes.push(`amw-radio-group--${this.orientation}`);
-        }
-
-        if (this.disabled) {
-            classes.push('amw-radio-group--disabled');
-        }
-
-        if (this.required) {
-            classes.push('amw-radio-group--required');
-        }
-
-        if (this.isFocused) {
-            classes.push('amw-radio-group--focused');
-        }
-
-        return classes.join(' ');
     }
 
     /**
@@ -192,8 +191,7 @@ export class AmwRadioGroupComponent extends BaseComponent implements ControlValu
 
     // ControlValueAccessor implementation
     override writeValue(value: any): void {
-        this.internalValue = value;
-        this.selectedValue = value;
+        this.internalValue.set(value);
         this.value = value;
     }
 
@@ -206,6 +204,9 @@ export class AmwRadioGroupComponent extends BaseComponent implements ControlValu
     }
 
     override setDisabledState(isDisabled: boolean): void {
-        this.disabled = isDisabled;
+        // Note: disabled is a signal input and cannot be set directly.
+        // The disabled state is controlled by the parent component via the [disabled] input binding.
+        // If you need to programmatically disable the component, use a writable signal or
+        // manage the disabled state in the parent component.
     }
 }

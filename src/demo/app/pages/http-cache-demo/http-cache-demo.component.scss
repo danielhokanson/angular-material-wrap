@@ -23,13 +23,13 @@
 .cache-info {
   margin-bottom: 24px;
 
-  mat-chip-set {
+  .amw-chips {
     display: flex;
     gap: 8px;
     flex-wrap: wrap;
   }
 
-  mat-chip {
+  .amw-chips__chip {
     display: flex;
     align-items: center;
     gap: 8px;
@@ -67,7 +67,7 @@
       justify-content: flex-start;
       text-align: left;
 
-      mat-icon {
+      amw-icon {
         margin-right: 8px;
       }
     }
@@ -81,13 +81,13 @@
   flex-wrap: wrap;
 
   button {
-    mat-icon {
+    amw-icon {
       margin-right: 8px;
     }
   }
 }
 
-mat-spinner {
+amw-progress-spinner {
   margin: 20px auto;
 }
 
@@ -101,7 +101,7 @@ mat-spinner {
   border-radius: 4px;
   margin: 20px 0;
 
-  mat-icon {
+  amw-icon {
     color: #ff9800;
   }
 
@@ -128,13 +128,13 @@ mat-spinner {
   }
 }
 
-mat-list {
-  mat-list-item {
+.amw-list {
+  .amw-list__item {
     height: auto;
     min-height: 56px;
     padding: 12px 0;
 
-    mat-icon {
+    amw-icon {
       color: #2196f3;
     }
   }

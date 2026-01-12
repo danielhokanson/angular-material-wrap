@@ -34,12 +34,12 @@
     margin-bottom: 16px;
     flex-wrap: wrap;
 
-    mat-form-field {
+    amw-select {
       flex: 1;
       min-width: 200px;
     }
 
-    mat-slide-toggle {
+    amw-switch {
       margin-right: 16px;
     }
   }
@@ -70,7 +70,7 @@
     flex-direction: column;
     gap: 12px;
 
-    mat-form-field {
+    amw-select {
       min-width: auto;
     }
   }

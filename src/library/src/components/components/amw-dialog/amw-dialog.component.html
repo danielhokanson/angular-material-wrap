@@ -1,38 +1,38 @@
 <div [class]="dialogClasses">
   <!-- Header -->
-  @if (showHeader) {
+  @if (showHeader()) {
     <div class="amw-dialog__header">
-      @if (headerTemplate) {
-        <ng-container [ngTemplateOutlet]="headerTemplate"></ng-container>
+      @if (headerTemplate()) {
+        <ng-container [ngTemplateOutlet]="headerTemplate()"></ng-container>
       } @else {
         <h2 class="amw-dialog__title">
-          @if (type === 'warning' || type === 'alert') {
+          @if (type() === 'warning' || type() === 'alert') {
             <mat-icon class="dialog-icon">warning</mat-icon>
           }
-          @if (type === 'error') {
+          @if (type() === 'error') {
             <mat-icon class="dialog-icon">error</mat-icon>
           }
-          @if (type === 'success') {
+          @if (type() === 'success') {
             <mat-icon class="dialog-icon">check_circle</mat-icon>
           }
-          @if (type === 'info') {
+          @if (type() === 'info') {
             <mat-icon class="dialog-icon">info</mat-icon>
           }
-          @if (type === 'confirm') {
+          @if (type() === 'confirm') {
             <mat-icon class="dialog-icon">help</mat-icon>
           }
-          @if (!type || type === 'standard') {
+          @if (!type() || type() === 'standard') {
             <mat-icon class="dialog-icon">info</mat-icon>
           }
-          {{ title }}
+          {{ title() }}
         </h2>
-        @if (showCloseButton) {
+        @if (showCloseButton()) {
           <amw-button
             variant="icon"
             icon="close"
             class="amw-dialog__close"
             (click)="onCloseClick()"
-            [disabled]="!closable || disabled || loading">
+            [disabled]="!closable() || disabled() || loading()">
           </amw-button>
         }
       }
@@ -41,17 +41,17 @@
 
   <!-- Content -->
   <div class="amw-dialog__content">
-    @if (contentTemplate) {
-      <ng-container [ngTemplateOutlet]="contentTemplate"></ng-container>
+    @if (contentTemplate()) {
+      <ng-container [ngTemplateOutlet]="contentTemplate()"></ng-container>
     } @else {
       <div class="dialog-content">
-        @switch (type) {
+        @switch (type()) {
           <!-- Success Message -->
           @case ('success') {
             <div class="success-message">
               <mat-icon class="success-icon">check_circle</mat-icon>
               <div>
-                <p class="success-text" [innerHTML]="content"></p>
+                <p class="success-text" [innerHTML]="content()"></p>
               </div>
             </div>
           }
@@ -60,7 +60,7 @@
             <div class="alert-message">
               <mat-icon class="alert-icon">warning</mat-icon>
               <div>
-                <p class="alert-text" [innerHTML]="content"></p>
+                <p class="alert-text" [innerHTML]="content()"></p>
               </div>
             </div>
           }
@@ -69,7 +69,7 @@
             <div class="info-message">
               <mat-icon class="info-icon">info</mat-icon>
               <div>
-                <p class="info-text" [innerHTML]="content"></p>
+                <p class="info-text" [innerHTML]="content()"></p>
               </div>
             </div>
           }
@@ -78,7 +78,7 @@
             <div class="alert-message">
               <mat-icon class="alert-icon">warning</mat-icon>
               <div>
-                <p class="alert-text" [innerHTML]="content"></p>
+                <p class="alert-text" [innerHTML]="content()"></p>
               </div>
             </div>
           }
@@ -87,7 +87,7 @@
             <div class="alert-message">
               <mat-icon class="alert-icon">error</mat-icon>
               <div>
-                <p class="alert-text" [innerHTML]="content"></p>
+                <p class="alert-text" [innerHTML]="content()"></p>
               </div>
             </div>
           }
@@ -96,14 +96,14 @@
             <div class="info-message">
               <mat-icon class="info-icon">help_outline</mat-icon>
               <div>
-                <p class="info-text" [innerHTML]="content"></p>
+                <p class="info-text" [innerHTML]="content()"></p>
               </div>
             </div>
           }
           <!-- Default/Standard Message -->
           @default {
             <div>
-              <p [innerHTML]="content"></p>
+              <p [innerHTML]="content()"></p>
             </div>
           }
         }
@@ -113,18 +113,18 @@
   </div>
 
   <!-- Footer -->
-  @if (showFooter && actions.length > 0) {
+  @if (showFooter() && actions().length > 0) {
     <div class="amw-dialog__footer">
-      @if (footerTemplate) {
-        <ng-container [ngTemplateOutlet]="footerTemplate"></ng-container>
+      @if (footerTemplate()) {
+        <ng-container [ngTemplateOutlet]="footerTemplate()"></ng-container>
       } @else {
-        @for (action of actions; track action; let i = $index) {
+        @for (action of actions(); track action; let i = $index) {
           <amw-button
             variant="text"
             [icon]="action.icon"
             [iconPosition]="action.icon ? 'left' : 'left'"
             [color]="action.color || 'primary'"
-            [disabled]="action.disabled || disabled || loading"
+            [disabled]="action.disabled || disabled() || loading()"
             (click)="onActionClick(action, i)"
             class="amw-dialog__action">
             {{ action.label }}
@@ -135,7 +135,7 @@
   }
 
   <!-- Loading Overlay -->
-  @if (loading) {
+  @if (loading()) {
     <div class="amw-dialog__loading">
       <amw-progress-spinner [diameter]="40"></amw-progress-spinner>
       <p>Loading...</p>

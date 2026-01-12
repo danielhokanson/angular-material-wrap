@@ -1,4 +1,4 @@
-import { Component, Input } from '@angular/core';
+import { Component, input } from '@angular/core';
 import { CommonModule } from '@angular/common';
 
 export interface DemoVariation {
@@ -24,7 +24,7 @@ export interface DemoSection {
 ],
     template: `
     <div class="demo-layout">
-      <div class="demo-section" *ngFor="let section of sections">
+      <div class="demo-section" *ngFor="let section of sections()">
         <h3 class="demo-section__title">{{ section.title }}</h3>
         <div class="demo-section__content">
           <div class="demo-variation" *ngFor="let variation of section.variations">
@@ -37,7 +37,7 @@ export interface DemoSection {
             </p>
           </div>
         </div>
-        
+
         <div class="demo-real-world" *ngIf="section.realWorldExample">
           <p class="demo-real-world__description">{{ section.realWorldExample.description }}</p>
           <div class="demo-real-world__content">
@@ -52,5 +52,5 @@ export interface DemoSection {
     styleUrls: ['./demo-layout.component.scss']
 })
 export class DemoLayoutComponent {
-    @Input() sections: DemoSection[] = [];
+    sections = input<DemoSection[]>([]);
 }

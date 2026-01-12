@@ -1,15 +1,15 @@
-<div class="amw-timepicker" [class]="'amw-timepicker--' + size + ' amw-timepicker--' + color">
-  <mat-form-field [appearance]="config.appearance || 'outline'" [class]="'mat-form-field--' + color">
-    @if (label) {
-      <mat-label>{{ label }}</mat-label>
+<div class="amw-timepicker" [class]="'amw-timepicker--' + size() + ' amw-timepicker--' + color()">
+  <mat-form-field [appearance]="config().appearance || 'outline'" [class]="'mat-form-field--' + color()">
+    @if (label()) {
+      <mat-label>{{ label() }}</mat-label>
     }
 
     <input
       matInput
-      [value]="timeValue"
-      [placeholder]="placeholder"
+      [value]="timeValue()"
+      [placeholder]="placeholder()"
       [disabled]="isDisabled"
-      [required]="required"
+      [required]="required()"
       readonly
       (click)="toggleTimepicker()"
       (focus)="onFocus($event)"
@@ -34,11 +34,11 @@
   </mat-form-field>
 
   <!-- Time Picker Dropdown -->
-  @if (isOpen) {
+  @if (isOpen()) {
     <div class="amw-timepicker__dropdown" (click)="$event.stopPropagation()">
       <div class="amw-timepicker__header">
         <span class="amw-timepicker__title">Select Time</span>
-        <amw-button variant="icon" icon="close" (click)="isOpen = false" aria-label="Close">
+        <amw-button variant="icon" icon="close" (click)="isOpen.set(false)" aria-label="Close">
         </amw-button>
       </div>
       <div class="amw-timepicker__content">
@@ -59,43 +59,43 @@
           <div class="amw-timepicker__controls">
             <amw-button variant="icon" icon="keyboard_arrow_up" (click)="incrementMinutes()" [disabled]="isDisabled">
             </amw-button>
-            <div class="amw-timepicker__value">{{ minutes.toString().padStart(2, '0') }}</div>
+            <div class="amw-timepicker__value">{{ minutes().toString().padStart(2, '0') }}</div>
             <amw-button variant="icon" icon="keyboard_arrow_down" (click)="decrementMinutes()" [disabled]="isDisabled">
             </amw-button>
           </div>
         </div>
         <!-- Seconds (if enabled) -->
-        @if (showSeconds) {
+        @if (showSeconds()) {
           <div class="amw-timepicker__section">
             <div class="amw-timepicker__label">Seconds</div>
             <div class="amw-timepicker__controls">
               <amw-button variant="icon" icon="keyboard_arrow_up" (click)="incrementSeconds()" [disabled]="isDisabled">
               </amw-button>
-              <div class="amw-timepicker__value">{{ seconds.toString().padStart(2, '0') }}</div>
+              <div class="amw-timepicker__value">{{ seconds().toString().padStart(2, '0') }}</div>
               <amw-button variant="icon" icon="keyboard_arrow_down" (click)="decrementSeconds()" [disabled]="isDisabled">
               </amw-button>
             </div>
           </div>
         }
         <!-- AM/PM (if 12h format) -->
-        @if (format === '12h') {
+        @if (format() === '12h') {
           <div class="amw-timepicker__section">
             <div class="amw-timepicker__label">Period</div>
             <div class="amw-timepicker__controls">
               <amw-button
                 variant="text"
-                [class]="'amw-timepicker__ampm amw-timepicker__ampm--' + (ampm === 'AM' ? 'active' : 'inactive')"
+                [class]="'amw-timepicker__ampm amw-timepicker__ampm--' + (ampm() === 'AM' ? 'active' : 'inactive')"
                 (click)="toggleAmPm()"
                 [disabled]="isDisabled">
-                {{ ampm }}
+                {{ ampm() }}
               </amw-button>
             </div>
           </div>
         }
       </div>
       <div class="amw-timepicker__actions">
-        <amw-button variant="text" (click)="isOpen = false">Cancel</amw-button>
-        <amw-button variant="text" color="primary" (click)="selectTime(hours, minutes, seconds)">OK</amw-button>
+        <amw-button variant="text" (click)="isOpen.set(false)">Cancel</amw-button>
+        <amw-button variant="text" color="primary" (click)="selectTime(hours(), minutes(), seconds())">OK</amw-button>
       </div>
     </div>
   }

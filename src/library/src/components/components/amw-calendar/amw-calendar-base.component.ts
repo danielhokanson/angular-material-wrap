@@ -1,7 +1,7 @@
-import { Component, Input, Output, EventEmitter, OnInit, OnChanges, OnDestroy, ChangeDetectorRef, SimpleChanges, ViewEncapsulation, ComponentRef, ContentChild, TemplateRef } from '@angular/core';
+import { Component, input, output, OnInit, OnDestroy, ChangeDetectorRef, ViewEncapsulation, ComponentRef, contentChild, TemplateRef, effect } from '@angular/core';
 
 import { FormsModule } from '@angular/forms';
-import { Subject, takeUntil } from 'rxjs';
+import { Subject } from 'rxjs';
 import { CalendarEvent, CalendarEventChangeEvent, CalendarConfig, CalendarView, CalendarNavigationEvent } from './interfaces';
 import { CalendarItem, CalendarItemChangeEvent, CalendarItemEditorContext, CalendarItemTimePattern, CalendarItemTemplateContext } from './interfaces/calendar-item.interface';
 import { CalendarItemConfig } from './interfaces/calendar-item-config.interface';
@@ -19,46 +19,47 @@ import { MatDialog } from '@angular/material/dialog';
     standalone: true,
     imports: [FormsModule],
     template: '<div>Base calendar component - not meant to be used directly</div>',
-    encapsulation: ViewEncapsulation.None
+    encapsulation: ViewEncapsulation.None,
+    host: { 'data-amw-id': 'amw-calendar-base' }
 })
-export abstract class AmwCalendarBaseComponent<T = any> implements OnInit, OnChanges, OnDestroy {
+export abstract class AmwCalendarBaseComponent<T = any> implements OnInit, OnDestroy {
     // Input properties
-    @Input() events: CalendarEvent<T>[] = [];
-    @Input() config: CalendarConfig<T> | null = null;
-    @Input() currentDate: Date = new Date();
-    @Input() view: CalendarView = 'month';
-    @Input() loading: boolean = false;
-    @Input() disabled: boolean = false;
+    events = input<CalendarEvent<T>[]>([]);
+    config = input<CalendarConfig<T> | null>(null);
+    currentDate = input<Date>(new Date());
+    view = input<CalendarView>('month');
+    loading = input<boolean>(false);
+    disabled = input<boolean>(false);
 
     // New item system properties
-    @Input() items: CalendarItem<T>[] = [];
-    @Input() itemConfig: CalendarItemConfig<T> | null = null;
-    @Input() useNewItemSystem: boolean = false;
+    items = input<CalendarItem<T>[]>([]);
+    itemConfig = input<CalendarItemConfig<T> | null>(null);
+    useNewItemSystem = input<boolean>(false);
 
     // Output events (legacy)
-    @Output() eventChange = new EventEmitter<CalendarEventChangeEvent<T>>();
-    @Output() eventClick = new EventEmitter<CalendarEvent<T>>();
-    @Output() eventDoubleClick = new EventEmitter<CalendarEvent<T>>();
-    @Output() eventEdit = new EventEmitter<CalendarEvent<T>>();
-    @Output() eventDelete = new EventEmitter<CalendarEvent<T>>();
-    @Output() eventMove = new EventEmitter<{ event: CalendarEvent<T>; newStart: Date; newEnd?: Date; allDay?: boolean }>();
-    @Output() navigationChange = new EventEmitter<CalendarNavigationEvent>();
-    @Output() viewChange = new EventEmitter<CalendarView>();
-    @Output() dateChange = new EventEmitter<Date>();
+    eventChange = output<CalendarEventChangeEvent<T>>();
+    eventClick = output<CalendarEvent<T>>();
+    eventDoubleClick = output<CalendarEvent<T>>();
+    eventEdit = output<CalendarEvent<T>>();
+    eventDelete = output<CalendarEvent<T>>();
+    eventMove = output<{ event: CalendarEvent<T>; newStart: Date; newEnd?: Date; allDay?: boolean }>();
+    navigationChange = output<CalendarNavigationEvent>();
+    viewChange = output<CalendarView>();
+    dateChange = output<Date>();
 
     // New item system output events
-    @Output() itemChange = new EventEmitter<CalendarItemChangeEvent<T>>();
-    @Output() itemClick = new EventEmitter<CalendarItem<T>>();
-    @Output() itemDoubleClick = new EventEmitter<CalendarItem<T>>();
-    @Output() itemCreate = new EventEmitter<{ date: Date; time?: Date }>();
-    @Output() itemEdit = new EventEmitter<CalendarItem<T>>();
-    @Output() itemDelete = new EventEmitter<CalendarItem<T>>();
-    @Output() itemMove = new EventEmitter<{ item: CalendarItem<T>; newStart: Date; newEnd?: Date }>();
+    itemChange = output<CalendarItemChangeEvent<T>>();
+    itemClick = output<CalendarItem<T>>();
+    itemDoubleClick = output<CalendarItem<T>>();
+    itemCreate = output<{ date: Date; time?: Date }>();
+    itemEdit = output<CalendarItem<T>>();
+    itemDelete = output<CalendarItem<T>>();
+    itemMove = output<{ item: CalendarItem<T>; newStart: Date; newEnd?: Date }>();
 
     // Custom field templates
-    @ContentChild('customFieldsTemplate') customFieldsTemplate?: TemplateRef<CalendarItemTemplateContext<T>>;
-    @ContentChild('customReadonlyFieldsTemplate') customReadonlyFieldsTemplate?: TemplateRef<CalendarItemTemplateContext<T>>;
-    @Input() validateCustomFields?: (data: T) => boolean | Promise<boolean>;
+    customFieldsTemplate = contentChild<TemplateRef<CalendarItemTemplateContext<T>>>('customFieldsTemplate');
+    customReadonlyFieldsTemplate = contentChild<TemplateRef<CalendarItemTemplateContext<T>>>('customReadonlyFieldsTemplate');
+    validateCustomFields = input<((data: T) => boolean | Promise<boolean>) | undefined>(undefined);
 
     // Internal properties
     protected internalEvents: CalendarEvent<T>[] = [];
@@ -86,47 +87,52 @@ export abstract class AmwCalendarBaseComponent<T = any> implements OnInit, OnCha
     ) {
         this.internalConfig = this.getDefaultConfig();
         this.internalItemConfig = this.getDefaultItemConfig();
+
+        // Effect to handle input signal changes
+        effect(() => {
+            // Apply config first so it's available for event processing
+            const configValue = this.config();
+            if (configValue) {
+                this.applyConfig();
+            }
+
+            // Process events
+            const eventsValue = this.events();
+            this.internalEvents = this.processEvents(eventsValue || []);
+
+            // Process items
+            const itemsValue = this.items();
+            this.internalItems = [...(itemsValue || [])];
+
+            // Apply item config
+            const itemConfigValue = this.itemConfig();
+            if (itemConfigValue) {
+                this.applyItemConfig();
+            }
+
+            // Handle new item system
+            const useNewItemSystemValue = this.useNewItemSystem();
+            if (useNewItemSystemValue) {
+                this.initializeItemComponent();
+            }
+
+            // Update selected date
+            const currentDateValue = this.currentDate();
+            this.selectedDate = new Date(currentDateValue);
+
+            // Update current view
+            const viewValue = this.view();
+            this.currentView = viewValue;
+
+            // Manually trigger change detection
+            setTimeout(() => this.cdr.detectChanges(), 0);
+        });
     }
 
     ngOnInit(): void {
         this.initializeComponent();
-        if (this.useNewItemSystem) {
+        if (this.useNewItemSystem()) {
             this.initializeItemComponent();
-        }
-    }
-
-    ngOnChanges(changes: SimpleChanges): void {
-        // Apply config first so it's available for event processing
-        if (changes['config'] && this.config) {
-            this.applyConfig();
-        }
-
-        if (changes['events']) {
-            this.internalEvents = this.processEvents(this.events || []);
-        }
-
-        if (changes['items']) {
-            this.internalItems = [...(this.items || [])];
-        }
-        if (changes['itemConfig'] && this.itemConfig) {
-            this.applyItemConfig();
-        }
-        if (changes['useNewItemSystem']) {
-            if (this.useNewItemSystem) {
-                this.initializeItemComponent();
-            }
-        }
-        if (changes['currentDate']) {
-            this.selectedDate = new Date(this.currentDate);
-        }
-        if (changes['view']) {
-            this.currentView = this.view;
-        }
-
-        // Manually trigger change detection to prevent ExpressionChangedAfterItHasBeenCheckedError
-        // This is needed because items/events might be set during parent's change detection
-        if (changes['items'] || changes['events']) {
-            setTimeout(() => this.cdr.detectChanges(), 0);
         }
     }
 
@@ -160,9 +166,9 @@ export abstract class AmwCalendarBaseComponent<T = any> implements OnInit, OnCha
      * Initialize component with default values
      */
     protected initializeComponent(): void {
-        this.internalEvents = [...(this.events || [])];
-        this.selectedDate = new Date(this.currentDate);
-        this.currentView = this.view;
+        this.internalEvents = [...(this.events() || [])];
+        this.selectedDate = new Date(this.currentDate());
+        this.currentView = this.view();
         this.applyConfig();
     }
 
@@ -170,11 +176,12 @@ export abstract class AmwCalendarBaseComponent<T = any> implements OnInit, OnCha
      * Apply configuration to component properties
      */
     protected applyConfig(): void {
-        if (!this.config) return;
+        const configValue = this.config();
+        if (!configValue) return;
 
         this.internalConfig = {
             ...this.getDefaultConfig(),
-            ...this.config
+            ...configValue
         };
     }
 
@@ -220,7 +227,7 @@ export abstract class AmwCalendarBaseComponent<T = any> implements OnInit, OnCha
         });
 
         // If using new item system, also include items
-        if (this.useNewItemSystem) {
+        if (this.useNewItemSystem()) {
             const items = this.getItemsForDate(date);
             // Convert items to events for display compatibility
             const itemEvents = items.map(item => this.convertItemToEvent(item));
@@ -244,7 +251,7 @@ export abstract class AmwCalendarBaseComponent<T = any> implements OnInit, OnCha
         });
 
         // If using new item system, also include items
-        if (this.useNewItemSystem) {
+        if (this.useNewItemSystem()) {
             const items = this.getItemsForDateRange(start, end);
             // Convert items to events for display compatibility
             const itemEvents = items.map(item => this.convertItemToEvent(item));
@@ -354,7 +361,7 @@ export abstract class AmwCalendarBaseComponent<T = any> implements OnInit, OnCha
      * Open event editor in edit mode
      */
     private openEventEditor(event: CalendarEvent<T>, triggerElement?: HTMLElement): void {
-        if (this.disabled || !event.editable) {
+        if (this.disabled() || !event.editable) {
             return;
         }
 
@@ -454,9 +461,9 @@ export abstract class AmwCalendarBaseComponent<T = any> implements OnInit, OnCha
             item: existingItem,
             triggerElement,
             position: preferredPosition,
-            customFieldsTemplate: this.customFieldsTemplate,
-            customReadonlyFieldsTemplate: this.customReadonlyFieldsTemplate,
-            validateCustomFields: this.validateCustomFields
+            customFieldsTemplate: this.customFieldsTemplate(),
+            customReadonlyFieldsTemplate: this.customReadonlyFieldsTemplate(),
+            validateCustomFields: this.validateCustomFields()
         };
 
 
@@ -723,9 +730,9 @@ export abstract class AmwCalendarBaseComponent<T = any> implements OnInit, OnCha
      * Initialize component with new item system
      */
     protected initializeItemComponent(): void {
-        this.internalItems = [...(this.items || [])];
-        this.selectedDate = new Date(this.currentDate);
-        this.currentView = this.view;
+        this.internalItems = [...(this.items() || [])];
+        this.selectedDate = new Date(this.currentDate());
+        this.currentView = this.view();
         this.applyItemConfig();
     }
 
@@ -733,11 +740,12 @@ export abstract class AmwCalendarBaseComponent<T = any> implements OnInit, OnCha
      * Apply item configuration
      */
     protected applyItemConfig(): void {
-        if (!this.itemConfig) return;
+        const itemConfigValue = this.itemConfig();
+        if (!itemConfigValue) return;
 
         this.internalItemConfig = {
             ...this.getDefaultItemConfig(),
-            ...this.itemConfig
+            ...itemConfigValue
         };
     }
 
@@ -745,7 +753,7 @@ export abstract class AmwCalendarBaseComponent<T = any> implements OnInit, OnCha
      * Handle cell click for item creation
      */
     onCellClickForItem(date: Date, time?: Date, triggerElement?: HTMLElement): void {
-        if (this.disabled || !this.internalItemConfig.allowCreate) {
+        if (this.disabled() || !this.internalItemConfig.allowCreate) {
             return;
         }
 
@@ -769,7 +777,7 @@ export abstract class AmwCalendarBaseComponent<T = any> implements OnInit, OnCha
      * Handle add button click for item creation
      */
     onAddButtonClickForItem(triggerElement?: HTMLElement): void {
-        if (this.disabled || !this.internalItemConfig.allowCreate) return;
+        if (this.disabled() || !this.internalItemConfig.allowCreate) return;
 
         const availableTypes = this.itemRegistry.getRegisteredTypes();
         if (availableTypes.length === 0) {
@@ -853,9 +861,9 @@ export abstract class AmwCalendarBaseComponent<T = any> implements OnInit, OnCha
             item: existingItem,
             triggerElement,
             position: preferredPosition,
-            customFieldsTemplate: this.customFieldsTemplate,
-            customReadonlyFieldsTemplate: this.customReadonlyFieldsTemplate,
-            validateCustomFields: this.validateCustomFields
+            customFieldsTemplate: this.customFieldsTemplate(),
+            customReadonlyFieldsTemplate: this.customReadonlyFieldsTemplate(),
+            validateCustomFields: this.validateCustomFields()
         };
 
         this.editorRef = this.popoverService.openEditor(context, triggerElement, preferredPosition);

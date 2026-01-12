@@ -61,7 +61,7 @@ export class CheckboxCodeComponent extends BaseCodeComponent<CheckboxExamples> {
     indeterminate: `<amw-checkbox
   [checked]="allComplete"
   [indeterminate]="someComplete()"
-  (change)="setAll($event.checked)">
+  (change)="setAll(!!$event)">
   {{task.name}}
 </amw-checkbox>
 <ul>

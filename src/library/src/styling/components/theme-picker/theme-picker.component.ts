@@ -21,7 +21,8 @@ import { ThemeService, ThemeConfig } from '../../services/theme.service';
         MatCardModule
     ],
     templateUrl: './theme-picker.component.html',
-    styleUrl: './theme-picker.component.scss'
+    styleUrl: './theme-picker.component.scss',
+    host: { 'data-amw-id': 'amw-theme-picker' }
 })
 export class ThemePickerComponent implements OnInit {
     currentTheme = signal<ThemeConfig | null>(null);

@@ -31,38 +31,38 @@
   &__demo-card {
     background: var(--mat-sys-surface-container);
 
-    .mat-card-header {
+    .amw-card__header {
       padding-bottom: 16px;
     }
 
-    .mat-card-title {
+    .amw-card__title {
       color: var(--mat-sys-on-surface);
       font-size: 1.25rem;
       font-weight: 500;
     }
 
-    .mat-card-subtitle {
+    .amw-card__subtitle {
       color: var(--mat-sys-on-surface-variant);
       font-size: 0.875rem;
     }
   }
 
   &__tabs {
-    .mat-tab-group {
-      .mat-tab-header {
+    .amw-tabs {
+      .amw-tabs__header {
         border-bottom: 1px solid var(--mat-sys-outline-variant);
       }
 
-      .mat-tab-label {
+      .amw-tabs__tab {
         color: var(--mat-sys-on-surface-variant);
         font-weight: 500;
 
-        &.mat-tab-label-active {
+        &.amw-tabs__tab--active {
           color: var(--mat-sys-primary);
         }
       }
 
-      .mat-tab-body-content {
+      .amw-tabs__panel-body {
         padding: 0;
       }
     }
@@ -200,17 +200,17 @@
   &__content-card {
     background: var(--mat-sys-surface-container-low);
 
-    .mat-card-header {
+    .amw-card__header {
       padding-bottom: 16px;
     }
 
-    .mat-card-title {
+    .amw-card__title {
       color: var(--mat-sys-on-surface);
       font-size: 1.25rem;
       font-weight: 500;
     }
 
-    .mat-card-subtitle {
+    .amw-card__subtitle {
       color: var(--mat-sys-on-surface-variant);
       font-size: 0.875rem;
     }

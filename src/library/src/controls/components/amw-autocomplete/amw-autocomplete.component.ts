@@ -1,4 +1,4 @@
-import { Component, Input, Output, EventEmitter, forwardRef, ViewEncapsulation } from '@angular/core';
+import { Component, input, output, ViewEncapsulation } from '@angular/core';
 
 import { FormsModule, ControlValueAccessor, NG_VALUE_ACCESSOR } from '@angular/forms';
 import { MatAutocompleteModule } from '@angular/material/autocomplete';
@@ -11,10 +11,14 @@ import { MatOptionModule } from '@angular/material/core';
 
 import { BaseComponent } from '../base/base.component';
 import { AutocompleteOption } from './interfaces/autocomplete-option.interface';
-import { AmwSize } from '../../../shared/types/amw-size.type';
 import { AmwAppearance } from '../../../shared/types/amw-appearance.type';
 
-
+/**
+ * AMW Autocomplete Component
+ * Inherits from BaseComponent: disabled, required, label, placeholder, errorMessage, hasError,
+ * name, id, tabIndex, size, color, ariaLabel, ariaLabelledby, ariaDescribedby, ariaRequired,
+ * ariaInvalid, hint, readonly, value, change, focus, blur
+ */
 @Component({
     selector: 'amw-autocomplete',
     standalone: true,
@@ -39,27 +43,25 @@ import { AmwAppearance } from '../../../shared/types/amw-appearance.type';
     styleUrl: './amw-autocomplete.component.scss',
     encapsulation: ViewEncapsulation.None
 })
-export class AmwAutocompleteComponent extends BaseComponent implements ControlValueAccessor {
-    @Input() options: AutocompleteOption[] = [];
-    @Input() override placeholder: string = '';
-    @Input() override label: string = '';
-    @Input() hint: string = '';
-    @Input() override required: boolean = false;
-    @Input() override disabled: boolean = false;
-    @Input() readonly: boolean = false;
-    @Input() multiple: boolean = false;
-    @Input() clearable: boolean = true;
-    @Input() size: AmwSize = 'medium';
-    @Input() appearance: AmwAppearance = 'outline';
-    @Input() minLength: number = 0;
-    @Input() maxLength: number = 0;
-    @Input() filterBy: string = 'label';
-    @Input() displayWith: (value: any) => string = (value: any) => value?.label || value || '';
+export class AmwAutocompleteComponent extends BaseComponent<any> implements ControlValueAccessor {
+    // Autocomplete-specific inputs (inherited from BaseComponent: disabled, required, placeholder,
+    // label, errorMessage, hasError, name, id, tabIndex, size, color, ariaLabel, ariaLabelledby,
+    // ariaDescribedby, ariaRequired, ariaInvalid, hint, readonly, value, change, focus, blur)
 
-    @Output() optionSelected = new EventEmitter<AutocompleteOption>();
-    @Output() inputChanged = new EventEmitter<string>();
-    @Output() opened = new EventEmitter<void>();
-    @Output() closed = new EventEmitter<void>();
+    options = input<AutocompleteOption[]>([]);
+    multiple = input<boolean>(false);
+    clearable = input<boolean>(true);
+    appearance = input<AmwAppearance>('outline');
+    minLength = input<number>(0);
+    maxLength = input<number>(0);
+    filterBy = input<string>('label');
+    displayWith = input<(value: any) => string>((value: any) => value?.label || value || '');
+
+    // Component-specific outputs
+    optionSelected = output<AutocompleteOption>();
+    inputChanged = output<string>();
+    opened = output<void>();
+    closed = output<void>();
 
     filteredOptions: AutocompleteOption[] = [];
     inputValue: string = '';
@@ -70,12 +72,12 @@ export class AmwAutocompleteComponent extends BaseComponent implements ControlVa
     onTouched = () => { };
 
     ngOnInit(): void {
-        this.filteredOptions = [...this.options];
+        this.filteredOptions = [...this.options()];
     }
 
     ngOnChanges(): void {
-        if (this.options) {
-            this.filteredOptions = [...this.options];
+        if (this.options()) {
+            this.filteredOptions = [...this.options()];
         }
     }
 
@@ -87,7 +89,7 @@ export class AmwAutocompleteComponent extends BaseComponent implements ControlVa
     }
 
     onOptionSelected(option: AutocompleteOption): void {
-        if (this.multiple) {
+        if (this.multiple()) {
             this.addToSelection(option);
         } else {
             this.selectedValue = option.value;
@@ -106,8 +108,8 @@ export class AmwAutocompleteComponent extends BaseComponent implements ControlVa
         this.inputValue = '';
         this.selectedValue = null;
         this.selectedValues = [];
-        this.filteredOptions = [...this.options];
-        this.onChange(this.multiple ? [] : null);
+        this.filteredOptions = [...this.options()];
+        this.onChange(this.multiple() ? [] : null);
     }
 
     onOpened(): void {
@@ -119,14 +121,14 @@ export class AmwAutocompleteComponent extends BaseComponent implements ControlVa
     }
 
     private filterOptions(value: string): void {
-        if (!value || value.length < this.minLength) {
-            this.filteredOptions = [...this.options];
+        if (!value || value.length < this.minLength()) {
+            this.filteredOptions = [...this.options()];
             return;
         }
 
         const filterValue = value.toLowerCase();
-        this.filteredOptions = this.options.filter(option => {
-            const fieldValue = this.getFieldValue(option, this.filterBy);
+        this.filteredOptions = this.options().filter(option => {
+            const fieldValue = this.getFieldValue(option, this.filterBy());
             return fieldValue.toLowerCase().includes(filterValue);
         });
     }
@@ -151,12 +153,12 @@ export class AmwAutocompleteComponent extends BaseComponent implements ControlVa
 
     // ControlValueAccessor implementation
     override writeValue(value: any): void {
-        if (this.multiple) {
+        if (this.multiple()) {
             this.selectedValues = Array.isArray(value) ? value : [];
         } else {
             this.selectedValue = value;
             if (value) {
-                const option = this.options.find(opt => opt.value === value);
+                const option = this.options().find(opt => opt.value === value);
                 this.inputValue = option ? option.label : String(value);
             } else {
                 this.inputValue = '';
@@ -173,10 +175,11 @@ export class AmwAutocompleteComponent extends BaseComponent implements ControlVa
     }
 
     override setDisabledState(isDisabled: boolean): void {
-        this.disabled = isDisabled;
+        // Note: disabled is a signal input from BaseComponent and cannot be set directly.
+        // The disabled state should be managed through the parent component's binding.
     }
 
     getSelectedOption(value: any): AutocompleteOption | undefined {
-        return this.options.find(option => option.value === value);
+        return this.options().find(option => option.value === value);
     }
 }

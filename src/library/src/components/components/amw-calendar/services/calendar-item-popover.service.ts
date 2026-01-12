@@ -53,8 +53,8 @@ export class CalendarItemPopoverService {
         // Attach component to overlay
         const componentRef = this.overlayRef.attach(portal);
 
-        // Set the context on the component instance
-        componentRef.instance.context = context;
+        // Set the context input using setInput for signal inputs
+        componentRef.setInput('context', context);
 
         // Handle backdrop click to close
         this.overlayRef.backdropClick().subscribe(() => {

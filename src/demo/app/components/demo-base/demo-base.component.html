@@ -1,15 +1,15 @@
 <amw-card class="demo-card">
   <ng-template #cardHeader>
-    <h2>{{ title }}</h2>
-    <p *ngIf="description">{{ description }}</p>
+    <h2>{{ title() }}</h2>
+    <p *ngIf="description()">{{ description() }}</p>
   </ng-template>
 
   <ng-template #cardContent>
     <!-- Controls Section -->
-    <div class="demo-controls-section" *ngIf="properties.length > 0">
+    <div class="demo-controls-section" *ngIf="properties().length > 0">
       <h3>Live Controls</h3>
       <div class="demo-controls-grid">
-        <ng-container *ngFor="let prop of properties">
+        <ng-container *ngFor="let prop of properties()">
           <div class="demo-control-item">
             <label class="demo-control-label">{{ prop.name }}</label>
             <div class="demo-control-description" *ngIf="prop.description">{{ prop.description }}</div>
@@ -37,7 +37,7 @@
             <amw-switch
               *ngIf="prop.type === 'boolean'"
               [formControl]="getFormControl(prop.name)"
-              (change)="onPropertyChange(prop.name, $event.checked)"
+              (change)="onPropertyChange(prop.name, !!$event)"
               class="demo-control-toggle">
               {{ prop.name }}
             </amw-switch>
@@ -73,7 +73,7 @@
     </div>
 
     <!-- Form Toggle Section -->
-    <div class="demo-form-toggle-section" *ngIf="showFormToggle">
+    <div class="demo-form-toggle-section" *ngIf="showFormToggle()">
       <h3>Demo Mode</h3>
       <amw-switch
         [checked]="isFormMode"
@@ -89,7 +89,7 @@
     </div>
 
     <!-- Code Example Section -->
-    <div class="demo-code-section" *ngIf="showCodeExample">
+    <div class="demo-code-section" *ngIf="showCodeExample()">
       <h3>Usage Example</h3>
       <pre class="demo-code-block"><code>{{ generateCodeExample() }}</code></pre>
     </div>

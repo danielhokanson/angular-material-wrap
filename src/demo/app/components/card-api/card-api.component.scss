@@ -29,13 +29,13 @@
     width: 100%;
     margin-bottom: 16px;
 
-    .mat-mdc-header-cell {
+    .amw-data-table__header-cell {
       background: var(--mdc-theme-surface-variant);
       color: var(--mdc-theme-on-surface-variant);
       font-weight: 500;
     }
 
-    .mat-mdc-cell {
+    .amw-data-table__cell {
       color: var(--mdc-theme-on-surface);
       border-bottom: 1px solid var(--mdc-theme-outline-variant);
     }

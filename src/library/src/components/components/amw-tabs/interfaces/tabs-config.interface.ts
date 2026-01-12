@@ -29,6 +29,9 @@ export interface TabsConfig {
     /** Whether to show scroll buttons */
     showScrollButtons?: boolean;
 
+    /** Whether to show panel headers with label/icon in content area (default: false) */
+    showPanelHeaders?: boolean;
+
     /** Animation duration in milliseconds */
     animationDuration?: number;
 

@@ -1,4 +1,4 @@
-import { Component, Input, Output, EventEmitter, OnInit, OnDestroy, ViewEncapsulation, ChangeDetectorRef, Inject, Optional, Injectable, InjectionToken } from '@angular/core';
+import { Component, input, output, OnInit, OnDestroy, ViewEncapsulation, ChangeDetectorRef, Inject, Optional, Injectable, InjectionToken } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule, ReactiveFormsModule, FormBuilder, FormGroup } from '@angular/forms';
 import { MatCardModule } from '@angular/material/card';
@@ -76,18 +76,38 @@ export class DefaultWorkflowPageDataSource implements WorkflowPageDataSource {
     ]
 })
 export class AmwWorkflowPageComponent implements OnInit, OnDestroy {
-    @Input() config: WorkflowPageConfig = { steps: [] };
-    @Input() workflowId?: string;
-    @Input() dataSource?: WorkflowPageDataSource;
-    @Input() autoSave = false;
-    @Input() autoSaveInterval = 30000; // 30 seconds
+    /** Configuration for the workflow page */
+    config = input<WorkflowPageConfig>({ steps: [] });
 
-    @Output() stepChange = new EventEmitter<{ step: WorkflowStep; stepIndex: number }>();
-    @Output() workflowComplete = new EventEmitter<any>();
-    @Output() workflowCancel = new EventEmitter<void>();
-    @Output() workflowSave = new EventEmitter<any>();
-    @Output() workflowReset = new EventEmitter<void>();
-    @Output() customAction = new EventEmitter<{ action: string; step: WorkflowStep; stepIndex: number; data: any }>();
+    /** ID of the workflow to load */
+    workflowId = input<string | undefined>(undefined);
+
+    /** Data source for workflow operations */
+    dataSource = input<WorkflowPageDataSource | undefined>(undefined);
+
+    /** Whether to enable auto-save */
+    autoSave = input<boolean>(false);
+
+    /** Auto-save interval in milliseconds */
+    autoSaveInterval = input<number>(30000);
+
+    /** Emits when the step changes */
+    stepChange = output<{ step: WorkflowStep; stepIndex: number }>();
+
+    /** Emits when the workflow is completed */
+    workflowComplete = output<any>();
+
+    /** Emits when the workflow is cancelled */
+    workflowCancel = output<void>();
+
+    /** Emits when the workflow is saved */
+    workflowSave = output<any>();
+
+    /** Emits when the workflow is reset */
+    workflowReset = output<void>();
+
+    /** Emits when a custom action is triggered */
+    customAction = output<{ action: string; step: WorkflowStep; stepIndex: number; data: any }>();
 
     // Current state
     currentConfig: WorkflowPageConfig = { steps: [] };
@@ -123,7 +143,7 @@ export class AmwWorkflowPageComponent implements OnInit, OnDestroy {
     ngOnInit(): void {
         this.initializeConfig();
         this.initializeForm();
-        if (this.workflowId) {
+        if (this.workflowId()) {
             this.loadWorkflow();
         }
     }
@@ -144,7 +164,7 @@ export class AmwWorkflowPageComponent implements OnInit, OnDestroy {
             customActions: [],
             customClasses: [],
             customStyles: {},
-            ...this.config
+            ...this.config()
         };
     }
 
@@ -154,19 +174,20 @@ export class AmwWorkflowPageComponent implements OnInit, OnDestroy {
     }
 
     loadWorkflow(): void {
-        if (!this.workflowId) return;
+        const workflowIdValue = this.workflowId();
+        if (!workflowIdValue) return;
 
         this.loading = true;
         this.error = null;
 
-        const dataSource = this.dataSource || this.injectedDataSource;
+        const dataSource = this.dataSource() || this.injectedDataSource;
         if (!dataSource) {
             this.error = 'No data source provided';
             this.loading = false;
             return;
         }
 
-        dataSource.getWorkflow(this.workflowId).pipe(
+        dataSource.getWorkflow(workflowIdValue).pipe(
             takeUntil(this.destroy$)
         ).subscribe({
             next: (workflow) => {
@@ -210,7 +231,7 @@ export class AmwWorkflowPageComponent implements OnInit, OnDestroy {
 
     onCompleteWorkflow(): void {
         this.saving = true;
-        const dataSource = this.dataSource || this.injectedDataSource;
+        const dataSource = this.dataSource() || this.injectedDataSource;
         if (dataSource) {
             dataSource.completeWorkflow(this.currentData.stepData).pipe(
                 takeUntil(this.destroy$)

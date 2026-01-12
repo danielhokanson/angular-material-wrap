@@ -36,6 +36,7 @@ export type CalendarStartView = 'month' | 'year' | 'multi-year';
         MatNativeDateModule
     ],
     encapsulation: ViewEncapsulation.None,
+    host: { 'data-amw-id': 'amw-calendar-picker' },
     template: `
         <mat-calendar
             [selected]="selected()"

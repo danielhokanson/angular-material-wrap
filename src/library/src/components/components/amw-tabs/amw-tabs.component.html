@@ -1,30 +1,30 @@
 <div class="amw-tabs"
-  [class.amw-tabs--vertical]="currentConfig.orientation === 'vertical'"
-  [class.amw-tabs--horizontal]="currentConfig.orientation === 'horizontal'"
-  [class.amw-tabs--disabled]="disabled"
-  [class.amw-tabs--draggable]="currentConfig.draggable"
-  [attr.data-active-tab]="activeTab"
-  [attr.data-total-tabs]="tabs.length">
+  [class.amw-tabs--vertical]="currentConfig().orientation === 'vertical'"
+  [class.amw-tabs--horizontal]="currentConfig().orientation === 'horizontal'"
+  [class.amw-tabs--disabled]="disabled()"
+  [class.amw-tabs--draggable]="currentConfig().draggable"
+  [attr.data-active-tab]="activeTab()"
+  [attr.data-total-tabs]="tabs().length">
 
   <!-- Tabs Header -->
   <div class="amw-tabs__header"
-    [class.amw-tabs__header--vertical]="currentConfig.orientation === 'vertical'"
-    [class.amw-tabs__header--horizontal]="currentConfig.orientation === 'horizontal'">
+    [class.amw-tabs__header--vertical]="currentConfig().orientation === 'vertical'"
+    [class.amw-tabs__header--horizontal]="currentConfig().orientation === 'horizontal'">
 
     <!-- Tabs List -->
     <div class="amw-tabs__list"
-      [class.amw-tabs__list--vertical]="currentConfig.orientation === 'vertical'"
-      [class.amw-tabs__list--horizontal]="currentConfig.orientation === 'horizontal'">
+      [class.amw-tabs__list--vertical]="currentConfig().orientation === 'vertical'"
+      [class.amw-tabs__list--horizontal]="currentConfig().orientation === 'horizontal'">
 
-      @for (tab of tabs; track tab; let i = $index) {
+      @for (tab of tabs(); track tab; let i = $index) {
         <div
           class="amw-tabs__tab"
           [class.amw-tabs__tab--active]="isTabActive(i)"
           [class.amw-tabs__tab--disabled]="isTabDisabled(i)"
           [class.amw-tabs__tab--invalid]="tab.isValid === false"
-          [class.amw-tabs__tab--dragging]="isReordering"
+          [class.amw-tabs__tab--dragging]="isReordering()"
           [attr.data-tab-index]="i"
-          [draggable]="currentConfig.draggable"
+          [draggable]="currentConfig().draggable"
           (click)="changeTab(i)"
           (dragstart)="onDragStart($event, i)"
           (dragover)="onDragOver($event)"
@@ -37,7 +37,7 @@
               <ng-container [ngTemplateOutlet]="tab.headerTemplate"></ng-container>
             } @else {
               <!-- Tab Icon -->
-              @if (currentConfig.showIcons && tab.icon) {
+              @if (currentConfig().showIcons && tab.icon) {
                 <mat-icon
                   class="amw-tabs__tab-icon">
                   {{ tab.icon }}
@@ -46,7 +46,7 @@
               <!-- Tab Label -->
               <span class="amw-tabs__tab-label">{{ tab.label }}</span>
               <!-- Tab Badge -->
-              @if (currentConfig.showBadges && hasTabBadge(i)) {
+              @if (currentConfig().showBadges && hasTabBadge(i)) {
                 <span
                   class="amw-tabs__tab-badge"
                   [style.background-color]="tab.badgeColor || 'var(--mat-sys-error, #f44336)'">
@@ -56,13 +56,13 @@
             }
           </div>
           <!-- Tab Close Button -->
-          @if (currentConfig.showCloseButtons && isTabClosable(i)) {
+          @if (currentConfig().showCloseButtons && isTabClosable(i)) {
             <amw-button
               variant="icon"
               icon="close"
               class="amw-tabs__tab-close"
               (click)="closeTab(i); $event.stopPropagation()"
-              [disabled]="disabled">
+              [disabled]="disabled()">
             </amw-button>
           }
         </div>
@@ -70,27 +70,27 @@
     </div>
 
     <!-- Add Tab Button -->
-    @if (currentConfig.showAddButton) {
+    @if (currentConfig().showAddButton) {
       <amw-button
         variant="icon"
         icon="add"
         class="amw-tabs__add-button"
         (click)="addTab()"
-        [disabled]="disabled">
+        [disabled]="disabled()">
       </amw-button>
     }
   </div>
 
   <!-- Tabs Content -->
   <div class="amw-tabs__content">
-    @for (tab of tabs; track tab; let i = $index) {
+    @for (tab of tabs(); track tab; let i = $index) {
       <div
         class="amw-tabs__panel"
         [class.amw-tabs__panel--active]="isTabActive(i)"
         [attr.data-tab-index]="i">
         <!-- Tab Panel Content -->
         <div class="amw-tabs__panel-body">
-          @if (tab.label || tab.icon) {
+          @if (currentConfig().showPanelHeaders && (tab.label || tab.icon)) {
             <div class="amw-tabs__panel-header">
               <div class="amw-tabs__panel-title">
                 @if (tab.icon) {
@@ -100,12 +100,12 @@
                   <h3>{{ tab.label }}</h3>
                 }
               </div>
-              @if (currentConfig.showCloseButtons && isTabClosable(i)) {
+              @if (currentConfig().showCloseButtons && isTabClosable(i)) {
                 <div class="amw-tabs__panel-actions">
                   <amw-button variant="icon"
                     icon="close"
                     (click)="closeTab(i)"
-                    [disabled]="disabled">
+                    [disabled]="disabled()">
                   </amw-button>
                 </div>
               }
@@ -125,20 +125,20 @@
   </div>
 
   <!-- Empty State -->
-  @if (tabs.length === 0) {
+  @if (tabs().length === 0) {
     <div class="amw-tabs__empty">
       <div class="amw-tabs__empty-content">
         <mat-icon class="amw-tabs__empty-icon">tab</mat-icon>
         <h3>No tabs available</h3>
         <p>Add a new tab to get started</p>
-        @if (currentConfig.showAddButton) {
+        @if (currentConfig().showAddButton) {
           <amw-button
             variant="elevated"
             icon="add"
             iconPosition="left"
             color="primary"
             (click)="addTab()"
-            [disabled]="disabled">
+            [disabled]="disabled()">
             Add Tab
           </amw-button>
         }

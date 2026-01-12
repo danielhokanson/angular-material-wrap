@@ -1,10 +1,10 @@
 <div class="amw-demo-tabs">
-  <amw-tabs 
-    [selectedIndex]="selectedTabIndex"
+  <amw-tabs
+    [selectedIndex]="selectedTabIndex()"
     (selectedIndexChange)="onTabChange($event)"
     class="amw-demo-tabs__group">
-    
-    <amw-tab *ngFor="let tab of tabs; let i = index" [label]="tab.label">
+
+    <amw-tab *ngFor="let tab of tabs(); let i = index" [label]="tab.label">
       <ng-container [ngSwitch]="tab.id">
         <!-- Variations Tab -->
         <div *ngSwitchCase="'variations'" class="amw-demo-tabs__variations">

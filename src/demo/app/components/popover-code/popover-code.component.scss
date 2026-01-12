@@ -57,17 +57,17 @@
       box-shadow: var(--mat-sys-elevation-2);
     }
 
-    .mat-card-header {
+    .amw-card__header {
       padding-bottom: 8px;
     }
 
-    .mat-card-title {
+    .amw-card__title {
       color: var(--mat-sys-on-surface);
       font-size: 1rem;
       font-weight: 500;
     }
 
-    .mat-card-subtitle {
+    .amw-card__subtitle {
       color: var(--mat-sys-on-surface-variant);
       font-size: 0.875rem;
     }
@@ -99,7 +99,7 @@
     font-size: 0.75rem;
     font-weight: 500;
 
-    mat-icon {
+    amw-icon {
       font-size: 16px;
       width: 16px;
       height: 16px;
@@ -144,7 +144,7 @@
     font-size: 0.7rem;
     color: var(--mat-sys-on-surface);
 
-    mat-icon {
+    amw-icon {
       font-size: 12px;
       width: 12px;
       height: 12px;
@@ -326,21 +326,21 @@
   }
 
   // Tab styling
-  .mat-tab-group {
-    .mat-tab-header {
+  amw-tabs {
+    .amw-tabs__header {
       border-bottom: 1px solid var(--mat-sys-outline-variant);
     }
 
-    .mat-tab-label {
+    .amw-tabs__label {
       color: var(--mat-sys-on-surface-variant);
       font-weight: 500;
 
-      &.mat-tab-label-active {
+      &.amw-tabs__label--active {
         color: var(--mat-sys-primary);
       }
     }
 
-    .mat-tab-body-content {
+    .amw-tabs__body-content {
       padding: 0;
     }
   }

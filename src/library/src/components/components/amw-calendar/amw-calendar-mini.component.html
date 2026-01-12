@@ -1,19 +1,19 @@
 <div class="amw-calendar-mini"
   [class]="internalConfig.cssClass"
-  [class.amw-calendar-mini--loading]="loading"
-  [class.amw-calendar-mini--disabled]="disabled"
+  [class.amw-calendar-mini--loading]="loading()"
+  [class.amw-calendar-mini--disabled]="disabled()"
   [class.amw-calendar-mini--compact]="compactMode"
   [class.amw-calendar-mini--week-view]="showWeekViewInternal">
 
   <!-- Loading Spinner -->
-  @if (loading) {
+  @if (loading()) {
     <div class="amw-calendar-mini__loading">
       <amw-progress-spinner [diameter]="24"></amw-progress-spinner>
     </div>
   }
 
   <!-- Header -->
-  @if (showNavigation) {
+  @if (showNavigation()) {
     <div class="amw-calendar-mini__header">
       <!-- Navigation Controls -->
       <div class="amw-calendar-mini__navigation">
@@ -21,13 +21,13 @@
           variant="icon"
           icon="chevron_left"
           (click)="navigatePrevious()"
-          [disabled]="disabled"
+          [disabled]="disabled()"
           amwTooltip="Previous">
         </amw-button>
         <amw-button
           variant="text"
           (click)="navigateToday()"
-          [disabled]="disabled"
+          [disabled]="disabled()"
           amwTooltip="Today">
           Today
         </amw-button>
@@ -35,7 +35,7 @@
           variant="icon"
           icon="chevron_right"
           (click)="navigateNext()"
-          [disabled]="disabled"
+          [disabled]="disabled()"
           amwTooltip="Next">
         </amw-button>
       </div>
@@ -58,7 +58,7 @@
           variant="icon"
           [icon]="showWeekViewInternal ? 'view_day' : 'view_week'"
           (click)="toggleWeekView()"
-          [disabled]="disabled"
+          [disabled]="disabled()"
           [amwTooltip]="showWeekViewInternal ? 'Show single day' : 'Show week view'">
         </amw-button>
       </div>
@@ -131,13 +131,13 @@
                 </div>
               }
               <!-- Show More Button -->
-              @if (showMoreButton && getRemainingEventsCount(selectedDate) > 0) {
+              @if (showMoreButton() && getRemainingEventsCount(selectedDate) > 0) {
                 <div
                   class="amw-calendar-mini__show-more">
                   <amw-button
                     variant="text"
                     (click)="onShowMoreClick(selectedDate)"
-                    [disabled]="disabled">
+                    [disabled]="disabled()">
                     +{{ getRemainingEventsCount(selectedDate) }} more
                   </amw-button>
                 </div>
@@ -222,13 +222,13 @@
                   </div>
                 }
                 <!-- Show More Button -->
-                @if (showMoreButton && getRemainingEventsCount(date) > 0) {
+                @if (showMoreButton() && getRemainingEventsCount(date) > 0) {
                   <div
                     class="amw-calendar-mini__show-more">
                     <amw-button
                       variant="text"
                       (click)="onShowMoreClick(date)"
-                      [disabled]="disabled">
+                      [disabled]="disabled()">
                       +{{ getRemainingEventsCount(date) }}
                     </amw-button>
                   </div>

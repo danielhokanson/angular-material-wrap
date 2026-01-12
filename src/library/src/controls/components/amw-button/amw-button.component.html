@@ -2,21 +2,21 @@
   <!-- Common Button Content Template -->
   <ng-template #buttonContent>
     <!-- Left Icon -->
-    @if (icon && iconPosition === 'left' && !loading) {
-      <mat-icon class="amw-button__icon amw-button__icon--left">{{ icon }}</mat-icon>
+    @if (icon() && iconPosition() === 'left' && !loading()) {
+      <mat-icon class="amw-button__icon amw-button__icon--left">{{ icon() }}</mat-icon>
     }
 
     <!-- Loading Spinner -->
-    @if (loading) {
-      <amw-progress-spinner class="amw-button__spinner" [diameter]="spinnerSize" [color]="spinnerColor">
+    @if (loading()) {
+      <amw-progress-spinner class="amw-button__spinner" [diameter]="spinnerSize()" [color]="spinnerColor()">
       </amw-progress-spinner>
     }
 
     <!-- Button Text -->
-    @if (!loading) {
+    @if (!loading()) {
       <span class="amw-button__text">
-        @if (text && text.trim()) {
-          <span [innerHTML]="text"></span>
+        @if (text() && text().trim()) {
+          <span [innerHTML]="text()"></span>
         } @else {
           <ng-content></ng-content>
         }
@@ -24,18 +24,18 @@
     }
 
     <!-- Right Icon -->
-    @if (icon && iconPosition === 'right' && !loading) {
-      <mat-icon class="amw-button__icon amw-button__icon--right">{{ icon }}</mat-icon>
+    @if (icon() && iconPosition() === 'right' && !loading()) {
+      <mat-icon class="amw-button__icon amw-button__icon--right">{{ icon() }}</mat-icon>
     }
   </ng-template>
 
   <!-- Text Button -->
-  @if (variant === 'text') {
-    <button matButton [type]="type" [attr.color]="color" [disabled]="disabled || loading"
-      [autofocus]="autofocus" [name]="name" [attr.form]="form" [attr.formaction]="formAction"
-      [attr.formmethod]="formMethod" [attr.formtarget]="formTarget" [attr.formenctype]="formEnctype"
-      [attr.formnovalidate]="formNoValidate" [attr.aria-label]="ariaLabel" [attr.aria-labelledby]="ariaLabelledby"
-      [attr.aria-describedby]="ariaDescribedby" [attr.tabindex]="tabIndex" [class]="buttonClasses"
+  @if (variant() === 'text') {
+    <button matButton [type]="type()" [attr.color]="color()" [disabled]="disabled() || loading()"
+      [autofocus]="autofocus()" [name]="name()" [attr.form]="form()" [attr.formaction]="formAction()"
+      [attr.formmethod]="formMethod()" [attr.formtarget]="formTarget()" [attr.formenctype]="formEnctype()"
+      [attr.formnovalidate]="formNoValidate()" [attr.aria-label]="ariaLabel()" [attr.aria-labelledby]="ariaLabelledby()"
+      [attr.aria-describedby]="ariaDescribedby()" [attr.tabindex]="tabIndex()" [class]="buttonClasses"
       (click)="onButtonClick($event)" (focus)="onButtonFocus($event)" (blur)="onButtonBlur($event)"
       (mouseenter)="onMouseEnter($event)" (mouseleave)="onMouseLeave($event)" class="amw-button__button">
       <ng-container [ngTemplateOutlet]="buttonContent"></ng-container>
@@ -43,12 +43,12 @@
   }
 
   <!-- Elevated Button -->
-  @if (variant === 'elevated') {
-    <button matButton="elevated" [type]="type" [attr.color]="color" [disabled]="disabled || loading"
-      [autofocus]="autofocus" [name]="name" [attr.form]="form" [attr.formaction]="formAction"
-      [attr.formmethod]="formMethod" [attr.formtarget]="formTarget" [attr.formenctype]="formEnctype"
-      [attr.formnovalidate]="formNoValidate" [attr.aria-label]="ariaLabel" [attr.aria-labelledby]="ariaLabelledby"
-      [attr.aria-describedby]="ariaDescribedby" [attr.tabindex]="tabIndex" [class]="buttonClasses"
+  @if (variant() === 'elevated') {
+    <button matButton="elevated" [type]="type()" [attr.color]="color()" [disabled]="disabled() || loading()"
+      [autofocus]="autofocus()" [name]="name()" [attr.form]="form()" [attr.formaction]="formAction()"
+      [attr.formmethod]="formMethod()" [attr.formtarget]="formTarget()" [attr.formenctype]="formEnctype()"
+      [attr.formnovalidate]="formNoValidate()" [attr.aria-label]="ariaLabel()" [attr.aria-labelledby]="ariaLabelledby()"
+      [attr.aria-describedby]="ariaDescribedby()" [attr.tabindex]="tabIndex()" [class]="buttonClasses"
       (click)="onButtonClick($event)" (focus)="onButtonFocus($event)" (blur)="onButtonBlur($event)"
       (mouseenter)="onMouseEnter($event)" (mouseleave)="onMouseLeave($event)" class="amw-button__button">
       <ng-container [ngTemplateOutlet]="buttonContent"></ng-container>
@@ -56,12 +56,12 @@
   }
 
   <!-- Outlined Button -->
-  @if (variant === 'outlined') {
-    <button matButton="outlined" [type]="type" [attr.color]="color" [disabled]="disabled || loading"
-      [autofocus]="autofocus" [name]="name" [attr.form]="form" [attr.formaction]="formAction"
-      [attr.formmethod]="formMethod" [attr.formtarget]="formTarget" [attr.formenctype]="formEnctype"
-      [attr.formnovalidate]="formNoValidate" [attr.aria-label]="ariaLabel" [attr.aria-labelledby]="ariaLabelledby"
-      [attr.aria-describedby]="ariaDescribedby" [attr.tabindex]="tabIndex" [class]="buttonClasses"
+  @if (variant() === 'outlined') {
+    <button matButton="outlined" [type]="type()" [attr.color]="color()" [disabled]="disabled() || loading()"
+      [autofocus]="autofocus()" [name]="name()" [attr.form]="form()" [attr.formaction]="formAction()"
+      [attr.formmethod]="formMethod()" [attr.formtarget]="formTarget()" [attr.formenctype]="formEnctype()"
+      [attr.formnovalidate]="formNoValidate()" [attr.aria-label]="ariaLabel()" [attr.aria-labelledby]="ariaLabelledby()"
+      [attr.aria-describedby]="ariaDescribedby()" [attr.tabindex]="tabIndex()" [class]="buttonClasses"
       (click)="onButtonClick($event)" (focus)="onButtonFocus($event)" (blur)="onButtonBlur($event)"
       (mouseenter)="onMouseEnter($event)" (mouseleave)="onMouseLeave($event)" class="amw-button__button">
       <ng-container [ngTemplateOutlet]="buttonContent"></ng-container>
@@ -69,12 +69,12 @@
   }
 
   <!-- Filled Button -->
-  @if (variant === 'filled') {
-    <button matButton="filled" [type]="type" [attr.color]="color" [disabled]="disabled || loading"
-      [autofocus]="autofocus" [name]="name" [attr.form]="form" [attr.formaction]="formAction"
-      [attr.formmethod]="formMethod" [attr.formtarget]="formTarget" [attr.formenctype]="formEnctype"
-      [attr.formnovalidate]="formNoValidate" [attr.aria-label]="ariaLabel" [attr.aria-labelledby]="ariaLabelledby"
-      [attr.aria-describedby]="ariaDescribedby" [attr.tabindex]="tabIndex" [class]="buttonClasses"
+  @if (variant() === 'filled') {
+    <button matButton="filled" [type]="type()" [attr.color]="color()" [disabled]="disabled() || loading()"
+      [autofocus]="autofocus()" [name]="name()" [attr.form]="form()" [attr.formaction]="formAction()"
+      [attr.formmethod]="formMethod()" [attr.formtarget]="formTarget()" [attr.formenctype]="formEnctype()"
+      [attr.formnovalidate]="formNoValidate()" [attr.aria-label]="ariaLabel()" [attr.aria-labelledby]="ariaLabelledby()"
+      [attr.aria-describedby]="ariaDescribedby()" [attr.tabindex]="tabIndex()" [class]="buttonClasses"
       (click)="onButtonClick($event)" (focus)="onButtonFocus($event)" (blur)="onButtonBlur($event)"
       (mouseenter)="onMouseEnter($event)" (mouseleave)="onMouseLeave($event)" class="amw-button__button">
       <ng-container [ngTemplateOutlet]="buttonContent"></ng-container>
@@ -82,12 +82,12 @@
   }
 
   <!-- Tonal Button -->
-  @if (variant === 'tonal') {
-    <button matButton="tonal" [type]="type" [attr.color]="color" [disabled]="disabled || loading"
-      [autofocus]="autofocus" [name]="name" [attr.form]="form" [attr.formaction]="formAction"
-      [attr.formmethod]="formMethod" [attr.formtarget]="formTarget" [attr.formenctype]="formEnctype"
-      [attr.formnovalidate]="formNoValidate" [attr.aria-label]="ariaLabel" [attr.aria-labelledby]="ariaLabelledby"
-      [attr.aria-describedby]="ariaDescribedby" [attr.tabindex]="tabIndex" [class]="buttonClasses"
+  @if (variant() === 'tonal') {
+    <button matButton="tonal" [type]="type()" [attr.color]="color()" [disabled]="disabled() || loading()"
+      [autofocus]="autofocus()" [name]="name()" [attr.form]="form()" [attr.formaction]="formAction()"
+      [attr.formmethod]="formMethod()" [attr.formtarget]="formTarget()" [attr.formenctype]="formEnctype()"
+      [attr.formnovalidate]="formNoValidate()" [attr.aria-label]="ariaLabel()" [attr.aria-labelledby]="ariaLabelledby()"
+      [attr.aria-describedby]="ariaDescribedby()" [attr.tabindex]="tabIndex()" [class]="buttonClasses"
       (click)="onButtonClick($event)" (focus)="onButtonFocus($event)" (blur)="onButtonBlur($event)"
       (mouseenter)="onMouseEnter($event)" (mouseleave)="onMouseLeave($event)" class="amw-button__button">
       <ng-container [ngTemplateOutlet]="buttonContent"></ng-container>
@@ -96,78 +96,78 @@
 
   <!-- Special Button Variants (mutually exclusive) -->
   @if (isSpecialVariant()) {
-    @if (variant === 'icon') {
-      <button matIconButton [type]="type" [attr.color]="color" [disabled]="disabled || loading"
-        [autofocus]="autofocus" [name]="name" [attr.form]="form" [attr.formaction]="formAction"
-        [attr.formmethod]="formMethod" [attr.formtarget]="formTarget" [attr.formenctype]="formEnctype"
-        [attr.formnovalidate]="formNoValidate" [attr.aria-label]="ariaLabel" [attr.aria-labelledby]="ariaLabelledby"
-        [attr.aria-describedby]="ariaDescribedby" [attr.tabindex]="tabIndex" [class]="buttonClasses"
+    @if (variant() === 'icon') {
+      <button matIconButton [type]="type()" [attr.color]="color()" [disabled]="disabled() || loading()"
+        [autofocus]="autofocus()" [name]="name()" [attr.form]="form()" [attr.formaction]="formAction()"
+        [attr.formmethod]="formMethod()" [attr.formtarget]="formTarget()" [attr.formenctype]="formEnctype()"
+        [attr.formnovalidate]="formNoValidate()" [attr.aria-label]="ariaLabel()" [attr.aria-labelledby]="ariaLabelledby()"
+        [attr.aria-describedby]="ariaDescribedby()" [attr.tabindex]="tabIndex()" [class]="buttonClasses"
         (click)="onButtonClick($event)" (focus)="onButtonFocus($event)" (blur)="onButtonBlur($event)"
         (mouseenter)="onMouseEnter($event)" (mouseleave)="onMouseLeave($event)" class="amw-button__button">
 
         <!-- Loading Spinner -->
-        @if (loading) {
-          <amw-progress-spinner class="amw-button__spinner" [diameter]="spinnerSize" [color]="spinnerColor">
+        @if (loading()) {
+          <amw-progress-spinner class="amw-button__spinner" [diameter]="spinnerSize()" [color]="spinnerColor()">
           </amw-progress-spinner>
         }
 
         <!-- Icon -->
-        @if (icon && !loading) {
-          <mat-icon class="amw-button__icon">{{ icon }}</mat-icon>
+        @if (icon() && !loading()) {
+          <mat-icon class="amw-button__icon">{{ icon() }}</mat-icon>
         }
       </button>
     }
 
-    @if (variant === 'fab') {
-      <button matFab [type]="type" [attr.color]="color" [disabled]="disabled || loading"
-        [autofocus]="autofocus" [name]="name" [attr.form]="form" [attr.formaction]="formAction"
-        [attr.formmethod]="formMethod" [attr.formtarget]="formTarget" [attr.formenctype]="formEnctype"
-        [attr.formnovalidate]="formNoValidate" [attr.aria-label]="ariaLabel" [attr.aria-labelledby]="ariaLabelledby"
-        [attr.aria-describedby]="ariaDescribedby" [attr.tabindex]="tabIndex" [class]="buttonClasses"
+    @if (variant() === 'fab') {
+      <button matFab [type]="type()" [attr.color]="color()" [disabled]="disabled() || loading()"
+        [autofocus]="autofocus()" [name]="name()" [attr.form]="form()" [attr.formaction]="formAction()"
+        [attr.formmethod]="formMethod()" [attr.formtarget]="formTarget()" [attr.formenctype]="formEnctype()"
+        [attr.formnovalidate]="formNoValidate()" [attr.aria-label]="ariaLabel()" [attr.aria-labelledby]="ariaLabelledby()"
+        [attr.aria-describedby]="ariaDescribedby()" [attr.tabindex]="tabIndex()" [class]="buttonClasses"
         (click)="onButtonClick($event)" (focus)="onButtonFocus($event)" (blur)="onButtonBlur($event)"
         (mouseenter)="onMouseEnter($event)" (mouseleave)="onMouseLeave($event)" class="amw-button__button">
 
         <!-- Loading Spinner -->
-        @if (loading) {
-          <amw-progress-spinner class="amw-button__spinner" [diameter]="spinnerSize" [color]="spinnerColor">
+        @if (loading()) {
+          <amw-progress-spinner class="amw-button__spinner" [diameter]="spinnerSize()" [color]="spinnerColor()">
           </amw-progress-spinner>
         }
 
         <!-- Icon -->
-        @if (icon && !loading) {
-          <mat-icon class="amw-button__icon">{{ icon }}</mat-icon>
+        @if (icon() && !loading()) {
+          <mat-icon class="amw-button__icon">{{ icon() }}</mat-icon>
         }
       </button>
     }
 
-    @if (variant === 'mini-fab') {
-      <button matMiniFab [type]="type" [attr.color]="color" [disabled]="disabled || loading"
-        [autofocus]="autofocus" [name]="name" [attr.form]="form" [attr.formaction]="formAction"
-        [attr.formmethod]="formMethod" [attr.formtarget]="formTarget" [attr.formenctype]="formEnctype"
-        [attr.formnovalidate]="formNoValidate" [attr.aria-label]="ariaLabel" [attr.aria-labelledby]="ariaLabelledby"
-        [attr.aria-describedby]="ariaDescribedby" [attr.tabindex]="tabIndex" [class]="buttonClasses"
+    @if (variant() === 'mini-fab') {
+      <button matMiniFab [type]="type()" [attr.color]="color()" [disabled]="disabled() || loading()"
+        [autofocus]="autofocus()" [name]="name()" [attr.form]="form()" [attr.formaction]="formAction()"
+        [attr.formmethod]="formMethod()" [attr.formtarget]="formTarget()" [attr.formenctype]="formEnctype()"
+        [attr.formnovalidate]="formNoValidate()" [attr.aria-label]="ariaLabel()" [attr.aria-labelledby]="ariaLabelledby()"
+        [attr.aria-describedby]="ariaDescribedby()" [attr.tabindex]="tabIndex()" [class]="buttonClasses"
         (click)="onButtonClick($event)" (focus)="onButtonFocus($event)" (blur)="onButtonBlur($event)"
         (mouseenter)="onMouseEnter($event)" (mouseleave)="onMouseLeave($event)" class="amw-button__button">
 
         <!-- Loading Spinner -->
-        @if (loading) {
-          <amw-progress-spinner class="amw-button__spinner" [diameter]="spinnerSize" [color]="spinnerColor">
+        @if (loading()) {
+          <amw-progress-spinner class="amw-button__spinner" [diameter]="spinnerSize()" [color]="spinnerColor()">
           </amw-progress-spinner>
         }
 
         <!-- Icon -->
-        @if (icon && !loading) {
-          <mat-icon class="amw-button__icon">{{ icon }}</mat-icon>
+        @if (icon() && !loading()) {
+          <mat-icon class="amw-button__icon">{{ icon() }}</mat-icon>
         }
       </button>
     }
 
-    @if (variant === 'extended-fab') {
-      <button matFab extended [type]="type" [attr.color]="color" [disabled]="disabled || loading"
-        [autofocus]="autofocus" [name]="name" [attr.form]="form" [attr.formaction]="formAction"
-        [attr.formmethod]="formMethod" [attr.formtarget]="formTarget" [attr.formenctype]="formEnctype"
-        [attr.formnovalidate]="formNoValidate" [attr.aria-label]="ariaLabel" [attr.aria-labelledby]="ariaLabelledby"
-        [attr.aria-describedby]="ariaDescribedby" [attr.tabindex]="tabIndex" [class]="buttonClasses"
+    @if (variant() === 'extended-fab') {
+      <button matFab extended [type]="type()" [attr.color]="color()" [disabled]="disabled() || loading()"
+        [autofocus]="autofocus()" [name]="name()" [attr.form]="form()" [attr.formaction]="formAction()"
+        [attr.formmethod]="formMethod()" [attr.formtarget]="formTarget()" [attr.formenctype]="formEnctype()"
+        [attr.formnovalidate]="formNoValidate()" [attr.aria-label]="ariaLabel()" [attr.aria-labelledby]="ariaLabelledby()"
+        [attr.aria-describedby]="ariaDescribedby()" [attr.tabindex]="tabIndex()" [class]="buttonClasses"
         (click)="onButtonClick($event)" (focus)="onButtonFocus($event)" (blur)="onButtonBlur($event)"
         (mouseenter)="onMouseEnter($event)" (mouseleave)="onMouseLeave($event)" class="amw-button__button">
         <ng-container [ngTemplateOutlet]="buttonContent"></ng-container>

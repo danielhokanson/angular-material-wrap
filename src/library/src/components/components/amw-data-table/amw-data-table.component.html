@@ -1,26 +1,26 @@
 <div class="amw-data-table"
-  [class]="'amw-data-table--' + (config?.density || 'comfortable')"
+  [class]="'amw-data-table--' + (config()?.density || 'comfortable')"
   role="table"
   [attr.aria-label]="'Data table'"
   [attr.aria-rowcount]="pagination.length"
   [attr.aria-colcount]="displayedColumns.length">
 
   <!-- Loading State -->
-  @if (loading) {
+  @if (loading()) {
     <div class="amw-data-table__loading">
       <amw-progress-spinner [diameter]="40"></amw-progress-spinner>
-      <p class="amw-data-table__loading-message">{{ loadingMessage }}</p>
+      <p class="amw-data-table__loading-message">{{ loadingMessage() }}</p>
     </div>
   }
 
   <!-- Table Container -->
-  @if (!loading) {
+  @if (!loading()) {
     <div class="amw-data-table__container">
       <!-- Table Header -->
-      @if (config?.showHeader !== false) {
+      @if (config()?.showHeader !== false) {
         <div class="amw-data-table__header">
           <!-- Global Search -->
-          @if (config?.filterable !== false) {
+          @if (config()?.filterable !== false) {
             <div class="amw-data-table__search">
               <mat-form-field appearance="outline" class="amw-data-table__search-field">
                 <mat-label>Search</mat-label>
@@ -35,28 +35,28 @@
           }
           <!-- Table Actions -->
           <div class="amw-data-table__actions">
-            @if (config?.showRefresh !== false) {
+            @if (config()?.showRefresh !== false) {
               <amw-button
                 variant="icon"
                 icon="refresh"
                 amwTooltip="Refresh">
               </amw-button>
             }
-            @if (config?.showColumnVisibility !== false) {
+            @if (config()?.showColumnVisibility !== false) {
               <amw-button
                 variant="icon"
                 icon="view_column"
                 amwTooltip="Column Visibility">
               </amw-button>
             }
-            @if (config?.showExport !== false) {
+            @if (config()?.showExport !== false) {
               <amw-button
                 variant="icon"
                 icon="download"
                 amwTooltip="Export">
               </amw-button>
             }
-            @if (config?.showSettings !== false) {
+            @if (config()?.showSettings !== false) {
               <amw-button
                 variant="icon"
                 icon="settings"
@@ -78,10 +78,10 @@
           [attr.aria-rowcount]="pagination.length"
           [attr.aria-colcount]="displayedColumns.length">
           <!-- Selection Column -->
-          @if (config?.selectable && config?.selectionMode !== 'none') {
+          @if (config()?.selectable && config()?.selectionMode !== 'none') {
             <ng-container matColumnDef="select">
               <th mat-header-cell *matHeaderCellDef role="columnheader" scope="col">
-                @if (config?.selectionMode === 'multiple') {
+                @if (config()?.selectionMode === 'multiple') {
                   <mat-checkbox
                     [checked]="isAllSelected()"
                     [indeterminate]="isSomeSelected()"
@@ -104,7 +104,7 @@
             </ng-container>
           }
           <!-- Data Columns -->
-          @for (column of config?.columns; track column) {
+          @for (column of config()?.columns; track column) {
             <ng-container [matColumnDef]="column.property">
               <th
                 mat-header-cell
@@ -261,7 +261,7 @@
               <td mat-cell *matCellDef="let row; let i = index">
                 <div class="amw-data-table__actions-cell">
                   <!-- Edit/Save/Cancel buttons -->
-                  @if (config?.editable && !isRowEditing(row) && !hasCustomEditAction()) {
+                  @if (config()?.editable && !isRowEditing(row) && !hasCustomEditAction()) {
                     <amw-button
                       variant="icon"
                       icon="edit"
@@ -269,7 +269,7 @@
                       (click)="startEditing(row, i)">
                     </amw-button>
                   }
-                  @if (config?.editable && isRowEditing(row)) {
+                  @if (config()?.editable && isRowEditing(row)) {
                     <amw-button
                       variant="icon"
                       icon="save"
@@ -278,7 +278,7 @@
                       (click)="saveEditing()">
                     </amw-button>
                   }
-                  @if (config?.editable && isRowEditing(row)) {
+                  @if (config()?.editable && isRowEditing(row)) {
                     <amw-button
                       variant="icon"
                       icon="cancel"
@@ -321,7 +321,7 @@
               <td [colSpan]="displayedColumns.length" class="amw-data-table__no-data-cell">
                 <div class="amw-data-table__no-data">
                   <mat-icon class="amw-data-table__no-data-icon">inbox</mat-icon>
-                  <p class="amw-data-table__no-data-message">{{ emptyMessage }}</p>
+                  <p class="amw-data-table__no-data-message">{{ emptyMessage() }}</p>
                 </div>
               </td>
             </tr>
@@ -329,10 +329,10 @@
         </table>
       </div>
       <!-- Table Footer -->
-      @if (config?.showFooter !== false) {
+      @if (config()?.showFooter !== false) {
         <div class="amw-data-table__footer">
           <!-- Pagination -->
-          @if (config?.paginated !== false) {
+          @if (config()?.paginated !== false) {
             <mat-paginator
               [pageIndex]="pagination.pageIndex"
               [pageSize]="pagination.pageSize"
@@ -345,10 +345,10 @@
             </mat-paginator>
           }
           <!-- Total Count -->
-          @if (config?.showTotalCount !== false) {
+          @if (config()?.showTotalCount !== false) {
             <div class="amw-data-table__total-count">
               <span class="amw-data-table__total-count-text">
-                {{ config?.totalCountLabel || 'Total' }}: {{ pagination.length }}
+                {{ config()?.totalCountLabel || 'Total' }}: {{ pagination.length }}
               </span>
             </div>
           }

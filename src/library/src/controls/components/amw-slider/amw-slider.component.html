@@ -1,25 +1,25 @@
 <div [class]="getSliderClasses()">
   <mat-slider
     [color]="getMaterialColor()"
-    [disabled]="disabled"
-    [min]="min"
-    [max]="max"
-    [step]="step"
-    [attr.aria-label]="ariaLabel"
-    [attr.aria-labelledby]="ariaLabelledby"
-    [attr.aria-describedby]="ariaDescribedby"
-    [tabIndex]="tabIndex">
+    [disabled]="getDisabled()"
+    [min]="min()"
+    [max]="max()"
+    [step]="step()"
+    [attr.aria-label]="ariaLabel()"
+    [attr.aria-labelledby]="ariaLabelledby()"
+    [attr.aria-describedby]="ariaDescribedby()"
+    [tabIndex]="tabIndex()">
     <input matSliderThumb
-      [value]="value"
+      [value]="value()"
       (valueChange)="onSliderChange($event)"
       (input)="onSliderInput($event)"
       (focus)="onFocus($event)"
       (blur)="onBlur($event)">
   </mat-slider>
 
-  @if (hasError && errorMessage) {
+  @if (hasError() && errorMessage()) {
     <div class="amw-slider__error">
-      {{ errorMessage }}
+      {{ errorMessage() }}
     </div>
   }
 </div>

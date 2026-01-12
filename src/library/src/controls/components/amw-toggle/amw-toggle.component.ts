@@ -1,9 +1,8 @@
-import { Component, Input, Output, EventEmitter, ViewEncapsulation, forwardRef } from '@angular/core';
+import { Component, input, model, ViewEncapsulation } from '@angular/core';
 
 import { FormsModule, ReactiveFormsModule, ControlValueAccessor, NG_VALUE_ACCESSOR } from '@angular/forms';
 import { MatSlideToggleModule } from '@angular/material/slide-toggle';
 import { BaseComponent } from '../base/base.component';
-import { AmwColor } from '../../../shared/types/amw-color.type';
 
 @Component({
     selector: 'amw-toggle',
@@ -20,98 +19,59 @@ import { AmwColor } from '../../../shared/types/amw-color.type';
         }
     ]
 })
-export class AmwToggleComponent extends BaseComponent implements ControlValueAccessor {
-    @Input() color: AmwColor = 'primary';
-    @Input() override disabled: boolean = false;
-    @Input() override required: boolean = false;
-    @Input() checked: boolean = false;
-    @Input() name: string = '';
-    @Input() tabIndex?: number;
-    @Input() ariaLabel?: string;
-    @Input() ariaLabelledby?: string;
-    @Input() ariaDescribedby?: string;
-    @Input() ariaRequired?: boolean;
-    @Input() ariaInvalid?: boolean;
-    @Input() override errorMessage: string = '';
-    @Input() override hasError: boolean = false;
-    @Input() disableRipple: boolean = false;
-    @Input() labelPosition: 'before' | 'after' = 'after';
-    @Input() override label: string = '';
+export class AmwToggleComponent extends BaseComponent<boolean> implements ControlValueAccessor {
+    // Toggle-specific properties (inherited from BaseComponent: disabled, required, label, placeholder,
+    // errorMessage, hasError, name, id, tabIndex, size, color, ariaLabel, ariaLabelledby, ariaDescribedby,
+    // ariaRequired, ariaInvalid, hint, readonly, value, change, focus, blur)
 
-    // Events
-    @Output() change = new EventEmitter<{ checked: boolean; value: any }>();
-    @Output() override focus = new EventEmitter<FocusEvent>();
-    @Output() override blur = new EventEmitter<FocusEvent>();
-
-    // ControlValueAccessor implementation
-    override _value: any = null;
-    override _onChange = (value: any) => { };
-    override _onTouched = () => { };
-
-    override get value(): any {
-        return this._value;
-    }
-
-    override set value(val: any) {
-        this._value = val;
-        this._onChange(val);
-    }
+    checked = model<boolean>(false);
+    disableRipple = input<boolean>(false);
+    labelPosition = input<'before' | 'after'>('after');
 
     override writeValue(value: any): void {
-        this._value = value;
-        this.checked = !!value;
-    }
-
-    override registerOnChange(fn: (value: any) => void): void {
-        this._onChange = fn;
-    }
-
-    override registerOnTouched(fn: () => void): void {
-        this._onTouched = fn;
+        this.value.set(value);
+        this.checked.set(!!value);
     }
 
     override setDisabledState(isDisabled: boolean): void {
-        this.disabled = isDisabled;
+        // Note: disabled is a signal input from BaseComponent, so we can't set it directly
     }
 
     onToggleChange(event: any): void {
-        this.checked = event.checked;
-        this.value = this.checked ? this.value : null;
+        this.checked.set(event.checked);
+        const newValue = this.checked() ? this.value() : null;
+        this.value.set(newValue);
 
-        this.change.emit({
-            checked: this.checked,
-            value: this.value
-        });
+        this.change.emit(newValue);
 
-        this._onChange(this.value);
+        this._onChange(newValue);
         this._onTouched();
     }
 
     override onFocus(event: FocusEvent): void {
-        this.focus.emit(event);
+        super.onFocus(event);
     }
 
     override onBlur(event: FocusEvent): void {
-        this.blur.emit(event);
-        this._onTouched();
+        super.onBlur(event);
     }
 
     getToggleClasses(): string {
         const classes = ['amw-toggle'];
 
-        if (this.color) {
-            classes.push(`amw-toggle--${this.color}`);
+        if (this.color()) {
+            classes.push(`amw-toggle--${this.color()}`);
         }
 
-        if (this.disabled) {
+        if (this.disabled()) {
             classes.push('amw-toggle--disabled');
         }
 
-        if (this.hasError) {
+        if (this.hasError()) {
             classes.push('amw-toggle--error');
         }
 
-        if (this.labelPosition === 'before') {
+        if (this.labelPosition() === 'before') {
             classes.push('amw-toggle--label-before');
         }
 

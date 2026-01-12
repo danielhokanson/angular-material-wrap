@@ -1,17 +1,17 @@
-import { Directive, ElementRef, EventEmitter, HostListener, Input, Output, Renderer2 } from '@angular/core';
+import { Directive, ElementRef, HostListener, input, output, Renderer2 } from '@angular/core';
 
 @Directive({
     selector: '[amwCopyToClipboard]',
     standalone: true
 })
 export class AmwCopyToClipboardDirective {
-    @Input() amwCopyToClipboard: string = '';
-    @Input() amwCopySuccessMessage: string = 'Copied to clipboard!';
-    @Input() amwCopyErrorMessage: string = 'Failed to copy to clipboard';
-    @Input() amwCopyShowToast: boolean = true;
+    amwCopyToClipboard = input<string>('');
+    amwCopySuccessMessage = input<string>('Copied to clipboard!');
+    amwCopyErrorMessage = input<string>('Failed to copy to clipboard');
+    amwCopyShowToast = input<boolean>(true);
 
-    @Output() amwCopySuccess = new EventEmitter<string>();
-    @Output() amwCopyError = new EventEmitter<Error>();
+    amwCopySuccess = output<string>();
+    amwCopyError = output<Error>();
 
     constructor(
         private elementRef: ElementRef,
@@ -48,8 +48,8 @@ export class AmwCopyToClipboardDirective {
 
     private getTextToCopy(): string {
         // If text is provided via input, use it
-        if (this.amwCopyToClipboard) {
-            return this.amwCopyToClipboard;
+        if (this.amwCopyToClipboard()) {
+            return this.amwCopyToClipboard();
         }
 
         // Otherwise, try to get text from the element
@@ -103,16 +103,16 @@ export class AmwCopyToClipboardDirective {
     private handleSuccess(text: string): void {
         this.amwCopySuccess.emit(text);
 
-        if (this.amwCopyShowToast) {
-            this.showToast(this.amwCopySuccessMessage, 'success');
+        if (this.amwCopyShowToast()) {
+            this.showToast(this.amwCopySuccessMessage(), 'success');
         }
     }
 
     private handleError(error: Error): void {
         this.amwCopyError.emit(error);
 
-        if (this.amwCopyShowToast) {
-            this.showToast(this.amwCopyErrorMessage, 'error');
+        if (this.amwCopyShowToast()) {
+            this.showToast(this.amwCopyErrorMessage(), 'error');
         }
     }
 

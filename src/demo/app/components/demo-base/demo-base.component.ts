@@ -1,4 +1,4 @@
-import { Component, Input, Output, EventEmitter } from '@angular/core';
+import { Component, input, output } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormControl, FormGroup, ReactiveFormsModule } from '@angular/forms';
 import { DemoProperty } from './interfaces/demo-property.interface';
@@ -27,15 +27,15 @@ import { AmwSliderComponent } from '../../../../library/src/controls/components/
     styleUrl: './demo-base.component.scss'
 })
 export class DemoBaseComponent {
-    @Input() title = '';
-    @Input() description = '';
-    @Input() componentSelector = '';
-    @Input() properties: DemoProperty[] = [];
-    @Input() showFormToggle = true;
-    @Input() showCodeExample = true;
+    title = input<string>('');
+    description = input<string>('');
+    componentSelector = input<string>('');
+    properties = input<DemoProperty[]>([]);
+    showFormToggle = input<boolean>(true);
+    showCodeExample = input<boolean>(true);
 
-    @Output() propertyChange = new EventEmitter<{ property: string; value: any }>();
-    @Output() formModeChange = new EventEmitter<boolean>();
+    propertyChange = output<{ property: string; value: any }>();
+    formModeChange = output<boolean>();
 
     isFormMode = false;
     formGroup = new FormGroup({});
@@ -47,14 +47,14 @@ export class DemoBaseComponent {
     }
 
     private initializeProperties(): void {
-        this.properties.forEach(prop => {
+        this.properties().forEach(prop => {
             this.propertyValues[prop.name] = prop.value;
         });
     }
 
     private setupFormGroup(): void {
         const controls: { [key: string]: FormControl } = {};
-        this.properties.forEach(prop => {
+        this.properties().forEach(prop => {
             controls[prop.name] = new FormControl(prop.value);
         });
         this.formGroup = new FormGroup(controls);
@@ -71,7 +71,7 @@ export class DemoBaseComponent {
     }
 
     resetProperties(): void {
-        this.properties.forEach(prop => {
+        this.properties().forEach(prop => {
             this.propertyValues[prop.name] = prop.value;
             this.formGroup.get(prop.name)?.setValue(prop.value);
         });
@@ -86,7 +86,7 @@ export class DemoBaseComponent {
     }
 
     generateCodeExample(): string {
-        const properties = this.properties
+        const properties = this.properties()
             .map(prop => `  ${prop.name}="${this.getPropertyValue(prop.name)}"`)
             .join('\n');
 

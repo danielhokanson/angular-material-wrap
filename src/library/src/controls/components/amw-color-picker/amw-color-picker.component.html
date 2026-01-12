@@ -1,15 +1,15 @@
-<div class="amw-color-picker" [class]="'amw-color-picker--' + size + ' amw-color-picker--' + mode">
-  <mat-form-field [appearance]="config.appearance || 'outline'">
-    @if (label) {
-      <mat-label>{{ label }}</mat-label>
+<div class="amw-color-picker" [class]="'amw-color-picker--' + size() + ' amw-color-picker--' + mode()">
+  <mat-form-field [appearance]="config().appearance || 'outline'">
+    @if (label()) {
+      <mat-label>{{ label() }}</mat-label>
     }
 
     <input
       matInput
-      [value]="selectedColor"
-      [placeholder]="placeholder"
+      [value]="selectedColor()"
+      [placeholder]="placeholder()"
       [disabled]="isDisabled"
-      [required]="required"
+      [required]="required()"
       readonly
       (click)="toggleColorPicker()"
       (focus)="onFocus($event)"
@@ -34,37 +34,37 @@
   </mat-form-field>
 
   <!-- Color Preview -->
-  @if (showPreview && selectedColor) {
+  @if (showPreview() && selectedColor()) {
     <div class="amw-color-picker__preview">
       <div
         class="amw-color-picker__preview-color"
-        [style.background-color]="displayColor"
-        [title]="selectedColor"
+        [style.background-color]="displayColor()"
+        [title]="selectedColor()"
       ></div>
-      <span class="amw-color-picker__preview-text">{{ selectedColor }}</span>
+      <span class="amw-color-picker__preview-text">{{ selectedColor() }}</span>
     </div>
   }
 
   <!-- Color Picker Dropdown -->
-  @if (isOpen) {
+  @if (isOpen()) {
     <div class="amw-color-picker__dropdown" (click)="$event.stopPropagation()">
       <div class="amw-color-picker__header">
         <span class="amw-color-picker__title">Select Color</span>
-        <amw-button variant="icon" icon="close" (click)="isOpen = false" aria-label="Close">
+        <amw-button variant="icon" icon="close" (click)="isOpen.set(false)" aria-label="Close">
         </amw-button>
       </div>
       <div class="amw-color-picker__content">
         <!-- Palette Colors -->
-        @if (showPalette) {
+        @if (showPalette()) {
           <div class="amw-color-picker__palette">
             <div class="amw-color-picker__palette-title">Color Palette</div>
             <div class="amw-color-picker__palette-grid">
-              @for (color of paletteColors; track color) {
+              @for (color of paletteColors(); track color) {
                 <amw-button
                   variant="icon"
-                  [icon]="selectedColor === color ? 'check' : ''"
+                  [icon]="selectedColor() === color ? 'check' : ''"
                   class="amw-color-picker__color-button"
-                  [class.amw-color-picker__color-button--selected]="selectedColor === color"
+                  [class.amw-color-picker__color-button--selected]="selectedColor() === color"
                   [style.background-color]="color"
                   [title]="color"
                   (click)="selectColor(color)"
@@ -75,21 +75,21 @@
           </div>
         }
         <!-- Custom Color Input -->
-        @if (showCustom) {
+        @if (showCustom()) {
           <div class="amw-color-picker__custom">
             <div class="amw-color-picker__custom-title">Custom Color</div>
             <div class="amw-color-picker__custom-input">
               <input
                 type="color"
-                [(ngModel)]="customColor"
-                (change)="onCustomColorChange()"
+                [value]="customColor()"
+                (change)="onCustomColorChange($any($event.target).value)"
                 [disabled]="isDisabled"
                 class="amw-color-picker__color-input"
                 />
               <input
                 type="text"
-                [(ngModel)]="customColor"
-                (input)="onCustomColorChange()"
+                [value]="customColor()"
+                (input)="onCustomColorChange($any($event.target).value)"
                 [disabled]="isDisabled"
                 placeholder="#000000"
                 class="amw-color-picker__text-input"
@@ -98,12 +98,12 @@
           </div>
         }
         <!-- Text Input -->
-        @if (showInput) {
+        @if (showInput()) {
           <div class="amw-color-picker__text">
             <div class="amw-color-picker__text-title">Color Value</div>
             <input
               type="text"
-              [value]="selectedColor"
+              [value]="selectedColor()"
               (input)="onInputChange($event)"
               [disabled]="isDisabled"
               placeholder="Enter color value"
@@ -113,8 +113,8 @@
         }
       </div>
       <div class="amw-color-picker__actions">
-        <amw-button variant="text" (click)="isOpen = false">Cancel</amw-button>
-        <amw-button variant="text" color="primary" (click)="selectColor(selectedColor)">OK</amw-button>
+        <amw-button variant="text" (click)="isOpen.set(false)">Cancel</amw-button>
+        <amw-button variant="text" color="primary" (click)="selectColor(selectedColor())">OK</amw-button>
       </div>
     </div>
   }

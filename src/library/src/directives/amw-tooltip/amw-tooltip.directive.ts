@@ -1,6 +1,7 @@
-import { Directive, ElementRef, Input, OnDestroy, ComponentRef, HostListener, Injector } from '@angular/core';
-import { Overlay, OverlayRef, OverlayConfig } from '@angular/cdk/overlay';
+import { Directive, ElementRef, input, OnDestroy, ComponentRef, HostListener, Injector } from '@angular/core';
+import { Overlay, OverlayRef, OverlayConfig, ConnectedOverlayPositionChange } from '@angular/cdk/overlay';
 import { ComponentPortal } from '@angular/cdk/portal';
+import { Subscription } from 'rxjs';
 import { AmwTooltipComponent } from './amw-tooltip.component';
 
 export interface TooltipConfig {
@@ -17,16 +18,18 @@ export interface TooltipConfig {
     standalone: true
 })
 export class AmwTooltipDirective implements OnDestroy {
-    @Input('amwTooltip') tooltipConfig: TooltipConfig | string = '';
-    @Input() tooltipPosition: 'top' | 'bottom' | 'left' | 'right' | 'auto' = 'auto';
-    @Input() tooltipDisabled: boolean = false;
-    @Input() tooltipMaxWidth: string = '200px';
-    @Input() tooltipClass: string = '';
-    @Input() tooltipAllowHtml: boolean = false;
+    tooltipConfig = input<TooltipConfig | string>('', { alias: 'amwTooltip' });
+    tooltipPosition = input<'top' | 'bottom' | 'left' | 'right' | 'auto'>('auto');
+    tooltipDisabled = input<boolean>(false);
+    tooltipMaxWidth = input<string>('200px');
+    tooltipClass = input<string>('');
+    tooltipAllowHtml = input<boolean>(false);
 
     private overlayRef: OverlayRef | null = null;
     private tooltipComponent: ComponentRef<AmwTooltipComponent> | null = null;
     private isVisible = false;
+    private positionSubscription: Subscription | null = null;
+    private currentCustomClass = '';
 
     constructor(
         private elementRef: ElementRef,
@@ -62,7 +65,7 @@ export class AmwTooltipDirective implements OnDestroy {
     }
 
     private show(): void {
-        if (this.tooltipDisabled || this.isVisible) {
+        if (this.tooltipDisabled() || this.isVisible) {
             return;
         }
 
@@ -79,17 +82,18 @@ export class AmwTooltipDirective implements OnDestroy {
     }
 
     private getConfig(): TooltipConfig {
-        if (typeof this.tooltipConfig === 'string') {
+        const config = this.tooltipConfig();
+        if (typeof config === 'string') {
             return {
-                content: this.tooltipConfig,
-                position: this.tooltipPosition,
-                disabled: this.tooltipDisabled,
-                maxWidth: this.tooltipMaxWidth,
-                class: this.tooltipClass,
-                allowHtml: this.tooltipAllowHtml
+                content: config,
+                position: this.tooltipPosition(),
+                disabled: this.tooltipDisabled(),
+                maxWidth: this.tooltipMaxWidth(),
+                class: this.tooltipClass(),
+                allowHtml: this.tooltipAllowHtml()
             };
         }
-        return this.tooltipConfig;
+        return config;
     }
 
     private createTooltip(config: TooltipConfig): void {
@@ -104,16 +108,33 @@ export class AmwTooltipDirective implements OnDestroy {
         const tooltipPortal = new ComponentPortal(AmwTooltipComponent, null, this.injector);
         this.tooltipComponent = this.overlayRef.attach(tooltipPortal);
 
-        // Set tooltip content and configuration
-        const position = config.position || this.tooltipPosition || 'top';
-        const positionClass = `amw-tooltip--${position}`;
-        const customClass = config.class || '';
-        const combinedClass = customClass ? `${positionClass} ${customClass}` : positionClass;
+        // Store custom class for later use
+        this.currentCustomClass = config.class || '';
 
-        this.tooltipComponent.instance.content = config.content;
-        this.tooltipComponent.instance.allowHtml = config.allowHtml || false;
-        this.tooltipComponent.instance.maxWidth = config.maxWidth || '200px';
-        this.tooltipComponent.instance.class = combinedClass;
+        // Set tooltip content and configuration using setInput for signal-based inputs
+        const position = config.position || this.tooltipPosition() || 'top';
+
+        // For non-auto positions, set the class directly
+        // For auto, we'll update it when position changes
+        const initialPositionClass = position === 'auto' ? 'amw-tooltip--top' : `amw-tooltip--${position}`;
+        const combinedClass = this.currentCustomClass ? `${initialPositionClass} ${this.currentCustomClass}` : initialPositionClass;
+
+        this.tooltipComponent.setInput('content', config.content);
+        this.tooltipComponent.setInput('allowHtml', config.allowHtml || false);
+        this.tooltipComponent.setInput('maxWidth', config.maxWidth || '200px');
+        this.tooltipComponent.setInput('class', combinedClass);
+
+        // Subscribe to position changes for auto positioning
+        if (position === 'auto') {
+            const positionStrategy = overlayConfig.positionStrategy as any;
+            if (positionStrategy && positionStrategy.positionChanges) {
+                this.positionSubscription = positionStrategy.positionChanges.subscribe(
+                    (change: ConnectedOverlayPositionChange) => {
+                        this.updateTooltipPositionClass(change);
+                    }
+                );
+            }
+        }
 
         // Manually trigger change detection for dynamically created component
         this.tooltipComponent.instance.cdr.detectChanges();
@@ -122,6 +143,11 @@ export class AmwTooltipDirective implements OnDestroy {
     }
 
     private destroyTooltip(): void {
+        if (this.positionSubscription) {
+            this.positionSubscription.unsubscribe();
+            this.positionSubscription = null;
+        }
+
         if (this.tooltipComponent) {
             this.tooltipComponent.destroy();
             this.tooltipComponent = null;
@@ -135,8 +161,39 @@ export class AmwTooltipDirective implements OnDestroy {
         this.isVisible = false;
     }
 
+    private updateTooltipPositionClass(change: ConnectedOverlayPositionChange): void {
+        if (!this.tooltipComponent) return;
+
+        // Determine position based on connection pair
+        let positionName = 'top';
+        const { originY, overlayY, originX, overlayX } = change.connectionPair;
+
+        // Tooltip above trigger: overlay bottom connects to origin top
+        if (originY === 'top' && overlayY === 'bottom') {
+            positionName = 'top';
+        }
+        // Tooltip below trigger: overlay top connects to origin bottom
+        else if (originY === 'bottom' && overlayY === 'top') {
+            positionName = 'bottom';
+        }
+        // Tooltip to the left: overlay end connects to origin start
+        else if (originX === 'start' && overlayX === 'end') {
+            positionName = 'left';
+        }
+        // Tooltip to the right: overlay start connects to origin end
+        else if (originX === 'end' && overlayX === 'start') {
+            positionName = 'right';
+        }
+
+        const positionClass = `amw-tooltip--${positionName}`;
+        const combinedClass = this.currentCustomClass ? `${positionClass} ${this.currentCustomClass}` : positionClass;
+
+        this.tooltipComponent.setInput('class', combinedClass);
+        this.tooltipComponent.instance.cdr.detectChanges();
+    }
+
     private getOverlayConfig(config: TooltipConfig): OverlayConfig {
-        const position = config.position || this.tooltipPosition;
+        const position = config.position || this.tooltipPosition();
 
         if (position === 'auto') {
             return this.getAutoPositionConfig();

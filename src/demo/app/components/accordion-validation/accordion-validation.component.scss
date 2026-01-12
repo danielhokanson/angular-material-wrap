@@ -17,24 +17,24 @@
   }
 
   .validation-accordion {
-    mat-expansion-panel {
+    .amw-accordion__panel {
       margin-bottom: 16px;
       border-radius: 12px;
       box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
 
-      mat-expansion-panel-header {
-        mat-panel-title {
+      .amw-accordion__header {
+        .amw-accordion__title {
           display: flex;
           align-items: center;
           gap: 12px;
           font-weight: 500;
 
-          mat-icon {
+          amw-icon {
             color: var(--mdc-theme-primary, #6750a4);
           }
         }
 
-        mat-panel-description {
+        .amw-accordion__description {
           display: flex;
           align-items: center;
           justify-content: space-between;
@@ -55,7 +55,7 @@
       gap: 16px;
       padding: 16px 0;
 
-      mat-form-field {
+      amw-input {
         width: 100%;
       }
 

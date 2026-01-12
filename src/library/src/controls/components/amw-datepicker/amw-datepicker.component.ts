@@ -1,4 +1,4 @@
-import { Component, Input, Output, EventEmitter, forwardRef, ViewEncapsulation } from '@angular/core';
+import { Component, input, output, signal, ViewEncapsulation } from '@angular/core';
 
 import { FormsModule, ControlValueAccessor, NG_VALUE_ACCESSOR } from '@angular/forms';
 import { MatDatepickerModule } from '@angular/material/datepicker';
@@ -9,22 +9,26 @@ import { MatButtonModule } from '@angular/material/button';
 import { MatNativeDateModule } from '@angular/material/core';
 
 import { BaseComponent } from '../base/base.component';
-import { AmwSize } from '../../../shared/types/amw-size.type';
 import { AmwAppearance } from '../../../shared/types/amw-appearance.type';
 
-
+/**
+ * AMW Datepicker Component
+ * Inherits from BaseComponent: disabled, required, label, placeholder, errorMessage, hasError,
+ * name, id, tabIndex, size, color, ariaLabel, ariaLabelledby, ariaDescribedby, ariaRequired,
+ * ariaInvalid, hint, readonly, value, change, focus, blur
+ */
 @Component({
     selector: 'amw-datepicker',
     standalone: true,
     imports: [
-    FormsModule,
-    MatDatepickerModule,
-    MatFormFieldModule,
-    MatInputModule,
-    MatIconModule,
-    MatButtonModule,
-    MatNativeDateModule
-],
+        FormsModule,
+        MatDatepickerModule,
+        MatFormFieldModule,
+        MatInputModule,
+        MatIconModule,
+        MatButtonModule,
+        MatNativeDateModule
+    ],
     providers: [
         {
             provide: NG_VALUE_ACCESSOR,
@@ -36,53 +40,51 @@ import { AmwAppearance } from '../../../shared/types/amw-appearance.type';
     styleUrl: './amw-datepicker.component.scss',
     encapsulation: ViewEncapsulation.None
 })
-export class AmwDatepickerComponent extends BaseComponent implements ControlValueAccessor {
-    @Input() override placeholder: string = '';
-    @Input() override label: string = '';
-    @Input() hint: string = '';
-    @Input() override required: boolean = false;
-    @Input() override disabled: boolean = false;
-    @Input() readonly: boolean = false;
-    @Input() size: AmwSize = 'medium';
-    @Input() appearance: AmwAppearance = 'outline';
-    @Input() min: Date | null = null;
-    @Input() max: Date | null = null;
-    @Input() startAt: Date | null = null;
-    @Input() touchUi: boolean = false;
-    @Input() openOnFocus: boolean = true;
-    @Input() clearable: boolean = true;
-    @Input() format: string = 'MM/dd/yyyy';
+export class AmwDatepickerComponent extends BaseComponent<Date> implements ControlValueAccessor {
+    // Datepicker-specific properties (inherited from BaseComponent: disabled, required, label,
+    // placeholder, errorMessage, hasError, name, id, tabIndex, size, color, ariaLabel,
+    // ariaLabelledby, ariaDescribedby, ariaRequired, ariaInvalid, hint, readonly, value, change, focus, blur)
 
-    @Output() dateChange = new EventEmitter<Date | null>();
-    @Output() opened = new EventEmitter<void>();
-    @Output() closed = new EventEmitter<void>();
+    appearance = input<AmwAppearance>('outline');
+    min = input<Date | null>(null);
+    max = input<Date | null>(null);
+    startAt = input<Date | null>(null);
+    touchUi = input<boolean>(false);
+    openOnFocus = input<boolean>(true);
+    clearable = input<boolean>(true);
+    format = input<string>('MM/dd/yyyy');
 
-    selectedDate: Date | null = null;
-    isOpen = false;
+    dateChange = output<Date | null>();
+    opened = output<void>();
+    closed = output<void>();
+
+    selectedDate = signal<Date | null>(null);
+    isOpen = signal<boolean>(false);
 
     private onChange = (value: Date | null) => { };
     onTouched = () => { };
 
     ngOnInit(): void {
         // Initialize if startAt is provided
-        if (this.startAt && !this.selectedDate) {
-            this.selectedDate = this.startAt;
+        const startAtValue = this.startAt();
+        if (startAtValue && !this.selectedDate()) {
+            this.selectedDate.set(startAtValue);
         }
     }
 
     onDateChange(date: Date | null): void {
-        this.selectedDate = date;
+        this.selectedDate.set(date);
         this.onChange(date);
         this.dateChange.emit(date);
     }
 
     onOpened(): void {
-        this.isOpen = true;
+        this.isOpen.set(true);
         this.opened.emit();
     }
 
     onClosed(): void {
-        this.isOpen = false;
+        this.isOpen.set(false);
         this.closed.emit();
     }
 
@@ -99,7 +101,7 @@ export class AmwDatepickerComponent extends BaseComponent implements ControlValu
 
     // ControlValueAccessor implementation
     override writeValue(value: Date | null): void {
-        this.selectedDate = value;
+        this.selectedDate.set(value);
     }
 
     override registerOnChange(fn: (value: Date | null) => void): void {
@@ -111,11 +113,13 @@ export class AmwDatepickerComponent extends BaseComponent implements ControlValu
     }
 
     override setDisabledState(isDisabled: boolean): void {
-        this.disabled = isDisabled;
+        // Note: disabled is a signal input inherited from BaseComponent and cannot be set directly.
+        // The disabled state should be managed by the parent component via the input binding.
     }
 
     getDisplayValue(): string {
-        if (!this.selectedDate) return '';
-        return this.selectedDate.toLocaleDateString();
+        const date = this.selectedDate();
+        if (!date) return '';
+        return date.toLocaleDateString();
     }
 }

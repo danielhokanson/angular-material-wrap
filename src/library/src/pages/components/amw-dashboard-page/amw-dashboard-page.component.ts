@@ -1,8 +1,7 @@
 import {
   Component,
-  Input,
-  Output,
-  EventEmitter,
+  input,
+  output,
   OnInit,
   OnDestroy,
   ViewEncapsulation,
@@ -96,57 +95,57 @@ export class AmwDashboardPageComponent implements OnInit, OnDestroy {
   /**
    * Configuration for the dashboard
    */
-  @Input() config!: DashboardConfig;
+  config = input.required<DashboardConfig>();
 
   /**
    * Data source for loading data
    */
-  @Input() dataSource?: DashboardDataSource;
+  dataSource = input<DashboardDataSource | undefined>(undefined);
 
   /**
    * Initial view mode
    */
-  @Input() initialViewMode?: string;
+  initialViewMode = input<string | undefined>(undefined);
 
   /**
    * Whether to enable auto-refresh
    */
-  @Input() autoRefresh = false;
+  autoRefresh = input<boolean>(false);
 
   /**
    * Auto-refresh interval in milliseconds
    */
-  @Input() refreshInterval = 30000;
+  refreshInterval = input<number>(30000);
 
   /**
    * Emits when view mode changes
    */
-  @Output() viewModeChange = new EventEmitter<string>();
+  viewModeChange = output<string>();
 
   /**
    * Emits when a stat pill is clicked
    */
-  @Output() statClick = new EventEmitter<DashboardStat>();
+  statClick = output<DashboardStat>();
 
   /**
    * Emits when search query changes
    */
-  @Output() searchChange = new EventEmitter<string>();
+  searchChange = output<string>();
 
   /**
    * Emits when an item is clicked
    */
-  @Output() itemClick = new EventEmitter<any>();
+  itemClick = output<any>();
 
   /**
    * Emits when an action is clicked
    */
-  @Output() actionClick = new EventEmitter<{ action: string }>();
+  actionClick = output<{ action: string }>();
 
   /**
    * Emits when data is loaded
    */
-  @Output() dataLoad = new EventEmitter<DashboardData>();
+  dataLoad = output<DashboardData>();
 
   // Current state
   currentConfig!: DashboardConfig;
@@ -171,10 +170,10 @@ export class AmwDashboardPageComponent implements OnInit, OnDestroy {
 
   ngOnInit(): void {
     this.initializeConfig();
-    this.currentViewMode = this.initialViewMode || this.currentConfig.defaultViewMode || this.currentConfig.viewModes[0];
+    this.currentViewMode = this.initialViewMode() || this.currentConfig.defaultViewMode || this.currentConfig.viewModes[0];
     this.loadDashboardData();
 
-    if (this.autoRefresh || this.currentConfig.autoRefresh) {
+    if (this.autoRefresh() || this.currentConfig.autoRefresh) {
       this.startAutoRefresh();
     }
   }
@@ -192,9 +191,10 @@ export class AmwDashboardPageComponent implements OnInit, OnDestroy {
    * Initialize configuration with defaults
    */
   private initializeConfig(): void {
+    const configValue = this.config();
     this.currentConfig = {
       title: 'Dashboard',
-      defaultViewMode: this.config.viewModes?.[0] || 'list',
+      defaultViewMode: configValue.viewModes?.[0] || 'list',
       contentLayout: 'grid',
       showSearch: true,
       showFilters: false,
@@ -207,7 +207,7 @@ export class AmwDashboardPageComponent implements OnInit, OnDestroy {
       refreshInterval: 30000,
       density: 'comfortable',
       showTrends: true,
-      ...this.config
+      ...configValue
     };
 
     // Initialize stats with config values
@@ -218,7 +218,7 @@ export class AmwDashboardPageComponent implements OnInit, OnDestroy {
    * Load dashboard data
    */
   loadDashboardData(): void {
-    const source = this.dataSource || new DefaultDashboardDataSource();
+    const source = this.dataSource() || new DefaultDashboardDataSource();
 
     this.loading = true;
     this.error = null;
@@ -321,7 +321,7 @@ export class AmwDashboardPageComponent implements OnInit, OnDestroy {
    * Refresh stats only
    */
   refreshStatsOnly(): void {
-    const source = this.dataSource;
+    const source = this.dataSource();
     if (!source || !source.refreshStats) {
       this.refresh();
       return;
@@ -351,7 +351,7 @@ export class AmwDashboardPageComponent implements OnInit, OnDestroy {
    * Start auto-refresh
    */
   private startAutoRefresh(): void {
-    const interval = this.currentConfig.refreshInterval || this.refreshInterval;
+    const interval = this.currentConfig.refreshInterval || this.refreshInterval();
     this.refreshInterval$ = setInterval(() => {
       this.refreshStatsOnly();
     }, interval);

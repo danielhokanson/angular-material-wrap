@@ -1,11 +1,11 @@
-import { Directive, ElementRef, EventEmitter, HostListener, Output, OnInit, OnDestroy, Renderer2 } from '@angular/core';
+import { Directive, ElementRef, HostListener, OnInit, OnDestroy, Renderer2, output } from '@angular/core';
 
 @Directive({
     selector: '[amwClickOutside]',
     standalone: true
 })
 export class AmwClickOutsideDirective implements OnInit, OnDestroy {
-    @Output() amwClickOutside = new EventEmitter<Event>();
+    amwClickOutside = output<Event>();
 
     private documentClickListener?: () => void;
 

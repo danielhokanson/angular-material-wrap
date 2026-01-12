@@ -1,4 +1,4 @@
-import { Component, Input, Output, EventEmitter, ViewEncapsulation, OnInit, OnChanges, SimpleChanges, OnDestroy, ChangeDetectorRef, forwardRef } from '@angular/core';
+import { Component, input, output, signal, ViewEncapsulation, OnInit, OnDestroy, ChangeDetectorRef, forwardRef, effect } from '@angular/core';
 
 import { FormsModule, ReactiveFormsModule, ControlValueAccessor, NG_VALUE_ACCESSOR } from '@angular/forms';
 import { MatChipsModule } from '@angular/material/chips';
@@ -7,11 +7,10 @@ import { MatInputModule } from '@angular/material/input';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatAutocompleteModule } from '@angular/material/autocomplete';
 import { MatMenuModule } from '@angular/material/menu';
-import { MatTooltipModule } from '@angular/material/tooltip';
 import { AmwButtonComponent } from '../amw-button/amw-button.component';
-// import { MatRippleModule } from '@angular/material/ripple';
 import { Subject, takeUntil, debounceTime, distinctUntilChanged } from 'rxjs';
 
+import { BaseComponent } from '../base/base.component';
 import { Chip, ChipConfig, ChipEvent, ChipChangeEvent, ChipMenuItem } from './interfaces';
 import { AmwTooltipDirective } from '../../../directives';
 import { AmwDividerComponent } from '../../../components/components/amw-divider/amw-divider.component';
@@ -19,6 +18,9 @@ import { AmwDividerComponent } from '../../../components/components/amw-divider/
 /**
  * AMW Chips Component
  * A comprehensive wrapper around Angular Material Chips with enhanced functionality
+ * Inherits from BaseComponent: disabled, required, label, placeholder, errorMessage, hasError,
+ * name, id, tabIndex, size, color, ariaLabel, ariaLabelledby, ariaDescribedby, ariaRequired,
+ * ariaInvalid, hint, readonly, value, change, focus, blur
  */
 @Component({
     selector: 'amw-chips',
@@ -37,6 +39,7 @@ import { AmwDividerComponent } from '../../../components/components/amw-divider/
         AmwDividerComponent
     ],
     encapsulation: ViewEncapsulation.None,
+    host: { 'data-amw-id': 'amw-chips' },
     templateUrl: './amw-chips.component.html',
     styleUrl: './amw-chips.component.scss',
     providers: [
@@ -47,45 +50,47 @@ import { AmwDividerComponent } from '../../../components/components/amw-divider/
         }
     ]
 })
-export class AmwChipsComponent implements OnInit, OnChanges, OnDestroy, ControlValueAccessor {
-    // Input properties
-    @Input() config: ChipConfig = {};
-    @Input() chips: Chip[] = [];
-    @Input() placeholder: string = 'Add a chip...';
-    @Input() disabled: boolean = false;
-    @Input() required: boolean = false;
-    @Input() maxChips: number | null = null;
-    @Input() minChips: number = 0;
-    @Input() addable: boolean = true;
-    @Input() removable: boolean = true;
-    @Input() selectable: boolean = false;
-    @Input() multiple: boolean = false;
-    @Input() size: 'small' | 'medium' | 'large' = 'medium';
-    @Input() appearance: 'filled' | 'outlined' = 'filled';
-    @Input() showInput: boolean = true;
-    @Input() allowDuplicates: boolean = false;
-    @Input() showSuggestions: boolean = false;
-    @Input() maxSuggestions: number = 10;
-    @Input() showMenus: boolean = false;
-    @Input() defaultMenuItems: ChipMenuItem[] = [];
-    @Input() errorMessage: string = '';
-    @Input() hasError: boolean = false;
-    @Input() ariaLabel: string = '';
-    @Input() ariaDescribedby: string = '';
+export class AmwChipsComponent extends BaseComponent<Chip[]> implements OnInit, OnDestroy, ControlValueAccessor {
+    // Chips-specific properties (inherited from BaseComponent: disabled, required, label, placeholder,
+    // errorMessage, hasError, name, id, tabIndex, size, color, ariaLabel, ariaLabelledby,
+    // ariaDescribedby, ariaRequired, ariaInvalid, hint, readonly, value, change, focus, blur)
 
-    // Output events
-    @Output() chipAdd = new EventEmitter<ChipEvent>();
-    @Output() chipRemove = new EventEmitter<ChipEvent>();
-    @Output() chipSelect = new EventEmitter<ChipEvent>();
-    @Output() chipDeselect = new EventEmitter<ChipEvent>();
-    @Output() chipEdit = new EventEmitter<ChipEvent>();
-    @Output() chipMenuItemClick = new EventEmitter<{ chip: Chip, menuItem: ChipMenuItem }>();
-    @Output() chipsChange = new EventEmitter<ChipChangeEvent>();
-    @Output() inputChange = new EventEmitter<string>();
+    config = input<ChipConfig>({});
+    chips = input<Chip[]>([]);
+    maxChips = input<number | null>(null);
+    minChips = input<number>(0);
+    addable = input<boolean>(true);
+    removable = input<boolean>(true);
+    selectable = input<boolean>(false);
+    multiple = input<boolean>(false);
+    appearance = input<'filled' | 'outlined'>('filled');
+    showInput = signal<boolean>(true);
+    allowDuplicates = input<boolean>(false);
+    showSuggestions = input<boolean>(false);
+    maxSuggestions = input<number>(10);
+    showMenus = input<boolean>(false);
+    defaultMenuItems = input<ChipMenuItem[]>([]);
+
+    // Output signals
+    chipAdd = output<ChipEvent>();
+    chipRemove = output<ChipEvent>();
+    chipSelect = output<ChipEvent>();
+    chipDeselect = output<ChipEvent>();
+    chipEdit = output<ChipEvent>();
+    chipMenuItemClick = output<{ chip: Chip, menuItem: ChipMenuItem }>();
+    chipsChange = output<ChipChangeEvent>();
+    inputChange = output<string>();
 
     // Internal properties
     internalChips: Chip[] = [];
     inputValue: string = '';
+
+    /** Internal disabled state from ControlValueAccessor */
+    private _disabledFromCVA = signal<boolean>(false);
+
+    /** Internal error state (can be set programmatically) */
+    private _internalHasError = signal<boolean>(false);
+    private _internalErrorMessage = signal<string>('');
 
     /** Current chip for menu operations */
     currentChip: Chip | null = null;
@@ -99,24 +104,27 @@ export class AmwChipsComponent implements OnInit, OnChanges, OnDestroy, ControlV
     private onChange = (chips: Chip[]) => { };
     private onTouched = () => { };
 
-    constructor(private cdr: ChangeDetectorRef) { }
+    constructor(private cdr: ChangeDetectorRef) {
+        super();
+        // Setup effect to react to config and chips changes
+        effect(() => {
+            const configVal = this.config();
+            if (configVal) {
+                this.applyConfig();
+            }
+        });
+
+        effect(() => {
+            const chipsVal = this.chips();
+            const configVal = this.config();
+            this.internalChips = [...(chipsVal?.length ? chipsVal : configVal?.chips || [])];
+            this.updateSelectedChips();
+        });
+    }
 
     ngOnInit(): void {
         this.initializeComponent();
         this.setupInputSubscription();
-    }
-
-    ngOnChanges(changes: SimpleChanges): void {
-        if (changes['config'] && this.config) {
-            this.applyConfig();
-            // Force re-initialization of chips from config
-            this.internalChips = [...(this.chips?.length ? this.chips : this.config?.chips || [])];
-            this.updateSelectedChips();
-        }
-        if (changes['chips']) {
-            this.internalChips = [...(this.chips?.length ? this.chips : this.config?.chips || [])];
-            this.updateSelectedChips();
-        }
     }
 
     ngOnDestroy(): void {
@@ -129,7 +137,9 @@ export class AmwChipsComponent implements OnInit, OnChanges, OnDestroy, ControlV
      */
     private initializeComponent(): void {
         this.applyConfig();
-        this.internalChips = [...(this.chips?.length ? this.chips : this.config?.chips || [])];
+        const chipsVal = this.chips();
+        const configVal = this.config();
+        this.internalChips = [...(chipsVal?.length ? chipsVal : configVal?.chips || [])];
         this.updateSelectedChips();
     }
 
@@ -137,33 +147,20 @@ export class AmwChipsComponent implements OnInit, OnChanges, OnDestroy, ControlV
      * Apply configuration to component properties
      */
     private applyConfig(): void {
-        if (!this.config) return;
+        const configVal = this.config();
+        if (!configVal) return;
 
-        this.placeholder = this.config.placeholder || this.placeholder;
-        this.disabled = this.config.disabled ?? this.disabled;
-        this.required = this.config.required ?? this.required;
-        this.maxChips = this.config.maxChips ?? this.maxChips;
-        this.minChips = this.config.minChips ?? this.minChips;
-        this.addable = this.config.addable ?? this.addable;
-        this.removable = this.config.removable ?? this.removable;
-        this.selectable = this.config.selectable ?? this.selectable;
-        this.multiple = this.config.multiple ?? this.multiple;
-        this.size = this.config.size || this.size;
-        this.appearance = this.config.appearance || this.appearance;
-        this.showInput = this.config.showInput ?? this.showInput;
-        this.allowDuplicates = this.config.allowDuplicates ?? this.allowDuplicates;
-        this.showSuggestions = this.config.showSuggestions ?? this.showSuggestions;
-        this.maxSuggestions = this.config.maxSuggestions ?? this.maxSuggestions;
-        this.showMenus = this.config.showMenus ?? this.showMenus;
-        this.defaultMenuItems = this.config.defaultMenuItems || this.defaultMenuItems;
-        this.errorMessage = this.config.errorMessage || this.errorMessage;
-        this.hasError = this.config.hasError ?? this.hasError;
-        this.ariaLabel = this.config.ariaLabel || this.ariaLabel;
-        this.ariaDescribedby = this.config.ariaDescribedby || this.ariaDescribedby;
+        // Only update writable signals from config
+        if (configVal.showInput !== undefined) {
+            this.showInput.set(configVal.showInput);
+        }
+        if (configVal.errorMessage || configVal.hasError !== undefined) {
+            this.setError(configVal.hasError ?? false, configVal.errorMessage ?? '');
+        }
 
         // Update internal chips if config has chips
-        if (this.config.chips) {
-            this.internalChips = [...this.config.chips];
+        if (configVal.chips) {
+            this.internalChips = [...configVal.chips];
             this.updateSelectedChips();
         }
     }
@@ -200,14 +197,15 @@ export class AmwChipsComponent implements OnInit, OnChanges, OnDestroy, ControlV
      * Filter suggestions based on input value
      */
     private filterSuggestions(query: string): void {
-        if (!this.showSuggestions || !query.trim()) {
+        if (!this.showSuggestions() || !query.trim()) {
             this.filteredSuggestions = [];
             return;
         }
 
-        const filterFn = this.config.filterFn || this.defaultFilterFn;
+        const configVal = this.config();
+        const filterFn = configVal.filterFn || this.defaultFilterFn;
         this.filteredSuggestions = filterFn(query, this.internalChips)
-            .slice(0, this.maxSuggestions);
+            .slice(0, this.maxSuggestions());
     }
 
     /**
@@ -225,35 +223,36 @@ export class AmwChipsComponent implements OnInit, OnChanges, OnDestroy, ControlV
      * Add a new chip
      */
     addChip(label: string): void {
-        if (!this.addable || this.disabled || !label.trim()) return;
-        if (this.maxChips && this.internalChips.length >= this.maxChips) return;
+        const maxChipsVal = this.maxChips();
+        if (!this.addable() || this.isDisabled || !label.trim()) return;
+        if (maxChipsVal && this.internalChips.length >= maxChipsVal) return;
 
         const chip: Chip = {
             id: this.generateId(),
             label: label.trim(),
-            removable: this.removable,
-            disabled: this.disabled,
+            removable: this.removable(),
+            disabled: this.disabled(),
             selected: false
         };
 
         // Check for duplicates
-        if (!this.allowDuplicates && this.internalChips.some(c => c.label === chip.label)) {
+        if (!this.allowDuplicates() && this.internalChips.some(c => c.label === chip.label)) {
             return;
         }
 
         // Validate chip
-        if (this.config.validator) {
-            const validation = this.config.validator(chip);
+        const configVal = this.config();
+        if (configVal.validator) {
+            const validation = configVal.validator(chip);
             if (validation !== true) {
-                this.errorMessage = typeof validation === 'string' ? validation : 'Invalid chip';
-                this.hasError = true;
+                this.setError(true, typeof validation === 'string' ? validation : 'Invalid chip');
                 return;
             }
         }
 
         // Use custom add function if provided
-        if (this.config.onAdd) {
-            const result = this.config.onAdd(chip);
+        if (configVal.onAdd) {
+            const result = configVal.onAdd(chip);
             if (result instanceof Promise) {
                 result.then((addedChip: Chip) => {
                     this.internalChips.push(addedChip);
@@ -277,12 +276,13 @@ export class AmwChipsComponent implements OnInit, OnChanges, OnDestroy, ControlV
      * Remove a chip
      */
     removeChip(chip: Chip, index: number): void {
-        if (!this.removable || this.disabled) return;
-        if (this.internalChips.length <= this.minChips) return;
+        if (!this.removable() || this.isDisabled) return;
+        if (this.internalChips.length <= this.minChips()) return;
 
         // Use custom remove function if provided
-        if (this.config.onRemove) {
-            const result = this.config.onRemove(chip);
+        const configVal = this.config();
+        if (configVal.onRemove) {
+            const result = configVal.onRemove(chip);
             if (result instanceof Promise) {
                 result.then((shouldRemove: boolean) => {
                     if (shouldRemove) {
@@ -308,9 +308,9 @@ export class AmwChipsComponent implements OnInit, OnChanges, OnDestroy, ControlV
      * Select a chip
      */
     selectChip(chip: Chip, index: number): void {
-        if (!this.selectable || this.disabled || chip.disabled) return;
+        if (!this.selectable() || this.isDisabled || chip.disabled) return;
 
-        if (this.multiple) {
+        if (this.multiple()) {
             chip.selected = !chip.selected;
             if (chip.selected) {
                 this.selectedChips.add(chip.id);
@@ -379,7 +379,7 @@ export class AmwChipsComponent implements OnInit, OnChanges, OnDestroy, ControlV
      * Clear all chips
      */
     clearChips(): void {
-        if (this.disabled) return;
+        if (this.isDisabled) return;
         this.internalChips = [];
         this.selectedChips.clear();
         this.emitChipEvent('clear', null as any, -1);
@@ -396,14 +396,14 @@ export class AmwChipsComponent implements OnInit, OnChanges, OnDestroy, ControlV
      * Check if chip can be removed
      */
     canRemoveChip(chip: Chip): boolean {
-        return this.removable && !this.disabled && chip.removable !== false;
+        return this.removable() && !this.isDisabled && chip.removable !== false;
     }
 
     /**
      * Check if chip can be selected
      */
     canSelectChip(chip: Chip): boolean {
-        return this.selectable && !this.disabled && !chip.disabled;
+        return this.selectable() && !this.isDisabled && !chip.disabled;
     }
 
     /**
@@ -434,7 +434,7 @@ export class AmwChipsComponent implements OnInit, OnChanges, OnDestroy, ControlV
     focusInput(): void {
         // This would be implemented to focus the hidden input
         // For now, we'll emit an event to show the input
-        this.showInput = true;
+        this.showInput.set(true);
         this.cdr.detectChanges();
     }
 
@@ -445,14 +445,14 @@ export class AmwChipsComponent implements OnInit, OnChanges, OnDestroy, ControlV
         if (chip.menuItems && chip.menuItems.length > 0) {
             return chip.menuItems.filter(item => item.visible !== false);
         }
-        return this.defaultMenuItems.filter(item => item.visible !== false);
+        return this.defaultMenuItems().filter(item => item.visible !== false);
     }
 
     /**
      * Check if chip should show menu
      */
     shouldShowMenu(chip: Chip): boolean {
-        return this.showMenus && !chip.disabled && this.getChipMenuItems(chip).length > 0;
+        return this.showMenus() && !chip.disabled && this.getChipMenuItems(chip).length > 0;
     }
 
     /**
@@ -483,8 +483,9 @@ export class AmwChipsComponent implements OnInit, OnChanges, OnDestroy, ControlV
         }
 
         // Execute config handler if provided
-        if (this.config.onMenuItemClick) {
-            this.config.onMenuItemClick(chip, menuItem);
+        const configVal = this.config();
+        if (configVal.onMenuItemClick) {
+            configVal.onMenuItemClick(chip, menuItem);
         }
 
         // Emit event
@@ -543,22 +544,43 @@ export class AmwChipsComponent implements OnInit, OnChanges, OnDestroy, ControlV
     }
 
     // ControlValueAccessor implementation
-    writeValue(value: Chip[]): void {
+    override writeValue(value: Chip[]): void {
         this.internalChips = value ? [...value] : [];
         this.updateSelectedChips();
         this.cdr.detectChanges();
     }
 
-    registerOnChange(fn: (value: Chip[]) => void): void {
+    override registerOnChange(fn: (value: Chip[]) => void): void {
         this.onChange = fn;
     }
 
-    registerOnTouched(fn: () => void): void {
+    override registerOnTouched(fn: () => void): void {
         this.onTouched = fn;
     }
 
-    setDisabledState(isDisabled: boolean): void {
-        this.disabled = isDisabled;
+    override setDisabledState(isDisabled: boolean): void {
+        this._disabledFromCVA.set(isDisabled);
         this.cdr.detectChanges();
+    }
+
+    /** Check if component is disabled (from input or CVA) - use getter to match BaseComponent */
+    override get isDisabled(): boolean {
+        return this.disabled() || this._disabledFromCVA();
+    }
+
+    /** Check if component has error (from input or internal state) */
+    hasErrorState(): boolean {
+        return this.hasError() || this._internalHasError();
+    }
+
+    /** Get error message (from input or internal state) */
+    getErrorMessage(): string {
+        return this.errorMessage() || this._internalErrorMessage();
+    }
+
+    /** Set internal error state */
+    setError(hasError: boolean, message: string = ''): void {
+        this._internalHasError.set(hasError);
+        this._internalErrorMessage.set(message);
     }
 }

@@ -1,4 +1,4 @@
-import { Component, Input, Output, EventEmitter, ViewEncapsulation, ElementRef, ViewChild, HostListener } from '@angular/core';
+import { Component, input, output, signal, model, computed, ViewEncapsulation, ElementRef, ViewChild, HostListener } from '@angular/core';
 
 import { FormsModule, NG_VALUE_ACCESSOR } from '@angular/forms';
 import { MatIconModule } from '@angular/material/icon';
@@ -9,6 +9,12 @@ import { AmwButtonComponent } from '../amw-button/amw-button.component';
 import { BaseComponent } from '../base/base.component';
 import { FileInputConfig, FileValidationResult, FileUploadProgress, FileInputAccept } from './interfaces';
 
+/**
+ * AMW File Input Component
+ * Inherits from BaseComponent: disabled, required, label, placeholder, errorMessage, hasError,
+ * name, id, tabIndex, size, color, ariaLabel, ariaLabelledby, ariaDescribedby, ariaRequired,
+ * ariaInvalid, hint, readonly, value, change, focus, blur
+ */
 @Component({
     selector: 'amw-file-input',
     standalone: true,
@@ -24,68 +30,57 @@ import { FileInputConfig, FileValidationResult, FileUploadProgress, FileInputAcc
         }
     ]
 })
-export class AmwFileInputComponent extends BaseComponent {
+export class AmwFileInputComponent extends BaseComponent<File[]> {
     @ViewChild('fileInput', { static: false }) fileInput!: ElementRef<HTMLInputElement>;
 
-    @Input() multiple = false;
-    @Input() accept: FileInputAccept = '*/*';
-    @Input() maxSize = 10 * 1024 * 1024; // 10MB default
-    @Input() minSize = 0;
-    @Input() maxFiles = 10;
-    @Input() showPreview = true;
-    @Input() showProgress = true;
-    @Input() allowDragDrop = true;
-    @Input() showFileList = true;
-    @Input() placeholderText = 'Choose files or drag and drop';
-    @Input() buttonText = 'Browse Files';
-    @Input() dropText = 'Drop files here';
+    multiple = input<boolean>(false);
+    accept = input<FileInputAccept>('*/*');
+    maxSize = input<number>(10 * 1024 * 1024); // 10MB default
+    minSize = input<number>(0);
+    maxFiles = input<number>(10);
+    showPreview = input<boolean>(true);
+    showProgress = input<boolean>(true);
+    allowDragDrop = input<boolean>(true);
+    showFileList = input<boolean>(true);
+    placeholderText = input<string>('Choose files or drag and drop');
+    buttonText = input<string>('Browse Files');
+    dropText = input<string>('Drop files here');
 
-    @Output() filesChange = new EventEmitter<File[]>();
-    @Output() selectedFilesChange = new EventEmitter<File[]>();
-    @Output() fileSelect = new EventEmitter<File[]>();
-    @Output() fileRemove = new EventEmitter<File>();
-    @Output() validationChange = new EventEmitter<FileValidationResult>();
-    @Output() uploadProgress = new EventEmitter<FileUploadProgress[]>();
+    filesChange = output<File[]>();
+    selectedFilesChange = output<File[]>();
+    fileSelect = output<File[]>();
+    fileRemove = output<File>();
+    validationChange = output<FileValidationResult>();
+    uploadProgress = output<FileUploadProgress[]>();
 
-    @Input()
-    get selectedFiles(): File[] {
-        return this._selectedFiles;
-    }
-
-    set selectedFiles(files: File[]) {
-        this._selectedFiles = files;
-        this.value = files;
-        this.filesChange.emit(files);
-        this.selectedFilesChange.emit(files);
-    }
-
-    private _selectedFiles: File[] = [];
-    isDragOver = false;
-    validationResult: FileValidationResult = { valid: true, errors: [], files: [] };
-    uploadProgresses: FileUploadProgress[] = [];
+    // Model signal for two-way binding
+    selectedFiles = model<File[]>([]);
+    isDragOver = signal<boolean>(false);
+    validationResult = signal<FileValidationResult>({ valid: true, errors: [], files: [] });
+    uploadProgresses = signal<FileUploadProgress[]>([]);
 
     @HostListener('dragover', ['$event'])
     onDragOver(event: DragEvent): void {
-        if (!this.allowDragDrop || this.disabled) return;
+        if (!this.allowDragDrop() || this.disabled()) return;
         event.preventDefault();
         event.stopPropagation();
-        this.isDragOver = true;
+        this.isDragOver.set(true);
     }
 
     @HostListener('dragleave', ['$event'])
     onDragLeave(event: DragEvent): void {
-        if (!this.allowDragDrop || this.disabled) return;
+        if (!this.allowDragDrop() || this.disabled()) return;
         event.preventDefault();
         event.stopPropagation();
-        this.isDragOver = false;
+        this.isDragOver.set(false);
     }
 
     @HostListener('drop', ['$event'])
     onDrop(event: DragEvent): void {
-        if (!this.allowDragDrop || this.disabled) return;
+        if (!this.allowDragDrop() || this.disabled()) return;
         event.preventDefault();
         event.stopPropagation();
-        this.isDragOver = false;
+        this.isDragOver.set(false);
 
         const files = Array.from(event.dataTransfer?.files || []);
         this.handleFiles(files);
@@ -99,19 +94,23 @@ export class AmwFileInputComponent extends BaseComponent {
 
     private handleFiles(files: File[]): void {
         const validation = this.validateFiles(files);
-        this.validationResult = validation;
+        this.validationResult.set(validation);
         this.validationChange.emit(validation);
 
         if (validation.valid) {
-            if (this.multiple) {
-                this._selectedFiles = [...this._selectedFiles, ...validation.files].slice(0, this.maxFiles);
+            let newFiles: File[];
+            if (this.multiple()) {
+                newFiles = [...this.selectedFiles(), ...validation.files].slice(0, this.maxFiles());
             } else {
-                this._selectedFiles = validation.files.slice(0, 1);
+                newFiles = validation.files.slice(0, 1);
             }
 
-            this.value = this._selectedFiles;
-            this.filesChange.emit(this._selectedFiles);
+            this.selectedFiles.set(newFiles);
+            this.value.set(newFiles);
+            this.filesChange.emit(newFiles);
+            this.selectedFilesChange.emit(newFiles);
             this.fileSelect.emit(validation.files);
+            this._onChange(newFiles);
         }
     }
 
@@ -123,28 +122,28 @@ export class AmwFileInputComponent extends BaseComponent {
             return { valid: true, errors: [], files: [] };
         }
 
-        if (!this.multiple && files.length > 1) {
+        if (!this.multiple() && files.length > 1) {
             errors.push('Only one file is allowed');
         }
 
-        if (files.length > this.maxFiles) {
-            errors.push(`Maximum ${this.maxFiles} files allowed`);
+        if (files.length > this.maxFiles()) {
+            errors.push(`Maximum ${this.maxFiles()} files allowed`);
         }
 
         for (const file of files) {
             // Check file size
-            if (file.size > this.maxSize) {
-                errors.push(`${file.name} is too large (max ${this.formatFileSize(this.maxSize)})`);
+            if (file.size > this.maxSize()) {
+                errors.push(`${file.name} is too large (max ${this.formatFileSize(this.maxSize())})`);
                 continue;
             }
 
-            if (file.size < this.minSize) {
-                errors.push(`${file.name} is too small (min ${this.formatFileSize(this.minSize)})`);
+            if (file.size < this.minSize()) {
+                errors.push(`${file.name} is too small (min ${this.formatFileSize(this.minSize())})`);
                 continue;
             }
 
             // Check file type
-            if (this.accept !== '*/*' && !this.isFileTypeAccepted(file)) {
+            if (this.accept() !== '*/*' && !this.isFileTypeAccepted(file)) {
                 errors.push(`${file.name} is not an accepted file type`);
                 continue;
             }
@@ -160,9 +159,9 @@ export class AmwFileInputComponent extends BaseComponent {
     }
 
     private isFileTypeAccepted(file: File): boolean {
-        if (this.accept === '*/*') return true;
+        if (this.accept() === '*/*') return true;
 
-        const acceptedTypes = this.accept.split(',').map(type => type.trim());
+        const acceptedTypes = this.accept().split(',').map(type => type.trim());
         return acceptedTypes.some(type => {
             if (type.endsWith('/*')) {
                 return file.type.startsWith(type.slice(0, -1));
@@ -180,23 +179,28 @@ export class AmwFileInputComponent extends BaseComponent {
     }
 
     removeFile(file: File): void {
-        this._selectedFiles = this._selectedFiles.filter(f => f !== file);
-        this.value = this._selectedFiles;
-        this.filesChange.emit(this._selectedFiles);
+        const newFiles = this.selectedFiles().filter(f => f !== file);
+        this.selectedFiles.set(newFiles);
+        this.value.set(newFiles);
+        this.filesChange.emit(newFiles);
+        this.selectedFilesChange.emit(newFiles);
         this.fileRemove.emit(file);
+        this._onChange(newFiles);
     }
 
     clearFiles(): void {
-        this._selectedFiles = [];
-        this.value = [];
+        this.selectedFiles.set([]);
+        this.value.set([]);
         this.filesChange.emit([]);
+        this.selectedFilesChange.emit([]);
+        this._onChange([]);
         if (this.fileInput) {
             this.fileInput.nativeElement.value = '';
         }
     }
 
     openFileDialog(): void {
-        if (!this.disabled && this.fileInput) {
+        if (!this.disabled() && this.fileInput) {
             this.fileInput.nativeElement.click();
         }
     }
@@ -212,20 +216,20 @@ export class AmwFileInputComponent extends BaseComponent {
 
     getConfig(): FileInputConfig {
         return {
-            multiple: this.multiple,
-            accept: this.accept,
-            maxSize: this.maxSize,
-            minSize: this.minSize,
-            maxFiles: this.maxFiles,
-            disabled: this.disabled,
-            required: this.required,
-            showPreview: this.showPreview,
-            showProgress: this.showProgress,
-            allowDragDrop: this.allowDragDrop,
-            showFileList: this.showFileList,
-            placeholder: this.placeholderText,
-            buttonText: this.buttonText,
-            dropText: this.dropText
+            multiple: this.multiple(),
+            accept: this.accept(),
+            maxSize: this.maxSize(),
+            minSize: this.minSize(),
+            maxFiles: this.maxFiles(),
+            disabled: this.disabled(),
+            required: this.required(),
+            showPreview: this.showPreview(),
+            showProgress: this.showProgress(),
+            allowDragDrop: this.allowDragDrop(),
+            showFileList: this.showFileList(),
+            placeholder: this.placeholderText(),
+            buttonText: this.buttonText(),
+            dropText: this.dropText()
         };
     }
 }

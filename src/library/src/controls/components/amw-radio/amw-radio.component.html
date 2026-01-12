@@ -1,29 +1,29 @@
 <div [class]="getRadioClasses()">
   <mat-radio-button
     [color]="getMaterialColor()"
-    [disabled]="disabled"
-    [required]="required"
-    [checked]="checked"
-    [value]="radioValue"
-    [name]="name"
-    [tabIndex]="tabIndex"
-    [attr.aria-label]="ariaLabel"
-    [attr.aria-labelledby]="ariaLabelledby"
-    [attr.aria-describedby]="ariaDescribedby"
-    [attr.aria-required]="ariaRequired"
-    [attr.aria-invalid]="ariaInvalid"
-    [disableRipple]="disableRipple"
-    [style.animation-duration]="animationDuration"
-    [style.animation-timing-function]="animationTimingFunction"
+    [disabled]="disabled()"
+    [required]="required()"
+    [checked]="checked()"
+    [value]="radioValue()"
+    [name]="name()"
+    [tabIndex]="tabIndex()"
+    [attr.aria-label]="ariaLabel()"
+    [attr.aria-labelledby]="ariaLabelledby()"
+    [attr.aria-describedby]="ariaDescribedby()"
+    [attr.aria-required]="ariaRequired()"
+    [attr.aria-invalid]="ariaInvalid()"
+    [disableRipple]="disableRipple()"
+    [style.animation-duration]="animationDuration()"
+    [style.animation-timing-function]="animationTimingFunction()"
     (change)="onRadioChange($event)"
     (focus)="onFocus($event)"
     (blur)="onBlur($event)">
-    <span [innerHTML]="label"></span>
+    <span [innerHTML]="label()"></span>
   </mat-radio-button>
 
-  @if (hasError && errorMessage) {
+  @if (hasError() && errorMessage()) {
     <div class="amw-radio__error">
-      {{ errorMessage }}
+      {{ errorMessage() }}
     </div>
   }
 </div>

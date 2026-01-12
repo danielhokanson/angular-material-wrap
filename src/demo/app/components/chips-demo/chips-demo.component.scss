@@ -22,9 +22,9 @@
   }
 
   .demo-tabs {
-    .mat-mdc-tab-group {
-      .mat-mdc-tab-header {
-        .mat-mdc-tab-label {
+    amw-tabs {
+      .amw-tabs__header {
+        .amw-tabs__tab {
           min-width: 120px;
         }
       }
@@ -39,20 +39,20 @@
     margin-bottom: 24px;
     box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
 
-    .mat-mdc-card-header {
-      .mat-mdc-card-title {
+    .amw-card__header {
+      .amw-card__title {
         font-size: 1.5rem;
         font-weight: 500;
         color: var(--mdc-theme-on-surface, #1c1b1f);
       }
 
-      .mat-mdc-card-subtitle {
+      .amw-card__subtitle {
         font-size: 1rem;
         color: var(--mdc-theme-on-surface-variant, #49454f);
       }
     }
 
-    .mat-mdc-card-content {
+    .amw-card__content {
       padding: 24px;
     }
   }
@@ -152,7 +152,7 @@
     gap: 12px;
     flex-wrap: wrap;
 
-    .mat-mdc-raised-button {
+    .amw-button--raised {
       display: flex;
       align-items: center;
       gap: 8px;
@@ -286,7 +286,7 @@
     }
 
     .demo-card {
-      .mat-mdc-card-content {
+      .amw-card__content {
         padding: 16px;
       }
     }
@@ -294,7 +294,7 @@
     .action-buttons {
       flex-direction: column;
 
-      .mat-mdc-raised-button {
+      .amw-button--raised {
         width: 100%;
         justify-content: center;
       }

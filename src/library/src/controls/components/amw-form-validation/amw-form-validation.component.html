@@ -1,43 +1,43 @@
 <div
   class="amw-form-validation"
-  [class.amw-form-validation--summary]="showSummary"
-  [class.amw-form-validation--inline]="showInline"
-  [class.amw-form-validation--floating]="showFloating"
-  [class.amw-form-validation--top]="position === 'top'"
-  [class.amw-form-validation--bottom]="position === 'bottom'"
-  [class]="customClass"
-  [attr.aria-live]="ariaLive"
-  [attr.aria-label]="ariaLabel"
+  [class.amw-form-validation--summary]="showSummary()"
+  [class.amw-form-validation--inline]="showInline()"
+  [class.amw-form-validation--floating]="showFloating()"
+  [class.amw-form-validation--top]="position() === 'top'"
+  [class.amw-form-validation--bottom]="position() === 'bottom'"
+  [class]="customClass()"
+  [attr.aria-live]="ariaLive()"
+  [attr.aria-label]="ariaLabel()"
   role="alert">
 
-  @if (visibleErrors.length > 0) {
+  @if (visibleErrors().length > 0) {
     <!-- Summary Mode -->
-    @if (showSummary) {
+    @if (showSummary()) {
       <mat-card
         class="amw-form-validation__summary"
-        [class.amw-form-validation__summary--elevated]="appearance === 'elevated'"
-        [class.amw-form-validation__summary--flat]="appearance === 'flat'">
+        [class.amw-form-validation__summary--elevated]="appearance() === 'elevated'"
+        [class.amw-form-validation__summary--flat]="appearance() === 'flat'">
 
         <mat-card-header class="amw-form-validation__summary-header">
           <mat-icon class="amw-form-validation__summary-icon">error_outline</mat-icon>
           <mat-card-title class="amw-form-validation__summary-title">
-            Please correct the following {{ visibleErrors.length === 1 ? 'error' : 'errors' }}:
+            Please correct the following {{ visibleErrors().length === 1 ? 'error' : 'errors' }}:
           </mat-card-title>
-          @if (collapsible) {
+          @if (collapsible()) {
             <amw-button
               variant="icon"
-              [icon]="collapsed ? 'expand_more' : 'expand_less'"
+              [icon]="collapsed() ? 'expand_more' : 'expand_less'"
               class="amw-form-validation__collapse-button"
               (click)="toggleCollapse()"
-              [attr.aria-label]="collapsed ? 'Expand errors' : 'Collapse errors'">
+              [attr.aria-label]="collapsed() ? 'Expand errors' : 'Collapse errors'">
             </amw-button>
           }
         </mat-card-header>
 
-        @if (!collapsed) {
+        @if (!collapsed()) {
           <mat-card-content class="amw-form-validation__summary-content">
             <ul class="amw-form-validation__error-list">
-              @for (error of visibleErrors; track error.key) {
+              @for (error of visibleErrors(); track error.key) {
                 <li
                   class="amw-form-validation__error-item"
                   [class.amw-form-validation__error-item--error]="error.severity === 'error' || !error.severity"
@@ -50,7 +50,7 @@
                   tabindex="0"
                   role="button"
                   [attr.aria-label]="'Navigate to ' + (error.affectedFields?.join(' and ') || 'field')">
-                  @if (showSeverityIcon) {
+                  @if (showSeverityIcon()) {
                     <mat-icon class="amw-form-validation__error-icon">
                       {{ getSeverityIcon(error.severity) }}
                     </mat-icon>
@@ -67,9 +67,9 @@
     }
 
     <!-- Inline Mode -->
-    @if (showInline) {
+    @if (showInline()) {
       <div class="amw-form-validation__inline-container">
-        @for (error of visibleErrors; track error.key) {
+        @for (error of visibleErrors(); track error.key) {
           <div
             class="amw-form-validation__inline-error"
             [class.amw-form-validation__inline-error--error]="error.severity === 'error' || !error.severity"
@@ -83,7 +83,7 @@
             tabindex="0"
             role="button"
             [attr.aria-label]="'Navigate to ' + (error.affectedFields?.join(' and ') || 'field')">
-            @if (showSeverityIcon) {
+            @if (showSeverityIcon()) {
               <mat-icon class="amw-form-validation__inline-icon">
                 {{ getSeverityIcon(error.severity) }}
               </mat-icon>
@@ -97,19 +97,19 @@
     }
 
     <!-- Floating Mode -->
-    @if (showFloating) {
+    @if (showFloating()) {
       <div class="amw-form-validation__floating">
         <mat-card class="amw-form-validation__floating-card">
           <mat-card-header class="amw-form-validation__floating-header">
             <mat-icon class="amw-form-validation__floating-icon">error_outline</mat-icon>
             <mat-card-title class="amw-form-validation__floating-title">
-              {{ visibleErrors.length }} validation {{ visibleErrors.length === 1 ? 'error' : 'errors' }}
+              {{ visibleErrors().length }} validation {{ visibleErrors().length === 1 ? 'error' : 'errors' }}
             </mat-card-title>
           </mat-card-header>
 
           <mat-card-content class="amw-form-validation__floating-content">
             <ul class="amw-form-validation__floating-list">
-              @for (error of visibleErrors; track error.key) {
+              @for (error of visibleErrors(); track error.key) {
                 <li
                   class="amw-form-validation__floating-item"
                   [class.amw-form-validation__floating-item--error]="error.severity === 'error' || !error.severity"
@@ -122,7 +122,7 @@
                   tabindex="0"
                   role="button"
                   [attr.aria-label]="'Navigate to ' + (error.affectedFields?.join(' and ') || 'field')">
-                  @if (showSeverityIcon) {
+                  @if (showSeverityIcon()) {
                     <mat-icon class="amw-form-validation__floating-error-icon">
                       {{ getSeverityIcon(error.severity) }}
                     </mat-icon>

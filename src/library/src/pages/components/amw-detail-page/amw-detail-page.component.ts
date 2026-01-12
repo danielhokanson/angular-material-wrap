@@ -1,4 +1,4 @@
-import { Component, Input, Output, EventEmitter, OnInit, OnDestroy, ViewEncapsulation, ChangeDetectorRef, Inject, Optional, Injectable } from '@angular/core';
+import { Component, input, output, OnInit, OnDestroy, ViewEncapsulation, ChangeDetectorRef, Inject, Optional } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { MatCardModule } from '@angular/material/card';
 import { MatIconModule } from '@angular/material/icon';
@@ -6,8 +6,7 @@ import { MatDividerModule } from '@angular/material/divider';
 import { MatTabsModule } from '@angular/material/tabs';
 import { MatExpansionModule } from '@angular/material/expansion';
 import { MatSnackBarModule, MatSnackBar } from '@angular/material/snack-bar';
-import { Subject, takeUntil, BehaviorSubject, Observable, of } from 'rxjs';
-import { delay } from 'rxjs/operators';
+import { Subject, takeUntil } from 'rxjs';
 
 // Import interfaces
 import {
@@ -47,16 +46,16 @@ import { AmwTooltipDirective } from '../../../directives';
     ]
 })
 export class AmwDetailPageComponent implements OnInit, OnDestroy {
-    @Input() config: DetailPageConfig = { fields: [] };
-    @Input() itemId?: string;
-    @Input() dataSource?: DetailPageDataSource;
-    @Input() realTimeUpdates = false;
+    config = input<DetailPageConfig>({ fields: [] });
+    itemId = input<string | undefined>(undefined);
+    dataSource = input<DetailPageDataSource | undefined>(undefined);
+    realTimeUpdates = input<boolean>(false);
 
-    @Output() editClick = new EventEmitter<any>();
-    @Output() deleteClick = new EventEmitter<any>();
-    @Output() printClick = new EventEmitter<any>();
-    @Output() shareClick = new EventEmitter<any>();
-    @Output() actionClick = new EventEmitter<{ action: string; item: any }>();
+    editClick = output<any>();
+    deleteClick = output<any>();
+    printClick = output<any>();
+    shareClick = output<any>();
+    actionClick = output<{ action: string; item: any }>();
 
     // Current state
     currentConfig: DetailPageConfig = { fields: [] };
@@ -81,7 +80,7 @@ export class AmwDetailPageComponent implements OnInit, OnDestroy {
 
     ngOnInit(): void {
         this.initializeConfig();
-        if (this.itemId) {
+        if (this.itemId()) {
             this.loadData();
         }
     }
@@ -102,24 +101,25 @@ export class AmwDetailPageComponent implements OnInit, OnDestroy {
             customActions: [],
             customClasses: [],
             customStyles: {},
-            ...this.config
+            ...this.config()
         };
     }
 
     private loadData(): void {
-        if (!this.itemId) return;
+        const itemIdValue = this.itemId();
+        if (!itemIdValue) return;
 
         this.loading = true;
         this.error = null;
 
-        const dataSource = this.dataSource || this.injectedDataSource;
-        if (!dataSource) {
+        const dataSourceValue = this.dataSource() || this.injectedDataSource;
+        if (!dataSourceValue) {
             this.error = 'No data source provided';
             this.loading = false;
             return;
         }
 
-        dataSource.getData(this.itemId).pipe(
+        dataSourceValue.getData(itemIdValue).pipe(
             takeUntil(this.destroy$)
         ).subscribe({
             next: (data) => {

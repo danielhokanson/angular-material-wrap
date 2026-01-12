@@ -5,11 +5,11 @@
   &__group {
     height: 100%;
     
-    .mat-mdc-tab-group {
+    .amw-tabs {
       height: 100%;
     }
-    
-    .mat-mdc-tab-body-wrapper {
+
+    .amw-tabs__content {
       height: calc(100% - 48px);
       overflow-y: auto;
     }

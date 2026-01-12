@@ -1,47 +1,47 @@
-<div class="amw-file-input" 
-     [class.amw-file-input--disabled]="disabled"
-     [class.amw-file-input--drag-over]="isDragOver"
-     [class.amw-file-input--error]="!validationResult.valid">
-  
-  @if (label) {
-    <label class="amw-file-input__label">{{ label }}</label>
+<div class="amw-file-input"
+     [class.amw-file-input--disabled]="disabled()"
+     [class.amw-file-input--drag-over]="isDragOver()"
+     [class.amw-file-input--error]="!validationResult().valid">
+
+  @if (label()) {
+    <label class="amw-file-input__label">{{ label() }}</label>
   }
 
   <div class="amw-file-input__drop-zone"
        (click)="openFileDialog()"
-       [class.amw-file-input__drop-zone--disabled]="disabled">
-    
+       [class.amw-file-input__drop-zone--disabled]="disabled()">
+
     <input #fileInput
            type="file"
-           [multiple]="multiple"
-           [accept]="accept"
-           [disabled]="disabled"
+           [multiple]="multiple()"
+           [accept]="accept()"
+           [disabled]="disabled()"
            (change)="onFileInputChange($event)"
            class="amw-file-input__input">
-    
-    @if (isDragOver) {
+
+    @if (isDragOver()) {
       <div class="amw-file-input__drop-overlay">
         <mat-icon class="amw-file-input__drop-icon">cloud_upload</mat-icon>
-        <p class="amw-file-input__drop-text">{{ dropText }}</p>
+        <p class="amw-file-input__drop-text">{{ dropText() }}</p>
       </div>
     } @else {
       <div class="amw-file-input__content">
         <mat-icon class="amw-file-input__icon">cloud_upload</mat-icon>
-        <p class="amw-file-input__placeholder">{{ placeholderText }}</p>
+        <p class="amw-file-input__placeholder">{{ placeholderText() }}</p>
         <amw-button
                 variant="elevated"
                 type="button"
-                [disabled]="disabled"
+                [disabled]="disabled()"
                 class="amw-file-input__button">
-          {{ buttonText }}
+          {{ buttonText() }}
         </amw-button>
       </div>
     }
   </div>
 
-  @if (showFileList && selectedFiles.length > 0) {
+  @if (showFileList() && selectedFiles().length > 0) {
     <div class="amw-file-input__file-list">
-      @for (file of selectedFiles; track file.name) {
+      @for (file of selectedFiles(); track file.name) {
         <mat-card class="amw-file-input__file-item">
           <mat-card-content class="amw-file-input__file-content">
             <mat-icon class="amw-file-input__file-icon">{{ getFileIcon(file) }}</mat-icon>
@@ -59,8 +59,8 @@
           </mat-card-content>
         </mat-card>
       }
-      
-      @if (selectedFiles.length > 0) {
+
+      @if (selectedFiles().length > 0) {
         <amw-button
                 variant="text"
                 type="button"
@@ -72,17 +72,17 @@
     </div>
   }
 
-  @if (validationResult.errors.length > 0) {
+  @if (validationResult().errors.length > 0) {
     <div class="amw-file-input__errors">
-      @for (error of validationResult.errors; track error) {
+      @for (error of validationResult().errors; track error) {
         <div class="amw-file-input__error">{{ error }}</div>
       }
     </div>
   }
 
-  @if (errorMessage || hasValidationError) {
+  @if (errorMessage() || hasValidationError) {
     <div class="amw-file-input__error-message">
-      {{ errorMessage || errorText }}
+      {{ errorMessage() || errorText }}
     </div>
   }
 </div>

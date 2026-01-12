@@ -27,7 +27,7 @@
         .pipe-tabs {
           margin-top: 16px;
 
-          ::ng-deep .mat-mdc-tab-body-wrapper {
+          .amw-tabs__body-wrapper {
             padding: 24px 0;
           }
         }
@@ -59,7 +59,9 @@
     margin: 8px 0;
   }
 
-  mat-form-field {
+  amw-input,
+  amw-select,
+  amw-textarea {
     width: 100%;
     margin-bottom: 16px;
   }

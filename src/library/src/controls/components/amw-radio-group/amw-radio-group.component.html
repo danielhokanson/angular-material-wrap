@@ -1,32 +1,32 @@
-<div [class]="radioGroupClasses">
+<div [class]="radioGroupClasses()">
   <!-- Label -->
-  @if (label) {
+  @if (label()) {
     <label class="amw-radio-group__label">
-      {{ label }}
-      @if (required) {
+      {{ label() }}
+      @if (required()) {
         <span class="amw-radio-group__required-indicator">*</span>
       }
     </label>
   }
 
   <!-- Radio Group Container -->
-  <div class="amw-radio-group__container" [class]="'amw-radio-group__container--' + orientation">
+  <div class="amw-radio-group__container" [class]="'amw-radio-group__container--' + orientation()">
     <mat-radio-group
-      [name]="name || 'amw-radio-group-' + componentId"
-      [value]="internalValue"
-      [disabled]="disabled"
-      [required]="required"
+      [name]="name() || 'amw-radio-group-' + componentId"
+      [value]="internalValue()"
+      [disabled]="disabled()"
+      [required]="required()"
       (change)="onRadioChange($event.value)"
-      (focus)="onFocus()"
-      (blur)="onBlur()"
+      (focus)="handleFocus()"
+      (blur)="handleBlur()"
       class="amw-radio-group__mat-radio-group">
 
       <!-- Radio Button Options -->
-      @for (option of options; track trackByValue($index, option)) {
+      @for (option of options(); track trackByValue($index, option)) {
         <mat-radio-button
           [value]="option.value"
           [disabled]="option.disabled"
-          [color]="color"
+          [color]="getMaterialColor()"
           [class]="getRadioButtonClasses(option)"
           class="amw-radio-group__radio-button">
           <!-- Option Content -->
@@ -55,9 +55,9 @@
   </div>
 
   <!-- Hint Text -->
-  @if (hint) {
+  @if (hint()) {
     <div class="amw-radio-group__hint">
-      {{ hint }}
+      {{ hint() }}
     </div>
   }
 </div>

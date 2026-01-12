@@ -1,4 +1,4 @@
-import { Component, Input, Output, EventEmitter, OnInit, OnDestroy, ViewEncapsulation } from '@angular/core';
+import { Component, input, output, signal, computed, OnInit, OnDestroy, ViewEncapsulation } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormGroup } from '@angular/forms';
 import { Subject } from 'rxjs';
@@ -65,7 +65,7 @@ export class AmwFormValidationComponent implements OnInit, OnDestroy {
    *
    * @required
    */
-  @Input() form!: FormGroup;
+  form = input.required<FormGroup>();
 
   /**
    * Error configuration mapping error keys to error definitions
@@ -76,7 +76,7 @@ export class AmwFormValidationComponent implements OnInit, OnDestroy {
    *
    * @default {}
    */
-  @Input() errors: FormValidationConfig = {};
+  errors = input<FormValidationConfig>({});
 
   /**
    * How to display validation errors
@@ -89,7 +89,7 @@ export class AmwFormValidationComponent implements OnInit, OnDestroy {
    *
    * @default 'summary'
    */
-  @Input() displayMode: FormValidationDisplayMode = 'summary';
+  displayMode = input<FormValidationDisplayMode>('summary');
 
   /**
    * Where to position the error display
@@ -101,7 +101,7 @@ export class AmwFormValidationComponent implements OnInit, OnDestroy {
    *
    * @default 'bottom'
    */
-  @Input() position: 'top' | 'bottom' | 'inline' = 'bottom';
+  position = input<'top' | 'bottom' | 'inline'>('bottom');
 
   /**
    * When to show validation errors
@@ -113,7 +113,7 @@ export class AmwFormValidationComponent implements OnInit, OnDestroy {
    *
    * @default 'touched'
    */
-  @Input() showWhen: 'touched' | 'dirty' | 'always' = 'touched';
+  showWhen = input<'touched' | 'dirty' | 'always'>('touched');
 
   /**
    * Visual appearance of error summary
@@ -125,7 +125,7 @@ export class AmwFormValidationComponent implements OnInit, OnDestroy {
    *
    * @default 'standard'
    */
-  @Input() appearance: 'standard' | 'elevated' | 'flat' = 'standard';
+  appearance = input<'standard' | 'elevated' | 'flat'>('standard');
 
   /**
    * Maximum number of errors to display
@@ -134,14 +134,14 @@ export class AmwFormValidationComponent implements OnInit, OnDestroy {
    * Limits the number of visible errors. Useful for forms with many validation rules.
    * If not specified, all errors will be shown.
    */
-  @Input() maxErrors?: number;
+  maxErrors = input<number | undefined>(undefined);
 
   /**
    * Whether the error summary can be collapsed
    *
    * @default false
    */
-  @Input() collapsible = false;
+  collapsible = input<boolean>(false);
 
   /**
    * Initial collapsed state of error summary
@@ -151,21 +151,21 @@ export class AmwFormValidationComponent implements OnInit, OnDestroy {
    *
    * @default false
    */
-  @Input() collapsed = false;
+  collapsed = signal<boolean>(false);
 
   /**
    * Whether to show severity icons next to errors
    *
    * @default true
    */
-  @Input() showSeverityIcon = true;
+  showSeverityIcon = input<boolean>(true);
 
   /**
    * Additional CSS class for custom styling
    *
    * @default ''
    */
-  @Input() customClass = '';
+  customClass = input<string>('');
 
   /**
    * ARIA live region politeness setting
@@ -176,14 +176,14 @@ export class AmwFormValidationComponent implements OnInit, OnDestroy {
    *
    * @default 'polite'
    */
-  @Input() ariaLive: 'polite' | 'assertive' = 'polite';
+  ariaLive = input<'polite' | 'assertive'>('polite');
 
   /**
    * ARIA label for the error container
    *
    * @default 'Form validation errors'
    */
-  @Input() ariaLabel = 'Form validation errors';
+  ariaLabel = input<string>('Form validation errors');
 
   /**
    * Emits when visible errors change
@@ -191,7 +191,7 @@ export class AmwFormValidationComponent implements OnInit, OnDestroy {
    * @description
    * Emits the current array of visible errors whenever they change.
    */
-  @Output() errorChange = new EventEmitter<FormValidationError[]>();
+  errorChange = output<FormValidationError[]>();
 
   /**
    * Emits when an error is clicked
@@ -200,12 +200,12 @@ export class AmwFormValidationComponent implements OnInit, OnDestroy {
    * Emits the clicked error object. Can be used to implement custom
    * navigation or handling logic.
    */
-  @Output() errorClick = new EventEmitter<FormValidationError>();
+  errorClick = output<FormValidationError>();
 
   /**
    * Currently visible errors
    */
-  visibleErrors: FormValidationError[] = [];
+  visibleErrors = signal<FormValidationError[]>([]);
 
   /**
    * Subject for cleaning up subscriptions
@@ -216,18 +216,19 @@ export class AmwFormValidationComponent implements OnInit, OnDestroy {
    * Initializes the component and sets up form subscriptions
    */
   ngOnInit(): void {
-    if (!this.form) {
+    const formValue = this.form();
+    if (!formValue) {
       console.error('AmwFormValidationComponent: form input is required');
       return;
     }
 
     // Subscribe to form status changes
-    this.form.statusChanges
+    formValue.statusChanges
       .pipe(takeUntil(this.destroy$))
       .subscribe(() => this.updateVisibleErrors());
 
     // Subscribe to form value changes
-    this.form.valueChanges
+    formValue.valueChanges
       .pipe(takeUntil(this.destroy$))
       .subscribe(() => this.updateVisibleErrors());
 
@@ -249,29 +250,31 @@ export class AmwFormValidationComponent implements OnInit, OnDestroy {
    * @private
    */
   private updateVisibleErrors(): void {
-    const errors: FormValidationError[] = [];
+    const errorsArray: FormValidationError[] = [];
+    const formValue = this.form();
+    const errorsConfig = this.errors();
 
     // Check if we should show errors based on form state
     if (!this.shouldShowErrors()) {
-      this.visibleErrors = [];
+      this.visibleErrors.set([]);
       this.errorChange.emit([]);
       return;
     }
 
     // Evaluate each configured error
-    Object.keys(this.errors).forEach(errorKey => {
-      const errorConfig = this.errors[errorKey];
+    Object.keys(errorsConfig).forEach(errorKey => {
+      const errorConfig = errorsConfig[errorKey];
 
       // Check if form has this error
-      const hasError = this.form.hasError(errorKey);
+      const hasError = formValue.hasError(errorKey);
 
       // Check custom showWhen condition
       const shouldShow = errorConfig.showWhen
-        ? errorConfig.showWhen(this.form)
+        ? errorConfig.showWhen(formValue)
         : hasError;
 
       if (shouldShow && hasError) {
-        errors.push({
+        errorsArray.push({
           ...errorConfig,
           key: errorKey
         });
@@ -279,11 +282,13 @@ export class AmwFormValidationComponent implements OnInit, OnDestroy {
     });
 
     // Limit number of errors if specified
-    this.visibleErrors = this.maxErrors
-      ? errors.slice(0, this.maxErrors)
-      : errors;
+    const maxErrorsValue = this.maxErrors();
+    const newVisibleErrors = maxErrorsValue
+      ? errorsArray.slice(0, maxErrorsValue)
+      : errorsArray;
 
-    this.errorChange.emit(this.visibleErrors);
+    this.visibleErrors.set(newVisibleErrors);
+    this.errorChange.emit(newVisibleErrors);
   }
 
   /**
@@ -293,13 +298,14 @@ export class AmwFormValidationComponent implements OnInit, OnDestroy {
    * @returns True if errors should be shown
    */
   private shouldShowErrors(): boolean {
-    switch (this.showWhen) {
+    const formValue = this.form();
+    switch (this.showWhen()) {
       case 'always':
         return true;
       case 'dirty':
-        return this.form.dirty;
+        return formValue.dirty;
       case 'touched':
-        return this.form.touched;
+        return formValue.touched;
       default:
         return false;
     }
@@ -313,7 +319,7 @@ export class AmwFormValidationComponent implements OnInit, OnDestroy {
    */
   getErrorMessage(error: FormValidationError): string {
     return typeof error.message === 'function'
-      ? error.message(this.form)
+      ? error.message(this.form())
       : error.message;
   }
 
@@ -380,7 +386,7 @@ export class AmwFormValidationComponent implements OnInit, OnDestroy {
    * Toggles the collapsed state of the error summary
    */
   toggleCollapse(): void {
-    this.collapsed = !this.collapsed;
+    this.collapsed.set(!this.collapsed());
   }
 
   /**
@@ -388,25 +394,19 @@ export class AmwFormValidationComponent implements OnInit, OnDestroy {
    *
    * @returns True if summary mode is active
    */
-  get showSummary(): boolean {
-    return this.displayMode === 'summary' || this.displayMode === 'all';
-  }
+  showSummary = computed(() => this.displayMode() === 'summary' || this.displayMode() === 'all');
 
   /**
    * Checks if inline mode should be displayed
    *
    * @returns True if inline mode is active
    */
-  get showInline(): boolean {
-    return this.displayMode === 'inline' || this.displayMode === 'all';
-  }
+  showInline = computed(() => this.displayMode() === 'inline' || this.displayMode() === 'all');
 
   /**
    * Checks if floating mode should be displayed
    *
    * @returns True if floating mode is active
    */
-  get showFloating(): boolean {
-    return this.displayMode === 'floating' || this.displayMode === 'all';
-  }
+  showFloating = computed(() => this.displayMode() === 'floating' || this.displayMode() === 'all');
 }

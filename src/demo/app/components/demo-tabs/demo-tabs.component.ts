@@ -1,4 +1,4 @@
-import { Component, Input, Output, EventEmitter, ViewEncapsulation } from '@angular/core';
+import { Component, input, output, model, ViewEncapsulation } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { DemoTab } from './interfaces/demo-tab.interface';
 import { AmwTabsComponent, AmwTabComponent, AmwIconComponent } from '../../../../library/src/components/components';
@@ -20,12 +20,12 @@ export type { DemoTab } from './interfaces/demo-tab.interface';
     styleUrl: './demo-tabs.component.scss'
 })
 export class DemoTabsComponent {
-    @Input() tabs: DemoTab[] = [];
-    @Input() selectedTabIndex = 0;
-    @Output() tabChange = new EventEmitter<number>();
+    tabs = input<DemoTab[]>([]);
+    selectedTabIndex = model<number>(0);
+    tabChange = output<number>();
 
     onTabChange(index: number): void {
-        this.selectedTabIndex = index;
+        this.selectedTabIndex.set(index);
         this.tabChange.emit(index);
     }
 }

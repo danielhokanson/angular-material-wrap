@@ -1,4 +1,4 @@
-import { Component, Input, Output, EventEmitter, OnInit, OnDestroy, ViewEncapsulation, ChangeDetectorRef, Inject, Optional, Injectable } from '@angular/core';
+import { Component, input, output, OnInit, OnDestroy, ViewEncapsulation, ChangeDetectorRef, Inject, Optional } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule, ReactiveFormsModule, FormBuilder, FormGroup } from '@angular/forms';
 import { MatCardModule } from '@angular/material/card';
@@ -58,13 +58,23 @@ import { AmwButtonComponent } from '../../../controls/components/amw-button/amw-
     ]
 })
 export class AmwSearchPageComponent implements OnInit, OnDestroy {
-    @Input() config: SearchPageConfig = { searchFields: [] };
-    @Input() dataSource?: SearchPageDataSource;
-    @Input() realTimeUpdates = false;
+    /** Configuration for the search page */
+    config = input<SearchPageConfig>({ searchFields: [] });
 
-    @Output() search = new EventEmitter<{ query: string; filters: { [key: string]: any } }>();
-    @Output() resultClick = new EventEmitter<any>();
-    @Output() filterChange = new EventEmitter<{ filters: { [key: string]: any } }>();
+    /** Data source for search operations */
+    dataSource = input<SearchPageDataSource | undefined>(undefined);
+
+    /** Whether to enable real-time updates */
+    realTimeUpdates = input<boolean>(false);
+
+    /** Emits when a search is performed */
+    search = output<{ query: string; filters: { [key: string]: any } }>();
+
+    /** Emits when a result is clicked */
+    resultClick = output<any>();
+
+    /** Emits when filters change */
+    filterChange = output<{ filters: { [key: string]: any } }>();
 
     // Current state
     currentConfig: SearchPageConfig = { searchFields: [] };
@@ -129,7 +139,7 @@ export class AmwSearchPageComponent implements OnInit, OnDestroy {
             customActions: [],
             customClasses: [],
             customStyles: {},
-            ...this.config
+            ...this.config()
         };
     }
 
@@ -138,7 +148,7 @@ export class AmwSearchPageComponent implements OnInit, OnDestroy {
         this.loading = true;
         this.error = null;
 
-        const dataSource = this.dataSource || this.injectedDataSource;
+        const dataSource = this.dataSource() || this.injectedDataSource;
         if (!dataSource) {
             this.error = 'No data source provided';
             this.loading = false;
@@ -157,12 +167,12 @@ export class AmwSearchPageComponent implements OnInit, OnDestroy {
         dataSource.search(params).pipe(
             takeUntil(this.destroy$)
         ).subscribe({
-            next: (data) => {
+            next: (data: SearchData) => {
                 this.currentData = data;
                 this.loading = false;
                 this.cdr.detectChanges();
             },
-            error: (err) => {
+            error: (err: any) => {
                 this.error = err.message || 'Search failed';
                 this.loading = false;
                 this.cdr.detectChanges();

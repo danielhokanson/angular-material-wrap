@@ -1,11 +1,9 @@
-import { Component, Input, Output, EventEmitter, ViewEncapsulation, forwardRef } from '@angular/core';
+import { Component, input, model, ViewEncapsulation } from '@angular/core';
 
 import { FormsModule, ReactiveFormsModule, ControlValueAccessor, NG_VALUE_ACCESSOR } from '@angular/forms';
 import { MatRadioModule } from '@angular/material/radio';
 import { MatRippleModule } from '@angular/material/core';
 import { BaseComponent } from '../base/base.component';
-import { AmwColor } from '../../../shared/types/amw-color.type';
-import { AmwSize } from '../../../shared/types/amw-size.type';
 
 @Component({
     selector: 'amw-radio',
@@ -22,110 +20,69 @@ import { AmwSize } from '../../../shared/types/amw-size.type';
         }
     ]
 })
-export class AmwRadioComponent extends BaseComponent implements ControlValueAccessor {
-    @Input() color: AmwColor = 'primary';
-    @Input() size: AmwSize = 'medium';
-    @Input() override label: string = '';
-    @Input() labelPosition: 'before' | 'after' = 'after';
-    @Input() override disabled: boolean = false;
-    @Input() override required: boolean = false;
-    @Input() checked: boolean = false;
-    @Input() name: string = '';
-    @Input() radioValue: any;
-    @Input() tabIndex?: number;
-    @Input() ariaLabel?: string;
-    @Input() ariaLabelledby?: string;
-    @Input() ariaDescribedby?: string;
-    @Input() ariaRequired?: boolean;
-    @Input() ariaInvalid?: boolean;
-    @Input() override errorMessage: string = '';
-    @Input() override hasError: boolean = false;
-    @Input() disableRipple: boolean = false;
-    @Input() animationDuration: string = '225ms';
-    @Input() animationTimingFunction: string = 'cubic-bezier(0.4, 0.0, 0.2, 1)';
+export class AmwRadioComponent extends BaseComponent<any> implements ControlValueAccessor {
+    // Radio-specific properties (inherited from BaseComponent: disabled, required, label, placeholder,
+    // errorMessage, hasError, name, id, tabIndex, size, color, ariaLabel, ariaLabelledby, ariaDescribedby,
+    // ariaRequired, ariaInvalid, hint, readonly, value, change, focus, blur)
 
-    // Events
-    @Output() change = new EventEmitter<{ checked: boolean; value: any }>();
-    @Output() override focus = new EventEmitter<FocusEvent>();
-    @Output() override blur = new EventEmitter<FocusEvent>();
-
-    // ControlValueAccessor implementation
-    override _value: any = null;
-    override _onChange = (value: any) => { };
-    override _onTouched = () => { };
-
-    override get value(): any {
-        return this._value;
-    }
-
-    override set value(val: any) {
-        this._value = val;
-        this._onChange(val);
-    }
+    labelPosition = input<'before' | 'after'>('after');
+    checked = model<boolean>(false);
+    radioValue = input<any>(undefined);
+    disableRipple = input<boolean>(false);
+    animationDuration = input<string>('225ms');
+    animationTimingFunction = input<string>('cubic-bezier(0.4, 0.0, 0.2, 1)');
 
     override writeValue(value: any): void {
-        this._value = value;
-        this.checked = this._value === this.value;
-    }
-
-    override registerOnChange(fn: (value: any) => void): void {
-        this._onChange = fn;
-    }
-
-    override registerOnTouched(fn: () => void): void {
-        this._onTouched = fn;
+        this.value.set(value);
+        this.checked.set(value === this.radioValue());
     }
 
     override setDisabledState(isDisabled: boolean): void {
-        this.disabled = isDisabled;
+        // Note: disabled is a signal input from BaseComponent, cannot be set directly
     }
 
     onRadioChange(event: any): void {
-        this.checked = event.checked;
-        this.value = this.checked ? this.value : null;
+        this.checked.set(event.checked);
+        const newValue = this.checked() ? this.radioValue() : null;
+        this.value.set(newValue);
 
         this.change.emit({
-            checked: this.checked,
-            value: this.value
+            checked: this.checked(),
+            value: newValue
         });
 
-        this._onChange(this.value);
+        this._onChange(newValue);
         this._onTouched();
     }
 
     override onFocus(event: FocusEvent): void {
-        this.focus.emit(event);
+        super.onFocus(event);
     }
 
     override onBlur(event: FocusEvent): void {
-        this.blur.emit(event);
-        this._onTouched();
-    }
-
-    getMaterialColor(): 'primary' | 'accent' | 'warn' {
-        return this.color === 'basic' ? 'primary' : this.color as 'primary' | 'accent' | 'warn';
+        super.onBlur(event);
     }
 
     getRadioClasses(): string {
         const classes = ['amw-radio'];
 
-        if (this.size) {
-            classes.push(`amw-radio--${this.size}`);
+        if (this.size()) {
+            classes.push(`amw-radio--${this.size()}`);
         }
 
-        if (this.color) {
-            classes.push(`amw-radio--${this.color}`);
+        if (this.color()) {
+            classes.push(`amw-radio--${this.color()}`);
         }
 
-        if (this.disabled) {
+        if (this.disabled()) {
             classes.push('amw-radio--disabled');
         }
 
-        if (this.hasError) {
+        if (this.hasError()) {
             classes.push('amw-radio--error');
         }
 
-        if (this.labelPosition === 'before') {
+        if (this.labelPosition() === 'before') {
             classes.push('amw-radio--label-before');
         }
 

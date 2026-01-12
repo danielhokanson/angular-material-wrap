@@ -1,4 +1,4 @@
-import { Component, Input, Output, EventEmitter, OnInit, OnChanges, OnDestroy, ChangeDetectorRef, SimpleChanges, ViewEncapsulation } from '@angular/core';
+import { Component, input, output, OnInit, OnDestroy, ChangeDetectorRef, ViewEncapsulation, effect } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { MatIconModule } from '@angular/material/icon';
@@ -7,9 +7,7 @@ import { MatCardModule } from '@angular/material/card';
 import { MatChipsModule } from '@angular/material/chips';
 import { MatDialogModule, MatDialog } from '@angular/material/dialog';
 import { AmwCalendarBaseComponent } from './amw-calendar-base.component';
-import { CalendarEvent, CalendarEventChangeEvent, CalendarConfig, CalendarView, CalendarNavigationEvent } from './interfaces';
-import { CalendarItem, CalendarItemChangeEvent } from './interfaces/calendar-item.interface';
-import { CalendarItemConfig } from './interfaces/calendar-item-config.interface';
+import { CalendarEvent, CalendarView } from './interfaces';
 import { CalendarItemRegistryService } from './services/calendar-item-registry.service';
 import { CalendarItemPopoverService } from './services/calendar-item-popover.service';
 import { AmwProgressSpinnerComponent } from '../amw-progress-spinner/amw-progress-spinner.component';
@@ -37,19 +35,20 @@ import { AmwTooltipDirective } from '../../../directives';
 ],
     templateUrl: './amw-calendar-full.component.html',
     styleUrl: './amw-calendar-full.component.scss',
-    encapsulation: ViewEncapsulation.None
+    encapsulation: ViewEncapsulation.None,
+    host: { 'data-amw-id': 'amw-calendar-full' }
 })
-export class AmwCalendarFullComponent<T = any> extends AmwCalendarBaseComponent<T> implements OnInit, OnChanges, OnDestroy {
+export class AmwCalendarFullComponent<T = any> extends AmwCalendarBaseComponent<T> implements OnInit, OnDestroy {
     // Additional input properties for full calendar
-    @Input() showNavigation: boolean = true;
-    @Input() showViewSwitcher: boolean = true;
-    @Input() showTodayButton: boolean = true;
-    @Input() showCreateButton: boolean = true;
-    @Input() height: string = '600px';
+    showNavigation = input<boolean>(true);
+    showViewSwitcher = input<boolean>(true);
+    showTodayButton = input<boolean>(true);
+    showCreateButton = input<boolean>(true);
+    height = input<string>('600px');
 
     // Additional output events
-    @Output() cellClick = new EventEmitter<{ date: Date; time?: Date }>();
-    @Output() cellDoubleClick = new EventEmitter<{ date: Date; time?: Date }>();
+    cellClick = output<{ date: Date; time?: Date }>();
+    cellDoubleClick = output<{ date: Date; time?: Date }>();
 
     // View-specific properties
     monthDays: Date[] = [];
@@ -68,19 +67,19 @@ export class AmwCalendarFullComponent<T = any> extends AmwCalendarBaseComponent<
         dialog: MatDialog
     ) {
         super(cdr, itemRegistry, popoverService, dialog);
+
+        // Effect to handle view changes
+        effect(() => {
+            // Read signals to trigger effect when they change
+            this.view();
+            this.currentDate();
+            this.generateCalendarData();
+        });
     }
 
     override ngOnInit(): void {
         super.ngOnInit();
         this.generateCalendarData();
-    }
-
-    override ngOnChanges(changes: SimpleChanges): void {
-        super.ngOnChanges(changes);
-
-        if (changes['selectedDate'] || changes['currentView']) {
-            this.generateCalendarData();
-        }
     }
 
     /**

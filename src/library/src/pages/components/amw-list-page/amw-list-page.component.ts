@@ -1,4 +1,4 @@
-import { Component, Input, Output, EventEmitter, OnInit, OnDestroy, ViewEncapsulation, ChangeDetectorRef, Inject, Optional, Injectable } from '@angular/core';
+import { Component, input, output, OnInit, OnDestroy, ViewEncapsulation, ChangeDetectorRef, Inject, Optional } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule, ReactiveFormsModule, FormBuilder, FormGroup } from '@angular/forms';
 import { MatTableModule } from '@angular/material/table';
@@ -10,8 +10,7 @@ import { MatDividerModule } from '@angular/material/divider';
 import { MatTabsModule } from '@angular/material/tabs';
 import { MatExpansionModule } from '@angular/material/expansion';
 import { MatSnackBarModule, MatSnackBar } from '@angular/material/snack-bar';
-import { Subject, takeUntil, BehaviorSubject, Observable, of } from 'rxjs';
-import { delay } from 'rxjs/operators';
+import { Subject, takeUntil } from 'rxjs';
 import { InjectionToken } from '@angular/core';
 
 // Injection tokens
@@ -65,18 +64,18 @@ import { AmwSelectComponent } from '../../../controls/components/amw-select/amw-
     ]
 })
 export class AmwListPageComponent implements OnInit, OnDestroy {
-    @Input() config: ListPageConfig = { columns: [] };
-    @Input() dataSource?: ListPageDataSource;
-    @Input() realTimeUpdates = false;
-    @Input() autoRefresh = false;
-    @Input() refreshInterval = 30000; // 30 seconds
+    config = input<ListPageConfig>({ columns: [] });
+    dataSource = input<ListPageDataSource | undefined>(undefined);
+    realTimeUpdates = input<boolean>(false);
+    autoRefresh = input<boolean>(false);
+    refreshInterval = input<number>(30000); // 30 seconds
 
-    @Output() itemSelect = new EventEmitter<{ item: any; selected: boolean }>();
-    @Output() actionClick = new EventEmitter<{ action: string; item: any }>();
-    @Output() bulkActionClick = new EventEmitter<{ action: string; items: any[] }>();
-    @Output() filterChange = new EventEmitter<{ filters: { [key: string]: any }; searchQuery: string }>();
-    @Output() sortChange = new EventEmitter<{ field: string; direction: 'asc' | 'desc' }>();
-    @Output() pageChange = new EventEmitter<{ pageIndex: number; pageSize: number }>();
+    itemSelect = output<{ item: any; selected: boolean }>();
+    actionClick = output<{ action: string; item: any }>();
+    bulkActionClick = output<{ action: string; items: any[] }>();
+    filterChange = output<{ filters: { [key: string]: any }; searchQuery: string }>();
+    sortChange = output<{ field: string; direction: 'asc' | 'desc' }>();
+    pageChange = output<{ pageIndex: number; pageSize: number }>();
 
     // Current state
     currentConfig: ListPageConfig = { columns: [] };
@@ -131,7 +130,7 @@ export class AmwListPageComponent implements OnInit, OnDestroy {
             customActions: [],
             customClasses: [],
             customStyles: {},
-            ...this.config
+            ...this.config()
         };
     }
 
@@ -139,8 +138,8 @@ export class AmwListPageComponent implements OnInit, OnDestroy {
         this.loading = true;
         this.error = null;
 
-        const dataSource = this.dataSource || this.injectedDataSource;
-        if (!dataSource) {
+        const dataSourceValue = this.dataSource() || this.injectedDataSource;
+        if (!dataSourceValue) {
             this.error = 'No data source provided';
             this.loading = false;
             return;
@@ -155,7 +154,7 @@ export class AmwListPageComponent implements OnInit, OnDestroy {
             searchQuery: this.searchQuery
         };
 
-        dataSource.getData(params).pipe(
+        dataSourceValue.getData(params).pipe(
             takeUntil(this.destroy$)
         ).subscribe({
             next: (data) => {
