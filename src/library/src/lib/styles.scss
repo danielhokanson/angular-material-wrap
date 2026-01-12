@@ -480,13 +480,168 @@ div[class*="amw-dialog"] .amw-dialog__footer {
    CARD COMPONENT STYLES
    ========================================================================== */
 
-/* Add card styles here when needed */
+/* Global AMW Card Styling - applies to all amw-card components */
+amw-card {
+  display: block;
+}
+
+mat-card.amw-card,
+.mat-mdc-card.amw-card {
+  display: flex;
+  flex-direction: column;
+  background: var(--mdc-theme-surface) !important;
+  color: var(--mdc-theme-on-surface) !important;
+  border-radius: var(--mdc-shape-medium, 12px);
+  border: 1px solid var(--mdc-theme-outline-variant);
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1), 0 4px 8px rgba(0, 0, 0, 0.08);
+  overflow: hidden;
+
+  .mat-mdc-card-header,
+  mat-card-header {
+    padding: 16px 16px 8px 16px !important;
+    background: var(--mdc-theme-surface) !important;
+    color: var(--mdc-theme-on-surface) !important;
+  }
+
+  .mat-mdc-card-content,
+  mat-card-content {
+    flex: 1;
+    padding: 16px !important;
+    background: var(--mdc-theme-surface) !important;
+    color: var(--mdc-theme-on-surface) !important;
+  }
+
+  .mat-mdc-card-actions,
+  mat-card-actions {
+    margin-top: auto;
+    padding: 8px 16px 16px 16px !important;
+    background: var(--mdc-theme-surface) !important;
+  }
+}
+
+/* ==========================================================================
+   TABS COMPONENT STYLES
+   ========================================================================== */
+
+/* Global AMW Tabs Styling - applies to all amw-tabs components */
+amw-tabs {
+  display: block;
+}
+
+.amw-tabs {
+  display: flex;
+  flex-direction: column;
+  background: var(--mdc-theme-surface) !important;
+  border-radius: var(--mdc-shape-medium, 12px);
+  border: 1px solid var(--mdc-theme-outline-variant);
+  overflow: hidden;
+}
+
+.amw-tabs__header {
+  display: flex;
+  align-items: center;
+  background: var(--mdc-theme-surface-container) !important;
+  border-bottom: 1px solid var(--mdc-theme-outline-variant);
+  min-height: 48px;
+  padding: 0 8px;
+}
+
+.amw-tabs__list {
+  display: flex;
+  gap: 4px;
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+.amw-tabs__tab {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 12px 16px;
+  border: none;
+  background: transparent;
+  color: var(--mdc-theme-on-surface-variant) !important;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  border-radius: 8px 8px 0 0;
+  font-weight: 500;
+
+  &:hover {
+    background: var(--mdc-theme-surface-container-high) !important;
+    color: var(--mdc-theme-on-surface) !important;
+  }
+
+  &--active {
+    background: var(--mdc-theme-surface) !important;
+    color: var(--mdc-theme-primary) !important;
+    border-bottom: 2px solid var(--mdc-theme-primary);
+  }
+}
+
+.amw-tabs__content {
+  flex: 1;
+  overflow: hidden;
+  background: var(--mdc-theme-surface) !important;
+}
+
+.amw-tabs__panel {
+  display: none;
+  height: 100%;
+  background: var(--mdc-theme-surface) !important;
+
+  &--active {
+    display: block;
+  }
+}
+
+.amw-tabs__panel-body {
+  padding: 16px;
+  height: 100%;
+  overflow: auto;
+  background: var(--mdc-theme-surface) !important;
+  color: var(--mdc-theme-on-surface) !important;
+}
 
 /* ==========================================================================
    BUTTON COMPONENT STYLES
    ========================================================================== */
 
-/* Add button styles here when needed */
+/* Global AMW Button icon alignment fixes */
+.amw-button {
+  .amw-button__icon {
+    display: inline-flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+    font-size: 18px !important;
+    width: 18px !important;
+    height: 18px !important;
+    line-height: 1 !important;
+    vertical-align: middle !important;
+  }
+
+  .amw-button__text {
+    display: inline-flex;
+    align-items: center;
+    vertical-align: middle;
+  }
+
+  button {
+    display: inline-flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+    gap: 8px !important;
+  }
+}
+
+/* Fix mat-icon vertical alignment in buttons */
+button mat-icon,
+.mat-mdc-button mat-icon,
+.mat-mdc-raised-button mat-icon,
+.mdc-button mat-icon {
+  vertical-align: middle !important;
+  margin-top: -2px !important;
+}
 
 /* ==========================================================================
    CONTROL COMPONENT STYLES
@@ -577,6 +732,98 @@ div[class*="amw-dialog"] .amw-dialog__footer {
     --mat-slide-toggle-selected-track-color: var(--mdc-theme-error) !important;
     --mat-slide-toggle-selected-hover-track-color: var(--mdc-theme-error) !important;
     --mat-slide-toggle-selected-focus-track-color: var(--mdc-theme-error) !important;
+  }
+}
+
+/* ==========================================================================
+   DEMO LAYOUT STYLES
+   ========================================================================== */
+
+/* Demo container card header styling */
+.demo-card mat-card-header,
+.demo-card .mat-mdc-card-header,
+mat-card.amw-card mat-card-header h2,
+mat-card.amw-card mat-card-header .subtitle {
+  display: block;
+}
+
+mat-card.amw-card mat-card-header {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+
+  h2 {
+    margin: 0 0 4px 0;
+    font-size: 1.25rem;
+    font-weight: 500;
+    color: var(--mdc-theme-on-surface, #1c1b1f);
+    line-height: 1.4;
+  }
+
+  .subtitle,
+  p.subtitle {
+    margin: 0;
+    font-size: 0.875rem;
+    color: var(--mdc-theme-on-surface-variant, #49454f);
+    line-height: 1.4;
+  }
+}
+
+/* Page header styling */
+.demo-header,
+.page-header {
+  text-align: center;
+  padding: 24px;
+  background: var(--mdc-theme-surface, #ffffff);
+  border-bottom: 1px solid var(--mdc-theme-outline-variant, rgba(0, 0, 0, 0.12));
+
+  h1 {
+    margin: 0 0 8px 0;
+    font-size: 2rem;
+    font-weight: 400;
+    color: var(--mdc-theme-on-surface, #1c1b1f);
+  }
+
+  p {
+    margin: 0;
+    font-size: 1rem;
+    color: var(--mdc-theme-on-surface-variant, #49454f);
+  }
+}
+
+/* Section headers - ensure visibility in both themes */
+h2, h3, h4 {
+  color: var(--mdc-theme-on-surface) !important;
+}
+
+/* Content text - ensure visibility in both themes */
+p {
+  color: var(--mdc-theme-on-surface) !important;
+  line-height: 1.5;
+}
+
+/* Demo content inside tabs and cards */
+.demo-content,
+.amw-tabs__panel-body,
+.mat-mdc-tab-body-content,
+mat-card-content {
+  h3, h4 {
+    color: var(--mdc-theme-on-surface) !important;
+    margin-bottom: 8px;
+  }
+
+  p {
+    color: var(--mdc-theme-on-surface) !important;
+    opacity: 0.87;
+  }
+}
+
+/* Demo sections */
+.demo-section {
+  h4 {
+    color: var(--mdc-theme-on-surface) !important;
+    font-weight: 500;
+    margin-bottom: 12px;
   }
 }
 
