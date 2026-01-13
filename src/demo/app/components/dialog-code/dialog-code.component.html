@@ -13,7 +13,7 @@
         <div class="code-panel">
           <div class="code-header">
             <h4>Code</h4>
-            <amw-button variant="icon" icon="refresh" (click)="resetCode('basic')" title="Reset to original"></amw-button>
+            <amw-button icon="refresh" (click)="resetCode('basic')" title="Reset to original"></amw-button>
           </div>
           <textarea
             [(ngModel)]="editableCode.basic"
@@ -23,7 +23,7 @@
         <div class="preview-panel">
           <h4>Preview</h4>
           <div class="preview-content">
-            <amw-button variant="elevated" (click)="openDialog()">Open Dialog</amw-button>
+            <amw-button appearance="elevated" (click)="openDialog()">Open Dialog</amw-button>
             <div class="preview-note">
               <amw-icon name="info"></amw-icon>
               <span>Click the button to see the dialog in action</span>
@@ -43,7 +43,7 @@
         <div class="code-panel">
           <div class="code-header">
             <h4>Code</h4>
-            <amw-button variant="icon" icon="refresh" (click)="resetCode('confirmation')" title="Reset to original"></amw-button>
+            <amw-button icon="refresh" (click)="resetCode('confirmation')" title="Reset to original"></amw-button>
           </div>
           <textarea
             [(ngModel)]="editableCode.confirmation"
@@ -54,7 +54,7 @@
         <div class="preview-panel">
           <h4>Preview</h4>
           <div class="preview-content">
-            <amw-button variant="elevated" color="warn" (click)="openConfirmDialog()">
+            <amw-button appearance="elevated" color="warn" (click)="openConfirmDialog()">
               Delete Item
             </amw-button>
             <div class="preview-note">
@@ -76,7 +76,7 @@
         <div class="code-panel">
           <div class="code-header">
             <h4>Code</h4>
-            <amw-button variant="icon" icon="refresh" (click)="resetCode('alert')" title="Reset to original"></amw-button>
+            <amw-button icon="refresh" (click)="resetCode('alert')" title="Reset to original"></amw-button>
           </div>
           <textarea
             [(ngModel)]="editableCode.alert"
@@ -87,7 +87,7 @@
         <div class="preview-panel">
           <h4>Preview</h4>
           <div class="preview-content">
-            <amw-button variant="elevated" (click)="openAlertDialog()">
+            <amw-button appearance="elevated" (click)="openAlertDialog()">
               Show Alert
             </amw-button>
             <div class="preview-note">
@@ -109,7 +109,7 @@
         <div class="code-panel">
           <div class="code-header">
             <h4>Code</h4>
-            <amw-button variant="icon" icon="refresh" (click)="resetCode('customActions')" title="Reset to original"></amw-button>
+            <amw-button icon="refresh" (click)="resetCode('customActions')" title="Reset to original"></amw-button>
           </div>
           <textarea
             [(ngModel)]="editableCode.customActions"
@@ -120,7 +120,7 @@
         <div class="preview-panel">
           <h4>Preview</h4>
           <div class="preview-content">
-            <amw-button variant="elevated" color="primary" (click)="openFormDialog()">
+            <amw-button appearance="elevated" color="primary" (click)="openFormDialog()">
               Open Form Dialog
             </amw-button>
             <div class="preview-note">

@@ -25,7 +25,6 @@
           </mat-card-title>
           @if (collapsible()) {
             <amw-button
-              variant="icon"
               [icon]="collapsed() ? 'expand_more' : 'expand_less'"
               class="amw-form-validation__collapse-button"
               (click)="toggleCollapse()"

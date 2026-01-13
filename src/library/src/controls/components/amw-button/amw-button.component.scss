@@ -23,6 +23,7 @@
     font-size: var(--mdc-typography-button-small-font-size, 12px);
     min-height: var(--mdc-button-small-height, 32px);
 
+    &.amw-button--icon-only,
     &.amw-button--icon {
       min-width: var(--mdc-button-small-height, 32px);
       width: var(--mdc-button-small-height, 32px);
@@ -36,6 +37,7 @@
     font-size: var(--mdc-typography-button-font-size, 14px);
     min-height: var(--mdc-button-height, 40px);
 
+    &.amw-button--icon-only,
     &.amw-button--icon {
       min-width: var(--mdc-button-height, 40px);
       width: var(--mdc-button-height, 40px);
@@ -49,6 +51,7 @@
     font-size: var(--mdc-typography-button-large-font-size, 16px);
     min-height: var(--mdc-button-large-height, 48px);
 
+    &.amw-button--icon-only,
     &.amw-button--icon {
       min-width: var(--mdc-button-large-height, 48px);
       width: var(--mdc-button-large-height, 48px);
@@ -98,6 +101,8 @@
     // Flat button without elevation - handled by mat-flat-button
   }
 
+  // Icon-only button styles (inferred when icon is set but no text)
+  &--icon-only,
   &--icon {
     // Icon button - square with icon only - handled by mat-icon-button
     border-radius: var(--mdc-shape-large, 50%);
@@ -129,7 +134,21 @@
     height: var(--mdc-fab-small-container-size, 40px);
     padding: 0;
     box-shadow: var(--mdc-elevation-level3, 0 3px 5px -1px rgba(0,0,0,.2), 0 6px 10px 0 rgba(0,0,0,.14), 0 1px 18px 0 rgba(0,0,0,.12));
-    
+
+    &:hover:not(:disabled) {
+      box-shadow: var(--mdc-elevation-level4, 0 2px 4px -1px rgba(0,0,0,.2), 0 4px 5px 0 rgba(0,0,0,.14), 0 1px 10px 0 rgba(0,0,0,.12));
+    }
+  }
+
+  &--extended-fab {
+    // Extended FAB with text - handled by mat-fab extended
+    border-radius: var(--mdc-extended-fab-container-shape, 16px);
+    min-width: auto;
+    width: auto;
+    height: var(--mdc-extended-fab-container-height, 56px);
+    padding: 0 20px;
+    box-shadow: var(--mdc-elevation-level3, 0 3px 5px -1px rgba(0,0,0,.2), 0 6px 10px 0 rgba(0,0,0,.14), 0 1px 18px 0 rgba(0,0,0,.12));
+
     &:hover:not(:disabled) {
       box-shadow: var(--mdc-elevation-level4, 0 2px 4px -1px rgba(0,0,0,.2), 0 4px 5px 0 rgba(0,0,0,.14), 0 1px 10px 0 rgba(0,0,0,.12));
     }

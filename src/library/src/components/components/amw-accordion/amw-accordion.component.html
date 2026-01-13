@@ -11,7 +11,7 @@
         <h3 class="amw-accordion__header-title">Accordion</h3>
         <div class="amw-accordion__header-actions">
           <amw-button
-            variant="text"
+            appearance="text"
             icon="expand_more"
             iconPosition="left"
             (click)="expandAll()"
@@ -19,7 +19,7 @@
             Expand All
           </amw-button>
           <amw-button
-            variant="text"
+            appearance="text"
             icon="expand_less"
             iconPosition="left"
             (click)="collapseAll()"
@@ -84,8 +84,7 @@
               @if (currentConfig.showPanelActions) {
                 <div class="amw-accordion__panel-actions">
                   <amw-button
-                    variant="icon"
-                    [icon]="isPanelExpanded(i) ? 'expand_less' : 'expand_more'"
+                                        [icon]="isPanelExpanded(i) ? 'expand_less' : 'expand_more'"
                     (click)="togglePanel(i)"
                     [disabled]="isPanelDisabled(i)">
                   </amw-button>

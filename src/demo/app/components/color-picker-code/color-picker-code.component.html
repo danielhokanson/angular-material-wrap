@@ -13,7 +13,7 @@
         <div class="code-panel">
           <div class="code-header">
             <h4>Code</h4>
-            <amw-button variant="icon" icon="refresh" (click)="resetCode('basic')" title="Reset to original"></amw-button>
+            <amw-button icon="refresh" (click)="resetCode('basic')" title="Reset to original"></amw-button>
           </div>
           <textarea
             [(ngModel)]="editableCode.basic"
@@ -43,7 +43,7 @@
         <div class="code-panel">
           <div class="code-header">
             <h4>Code</h4>
-            <amw-button variant="icon" icon="refresh" (click)="resetCode('mode')" title="Reset to original"></amw-button>
+            <amw-button icon="refresh" (click)="resetCode('mode')" title="Reset to original"></amw-button>
           </div>
           <textarea
             [(ngModel)]="editableCode.mode"
@@ -74,7 +74,7 @@
         <div class="code-panel">
           <div class="code-header">
             <h4>Code</h4>
-            <amw-button variant="icon" icon="refresh" (click)="resetCode('validation')" title="Reset to original"></amw-button>
+            <amw-button icon="refresh" (click)="resetCode('validation')" title="Reset to original"></amw-button>
           </div>
           <textarea
             [(ngModel)]="editableCode.validation"
@@ -109,7 +109,7 @@
         <div class="code-panel">
           <div class="code-header">
             <h4>Code</h4>
-            <amw-button variant="icon" icon="refresh" (click)="resetCode('configuration')" title="Reset to original"></amw-button>
+            <amw-button icon="refresh" (click)="resetCode('configuration')" title="Reset to original"></amw-button>
           </div>
           <textarea
             [(ngModel)]="editableCode.configuration"
@@ -127,7 +127,7 @@
               (colorChange)="onColorChange($event)">
             </amw-color-picker>
             <p>Selected color: {{ advancedColor }}</p>
-            <amw-button variant="text" (click)="isDisabled = !isDisabled">
+            <amw-button appearance="text" (click)="isDisabled = !isDisabled">
               {{ isDisabled ? 'Enable' : 'Disable' }} Picker
             </amw-button>
           </div>

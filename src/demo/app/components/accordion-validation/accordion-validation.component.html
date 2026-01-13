@@ -48,7 +48,7 @@
         }
 
         <div class="button-row">
-          <amw-button variant="elevated" color="primary" (click)="nextStep()" [disabled]="!personalInfoForm.valid">
+          <amw-button appearance="elevated" color="primary" (click)="nextStep()" [disabled]="!personalInfoForm.valid">
             Next <amw-icon name="arrow_forward"></amw-icon>
           </amw-button>
         </div>
@@ -108,8 +108,8 @@
         }
 
         <div class="button-row">
-          <amw-button variant="text" (click)="prevStep()" icon="arrow_back" iconPosition="left">Previous</amw-button>
-          <amw-button variant="elevated" color="primary" (click)="nextStep()" [disabled]="!contactForm.valid">
+          <amw-button appearance="text" (click)="prevStep()" icon="arrow_back" iconPosition="left">Previous</amw-button>
+          <amw-button appearance="elevated" color="primary" (click)="nextStep()" [disabled]="!contactForm.valid">
             Next <amw-icon name="arrow_forward"></amw-icon>
           </amw-button>
         </div>
@@ -138,8 +138,8 @@
         </div>
 
         <div class="button-row">
-          <amw-button variant="text" (click)="prevStep()" icon="arrow_back" iconPosition="left">Previous</amw-button>
-          <amw-button variant="elevated" 
+          <amw-button appearance="text" (click)="prevStep()" icon="arrow_back" iconPosition="left">Previous</amw-button>
+          <amw-button appearance="elevated" 
             color="primary" 
             (click)="onSubmit()" 
             [disabled]="!personalInfoForm.valid || !contactForm.valid || !preferencesForm.valid">

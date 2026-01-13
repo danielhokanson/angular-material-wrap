@@ -9,15 +9,15 @@
     </ng-template>
     <ng-template #cardContent>
       <div class="controls-grid">
-        <amw-button variant="elevated" color="primary" (click)="addSampleRecord()" icon="add" iconPosition="left">Add Record</amw-button>
+        <amw-button appearance="elevated" color="primary" (click)="addSampleRecord()" icon="add" iconPosition="left">Add Record</amw-button>
 
-        <amw-button variant="elevated" color="accent" (click)="refreshData()" icon="refresh" iconPosition="left">Refresh Data</amw-button>
+        <amw-button appearance="elevated" color="accent" (click)="refreshData()" icon="refresh" iconPosition="left">Refresh Data</amw-button>
 
-        <amw-button variant="elevated" (click)="toggleLoading()" icon="hourglass_empty" iconPosition="left">Toggle Loading</amw-button>
+        <amw-button appearance="elevated" (click)="toggleLoading()" icon="hourglass_empty" iconPosition="left">Toggle Loading</amw-button>
 
-        <amw-button variant="elevated" (click)="exportData()" icon="download" iconPosition="left">Export Data</amw-button>
+        <amw-button appearance="elevated" (click)="exportData()" icon="download" iconPosition="left">Export Data</amw-button>
 
-        <amw-button variant="elevated" (click)="clearSelection()" [disabled]="selectedRows.length === 0" icon="clear" iconPosition="left">Clear Selection</amw-button>
+        <amw-button appearance="elevated" (click)="clearSelection()" [disabled]="selectedRows.length === 0" icon="clear" iconPosition="left">Clear Selection</amw-button>
       </div>
       </ng-template>
 </amw-card>

@@ -190,7 +190,7 @@ onOptionSelected(event: any): void {
     appearance="outline">
   </amw-autocomplete>
 
-  <amw-button variant="elevated" color="primary" type="submit">
+  <amw-button appearance="elevated" color="primary" type="submit">
     Search
   </amw-button>
 </form>`

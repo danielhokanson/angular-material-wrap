@@ -11,26 +11,25 @@
 
       <div class="amw-report-page__header-actions">
         @if (currentConfig.showRefresh) {
-        <amw-button variant="icon" icon="refresh" (click)="onRefresh()" [amwTooltip]="'Refresh'">
+        <amw-button icon="refresh" (click)="onRefresh()" [amwTooltip]="'Refresh'">
         </amw-button>
         }
         @if (currentConfig.showFullscreen) {
-        <amw-button variant="icon"
-          [icon]="isFullscreen ? 'fullscreen_exit' : 'fullscreen'"
+        <amw-button [icon]="isFullscreen ? 'fullscreen_exit' : 'fullscreen'"
           (click)="onToggleFullscreen()"
           [amwTooltip]="'Toggle Fullscreen'">
         </amw-button>
         }
-        <amw-button variant="icon" icon="download" [matMenuTriggerFor]="exportMenu" [amwTooltip]="'Export'">
+        <amw-button icon="download" [matMenuTriggerFor]="exportMenu" [amwTooltip]="'Export'">
         </amw-button>
         <mat-menu #exportMenu="matMenu">
-          <amw-button variant="text" icon="picture_as_pdf" iconPosition="left" (click)="onExport('pdf')">
+          <amw-button appearance="text" icon="picture_as_pdf" iconPosition="left" (click)="onExport('pdf')">
             Export as PDF
           </amw-button>
-          <amw-button variant="text" icon="table_chart" iconPosition="left" (click)="onExport('excel')">
+          <amw-button appearance="text" icon="table_chart" iconPosition="left" (click)="onExport('excel')">
             Export as Excel
           </amw-button>
-          <amw-button variant="text" icon="text_snippet" iconPosition="left" (click)="onExport('csv')">
+          <amw-button appearance="text" icon="text_snippet" iconPosition="left" (click)="onExport('csv')">
             Export as CSV
           </amw-button>
         </mat-menu>
@@ -145,7 +144,7 @@
   <div class="amw-report-page__error">
     <mat-icon>error</mat-icon>
     <p>{{ error }}</p>
-    <amw-button variant="elevated" color="primary" (click)="onRefresh()">Retry</amw-button>
+    <amw-button appearance="elevated" color="primary" (click)="onRefresh()">Retry</amw-button>
   </div>
   }
 
@@ -175,7 +174,7 @@
               {{ widget.title }}
             </mat-card-title>
             <div class="amw-report-page__widget-actions">
-              <amw-button variant="icon" icon="refresh" (click)="onRefreshWidget(widget)" [amwTooltip]="'Refresh'">
+              <amw-button icon="refresh" (click)="onRefreshWidget(widget)" [amwTooltip]="'Refresh'">
               </amw-button>
             </div>
           </mat-card-header>

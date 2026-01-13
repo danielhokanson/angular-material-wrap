@@ -34,10 +34,10 @@
                         placeholder="Enter message content">
                       </amw-input>
                       <div class="button-group">
-                        <amw-button variant="elevated" color="primary" (click)="sendMessage()" icon="info" iconPosition="left">Info</amw-button>
-                        <amw-button variant="elevated" color="accent" (click)="sendSuccessMessage()" icon="check_circle" iconPosition="left">Success</amw-button>
-                        <amw-button variant="elevated" color="warn" (click)="sendWarningMessage()" icon="warning" iconPosition="left">Warning</amw-button>
-                        <amw-button variant="elevated" color="warn" (click)="sendErrorMessage()" icon="error" iconPosition="left">Error</amw-button>
+                        <amw-button appearance="elevated" color="primary" (click)="sendMessage()" icon="info" iconPosition="left">Info</amw-button>
+                        <amw-button appearance="elevated" color="accent" (click)="sendSuccessMessage()" icon="check_circle" iconPosition="left">Success</amw-button>
+                        <amw-button appearance="elevated" color="warn" (click)="sendWarningMessage()" icon="warning" iconPosition="left">Warning</amw-button>
+                        <amw-button appearance="elevated" color="warn" (click)="sendErrorMessage()" icon="error" iconPosition="left">Error</amw-button>
                       </div>
                     </div>
                     <div class="demo-section">
@@ -49,7 +49,7 @@
                               <amw-icon [name]="getMessageIcon(message.type)"></amw-icon>
                               <span class="message-title">{{ message.title }}</span>
                               @if (message.dismissible) {
-                                <amw-button variant="icon" icon="close" (click)="removeMessage(message.id)"></amw-button>
+                                <amw-button icon="close" (click)="removeMessage(message.id)"></amw-button>
                               }
                             </div>
                             <div class="message-content">{{ message.content }}</div>
@@ -57,7 +57,7 @@
                           </div>
                         }
                       </div>
-                      <amw-button variant="text" color="warn" (click)="clearMessages()" icon="clear" iconPosition="left">Clear Messages</amw-button>
+                      <amw-button appearance="text" color="warn" (click)="clearMessages()" icon="clear" iconPosition="left">Clear Messages</amw-button>
                     </div>
                   </div>
                 }
@@ -67,8 +67,8 @@
                     <p>This service manages loading states throughout the application.</p>
                     <div class="demo-section">
                       <h4>Loading States</h4>
-                      <amw-button variant="elevated" color="primary" (click)="startLoading()" [disabled]="loadingState.isLoading" icon="play_arrow" iconPosition="left">Start Loading</amw-button>
-                      <amw-button variant="text" (click)="stopLoading()" [disabled]="!loadingState.isLoading" icon="stop" iconPosition="left">Stop Loading</amw-button>
+                      <amw-button appearance="elevated" color="primary" (click)="startLoading()" [disabled]="loadingState.isLoading" icon="play_arrow" iconPosition="left">Start Loading</amw-button>
+                      <amw-button appearance="text" (click)="stopLoading()" [disabled]="!loadingState.isLoading" icon="stop" iconPosition="left">Stop Loading</amw-button>
                       @if (loadingState.isLoading) {
                         <div class="loading-demo">
                           <div class="spinner"></div>
@@ -84,9 +84,9 @@
                     <p>This service provides various types of notifications to users.</p>
                     <div class="demo-section">
                       <h4>Notification Types</h4>
-                      <amw-button variant="elevated" color="primary" (click)="showSuccessNotification()" icon="check_circle" iconPosition="left">Success</amw-button>
-                      <amw-button variant="elevated" color="warn" (click)="showErrorNotification()" icon="error" iconPosition="left">Error</amw-button>
-                      <amw-button variant="elevated" color="accent" (click)="showInfoNotification()" icon="info" iconPosition="left">Info</amw-button>
+                      <amw-button appearance="elevated" color="primary" (click)="showSuccessNotification()" icon="check_circle" iconPosition="left">Success</amw-button>
+                      <amw-button appearance="elevated" color="warn" (click)="showErrorNotification()" icon="error" iconPosition="left">Error</amw-button>
+                      <amw-button appearance="elevated" color="accent" (click)="showInfoNotification()" icon="info" iconPosition="left">Info</amw-button>
                     </div>
                   </div>
                 }
@@ -105,7 +105,7 @@
                         <h4>Basic Usage</h4>
                         <pre><code>{{ messagingServiceCodeExamples.basic }}</code></pre>
                         <div class="preview">
-                          <amw-button variant="elevated" color="primary" (click)="sendMessage()" icon="message" iconPosition="left">Show Info Message</amw-button>
+                          <amw-button appearance="elevated" color="primary" (click)="sendMessage()" icon="message" iconPosition="left">Show Info Message</amw-button>
                         </div>
                       </div>
 
@@ -114,10 +114,10 @@
                         <pre><code>{{ messagingServiceCodeExamples.types }}</code></pre>
                         <div class="preview">
                           <div class="button-group">
-                            <amw-button variant="text" (click)="messagingService.info('Info', 'Information message')" icon="info" iconPosition="left">Info</amw-button>
-                            <amw-button variant="text" (click)="messagingService.success('Success', 'Success message')" icon="check_circle" iconPosition="left">Success</amw-button>
-                            <amw-button variant="text" (click)="messagingService.warning('Warning', 'Warning message')" icon="warning" iconPosition="left">Warning</amw-button>
-                            <amw-button variant="text" (click)="messagingService.error('Error', 'Error message')" icon="error" iconPosition="left">Error</amw-button>
+                            <amw-button appearance="text" (click)="messagingService.info('Info', 'Information message')" icon="info" iconPosition="left">Info</amw-button>
+                            <amw-button appearance="text" (click)="messagingService.success('Success', 'Success message')" icon="check_circle" iconPosition="left">Success</amw-button>
+                            <amw-button appearance="text" (click)="messagingService.warning('Warning', 'Warning message')" icon="warning" iconPosition="left">Warning</amw-button>
+                            <amw-button appearance="text" (click)="messagingService.error('Error', 'Error message')" icon="error" iconPosition="left">Error</amw-button>
                           </div>
                         </div>
                       </div>
@@ -127,7 +127,7 @@
                         <pre><code>{{ messagingServiceCodeExamples.observable }}</code></pre>
                         <div class="preview">
                           <p>Current message count: {{ messages.length }}</p>
-                          <amw-button variant="elevated" color="accent" (click)="messagingService.info('Test', 'Observe the count change')">
+                          <amw-button appearance="elevated" color="accent" (click)="messagingService.info('Test', 'Observe the count change')">
                             Add Message
                           </amw-button>
                         </div>
@@ -137,7 +137,7 @@
                         <h4>Custom Options</h4>
                         <pre><code>{{ messagingServiceCodeExamples.options }}</code></pre>
                         <div class="preview">
-                          <amw-button variant="elevated" color="primary" (click)="messagingService.info('Custom', 'This message has a 10 second duration', { duration: 10000 })">
+                          <amw-button appearance="elevated" color="primary" (click)="messagingService.info('Custom', 'This message has a 10 second duration', { duration: 10000 })">
                             Show Custom Message
                           </amw-button>
                         </div>
@@ -148,8 +148,8 @@
                         <pre><code>{{ messagingServiceCodeExamples.management }}</code></pre>
                         <div class="preview">
                           <div class="button-group">
-                            <amw-button variant="text" (click)="clearMessages()" icon="clear_all" iconPosition="left">Clear All</amw-button>
-                            <amw-button variant="text" (click)="messagingService.clearMessagesByType('warning')">
+                            <amw-button appearance="text" (click)="clearMessages()" icon="clear_all" iconPosition="left">Clear All</amw-button>
+                            <amw-button appearance="text" (click)="messagingService.clearMessagesByType('warning')">
                               Clear Warnings
                             </amw-button>
                           </div>
@@ -174,8 +174,8 @@
                         <h4>Basic Usage</h4>
                         <pre><code>{{ loadingServiceCodeExamples.basic }}</code></pre>
                         <div class="preview">
-                          <amw-button variant="elevated" color="primary" (click)="startLoading()" [disabled]="loadingState.isLoading" icon="hourglass_empty" iconPosition="left">Start Loading</amw-button>
-                          <amw-button variant="text" (click)="stopLoading()" [disabled]="!loadingState.isLoading">
+                          <amw-button appearance="elevated" color="primary" (click)="startLoading()" [disabled]="loadingState.isLoading" icon="hourglass_empty" iconPosition="left">Start Loading</amw-button>
+                          <amw-button appearance="text" (click)="stopLoading()" [disabled]="!loadingState.isLoading">
                             Stop Loading
                           </amw-button>
                         </div>
@@ -202,7 +202,7 @@
                             [max]="100"
                             style="width: 200px;">
                           </amw-input>
-                          <amw-button variant="text" (click)="updateLoadingProgress()" [disabled]="!loadingState.isLoading">
+                          <amw-button appearance="text" (click)="updateLoadingProgress()" [disabled]="!loadingState.isLoading">
                             Update Progress
                           </amw-button>
                           @if (loadingState.isLoading && loadingState.progress !== undefined) {
@@ -240,7 +240,7 @@
                             appearance="outline"
                             style="width: 300px;">
                           </amw-input>
-                          <amw-button variant="text" (click)="updateLoadingMessage()" [disabled]="!loadingState.isLoading">
+                          <amw-button appearance="text" (click)="updateLoadingMessage()" [disabled]="!loadingState.isLoading">
                             Update Message
                           </amw-button>
                         </div>
@@ -256,7 +256,7 @@
                         <h4>Basic Usage</h4>
                         <pre><code>{{ notificationServiceCodeExamples.basic }}</code></pre>
                         <div class="preview">
-                          <amw-button variant="elevated" color="primary" (click)="showNotification()" icon="notifications" iconPosition="left">Show Notification</amw-button>
+                          <amw-button appearance="elevated" color="primary" (click)="showNotification()" icon="notifications" iconPosition="left">Show Notification</amw-button>
                         </div>
                       </div>
 
@@ -265,10 +265,10 @@
                         <pre><code>{{ notificationServiceCodeExamples.types }}</code></pre>
                         <div class="preview">
                           <div class="button-group">
-                            <amw-button variant="text" (click)="notificationService.info('Info', 'Information notification')" icon="info" iconPosition="left">Info</amw-button>
-                            <amw-button variant="text" (click)="notificationService.success('Success', 'Success notification')" icon="check_circle" iconPosition="left">Success</amw-button>
-                            <amw-button variant="text" (click)="notificationService.warning('Warning', 'Warning notification')" icon="warning" iconPosition="left">Warning</amw-button>
-                            <amw-button variant="text" (click)="notificationService.error('Error', 'Error notification')" icon="error" iconPosition="left">Error</amw-button>
+                            <amw-button appearance="text" (click)="notificationService.info('Info', 'Information notification')" icon="info" iconPosition="left">Info</amw-button>
+                            <amw-button appearance="text" (click)="notificationService.success('Success', 'Success notification')" icon="check_circle" iconPosition="left">Success</amw-button>
+                            <amw-button appearance="text" (click)="notificationService.warning('Warning', 'Warning notification')" icon="warning" iconPosition="left">Warning</amw-button>
+                            <amw-button appearance="text" (click)="notificationService.error('Error', 'Error notification')" icon="error" iconPosition="left">Error</amw-button>
                           </div>
                         </div>
                       </div>
@@ -277,7 +277,7 @@
                         <h4>Custom Options</h4>
                         <pre><code>{{ notificationServiceCodeExamples.options }}</code></pre>
                         <div class="preview">
-                          <amw-button variant="elevated" color="primary" (click)="notificationService.info('Custom', 'Custom notification with 10s duration', { duration: 10000, sound: true })">
+                          <amw-button appearance="elevated" color="primary" (click)="notificationService.info('Custom', 'Custom notification with 10s duration', { duration: 10000, sound: true })">
                             Show Custom Notification
                           </amw-button>
                         </div>
@@ -287,7 +287,7 @@
                         <h4>Persistent Notification</h4>
                         <pre><code>{{ notificationServiceCodeExamples.persistent }}</code></pre>
                         <div class="preview">
-                          <amw-button variant="elevated" color="warn" (click)="notificationService.warning('Important', 'This requires manual dismissal', { persistent: true, duration: 0 })">
+                          <amw-button appearance="elevated" color="warn" (click)="notificationService.warning('Important', 'This requires manual dismissal', { persistent: true, duration: 0 })">
                             Show Persistent Notification
                           </amw-button>
                         </div>
@@ -298,7 +298,7 @@
                         <pre><code>{{ notificationServiceCodeExamples.observable }}</code></pre>
                         <div class="preview">
                           <p>Active notifications: {{ notifications.length }}</p>
-                          <amw-button variant="text" (click)="clearNotifications()" icon="clear_all" iconPosition="left">Clear All</amw-button>
+                          <amw-button appearance="text" (click)="clearNotifications()" icon="clear_all" iconPosition="left">Clear All</amw-button>
                         </div>
                       </div>
 

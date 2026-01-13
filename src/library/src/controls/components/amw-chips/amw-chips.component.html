@@ -54,7 +54,6 @@
         <!-- Menu Button -->
         @if (shouldShowMenu(chip)) {
           <amw-button
-            variant="icon"
             class="amw-chips__chip-menu"
             [matMenuTriggerFor]="chipMenu"
             [attr.aria-label]="'Menu for ' + chip.label"
@@ -163,7 +162,6 @@
     <div
       class="amw-chips__actions">
       <amw-button
-        variant="icon"
         icon="add"
         class="amw-chips__add-button"
         [disabled]="isDisabled || !!(maxChips() && internalChips.length >= maxChips()!)"
@@ -172,7 +170,6 @@
       </amw-button>
       @if (internalChips.length > 0) {
         <amw-button
-          variant="icon"
           icon="clear_all"
           class="amw-chips__clear-button"
           [disabled]="isDisabled"

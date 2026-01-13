@@ -143,7 +143,8 @@ import { AmwButtonComponent, AmwInputComponent } from 'angular-material-wrap';
       </amw-input>
 
       <amw-button
-        [config]="{ color: 'primary', variant: 'raised' }"
+        appearance="filled"
+        color="primary"
         (click)="onSubmit()">
         Submit
       </amw-button>
@@ -449,10 +450,12 @@ import { ThemeService } from 'angular-material-wrap';
 import { ButtonConfig } from 'angular-material-wrap';
 
 const buttonConfig: ButtonConfig = {
+  appearance: 'filled',    // 'text' | 'elevated' | 'outlined' | 'filled' | 'tonal'
+  fab: false,              // false | true | 'standard' | 'mini' | 'extended'
   color: 'primary',        // 'primary' | 'accent' | 'warn'
-  variant: 'raised',       // 'basic' | 'raised' | 'stroked' | 'flat'
+  size: 'medium',          // 'small' | 'medium' | 'large'
   disabled: false,
-  fullWidth: false
+  loading: false
 };
 ```
 

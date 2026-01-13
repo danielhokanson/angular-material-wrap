@@ -180,7 +180,7 @@ onTextBlur(event: FocusEvent): void {
     rows="4">
   </amw-textarea>
 
-  <amw-button variant="elevated" color="primary" type="submit">
+  <amw-button appearance="elevated" color="primary" type="submit">
     Send Message
   </amw-button>
 </form>`

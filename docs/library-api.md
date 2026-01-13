@@ -2,7 +2,7 @@
 
 ## Overview
 
-The Angular Material Wrap library provides a comprehensive set of reusable Angular components, services, and utilities for Material Design implementations. The library is organized into four main areas: Controls, Components, Pages, and Styling.
+The Angular Material Wrap (AMW) library provides enhanced Angular components built on Angular Material with modern signal-based APIs. All components use Angular's latest signal inputs/outputs for reactive, type-safe property binding.
 
 ## Public API
 
@@ -11,714 +11,870 @@ The Angular Material Wrap library provides a comprehensive set of reusable Angul
 All public exports are available through the main entry point:
 
 ```typescript
-// Import from the library
-import { AmwButtonComponent, AmwDataTableComponent, AmwListPageComponent, ThemeService } from "angular-material-wrap";
+import {
+  AmwButtonComponent,
+  AmwInputComponent,
+  AmwSelectComponent,
+  AmwTabsComponent,
+  ThemeService
+} from "angular-material-wrap";
 ```
 
 ## Library Structure
 
 ### Controls (`/controls`)
-
-Enhanced wrappers of Angular Material controls with additional functionality.
+Form controls extending Angular Material with enhanced functionality.
 
 ### Components (`/components`)
+Layout and display components for common UI patterns.
 
-Complex UI components combining multiple controls for common patterns.
+### Services (`/services`)
+Theme management and utility services.
 
-### Pages (`/pages`)
+### Pipes (`/pipes`)
+Data transformation pipes.
 
-Complete page layouts and common page patterns.
+### Directives (`/directives`)
+Utility directives for common behaviors.
 
-### Styling (`/styling`)
+---
 
-Theme management and Material Design 3 implementation.
+## Base Component Properties
+
+All control components extend `BaseComponent<T>` which provides common properties:
+
+### Common Inputs
+| Property | Type | Default | Description |
+|----------|------|---------|-------------|
+| `disabled` | `boolean` | `false` | Whether the component is disabled |
+| `required` | `boolean` | `false` | Whether the component is required |
+| `placeholder` | `string` | `''` | Placeholder text |
+| `label` | `string` | `''` | Label text |
+| `errorMessage` | `string` | `''` | Error message to display |
+| `hint` | `string` | `''` | Hint text to display |
+| `readonly` | `boolean` | `false` | Whether the field is readonly |
+| `name` | `string` | `''` | Component name attribute |
+| `id` | `string` | `''` | Component id attribute |
+| `tabIndex` | `number \| undefined` | `undefined` | Tab index for keyboard navigation |
+| `size` | `'small' \| 'medium' \| 'large'` | `'medium'` | Component size |
+| `color` | `'primary' \| 'accent' \| 'warn' \| 'basic'` | `'primary'` | Component color theme |
+
+### Accessibility Inputs
+| Property | Type | Default | Description |
+|----------|------|---------|-------------|
+| `ariaLabel` | `string \| undefined` | `undefined` | Aria label |
+| `ariaLabelledby` | `string \| undefined` | `undefined` | Aria labelledby reference |
+| `ariaDescribedby` | `string \| undefined` | `undefined` | Aria describedby reference |
+| `ariaRequired` | `boolean \| undefined` | `undefined` | Aria required attribute |
+| `ariaInvalid` | `boolean \| undefined` | `undefined` | Aria invalid attribute |
+
+### Model Properties (Two-way Binding)
+| Property | Type | Default | Description |
+|----------|------|---------|-------------|
+| `hasError` | `boolean` | `false` | Whether the component has an error |
+| `value` | `T \| null` | `null` | The component value |
+
+### Common Events
+| Event | Payload | Description |
+|-------|---------|-------------|
+| `valueChange` | `T \| null` | Emits when value changes |
+| `change` | `T \| null` | Generic change event |
+| `focus` | `FocusEvent` | Emits on focus |
+| `blur` | `FocusEvent` | Emits on blur |
+
+---
 
 ## Controls API
 
-### Form Controls
+### AmwButtonComponent
 
-#### AmwButtonComponent
+Enhanced button with Material Design 3 styles and FAB support.
 
-Enhanced button component with additional styling and functionality.
+```html
+<!-- Basic filled button -->
+<amw-button>Click Me</amw-button>
 
-```typescript
-import { AmwButtonComponent } from "angular-material-wrap";
-
-// Usage
-<amw-button
-  [config]="buttonConfig"
-  [disabled]="false"
-  (click)="onButtonClick($event)">
-  Click Me
+<!-- Outlined button with icon -->
+<amw-button appearance="outlined" icon="save" iconPosition="left">
+  Save
 </amw-button>
+
+<!-- Tonal button with loading state -->
+<amw-button appearance="tonal" [loading]="isLoading">
+  Submit
+</amw-button>
+
+<!-- Icon-only button (inferred from icon + no text) -->
+<amw-button icon="close" ariaLabel="Close"></amw-button>
+
+<!-- Floating Action Button -->
+<amw-button [fab]="true" icon="add"></amw-button>
+
+<!-- Mini FAB -->
+<amw-button fab="mini" icon="edit"></amw-button>
+
+<!-- Extended FAB -->
+<amw-button fab="extended" icon="add" text="Create"></amw-button>
 ```
 
-**Properties:**
+**Button-Specific Inputs:**
+| Property | Type | Default | Description |
+|----------|------|---------|-------------|
+| `type` | `'button' \| 'submit' \| 'reset'` | `'button'` | HTML button type |
+| `appearance` | `'text' \| 'elevated' \| 'outlined' \| 'filled' \| 'tonal'` | `'filled'` | Visual style |
+| `fab` | `boolean \| 'standard' \| 'mini' \| 'extended'` | `false` | FAB configuration |
+| `icon` | `string \| undefined` | `undefined` | Material icon name |
+| `iconPosition` | `'left' \| 'right'` | `'left'` | Icon position |
+| `loading` | `boolean` | `false` | Loading state |
+| `fullWidth` | `boolean` | `false` | Full width button |
+| `text` | `string` | `''` | Button text (alternative to ng-content) |
+| `autofocus` | `boolean` | `false` | Auto-focus on render |
+| `spinnerSize` | `number` | `20` | Loading spinner diameter |
+| `spinnerColor` | `AmwColor` | `'primary'` | Loading spinner color |
 
-- `config: ButtonConfig` - Button configuration
-- `disabled: boolean` - Disabled state
-- `type: 'button' | 'submit' | 'reset'` - Button type
+**Button Events:**
+| Event | Payload | Description |
+|-------|---------|-------------|
+| `buttonClick` | `MouseEvent` | Button click event |
+| `buttonFocus` | `FocusEvent` | Button focus event |
+| `buttonBlur` | `FocusEvent` | Button blur event |
+| `mouseenter` | `MouseEvent` | Mouse enter event |
+| `mouseleave` | `MouseEvent` | Mouse leave event |
 
-**Events:**
+**Form Attributes:**
+| Property | Type | Description |
+|----------|------|-------------|
+| `form` | `string` | Form id to associate with |
+| `formAction` | `string` | Form action URL |
+| `formMethod` | `'get' \| 'post' \| 'put' \| 'delete'` | Form method |
+| `formTarget` | `'_blank' \| '_self' \| '_parent' \| '_top'` | Form target |
+| `formEnctype` | `string` | Form encoding type |
+| `formNoValidate` | `boolean` | Skip form validation |
 
-- `click: EventEmitter<MouseEvent>` - Click event
+---
 
-#### AmwInputComponent
+### AmwInputComponent
 
-Enhanced input component with validation and styling.
+Enhanced input with validation, icons, and character count.
 
-```typescript
-import { AmwInputComponent } from "angular-material-wrap";
-
-// Usage
+```html
+<!-- Basic text input -->
 <amw-input
-  [config]="inputConfig"
-  [(ngModel)]="value"
-  (valueChange)="onValueChange($event)">
+  label="Username"
+  placeholder="Enter username"
+  [(value)]="username">
+</amw-input>
+
+<!-- Password with toggle -->
+<amw-input
+  type="password"
+  label="Password"
+  [showPasswordToggle]="true"
+  [(value)]="password">
+</amw-input>
+
+<!-- Input with icons and validation -->
+<amw-input
+  type="email"
+  label="Email"
+  startIcon="email"
+  [required]="true"
+  [clearable]="true"
+  [validationMessages]="{
+    required: 'Email is required',
+    email: 'Please enter a valid email'
+  }"
+  [(value)]="email">
+</amw-input>
+
+<!-- Textarea-like with character count -->
+<amw-input
+  label="Description"
+  [maxlength]="500"
+  [showCharacterCount]="true"
+  [(value)]="description">
 </amw-input>
 ```
 
-#### AmwSelectComponent
+**Input-Specific Properties (extends BaseComponent):**
+| Property | Type | Default | Description |
+|----------|------|---------|-------------|
+| `type` | `InputType` | `'text'` | Input type (text, email, password, number, etc.) |
+| `appearance` | `MatFormFieldAppearance` | `'outline'` | Form field appearance |
+| `prefix` | `string` | `''` | Prefix text |
+| `suffix` | `string` | `''` | Suffix text |
+| `maxlength` | `number \| null` | `null` | Maximum length |
+| `minlength` | `number \| null` | `null` | Minimum length |
+| `max` | `number \| null` | `null` | Maximum value (for number type) |
+| `min` | `number \| null` | `null` | Minimum value (for number type) |
+| `step` | `number \| null` | `null` | Step value (for number type) |
+| `pattern` | `string` | `''` | Validation pattern |
+| `autocomplete` | `string` | `''` | Autocomplete attribute |
+| `autofocus` | `boolean` | `false` | Auto-focus on render |
+| `startIcon` | `string` | `''` | Leading icon |
+| `endIcon` | `string` | `''` | Trailing icon |
+| `clearable` | `boolean` | `false` | Show clear button |
+| `showPasswordToggle` | `boolean` | `false` | Show password toggle |
+| `showCharacterCount` | `boolean` | `false` | Show character count |
+| `showValidationOnBlur` | `boolean` | `true` | Validate on blur |
+| `showValidationOnChange` | `boolean` | `false` | Validate on change |
+| `validationMessages` | `object` | `{}` | Custom validation messages |
 
-Enhanced select component with search and multi-select capabilities.
+**Input Events:**
+| Event | Payload | Description |
+|-------|---------|-------------|
+| `inputEvent` | `Event` | Native input event |
+| `keydown` | `KeyboardEvent` | Keydown event |
+| `keyup` | `KeyboardEvent` | Keyup event |
+| `clear` | `void` | Clear button clicked |
+| `togglePassword` | `boolean` | Password visibility toggled |
 
-```typescript
-import { AmwSelectComponent } from "angular-material-wrap";
+---
 
-// Usage
+### AmwSelectComponent
+
+Enhanced select with search, groups, and multi-select.
+
+```html
+<!-- Basic select -->
 <amw-select
-  [config]="selectConfig"
-  [options]="options"
-  [(ngModel)]="selectedValue"
-  (selectionChange)="onSelectionChange($event)">
+  label="Country"
+  [options]="countries"
+  [(value)]="selectedCountry">
+</amw-select>
+
+<!-- Multi-select with search -->
+<amw-select
+  label="Tags"
+  [options]="tags"
+  [multiple]="true"
+  [searchable]="true"
+  [clearable]="true"
+  [(value)]="selectedTags">
+</amw-select>
+
+<!-- Grouped options -->
+<amw-select
+  label="Category"
+  [groups]="categoryGroups"
+  [(value)]="selectedCategory">
 </amw-select>
 ```
 
-#### AmwCheckboxComponent
-
-Enhanced checkbox component with custom styling.
-
+**SelectOption Interface:**
 ```typescript
-import { AmwCheckboxComponent } from "angular-material-wrap";
+interface SelectOption {
+  value: any;
+  label: string;
+  disabled?: boolean;
+  description?: string;
+  icon?: string;
+}
+```
 
-// Usage
+**Select-Specific Properties:**
+| Property | Type | Default | Description |
+|----------|------|---------|-------------|
+| `appearance` | `MatFormFieldAppearance` | `'outline'` | Form field appearance |
+| `options` | `SelectOption[]` | `[]` | Select options |
+| `groups` | `{ [key: string]: SelectOption[] }` | `{}` | Grouped options |
+| `multiple` | `boolean` | `false` | Allow multiple selection |
+| `searchable` | `boolean` | `false` | Enable search |
+| `clearable` | `boolean` | `false` | Show clear button |
+| `loading` | `boolean` | `false` | Loading state |
+| `compareWith` | `(a, b) => boolean` | `(a, b) => a === b` | Compare function |
+| `searchPlaceholder` | `string` | `'Search...'` | Search placeholder |
+| `noOptionsText` | `string` | `'No options available'` | Empty state text |
+| `loadingText` | `string` | `'Loading...'` | Loading state text |
+
+**Select Events:**
+| Event | Payload | Description |
+|-------|---------|-------------|
+| `selectionChange` | `any` | Selection changed |
+| `openedChange` | `boolean` | Panel opened/closed |
+| `searchChange` | `string` | Search value changed |
+| `clear` | `void` | Clear button clicked |
+
+---
+
+### AmwCheckboxComponent
+
+Enhanced checkbox with indeterminate state support.
+
+```html
+<!-- Basic checkbox -->
 <amw-checkbox
-  [config]="checkboxConfig"
-  [(ngModel)]="checked"
-  (change)="onCheckboxChange($event)">
+  label="Accept terms"
+  [(checked)]="acceptTerms">
+</amw-checkbox>
+
+<!-- Checkbox with value -->
+<amw-checkbox
+  label="Enable notifications"
+  [value]="'notifications'"
+  [(checked)]="notificationsEnabled">
+</amw-checkbox>
+
+<!-- Indeterminate state -->
+<amw-checkbox
+  label="Select all"
+  [(checked)]="selectAll"
+  [(indeterminate)]="isPartialSelection">
 </amw-checkbox>
 ```
 
-#### AmwRadioGroupComponent
+**Checkbox-Specific Properties:**
+| Property | Type | Default | Description |
+|----------|------|---------|-------------|
+| `labelPosition` | `'before' \| 'after'` | `'after'` | Label position |
+| `indeterminate` | `boolean` | `false` | Indeterminate state (two-way) |
+| `checked` | `boolean` | `false` | Checked state (two-way) |
+| `disableRipple` | `boolean` | `false` | Disable ripple effect |
 
-Enhanced radio group component with custom styling.
+**Checkbox Events:**
+| Event | Payload | Description |
+|-------|---------|-------------|
+| `checkboxChange` | `{ checked: boolean; value: any }` | Checkbox state changed |
+| `indeterminateChange` | `boolean` | Indeterminate state changed |
 
-```typescript
-import { AmwRadioGroupComponent } from "angular-material-wrap";
+---
 
-// Usage
+### AmwRadioGroupComponent
+
+Radio button group with enhanced styling.
+
+```html
 <amw-radio-group
-  [config]="radioConfig"
-  [options]="radioOptions"
-  [(ngModel)]="selectedValue"
-  (selectionChange)="onRadioChange($event)">
+  label="Shipping Method"
+  [options]="shippingOptions"
+  [(value)]="selectedShipping">
 </amw-radio-group>
 ```
 
-#### AmwChipsComponent
-
-Enhanced chips component with add/remove functionality.
-
+**RadioGroupOption Interface:**
 ```typescript
-import { AmwChipsComponent } from "angular-material-wrap";
-
-// Usage
-<amw-chips
-  [config]="chipsConfig"
-  [chips]="chipList"
-  (chipAdd)="onChipAdd($event)"
-  (chipRemove)="onChipRemove($event)">
-</amw-chips>
+interface RadioGroupOption {
+  value: any;
+  label: string;
+  disabled?: boolean;
+  description?: string;
+}
 ```
 
-### Advanced Controls
+---
 
-#### AmwDataTableComponent
+### AmwSliderComponent
 
-Comprehensive data table with sorting, filtering, and pagination.
+Enhanced slider with step marks and value display.
 
-```typescript
-import { AmwDataTableComponent } from "angular-material-wrap";
-
-// Usage
-<amw-data-table
-  [config]="tableConfig"
-  [data]="tableData"
-  (rowClick)="onRowClick($event)"
-  (sortChange)="onSortChange($event)"
-  (pageChange)="onPageChange($event)">
-</amw-data-table>
+```html
+<amw-slider
+  label="Volume"
+  [min]="0"
+  [max]="100"
+  [step]="10"
+  [showTickMarks]="true"
+  [(value)]="volume">
+</amw-slider>
 ```
 
-#### AmwAutocompleteComponent
+---
 
-Enhanced autocomplete with custom filtering and display.
+### AmwRangeSliderComponent
 
-```typescript
-import { AmwAutocompleteComponent } from "angular-material-wrap";
+Dual-handle range slider.
 
-// Usage
+```html
+<amw-range-slider
+  label="Price Range"
+  [min]="0"
+  [max]="1000"
+  [(startValue)]="minPrice"
+  [(endValue)]="maxPrice">
+</amw-range-slider>
+```
+
+---
+
+### AmwSwitchComponent
+
+Toggle switch component.
+
+```html
+<amw-switch
+  label="Dark Mode"
+  [(checked)]="isDarkMode">
+</amw-switch>
+```
+
+---
+
+### AmwTextareaComponent
+
+Multi-line text input.
+
+```html
+<amw-textarea
+  label="Comments"
+  [rows]="5"
+  [maxlength]="1000"
+  [showCharacterCount]="true"
+  [(value)]="comments">
+</amw-textarea>
+```
+
+---
+
+### AmwAutocompleteComponent
+
+Input with autocomplete suggestions.
+
+```html
 <amw-autocomplete
-  [config]="autocompleteConfig"
-  [options]="autocompleteOptions"
-  [(ngModel)]="selectedValue"
-  (optionSelected)="onOptionSelected($event)">
+  label="City"
+  [options]="cityOptions"
+  [displayWith]="displayCity"
+  [(value)]="selectedCity">
 </amw-autocomplete>
 ```
 
-#### AmwDatePickerComponent
+---
 
-Enhanced date picker with range selection and custom formatting.
+### AmwDatepickerComponent
 
-```typescript
-import { AmwDatePickerComponent } from "angular-material-wrap";
+Date selection component.
 
-// Usage
-<amw-date-picker
-  [config]="datePickerConfig"
-  [(ngModel)]="selectedDate"
-  (dateChange)="onDateChange($event)">
-</amw-date-picker>
+```html
+<amw-datepicker
+  label="Birth Date"
+  [min]="minDate"
+  [max]="maxDate"
+  [(value)]="birthDate">
+</amw-datepicker>
 ```
+
+---
+
+### AmwTimepickerComponent
+
+Time selection component.
+
+```html
+<amw-timepicker
+  label="Meeting Time"
+  [format]="'12h'"
+  [(value)]="meetingTime">
+</amw-timepicker>
+```
+
+---
+
+### AmwChipsComponent
+
+Chip list for tags and selections.
+
+```html
+<amw-chips
+  label="Skills"
+  [chips]="skills"
+  [removable]="true"
+  [addOnBlur]="true"
+  (chipAdd)="onSkillAdd($event)"
+  (chipRemove)="onSkillRemove($event)">
+</amw-chips>
+```
+
+---
+
+### AmwFileInputComponent
+
+File upload component.
+
+```html
+<amw-file-input
+  label="Upload Document"
+  [accept]="'.pdf,.doc,.docx'"
+  [multiple]="true"
+  [maxSize]="5242880"
+  (fileSelect)="onFileSelect($event)">
+</amw-file-input>
+```
+
+---
+
+### AmwColorPickerComponent
+
+Color selection component.
+
+```html
+<amw-color-picker
+  label="Theme Color"
+  [mode]="'hex'"
+  [(value)]="themeColor">
+</amw-color-picker>
+```
+
+---
+
+### AmwToggleComponent
+
+Toggle button component.
+
+```html
+<amw-toggle
+  label="Notifications"
+  [(checked)]="notificationsOn">
+</amw-toggle>
+```
+
+---
 
 ## Components API
 
-### Layout Components
+### AmwCardComponent
 
-#### AmwCardComponent
+Card container with header, content, and actions.
 
-Enhanced card component with customizable sections and actions.
-
-```typescript
-import { AmwCardComponent } from "angular-material-wrap";
-
-// Usage
+```html
 <amw-card
-  [config]="cardConfig"
-  [data]="cardData"
-  (actionClick)="onCardAction($event)">
+  [title]="'Card Title'"
+  [subtitle]="'Card subtitle'"
+  [elevation]="2">
+  <ng-container amwCardContent>
+    Card content goes here
+  </ng-container>
+  <ng-container amwCardActions>
+    <amw-button>Action</amw-button>
+  </ng-container>
 </amw-card>
 ```
 
-#### AmwDialogComponent
+---
 
-Enhanced dialog component with custom styling and animations.
+### AmwTabsComponent
 
-```typescript
-import { AmwDialogComponent } from "angular-material-wrap";
+Tabbed content container.
 
-// Usage
-<amw-dialog
-  [config]="dialogConfig"
-  [visible]="dialogVisible"
-  (close)="onDialogClose($event)">
-  <ng-content></ng-content>
-</amw-dialog>
-```
-
-#### AmwPopoverComponent
-
-Enhanced popover component with positioning and animations.
-
-```typescript
-import { AmwPopoverComponent } from "angular-material-wrap";
-
-// Usage
-<amw-popover
-  [config]="popoverConfig"
-  [visible]="popoverVisible"
-  (close)="onPopoverClose($event)">
-  <ng-content></ng-content>
-</amw-popover>
-```
-
-#### AmwSidenavComponent
-
-Enhanced sidenav component with responsive behavior.
-
-```typescript
-import { AmwSidenavComponent } from "angular-material-wrap";
-
-// Usage
-<amw-sidenav
-  [config]="sidenavConfig"
-  [open]="sidenavOpen"
-  (toggle)="onSidenavToggle($event)">
-  <ng-content></ng-content>
-</amw-sidenav>
-```
-
-#### AmwStepperComponent
-
-Enhanced stepper component with validation and navigation.
-
-```typescript
-import { AmwStepperComponent } from "angular-material-wrap";
-
-// Usage
-<amw-stepper
-  [config]="stepperConfig"
-  [currentStep]="currentStep"
-  (stepChange)="onStepChange($event)"
-  (complete)="onStepperComplete($event)">
-</amw-stepper>
-```
-
-#### AmwTabsComponent
-
-Enhanced tabs component with custom styling and animations.
-
-```typescript
-import { AmwTabsComponent } from "angular-material-wrap";
-
-// Usage
-<amw-tabs
-  [config]="tabsConfig"
-  [activeTab]="activeTab"
-  (tabChange)="onTabChange($event)">
+```html
+<amw-tabs [tabs]="tabItems" (tabChange)="onTabChange($event)">
+  <ng-template amwTabContent let-tab>
+    {{ tab.content }}
+  </ng-template>
 </amw-tabs>
 ```
 
-#### AmwAccordionComponent
-
-Enhanced accordion component with custom styling.
-
+**TabItem Interface:**
 ```typescript
-import { AmwAccordionComponent } from "angular-material-wrap";
+interface TabItem {
+  id: string;
+  label: string;
+  icon?: string;
+  disabled?: boolean;
+  content?: any;
+}
+```
 
-// Usage
-<amw-accordion
-  [config]="accordionConfig"
-  [panels]="accordionPanels"
-  (panelToggle)="onPanelToggle($event)">
+---
+
+### AmwDialogComponent
+
+Modal dialog component.
+
+```html
+<amw-dialog
+  [title]="'Confirm Action'"
+  [open]="isDialogOpen"
+  (close)="onDialogClose($event)">
+  <ng-container amwDialogContent>
+    Dialog content
+  </ng-container>
+  <ng-container amwDialogActions>
+    <amw-button appearance="text" (buttonClick)="cancel()">Cancel</amw-button>
+    <amw-button (buttonClick)="confirm()">Confirm</amw-button>
+  </ng-container>
+</amw-dialog>
+```
+
+---
+
+### AmwAccordionComponent
+
+Expandable panel container.
+
+```html
+<amw-accordion [multi]="true">
+  <amw-accordion-panel title="Section 1">
+    Panel 1 content
+  </amw-accordion-panel>
+  <amw-accordion-panel title="Section 2">
+    Panel 2 content
+  </amw-accordion-panel>
 </amw-accordion>
 ```
 
-### Data Display Components
+---
 
-#### AmwCalendarComponent
+### AmwSidenavComponent
 
-Comprehensive calendar component with multiple display modes.
+Side navigation drawer.
 
-```typescript
-import { AmwCalendarComponent } from "angular-material-wrap";
+```html
+<amw-sidenav
+  [mode]="'side'"
+  [opened]="sidenavOpen"
+  (openedChange)="onSidenavToggle($event)">
+  <ng-container amwSidenavContent>
+    Navigation links
+  </ng-container>
+</amw-sidenav>
+```
 
-// Usage
-<amw-calendar
-  [config]="calendarConfig"
+---
+
+### AmwStepperComponent
+
+Multi-step workflow component.
+
+```html
+<amw-stepper
+  [linear]="true"
+  [orientation]="'horizontal'"
+  (selectionChange)="onStepChange($event)">
+  <amw-step label="Step 1">
+    Step 1 content
+  </amw-step>
+  <amw-step label="Step 2">
+    Step 2 content
+  </amw-step>
+</amw-stepper>
+```
+
+---
+
+### AmwPopoverComponent
+
+Popover/tooltip component.
+
+```html
+<amw-button [amwPopoverTrigger]="myPopover">
+  Click for popover
+</amw-button>
+
+<amw-popover #myPopover [position]="'below'">
+  Popover content
+</amw-popover>
+```
+
+---
+
+### AmwCalendarComponent
+
+Full-featured calendar display.
+
+```html
+<amw-calendar-full
   [events]="calendarEvents"
-  (eventClick)="onEventClick($event)"
-  (dateSelect)="onDateSelect($event)">
-</amw-calendar>
+  [view]="'month'"
+  (dateSelect)="onDateSelect($event)"
+  (eventClick)="onEventClick($event)">
+</amw-calendar-full>
 ```
 
-## Pages API
+---
 
-### Page Layout Components
+### AmwDataTableComponent
 
-#### AmwListPageComponent
+Data table with sorting, filtering, and pagination.
 
-Complete list/table page with filtering, sorting, and bulk actions.
-
-```typescript
-import { AmwListPageComponent } from "angular-material-wrap";
-
-// Usage
-<amw-list-page
-  [config]="listPageConfig"
-  [dataSource]="listPageDataSource"
-  (itemSelect)="onItemSelect($event)"
-  (actionClick)="onActionClick($event)"
-  (bulkActionClick)="onBulkActionClick($event)">
-</amw-list-page>
+```html
+<amw-data-table
+  [columns]="tableColumns"
+  [data]="tableData"
+  [paginator]="true"
+  [pageSize]="10"
+  [sortable]="true"
+  (rowClick)="onRowClick($event)"
+  (sortChange)="onSort($event)">
+</amw-data-table>
 ```
 
-#### AmwDetailPageComponent
+---
 
-Complete detail/view page with sections and related data.
+### Other Components
 
-```typescript
-import { AmwDetailPageComponent } from "angular-material-wrap";
+| Component | Description |
+|-----------|-------------|
+| `AmwMenuComponent` | Dropdown menu |
+| `AmwMenuItemComponent` | Menu item |
+| `AmwToolbarComponent` | App toolbar |
+| `AmwIconComponent` | Material icon wrapper |
+| `AmwDividerComponent` | Visual divider |
+| `AmwProgressBarComponent` | Linear progress indicator |
+| `AmwProgressSpinnerComponent` | Circular progress indicator |
+| `AmwCalendarMiniComponent` | Compact calendar view |
+| `AmwCalendarPickerComponent` | Date picker calendar |
 
-// Usage
-<amw-detail-page
-  [config]="detailPageConfig"
-  [dataSource]="detailPageDataSource"
-  (editClick)="onEditClick($event)"
-  (deleteClick)="onDeleteClick($event)"
-  (actionClick)="onActionClick($event)">
-</amw-detail-page>
-```
+---
 
-#### AmwFormPageComponent
+## Services API
 
-Complete form page with validation and sections.
+### ThemeService
 
-```typescript
-import { AmwFormPageComponent } from "angular-material-wrap";
-
-// Usage
-<amw-form-page
-  [config]="formPageConfig"
-  [dataSource]="formPageDataSource"
-  (formSubmit)="onFormSubmit($event)"
-  (formCancel)="onFormCancel($event)"
-  (formChange)="onFormChange($event)">
-</amw-form-page>
-```
-
-#### AmwSearchPageComponent
-
-Complete search page with advanced filtering and results.
-
-```typescript
-import { AmwSearchPageComponent } from "angular-material-wrap";
-
-// Usage
-<amw-search-page
-  [config]="searchPageConfig"
-  [dataSource]="searchPageDataSource"
-  (search)="onSearch($event)"
-  (resultClick)="onResultClick($event)"
-  (filterChange)="onFilterChange($event)">
-</amw-search-page>
-```
-
-#### AmwWorkflowPageComponent
-
-Complete workflow page with multi-step processes.
-
-```typescript
-import { AmwWorkflowPageComponent } from "angular-material-wrap";
-
-// Usage
-<amw-workflow-page
-  [config]="workflowPageConfig"
-  [dataSource]="workflowPageDataSource"
-  (stepChange)="onStepChange($event)"
-  (workflowComplete)="onWorkflowComplete($event)">
-</amw-workflow-page>
-```
-
-#### AmwReportPageComponent
-
-Complete report page with widgets and analytics.
-
-```typescript
-import { AmwReportPageComponent } from "angular-material-wrap";
-
-// Usage
-<amw-report-page
-  [config]="reportPageConfig"
-  [dataSource]="reportPageDataSource"
-  (widgetRefresh)="onWidgetRefresh($event)"
-  (filterChange)="onFilterChange($event)">
-</amw-report-page>
-```
-
-## Styling API
-
-### Theme Management
-
-#### ThemeService
-
-Service for managing themes and Material Design 3 implementation.
+Service for managing Material Design themes.
 
 ```typescript
 import { ThemeService } from "angular-material-wrap";
 
-// Usage
-constructor(private themeService: ThemeService) {}
+@Component({...})
+export class MyComponent {
+  constructor(private themeService: ThemeService) {}
 
-// Change theme
-this.themeService.setTheme('light');
-this.themeService.setTheme('dark');
+  toggleDarkMode() {
+    this.themeService.setTheme(
+      this.themeService.isDarkMode() ? 'light' : 'dark'
+    );
+  }
 
-// Get current theme
-const currentTheme = this.themeService.getCurrentTheme();
-
-// Subscribe to theme changes
-this.themeService.themeChanges$.subscribe(theme => {
-  console.log('Theme changed to:', theme);
-});
+  ngOnInit() {
+    // Subscribe to theme changes
+    this.themeService.themeChanges$.subscribe(theme => {
+      console.log('Theme changed:', theme);
+    });
+  }
+}
 ```
 
-#### ThemePickerComponent
+**ThemeService Methods:**
+| Method | Return | Description |
+|--------|--------|-------------|
+| `setTheme(theme)` | `void` | Set active theme |
+| `getCurrentTheme()` | `Theme` | Get current theme |
+| `isDarkMode()` | `boolean` | Check if dark mode |
+| `toggleDarkMode()` | `void` | Toggle dark mode |
 
-Component for selecting and switching themes.
-
-```typescript
-import { ThemePickerComponent } from "angular-material-wrap";
-
-// Usage
-<amw-theme-picker
-  [availableThemes]="availableThemes"
-  [currentTheme]="currentTheme"
-  (themeChange)="onThemeChange($event)">
-</amw-theme-picker>
-```
-
-#### ThemeEditorComponent
-
-Component for editing and customizing themes.
-
-```typescript
-import { ThemeEditorComponent } from "angular-material-wrap";
-
-// Usage
-<amw-theme-editor
-  [theme]="currentTheme"
-  (themeUpdate)="onThemeUpdate($event)">
-</amw-theme-editor>
-```
-
-#### ThemeManagerComponent
-
-Component for managing all theme-related functionality.
-
-```typescript
-import { ThemeManagerComponent } from "angular-material-wrap";
-
-// Usage
-<amw-theme-manager
-  [themes]="availableThemes"
-  [currentTheme]="currentTheme"
-  (themeChange)="onThemeChange($event)"
-  (themeSave)="onThemeSave($event)">
-</amw-theme-manager>
-```
+---
 
 ## Directives API
 
-### Utility Directives
+### AmwAutoFocusDirective
 
-#### AmwAutoFocusDirective
+Auto-focus element on render.
 
-Automatically focuses an element when it becomes visible.
-
-```typescript
-import { AmwAutoFocusDirective } from "angular-material-wrap";
-
-// Usage
-<input amwAutoFocus />;
+```html
+<input amwAutoFocus />
 ```
 
-#### AmwClickOutsideDirective
+### AmwClickOutsideDirective
 
-Detects clicks outside an element.
+Detect clicks outside element.
 
-```typescript
-import { AmwClickOutsideDirective } from "angular-material-wrap";
-
-// Usage
-<div amwClickOutside (clickOutside)="onClickOutside($event)">
-  Content
+```html
+<div amwClickOutside (clickOutside)="onClickOutside()">
+  Dropdown content
 </div>
 ```
 
-#### AmwCopyToClipboardDirective
+### AmwCopyToClipboardDirective
 
-Copies text to clipboard when clicked.
+Copy text to clipboard.
 
-```typescript
-import { AmwCopyToClipboardDirective } from "angular-material-wrap";
-
-// Usage
-<button amwCopyToClipboard [text]="textToCopy" (copied)="onCopied($event)">
+```html
+<button amwCopyToClipboard [text]="textToCopy" (copied)="onCopied()">
   Copy
 </button>
 ```
 
-#### AmwTooltipDirective
+### AmwTooltipDirective
 
-Enhanced tooltip with custom positioning and styling.
+Enhanced tooltip.
 
-```typescript
-import { AmwTooltipDirective } from "angular-material-wrap";
-
-// Usage
-<button amwTooltip="Tooltip text" [tooltipConfig]="tooltipConfig">
-  Hover me
-</button>
+```html
+<button amwTooltip="Tooltip text">Hover me</button>
 ```
+
+---
 
 ## Pipes API
 
-### Utility Pipes
+### amwDate
 
-#### AmwCurrencyPipe
+Enhanced date formatting.
 
-Enhanced currency formatting pipe.
-
-```typescript
-import { AmwCurrencyPipe } from "angular-material-wrap";
-
-// Usage
-{{ amount | amwCurrency:'USD':'symbol':'1.2-2' }}
-```
-
-#### AmwDatePipe
-
-Enhanced date formatting pipe.
-
-```typescript
-import { AmwDatePipe } from "angular-material-wrap";
-
-// Usage
+```html
 {{ date | amwDate:'short' }}
 {{ date | amwDate:'full' }}
+{{ date | amwDate:'relative' }}
 ```
 
-#### AmwTextTransformPipe
+### amwCurrency
 
-Text transformation pipe.
+Currency formatting.
 
-```typescript
-import { AmwTextTransformPipe } from "angular-material-wrap";
+```html
+{{ amount | amwCurrency:'USD' }}
+{{ amount | amwCurrency:'EUR':'symbol':'1.2-2' }}
+```
 
-// Usage
+### amwTextTransform
+
+Text transformation.
+
+```html
 {{ text | amwTextTransform:'uppercase' }}
-{{ text | amwTextTransform:'lowercase' }}
 {{ text | amwTextTransform:'capitalize' }}
+{{ text | amwTextTransform:'truncate':50 }}
 ```
 
-## Services API
-
-### Global Services
-
-#### AmwLoadingService
-
-Service for managing loading states.
-
-```typescript
-import { AmwLoadingService } from "angular-material-wrap";
-
-// Usage
-constructor(private loadingService: AmwLoadingService) {}
-
-// Show loading
-this.loadingService.show('Loading...');
-
-// Hide loading
-this.loadingService.hide();
-
-// Check loading state
-const isLoading = this.loadingService.isLoading();
-```
-
-#### AmwMessagingService
-
-Service for managing messages and notifications.
-
-```typescript
-import { AmwMessagingService } from "angular-material-wrap";
-
-// Usage
-constructor(private messagingService: AmwMessagingService) {}
-
-// Show message
-this.messagingService.showMessage('Success!', 'success');
-this.messagingService.showMessage('Error!', 'error');
-
-// Show notification
-this.messagingService.showNotification({
-  title: 'Notification',
-  message: 'This is a notification',
-  type: 'info'
-});
-```
-
-#### AmwNotificationService
-
-Service for managing notifications.
-
-```typescript
-import { AmwNotificationService } from "angular-material-wrap";
-
-// Usage
-constructor(private notificationService: AmwNotificationService) {}
-
-// Show notification
-this.notificationService.show({
-  title: 'Notification',
-  message: 'This is a notification',
-  type: 'info',
-  duration: 5000
-});
-```
-
-## TypeScript Support
-
-### Type Definitions
-
-The library includes comprehensive TypeScript definitions:
-
-- Component interfaces
-- Configuration interfaces
-- Service interfaces
-- Event interfaces
-- Data source interfaces
-
-### IntelliSense Support
-
-- Full autocomplete support
-- Type checking
-- JSDoc documentation
-- Interface definitions
+---
 
 ## Styling
 
 ### CSS Classes
 
-Library components use BEM methodology with `amw-` prefix:
+Components use BEM methodology with `amw-` prefix:
 
 ```scss
-.amw-button {
-}
-.amw-button--primary {
-}
-.amw-button__icon {
-}
-.amw-button__text {
-}
+.amw-button { }
+.amw-button--filled { }
+.amw-button--outlined { }
+.amw-button__icon { }
+.amw-button__text { }
 ```
 
-### SCSS Variables
+### CSS Custom Properties
 
-Library components can be customized using SCSS variables:
+Components use Material Design tokens:
 
 ```scss
-// Customize library components
-$amw-primary-color: #1976d2;
-$amw-secondary-color: #dc004e;
-$amw-border-radius: 4px;
+--mdc-theme-primary
+--mdc-theme-secondary
+--mdc-theme-surface
+--mdc-theme-on-surface
+--mdc-shape-small
+--mdc-shape-medium
+--mdc-shape-large
 ```
 
-## Browser Support
+---
 
-### Supported Browsers
+## TypeScript Support
 
-- Chrome (latest)
-- Firefox (latest)
-- Safari (latest)
-- Edge (latest)
+### Type Definitions
 
-### Polyfills
+Full TypeScript support with exported types:
 
-The library requires standard Angular polyfills:
+```typescript
+import {
+  ButtonStyle,
+  FabType,
+  SelectOption,
+  TabItem,
+  AmwColor,
+  AmwSize
+} from "angular-material-wrap";
+```
 
-- Zone.js
-- Reflect metadata (if using decorators)
+---
 
 ## Dependencies
 
@@ -726,113 +882,67 @@ The library requires standard Angular polyfills:
 
 ```json
 {
-  "@angular/common": "^20.2.0",
-  "@angular/core": "^20.2.0",
-  "@angular/material": "^20.2.0",
-  "@angular/cdk": "^20.2.0"
+  "@angular/common": "^21.0.0",
+  "@angular/core": "^21.0.0",
+  "@angular/material": "^21.0.0",
+  "@angular/cdk": "^21.0.0"
 }
 ```
 
-### Internal Dependencies
-
-```json
-{
-  "tslib": "^2.3.0"
-}
-```
+---
 
 ## Installation
-
-### NPM
 
 ```bash
 npm install angular-material-wrap
 ```
 
-### Yarn
+### Module Setup
 
-```bash
-yarn add angular-material-wrap
+Components are standalone - import directly:
+
+```typescript
+import { AmwButtonComponent, AmwInputComponent } from 'angular-material-wrap';
+
+@Component({
+  imports: [AmwButtonComponent, AmwInputComponent],
+  // ...
+})
+export class MyComponent { }
 ```
 
-### Manual Installation
-
-1. Build the library: `npm run build:lib`
-2. Copy `dist/angular-material-wrap/` to your project
-3. Import from the local path
+---
 
 ## Version Compatibility
 
-### Angular Versions
+| Angular Version | Library Version |
+|-----------------|-----------------|
+| Angular 21+ | Latest |
+| Angular 20 | v1.x |
 
-- **Angular 20+**: Full support
-- **Angular 19**: May work with minor adjustments
-- **Angular 18 and below**: Not supported
+---
 
-### TypeScript Versions
+## Button API Summary
 
-- **TypeScript 5.8+**: Full support
-- **TypeScript 5.0-5.7**: May work with minor adjustments
-- **TypeScript 4.x**: Not supported
+The button component uses a clean, intuitive API:
 
-## Migration Guide
+- **Visual Style**: Use `appearance` property (`'filled'` default, or `'text'`, `'elevated'`, `'outlined'`, `'tonal'`)
+- **FAB Buttons**: Use `fab` property (`true`, `'standard'`, `'mini'`, or `'extended'`)
+- **Icon-Only**: Automatically inferred when `icon` is set without text content
 
-### From Previous Versions
+```html
+<!-- Default filled button -->
+<amw-button>Save</amw-button>
 
-When updating the library:
+<!-- Text button -->
+<amw-button appearance="text">Cancel</amw-button>
 
-1. **Check Breaking Changes**: Review changelog for breaking changes
-2. **Update Imports**: Update import statements if needed
-3. **Update Usage**: Update component usage if API changed
-4. **Test Integration**: Test your application with the new version
+<!-- Icon-only button (inferred) -->
+<amw-button icon="close" ariaLabel="Close"></amw-button>
 
-### Common Migration Steps
+<!-- FAB -->
+<amw-button [fab]="true" icon="add"></amw-button>
 
-```typescript
-// Before (example)
-import { OldComponent } from "angular-material-wrap";
-
-// After (example)
-import { AmwButtonComponent } from "angular-material-wrap";
+<!-- Mini FAB -->
+<amw-button fab="mini" icon="edit"></amw-button>
 ```
-
-## Troubleshooting
-
-### Common Issues
-
-#### Import Errors
-
-```typescript
-// Error: Module not found
-import { AmwButtonComponent } from 'angular-material-wrap';
-
-// Solution: Check if library is properly installed
-npm list angular-material-wrap
-```
-
-#### Type Errors
-
-```typescript
-// Error: Type not found
-import { ButtonConfig } from "angular-material-wrap";
-
-// Solution: Check TypeScript configuration
-// Ensure "moduleResolution": "node" in tsconfig.json
-```
-
-#### Build Errors
-
-```bash
-# Error: Build fails
-ng build
-
-# Solution: Check peer dependencies
-npm install @angular/common@^20.2.0 @angular/core@^20.2.0 @angular/material@^20.2.0
-```
-
-### Getting Help
-
-1. **Documentation**: Check this documentation
-2. **Issues**: Report issues on GitHub
-3. **Examples**: Check demo app for usage examples
-4. **Community**: Ask questions in Angular community forums

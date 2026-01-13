@@ -18,22 +18,20 @@
       <!-- Navigation Controls -->
       <div class="amw-calendar-full__navigation">
         <amw-button
-          variant="icon"
-          icon="chevron_left"
+                    icon="chevron_left"
           (click)="navigatePrevious()"
           [disabled]="disabled()"
           amwTooltip="Previous">
         </amw-button>
         <amw-button
-          variant="text"
+          appearance="text"
           (click)="navigateToday()"
           [disabled]="disabled()"
           amwTooltip="Today">
           Today
         </amw-button>
         <amw-button
-          variant="icon"
-          icon="chevron_right"
+                    icon="chevron_right"
           (click)="navigateNext()"
           [disabled]="disabled()"
           amwTooltip="Next">
@@ -61,21 +59,21 @@
       @if (showViewSwitcher()) {
         <div class="amw-calendar-full__view-switcher">
           <amw-button
-            variant="text"
+            appearance="text"
             [class.amw-calendar-full__view-button--active]="currentView === 'month'"
             (click)="changeView('month')"
             [disabled]="disabled()">
             Month
           </amw-button>
           <amw-button
-            variant="text"
+            appearance="text"
             [class.amw-calendar-full__view-button--active]="currentView === 'week'"
             (click)="changeView('week')"
             [disabled]="disabled()">
             Week
           </amw-button>
           <amw-button
-            variant="text"
+            appearance="text"
             [class.amw-calendar-full__view-button--active]="currentView === 'day'"
             (click)="changeView('day')"
             [disabled]="disabled()">
@@ -87,7 +85,7 @@
       @if (showCreateButton() && (internalConfig.allowCreate || internalItemConfig.allowCreate)) {
         <div class="amw-calendar-full__actions">
           <amw-button
-            variant="elevated"
+            appearance="elevated"
             icon="add"
             iconPosition="left"
             color="primary"

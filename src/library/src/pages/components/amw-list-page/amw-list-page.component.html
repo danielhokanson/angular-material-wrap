@@ -10,9 +10,9 @@
       </div>
 
       <div class="amw-list-page__header-actions">
-        <amw-button variant="icon" icon="refresh" (click)="onRefresh()" amwTooltip="Refresh">
+        <amw-button icon="refresh" (click)="onRefresh()" amwTooltip="Refresh">
         </amw-button>
-        <amw-button variant="icon" icon="download" (click)="onExport()" amwTooltip="Export">
+        <amw-button icon="download" (click)="onExport()" amwTooltip="Export">
         </amw-button>
       </div>
     </div>
@@ -32,7 +32,7 @@
             appearance="outline">
             <mat-icon matSuffix>search</mat-icon>
           </amw-input>
-          <amw-button variant="elevated" color="primary" (click)="onSearch()">Search</amw-button>
+          <amw-button appearance="elevated" color="primary" (click)="onSearch()">Search</amw-button>
         </div>
       }
       @if (currentConfig.showFilters && currentConfig.filters && currentConfig.filters.length > 0) {
@@ -74,8 +74,8 @@
                 }
               </div>
               <div class="amw-list-page__filters-actions">
-                <amw-button variant="text" (click)="onFilterChange()">Apply Filters</amw-button>
-                <amw-button variant="text" (click)="clearFilters()">Clear All</amw-button>
+                <amw-button appearance="text" (click)="onFilterChange()">Apply Filters</amw-button>
+                <amw-button appearance="text" (click)="clearFilters()">Clear All</amw-button>
               </div>
             </div>
           </mat-expansion-panel>
@@ -94,7 +94,7 @@
         <div class="amw-list-page__bulk-actions-buttons">
           @for (action of currentConfig.bulkActions; track action) {
             <amw-button
-              variant="text"
+              appearance="text"
               [icon]="action.icon"
               [iconPosition]="action.icon ? 'left' : 'left'"
               [color]="action.color || 'primary'"
@@ -147,8 +147,7 @@
           <td mat-cell *matCellDef="let row">
             @for (action of currentConfig.customActions; track action) {
               <amw-button
-                variant="icon"
-                [icon]="action.icon"
+                                [icon]="action.icon"
                 (click)="onActionClick(action.key, row)"
                 [amwTooltip]="action.label">
               </amw-button>
@@ -174,7 +173,7 @@
       <div class="amw-list-page__error">
         <mat-icon>error</mat-icon>
         <p>{{ error }}</p>
-        <amw-button variant="elevated" color="primary" (click)="onRefresh()">Retry</amw-button>
+        <amw-button appearance="elevated" color="primary" (click)="onRefresh()">Retry</amw-button>
       </div>
     }
 

@@ -69,10 +69,10 @@
 
         <!-- Action Buttons -->
         <div class="card-demo__actions">
-          <amw-button variant="elevated" color="primary" (click)="addSampleCard()" icon="add" iconPosition="left">Add Sample Card</amw-button>
-          <amw-button variant="text" (click)="clearFilters()" icon="clear" iconPosition="left">Clear Filters</amw-button>
-          <amw-button variant="text" (click)="getCardStatistics()" icon="analytics" iconPosition="left">Statistics</amw-button>
-          <amw-button variant="text" (click)="exportCards()" icon="download" iconPosition="left">Export</amw-button>
+          <amw-button appearance="elevated" color="primary" (click)="addSampleCard()" icon="add" iconPosition="left">Add Sample Card</amw-button>
+          <amw-button appearance="text" (click)="clearFilters()" icon="clear" iconPosition="left">Clear Filters</amw-button>
+          <amw-button appearance="text" (click)="getCardStatistics()" icon="analytics" iconPosition="left">Statistics</amw-button>
+          <amw-button appearance="text" (click)="exportCards()" icon="download" iconPosition="left">Export</amw-button>
         </div>
       </ng-template>
     </amw-card>
@@ -105,10 +105,10 @@
             class="card-demo__service-card"
             >
             <ng-template #cardActions>
-              <amw-button variant="icon" icon="content_copy" (click)="duplicateCard(card)" amwTooltip="Duplicate"></amw-button>
-              <amw-button variant="icon" icon="{{ card.loading ? 'pause' : 'play_arrow' }}" (click)="toggleCardLoading(card)" amwTooltip="Toggle Loading"></amw-button>
-              <amw-button variant="icon" icon="{{ card.disabled ? 'check_circle' : 'cancel' }}" (click)="toggleCardDisabled(card)" amwTooltip="Toggle Disabled"></amw-button>
-              <amw-button variant="icon" icon="delete" (click)="deleteCard(card)" amwTooltip="Delete" color="warn"></amw-button>
+              <amw-button icon="content_copy" (click)="duplicateCard(card)" amwTooltip="Duplicate"></amw-button>
+              <amw-button icon="{{ card.loading ? 'pause' : 'play_arrow' }}" (click)="toggleCardLoading(card)" amwTooltip="Toggle Loading"></amw-button>
+              <amw-button icon="{{ card.disabled ? 'check_circle' : 'cancel' }}" (click)="toggleCardDisabled(card)" amwTooltip="Toggle Disabled"></amw-button>
+              <amw-button icon="delete" (click)="deleteCard(card)" amwTooltip="Delete" color="warn"></amw-button>
             </ng-template>
           </amw-card>
         }

@@ -58,8 +58,7 @@
           <!-- Tab Close Button -->
           @if (currentConfig().showCloseButtons && isTabClosable(i)) {
             <amw-button
-              variant="icon"
-              icon="close"
+                            icon="close"
               class="amw-tabs__tab-close"
               (click)="closeTab(i); $event.stopPropagation()"
               [disabled]="disabled()">
@@ -72,8 +71,7 @@
     <!-- Add Tab Button -->
     @if (currentConfig().showAddButton) {
       <amw-button
-        variant="icon"
-        icon="add"
+                icon="add"
         class="amw-tabs__add-button"
         (click)="addTab()"
         [disabled]="disabled()">
@@ -102,8 +100,7 @@
               </div>
               @if (currentConfig().showCloseButtons && isTabClosable(i)) {
                 <div class="amw-tabs__panel-actions">
-                  <amw-button variant="icon"
-                    icon="close"
+                  <amw-button                     icon="close"
                     (click)="closeTab(i)"
                     [disabled]="disabled()">
                   </amw-button>
@@ -133,7 +130,7 @@
         <p>Add a new tab to get started</p>
         @if (currentConfig().showAddButton) {
           <amw-button
-            variant="elevated"
+            appearance="elevated"
             icon="add"
             iconPosition="left"
             color="primary"

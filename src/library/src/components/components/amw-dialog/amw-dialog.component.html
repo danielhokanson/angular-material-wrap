@@ -28,7 +28,6 @@
         </h2>
         @if (effectiveShowCloseButton()) {
           <amw-button
-            variant="icon"
             icon="close"
             class="amw-dialog__close"
             (click)="onCloseClick()"
@@ -120,7 +119,7 @@
       } @else {
         @for (action of effectiveActions(); track action; let i = $index) {
           <amw-button
-            variant="text"
+            appearance="text"
             [icon]="action.icon"
             [iconPosition]="action.icon ? 'left' : 'left'"
             [color]="action.color || 'primary'"

@@ -41,7 +41,7 @@ controls/
 
 **Examples**:
 
-- `amw-button` - Enhanced button with loading states, icons, variants
+- `amw-button` - Enhanced button with loading states, icons, multiple appearances (text, elevated, outlined, filled, tonal) and FAB support
 - `amw-input` - Input with validation, error handling, labels
 - `amw-select` - Select dropdown with search, multi-select
 - `amw-autocomplete` - Autocomplete with custom filtering

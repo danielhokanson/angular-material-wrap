@@ -111,31 +111,60 @@ src/
 
 ## What's Included
 
-### Controls (20+ Components)
+### Controls (18 Components)
 
-- **Form Controls**: Button, Input, Select, Checkbox, Radio, Switch, Toggle, Slider, Range Slider
-- **Advanced Controls**: Autocomplete, Chips, Color Picker, Date Picker, Time Picker, File Input
-- **Data Controls**: Data Table with sorting, filtering, pagination
+- **Form Controls**: Button, Input, Select, Checkbox, Radio, Radio Group, Switch, Toggle, Slider, Range Slider, Textarea
+- **Advanced Controls**: Autocomplete, Chips, Color Picker, Datepicker, Timepicker, File Input
+- **Validation**: Form Validation component
 
-### Components (10+ Components)
+### Components (23 Components)
 
-- **Layout**: Card, Dialog, Popover, Sidenav, Stepper, Tabs, Accordion
-- **Data Display**: Calendar (Full, Mini, Item Dialog, Item Editor)
-
-### Pages (6 Page Stereotypes)
-
-- **List/Table Page**: Data tables with advanced filtering and bulk actions
-- **Detail/View Page**: Item detail views with related data sections
-- **Form/Create-Edit Page**: Dynamic forms with validation and sections
-- **Search/Filter Page**: Advanced search with collapsible filters
-- **Workflow/Process Page**: Multi-step processes with progress tracking
-- **Report/Analytics Page**: Dashboard-style reports with widgets
+- **Layout**: Card, Dialog, Popover, Sidenav, Stepper, Tabs, Tab, Accordion, Accordion Panel
+- **Navigation**: Menu, Menu Item, Toolbar
+- **Display**: Icon, Divider, Progress Bar, Progress Spinner
+- **Calendar**: Calendar Full, Calendar Mini, Calendar Picker, Calendar Item Dialog, Calendar Item Editor
+- **Data**: Data Table with sorting, filtering, pagination
 
 ### Styling & Theme
 
 - **Material Design 3**: Complete M3 implementation
 - **Theme Management**: Dynamic theme switching and customization
 - **SCSS Architecture**: BEM methodology with consistent naming
+
+## Modern Signal-Based API
+
+All components use Angular's modern signal-based API:
+
+```typescript
+// Signal inputs
+appearance = input<ButtonStyle>('filled');
+loading = input<boolean>(false);
+
+// Signal outputs
+buttonClick = output<MouseEvent>();
+
+// Two-way binding with model()
+value = model<string>('');
+```
+
+Example usage:
+
+```html
+<!-- Button with M3 styles -->
+<amw-button appearance="outlined" icon="save">Save</amw-button>
+
+<!-- FAB button -->
+<amw-button [fab]="true" icon="add"></amw-button>
+
+<!-- Input with validation -->
+<amw-input
+  label="Email"
+  type="email"
+  [required]="true"
+  [clearable]="true"
+  [(value)]="email">
+</amw-input>
+```
 
 ## Output
 
@@ -144,9 +173,10 @@ src/
 
 ## Technology Stack
 
-- **Angular**: 20.2.0
-- **Angular Material**: 20.2.0
-- **TypeScript**: 5.8.0
+- **Angular**: 21.x
+- **Angular Material**: 21.x
+- **TypeScript**: 5.8+
 - **SCSS**: For styling with BEM methodology
 - **ng-packagr**: For library building
 - **Angular CLI**: For development and building
+- **Cypress**: For E2E testing

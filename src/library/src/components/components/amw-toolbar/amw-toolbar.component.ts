@@ -17,7 +17,7 @@ export type ToolbarPosition = 'static' | 'fixed' | 'sticky' | 'absolute';
  *   [color]="'primary'"
  *   [title]="'My Application'">
  *   <ng-template #toolbarActions>
- *     <amw-button variant="icon" icon="menu">
+ *     <amw-button icon="menu">
  *     </amw-button>
  *   </ng-template>
  * </amw-toolbar>

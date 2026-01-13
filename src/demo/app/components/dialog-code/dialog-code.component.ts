@@ -26,17 +26,17 @@ import { AmwAccordionComponent, AmwAccordionPanelComponent, AmwIconComponent } f
 export class DialogCodeComponent extends BaseCodeComponent<DialogExamples> {
     // Original code examples (for reset functionality)
     readonly codeExamples: Record<DialogExamples, string> = {
-        basic: `<amw-button variant="elevated" (click)="openDialog()">Open Dialog</amw-button>`,
+        basic: `<amw-button appearance="elevated" (click)="openDialog()">Open Dialog</amw-button>`,
 
-        confirmation: `<amw-button variant="elevated" color="warn" (click)="openConfirmDialog()">
+        confirmation: `<amw-button appearance="elevated" color="warn" (click)="openConfirmDialog()">
   Delete Item
 </amw-button>`,
 
-        alert: `<amw-button variant="elevated" (click)="openAlertDialog()">
+        alert: `<amw-button appearance="elevated" (click)="openAlertDialog()">
   Show Alert
 </amw-button>`,
 
-        customActions: `<amw-button variant="elevated" color="primary" (click)="openFormDialog()">
+        customActions: `<amw-button appearance="elevated" color="primary" (click)="openFormDialog()">
   Open Form Dialog
 </amw-button>`
     };
@@ -101,8 +101,8 @@ export class DialogCodeComponent extends BaseCodeComponent<DialogExamples> {
             <p>This is a basic dialog with title and content.</p>
         </mat-dialog-content>
         <mat-dialog-actions align="end">
-            <amw-button variant="text" mat-dialog-close>Cancel</amw-button>
-            <amw-button variant="text" mat-dialog-close="confirmed" cdkFocusInitial>OK</amw-button>
+            <amw-button appearance="text" mat-dialog-close>Cancel</amw-button>
+            <amw-button appearance="text" mat-dialog-close="confirmed" cdkFocusInitial>OK</amw-button>
         </mat-dialog-actions>
     `
 })
@@ -124,8 +124,8 @@ export class SimpleDialogComponent {}
             <p>Are you sure you want to delete this item? This action cannot be undone.</p>
         </mat-dialog-content>
         <mat-dialog-actions align="end">
-            <amw-button variant="text" mat-dialog-close>Cancel</amw-button>
-            <amw-button variant="text" color="warn" [mat-dialog-close]="true" cdkFocusInitial>Delete</amw-button>
+            <amw-button appearance="text" mat-dialog-close>Cancel</amw-button>
+            <amw-button appearance="text" color="warn" [mat-dialog-close]="true" cdkFocusInitial>Delete</amw-button>
         </mat-dialog-actions>
     `
 })
@@ -150,7 +150,7 @@ export class ConfirmDialogComponent {}
             <p>This is an important alert message that requires your attention.</p>
         </mat-dialog-content>
         <mat-dialog-actions align="end">
-            <amw-button variant="elevated" color="primary" mat-dialog-close cdkFocusInitial>OK</amw-button>
+            <amw-button appearance="elevated" color="primary" mat-dialog-close cdkFocusInitial>OK</amw-button>
         </mat-dialog-actions>
     `
 })
@@ -172,9 +172,9 @@ export class AlertDialogComponent {}
             <p>This dialog demonstrates custom actions and form handling.</p>
         </mat-dialog-content>
         <mat-dialog-actions align="end">
-            <amw-button variant="text" mat-dialog-close>Cancel</amw-button>
-            <amw-button variant="text" color="accent" [mat-dialog-close]="{action: 'save'}">Save</amw-button>
-            <amw-button variant="elevated" color="primary" [mat-dialog-close]="{action: 'saveClose'}" cdkFocusInitial>
+            <amw-button appearance="text" mat-dialog-close>Cancel</amw-button>
+            <amw-button appearance="text" color="accent" [mat-dialog-close]="{action: 'save'}">Save</amw-button>
+            <amw-button appearance="elevated" color="primary" [mat-dialog-close]="{action: 'saveClose'}" cdkFocusInitial>
                 Save & Close
             </amw-button>
         </mat-dialog-actions>

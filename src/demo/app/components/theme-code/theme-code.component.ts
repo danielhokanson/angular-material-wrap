@@ -24,9 +24,9 @@ import { AmwAccordionComponent, AmwAccordionPanelComponent, AmwIconComponent, Am
 export class ThemeCodeComponent extends BaseCodeComponent<ThemeExamples> {
   readonly codeExamples: Record<ThemeExamples, string> = {
     colorPalette: `<!-- Using Material theme colors -->
-<amw-button variant="elevated" color="primary">Primary</amw-button>
-<amw-button variant="elevated" color="accent">Accent</amw-button>
-<amw-button variant="elevated" color="warn">Warn</amw-button>`,
+<amw-button appearance="elevated" color="primary">Primary</amw-button>
+<amw-button appearance="elevated" color="accent">Accent</amw-button>
+<amw-button appearance="elevated" color="warn">Warn</amw-button>`,
 
     cssVariables: `<!-- Using CSS variables in components -->
 <div style="
@@ -43,7 +43,7 @@ export class ThemeCodeComponent extends BaseCodeComponent<ThemeExamples> {
     Content styled with theme colors
   </ng-template>
   <ng-template #cardActions>
-    <amw-button variant="text" color="primary">Action</amw-button>
+    <amw-button appearance="text" color="primary">Action</amw-button>
   </ng-template>
 </amw-card>`,
 
@@ -64,7 +64,7 @@ export class ThemeCodeComponent extends BaseCodeComponent<ThemeExamples> {
   }
 </style>
 <div class="custom-theme">
-  <amw-button variant="elevated" color="primary">
+  <amw-button appearance="elevated" color="primary">
     Custom Primary Color
   </amw-button>
 </div>`

@@ -1,5 +1,5 @@
 <div class="amw-button">
-  <!-- Common Button Content Template -->
+  <!-- Common Button Content Template (for standard buttons and extended FAB) -->
   <ng-template #buttonContent>
     <!-- Left Icon -->
     @if (icon() && iconPosition() === 'left' && !loading()) {
@@ -13,7 +13,7 @@
     }
 
     <!-- Button Text -->
-    @if (!loading()) {
+    @if (!loading() && !isIconOnly()) {
       <span class="amw-button__text">
         @if (text() && text().trim()) {
           <span [innerHTML]="text()"></span>
@@ -29,149 +29,130 @@
     }
   </ng-template>
 
-  <!-- Text Button -->
-  @if (variant() === 'text') {
-    <button matButton [type]="type()" [attr.color]="color()" [disabled]="disabled() || loading()"
-      [autofocus]="autofocus()" [name]="name()" [attr.form]="form()" [attr.formaction]="formAction()"
-      [attr.formmethod]="formMethod()" [attr.formtarget]="formTarget()" [attr.formenctype]="formEnctype()"
-      [attr.formnovalidate]="formNoValidate()" [attr.aria-label]="ariaLabel()" [attr.aria-labelledby]="ariaLabelledby()"
-      [attr.aria-describedby]="ariaDescribedby()" [attr.tabindex]="tabIndex()" [class]="buttonClasses"
-      (click)="onButtonClick($event)" (focus)="onButtonFocus($event)" (blur)="onButtonBlur($event)"
-      (mouseenter)="onMouseEnter($event)" (mouseleave)="onMouseLeave($event)" class="amw-button__button">
-      <ng-container [ngTemplateOutlet]="buttonContent"></ng-container>
-    </button>
-  }
-
-  <!-- Elevated Button -->
-  @if (variant() === 'elevated') {
-    <button matButton="elevated" [type]="type()" [attr.color]="color()" [disabled]="disabled() || loading()"
-      [autofocus]="autofocus()" [name]="name()" [attr.form]="form()" [attr.formaction]="formAction()"
-      [attr.formmethod]="formMethod()" [attr.formtarget]="formTarget()" [attr.formenctype]="formEnctype()"
-      [attr.formnovalidate]="formNoValidate()" [attr.aria-label]="ariaLabel()" [attr.aria-labelledby]="ariaLabelledby()"
-      [attr.aria-describedby]="ariaDescribedby()" [attr.tabindex]="tabIndex()" [class]="buttonClasses"
-      (click)="onButtonClick($event)" (focus)="onButtonFocus($event)" (blur)="onButtonBlur($event)"
-      (mouseenter)="onMouseEnter($event)" (mouseleave)="onMouseLeave($event)" class="amw-button__button">
-      <ng-container [ngTemplateOutlet]="buttonContent"></ng-container>
-    </button>
-  }
-
-  <!-- Outlined Button -->
-  @if (variant() === 'outlined') {
-    <button matButton="outlined" [type]="type()" [attr.color]="color()" [disabled]="disabled() || loading()"
-      [autofocus]="autofocus()" [name]="name()" [attr.form]="form()" [attr.formaction]="formAction()"
-      [attr.formmethod]="formMethod()" [attr.formtarget]="formTarget()" [attr.formenctype]="formEnctype()"
-      [attr.formnovalidate]="formNoValidate()" [attr.aria-label]="ariaLabel()" [attr.aria-labelledby]="ariaLabelledby()"
-      [attr.aria-describedby]="ariaDescribedby()" [attr.tabindex]="tabIndex()" [class]="buttonClasses"
-      (click)="onButtonClick($event)" (focus)="onButtonFocus($event)" (blur)="onButtonBlur($event)"
-      (mouseenter)="onMouseEnter($event)" (mouseleave)="onMouseLeave($event)" class="amw-button__button">
-      <ng-container [ngTemplateOutlet]="buttonContent"></ng-container>
-    </button>
-  }
-
-  <!-- Filled Button -->
-  @if (variant() === 'filled') {
-    <button matButton="filled" [type]="type()" [attr.color]="color()" [disabled]="disabled() || loading()"
-      [autofocus]="autofocus()" [name]="name()" [attr.form]="form()" [attr.formaction]="formAction()"
-      [attr.formmethod]="formMethod()" [attr.formtarget]="formTarget()" [attr.formenctype]="formEnctype()"
-      [attr.formnovalidate]="formNoValidate()" [attr.aria-label]="ariaLabel()" [attr.aria-labelledby]="ariaLabelledby()"
-      [attr.aria-describedby]="ariaDescribedby()" [attr.tabindex]="tabIndex()" [class]="buttonClasses"
-      (click)="onButtonClick($event)" (focus)="onButtonFocus($event)" (blur)="onButtonBlur($event)"
-      (mouseenter)="onMouseEnter($event)" (mouseleave)="onMouseLeave($event)" class="amw-button__button">
-      <ng-container [ngTemplateOutlet]="buttonContent"></ng-container>
-    </button>
-  }
-
-  <!-- Tonal Button -->
-  @if (variant() === 'tonal') {
-    <button matButton="tonal" [type]="type()" [attr.color]="color()" [disabled]="disabled() || loading()"
-      [autofocus]="autofocus()" [name]="name()" [attr.form]="form()" [attr.formaction]="formAction()"
-      [attr.formmethod]="formMethod()" [attr.formtarget]="formTarget()" [attr.formenctype]="formEnctype()"
-      [attr.formnovalidate]="formNoValidate()" [attr.aria-label]="ariaLabel()" [attr.aria-labelledby]="ariaLabelledby()"
-      [attr.aria-describedby]="ariaDescribedby()" [attr.tabindex]="tabIndex()" [class]="buttonClasses"
-      (click)="onButtonClick($event)" (focus)="onButtonFocus($event)" (blur)="onButtonBlur($event)"
-      (mouseenter)="onMouseEnter($event)" (mouseleave)="onMouseLeave($event)" class="amw-button__button">
-      <ng-container [ngTemplateOutlet]="buttonContent"></ng-container>
-    </button>
-  }
-
-  <!-- Special Button Variants (mutually exclusive) -->
-  @if (isSpecialVariant()) {
-    @if (variant() === 'icon') {
-      <button matIconButton [type]="type()" [attr.color]="color()" [disabled]="disabled() || loading()"
-        [autofocus]="autofocus()" [name]="name()" [attr.form]="form()" [attr.formaction]="formAction()"
-        [attr.formmethod]="formMethod()" [attr.formtarget]="formTarget()" [attr.formenctype]="formEnctype()"
-        [attr.formnovalidate]="formNoValidate()" [attr.aria-label]="ariaLabel()" [attr.aria-labelledby]="ariaLabelledby()"
-        [attr.aria-describedby]="ariaDescribedby()" [attr.tabindex]="tabIndex()" [class]="buttonClasses"
-        (click)="onButtonClick($event)" (focus)="onButtonFocus($event)" (blur)="onButtonBlur($event)"
-        (mouseenter)="onMouseEnter($event)" (mouseleave)="onMouseLeave($event)" class="amw-button__button">
-
-        <!-- Loading Spinner -->
-        @if (loading()) {
-          <amw-progress-spinner class="amw-button__spinner" [diameter]="spinnerSize()" [color]="spinnerColor()">
-          </amw-progress-spinner>
-        }
-
-        <!-- Icon -->
-        @if (icon() && !loading()) {
-          <mat-icon class="amw-button__icon">{{ icon() }}</mat-icon>
-        }
-      </button>
+  <!-- Icon-Only Content Template (for FABs and icon buttons) -->
+  <ng-template #iconOnlyContent>
+    <!-- Loading Spinner -->
+    @if (loading()) {
+      <amw-progress-spinner class="amw-button__spinner" [diameter]="spinnerSize()" [color]="spinnerColor()">
+      </amw-progress-spinner>
     }
 
-    @if (variant() === 'fab') {
-      <button matFab [type]="type()" [attr.color]="color()" [disabled]="disabled() || loading()"
-        [autofocus]="autofocus()" [name]="name()" [attr.form]="form()" [attr.formaction]="formAction()"
-        [attr.formmethod]="formMethod()" [attr.formtarget]="formTarget()" [attr.formenctype]="formEnctype()"
-        [attr.formnovalidate]="formNoValidate()" [attr.aria-label]="ariaLabel()" [attr.aria-labelledby]="ariaLabelledby()"
-        [attr.aria-describedby]="ariaDescribedby()" [attr.tabindex]="tabIndex()" [class]="buttonClasses"
-        (click)="onButtonClick($event)" (focus)="onButtonFocus($event)" (blur)="onButtonBlur($event)"
-        (mouseenter)="onMouseEnter($event)" (mouseleave)="onMouseLeave($event)" class="amw-button__button">
-
-        <!-- Loading Spinner -->
-        @if (loading()) {
-          <amw-progress-spinner class="amw-button__spinner" [diameter]="spinnerSize()" [color]="spinnerColor()">
-          </amw-progress-spinner>
-        }
-
-        <!-- Icon -->
-        @if (icon() && !loading()) {
-          <mat-icon class="amw-button__icon">{{ icon() }}</mat-icon>
-        }
-      </button>
+    <!-- Icon -->
+    @if (icon() && !loading()) {
+      <mat-icon class="amw-button__icon">{{ icon() }}</mat-icon>
     }
+  </ng-template>
 
-    @if (variant() === 'mini-fab') {
-      <button matMiniFab [type]="type()" [attr.color]="color()" [disabled]="disabled() || loading()"
-        [autofocus]="autofocus()" [name]="name()" [attr.form]="form()" [attr.formaction]="formAction()"
-        [attr.formmethod]="formMethod()" [attr.formtarget]="formTarget()" [attr.formenctype]="formEnctype()"
-        [attr.formnovalidate]="formNoValidate()" [attr.aria-label]="ariaLabel()" [attr.aria-labelledby]="ariaLabelledby()"
-        [attr.aria-describedby]="ariaDescribedby()" [attr.tabindex]="tabIndex()" [class]="buttonClasses"
-        (click)="onButtonClick($event)" (focus)="onButtonFocus($event)" (blur)="onButtonBlur($event)"
-        (mouseenter)="onMouseEnter($event)" (mouseleave)="onMouseLeave($event)" class="amw-button__button">
+  <!-- Standard FAB -->
+  @if (isFab() && !isMiniFab() && !isExtendedFab()) {
+    <button matFab [type]="type()" [attr.color]="color()" [disabled]="disabled() || loading()"
+      [autofocus]="autofocus()" [name]="name()" [attr.form]="form()" [attr.formaction]="formAction()"
+      [attr.formmethod]="formMethod()" [attr.formtarget]="formTarget()" [attr.formenctype]="formEnctype()"
+      [attr.formnovalidate]="formNoValidate()" [attr.aria-label]="ariaLabel()" [attr.aria-labelledby]="ariaLabelledby()"
+      [attr.aria-describedby]="ariaDescribedby()" [attr.tabindex]="tabIndex()" [class]="buttonClasses"
+      (click)="onButtonClick($event)" (focus)="onButtonFocus($event)" (blur)="onButtonBlur($event)"
+      (mouseenter)="onMouseEnter($event)" (mouseleave)="onMouseLeave($event)" class="amw-button__button">
+      <ng-container [ngTemplateOutlet]="iconOnlyContent"></ng-container>
+    </button>
+  }
 
-        <!-- Loading Spinner -->
-        @if (loading()) {
-          <amw-progress-spinner class="amw-button__spinner" [diameter]="spinnerSize()" [color]="spinnerColor()">
-          </amw-progress-spinner>
-        }
+  <!-- Mini FAB -->
+  @else if (isMiniFab()) {
+    <button matMiniFab [type]="type()" [attr.color]="color()" [disabled]="disabled() || loading()"
+      [autofocus]="autofocus()" [name]="name()" [attr.form]="form()" [attr.formaction]="formAction()"
+      [attr.formmethod]="formMethod()" [attr.formtarget]="formTarget()" [attr.formenctype]="formEnctype()"
+      [attr.formnovalidate]="formNoValidate()" [attr.aria-label]="ariaLabel()" [attr.aria-labelledby]="ariaLabelledby()"
+      [attr.aria-describedby]="ariaDescribedby()" [attr.tabindex]="tabIndex()" [class]="buttonClasses"
+      (click)="onButtonClick($event)" (focus)="onButtonFocus($event)" (blur)="onButtonBlur($event)"
+      (mouseenter)="onMouseEnter($event)" (mouseleave)="onMouseLeave($event)" class="amw-button__button">
+      <ng-container [ngTemplateOutlet]="iconOnlyContent"></ng-container>
+    </button>
+  }
 
-        <!-- Icon -->
-        @if (icon() && !loading()) {
-          <mat-icon class="amw-button__icon">{{ icon() }}</mat-icon>
-        }
-      </button>
-    }
+  <!-- Extended FAB -->
+  @else if (isExtendedFab()) {
+    <button matFab extended [type]="type()" [attr.color]="color()" [disabled]="disabled() || loading()"
+      [autofocus]="autofocus()" [name]="name()" [attr.form]="form()" [attr.formaction]="formAction()"
+      [attr.formmethod]="formMethod()" [attr.formtarget]="formTarget()" [attr.formenctype]="formEnctype()"
+      [attr.formnovalidate]="formNoValidate()" [attr.aria-label]="ariaLabel()" [attr.aria-labelledby]="ariaLabelledby()"
+      [attr.aria-describedby]="ariaDescribedby()" [attr.tabindex]="tabIndex()" [class]="buttonClasses"
+      (click)="onButtonClick($event)" (focus)="onButtonFocus($event)" (blur)="onButtonBlur($event)"
+      (mouseenter)="onMouseEnter($event)" (mouseleave)="onMouseLeave($event)" class="amw-button__button">
+      <ng-container [ngTemplateOutlet]="buttonContent"></ng-container>
+    </button>
+  }
 
-    @if (variant() === 'extended-fab') {
-      <button matFab extended [type]="type()" [attr.color]="color()" [disabled]="disabled() || loading()"
-        [autofocus]="autofocus()" [name]="name()" [attr.form]="form()" [attr.formaction]="formAction()"
-        [attr.formmethod]="formMethod()" [attr.formtarget]="formTarget()" [attr.formenctype]="formEnctype()"
-        [attr.formnovalidate]="formNoValidate()" [attr.aria-label]="ariaLabel()" [attr.aria-labelledby]="ariaLabelledby()"
-        [attr.aria-describedby]="ariaDescribedby()" [attr.tabindex]="tabIndex()" [class]="buttonClasses"
-        (click)="onButtonClick($event)" (focus)="onButtonFocus($event)" (blur)="onButtonBlur($event)"
-        (mouseenter)="onMouseEnter($event)" (mouseleave)="onMouseLeave($event)" class="amw-button__button">
-        <ng-container [ngTemplateOutlet]="buttonContent"></ng-container>
-      </button>
+  <!-- Icon-Only Button (not FAB) -->
+  @else if (isIconOnly()) {
+    <button matIconButton [type]="type()" [attr.color]="color()" [disabled]="disabled() || loading()"
+      [autofocus]="autofocus()" [name]="name()" [attr.form]="form()" [attr.formaction]="formAction()"
+      [attr.formmethod]="formMethod()" [attr.formtarget]="formTarget()" [attr.formenctype]="formEnctype()"
+      [attr.formnovalidate]="formNoValidate()" [attr.aria-label]="ariaLabel()" [attr.aria-labelledby]="ariaLabelledby()"
+      [attr.aria-describedby]="ariaDescribedby()" [attr.tabindex]="tabIndex()" [class]="buttonClasses"
+      (click)="onButtonClick($event)" (focus)="onButtonFocus($event)" (blur)="onButtonBlur($event)"
+      (mouseenter)="onMouseEnter($event)" (mouseleave)="onMouseLeave($event)" class="amw-button__button">
+      <ng-container [ngTemplateOutlet]="iconOnlyContent"></ng-container>
+    </button>
+  }
+
+  <!-- Standard Buttons with different styles -->
+  @else {
+    @switch (effectiveAppearance()) {
+      @case ('text') {
+        <button matButton [type]="type()" [attr.color]="color()" [disabled]="disabled() || loading()"
+          [autofocus]="autofocus()" [name]="name()" [attr.form]="form()" [attr.formaction]="formAction()"
+          [attr.formmethod]="formMethod()" [attr.formtarget]="formTarget()" [attr.formenctype]="formEnctype()"
+          [attr.formnovalidate]="formNoValidate()" [attr.aria-label]="ariaLabel()" [attr.aria-labelledby]="ariaLabelledby()"
+          [attr.aria-describedby]="ariaDescribedby()" [attr.tabindex]="tabIndex()" [class]="buttonClasses"
+          (click)="onButtonClick($event)" (focus)="onButtonFocus($event)" (blur)="onButtonBlur($event)"
+          (mouseenter)="onMouseEnter($event)" (mouseleave)="onMouseLeave($event)" class="amw-button__button">
+          <ng-container [ngTemplateOutlet]="buttonContent"></ng-container>
+        </button>
+      }
+      @case ('elevated') {
+        <button matButton="elevated" [type]="type()" [attr.color]="color()" [disabled]="disabled() || loading()"
+          [autofocus]="autofocus()" [name]="name()" [attr.form]="form()" [attr.formaction]="formAction()"
+          [attr.formmethod]="formMethod()" [attr.formtarget]="formTarget()" [attr.formenctype]="formEnctype()"
+          [attr.formnovalidate]="formNoValidate()" [attr.aria-label]="ariaLabel()" [attr.aria-labelledby]="ariaLabelledby()"
+          [attr.aria-describedby]="ariaDescribedby()" [attr.tabindex]="tabIndex()" [class]="buttonClasses"
+          (click)="onButtonClick($event)" (focus)="onButtonFocus($event)" (blur)="onButtonBlur($event)"
+          (mouseenter)="onMouseEnter($event)" (mouseleave)="onMouseLeave($event)" class="amw-button__button">
+          <ng-container [ngTemplateOutlet]="buttonContent"></ng-container>
+        </button>
+      }
+      @case ('outlined') {
+        <button matButton="outlined" [type]="type()" [attr.color]="color()" [disabled]="disabled() || loading()"
+          [autofocus]="autofocus()" [name]="name()" [attr.form]="form()" [attr.formaction]="formAction()"
+          [attr.formmethod]="formMethod()" [attr.formtarget]="formTarget()" [attr.formenctype]="formEnctype()"
+          [attr.formnovalidate]="formNoValidate()" [attr.aria-label]="ariaLabel()" [attr.aria-labelledby]="ariaLabelledby()"
+          [attr.aria-describedby]="ariaDescribedby()" [attr.tabindex]="tabIndex()" [class]="buttonClasses"
+          (click)="onButtonClick($event)" (focus)="onButtonFocus($event)" (blur)="onButtonBlur($event)"
+          (mouseenter)="onMouseEnter($event)" (mouseleave)="onMouseLeave($event)" class="amw-button__button">
+          <ng-container [ngTemplateOutlet]="buttonContent"></ng-container>
+        </button>
+      }
+      @case ('filled') {
+        <button matButton="filled" [type]="type()" [attr.color]="color()" [disabled]="disabled() || loading()"
+          [autofocus]="autofocus()" [name]="name()" [attr.form]="form()" [attr.formaction]="formAction()"
+          [attr.formmethod]="formMethod()" [attr.formtarget]="formTarget()" [attr.formenctype]="formEnctype()"
+          [attr.formnovalidate]="formNoValidate()" [attr.aria-label]="ariaLabel()" [attr.aria-labelledby]="ariaLabelledby()"
+          [attr.aria-describedby]="ariaDescribedby()" [attr.tabindex]="tabIndex()" [class]="buttonClasses"
+          (click)="onButtonClick($event)" (focus)="onButtonFocus($event)" (blur)="onButtonBlur($event)"
+          (mouseenter)="onMouseEnter($event)" (mouseleave)="onMouseLeave($event)" class="amw-button__button">
+          <ng-container [ngTemplateOutlet]="buttonContent"></ng-container>
+        </button>
+      }
+      @case ('tonal') {
+        <button matButton="tonal" [type]="type()" [attr.color]="color()" [disabled]="disabled() || loading()"
+          [autofocus]="autofocus()" [name]="name()" [attr.form]="form()" [attr.formaction]="formAction()"
+          [attr.formmethod]="formMethod()" [attr.formtarget]="formTarget()" [attr.formenctype]="formEnctype()"
+          [attr.formnovalidate]="formNoValidate()" [attr.aria-label]="ariaLabel()" [attr.aria-labelledby]="ariaLabelledby()"
+          [attr.aria-describedby]="ariaDescribedby()" [attr.tabindex]="tabIndex()" [class]="buttonClasses"
+          (click)="onButtonClick($event)" (focus)="onButtonFocus($event)" (blur)="onButtonBlur($event)"
+          (mouseenter)="onMouseEnter($event)" (mouseleave)="onMouseLeave($event)" class="amw-button__button">
+          <ng-container [ngTemplateOutlet]="buttonContent"></ng-container>
+        </button>
+      }
     }
   }
 </div>

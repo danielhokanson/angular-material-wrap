@@ -18,7 +18,7 @@
               <h4>Selector</h4>
               <div class="popover-api__code-block">
                 <code>{{ apiDocumentation.component.selector }}</code>
-                <amw-button variant="icon" icon="content_copy" (click)="copyCode(apiDocumentation.component.selector, 'Selector')"
+                <amw-button icon="content_copy" (click)="copyCode(apiDocumentation.component.selector, 'Selector')"
                   amwTooltip="Copy selector"></amw-button>
               </div>
             </div>
@@ -241,7 +241,7 @@
               <div class="popover-api__code-block">
                 <div class="popover-api__code-header">
                   <span class="popover-api__code-title">HTML Template</span>
-                  <amw-button variant="icon" icon="content_copy" (click)="copyCode(getBasicUsageHtml(), 'HTML')"
+                  <amw-button icon="content_copy" (click)="copyCode(getBasicUsageHtml(), 'HTML')"
                     amwTooltip="Copy HTML code"></amw-button>
                 </div>
                 <pre><code [class]="getSyntaxClass('html')">{{ getBasicUsageHtml() }}</code></pre>
@@ -253,7 +253,7 @@
               <div class="popover-api__code-block">
                 <div class="popover-api__code-header">
                   <span class="popover-api__code-title">TypeScript</span>
-                  <amw-button variant="icon" icon="content_copy" (click)="copyCode(getBasicUsageTypescript(), 'TypeScript')"
+                  <amw-button icon="content_copy" (click)="copyCode(getBasicUsageTypescript(), 'TypeScript')"
                     amwTooltip="Copy TypeScript code"></amw-button>
                 </div>
                 <pre><code [class]="getSyntaxClass('typescript')">{{ getBasicUsageTypescript() }}</code></pre>
@@ -265,7 +265,7 @@
               <div class="popover-api__code-block">
                 <div class="popover-api__code-header">
                   <span class="popover-api__code-title">Service</span>
-                  <amw-button variant="icon" icon="content_copy" (click)="copyCode(getServiceUsage(), 'TypeScript')"
+                  <amw-button icon="content_copy" (click)="copyCode(getServiceUsage(), 'TypeScript')"
                     amwTooltip="Copy TypeScript code"></amw-button>
                 </div>
                 <pre><code [class]="getSyntaxClass('typescript')">{{ getServiceUsage() }}</code></pre>
@@ -282,13 +282,13 @@
       <p>Test the popover with current configuration and service methods</p>
 
       <div class="popover-api__demo-actions">
-        <amw-button variant="elevated" color="primary" (click)="testServiceMethods()" icon="play_arrow" iconPosition="left">Test Service Methods</amw-button>
+        <amw-button appearance="elevated" color="primary" (click)="testServiceMethods()" icon="play_arrow" iconPosition="left">Test Service Methods</amw-button>
 
-        <amw-button variant="elevated" color="accent" (click)="testConfigUpdates()" icon="settings" iconPosition="left">Test Config Updates</amw-button>
+        <amw-button appearance="elevated" color="accent" (click)="testConfigUpdates()" icon="settings" iconPosition="left">Test Config Updates</amw-button>
 
-        <amw-button variant="elevated" color="warn" (click)="testTriggerUpdates()" icon="touch_app" iconPosition="left">Test Trigger Updates</amw-button>
+        <amw-button appearance="elevated" color="warn" (click)="testTriggerUpdates()" icon="touch_app" iconPosition="left">Test Trigger Updates</amw-button>
 
-        <amw-button variant="text" (click)="resetConfiguration()" icon="refresh" iconPosition="left">Reset</amw-button>
+        <amw-button appearance="text" (click)="resetConfiguration()" icon="refresh" iconPosition="left">Reset</amw-button>
       </div>
 
       <div class="popover-api__demo-container">
@@ -304,7 +304,7 @@
 
           <!-- Trigger Template -->
           <ng-template #trigger>
-            <amw-button variant="elevated" color="primary" icon="api" iconPosition="left">API Demo</amw-button>
+            <amw-button appearance="elevated" color="primary" icon="api" iconPosition="left">API Demo</amw-button>
           </ng-template>
 
           <!-- Content Template -->
@@ -339,7 +339,7 @@
               </div>
 
               <div class="popover-api__content-actions">
-                <amw-button variant="text" (click)="onPopoverBeforeClose()" icon="close" iconPosition="left">Close</amw-button>
+                <amw-button appearance="text" (click)="onPopoverBeforeClose()" icon="close" iconPosition="left">Close</amw-button>
               </div>
             </div>
           </ng-template>

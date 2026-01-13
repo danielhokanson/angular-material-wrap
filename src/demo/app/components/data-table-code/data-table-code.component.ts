@@ -140,9 +140,9 @@ export class DataTableCodeComponent extends BaseCodeComponent<DataTableExamples>
   <ng-container matColumnDef="actions">
     <th mat-header-cell *matHeaderCellDef>Actions</th>
     <td mat-cell *matCellDef="let element">
-      <amw-button variant="icon" icon="edit" (click)="onEdit(element)">
+      <amw-button icon="edit" (click)="onEdit(element)">
       </amw-button>
-      <amw-button variant="icon" icon="delete" (click)="onDelete(element)">
+      <amw-button icon="delete" (click)="onDelete(element)">
       </amw-button>
     </td>
   </ng-container>

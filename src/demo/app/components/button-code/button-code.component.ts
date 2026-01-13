@@ -27,32 +27,32 @@ export class ButtonCodeComponent extends BaseCodeComponent<ButtonExamples> {
 
   // Original code examples (for reset functionality)
   readonly codeExamples: Record<ButtonExamples, string> = {
-    basic: `<amw-button variant="text" color="primary">Basic Button</amw-button>
-<amw-button variant="text" color="accent">Accent Button</amw-button>
-<amw-button variant="text" color="warn">Warn Button</amw-button>`,
+    basic: `<amw-button appearance="text" color="primary">Basic Button</amw-button>
+<amw-button appearance="text" color="accent">Accent Button</amw-button>
+<amw-button appearance="text" color="warn">Warn Button</amw-button>`,
 
-    raised: `<amw-button variant="elevated" color="primary">Raised Button</amw-button>
-<amw-button variant="elevated" color="accent">Accent Raised</amw-button>
-<amw-button variant="elevated" color="warn">Warn Raised</amw-button>`,
+    raised: `<amw-button appearance="elevated" color="primary">Raised Button</amw-button>
+<amw-button appearance="elevated" color="accent">Accent Raised</amw-button>
+<amw-button appearance="elevated" color="warn">Warn Raised</amw-button>`,
 
-    stroked: `<amw-button variant="outlined" color="primary">Stroked Button</amw-button>
-<amw-button variant="outlined" color="accent">Accent Stroked</amw-button>
-<amw-button variant="outlined" color="warn">Warn Stroked</amw-button>`,
+    stroked: `<amw-button appearance="outlined" color="primary">Stroked Button</amw-button>
+<amw-button appearance="outlined" color="accent">Accent Stroked</amw-button>
+<amw-button appearance="outlined" color="warn">Warn Stroked</amw-button>`,
 
-    flat: `<amw-button variant="filled" color="primary">Flat Button</amw-button>
-<amw-button variant="filled" color="accent">Accent Flat</amw-button>
-<amw-button variant="filled" color="warn">Warn Flat</amw-button>`,
+    flat: `<amw-button color="primary">Flat Button</amw-button>
+<amw-button color="accent">Accent Flat</amw-button>
+<amw-button color="warn">Warn Flat</amw-button>`,
 
-    icon: `<amw-button variant="icon" icon="favorite" color="primary"></amw-button>
-<amw-button variant="icon" icon="delete" color="accent"></amw-button>
-<amw-button variant="icon" icon="warning" color="warn"></amw-button>`,
+    icon: `<amw-button icon="favorite" color="primary"></amw-button>
+<amw-button icon="delete" color="accent"></amw-button>
+<amw-button icon="warning" color="warn"></amw-button>`,
 
-    fab: `<amw-button variant="fab" icon="add" color="primary"></amw-button>
-<amw-button variant="fab" icon="edit" color="accent" size="small"></amw-button>
-<amw-button variant="fab" icon="delete" color="warn" size="small"></amw-button>`,
+    fab: `<amw-button [fab]="true" icon="add" color="primary"></amw-button>
+<amw-button fab="mini" icon="edit" color="accent"></amw-button>
+<amw-button fab="mini" icon="delete" color="warn"></amw-button>`,
 
-    disabled: `<amw-button variant="elevated" color="primary" disabled>Disabled Button</amw-button>
-<amw-button variant="elevated" color="accent" [disabled]="true">Disabled Accent</amw-button>`
+    disabled: `<amw-button appearance="elevated" color="primary" disabled>Disabled Button</amw-button>
+<amw-button appearance="elevated" color="accent" [disabled]="true">Disabled Accent</amw-button>`
   };
 
   constructor() {

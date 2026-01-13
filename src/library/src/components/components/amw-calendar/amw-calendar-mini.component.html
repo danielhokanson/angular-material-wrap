@@ -18,22 +18,20 @@
       <!-- Navigation Controls -->
       <div class="amw-calendar-mini__navigation">
         <amw-button
-          variant="icon"
-          icon="chevron_left"
+                    icon="chevron_left"
           (click)="navigatePrevious()"
           [disabled]="disabled()"
           amwTooltip="Previous">
         </amw-button>
         <amw-button
-          variant="text"
+          appearance="text"
           (click)="navigateToday()"
           [disabled]="disabled()"
           amwTooltip="Today">
           Today
         </amw-button>
         <amw-button
-          variant="icon"
-          icon="chevron_right"
+                    icon="chevron_right"
           (click)="navigateNext()"
           [disabled]="disabled()"
           amwTooltip="Next">
@@ -55,8 +53,7 @@
       <!-- Week View Toggle -->
       <div class="amw-calendar-mini__view-toggle">
         <amw-button
-          variant="icon"
-          [icon]="showWeekViewInternal ? 'view_day' : 'view_week'"
+                    [icon]="showWeekViewInternal ? 'view_day' : 'view_week'"
           (click)="toggleWeekView()"
           [disabled]="disabled()"
           [amwTooltip]="showWeekViewInternal ? 'Show single day' : 'Show week view'">
@@ -107,23 +104,20 @@
                   <div class="amw-calendar-mini__event-actions">
                     @if (isEventEditable(event)) {
                       <amw-button
-                        variant="icon"
-                        icon="edit"
+                                                icon="edit"
                         (click)="editEvent(event)"
                         amwTooltip="Edit">
                       </amw-button>
                     }
                     @if (isEventDeletable(event)) {
                       <amw-button
-                        variant="icon"
-                        icon="delete"
+                                                icon="delete"
                         (click)="deleteEvent(event)"
                         amwTooltip="Delete">
                       </amw-button>
                     }
                     <amw-button
-                      variant="icon"
-                      icon="info"
+                                            icon="info"
                       (click)="onEventDetails(event)"
                       amwTooltip="Details">
                     </amw-button>
@@ -135,7 +129,7 @@
                 <div
                   class="amw-calendar-mini__show-more">
                   <amw-button
-                    variant="text"
+                    appearance="text"
                     (click)="onShowMoreClick(selectedDate)"
                     [disabled]="disabled()">
                     +{{ getRemainingEventsCount(selectedDate) }} more
@@ -198,23 +192,20 @@
                     <div class="amw-calendar-mini__event-actions">
                       @if (isEventEditable(event)) {
                         <amw-button
-                          variant="icon"
-                          icon="edit"
+                                                    icon="edit"
                           (click)="editEvent(event)"
                           amwTooltip="Edit">
                         </amw-button>
                       }
                       @if (isEventDeletable(event)) {
                         <amw-button
-                          variant="icon"
-                          icon="delete"
+                                                    icon="delete"
                           (click)="deleteEvent(event)"
                           amwTooltip="Delete">
                         </amw-button>
                       }
                       <amw-button
-                        variant="icon"
-                        icon="info"
+                                                icon="info"
                         (click)="onEventDetails(event)"
                         amwTooltip="Details">
                       </amw-button>
@@ -226,7 +217,7 @@
                   <div
                     class="amw-calendar-mini__show-more">
                     <amw-button
-                      variant="text"
+                      appearance="text"
                       (click)="onShowMoreClick(date)"
                       [disabled]="disabled()">
                       +{{ getRemainingEventsCount(date) }}

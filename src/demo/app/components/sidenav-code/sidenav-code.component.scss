@@ -207,7 +207,8 @@
     }
   }
 
-  amw-button[variant="icon"] {
+  // Icon-only buttons (buttons with icon and no text)
+  amw-button.icon-button {
     color: var(--mat-sys-on-surface-variant);
 
     &:hover {

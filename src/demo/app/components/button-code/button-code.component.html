@@ -13,7 +13,7 @@
         <div class="code-panel">
           <div class="code-header">
             <h4>Code</h4>
-            <amw-button variant="icon" icon="refresh" (click)="resetCode('basic')" title="Reset to original"></amw-button>
+            <amw-button icon="refresh" (click)="resetCode('basic')" title="Reset to original"></amw-button>
           </div>
           <textarea
             [(ngModel)]="editableCode.basic"
@@ -23,9 +23,9 @@
         <div class="preview-panel">
           <h4>Preview</h4>
           <div class="preview-content">
-            <amw-button variant="text" color="primary">Basic Button</amw-button>
-            <amw-button variant="text" color="accent">Accent Button</amw-button>
-            <amw-button variant="text" color="warn">Warn Button</amw-button>
+            <amw-button appearance="text" color="primary">Basic Button</amw-button>
+            <amw-button appearance="text" color="accent">Accent Button</amw-button>
+            <amw-button appearance="text" color="warn">Warn Button</amw-button>
           </div>
         </div>
       </div>
@@ -41,7 +41,7 @@
         <div class="code-panel">
           <div class="code-header">
             <h4>Code</h4>
-            <amw-button variant="icon" icon="refresh" (click)="resetCode('raised')" title="Reset to original"></amw-button>
+            <amw-button icon="refresh" (click)="resetCode('raised')" title="Reset to original"></amw-button>
           </div>
           <textarea
             [(ngModel)]="editableCode.raised"
@@ -51,9 +51,9 @@
         <div class="preview-panel">
           <h4>Preview</h4>
           <div class="preview-content">
-            <amw-button variant="elevated" color="primary">Raised Button</amw-button>
-            <amw-button variant="elevated" color="accent">Accent Raised</amw-button>
-            <amw-button variant="elevated" color="warn">Warn Raised</amw-button>
+            <amw-button appearance="elevated" color="primary">Raised Button</amw-button>
+            <amw-button appearance="elevated" color="accent">Accent Raised</amw-button>
+            <amw-button appearance="elevated" color="warn">Warn Raised</amw-button>
           </div>
         </div>
       </div>
@@ -69,7 +69,7 @@
         <div class="code-panel">
           <div class="code-header">
             <h4>Code</h4>
-            <amw-button variant="icon" icon="refresh" (click)="resetCode('stroked')" title="Reset to original"></amw-button>
+            <amw-button icon="refresh" (click)="resetCode('stroked')" title="Reset to original"></amw-button>
           </div>
           <textarea
             [(ngModel)]="editableCode.stroked"
@@ -79,9 +79,9 @@
         <div class="preview-panel">
           <h4>Preview</h4>
           <div class="preview-content">
-            <amw-button variant="outlined" color="primary">Stroked Button</amw-button>
-            <amw-button variant="outlined" color="accent">Accent Stroked</amw-button>
-            <amw-button variant="outlined" color="warn">Warn Stroked</amw-button>
+            <amw-button appearance="outlined" color="primary">Stroked Button</amw-button>
+            <amw-button appearance="outlined" color="accent">Accent Stroked</amw-button>
+            <amw-button appearance="outlined" color="warn">Warn Stroked</amw-button>
           </div>
         </div>
       </div>
@@ -97,7 +97,7 @@
         <div class="code-panel">
           <div class="code-header">
             <h4>Code</h4>
-            <amw-button variant="icon" icon="refresh" (click)="resetCode('flat')" title="Reset to original"></amw-button>
+            <amw-button icon="refresh" (click)="resetCode('flat')" title="Reset to original"></amw-button>
           </div>
           <textarea
             [(ngModel)]="editableCode.flat"
@@ -107,9 +107,9 @@
         <div class="preview-panel">
           <h4>Preview</h4>
           <div class="preview-content">
-            <amw-button variant="filled" color="primary">Flat Button</amw-button>
-            <amw-button variant="filled" color="accent">Accent Flat</amw-button>
-            <amw-button variant="filled" color="warn">Warn Flat</amw-button>
+            <amw-button color="primary">Flat Button</amw-button>
+            <amw-button color="accent">Accent Flat</amw-button>
+            <amw-button color="warn">Warn Flat</amw-button>
           </div>
         </div>
       </div>
@@ -125,7 +125,7 @@
         <div class="code-panel">
           <div class="code-header">
             <h4>Code</h4>
-            <amw-button variant="icon" icon="refresh" (click)="resetCode('icon')" title="Reset to original"></amw-button>
+            <amw-button icon="refresh" (click)="resetCode('icon')" title="Reset to original"></amw-button>
           </div>
           <textarea
             [(ngModel)]="editableCode.icon"
@@ -135,9 +135,9 @@
         <div class="preview-panel">
           <h4>Preview</h4>
           <div class="preview-content">
-            <amw-button variant="icon" icon="favorite"color="primary"></amw-button>
-            <amw-button variant="icon" icon="delete"color="accent"></amw-button>
-            <amw-button variant="icon" icon="warning"color="warn"></amw-button>
+            <amw-button icon="favorite" color="primary"></amw-button>
+            <amw-button icon="delete" color="accent"></amw-button>
+            <amw-button icon="warning" color="warn"></amw-button>
           </div>
         </div>
       </div>
@@ -153,7 +153,7 @@
         <div class="code-panel">
           <div class="code-header">
             <h4>Code</h4>
-            <amw-button variant="icon" icon="refresh" (click)="resetCode('fab')" title="Reset to original"></amw-button>
+            <amw-button icon="refresh" (click)="resetCode('fab')" title="Reset to original"></amw-button>
           </div>
           <textarea
             [(ngModel)]="editableCode.fab"
@@ -163,9 +163,9 @@
         <div class="preview-panel">
           <h4>Preview</h4>
           <div class="preview-content">
-            <amw-button variant="fab" icon="add" color="primary"></amw-button>
-            <amw-button variant="mini-fab" icon="edit" color="accent"></amw-button>
-            <amw-button variant="mini-fab" icon="delete" color="warn"></amw-button>
+            <amw-button [fab]="true" icon="add" color="primary"></amw-button>
+            <amw-button fab="mini" icon="edit" color="accent"></amw-button>
+            <amw-button fab="mini" icon="delete" color="warn"></amw-button>
           </div>
         </div>
       </div>
@@ -181,7 +181,7 @@
         <div class="code-panel">
           <div class="code-header">
             <h4>Code</h4>
-            <amw-button variant="icon" icon="refresh" (click)="resetCode('disabled')" title="Reset to original"></amw-button>
+            <amw-button icon="refresh" (click)="resetCode('disabled')" title="Reset to original"></amw-button>
           </div>
           <textarea
             [(ngModel)]="editableCode.disabled"
@@ -191,8 +191,8 @@
         <div class="preview-panel">
           <h4>Preview</h4>
           <div class="preview-content">
-            <amw-button variant="elevated" color="primary" [disabled]="true">Disabled Button</amw-button>
-            <amw-button variant="elevated" color="accent" [disabled]="true">Disabled Accent</amw-button>
+            <amw-button appearance="elevated" color="primary" [disabled]="true">Disabled Button</amw-button>
+            <amw-button appearance="elevated" color="accent" [disabled]="true">Disabled Accent</amw-button>
           </div>
         </div>
       </div>

@@ -17,7 +17,6 @@
       />
 
     <amw-button
-      variant="icon"
       icon="palette"
       matSuffix
       type="button"
@@ -58,7 +57,7 @@
     <div class="amw-color-picker__dropdown" (click)="$event.stopPropagation()">
       <div class="amw-color-picker__header">
         <span class="amw-color-picker__title">Select Color</span>
-        <amw-button variant="icon" icon="close" (click)="isOpen.set(false)" aria-label="Close">
+        <amw-button icon="close" (click)="isOpen.set(false)" aria-label="Close">
         </amw-button>
       </div>
       <div class="amw-color-picker__content">
@@ -69,7 +68,6 @@
             <div class="amw-color-picker__palette-grid">
               @for (color of paletteColors(); track color) {
                 <amw-button
-                  variant="icon"
                   [icon]="selectedColor() === color ? 'check' : ''"
                   class="amw-color-picker__color-button"
                   [class.amw-color-picker__color-button--selected]="selectedColor() === color"
@@ -146,8 +144,8 @@
         }
       </div>
       <div class="amw-color-picker__actions">
-        <amw-button variant="text" (click)="isOpen.set(false)">Cancel</amw-button>
-        <amw-button variant="text" color="primary" (click)="selectColor(selectedColor())">OK</amw-button>
+        <amw-button appearance="text" (click)="isOpen.set(false)">Cancel</amw-button>
+        <amw-button appearance="text" color="primary" (click)="selectColor(selectedColor())">OK</amw-button>
       </div>
     </div>
   </ng-template>

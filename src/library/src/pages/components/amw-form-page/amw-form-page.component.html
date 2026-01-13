@@ -11,28 +11,28 @@
 
       <div class="amw-form-page__header-actions">
         @if (currentConfig.showSaveButton) {
-          <amw-button variant="elevated" icon="save" iconPosition="left" color="primary" (click)="onSave()"
+          <amw-button appearance="elevated" icon="save" iconPosition="left" color="primary" (click)="onSave()"
             [disabled]="!form.valid || saving">
             {{ saving ? 'Saving...' : 'Save' }}
           </amw-button>
         }
         @if (currentConfig.showCancelButton) {
-          <amw-button variant="elevated" icon="cancel" iconPosition="left" (click)="onCancel()">
+          <amw-button appearance="elevated" icon="cancel" iconPosition="left" (click)="onCancel()">
             Cancel
           </amw-button>
         }
         @if (currentConfig.showResetButton) {
-          <amw-button variant="elevated" icon="refresh" iconPosition="left" (click)="onReset()">
+          <amw-button appearance="elevated" icon="refresh" iconPosition="left" (click)="onReset()">
             Reset
           </amw-button>
         }
         @if (currentConfig.showPreviewButton) {
-          <amw-button variant="elevated" icon="preview" iconPosition="left" (click)="onPreview()">
+          <amw-button appearance="elevated" icon="preview" iconPosition="left" (click)="onPreview()">
             Preview
           </amw-button>
         }
         @if (currentConfig.showPrintButton) {
-          <amw-button variant="elevated" icon="print" iconPosition="left" (click)="onPrint()">
+          <amw-button appearance="elevated" icon="print" iconPosition="left" (click)="onPrint()">
             Print
           </amw-button>
         }
@@ -53,7 +53,7 @@
     <div class="amw-form-page__error">
       <mat-icon>error</mat-icon>
       <p>{{ error }}</p>
-      <amw-button variant="elevated" color="primary" (click)="loadData()">Retry</amw-button>
+      <amw-button appearance="elevated" color="primary" (click)="loadData()">Retry</amw-button>
     </div>
   }
 
@@ -164,7 +164,7 @@
                             <mat-chip-row
                               (removed)="removeChip(field, chip)">
                               {{ chip }}
-                              <amw-button variant="icon" icon="cancel" matChipRemove>
+                              <amw-button  icon="cancel" matChipRemove>
                               </amw-button>
                             </mat-chip-row>
                           }

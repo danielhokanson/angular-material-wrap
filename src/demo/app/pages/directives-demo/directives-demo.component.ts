@@ -63,7 +63,7 @@ export class DirectivesDemoComponent implements OnInit {
 </amw-input>`,
 
         button: `<!-- Auto focus on button -->
-<amw-button variant="elevated" color="primary" [amwAutoFocus]="true">
+<amw-button appearance="elevated" color="primary" [amwAutoFocus]="true">
   Auto-focused Button
 </amw-button>`,
 
@@ -107,7 +107,7 @@ export class MyComponent {
     // Copy to Clipboard code examples
     copyToClipboardCodeExamples = {
         basic: `<!-- Basic copy to clipboard -->
-<amw-button variant="elevated"
+<amw-button appearance="elevated"
   amwCopyToClipboard
   [amwCopyToClipboard]="textToCopy"
   icon="content_copy">
@@ -125,14 +125,14 @@ export class MyComponent {
   [(ngModel)]="copyText"
   appearance="outline">
 </amw-input>
-<amw-button variant="elevated"
+<amw-button appearance="elevated"
   amwCopyToClipboard
   [amwCopyToClipboard]="copyText">
   Copy
 </amw-button>`,
 
         withEvents: `<!-- Copy with event handling -->
-<amw-button variant="elevated"
+<amw-button appearance="elevated"
   amwCopyToClipboard
   [amwCopyToClipboard]="codeSnippet"
   (amwCopySuccess)="onCopySuccess($event)"
@@ -154,8 +154,7 @@ export class MyComponent {
 }`,
 
         customMessages: `<!-- Custom success/error messages -->
-<amw-button variant="icon"
-  icon="content_copy"
+<amw-button   icon="content_copy"
   amwCopyToClipboard
   [amwCopyToClipboard]="code"
   amwCopySuccessMessage="Code copied!"
@@ -163,7 +162,7 @@ export class MyComponent {
 </amw-button>`,
 
         noToast: `<!-- Disable built-in toast notification -->
-<amw-button variant="elevated"
+<amw-button appearance="elevated"
   amwCopyToClipboard
   [amwCopyToClipboard]="text"
   [amwCopyShowToast]="false"
@@ -184,8 +183,7 @@ export class MyComponent {
         codeBlock: `<!-- Copy code block -->
 <div class="code-container">
   <pre><code>{{ codeExample }}</code></pre>
-  <amw-button variant="icon"
-    icon="content_copy"
+  <amw-button     icon="content_copy"
     amwCopyToClipboard
     [amwCopyToClipboard]="codeExample"
     title="Copy code">
@@ -252,7 +250,7 @@ export class MyComponent {
 }`,
 
         dropdown: `<!-- Dropdown menu with click outside -->
-<amw-button variant="elevated" (click)="menuOpen = true">
+<amw-button appearance="elevated" (click)="menuOpen = true">
   Open Menu
 </amw-button>
 
@@ -277,7 +275,7 @@ export class MyComponent {
     (amwClickOutside)="closeModal()">
     <h2>Modal Title</h2>
     <p>Click outside this modal to close it</p>
-    <amw-button variant="text" (click)="closeModal()">Close</amw-button>
+    <amw-button appearance="text" (click)="closeModal()">Close</amw-button>
   </div>
 </div>
 
@@ -352,8 +350,8 @@ export class MyComponent {
   *ngIf="menuVisible"
   (amwClickOutside)="handleOutsideClick($event)">
   <mat-menu>
-    <amw-button variant="text" mat-menu-item>Action 1</amw-button>
-    <amw-button variant="text" mat-menu-item>Action 2</amw-button>
+    <amw-button appearance="text" mat-menu-item>Action 1</amw-button>
+    <amw-button appearance="text" mat-menu-item>Action 2</amw-button>
   </mat-menu>
 </div>
 
@@ -400,26 +398,26 @@ export class MyComponent {
     // Tooltip code examples
     tooltipCodeExamples = {
         basic: `<!-- Basic tooltip with string -->
-<amw-button variant="elevated" amwTooltip="This is a tooltip">
+<amw-button appearance="elevated" amwTooltip="This is a tooltip">
   Hover me
 </amw-button>`,
 
         positions: `<!-- Different tooltip positions -->
-<amw-button variant="text" amwTooltip="Top tooltip" tooltipPosition="top">Top</amw-button>
-<amw-button variant="text" amwTooltip="Bottom tooltip" tooltipPosition="bottom">Bottom</amw-button>
-<amw-button variant="text" amwTooltip="Left tooltip" tooltipPosition="left">Left</amw-button>
-<amw-button variant="text" amwTooltip="Right tooltip" tooltipPosition="right">Right</amw-button>
-<amw-button variant="text" amwTooltip="Auto position" tooltipPosition="auto">Auto</amw-button>`,
+<amw-button appearance="text" amwTooltip="Top tooltip" tooltipPosition="top">Top</amw-button>
+<amw-button appearance="text" amwTooltip="Bottom tooltip" tooltipPosition="bottom">Bottom</amw-button>
+<amw-button appearance="text" amwTooltip="Left tooltip" tooltipPosition="left">Left</amw-button>
+<amw-button appearance="text" amwTooltip="Right tooltip" tooltipPosition="right">Right</amw-button>
+<amw-button appearance="text" amwTooltip="Auto position" tooltipPosition="auto">Auto</amw-button>`,
 
         html: `<!-- Tooltip with HTML content -->
-<amw-button variant="elevated"
+<amw-button appearance="elevated"
   [amwTooltip]="'<strong>Bold</strong> and <em>italic</em>'"
   [tooltipAllowHtml]="true">
   HTML Tooltip
 </amw-button>`,
 
         styling: `<!-- Custom width and styling -->
-<amw-button variant="elevated"
+<amw-button appearance="elevated"
   amwTooltip="This is a wider tooltip with custom styling"
   tooltipMaxWidth="400px"
   tooltipClass="custom-tooltip">
@@ -427,14 +425,14 @@ export class MyComponent {
 </amw-button>`,
 
         disabled: `<!-- Disabled tooltip -->
-<amw-button variant="elevated"
+<amw-button appearance="elevated"
   amwTooltip="This won't show"
   [tooltipDisabled]="true">
   Tooltip Disabled
 </amw-button>`,
 
         config: `<!-- Full configuration object -->
-<amw-button variant="elevated"
+<amw-button appearance="elevated"
   [amwTooltip]="{
     content: 'Configured tooltip',
     position: 'top',

@@ -229,12 +229,12 @@
 
         <!-- Navigation Buttons -->
         <div class="tab-navigation">
-          <amw-button variant="elevated"
+          <amw-button appearance="elevated"
             (click)="previousStep()"
             [disabled]="selectedTabIndex === 0" icon="arrow_back" iconPosition="left">Previous</amw-button>
 
           @if (selectedTabIndex < 3) {
-            <amw-button variant="elevated"
+            <amw-button appearance="elevated"
               color="primary"
               (click)="nextStep()"
               [disabled]="!canProceed()">
@@ -242,7 +242,7 @@
               <amw-icon name="arrow_forward"></amw-icon>
             </amw-button>
           } @else {
-            <amw-button variant="elevated"
+            <amw-button appearance="elevated"
               color="primary"
               (click)="submitForm()"
               [disabled]="!isFormComplete()" icon="send" iconPosition="left">Submit</amw-button>

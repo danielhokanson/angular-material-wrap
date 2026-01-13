@@ -37,29 +37,25 @@
           <div class="amw-data-table__actions">
             @if (config()?.showRefresh !== false) {
               <amw-button
-                variant="icon"
-                icon="refresh"
+                                icon="refresh"
                 amwTooltip="Refresh">
               </amw-button>
             }
             @if (config()?.showColumnVisibility !== false) {
               <amw-button
-                variant="icon"
-                icon="view_column"
+                                icon="view_column"
                 amwTooltip="Column Visibility">
               </amw-button>
             }
             @if (config()?.showExport !== false) {
               <amw-button
-                variant="icon"
-                icon="download"
+                                icon="download"
                 amwTooltip="Export">
               </amw-button>
             }
             @if (config()?.showSettings !== false) {
               <amw-button
-                variant="icon"
-                icon="settings"
+                                icon="settings"
                 amwTooltip="Settings">
               </amw-button>
             }
@@ -217,15 +213,13 @@
                       <!-- Field action buttons -->
                       <div class="amw-data-table__field-actions">
                         <amw-button
-                          variant="icon"
-                          icon="check"
+                                                    icon="check"
                           (click)="saveFieldEditing(row, i, column.property)"
                           amwTooltip="Save changes"
                           class="amw-data-table__field-action">
                         </amw-button>
                         <amw-button
-                          variant="icon"
-                          icon="close"
+                                                    icon="close"
                           (click)="cancelFieldEditing(row, i, column.property)"
                           amwTooltip="Cancel changes"
                           class="amw-data-table__field-action">
@@ -242,8 +236,7 @@
                     <span [innerHTML]="getFormattedCellValue(row, column.property)"></span>
                     @if (column.editable) {
                       <amw-button
-                        variant="icon"
-                        icon="edit"
+                                                icon="edit"
                         class="amw-data-table__edit-icon"
                         (click)="startFieldEditing(row, i, column.property, $event)"
                         amwTooltip="Edit field">
@@ -263,16 +256,14 @@
                   <!-- Edit/Save/Cancel buttons -->
                   @if (config()?.editable && !isRowEditing(row) && !hasCustomEditAction()) {
                     <amw-button
-                      variant="icon"
-                      icon="edit"
+                                            icon="edit"
                       amwTooltip="Edit row"
                       (click)="startEditing(row, i)">
                     </amw-button>
                   }
                   @if (config()?.editable && isRowEditing(row)) {
                     <amw-button
-                      variant="icon"
-                      icon="save"
+                                            icon="save"
                       color="primary"
                       amwTooltip="Save changes"
                       (click)="saveEditing()">
@@ -280,8 +271,7 @@
                   }
                   @if (config()?.editable && isRowEditing(row)) {
                     <amw-button
-                      variant="icon"
-                      icon="cancel"
+                                            icon="cancel"
                       amwTooltip="Cancel editing"
                       (click)="cancelEditing()">
                     </amw-button>
@@ -290,8 +280,7 @@
                   @if (!isRowEditing(row)) {
                     @for (action of getRowActions(row, i); track action) {
                       <amw-button
-                        variant="icon"
-                        [icon]="action.icon"
+                                                [icon]="action.icon"
                         [disabled]="isActionDisabled(action, row, i)"
                         [amwTooltip]="action.tooltip || action.label"
                         [class]="action.cssClass"

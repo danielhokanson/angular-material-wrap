@@ -5,11 +5,11 @@
     <p>Explore different sidenav configurations and variations</p>
 
     <div class="sidenav-demo__actions">
-      <amw-button variant="elevated"
+      <amw-button appearance="elevated"
         color="primary"
         (click)="toggleConfig()" icon="{{ showConfig ? 'settings' : 'tune' }}" iconPosition="left">{{ showConfig ? 'Hide' : 'Show' }} Configuration</amw-button>
 
-      <amw-button variant="text"
+      <amw-button appearance="text"
         (click)="resetConfig()" icon="refresh" iconPosition="left">Reset</amw-button>
     </div>
   </div>
@@ -173,8 +173,8 @@
               </p>
 
               <div class="sidenav-demo__content-actions">
-                <amw-button variant="elevated" color="primary" icon="add" iconPosition="left">Action Button</amw-button>
-                <amw-button variant="text" icon="info" iconPosition="left">Info Button</amw-button>
+                <amw-button appearance="elevated" color="primary" icon="add" iconPosition="left">Action Button</amw-button>
+                <amw-button appearance="text" icon="info" iconPosition="left">Info Button</amw-button>
               </div>
             </ng-template>
 </amw-card>

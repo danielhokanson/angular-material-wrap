@@ -63,9 +63,9 @@ export class AccordionCodeComponent extends BaseCodeComponent<AccordionExamples>
   </amw-accordion-panel>
 </amw-accordion>
 
-<amw-button variant="elevated" (click)="panel.expanded = true">Open</amw-button>
-<amw-button variant="elevated" (click)="panel.expanded = false">Close</amw-button>
-<amw-button variant="elevated" (click)="panel.expanded = !panel.expanded">Toggle</amw-button>`,
+<amw-button appearance="elevated" (click)="panel.expanded = true">Open</amw-button>
+<amw-button appearance="elevated" (click)="panel.expanded = false">Close</amw-button>
+<amw-button appearance="elevated" (click)="panel.expanded = !panel.expanded">Toggle</amw-button>`,
 
     events: `<amw-accordion>
   <amw-accordion-panel

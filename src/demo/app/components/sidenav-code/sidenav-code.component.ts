@@ -61,7 +61,7 @@ export class SidenavCodeComponent extends BaseCodeComponent<SidenavExamples> {
     </div>
   </ng-template>
   <ng-template #mainContent>
-    <amw-button variant="elevated" (click)="sidenavOpened = !sidenavOpened">
+    <amw-button appearance="elevated" (click)="sidenavOpened = !sidenavOpened">
       Toggle Sidenav
     </amw-button>
     <p>Main content here</p>
@@ -82,7 +82,7 @@ export class SidenavCodeComponent extends BaseCodeComponent<SidenavExamples> {
     </div>
   </ng-template>
   <ng-template #mainContent>
-    <amw-button variant="elevated" (click)="sidenavOpened = !sidenavOpened">
+    <amw-button appearance="elevated" (click)="sidenavOpened = !sidenavOpened">
       Toggle Sidenav
     </amw-button>
     <p>Main content is pushed when sidenav opens</p>
@@ -103,7 +103,7 @@ export class SidenavCodeComponent extends BaseCodeComponent<SidenavExamples> {
     </div>
   </ng-template>
   <ng-template #mainContent>
-    <amw-button variant="elevated" (click)="sidenavOpened = !sidenavOpened">
+    <amw-button appearance="elevated" (click)="sidenavOpened = !sidenavOpened">
       Toggle Right Sidenav
     </amw-button>
     <p>Sidenav positioned on the right</p>

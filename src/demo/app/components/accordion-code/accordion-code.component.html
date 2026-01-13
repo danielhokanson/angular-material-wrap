@@ -13,7 +13,7 @@
         <div class="code-panel">
           <div class="code-header">
             <h4>Code</h4>
-            <amw-button variant="icon" icon="refresh" (click)="resetCode('basic')" title="Reset to original"></amw-button>
+            <amw-button icon="refresh" (click)="resetCode('basic')" title="Reset to original"></amw-button>
           </div>
           <textarea
             [(ngModel)]="editableCode.basic"
@@ -47,7 +47,7 @@
         <div class="code-panel">
           <div class="code-header">
             <h4>Code</h4>
-            <amw-button variant="icon" icon="refresh" (click)="resetCode('multiExpand')" title="Reset to original"></amw-button>
+            <amw-button icon="refresh" (click)="resetCode('multiExpand')" title="Reset to original"></amw-button>
           </div>
           <textarea
             [(ngModel)]="editableCode.multiExpand"
@@ -82,7 +82,7 @@
         <div class="code-panel">
           <div class="code-header">
             <h4>Code</h4>
-            <amw-button variant="icon" icon="refresh" (click)="resetCode('hideToggle')" title="Reset to original"></amw-button>
+            <amw-button icon="refresh" (click)="resetCode('hideToggle')" title="Reset to original"></amw-button>
           </div>
           <textarea
             [(ngModel)]="editableCode.hideToggle"
@@ -113,7 +113,7 @@
         <div class="code-panel">
           <div class="code-header">
             <h4>Code</h4>
-            <amw-button variant="icon" icon="refresh" (click)="resetCode('disabled')" title="Reset to original"></amw-button>
+            <amw-button icon="refresh" (click)="resetCode('disabled')" title="Reset to original"></amw-button>
           </div>
           <textarea
             [(ngModel)]="editableCode.disabled"
@@ -144,7 +144,7 @@
         <div class="code-panel">
           <div class="code-header">
             <h4>Code</h4>
-            <amw-button variant="icon" icon="refresh" (click)="resetCode('programmatic')" title="Reset to original"></amw-button>
+            <amw-button icon="refresh" (click)="resetCode('programmatic')" title="Reset to original"></amw-button>
           </div>
           <textarea
             [(ngModel)]="editableCode.programmatic"
@@ -162,9 +162,9 @@
             </amw-accordion>
 
             <div class="control-buttons">
-              <amw-button variant="elevated" (click)="panel.expanded.set(true)">Open</amw-button>
-              <amw-button variant="elevated" (click)="panel.expanded.set(false)">Close</amw-button>
-              <amw-button variant="elevated" (click)="panel.expanded.set(!panel.expanded())">Toggle</amw-button>
+              <amw-button appearance="elevated" (click)="panel.expanded.set(true)">Open</amw-button>
+              <amw-button appearance="elevated" (click)="panel.expanded.set(false)">Close</amw-button>
+              <amw-button appearance="elevated" (click)="panel.expanded.set(!panel.expanded())">Toggle</amw-button>
             </div>
           </div>
         </div>
@@ -181,7 +181,7 @@
         <div class="code-panel">
           <div class="code-header">
             <h4>Code</h4>
-            <amw-button variant="icon" icon="refresh" (click)="resetCode('events')" title="Reset to original"></amw-button>
+            <amw-button icon="refresh" (click)="resetCode('events')" title="Reset to original"></amw-button>
           </div>
           <textarea
             [(ngModel)]="editableCode.events"
@@ -219,7 +219,7 @@
         <div class="code-panel">
           <div class="code-header">
             <h4>Code</h4>
-            <amw-button variant="icon" icon="refresh" (click)="resetCode('togglePosition')" title="Reset to original"></amw-button>
+            <amw-button icon="refresh" (click)="resetCode('togglePosition')" title="Reset to original"></amw-button>
           </div>
           <textarea
             [(ngModel)]="editableCode.togglePosition"

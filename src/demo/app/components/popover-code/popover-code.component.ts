@@ -28,7 +28,7 @@ export class PopoverCodeComponent extends BaseCodeComponent<PopoverExamples> {
     readonly codeExamples: Record<PopoverExamples, string> = {
         basic: `<amw-popover [config]="{ position: 'bottom', showArrow: true }">
   <ng-template #trigger>
-    <amw-button variant="elevated">Hover Me</amw-button>
+    <amw-button appearance="elevated">Hover Me</amw-button>
   </ng-template>
   <ng-template #content>
     <p>This is a basic popover</p>
@@ -38,7 +38,7 @@ export class PopoverCodeComponent extends BaseCodeComponent<PopoverExamples> {
         positions: `<!-- Popover on top -->
 <amw-popover [config]="{ position: 'top', showArrow: true }">
   <ng-template #trigger>
-    <amw-button variant="text">Top</amw-button>
+    <amw-button appearance="text">Top</amw-button>
   </ng-template>
   <ng-template #content>
     <p>Popover on top</p>
@@ -48,7 +48,7 @@ export class PopoverCodeComponent extends BaseCodeComponent<PopoverExamples> {
 <!-- Popover on right -->
 <amw-popover [config]="{ position: 'right', showArrow: true }">
   <ng-template #trigger>
-    <amw-button variant="text">Right</amw-button>
+    <amw-button appearance="text">Right</amw-button>
   </ng-template>
   <ng-template #content>
     <p>Popover on right</p>
@@ -58,7 +58,7 @@ export class PopoverCodeComponent extends BaseCodeComponent<PopoverExamples> {
 <!-- Popover on bottom -->
 <amw-popover [config]="{ position: 'bottom', showArrow: true }">
   <ng-template #trigger>
-    <amw-button variant="text">Bottom</amw-button>
+    <amw-button appearance="text">Bottom</amw-button>
   </ng-template>
   <ng-template #content>
     <p>Popover on bottom</p>
@@ -68,7 +68,7 @@ export class PopoverCodeComponent extends BaseCodeComponent<PopoverExamples> {
 <!-- Popover on left -->
 <amw-popover [config]="{ position: 'left', showArrow: true }">
   <ng-template #trigger>
-    <amw-button variant="text">Left</amw-button>
+    <amw-button appearance="text">Left</amw-button>
   </ng-template>
   <ng-template #content>
     <p>Popover on left</p>
@@ -77,7 +77,7 @@ export class PopoverCodeComponent extends BaseCodeComponent<PopoverExamples> {
 
         styling: `<amw-popover [config]="{ position: 'bottom', showArrow: true, size: 'large' }">
   <ng-template #trigger>
-    <amw-button variant="elevated" color="primary">Custom Popover</amw-button>
+    <amw-button appearance="elevated" color="primary">Custom Popover</amw-button>
   </ng-template>
   <ng-template #content>
     <p>Custom styled popover content</p>
@@ -87,7 +87,7 @@ export class PopoverCodeComponent extends BaseCodeComponent<PopoverExamples> {
         interactive: `<amw-popover
   [config]="{ position: 'bottom', showArrow: true, showClose: true, disabled: popoverDisabled }">
   <ng-template #trigger>
-    <amw-button variant="elevated" (click)="togglePopover()">Toggle Popover</amw-button>
+    <amw-button appearance="elevated" (click)="togglePopover()">Toggle Popover</amw-button>
   </ng-template>
   <ng-template #content>
     <p>Click to show/hide</p>

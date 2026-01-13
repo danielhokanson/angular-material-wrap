@@ -65,7 +65,7 @@
         <div *ngFor="let component of componentClasses" class="component-class-item">
           <div class="component-class-item__preview">
             <!-- Button Examples -->
-            <button *ngIf="component.name.includes('Button')" [class]="component.class" variant="text">
+            <button *ngIf="component.name.includes('Button')" [class]="component.class" appearance="text">
               {{ component.name }}
               </amw-button>
 
@@ -171,7 +171,7 @@
   <!-- Component Usage -->
   <div class="code-example">
     <h4 class="mdc-typography--title-small">3. Component Usage (Angular)</h4>
-    <pre class="code-block"><code>&lt;button variant="elevated" class="mat-mdc-raised-button"&gt;
+    <pre class="code-block"><code>&lt;button appearance="elevated" class="mat-mdc-raised-button"&gt;
   Primary Action
 &lt;/button&gt;
 

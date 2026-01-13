@@ -41,8 +41,8 @@ export class AmwMenuComponent {
     readonly triggerLabel = input<string | undefined>();
     /** Icon for the trigger button */
     readonly triggerIcon = input<string | undefined>();
-    /** Variant of the trigger button */
-    readonly triggerVariant = input<'text' | 'raised' | 'stroked' | 'flat' | 'icon'>('text');
+    /** Appearance of the trigger button */
+    readonly triggerAppearance = input<'text' | 'elevated' | 'outlined' | 'filled' | 'tonal'>('text');
     /** Color of the trigger button */
     readonly triggerColor = input<'primary' | 'accent' | 'warn'>('primary');
     /** Position of the menu relative to trigger */
@@ -104,8 +104,8 @@ export class AmwMenuComponent {
 
     readonly triggerButtonClasses = computed(() => {
         const classes = ['amw-menu__trigger'];
-        const variant = this.triggerVariant();
-        if (variant) classes.push(`amw-menu__trigger--${variant}`);
+        const appearance = this.triggerAppearance();
+        if (appearance) classes.push(`amw-menu__trigger--${appearance}`);
         return classes.join(' ');
     });
 
@@ -114,19 +114,5 @@ export class AmwMenuComponent {
         const customClass = this.menuClass();
         if (customClass) classes.push(customClass);
         return classes.join(' ');
-    });
-
-    /**
-     * Maps Material button variant to AmwButton variant
-     */
-    readonly buttonVariant = computed((): 'text' | 'elevated' | 'outlined' | 'filled' | 'icon' => {
-        const variantMap: Record<string, 'text' | 'elevated' | 'outlined' | 'filled' | 'icon'> = {
-            'text': 'text',
-            'raised': 'elevated',
-            'stroked': 'outlined',
-            'flat': 'filled',
-            'icon': 'icon'
-        };
-        return variantMap[this.triggerVariant()] || 'text';
     });
 }

@@ -12,7 +12,7 @@
     <div *ngIf="currentConfig.actions && currentConfig.actions.length > 0"
          class="amw-dashboard-page__header-actions">
       <amw-button *ngFor="let action of currentConfig.actions"
-              variant="text"
+              appearance="text"
               [icon]="action.icon"
               [iconPosition]="action.icon ? 'left' : 'left'"
               [color]="action.color || 'primary'"
@@ -102,8 +102,7 @@
                type="text"
                appearance="outline">
       <mat-icon matPrefix>search</mat-icon>
-      <amw-button variant="icon"
-              icon="close"
+      <amw-button               icon="close"
               matSuffix
               *ngIf="searchQuery"
               (click)="searchQuery = ''; onSearchChange()"
@@ -113,8 +112,7 @@
 
     <!-- Refresh Button -->
     <amw-button *ngIf="currentConfig.showRefresh"
-            variant="icon"
-            icon="refresh"
+                        icon="refresh"
             (click)="refresh()"
             [disabled]="loading"
             [amwTooltip]="'Refresh'"
@@ -124,8 +122,7 @@
 
     <!-- Filters Button (placeholder) -->
     <amw-button *ngIf="currentConfig.showFilters"
-            variant="icon"
-            icon="filter_list"
+                        icon="filter_list"
             [amwTooltip]="'Filters'"
             class="amw-dashboard-page__filters-button">
     </amw-button>
@@ -144,7 +141,7 @@
     <div *ngIf="error && !loading" class="amw-dashboard-page__error">
       <mat-icon color="warn">error_outline</mat-icon>
       <p>{{ error }}</p>
-      <amw-button variant="text" (click)="refresh()">Try Again</amw-button>
+      <amw-button appearance="text" (click)="refresh()">Try Again</amw-button>
     </div>
 
     <!-- Empty State -->

@@ -28,7 +28,7 @@ import { AmwButtonComponent } from '../../../controls/components/amw-button/amw-
  *   (beforeClose)="onBeforeClose()"
  *   (afterClose)="onAfterClose()">
  *   <ng-template #trigger>
- *     <amw-button variant="text">Click me</amw-button>
+ *     <amw-button appearance="text">Click me</amw-button>
  *   </ng-template>
  *   <ng-template #content>
  *     <div>Popover content</div>

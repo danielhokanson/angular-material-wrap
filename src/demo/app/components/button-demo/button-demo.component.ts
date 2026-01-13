@@ -4,7 +4,7 @@ import { ReactiveFormsModule, FormBuilder, FormGroup, Validators } from '@angula
 import { AmwNotificationService } from '../../../../library/src/services/amw-notification/amw-notification.service';
 
 import { AmwButtonComponent } from '../../../../library/src/controls/components/amw-button/amw-button.component';
-import { ButtonVariant } from '../../../../library/src/controls/components/amw-button/interfaces/button.interface';
+import { ButtonStyle, FabType } from '../../../../library/src/controls/components/amw-button/interfaces/button.interface';
 import { AmwSize, AmwColor } from '../../../../library/src/shared/types';
 import { AmwIconComponent } from '../../../../library/src/components/components';
 
@@ -31,16 +31,18 @@ export class ButtonDemoComponent implements OnInit {
             { size: 'medium' as AmwSize, label: 'Medium' },
             { size: 'large' as AmwSize, label: 'Large' }
         ],
-        variants: [
-            { variant: 'text' as ButtonVariant, label: 'Text' },
-            { variant: 'elevated' as ButtonVariant, label: 'Elevated' },
-            { variant: 'outlined' as ButtonVariant, label: 'Outlined' },
-            { variant: 'filled' as ButtonVariant, label: 'Filled' },
-            { variant: 'tonal' as ButtonVariant, label: 'Tonal' },
-            { variant: 'icon' as ButtonVariant, label: 'Icon' },
-            { variant: 'fab' as ButtonVariant, label: 'FAB' },
-            { variant: 'mini-fab' as ButtonVariant, label: 'Mini FAB' },
-            { variant: 'extended-fab' as ButtonVariant, label: 'Extended FAB' }
+        appearances: [
+            { appearance: 'text' as ButtonStyle, label: 'Text' },
+            { appearance: 'elevated' as ButtonStyle, label: 'Elevated' },
+            { appearance: 'outlined' as ButtonStyle, label: 'Outlined' },
+            { appearance: 'filled' as ButtonStyle, label: 'Filled' },
+            { appearance: 'tonal' as ButtonStyle, label: 'Tonal' }
+        ],
+        fabTypes: [
+            { fab: false as FabType, label: 'None' },
+            { fab: true as FabType, label: 'FAB' },
+            { fab: 'mini' as FabType, label: 'Mini FAB' },
+            { fab: 'extended' as FabType, label: 'Extended FAB' }
         ],
         colors: [
             { color: 'primary' as AmwColor, label: 'Primary' },
@@ -56,21 +58,21 @@ export class ButtonDemoComponent implements OnInit {
 
     // Code examples
     codeExamples = {
-        basic: `<amw-button variant="elevated" color="primary">
+        basic: `<amw-button appearance="elevated" color="primary">
   Click me
 </amw-button>`,
-        withIcon: `<amw-button variant="elevated" color="primary" icon="save">
+        withIcon: `<amw-button appearance="elevated" color="primary" icon="save">
   Save Changes
 </amw-button>`,
-        fab: `<amw-button variant="fab" color="primary" icon="add">
+        fab: `<amw-button [fab]="true" color="primary" icon="add">
 </amw-button>`,
-        loading: `<amw-button variant="elevated" color="primary" [loading]="isLoading">
+        loading: `<amw-button appearance="elevated" color="primary" [loading]="isLoading">
   {{ isLoading ? 'Saving...' : 'Save' }}
 </amw-button>`,
-        disabled: `<amw-button variant="elevated" color="primary" [disabled]="!isValid">
+        disabled: `<amw-button appearance="elevated" color="primary" [disabled]="!isValid">
   Submit Form
 </amw-button>`,
-        eventHandling: `<amw-button variant="elevated" color="primary" (click)="onButtonClick($event)">
+        eventHandling: `<amw-button appearance="elevated" color="primary" (click)="onButtonClick($event)">
   Click Handler
 </amw-button>`
     };
@@ -79,22 +81,29 @@ export class ButtonDemoComponent implements OnInit {
     apiDocumentation = {
         inputs: [
             {
-                name: 'variant',
-                type: 'ButtonVariant',
-                default: 'elevated',
-                description: 'The visual style variant of the button',
-                options: ['text', 'elevated', 'outlined', 'filled', 'tonal', 'icon', 'fab', 'mini-fab', 'extended-fab']
+                name: 'appearance',
+                type: 'ButtonStyle',
+                default: 'filled',
+                description: 'The visual style of the button',
+                options: ['text', 'elevated', 'outlined', 'filled', 'tonal']
+            },
+            {
+                name: 'fab',
+                type: 'FabType',
+                default: 'false',
+                description: 'FAB (Floating Action Button) configuration',
+                options: ['false', 'true', '"standard"', '"mini"', '"extended"']
             },
             {
                 name: 'color',
-                type: 'ButtonColor',
+                type: 'AmwColor',
                 default: 'primary',
                 description: 'The color theme of the button',
                 options: ['primary', 'accent', 'warn']
             },
             {
                 name: 'size',
-                type: 'ButtonSize',
+                type: 'AmwSize',
                 default: 'medium',
                 description: 'The size of the button',
                 options: ['small', 'medium', 'large']
@@ -117,12 +126,12 @@ export class ButtonDemoComponent implements OnInit {
                 name: 'icon',
                 type: 'string',
                 default: 'undefined',
-                description: 'Material icon name to display',
+                description: 'Material icon name. Icon-only mode is inferred when set without text.',
                 options: ['Any valid Material icon name']
             },
             {
                 name: 'iconPosition',
-                type: 'ButtonIconPosition',
+                type: 'IconPosition',
                 default: 'left',
                 description: 'Position of the icon relative to text',
                 options: ['left', 'right']
@@ -137,17 +146,17 @@ export class ButtonDemoComponent implements OnInit {
         ],
         outputs: [
             {
-                name: 'click',
+                name: 'buttonClick',
                 type: 'EventEmitter<MouseEvent>',
                 description: 'Emitted when the button is clicked'
             },
             {
-                name: 'focus',
+                name: 'buttonFocus',
                 type: 'EventEmitter<FocusEvent>',
                 description: 'Emitted when the button receives focus'
             },
             {
-                name: 'blur',
+                name: 'buttonBlur',
                 type: 'EventEmitter<FocusEvent>',
                 description: 'Emitted when the button loses focus'
             }

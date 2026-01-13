@@ -10,7 +10,7 @@
   } @else {
     <!-- Default trigger button -->
     <amw-button
-      [variant]="buttonVariant()"
+      [appearance]="triggerAppearance()"
       [icon]="triggerIcon()"
       [iconPosition]="triggerLabel() && triggerIcon() ? 'left' : 'left'"
       [class]="triggerButtonClasses()"

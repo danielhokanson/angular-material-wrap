@@ -26,7 +26,7 @@
         class="amw-search-page__search-field">
         <mat-icon matSuffix>search</mat-icon>
       </amw-input>
-      <amw-button variant="elevated" color="primary" (click)="onSearch()">Search</amw-button>
+      <amw-button appearance="elevated" color="primary" (click)="onSearch()">Search</amw-button>
     </div>
   </div>
 
@@ -35,7 +35,7 @@
     <!-- Filter Toggle Button -->
     @if (currentConfig.showAdvancedFilters && currentConfig.searchFields && currentConfig.searchFields.length > 0) {
       <div class="amw-search-page__filter-toggle">
-        <amw-button variant="elevated"
+        <amw-button appearance="elevated"
           [icon]="filtersVisible ? 'close' : 'filter_list'"
           iconPosition="left"
           color="primary"
@@ -56,8 +56,7 @@
               <mat-icon>filter_list</mat-icon>
               Filters
             </mat-card-title>
-            <amw-button variant="icon"
-              icon="close"
+            <amw-button               icon="close"
               (click)="toggleFilters()"
               class="amw-search-page__close-filters-btn"
               aria-label="Close filters">
@@ -100,10 +99,10 @@
                 </div>
               }
               <div class="amw-search-page__filters-actions">
-                <amw-button variant="elevated" color="primary" (click)="onFilterChange()" class="amw-search-page__filter-button">
+                <amw-button appearance="elevated" color="primary" (click)="onFilterChange()" class="amw-search-page__filter-button">
                   Apply Filters
                 </amw-button>
-                <amw-button variant="text" (click)="onClearFilters()" class="amw-search-page__filter-button">
+                <amw-button appearance="text" (click)="onClearFilters()" class="amw-search-page__filter-button">
                   Clear All
                 </amw-button>
               </div>
@@ -139,8 +138,7 @@
               <div class="amw-search-page__view-modes">
                 @for (mode of currentConfig.viewModes; track mode) {
                   <amw-button
-                    variant="icon"
-                    [icon]="mode.icon"
+                                        [icon]="mode.icon"
                     [class.amw-search-page__view-mode--active]="viewMode === mode.value"
                     (click)="onViewModeChange(mode.value)"
                     [amwTooltip]="mode.label">
@@ -165,7 +163,7 @@
         <div class="amw-search-page__error">
           <mat-icon>error</mat-icon>
           <p>{{ error }}</p>
-          <amw-button variant="elevated" color="primary" (click)="onSearch()">Retry</amw-button>
+          <amw-button appearance="elevated" color="primary" (click)="onSearch()">Retry</amw-button>
         </div>
       }
 
@@ -228,7 +226,7 @@
                     <p>{{ result.description || result.summary || 'No description available' }}</p>
                   </mat-card-content>
                   <mat-card-actions>
-                    <amw-button variant="text">View Details</amw-button>
+                    <amw-button appearance="text">View Details</amw-button>
                   </mat-card-actions>
                 </mat-card>
               }
@@ -239,7 +237,7 @@
             <div class="amw-search-page__empty">
               <mat-icon>search_off</mat-icon>
               <p>No results found</p>
-              <amw-button variant="elevated" color="primary" (click)="onClearFilters()">Clear Filters</amw-button>
+              <amw-button appearance="elevated" color="primary" (click)="onClearFilters()">Clear Filters</amw-button>
             </div>
           }
         </div>

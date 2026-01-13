@@ -2,7 +2,6 @@
 @if (showToggle()) {
   <amw-button
     #toggleButton
-    variant="icon"
     [icon]="toggleButtonIcon()"
     class="amw-sidenav__toggle"
     [class.amw-sidenav__toggle--mobile]="isMobile()"
@@ -51,7 +50,6 @@
             </div>
             @if (showClose()) {
               <amw-button
-                variant="icon"
                 [icon]="closeButtonIcon()"
                 class="amw-sidenav__close"
                 [disabled]="isDisabled"

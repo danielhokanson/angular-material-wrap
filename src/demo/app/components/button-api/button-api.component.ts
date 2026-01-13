@@ -15,22 +15,29 @@ export class ButtonApiComponent extends BaseApiComponent {
     apiDocumentation: ApiDocumentation = {
         inputs: [
             {
-                name: 'variant',
-                type: 'ButtonVariant',
-                default: 'elevated',
-                description: 'The visual style variant of the button',
-                options: ['text', 'elevated', 'outlined', 'filled', 'tonal', 'icon', 'fab', 'mini-fab', 'extended-fab']
+                name: 'appearance',
+                type: 'ButtonStyle',
+                default: 'filled',
+                description: 'The visual style of the button',
+                options: ['text', 'elevated', 'outlined', 'filled', 'tonal']
+            },
+            {
+                name: 'fab',
+                type: 'FabType',
+                default: 'false',
+                description: 'FAB (Floating Action Button) configuration',
+                options: ['false', 'true', '"standard"', '"mini"', '"extended"']
             },
             {
                 name: 'color',
-                type: 'ButtonColor',
+                type: 'AmwColor',
                 default: 'primary',
                 description: 'The color theme of the button',
                 options: ['primary', 'accent', 'warn']
             },
             {
                 name: 'size',
-                type: 'ButtonSize',
+                type: 'AmwSize',
                 default: 'medium',
                 description: 'The size of the button',
                 options: ['small', 'medium', 'large']
@@ -53,12 +60,12 @@ export class ButtonApiComponent extends BaseApiComponent {
                 name: 'icon',
                 type: 'string',
                 default: 'undefined',
-                description: 'Material icon name to display',
+                description: 'Material icon name. Icon-only mode is inferred when set without text.',
                 options: ['Any valid Material icon name']
             },
             {
                 name: 'iconPosition',
-                type: 'ButtonIconPosition',
+                type: 'IconPosition',
                 default: 'left',
                 description: 'Position of the icon relative to text',
                 options: ['left', 'right']
@@ -73,13 +80,13 @@ export class ButtonApiComponent extends BaseApiComponent {
         ],
         outputs: [
             {
-                name: 'click', type: 'EventEmitter<MouseEvent>', description: 'Emitted when the button is clicked'
+                name: 'buttonClick', type: 'EventEmitter<MouseEvent>', description: 'Emitted when the button is clicked'
             },
             {
-                name: 'focus', type: 'EventEmitter<FocusEvent>', description: 'Emitted when the button receives focus'
+                name: 'buttonFocus', type: 'EventEmitter<FocusEvent>', description: 'Emitted when the button receives focus'
             },
             {
-                name: 'blur', type: 'EventEmitter<FocusEvent>', description: 'Emitted when the button loses focus'
+                name: 'buttonBlur', type: 'EventEmitter<FocusEvent>', description: 'Emitted when the button loses focus'
             }
         ]
     };

@@ -47,7 +47,7 @@
                     </div>
                     <div class="demo-section">
                       <h4>Button with Auto Focus</h4>
-                      <amw-button variant="elevated" color="primary" [amwAutoFocus]="true">
+                      <amw-button appearance="elevated" color="primary" [amwAutoFocus]="true">
                         This button will auto-focus
                       </amw-button>
                     </div>
@@ -65,7 +65,7 @@
                         [(ngModel)]="copyText"
                         placeholder="Enter text to copy">
                       </amw-input>
-                      <amw-button variant="elevated" color="primary"
+                      <amw-button appearance="elevated" color="primary"
                         amwCopyToClipboard
                         [amwCopyToClipboard]="copyText" icon="content_copy" iconPosition="left">Copy to Clipboard</amw-button>
                     </div>
@@ -73,7 +73,7 @@
                       <h4>Copy Code Block</h4>
                       <div class="code-block">
                         <pre>{{ codeExample }}</pre>
-                        <amw-button variant="icon" icon="content_copy"amwCopyToClipboard
+                        <amw-button icon="content_copy"amwCopyToClipboard
                           [amwCopyToClipboard]="codeExample"
                           title="Copy code"></amw-button>
                       </div>
@@ -86,14 +86,14 @@
                     <p>Display helpful information on hover or focus with support for HTML content.</p>
                     <div class="demo-section">
                       <h4>Basic Tooltip</h4>
-                      <amw-button variant="elevated" color="primary"
+                      <amw-button appearance="elevated" color="primary"
                         amwTooltip="This is a basic tooltip">
                         Hover me
                       </amw-button>
                     </div>
                     <div class="demo-section">
                       <h4>Tooltip with HTML Content</h4>
-                      <amw-button variant="elevated" color="accent"
+                      <amw-button appearance="elevated" color="accent"
                         [amwTooltip]="htmlTooltipContent"
                         [tooltipAllowHtml]="true">
                         HTML Tooltip
@@ -102,10 +102,10 @@
                     <div class="demo-section">
                       <h4>Tooltip Positions</h4>
                       <div class="tooltip-demo-grid">
-                        <amw-button variant="text" amwTooltip="Top tooltip" tooltipPosition="top">Top</amw-button>
-                        <amw-button variant="text" amwTooltip="Bottom tooltip" tooltipPosition="bottom">Bottom</amw-button>
-                        <amw-button variant="text" amwTooltip="Left tooltip" tooltipPosition="left">Left</amw-button>
-                        <amw-button variant="text" amwTooltip="Right tooltip" tooltipPosition="right">Right</amw-button>
+                        <amw-button appearance="text" amwTooltip="Top tooltip" tooltipPosition="top">Top</amw-button>
+                        <amw-button appearance="text" amwTooltip="Bottom tooltip" tooltipPosition="bottom">Bottom</amw-button>
+                        <amw-button appearance="text" amwTooltip="Left tooltip" tooltipPosition="left">Left</amw-button>
+                        <amw-button appearance="text" amwTooltip="Right tooltip" tooltipPosition="right">Right</amw-button>
                       </div>
                     </div>
                   </div>
@@ -125,7 +125,7 @@
                         <h4>Basic Usage</h4>
                         <pre><code>{{ tooltipCodeExamples.basic }}</code></pre>
                         <div class="preview">
-                          <amw-button variant="elevated" color="primary" amwTooltip="This is a tooltip">
+                          <amw-button appearance="elevated" color="primary" amwTooltip="This is a tooltip">
                             Hover me
                           </amw-button>
                         </div>
@@ -136,11 +136,11 @@
                         <pre><code>{{ tooltipCodeExamples.positions }}</code></pre>
                         <div class="preview">
                           <div class="tooltip-demo-grid">
-                            <amw-button variant="text" amwTooltip="Top tooltip" tooltipPosition="top">Top</amw-button>
-                            <amw-button variant="text" amwTooltip="Bottom tooltip" tooltipPosition="bottom">Bottom</amw-button>
-                            <amw-button variant="text" amwTooltip="Left tooltip" tooltipPosition="left">Left</amw-button>
-                            <amw-button variant="text" amwTooltip="Right tooltip" tooltipPosition="right">Right</amw-button>
-                            <amw-button variant="text" amwTooltip="Auto position" tooltipPosition="auto">Auto</amw-button>
+                            <amw-button appearance="text" amwTooltip="Top tooltip" tooltipPosition="top">Top</amw-button>
+                            <amw-button appearance="text" amwTooltip="Bottom tooltip" tooltipPosition="bottom">Bottom</amw-button>
+                            <amw-button appearance="text" amwTooltip="Left tooltip" tooltipPosition="left">Left</amw-button>
+                            <amw-button appearance="text" amwTooltip="Right tooltip" tooltipPosition="right">Right</amw-button>
+                            <amw-button appearance="text" amwTooltip="Auto position" tooltipPosition="auto">Auto</amw-button>
                           </div>
                         </div>
                       </div>
@@ -149,7 +149,7 @@
                         <h4>HTML Content</h4>
                         <pre><code>{{ tooltipCodeExamples.html }}</code></pre>
                         <div class="preview">
-                          <amw-button variant="elevated" color="accent"
+                          <amw-button appearance="elevated" color="accent"
                             [amwTooltip]="htmlTooltipContent"
                             [tooltipAllowHtml]="true">
                             HTML Tooltip
@@ -161,7 +161,7 @@
                         <h4>Custom Width and Styling</h4>
                         <pre><code>{{ tooltipCodeExamples.styling }}</code></pre>
                         <div class="preview">
-                          <amw-button variant="elevated"
+                          <amw-button appearance="elevated"
                             amwTooltip="This is a wider tooltip with custom styling"
                             tooltipMaxWidth="400px"
                             tooltipClass="custom-tooltip">
@@ -174,7 +174,7 @@
                         <h4>Disabled Tooltip</h4>
                         <pre><code>{{ tooltipCodeExamples.disabled }}</code></pre>
                         <div class="preview">
-                          <amw-button variant="elevated"
+                          <amw-button appearance="elevated"
                             amwTooltip="This won't show"
                             [tooltipDisabled]="true">
                             Tooltip Disabled
@@ -186,7 +186,7 @@
                         <h4>Configuration Object</h4>
                         <pre><code>{{ tooltipCodeExamples.config }}</code></pre>
                         <div class="preview">
-                          <amw-button variant="elevated"
+                          <amw-button appearance="elevated"
                             [amwTooltip]="{
                               content: 'Configured tooltip',
                               position: 'top',
@@ -224,7 +224,7 @@
                         <h4>Auto Focus on Button</h4>
                         <pre><code>{{ autoFocusCodeExamples.button }}</code></pre>
                         <div class="preview">
-                          <amw-button variant="elevated" color="primary" [amwAutoFocus]="true">
+                          <amw-button appearance="elevated" color="primary" [amwAutoFocus]="true">
                             Auto-focused Button
                           </amw-button>
                         </div>
@@ -290,7 +290,7 @@
                         <h4>Basic Usage</h4>
                         <pre><code>{{ copyToClipboardCodeExamples.basic }}</code></pre>
                         <div class="preview">
-                          <amw-button variant="elevated" color="primary"
+                          <amw-button appearance="elevated" color="primary"
                             amwCopyToClipboard
                             [amwCopyToClipboard]="copyText" icon="content_copy" iconPosition="left">Copy Text</amw-button>
                         </div>
@@ -306,7 +306,7 @@
                             [(ngModel)]="copyText"
                             appearance="outline">
                           </amw-input>
-                          <amw-button variant="elevated"
+                          <amw-button appearance="elevated"
                             amwCopyToClipboard
                             [amwCopyToClipboard]="copyText">
                             Copy
@@ -318,7 +318,7 @@
                         <h4>With Event Handling</h4>
                         <pre><code>{{ copyToClipboardCodeExamples.withEvents }}</code></pre>
                         <div class="preview">
-                          <amw-button variant="elevated"
+                          <amw-button appearance="elevated"
                             amwCopyToClipboard
                             [amwCopyToClipboard]="codeExample"
                             (amwCopySuccess)="notification.info('Copied', 'Copied: ' + $event, { duration: 2000 })"
@@ -332,7 +332,7 @@
                         <h4>Custom Messages</h4>
                         <pre><code>{{ copyToClipboardCodeExamples.customMessages }}</code></pre>
                         <div class="preview">
-                          <amw-button variant="icon" icon="content_copy"amwCopyToClipboard
+                          <amw-button icon="content_copy"amwCopyToClipboard
                             [amwCopyToClipboard]="codeExample"
                             amwCopySuccessMessage="Code copied!"
                             amwCopyErrorMessage="Failed to copy code"></amw-button>
@@ -343,7 +343,7 @@
                         <h4>Disable Built-in Toast</h4>
                         <pre><code>{{ copyToClipboardCodeExamples.noToast }}</code></pre>
                         <div class="preview">
-                          <amw-button variant="elevated"
+                          <amw-button appearance="elevated"
                             amwCopyToClipboard
                             [amwCopyToClipboard]="copyText"
                             [amwCopyShowToast]="false"
@@ -359,7 +359,7 @@
                         <div class="preview">
                           <div class="code-container" style="position: relative; border: 1px solid #ccc; border-radius: 4px; padding: 16px; background: #f5f5f5;">
                             <pre><code>{{ codeExample }}</code></pre>
-                            <amw-button variant="icon" icon="content_copy"amwCopyToClipboard
+                            <amw-button icon="content_copy"amwCopyToClipboard
                               [amwCopyToClipboard]="codeExample"
                               title="Copy code"
                               style="position: absolute; top: 8px; right: 8px;"></amw-button>
@@ -390,7 +390,7 @@
                         <h4>Dropdown Menu</h4>
                         <pre><code>{{ clickOutsideCodeExamples.dropdown }}</code></pre>
                         <div class="preview">
-                          <amw-button variant="elevated" color="primary" (click)="boxClicked = !boxClicked">
+                          <amw-button appearance="elevated" color="primary" (click)="boxClicked = !boxClicked">
                             {{ boxClicked ? 'Close Menu' : 'Open Menu' }}
                           </amw-button>
                           @if (boxClicked) {
@@ -409,7 +409,7 @@
                         <h4>Modal/Dialog</h4>
                         <pre><code>{{ clickOutsideCodeExamples.modal }}</code></pre>
                         <div class="preview">
-                          <amw-button variant="elevated" color="accent" (click)="boxClicked = !boxClicked">
+                          <amw-button appearance="elevated" color="accent" (click)="boxClicked = !boxClicked">
                             {{ boxClicked ? 'Close Modal' : 'Open Modal' }}
                           </amw-button>
                           @if (boxClicked) {
@@ -419,7 +419,7 @@
                                 style="background: white; padding: 24px; border-radius: 8px; max-width: 400px; box-shadow: 0 4px 8px rgba(0,0,0,0.2);">
                                 <h3 style="margin-top: 0;">Modal Title</h3>
                                 <p>Click outside this modal to close it</p>
-                                <amw-button variant="text" (click)="boxClicked = false">Close</amw-button>
+                                <amw-button appearance="text" (click)="boxClicked = false">Close</amw-button>
                               </div>
                             </div>
                           }
@@ -476,7 +476,7 @@
                         <h4>Access Click Event</h4>
                         <pre><code>{{ clickOutsideCodeExamples.withEvent }}</code></pre>
                         <div class="preview">
-                          <amw-button variant="elevated" (click)="boxClicked = !boxClicked">
+                          <amw-button appearance="elevated" (click)="boxClicked = !boxClicked">
                             {{ boxClicked ? 'Hide Menu' : 'Show Menu' }}
                           </amw-button>
                           @if (boxClicked) {

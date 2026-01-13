@@ -19,7 +19,7 @@
         <div class="tab-content">
           <h4>Second Tab Content</h4>
           <p>This is the content of the second tab with different content.</p>
-          <amw-button variant="elevated" color="primary">Sample Button</amw-button>
+          <amw-button appearance="elevated" color="primary">Sample Button</amw-button>
         </div>
       </amw-tab>
       <amw-tab label="Third">
@@ -76,8 +76,8 @@
   <div class="demo-section">
     <h3>Dynamic Tabs</h3>
     <div class="tab-controls">
-      <amw-button variant="elevated" (click)="addTab()">Add Tab</amw-button>
-      <amw-button variant="text" (click)="removeTab()" [disabled]="tabs.length <= 1">Remove Tab</amw-button>
+      <amw-button appearance="elevated" (click)="addTab()">Add Tab</amw-button>
+      <amw-button appearance="text" (click)="removeTab()" [disabled]="tabs.length <= 1">Remove Tab</amw-button>
     </div>
     <amw-tabs [(selectedIndex)]="selectedTabIndex">
       @for (tab of tabs; track tab; let i = $index) {

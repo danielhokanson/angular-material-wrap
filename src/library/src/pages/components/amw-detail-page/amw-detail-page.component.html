@@ -10,25 +10,25 @@
       </div>
 
       <div class="amw-detail-page__header-actions">
-        <amw-button variant="icon" icon="refresh" (click)="onRefresh()" amwTooltip="Refresh">
+        <amw-button  icon="refresh" (click)="onRefresh()" amwTooltip="Refresh">
         </amw-button>
         @if (currentConfig.showEditButton) {
-          <amw-button variant="elevated" icon="edit" iconPosition="left" color="primary" (click)="onEdit()">
+          <amw-button appearance="elevated" icon="edit" iconPosition="left" color="primary" (click)="onEdit()">
             Edit
           </amw-button>
         }
         @if (currentConfig.showDeleteButton) {
-          <amw-button variant="elevated" icon="delete" iconPosition="left" color="warn" (click)="onDelete()">
+          <amw-button appearance="elevated" icon="delete" iconPosition="left" color="warn" (click)="onDelete()">
             Delete
           </amw-button>
         }
         @if (currentConfig.showPrintButton) {
-          <amw-button variant="elevated" icon="print" iconPosition="left" (click)="onPrint()">
+          <amw-button appearance="elevated" icon="print" iconPosition="left" (click)="onPrint()">
             Print
           </amw-button>
         }
         @if (currentConfig.showShareButton) {
-          <amw-button variant="elevated" icon="share" iconPosition="left" (click)="onShare()">
+          <amw-button appearance="elevated" icon="share" iconPosition="left" (click)="onShare()">
             Share
           </amw-button>
         }
@@ -49,7 +49,7 @@
     <div class="amw-detail-page__error">
       <mat-icon>error</mat-icon>
       <p>{{ error }}</p>
-      <amw-button variant="elevated" color="primary" (click)="onRefresh()">Retry</amw-button>
+      <amw-button appearance="elevated" color="primary" (click)="onRefresh()">Retry</amw-button>
     </div>
   }
 

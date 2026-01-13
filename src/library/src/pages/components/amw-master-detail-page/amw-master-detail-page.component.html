@@ -28,8 +28,7 @@
                    appearance="outline">
           <mat-icon matPrefix>search</mat-icon>
           <amw-button
-                  variant="icon"
-                  icon="close"
+                                    icon="close"
                   matSuffix
                   *ngIf="searchQuery"
                   (click)="searchQuery = ''; onSearchChange()"
@@ -40,8 +39,7 @@
         <!-- Refresh Button -->
         <amw-button
                 *ngIf="currentConfig.showRefresh"
-                variant="icon"
-                icon="refresh"
+                                icon="refresh"
                 (click)="refresh()"
                 [disabled]="loading"
                 [amwTooltip]="'Refresh'"
@@ -63,7 +61,7 @@
       <div *ngIf="error && !loading" class="amw-master-detail-page__master-error">
         <mat-icon color="warn">error_outline</mat-icon>
         <p>{{ error }}</p>
-        <amw-button variant="text" (click)="refresh()">Try Again</amw-button>
+        <amw-button appearance="text" (click)="refresh()">Try Again</amw-button>
       </div>
 
       <!-- Empty State -->
@@ -160,7 +158,7 @@
            class="amw-master-detail-page__detail-actions">
         <amw-button
                 *ngFor="let action of visibleActions"
-                variant="text"
+                appearance="text"
                 [icon]="action.icon"
                 [iconPosition]="action.icon ? 'left' : 'left'"
                 [color]="action.color || 'primary'"

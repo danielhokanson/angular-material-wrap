@@ -11,17 +11,17 @@
 
       <div class="amw-workflow-page__header-actions">
         @if (currentConfig.showCancelButton) {
-          <amw-button variant="elevated" icon="cancel" iconPosition="left" (click)="onCancelWorkflow()">
+          <amw-button appearance="elevated" icon="cancel" iconPosition="left" (click)="onCancelWorkflow()">
             Cancel
           </amw-button>
         }
         @if (currentConfig.showSaveButton) {
-          <amw-button variant="elevated" icon="save" iconPosition="left" (click)="onSaveWorkflow()">
+          <amw-button appearance="elevated" icon="save" iconPosition="left" (click)="onSaveWorkflow()">
             Save
           </amw-button>
         }
         @if (currentConfig.showResetButton) {
-          <amw-button variant="elevated" icon="refresh" iconPosition="left" (click)="onResetWorkflow()">
+          <amw-button appearance="elevated" icon="refresh" iconPosition="left" (click)="onResetWorkflow()">
             Reset
           </amw-button>
         }
@@ -55,7 +55,7 @@
     <div class="amw-workflow-page__error">
       <mat-icon>error</mat-icon>
       <p>{{ error }}</p>
-      <amw-button variant="elevated" color="primary" (click)="loadWorkflow()">Retry</amw-button>
+      <amw-button appearance="elevated" color="primary" (click)="loadWorkflow()">Retry</amw-button>
     </div>
   }
 
@@ -115,7 +115,7 @@
       <div class="amw-workflow-page__navigation">
         <div class="amw-workflow-page__navigation-buttons">
           @if (canGoPrevious()) {
-            <amw-button variant="elevated"
+            <amw-button appearance="elevated"
               icon="arrow_back"
               iconPosition="left"
               (click)="onPreviousStep()"
@@ -124,7 +124,7 @@
             </amw-button>
           }
           @if (canGoNext()) {
-            <amw-button variant="elevated"
+            <amw-button appearance="elevated"
               icon="arrow_forward"
               iconPosition="right"
               color="primary"
@@ -134,7 +134,7 @@
             </amw-button>
           }
           @if (isWorkflowComplete()) {
-            <amw-button variant="elevated"
+            <amw-button appearance="elevated"
               icon="check"
               iconPosition="left"
               color="primary"

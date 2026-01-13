@@ -12,7 +12,7 @@
   @if (resolvedTriggerTemplate()) {
     <ng-container [ngTemplateOutlet]="resolvedTriggerTemplate()!"></ng-container>
   } @else {
-    <amw-button variant="text"
+    <amw-button appearance="text"
       [icon]="triggerIcon()"
       [iconPosition]="'left'"
       class="amw-popover__trigger-button"
@@ -72,7 +72,7 @@
               }
             </div>
             @if (showClose()) {
-              <amw-button variant="icon"
+              <amw-button
                 [icon]="closeButtonIcon()"
                 class="amw-popover__close"
                 [attr.aria-label]="closeButtonText()"

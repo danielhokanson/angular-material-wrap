@@ -4,7 +4,6 @@
       {{ data.mode === 'create' ? 'Create Event' : data.event?.title || 'Event Details' }}
     </h2>
     <amw-button
-      variant="icon"
       icon="close"
       class="amw-calendar-item-dialog__close"
       (click)="onClose()">
@@ -141,11 +140,11 @@
   <div class="amw-calendar-item-dialog__actions">
     <!-- Create Mode Actions -->
     @if (data.mode === 'create') {
-      <amw-button variant="text" (click)="onCancel()" class="amw-calendar-item-dialog__action">
+      <amw-button appearance="text" (click)="onCancel()" class="amw-calendar-item-dialog__action">
         Cancel
       </amw-button>
       <amw-button
-        variant="elevated"
+        appearance="elevated"
         (click)="save()"
         class="amw-calendar-item-dialog__action amw-calendar-item-dialog__action--primary">
         Create
@@ -154,11 +153,11 @@
 
     <!-- Edit Mode Actions -->
     @if (data.mode === 'edit') {
-      <amw-button variant="text" (click)="onCancel()" class="amw-calendar-item-dialog__action">
+      <amw-button appearance="text" (click)="onCancel()" class="amw-calendar-item-dialog__action">
         Cancel
       </amw-button>
       <amw-button
-        variant="elevated"
+        appearance="elevated"
         (click)="save()"
         class="amw-calendar-item-dialog__action amw-calendar-item-dialog__action--primary">
         Save
@@ -169,7 +168,7 @@
     @if (data.mode === 'read') {
       @if (isTask() && !isCompleted()) {
         <amw-button
-          variant="text"
+          appearance="text"
           icon="check"
           iconPosition="left"
           (click)="markComplete()"
@@ -179,7 +178,7 @@
       }
       @if (isTask() && isCompleted()) {
         <amw-button
-          variant="text"
+          appearance="text"
           icon="undo"
           iconPosition="left"
           (click)="markIncomplete()"
@@ -189,7 +188,7 @@
       }
       @if (isEditable()) {
         <amw-button
-          variant="text"
+          appearance="text"
           icon="edit"
           iconPosition="left"
           (click)="edit()"
@@ -199,7 +198,7 @@
       }
       @if (isDeletable()) {
         <amw-button
-          variant="text"
+          appearance="text"
           icon="delete"
           iconPosition="left"
           (click)="delete()"

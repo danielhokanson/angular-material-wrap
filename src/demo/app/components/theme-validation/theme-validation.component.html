@@ -111,15 +111,15 @@
 
           <!-- Action Buttons -->
           <div class="config-actions">
-            <amw-button variant="elevated"
+            <amw-button appearance="elevated"
               color="primary"
               (click)="applyTheme()"
               [disabled]="!isFormValid()" icon="check" iconPosition="left">Apply Theme</amw-button>
 
-            <amw-button variant="elevated"
+            <amw-button appearance="elevated"
               (click)="resetTheme()" icon="refresh" iconPosition="left">Reset to Default</amw-button>
 
-            <amw-button variant="elevated"
+            <amw-button appearance="elevated"
               (click)="exportTheme()"
               [disabled]="!isFormValid()" icon="download" iconPosition="left">Export Config</amw-button>
           </div>
@@ -165,9 +165,9 @@
               <div class="component-samples">
                 <h5>Buttons</h5>
                 <div class="button-group">
-                  <amw-button variant="elevated" class="btn-primary">Primary</amw-button>
-                  <amw-button variant="elevated" class="btn-accent">Accent</amw-button>
-                  <amw-button variant="elevated" class="btn-warn">Warn</amw-button>
+                  <amw-button appearance="elevated" class="btn-primary">Primary</amw-button>
+                  <amw-button appearance="elevated" class="btn-accent">Accent</amw-button>
+                  <amw-button appearance="elevated" class="btn-warn">Warn</amw-button>
                 </div>
 
                 <h5>Text Styles</h5>
@@ -209,7 +209,7 @@
             <div class="preview-disabled">
               <amw-icon name="visibility_off"></amw-icon>
               <p>Preview disabled</p>
-              <amw-button variant="text" (click)="togglePreview()">Enable Preview</amw-button>
+              <amw-button appearance="text" (click)="togglePreview()">Enable Preview</amw-button>
             </div>
           }
         </ng-template>

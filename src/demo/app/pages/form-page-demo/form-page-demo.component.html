@@ -25,13 +25,13 @@
         <div class="form-page-demo__mode-controls">
           <h4>Form Mode:</h4>
           <div class="form-page-demo__mode-buttons">
-            <amw-button variant="text" 
+            <amw-button appearance="text" 
                     [color]="currentMode === 'create' ? 'primary' : 'basic'"
                     (click)="onModeChange('create')" icon="add" iconPosition="left">Create</amw-button>
-            <amw-button variant="text" 
+            <amw-button appearance="text" 
                     [color]="currentMode === 'edit' ? 'primary' : 'basic'"
                     (click)="onModeChange('edit')" icon="edit" iconPosition="left">Edit</amw-button>
-            <amw-button variant="text" 
+            <amw-button appearance="text" 
                     [color]="currentMode === 'view' ? 'primary' : 'basic'"
                     (click)="onModeChange('view')" icon="visibility" iconPosition="left">View</amw-button>
           </div>

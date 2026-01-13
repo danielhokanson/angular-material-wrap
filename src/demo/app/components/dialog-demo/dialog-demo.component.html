@@ -9,13 +9,13 @@
 
       <ng-template #cardContent>
         <div class="dialog-demo__service-buttons">
-          <amw-button variant="elevated" color="primary" (click)="openAlert()" icon="warning" iconPosition="left">Alert</amw-button>
-          <amw-button variant="elevated" color="accent" (click)="openConfirm()" icon="help_outline" iconPosition="left">Confirm</amw-button>
-          <amw-button variant="elevated" color="primary" (click)="openInfo()" icon="info" iconPosition="left">Info</amw-button>
-          <amw-button variant="elevated" color="warn" (click)="openWarning()" icon="warning" iconPosition="left">Warning</amw-button>
-          <amw-button variant="elevated" color="warn" (click)="openError()" icon="error" iconPosition="left">Error</amw-button>
-          <amw-button variant="elevated" color="primary" (click)="openSuccess()" icon="check_circle" iconPosition="left">Success</amw-button>
-          <amw-button variant="elevated" color="accent" (click)="openLoading()" icon="hourglass_empty" iconPosition="left">Loading</amw-button>
+          <amw-button appearance="elevated" color="primary" (click)="openAlert()" icon="warning" iconPosition="left">Alert</amw-button>
+          <amw-button appearance="elevated" color="accent" (click)="openConfirm()" icon="help_outline" iconPosition="left">Confirm</amw-button>
+          <amw-button appearance="elevated" color="primary" (click)="openInfo()" icon="info" iconPosition="left">Info</amw-button>
+          <amw-button appearance="elevated" color="warn" (click)="openWarning()" icon="warning" iconPosition="left">Warning</amw-button>
+          <amw-button appearance="elevated" color="warn" (click)="openError()" icon="error" iconPosition="left">Error</amw-button>
+          <amw-button appearance="elevated" color="primary" (click)="openSuccess()" icon="check_circle" iconPosition="left">Success</amw-button>
+          <amw-button appearance="elevated" color="accent" (click)="openLoading()" icon="hourglass_empty" iconPosition="left">Loading</amw-button>
         </div>
       </ng-template>
 </amw-card>
@@ -31,7 +31,7 @@
         </ng-template>
         <ng-template #cardContent>
           <div class="dialog-demo__example">
-            <amw-button variant="elevated"
+            <amw-button appearance="elevated"
               color="primary"
               (click)="openDialog(variation)"
               class="dialog-demo__button" icon="open_in_new" iconPosition="left">Open Dialog</amw-button>

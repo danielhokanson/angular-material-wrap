@@ -13,7 +13,7 @@
         <div class="code-panel">
           <div class="code-header">
             <h4>Code</h4>
-            <amw-button variant="icon" icon="refresh" (click)="resetCode('colorPalette')" title="Reset to original"></amw-button>
+            <amw-button icon="refresh" (click)="resetCode('colorPalette')" title="Reset to original"></amw-button>
           </div>
           <textarea
             [(ngModel)]="editableCode.colorPalette"
@@ -23,9 +23,9 @@
         <div class="preview-panel">
           <h4>Preview</h4>
           <div class="preview-content">
-            <amw-button variant="elevated" color="primary">Primary</amw-button>
-            <amw-button variant="elevated" color="accent">Accent</amw-button>
-            <amw-button variant="elevated" color="warn">Warn</amw-button>
+            <amw-button appearance="elevated" color="primary">Primary</amw-button>
+            <amw-button appearance="elevated" color="accent">Accent</amw-button>
+            <amw-button appearance="elevated" color="warn">Warn</amw-button>
           </div>
         </div>
       </div>
@@ -41,7 +41,7 @@
         <div class="code-panel">
           <div class="code-header">
             <h4>Code</h4>
-            <amw-button variant="icon" icon="refresh" (click)="resetCode('cssVariables')" title="Reset to original"></amw-button>
+            <amw-button icon="refresh" (click)="resetCode('cssVariables')" title="Reset to original"></amw-button>
           </div>
           <textarea
             [(ngModel)]="editableCode.cssVariables"
@@ -73,7 +73,7 @@
         <div class="code-panel">
           <div class="code-header">
             <h4>Code</h4>
-            <amw-button variant="icon" icon="refresh" (click)="resetCode('componentTheming')" title="Reset to original"></amw-button>
+            <amw-button icon="refresh" (click)="resetCode('componentTheming')" title="Reset to original"></amw-button>
           </div>
           <textarea
             [(ngModel)]="editableCode.componentTheming"
@@ -88,7 +88,7 @@
                 Content styled with theme colors
               </ng-template>
               <ng-template #cardActions>
-                <amw-button variant="text" color="primary">Action</amw-button>
+                <amw-button appearance="text" color="primary">Action</amw-button>
               </ng-template>
             </amw-card>
           </div>
@@ -106,7 +106,7 @@
         <div class="code-panel">
           <div class="code-header">
             <h4>Code</h4>
-            <amw-button variant="icon" icon="refresh" (click)="resetCode('darkMode')" title="Reset to original"></amw-button>
+            <amw-button icon="refresh" (click)="resetCode('darkMode')" title="Reset to original"></amw-button>
           </div>
           <textarea
             [(ngModel)]="editableCode.darkMode"
@@ -142,7 +142,7 @@
         <div class="code-panel">
           <div class="code-header">
             <h4>Code</h4>
-            <amw-button variant="icon" icon="refresh" (click)="resetCode('customTheme')" title="Reset to original"></amw-button>
+            <amw-button icon="refresh" (click)="resetCode('customTheme')" title="Reset to original"></amw-button>
           </div>
           <textarea
             [(ngModel)]="editableCode.customTheme"
@@ -153,7 +153,7 @@
           <h4>Preview</h4>
           <div class="preview-content">
             <div class="custom-theme" style="--mdc-theme-primary: #ff5722; --mdc-theme-on-primary: #ffffff;">
-              <amw-button variant="elevated" color="primary">
+              <amw-button appearance="elevated" color="primary">
                 Custom Primary Color
               </amw-button>
             </div>
