@@ -48,6 +48,85 @@ declare global {
       // AMW Card
       getAmwCard(selector?: string): Chainable<JQuery<HTMLElement>>;
 
+      // AMW Data Table
+      getAmwDataTable(selector?: string): Chainable<JQuery<HTMLElement>>;
+      sortAmwTableColumn(selector: string, columnName: string): Chainable<void>;
+      filterAmwTable(selector: string, filterText: string): Chainable<void>;
+      paginateAmwTable(selector: string, page: number): Chainable<void>;
+      selectAmwTableRow(selector: string, rowIndex: number): Chainable<void>;
+      getAmwTableRows(selector?: string): Chainable<JQuery<HTMLElement>>;
+
+      // AMW Stepper
+      getAmwStepper(selector?: string): Chainable<JQuery<HTMLElement>>;
+      nextAmwStep(selector?: string): Chainable<void>;
+      previousAmwStep(selector?: string): Chainable<void>;
+      goToAmwStep(selector: string, stepIndex: number): Chainable<void>;
+      getAmwCurrentStep(selector?: string): Chainable<number>;
+
+      // AMW Accordion
+      getAmwAccordion(selector?: string): Chainable<JQuery<HTMLElement>>;
+      expandAmwPanel(selector: string, panelIndex: number): Chainable<void>;
+      collapseAmwPanel(selector: string, panelIndex: number): Chainable<void>;
+      isAmwPanelExpanded(selector: string, panelIndex: number): Chainable<boolean>;
+
+      // AMW Calendar
+      getAmwCalendar(selector?: string): Chainable<JQuery<HTMLElement>>;
+      selectAmwDate(selector: string, day: number): Chainable<void>;
+      navigateAmwMonth(selector: string, direction: 'next' | 'prev'): Chainable<void>;
+      getAmwSelectedDate(selector?: string): Chainable<string>;
+
+      // AMW Menu
+      getAmwMenu(selector?: string): Chainable<JQuery<HTMLElement>>;
+      openAmwMenu(triggerSelector: string): Chainable<void>;
+      selectAmwMenuItem(itemText: string): Chainable<void>;
+      closeAmwMenu(): Chainable<void>;
+
+      // AMW Slider
+      getAmwSlider(selector?: string): Chainable<JQuery<HTMLElement>>;
+      setAmwSliderValue(selector: string, value: number): Chainable<void>;
+
+      // AMW Range Slider
+      getAmwRangeSlider(selector?: string): Chainable<JQuery<HTMLElement>>;
+      setAmwRangeSliderValues(selector: string, startValue: number, endValue: number): Chainable<void>;
+
+      // AMW Chips
+      getAmwChips(selector?: string): Chainable<JQuery<HTMLElement>>;
+      addAmwChip(selector: string, text: string): Chainable<void>;
+      removeAmwChip(selector: string, chipIndex: number): Chainable<void>;
+      getAmwChipValues(selector?: string): Chainable<string[]>;
+
+      // AMW File Input
+      getAmwFileInput(selector?: string): Chainable<JQuery<HTMLElement>>;
+      uploadAmwFile(selector: string, fileName: string, fileContent?: string): Chainable<void>;
+
+      // AMW Color Picker
+      getAmwColorPicker(selector?: string): Chainable<JQuery<HTMLElement>>;
+      selectAmwColor(selector: string, color: string): Chainable<void>;
+
+      // AMW Datepicker
+      getAmwDatepicker(selector?: string): Chainable<JQuery<HTMLElement>>;
+      openAmwDatepicker(selector: string): Chainable<void>;
+      selectAmwDatepickerDate(selector: string, day: number): Chainable<void>;
+
+      // AMW Timepicker
+      getAmwTimepicker(selector?: string): Chainable<JQuery<HTMLElement>>;
+      setAmwTime(selector: string, hours: number, minutes: number): Chainable<void>;
+
+      // AMW Textarea
+      getAmwTextarea(selector?: string): Chainable<JQuery<HTMLElement>>;
+      typeInAmwTextarea(selector: string, text: string): Chainable<void>;
+
+      // AMW Switch/Toggle
+      getAmwSwitch(selector?: string): Chainable<JQuery<HTMLElement>>;
+      toggleAmwSwitch(selector: string): Chainable<void>;
+
+      // Notifications
+      waitForNotification(text?: string): Chainable<JQuery<HTMLElement>>;
+      dismissNotification(): Chainable<void>;
+
+      // Loading
+      waitForLoadingComplete(): Chainable<void>;
+
       // Theme
       selectTheme(themeId: string): Chainable<void>;
       getCurrentTheme(): Chainable<string>;
@@ -196,6 +275,269 @@ Cypress.Commands.add('shouldBeVisible', (selector: string) => {
 
 Cypress.Commands.add('shouldHaveText', (selector: string, text: string) => {
   cy.get(selector).should('contain.text', text);
+});
+
+// AMW Data Table Commands
+Cypress.Commands.add('getAmwDataTable', (selector?: string) => {
+  const baseSelector = selector ? `${selector} amw-data-table` : 'amw-data-table';
+  return cy.get(baseSelector);
+});
+
+Cypress.Commands.add('sortAmwTableColumn', (selector: string, columnName: string) => {
+  cy.get(`${selector} .mat-sort-header`).contains(columnName).click();
+});
+
+Cypress.Commands.add('filterAmwTable', (selector: string, filterText: string) => {
+  cy.get(`${selector} .amw-data-table__filter input, ${selector} amw-input input`).first().clear().type(filterText);
+});
+
+Cypress.Commands.add('paginateAmwTable', (selector: string, page: number) => {
+  // Click the page number or use next/previous buttons
+  cy.get(`${selector} .mat-mdc-paginator-navigation-next`).as('nextBtn');
+  for (let i = 1; i < page; i++) {
+    cy.get('@nextBtn').click();
+  }
+});
+
+Cypress.Commands.add('selectAmwTableRow', (selector: string, rowIndex: number) => {
+  cy.get(`${selector} .mat-mdc-row, ${selector} tr`).eq(rowIndex).click();
+});
+
+Cypress.Commands.add('getAmwTableRows', (selector?: string) => {
+  const baseSelector = selector ? `${selector} .mat-mdc-row, ${selector} tr:not(:first-child)` : '.mat-mdc-row, tr:not(:first-child)';
+  return cy.get(baseSelector);
+});
+
+// AMW Stepper Commands
+Cypress.Commands.add('getAmwStepper', (selector?: string) => {
+  const baseSelector = selector ? `${selector} amw-stepper` : 'amw-stepper';
+  return cy.get(baseSelector);
+});
+
+Cypress.Commands.add('nextAmwStep', (selector?: string) => {
+  const base = selector || '';
+  cy.get(`${base} .amw-stepper__next button, ${base} [matStepperNext]`.trim()).first().click();
+});
+
+Cypress.Commands.add('previousAmwStep', (selector?: string) => {
+  const base = selector || '';
+  cy.get(`${base} .amw-stepper__previous button, ${base} [matStepperPrevious]`.trim()).first().click();
+});
+
+Cypress.Commands.add('goToAmwStep', (selector: string, stepIndex: number) => {
+  cy.get(`${selector} .mat-step-header`).eq(stepIndex).click();
+});
+
+Cypress.Commands.add('getAmwCurrentStep', (selector?: string) => {
+  const base = selector || '';
+  return cy.get(`${base} .mat-step-header[aria-selected="true"]`.trim()).invoke('index');
+});
+
+// AMW Accordion Commands
+Cypress.Commands.add('getAmwAccordion', (selector?: string) => {
+  const baseSelector = selector ? `${selector} amw-accordion` : 'amw-accordion';
+  return cy.get(baseSelector);
+});
+
+Cypress.Commands.add('expandAmwPanel', (selector: string, panelIndex: number) => {
+  cy.get(`${selector} mat-expansion-panel`).eq(panelIndex).find('mat-expansion-panel-header').click();
+});
+
+Cypress.Commands.add('collapseAmwPanel', (selector: string, panelIndex: number) => {
+  cy.get(`${selector} mat-expansion-panel.mat-expanded`).eq(panelIndex).find('mat-expansion-panel-header').click();
+});
+
+Cypress.Commands.add('isAmwPanelExpanded', (selector: string, panelIndex: number) => {
+  return cy.get(`${selector} mat-expansion-panel`).eq(panelIndex).then($panel => {
+    return $panel.hasClass('mat-expanded');
+  });
+});
+
+// AMW Calendar Commands
+Cypress.Commands.add('getAmwCalendar', (selector?: string) => {
+  const baseSelector = selector ? `${selector} amw-calendar` : 'amw-calendar';
+  return cy.get(baseSelector);
+});
+
+Cypress.Commands.add('selectAmwDate', (selector: string, day: number) => {
+  cy.get(`${selector} .mat-calendar-body-cell`).contains(new RegExp(`^${day}$`)).click();
+});
+
+Cypress.Commands.add('navigateAmwMonth', (selector: string, direction: 'next' | 'prev') => {
+  const buttonSelector = direction === 'next'
+    ? `${selector} .mat-calendar-next-button`
+    : `${selector} .mat-calendar-previous-button`;
+  cy.get(buttonSelector).click();
+});
+
+Cypress.Commands.add('getAmwSelectedDate', (selector?: string) => {
+  const base = selector || '';
+  return cy.get(`${base} .mat-calendar-body-selected`.trim()).invoke('text');
+});
+
+// AMW Menu Commands
+Cypress.Commands.add('getAmwMenu', (selector?: string) => {
+  const baseSelector = selector ? `${selector} amw-menu` : 'amw-menu';
+  return cy.get(baseSelector);
+});
+
+Cypress.Commands.add('openAmwMenu', (triggerSelector: string) => {
+  cy.get(`${triggerSelector} [mat-menu-trigger-for], ${triggerSelector} [matMenuTriggerFor], ${triggerSelector} amw-button`).first().click();
+  cy.get('.mat-mdc-menu-panel').should('be.visible');
+});
+
+Cypress.Commands.add('selectAmwMenuItem', (itemText: string) => {
+  cy.get('.mat-mdc-menu-panel .mat-mdc-menu-item').contains(itemText).click();
+});
+
+Cypress.Commands.add('closeAmwMenu', () => {
+  cy.get('body').click(0, 0);
+  cy.get('.mat-mdc-menu-panel').should('not.exist');
+});
+
+// AMW Slider Commands
+Cypress.Commands.add('getAmwSlider', (selector?: string) => {
+  const baseSelector = selector ? `${selector} amw-slider` : 'amw-slider';
+  return cy.get(baseSelector);
+});
+
+Cypress.Commands.add('setAmwSliderValue', (selector: string, value: number) => {
+  cy.get(`${selector} mat-slider input, ${selector} .mat-mdc-slider-input`).first()
+    .invoke('val', value)
+    .trigger('input', { force: true })
+    .trigger('change', { force: true });
+});
+
+// AMW Range Slider Commands
+Cypress.Commands.add('getAmwRangeSlider', (selector?: string) => {
+  const baseSelector = selector ? `${selector} amw-range-slider` : 'amw-range-slider';
+  return cy.get(baseSelector);
+});
+
+Cypress.Commands.add('setAmwRangeSliderValues', (selector: string, startValue: number, endValue: number) => {
+  cy.get(`${selector} mat-slider input`).first()
+    .invoke('val', startValue)
+    .trigger('input', { force: true });
+  cy.get(`${selector} mat-slider input`).last()
+    .invoke('val', endValue)
+    .trigger('input', { force: true });
+});
+
+// AMW Chips Commands
+Cypress.Commands.add('getAmwChips', (selector?: string) => {
+  const baseSelector = selector ? `${selector} amw-chips` : 'amw-chips';
+  return cy.get(baseSelector);
+});
+
+Cypress.Commands.add('addAmwChip', (selector: string, text: string) => {
+  cy.get(`${selector} amw-chips input, ${selector} .mat-mdc-chip-input`).first().type(`${text}{enter}`);
+});
+
+Cypress.Commands.add('removeAmwChip', (selector: string, chipIndex: number) => {
+  cy.get(`${selector} .mat-mdc-chip-remove, ${selector} .mat-mdc-chip button`).eq(chipIndex).click();
+});
+
+Cypress.Commands.add('getAmwChipValues', (selector?: string) => {
+  const base = selector || '';
+  return cy.get(`${base} .mat-mdc-chip`.trim()).then($chips => {
+    return [...$chips].map(chip => chip.textContent?.trim() || '');
+  });
+});
+
+// AMW File Input Commands
+Cypress.Commands.add('getAmwFileInput', (selector?: string) => {
+  const baseSelector = selector ? `${selector} amw-file-input` : 'amw-file-input';
+  return cy.get(baseSelector);
+});
+
+Cypress.Commands.add('uploadAmwFile', (selector: string, fileName: string, fileContent?: string) => {
+  const content = fileContent || 'test file content';
+  cy.get(`${selector} input[type="file"]`).selectFile({
+    contents: Cypress.Buffer.from(content),
+    fileName: fileName,
+    mimeType: 'text/plain',
+  }, { force: true });
+});
+
+// AMW Color Picker Commands
+Cypress.Commands.add('getAmwColorPicker', (selector?: string) => {
+  const baseSelector = selector ? `${selector} amw-color-picker` : 'amw-color-picker';
+  return cy.get(baseSelector);
+});
+
+Cypress.Commands.add('selectAmwColor', (selector: string, color: string) => {
+  cy.get(`${selector} amw-color-picker input, ${selector} input[type="color"]`).first()
+    .invoke('val', color)
+    .trigger('input', { force: true })
+    .trigger('change', { force: true });
+});
+
+// AMW Datepicker Commands
+Cypress.Commands.add('getAmwDatepicker', (selector?: string) => {
+  const baseSelector = selector ? `${selector} amw-datepicker` : 'amw-datepicker';
+  return cy.get(baseSelector);
+});
+
+Cypress.Commands.add('openAmwDatepicker', (selector: string) => {
+  cy.get(`${selector} .mat-datepicker-toggle button, ${selector} mat-datepicker-toggle button`).click();
+  cy.get('.mat-datepicker-content').should('be.visible');
+});
+
+Cypress.Commands.add('selectAmwDatepickerDate', (selector: string, day: number) => {
+  cy.openAmwDatepicker(selector);
+  cy.get('.mat-calendar-body-cell').contains(new RegExp(`^${day}$`)).click();
+});
+
+// AMW Timepicker Commands
+Cypress.Commands.add('getAmwTimepicker', (selector?: string) => {
+  const baseSelector = selector ? `${selector} amw-timepicker` : 'amw-timepicker';
+  return cy.get(baseSelector);
+});
+
+Cypress.Commands.add('setAmwTime', (selector: string, hours: number, minutes: number) => {
+  const formattedTime = `${hours.toString().padStart(2, '0')}:${minutes.toString().padStart(2, '0')}`;
+  cy.get(`${selector} amw-timepicker input, ${selector} input[type="time"]`).first()
+    .clear()
+    .type(formattedTime);
+});
+
+// AMW Textarea Commands
+Cypress.Commands.add('getAmwTextarea', (selector?: string) => {
+  const baseSelector = selector ? `${selector} amw-textarea` : 'amw-textarea';
+  return cy.get(baseSelector);
+});
+
+Cypress.Commands.add('typeInAmwTextarea', (selector: string, text: string) => {
+  cy.get(`${selector} amw-textarea textarea, ${selector} textarea`).first().clear().type(text);
+});
+
+// AMW Switch/Toggle Commands
+Cypress.Commands.add('getAmwSwitch', (selector?: string) => {
+  const baseSelector = selector ? `${selector} amw-switch, ${selector} amw-toggle` : 'amw-switch, amw-toggle';
+  return cy.get(baseSelector);
+});
+
+Cypress.Commands.add('toggleAmwSwitch', (selector: string) => {
+  cy.get(`${selector} amw-switch, ${selector} amw-toggle, ${selector} mat-slide-toggle`).first().click();
+});
+
+// Notification Commands
+Cypress.Commands.add('waitForNotification', (text?: string) => {
+  const selector = '.mat-mdc-snack-bar-container, .mat-snack-bar-container, .amw-notification';
+  if (text) {
+    return cy.get(selector).should('contain.text', text);
+  }
+  return cy.get(selector).should('be.visible');
+});
+
+Cypress.Commands.add('dismissNotification', () => {
+  cy.get('.mat-mdc-snack-bar-action button, .mat-simple-snackbar-action button').click();
+});
+
+// Loading Commands
+Cypress.Commands.add('waitForLoadingComplete', () => {
+  // Wait for any loading spinners to disappear
+  cy.get('.amw-loading, mat-progress-spinner, mat-progress-bar', { timeout: 10000 }).should('not.exist');
 });
 
 export {};

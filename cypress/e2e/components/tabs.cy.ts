@@ -39,10 +39,13 @@ describe('AMW Tabs Component', () => {
       // Click second tab
       cy.get('amw-tabs .amw-tabs__tab, amw-tabs .mat-mdc-tab').eq(1).click();
 
-      // Second tab should be active
+      // Second tab should be active (check for either AMW or Material active class)
       cy.get('amw-tabs .amw-tabs__tab, amw-tabs .mat-mdc-tab').eq(1)
-        .should('have.class', 'amw-tabs__tab--active')
-        .or('have.class', 'mdc-tab--active');
+        .should($el => {
+          const hasAmwActive = $el.hasClass('amw-tabs__tab--active');
+          const hasMdcActive = $el.hasClass('mdc-tab--active');
+          expect(hasAmwActive || hasMdcActive, 'tab should be active').to.be.true;
+        });
     });
 
     it('should show corresponding content when tab is selected', () => {

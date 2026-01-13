@@ -133,8 +133,8 @@ describe('AMW Dialog Component', () => {
 
     it('should trap focus within dialog', () => {
       cy.focused().should('be.visible');
-      // Tab through dialog elements
-      cy.focused().tab();
+      // Tab through dialog elements using keyboard
+      cy.focused().type('{tab}');
       // Focus should stay within dialog
       cy.focused().parents('.amw-dialog, .mat-mdc-dialog-container').should('exist');
     });
