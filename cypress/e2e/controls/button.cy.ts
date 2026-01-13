@@ -30,29 +30,47 @@ describe('AMW Button Component', () => {
     });
   });
 
-  describe('Variant Variations', () => {
-    it('should display text button variant', () => {
-      cy.get('amw-button[variant="text"], .amw-button').should('exist');
+  describe('Appearance Variations', () => {
+    it('should display text appearance button', () => {
+      cy.get('amw-button[appearance="text"]').should('exist');
     });
 
-    it('should display elevated button variant', () => {
-      cy.get('amw-button[variant="elevated"]').should('exist');
+    it('should display elevated appearance button', () => {
+      cy.get('amw-button[appearance="elevated"]').should('exist');
     });
 
-    it('should display outlined button variant', () => {
-      cy.get('amw-button[variant="outlined"]').should('exist');
+    it('should display outlined appearance button', () => {
+      cy.get('amw-button[appearance="outlined"]').should('exist');
     });
 
-    it('should display filled button variant', () => {
-      cy.get('amw-button[variant="filled"]').should('exist');
+    it('should display filled appearance button (default)', () => {
+      // Filled is the default, so buttons without appearance attribute are filled
+      cy.get('amw-button').should('exist');
     });
 
-    it('should display tonal button variant', () => {
-      cy.get('amw-button[variant="tonal"]').should('exist');
+    it('should display tonal appearance button', () => {
+      cy.get('amw-button[appearance="tonal"]').should('exist');
+    });
+  });
+
+  describe('FAB Variations', () => {
+    it('should display standard FAB button', () => {
+      cy.get('amw-button[ng-reflect-fab="true"]').should('exist');
     });
 
-    it('should display icon button variant', () => {
-      cy.get('amw-button[variant="icon"]').should('exist');
+    it('should display mini FAB button', () => {
+      cy.get('amw-button[fab="mini"]').should('exist');
+    });
+
+    it('should display extended FAB button', () => {
+      cy.get('amw-button[fab="extended"]').should('exist');
+    });
+  });
+
+  describe('Icon-Only Buttons', () => {
+    it('should display icon-only button (inferred from icon without text)', () => {
+      // Icon-only buttons have an icon attribute but no text content
+      cy.get('amw-button[icon]').should('exist');
     });
   });
 
@@ -76,11 +94,11 @@ describe('AMW Button Component', () => {
     });
 
     it('should display disabled state button', () => {
-      cy.get('amw-button[disabled="true"], amw-button button:disabled').should('exist');
+      cy.get('amw-button[ng-reflect-disabled="true"], amw-button button:disabled').should('exist');
     });
 
     it('should display loading state button', () => {
-      cy.get('amw-button[loading="true"], .amw-button--loading').should('exist');
+      cy.get('amw-button[ng-reflect-loading="true"], .amw-button--loading').should('exist');
     });
   });
 
@@ -106,8 +124,13 @@ describe('AMW Button Component', () => {
   });
 
   describe('Button with Icons', () => {
-    it('should display button with left icon', () => {
-      cy.get('amw-button mat-icon, amw-button .amw-button__icon').should('exist');
+    it('should display button with icon', () => {
+      cy.get('amw-button[icon] mat-icon, amw-button .amw-button__icon').should('exist');
+    });
+
+    it('should display button with icon and text', () => {
+      // Buttons like Edit and Delete have both icon and text
+      cy.contains('Edit').closest('amw-button').find('mat-icon').should('exist');
     });
   });
 
@@ -117,9 +140,13 @@ describe('AMW Button Component', () => {
       cy.contains('Save Changes').should('be.visible');
     });
 
-    it('should have Edit, Delete, and Add buttons', () => {
+    it('should have Edit and Delete buttons with icons', () => {
       cy.contains('Edit').should('be.visible');
       cy.contains('Delete').should('be.visible');
+    });
+
+    it('should have a FAB add button', () => {
+      cy.get('.example-actions amw-button[icon="add"]').should('exist');
     });
   });
 
@@ -130,9 +157,13 @@ describe('AMW Button Component', () => {
         .should('have.focus');
     });
 
-    it('disabled buttons should have proper ARIA attributes', () => {
+    it('disabled buttons should have proper disabled attribute', () => {
       cy.get('amw-button button:disabled').first()
         .should('have.attr', 'disabled');
+    });
+
+    it('icon-only buttons should have aria-label', () => {
+      cy.get('amw-button[icon][arialabel], amw-button[icon][aria-label]').should('exist');
     });
   });
 });

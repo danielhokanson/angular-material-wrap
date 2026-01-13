@@ -19,7 +19,6 @@ export const WORKFLOW_PAGE_DATA_SOURCE = new InjectionToken<WorkflowPageDataSour
 import { WorkflowPageConfig, WorkflowStep, WorkflowData, WorkflowPageDataSource } from './interfaces';
 import { AmwProgressSpinnerComponent } from '../../../components/components/amw-progress-spinner/amw-progress-spinner.component';
 import { AmwProgressBarComponent } from '../../../components/components/amw-progress-bar/amw-progress-bar.component';
-import { AmwTooltipDirective } from '../../../directives';
 import { AmwButtonComponent } from '../../../controls/components/amw-button/amw-button.component';
 
 // Default data source implementation
@@ -65,7 +64,6 @@ export class DefaultWorkflowPageDataSource implements WorkflowPageDataSource {
         AmwProgressSpinnerComponent,
         MatTabsModule,
         MatExpansionModule,
-        AmwTooltipDirective,
         MatSnackBarModule
     ],
     encapsulation: ViewEncapsulation.None,
