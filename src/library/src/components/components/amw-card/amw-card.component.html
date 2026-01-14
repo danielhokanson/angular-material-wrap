@@ -27,15 +27,17 @@
           @if (headerTemplate()) {
             <ng-container [ngTemplateOutlet]="headerTemplate()!"></ng-container>
           } @else {
-            @if (headerIcon()) {
-              <div mat-card-avatar class="amw-card__avatar">
-                <mat-icon>{{ headerIcon() }}</mat-icon>
-              </div>
-            }
-            <mat-card-title>{{ headerTitle() }}</mat-card-title>
-            @if (headerSubtitle()) {
-              <mat-card-subtitle>{{ headerSubtitle() }}</mat-card-subtitle>
-            }
+            <ng-container>
+              @if (headerIcon()) {
+                <div mat-card-avatar class="amw-card__avatar">
+                  <mat-icon>{{ headerIcon() }}</mat-icon>
+                </div>
+              }
+              <mat-card-title>{{ headerTitle() }}</mat-card-title>
+              @if (headerSubtitle()) {
+                <mat-card-subtitle>{{ headerSubtitle() }}</mat-card-subtitle>
+              }
+            </ng-container>
           }
         </mat-card-header>
       }
@@ -111,15 +113,17 @@
         @if (headerTemplate()) {
           <ng-container [ngTemplateOutlet]="headerTemplate()!"></ng-container>
         } @else {
-          @if (headerIcon()) {
-            <div mat-card-avatar class="amw-card__avatar">
-              <mat-icon>{{ headerIcon() }}</mat-icon>
-            </div>
-          }
-          <mat-card-title>{{ headerTitle() }}</mat-card-title>
-          @if (headerSubtitle()) {
-            <mat-card-subtitle>{{ headerSubtitle() }}</mat-card-subtitle>
-          }
+          <ng-container>
+            @if (headerIcon()) {
+              <div mat-card-avatar class="amw-card__avatar">
+                <mat-icon>{{ headerIcon() }}</mat-icon>
+              </div>
+            }
+            <mat-card-title>{{ headerTitle() }}</mat-card-title>
+            @if (headerSubtitle()) {
+              <mat-card-subtitle>{{ headerSubtitle() }}</mat-card-subtitle>
+            }
+          </ng-container>
         }
       </mat-card-header>
     }
