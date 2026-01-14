@@ -1,0 +1,101 @@
+name: Cypress E2E Tests (Simple)
+
+on:
+  push:
+    branches: [main, develop]
+  pull_request:
+    branches: [main, develop]
+  workflow_dispatch:
+
+jobs:
+  cypress-run:
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+          cache: 'npm'
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Build library
+        run: npm run build:lib
+
+      - name: Run Cypress tests
+        uses: cypress-io/github-action@v6
+        with:
+          build: npm run build:demo
+          start: npm run start:demo
+          wait-on: 'http://localhost:4201'
+          wait-on-timeout: 120
+          browser: chrome
+          config: video=true
+
+      - name: Upload test results
+        uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: cypress-results
+          path: |
+            cypress/screenshots
+            cypress/videos
+          retention-days: 7
+
+  # Run tests by category for better visibility
+  cypress-categories:
+    runs-on: ubuntu-latest
+    timeout-minutes: 45
+    if: github.event_name == 'pull_request'
+
+    strategy:
+      fail-fast: false
+      matrix:
+        category:
+          - controls
+          - components
+          - services
+          - directives
+          - pages
+          - integration
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+          cache: 'npm'
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Build library
+        run: npm run build:lib
+
+      - name: Run ${{ matrix.category }} tests
+        uses: cypress-io/github-action@v6
+        with:
+          build: npm run build:demo
+          start: npm run start:demo
+          wait-on: 'http://localhost:4201'
+          wait-on-timeout: 120
+          browser: chrome
+          spec: cypress/e2e/${{ matrix.category }}/**/*.cy.ts
+          config: video=false
+
+      - name: Upload screenshots on failure
+        uses: actions/upload-artifact@v4
+        if: failure()
+        with:
+          name: cypress-screenshots-${{ matrix.category }}
+          path: cypress/screenshots
+          retention-days: 7
