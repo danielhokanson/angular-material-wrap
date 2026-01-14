@@ -11,7 +11,7 @@ import { AmwSize } from '../../../../library/src/shared/types';
 import { AmwButtonComponent } from '../../../../library/src/controls/components/amw-button/amw-button.component';
 import { AmwInputComponent } from '../../../../library/src/controls/components/amw-input/amw-input.component';
 import { AmwSelectComponent } from '../../../../library/src/controls/components/amw-select/amw-select.component';
-import { AmwCardComponent, AmwIconComponent } from '../../../../library/src/components/components';
+import { AmwCardComponent } from '../../../../library/src/components/components';
 
 /**
  * Validation demo component for popover
@@ -28,7 +28,6 @@ import { AmwCardComponent, AmwIconComponent } from '../../../../library/src/comp
     AmwInputComponent,
     AmwSelectComponent,
     AmwCardComponent,
-    AmwIconComponent
 ],
     templateUrl: './popover-validation.component.html',
     styleUrl: './popover-validation.component.scss'

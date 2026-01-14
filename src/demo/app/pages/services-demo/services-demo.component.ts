@@ -7,7 +7,7 @@ import { Subject, takeUntil } from 'rxjs';
 import { AmwMessagingService, Message } from '../../../../library/src/services/amw-messaging/amw-messaging.service';
 import { AmwLoadingService, LoadingState } from '../../../../library/src/services/amw-loading/amw-loading.service';
 import { AmwNotificationService, Notification } from '../../../../library/src/services/amw-notification/amw-notification.service';
-import { AmwTabsComponent, AmwTabComponent, AmwCardComponent, AmwIconComponent, AmwProgressSpinnerComponent } from '../../../../library/src/components/components';
+import { AmwTabsComponent, AmwTabComponent, AmwCardComponent, AmwIconComponent } from '../../../../library/src/components/components';
 import { AmwButtonComponent } from '../../../../library/src/controls/components/amw-button/amw-button.component';
 import { AmwInputComponent } from '../../../../library/src/controls/components/amw-input/amw-input.component';
 
@@ -21,7 +21,6 @@ import { AmwInputComponent } from '../../../../library/src/controls/components/a
     AmwTabComponent,
     AmwCardComponent,
     AmwIconComponent,
-    AmwProgressSpinnerComponent,
     AmwButtonComponent,
     AmwInputComponent,
 ],

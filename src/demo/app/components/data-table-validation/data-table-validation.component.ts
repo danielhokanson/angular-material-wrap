@@ -3,20 +3,15 @@ import { Component, OnInit, ViewEncapsulation } from '@angular/core';
 import { FormsModule, ReactiveFormsModule, FormBuilder, FormGroup, Validators } from '@angular/forms';
 // import { AmwDataTableComponent } from '../../../../library/src/controls/components/amw-data-table/amw-data-table.component';
 
-import { AmwButtonComponent } from '../../../../library/src/controls/components/amw-button/amw-button.component';
-import { AmwInputComponent } from '../../../../library/src/controls/components/amw-input/amw-input.component';
-import { AmwCardComponent, AmwIconComponent } from '../../../../library/src/components/components';
+import { AmwCardComponent } from '../../../../library/src/components/components';
 
 @Component({
     selector: 'amw-demo-data-table-validation',
     standalone: true,
     imports: [
-    AmwInputComponent,
     FormsModule,
     ReactiveFormsModule,
     AmwCardComponent,
-    AmwButtonComponent,
-    AmwIconComponent
 ],
     encapsulation: ViewEncapsulation.None,
     template: `

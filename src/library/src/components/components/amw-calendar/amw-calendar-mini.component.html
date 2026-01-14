@@ -2,7 +2,7 @@
   [class]="internalConfig.cssClass"
   [class.amw-calendar-mini--loading]="loading()"
   [class.amw-calendar-mini--disabled]="disabled()"
-  [class.amw-calendar-mini--compact]="compactMode"
+  [class.amw-calendar-mini--compact]="compactMode()"
   [class.amw-calendar-mini--week-view]="showWeekViewInternal">
 
   <!-- Loading Spinner -->
@@ -91,7 +91,7 @@
                     <div class="amw-calendar-mini__event-title">
                       {{ getEventDisplayTextMini(event) }}
                     </div>
-                    @if (event.description && !compactMode) {
+                    @if (event.description && !compactMode()) {
                       <div
                         class="amw-calendar-mini__event-description">
                         {{ event.description }}
@@ -182,7 +182,7 @@
                       <div class="amw-calendar-mini__event-title">
                         {{ getEventDisplayTextMini(event) }}
                       </div>
-                      @if (!event.allDay && !compactMode) {
+                      @if (!event.allDay && !compactMode()) {
                         <div
                           class="amw-calendar-mini__event-time">
                           {{ getFormattedTime(event.start) }}

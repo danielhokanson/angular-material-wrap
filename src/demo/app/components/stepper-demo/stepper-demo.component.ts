@@ -2,7 +2,6 @@ import { Component } from '@angular/core';
 
 import { ReactiveFormsModule, FormBuilder, FormGroup, Validators } from '@angular/forms';
 
-import { AmwButtonComponent } from '../../../../library/src/controls/components/amw-button/amw-button.component';
 import { AmwInputComponent } from '../../../../library/src/controls/components/amw-input/amw-input.component';
 import { AmwStepperComponent } from '../../../../library/src/components/components/amw-stepper/amw-stepper.component';
 import { StepperStep, StepperConfig } from '../../../../library/src/components/components/amw-stepper/interfaces';
@@ -12,7 +11,6 @@ import { StepperStep, StepperConfig } from '../../../../library/src/components/c
     standalone: true,
     imports: [
         ReactiveFormsModule,
-        AmwButtonComponent,
         AmwInputComponent,
         AmwStepperComponent
     ],

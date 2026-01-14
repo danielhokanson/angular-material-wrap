@@ -339,7 +339,7 @@ class DetailPageDemoDataSource implements DetailPageDataSource {
         ];
     }
 }
-import { AmwTabsComponent, AmwTabComponent, AmwCardComponent, AmwIconComponent } from '../../../../library/src/components/components';
+import { AmwTabsComponent, AmwTabComponent, AmwCardComponent } from '../../../../library/src/components/components';
 
 @Component({
     selector: 'app-detail-page-demo',
@@ -349,7 +349,6 @@ import { AmwTabsComponent, AmwTabComponent, AmwCardComponent, AmwIconComponent }
     AmwTabsComponent,
     AmwTabComponent,
     AmwCardComponent,
-    AmwIconComponent,
 ],
     templateUrl: './detail-page-demo.component.html',
     styleUrl: './detail-page-demo.component.scss'

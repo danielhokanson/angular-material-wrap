@@ -3,7 +3,7 @@ import { Component, OnInit, ViewEncapsulation } from '@angular/core';
 import { FormsModule, ReactiveFormsModule, FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { AmwButtonComponent } from '../../../../library/src/controls/components/amw-button/amw-button.component';
 import { AmwInputComponent } from '../../../../library/src/controls/components/amw-input/amw-input.component';
-import { AmwCardComponent, AmwIconComponent } from '../../../../library/src/components/components';
+import { AmwCardComponent } from '../../../../library/src/components/components';
 import { AmwStepperComponent } from '../../../../library/src/components/components/amw-stepper/amw-stepper.component';
 import { StepperStep, StepperConfig } from '../../../../library/src/components/components/amw-stepper/interfaces';
 
@@ -16,7 +16,6 @@ import { StepperStep, StepperConfig } from '../../../../library/src/components/c
         AmwButtonComponent,
         AmwInputComponent,
         AmwCardComponent,
-        AmwIconComponent,
         AmwStepperComponent
     ],
     encapsulation: ViewEncapsulation.None,

@@ -1,15 +1,13 @@
 import { Component, ViewEncapsulation } from '@angular/core';
 
 import { AmwSliderComponent } from '../../../../library/src/controls/components/amw-slider/amw-slider.component';
-import { AmwIconComponent } from '../../../../library/src/components/components';
 // Note: SliderSize type doesn't exist, using string for now
 
 @Component({
     selector: 'amw-demo-slider',
     standalone: true,
     imports: [
-    AmwSliderComponent,
-    AmwIconComponent
+    AmwSliderComponent
 ],
     encapsulation: ViewEncapsulation.None,
     templateUrl: './slider-demo.component.html',

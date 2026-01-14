@@ -1,6 +1,6 @@
 import { Component, OnInit, ViewEncapsulation } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
-import { AmwTabsComponent, AmwTabComponent, AmwCardComponent, AmwIconComponent } from '../../../../library/src/components/components';
+import { AmwTabsComponent, AmwTabComponent, AmwCardComponent } from '../../../../library/src/components/components';
 
 @Component({
   selector: 'amw-demo-pages',
@@ -8,8 +8,7 @@ import { AmwTabsComponent, AmwTabComponent, AmwCardComponent, AmwIconComponent }
   imports: [
     AmwTabsComponent,
     AmwTabComponent,
-    AmwCardComponent,
-    AmwIconComponent
+    AmwCardComponent
   ],
   encapsulation: ViewEncapsulation.None,
   template: `

@@ -2,7 +2,7 @@ import { Component, ViewEncapsulation, OnInit, OnDestroy } from '@angular/core';
 
 import { FormsModule } from '@angular/forms';
 import { AmwNotificationService } from '../../../../library/src/services/amw-notification/amw-notification.service';
-import { AmwCardComponent, AmwIconComponent } from '../../../../library/src/components/components';
+import { AmwCardComponent } from '../../../../library/src/components/components';
 import { CardService, CardData, CardFilter, CardSort } from '../../../../library/src/components/services/card.service';
 import { CardConfig, CardVariant, CardElevation } from '../../../../library/src/components/components/amw-card/interfaces';
 import { AmwSize } from '../../../../library/src/shared/types';
@@ -20,7 +20,6 @@ import { AmwTooltipDirective } from '../../../../library/src/directives';
     imports: [
         FormsModule,
         AmwCardComponent,
-        AmwIconComponent,
         AmwButtonComponent,
         AmwInputComponent,
         AmwSelectComponent,

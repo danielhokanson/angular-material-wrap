@@ -6,7 +6,7 @@ import { AmwSidenavComponent } from '../../../../library/src/components/componen
 import { SidenavConfig } from '../../../../library/src/components/components/amw-sidenav/interfaces/sidenav-config.interface';
 import { SidenavItem } from '../../../../library/src/components/components/amw-sidenav/interfaces/sidenav-item.interface';
 import { SidenavService } from '../../../../library/src/components/services/sidenav.service';
-import { AmwTabsComponent, AmwTabComponent, AmwCardComponent, AmwIconComponent } from '../../../../library/src/components/components';
+import { AmwTabsComponent, AmwTabComponent, AmwCardComponent } from '../../../../library/src/components/components';
 
 /**
  * API documentation component for sidenav
@@ -21,7 +21,6 @@ import { AmwTabsComponent, AmwTabComponent, AmwCardComponent, AmwIconComponent }
     AmwTabsComponent,
     AmwTabComponent,
     AmwCardComponent,
-    AmwIconComponent
 ],
     templateUrl: './sidenav-api.component.html',
     styleUrl: './sidenav-api.component.scss'

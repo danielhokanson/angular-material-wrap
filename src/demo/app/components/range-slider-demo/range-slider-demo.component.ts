@@ -3,8 +3,6 @@ import { Component, ViewEncapsulation } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 
 import { AmwRangeSliderComponent } from '../../../../library/src/controls/components/amw-range-slider/amw-range-slider.component';
-import { AmwIconComponent } from '../../../../library/src/components/components';
-import { AmwButtonComponent } from '../../../../library/src/controls/components/amw-button/amw-button.component';
 import { AmwInputComponent } from '../../../../library/src/controls/components/amw-input/amw-input.component';
 import { AmwCheckboxComponent } from '../../../../library/src/controls/components/amw-checkbox/amw-checkbox.component';
 import { AmwSelectComponent } from '../../../../library/src/controls/components/amw-select/amw-select.component';
@@ -15,10 +13,8 @@ import { AmwSelectComponent } from '../../../../library/src/controls/components/
     imports: [
         FormsModule,
         AmwRangeSliderComponent,
-        AmwButtonComponent,
         AmwInputComponent,
         AmwCheckboxComponent,
-        AmwIconComponent,
         AmwSelectComponent,
     ],
     encapsulation: ViewEncapsulation.None,

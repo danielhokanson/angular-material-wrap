@@ -5,7 +5,6 @@ import { ReactiveFormsModule, FormBuilder, FormGroup, Validators } from '@angula
 
 import { AmwButtonComponent } from '../../../../library/src/controls/components/amw-button/amw-button.component';
 import { AmwInputComponent } from '../../../../library/src/controls/components/amw-input/amw-input.component';
-import { AmwIconComponent } from '../../../../library/src/components/components';
 
 @Component({
     selector: 'amw-demo-button-validation',
@@ -13,8 +12,7 @@ import { AmwIconComponent } from '../../../../library/src/components/components'
     imports: [
     ReactiveFormsModule,
     AmwButtonComponent,
-    AmwInputComponent,
-    AmwIconComponent
+    AmwInputComponent
 ],
     encapsulation: ViewEncapsulation.None,
     templateUrl: './button-validation.component.html',

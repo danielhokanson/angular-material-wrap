@@ -8,7 +8,7 @@ import {
 } from 'angular-material-wrap';
 import { Observable, of, BehaviorSubject } from 'rxjs';
 import { delay } from 'rxjs/operators';
-import { AmwTabsComponent, AmwTabComponent, AmwCardComponent, AmwIconComponent } from '../../../../library/src/components/components';
+import { AmwTabsComponent, AmwTabComponent, AmwCardComponent } from '../../../../library/src/components/components';
 
 // Sample recipes data
 const RECIPES_DATA = [
@@ -115,7 +115,6 @@ class RecipeDataSource implements MasterDetailDataSource {
     AmwTabsComponent,
     AmwTabComponent,
     AmwCardComponent,
-    AmwIconComponent,
 ],
   template: `
     <div class="demo-page">

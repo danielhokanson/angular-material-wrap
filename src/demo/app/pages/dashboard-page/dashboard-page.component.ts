@@ -2,7 +2,7 @@ import { Component, OnInit, ViewEncapsulation } from '@angular/core';
 import { CommonModule } from '@angular/common';
 
 import { AmwButtonComponent } from '../../../../library/src/controls/components/amw-button/amw-button.component';
-import { AmwCardComponent, AmwIconComponent, AmwProgressSpinnerComponent } from '../../../../library/src/components/components';
+import { AmwCardComponent, AmwIconComponent } from '../../../../library/src/components/components';
 
 @Component({
   selector: 'amw-demo-dashboard-page',
@@ -12,7 +12,6 @@ import { AmwCardComponent, AmwIconComponent, AmwProgressSpinnerComponent } from 
     AmwButtonComponent,
     AmwCardComponent,
     AmwIconComponent,
-    AmwProgressSpinnerComponent
 ],
   encapsulation: ViewEncapsulation.None,
   templateUrl: './dashboard-page.component.html',

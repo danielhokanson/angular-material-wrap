@@ -12,7 +12,7 @@ import { AmwButtonComponent } from '../../../../library/src/controls/components/
 import { AmwInputComponent } from '../../../../library/src/controls/components/amw-input/amw-input.component';
 import { AmwSelectComponent } from '../../../../library/src/controls/components/amw-select/amw-select.component';
 import { AmwSwitchComponent } from '../../../../library/src/controls/components/amw-switch/amw-switch.component';
-import { AmwCardComponent, AmwIconComponent } from '../../../../library/src/components/components';
+import { AmwCardComponent } from '../../../../library/src/components/components';
 
 /**
  * Validation demo component for sidenav
@@ -29,8 +29,7 @@ import { AmwCardComponent, AmwIconComponent } from '../../../../library/src/comp
     AmwInputComponent,
     AmwSelectComponent,
     AmwSwitchComponent,
-    AmwCardComponent,
-    AmwIconComponent
+    AmwCardComponent
 ],
     templateUrl: './sidenav-validation.component.html',
     styleUrl: './sidenav-validation.component.scss'

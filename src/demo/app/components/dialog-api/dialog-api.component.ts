@@ -1,14 +1,13 @@
 import { Component, ViewEncapsulation } from '@angular/core';
 
 import { BaseApiComponent, ApiDocumentation } from '../base/base-api.component';
-import { AmwCardComponent, AmwIconComponent } from '../../../../library/src/components/components';
+import { AmwCardComponent } from '../../../../library/src/components/components';
 
 @Component({
     selector: 'amw-demo-dialog-api',
     standalone: true,
     imports: [
     AmwCardComponent,
-    AmwIconComponent
 ],
     encapsulation: ViewEncapsulation.None,
     templateUrl: './dialog-api.component.html',

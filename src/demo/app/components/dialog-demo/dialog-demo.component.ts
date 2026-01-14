@@ -5,7 +5,7 @@ import { DialogService } from '../../../../library/src/components/services/dialo
 import { DialogType, DialogSize, DialogPosition } from '../../../../library/src/components/components/amw-dialog/interfaces';
 
 import { AmwButtonComponent } from '../../../../library/src/controls/components/amw-button/amw-button.component';
-import { AmwCardComponent, AmwIconComponent } from '../../../../library/src/components/components';
+import { AmwCardComponent } from '../../../../library/src/components/components';
 
 @Component({
     selector: 'amw-demo-dialog',
@@ -13,7 +13,6 @@ import { AmwCardComponent, AmwIconComponent } from '../../../../library/src/comp
     imports: [
     AmwButtonComponent,
     AmwCardComponent,
-    AmwIconComponent
 ],
     encapsulation: ViewEncapsulation.None,
     templateUrl: './dialog-demo.component.html',

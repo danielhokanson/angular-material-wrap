@@ -2,7 +2,7 @@ import { Component, ViewEncapsulation } from '@angular/core';
 import { CommonModule } from '@angular/common';
 
 import { BaseApiComponent, ApiDocumentation } from '../base/base-api.component';
-import { AmwTabsComponent, AmwTabComponent, AmwCardComponent } from '../../../../library/src/components/components';
+import { AmwTabsComponent, AmwTabComponent } from '../../../../library/src/components/components';
 
 @Component({
     selector: 'amw-demo-data-table-api',
@@ -11,7 +11,6 @@ import { AmwTabsComponent, AmwTabComponent, AmwCardComponent } from '../../../..
         CommonModule,
         AmwTabsComponent,
         AmwTabComponent,
-        AmwCardComponent,
     ],
     encapsulation: ViewEncapsulation.None,
     template: `

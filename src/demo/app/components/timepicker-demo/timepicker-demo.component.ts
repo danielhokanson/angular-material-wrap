@@ -1,7 +1,7 @@
 import { Component, ViewEncapsulation } from '@angular/core';
 
 import { AmwTimepickerComponent } from '../../../../library/src/controls/components/amw-timepicker/amw-timepicker.component';
-import { AmwCardComponent, AmwIconComponent } from '../../../../library/src/components/components';
+import { AmwCardComponent } from '../../../../library/src/components/components';
 
 @Component({
     selector: 'amw-demo-timepicker',
@@ -9,7 +9,6 @@ import { AmwCardComponent, AmwIconComponent } from '../../../../library/src/comp
     imports: [
     AmwTimepickerComponent,
     AmwCardComponent,
-    AmwIconComponent
 ],
     encapsulation: ViewEncapsulation.None,
     templateUrl: './timepicker-demo.component.html',

@@ -4,20 +4,16 @@ import { AmwNotificationService } from '../../../../library/src/services/amw-not
 import { ReactiveFormsModule, FormBuilder, FormGroup, Validators } from '@angular/forms';
 
 import { AmwInputComponent } from '../../../../library/src/controls/components/amw-input/amw-input.component';
-import { AmwButtonComponent } from '../../../../library/src/controls/components/amw-button/amw-button.component';
 import { InputType } from '../../../../library/src/controls/components/amw-input/interfaces/input-type.type';
 import { InputAppearance } from '../../../../library/src/controls/components/amw-input/interfaces/input-appearance.type';
 import { AmwSize } from '../../../../library/src/shared/types';
-import { AmwIconComponent } from '../../../../library/src/components/components';
 
 @Component({
     selector: 'amw-demo-input',
     standalone: true,
     imports: [
     ReactiveFormsModule,
-    AmwButtonComponent,
     AmwInputComponent,
-    AmwIconComponent
 ],
     encapsulation: ViewEncapsulation.None,
     templateUrl: './input-demo.component.html',

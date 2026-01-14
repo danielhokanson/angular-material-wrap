@@ -1,14 +1,13 @@
 import { Component, ViewEncapsulation } from '@angular/core';
 
 import { BaseApiComponent, ApiDocumentation } from '../base/base-api.component';
-import { AmwCardComponent, AmwIconComponent } from '../../../../library/src/components/components';
+import { AmwCardComponent } from '../../../../library/src/components/components';
 
 @Component({
     selector: 'amw-demo-color-picker-api',
     standalone: true,
     imports: [
-    AmwCardComponent,
-    AmwIconComponent
+    AmwCardComponent
 ],
     encapsulation: ViewEncapsulation.None,
     templateUrl: './color-picker-api.component.html',

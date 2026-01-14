@@ -16,7 +16,6 @@ import {
 } from '../../../../library/src/components/components/amw-data-table/interfaces/data-table.interface';
 
 import { AmwButtonComponent } from '../../../../library/src/controls/components/amw-button/amw-button.component';
-import { AmwInputComponent } from '../../../../library/src/controls/components/amw-input/amw-input.component';
 import { AmwIconComponent, AmwCardComponent } from '../../../../library/src/components/components';
 
 /**
@@ -29,7 +28,6 @@ import { AmwIconComponent, AmwCardComponent } from '../../../../library/src/comp
     imports: [
         FormsModule,
         ReactiveFormsModule,
-        AmwInputComponent,
         AmwDataTableComponent,
         AmwButtonComponent,
         AmwIconComponent,

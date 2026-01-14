@@ -3,8 +3,6 @@ import { Component, ViewEncapsulation } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 
 import { AmwFileInputComponent } from '../../../../library/src/controls/components/amw-file-input/amw-file-input.component';
-import { AmwIconComponent } from '../../../../library/src/components/components';
-import { AmwButtonComponent } from '../../../../library/src/controls/components/amw-button/amw-button.component';
 import { AmwCheckboxComponent } from '../../../../library/src/controls/components/amw-checkbox/amw-checkbox.component';
 
 @Component({
@@ -13,8 +11,6 @@ import { AmwCheckboxComponent } from '../../../../library/src/controls/component
     imports: [
         FormsModule,
         AmwFileInputComponent,
-        AmwButtonComponent,
-        AmwIconComponent,
         AmwCheckboxComponent,
     ],
     encapsulation: ViewEncapsulation.None,

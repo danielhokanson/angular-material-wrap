@@ -1,7 +1,7 @@
 import { Component, ViewEncapsulation } from '@angular/core';
 
 import { BaseApiComponent, ApiDocumentation } from '../base/base-api.component';
-import { AmwCardComponent, AmwIconComponent, AmwDataTableComponent } from '../../../../library/src/components/components';
+import { AmwCardComponent, AmwDataTableComponent } from '../../../../library/src/components/components';
 import { DataTableConfig } from '../../../../library/src/components/components/amw-data-table/interfaces/data-table.interface';
 
 @Component({
@@ -9,7 +9,6 @@ import { DataTableConfig } from '../../../../library/src/components/components/a
     standalone: true,
     imports: [
         AmwCardComponent,
-        AmwIconComponent,
         AmwDataTableComponent
     ],
     encapsulation: ViewEncapsulation.None,

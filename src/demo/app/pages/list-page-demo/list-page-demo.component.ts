@@ -204,8 +204,7 @@ class ListPageDemoDataSource implements ListPageDataSource {
         };
     }
 }
-import { AmwTabsComponent, AmwTabComponent, AmwCardComponent, AmwIconComponent } from '../../../../library/src/components/components';
-import { AmwChipsComponent } from '../../../../library/src/controls/components/amw-chips/amw-chips.component';
+import { AmwTabsComponent, AmwTabComponent, AmwCardComponent } from '../../../../library/src/components/components';
 
 @Component({
     selector: 'app-list-page-demo',
@@ -215,8 +214,6 @@ import { AmwChipsComponent } from '../../../../library/src/controls/components/a
     AmwTabsComponent,
     AmwTabComponent,
     AmwCardComponent,
-    AmwIconComponent,
-    AmwChipsComponent,
 ],
     templateUrl: './list-page-demo.component.html',
     styleUrl: './list-page-demo.component.scss'

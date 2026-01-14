@@ -6,7 +6,7 @@ import { ViewEncapsulation } from '@angular/core';
 import { AmwCurrencyPipe } from '../../../../library/src/pipes/amw-currency/amw-currency.pipe';
 import { AmwDatePipe } from '../../../../library/src/pipes/amw-date/amw-date.pipe';
 import { AmwTextTransformPipe } from '../../../../library/src/pipes/amw-text-transform/amw-text-transform.pipe';
-import { AmwTabsComponent, AmwTabComponent, AmwCardComponent, AmwIconComponent } from '../../../../library/src/components/components';
+import { AmwTabsComponent, AmwTabComponent, AmwCardComponent } from '../../../../library/src/components/components';
 import { AmwInputComponent } from '../../../../library/src/controls/components/amw-input/amw-input.component';
 
 @Component({
@@ -20,7 +20,6 @@ import { AmwInputComponent } from '../../../../library/src/controls/components/a
     AmwTabsComponent,
     AmwTabComponent,
     AmwCardComponent,
-    AmwIconComponent,
     AmwInputComponent,
 ],
     encapsulation: ViewEncapsulation.None,

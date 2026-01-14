@@ -4,7 +4,6 @@ import { FormsModule } from '@angular/forms';
 
 import { AmwDatepickerComponent } from '../../../../library/src/controls/components/amw-datepicker/amw-datepicker.component';
 import { AmwSize, AmwAppearance } from '../../../../library/src/shared/types';
-import { AmwIconComponent } from '../../../../library/src/components/components';
 
 @Component({
     selector: 'amw-demo-datepicker',
@@ -13,7 +12,6 @@ import { AmwIconComponent } from '../../../../library/src/components/components'
     CommonModule,
     FormsModule,
     AmwDatepickerComponent,
-    AmwIconComponent
 ],
     templateUrl: './datepicker-demo.component.html',
     styleUrl: './datepicker-demo.component.scss',

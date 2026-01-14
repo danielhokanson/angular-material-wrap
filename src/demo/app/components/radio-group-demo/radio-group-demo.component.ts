@@ -10,7 +10,6 @@ import { AmwInputComponent } from '../../../../library/src/controls/components/a
 import { AmwSelectComponent } from '../../../../library/src/controls/components/amw-select/amw-select.component';
 import { AmwSwitchComponent } from '../../../../library/src/controls/components/amw-switch/amw-switch.component';
 import { AmwCardComponent } from '../../../../library/src/components/components/amw-card/amw-card.component';
-import { AmwIconComponent } from '../../../../library/src/components/components';
 
 /**
  * Radio Group Demo Component
@@ -28,8 +27,7 @@ import { AmwIconComponent } from '../../../../library/src/components/components'
     AmwInputComponent,
     AmwSelectComponent,
     AmwSwitchComponent,
-    AmwCardComponent,
-    AmwIconComponent],
+    AmwCardComponent],
     templateUrl: './radio-group-demo.component.html',
     styleUrl: './radio-group-demo.component.scss'
 })

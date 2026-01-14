@@ -3,7 +3,6 @@ import { Component, ViewEncapsulation } from '@angular/core';
 import { AmwRadioComponent } from '../../../../library/src/controls/components/amw-radio/amw-radio.component';
 import { AmwRadioGroupComponent } from '../../../../library/src/controls/components/amw-radio-group/amw-radio-group.component';
 import { AmwSize, AmwColor } from '../../../../library/src/shared/types';
-import { AmwIconComponent } from '../../../../library/src/components/components';
 
 @Component({
     selector: 'amw-demo-radio',
@@ -11,7 +10,6 @@ import { AmwIconComponent } from '../../../../library/src/components/components'
     imports: [
     AmwRadioComponent,
     AmwRadioGroupComponent,
-    AmwIconComponent
 ],
     encapsulation: ViewEncapsulation.None,
     templateUrl: './radio-demo.component.html',

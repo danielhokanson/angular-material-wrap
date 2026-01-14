@@ -10,12 +10,7 @@ on:
 jobs:
   cypress-run:
     runs-on: ubuntu-latest
-
-    strategy:
-      fail-fast: false
-      matrix:
-        # Run tests in parallel across multiple containers
-        container: [1, 2, 3, 4]
+    timeout-minutes: 30
 
     steps:
       - name: Checkout
@@ -33,33 +28,21 @@ jobs:
       - name: Build library
         run: npm run build:lib
 
-      - name: Start demo app
-        run: npm run start:demo &
-
-      - name: Wait for demo app
-        run: npx wait-on http://localhost:4201 --timeout 120000
-
       - name: Run Cypress tests
         uses: cypress-io/github-action@v6
         with:
-          install: false
+          build: npm run build:demo
+          start: npm run start:demo
           wait-on: 'http://localhost:4201'
           wait-on-timeout: 120
           browser: chrome
-          record: false
-          parallel: true
-          group: 'E2E Tests'
-        env:
-          CYPRESS_RECORD_KEY: ${{ secrets.CYPRESS_RECORD_KEY }}
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-          SPLIT: ${{ strategy.job-total }}
-          SPLIT_INDEX: ${{ strategy.job-index }}
+          config: video=true
 
       - name: Upload screenshots on failure
         uses: actions/upload-artifact@v4
         if: failure()
         with:
-          name: cypress-screenshots-${{ matrix.container }}
+          name: cypress-screenshots
           path: cypress/screenshots
           retention-days: 7
 
@@ -67,22 +50,6 @@ jobs:
         uses: actions/upload-artifact@v4
         if: always()
         with:
-          name: cypress-videos-${{ matrix.container }}
+          name: cypress-videos
           path: cypress/videos
           retention-days: 7
-
-  # Summary job that runs after all test containers complete
-  cypress-summary:
-    needs: cypress-run
-    runs-on: ubuntu-latest
-    if: always()
-
-    steps:
-      - name: Check test results
-        run: |
-          if [ "${{ needs.cypress-run.result }}" == "failure" ]; then
-            echo "Some Cypress tests failed"
-            exit 1
-          else
-            echo "All Cypress tests passed!"
-          fi

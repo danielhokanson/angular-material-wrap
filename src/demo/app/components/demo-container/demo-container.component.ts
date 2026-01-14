@@ -1,7 +1,7 @@
 import { Component, ViewEncapsulation, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { DEMO_CONFIGS, DemoItem } from './demo-registry';
-import { AmwTabsComponent, AmwTabComponent, AmwIconComponent, AmwCardComponent } from '../../../../library/src/components/components';
+import { AmwTabsComponent, AmwTabComponent, AmwCardComponent } from '../../../../library/src/components/components';
 
 // Import all child components
 import { ButtonDemoComponent } from '../button-demo/button-demo.component';
@@ -118,7 +118,6 @@ import { ThemeApiComponent } from '../theme-api/theme-api.component';
     imports: [
     AmwTabsComponent,
     AmwTabComponent,
-    AmwIconComponent,
     AmwCardComponent,
     ButtonDemoComponent,
     ButtonValidationComponent,

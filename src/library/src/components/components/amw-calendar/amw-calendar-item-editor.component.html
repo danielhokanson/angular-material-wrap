@@ -45,9 +45,9 @@
         }
 
         <!-- Custom readonly fields template outlet -->
-        @if (customReadonlyFieldsTemplate() || context()?.customReadonlyFieldsTemplate) {
+        @if (customReadonlyFieldsTemplate() || context().customReadonlyFieldsTemplate) {
           <ng-container
-            [ngTemplateOutlet]="customReadonlyFieldsTemplate() || context()?.customReadonlyFieldsTemplate || null"
+            [ngTemplateOutlet]="customReadonlyFieldsTemplate() || context().customReadonlyFieldsTemplate || null"
             [ngTemplateOutletContext]="customFieldsTemplateContext">
           </ng-container>
         }
@@ -122,9 +122,9 @@
         }
 
         <!-- Custom editable fields template outlet -->
-        @if (customFieldsTemplate() || context()?.customFieldsTemplate) {
+        @if (customFieldsTemplate() || context().customFieldsTemplate) {
           <ng-container
-            [ngTemplateOutlet]="customFieldsTemplate() || context()?.customFieldsTemplate || null"
+            [ngTemplateOutlet]="customFieldsTemplate() || context().customFieldsTemplate || null"
             [ngTemplateOutletContext]="customFieldsTemplateContext">
           </ng-container>
         }

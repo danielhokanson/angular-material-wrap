@@ -5,7 +5,6 @@ import { BaseCodeComponent } from '../base/base-code.component';
 
 import { AmwButtonComponent } from '../../../../library/src/controls/components/amw-button/amw-button.component';
 import { AmwAccordionComponent, AmwAccordionPanelComponent, AmwIconComponent } from '../../../../library/src/components/components';
-import { AmwInputComponent } from '../../../../library/src/controls/components/amw-input/amw-input.component';
 import { AmwAutocompleteComponent } from '../../../../library/src/controls/components/amw-autocomplete/amw-autocomplete.component';
 
 type AutocompleteExamples = 'basic' | 'withValidation' | 'withFiltering' | 'multipleSelection' | 'withCustomDisplay' | 'reactiveForm' | 'withEvents' | 'searchForm';
@@ -21,7 +20,6 @@ type AutocompleteExamples = 'basic' | 'withValidation' | 'withFiltering' | 'mult
     AmwAccordionComponent,
     AmwAccordionPanelComponent,
     AmwIconComponent,
-    AmwInputComponent,
     AmwAutocompleteComponent,
   ],
   encapsulation: ViewEncapsulation.None,

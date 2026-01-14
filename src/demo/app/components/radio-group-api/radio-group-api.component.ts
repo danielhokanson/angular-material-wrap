@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 import { BaseApiComponent, ApiDocumentation } from '../base/base-api.component';
-import { AmwTabsComponent, AmwTabComponent, AmwCardComponent, AmwIconComponent } from '../../../../library/src/components/components';
+import { AmwTabsComponent, AmwTabComponent, AmwCardComponent } from '../../../../library/src/components/components';
 
 /**
  * Radio Group API Documentation Component
@@ -13,7 +13,6 @@ import { AmwTabsComponent, AmwTabComponent, AmwCardComponent, AmwIconComponent }
         AmwTabsComponent,
         AmwTabComponent,
         AmwCardComponent,
-        AmwIconComponent,
     ],
     templateUrl: './radio-group-api.component.html',
     styleUrl: './radio-group-api.component.scss'

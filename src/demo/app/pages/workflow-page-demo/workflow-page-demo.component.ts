@@ -231,7 +231,7 @@ class WorkflowPageDemoDataSource implements WorkflowPageDataSource {
         return of(true).pipe(delay(1000));
     }
 }
-import { AmwTabsComponent, AmwTabComponent, AmwCardComponent, AmwIconComponent } from '../../../../library/src/components/components';
+import { AmwTabsComponent, AmwTabComponent, AmwCardComponent } from '../../../../library/src/components/components';
 
 @Component({
     selector: 'app-workflow-page-demo',
@@ -241,7 +241,6 @@ import { AmwTabsComponent, AmwTabComponent, AmwCardComponent, AmwIconComponent }
     AmwTabsComponent,
     AmwTabComponent,
     AmwCardComponent,
-    AmwIconComponent,
 ],
     templateUrl: './workflow-page-demo.component.html',
     styleUrl: './workflow-page-demo.component.scss'

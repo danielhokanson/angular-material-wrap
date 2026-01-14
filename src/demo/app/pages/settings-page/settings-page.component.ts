@@ -1,6 +1,6 @@
 import { Component, OnInit, ViewEncapsulation } from '@angular/core';
 import { FormsModule } from '@angular/forms';
-import { AmwAccordionComponent, AmwAccordionPanelComponent, AmwTabsComponent, AmwTabComponent, AmwDividerComponent, AmwCardComponent, AmwIconComponent } from '../../../../library/src/components/components';
+import { AmwAccordionComponent, AmwAccordionPanelComponent, AmwTabsComponent, AmwTabComponent, AmwDividerComponent, AmwCardComponent } from '../../../../library/src/components/components';
 import { AmwButtonComponent } from '../../../../library/src/controls/components/amw-button/amw-button.component';
 import { AmwInputComponent } from '../../../../library/src/controls/components/amw-input/amw-input.component';
 import { AmwSelectComponent } from '../../../../library/src/controls/components/amw-select/amw-select.component';
@@ -17,7 +17,6 @@ import { AmwSwitchComponent } from '../../../../library/src/controls/components/
     AmwTabComponent,
     AmwDividerComponent,
     AmwCardComponent,
-    AmwIconComponent,
     AmwButtonComponent,
     AmwInputComponent,
     AmwSelectComponent,

@@ -98,7 +98,7 @@ class FormPageDemoDataSource implements FormPageDataSource {
         }).pipe(delay(200));
     }
 }
-import { AmwTabsComponent, AmwTabComponent, AmwDividerComponent, AmwCardComponent, AmwIconComponent } from '../../../../library/src/components/components';
+import { AmwTabsComponent, AmwTabComponent, AmwDividerComponent, AmwCardComponent } from '../../../../library/src/components/components';
 import { AmwButtonComponent } from '../../../../library/src/controls/components/amw-button/amw-button.component';
 
 @Component({
@@ -111,7 +111,6 @@ import { AmwButtonComponent } from '../../../../library/src/controls/components/
     AmwDividerComponent,
     AmwButtonComponent,
     AmwCardComponent,
-    AmwIconComponent,
 ],
     templateUrl: './form-page-demo.component.html',
     styleUrl: './form-page-demo.component.scss'

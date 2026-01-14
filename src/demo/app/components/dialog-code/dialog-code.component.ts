@@ -92,8 +92,7 @@ export class DialogCodeComponent extends BaseCodeComponent<DialogExamples> {
     imports: [
     FormsModule,
     MatDialogModule,
-    AmwButtonComponent,
-    AmwIconComponent
+    AmwButtonComponent
 ],
     template: `
         <h2 mat-dialog-title>Simple Dialog</h2>
@@ -115,8 +114,7 @@ export class SimpleDialogComponent {}
     imports: [
     FormsModule,
     MatDialogModule,
-    AmwButtonComponent,
-    AmwIconComponent
+    AmwButtonComponent
 ],
     template: `
         <h2 mat-dialog-title>Confirm Delete</h2>
@@ -163,8 +161,7 @@ export class AlertDialogComponent {}
     imports: [
     FormsModule,
     MatDialogModule,
-    AmwButtonComponent,
-    AmwIconComponent
+    AmwButtonComponent
 ],
     template: `
         <h2 mat-dialog-title>Form Dialog</h2>

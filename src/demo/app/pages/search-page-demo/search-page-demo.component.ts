@@ -302,7 +302,7 @@ class SearchPageDemoDataSource implements SearchPageDataSource {
         return highlights;
     }
 }
-import { AmwTabsComponent, AmwTabComponent, AmwCardComponent, AmwIconComponent } from '../../../../library/src/components/components';
+import { AmwTabsComponent, AmwTabComponent, AmwCardComponent } from '../../../../library/src/components/components';
 
 @Component({
     selector: 'app-search-page-demo',
@@ -312,7 +312,6 @@ import { AmwTabsComponent, AmwTabComponent, AmwCardComponent, AmwIconComponent }
     AmwTabsComponent,
     AmwTabComponent,
     AmwCardComponent,
-    AmwIconComponent,
 ],
     templateUrl: './search-page-demo.component.html',
     styleUrl: './search-page-demo.component.scss'

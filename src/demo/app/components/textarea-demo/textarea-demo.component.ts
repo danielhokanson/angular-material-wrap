@@ -1,7 +1,6 @@
 import { Component, ViewEncapsulation } from '@angular/core';
 
 import { AmwTextareaComponent } from '../../../../library/src/controls/components/amw-textarea/amw-textarea.component';
-import { AmwIconComponent } from '../../../../library/src/components/components';
 // Note: TextareaSize type doesn't exist, using string for now
 import { MatFormFieldAppearance } from '@angular/material/form-field';
 
@@ -9,8 +8,7 @@ import { MatFormFieldAppearance } from '@angular/material/form-field';
     selector: 'amw-demo-textarea',
     standalone: true,
     imports: [
-    AmwTextareaComponent,
-    AmwIconComponent
+    AmwTextareaComponent
 ],
     encapsulation: ViewEncapsulation.None,
     templateUrl: './textarea-demo.component.html',

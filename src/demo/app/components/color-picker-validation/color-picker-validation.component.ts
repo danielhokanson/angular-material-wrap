@@ -5,13 +5,11 @@ import { AmwNotificationService } from '../../../../library/src/services/amw-not
 import { AmwColorPickerComponent } from '../../../../library/src/controls/components/amw-color-picker/amw-color-picker.component';
 
 import { AmwButtonComponent } from '../../../../library/src/controls/components/amw-button/amw-button.component';
-import { AmwInputComponent } from '../../../../library/src/controls/components/amw-input/amw-input.component';
 import { AmwCardComponent } from '../../../../library/src/components/components/amw-card/amw-card.component';
 @Component({
     selector: 'amw-demo-color-picker-validation',
     standalone: true,
     imports: [ReactiveFormsModule,
-    AmwInputComponent,
     AmwCardComponent,
     AmwColorPickerComponent,
     AmwButtonComponent],

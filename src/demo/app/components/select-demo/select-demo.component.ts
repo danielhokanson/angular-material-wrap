@@ -7,7 +7,6 @@ import { AmwSelectComponent } from '../../../../library/src/controls/components/
 import { AmwSize } from '../../../../library/src/shared/types';
 import { SelectOption } from '../../../../library/src/controls/components/amw-select/interfaces/select.interface';
 import { MatFormFieldAppearance } from '@angular/material/form-field';
-import { AmwIconComponent } from '../../../../library/src/components/components';
 
 @Component({
     selector: 'amw-demo-select',
@@ -15,7 +14,6 @@ import { AmwIconComponent } from '../../../../library/src/components/components'
     imports: [
     ReactiveFormsModule,
     AmwSelectComponent,
-    AmwIconComponent
 ],
     encapsulation: ViewEncapsulation.None,
     templateUrl: './select-demo.component.html',

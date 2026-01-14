@@ -5,7 +5,7 @@ import { ViewEncapsulation } from '@angular/core';
 import { CalendarEvent, CalendarConfig, CalendarEventChangeEvent, CalendarView } from '../../../../library/src/components/components/amw-calendar/interfaces';
 import { AmwCalendarFullComponent } from '../../../../library/src/components/components/amw-calendar/amw-calendar-full.component';
 import { AmwCalendarMiniComponent } from '../../../../library/src/components/components/amw-calendar/amw-calendar-mini.component';
-import { AmwTabsComponent, AmwTabComponent, AmwDividerComponent, AmwCardComponent, AmwIconComponent, AmwDialogComponent } from '../../../../library/src/components/components';
+import { AmwTabsComponent, AmwTabComponent, AmwDividerComponent, AmwCardComponent, AmwIconComponent } from '../../../../library/src/components/components';
 import { AmwButtonComponent } from '../../../../library/src/controls/components/amw-button/amw-button.component';
 
 // Sample event data interface
@@ -29,7 +29,6 @@ interface SampleEvent {
     AmwDividerComponent,
     AmwCardComponent,
     AmwIconComponent,
-    AmwDialogComponent,
     AmwButtonComponent,
 ],
     encapsulation: ViewEncapsulation.None,

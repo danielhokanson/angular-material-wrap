@@ -2,7 +2,6 @@ import { Component, ViewEncapsulation } from '@angular/core';
 
 import { AmwToggleComponent } from '../../../../library/src/controls/components/amw-toggle/amw-toggle.component';
 import { AmwColor } from '../../../../library/src/shared/types';
-import { AmwIconComponent } from '../../../../library/src/components/components';
 // Note: ToggleSize type doesn't exist, using string for now
 
 @Component({
@@ -10,7 +9,6 @@ import { AmwIconComponent } from '../../../../library/src/components/components'
     standalone: true,
     imports: [
     AmwToggleComponent,
-    AmwIconComponent
 ],
     encapsulation: ViewEncapsulation.None,
     templateUrl: './toggle-demo.component.html',

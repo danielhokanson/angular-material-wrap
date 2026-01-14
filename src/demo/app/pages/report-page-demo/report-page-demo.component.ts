@@ -301,7 +301,7 @@ class ReportPageDemoDataSource implements ReportPageDataSource {
         ];
     }
 }
-import { AmwTabsComponent, AmwTabComponent, AmwCardComponent, AmwIconComponent } from '../../../../library/src/components/components';
+import { AmwTabsComponent, AmwTabComponent, AmwCardComponent } from '../../../../library/src/components/components';
 
 @Component({
     selector: 'app-report-page-demo',
@@ -311,7 +311,6 @@ import { AmwTabsComponent, AmwTabComponent, AmwCardComponent, AmwIconComponent }
     AmwTabsComponent,
     AmwTabComponent,
     AmwCardComponent,
-    AmwIconComponent,
 ],
     templateUrl: './report-page-demo.component.html',
     styleUrl: './report-page-demo.component.scss'

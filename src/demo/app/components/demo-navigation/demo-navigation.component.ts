@@ -4,7 +4,7 @@ import { RouterModule } from '@angular/router';
 import { ThemeMenuComponent } from '../theme-menu/theme-menu.component';
 
 import { AmwButtonComponent } from '../../../../library/src/controls/components/amw-button/amw-button.component';
-import { AmwIconComponent, AmwSidenavComponent, AmwToolbarComponent } from '../../../../library/src/components/components';
+import { AmwSidenavComponent, AmwToolbarComponent } from '../../../../library/src/components/components';
 import { SidenavItem } from '../../../../library/src/components/components/amw-sidenav/interfaces/sidenav-item.interface';
 import { SidenavConfig } from '../../../../library/src/components/components/amw-sidenav/interfaces/sidenav-config.interface';
 
@@ -14,7 +14,6 @@ import { SidenavConfig } from '../../../../library/src/components/components/amw
     imports: [RouterModule,
     ThemeMenuComponent,
     AmwButtonComponent,
-    AmwIconComponent,
     AmwSidenavComponent,
     AmwToolbarComponent],
     templateUrl: './demo-navigation.component.html',

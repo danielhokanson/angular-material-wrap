@@ -8,7 +8,7 @@ import { Chip, ChipConfig, ChipEvent, ChipChangeEvent, ChipMenuItem } from '../.
 import { AmwTabsComponent } from '../../../../library/src/components/components/amw-tabs/amw-tabs.component';
 import { AmwTabComponent } from '../../../../library/src/components/components/amw-tabs/amw-tab.component';
 import { AmwDividerComponent } from '../../../../library/src/components/components/amw-divider/amw-divider.component';
-import { AmwCardComponent, AmwIconComponent } from '../../../../library/src/components/components';
+import { AmwCardComponent } from '../../../../library/src/components/components';
 
 @Component({
     selector: 'amw-demo-chips',
@@ -19,8 +19,7 @@ import { AmwCardComponent, AmwIconComponent } from '../../../../library/src/comp
     AmwTabsComponent,
     AmwTabComponent,
     AmwDividerComponent,
-    AmwCardComponent,
-    AmwIconComponent
+    AmwCardComponent
 ],
     encapsulation: ViewEncapsulation.None,
     templateUrl: './chips-demo.component.html',

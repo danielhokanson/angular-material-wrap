@@ -1,14 +1,13 @@
 import { Component, ViewEncapsulation } from '@angular/core';
 import { BaseApiComponent, ApiDocumentation } from '../base/base-api.component';
-import { AmwTabsComponent, AmwTabComponent, AmwIconComponent } from '../../../../library/src/components/components';
+import { AmwTabsComponent, AmwTabComponent } from '../../../../library/src/components/components';
 
 @Component({
     selector: 'amw-demo-stepper-api',
     standalone: true,
     imports: [
     AmwTabsComponent,
-    AmwTabComponent,
-    AmwIconComponent
+    AmwTabComponent
 ],
     encapsulation: ViewEncapsulation.None,
     templateUrl: './stepper-api.component.html',
