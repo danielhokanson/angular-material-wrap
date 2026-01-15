@@ -2,7 +2,7 @@
 
 describe('AMW Textarea Component', () => {
   beforeEach(() => {
-    cy.visit('/textarea');
+    cy.visit('/controls/textarea');
     cy.waitForAngular();
   });
 

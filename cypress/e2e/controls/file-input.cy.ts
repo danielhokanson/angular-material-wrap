@@ -2,7 +2,7 @@
 
 describe('AMW File Input Component', () => {
   beforeEach(() => {
-    cy.visit('/file-input');
+    cy.visit('/controls/file-input');
     cy.waitForAngular();
   });
 

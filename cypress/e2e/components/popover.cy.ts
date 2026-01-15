@@ -2,7 +2,7 @@
 
 describe('AMW Popover Component', () => {
   beforeEach(() => {
-    cy.visit('/popover');
+    cy.visit('/components/popover');
     cy.waitForAngular();
   });
 

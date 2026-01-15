@@ -2,7 +2,7 @@
 
 describe('AMW Card Component', () => {
   beforeEach(() => {
-    cy.visit('/card');
+    cy.visit('/components/card');
     cy.waitForAngular();
   });
 

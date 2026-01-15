@@ -14,6 +14,8 @@
     "test:demo": "ng test angular-material-wrap-demo",
     "test:lib": "ng test angular-material-wrap",
     "e2e": "ng e2e",
+    "e2e:podman": "podman run --rm -v $(pwd):/e2e:Z -w /e2e --network host docker.io/cypress/included:15.8.2 run --browser chrome",
+    "e2e:podman:spec": "podman run --rm -v $(pwd):/e2e:Z -w /e2e --network host docker.io/cypress/included:15.8.2 run --browser chrome --spec",
     "cypress:open": "cypress open",
     "cypress:run": "cypress run"
   },

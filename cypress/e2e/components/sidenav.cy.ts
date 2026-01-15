@@ -2,7 +2,7 @@
 
 describe('AMW Sidenav Component', () => {
   beforeEach(() => {
-    cy.visit('/sidenav');
+    cy.visit('/components/sidenav');
     cy.waitForAngular();
   });
 

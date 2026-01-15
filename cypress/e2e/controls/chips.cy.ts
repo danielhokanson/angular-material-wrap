@@ -2,7 +2,7 @@
 
 describe('AMW Chips Component', () => {
   beforeEach(() => {
-    cy.visit('/chips');
+    cy.visit('/controls/chips');
     cy.waitForAngular();
   });
 

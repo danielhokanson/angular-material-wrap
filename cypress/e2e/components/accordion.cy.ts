@@ -2,7 +2,7 @@
 
 describe('AMW Accordion Component', () => {
   beforeEach(() => {
-    cy.visit('/accordion');
+    cy.visit('/components/accordion');
     cy.waitForAngular();
   });
 

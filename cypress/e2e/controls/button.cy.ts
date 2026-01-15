@@ -2,7 +2,7 @@
 
 describe('AMW Button Component', () => {
   beforeEach(() => {
-    cy.visit('/button');
+    cy.visit('/controls/button');
     cy.waitForAngular();
   });
 
@@ -55,15 +55,16 @@ describe('AMW Button Component', () => {
 
   describe('FAB Variations', () => {
     it('should display standard FAB button', () => {
-      cy.get('amw-button[ng-reflect-fab="true"]').should('exist');
+      // FAB buttons have the mat-fab class when rendered
+      cy.get('amw-button .mat-mdc-fab, amw-button[fab]').should('exist');
     });
 
     it('should display mini FAB button', () => {
-      cy.get('amw-button[fab="mini"]').should('exist');
+      cy.get('amw-button[fab="mini"], amw-button .mat-mdc-mini-fab').should('exist');
     });
 
     it('should display extended FAB button', () => {
-      cy.get('amw-button[fab="extended"]').should('exist');
+      cy.get('amw-button[fab="extended"], amw-button .mat-mdc-extended-fab').should('exist');
     });
   });
 
@@ -76,15 +77,15 @@ describe('AMW Button Component', () => {
 
   describe('Color Variations', () => {
     it('should display primary color button', () => {
-      cy.contains('Primary Action').should('be.visible');
+      cy.contains('Primary Action').scrollIntoView().should('be.visible');
     });
 
     it('should display accent/secondary color button', () => {
-      cy.contains('Secondary Action').should('be.visible');
+      cy.contains('Secondary Action').scrollIntoView().should('be.visible');
     });
 
     it('should display warn color button', () => {
-      cy.contains('Delete Item').should('be.visible');
+      cy.contains('Delete Item').scrollIntoView().should('be.visible');
     });
   });
 
@@ -129,24 +130,30 @@ describe('AMW Button Component', () => {
     });
 
     it('should display button with icon and text', () => {
-      // Buttons like Edit and Delete have both icon and text
+      // Buttons like Edit and Delete have both icon and text - scroll to Real-world section first
+      cy.contains('Real-world Example').scrollIntoView();
       cy.contains('Edit').closest('amw-button').find('mat-icon').should('exist');
     });
   });
 
   describe('Real-world Examples', () => {
+    beforeEach(() => {
+      // Scroll to the Real-world Example section
+      cy.contains('Real-world Example').scrollIntoView();
+    });
+
     it('should have Cancel and Save Changes buttons', () => {
-      cy.contains('Cancel').should('be.visible');
+      cy.contains('Cancel').scrollIntoView().should('be.visible');
       cy.contains('Save Changes').should('be.visible');
     });
 
     it('should have Edit and Delete buttons with icons', () => {
-      cy.contains('Edit').should('be.visible');
+      cy.contains('Edit').scrollIntoView().should('be.visible');
       cy.contains('Delete').should('be.visible');
     });
 
     it('should have a FAB add button', () => {
-      cy.get('.example-actions amw-button[icon="add"]').should('exist');
+      cy.get('.example-actions amw-button[icon="add"], .real-world-example amw-button[icon="add"]').should('exist');
     });
   });
 
@@ -163,7 +170,8 @@ describe('AMW Button Component', () => {
     });
 
     it('icon-only buttons should have aria-label', () => {
-      cy.get('amw-button[icon][arialabel], amw-button[icon][aria-label]').should('exist');
+      // Angular transforms ariaLabel input to aria-label attribute on the button
+      cy.get('amw-button[icon] button[aria-label]').should('exist');
     });
   });
 });

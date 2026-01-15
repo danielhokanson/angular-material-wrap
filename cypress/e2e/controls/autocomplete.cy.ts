@@ -2,7 +2,7 @@
 
 describe('AMW Autocomplete Component', () => {
   beforeEach(() => {
-    cy.visit('/autocomplete');
+    cy.visit('/controls/autocomplete');
     cy.waitForAngular();
   });
 

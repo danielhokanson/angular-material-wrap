@@ -2,7 +2,7 @@
 
 describe('AMW Datepicker Component', () => {
   beforeEach(() => {
-    cy.visit('/datepicker');
+    cy.visit('/controls/datepicker');
     cy.waitForAngular();
   });
 

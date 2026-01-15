@@ -2,7 +2,7 @@
 
 describe('AMW Dialog Component', () => {
   beforeEach(() => {
-    cy.visit('/dialog');
+    cy.visit('/components/dialog');
     cy.waitForAngular();
   });
 

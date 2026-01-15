@@ -2,7 +2,7 @@
 
 describe('AMW Calendar Component', () => {
   beforeEach(() => {
-    cy.visit('/calendar');
+    cy.visit('/components/calendar');
     cy.waitForAngular();
   });
 

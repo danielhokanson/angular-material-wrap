@@ -2,7 +2,7 @@
 
 describe('AMW Timepicker Component', () => {
   beforeEach(() => {
-    cy.visit('/timepicker');
+    cy.visit('/controls/timepicker');
     cy.waitForAngular();
   });
 
