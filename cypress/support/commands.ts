@@ -235,7 +235,7 @@ Cypress.Commands.add('openAmwPopover', (triggerSelector: string) => {
 });
 
 Cypress.Commands.add('closeAmwPopover', () => {
-  cy.get('.amw-popover__close button').click();
+  cy.get('.amw-popover__close').click();
 });
 
 // AMW Card Commands
