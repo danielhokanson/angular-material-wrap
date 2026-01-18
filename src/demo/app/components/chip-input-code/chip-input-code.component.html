@@ -1,0 +1,84 @@
+<div class="code-section">
+  <amw-accordion>
+    <amw-accordion-panel>
+      <ng-template #header>
+        Basic Usage
+      </ng-template>
+      <div class="example-container">
+        <div class="code-panel">
+          <textarea
+            [(ngModel)]="editableCode.basic"
+            class="code-editor"
+            spellcheck="false"
+            rows="8"></textarea>
+        </div>
+        <div class="preview-panel">
+          <h4>Preview</h4>
+          <amw-chip-input
+            [suggestions]="previewSuggestions"
+            [(ngModel)]="previewSelected"
+            label="Tags"
+            placeholder="Add tag...">
+          </amw-chip-input>
+        </div>
+      </div>
+    </amw-accordion-panel>
+
+    <amw-accordion-panel>
+      <ng-template #header>
+        Custom Template
+      </ng-template>
+      <div class="example-container">
+        <div class="code-panel">
+          <textarea
+            [(ngModel)]="editableCode.customTemplate"
+            class="code-editor"
+            spellcheck="false"
+            rows="12"></textarea>
+        </div>
+        <div class="preview-panel">
+          <h4>Preview</h4>
+          <p class="preview-note">Custom templates allow rich option rendering with icons, subtitles, and more.</p>
+        </div>
+      </div>
+    </amw-accordion-panel>
+
+    <amw-accordion-panel>
+      <ng-template #header>
+        Async Search
+      </ng-template>
+      <div class="example-container">
+        <div class="code-panel">
+          <textarea
+            [(ngModel)]="editableCode.asyncSearch"
+            class="code-editor"
+            spellcheck="false"
+            rows="16"></textarea>
+        </div>
+        <div class="preview-panel">
+          <h4>Preview</h4>
+          <p class="preview-note">Use the inputChanged event and loading state for async filtering.</p>
+        </div>
+      </div>
+    </amw-accordion-panel>
+
+    <amw-accordion-panel>
+      <ng-template #header>
+        With Form Validation
+      </ng-template>
+      <div class="example-container">
+        <div class="code-panel">
+          <textarea
+            [(ngModel)]="editableCode.withValidation"
+            class="code-editor"
+            spellcheck="false"
+            rows="10"></textarea>
+        </div>
+        <div class="preview-panel">
+          <h4>Preview</h4>
+          <p class="preview-note">Integrates with Angular reactive forms for validation.</p>
+        </div>
+      </div>
+    </amw-accordion-panel>
+  </amw-accordion>
+</div>

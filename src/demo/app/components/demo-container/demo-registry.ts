@@ -107,6 +107,10 @@ import { AccordionApiComponent } from '../accordion-api/accordion-api.component'
 import { ChipsValidationComponent } from '../chips-validation/chips-validation.component';
 import { ChipsCodeComponent } from '../chips-code/chips-code.component';
 import { ChipsApiComponent } from '../chips-api/chips-api.component';
+import { ChipInputDemoComponent } from '../chip-input-demo/chip-input-demo.component';
+import { ChipInputValidationComponent } from '../chip-input-validation/chip-input-validation.component';
+import { ChipInputCodeComponent } from '../chip-input-code/chip-input-code.component';
+import { ChipInputApiComponent } from '../chip-input-api/chip-input-api.component';
 import { ThemeValidationComponent } from '../theme-validation/theme-validation.component';
 import { ThemeCodeComponent } from '../theme-code/theme-code.component';
 import { ThemeApiComponent } from '../theme-api/theme-api.component';
@@ -172,6 +176,12 @@ export const DEMO_REGISTRY: Record<string, DemoComponents> = {
         validation: ChipsValidationComponent,
         code: ChipsCodeComponent,
         api: ChipsApiComponent
+    },
+    'chip-input': {
+        demo: ChipInputDemoComponent,
+        validation: ChipInputValidationComponent,
+        code: ChipInputCodeComponent,
+        api: ChipInputApiComponent
     },
     'toggle': {
         demo: ToggleDemoComponent,
@@ -301,40 +311,41 @@ export const DEMO_CONFIGS: Record<string, DemoConfig> = {
         title: 'Angular Material Controls',
         subtitle: 'Comprehensive collection of Angular Material control wrappers with enhanced functionality',
         items: [
+            { id: 'autocomplete', name: 'Autocomplete' },
             { id: 'button', name: 'Button' },
-            { id: 'input', name: 'Input' },
-            { id: 'select', name: 'Select' },
             { id: 'checkbox', name: 'Checkbox' },
+            { id: 'chip-input', name: 'Chip Input' },
+            { id: 'chips', name: 'Chips' },
+            { id: 'color-picker', name: 'Color Picker' },
+            { id: 'data-table', name: 'Data Table' },
+            { id: 'datepicker', name: 'Datepicker' },
+            { id: 'file-input', name: 'File Input' },
+            { id: 'input', name: 'Input' },
             { id: 'radio', name: 'Radio Button' },
             { id: 'radio-group', name: 'Radio Group' },
-            { id: 'chips', name: 'Chips' },
-            { id: 'slider', name: 'Slider' },
-            { id: 'toggle', name: 'Toggle' },
-            { id: 'textarea', name: 'Textarea' },
-            { id: 'autocomplete', name: 'Autocomplete' },
-            { id: 'datepicker', name: 'Datepicker' },
             { id: 'range-slider', name: 'Range Slider' },
+            { id: 'select', name: 'Select' },
+            { id: 'slider', name: 'Slider' },
             { id: 'switch', name: 'Switch' },
-            { id: 'file-input', name: 'File Input' },
+            { id: 'textarea', name: 'Textarea' },
             { id: 'timepicker', name: 'Time Picker' },
-            { id: 'color-picker', name: 'Color Picker' },
-            { id: 'data-table', name: 'Data Table' }
+            { id: 'toggle', name: 'Toggle' }
         ]
     },
     components: {
         title: 'Angular Material Components',
         subtitle: 'Complex UI component combinations and advanced functionality',
         items: [
-            { id: 'card', name: 'Card' },
-            { id: 'dialog', name: 'Dialog' },
-            { id: 'sidenav', name: 'Sidenav' },
-            { id: 'popover', name: 'Popover' },
-            { id: 'data-table', name: 'Data Table' },
+            { id: 'accordion', name: 'Accordion' },
             { id: 'calendar', name: 'Calendar' },
+            { id: 'card', name: 'Card' },
+            { id: 'chips', name: 'Chips' },
+            { id: 'data-table', name: 'Data Table' },
+            { id: 'dialog', name: 'Dialog' },
+            { id: 'popover', name: 'Popover' },
+            { id: 'sidenav', name: 'Sidenav' },
             { id: 'stepper', name: 'Stepper' },
             { id: 'tabs', name: 'Tabs' },
-            { id: 'accordion', name: 'Accordion' },
-            { id: 'chips', name: 'Chips' },
             { id: 'theme', name: 'Theme' }
         ]
     }

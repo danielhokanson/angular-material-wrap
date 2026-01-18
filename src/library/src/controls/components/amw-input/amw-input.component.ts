@@ -4,6 +4,7 @@ import { FormsModule, ReactiveFormsModule, ControlValueAccessor, NG_VALUE_ACCESS
 import { MatInputModule } from '@angular/material/input';
 import { MatFormFieldModule, MatFormFieldAppearance } from '@angular/material/form-field';
 import { MatIconModule } from '@angular/material/icon';
+import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { AmwButtonComponent } from '../amw-button/amw-button.component';
 import { BaseComponent } from '../base/base.component';
 import { InputType } from './interfaces/input-type.type';
@@ -24,6 +25,7 @@ import { InputType } from './interfaces/input-type.type';
     MatInputModule,
     MatFormFieldModule,
     MatIconModule,
+    MatProgressSpinnerModule,
     AmwButtonComponent
 ],
     encapsulation: ViewEncapsulation.None,
@@ -65,6 +67,7 @@ export class AmwInputComponent extends BaseComponent<string> implements ControlV
     showCharacterCount = input<boolean>(false);
     showValidationOnBlur = input<boolean>(true);
     showValidationOnChange = input<boolean>(false);
+    loading = input<boolean>(false);
 
     // Validation messages
     validationMessages = input<{

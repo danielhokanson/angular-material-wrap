@@ -60,6 +60,11 @@
       (keyup)="onKeyup($event)"
       class="amw-input__field">
 
+    <!-- Loading Spinner -->
+    @if (loading()) {
+      <mat-spinner matSuffix [diameter]="20" class="amw-input__spinner"></mat-spinner>
+    }
+
     <!-- Suffix Text -->
     @if (suffix()) {
       <span matSuffix class="amw-input__suffix">{{ suffix() }}</span>

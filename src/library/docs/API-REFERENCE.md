@@ -162,19 +162,54 @@ import { AmwDataTableComponent } from "angular-material-wrap";
 
 #### AmwAutocompleteComponent
 
-Enhanced autocomplete with custom filtering and display.
+Enhanced autocomplete with custom filtering, loading states, and custom templates.
 
 ```typescript
 import { AmwAutocompleteComponent } from "angular-material-wrap";
 
-// Usage
+// Basic usage
 <amw-autocomplete
-  [config]="autocompleteConfig"
-  [options]="autocompleteOptions"
+  [options]="options"
+  [loading]="isSearching"
+  [startIcon]="'search'"
   [(ngModel)]="selectedValue"
-  (optionSelected)="onOptionSelected($event)">
+  (optionSelected)="onOptionSelected($event)"
+  (inputChanged)="onSearch($event)">
+</amw-autocomplete>
+
+// With custom option template
+<amw-autocomplete
+  [options]="options"
+  [(ngModel)]="selectedValue">
+  <ng-template #amwOption let-option>
+    <div>{{ option.label }}</div>
+    <small>{{ option.subtitle }}</small>
+  </ng-template>
 </amw-autocomplete>
 ```
+
+**Properties:**
+
+- `options: AutocompleteOption[]` - Array of options
+- `loading: boolean` - Show loading spinner (default: false)
+- `startIcon: string` - Prefix icon name
+- `noResultsText: string` - Text when no results (default: 'No results found')
+- `multiple: boolean` - Allow multiple selection
+- `clearable: boolean` - Show clear button (default: true)
+- `appearance: 'outline' | 'fill'` - Form field appearance
+- `minLength: number` - Min chars before filtering
+- `displayWith: (value) => string` - Display function
+
+**Events:**
+
+- `optionSelected: EventEmitter<AutocompleteOption>` - Option selected
+- `inputChanged: EventEmitter<string>` - Input value changed
+- `opened: EventEmitter<void>` - Panel opened
+- `closed: EventEmitter<void>` - Panel closed
+
+**Content Projection:**
+
+- `#amwOption` - Custom option rendering template
 
 #### AmwDatePickerComponent
 
@@ -430,11 +465,74 @@ import { AmwTextareaComponent } from "angular-material-wrap";
 - `wrap: 'soft' | 'hard' | 'off'` - Text wrapping mode
 - `readonly: boolean` - Read-only mode
 - `spellcheck: boolean` - Enable spellcheck (default: true)
+- `autoResize: boolean` - Enable automatic height adjustment (default: false)
+- `minRows: number` - Minimum rows when autoResize is enabled (default: 2)
+- `maxRows: number` - Maximum rows when autoResize is enabled
 
 **Events:**
 
 - `change: EventEmitter<string>` - Fires on value change
 - `input: EventEmitter<string>` - Fires during input
+
+#### AmwChipInputComponent
+
+Enhanced chip input with autocomplete suggestions for tag-like selection.
+
+```typescript
+import { AmwChipInputComponent, ChipInputOption } from "angular-material-wrap";
+
+// Usage
+<amw-chip-input
+  [suggestions]="ingredientSuggestions"
+  [loading]="isSearching"
+  [maxChips]="10"
+  [(ngModel)]="selectedIngredients"
+  (chipAdded)="onChipAdded($event)"
+  (chipRemoved)="onChipRemoved($event)"
+  (inputChanged)="onSearchChange($event)"
+  label="Ingredients"
+  placeholder="Add ingredient...">
+</amw-chip-input>
+```
+
+**ChipInputOption Interface:**
+
+```typescript
+interface ChipInputOption {
+  value: any;           // Unique identifier
+  label: string;        // Display text
+  icon?: string;        // Material icon name
+  subtitle?: string;    // Secondary text
+  isCustom?: boolean;   // User-created value
+  disabled?: boolean;   // Option disabled
+  data?: any;           // Additional data
+}
+```
+
+**Properties:**
+
+- `suggestions: ChipInputOption[]` - Autocomplete suggestions
+- `appearance: 'outline' | 'fill'` - Form field appearance (default: 'outline')
+- `loading: boolean` - Show loading spinner (default: false)
+- `removable: boolean` - Allow chip removal (default: true)
+- `allowCustomValues: boolean` - Allow custom values (default: true)
+- `maxChips: number | null` - Maximum chips allowed (default: null)
+- `separatorKeyCodes: number[]` - Keys that add chips (default: [ENTER, COMMA])
+- `addOnBlur: boolean` - Add chip on blur (default: true)
+- `filterDebounce: number` - Filter debounce time in ms (default: 300)
+- `displayWith: (option) => string` - Custom display function
+
+**Events:**
+
+- `chipAdded: EventEmitter<ChipInputOption>` - Chip added
+- `chipRemoved: EventEmitter<ChipInputOption>` - Chip removed
+- `inputChanged: EventEmitter<string>` - Input value changed (debounced)
+- `suggestionSelected: EventEmitter<ChipInputOption>` - Suggestion selected
+
+**Content Projection:**
+
+- `#chipTemplate` - Custom chip rendering template
+- `#suggestionTemplate` - Custom suggestion rendering template
 
 #### AmwFileInputComponent
 

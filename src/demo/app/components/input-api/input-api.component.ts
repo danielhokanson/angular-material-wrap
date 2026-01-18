@@ -97,6 +97,12 @@ export class InputApiComponent extends BaseApiComponent {
                 type: 'string',
                 default: 'undefined',
                 description: 'Error message to display below the input'
+            },
+            {
+                name: 'loading',
+                type: 'boolean',
+                default: 'false',
+                description: 'Shows a loading spinner in the input suffix area'
             }
         ],
         outputs: [

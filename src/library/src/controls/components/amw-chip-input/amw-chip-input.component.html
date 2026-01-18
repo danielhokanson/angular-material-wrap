@@ -1,0 +1,102 @@
+<div class="amw-chip-input"
+     [class.amw-chip-input--disabled]="disabled()"
+     [class.amw-chip-input--loading]="loading()"
+     [class]="'amw-chip-input--' + size()">
+
+  <mat-form-field [appearance]="appearance()" class="amw-chip-input__field">
+    @if (label()) {
+      <mat-label>{{ label() }}</mat-label>
+    }
+
+    <mat-chip-grid #chipGrid [attr.aria-label]="ariaLabel() || label()">
+      @for (chip of chips; track trackByChip($index, chip); let i = $index) {
+        <mat-chip-row
+          class="amw-chip-input__chip"
+          [class.amw-chip-input__chip--custom]="chip.isCustom"
+          [removable]="removable() && !disabled()"
+          [disabled]="disabled()"
+          (removed)="removeChip(chip, i)">
+
+          @if (chipTemplate) {
+            <ng-container *ngTemplateOutlet="chipTemplate; context: { $implicit: chip, index: i }"></ng-container>
+          } @else {
+            @if (chip.icon) {
+              <mat-icon matChipAvatar>{{ chip.icon }}</mat-icon>
+            }
+            {{ displayWith()(chip) }}
+          }
+
+          @if (removable() && !disabled()) {
+            <button matChipRemove aria-label="Remove {{ chip.label }}">
+              <mat-icon>cancel</mat-icon>
+            </button>
+          }
+        </mat-chip-row>
+      }
+
+      <input
+        #chipInput
+        [placeholder]="canAddMore ? placeholder() : ''"
+        [disabled]="disabled() || !canAddMore"
+        [matChipInputFor]="chipGrid"
+        [matChipInputSeparatorKeyCodes]="separatorKeyCodes()"
+        [matChipInputAddOnBlur]="addOnBlur()"
+        [matAutocomplete]="auto"
+        (matChipInputTokenEnd)="onChipInputTokenEnd($event)"
+        (input)="onInputChange(chipInput.value)"
+        (blur)="onTouched()"
+        class="amw-chip-input__input">
+    </mat-chip-grid>
+
+    @if (loading()) {
+      <mat-spinner matSuffix [diameter]="20" class="amw-chip-input__spinner"></mat-spinner>
+    }
+
+    @if (hint()) {
+      <mat-hint>{{ hint() }}</mat-hint>
+    }
+
+    @if (hasError() && errorMessage()) {
+      <mat-error>{{ errorMessage() }}</mat-error>
+    }
+  </mat-form-field>
+
+  <mat-autocomplete
+    #auto="matAutocomplete"
+    (optionSelected)="onSuggestionSelected($event)"
+    class="amw-chip-input__autocomplete">
+
+    @if (loading()) {
+      <mat-option disabled class="amw-chip-input__loading-option">
+        <mat-spinner [diameter]="20"></mat-spinner>
+        <span>Loading suggestions...</span>
+      </mat-option>
+    } @else {
+      @for (suggestion of filteredSuggestions; track suggestion.value) {
+        <mat-option [value]="suggestion" class="amw-chip-input__suggestion">
+          @if (suggestionTemplate) {
+            <ng-container *ngTemplateOutlet="suggestionTemplate; context: { $implicit: suggestion }"></ng-container>
+          } @else {
+            @if (suggestion.icon) {
+              <mat-icon>{{ suggestion.icon }}</mat-icon>
+            }
+            <span>{{ suggestion.label }}</span>
+            @if (suggestion.subtitle) {
+              <span class="amw-chip-input__suggestion-subtitle">{{ suggestion.subtitle }}</span>
+            }
+          }
+        </mat-option>
+      }
+
+      @if (filteredSuggestions.length === 0 && inputValue) {
+        <mat-option disabled class="amw-chip-input__no-results">
+          @if (allowCustomValues()) {
+            Press Enter to add "{{ inputValue }}"
+          } @else {
+            No matching suggestions
+          }
+        </mat-option>
+      }
+    }
+  </mat-autocomplete>
+</div>

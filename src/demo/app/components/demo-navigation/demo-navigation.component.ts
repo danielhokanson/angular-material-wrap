@@ -37,24 +37,25 @@ export class DemoNavigationComponent {
             tooltip: '1:1 Angular Material control wrappers',
             expanded: false,
             children: [
+                { id: 'autocomplete', label: 'Autocomplete', route: '/controls/autocomplete', icon: 'search' },
                 { id: 'button', label: 'Button', route: '/controls/button', icon: 'smart_button' },
-                { id: 'input', label: 'Input', route: '/controls/input', icon: 'input' },
-                { id: 'select', label: 'Select', route: '/controls/select', icon: 'arrow_drop_down' },
                 { id: 'checkbox', label: 'Checkbox', route: '/controls/checkbox', icon: 'check_box' },
+                { id: 'chip-input', label: 'Chip Input', route: '/controls/chip-input', icon: 'label' },
+                { id: 'chips', label: 'Chips', route: '/controls/chips', icon: 'view_module' },
+                { id: 'color-picker', label: 'Color Picker', route: '/controls/color-picker', icon: 'palette' },
+                { id: 'data-table-control', label: 'Data Table', route: '/controls/data-table', icon: 'table_view' },
+                { id: 'datepicker', label: 'Datepicker', route: '/controls/datepicker', icon: 'event' },
+                { id: 'file-input', label: 'File Input', route: '/controls/file-input', icon: 'attach_file' },
+                { id: 'input', label: 'Input', route: '/controls/input', icon: 'input' },
                 { id: 'radio', label: 'Radio Button', route: '/controls/radio', icon: 'radio_button_checked' },
                 { id: 'radio-group', label: 'Radio Group', route: '/controls/radio-group', icon: 'radio_button_checked' },
-                { id: 'chips', label: 'Chips', route: '/controls/chips', icon: 'view_module' },
-                { id: 'slider', label: 'Slider', route: '/controls/slider', icon: 'tune' },
-                { id: 'toggle', label: 'Toggle', route: '/controls/toggle', icon: 'toggle_on' },
-                { id: 'textarea', label: 'Textarea', route: '/controls/textarea', icon: 'text_fields' },
-                { id: 'autocomplete', label: 'Autocomplete', route: '/controls/autocomplete', icon: 'search' },
-                { id: 'datepicker', label: 'Datepicker', route: '/controls/datepicker', icon: 'event' },
                 { id: 'range-slider', label: 'Range Slider', route: '/controls/range-slider', icon: 'linear_scale' },
+                { id: 'select', label: 'Select', route: '/controls/select', icon: 'arrow_drop_down' },
+                { id: 'slider', label: 'Slider', route: '/controls/slider', icon: 'tune' },
                 { id: 'switch', label: 'Switch', route: '/controls/switch', icon: 'switch_right' },
-                { id: 'file-input', label: 'File Input', route: '/controls/file-input', icon: 'attach_file' },
+                { id: 'textarea', label: 'Textarea', route: '/controls/textarea', icon: 'text_fields' },
                 { id: 'timepicker', label: 'Time Picker', route: '/controls/timepicker', icon: 'access_time' },
-                { id: 'color-picker', label: 'Color Picker', route: '/controls/color-picker', icon: 'palette' },
-                { id: 'data-table-control', label: 'Data Table', route: '/controls/data-table', icon: 'table_view' }
+                { id: 'toggle', label: 'Toggle', route: '/controls/toggle', icon: 'toggle_on' }
             ]
         },
         {
@@ -65,15 +66,15 @@ export class DemoNavigationComponent {
             tooltip: 'Complex UI component combinations',
             expanded: false,
             children: [
-                { id: 'card', label: 'Card', route: '/components/card', icon: 'view_module' },
-                { id: 'dialog', label: 'Dialog', route: '/components/dialog', icon: 'open_in_new' },
-                { id: 'sidenav', label: 'Sidenav', route: '/components/sidenav', icon: 'menu' },
-                { id: 'popover', label: 'Popover', route: '/components/popover', icon: 'call_made' },
-                { id: 'data-table', label: 'Data Table', route: '/components/data-table', icon: 'table_chart' },
+                { id: 'accordion', label: 'Accordion', route: '/components/accordion', icon: 'expand_more' },
                 { id: 'calendar', label: 'Calendar', route: '/components/calendar', icon: 'calendar_month' },
+                { id: 'card', label: 'Card', route: '/components/card', icon: 'view_module' },
+                { id: 'data-table', label: 'Data Table', route: '/components/data-table', icon: 'table_chart' },
+                { id: 'dialog', label: 'Dialog', route: '/components/dialog', icon: 'open_in_new' },
+                { id: 'popover', label: 'Popover', route: '/components/popover', icon: 'call_made' },
+                { id: 'sidenav', label: 'Sidenav', route: '/components/sidenav', icon: 'menu' },
                 { id: 'stepper', label: 'Stepper', route: '/components/stepper', icon: 'view_list' },
-                { id: 'tabs', label: 'Tabs', route: '/components/tabs', icon: 'tab' },
-                { id: 'accordion', label: 'Accordion', route: '/components/accordion', icon: 'expand_more' }
+                { id: 'tabs', label: 'Tabs', route: '/components/tabs', icon: 'tab' }
             ]
         },
         {
@@ -84,8 +85,8 @@ export class DemoNavigationComponent {
             tooltip: 'Reusable directive functionality',
             expanded: false,
             children: [
-                { id: 'click-outside', label: 'Click Outside', route: '/directives/click-outside', icon: 'mouse' },
                 { id: 'auto-focus', label: 'Auto Focus', route: '/directives/auto-focus', icon: 'center_focus_strong' },
+                { id: 'click-outside', label: 'Click Outside', route: '/directives/click-outside', icon: 'mouse' },
                 { id: 'copy-clipboard', label: 'Copy to Clipboard', route: '/directives/copy-to-clipboard', icon: 'content_copy' },
                 { id: 'tooltip', label: 'Tooltip', route: '/directives/tooltip', icon: 'help_outline' }
             ]
@@ -98,10 +99,10 @@ export class DemoNavigationComponent {
             tooltip: 'Global services and utilities',
             expanded: false,
             children: [
-                { id: 'messaging', label: 'Messaging Service', route: '/services/messaging', icon: 'message' },
+                { id: 'http-cache', label: 'HTTP Cache', route: '/services/http-cache', icon: 'storage' },
                 { id: 'loading', label: 'Loading Service', route: '/services/loading', icon: 'hourglass_empty' },
-                { id: 'notification', label: 'Notification Service', route: '/services/notification', icon: 'notifications' },
-                { id: 'http-cache', label: 'HTTP Cache', route: '/services/http-cache', icon: 'storage' }
+                { id: 'messaging', label: 'Messaging Service', route: '/services/messaging', icon: 'message' },
+                { id: 'notification', label: 'Notification Service', route: '/services/notification', icon: 'notifications' }
             ]
         },
         {
@@ -126,16 +127,16 @@ export class DemoNavigationComponent {
             expanded: false,
             children: [
                 { id: 'dashboard', label: 'Dashboard', route: '/pages/dashboard', icon: 'dashboard' },
-                { id: 'profile', label: 'Profile', route: '/pages/profile', icon: 'person' },
-                { id: 'settings', label: 'Settings', route: '/pages/settings', icon: 'settings' },
-                { id: 'list', label: 'List/Table', route: '/pages/list', icon: 'list' },
+                { id: 'dashboard-page', label: 'Dashboard Page', route: '/pages/dashboard-page', icon: 'grid_view' },
                 { id: 'detail', label: 'Detail/View', route: '/pages/detail', icon: 'visibility' },
                 { id: 'form', label: 'Form/Create-Edit', route: '/pages/form', icon: 'edit' },
-                { id: 'search', label: 'Search/Filter', route: '/pages/search', icon: 'search' },
-                { id: 'workflow', label: 'Workflow/Process', route: '/pages/workflow', icon: 'account_tree' },
-                { id: 'report', label: 'Report/Analytics', route: '/pages/report', icon: 'analytics' },
+                { id: 'list', label: 'List/Table', route: '/pages/list', icon: 'list' },
                 { id: 'master-detail', label: 'Master-Detail', route: '/pages/master-detail', icon: 'view_agenda' },
-                { id: 'dashboard-page', label: 'Dashboard Page', route: '/pages/dashboard-page', icon: 'grid_view' }
+                { id: 'profile', label: 'Profile', route: '/pages/profile', icon: 'person' },
+                { id: 'report', label: 'Report/Analytics', route: '/pages/report', icon: 'analytics' },
+                { id: 'search', label: 'Search/Filter', route: '/pages/search', icon: 'search' },
+                { id: 'settings', label: 'Settings', route: '/pages/settings', icon: 'settings' },
+                { id: 'workflow', label: 'Workflow/Process', route: '/pages/workflow', icon: 'account_tree' }
             ]
         },
         {

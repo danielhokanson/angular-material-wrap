@@ -1,6 +1,7 @@
-import { Component, input, output, ViewEncapsulation } from '@angular/core';
+import { Component, input, output, ViewEncapsulation, ContentChild, TemplateRef } from '@angular/core';
 
 import { FormsModule, ControlValueAccessor, NG_VALUE_ACCESSOR } from '@angular/forms';
+import { NgTemplateOutlet } from '@angular/common';
 import { MatAutocompleteModule } from '@angular/material/autocomplete';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
@@ -8,6 +9,7 @@ import { MatIconModule } from '@angular/material/icon';
 import { MatChipsModule } from '@angular/material/chips';
 import { MatButtonModule } from '@angular/material/button';
 import { MatOptionModule } from '@angular/material/core';
+import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 
 import { BaseComponent } from '../base/base.component';
 import { AutocompleteOption } from './interfaces/autocomplete-option.interface';
@@ -24,13 +26,15 @@ import { AmwAppearance } from '../../../shared/types/amw-appearance.type';
     standalone: true,
     imports: [
     FormsModule,
+    NgTemplateOutlet,
     MatAutocompleteModule,
     MatFormFieldModule,
     MatInputModule,
     MatIconModule,
     MatChipsModule,
     MatButtonModule,
-    MatOptionModule
+    MatOptionModule,
+    MatProgressSpinnerModule
 ],
     providers: [
         {
@@ -56,6 +60,14 @@ export class AmwAutocompleteComponent extends BaseComponent<any> implements Cont
     maxLength = input<number>(0);
     filterBy = input<string>('label');
     displayWith = input<(value: any) => string>((value: any) => value?.label || value || '');
+
+    // Enhanced features
+    loading = input<boolean>(false);
+    startIcon = input<string>('');
+    noResultsText = input<string>('No results found');
+
+    // Custom option template
+    @ContentChild('amwOption') optionTemplate?: TemplateRef<any>;
 
     // Component-specific outputs
     optionSelected = output<AutocompleteOption>();

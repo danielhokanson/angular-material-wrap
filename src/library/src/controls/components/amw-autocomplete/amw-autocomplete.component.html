@@ -1,7 +1,14 @@
-<div class="amw-autocomplete" [class]="'amw-autocomplete--' + size()">
+<div class="amw-autocomplete"
+     [class]="'amw-autocomplete--' + size()"
+     [class.amw-autocomplete--loading]="loading()">
   <mat-form-field [appearance]="appearance()" class="amw-autocomplete__field">
     @if (label()) {
       <mat-label [innerHTML]="label()"></mat-label>
+    }
+
+    <!-- Start Icon (prefix) -->
+    @if (startIcon()) {
+      <mat-icon matPrefix class="amw-autocomplete__start-icon">{{ startIcon() }}</mat-icon>
     }
 
     <input
@@ -11,14 +18,19 @@
       (input)="onInputChange($event)"
       (blur)="onTouched()"
       [required]="required()"
-      [disabled]="disabled()"
+      [disabled]="disabled() || loading()"
       [readonly]="readonly()"
       [attr.minlength]="minLength() || null"
       [attr.maxlength]="maxLength() || null"
       [matAutocomplete]="auto"
       class="amw-autocomplete__input">
 
-    @if (!multiple() && clearable() && (selectedValue || inputValue)) {
+    <!-- Loading Spinner -->
+    @if (loading()) {
+      <mat-spinner matSuffix [diameter]="20" class="amw-autocomplete__spinner"></mat-spinner>
+    }
+
+    @if (!loading() && !multiple() && clearable() && (selectedValue || inputValue)) {
       <mat-icon
         matSuffix
         (click)="onClear()"
@@ -61,21 +73,34 @@
     [displayWith]="displayWith()"
     class="amw-autocomplete__panel">
 
+    <!-- Loading indicator in dropdown -->
+    @if (loading() && filteredOptions.length === 0) {
+      <mat-option disabled class="amw-autocomplete__loading-option">
+        <mat-spinner [diameter]="20"></mat-spinner>
+        <span>Loading...</span>
+      </mat-option>
+    }
+
     @for (option of filteredOptions; track option) {
       <mat-option
         [value]="option"
         [disabled]="option.disabled"
         (onSelectionChange)="onOptionSelected(option)"
         class="amw-autocomplete__option">
-        <span [innerHTML]="option.label"></span>
+        <!-- Custom template or default -->
+        @if (optionTemplate) {
+          <ng-container *ngTemplateOutlet="optionTemplate; context: { $implicit: option }"></ng-container>
+        } @else {
+          <span [innerHTML]="option.label"></span>
+        }
       </mat-option>
     }
 
-    @if (filteredOptions.length === 0 && inputValue.length >= minLength()) {
+    @if (!loading() && filteredOptions.length === 0 && inputValue.length >= minLength()) {
       <mat-option
         disabled
         class="amw-autocomplete__no-results">
-        No results found
+        {{ noResultsText() }}
       </mat-option>
     }
   </mat-autocomplete>

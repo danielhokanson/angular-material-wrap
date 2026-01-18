@@ -91,6 +91,24 @@ export class TextareaApiComponent extends BaseApiComponent {
         type: 'boolean',
         default: 'false',
         description: 'Whether to show error state'
+      },
+      {
+        name: 'autoResize',
+        type: 'boolean',
+        default: 'false',
+        description: 'Enable automatic height adjustment based on content'
+      },
+      {
+        name: 'minRows',
+        type: 'number',
+        default: '2',
+        description: 'Minimum number of rows when autoResize is enabled'
+      },
+      {
+        name: 'maxRows',
+        type: 'number',
+        default: 'undefined',
+        description: 'Maximum number of rows when autoResize is enabled (unlimited if not set)'
       }
     ],
     outputs: [

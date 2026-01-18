@@ -8,7 +8,11 @@ export { AmwInputComponent } from './controls/components/amw-input/amw-input.com
 export { AmwSelectComponent } from './controls/components/amw-select/amw-select.component';
 export { AmwRadioGroupComponent } from './controls/components/amw-radio-group/amw-radio-group.component';
 export { AmwChipsComponent } from './controls/components/amw-chips/amw-chips.component';
+export { AmwChipInputComponent } from './controls/components/amw-chip-input/amw-chip-input.component';
 export { AmwFormValidationComponent } from './controls/components/amw-form-validation/amw-form-validation.component';
+
+// Chip input interfaces
+export type { ChipInputOption, ChipInputConfig } from './controls/components/amw-chip-input/interfaces';
 
 // Form validation interfaces and types
 export type {

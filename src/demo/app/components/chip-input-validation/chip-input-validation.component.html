@@ -1,0 +1,54 @@
+<div class="amw-demo-chip-input-validation">
+  <div class="validation-section">
+  <h3>Form Validation Example</h3>
+  <p class="section-description">
+    Demonstrates chip input integration with Angular reactive forms and validation.
+  </p>
+
+  <form [formGroup]="validationForm" (ngSubmit)="onSubmit()" class="validation-form">
+    <div class="form-row">
+      <amw-chip-input
+        formControlName="requiredSkills"
+        [suggestions]="suggestions"
+        [hasError]="hasError('requiredSkills')"
+        [errorMessage]="getFieldError('requiredSkills')"
+        label="Required Skills"
+        placeholder="Add a skill..."
+        hint="Select at least one skill (required)">
+      </amw-chip-input>
+    </div>
+
+    <div class="form-row">
+      <amw-chip-input
+        formControlName="optionalSkills"
+        [suggestions]="suggestions"
+        label="Optional Skills"
+        placeholder="Add additional skills..."
+        hint="Additional skills (optional)">
+      </amw-chip-input>
+    </div>
+
+    <div class="form-actions">
+      <amw-button
+        type="submit"
+        color="primary"
+        [disabled]="validationForm.invalid">
+        Submit
+      </amw-button>
+      <amw-button
+        type="button"
+        variant="outlined"
+        (buttonClick)="validationForm.reset()">
+        Reset
+      </amw-button>
+    </div>
+  </form>
+
+  <div class="form-state">
+    <h4>Form State</h4>
+    <pre>{{ validationForm.value | json }}</pre>
+    <p>Valid: {{ validationForm.valid }}</p>
+    <p>Touched: {{ validationForm.touched }}</p>
+  </div>
+  </div>
+</div>

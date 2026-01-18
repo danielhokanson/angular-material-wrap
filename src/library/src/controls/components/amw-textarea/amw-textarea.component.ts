@@ -3,13 +3,14 @@ import { Component, input, output, ViewEncapsulation } from '@angular/core';
 import { FormsModule, ReactiveFormsModule, ControlValueAccessor, NG_VALUE_ACCESSOR } from '@angular/forms';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
+import { TextFieldModule } from '@angular/cdk/text-field';
 import { BaseComponent } from '../base/base.component';
 import { MatFormFieldAppearance } from '@angular/material/form-field';
 
 @Component({
     selector: 'amw-textarea',
     standalone: true,
-    imports: [FormsModule, ReactiveFormsModule, MatFormFieldModule, MatInputModule],
+    imports: [FormsModule, ReactiveFormsModule, MatFormFieldModule, MatInputModule, TextFieldModule],
     encapsulation: ViewEncapsulation.None,
     templateUrl: './amw-textarea.component.html',
     styleUrl: './amw-textarea.component.scss',
@@ -34,6 +35,11 @@ export class AmwTextareaComponent extends BaseComponent<string> implements Contr
     wrap = input<'soft' | 'hard' | 'off'>('soft');
     spellcheck = input<boolean>(true);
     autocomplete = input<string | undefined>(undefined);
+
+    // Auto-resize properties
+    autoResize = input<boolean>(false);
+    minRows = input<number>(2);
+    maxRows = input<number | undefined>(undefined);
 
     // Textarea-specific events
     inputEvent = output<string>();

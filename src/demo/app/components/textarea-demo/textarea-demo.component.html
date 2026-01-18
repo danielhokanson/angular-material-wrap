@@ -55,4 +55,37 @@
       </div>
     }
   </div>
+
+  <h3>Auto-Resize Variations</h3>
+  <div class="variation-grid">
+    <div class="variation-item">
+      <h4>Auto-Resize (2-6 rows)</h4>
+      <amw-textarea
+        [autoResize]="true"
+        [minRows]="2"
+        [maxRows]="6"
+        label="Auto-Resize Textarea"
+        placeholder="Type here and watch it grow...">
+      </amw-textarea>
+    </div>
+    <div class="variation-item">
+      <h4>Auto-Resize (3-10 rows)</h4>
+      <amw-textarea
+        [autoResize]="true"
+        [minRows]="3"
+        [maxRows]="10"
+        label="Larger Auto-Resize"
+        placeholder="This can grow up to 10 rows...">
+      </amw-textarea>
+    </div>
+    <div class="variation-item">
+      <h4>Auto-Resize (No Max)</h4>
+      <amw-textarea
+        [autoResize]="true"
+        [minRows]="2"
+        label="Unlimited Growth"
+        placeholder="This can grow indefinitely...">
+      </amw-textarea>
+    </div>
+  </div>
 </div>

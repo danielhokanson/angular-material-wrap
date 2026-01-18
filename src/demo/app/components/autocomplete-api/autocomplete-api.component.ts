@@ -85,6 +85,24 @@ export class AutocompleteApiComponent extends BaseApiComponent {
         type: 'string',
         default: 'undefined',
         description: 'Hint text displayed below the autocomplete'
+      },
+      {
+        name: 'loading',
+        type: 'boolean',
+        default: 'false',
+        description: 'Shows a loading spinner and disables input during async operations'
+      },
+      {
+        name: 'startIcon',
+        type: 'string',
+        default: 'undefined',
+        description: 'Material icon name to display as prefix'
+      },
+      {
+        name: 'noResultsText',
+        type: 'string',
+        default: "'No results found'",
+        description: 'Text to display when no options match the search'
       }
     ],
     outputs: [

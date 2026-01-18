@@ -46,6 +46,11 @@ export const routes: Routes = [
         data: { control: 'chips' }
     },
     {
+        path: 'controls/chip-input',
+        loadComponent: () => import('./components/demo-container/demo-container.component').then(m => m.DemoContainerComponent),
+        data: { control: 'chip-input' }
+    },
+    {
         path: 'controls/slider',
         loadComponent: () => import('./components/demo-container/demo-container.component').then(m => m.DemoContainerComponent),
         data: { control: 'slider' }
