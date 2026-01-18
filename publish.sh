@@ -264,7 +264,7 @@ if [[ $PUBLISH_EXIT_CODE -eq 0 ]]; then
     echo ""
     echo -e "${GREEN}✓ Successfully published to npm!${NC}"
     echo ""
-elif echo "$PUBLISH_OUTPUT" | grep -qiE "ENEEDAUTH|E401|E403|unauthorized|not logged in|authentication"; then
+elif echo "$PUBLISH_OUTPUT" | grep -qiE "ENEEDAUTH|E401|E403|E404|unauthorized|not logged in|authentication|token expired|revoked"; then
     echo ""
     echo -e "${YELLOW}Not logged in to npm. Starting login...${NC}"
     echo ""
