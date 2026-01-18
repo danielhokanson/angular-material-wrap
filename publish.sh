@@ -188,7 +188,7 @@ echo ""
 
 # Update version in package.json
 if [[ "$NEW_VERSION" != "$CURRENT_VERSION" ]]; then
-    echo -e "${YELLOW}[1/7] Updating version in package.json...${NC}"
+    echo -e "${YELLOW}[1/6] Updating version in package.json...${NC}"
     node -e "
         const fs = require('fs');
         const pkg = require('$PACKAGE_JSON');
@@ -198,13 +198,13 @@ if [[ "$NEW_VERSION" != "$CURRENT_VERSION" ]]; then
     echo -e "${GREEN}✓ Version updated to $NEW_VERSION${NC}"
     echo ""
 else
-    echo -e "${YELLOW}[1/7] Version unchanged${NC}"
+    echo -e "${YELLOW}[1/6] Version unchanged${NC}"
     echo ""
 fi
 
 # Run tests
 if [[ "$RUN_TESTS" == "yes" ]]; then
-    echo -e "${YELLOW}[2/7] Running tests...${NC}"
+    echo -e "${YELLOW}[2/6] Running tests...${NC}"
     if npm run test:lib -- --watch=false; then
         echo -e "${GREEN}✓ Tests passed${NC}"
         echo ""
@@ -213,12 +213,12 @@ if [[ "$RUN_TESTS" == "yes" ]]; then
         exit 1
     fi
 else
-    echo -e "${YELLOW}[2/7] Skipping tests${NC}"
+    echo -e "${YELLOW}[2/6] Skipping tests${NC}"
     echo ""
 fi
 
 # Build library
-echo -e "${YELLOW}[3/7] Building library...${NC}"
+echo -e "${YELLOW}[3/6] Building library...${NC}"
 if npm run build:lib; then
     echo -e "${GREEN}✓ Library built successfully${NC}"
     echo ""
@@ -228,7 +228,7 @@ else
 fi
 
 # Verify build output
-echo -e "${YELLOW}[4/7] Verifying build output...${NC}"
+echo -e "${YELLOW}[4/6] Verifying build output...${NC}"
 if [[ ! -d "$DIST_DIR" ]]; then
     echo -e "${RED}✗ Build output directory not found: $DIST_DIR${NC}"
     exit 1
@@ -249,29 +249,48 @@ fi
 echo -e "${GREEN}✓ Build output verified${NC}"
 echo ""
 
-# Check npm authentication
-echo -e "${YELLOW}[5/7] Checking npm authentication...${NC}"
-if npm whoami > /dev/null 2>&1; then
-    NPM_USER=$(npm whoami)
-    echo -e "${GREEN}✓ Logged in as: $NPM_USER${NC}"
-    echo ""
-else
-    echo -e "${RED}✗ Not logged in to npm${NC}"
-    echo -e "${YELLOW}Run 'npm login' first${NC}"
-    exit 1
-fi
-
 # Publish to npm
-echo -e "${YELLOW}[6/7] Publishing to npm...${NC}"
+echo -e "${YELLOW}[5/6] Publishing to npm...${NC}"
 echo -e "${BLUE}Running: npm publish --tag $NPM_TAG --access public${NC}"
 echo ""
 
 cd "$DIST_DIR"
-if npm publish --tag "$NPM_TAG" --access public; then
+
+# Attempt publish, if unauthorized prompt for login and retry
+PUBLISH_OUTPUT=$(npm publish --tag "$NPM_TAG" --access public 2>&1)
+PUBLISH_EXIT_CODE=$?
+
+if [[ $PUBLISH_EXIT_CODE -eq 0 ]]; then
     echo ""
     echo -e "${GREEN}✓ Successfully published to npm!${NC}"
     echo ""
+elif echo "$PUBLISH_OUTPUT" | grep -qiE "ENEEDAUTH|E401|E403|unauthorized|not logged in|authentication"; then
+    echo ""
+    echo -e "${YELLOW}Not logged in to npm. Starting login...${NC}"
+    echo ""
+
+    if npm login; then
+        echo ""
+        echo -e "${GREEN}✓ Login successful${NC}"
+        echo -e "${YELLOW}Retrying publish...${NC}"
+        echo ""
+
+        if npm publish --tag "$NPM_TAG" --access public; then
+            echo ""
+            echo -e "${GREEN}✓ Successfully published to npm!${NC}"
+            echo ""
+        else
+            echo ""
+            echo -e "${RED}✗ npm publish failed after login${NC}"
+            exit 1
+        fi
+    else
+        echo ""
+        echo -e "${RED}✗ npm login failed${NC}"
+        exit 1
+    fi
 else
+    echo "$PUBLISH_OUTPUT"
     echo ""
     echo -e "${RED}✗ npm publish failed${NC}"
     exit 1
@@ -281,7 +300,7 @@ cd "$SCRIPT_DIR"
 
 # Create git tag
 if [[ "$CREATE_GIT_TAG" == "yes" ]]; then
-    echo -e "${YELLOW}[7/7] Creating git tag...${NC}"
+    echo -e "${YELLOW}[6/6] Creating git tag...${NC}"
 
     GIT_TAG="v$NEW_VERSION"
 
@@ -318,7 +337,7 @@ Co-Authored-By: Claude Sonnet 4.5 <noreply@anthropic.com>"
         fi
     fi
 else
-    echo -e "${YELLOW}[7/7] Skipping git tag${NC}"
+    echo -e "${YELLOW}[6/6] Skipping git tag${NC}"
     echo ""
 fi
 
