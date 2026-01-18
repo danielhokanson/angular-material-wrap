@@ -3,24 +3,55 @@
   align-items: center;
   position: relative;
 
+  // Color variants
+  &--primary {
+    .mat-mdc-radio-button {
+      --mdc-radio-selected-focus-icon-color: var(--mat-sys-primary);
+      --mdc-radio-selected-hover-icon-color: var(--mat-sys-primary);
+      --mdc-radio-selected-icon-color: var(--mat-sys-primary);
+      --mdc-radio-selected-pressed-icon-color: var(--mat-sys-primary);
+      --mat-radio-checked-ripple-color: var(--mat-sys-primary);
+    }
+  }
+
+  &--accent {
+    .mat-mdc-radio-button {
+      --mdc-radio-selected-focus-icon-color: var(--mat-sys-secondary);
+      --mdc-radio-selected-hover-icon-color: var(--mat-sys-secondary);
+      --mdc-radio-selected-icon-color: var(--mat-sys-secondary);
+      --mdc-radio-selected-pressed-icon-color: var(--mat-sys-secondary);
+      --mat-radio-checked-ripple-color: var(--mat-sys-secondary);
+    }
+  }
+
+  &--warn {
+    .mat-mdc-radio-button {
+      --mdc-radio-selected-focus-icon-color: var(--mat-sys-error);
+      --mdc-radio-selected-hover-icon-color: var(--mat-sys-error);
+      --mdc-radio-selected-icon-color: var(--mat-sys-error);
+      --mdc-radio-selected-pressed-icon-color: var(--mat-sys-error);
+      --mat-radio-checked-ripple-color: var(--mat-sys-error);
+    }
+  }
+
   &--small {
     .mat-mdc-radio-button {
-      --mdc-radio-state-layer-size: var(--mdc-shape-large, 32px);
-      --mdc-radio-icon-size: var(--mdc-typography-body-large-font-size, 16px);
+      --mdc-radio-state-layer-size: 32px;
+      --mdc-radio-icon-size: 16px;
     }
   }
 
   &--medium {
     .mat-mdc-radio-button {
-      --mdc-radio-state-layer-size: var(--mdc-shape-large, 40px);
-      --mdc-radio-icon-size: var(--mdc-shape-medium, 20px);
+      --mdc-radio-state-layer-size: 40px;
+      --mdc-radio-icon-size: 20px;
     }
   }
 
   &--large {
     .mat-mdc-radio-button {
-      --mdc-radio-state-layer-size: var(--mdc-shape-large, 32px);
-      --mdc-radio-icon-size: var(--mdc-shape-small, 8px);
+      --mdc-radio-state-layer-size: 48px;
+      --mdc-radio-icon-size: 24px;
     }
   }
 
@@ -28,25 +59,25 @@
     .mat-mdc-radio-button {
       order: 2;
     }
-    
+
     .mat-mdc-radio-button-label {
       order: 1;
-      margin-right: var(--mdc-shape-small, 8px);
+      margin-right: 8px;
       margin-left: 0;
     }
   }
 
   &--disabled {
-    opacity: var(--mdc-state-disabled-state-layer-opacity, 0.6);
+    opacity: 0.38;
     pointer-events: none;
   }
 
   &--error {
     .mat-mdc-radio-button {
-      --mdc-radio-selected-focus-icon-color: var(--mdc-theme-error, #f44336);
-      --mdc-radio-selected-hover-icon-color: var(--mdc-theme-error, #f44336);
-      --mdc-radio-selected-icon-color: var(--mdc-theme-error, #f44336);
-      --mdc-radio-selected-pressed-icon-color: var(--mdc-theme-error, #f44336);
+      --mdc-radio-selected-focus-icon-color: var(--mat-sys-error);
+      --mdc-radio-selected-hover-icon-color: var(--mat-sys-error);
+      --mdc-radio-selected-icon-color: var(--mat-sys-error);
+      --mdc-radio-selected-pressed-icon-color: var(--mat-sys-error);
     }
   }
 
@@ -55,60 +86,15 @@
     top: 100%;
     left: 0;
     right: 0;
-    margin-top: var(--mdc-shape-small, 4px);
-    font-size: var(--mdc-typography-body-small-font-size, 12px);
-    color: var(--mdc-theme-error, #f44336);
+    margin-top: 4px;
+    font-size: 12px;
+    color: var(--mat-sys-error);
     line-height: 1.2;
   }
 
+  // Only set sizing - let Angular Material handle colors from theme
   .mat-mdc-radio-button {
-    --mdc-radio-state-layer-size: var(--mdc-shape-large, 40px);
-    --mdc-radio-icon-size: var(--mdc-shape-medium, 20px);
-    --mdc-radio-ripple-size: var(--mdc-shape-large, 40px);
-    --mdc-radio-ripple-opacity: 0.12;
-    --mdc-radio-selected-focus-icon-color: #1976d2;
-    --mdc-radio-selected-hover-icon-color: #1976d2;
-    --mdc-radio-selected-icon-color: #1976d2;
-    --mdc-radio-selected-pressed-icon-color: #1976d2;
-    --mdc-radio-unselected-focus-icon-color: #757575;
-    --mdc-radio-unselected-hover-icon-color: #757575;
-    --mdc-radio-unselected-icon-color: #757575;
-    --mdc-radio-unselected-pressed-icon-color: #757575;
-    --mdc-radio-selected-focus-state-layer-color: #1976d2;
-    --mdc-radio-selected-hover-state-layer-color: #1976d2;
-    --mdc-radio-selected-pressed-state-layer-color: #1976d2;
-    --mdc-radio-unselected-focus-state-layer-color: #757575;
-    --mdc-radio-unselected-hover-state-layer-color: #757575;
-    --mdc-radio-unselected-pressed-state-layer-color: #757575;
-  }
-
-  .mat-mdc-radio-button.mat-primary {
-    --mdc-radio-selected-focus-icon-color: #1976d2;
-    --mdc-radio-selected-hover-icon-color: #1976d2;
-    --mdc-radio-selected-icon-color: #1976d2;
-    --mdc-radio-selected-pressed-icon-color: #1976d2;
-    --mdc-radio-selected-focus-state-layer-color: #1976d2;
-    --mdc-radio-selected-hover-state-layer-color: #1976d2;
-    --mdc-radio-selected-pressed-state-layer-color: #1976d2;
-  }
-
-  .mat-mdc-radio-button.mat-accent {
-    --mdc-radio-selected-focus-icon-color: #ff4081;
-    --mdc-radio-selected-hover-icon-color: #ff4081;
-    --mdc-radio-selected-icon-color: #ff4081;
-    --mdc-radio-selected-pressed-icon-color: #ff4081;
-    --mdc-radio-selected-focus-state-layer-color: #ff4081;
-    --mdc-radio-selected-hover-state-layer-color: #ff4081;
-    --mdc-radio-selected-pressed-state-layer-color: #ff4081;
-  }
-
-  .mat-mdc-radio-button.mat-warn {
-    --mdc-radio-selected-focus-icon-color: var(--mdc-theme-error, #f44336);
-    --mdc-radio-selected-hover-icon-color: var(--mdc-theme-error, #f44336);
-    --mdc-radio-selected-icon-color: var(--mdc-theme-error, #f44336);
-    --mdc-radio-selected-pressed-icon-color: var(--mdc-theme-error, #f44336);
-    --mdc-radio-selected-focus-state-layer-color: var(--mdc-theme-error, #f44336);
-    --mdc-radio-selected-hover-state-layer-color: var(--mdc-theme-error, #f44336);
-    --mdc-radio-selected-pressed-state-layer-color: var(--mdc-theme-error, #f44336);
+    --mdc-radio-state-layer-size: 40px;
+    --mdc-radio-icon-size: 20px;
   }
 }

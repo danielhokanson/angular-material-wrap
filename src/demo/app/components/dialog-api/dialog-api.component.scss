@@ -1,11 +1,12 @@
+// Dialog API Demo - Layout and positioning styles only
+// Visual styling is handled by the library components and theme
+
 .dialog-api {
   &__section {
     margin-bottom: 32px;
 
     h3 {
       margin-bottom: 16px;
-      color: var(--mdc-theme-on-surface);
-      border-bottom: 2px solid var(--mdc-theme-primary);
       padding-bottom: 8px;
     }
   }
@@ -15,40 +16,15 @@
 
     h4 {
       margin-bottom: 8px;
-      color: var(--mdc-theme-on-surface);
-      font-family: 'Roboto Mono', monospace;
     }
 
     p {
       margin-bottom: 16px;
-      color: var(--mdc-theme-on-surface-variant);
     }
   }
 
   &__table {
     width: 100%;
     margin-bottom: 16px;
-
-    .amw-data-table__header-cell {
-      background: var(--mdc-theme-surface-variant);
-      color: var(--mdc-theme-on-surface-variant);
-      font-weight: 500;
-    }
-
-    .amw-data-table__cell {
-      color: var(--mdc-theme-on-surface);
-      border-bottom: 1px solid var(--mdc-theme-outline-variant);
-    }
-
-    code {
-      background: var(--mdc-theme-surface-variant);
-      padding: 2px 6px;
-      border-radius: 4px;
-      font-family: 'Roboto Mono', monospace;
-      font-size: 0.875rem;
-      color: var(--mdc-theme-primary);
-    }
   }
 }
-
-

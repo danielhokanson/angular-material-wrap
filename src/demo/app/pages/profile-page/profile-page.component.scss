@@ -5,17 +5,17 @@
 
   .profile-header {
     margin-bottom: 32px;
-    
+
     h1 {
       margin: 0 0 8px 0;
-      color: #1976d2;
+      color: var(--mat-sys-primary);
       font-size: 2.5rem;
       font-weight: 300;
     }
-    
+
     p {
       margin: 0;
-      color: #666;
+      color: var(--mat-sys-on-surface-variant);
       font-size: 1.1rem;
     }
   }
@@ -30,17 +30,17 @@
       grid-template-columns: 1fr 1fr;
       gap: 16px;
       margin-bottom: 16px;
-      
+
       @media (max-width: 600px) {
         grid-template-columns: 1fr;
       }
     }
-    
+
     .form-actions {
       display: flex;
       gap: 16px;
       margin-top: 24px;
-      
+
       button {
         amw-icon {
           margin-right: 8px;
@@ -51,10 +51,10 @@
 
   .settings-section {
     margin-bottom: 32px;
-    
+
     h4 {
       margin: 0 0 16px 0;
-      color: #333;
+      color: var(--mat-sys-on-surface);
       font-size: 1.1rem;
     }
   }
@@ -63,33 +63,33 @@
     display: flex;
     align-items: center;
     gap: 24px;
-    
+
     .profile-avatar {
       width: 80px;
       height: 80px;
       border-radius: 50%;
-      background-color: #e0e0e0;
+      background-color: var(--mat-sys-surface-variant);
       display: flex;
       align-items: center;
       justify-content: center;
       font-size: 2.5rem;
-      
+
       amw-icon {
         font-size: 2.5rem;
         width: 2.5rem;
         height: 2.5rem;
-        color: #666;
+        color: var(--mat-sys-on-surface-variant);
       }
     }
-    
+
     .avatar-actions {
       display: flex;
       flex-direction: column;
       gap: 8px;
-      
+
       button {
         justify-content: flex-start;
-        
+
         amw-icon {
           margin-right: 8px;
         }
@@ -102,10 +102,10 @@
     flex-direction: column;
     gap: 16px;
     max-width: 400px;
-    
+
     button {
       align-self: flex-start;
-      
+
       amw-icon {
         margin-right: 8px;
       }
@@ -114,13 +114,13 @@
 
   .preferences-section {
     margin-bottom: 32px;
-    
+
     h4 {
       margin: 0 0 16px 0;
-      color: #333;
+      color: var(--mat-sys-on-surface);
       font-size: 1.1rem;
     }
-    
+
     amw-input, amw-select, amw-textarea {
       width: 100%;
       max-width: 300px;
@@ -133,15 +133,15 @@
       justify-content: space-between;
       align-items: center;
       padding: 12px 0;
-      border-bottom: 1px solid #f0f0f0;
-      
+      border-bottom: 1px solid var(--mat-sys-outline-variant);
+
       &:last-child {
         border-bottom: none;
       }
-      
+
       span {
         font-size: 0.9rem;
-        color: #666;
+        color: var(--mat-sys-on-surface-variant);
       }
     }
   }
@@ -150,7 +150,7 @@
     display: flex;
     gap: 16px;
     margin-top: 24px;
-    
+
     button {
       amw-icon {
         margin-right: 8px;

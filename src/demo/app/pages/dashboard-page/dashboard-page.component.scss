@@ -8,14 +8,14 @@
 
     h1 {
       margin: 0 0 8px 0;
-      color: #1976d2;
+      color: var(--mat-sys-primary);
       font-size: 2.5rem;
       font-weight: 300;
     }
 
     p {
       margin: 0;
-      color: #666;
+      color: var(--mat-sys-on-surface-variant);
       font-size: 1.1rem;
     }
   }
@@ -52,7 +52,7 @@
         font-size: 2.5rem;
         width: 2.5rem;
         height: 2.5rem;
-        color: #1976d2;
+        color: var(--mat-sys-primary);
       }
     }
 
@@ -61,12 +61,12 @@
         margin: 0 0 4px 0;
         font-size: 2rem;
         font-weight: 500;
-        color: #333;
+        color: var(--mat-sys-on-surface);
       }
 
       p {
         margin: 0;
-        color: #666;
+        color: var(--mat-sys-on-surface-variant);
         font-size: 0.9rem;
       }
     }
@@ -97,18 +97,18 @@
         justify-content: space-between;
         margin-bottom: 4px;
         font-size: 0.9rem;
-        color: #666;
+        color: var(--mat-sys-on-surface-variant);
       }
 
       .progress-bar {
         height: 8px;
-        background-color: #e0e0e0;
+        background-color: var(--mat-sys-surface-variant);
         border-radius: 4px;
         overflow: hidden;
 
         .progress-bar-fill {
           height: 100%;
-          background-color: #1976d2;
+          background-color: var(--mat-sys-primary);
           border-radius: 4px;
           transition: width 0.3s ease;
         }

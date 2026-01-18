@@ -1,3 +1,6 @@
+// Sidenav Validation Demo - Layout and positioning styles only
+// Visual styling is handled by the library components and theme
+
 .sidenav-validation {
   padding: 24px;
   max-width: 1400px;
@@ -9,15 +12,10 @@
 
     h2 {
       margin: 0 0 8px 0;
-      color: var(--mat-sys-on-surface);
-      font-size: 2rem;
-      font-weight: 400;
     }
 
     p {
       margin: 0;
-      color: var(--mat-sys-on-surface-variant);
-      font-size: 1rem;
     }
   }
 
@@ -28,21 +26,14 @@
   }
 
   &__form-card {
-    background: var(--mat-sys-surface-container);
-
     .amw-card__header {
       padding-bottom: 16px;
     }
 
     .amw-card__title {
-      color: var(--mat-sys-on-surface);
-      font-size: 1.25rem;
-      font-weight: 500;
     }
 
     .amw-card__subtitle {
-      color: var(--mat-sys-on-surface-variant);
-      font-size: 0.875rem;
     }
   }
 
@@ -74,29 +65,19 @@
   }
 
   &__demo-card {
-    background: var(--mat-sys-surface-container);
-
     .amw-card__header {
       padding-bottom: 16px;
     }
 
     .amw-card__title {
-      color: var(--mat-sys-on-surface);
-      font-size: 1.25rem;
-      font-weight: 500;
     }
 
     .amw-card__subtitle {
-      color: var(--mat-sys-on-surface-variant);
-      font-size: 0.875rem;
     }
   }
 
   &__demo-container {
-    border: 1px solid var(--mat-sys-outline-variant);
-    border-radius: 8px;
     overflow: hidden;
-    background: var(--mat-sys-surface);
     min-height: 400px;
   }
 
@@ -106,57 +87,39 @@
   }
 
   &__content-card {
-    background: var(--mat-sys-surface-container-low);
-
     .amw-card__header {
       padding-bottom: 16px;
     }
 
     .amw-card__title {
-      color: var(--mat-sys-on-surface);
-      font-size: 1.25rem;
-      font-weight: 500;
     }
 
     .amw-card__subtitle {
-      color: var(--mat-sys-on-surface-variant);
-      font-size: 0.875rem;
     }
   }
 
   &__validation-info {
     margin-top: 24px;
     padding: 16px;
-    background: var(--mat-sys-surface-variant);
-    border-radius: 8px;
-    border-left: 4px solid var(--mat-sys-primary);
 
     h4 {
       margin: 0 0 12px 0;
-      color: var(--mat-sys-on-surface);
-      font-size: 1rem;
-      font-weight: 500;
     }
 
     ul {
       margin: 0;
       padding-left: 20px;
-      color: var(--mat-sys-on-surface-variant);
-      font-size: 0.875rem;
       line-height: 1.6;
 
       li {
         margin-bottom: 4px;
 
         strong {
-          color: var(--mat-sys-on-surface);
-          font-weight: 500;
         }
       }
     }
   }
 
-  // Form Field Styling
   amw-input,
   amw-select,
   amw-textarea {
@@ -164,56 +127,38 @@
 
     &:host.ng-invalid {
       .amw-input__outline {
-        color: var(--mat-sys-error);
       }
 
       .amw-input__label {
-        color: var(--mat-sys-error);
       }
     }
   }
 
   .amw-input__error {
-    color: var(--mat-sys-error);
-    font-size: 0.75rem;
     margin-top: 4px;
   }
 
   .amw-input__hint {
-    color: var(--mat-sys-on-surface-variant);
-    font-size: 0.75rem;
     margin-top: 4px;
   }
 
-  // Button Styling
   amw-button {
     &[color="primary"] {
-      background-color: var(--mat-sys-primary);
-      color: var(--mat-sys-on-primary);
-
       &:hover {
-        background-color: var(--mat-sys-primary-container);
-        color: var(--mat-sys-on-primary-container);
       }
     }
   }
 
   amw-button {
-    color: var(--mat-sys-primary);
-
     &:hover {
-      background-color: var(--mat-sys-primary-container);
-      color: var(--mat-sys-on-primary-container);
     }
   }
 
-  // Responsive Design
   @media (max-width: 768px) {
     padding: 16px;
 
     &__header {
       h2 {
-        font-size: 1.5rem;
       }
     }
 
@@ -233,31 +178,23 @@
     }
   }
 
-  // Dark Theme Adjustments
   .mat-theme-dark & {
     &__form-card,
     &__demo-card {
-      background: var(--mat-sys-surface-container);
     }
 
     &__content-card {
-      background: var(--mat-sys-surface-container-low);
     }
 
     &__validation-info {
-      background: var(--mat-sys-surface-variant);
-      border-left-color: var(--mat-sys-primary);
     }
   }
 
-  // High Contrast Mode
   @media (prefers-contrast: high) {
     &__demo-container {
-      border-width: 2px;
     }
 
     &__validation-info {
-      border-left-width: 6px;
     }
 
     amw-input,
@@ -265,13 +202,11 @@
     amw-textarea {
       &:host.ng-invalid {
         .amw-input__outline {
-          border-width: 2px;
         }
       }
     }
   }
 
-  // Reduced Motion
   @media (prefers-reduced-motion: reduce) {
     * {
       transition: none !important;

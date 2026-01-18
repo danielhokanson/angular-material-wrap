@@ -1,10 +1,10 @@
-import { Component, input, output, signal, model, OnInit, OnDestroy, AfterContentInit, ViewEncapsulation, ChangeDetectorRef, ContentChildren, QueryList } from '@angular/core';
+import { Component, input, output, signal, model, OnInit, OnDestroy, AfterContentInit, ViewEncapsulation, ChangeDetectorRef, contentChildren, effect } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { MatTabsModule } from '@angular/material/tabs';
 import { MatIconModule } from '@angular/material/icon';
 import { MatCardModule } from '@angular/material/card';
 import { MatDividerModule } from '@angular/material/divider';
-import { Subject, takeUntil } from 'rxjs';
+import { Subject } from 'rxjs';
 import { BaseComponent } from '../../../controls/components/base/base.component';
 import { TabsConfig, TabItem } from './interfaces';
 import { AmwButtonComponent } from '../../../controls/components/amw-button/amw-button.component';
@@ -44,7 +44,7 @@ import { AmwTabComponent } from './amw-tab.component';
 })
 export class AmwTabsComponent extends BaseComponent implements OnInit, OnDestroy, AfterContentInit {
     /** Query for projected AmwTabComponent children */
-    @ContentChildren(AmwTabComponent) tabChildren!: QueryList<AmwTabComponent>;
+    tabChildren = contentChildren(AmwTabComponent);
 
     /** Tabs configuration */
     config = input<TabsConfig | undefined>(undefined);
@@ -102,6 +102,14 @@ export class AmwTabsComponent extends BaseComponent implements OnInit, OnDestroy
 
     constructor(private cdr: ChangeDetectorRef) {
         super();
+        // Watch for changes in tab children using effect
+        effect(() => {
+            const children = this.tabChildren();
+            if (children.length > 0) {
+                this.useContentProjection.set(true);
+                this.syncTabsFromChildren();
+            }
+        });
     }
 
     ngOnInit(): void {
@@ -110,24 +118,16 @@ export class AmwTabsComponent extends BaseComponent implements OnInit, OnDestroy
     }
 
     ngAfterContentInit(): void {
-        // Check if content projection is being used
-        if (this.tabChildren && this.tabChildren.length > 0) {
-            this.useContentProjection.set(true);
-            this.syncTabsFromChildren();
-
-            // Subscribe to changes in the tab children
-            this.tabChildren.changes.pipe(takeUntil(this.destroy$)).subscribe(() => {
-                this.syncTabsFromChildren();
-            });
-        }
+        // Content projection detection is now handled by the effect in constructor
     }
 
     /**
      * Synchronizes the tabs array from projected AmwTabComponent children
      */
     private syncTabsFromChildren(): void {
-        if (this.tabChildren) {
-            this.tabs.set(this.tabChildren.toArray().map(child => ({
+        const children = this.tabChildren();
+        if (children.length > 0) {
+            this.tabs.set(children.map(child => ({
                 label: child.label(),
                 icon: child.icon(),
                 isDisabled: child.disabled(),

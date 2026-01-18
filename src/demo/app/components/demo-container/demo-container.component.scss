@@ -1,16 +1,14 @@
-// Unified Demo Container Styles (based on accordion pattern)
+// Demo Container - Layout and positioning styles only
+// Visual styling is handled by the library components and theme
+
 .amw-demo-container {
   width: 100%;
   min-height: 100vh;
   display: flex;
   flex-direction: column;
-  background: var(--mdc-theme-background);
-  color: var(--mdc-theme-on-background);
 
   .demo-header {
     padding: 24px;
-    background: var(--mdc-theme-surface);
-    border-bottom: 1px solid var(--mdc-theme-outline-variant);
     text-align: center;
     max-width: 1400px;
     margin: 0 auto;
@@ -18,15 +16,11 @@
 
     h1 {
       margin: 0 0 8px 0;
-      font-size: 2.5rem;
-      font-weight: 300;
-      color: var(--mdc-theme-on-surface);
     }
 
     p {
       margin: 0;
-      font-size: 1.1rem;
-      color: var(--mdc-theme-on-surface-variant);
+      line-height: 1.5;
     }
   }
 
@@ -34,7 +28,6 @@
     flex: 1;
     padding: 24px;
     overflow: hidden;
-    background: var(--mdc-theme-background);
     max-width: 1400px;
     margin: 0 auto;
     width: 100%;
@@ -50,37 +43,23 @@
       display: flex;
       flex-direction: column;
 
-      // Card header styling - amw-card uses mat-card internally
       mat-card-header {
         padding: 16px 24px;
-        border-bottom: 1px solid var(--mdc-theme-outline-variant);
         display: flex;
         flex-direction: column;
 
-        // Custom header template content (h2 and .subtitle)
         h2 {
           margin: 0;
-          font-size: 1.5rem;
-          font-weight: 400;
-          color: var(--mdc-theme-on-surface);
         }
 
         .subtitle {
           margin: 4px 0 0 0;
-          font-size: 0.875rem;
-          color: var(--mdc-theme-on-surface-variant);
         }
 
-        // Standard card title/subtitle
         mat-card-title {
-          font-size: 1.5rem;
-          font-weight: 400;
-          color: var(--mdc-theme-on-surface);
         }
 
         mat-card-subtitle {
-          font-size: 0.875rem;
-          color: var(--mdc-theme-on-surface-variant);
           margin-top: 4px;
         }
       }
@@ -90,7 +69,6 @@
         overflow: hidden;
         padding: 0;
 
-        // Ensure the demo component takes full height
         > * {
           height: 100%;
         }
@@ -100,17 +78,11 @@
     .demo-tabs {
       height: 100%;
 
-      // AMW Tabs styling (uses BEM-style classes)
       .amw-tabs {
         height: 100%;
-        box-shadow: none;
-        border-radius: 0;
-        background: transparent;
       }
 
       .amw-tabs__header {
-        border-bottom: 1px solid var(--mdc-theme-outline-variant);
-        background: var(--mdc-theme-surface);
         min-height: 48px;
       }
 
@@ -122,7 +94,6 @@
         min-width: 120px;
         height: 48px;
         padding: 12px 24px;
-        border-radius: 0;
 
         &--disabled {
           opacity: 0.38;
@@ -158,22 +129,16 @@
     }
   }
 
-  // Placeholder content styling
   .placeholder-content {
     text-align: center;
     padding: 48px 24px;
-    color: var(--mdc-theme-on-surface-variant);
 
     h3 {
       margin: 0 0 16px 0;
-      font-size: 1.5rem;
-      font-weight: 400;
-      color: var(--mdc-theme-on-surface);
     }
 
     p {
       margin: 0;
-      font-size: 1rem;
       line-height: 1.5;
     }
   }
@@ -182,11 +147,9 @@
   @media (max-width: 1400px) {
     .demo-header {
       h1 {
-        font-size: 2rem;
       }
 
       p {
-        font-size: 1rem;
       }
     }
 
@@ -206,11 +169,9 @@
       padding: 16px;
 
       h1 {
-        font-size: 1.75rem;
       }
 
       p {
-        font-size: 0.9rem;
       }
     }
 
@@ -225,7 +186,6 @@
       }
 
       .amw-tabs__tab-label {
-        font-size: 0.875rem;
       }
 
       .amw-tabs__panel-body {
@@ -237,11 +197,9 @@
       padding: 32px 16px;
 
       h3 {
-        font-size: 1.25rem;
       }
 
       p {
-        font-size: 0.9rem;
       }
     }
   }

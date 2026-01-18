@@ -1,4 +1,4 @@
-import { Component, input, output, signal, model, computed, ViewEncapsulation, ElementRef, ViewChild, HostListener } from '@angular/core';
+import { Component, input, output, signal, model, ViewEncapsulation, ElementRef, viewChild } from '@angular/core';
 
 import { FormsModule, NG_VALUE_ACCESSOR } from '@angular/forms';
 import { MatIconModule } from '@angular/material/icon';
@@ -22,6 +22,11 @@ import { FileInputConfig, FileValidationResult, FileUploadProgress, FileInputAcc
     encapsulation: ViewEncapsulation.None,
     templateUrl: './amw-file-input.component.html',
     styleUrl: './amw-file-input.component.scss',
+    host: {
+        '(dragover)': 'onDragOver($event)',
+        '(dragleave)': 'onDragLeave($event)',
+        '(drop)': 'onDrop($event)'
+    },
     providers: [
         {
             provide: NG_VALUE_ACCESSOR,
@@ -31,7 +36,7 @@ import { FileInputConfig, FileValidationResult, FileUploadProgress, FileInputAcc
     ]
 })
 export class AmwFileInputComponent extends BaseComponent<File[]> {
-    @ViewChild('fileInput', { static: false }) fileInput!: ElementRef<HTMLInputElement>;
+    fileInput = viewChild<ElementRef<HTMLInputElement>>('fileInput');
 
     multiple = input<boolean>(false);
     accept = input<FileInputAccept>('*/*');
@@ -59,7 +64,6 @@ export class AmwFileInputComponent extends BaseComponent<File[]> {
     validationResult = signal<FileValidationResult>({ valid: true, errors: [], files: [] });
     uploadProgresses = signal<FileUploadProgress[]>([]);
 
-    @HostListener('dragover', ['$event'])
     onDragOver(event: DragEvent): void {
         if (!this.allowDragDrop() || this.disabled()) return;
         event.preventDefault();
@@ -67,7 +71,6 @@ export class AmwFileInputComponent extends BaseComponent<File[]> {
         this.isDragOver.set(true);
     }
 
-    @HostListener('dragleave', ['$event'])
     onDragLeave(event: DragEvent): void {
         if (!this.allowDragDrop() || this.disabled()) return;
         event.preventDefault();
@@ -75,7 +78,6 @@ export class AmwFileInputComponent extends BaseComponent<File[]> {
         this.isDragOver.set(false);
     }
 
-    @HostListener('drop', ['$event'])
     onDrop(event: DragEvent): void {
         if (!this.allowDragDrop() || this.disabled()) return;
         event.preventDefault();
@@ -194,14 +196,16 @@ export class AmwFileInputComponent extends BaseComponent<File[]> {
         this.filesChange.emit([]);
         this.selectedFilesChange.emit([]);
         this._onChange([]);
-        if (this.fileInput) {
-            this.fileInput.nativeElement.value = '';
+        const fileInputEl = this.fileInput();
+        if (fileInputEl) {
+            fileInputEl.nativeElement.value = '';
         }
     }
 
     openFileDialog(): void {
-        if (!this.disabled() && this.fileInput) {
-            this.fileInput.nativeElement.click();
+        const fileInputEl = this.fileInput();
+        if (!this.disabled() && fileInputEl) {
+            fileInputEl.nativeElement.click();
         }
     }
 

@@ -1,4 +1,4 @@
-import { Component, OnInit, OnDestroy, TemplateRef, ViewChild, ElementRef, AfterViewInit, AfterContentInit, ChangeDetectorRef, ViewContainerRef, ViewEncapsulation, ContentChild, input, output, model, signal, computed } from '@angular/core';
+import { Component, OnInit, OnDestroy, TemplateRef, viewChild, contentChild, ElementRef, AfterViewInit, AfterContentInit, ChangeDetectorRef, ViewContainerRef, ViewEncapsulation, input, output, model, signal, computed } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { MatIconModule } from '@angular/material/icon';
 import { MatCardModule } from '@angular/material/card';
@@ -158,16 +158,16 @@ export class AmwPopoverComponent implements OnInit, OnDestroy, AfterViewInit, Af
     close = output<void>();
 
     /** Custom trigger template (via content projection) */
-    @ContentChild('trigger') projectedTriggerTemplate?: TemplateRef<any>;
+    projectedTriggerTemplate = contentChild<TemplateRef<any>>('trigger');
 
     /** Custom content template (via content projection) */
-    @ContentChild('content') projectedContentTemplate?: TemplateRef<any>;
+    projectedContentTemplate = contentChild<TemplateRef<any>>('content');
 
     /** Reference to the trigger element */
-    @ViewChild('triggerRef', { static: true }) triggerRef?: ElementRef<HTMLElement>;
+    triggerRef = viewChild<ElementRef<HTMLElement>>('triggerRef');
 
     /** Reference to the content template */
-    @ViewChild('contentRef', { static: false }) contentRef?: TemplateRef<any>;
+    contentRef = viewChild<TemplateRef<any>>('contentRef');
 
     // Internal signals for resolved templates
     resolvedTriggerTemplate = signal<TemplateRef<any> | undefined>(undefined);
@@ -224,8 +224,8 @@ export class AmwPopoverComponent implements OnInit, OnDestroy, AfterViewInit, Af
 
     ngAfterContentInit(): void {
         // Use projected templates if input templates are not provided
-        this.resolvedTriggerTemplate.set(this.triggerTemplate() || this.projectedTriggerTemplate);
-        this.resolvedContentTemplate.set(this.contentTemplate() || this.projectedContentTemplate);
+        this.resolvedTriggerTemplate.set(this.triggerTemplate() || this.projectedTriggerTemplate());
+        this.resolvedContentTemplate.set(this.contentTemplate() || this.projectedContentTemplate());
     }
 
     ngAfterViewInit(): void {
@@ -379,7 +379,7 @@ export class AmwPopoverComponent implements OnInit, OnDestroy, AfterViewInit, Af
                     const mouseEvent = event as MouseEvent;
                     const target = mouseEvent.target as Node;
                     const isInsideOverlay = this.overlayRef?.overlayElement?.contains(target);
-                    const isInsideTrigger = this.triggerRef?.nativeElement?.contains(target);
+                    const isInsideTrigger = this.triggerRef()?.nativeElement?.contains(target);
 
                     if (this.opened() && this.overlayRef && !isInsideOverlay && !isInsideTrigger) {
                         this.closePopover();
@@ -519,7 +519,7 @@ export class AmwPopoverComponent implements OnInit, OnDestroy, AfterViewInit, Af
      * Initializes the overlay
      */
     private initializeOverlay(): void {
-        if (!this.triggerRef) {
+        if (!this.triggerRef()) {
             console.warn('AmwPopover: triggerRef not available for overlay initialization');
             return;
         }
@@ -587,8 +587,9 @@ export class AmwPopoverComponent implements OnInit, OnDestroy, AfterViewInit, Af
         this.beforeOpen.emit();
 
         if (this.overlayRef && !this.overlayRef.hasAttached()) {
-            if (this.contentRef) {
-                const portal = new TemplatePortal(this.contentRef, this.viewContainerRef);
+            const contentTemplate = this.contentRef();
+            if (contentTemplate) {
+                const portal = new TemplatePortal(contentTemplate, this.viewContainerRef);
                 this.overlayRef.attach(portal);
             } else {
                 this.createFallbackContent();
@@ -891,9 +892,10 @@ export class AmwPopoverComponent implements OnInit, OnDestroy, AfterViewInit, Af
      * Manually positions the popover relative to the trigger element.
      */
     private positionPopover(): void {
-        if (!this.overlayRef || !this.triggerRef) return;
+        const triggerEl = this.triggerRef();
+        if (!this.overlayRef || !triggerEl) return;
 
-        const triggerElement = this.triggerRef.nativeElement;
+        const triggerElement = triggerEl.nativeElement;
         const overlayElement = this.overlayRef.overlayElement;
 
         if (!overlayElement) return;

@@ -1,4 +1,4 @@
-import { Component, input, output, model, signal, computed, OnInit, OnDestroy, TemplateRef, ViewChild, ElementRef, AfterViewInit, ChangeDetectorRef, ViewEncapsulation } from '@angular/core';
+import { Component, input, output, model, signal, computed, OnInit, OnDestroy, TemplateRef, viewChild, ElementRef, AfterViewInit, ChangeDetectorRef, ViewEncapsulation } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { MatSidenavModule, MatSidenav } from '@angular/material/sidenav';
 import { MatIconModule } from '@angular/material/icon';
@@ -91,10 +91,10 @@ export class AmwSidenavComponent extends BaseComponent implements OnInit, OnDest
     closeEvent = output<void>();
 
     /** Reference to the MatSidenav */
-    @ViewChild('sidenav', { static: true }) sidenav!: MatSidenav;
+    sidenav = viewChild.required<MatSidenav>('sidenav');
 
     /** Reference to the toggle button */
-    @ViewChild('toggleButton', { static: false }) toggleButton?: ElementRef<HTMLButtonElement>;
+    toggleButton = viewChild<ElementRef<HTMLButtonElement>>('toggleButton');
 
     /** Subject for component destruction */
     private destroy$ = new Subject<void>();
@@ -263,16 +263,15 @@ export class AmwSidenavComponent extends BaseComponent implements OnInit, OnDest
      * Updates sidenav behavior based on current breakpoint
      */
     private updateSidenavBehavior(): void {
-        if (this.sidenav) {
-            // Update mode based on breakpoint
-            this.sidenav.mode = this.sidenavMode();
+        const sidenavEl = this.sidenav();
+        // Update mode based on breakpoint
+        sidenavEl.mode = this.sidenavMode();
 
-            // Update opened state based on breakpoint
-            if (this.isMobile() && this.isResponsive()) {
-                this.sidenav.close();
-            } else if (this.isDesktop() && this.isResponsive()) {
-                this.sidenav.open();
-            }
+        // Update opened state based on breakpoint
+        if (this.isMobile() && this.isResponsive()) {
+            sidenavEl.close();
+        } else if (this.isDesktop() && this.isResponsive()) {
+            sidenavEl.open();
         }
     }
 
@@ -357,9 +356,10 @@ export class AmwSidenavComponent extends BaseComponent implements OnInit, OnDest
      * Toggles the sidenav open/closed state
      */
     toggleSidenav(): void {
-        if (this.sidenav && !this.isDisabledComputed()) {
-            this.sidenav.toggle();
-            this.toggleEvent.emit(this.sidenav.opened);
+        if (!this.isDisabledComputed()) {
+            const sidenavEl = this.sidenav();
+            sidenavEl.toggle();
+            this.toggleEvent.emit(sidenavEl.opened);
         }
     }
 
@@ -367,8 +367,8 @@ export class AmwSidenavComponent extends BaseComponent implements OnInit, OnDest
      * Opens the sidenav
      */
     openSidenav(): void {
-        if (this.sidenav && !this.isDisabledComputed()) {
-            this.sidenav.open();
+        if (!this.isDisabledComputed()) {
+            this.sidenav().open();
         }
     }
 
@@ -376,8 +376,8 @@ export class AmwSidenavComponent extends BaseComponent implements OnInit, OnDest
      * Closes the sidenav
      */
     closeSidenav(): void {
-        if (this.sidenav && !this.isDisabledComputed()) {
-            this.sidenav.close();
+        if (!this.isDisabledComputed()) {
+            this.sidenav().close();
             this.closeEvent.emit();
         }
     }

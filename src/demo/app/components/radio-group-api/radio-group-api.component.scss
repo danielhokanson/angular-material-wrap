@@ -1,17 +1,10 @@
+// Radio Group API Demo - Layout and positioning styles only
+// Visual styling is handled by the library components and theme
+
 .radio-group-api {
   padding: 24px;
   max-width: 1400px;
   margin: 0 auto;
-
-  h1 {
-    margin-bottom: 8px;
-    color: var(--mdc-theme-on-surface, #1c1b1f);
-  }
-
-  > p {
-    margin-bottom: 32px;
-    color: var(--mdc-theme-on-surface-variant, #49454f);
-  }
 }
 
 .tab-content {
@@ -23,14 +16,11 @@
 
   h2 {
     margin-bottom: 16px;
-    color: var(--mdc-theme-on-surface, #1c1b1f);
-    border-bottom: 2px solid var(--mdc-theme-primary, #6750a4);
     padding-bottom: 8px;
   }
 
   > p {
     margin-bottom: 24px;
-    color: var(--mdc-theme-on-surface-variant, #49454f);
   }
 }
 
@@ -54,16 +44,6 @@
 
   h3 {
     margin: 0;
-    color: var(--mdc-theme-on-surface, #1c1b1f);
-    font-size: 1.125rem;
-    font-weight: 600;
-  }
-
-  mat-chip {
-    font-size: 0.75rem;
-    height: 24px;
-    background-color: var(--mdc-theme-primary-container, #eadfff);
-    color: var(--mdc-theme-on-primary-container, #21005d);
   }
 }
 
@@ -71,8 +51,6 @@
 .method-description,
 .interface-description {
   margin: 0 0 12px 0;
-  color: var(--mdc-theme-on-surface-variant, #49454f);
-  line-height: 1.5;
 }
 
 .property-details,
@@ -85,27 +63,12 @@
       margin-bottom: 0;
     }
 
-    strong {
-      color: var(--mdc-theme-on-surface, #1c1b1f);
-      font-weight: 600;
-    }
-
-    code {
-      background-color: var(--mdc-theme-surface-container-low, #f7f2fa);
-      padding: 2px 6px;
-      border-radius: 4px;
-      font-family: 'Roboto Mono', monospace;
-      font-size: 0.875rem;
-      color: var(--mdc-theme-primary, #6750a4);
-    }
-
     ul {
       margin: 8px 0 0 0;
       padding-left: 20px;
 
       li {
         margin-bottom: 4px;
-        color: var(--mdc-theme-on-surface-variant, #49454f);
       }
     }
   }
@@ -116,26 +79,18 @@
 
   h3 {
     margin: 0 0 8px 0;
-    color: var(--mdc-theme-on-surface, #1c1b1f);
-    font-size: 1.25rem;
-    font-weight: 600;
   }
 }
 
 .interface-properties {
   h4 {
     margin: 0 0 12px 0;
-    color: var(--mdc-theme-on-surface, #1c1b1f);
-    font-size: 1rem;
-    font-weight: 600;
   }
 }
 
 .property-item {
   margin-bottom: 16px;
   padding: 12px;
-  background-color: var(--mdc-theme-surface-container-low, #f7f2fa);
-  border-radius: 8px;
 
   &:last-child {
     margin-bottom: 0;
@@ -146,46 +101,18 @@
     justify-content: space-between;
     align-items: center;
     margin-bottom: 4px;
-
-    code {
-      background-color: var(--mdc-theme-surface, #fffbfe);
-      padding: 4px 8px;
-      border-radius: 4px;
-      font-family: 'Roboto Mono', monospace;
-      font-size: 0.875rem;
-      color: var(--mdc-theme-primary, #6750a4);
-      font-weight: 600;
-    }
-
-    mat-chip {
-      font-size: 0.75rem;
-      height: 20px;
-      background-color: var(--mdc-theme-secondary-container, #e8def8);
-      color: var(--mdc-theme-on-secondary-container, #1d192b);
-    }
   }
 
   .property-description {
     margin: 0;
-    color: var(--mdc-theme-on-surface-variant, #49454f);
-    font-size: 0.875rem;
   }
 }
 
 .example-card {
   pre {
-    background-color: var(--mdc-theme-surface-container-low, #f7f2fa);
     padding: 16px;
-    border-radius: 8px;
     overflow-x: auto;
     margin: 0;
-
-    code {
-      font-family: 'Roboto Mono', monospace;
-      font-size: 0.875rem;
-      line-height: 1.5;
-      color: var(--mdc-theme-on-surface, #1c1b1f);
-    }
   }
 }
 
@@ -203,10 +130,6 @@
     flex-direction: column;
     align-items: flex-start;
     gap: 8px;
-
-    h3 {
-      font-size: 1rem;
-    }
   }
 
   .property-name {

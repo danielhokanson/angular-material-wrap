@@ -3,24 +3,58 @@
   align-items: center;
   position: relative;
 
+  // Color variants
+  &--primary {
+    .mat-mdc-checkbox {
+      --mdc-checkbox-selected-focus-icon-color: var(--mat-sys-primary);
+      --mdc-checkbox-selected-hover-icon-color: var(--mat-sys-primary);
+      --mdc-checkbox-selected-icon-color: var(--mat-sys-primary);
+      --mdc-checkbox-selected-pressed-icon-color: var(--mat-sys-primary);
+      --mdc-checkbox-selected-checkmark-color: var(--mat-sys-on-primary);
+      --mat-checkbox-checked-checkmark-color: var(--mat-sys-on-primary);
+    }
+  }
+
+  &--accent {
+    .mat-mdc-checkbox {
+      --mdc-checkbox-selected-focus-icon-color: var(--mat-sys-secondary);
+      --mdc-checkbox-selected-hover-icon-color: var(--mat-sys-secondary);
+      --mdc-checkbox-selected-icon-color: var(--mat-sys-secondary);
+      --mdc-checkbox-selected-pressed-icon-color: var(--mat-sys-secondary);
+      --mdc-checkbox-selected-checkmark-color: var(--mat-sys-on-secondary);
+      --mat-checkbox-checked-checkmark-color: var(--mat-sys-on-secondary);
+    }
+  }
+
+  &--warn {
+    .mat-mdc-checkbox {
+      --mdc-checkbox-selected-focus-icon-color: var(--mat-sys-error);
+      --mdc-checkbox-selected-hover-icon-color: var(--mat-sys-error);
+      --mdc-checkbox-selected-icon-color: var(--mat-sys-error);
+      --mdc-checkbox-selected-pressed-icon-color: var(--mat-sys-error);
+      --mdc-checkbox-selected-checkmark-color: var(--mat-sys-on-error);
+      --mat-checkbox-checked-checkmark-color: var(--mat-sys-on-error);
+    }
+  }
+
   &--small {
     .mat-mdc-checkbox {
-      --mdc-checkbox-state-layer-size: var(--mdc-shape-large, 32px);
-      --mdc-checkbox-icon-size: var(--mdc-typography-body-large-font-size, 16px);
+      --mdc-checkbox-state-layer-size: 32px;
+      --mdc-checkbox-icon-size: 16px;
     }
   }
 
   &--medium {
     .mat-mdc-checkbox {
-      --mdc-checkbox-state-layer-size: var(--mdc-shape-large, 40px);
-      --mdc-checkbox-icon-size: var(--mdc-shape-medium, 20px);
+      --mdc-checkbox-state-layer-size: 40px;
+      --mdc-checkbox-icon-size: 20px;
     }
   }
 
   &--large {
     .mat-mdc-checkbox {
-      --mdc-checkbox-state-layer-size: var(--mdc-shape-large, 48px);
-      --mdc-checkbox-icon-size: var(--mdc-shape-large, 24px);
+      --mdc-checkbox-state-layer-size: 48px;
+      --mdc-checkbox-icon-size: 24px;
     }
   }
 
@@ -28,25 +62,25 @@
     .mat-mdc-checkbox {
       order: 2;
     }
-    
+
     .mat-mdc-checkbox-label {
       order: 1;
-      margin-right: var(--mdc-shape-small, 8px);
+      margin-right: 8px;
       margin-left: 0;
     }
   }
 
   &--disabled {
-    opacity: var(--mdc-state-disabled-state-layer-opacity, 0.6);
+    opacity: 0.38;
     pointer-events: none;
   }
 
   &--error {
     .mat-mdc-checkbox {
-      --mdc-checkbox-selected-focus-icon-color: var(--mdc-theme-error, #f44336);
-      --mdc-checkbox-selected-hover-icon-color: var(--mdc-theme-error, #f44336);
-      --mdc-checkbox-selected-icon-color: var(--mdc-theme-error, #f44336);
-      --mdc-checkbox-selected-pressed-icon-color: var(--mdc-theme-error, #f44336);
+      --mdc-checkbox-selected-focus-icon-color: var(--mat-sys-error);
+      --mdc-checkbox-selected-hover-icon-color: var(--mat-sys-error);
+      --mdc-checkbox-selected-icon-color: var(--mat-sys-error);
+      --mdc-checkbox-selected-pressed-icon-color: var(--mat-sys-error);
     }
   }
 
@@ -55,60 +89,15 @@
     top: 100%;
     left: 0;
     right: 0;
-    margin-top: var(--mdc-shape-small, 4px);
-    font-size: var(--mdc-typography-body-small-font-size, 12px);
-    color: var(--mdc-theme-error, #f44336);
+    margin-top: 4px;
+    font-size: 12px;
+    color: var(--mat-sys-error);
     line-height: 1.2;
   }
 
+  // Only set sizing - let Angular Material handle colors from theme
   .mat-mdc-checkbox {
-    --mdc-checkbox-state-layer-size: var(--mdc-shape-large, 40px);
-    --mdc-checkbox-icon-size: var(--mdc-shape-medium, 20px);
-    --mdc-checkbox-ripple-size: var(--mdc-shape-large, 40px);
-    --mdc-checkbox-ripple-opacity: 0.12;
-    --mdc-checkbox-selected-focus-icon-color: #1976d2;
-    --mdc-checkbox-selected-hover-icon-color: #1976d2;
-    --mdc-checkbox-selected-icon-color: #1976d2;
-    --mdc-checkbox-selected-pressed-icon-color: #1976d2;
-    --mdc-checkbox-unselected-focus-icon-color: #757575;
-    --mdc-checkbox-unselected-hover-icon-color: #757575;
-    --mdc-checkbox-unselected-icon-color: #757575;
-    --mdc-checkbox-unselected-pressed-icon-color: #757575;
-    --mdc-checkbox-selected-focus-state-layer-color: #1976d2;
-    --mdc-checkbox-selected-hover-state-layer-color: #1976d2;
-    --mdc-checkbox-selected-pressed-state-layer-color: #1976d2;
-    --mdc-checkbox-unselected-focus-state-layer-color: #757575;
-    --mdc-checkbox-unselected-hover-state-layer-color: #757575;
-    --mdc-checkbox-unselected-pressed-state-layer-color: #757575;
-  }
-
-  .mat-mdc-checkbox.mat-primary {
-    --mdc-checkbox-selected-focus-icon-color: #1976d2;
-    --mdc-checkbox-selected-hover-icon-color: #1976d2;
-    --mdc-checkbox-selected-icon-color: #1976d2;
-    --mdc-checkbox-selected-pressed-icon-color: #1976d2;
-    --mdc-checkbox-selected-focus-state-layer-color: #1976d2;
-    --mdc-checkbox-selected-hover-state-layer-color: #1976d2;
-    --mdc-checkbox-selected-pressed-state-layer-color: #1976d2;
-  }
-
-  .mat-mdc-checkbox.mat-accent {
-    --mdc-checkbox-selected-focus-icon-color: #ff4081;
-    --mdc-checkbox-selected-hover-icon-color: #ff4081;
-    --mdc-checkbox-selected-icon-color: #ff4081;
-    --mdc-checkbox-selected-pressed-icon-color: #ff4081;
-    --mdc-checkbox-selected-focus-state-layer-color: #ff4081;
-    --mdc-checkbox-selected-hover-state-layer-color: #ff4081;
-    --mdc-checkbox-selected-pressed-state-layer-color: #ff4081;
-  }
-
-  .mat-mdc-checkbox.mat-warn {
-    --mdc-checkbox-selected-focus-icon-color: var(--mdc-theme-error, #f44336);
-    --mdc-checkbox-selected-hover-icon-color: var(--mdc-theme-error, #f44336);
-    --mdc-checkbox-selected-icon-color: var(--mdc-theme-error, #f44336);
-    --mdc-checkbox-selected-pressed-icon-color: var(--mdc-theme-error, #f44336);
-    --mdc-checkbox-selected-focus-state-layer-color: var(--mdc-theme-error, #f44336);
-    --mdc-checkbox-selected-hover-state-layer-color: var(--mdc-theme-error, #f44336);
-    --mdc-checkbox-selected-pressed-state-layer-color: var(--mdc-theme-error, #f44336);
+    --mdc-checkbox-state-layer-size: 40px;
+    --mdc-checkbox-icon-size: 20px;
   }
 }

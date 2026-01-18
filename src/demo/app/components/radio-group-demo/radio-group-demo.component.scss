@@ -1,3 +1,6 @@
+// Radio Group Demo - Layout and positioning styles only
+// Visual styling is handled by the library components and theme
+
 .radio-group-demo {
   padding: 24px;
   max-width: 1400px;
@@ -5,12 +8,10 @@
 
   h1 {
     margin-bottom: 8px;
-    color: var(--mdc-theme-on-surface, #1c1b1f);
   }
 
   > p {
     margin-bottom: 32px;
-    color: var(--mdc-theme-on-surface-variant, #49454f);
   }
 }
 
@@ -20,10 +21,6 @@
   .demo-result {
     margin-top: 16px;
     padding: 12px;
-    background-color: var(--mdc-theme-surface-container-low, #f7f2fa);
-    border-radius: 8px;
-    font-family: 'Roboto Mono', monospace;
-    font-size: 0.875rem;
   }
 }
 
@@ -52,11 +49,7 @@
 }
 
 .config-display {
-  background-color: var(--mdc-theme-surface-container-low, #f7f2fa);
   padding: 16px;
-  border-radius: 8px;
-  font-family: 'Roboto Mono', monospace;
-  font-size: 0.875rem;
   overflow-x: auto;
   margin: 0;
 }

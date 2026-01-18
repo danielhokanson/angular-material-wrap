@@ -1,3 +1,6 @@
+// Sidenav API Demo - Layout and positioning styles only
+// Visual styling is handled by the library components and theme
+
 .sidenav-api {
   padding: 24px;
   max-width: 1400px;
@@ -9,15 +12,10 @@
 
     h2 {
       margin: 0 0 8px 0;
-      color: var(--mat-sys-on-surface);
-      font-size: 2rem;
-      font-weight: 400;
     }
 
     p {
       margin: 0;
-      color: var(--mat-sys-on-surface-variant);
-      font-size: 1rem;
     }
   }
 
@@ -29,39 +27,13 @@
 
   &__api-card,
   &__demo-card {
-    background: var(--mat-sys-surface-container);
-
     .amw-card__header {
       padding-bottom: 16px;
-    }
-
-    .amw-card__title {
-      color: var(--mat-sys-on-surface);
-      font-size: 1.25rem;
-      font-weight: 500;
-    }
-
-    .amw-card__subtitle {
-      color: var(--mat-sys-on-surface-variant);
-      font-size: 0.875rem;
     }
   }
 
   &__tabs {
     .amw-tabs {
-      .amw-tabs__header {
-        border-bottom: 1px solid var(--mat-sys-outline-variant);
-      }
-
-      .amw-tabs__tab {
-        color: var(--mat-sys-on-surface-variant);
-        font-weight: 500;
-
-        &.amw-tabs__tab--active {
-          color: var(--mat-sys-primary);
-        }
-      }
-
       .amw-tabs__panel-body {
         padding: 0;
       }
@@ -81,18 +53,11 @@
 
     h3 {
       margin: 0 0 16px 0;
-      color: var(--mat-sys-on-surface);
-      font-size: 1.125rem;
-      font-weight: 500;
       padding-bottom: 8px;
-      border-bottom: 2px solid var(--mat-sys-primary);
     }
   }
 
   &__property-table {
-    background: var(--mat-sys-surface-container-low);
-    border: 1px solid var(--mat-sys-outline-variant);
-    border-radius: 8px;
     overflow: hidden;
   }
 
@@ -101,11 +66,6 @@
     grid-template-columns: 1fr 1fr 2fr 1fr;
     gap: 16px;
     padding: 12px 16px;
-    background: var(--mat-sys-surface-variant);
-    border-bottom: 1px solid var(--mat-sys-outline-variant);
-    font-weight: 500;
-    font-size: 0.875rem;
-    color: var(--mat-sys-on-surface);
 
     .sidenav-api__property-parameters,
     .sidenav-api__property-returns,
@@ -119,13 +79,6 @@
     grid-template-columns: 1fr 1fr 2fr 1fr;
     gap: 16px;
     padding: 12px 16px;
-    border-bottom: 1px solid var(--mat-sys-outline-variant);
-    font-size: 0.875rem;
-    transition: background-color 0.2s cubic-bezier(0.4, 0, 0.2, 1);
-
-    &:hover {
-      background: var(--mat-sys-surface-variant);
-    }
 
     &:last-child {
       border-bottom: none;
@@ -138,57 +91,12 @@
     }
   }
 
-  &__property-name {
-    color: var(--mat-sys-on-surface);
-    font-weight: 500;
-    font-family: 'Roboto Mono', 'Courier New', monospace;
-  }
-
-  &__property-type {
-    color: var(--mat-sys-primary);
-    font-family: 'Roboto Mono', 'Courier New', monospace;
-  }
-
-  &__property-description {
-    color: var(--mat-sys-on-surface-variant);
-    line-height: 1.5;
-  }
-
-  &__property-default {
-    color: var(--mat-sys-on-surface-variant);
-    font-family: 'Roboto Mono', 'Courier New', monospace;
-    font-size: 0.75rem;
-  }
-
-  &__property-parameters {
-    color: var(--mat-sys-on-surface-variant);
-    font-family: 'Roboto Mono', 'Courier New', monospace;
-    font-size: 0.75rem;
-  }
-
-  &__property-returns {
-    color: var(--mat-sys-primary);
-    font-family: 'Roboto Mono', 'Courier New', monospace;
-    font-size: 0.75rem;
-  }
-
-  &__property-required {
-    color: var(--mat-sys-error);
-    font-weight: 500;
-    font-size: 0.75rem;
-  }
-
   &__required {
-    color: var(--mat-sys-error);
-    font-weight: 500;
     margin-left: 4px;
   }
 
   &__demo-container {
-    border: 1px solid var(--mat-sys-outline-variant);
-    border-radius: 8px;
     overflow: hidden;
-    background: var(--mat-sys-surface);
     min-height: 400px;
   }
 
@@ -198,44 +106,22 @@
   }
 
   &__content-card {
-    background: var(--mat-sys-surface-container-low);
-
     .amw-card__header {
       padding-bottom: 16px;
-    }
-
-    .amw-card__title {
-      color: var(--mat-sys-on-surface);
-      font-size: 1.25rem;
-      font-weight: 500;
-    }
-
-    .amw-card__subtitle {
-      color: var(--mat-sys-on-surface-variant);
-      font-size: 0.875rem;
     }
   }
 
   &__usage-info {
     margin-top: 24px;
     padding: 16px;
-    background: var(--mat-sys-surface-variant);
-    border-radius: 8px;
-    border-left: 4px solid var(--mat-sys-primary);
 
     h4 {
       margin: 0 0 12px 0;
-      color: var(--mat-sys-on-surface);
-      font-size: 1rem;
-      font-weight: 500;
     }
 
     ol {
       margin: 0;
       padding-left: 20px;
-      color: var(--mat-sys-on-surface-variant);
-      font-size: 0.875rem;
-      line-height: 1.6;
 
       li {
         margin-bottom: 4px;
@@ -243,15 +129,8 @@
     }
   }
 
-  // Responsive Design
   @media (max-width: 768px) {
     padding: 16px;
-
-    &__header {
-      h2 {
-        font-size: 1.5rem;
-      }
-    }
 
     &__property-header,
     &__property-row {
@@ -288,53 +167,6 @@
     }
   }
 
-  // Dark Theme Adjustments
-  .mat-theme-dark & {
-    &__api-card,
-    &__demo-card {
-      background: var(--mat-sys-surface-container);
-    }
-
-    &__content-card {
-      background: var(--mat-sys-surface-container-low);
-    }
-
-    &__property-table {
-      background: var(--mat-sys-surface-container-low);
-      border-color: var(--mat-sys-outline-variant);
-    }
-
-    &__property-header {
-      background: var(--mat-sys-surface-variant);
-      border-bottom-color: var(--mat-sys-outline-variant);
-    }
-
-    &__usage-info {
-      background: var(--mat-sys-surface-variant);
-      border-left-color: var(--mat-sys-primary);
-    }
-  }
-
-  // High Contrast Mode
-  @media (prefers-contrast: high) {
-    &__demo-container {
-      border-width: 2px;
-    }
-
-    &__property-table {
-      border-width: 2px;
-    }
-
-    &__usage-info {
-      border-left-width: 6px;
-    }
-
-    &__section h3 {
-      border-bottom-width: 3px;
-    }
-  }
-
-  // Reduced Motion
   @media (prefers-reduced-motion: reduce) {
     * {
       transition: none !important;

@@ -5,8 +5,7 @@ import {
   OnInit,
   OnDestroy,
   ViewEncapsulation,
-  ChangeDetectorRef,
-  HostListener
+  ChangeDetectorRef
 } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
@@ -84,7 +83,12 @@ import { AmwProgressSpinnerComponent } from '../../../components/components/amw-
   templateUrl: './amw-master-detail-page.component.html',
   styleUrl: './amw-master-detail-page.component.scss',
   encapsulation: ViewEncapsulation.None,
-  providers: [DefaultMasterDetailDataSource]
+  providers: [DefaultMasterDetailDataSource],
+  host: {
+    '(document:mousemove)': 'onMouseMove($event)',
+    '(document:mouseup)': 'onMouseUp()',
+    '(window:resize)': 'onResize()'
+  }
 })
 export class AmwMasterDetailPageComponent implements OnInit, OnDestroy {
   /**
@@ -472,7 +476,6 @@ export class AmwMasterDetailPageComponent implements OnInit, OnDestroy {
   /**
    * Handle mouse move for resize
    */
-  @HostListener('document:mousemove', ['$event'])
   onMouseMove(event: MouseEvent): void {
     if (this.isResizing) {
       this.masterPanelWidth = event.clientX;
@@ -483,7 +486,6 @@ export class AmwMasterDetailPageComponent implements OnInit, OnDestroy {
   /**
    * Handle mouse up for resize
    */
-  @HostListener('document:mouseup')
   onMouseUp(): void {
     this.isResizing = false;
   }
@@ -491,7 +493,6 @@ export class AmwMasterDetailPageComponent implements OnInit, OnDestroy {
   /**
    * Handle window resize
    */
-  @HostListener('window:resize')
   onResize(): void {
     this.checkResponsive();
   }

@@ -1,47 +1,48 @@
+// Accordion Demo - Layout and positioning styles only
+// Visual styling is handled by the library components and theme
+
 .accordion-demo {
-    padding: 20px;
-}
+  padding: 20px;
 
-.accordion-demo h2 {
+  h2 {
     margin-bottom: 10px;
-}
+  }
 
-.accordion-demo p {
+  p {
     margin-bottom: 20px;
-    color: #666;
+  }
 }
 
 .demo-section {
-    margin-bottom: 30px;
-}
+  margin-bottom: 30px;
 
-.demo-section h3 {
+  h3 {
     margin-bottom: 15px;
-    color: #333;
+  }
 }
 
 .panel-content {
-    padding: 16px 0;
-}
+  padding: 16px 0;
 
-.panel-content p {
+  p {
     margin-bottom: 15px;
+  }
 }
 
 amw-input {
-    width: 100%;
-    margin-bottom: 16px;
+  width: 100%;
+  margin-bottom: 16px;
 }
 
 amw-checkbox {
-    display: block;
-    margin-bottom: 8px;
+  display: block;
+  margin-bottom: 8px;
 }
 
 button {
-    margin-right: 8px;
+  margin-right: 8px;
 }
 
 amw-icon {
-    margin-right: 8px;
+  margin-right: 8px;
 }

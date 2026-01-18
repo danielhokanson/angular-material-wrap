@@ -1,4 +1,4 @@
-import { Directive, ElementRef, input, OnDestroy, ComponentRef, HostListener, Injector } from '@angular/core';
+import { Directive, ElementRef, input, OnDestroy, ComponentRef, Injector } from '@angular/core';
 import { Overlay, OverlayRef, OverlayConfig, ConnectedOverlayPositionChange } from '@angular/cdk/overlay';
 import { ComponentPortal } from '@angular/cdk/portal';
 import { Subscription } from 'rxjs';
@@ -15,7 +15,13 @@ export interface TooltipConfig {
 
 @Directive({
     selector: '[amwTooltip]',
-    standalone: true
+    standalone: true,
+    host: {
+        '(mouseenter)': 'onMouseEnter()',
+        '(mouseleave)': 'onMouseLeave()',
+        '(focus)': 'onFocus()',
+        '(blur)': 'onBlur()'
+    }
 })
 export class AmwTooltipDirective implements OnDestroy {
     tooltipConfig = input<TooltipConfig | string>('', { alias: 'amwTooltip' });
@@ -44,22 +50,18 @@ export class AmwTooltipDirective implements OnDestroy {
         }
     }
 
-    @HostListener('mouseenter')
     onMouseEnter(): void {
         this.show();
     }
 
-    @HostListener('mouseleave')
     onMouseLeave(): void {
         this.hide();
     }
 
-    @HostListener('focus')
     onFocus(): void {
         this.show();
     }
 
-    @HostListener('blur')
     onBlur(): void {
         this.hide();
     }

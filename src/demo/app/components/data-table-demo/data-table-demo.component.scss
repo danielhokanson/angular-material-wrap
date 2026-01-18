@@ -1,20 +1,19 @@
-/* Data Table Demo Component Styles */
+// Data Table Demo - Layout and positioning styles only
+// Visual styling is handled by the library components and theme
+
 .data-table-demo {
   padding: 24px;
   max-width: 1400px;
   margin: 0 auto;
 
   h1 {
-    color: var(--mdc-theme-on-surface, #1c1b1f);
     margin-bottom: 8px;
   }
 
   p {
-    color: var(--mdc-theme-on-surface-variant, #49454f);
     margin-bottom: 32px;
   }
 
-  /* Demo Controls */
   .demo-controls {
     margin-bottom: 24px;
 
@@ -33,11 +32,8 @@
     }
   }
 
-  /* Selection Info */
   .selection-info {
     margin-bottom: 16px;
-    background-color: var(--mdc-theme-primary-container, #eadfff);
-    border-left: 4px solid var(--mdc-theme-primary, #6750a4);
 
     .selection-details {
       display: flex;
@@ -45,48 +41,24 @@
       gap: 12px;
       flex-wrap: wrap;
 
-      amw-icon {
-        color: var(--mdc-theme-primary, #6750a4);
-      }
-
-      span {
-        font-weight: 500;
-        color: var(--mdc-theme-on-primary-container, #21005d);
-      }
-
       amw-chips {
         margin-left: auto;
       }
     }
   }
 
-  /* Sort Info */
   .sort-info {
     margin-bottom: 16px;
-    background-color: var(--mdc-theme-secondary-container, #e8def8);
-    border-left: 4px solid var(--mdc-theme-secondary, #625b71);
 
     .sort-details {
       display: flex;
       align-items: center;
       gap: 12px;
-
-      amw-icon {
-        color: var(--mdc-theme-secondary, #625b71);
-      }
-
-      span {
-        font-weight: 500;
-        color: var(--mdc-theme-on-secondary-container, #1d192b);
-      }
     }
   }
 
-  /* Filter Info */
   .filter-info {
     margin-bottom: 16px;
-    background-color: var(--mdc-theme-tertiary-container, #ffd8e4);
-    border-left: 4px solid var(--mdc-theme-tertiary, #7d5260);
 
     .filter-details {
       display: flex;
@@ -94,22 +66,12 @@
       gap: 12px;
       flex-wrap: wrap;
 
-      amw-icon {
-        color: var(--mdc-theme-tertiary, #7d5260);
-      }
-
-      span {
-        font-weight: 500;
-        color: var(--mdc-theme-on-tertiary-container, #31111d);
-      }
-
       amw-chips {
         margin-left: auto;
       }
     }
   }
 
-  /* Data Table Card */
   .data-table-card {
     margin-bottom: 32px;
     overflow: hidden;
@@ -119,7 +81,6 @@
     }
   }
 
-  /* Features Card */
   .features-card {
     .features-grid {
       display: grid;
@@ -133,42 +94,25 @@
         align-items: center;
         text-align: center;
         padding: 24px;
-        border-radius: 12px;
-        background-color: var(--mdc-theme-surface-container-low, #f7f2fa);
-        transition: all 0.2s ease;
-
-        &:hover {
-          background-color: var(--mdc-theme-surface-container, #f3edf7);
-          transform: translateY(-2px);
-          box-shadow: 0 4px 8px rgba(0, 0, 0, 0.12);
-        }
 
         amw-icon {
-          font-size: 48px;
           width: 48px;
           height: 48px;
-          color: var(--mdc-theme-primary, #6750a4);
           margin-bottom: 16px;
         }
 
         h3 {
-          color: var(--mdc-theme-on-surface, #1c1b1f);
           margin: 0 0 8px 0;
-          font-size: 1.125rem;
-          font-weight: 600;
         }
 
         p {
-          color: var(--mdc-theme-on-surface-variant, #49454f);
           margin: 0;
-          font-size: 0.875rem;
           line-height: 1.5;
         }
       }
     }
   }
 
-  /* Responsive Design */
   @media (max-width: 768px) {
     padding: 16px;
 

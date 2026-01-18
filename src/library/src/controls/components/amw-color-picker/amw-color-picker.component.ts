@@ -1,4 +1,4 @@
-import { Component, input, output, signal, ViewEncapsulation, OnChanges, computed, effect, ViewChild, ElementRef } from '@angular/core';
+import { Component, input, output, signal, ViewEncapsulation, OnChanges, computed, effect, viewChild, ElementRef } from '@angular/core';
 
 import { FormsModule, NG_VALUE_ACCESSOR } from '@angular/forms';
 import { MatFormFieldModule } from '@angular/material/form-field';
@@ -162,8 +162,8 @@ export class AmwColorPickerComponent extends BaseComponent<string> implements On
         return `linear-gradient(to right, #fff, ${hueColor})`;
     });
 
-    @ViewChild('gradientArea') gradientArea!: ElementRef<HTMLDivElement>;
-    @ViewChild('hueSlider') hueSlider!: ElementRef<HTMLDivElement>;
+    gradientArea = viewChild<ElementRef<HTMLDivElement>>('gradientArea');
+    hueSlider = viewChild<ElementRef<HTMLDivElement>>('hueSlider');
 
     private isDraggingGradient = false;
     private isDraggingHue = false;
@@ -286,8 +286,9 @@ export class AmwColorPickerComponent extends BaseComponent<string> implements On
     };
 
     private updateFromGradient(event: MouseEvent): void {
-        if (!this.gradientArea) return;
-        const rect = this.gradientArea.nativeElement.getBoundingClientRect();
+        const gradientAreaEl = this.gradientArea();
+        if (!gradientAreaEl) return;
+        const rect = gradientAreaEl.nativeElement.getBoundingClientRect();
         const x = Math.max(0, Math.min(1, (event.clientX - rect.left) / rect.width));
         const y = Math.max(0, Math.min(1, (event.clientY - rect.top) / rect.height));
 
@@ -318,8 +319,9 @@ export class AmwColorPickerComponent extends BaseComponent<string> implements On
     };
 
     private updateFromHue(event: MouseEvent): void {
-        if (!this.hueSlider) return;
-        const rect = this.hueSlider.nativeElement.getBoundingClientRect();
+        const hueSliderEl = this.hueSlider();
+        if (!hueSliderEl) return;
+        const rect = hueSliderEl.nativeElement.getBoundingClientRect();
         const x = Math.max(0, Math.min(1, (event.clientX - rect.left) / rect.width));
         this.hue.set(Math.round(x * 360));
         this.applyHsvColor();

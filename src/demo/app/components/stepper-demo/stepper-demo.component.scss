@@ -1,21 +1,23 @@
+// Stepper Demo - Layout and positioning styles only
+// Visual styling is handled by the library components and theme
+
 .stepper-demo {
-    padding: 20px;
-}
+  padding: 20px;
 
-.stepper-demo h2 {
+  h2 {
     margin-bottom: 10px;
-}
+  }
 
-.stepper-demo p {
+  p {
     margin-bottom: 20px;
-    color: #666;
+  }
 }
 
 amw-input {
-    width: 100%;
-    margin-bottom: 16px;
+  width: 100%;
+  margin-bottom: 16px;
 }
 
 button {
-    margin-right: 8px;
+  margin-right: 8px;
 }

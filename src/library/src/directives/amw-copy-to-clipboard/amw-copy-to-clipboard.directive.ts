@@ -1,8 +1,11 @@
-import { Directive, ElementRef, HostListener, input, output, Renderer2 } from '@angular/core';
+import { Directive, ElementRef, input, output, Renderer2 } from '@angular/core';
 
 @Directive({
     selector: '[amwCopyToClipboard]',
-    standalone: true
+    standalone: true,
+    host: {
+        '(click)': 'onClick($event)'
+    }
 })
 export class AmwCopyToClipboardDirective {
     amwCopyToClipboard = input<string>('');
@@ -18,7 +21,6 @@ export class AmwCopyToClipboardDirective {
         private renderer: Renderer2
     ) { }
 
-    @HostListener('click', ['$event'])
     onClick(event: Event): void {
         event.preventDefault();
         this.copyToClipboard();

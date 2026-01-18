@@ -1,8 +1,11 @@
-import { Directive, ElementRef, HostListener, OnInit, OnDestroy, Renderer2, output } from '@angular/core';
+import { Directive, ElementRef, OnInit, OnDestroy, Renderer2, output } from '@angular/core';
 
 @Directive({
     selector: '[amwClickOutside]',
-    standalone: true
+    standalone: true,
+    host: {
+        '(click)': 'onHostClick($event)'
+    }
 })
 export class AmwClickOutsideDirective implements OnInit, OnDestroy {
     amwClickOutside = output<Event>();
@@ -28,7 +31,6 @@ export class AmwClickOutsideDirective implements OnInit, OnDestroy {
         }
     }
 
-    @HostListener('click', ['$event'])
     onHostClick(event: Event): void {
         // Stop propagation to prevent document click from firing
         event.stopPropagation();

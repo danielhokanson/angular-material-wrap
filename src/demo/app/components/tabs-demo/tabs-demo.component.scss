@@ -1,47 +1,48 @@
+// Tabs Demo - Layout and positioning styles only
+// Visual styling is handled by the library components and theme
+
 .tabs-demo {
-    padding: 20px;
-}
+  padding: 20px;
 
-.tabs-demo h2 {
+  h2 {
     margin-bottom: 10px;
-}
+  }
 
-.tabs-demo p {
+  p {
     margin-bottom: 20px;
-    color: #666;
+  }
 }
 
 .demo-section {
-    margin-bottom: 30px;
-}
+  margin-bottom: 30px;
 
-.demo-section h3 {
+  h3 {
     margin-bottom: 15px;
-    color: #333;
+  }
 }
 
 .tab-content {
-    padding: 20px;
-    min-height: 200px;
-}
+  padding: 20px;
+  min-height: 200px;
 
-.tab-content h4 {
+  h4 {
     margin-bottom: 10px;
-}
+  }
 
-.tab-content p {
+  p {
     margin-bottom: 15px;
+  }
 }
 
 .tab-controls {
-    margin-bottom: 15px;
-}
+  margin-bottom: 15px;
 
-.tab-controls button {
+  button {
     margin-right: 10px;
+  }
 }
 
 amw-input {
-    width: 100%;
-    margin-bottom: 16px;
+  width: 100%;
+  margin-bottom: 16px;
 }

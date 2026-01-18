@@ -1,3 +1,6 @@
+// Popover Code Demo - Layout and positioning styles only
+// Visual styling is handled by the library components and theme
+
 .popover-code {
   padding: 24px;
   max-width: 1400px;
@@ -9,15 +12,10 @@
 
     h2 {
       margin: 0 0 8px 0;
-      color: var(--mat-sys-on-surface);
-      font-size: 2rem;
-      font-weight: 400;
     }
 
     p {
       margin: 0;
-      color: var(--mat-sys-on-surface-variant);
-      font-size: 1rem;
     }
   }
 
@@ -30,9 +28,6 @@
   &__examples {
     h3 {
       margin: 0 0 24px 0;
-      color: var(--mat-sys-on-surface);
-      font-size: 1.5rem;
-      font-weight: 500;
     }
   }
 
@@ -44,32 +39,9 @@
 
   &__example-card {
     cursor: pointer;
-    transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
-    border: 2px solid transparent;
-
-    &:hover {
-      transform: translateY(-2px);
-      box-shadow: var(--mat-sys-elevation-4);
-    }
-
-    &--selected {
-      border-color: var(--mat-sys-primary);
-      box-shadow: var(--mat-sys-elevation-2);
-    }
 
     .amw-card__header {
       padding-bottom: 8px;
-    }
-
-    .amw-card__title {
-      color: var(--mat-sys-on-surface);
-      font-size: 1rem;
-      font-weight: 500;
-    }
-
-    .amw-card__subtitle {
-      color: var(--mat-sys-on-surface-variant);
-      font-size: 0.875rem;
     }
   }
 
@@ -93,14 +65,8 @@
     align-items: center;
     gap: 8px;
     padding: 8px 16px;
-    background: var(--mat-sys-primary);
-    color: var(--mat-sys-on-primary);
-    border-radius: 20px;
-    font-size: 0.75rem;
-    font-weight: 500;
 
     amw-icon {
-      font-size: 16px;
       width: 16px;
       height: 16px;
     }
@@ -108,10 +74,6 @@
 
   &__preview-content {
     position: relative;
-    background: var(--mat-sys-surface);
-    border: 1px solid var(--mat-sys-outline-variant);
-    border-radius: 8px;
-    box-shadow: var(--mat-sys-elevation-2);
     min-width: 150px;
     min-height: 80px;
   }
@@ -123,9 +85,6 @@
     transform: translateX(-50%);
     width: 0;
     height: 0;
-    border-left: 6px solid transparent;
-    border-right: 6px solid transparent;
-    border-bottom: 6px solid var(--mat-sys-surface);
   }
 
   &__preview-panel {
@@ -139,13 +98,8 @@
     align-items: center;
     justify-content: space-between;
     padding: 8px 12px;
-    background: var(--mat-sys-surface-container);
-    border-bottom: 1px solid var(--mat-sys-outline-variant);
-    font-size: 0.7rem;
-    color: var(--mat-sys-on-surface);
 
     amw-icon {
-      font-size: 12px;
       width: 12px;
       height: 12px;
     }
@@ -154,39 +108,25 @@
   &__preview-body {
     flex: 1;
     padding: 12px;
-    font-size: 0.7rem;
-    color: var(--mat-sys-on-surface);
     text-align: center;
   }
 
   &__preview-footer {
     padding: 8px 12px;
-    background: var(--mat-sys-surface-container);
-    border-top: 1px solid var(--mat-sys-outline-variant);
-    font-size: 0.7rem;
-    color: var(--mat-sys-on-surface);
     text-align: center;
   }
 
   &__display {
     h3 {
       margin: 0 0 8px 0;
-      color: var(--mat-sys-on-surface);
-      font-size: 1.5rem;
-      font-weight: 500;
     }
 
     p {
       margin: 0 0 24px 0;
-      color: var(--mat-sys-on-surface-variant);
-      font-size: 1rem;
     }
   }
 
   &__code-block {
-    background: var(--mat-sys-surface-container);
-    border-radius: 8px;
-    border: 1px solid var(--mat-sys-outline-variant);
     overflow: hidden;
   }
 
@@ -195,66 +135,21 @@
     align-items: center;
     justify-content: space-between;
     padding: 12px 16px;
-    background: var(--mat-sys-surface-container-high);
-    border-bottom: 1px solid var(--mat-sys-outline-variant);
-  }
-
-  &__code-title {
-    color: var(--mat-sys-on-surface);
-    font-size: 0.875rem;
-    font-weight: 500;
-  }
-
-  &__code-header button {
-    color: var(--mat-sys-on-surface-variant);
-
-    &:hover {
-      color: var(--mat-sys-on-surface);
-    }
   }
 
   pre {
     margin: 0;
     padding: 16px;
-    background: transparent;
     overflow-x: auto;
-    font-family: 'Fira Code', 'Monaco', 'Consolas', monospace;
-    font-size: 0.875rem;
-    line-height: 1.5;
-  }
-
-  code {
-    color: var(--mat-sys-on-surface);
-    font-family: inherit;
-    font-size: inherit;
-    line-height: inherit;
-  }
-
-  // Syntax highlighting classes
-  .language-html {
-    color: #e34c26;
-  }
-
-  .language-typescript {
-    color: #3178c6;
-  }
-
-  .language-scss {
-    color: #cf649a;
   }
 
   &__demo {
     h3 {
       margin: 0 0 8px 0;
-      color: var(--mat-sys-on-surface);
-      font-size: 1.5rem;
-      font-weight: 500;
     }
 
     p {
       margin: 0 0 24px 0;
-      color: var(--mat-sys-on-surface-variant);
-      font-size: 1rem;
     }
   }
 
@@ -264,9 +159,6 @@
     align-items: center;
     min-height: 200px;
     padding: 24px;
-    background: var(--mat-sys-surface-container-low);
-    border-radius: 8px;
-    border: 1px solid var(--mat-sys-outline-variant);
   }
 
   &__content {
@@ -275,16 +167,10 @@
 
     h4 {
       margin: 0 0 12px 0;
-      color: var(--mat-sys-on-surface);
-      font-size: 1.125rem;
-      font-weight: 500;
     }
 
     p {
       margin: 0 0 16px 0;
-      color: var(--mat-sys-on-surface-variant);
-      font-size: 0.875rem;
-      line-height: 1.6;
     }
   }
 
@@ -293,25 +179,14 @@
 
     h5 {
       margin: 0 0 8px 0;
-      color: var(--mat-sys-on-surface);
-      font-size: 0.875rem;
-      font-weight: 500;
     }
 
     ul {
       margin: 0;
       padding-left: 16px;
-      color: var(--mat-sys-on-surface-variant);
-      font-size: 0.8125rem;
-      line-height: 1.5;
 
       li {
         margin-bottom: 2px;
-
-        strong {
-          color: var(--mat-sys-on-surface);
-          font-weight: 500;
-        }
       }
     }
   }
@@ -322,38 +197,16 @@
     justify-content: flex-end;
     margin-top: 16px;
     padding-top: 16px;
-    border-top: 1px solid var(--mat-sys-outline-variant);
   }
 
-  // Tab styling
   amw-tabs {
-    .amw-tabs__header {
-      border-bottom: 1px solid var(--mat-sys-outline-variant);
-    }
-
-    .amw-tabs__label {
-      color: var(--mat-sys-on-surface-variant);
-      font-weight: 500;
-
-      &.amw-tabs__label--active {
-        color: var(--mat-sys-primary);
-      }
-    }
-
     .amw-tabs__body-content {
       padding: 0;
     }
   }
 
-  // Responsive Design
   @media (max-width: 768px) {
     padding: 16px;
-
-    &__header {
-      h2 {
-        font-size: 1.5rem;
-      }
-    }
 
     &__example-grid {
       grid-template-columns: 1fr;
@@ -361,10 +214,6 @@
 
     &__demo-container {
       padding: 16px;
-    }
-
-    pre {
-      font-size: 0.75rem;
     }
   }
 
@@ -374,59 +223,6 @@
     }
   }
 
-  // Dark Theme Adjustments
-  .mat-theme-dark & {
-    &__code-block {
-      background: var(--mat-sys-surface-container);
-      border-color: var(--mat-sys-outline-variant);
-    }
-
-    &__code-header {
-      background: var(--mat-sys-surface-container-high);
-      border-bottom-color: var(--mat-sys-outline-variant);
-    }
-
-    &__demo-container {
-      background: var(--mat-sys-surface-container-low);
-    }
-
-    &__preview-content {
-      background: var(--mat-sys-surface);
-      border-color: var(--mat-sys-outline-variant);
-    }
-
-    &__preview-header,
-    &__preview-footer {
-      background: var(--mat-sys-surface-container);
-      border-color: var(--mat-sys-outline-variant);
-    }
-  }
-
-  // High Contrast Mode
-  @media (prefers-contrast: high) {
-    &__example-card {
-      border-width: 3px;
-
-      &--selected {
-        border-color: var(--mat-sys-primary);
-        border-width: 3px;
-      }
-    }
-
-    &__demo-container {
-      border-width: 2px;
-    }
-
-    &__code-block {
-      border-width: 2px;
-    }
-
-    &__preview-content {
-      border-width: 2px;
-    }
-  }
-
-  // Reduced Motion
   @media (prefers-reduced-motion: reduce) {
     * {
       transition: none !important;

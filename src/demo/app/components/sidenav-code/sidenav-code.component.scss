@@ -1,3 +1,6 @@
+// Sidenav Code Demo - Layout and positioning styles only
+// Visual styling is handled by the library components and theme
+
 .sidenav-code {
   padding: 24px;
   max-width: 1400px;
@@ -9,15 +12,10 @@
 
     h2 {
       margin: 0 0 8px 0;
-      color: var(--mat-sys-on-surface);
-      font-size: 2rem;
-      font-weight: 400;
     }
 
     p {
       margin: 0;
-      color: var(--mat-sys-on-surface-variant);
-      font-size: 1rem;
     }
   }
 
@@ -30,21 +28,8 @@
   &__examples-card,
   &__code-card,
   &__demo-card {
-    background: var(--mat-sys-surface-container);
-
     .amw-card__header {
       padding-bottom: 16px;
-    }
-
-    .amw-card__title {
-      color: var(--mat-sys-on-surface);
-      font-size: 1.25rem;
-      font-weight: 500;
-    }
-
-    .amw-card__subtitle {
-      color: var(--mat-sys-on-surface-variant);
-      font-size: 0.875rem;
     }
   }
 
@@ -55,32 +40,8 @@
     justify-content: center;
   }
 
-  &__example-button {
-    &--active {
-      background-color: var(--mat-sys-primary-container);
-      color: var(--mat-sys-on-primary-container);
-
-      amw-icon {
-        color: var(--mat-sys-on-primary-container);
-      }
-    }
-  }
-
   &__tabs {
     .amw-tabs {
-      .amw-tabs__header {
-        border-bottom: 1px solid var(--mat-sys-outline-variant);
-      }
-
-      .amw-tabs__tab {
-        color: var(--mat-sys-on-surface-variant);
-        font-weight: 500;
-
-        &.amw-tabs__tab--active {
-          color: var(--mat-sys-primary);
-        }
-      }
-
       .amw-tabs__panel-body {
         padding: 0;
       }
@@ -100,39 +61,22 @@
 
     h4 {
       margin: 0;
-      color: var(--mat-sys-on-surface);
-      font-size: 1rem;
-      font-weight: 500;
     }
   }
 
   &__code-block {
-    background: var(--mat-sys-surface-container-low);
-    border: 1px solid var(--mat-sys-outline-variant);
-    border-radius: 8px;
     padding: 16px;
     margin: 0;
     overflow-x: auto;
-    font-family: 'Roboto Mono', 'Courier New', monospace;
-    font-size: 0.875rem;
-    line-height: 1.6;
-    color: var(--mat-sys-on-surface);
 
     code {
-      background: none;
       padding: 0;
-      font-family: inherit;
-      font-size: inherit;
-      color: inherit;
       white-space: pre;
     }
   }
 
   &__demo-container {
-    border: 1px solid var(--mat-sys-outline-variant);
-    border-radius: 8px;
     overflow: hidden;
-    background: var(--mat-sys-surface);
     min-height: 400px;
   }
 
@@ -142,44 +86,22 @@
   }
 
   &__content-card {
-    background: var(--mat-sys-surface-container-low);
-
     .amw-card__header {
       padding-bottom: 16px;
-    }
-
-    .amw-card__title {
-      color: var(--mat-sys-on-surface);
-      font-size: 1.25rem;
-      font-weight: 500;
-    }
-
-    .amw-card__subtitle {
-      color: var(--mat-sys-on-surface-variant);
-      font-size: 0.875rem;
     }
   }
 
   &__example-info {
     margin-top: 24px;
     padding: 16px;
-    background: var(--mat-sys-surface-variant);
-    border-radius: 8px;
-    border-left: 4px solid var(--mat-sys-primary);
 
     h4 {
       margin: 0 0 12px 0;
-      color: var(--mat-sys-on-surface);
-      font-size: 1rem;
-      font-weight: 500;
     }
 
     ul {
       margin: 0;
       padding-left: 20px;
-      color: var(--mat-sys-on-surface-variant);
-      font-size: 0.875rem;
-      line-height: 1.6;
 
       li {
         margin-bottom: 4px;
@@ -187,45 +109,16 @@
     }
   }
 
-  // Button Styling
   amw-button {
-    color: var(--mat-sys-primary);
-    font-weight: 500;
-    text-transform: none;
-    letter-spacing: normal;
-
-    &:hover {
-      background-color: var(--mat-sys-primary-container);
-      color: var(--mat-sys-on-primary-container);
-    }
-
     amw-icon {
       margin-right: 8px;
-      font-size: 18px;
       width: 18px;
       height: 18px;
     }
   }
 
-  // Icon-only buttons (buttons with icon and no text)
-  amw-button.icon-button {
-    color: var(--mat-sys-on-surface-variant);
-
-    &:hover {
-      background-color: var(--mat-sys-surface-variant);
-      color: var(--mat-sys-on-surface);
-    }
-  }
-
-  // Responsive Design
   @media (max-width: 768px) {
     padding: 16px;
-
-    &__header {
-      h2 {
-        font-size: 1.5rem;
-      }
-    }
 
     &__example-buttons {
       flex-direction: column;
@@ -233,7 +126,6 @@
     }
 
     &__code-block {
-      font-size: 0.75rem;
       padding: 12px;
     }
 
@@ -248,45 +140,6 @@
     }
   }
 
-  // Dark Theme Adjustments
-  .mat-theme-dark & {
-    &__examples-card,
-    &__code-card,
-    &__demo-card {
-      background: var(--mat-sys-surface-container);
-    }
-
-    &__content-card {
-      background: var(--mat-sys-surface-container-low);
-    }
-
-    &__code-block {
-      background: var(--mat-sys-surface-container-low);
-      border-color: var(--mat-sys-outline-variant);
-    }
-
-    &__example-info {
-      background: var(--mat-sys-surface-variant);
-      border-left-color: var(--mat-sys-primary);
-    }
-  }
-
-  // High Contrast Mode
-  @media (prefers-contrast: high) {
-    &__demo-container {
-      border-width: 2px;
-    }
-
-    &__code-block {
-      border-width: 2px;
-    }
-
-    &__example-info {
-      border-left-width: 6px;
-    }
-  }
-
-  // Reduced Motion
   @media (prefers-reduced-motion: reduce) {
     * {
       transition: none !important;

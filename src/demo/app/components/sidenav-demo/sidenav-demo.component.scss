@@ -1,3 +1,6 @@
+// Sidenav Demo - Layout and positioning styles only
+// Visual styling is handled by the library components and theme
+
 .sidenav-demo {
   padding: 24px;
   max-width: 1400px;
@@ -9,15 +12,10 @@
 
     h2 {
       margin: 0 0 8px 0;
-      color: var(--mat-sys-on-surface);
-      font-size: 2rem;
-      font-weight: 400;
     }
 
     p {
       margin: 0 0 24px 0;
-      color: var(--mat-sys-on-surface-variant);
-      font-size: 1rem;
     }
   }
 
@@ -30,21 +28,9 @@
 
   &__config {
     margin-bottom: 32px;
-    background: var(--mat-sys-surface-container);
 
     .amw-card__header {
       padding-bottom: 16px;
-    }
-
-    .amw-card__title {
-      color: var(--mat-sys-on-surface);
-      font-size: 1.25rem;
-      font-weight: 500;
-    }
-
-    .amw-card__subtitle {
-      color: var(--mat-sys-on-surface-variant);
-      font-size: 0.875rem;
     }
   }
 
@@ -70,9 +56,6 @@
 
     h3 {
       margin: 0 0 24px 0;
-      color: var(--mat-sys-on-surface);
-      font-size: 1.5rem;
-      font-weight: 500;
     }
   }
 
@@ -84,32 +67,9 @@
 
   &__variation-card {
     cursor: pointer;
-    transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
-    border: 2px solid transparent;
-
-    &:hover {
-      transform: translateY(-2px);
-      box-shadow: var(--mat-sys-elevation-4);
-    }
-
-    &--selected {
-      border-color: var(--mat-sys-primary);
-      box-shadow: var(--mat-sys-elevation-2);
-    }
 
     .amw-card__header {
       padding-bottom: 8px;
-    }
-
-    .amw-card__title {
-      color: var(--mat-sys-on-surface);
-      font-size: 1rem;
-      font-weight: 500;
-    }
-
-    .amw-card__subtitle {
-      color: var(--mat-sys-on-surface-variant);
-      font-size: 0.875rem;
     }
   }
 
@@ -123,8 +83,6 @@
   &__preview-sidenav {
     width: 200px;
     height: 100px;
-    background: var(--mat-sys-surface-variant);
-    border-radius: 8px;
     padding: 8px;
     display: flex;
     flex-direction: column;
@@ -136,14 +94,8 @@
     align-items: center;
     gap: 8px;
     padding: 4px 8px;
-    background: var(--mat-sys-primary-container);
-    color: var(--mat-sys-on-primary-container);
-    border-radius: 4px;
-    font-size: 0.75rem;
-    font-weight: 500;
 
     amw-icon {
-      font-size: 16px;
       width: 16px;
       height: 16px;
     }
@@ -160,38 +112,26 @@
     align-items: center;
     gap: 6px;
     padding: 2px 6px;
-    font-size: 0.7rem;
-    color: var(--mat-sys-on-surface-variant);
 
     amw-icon {
-      font-size: 12px;
       width: 12px;
       height: 12px;
     }
   }
 
   &__preview-more {
-    font-size: 0.65rem;
-    color: var(--mat-sys-on-surface-variant);
     text-align: center;
     padding: 2px 6px;
-    font-style: italic;
   }
 
   &__live {
     h3 {
       margin: 0 0 24px 0;
-      color: var(--mat-sys-on-surface);
-      font-size: 1.5rem;
-      font-weight: 500;
     }
   }
 
   &__demo-container {
-    border: 1px solid var(--mat-sys-outline-variant);
-    border-radius: 8px;
     overflow: hidden;
-    background: var(--mat-sys-surface);
     min-height: 400px;
   }
 
@@ -201,21 +141,8 @@
   }
 
   &__content-card {
-    background: var(--mat-sys-surface-container-low);
-
     .amw-card__header {
       padding-bottom: 16px;
-    }
-
-    .amw-card__title {
-      color: var(--mat-sys-on-surface);
-      font-size: 1.25rem;
-      font-weight: 500;
-    }
-
-    .amw-card__subtitle {
-      color: var(--mat-sys-on-surface-variant);
-      font-size: 0.875rem;
     }
   }
 
@@ -229,12 +156,6 @@
   // Responsive Design
   @media (max-width: 768px) {
     padding: 16px;
-
-    &__header {
-      h2 {
-        font-size: 1.5rem;
-      }
-    }
 
     &__form-row {
       grid-template-columns: 1fr;
@@ -253,37 +174,6 @@
   @media (min-width: 769px) and (max-width: 1024px) {
     &__variation-grid {
       grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
-    }
-  }
-
-  // Dark Theme Adjustments
-  .mat-theme-dark & {
-    &__config {
-      background: var(--mat-sys-surface-container);
-    }
-
-    &__content-card {
-      background: var(--mat-sys-surface-container-low);
-    }
-
-    &__preview-sidenav {
-      background: var(--mat-sys-surface-variant);
-    }
-  }
-
-  // High Contrast Mode
-  @media (prefers-contrast: high) {
-    &__variation-card {
-      border-width: 3px;
-
-      &--selected {
-        border-color: var(--mat-sys-primary);
-        border-width: 3px;
-      }
-    }
-
-    &__demo-container {
-      border-width: 2px;
     }
   }
 
