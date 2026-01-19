@@ -1,0 +1,55 @@
+@if (isNavigable()) {
+    <!-- Navigable item with routerLink -->
+    <a mat-list-item
+       [class]="itemClasses()"
+       [disabled]="disabled()"
+       [disableRipple]="disableRipple()"
+       [routerLink]="routerLink()"
+       [queryParams]="queryParams()"
+       [fragment]="fragment()"
+       [attr.aria-disabled]="disabled()"
+       [attr.aria-selected]="selected()"
+       (click)="onClick($event)"
+       role="listitem">
+        <ng-container *ngTemplateOutlet="itemContent"></ng-container>
+    </a>
+} @else {
+    <!-- Non-navigable item -->
+    <mat-list-item
+        [class]="itemClasses()"
+        [disabled]="disabled()"
+        [disableRipple]="disableRipple()"
+        [attr.aria-disabled]="disabled()"
+        [attr.aria-selected]="selected()"
+        (click)="onClick($event)"
+        role="listitem">
+        <ng-container *ngTemplateOutlet="itemContent"></ng-container>
+    </mat-list-item>
+}
+
+<!-- Shared item content template -->
+<ng-template #itemContent>
+    <!-- Leading content: icon or avatar -->
+    <div class="amw-list-item__leading" matListItemIcon>
+        <ng-content select="[amwListItemIcon]"></ng-content>
+        <ng-content select="[amwListItemAvatar]"></ng-content>
+    </div>
+
+    <!-- Main content: title and subtitle -->
+    <div class="amw-list-item__content">
+        <div class="amw-list-item__title" matListItemTitle>
+            <ng-content select="[amwListItemTitle]"></ng-content>
+        </div>
+        <div class="amw-list-item__subtitle" matListItemLine>
+            <ng-content select="[amwListItemSubtitle]"></ng-content>
+        </div>
+    </div>
+
+    <!-- Trailing content: meta (badges, buttons, etc.) -->
+    <div class="amw-list-item__meta" matListItemMeta>
+        <ng-content select="[amwListItemMeta]"></ng-content>
+    </div>
+
+    <!-- Default content (fallback) -->
+    <ng-content></ng-content>
+</ng-template>

@@ -1,0 +1,42 @@
+.amw-paginator {
+    // Base styles
+    display: flex;
+    align-items: center;
+
+    // Disabled state
+    &--disabled {
+        opacity: 0.5;
+        pointer-events: none;
+    }
+
+    // Hide page size selector
+    &--hide-page-size {
+        .mat-mdc-paginator-page-size {
+            display: none;
+        }
+    }
+
+    // Custom styling for Material paginator
+    .mat-mdc-paginator-container {
+        padding: 0 8px;
+        min-height: 56px;
+    }
+
+    .mat-mdc-paginator-page-size-label {
+        margin: 0 4px;
+    }
+
+    .mat-mdc-paginator-range-label {
+        margin: 0 16px;
+    }
+
+    // Button styles
+    .mat-mdc-paginator-navigation-first,
+    .mat-mdc-paginator-navigation-previous,
+    .mat-mdc-paginator-navigation-next,
+    .mat-mdc-paginator-navigation-last {
+        &:disabled {
+            opacity: 0.38;
+        }
+    }
+}

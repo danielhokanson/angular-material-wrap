@@ -1,0 +1,156 @@
+<div class="api-section">
+  <h3>API Documentation</h3>
+  <p>Complete reference for amw-list and amw-list-item component inputs, outputs, and usage notes.</p>
+
+  <!-- List Component API -->
+  <div class="api-component">
+    <h4 class="api-component__title">AmwListComponent</h4>
+    <p class="api-component__selector"><code>amw-list</code></p>
+
+    <!-- List Inputs Section -->
+    <div class="api-section__inputs">
+      <h5>Inputs</h5>
+      <div class="api-table">
+        <div class="api-table__header">
+          <div class="api-table__cell">Property</div>
+          <div class="api-table__cell">Type</div>
+          <div class="api-table__cell">Default</div>
+          <div class="api-table__cell">Description</div>
+        </div>
+        @for (input of apiDocumentation.inputs; track input.name) {
+          <div class="api-table__row">
+            <div class="api-table__cell api-table__cell--property">{{ input.name }}</div>
+            <div class="api-table__cell api-table__cell--type">{{ input.type }}</div>
+            <div class="api-table__cell api-table__cell--default">{{ input.default }}</div>
+            <div class="api-table__cell api-table__cell--description">
+              {{ input.description }}
+              @if (input.options) {
+                <div class="api-table__options">
+                  Options: {{ input.options.join(', ') }}
+                </div>
+              }
+            </div>
+          </div>
+        }
+      </div>
+    </div>
+
+    <!-- List Usage Notes -->
+    @if (apiDocumentation.usageNotes && apiDocumentation.usageNotes.length > 0) {
+      <div class="api-section__notes">
+        <h5>Usage Notes</h5>
+        <ul>
+          @for (note of apiDocumentation.usageNotes; track note) {
+            <li>{{ note }}</li>
+          }
+        </ul>
+      </div>
+    }
+  </div>
+
+  <!-- ListItem Component API -->
+  <div class="api-component">
+    <h4 class="api-component__title">AmwListItemComponent</h4>
+    <p class="api-component__selector"><code>amw-list-item</code></p>
+
+    <!-- ListItem Inputs Section -->
+    <div class="api-section__inputs">
+      <h5>Inputs</h5>
+      <div class="api-table">
+        <div class="api-table__header">
+          <div class="api-table__cell">Property</div>
+          <div class="api-table__cell">Type</div>
+          <div class="api-table__cell">Default</div>
+          <div class="api-table__cell">Description</div>
+        </div>
+        @for (input of listItemApiDocumentation.inputs; track input.name) {
+          <div class="api-table__row">
+            <div class="api-table__cell api-table__cell--property">{{ input.name }}</div>
+            <div class="api-table__cell api-table__cell--type">{{ input.type }}</div>
+            <div class="api-table__cell api-table__cell--default">{{ input.default }}</div>
+            <div class="api-table__cell api-table__cell--description">
+              {{ input.description }}
+              @if (input.options) {
+                <div class="api-table__options">
+                  Options: {{ input.options.join(', ') }}
+                </div>
+              }
+            </div>
+          </div>
+        }
+      </div>
+    </div>
+
+    <!-- ListItem Outputs Section -->
+    @if (listItemApiDocumentation.outputs && listItemApiDocumentation.outputs.length > 0) {
+      <div class="api-section__outputs">
+        <h5>Outputs</h5>
+        <div class="api-table">
+          <div class="api-table__header">
+            <div class="api-table__cell">Event</div>
+            <div class="api-table__cell">Type</div>
+            <div class="api-table__cell api-table__cell--description">Description</div>
+          </div>
+          @for (output of listItemApiDocumentation.outputs; track output.name) {
+            <div class="api-table__row">
+              <div class="api-table__cell api-table__cell--property">{{ output.name }}</div>
+              <div class="api-table__cell api-table__cell--type">{{ output.type }}</div>
+              <div class="api-table__cell api-table__cell--description">{{ output.description }}</div>
+            </div>
+          }
+        </div>
+      </div>
+    }
+
+    <!-- ListItem Usage Notes -->
+    @if (listItemApiDocumentation.usageNotes && listItemApiDocumentation.usageNotes.length > 0) {
+      <div class="api-section__notes">
+        <h5>Usage Notes</h5>
+        <ul>
+          @for (note of listItemApiDocumentation.usageNotes; track note) {
+            <li>{{ note }}</li>
+          }
+        </ul>
+      </div>
+    }
+  </div>
+
+  <!-- Content Projection Selectors -->
+  <div class="api-component">
+    <h4 class="api-component__title">Content Projection Selectors</h4>
+    <p class="api-component__description">Use these attribute selectors to place content in specific areas of list items.</p>
+
+    <div class="api-table">
+      <div class="api-table__header">
+        <div class="api-table__cell">Selector</div>
+        <div class="api-table__cell">Position</div>
+        <div class="api-table__cell api-table__cell--description">Description</div>
+      </div>
+      <div class="api-table__row">
+        <div class="api-table__cell api-table__cell--property">[amwListItemIcon]</div>
+        <div class="api-table__cell api-table__cell--type">Leading</div>
+        <div class="api-table__cell api-table__cell--description">Icon displayed at the start of the item</div>
+      </div>
+      <div class="api-table__row">
+        <div class="api-table__cell api-table__cell--property">[amwListItemAvatar]</div>
+        <div class="api-table__cell api-table__cell--type">Leading</div>
+        <div class="api-table__cell api-table__cell--description">Avatar image displayed at the start of the item</div>
+      </div>
+      <div class="api-table__row">
+        <div class="api-table__cell api-table__cell--property">[amwListItemTitle]</div>
+        <div class="api-table__cell api-table__cell--type">Center</div>
+        <div class="api-table__cell api-table__cell--description">Primary text content (required)</div>
+      </div>
+      <div class="api-table__row">
+        <div class="api-table__cell api-table__cell--property">[amwListItemSubtitle]</div>
+        <div class="api-table__cell api-table__cell--type">Center</div>
+        <div class="api-table__cell api-table__cell--description">Secondary text content below the title</div>
+      </div>
+      <div class="api-table__row">
+        <div class="api-table__cell api-table__cell--property">[amwListItemMeta]</div>
+        <div class="api-table__cell api-table__cell--type">Trailing</div>
+        <div class="api-table__cell api-table__cell--description">Trailing content like badges, buttons, or icons</div>
+      </div>
+    </div>
+  </div>
+</div>

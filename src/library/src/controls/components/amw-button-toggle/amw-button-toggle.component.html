@@ -1,0 +1,10 @@
+<mat-button-toggle
+    [class]="toggleClasses()"
+    [value]="value()"
+    [disabled]="disabled()"
+    [attr.aria-label]="ariaLabel()">
+    @if (icon()) {
+        <mat-icon>{{ icon() }}</mat-icon>
+    }
+    <ng-content></ng-content>
+</mat-button-toggle>

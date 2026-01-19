@@ -21,6 +21,7 @@ export * from './amw-accordion/amw-accordion-panel.component';
 // Menu components
 export * from './amw-menu/amw-menu.component';
 export * from './amw-menu/amw-menu-item.component';
+export * from './amw-menu/amw-menu-trigger.directive';
 
 // Progress bar component
 export * from './amw-progress-bar/amw-progress-bar.component';
@@ -48,3 +49,10 @@ export * from './amw-popover/amw-popover.component';
 
 // Sidenav component
 export * from './amw-sidenav/amw-sidenav.component';
+
+// List components
+export * from './amw-list/amw-list.component';
+export * from './amw-list/amw-list-item.component';
+
+// Paginator component
+export * from './amw-paginator/amw-paginator.component';

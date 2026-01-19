@@ -1,0 +1,51 @@
+.amw-demo-badge-api {
+  padding: 16px;
+
+  .api-section-title {
+    font-size: 18px;
+    font-weight: 500;
+    margin: 24px 0 12px 0;
+
+    &:first-child {
+      margin-top: 0;
+    }
+  }
+
+  .api-table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-bottom: 24px;
+
+    th, td {
+      padding: 12px;
+      text-align: left;
+      border-bottom: 1px solid var(--mat-app-outline-variant);
+    }
+
+    th {
+      font-weight: 500;
+      background: var(--mat-app-surface-variant);
+    }
+
+    code {
+      background: var(--mat-app-surface-variant);
+      padding: 2px 6px;
+      border-radius: 4px;
+      font-size: 13px;
+    }
+
+    small {
+      color: var(--mat-app-on-surface-variant);
+    }
+  }
+
+  .usage-notes {
+    margin: 0;
+    padding-left: 24px;
+
+    li {
+      margin-bottom: 8px;
+      line-height: 1.5;
+    }
+  }
+}

@@ -53,8 +53,18 @@ export class AmwProgressBarComponent {
     /** Mode of the progress bar */
     readonly mode = input<ProgressBarMode>('determinate');
 
-    /** Value of the progress (0-100) */
+    /**
+     * Value of the progress (0-100)
+     * @deprecated Use `value` instead. This input is kept for backwards compatibility.
+     */
     readonly progressValue = input(0);
+
+    /**
+     * Value of the progress (0-100)
+     * This is the preferred input name. If both `value` and `progressValue` are set,
+     * `value` takes precedence.
+     */
+    readonly value = input<number | undefined>();
 
     /** Buffer value (only for buffer mode, 0-100) */
     readonly bufferValue = input(0);
@@ -71,6 +81,14 @@ export class AmwProgressBarComponent {
     /** Custom label text (overrides percentage) */
     readonly label = input('');
 
+    /**
+     * Computed effective value - prefers `value` over `progressValue` for backwards compatibility
+     */
+    readonly effectiveValue = computed(() => {
+        const value = this.value();
+        return value !== undefined ? value : this.progressValue();
+    });
+
     readonly progressBarClasses = computed(() => {
         const classes = ['amw-progress-bar'];
         const customClass = this.progressClass();
@@ -85,7 +103,7 @@ export class AmwProgressBarComponent {
             return labelValue;
         }
         if (this.showLabel() && this.mode() === 'determinate') {
-            return `${Math.round(this.progressValue())}%`;
+            return `${Math.round(this.effectiveValue())}%`;
         }
         return '';
     });

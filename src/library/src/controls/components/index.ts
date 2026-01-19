@@ -19,3 +19,9 @@ export * from './amw-color-picker/amw-color-picker.component';
 export * from './amw-chips/amw-chips.component';
 export * from './amw-chip-input';
 export * from './amw-form-validation';
+
+// New components
+export * from './amw-icon-button/amw-icon-button.component';
+export * from './amw-chip/amw-chip.component';
+export * from './amw-button-toggle/amw-button-toggle.component';
+export * from './amw-button-toggle/amw-button-toggle-group.component';

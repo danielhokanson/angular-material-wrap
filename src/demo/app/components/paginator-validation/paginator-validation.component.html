@@ -1,0 +1,176 @@
+<div class="amw-demo-paginator-validation">
+  <div class="validation-section">
+    <h3 class="validation-section__title">Paginator Validation Examples</h3>
+    <p class="validation-section__description">
+      This page demonstrates various validation states and boundary conditions for the paginator component.
+    </p>
+
+    <!-- Disabled State -->
+    <div class="form-section">
+      <h4>Disabled State</h4>
+      <p class="section-description">Paginator in disabled state - navigation buttons should be non-interactive.</p>
+      <div class="paginator-group">
+        <amw-paginator
+          [length]="100"
+          [pageSize]="disabledPageSize"
+          [pageIndex]="disabledPageIndex"
+          [pageSizeOptions]="[5, 10, 25]"
+          [disabled]="true"
+          (page)="onDisabledPageChange($event)">
+        </amw-paginator>
+        <div class="paginator-info">
+          <span class="status-badge disabled">Disabled</span>
+          <span>Current page: {{ disabledPageIndex + 1 }}</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- First Page Boundary -->
+    <div class="form-section">
+      <h4>First Page Boundary</h4>
+      <p class="section-description">Paginator at the first page - previous button should be disabled.</p>
+      <div class="paginator-group">
+        <amw-paginator
+          [length]="firstPageLength"
+          [pageSize]="firstPageSize"
+          [pageIndex]="firstPageIndex"
+          [pageSizeOptions]="[5, 10, 25]"
+          [showFirstLastButtons]="true"
+          (page)="onFirstPageChange($event)">
+        </amw-paginator>
+        <div class="paginator-info">
+          <span class="status-badge" [class.at-boundary]="firstPageIndex === 0">
+            {{ firstPageIndex === 0 ? 'At First Page' : 'Not at First' }}
+          </span>
+          <span>Page {{ firstPageIndex + 1 }} of {{ Math.ceil(firstPageLength / firstPageSize) }}</span>
+          <amw-button
+            appearance="outlined"
+            color="primary"
+            (click)="resetToFirstPage()">
+            Reset to First
+          </amw-button>
+        </div>
+      </div>
+    </div>
+
+    <!-- Last Page Boundary -->
+    <div class="form-section">
+      <h4>Last Page Boundary</h4>
+      <p class="section-description">Paginator at the last page - next button should be disabled.</p>
+      <div class="paginator-group">
+        <amw-paginator
+          [length]="lastPageLength"
+          [pageSize]="lastPageSize"
+          [pageIndex]="lastPageIndex"
+          [pageSizeOptions]="[5, 10, 25]"
+          [showFirstLastButtons]="true"
+          (page)="onLastPageChange($event)">
+        </amw-paginator>
+        <div class="paginator-info">
+          <span class="status-badge" [class.at-boundary]="lastPageIndex === Math.ceil(lastPageLength / lastPageSize) - 1">
+            {{ lastPageIndex === Math.ceil(lastPageLength / lastPageSize) - 1 ? 'At Last Page' : 'Not at Last' }}
+          </span>
+          <span>Page {{ lastPageIndex + 1 }} of {{ Math.ceil(lastPageLength / lastPageSize) }}</span>
+          <amw-button
+            appearance="outlined"
+            color="primary"
+            (click)="goToLastPage()">
+            Go to Last
+          </amw-button>
+        </div>
+      </div>
+    </div>
+
+    <!-- Empty Dataset -->
+    <div class="form-section">
+      <h4>Empty Dataset</h4>
+      <p class="section-description">Paginator with no items - all navigation should be disabled.</p>
+      <div class="paginator-group">
+        <amw-paginator
+          [length]="emptyPageLength"
+          [pageSize]="emptyPageSize"
+          [pageIndex]="emptyPageIndex"
+          [pageSizeOptions]="[5, 10, 25]"
+          (page)="onEmptyPageChange($event)">
+        </amw-paginator>
+        <div class="paginator-info">
+          <span class="status-badge empty">Empty Dataset</span>
+          <span>0 items</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- Single Page -->
+    <div class="form-section">
+      <h4>Single Page (Items Less Than Page Size)</h4>
+      <p class="section-description">Paginator with fewer items than page size - all navigation should be disabled.</p>
+      <div class="paginator-group">
+        <amw-paginator
+          [length]="singlePageLength"
+          [pageSize]="singlePageSize"
+          [pageIndex]="singlePageIndex"
+          [pageSizeOptions]="[5, 10, 25]"
+          (page)="onSinglePageChange($event)">
+        </amw-paginator>
+        <div class="paginator-info">
+          <span class="status-badge single-page">Single Page</span>
+          <span>{{ singlePageLength }} items, page size {{ singlePageSize }}</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- Large Dataset -->
+    <div class="form-section">
+      <h4>Large Dataset</h4>
+      <p class="section-description">Paginator handling a large number of items.</p>
+      <div class="paginator-group">
+        <amw-paginator
+          [length]="largePageLength"
+          [pageSize]="largePageSize"
+          [pageIndex]="largePageIndex"
+          [pageSizeOptions]="[10, 25, 50, 100]"
+          [showFirstLastButtons]="true"
+          (page)="onLargePageChange($event)">
+        </amw-paginator>
+        <div class="paginator-info">
+          <span class="status-badge large">Large Dataset</span>
+          <span>{{ largePageLength.toLocaleString() }} items, Page {{ largePageIndex + 1 }} of {{ Math.ceil(largePageLength / largePageSize) }}</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- Event Log -->
+    <div class="event-log-section">
+      <div class="event-log-header">
+        <h4>Event Log</h4>
+        <amw-button
+          appearance="outlined"
+          color="primary"
+          (click)="clearLogs()">
+          Clear Logs
+        </amw-button>
+      </div>
+      <div class="event-log">
+        @if (eventLogs.length === 0) {
+          <p class="no-events">No events logged yet. Interact with the paginators above.</p>
+        } @else {
+          @for (log of eventLogs; track log) {
+            <div class="event-log-entry">{{ log }}</div>
+          }
+        }
+      </div>
+    </div>
+
+    <div class="validation-info">
+      <h4>Validation Rules Applied:</h4>
+      <ul>
+        <li><strong>Disabled:</strong> Paginator should not respond to any user interaction</li>
+        <li><strong>First Page:</strong> Previous and first page buttons should be disabled</li>
+        <li><strong>Last Page:</strong> Next and last page buttons should be disabled</li>
+        <li><strong>Empty Dataset:</strong> All navigation buttons should be disabled</li>
+        <li><strong>Single Page:</strong> All navigation buttons should be disabled when items fit on one page</li>
+        <li><strong>Large Dataset:</strong> Paginator should handle large numbers efficiently</li>
+      </ul>
+    </div>
+  </div>
+</div>

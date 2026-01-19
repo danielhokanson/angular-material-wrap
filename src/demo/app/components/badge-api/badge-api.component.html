@@ -1,0 +1,37 @@
+<div class="amw-demo-badge-api">
+  <h3 class="api-section-title">Inputs</h3>
+  <table class="api-table">
+    <thead>
+      <tr>
+        <th>Property</th>
+        <th>Type</th>
+        <th>Default</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      @for (input of apiDocumentation.inputs; track input.name) {
+        <tr>
+          <td><code>{{ input.name }}</code></td>
+          <td><code>{{ input.type }}</code></td>
+          <td><code>{{ input.default }}</code></td>
+          <td>
+            {{ input.description }}
+            @if (input.options) {
+              <br><small>Options: {{ input.options.join(', ') }}</small>
+            }
+          </td>
+        </tr>
+      }
+    </tbody>
+  </table>
+
+  @if (apiDocumentation.usageNotes) {
+    <h3 class="api-section-title">Usage Notes</h3>
+    <ul class="usage-notes">
+      @for (note of apiDocumentation.usageNotes; track note) {
+        <li>{{ note }}</li>
+      }
+    </ul>
+  }
+</div>

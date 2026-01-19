@@ -1,0 +1,29 @@
+.amw-demo-button-toggle {
+  padding: 16px;
+
+  .variation-section {
+    margin-bottom: 32px;
+
+    &__title {
+      font-size: 18px;
+      font-weight: 500;
+      margin-bottom: 16px;
+      color: var(--mat-app-on-surface);
+    }
+
+    &__content {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 24px;
+      align-items: center;
+    }
+  }
+
+  .selection-value {
+    font-size: 14px;
+    color: var(--mat-app-on-surface-variant);
+    padding: 8px 12px;
+    background: var(--mat-app-surface-variant);
+    border-radius: 4px;
+  }
+}

@@ -1,0 +1,30 @@
+.amw-demo-paginator {
+  padding: 16px;
+
+  .variation-section {
+    margin-bottom: 32px;
+
+    &__title {
+      font-size: 18px;
+      font-weight: 500;
+      margin-bottom: 16px;
+      color: var(--mat-app-on-surface);
+    }
+
+    &__content {
+      display: flex;
+      flex-direction: column;
+      gap: 16px;
+    }
+  }
+
+  .info-box {
+    display: flex;
+    gap: 24px;
+    padding: 12px 16px;
+    background: var(--mat-app-surface-variant);
+    border-radius: 8px;
+    font-size: 14px;
+    color: var(--mat-app-on-surface-variant);
+  }
+}

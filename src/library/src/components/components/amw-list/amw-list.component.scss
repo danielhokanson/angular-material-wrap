@@ -1,0 +1,142 @@
+// AMW List Component Styles
+
+.amw-list {
+    // Dense mode
+    &--dense {
+        --mdc-list-list-item-one-line-container-height: 40px;
+        --mdc-list-list-item-two-line-container-height: 56px;
+        --mdc-list-list-item-three-line-container-height: 76px;
+    }
+
+    // No ripple mode
+    &--no-ripple {
+        mat-list-item,
+        a[mat-list-item] {
+            --mat-list-list-item-hover-state-layer-opacity: 0;
+            --mat-list-list-item-focus-state-layer-opacity: 0;
+        }
+    }
+}
+
+// AMW List Item Component Styles
+
+.amw-list-item {
+    display: flex;
+    align-items: center;
+    width: 100%;
+    cursor: pointer;
+    transition: background-color var(--mdc-motion-duration-short4, 0.2s) ease;
+
+    // Leading content (icon/avatar)
+    &__leading {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        flex-shrink: 0;
+        margin-right: 16px;
+
+        // Avatar styles
+        [amwListItemAvatar] {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            object-fit: cover;
+        }
+
+        // Icon styles
+        [amwListItemIcon] {
+            color: var(--mdc-list-list-item-leading-icon-color, rgba(0, 0, 0, 0.54));
+        }
+
+        // Hide if empty
+        &:empty {
+            display: none;
+            margin-right: 0;
+        }
+    }
+
+    // Main content area
+    &__content {
+        flex: 1;
+        min-width: 0; // Allow text truncation
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+    }
+
+    // Title styles
+    &__title {
+        font-weight: 400;
+        color: var(--mdc-list-list-item-label-text-color, rgba(0, 0, 0, 0.87));
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
+
+        &:empty {
+            display: none;
+        }
+    }
+
+    // Subtitle styles
+    &__subtitle {
+        font-size: 14px;
+        color: var(--mdc-list-list-item-supporting-text-color, rgba(0, 0, 0, 0.54));
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        margin-top: 2px;
+
+        &:empty {
+            display: none;
+        }
+    }
+
+    // Meta content (trailing)
+    &__meta {
+        display: flex;
+        align-items: center;
+        flex-shrink: 0;
+        margin-left: 16px;
+        color: var(--mdc-list-list-item-trailing-supporting-text-color, rgba(0, 0, 0, 0.54));
+
+        &:empty {
+            display: none;
+            margin-left: 0;
+        }
+    }
+
+    // Selected state
+    &--selected {
+        background-color: var(--mdc-list-list-item-selected-container-color, rgba(103, 80, 164, 0.12));
+
+        .amw-list-item__title {
+            color: var(--mat-primary-color, #6750A4);
+        }
+
+        .amw-list-item__leading [amwListItemIcon] {
+            color: var(--mat-primary-color, #6750A4);
+        }
+    }
+
+    // Disabled state
+    &--disabled {
+        opacity: 0.5;
+        cursor: not-allowed;
+        pointer-events: none;
+    }
+
+    // Navigable state (has routerLink)
+    &--navigable {
+        text-decoration: none;
+        color: inherit;
+
+        &:hover {
+            background-color: var(--mdc-list-list-item-hover-state-layer-color, rgba(0, 0, 0, 0.04));
+        }
+
+        &:focus-visible {
+            outline: 2px solid var(--mat-focus-indicator-color, #6750A4);
+            outline-offset: -2px;
+        }
+    }
+}

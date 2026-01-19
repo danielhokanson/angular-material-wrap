@@ -264,6 +264,23 @@ if [[ $PUBLISH_EXIT_CODE -eq 0 ]]; then
     echo ""
     echo -e "${GREEN}✓ Successfully published to npm!${NC}"
     echo ""
+elif echo "$PUBLISH_OUTPUT" | grep -qiE "EOTP|OTP required|one-time password"; then
+    echo ""
+    echo -e "${YELLOW}Two-factor authentication required.${NC}"
+    read -p "Enter OTP from your authenticator app: " OTP_CODE
+    echo ""
+    echo -e "${YELLOW}Retrying publish with OTP...${NC}"
+    echo ""
+
+    if npm publish --tag "$NPM_TAG" --access public --otp="$OTP_CODE"; then
+        echo ""
+        echo -e "${GREEN}✓ Successfully published to npm!${NC}"
+        echo ""
+    else
+        echo ""
+        echo -e "${RED}✗ npm publish failed with OTP${NC}"
+        exit 1
+    fi
 elif echo "$PUBLISH_OUTPUT" | grep -qiE "ENEEDAUTH|E401|E403|E404|unauthorized|not logged in|authentication|token expired|revoked"; then
     echo ""
     echo -e "${YELLOW}Not logged in to npm. Starting login...${NC}"
@@ -275,11 +292,30 @@ elif echo "$PUBLISH_OUTPUT" | grep -qiE "ENEEDAUTH|E401|E403|E404|unauthorized|n
         echo -e "${YELLOW}Retrying publish...${NC}"
         echo ""
 
-        if npm publish --tag "$NPM_TAG" --access public; then
+        PUBLISH_OUTPUT=$(npm publish --tag "$NPM_TAG" --access public 2>&1)
+        PUBLISH_EXIT_CODE=$?
+
+        if [[ $PUBLISH_EXIT_CODE -eq 0 ]]; then
             echo ""
             echo -e "${GREEN}✓ Successfully published to npm!${NC}"
             echo ""
+        elif echo "$PUBLISH_OUTPUT" | grep -qiE "EOTP|OTP required|one-time password"; then
+            echo ""
+            echo -e "${YELLOW}Two-factor authentication required.${NC}"
+            read -p "Enter OTP from your authenticator app: " OTP_CODE
+            echo ""
+
+            if npm publish --tag "$NPM_TAG" --access public --otp="$OTP_CODE"; then
+                echo ""
+                echo -e "${GREEN}✓ Successfully published to npm!${NC}"
+                echo ""
+            else
+                echo ""
+                echo -e "${RED}✗ npm publish failed with OTP${NC}"
+                exit 1
+            fi
         else
+            echo "$PUBLISH_OUTPUT"
             echo ""
             echo -e "${RED}✗ npm publish failed after login${NC}"
             exit 1

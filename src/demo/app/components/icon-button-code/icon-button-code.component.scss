@@ -1,0 +1,27 @@
+.amw-demo-icon-button-code {
+  padding: 16px;
+
+  .code-section {
+    margin-bottom: 32px;
+
+    &__title {
+      font-size: 18px;
+      font-weight: 500;
+      margin-bottom: 12px;
+    }
+  }
+
+  .code-block {
+    background: var(--mat-app-surface-variant);
+    padding: 16px;
+    border-radius: 8px;
+    overflow-x: auto;
+    font-family: 'Roboto Mono', monospace;
+    font-size: 13px;
+    line-height: 1.5;
+
+    code {
+      white-space: pre;
+    }
+  }
+}

@@ -1,0 +1,73 @@
+<div class="amw-demo-button-toggle">
+  <!-- Text Alignment (Icon-only) -->
+  <div class="variation-section">
+    <h3 class="variation-section__title">Text Alignment (Icon-only)</h3>
+    <div class="variation-section__content">
+      <amw-button-toggle-group [(value)]="alignment" (valueChange)="onAlignmentChange($event)">
+        <amw-button-toggle value="left" icon="format_align_left"></amw-button-toggle>
+        <amw-button-toggle value="center" icon="format_align_center"></amw-button-toggle>
+        <amw-button-toggle value="right" icon="format_align_right"></amw-button-toggle>
+        <amw-button-toggle value="justify" icon="format_align_justify"></amw-button-toggle>
+      </amw-button-toggle-group>
+      <span class="selection-value">Selected: {{ alignment() }}</span>
+    </div>
+  </div>
+
+  <!-- Text Labels -->
+  <div class="variation-section">
+    <h3 class="variation-section__title">Text Labels</h3>
+    <div class="variation-section__content">
+      <amw-button-toggle-group [(value)]="fontSize" (valueChange)="onFontSizeChange($event)">
+        <amw-button-toggle value="small">Small</amw-button-toggle>
+        <amw-button-toggle value="medium">Medium</amw-button-toggle>
+        <amw-button-toggle value="large">Large</amw-button-toggle>
+      </amw-button-toggle-group>
+      <span class="selection-value">Selected: {{ fontSize() }}</span>
+    </div>
+  </div>
+
+  <!-- Multiple Selection -->
+  <div class="variation-section">
+    <h3 class="variation-section__title">Multiple Selection</h3>
+    <div class="variation-section__content">
+      <amw-button-toggle-group [multiple]="true" [(value)]="textFormats" (valueChange)="onFormatsChange($event)">
+        <amw-button-toggle value="bold" icon="format_bold"></amw-button-toggle>
+        <amw-button-toggle value="italic" icon="format_italic"></amw-button-toggle>
+        <amw-button-toggle value="underline" icon="format_underlined"></amw-button-toggle>
+        <amw-button-toggle value="strikethrough" icon="strikethrough_s"></amw-button-toggle>
+      </amw-button-toggle-group>
+      <span class="selection-value">Selected: {{ textFormats().join(', ') || 'none' }}</span>
+    </div>
+  </div>
+
+  <!-- Vertical Layout -->
+  <div class="variation-section">
+    <h3 class="variation-section__title">Vertical Layout</h3>
+    <div class="variation-section__content">
+      <amw-button-toggle-group [vertical]="true" [(value)]="viewMode" (valueChange)="onViewModeChange($event)">
+        <amw-button-toggle value="list" icon="view_list">List</amw-button-toggle>
+        <amw-button-toggle value="grid" icon="grid_view">Grid</amw-button-toggle>
+        <amw-button-toggle value="compact" icon="view_compact">Compact</amw-button-toggle>
+      </amw-button-toggle-group>
+      <span class="selection-value">Selected: {{ viewMode() }}</span>
+    </div>
+  </div>
+
+  <!-- Disabled State -->
+  <div class="variation-section">
+    <h3 class="variation-section__title">Disabled States</h3>
+    <div class="variation-section__content">
+      <amw-button-toggle-group [disabled]="true" value="option1">
+        <amw-button-toggle value="option1">Option 1</amw-button-toggle>
+        <amw-button-toggle value="option2">Option 2</amw-button-toggle>
+        <amw-button-toggle value="option3">Option 3</amw-button-toggle>
+      </amw-button-toggle-group>
+
+      <amw-button-toggle-group value="enabled1">
+        <amw-button-toggle value="enabled1">Enabled</amw-button-toggle>
+        <amw-button-toggle value="disabled1" [disabled]="true">Disabled</amw-button-toggle>
+        <amw-button-toggle value="enabled2">Enabled</amw-button-toggle>
+      </amw-button-toggle-group>
+    </div>
+  </div>
+</div>

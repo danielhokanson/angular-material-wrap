@@ -1,0 +1,122 @@
+<div class="amw-demo-list-validation">
+  <div class="validation-section">
+    <h3 class="validation-section__title">List Validation Examples</h3>
+    <p class="validation-section__description">
+      This page demonstrates various list states including disabled items, selected items, and mixed states.
+    </p>
+
+    <div class="validation-forms">
+      <!-- Disabled Items Example -->
+      <amw-card class="validation-card">
+        <ng-template #cardHeader>
+          <h2>
+            <amw-icon name="block"></amw-icon>
+            Disabled Items
+          </h2>
+          <p class="subtitle">List with some items disabled</p>
+        </ng-template>
+        <ng-template #cardContent>
+          <amw-list>
+            @for (item of disabledItems; track item.title) {
+              <amw-list-item
+                [disabled]="item.disabled ?? false"
+                (itemClick)="onItemClick(item)">
+                <amw-icon amwListItemIcon [name]="item.icon"></amw-icon>
+                <span amwListItemTitle>{{ item.title }}</span>
+                <span amwListItemSubtitle>{{ item.subtitle }}</span>
+                @if (item.disabled) {
+                  <span amwListItemMeta class="status-badge status-badge--disabled">Disabled</span>
+                } @else {
+                  <span amwListItemMeta class="status-badge status-badge--enabled">Enabled</span>
+                }
+              </amw-list-item>
+            }
+          </amw-list>
+          @if (lastClickedItem) {
+            <div class="click-feedback">
+              <amw-icon name="touch_app"></amw-icon>
+              <span>Last clicked: <strong>{{ lastClickedItem }}</strong></span>
+            </div>
+          }
+        </ng-template>
+      </amw-card>
+
+      <!-- Selection Example -->
+      <amw-card class="validation-card">
+        <ng-template #cardHeader>
+          <h2>
+            <amw-icon name="check_circle"></amw-icon>
+            Selected Items
+          </h2>
+          <p class="subtitle">List with selection state (single select)</p>
+        </ng-template>
+        <ng-template #cardContent>
+          <amw-list>
+            @for (item of selectableItems; track item.title) {
+              <amw-list-item
+                [selected]="item.selected ?? false"
+                (itemClick)="toggleSelection(item)">
+                <amw-icon amwListItemIcon [name]="item.icon"></amw-icon>
+                <span amwListItemTitle>{{ item.title }}</span>
+                <span amwListItemSubtitle>{{ item.subtitle }}</span>
+                @if (item.selected) {
+                  <amw-icon amwListItemMeta name="check" class="selected-icon"></amw-icon>
+                }
+              </amw-list-item>
+            }
+          </amw-list>
+          <div class="selection-feedback">
+            <amw-icon name="info"></amw-icon>
+            <span>Currently selected: <strong>{{ getSelectedItem() }}</strong></span>
+          </div>
+        </ng-template>
+      </amw-card>
+
+      <!-- Mixed States Example -->
+      <amw-card class="validation-card">
+        <ng-template #cardHeader>
+          <h2>
+            <amw-icon name="tune"></amw-icon>
+            Mixed States
+          </h2>
+          <p class="subtitle">List combining disabled and selected states</p>
+        </ng-template>
+        <ng-template #cardContent>
+          <amw-list>
+            @for (item of mixedStateItems; track item.title) {
+              <amw-list-item
+                [disabled]="item.disabled ?? false"
+                [selected]="item.selected ?? false"
+                (itemClick)="toggleMixedSelection(item)">
+                <amw-icon amwListItemIcon [name]="item.icon"></amw-icon>
+                <span amwListItemTitle>{{ item.title }}</span>
+                <span amwListItemSubtitle>{{ item.subtitle }}</span>
+                <span amwListItemMeta>
+                  @if (item.disabled) {
+                    <span class="status-badge status-badge--disabled">Disabled</span>
+                  } @else if (item.selected) {
+                    <amw-icon name="check" class="selected-icon"></amw-icon>
+                  }
+                </span>
+              </amw-list-item>
+            }
+          </amw-list>
+          <div class="selection-feedback">
+            <amw-icon name="info"></amw-icon>
+            <span>Currently selected: <strong>{{ getMixedSelectedItem() }}</strong></span>
+          </div>
+        </ng-template>
+      </amw-card>
+    </div>
+
+    <div class="validation-info">
+      <h4>Validation States Applied:</h4>
+      <ul>
+        <li><strong>Disabled Items:</strong> Cannot be clicked or selected, visually dimmed</li>
+        <li><strong>Selected Items:</strong> Shows visual indication of current selection</li>
+        <li><strong>Mixed States:</strong> Combines both disabled and selected states</li>
+        <li><strong>Click Events:</strong> Only fire on enabled items</li>
+      </ul>
+    </div>
+  </div>
+</div>

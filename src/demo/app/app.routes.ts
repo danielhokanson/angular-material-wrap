@@ -106,6 +106,21 @@ export const routes: Routes = [
         data: { control: 'data-table' }
     },
     {
+        path: 'controls/icon-button',
+        loadComponent: () => import('./components/demo-container/demo-container.component').then(m => m.DemoContainerComponent),
+        data: { control: 'icon-button' }
+    },
+    {
+        path: 'controls/chip',
+        loadComponent: () => import('./components/demo-container/demo-container.component').then(m => m.DemoContainerComponent),
+        data: { control: 'chip' }
+    },
+    {
+        path: 'controls/button-toggle',
+        loadComponent: () => import('./components/demo-container/demo-container.component').then(m => m.DemoContainerComponent),
+        data: { control: 'button-toggle' }
+    },
+    {
         path: 'components',
         loadComponent: () => import('./components/demo-container/demo-container.component').then(m => m.DemoContainerComponent)
     },
@@ -173,6 +188,21 @@ export const routes: Routes = [
         path: 'components/tabs',
         loadComponent: () => import('./components/demo-container/demo-container.component').then(m => m.DemoContainerComponent),
         data: { component: 'tabs' }
+    },
+    {
+        path: 'components/list',
+        loadComponent: () => import('./components/demo-container/demo-container.component').then(m => m.DemoContainerComponent),
+        data: { component: 'list' }
+    },
+    {
+        path: 'components/paginator',
+        loadComponent: () => import('./components/demo-container/demo-container.component').then(m => m.DemoContainerComponent),
+        data: { component: 'paginator' }
+    },
+    {
+        path: 'components/badge',
+        loadComponent: () => import('./components/demo-container/demo-container.component').then(m => m.DemoContainerComponent),
+        data: { component: 'badge' }
     },
     {
         path: 'components/accordion',

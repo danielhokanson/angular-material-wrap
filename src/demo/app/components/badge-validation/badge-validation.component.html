@@ -1,0 +1,71 @@
+<div class="amw-demo-badge-validation">
+  <div class="validation-section">
+    <h3 class="validation-section__title">Hidden Badge State</h3>
+    <div class="validation-section__content">
+      <span [amwBadge]="3" [amwBadgeHidden]="isHidden()">
+        <mat-icon>notifications</mat-icon>
+      </span>
+      <button class="toggle-btn" (click)="toggleHidden()">
+        {{ isHidden() ? 'Show Badge' : 'Hide Badge' }}
+      </button>
+    </div>
+  </div>
+
+  <div class="validation-section">
+    <h3 class="validation-section__title">Dynamic Content</h3>
+    <div class="validation-section__content">
+      <span [amwBadge]="dynamicCount()" [amwBadgeHidden]="dynamicCount() === 0">
+        <mat-icon>mail</mat-icon>
+      </span>
+      <div class="controls">
+        <button class="toggle-btn" (click)="decrementCount()">-</button>
+        <span class="count-display">{{ dynamicCount() }}</span>
+        <button class="toggle-btn" (click)="incrementCount()">+</button>
+        <button class="toggle-btn" (click)="resetCount()">Reset</button>
+      </div>
+    </div>
+    <p class="info-text">
+      Badge shows <code>99+</code> for values greater than 99. Try incrementing past 99!
+    </p>
+  </div>
+
+  <div class="validation-section">
+    <h3 class="validation-section__title">Text Content Badge</h3>
+    <div class="validation-section__content">
+      <span [amwBadge]="'New'" amwBadgePosition="above after" amwBadgeColor="accent">
+        <mat-icon>star</mat-icon>
+      </span>
+      <span class="state-label">Text badges for labels like "New", "Hot", etc.</span>
+    </div>
+  </div>
+
+  <div class="validation-section">
+    <h3 class="validation-section__title">All Positions</h3>
+    <div class="validation-section__content positions-grid">
+      <div class="position-item">
+        <span [amwBadge]="1" amwBadgePosition="above before">
+          <mat-icon>inbox</mat-icon>
+        </span>
+        <span class="position-label">above before</span>
+      </div>
+      <div class="position-item">
+        <span [amwBadge]="2" amwBadgePosition="above after">
+          <mat-icon>inbox</mat-icon>
+        </span>
+        <span class="position-label">above after</span>
+      </div>
+      <div class="position-item">
+        <span [amwBadge]="3" amwBadgePosition="below before">
+          <mat-icon>inbox</mat-icon>
+        </span>
+        <span class="position-label">below before</span>
+      </div>
+      <div class="position-item">
+        <span [amwBadge]="4" amwBadgePosition="below after">
+          <mat-icon>inbox</mat-icon>
+        </span>
+        <span class="position-label">below after</span>
+      </div>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,95 @@
+// Button Toggle API Demo - Layout and positioning styles only
+// Visual styling is handled by the library components and theme
+
+.amw-demo-button-toggle-api {
+  .api-section {
+    &__title {
+      margin-bottom: 8px;
+    }
+
+    &__description {
+      margin-bottom: 32px;
+      line-height: 1.5;
+    }
+  }
+
+  .api-component {
+    margin-bottom: 40px;
+
+    h4 {
+      margin-bottom: 8px;
+    }
+
+    .component-description {
+      margin-bottom: 24px;
+      line-height: 1.5;
+    }
+  }
+
+  .api-table {
+    margin-bottom: 24px;
+
+    h5 {
+      margin-bottom: 12px;
+    }
+
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      margin-bottom: 16px;
+
+      th,
+      td {
+        padding: 12px;
+        text-align: left;
+        border-bottom: 1px solid var(--mat-sys-outline-variant, #c4c7c5);
+      }
+
+      th {
+        font-weight: 600;
+        background-color: var(--mat-sys-surface-container, #f3f3f3);
+      }
+
+      td {
+        vertical-align: top;
+      }
+
+      code {
+        background-color: var(--mat-sys-surface-container-high, #e8e8e8);
+        padding: 2px 6px;
+        border-radius: 4px;
+        font-family: 'Roboto Mono', monospace;
+        font-size: 13px;
+      }
+    }
+  }
+
+  .api-usage {
+    margin-top: 40px;
+
+    h4 {
+      margin-bottom: 24px;
+    }
+
+    .usage-example {
+      margin-bottom: 24px;
+
+      h5 {
+        margin-bottom: 12px;
+      }
+
+      pre {
+        background-color: var(--mat-sys-surface-container, #f3f3f3);
+        padding: 16px;
+        border-radius: 8px;
+        overflow-x: auto;
+
+        code {
+          font-family: 'Roboto Mono', monospace;
+          font-size: 13px;
+          line-height: 1.5;
+        }
+      }
+    }
+  }
+}

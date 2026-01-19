@@ -32,7 +32,7 @@ export type SpinnerMode = 'determinate' | 'indeterminate';
  * ```
  */
 @Component({
-    selector: 'amw-progress-spinner',
+    selector: 'amw-progress-spinner, amw-spinner',
     standalone: true,
     imports: [
         MatProgressSpinnerModule
@@ -45,8 +45,18 @@ export class AmwProgressSpinnerComponent {
     /** Mode of the spinner */
     readonly mode = input<SpinnerMode>('indeterminate');
 
-    /** Value of the progress (0-100, only for determinate mode) */
+    /**
+     * Value of the progress (0-100, only for determinate mode)
+     * @deprecated Use `value` instead. This input is kept for backwards compatibility.
+     */
     readonly progressValue = input(0);
+
+    /**
+     * Value of the progress (0-100, only for determinate mode)
+     * This is the preferred input name. If both `value` and `progressValue` are set,
+     * `value` takes precedence.
+     */
+    readonly value = input<number | undefined>();
 
     /** Diameter of the spinner in pixels */
     readonly diameter = input(40);
@@ -66,6 +76,14 @@ export class AmwProgressSpinnerComponent {
     /** Custom label text (overrides percentage) */
     readonly label = input('');
 
+    /**
+     * Computed effective value - prefers `value` over `progressValue` for backwards compatibility
+     */
+    readonly effectiveValue = computed(() => {
+        const value = this.value();
+        return value !== undefined ? value : this.progressValue();
+    });
+
     readonly spinnerClasses = computed(() => {
         const classes = ['amw-progress-spinner'];
         const customClass = this.spinnerClass();
@@ -80,7 +98,7 @@ export class AmwProgressSpinnerComponent {
             return labelValue;
         }
         if (this.showLabel() && this.mode() === 'determinate') {
-            return `${Math.round(this.progressValue())}%`;
+            return `${Math.round(this.effectiveValue())}%`;
         }
         return '';
     });

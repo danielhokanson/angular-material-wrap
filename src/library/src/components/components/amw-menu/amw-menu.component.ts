@@ -55,6 +55,8 @@ export class AmwMenuComponent {
     readonly menuClass = input<string | undefined>();
     /** Whether the menu has a backdrop */
     readonly hasBackdrop = input(true);
+    /** Whether the menu should overlap the trigger element */
+    readonly overlapTrigger = input(false);
     /** Custom trigger template */
     readonly triggerTemplate = input<TemplateRef<any> | undefined>();
     /** Whether the menu is disabled */

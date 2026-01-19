@@ -1,0 +1,81 @@
+// AMW Button Toggle Group Styles
+
+.amw-button-toggle-group {
+    // Vertical layout
+    &--vertical {
+        flex-direction: column;
+
+        .mat-button-toggle {
+            width: 100%;
+        }
+    }
+
+    // Standard appearance (default)
+    &--standard {
+        border-radius: var(--mdc-shape-small, 4px);
+        overflow: hidden;
+    }
+
+    // Legacy appearance
+    &--legacy {
+        .mat-button-toggle {
+            border-radius: 0;
+        }
+    }
+
+    // Disabled state
+    &--disabled {
+        opacity: 0.5;
+        pointer-events: none;
+    }
+}
+
+// AMW Button Toggle Styles
+
+.amw-button-toggle {
+    // Has icon
+    &--has-icon {
+        mat-icon {
+            margin-right: 4px;
+
+            &:only-child {
+                margin-right: 0;
+            }
+        }
+    }
+
+    // Disabled state
+    &--disabled {
+        opacity: 0.5;
+        cursor: not-allowed;
+    }
+
+    // Focus styles for accessibility
+    &:focus-visible {
+        outline: 2px solid var(--mat-focus-indicator-color, #6750A4);
+        outline-offset: -2px;
+    }
+}
+
+// Connected buttons styling
+.amw-button-toggle-group {
+    .mat-button-toggle:first-child {
+        border-top-left-radius: var(--mdc-shape-small, 4px);
+        border-bottom-left-radius: var(--mdc-shape-small, 4px);
+    }
+
+    .mat-button-toggle:last-child {
+        border-top-right-radius: var(--mdc-shape-small, 4px);
+        border-bottom-right-radius: var(--mdc-shape-small, 4px);
+    }
+
+    &--vertical {
+        .mat-button-toggle:first-child {
+            border-radius: var(--mdc-shape-small, 4px) var(--mdc-shape-small, 4px) 0 0;
+        }
+
+        .mat-button-toggle:last-child {
+            border-radius: 0 0 var(--mdc-shape-small, 4px) var(--mdc-shape-small, 4px);
+        }
+    }
+}

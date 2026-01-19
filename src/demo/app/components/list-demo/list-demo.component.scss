@@ -1,0 +1,36 @@
+.amw-demo-list {
+  padding: 16px;
+
+  .variation-section {
+    margin-bottom: 32px;
+
+    &__title {
+      font-size: 18px;
+      font-weight: 500;
+      margin-bottom: 16px;
+      color: var(--mat-app-on-surface);
+    }
+
+    &__content {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 24px;
+    }
+  }
+
+  .demo-list {
+    width: 300px;
+    border: 1px solid var(--mat-app-outline-variant);
+    border-radius: 8px;
+    overflow: hidden;
+  }
+
+  .badge {
+    background: var(--mat-app-primary);
+    color: var(--mat-app-on-primary);
+    padding: 2px 8px;
+    border-radius: 12px;
+    font-size: 12px;
+    font-weight: 500;
+  }
+}

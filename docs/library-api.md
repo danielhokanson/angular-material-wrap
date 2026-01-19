@@ -700,17 +700,359 @@ Data table with sorting, filtering, and pagination.
 
 ---
 
+### AmwIconButtonComponent
+
+Icon-only button component with loading state support.
+
+```html
+<!-- Basic icon button -->
+<amw-icon-button icon="settings" ariaLabel="Settings"></amw-icon-button>
+
+<!-- Colored icon button -->
+<amw-icon-button icon="delete" ariaLabel="Delete item" color="warn"></amw-icon-button>
+
+<!-- Loading state -->
+<amw-icon-button icon="save" ariaLabel="Save" [loading]="isSaving"></amw-icon-button>
+
+<!-- Different sizes -->
+<amw-icon-button icon="menu" ariaLabel="Menu" size="sm"></amw-icon-button>
+<amw-icon-button icon="menu" ariaLabel="Menu" size="md"></amw-icon-button>
+<amw-icon-button icon="menu" ariaLabel="Menu" size="lg"></amw-icon-button>
+```
+
+**IconButton-Specific Properties:**
+| Property | Type | Default | Description |
+|----------|------|---------|-------------|
+| `icon` | `string` | *required* | Material icon name |
+| `ariaLabel` | `string` | *required* | Accessible label |
+| `color` | `'primary' \| 'accent' \| 'warn'` | `undefined` | Button color |
+| `size` | `'sm' \| 'md' \| 'lg'` | `'md'` | Button size (32px, 40px, 48px) |
+| `disabled` | `boolean` | `false` | Disabled state |
+| `loading` | `boolean` | `false` | Loading state |
+| `type` | `'button' \| 'submit' \| 'reset'` | `'button'` | HTML button type |
+
+**IconButton Events:**
+| Event | Payload | Description |
+|-------|---------|-------------|
+| `buttonClick` | `MouseEvent` | Emitted when clicked |
+
+---
+
+### AmwChipComponent
+
+Standalone chip for displaying compact elements.
+
+```html
+<!-- Basic chip -->
+<amw-chip label="Angular"></amw-chip>
+
+<!-- Removable chip -->
+<amw-chip label="Tag" [removable]="true" (removed)="onRemove()"></amw-chip>
+
+<!-- Selectable chip -->
+<amw-chip
+  label="Option"
+  [selectable]="true"
+  [(selected)]="isSelected"
+  (selectionChange)="onSelect($event)">
+</amw-chip>
+
+<!-- Chip with icon and avatar -->
+<amw-chip label="User" icon="person" avatar="/path/to/avatar.jpg"></amw-chip>
+```
+
+**Chip-Specific Properties:**
+| Property | Type | Default | Description |
+|----------|------|---------|-------------|
+| `label` | `string` | *required* | Chip text |
+| `removable` | `boolean` | `false` | Shows remove button |
+| `selectable` | `boolean` | `false` | Chip can be selected |
+| `selected` | `boolean` | `false` | Selection state (two-way) |
+| `disabled` | `boolean` | `false` | Disabled state |
+| `color` | `'primary' \| 'accent' \| 'warn'` | `undefined` | Chip color |
+| `icon` | `string` | `undefined` | Leading icon |
+| `avatar` | `string` | `undefined` | Avatar image URL |
+| `chipClass` | `string` | `undefined` | Custom CSS class |
+
+**Chip Events:**
+| Event | Payload | Description |
+|-------|---------|-------------|
+| `removed` | `void` | Emitted when remove clicked |
+| `selectionChange` | `boolean` | Emitted when selection changes |
+
+---
+
+### AmwButtonToggleGroupComponent & AmwButtonToggleComponent
+
+Button toggle group for exclusive or multiple selection.
+
+```html
+<!-- Single selection -->
+<amw-button-toggle-group [(value)]="alignment" (valueChange)="onAlignmentChange($event)">
+  <amw-button-toggle value="left" icon="format_align_left"></amw-button-toggle>
+  <amw-button-toggle value="center" icon="format_align_center"></amw-button-toggle>
+  <amw-button-toggle value="right" icon="format_align_right"></amw-button-toggle>
+</amw-button-toggle-group>
+
+<!-- Multiple selection -->
+<amw-button-toggle-group [multiple]="true" [(value)]="selectedFormats">
+  <amw-button-toggle value="bold">Bold</amw-button-toggle>
+  <amw-button-toggle value="italic">Italic</amw-button-toggle>
+  <amw-button-toggle value="underline">Underline</amw-button-toggle>
+</amw-button-toggle-group>
+
+<!-- Vertical layout -->
+<amw-button-toggle-group [vertical]="true" [(value)]="selection">
+  <amw-button-toggle value="option1">Option 1</amw-button-toggle>
+  <amw-button-toggle value="option2">Option 2</amw-button-toggle>
+</amw-button-toggle-group>
+```
+
+**ButtonToggleGroup Properties:**
+| Property | Type | Default | Description |
+|----------|------|---------|-------------|
+| `value` | `any` | `undefined` | Selected value(s) |
+| `multiple` | `boolean` | `false` | Allow multiple selection |
+| `disabled` | `boolean` | `false` | Disable all toggles |
+| `vertical` | `boolean` | `false` | Vertical layout |
+| `appearance` | `'standard' \| 'legacy'` | `'standard'` | Visual appearance |
+| `name` | `string` | `undefined` | Group name |
+
+**ButtonToggleGroup Events:**
+| Event | Payload | Description |
+|-------|---------|-------------|
+| `valueChange` | `any` | Emitted when value changes |
+
+**ButtonToggle Properties:**
+| Property | Type | Default | Description |
+|----------|------|---------|-------------|
+| `value` | `any` | *required* | Toggle value |
+| `disabled` | `boolean` | `false` | Disabled state |
+| `icon` | `string` | `undefined` | Material icon |
+
+---
+
+### AmwListComponent & AmwListItemComponent
+
+List component for displaying items.
+
+```html
+<!-- Basic list -->
+<amw-list>
+  <amw-list-item>Item 1</amw-list-item>
+  <amw-list-item>Item 2</amw-list-item>
+  <amw-list-item>Item 3</amw-list-item>
+</amw-list>
+
+<!-- Dense list with selection -->
+<amw-list [dense]="true">
+  <amw-list-item [selected]="true">Selected Item</amw-list-item>
+  <amw-list-item [disabled]="true">Disabled Item</amw-list-item>
+</amw-list>
+
+<!-- Navigation list -->
+<amw-list>
+  <amw-list-item routerLink="/home">
+    <mat-icon amwListItemIcon>home</mat-icon>
+    <span amwListItemTitle>Home</span>
+  </amw-list-item>
+  <amw-list-item routerLink="/settings">
+    <mat-icon amwListItemIcon>settings</mat-icon>
+    <span amwListItemTitle>Settings</span>
+  </amw-list-item>
+</amw-list>
+```
+
+**List Properties:**
+| Property | Type | Default | Description |
+|----------|------|---------|-------------|
+| `dense` | `boolean` | `false` | Dense list display |
+| `disableRipple` | `boolean` | `false` | Disable ripple effect |
+
+**ListItem Properties:**
+| Property | Type | Default | Description |
+|----------|------|---------|-------------|
+| `disabled` | `boolean` | `false` | Disabled state |
+| `selected` | `boolean` | `false` | Selected state |
+| `routerLink` | `string \| any[]` | `undefined` | Router link |
+
+---
+
+### AmwPaginatorComponent
+
+Pagination component for navigating through data.
+
+```html
+<!-- Basic paginator -->
+<amw-paginator
+  [length]="100"
+  [pageSize]="10"
+  [pageIndex]="0"
+  (page)="onPageChange($event)">
+</amw-paginator>
+
+<!-- With page size options -->
+<amw-paginator
+  [length]="500"
+  [pageSize]="25"
+  [pageSizeOptions]="[10, 25, 50, 100]"
+  [showFirstLastButtons]="true"
+  (page)="onPageChange($event)">
+</amw-paginator>
+
+<!-- Hide page size selector -->
+<amw-paginator
+  [length]="100"
+  [pageSize]="10"
+  [hidePageSize]="true"
+  (page)="onPageChange($event)">
+</amw-paginator>
+```
+
+**Paginator Properties:**
+| Property | Type | Default | Description |
+|----------|------|---------|-------------|
+| `length` | `number` | `0` | Total items |
+| `pageSize` | `number` | `10` | Items per page |
+| `pageSizeOptions` | `number[]` | `[5, 10, 25, 50]` | Page size options |
+| `pageIndex` | `number` | `0` | Current page index |
+| `showFirstLastButtons` | `boolean` | `false` | Show first/last buttons |
+| `hidePageSize` | `boolean` | `false` | Hide page size selector |
+| `disabled` | `boolean` | `false` | Disabled state |
+
+**Paginator Events:**
+| Event | Payload | Description |
+|-------|---------|-------------|
+| `page` | `PageEvent` | Emitted on page change |
+
+---
+
+### AmwIconComponent
+
+Material icon wrapper with enhanced features.
+
+```html
+<!-- Basic icon -->
+<amw-icon name="home"></amw-icon>
+
+<!-- Icon with color -->
+<amw-icon name="warning" color="warn"></amw-icon>
+<amw-icon name="check" color="primary"></amw-icon>
+<amw-icon name="info" color="inherit"></amw-icon>
+
+<!-- Icon sizes (aliases available) -->
+<amw-icon name="star" size="sm"></amw-icon>   <!-- 16px -->
+<amw-icon name="star" size="md"></amw-icon>   <!-- 24px (default) -->
+<amw-icon name="star" size="lg"></amw-icon>   <!-- 32px -->
+<amw-icon name="star" size="xl"></amw-icon>   <!-- 48px -->
+
+<!-- Accessible icon -->
+<amw-icon name="error" ariaLabel="Error occurred"></amw-icon>
+```
+
+**Icon Properties:**
+| Property | Type | Default | Description |
+|----------|------|---------|-------------|
+| `name` | `string` | *required* | Material icon name |
+| `size` | `'sm' \| 'md' \| 'lg' \| 'xl'` | `'md'` | Icon size |
+| `color` | `'primary' \| 'accent' \| 'warn' \| 'inherit'` | `undefined` | Icon color |
+| `ariaLabel` | `string` | `undefined` | Accessible label (sets `aria-hidden="true"` if undefined) |
+
+---
+
+### AmwProgressSpinnerComponent
+
+Circular progress indicator.
+
+```html
+<!-- Indeterminate spinner -->
+<amw-progress-spinner mode="indeterminate"></amw-progress-spinner>
+<amw-spinner mode="indeterminate"></amw-spinner>  <!-- Alias selector -->
+
+<!-- Determinate with value -->
+<amw-progress-spinner mode="determinate" [value]="75"></amw-progress-spinner>
+
+<!-- Custom diameter -->
+<amw-progress-spinner [diameter]="50" [value]="50"></amw-progress-spinner>
+```
+
+**ProgressSpinner Properties:**
+| Property | Type | Default | Description |
+|----------|------|---------|-------------|
+| `mode` | `'determinate' \| 'indeterminate'` | `'indeterminate'` | Spinner mode |
+| `value` | `number` | `0` | Progress value (0-100) |
+| `diameter` | `number` | `100` | Spinner diameter |
+| `strokeWidth` | `number` | `10` | Stroke width |
+| `color` | `'primary' \| 'accent' \| 'warn'` | `'primary'` | Spinner color |
+
+---
+
+### AmwProgressBarComponent
+
+Linear progress indicator.
+
+```html
+<!-- Indeterminate bar -->
+<amw-progress-bar mode="indeterminate"></amw-progress-bar>
+
+<!-- Determinate with value -->
+<amw-progress-bar mode="determinate" [value]="60"></amw-progress-bar>
+
+<!-- Buffer mode -->
+<amw-progress-bar mode="buffer" [value]="50" [bufferValue]="75"></amw-progress-bar>
+```
+
+**ProgressBar Properties:**
+| Property | Type | Default | Description |
+|----------|------|---------|-------------|
+| `mode` | `'determinate' \| 'indeterminate' \| 'buffer' \| 'query'` | `'indeterminate'` | Bar mode |
+| `value` | `number` | `0` | Progress value (0-100) |
+| `bufferValue` | `number` | `0` | Buffer value for buffer mode |
+| `color` | `'primary' \| 'accent' \| 'warn'` | `'primary'` | Bar color |
+
+---
+
+### AmwMenuComponent
+
+Dropdown menu with trigger directive.
+
+```html
+<!-- Basic menu -->
+<amw-button [amwMenuTriggerFor]="menu">Open Menu</amw-button>
+<amw-menu #menu>
+  <amw-menu-item>Option 1</amw-menu-item>
+  <amw-menu-item>Option 2</amw-menu-item>
+  <amw-menu-item>Option 3</amw-menu-item>
+</amw-menu>
+
+<!-- Menu with icons and overlap -->
+<amw-button [amwMenuTriggerFor]="actionsMenu">Actions</amw-button>
+<amw-menu #actionsMenu [overlapTrigger]="true">
+  <amw-menu-item icon="edit">Edit</amw-menu-item>
+  <amw-menu-item icon="delete" [disabled]="true">Delete</amw-menu-item>
+</amw-menu>
+```
+
+**Menu Properties:**
+| Property | Type | Default | Description |
+|----------|------|---------|-------------|
+| `overlapTrigger` | `boolean` | `false` | Menu overlaps trigger |
+| `xPosition` | `'before' \| 'after'` | `'after'` | Horizontal position |
+| `yPosition` | `'above' \| 'below'` | `'below'` | Vertical position |
+
+**AmwMenuTriggerForDirective:**
+| Property | Type | Description |
+|----------|------|-------------|
+| `amwMenuTriggerFor` | `AmwMenuComponent` | Menu to trigger |
+
+---
+
 ### Other Components
 
 | Component | Description |
 |-----------|-------------|
-| `AmwMenuComponent` | Dropdown menu |
-| `AmwMenuItemComponent` | Menu item |
 | `AmwToolbarComponent` | App toolbar |
-| `AmwIconComponent` | Material icon wrapper |
 | `AmwDividerComponent` | Visual divider |
-| `AmwProgressBarComponent` | Linear progress indicator |
-| `AmwProgressSpinnerComponent` | Circular progress indicator |
 | `AmwCalendarMiniComponent` | Compact calendar view |
 | `AmwCalendarPickerComponent` | Date picker calendar |
 
@@ -786,11 +1128,68 @@ Copy text to clipboard.
 
 ### AmwTooltipDirective
 
-Enhanced tooltip.
+Enhanced tooltip with delay support and position aliases.
 
 ```html
+<!-- Basic tooltip -->
 <button amwTooltip="Tooltip text">Hover me</button>
+
+<!-- With position -->
+<button amwTooltip="Top tooltip" amwTooltipPosition="above">Above</button>
+<button amwTooltip="Bottom tooltip" amwTooltipPosition="below">Below</button>
+<button amwTooltip="Left tooltip" amwTooltipPosition="left">Left</button>
+<button amwTooltip="Right tooltip" amwTooltipPosition="right">Right</button>
+
+<!-- With delay -->
+<button amwTooltip="Delayed tooltip" [amwTooltipDelay]="500" [amwTooltipHideDelay]="200">
+  Hover for tooltip
+</button>
 ```
+
+**Tooltip Properties:**
+| Property | Type | Default | Description |
+|----------|------|---------|-------------|
+| `amwTooltip` | `string` | *required* | Tooltip text |
+| `amwTooltipPosition` | `'above' \| 'below' \| 'left' \| 'right' \| 'top' \| 'bottom'` | `'below'` | Position (`top`/`bottom` are aliases) |
+| `amwTooltipDelay` | `number` | `200` | Show delay (ms) |
+| `amwTooltipHideDelay` | `number` | `0` | Hide delay (ms) |
+| `amwTooltipDisabled` | `boolean` | `false` | Disable tooltip |
+
+---
+
+### AmwBadgeDirective
+
+Badge directive for displaying notifications and counts.
+
+```html
+<!-- Basic badge -->
+<button [amwBadge]="5">Notifications</button>
+
+<!-- Badge with color -->
+<button [amwBadge]="newMessages" amwBadgeColor="accent">Messages</button>
+
+<!-- Badge positioning -->
+<button [amwBadge]="3" amwBadgePosition="above before">Before</button>
+<button [amwBadge]="3" amwBadgePosition="below after">After</button>
+
+<!-- Hidden badge -->
+<button [amwBadge]="count" [amwBadgeHidden]="count === 0">Items</button>
+
+<!-- Badge sizes -->
+<span [amwBadge]="1" amwBadgeSize="small">Small</span>
+<span [amwBadge]="1" amwBadgeSize="medium">Medium</span>
+<span [amwBadge]="1" amwBadgeSize="large">Large</span>
+```
+
+**Badge Properties:**
+| Property | Type | Default | Description |
+|----------|------|---------|-------------|
+| `amwBadge` | `string \| number` | *required* | Badge content |
+| `amwBadgeColor` | `'primary' \| 'accent' \| 'warn'` | `'primary'` | Badge color |
+| `amwBadgePosition` | `'above after' \| 'above before' \| 'below after' \| 'below before'` | `'above after'` | Badge position |
+| `amwBadgeSize` | `'small' \| 'medium' \| 'large'` | `'medium'` | Badge size |
+| `amwBadgeHidden` | `boolean` | `false` | Hide badge |
+| `amwBadgeOverlap` | `boolean` | `true` | Overlap host element |
 
 ---
 

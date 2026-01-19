@@ -1,0 +1,97 @@
+.amw-chip {
+    // Base styles
+    display: inline-flex;
+    align-items: center;
+    cursor: default;
+    transition: all var(--mdc-motion-duration-short4, 0.2s) ease-in-out;
+
+    // Avatar styles
+    &__avatar {
+        width: 24px;
+        height: 24px;
+        border-radius: 50%;
+        object-fit: cover;
+        margin-right: 8px;
+    }
+
+    // Icon styles
+    &__icon {
+        font-size: 18px;
+        width: 18px;
+        height: 18px;
+        margin-right: 4px;
+    }
+
+    // Label styles
+    &__label {
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
+    }
+
+    // Remove button styles
+    &__remove {
+        margin-left: 4px;
+        cursor: pointer;
+        opacity: 0.7;
+        transition: opacity 0.15s ease;
+
+        &:hover {
+            opacity: 1;
+        }
+
+        mat-icon {
+            font-size: 18px;
+            width: 18px;
+            height: 18px;
+        }
+    }
+
+    // Color variants
+    &--primary {
+        --mdc-chip-elevated-container-color: var(--mat-primary-color, #6750A4);
+        --mdc-chip-label-text-color: var(--mat-on-primary-color, #FFFFFF);
+    }
+
+    &--accent {
+        --mdc-chip-elevated-container-color: var(--mat-accent-color, #625B71);
+        --mdc-chip-label-text-color: var(--mat-on-accent-color, #FFFFFF);
+    }
+
+    &--warn {
+        --mdc-chip-elevated-container-color: var(--mat-warn-color, #B3261E);
+        --mdc-chip-label-text-color: var(--mat-on-warn-color, #FFFFFF);
+    }
+
+    // Selected state
+    &--selected {
+        --mdc-chip-elevated-selected-container-color: var(--mat-primary-color, #6750A4);
+        --mdc-chip-selected-label-text-color: var(--mat-on-primary-color, #FFFFFF);
+    }
+
+    // Selectable state (interactive)
+    &--selectable {
+        cursor: pointer;
+
+        &:hover {
+            opacity: 0.9;
+        }
+
+        &:focus-visible {
+            outline: 2px solid var(--mat-focus-indicator-color, #6750A4);
+            outline-offset: 2px;
+        }
+    }
+
+    // Disabled state
+    &--disabled {
+        opacity: 0.5;
+        cursor: not-allowed;
+        pointer-events: none;
+    }
+
+    // Has avatar modifier
+    &--has-avatar {
+        padding-left: 4px;
+    }
+}

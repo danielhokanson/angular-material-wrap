@@ -4,13 +4,18 @@ import { ComponentPortal } from '@angular/cdk/portal';
 import { Subscription } from 'rxjs';
 import { AmwTooltipComponent } from './amw-tooltip.component';
 
+/** Tooltip position type - supports both naming conventions */
+export type TooltipPosition = 'top' | 'bottom' | 'left' | 'right' | 'above' | 'below' | 'auto';
+
 export interface TooltipConfig {
     content: string;
-    position?: 'top' | 'bottom' | 'left' | 'right' | 'auto';
+    position?: TooltipPosition;
     disabled?: boolean;
     maxWidth?: string;
     class?: string;
     allowHtml?: boolean;
+    showDelay?: number;
+    hideDelay?: number;
 }
 
 @Directive({
@@ -25,17 +30,45 @@ export interface TooltipConfig {
 })
 export class AmwTooltipDirective implements OnDestroy {
     tooltipConfig = input<TooltipConfig | string>('', { alias: 'amwTooltip' });
-    tooltipPosition = input<'top' | 'bottom' | 'left' | 'right' | 'auto'>('auto');
+
+    /**
+     * Tooltip position. Supports both conventions:
+     * - 'top'/'bottom'/'left'/'right' (Material style)
+     * - 'above'/'below' (aliases for top/bottom)
+     * - 'auto' (automatically position based on available space)
+     */
+    tooltipPosition = input<TooltipPosition>('auto');
+    /** Alias for tooltipPosition using the amwTooltipPosition name */
+    amwTooltipPosition = input<TooltipPosition | undefined>();
+
     tooltipDisabled = input<boolean>(false);
+    /** Alias for tooltipDisabled */
+    amwTooltipDisabled = input<boolean | undefined>();
+
     tooltipMaxWidth = input<string>('200px');
     tooltipClass = input<string>('');
+    /** Alias for tooltipClass */
+    amwTooltipClass = input<string | undefined>();
+
     tooltipAllowHtml = input<boolean>(false);
+
+    /** Delay in milliseconds before showing the tooltip */
+    tooltipDelay = input<number>(200);
+    /** Alias for tooltipDelay */
+    amwTooltipDelay = input<number | undefined>();
+
+    /** Delay in milliseconds before hiding the tooltip */
+    tooltipHideDelay = input<number>(0);
+    /** Alias for tooltipHideDelay */
+    amwTooltipHideDelay = input<number | undefined>();
 
     private overlayRef: OverlayRef | null = null;
     private tooltipComponent: ComponentRef<AmwTooltipComponent> | null = null;
     private isVisible = false;
     private positionSubscription: Subscription | null = null;
     private currentCustomClass = '';
+    private showTimeoutId: ReturnType<typeof setTimeout> | null = null;
+    private hideTimeoutId: ReturnType<typeof setTimeout> | null = null;
 
     constructor(
         private elementRef: ElementRef,
@@ -44,6 +77,7 @@ export class AmwTooltipDirective implements OnDestroy {
     ) { }
 
     ngOnDestroy(): void {
+        this.clearTimeouts();
         this.destroyTooltip();
         if (this.overlayRef) {
             this.overlayRef.dispose();
@@ -51,23 +85,92 @@ export class AmwTooltipDirective implements OnDestroy {
     }
 
     onMouseEnter(): void {
-        this.show();
+        this.scheduleShow();
     }
 
     onMouseLeave(): void {
-        this.hide();
+        this.scheduleHide();
     }
 
     onFocus(): void {
-        this.show();
+        this.scheduleShow();
     }
 
     onBlur(): void {
-        this.hide();
+        this.scheduleHide();
+    }
+
+    /** Clear any pending show/hide timeouts */
+    private clearTimeouts(): void {
+        if (this.showTimeoutId) {
+            clearTimeout(this.showTimeoutId);
+            this.showTimeoutId = null;
+        }
+        if (this.hideTimeoutId) {
+            clearTimeout(this.hideTimeoutId);
+            this.hideTimeoutId = null;
+        }
+    }
+
+    /** Schedule showing the tooltip after the configured delay */
+    private scheduleShow(): void {
+        this.clearTimeouts();
+
+        const delay = this.getEffectiveShowDelay();
+        if (delay > 0) {
+            this.showTimeoutId = setTimeout(() => {
+                this.show();
+            }, delay);
+        } else {
+            this.show();
+        }
+    }
+
+    /** Schedule hiding the tooltip after the configured delay */
+    private scheduleHide(): void {
+        this.clearTimeouts();
+
+        const delay = this.getEffectiveHideDelay();
+        if (delay > 0) {
+            this.hideTimeoutId = setTimeout(() => {
+                this.hide();
+            }, delay);
+        } else {
+            this.hide();
+        }
+    }
+
+    /** Get the effective show delay (prefers amwTooltipDelay over tooltipDelay) */
+    private getEffectiveShowDelay(): number {
+        return this.amwTooltipDelay() ?? this.tooltipDelay();
+    }
+
+    /** Get the effective hide delay (prefers amwTooltipHideDelay over tooltipHideDelay) */
+    private getEffectiveHideDelay(): number {
+        return this.amwTooltipHideDelay() ?? this.tooltipHideDelay();
+    }
+
+    /** Get the effective position (prefers amwTooltipPosition, normalizes above/below) */
+    private getEffectivePosition(): 'top' | 'bottom' | 'left' | 'right' | 'auto' {
+        const pos = this.amwTooltipPosition() ?? this.tooltipPosition();
+        // Normalize 'above' and 'below' to 'top' and 'bottom'
+        if (pos === 'above') return 'top';
+        if (pos === 'below') return 'bottom';
+        return pos;
+    }
+
+    /** Get the effective disabled state */
+    private getEffectiveDisabled(): boolean {
+        return this.amwTooltipDisabled() ?? this.tooltipDisabled();
+    }
+
+    /** Get the effective custom class */
+    private getEffectiveClass(): string {
+        return this.amwTooltipClass() ?? this.tooltipClass();
     }
 
     private show(): void {
-        if (this.tooltipDisabled() || this.isVisible) {
+        if (this.getEffectiveDisabled() || this.isVisible) {
             return;
         }
 
@@ -88,14 +191,29 @@ export class AmwTooltipDirective implements OnDestroy {
         if (typeof config === 'string') {
             return {
                 content: config,
-                position: this.tooltipPosition(),
-                disabled: this.tooltipDisabled(),
+                position: this.getEffectivePosition(),
+                disabled: this.getEffectiveDisabled(),
                 maxWidth: this.tooltipMaxWidth(),
-                class: this.tooltipClass(),
-                allowHtml: this.tooltipAllowHtml()
+                class: this.getEffectiveClass(),
+                allowHtml: this.tooltipAllowHtml(),
+                showDelay: this.getEffectiveShowDelay(),
+                hideDelay: this.getEffectiveHideDelay()
             };
         }
-        return config;
+        // For object config, apply effective values as defaults
+        return {
+            ...config,
+            position: config.position ? this.normalizePosition(config.position) : this.getEffectivePosition(),
+            showDelay: config.showDelay ?? this.getEffectiveShowDelay(),
+            hideDelay: config.hideDelay ?? this.getEffectiveHideDelay()
+        };
+    }
+
+    /** Normalize position values (above→top, below→bottom) */
+    private normalizePosition(pos: TooltipPosition): 'top' | 'bottom' | 'left' | 'right' | 'auto' {
+        if (pos === 'above') return 'top';
+        if (pos === 'below') return 'bottom';
+        return pos;
     }
 
     private createTooltip(config: TooltipConfig): void {

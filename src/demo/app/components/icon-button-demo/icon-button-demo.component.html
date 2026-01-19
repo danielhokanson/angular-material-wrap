@@ -1,0 +1,85 @@
+<div class="amw-demo-icon-button">
+  <!-- Size Variations -->
+  <div class="variation-section">
+    <h3 class="variation-section__title">Size Variations</h3>
+    <div class="variation-section__content">
+      <div class="variation-group">
+        <span class="variation-label">Small (32px)</span>
+        <amw-icon-button icon="settings" ariaLabel="Settings" size="sm" (buttonClick)="onButtonClick('Small')"></amw-icon-button>
+      </div>
+      <div class="variation-group">
+        <span class="variation-label">Medium (40px)</span>
+        <amw-icon-button icon="settings" ariaLabel="Settings" size="md" (buttonClick)="onButtonClick('Medium')"></amw-icon-button>
+      </div>
+      <div class="variation-group">
+        <span class="variation-label">Large (48px)</span>
+        <amw-icon-button icon="settings" ariaLabel="Settings" size="lg" (buttonClick)="onButtonClick('Large')"></amw-icon-button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Color Variations -->
+  <div class="variation-section">
+    <h3 class="variation-section__title">Color Variations</h3>
+    <div class="variation-section__content">
+      <div class="variation-group">
+        <span class="variation-label">Primary</span>
+        <amw-icon-button icon="favorite" ariaLabel="Favorite" color="primary" (buttonClick)="onButtonClick('Primary')"></amw-icon-button>
+      </div>
+      <div class="variation-group">
+        <span class="variation-label">Accent</span>
+        <amw-icon-button icon="star" ariaLabel="Star" color="accent" (buttonClick)="onButtonClick('Accent')"></amw-icon-button>
+      </div>
+      <div class="variation-group">
+        <span class="variation-label">Warn</span>
+        <amw-icon-button icon="delete" ariaLabel="Delete" color="warn" (buttonClick)="onButtonClick('Warn')"></amw-icon-button>
+      </div>
+    </div>
+  </div>
+
+  <!-- State Variations -->
+  <div class="variation-section">
+    <h3 class="variation-section__title">State Variations</h3>
+    <div class="variation-section__content">
+      <div class="variation-group">
+        <span class="variation-label">Normal</span>
+        <amw-icon-button icon="edit" ariaLabel="Edit" (buttonClick)="onButtonClick('Normal')"></amw-icon-button>
+      </div>
+      <div class="variation-group">
+        <span class="variation-label">Disabled</span>
+        <amw-icon-button icon="edit" ariaLabel="Edit" [disabled]="true"></amw-icon-button>
+      </div>
+      <div class="variation-group">
+        <span class="variation-label">Loading</span>
+        <amw-icon-button icon="sync" ariaLabel="Sync" [loading]="isLoading" (buttonClick)="simulateLoading()"></amw-icon-button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Common Icons -->
+  <div class="variation-section">
+    <h3 class="variation-section__title">Common Icon Buttons</h3>
+    <div class="variation-section__content">
+      <div class="variation-group">
+        <span class="variation-label">Menu</span>
+        <amw-icon-button icon="menu" ariaLabel="Menu"></amw-icon-button>
+      </div>
+      <div class="variation-group">
+        <span class="variation-label">Close</span>
+        <amw-icon-button icon="close" ariaLabel="Close"></amw-icon-button>
+      </div>
+      <div class="variation-group">
+        <span class="variation-label">More</span>
+        <amw-icon-button icon="more_vert" ariaLabel="More options"></amw-icon-button>
+      </div>
+      <div class="variation-group">
+        <span class="variation-label">Search</span>
+        <amw-icon-button icon="search" ariaLabel="Search"></amw-icon-button>
+      </div>
+      <div class="variation-group">
+        <span class="variation-label">Refresh</span>
+        <amw-icon-button icon="refresh" ariaLabel="Refresh"></amw-icon-button>
+      </div>
+    </div>
+  </div>
+</div>

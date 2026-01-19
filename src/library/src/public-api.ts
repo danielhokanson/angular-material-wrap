@@ -11,6 +11,12 @@ export { AmwChipsComponent } from './controls/components/amw-chips/amw-chips.com
 export { AmwChipInputComponent } from './controls/components/amw-chip-input/amw-chip-input.component';
 export { AmwFormValidationComponent } from './controls/components/amw-form-validation/amw-form-validation.component';
 
+// New control components
+export { AmwIconButtonComponent } from './controls/components/amw-icon-button/amw-icon-button.component';
+export { AmwChipComponent } from './controls/components/amw-chip/amw-chip.component';
+export { AmwButtonToggleComponent } from './controls/components/amw-button-toggle/amw-button-toggle.component';
+export { AmwButtonToggleGroupComponent } from './controls/components/amw-button-toggle/amw-button-toggle-group.component';
+
 // Chip input interfaces
 export type { ChipInputOption, ChipInputConfig } from './controls/components/amw-chip-input/interfaces';
 
@@ -33,13 +39,24 @@ export * from './components/services';
 export { AmwAccordionComponent } from './components/components/amw-accordion/amw-accordion.component';
 export { AmwAccordionPanelComponent } from './components/components/amw-accordion/amw-accordion-panel.component';
 export { AmwMenuComponent, AmwMenuItemComponent } from './components/components/amw-menu';
+export { AmwMenuTriggerForDirective } from './components/components/amw-menu/amw-menu-trigger.directive';
 export { AmwProgressBarComponent } from './components/components/amw-progress-bar/amw-progress-bar.component';
 export { AmwProgressSpinnerComponent } from './components/components/amw-progress-spinner/amw-progress-spinner.component';
 export { AmwToolbarComponent } from './components/components/amw-toolbar/amw-toolbar.component';
 export { AmwDividerComponent } from './components/components/amw-divider/amw-divider.component';
+export { AmwIconComponent } from './components/components/amw-icon/amw-icon.component';
+
+// New UI components
+export { AmwListComponent } from './components/components/amw-list/amw-list.component';
+export { AmwListItemComponent } from './components/components/amw-list/amw-list-item.component';
+export { AmwPaginatorComponent } from './components/components/amw-paginator/amw-paginator.component';
 
 // Directives exports
 export * from './directives';
+
+// Individual directive exports for better tree-shaking
+export { AmwTooltipDirective } from './directives/amw-tooltip/amw-tooltip.directive';
+export { AmwBadgeDirective } from './directives/amw-badge/amw-badge.directive';
 
 // Pipes exports
 export * from './pipes';

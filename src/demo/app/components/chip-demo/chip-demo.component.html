@@ -1,0 +1,80 @@
+<div class="amw-demo-chip">
+  <!-- Basic Chips -->
+  <div class="variation-section">
+    <h3 class="variation-section__title">Basic Chips</h3>
+    <div class="variation-section__content">
+      <amw-chip label="Basic Chip"></amw-chip>
+      <amw-chip label="Primary" color="primary"></amw-chip>
+      <amw-chip label="Accent" color="accent"></amw-chip>
+      <amw-chip label="Warn" color="warn"></amw-chip>
+    </div>
+  </div>
+
+  <!-- Removable Chips -->
+  <div class="variation-section">
+    <h3 class="variation-section__title">Removable Chips</h3>
+    <div class="variation-section__content">
+      @for (tag of tags(); track tag) {
+        <amw-chip [label]="tag" [removable]="true" (removed)="onRemove(tag)"></amw-chip>
+      }
+    </div>
+  </div>
+
+  <!-- Selectable Chips -->
+  <div class="variation-section">
+    <h3 class="variation-section__title">Selectable Chips</h3>
+    <div class="variation-section__content">
+      <amw-chip
+        label="Option 1"
+        [selectable]="true"
+        [(selected)]="selected1"
+        (selectionChange)="onSelectionChange('Option 1', $event)">
+      </amw-chip>
+      <amw-chip
+        label="Option 2"
+        [selectable]="true"
+        [(selected)]="selected2"
+        color="primary"
+        (selectionChange)="onSelectionChange('Option 2', $event)">
+      </amw-chip>
+      <amw-chip
+        label="Option 3"
+        [selectable]="true"
+        [(selected)]="selected3"
+        color="accent"
+        (selectionChange)="onSelectionChange('Option 3', $event)">
+      </amw-chip>
+    </div>
+  </div>
+
+  <!-- Chips with Icons -->
+  <div class="variation-section">
+    <h3 class="variation-section__title">Chips with Icons</h3>
+    <div class="variation-section__content">
+      <amw-chip label="Home" icon="home"></amw-chip>
+      <amw-chip label="Settings" icon="settings"></amw-chip>
+      <amw-chip label="Favorite" icon="favorite" color="warn"></amw-chip>
+      <amw-chip label="Star" icon="star" color="accent"></amw-chip>
+    </div>
+  </div>
+
+  <!-- Chips with Avatars -->
+  <div class="variation-section">
+    <h3 class="variation-section__title">Chips with Avatars</h3>
+    <div class="variation-section__content">
+      <amw-chip label="John Doe" avatar="https://i.pravatar.cc/32?img=1"></amw-chip>
+      <amw-chip label="Jane Smith" avatar="https://i.pravatar.cc/32?img=2"></amw-chip>
+      <amw-chip label="Bob Johnson" avatar="https://i.pravatar.cc/32?img=3" [removable]="true"></amw-chip>
+    </div>
+  </div>
+
+  <!-- Disabled Chips -->
+  <div class="variation-section">
+    <h3 class="variation-section__title">Disabled Chips</h3>
+    <div class="variation-section__content">
+      <amw-chip label="Disabled" [disabled]="true"></amw-chip>
+      <amw-chip label="Disabled Removable" [disabled]="true" [removable]="true"></amw-chip>
+      <amw-chip label="Disabled Selectable" [disabled]="true" [selectable]="true"></amw-chip>
+    </div>
+  </div>
+</div>

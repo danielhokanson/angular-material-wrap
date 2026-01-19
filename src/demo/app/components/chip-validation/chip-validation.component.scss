@@ -1,0 +1,42 @@
+.amw-demo-chip-validation {
+  padding: 16px;
+
+  .validation-section {
+    margin-bottom: 32px;
+
+    &__title {
+      font-size: 18px;
+      font-weight: 500;
+      margin-bottom: 16px;
+    }
+
+    &__content {
+      display: flex;
+      align-items: center;
+      gap: 16px;
+      flex-wrap: wrap;
+    }
+  }
+
+  .toggle-btn {
+    padding: 8px 16px;
+    border: 1px solid var(--mat-app-outline);
+    border-radius: 4px;
+    background: var(--mat-app-surface);
+    cursor: pointer;
+  }
+
+  .state-label {
+    font-size: 14px;
+    color: var(--mat-app-on-surface-variant);
+  }
+
+  .info-text {
+    margin: 0;
+    code {
+      background: var(--mat-app-surface-variant);
+      padding: 2px 6px;
+      border-radius: 4px;
+    }
+  }
+}

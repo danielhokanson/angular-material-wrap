@@ -1,0 +1,11 @@
+<mat-button-toggle-group
+    [class]="groupClasses()"
+    [value]="value()"
+    [multiple]="multiple()"
+    [disabled]="isDisabled()"
+    [vertical]="vertical()"
+    [name]="name() || ''"
+    (change)="onToggleChange($event)"
+    [attr.aria-label]="name() || 'Toggle group'">
+    <ng-content></ng-content>
+</mat-button-toggle-group>

@@ -1,0 +1,79 @@
+.amw-demo-badge-validation {
+  padding: 16px;
+
+  .validation-section {
+    margin-bottom: 32px;
+
+    &__title {
+      font-size: 18px;
+      font-weight: 500;
+      margin-bottom: 16px;
+    }
+
+    &__content {
+      display: flex;
+      align-items: center;
+      gap: 16px;
+    }
+  }
+
+  .toggle-btn {
+    padding: 8px 16px;
+    border: 1px solid var(--mat-app-outline);
+    border-radius: 4px;
+    background: var(--mat-app-surface);
+    cursor: pointer;
+
+    &:hover {
+      background: var(--mat-app-surface-variant);
+    }
+  }
+
+  .controls {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+  }
+
+  .count-display {
+    min-width: 40px;
+    text-align: center;
+    font-weight: 500;
+  }
+
+  .state-label {
+    font-size: 14px;
+    color: var(--mat-app-on-surface-variant);
+  }
+
+  .info-text {
+    margin: 16px 0 0 0;
+    font-size: 14px;
+    color: var(--mat-app-on-surface-variant);
+
+    code {
+      background: var(--mat-app-surface-variant);
+      padding: 2px 6px;
+      border-radius: 4px;
+    }
+  }
+
+  .positions-grid {
+    display: grid;
+    grid-template-columns: repeat(2, auto);
+    gap: 32px;
+  }
+
+  .position-item {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 12px;
+  }
+
+  .position-label {
+    font-size: 12px;
+    color: var(--mat-app-on-surface-variant);
+    font-family: 'Roboto Mono', monospace;
+  }
+}

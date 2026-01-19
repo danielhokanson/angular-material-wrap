@@ -1,0 +1,21 @@
+<button
+    mat-icon-button
+    [type]="type()"
+    [disabled]="disabled() || loading()"
+    [attr.aria-label]="ariaLabel()"
+    [attr.tabindex]="tabIndex()"
+    [color]="color()"
+    [class]="buttonClasses()"
+    (click)="onClick($event)"
+    (focus)="onFocus($event)"
+    (blur)="onBlur($event)">
+    @if (loading()) {
+        <amw-progress-spinner
+            [diameter]="spinnerDiameter()"
+            mode="indeterminate"
+            [color]="color() || 'primary'">
+        </amw-progress-spinner>
+    } @else {
+        <mat-icon>{{ icon() }}</mat-icon>
+    }
+</button>

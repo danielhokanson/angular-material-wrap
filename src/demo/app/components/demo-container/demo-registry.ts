@@ -115,6 +115,32 @@ import { ThemeValidationComponent } from '../theme-validation/theme-validation.c
 import { ThemeCodeComponent } from '../theme-code/theme-code.component';
 import { ThemeApiComponent } from '../theme-api/theme-api.component';
 
+// New component demos
+import { IconButtonDemoComponent } from '../icon-button-demo/icon-button-demo.component';
+import { IconButtonValidationComponent } from '../icon-button-validation/icon-button-validation.component';
+import { IconButtonCodeComponent } from '../icon-button-code/icon-button-code.component';
+import { IconButtonApiComponent } from '../icon-button-api/icon-button-api.component';
+import { ChipDemoComponent } from '../chip-demo/chip-demo.component';
+import { ChipValidationComponent } from '../chip-validation/chip-validation.component';
+import { ChipCodeComponent } from '../chip-code/chip-code.component';
+import { ChipApiComponent } from '../chip-api/chip-api.component';
+import { ButtonToggleDemoComponent } from '../button-toggle-demo/button-toggle-demo.component';
+import { ButtonToggleValidationComponent } from '../button-toggle-validation/button-toggle-validation.component';
+import { ButtonToggleCodeComponent } from '../button-toggle-code/button-toggle-code.component';
+import { ButtonToggleApiComponent } from '../button-toggle-api/button-toggle-api.component';
+import { ListDemoComponent } from '../list-demo/list-demo.component';
+import { ListValidationComponent } from '../list-validation/list-validation.component';
+import { ListCodeComponent } from '../list-code/list-code.component';
+import { ListApiComponent } from '../list-api/list-api.component';
+import { PaginatorDemoComponent } from '../paginator-demo/paginator-demo.component';
+import { PaginatorValidationComponent } from '../paginator-validation/paginator-validation.component';
+import { PaginatorCodeComponent } from '../paginator-code/paginator-code.component';
+import { PaginatorApiComponent } from '../paginator-api/paginator-api.component';
+import { BadgeDemoComponent } from '../badge-demo/badge-demo.component';
+import { BadgeValidationComponent } from '../badge-validation/badge-validation.component';
+import { BadgeCodeComponent } from '../badge-code/badge-code.component';
+import { BadgeApiComponent } from '../badge-api/badge-api.component';
+
 export interface DemoComponents {
     demo?: Type<any>;
     validation?: Type<any>;
@@ -303,6 +329,46 @@ export const DEMO_REGISTRY: Record<string, DemoComponents> = {
         validation: ThemeValidationComponent,
         code: ThemeCodeComponent,
         api: ThemeApiComponent
+    },
+
+    // New controls
+    'icon-button': {
+        demo: IconButtonDemoComponent,
+        validation: IconButtonValidationComponent,
+        code: IconButtonCodeComponent,
+        api: IconButtonApiComponent
+    },
+    'chip': {
+        demo: ChipDemoComponent,
+        validation: ChipValidationComponent,
+        code: ChipCodeComponent,
+        api: ChipApiComponent
+    },
+    'button-toggle': {
+        demo: ButtonToggleDemoComponent,
+        validation: ButtonToggleValidationComponent,
+        code: ButtonToggleCodeComponent,
+        api: ButtonToggleApiComponent
+    },
+
+    // New components
+    'list': {
+        demo: ListDemoComponent,
+        validation: ListValidationComponent,
+        code: ListCodeComponent,
+        api: ListApiComponent
+    },
+    'paginator': {
+        demo: PaginatorDemoComponent,
+        validation: PaginatorValidationComponent,
+        code: PaginatorCodeComponent,
+        api: PaginatorApiComponent
+    },
+    'badge': {
+        demo: BadgeDemoComponent,
+        validation: BadgeValidationComponent,
+        code: BadgeCodeComponent,
+        api: BadgeApiComponent
     }
 };
 
@@ -313,13 +379,16 @@ export const DEMO_CONFIGS: Record<string, DemoConfig> = {
         items: [
             { id: 'autocomplete', name: 'Autocomplete' },
             { id: 'button', name: 'Button' },
+            { id: 'button-toggle', name: 'Button Toggle' },
             { id: 'checkbox', name: 'Checkbox' },
+            { id: 'chip', name: 'Chip' },
             { id: 'chip-input', name: 'Chip Input' },
             { id: 'chips', name: 'Chips' },
             { id: 'color-picker', name: 'Color Picker' },
             { id: 'data-table', name: 'Data Table' },
             { id: 'datepicker', name: 'Datepicker' },
             { id: 'file-input', name: 'File Input' },
+            { id: 'icon-button', name: 'Icon Button' },
             { id: 'input', name: 'Input' },
             { id: 'radio', name: 'Radio Button' },
             { id: 'radio-group', name: 'Radio Group' },
@@ -337,11 +406,14 @@ export const DEMO_CONFIGS: Record<string, DemoConfig> = {
         subtitle: 'Complex UI component combinations and advanced functionality',
         items: [
             { id: 'accordion', name: 'Accordion' },
+            { id: 'badge', name: 'Badge' },
             { id: 'calendar', name: 'Calendar' },
             { id: 'card', name: 'Card' },
             { id: 'chips', name: 'Chips' },
             { id: 'data-table', name: 'Data Table' },
             { id: 'dialog', name: 'Dialog' },
+            { id: 'list', name: 'List' },
+            { id: 'paginator', name: 'Paginator' },
             { id: 'popover', name: 'Popover' },
             { id: 'sidenav', name: 'Sidenav' },
             { id: 'stepper', name: 'Stepper' },

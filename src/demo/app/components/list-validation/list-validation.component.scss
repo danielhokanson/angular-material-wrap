@@ -1,0 +1,101 @@
+// List Validation Demo - Layout and positioning styles only
+// Visual styling is handled by the library components and theme
+
+.amw-demo-list-validation {
+  .validation-section {
+    &__title {
+      margin-bottom: 16px;
+    }
+
+    &__description {
+      margin-bottom: 24px;
+      line-height: 1.5;
+    }
+  }
+
+  .validation-forms {
+    display: grid;
+    gap: 24px;
+
+    @media (min-width: 1200px) {
+      grid-template-columns: repeat(2, 1fr);
+    }
+  }
+
+  .validation-card {
+    .subtitle {
+      margin-top: 8px;
+    }
+
+    h2 {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+
+      amw-icon {
+        width: 24px;
+        height: 24px;
+      }
+    }
+  }
+
+  .status-badge {
+    padding: 4px 8px;
+    border-radius: 4px;
+    font-size: 12px;
+    font-weight: 500;
+
+    &--enabled {
+      background-color: rgba(76, 175, 80, 0.1);
+      color: #4caf50;
+    }
+
+    &--disabled {
+      background-color: rgba(244, 67, 54, 0.1);
+      color: #f44336;
+    }
+  }
+
+  .selected-icon {
+    color: #4caf50;
+  }
+
+  .click-feedback,
+  .selection-feedback {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    margin-top: 16px;
+    padding: 12px;
+    border-radius: 4px;
+
+    amw-icon {
+      width: 20px;
+      height: 20px;
+    }
+  }
+
+  .validation-info {
+    margin-top: 24px;
+    padding: 20px;
+    border-radius: 8px;
+
+    h4 {
+      margin-bottom: 12px;
+    }
+
+    ul {
+      margin: 0;
+      padding-left: 20px;
+
+      li {
+        margin-bottom: 8px;
+        line-height: 1.4;
+
+        strong {
+          font-weight: 600;
+        }
+      }
+    }
+  }
+}

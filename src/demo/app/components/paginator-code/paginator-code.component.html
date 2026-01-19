@@ -1,0 +1,150 @@
+<div class="code-section">
+  <h3>Code Examples</h3>
+  <p>Interactive examples with live previews. The code is editable for reference, and working examples are shown alongside.</p>
+
+  <amw-accordion class="code-examples-accordion">
+    <!-- Basic Paginator -->
+    <amw-accordion-panel amwDescription="A simple paginator with default settings">
+      <ng-template #header>
+        <amw-icon name="code"></amw-icon>
+        Basic Paginator
+      </ng-template>
+      <div class="example-container">
+        <div class="code-panel">
+          <div class="code-header">
+            <h4>Code</h4>
+            <amw-button icon="refresh" (click)="resetCode('basic')" title="Reset to original"></amw-button>
+          </div>
+          <textarea
+            [(ngModel)]="editableCode.basic"
+            class="code-editor"
+            spellcheck="false"></textarea>
+        </div>
+        <div class="preview-panel">
+          <h4>Preview</h4>
+          <div class="preview-content">
+            <amw-paginator
+              [length]="basicLength"
+              [pageSize]="basicPageSize"
+              [pageIndex]="basicPageIndex"
+              (page)="onBasicPageChange($event)">
+            </amw-paginator>
+            <p>Page {{ basicPageIndex + 1 }} of {{ Math.ceil(basicLength / basicPageSize) }}</p>
+            <p>Showing items {{ basicPageIndex * basicPageSize + 1 }} - {{ Math.min((basicPageIndex + 1) * basicPageSize, basicLength) }} of {{ basicLength }}</p>
+          </div>
+        </div>
+      </div>
+    </amw-accordion-panel>
+
+    <!-- Page Size Options -->
+    <amw-accordion-panel amwDescription="Paginator with custom page size options">
+      <ng-template #header>
+        <amw-icon name="code"></amw-icon>
+        Page Size Options
+      </ng-template>
+      <div class="example-container">
+        <div class="code-panel">
+          <div class="code-header">
+            <h4>Code</h4>
+            <amw-button icon="refresh" (click)="resetCode('pageSizeOptions')" title="Reset to original"></amw-button>
+          </div>
+          <textarea
+            [(ngModel)]="editableCode.pageSizeOptions"
+            class="code-editor"
+            spellcheck="false"
+            readonly></textarea>
+        </div>
+        <div class="preview-panel">
+          <h4>Preview</h4>
+          <div class="preview-content">
+            <amw-paginator
+              [length]="optionsLength"
+              [pageSize]="optionsPageSize"
+              [pageIndex]="optionsPageIndex"
+              [pageSizeOptions]="[10, 25, 50, 100]"
+              (page)="onOptionsPageChange($event)">
+            </amw-paginator>
+            <p>Page {{ optionsPageIndex + 1 }} of {{ Math.ceil(optionsLength / optionsPageSize) }}</p>
+            <p>Page size: {{ optionsPageSize }} items per page</p>
+          </div>
+        </div>
+      </div>
+    </amw-accordion-panel>
+
+    <!-- First/Last Buttons -->
+    <amw-accordion-panel amwDescription="Paginator with first and last page buttons">
+      <ng-template #header>
+        <amw-icon name="code"></amw-icon>
+        First/Last Buttons
+      </ng-template>
+      <div class="example-container">
+        <div class="code-panel">
+          <div class="code-header">
+            <h4>Code</h4>
+            <amw-button icon="refresh" (click)="resetCode('firstLast')" title="Reset to original"></amw-button>
+          </div>
+          <textarea
+            [(ngModel)]="editableCode.firstLast"
+            class="code-editor"
+            spellcheck="false"
+            readonly></textarea>
+        </div>
+        <div class="preview-panel">
+          <h4>Preview</h4>
+          <div class="preview-content">
+            <amw-paginator
+              [length]="firstLastLength"
+              [pageSize]="firstLastPageSize"
+              [pageIndex]="firstLastPageIndex"
+              [showFirstLastButtons]="true"
+              (page)="onFirstLastPageChange($event)">
+            </amw-paginator>
+            <p>Page {{ firstLastPageIndex + 1 }} of {{ Math.ceil(firstLastLength / firstLastPageSize) }}</p>
+            <div class="preview-note">
+              <amw-icon name="info"></amw-icon>
+              <span>Use the double arrow buttons to jump to first or last page</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </amw-accordion-panel>
+
+    <!-- Hide Page Size -->
+    <amw-accordion-panel amwDescription="Paginator with hidden page size selector">
+      <ng-template #header>
+        <amw-icon name="code"></amw-icon>
+        Hide Page Size
+      </ng-template>
+      <div class="example-container">
+        <div class="code-panel">
+          <div class="code-header">
+            <h4>Code</h4>
+            <amw-button icon="refresh" (click)="resetCode('hidePageSize')" title="Reset to original"></amw-button>
+          </div>
+          <textarea
+            [(ngModel)]="editableCode.hidePageSize"
+            class="code-editor"
+            spellcheck="false"
+            readonly></textarea>
+        </div>
+        <div class="preview-panel">
+          <h4>Preview</h4>
+          <div class="preview-content">
+            <amw-paginator
+              [length]="hidePageSizeLength"
+              [pageSize]="hidePageSizeValue"
+              [pageIndex]="hidePageSizeIndex"
+              [hidePageSize]="true"
+              (page)="onHidePageSizeChange($event)">
+            </amw-paginator>
+            <p>Page {{ hidePageSizeIndex + 1 }} of {{ Math.ceil(hidePageSizeLength / hidePageSizeValue) }}</p>
+            <div class="preview-note">
+              <amw-icon name="info"></amw-icon>
+              <span>The page size selector is hidden - page size is fixed at {{ hidePageSizeValue }}</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </amw-accordion-panel>
+  </amw-accordion>
+</div>

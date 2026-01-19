@@ -1,0 +1,126 @@
+// Paginator Code Demo - Layout and positioning styles only
+// Visual styling is handled by the library components and theme
+
+.code-examples-accordion {
+  .example-container {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 24px;
+    padding: 24px 0;
+
+    @media (max-width: 1400px) {
+      grid-template-columns: 1fr;
+    }
+
+    .code-panel,
+    .preview-panel {
+      h4 {
+        margin-bottom: 16px;
+        display: flex;
+        align-items: center;
+        gap: 8px;
+
+        &::before {
+          content: '';
+          width: 4px;
+          height: 20px;
+        }
+      }
+    }
+
+    .code-panel {
+      .code-header {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        margin-bottom: 16px;
+
+        h4 {
+          margin-bottom: 0;
+        }
+
+        amw-icon {
+          width: 20px;
+          height: 20px;
+        }
+      }
+
+      .code-editor {
+        width: 100%;
+        min-height: 200px;
+        margin: 0;
+        padding: 20px;
+        overflow-x: auto;
+        white-space: pre;
+        resize: vertical;
+        font-family: monospace;
+        font-size: 13px;
+      }
+
+      .error-message {
+        display: flex;
+        align-items: center;
+        gap: 8px;
+        margin-top: 8px;
+        padding: 10px 12px;
+
+        amw-icon {
+          width: 18px;
+          height: 18px;
+        }
+      }
+    }
+
+    .preview-panel {
+      .preview-content {
+        padding: 20px;
+        min-height: 150px;
+
+        p {
+          margin: 12px 0;
+        }
+
+        .preview-note {
+          display: flex;
+          align-items: center;
+          gap: 8px;
+          margin-top: 16px;
+          padding: 12px;
+          border-radius: 4px;
+
+          amw-icon {
+            width: 18px;
+            height: 18px;
+          }
+        }
+
+        amw-paginator {
+          margin-bottom: 16px;
+        }
+      }
+    }
+  }
+
+  .amw-accordion__panel-header {
+    .amw-accordion__panel-title {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+
+      amw-icon {
+        width: 20px;
+        height: 20px;
+      }
+    }
+  }
+}
+
+.code-section {
+  h3 {
+    margin-bottom: 8px;
+  }
+
+  > p {
+    margin-bottom: 32px;
+  }
+}

@@ -1,0 +1,79 @@
+// Button Toggle Validation Demo - Layout and positioning styles only
+// Visual styling is handled by the library components and theme
+
+.amw-demo-button-toggle-validation {
+  .validation-section {
+    h3 {
+      margin-bottom: 16px;
+    }
+
+    p {
+      margin-bottom: 24px;
+      line-height: 1.5;
+    }
+
+    .validation-form {
+      max-width: 600px;
+      padding: 24px;
+      margin-bottom: 24px;
+
+      .form-section {
+        margin-bottom: 24px;
+
+        h4 {
+          margin-bottom: 16px;
+        }
+      }
+
+      .toggle-group {
+        margin-bottom: 16px;
+
+        .toggle-label {
+          display: block;
+          margin-bottom: 8px;
+          font-weight: 500;
+        }
+
+        amw-button-toggle-group {
+          display: block;
+          margin-bottom: 4px;
+        }
+
+        .field-error {
+          color: var(--mat-sys-error, #b00020);
+          font-size: 12px;
+          margin-top: 4px;
+        }
+      }
+
+      .form-actions {
+        display: flex;
+        gap: 12px;
+        justify-content: flex-end;
+        margin-top: 24px;
+        padding-top: 16px;
+      }
+    }
+
+    .validation-info {
+      padding: 20px;
+
+      h4 {
+        margin-bottom: 12px;
+      }
+
+      ul {
+        margin: 0;
+        padding-left: 20px;
+
+        li {
+          margin-bottom: 8px;
+          line-height: 1.4;
+
+          strong {
+          }
+        }
+      }
+    }
+  }
+}
