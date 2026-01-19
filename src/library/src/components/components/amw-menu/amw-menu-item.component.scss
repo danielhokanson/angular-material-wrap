@@ -6,7 +6,23 @@
   &--disabled {
     opacity: 0.38;
     cursor: not-allowed;
+    pointer-events: none;
   }
+
+  &--active {
+    background-color: var(--amw-menu-item-active-bg, rgba(0, 0, 0, 0.04));
+    color: var(--amw-menu-item-active-color, var(--mat-sys-primary, #6750a4));
+
+    .amw-menu-item__icon {
+      color: var(--amw-menu-item-active-color, var(--mat-sys-primary, #6750a4));
+    }
+  }
+}
+
+// Ensure anchor menu items have proper styling
+a.mat-mdc-menu-item {
+  text-decoration: none;
+  color: inherit;
 }
 
 .amw-menu-item__icon {
@@ -27,4 +43,6 @@
   --amw-menu-item-text-color: var(--mat-menu-item-label-text-color, rgba(0, 0, 0, 0.87));
   --amw-menu-item-icon-color: var(--mat-menu-item-icon-color, rgba(0, 0, 0, 0.54));
   --amw-menu-item-hover-background: var(--mat-menu-item-hover-state-layer-color, rgba(0, 0, 0, 0.04));
+  --amw-menu-item-active-bg: rgba(0, 0, 0, 0.04);
+  --amw-menu-item-active-color: var(--mat-sys-primary, #6750a4);
 }

@@ -2,18 +2,40 @@ import { Component, ViewEncapsulation, input, output, computed } from '@angular/
 import { MatMenuModule } from '@angular/material/menu';
 import { MatIconModule } from '@angular/material/icon';
 import { MatDividerModule } from '@angular/material/divider';
+import { RouterModule, IsActiveMatchOptions } from '@angular/router';
 
 /**
  * Angular Material Wrap Menu Item Component
  *
- * Represents a single item within an amw-menu.
+ * Represents a single item within an amw-menu. Supports both click-based actions
+ * and Angular Router navigation.
  *
- * @example
+ * @example Click-based action
  * ```html
  * <amw-menu-item
  *   label="Settings"
  *   icon="settings"
  *   (itemClick)="onSettings()">
+ * </amw-menu-item>
+ * ```
+ *
+ * @example Router navigation
+ * ```html
+ * <amw-menu-item
+ *   label="Dashboard"
+ *   icon="dashboard"
+ *   routerLink="/dashboard">
+ * </amw-menu-item>
+ * ```
+ *
+ * @example Router navigation with query params
+ * ```html
+ * <amw-menu-item
+ *   label="User Profile"
+ *   icon="person"
+ *   [routerLink]="['/users', userId]"
+ *   [queryParams]="{ tab: 'settings' }"
+ *   [routerLinkActiveOptions]="{ exact: true }">
  * </amw-menu-item>
  * ```
  */
@@ -23,21 +45,42 @@ import { MatDividerModule } from '@angular/material/divider';
     imports: [
         MatMenuModule,
         MatIconModule,
-        MatDividerModule
+        MatDividerModule,
+        RouterModule
     ],
     encapsulation: ViewEncapsulation.None,
     template: `
         @if (!isDivider()) {
-            <button
-                mat-menu-item
-                [class]="itemClasses()"
-                [disabled]="disabled()"
-                (click)="onItemClick($event)">
-                @if (icon()) {
-                    <mat-icon [class]="iconClasses">{{ icon() }}</mat-icon>
-                }
-                <span [class]="labelClasses">{{ label() }}</span>
-            </button>
+            @if (routerLink()) {
+                <a
+                    mat-menu-item
+                    [class]="itemClasses()"
+                    [routerLink]="routerLink()"
+                    [queryParams]="queryParams()"
+                    [fragment]="fragment()"
+                    [target]="target()"
+                    routerLinkActive="amw-menu-item--active"
+                    [routerLinkActiveOptions]="routerLinkActiveOptions()"
+                    [attr.aria-disabled]="disabled() || null"
+                    [class.amw-menu-item--disabled]="disabled()"
+                    (click)="onLinkClick($event)">
+                    @if (icon()) {
+                        <mat-icon [class]="iconClasses">{{ icon() }}</mat-icon>
+                    }
+                    <span [class]="labelClasses">{{ label() }}</span>
+                </a>
+            } @else {
+                <button
+                    mat-menu-item
+                    [class]="itemClasses()"
+                    [disabled]="disabled()"
+                    (click)="onItemClick($event)">
+                    @if (icon()) {
+                        <mat-icon [class]="iconClasses">{{ icon() }}</mat-icon>
+                    }
+                    <span [class]="labelClasses">{{ label() }}</span>
+                </button>
+            }
         } @else {
             <mat-divider></mat-divider>
         }
@@ -56,6 +99,18 @@ export class AmwMenuItemComponent {
     /** Whether the menu item is disabled */
     readonly disabled = input(false);
 
+    // Router navigation inputs
+    /** Route path for navigation. When provided, renders as an anchor element. */
+    readonly routerLink = input<string | any[] | undefined>();
+    /** Query parameters for the route */
+    readonly queryParams = input<Record<string, any> | undefined>();
+    /** URL fragment (hash) for the route */
+    readonly fragment = input<string | undefined>();
+    /** Link target for navigation behavior */
+    readonly target = input<'_self' | '_blank' | undefined>();
+    /** Options to determine if the router link is active */
+    readonly routerLinkActiveOptions = input<IsActiveMatchOptions | { exact: boolean }>({ exact: false });
+
     /** Emitted when the menu item is clicked */
     readonly itemClick = output<MouseEvent>();
 
@@ -63,6 +118,15 @@ export class AmwMenuItemComponent {
         if (!this.disabled()) {
             this.itemClick.emit(event);
         }
+    }
+
+    onLinkClick(event: MouseEvent) {
+        if (this.disabled()) {
+            event.preventDefault();
+            event.stopPropagation();
+            return;
+        }
+        this.itemClick.emit(event);
     }
 
     readonly itemClasses = computed(() => {
