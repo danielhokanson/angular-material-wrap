@@ -1,0 +1,121 @@
+.amw-demo-sort {
+  padding: 16px;
+
+  .variation-section {
+    margin-bottom: 32px;
+
+    &__title {
+      font-size: 18px;
+      font-weight: 500;
+      margin-bottom: 16px;
+      color: var(--mat-app-on-surface);
+    }
+
+    &__content {
+      display: flex;
+      flex-direction: column;
+      gap: 16px;
+    }
+  }
+
+  .sort-info {
+    display: flex;
+    gap: 24px;
+    padding: 12px 16px;
+    background-color: var(--mat-app-surface-container, #f5f5f5);
+    border-radius: 4px;
+
+    p {
+      margin: 0;
+      font-size: 14px;
+    }
+  }
+
+  .button-group {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 12px;
+  }
+
+  .info-text {
+    font-size: 14px;
+    color: var(--mat-app-on-surface-variant);
+
+    code {
+      background-color: var(--mat-app-surface-container-high, #e8e8e8);
+      padding: 2px 6px;
+      border-radius: 4px;
+      font-size: 13px;
+    }
+  }
+
+  .disabled-notice {
+    padding: 12px;
+    background-color: var(--mat-app-error-container, #fdecea);
+    color: var(--mat-app-on-error-container, #c62828);
+    border-radius: 4px;
+    font-size: 14px;
+  }
+
+  .sort-table {
+    width: 100%;
+    border-collapse: collapse;
+
+    th, td {
+      padding: 12px 16px;
+      text-align: left;
+      border-bottom: 1px solid var(--mat-app-outline-variant, rgba(0, 0, 0, 0.12));
+    }
+
+    th {
+      font-weight: 500;
+      color: var(--mat-app-on-surface);
+      background-color: var(--mat-app-surface-container, #f5f5f5);
+      cursor: pointer;
+      user-select: none;
+
+      &:hover {
+        background-color: var(--mat-app-surface-container-high, #e8e8e8);
+      }
+    }
+
+    td {
+      color: var(--mat-app-on-surface-variant);
+    }
+
+    tbody tr:hover {
+      background-color: var(--mat-app-surface-container-low, rgba(0, 0, 0, 0.04));
+    }
+  }
+
+  amw-table {
+    display: block;
+    width: 100%;
+    overflow-x: auto;
+
+    table {
+      width: 100%;
+      border-collapse: collapse;
+    }
+
+    th, td {
+      padding: 12px 16px;
+      text-align: left;
+      border-bottom: 1px solid var(--mat-app-outline-variant, rgba(0, 0, 0, 0.12));
+    }
+
+    th {
+      font-weight: 500;
+      color: var(--mat-app-on-surface);
+      background-color: var(--mat-app-surface-container, #f5f5f5);
+    }
+
+    td {
+      color: var(--mat-app-on-surface-variant);
+    }
+
+    tbody tr:hover {
+      background-color: var(--mat-app-surface-container-low, rgba(0, 0, 0, 0.04));
+    }
+  }
+}

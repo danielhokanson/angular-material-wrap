@@ -141,6 +141,30 @@ import { BadgeValidationComponent } from '../badge-validation/badge-validation.c
 import { BadgeCodeComponent } from '../badge-code/badge-code.component';
 import { BadgeApiComponent } from '../badge-api/badge-api.component';
 
+// Table demos
+import { TableDemoComponent } from '../table-demo/table-demo.component';
+import { TableValidationComponent } from '../table-validation/table-validation.component';
+import { TableCodeComponent } from '../table-code/table-code.component';
+import { TableApiComponent } from '../table-api/table-api.component';
+
+// Sort demos
+import { SortDemoComponent } from '../sort-demo/sort-demo.component';
+import { SortValidationComponent } from '../sort-validation/sort-validation.component';
+import { SortCodeComponent } from '../sort-code/sort-code.component';
+import { SortApiComponent } from '../sort-api/sort-api.component';
+
+// Divider demos
+import { DividerDemoComponent } from '../divider-demo/divider-demo.component';
+import { DividerValidationComponent } from '../divider-validation/divider-validation.component';
+import { DividerCodeComponent } from '../divider-code/divider-code.component';
+import { DividerApiComponent } from '../divider-api/divider-api.component';
+
+// Expansion demos
+import { ExpansionDemoComponent } from '../expansion-demo/expansion-demo.component';
+import { ExpansionValidationComponent } from '../expansion-validation/expansion-validation.component';
+import { ExpansionCodeComponent } from '../expansion-code/expansion-code.component';
+import { ExpansionApiComponent } from '../expansion-api/expansion-api.component';
+
 export interface DemoComponents {
     demo?: Type<any>;
     validation?: Type<any>;
@@ -369,6 +393,32 @@ export const DEMO_REGISTRY: Record<string, DemoComponents> = {
         validation: BadgeValidationComponent,
         code: BadgeCodeComponent,
         api: BadgeApiComponent
+    },
+
+    // AMW Table demos
+    'table': {
+        demo: TableDemoComponent,
+        validation: TableValidationComponent,
+        code: TableCodeComponent,
+        api: TableApiComponent
+    },
+    'sort': {
+        demo: SortDemoComponent,
+        validation: SortValidationComponent,
+        code: SortCodeComponent,
+        api: SortApiComponent
+    },
+    'divider': {
+        demo: DividerDemoComponent,
+        validation: DividerValidationComponent,
+        code: DividerCodeComponent,
+        api: DividerApiComponent
+    },
+    'expansion': {
+        demo: ExpansionDemoComponent,
+        validation: ExpansionValidationComponent,
+        code: ExpansionCodeComponent,
+        api: ExpansionApiComponent
     }
 };
 
@@ -412,11 +462,15 @@ export const DEMO_CONFIGS: Record<string, DemoConfig> = {
             { id: 'chips', name: 'Chips' },
             { id: 'data-table', name: 'Data Table' },
             { id: 'dialog', name: 'Dialog' },
+            { id: 'divider', name: 'Divider' },
+            { id: 'expansion', name: 'Expansion Panel' },
             { id: 'list', name: 'List' },
             { id: 'paginator', name: 'Paginator' },
             { id: 'popover', name: 'Popover' },
             { id: 'sidenav', name: 'Sidenav' },
+            { id: 'sort', name: 'Sort' },
             { id: 'stepper', name: 'Stepper' },
+            { id: 'table', name: 'Table' },
             { id: 'tabs', name: 'Tabs' },
             { id: 'theme', name: 'Theme' }
         ]

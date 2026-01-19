@@ -1,34 +1,44 @@
-import { Component, ViewEncapsulation } from '@angular/core';
+import { Component, ViewEncapsulation, signal, effect, inject } from '@angular/core';
+import { CommonModule } from '@angular/common';
+import { FormsModule } from '@angular/forms';
+import { MAT_DIALOG_DATA, MatDialogModule } from '@angular/material/dialog';
 
 import { AmwNotificationService } from '../../../../library/src/services/amw-notification/amw-notification.service';
-import { DialogService } from '../../../../library/src/components/services/dialog.service';
-import { DialogType, DialogSize, DialogPosition } from '../../../../library/src/components/components/amw-dialog/interfaces';
+import { DialogService, AmwDialogRef, getAmwDialogTitle, AmwDialogData } from '../../../../library/src/components/services/dialog.service';
+import { DialogType, DialogSize } from '../../../../library/src/components/components/amw-dialog/interfaces';
 
 import { AmwButtonComponent } from '../../../../library/src/controls/components/amw-button/amw-button.component';
-import { AmwCardComponent } from '../../../../library/src/components/components';
+import { AmwCardComponent, AmwIconComponent } from '../../../../library/src/components/components';
+import { AmwInputComponent } from '../../../../library/src/controls/components/amw-input/amw-input.component';
 
 @Component({
     selector: 'amw-demo-dialog',
     standalone: true,
     imports: [
-    AmwButtonComponent,
-    AmwCardComponent,
-],
+        CommonModule,
+        FormsModule,
+        AmwButtonComponent,
+        AmwCardComponent,
+        AmwIconComponent,
+    ],
     encapsulation: ViewEncapsulation.None,
     templateUrl: './dialog-demo.component.html',
     styleUrl: './dialog-demo.component.scss'
 })
 export class DialogDemoComponent {
-    dialogVariations = [
+    // Signal to track saved items from dialog
+    savedItems = signal<string[]>([]);
+    lastDialogResult = signal<string>('');
+
+    // Legacy dialog variations (for backwards compatibility demo)
+    legacyDialogVariations = [
         {
             title: 'Basic Dialog',
             description: 'Simple dialog with title and content',
             dialog: {
                 title: 'Basic Dialog',
                 content: 'This is a basic dialog with title and content.',
-                actions: [
-                    { label: 'Close', action: 'close' }
-                ]
+                actions: [{ label: 'Close', action: 'close' }]
             }
         },
         {
@@ -36,73 +46,11 @@ export class DialogDemoComponent {
             description: 'Dialog for confirming actions',
             dialog: {
                 title: 'Confirm Action',
-                content: 'Are you sure you want to perform this action? This cannot be undone.',
+                content: 'Are you sure you want to perform this action?',
                 type: 'confirm' as DialogType,
                 actions: [
                     { label: 'Cancel', action: 'cancel', color: 'warn' },
                     { label: 'Confirm', action: 'confirm', color: 'primary' }
-                ]
-            }
-        },
-        {
-            title: 'Alert Dialog',
-            description: 'Dialog for displaying alerts',
-            dialog: {
-                title: 'Alert',
-                content: 'This is an important alert message that requires your attention.',
-                type: 'alert' as DialogType,
-                actions: [
-                    { label: 'OK', action: 'close', color: 'primary' }
-                ]
-            }
-        },
-        {
-            title: 'Info Dialog',
-            description: 'Dialog for displaying information with HTML formatting',
-            dialog: {
-                title: 'Information',
-                content: 'Here is some helpful information about the current process.<br><br><em>This text includes <strong>HTML formatting</strong> and <u>styling</u>.</em>',
-                type: 'info' as DialogType,
-                actions: [
-                    { label: 'Got it', action: 'close', color: 'primary' }
-                ]
-            }
-        },
-        {
-            title: 'Warning Dialog',
-            description: 'Dialog for displaying warnings',
-            dialog: {
-                title: 'Warning',
-                content: 'Please be careful with this action. It may have unintended consequences.',
-                type: 'warning' as DialogType,
-                actions: [
-                    { label: 'Cancel', action: 'cancel' },
-                    { label: 'Proceed', action: 'confirm', color: 'warn' }
-                ]
-            }
-        },
-        {
-            title: 'Error Dialog',
-            description: 'Dialog for displaying errors',
-            dialog: {
-                title: 'Error',
-                content: 'An error occurred while processing your request. Please try again.',
-                type: 'error' as DialogType,
-                actions: [
-                    { label: 'Retry', action: 'confirm', color: 'primary' },
-                    { label: 'Cancel', action: 'cancel' }
-                ]
-            }
-        },
-        {
-            title: 'Success Dialog',
-            description: 'Dialog for displaying success messages with HTML content',
-            dialog: {
-                title: 'Success',
-                content: 'Your action was completed successfully!<br><strong>Great!</strong>',
-                type: 'success' as DialogType,
-                actions: [
-                    { label: 'Great!', action: 'close', color: 'primary' }
                 ]
             }
         },
@@ -113,9 +61,7 @@ export class DialogDemoComponent {
                 title: 'Small Dialog',
                 content: 'This is a small dialog.',
                 size: 'small' as DialogSize,
-                actions: [
-                    { label: 'Close', action: 'close' }
-                ]
+                actions: [{ label: 'Close', action: 'close' }]
             }
         },
         {
@@ -123,48 +69,9 @@ export class DialogDemoComponent {
             description: 'Larger dialog variant',
             dialog: {
                 title: 'Large Dialog',
-                content: 'This is a large dialog with more space for content. It can accommodate more information and longer text.',
+                content: 'This is a large dialog with more space for content.',
                 size: 'large' as DialogSize,
-                actions: [
-                    { label: 'Close', action: 'close' }
-                ]
-            }
-        },
-        {
-            title: 'Fullscreen Dialog',
-            description: 'Fullscreen dialog variant',
-            dialog: {
-                title: 'Fullscreen Dialog',
-                content: 'This dialog takes up the full screen.',
-                size: 'fullscreen' as DialogSize,
-                actions: [
-                    { label: 'Close', action: 'close' }
-                ]
-            }
-        },
-        {
-            title: 'Dialog with Custom Actions',
-            description: 'Dialog with multiple custom actions',
-            dialog: {
-                title: 'Custom Actions',
-                content: 'This dialog has multiple custom actions with different colors and icons.',
-                actions: [
-                    { label: 'Save', icon: 'save', color: 'primary', action: 'save' },
-                    { label: 'Save & Close', icon: 'save_alt', color: 'accent', action: 'saveClose' },
-                    { label: 'Cancel', icon: 'cancel', color: 'warn', action: 'cancel' }
-                ]
-            }
-        },
-        {
-            title: 'Loading Dialog',
-            description: 'Dialog in loading state',
-            dialog: {
-                title: 'Processing',
-                content: 'Please wait while we process your request...',
-                loading: true,
-                actions: [
-                    { label: 'Cancel', action: 'cancel', disabled: true }
-                ]
+                actions: [{ label: 'Close', action: 'close' }]
             }
         }
     ];
@@ -174,26 +81,109 @@ export class DialogDemoComponent {
         private notification: AmwNotificationService
     ) { }
 
-    openDialog(variation: any) {
-        const dialogRef = this.dialogService.open({
+    // ============================================
+    // RECOMMENDED: Signal-based dialog patterns
+    // ============================================
+
+    /**
+     * Opens an edit dialog using the recommended signal-based pattern.
+     * The dialog component exposes signals that we react to via effect().
+     */
+    openEditDialog() {
+        const dialogRef = this.dialogService.open('Edit Item', EditItemDialogComponent, {
+            width: '500px',
+            data: { itemName: 'Sample Item', itemId: 123 }
+        });
+
+        // React to the save signal from the dialog
+        const cleanup = effect(() => {
+            const savedData = dialogRef.instance.savedData();
+            if (savedData) {
+                this.savedItems.update(items => [...items, savedData]);
+                this.lastDialogResult.set(`Saved: ${savedData}`);
+                this.notification.success('Success', `Item saved: ${savedData}`, { duration: 3000 });
+                dialogRef.close();
+                cleanup.destroy(); // Clean up the effect
+            }
+        });
+
+        // Also handle cancellation
+        dialogRef.afterClosed().subscribe(() => {
+            cleanup.destroy();
+        });
+    }
+
+    /**
+     * Opens a confirmation dialog using the recommended signal-based pattern.
+     */
+    openSignalConfirmDialog() {
+        const dialogRef = this.dialogService.open('Confirm Action', ConfirmDialogComponent, {
+            width: '400px',
+            data: { message: 'Are you sure you want to delete this item?' }
+        });
+
+        const cleanup = effect(() => {
+            const confirmed = dialogRef.instance.confirmed();
+            if (confirmed !== null) {
+                if (confirmed) {
+                    this.lastDialogResult.set('Action confirmed!');
+                    this.notification.success('Success', 'Action confirmed!', { duration: 2000 });
+                } else {
+                    this.lastDialogResult.set('Action cancelled');
+                    this.notification.info('Info', 'Action cancelled', { duration: 2000 });
+                }
+                dialogRef.close();
+                cleanup.destroy();
+            }
+        });
+
+        dialogRef.afterClosed().subscribe(() => {
+            cleanup.destroy();
+        });
+    }
+
+    /**
+     * Opens a form dialog using the recommended signal-based pattern.
+     */
+    openFormDialog() {
+        const dialogRef = this.dialogService.open('Create New Item', FormDialogComponent, {
+            width: '600px',
+            data: { categories: ['Category A', 'Category B', 'Category C'] }
+        });
+
+        const cleanup = effect(() => {
+            const formData = dialogRef.instance.submittedData();
+            if (formData) {
+                this.savedItems.update(items => [...items, `${formData.name} (${formData.category})`]);
+                this.lastDialogResult.set(`Created: ${formData.name}`);
+                this.notification.success('Success', `Created: ${formData.name}`, { duration: 3000 });
+                dialogRef.close();
+                cleanup.destroy();
+            }
+        });
+
+        dialogRef.afterClosed().subscribe(() => {
+            cleanup.destroy();
+        });
+    }
+
+    // Clear saved items list
+    clearSavedItems() {
+        this.savedItems.set([]);
+        this.lastDialogResult.set('');
+    }
+
+    // ============================================
+    // LEGACY: Deprecated service methods
+    // ============================================
+
+    openLegacyDialog(variation: any) {
+        const dialogRef = this.dialogService.openWithOptions({
             title: variation.dialog.title,
             content: variation.dialog.content,
             type: variation.dialog.type,
             size: variation.dialog.size,
-            position: variation.dialog.position,
             actions: variation.dialog.actions,
-            showCloseButton: variation.dialog.showCloseButton,
-            showHeader: variation.dialog.showHeader,
-            showFooter: variation.dialog.showFooter,
-            loading: variation.dialog.loading,
-            disabled: variation.dialog.disabled,
-            closable: variation.dialog.closable,
-            backdrop: variation.dialog.backdrop,
-            escapeKeyClose: variation.dialog.escapeKeyClose,
-            clickOutsideClose: variation.dialog.clickOutsideClose,
-            autoFocus: variation.dialog.autoFocus,
-            restoreFocus: variation.dialog.restoreFocus,
-            data: variation.dialog.data
         });
 
         dialogRef.afterClosed().subscribe(result => {
@@ -201,12 +191,11 @@ export class DialogDemoComponent {
         });
     }
 
-    // Service methods for quick access
-    openAlert() {
+    openLegacyAlert() {
         this.dialogService.alert('This is an alert message!', 'Alert');
     }
 
-    openConfirm() {
+    openLegacyConfirm() {
         this.dialogService.confirm('Are you sure you want to proceed?', 'Confirm').subscribe(result => {
             if (result === 'confirm') {
                 this.notification.info('Info', 'Confirmed!', { duration: 2000 });
@@ -215,36 +204,195 @@ export class DialogDemoComponent {
             }
         });
     }
+}
 
-    openInfo() {
-        this.dialogService.info('Here is some helpful information.<br><br><em>This includes <strong>HTML formatting</strong>!</em>', 'Information');
+// ============================================
+// RECOMMENDED: Example Dialog Components with Signals
+// ============================================
+
+/**
+ * Edit Item Dialog - demonstrates signal-based communication
+ */
+@Component({
+    selector: 'edit-item-dialog',
+    standalone: true,
+    imports: [CommonModule, FormsModule, MatDialogModule, AmwButtonComponent, AmwIconComponent],
+    template: `
+        <div class="amw-dialog-demo">
+            <h2 mat-dialog-title>
+                <amw-icon name="edit" color="primary"></amw-icon>
+                {{ title }}
+            </h2>
+            <mat-dialog-content>
+                <p>Editing item: <strong>{{ data.itemName }}</strong> (ID: {{ data.itemId }})</p>
+                <div class="form-field">
+                    <label>New Name:</label>
+                    <input type="text" [(ngModel)]="editedName" placeholder="Enter new name">
+                </div>
+            </mat-dialog-content>
+            <mat-dialog-actions align="end">
+                <amw-button appearance="text" (click)="cancel()">Cancel</amw-button>
+                <amw-button appearance="elevated" color="primary" (click)="save()" [disabled]="!editedName">
+                    Save Changes
+                </amw-button>
+            </mat-dialog-actions>
+        </div>
+    `,
+    styles: [`
+        .amw-dialog-demo { padding: 8px; }
+        .amw-dialog-demo h2 { display: flex; align-items: center; gap: 8px; margin: 0 0 16px 0; }
+        .form-field { margin: 16px 0; }
+        .form-field label { display: block; margin-bottom: 8px; font-weight: 500; }
+        .form-field input { width: 100%; padding: 12px; border: 1px solid #ccc; border-radius: 4px; font-size: 14px; }
+        mat-dialog-actions { padding: 16px 0 0 0; }
+    `]
+})
+export class EditItemDialogComponent {
+    readonly data = inject<{ itemName: string; itemId: number } & AmwDialogData>(MAT_DIALOG_DATA);
+    readonly title = getAmwDialogTitle(this.data);
+
+    editedName = '';
+
+    // Signal for communicating save events to parent
+    readonly savedData = signal<string | null>(null);
+
+    constructor() {
+        this.editedName = this.data.itemName;
     }
 
-    openWarning() {
-        this.dialogService.warning('Please be careful with this action.', 'Warning').subscribe(result => {
-            if (result === 'confirm') {
-                this.notification.warning('Warning', 'Proceeded with warning', { duration: 2000 });
-            } else {
-                this.notification.info('Info', 'Cancelled', { duration: 2000 });
-            }
-        });
+    save() {
+        // Setting the signal triggers the effect in the parent
+        this.savedData.set(this.editedName);
     }
 
-    openError() {
-        this.dialogService.error('An error occurred while processing your request.', 'Error');
+    cancel() {
+        // Parent will handle closing via afterClosed()
+        this.savedData.set(null);
+    }
+}
+
+/**
+ * Confirm Dialog - demonstrates signal-based confirmation
+ */
+@Component({
+    selector: 'confirm-dialog',
+    standalone: true,
+    imports: [CommonModule, MatDialogModule, AmwButtonComponent, AmwIconComponent],
+    template: `
+        <div class="amw-dialog-demo">
+            <h2 mat-dialog-title>
+                <amw-icon name="help_outline" color="accent"></amw-icon>
+                {{ title }}
+            </h2>
+            <mat-dialog-content>
+                <p>{{ data.message }}</p>
+            </mat-dialog-content>
+            <mat-dialog-actions align="end">
+                <amw-button appearance="text" (click)="onCancel()">Cancel</amw-button>
+                <amw-button appearance="elevated" color="warn" (click)="onConfirm()">
+                    Confirm
+                </amw-button>
+            </mat-dialog-actions>
+        </div>
+    `,
+    styles: [`
+        .amw-dialog-demo { padding: 8px; }
+        .amw-dialog-demo h2 { display: flex; align-items: center; gap: 8px; margin: 0 0 16px 0; }
+        mat-dialog-actions { padding: 16px 0 0 0; }
+    `]
+})
+export class ConfirmDialogComponent {
+    readonly data = inject<{ message: string } & AmwDialogData>(MAT_DIALOG_DATA);
+    readonly title = getAmwDialogTitle(this.data);
+
+    // Signal: null = no decision, true = confirmed, false = cancelled
+    readonly confirmed = signal<boolean | null>(null);
+
+    onConfirm() {
+        this.confirmed.set(true);
     }
 
-    openSuccess() {
-        this.dialogService.success('Your action was completed successfully!<br><strong>Great!</strong>', 'Success');
+    onCancel() {
+        this.confirmed.set(false);
+    }
+}
+
+/**
+ * Form Dialog - demonstrates signal-based form submission
+ */
+@Component({
+    selector: 'form-dialog',
+    standalone: true,
+    imports: [CommonModule, FormsModule, MatDialogModule, AmwButtonComponent, AmwIconComponent],
+    template: `
+        <div class="amw-dialog-demo">
+            <h2 mat-dialog-title>
+                <amw-icon name="add_circle" color="primary"></amw-icon>
+                {{ title }}
+            </h2>
+            <mat-dialog-content>
+                <div class="form-field">
+                    <label>Item Name:</label>
+                    <input type="text" [(ngModel)]="formData.name" placeholder="Enter item name">
+                </div>
+                <div class="form-field">
+                    <label>Description:</label>
+                    <textarea [(ngModel)]="formData.description" placeholder="Enter description" rows="3"></textarea>
+                </div>
+                <div class="form-field">
+                    <label>Category:</label>
+                    <select [(ngModel)]="formData.category">
+                        <option value="">Select a category</option>
+                        @for (cat of data.categories; track cat) {
+                            <option [value]="cat">{{ cat }}</option>
+                        }
+                    </select>
+                </div>
+            </mat-dialog-content>
+            <mat-dialog-actions align="end">
+                <amw-button appearance="text" (click)="cancel()">Cancel</amw-button>
+                <amw-button appearance="elevated" color="primary" (click)="submit()" [disabled]="!isValid()">
+                    Create Item
+                </amw-button>
+            </mat-dialog-actions>
+        </div>
+    `,
+    styles: [`
+        .amw-dialog-demo { padding: 8px; }
+        .amw-dialog-demo h2 { display: flex; align-items: center; gap: 8px; margin: 0 0 16px 0; }
+        .form-field { margin: 16px 0; }
+        .form-field label { display: block; margin-bottom: 8px; font-weight: 500; }
+        .form-field input, .form-field textarea, .form-field select {
+            width: 100%; padding: 12px; border: 1px solid #ccc; border-radius: 4px; font-size: 14px;
+            font-family: inherit;
+        }
+        mat-dialog-actions { padding: 16px 0 0 0; }
+    `]
+})
+export class FormDialogComponent {
+    readonly data = inject<{ categories: string[] } & AmwDialogData>(MAT_DIALOG_DATA);
+    readonly title = getAmwDialogTitle(this.data);
+
+    formData = {
+        name: '',
+        description: '',
+        category: ''
+    };
+
+    // Signal for communicating form submission to parent
+    readonly submittedData = signal<{ name: string; description: string; category: string } | null>(null);
+
+    isValid(): boolean {
+        return !!this.formData.name && !!this.formData.category;
     }
 
-    openLoading() {
-        const loadingDialog = this.dialogService.loading('Processing your request...', 'Please wait');
+    submit() {
+        if (this.isValid()) {
+            this.submittedData.set({ ...this.formData });
+        }
+    }
 
-        // Simulate loading
-        setTimeout(() => {
-            loadingDialog.close();
-            this.dialogService.success('Processing complete!', 'Success');
-        }, 3000);
+    cancel() {
+        this.submittedData.set(null);
     }
 }

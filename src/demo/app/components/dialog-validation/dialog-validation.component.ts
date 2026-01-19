@@ -74,11 +74,16 @@ export class DialogValidationComponent implements OnInit {
         });
     }
 
+    /**
+     * Opens a dialog using the legacy configuration options.
+     * Note: For new code, prefer the signal-based approach with dialogService.open(title, component, config)
+     */
     openDialog() {
         if (this.dialogForm.valid) {
             const formValue = this.dialogForm.value;
 
-            const dialogRef = this.dialogService.open({
+            // Using openWithOptions for legacy configuration-based dialog testing
+            const dialogRef = this.dialogService.openWithOptions({
                 title: formValue.title,
                 content: formValue.content,
                 type: formValue.type,

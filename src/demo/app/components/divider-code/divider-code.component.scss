@@ -1,0 +1,30 @@
+.amw-demo-divider-code {
+  padding: 16px;
+
+  .code-section {
+    margin-bottom: 32px;
+
+    &__title {
+      font-size: 18px;
+      font-weight: 500;
+      margin-bottom: 16px;
+      color: var(--mat-app-on-surface);
+    }
+  }
+
+  .code-block {
+    background-color: var(--mat-app-surface-container, #f5f5f5);
+    border-radius: 8px;
+    padding: 16px;
+    overflow-x: auto;
+    font-family: 'Fira Code', 'Consolas', monospace;
+    font-size: 13px;
+    line-height: 1.5;
+    white-space: pre-wrap;
+    word-wrap: break-word;
+
+    code {
+      color: var(--mat-app-on-surface);
+    }
+  }
+}

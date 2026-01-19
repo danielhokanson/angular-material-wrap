@@ -131,6 +131,51 @@ declare global {
       selectTheme(themeId: string): Chainable<void>;
       getCurrentTheme(): Chainable<string>;
 
+      // AMW Table (directive-based)
+      getAmwTable(selector?: string): Chainable<JQuery<HTMLElement>>;
+      getAmwTableHeaders(selector?: string): Chainable<JQuery<HTMLElement>>;
+      getAmwTableCells(selector?: string): Chainable<JQuery<HTMLElement>>;
+
+      // AMW Sort
+      getAmwSort(selector?: string): Chainable<JQuery<HTMLElement>>;
+      getAmwSortHeader(selector?: string): Chainable<JQuery<HTMLElement>>;
+      clickAmwSortHeader(selector: string, headerIndex?: number): Chainable<void>;
+      getAmwSortDirection(selector: string): Chainable<string>;
+
+      // AMW Paginator
+      getAmwPaginator(selector?: string): Chainable<JQuery<HTMLElement>>;
+      clickAmwPaginatorNext(selector?: string): Chainable<void>;
+      clickAmwPaginatorPrev(selector?: string): Chainable<void>;
+      clickAmwPaginatorFirst(selector?: string): Chainable<void>;
+      clickAmwPaginatorLast(selector?: string): Chainable<void>;
+      setAmwPageSize(selector: string, size: number): Chainable<void>;
+      getAmwPaginatorRange(selector?: string): Chainable<string>;
+
+      // AMW List
+      getAmwList(selector?: string): Chainable<JQuery<HTMLElement>>;
+      getAmwListItems(selector?: string): Chainable<JQuery<HTMLElement>>;
+      clickAmwListItem(selector: string, itemIndex: number): Chainable<void>;
+      getAmwListItemText(selector: string, itemIndex: number): Chainable<string>;
+
+      // AMW Badge
+      getAmwBadge(selector?: string): Chainable<JQuery<HTMLElement>>;
+      getAmwBadgeContent(selector?: string): Chainable<string>;
+      isAmwBadgeHidden(selector?: string): Chainable<boolean>;
+
+      // AMW Button Toggle
+      getAmwButtonToggleGroup(selector?: string): Chainable<JQuery<HTMLElement>>;
+      getAmwButtonToggle(selector?: string): Chainable<JQuery<HTMLElement>>;
+      selectAmwButtonToggle(selector: string, toggleIndex: number): Chainable<void>;
+      selectAmwButtonToggleByValue(selector: string, value: string): Chainable<void>;
+      getAmwSelectedToggle(selector?: string): Chainable<JQuery<HTMLElement>>;
+
+      // AMW Expansion Panel
+      getAmwExpansionPanel(selector?: string): Chainable<JQuery<HTMLElement>>;
+      expandAmwExpansionPanel(selector: string, panelIndex?: number): Chainable<void>;
+      collapseAmwExpansionPanel(selector: string, panelIndex?: number): Chainable<void>;
+      isAmwExpansionPanelExpanded(selector: string, panelIndex?: number): Chainable<boolean>;
+      getAmwExpansionPanelHeader(selector?: string): Chainable<JQuery<HTMLElement>>;
+
       // Utility
       waitForAngular(): Chainable<void>;
       shouldBeVisible(selector: string): Chainable<void>;
@@ -538,6 +583,179 @@ Cypress.Commands.add('dismissNotification', () => {
 Cypress.Commands.add('waitForLoadingComplete', () => {
   // Wait for any loading spinners to disappear
   cy.get('.amw-loading, mat-progress-spinner, mat-progress-bar', { timeout: 10000 }).should('not.exist');
+});
+
+// AMW Table Commands (directive-based)
+Cypress.Commands.add('getAmwTable', (selector?: string) => {
+  const baseSelector = selector ? `${selector} amw-table, ${selector} table[amwTable]` : 'amw-table, table[amwTable]';
+  return cy.get(baseSelector);
+});
+
+Cypress.Commands.add('getAmwTableHeaders', (selector?: string) => {
+  const base = selector || '';
+  return cy.get(`${base} amw-header-cell, ${base} th[amwHeaderCell], ${base} [amw-header-cell]`.trim());
+});
+
+Cypress.Commands.add('getAmwTableCells', (selector?: string) => {
+  const base = selector || '';
+  return cy.get(`${base} amw-cell, ${base} td[amwCell], ${base} [amw-cell]`.trim());
+});
+
+// AMW Sort Commands
+Cypress.Commands.add('getAmwSort', (selector?: string) => {
+  const baseSelector = selector ? `${selector} [amwSort]` : '[amwSort]';
+  return cy.get(baseSelector);
+});
+
+Cypress.Commands.add('getAmwSortHeader', (selector?: string) => {
+  const baseSelector = selector ? `${selector} amw-sort-header, ${selector} [amwSortHeader]` : 'amw-sort-header, [amwSortHeader]';
+  return cy.get(baseSelector);
+});
+
+Cypress.Commands.add('clickAmwSortHeader', (selector: string, headerIndex?: number) => {
+  const index = headerIndex ?? 0;
+  cy.get(`${selector} amw-sort-header, ${selector} [amwSortHeader]`).eq(index).click();
+});
+
+Cypress.Commands.add('getAmwSortDirection', (selector: string) => {
+  return cy.get(`${selector} amw-sort-header, ${selector} [amwSortHeader]`).first().then($header => {
+    return $header.attr('aria-sort') || $header.attr('ng-reflect-sort-direction') || 'none';
+  });
+});
+
+// AMW Paginator Commands
+Cypress.Commands.add('getAmwPaginator', (selector?: string) => {
+  const baseSelector = selector ? `${selector} amw-paginator` : 'amw-paginator';
+  return cy.get(baseSelector);
+});
+
+Cypress.Commands.add('clickAmwPaginatorNext', (selector?: string) => {
+  const base = selector || '';
+  cy.get(`${base} .amw-paginator__next, ${base} .mat-mdc-paginator-navigation-next, ${base} button[aria-label*="Next"]`.trim()).first().click();
+});
+
+Cypress.Commands.add('clickAmwPaginatorPrev', (selector?: string) => {
+  const base = selector || '';
+  cy.get(`${base} .amw-paginator__prev, ${base} .mat-mdc-paginator-navigation-previous, ${base} button[aria-label*="Previous"]`.trim()).first().click();
+});
+
+Cypress.Commands.add('clickAmwPaginatorFirst', (selector?: string) => {
+  const base = selector || '';
+  cy.get(`${base} .amw-paginator__first, ${base} .mat-mdc-paginator-navigation-first, ${base} button[aria-label*="First"]`.trim()).first().click();
+});
+
+Cypress.Commands.add('clickAmwPaginatorLast', (selector?: string) => {
+  const base = selector || '';
+  cy.get(`${base} .amw-paginator__last, ${base} .mat-mdc-paginator-navigation-last, ${base} button[aria-label*="Last"]`.trim()).first().click();
+});
+
+Cypress.Commands.add('setAmwPageSize', (selector: string, size: number) => {
+  cy.get(`${selector} .amw-paginator__page-size select, ${selector} .mat-mdc-paginator-page-size-select`).first().click();
+  cy.get('.mat-mdc-option, .mat-option').contains(size.toString()).click();
+});
+
+Cypress.Commands.add('getAmwPaginatorRange', (selector?: string) => {
+  const base = selector || '';
+  return cy.get(`${base} .amw-paginator__range, ${base} .mat-mdc-paginator-range-label`.trim()).invoke('text');
+});
+
+// AMW List Commands
+Cypress.Commands.add('getAmwList', (selector?: string) => {
+  const baseSelector = selector ? `${selector} amw-list` : 'amw-list';
+  return cy.get(baseSelector);
+});
+
+Cypress.Commands.add('getAmwListItems', (selector?: string) => {
+  const base = selector || '';
+  return cy.get(`${base} amw-list-item, ${base} [amwListItem]`.trim());
+});
+
+Cypress.Commands.add('clickAmwListItem', (selector: string, itemIndex: number) => {
+  cy.get(`${selector} amw-list-item, ${selector} [amwListItem]`).eq(itemIndex).click();
+});
+
+Cypress.Commands.add('getAmwListItemText', (selector: string, itemIndex: number) => {
+  return cy.get(`${selector} amw-list-item, ${selector} [amwListItem]`).eq(itemIndex).invoke('text');
+});
+
+// AMW Badge Commands
+Cypress.Commands.add('getAmwBadge', (selector?: string) => {
+  const baseSelector = selector ? `${selector} [amwBadge]` : '[amwBadge]';
+  return cy.get(baseSelector);
+});
+
+Cypress.Commands.add('getAmwBadgeContent', (selector?: string) => {
+  const base = selector || '';
+  return cy.get(`${base} .amw-badge, ${base} .mat-badge-content`.trim()).first().invoke('text');
+});
+
+Cypress.Commands.add('isAmwBadgeHidden', (selector?: string) => {
+  const base = selector || '';
+  return cy.get(`${base} [amwBadge]`.trim()).first().then($badge => {
+    return $badge.attr('amwBadgeHidden') === 'true' || $badge.hasClass('amw-badge-hidden');
+  });
+});
+
+// AMW Button Toggle Commands
+Cypress.Commands.add('getAmwButtonToggleGroup', (selector?: string) => {
+  const baseSelector = selector ? `${selector} amw-button-toggle-group` : 'amw-button-toggle-group';
+  return cy.get(baseSelector);
+});
+
+Cypress.Commands.add('getAmwButtonToggle', (selector?: string) => {
+  const baseSelector = selector ? `${selector} amw-button-toggle` : 'amw-button-toggle';
+  return cy.get(baseSelector);
+});
+
+Cypress.Commands.add('selectAmwButtonToggle', (selector: string, toggleIndex: number) => {
+  cy.get(`${selector} amw-button-toggle`).eq(toggleIndex).click();
+});
+
+Cypress.Commands.add('selectAmwButtonToggleByValue', (selector: string, value: string) => {
+  cy.get(`${selector} amw-button-toggle[value="${value}"], ${selector} amw-button-toggle`).contains(value).click();
+});
+
+Cypress.Commands.add('getAmwSelectedToggle', (selector?: string) => {
+  const base = selector || '';
+  return cy.get(`${base} amw-button-toggle.selected, ${base} amw-button-toggle[aria-pressed="true"], ${base} .mat-button-toggle-checked`.trim());
+});
+
+// AMW Expansion Panel Commands
+Cypress.Commands.add('getAmwExpansionPanel', (selector?: string) => {
+  const baseSelector = selector ? `${selector} amw-expansion-panel` : 'amw-expansion-panel';
+  return cy.get(baseSelector);
+});
+
+Cypress.Commands.add('expandAmwExpansionPanel', (selector: string, panelIndex?: number) => {
+  const index = panelIndex ?? 0;
+  cy.get(`${selector} amw-expansion-panel`).eq(index).then($panel => {
+    const isExpanded = $panel.find('.amw-expansion-panel-content:visible').length > 0 || $panel.hasClass('expanded');
+    if (!isExpanded) {
+      cy.wrap($panel).find('amw-expansion-panel-header').click();
+    }
+  });
+});
+
+Cypress.Commands.add('collapseAmwExpansionPanel', (selector: string, panelIndex?: number) => {
+  const index = panelIndex ?? 0;
+  cy.get(`${selector} amw-expansion-panel`).eq(index).then($panel => {
+    const isExpanded = $panel.find('.amw-expansion-panel-content:visible').length > 0 || $panel.hasClass('expanded');
+    if (isExpanded) {
+      cy.wrap($panel).find('amw-expansion-panel-header').click();
+    }
+  });
+});
+
+Cypress.Commands.add('isAmwExpansionPanelExpanded', (selector: string, panelIndex?: number) => {
+  const index = panelIndex ?? 0;
+  return cy.get(`${selector} amw-expansion-panel`).eq(index).then($panel => {
+    return $panel.find('.amw-expansion-panel-content:visible').length > 0 || $panel.hasClass('expanded') || $panel.attr('expanded') === 'true';
+  });
+});
+
+Cypress.Commands.add('getAmwExpansionPanelHeader', (selector?: string) => {
+  const baseSelector = selector ? `${selector} amw-expansion-panel-header` : 'amw-expansion-panel-header';
+  return cy.get(baseSelector);
 });
 
 export {};

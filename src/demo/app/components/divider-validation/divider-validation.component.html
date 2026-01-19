@@ -1,0 +1,70 @@
+<div class="amw-demo-divider-validation">
+  <!-- Interactive Controls -->
+  <div class="validation-section">
+    <h3 class="validation-section__title">Interactive Divider</h3>
+    <div class="controls">
+      <amw-button
+        appearance="outlined"
+        (buttonClick)="toggleVertical()">
+        {{ isVertical() ? 'Horizontal' : 'Vertical' }}
+      </amw-button>
+      <amw-button
+        appearance="outlined"
+        (buttonClick)="toggleInset()">
+        {{ isInset() ? 'Full Width' : 'Inset' }}
+      </amw-button>
+      <amw-button
+        appearance="outlined"
+        (buttonClick)="toggleVisibility()">
+        {{ showDivider() ? 'Hide' : 'Show' }}
+      </amw-button>
+    </div>
+  </div>
+
+  <!-- Divider Preview -->
+  <div class="validation-section">
+    <h3 class="validation-section__title">Preview</h3>
+    <div class="preview-container" [class.vertical-mode]="isVertical()">
+      <div class="content-block">Content A</div>
+      @if (showDivider()) {
+        <amw-divider
+          [vertical]="isVertical()"
+          [inset]="isInset()">
+        </amw-divider>
+      }
+      <div class="content-block">Content B</div>
+    </div>
+  </div>
+
+  <!-- Current State -->
+  <div class="validation-section">
+    <h3 class="validation-section__title">Current State</h3>
+    <div class="state-display">
+      <div class="state-item">
+        <span class="state-label">Orientation:</span>
+        <code>{{ isVertical() ? 'vertical' : 'horizontal' }}</code>
+      </div>
+      <div class="state-item">
+        <span class="state-label">Inset:</span>
+        <code>{{ isInset() }}</code>
+      </div>
+      <div class="state-item">
+        <span class="state-label">Visible:</span>
+        <code>{{ showDivider() }}</code>
+      </div>
+    </div>
+  </div>
+
+  <!-- Usage Guidance -->
+  <div class="validation-section">
+    <h3 class="validation-section__title">Usage Guidance</h3>
+    <div class="guidance-card">
+      <ul>
+        <li><strong>Horizontal dividers</strong> separate content sections vertically stacked.</li>
+        <li><strong>Vertical dividers</strong> separate content arranged horizontally (like toolbar items).</li>
+        <li><strong>Inset dividers</strong> align with content that has leading icons or avatars.</li>
+        <li>Use dividers sparingly to maintain visual hierarchy without clutter.</li>
+      </ul>
+    </div>
+  </div>
+</div>

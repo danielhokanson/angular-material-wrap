@@ -1,0 +1,110 @@
+import { Component, ViewEncapsulation } from '@angular/core';
+import { BaseCodeComponent } from '../base/base-code.component';
+
+type TableCodeExamples = 'basic' | 'withTrackBy' | 'withSort' | 'withPagination' | 'directives';
+
+@Component({
+    selector: 'amw-demo-table-code',
+    standalone: true,
+    imports: [],
+    encapsulation: ViewEncapsulation.None,
+    templateUrl: './table-code.component.html',
+    styleUrl: './table-code.component.scss'
+})
+export class TableCodeComponent extends BaseCodeComponent<TableCodeExamples> {
+    readonly codeExamples: Record<TableCodeExamples, string> = {
+        basic: `<!-- Basic Table -->
+<amw-table
+  [dataSource]="dataSource"
+  [displayedColumns]="['position', 'name', 'weight', 'symbol']">
+</amw-table>
+
+<!-- In component -->
+dataSource = [
+  { position: 1, name: 'Hydrogen', weight: 1.0079, symbol: 'H' },
+  { position: 2, name: 'Helium', weight: 4.0026, symbol: 'He' },
+  { position: 3, name: 'Lithium', weight: 6.941, symbol: 'Li' }
+];`,
+
+        withTrackBy: `<!-- Table with TrackBy for performance -->
+<amw-table
+  [dataSource]="dataSource"
+  [displayedColumns]="displayedColumns"
+  [trackBy]="trackByFn">
+</amw-table>
+
+<!-- In component -->
+trackByFn(index: number, item: PeriodicElement): number {
+  return item.position;
+}`,
+
+        withSort: `<!-- Table with Sorting -->
+<div amwSort
+     [amwSortActive]="sortActive"
+     [amwSortDirection]="sortDirection"
+     (amwSortChange)="onSortChange($event)">
+  <amw-table
+    [dataSource]="sortedData"
+    [displayedColumns]="displayedColumns">
+  </amw-table>
+</div>
+
+<!-- In component -->
+sortActive = 'name';
+sortDirection: 'asc' | 'desc' | '' = 'asc';
+
+onSortChange(event: { active: string; direction: string }) {
+  this.sortActive = event.active;
+  this.sortDirection = event.direction;
+  // Re-sort data based on active column and direction
+}`,
+
+        withPagination: `<!-- Table with Pagination -->
+<amw-table
+  [dataSource]="paginatedData"
+  [displayedColumns]="displayedColumns">
+</amw-table>
+<amw-paginator
+  [length]="totalItems"
+  [pageSize]="pageSize"
+  [pageIndex]="pageIndex"
+  [pageSizeOptions]="[5, 10, 25]"
+  (page)="onPageChange($event)">
+</amw-paginator>
+
+<!-- In component -->
+pageSize = 10;
+pageIndex = 0;
+totalItems = 100;
+
+get paginatedData() {
+  const start = this.pageIndex * this.pageSize;
+  return this.allData.slice(start, start + this.pageSize);
+}
+
+onPageChange(event: AmwPageEvent) {
+  this.pageIndex = event.pageIndex;
+  this.pageSize = event.pageSize;
+}`,
+
+        directives: `<!-- Table with Column Definition Directives -->
+<table amw-table [dataSource]="dataSource">
+  <ng-container amwColumnDef="position">
+    <th *amwHeaderCellDef>No.</th>
+    <td *amwCellDef="let element">{{ element.position }}</td>
+  </ng-container>
+
+  <ng-container amwColumnDef="name">
+    <th *amwHeaderCellDef>Name</th>
+    <td *amwCellDef="let element">{{ element.name }}</td>
+  </ng-container>
+
+  <tr *amwHeaderRowDef="displayedColumns"></tr>
+  <tr *amwRowDef="let row; columns: displayedColumns"></tr>
+</table>`
+    };
+
+    constructor() {
+        super();
+    }
+}

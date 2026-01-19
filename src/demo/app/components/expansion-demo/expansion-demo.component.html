@@ -1,0 +1,130 @@
+<div class="amw-demo-expansion">
+  <!-- Basic Expansion Panel -->
+  <div class="variation-section">
+    <h3 class="variation-section__title">Basic Expansion Panel</h3>
+    <div class="variation-section__content">
+      <amw-expansion-panel>
+        <amw-expansion-panel-header>
+          <amw-panel-title>Panel Title</amw-panel-title>
+        </amw-expansion-panel-header>
+        <p>This is the panel content. It can contain any content including text, forms, images, or other components.</p>
+      </amw-expansion-panel>
+    </div>
+  </div>
+
+  <!-- Panel with Title and Description -->
+  <div class="variation-section">
+    <h3 class="variation-section__title">Panel with Title and Description</h3>
+    <div class="variation-section__content">
+      <amw-expansion-panel>
+        <amw-expansion-panel-header>
+          <amw-panel-title>Personal Information</amw-panel-title>
+          <amw-panel-description>Enter your details</amw-panel-description>
+        </amw-expansion-panel-header>
+        <p>Form fields and other content would go here.</p>
+      </amw-expansion-panel>
+    </div>
+  </div>
+
+  <!-- Expanded by Default -->
+  <div class="variation-section">
+    <h3 class="variation-section__title">Expanded by Default</h3>
+    <div class="variation-section__content">
+      <amw-expansion-panel [expanded]="true">
+        <amw-expansion-panel-header>
+          <amw-panel-title>Pre-expanded Panel</amw-panel-title>
+        </amw-expansion-panel-header>
+        <p>This panel is expanded when the page loads.</p>
+      </amw-expansion-panel>
+    </div>
+  </div>
+
+  <!-- Disabled Panel -->
+  <div class="variation-section">
+    <h3 class="variation-section__title">Disabled Panel</h3>
+    <div class="variation-section__content">
+      <amw-expansion-panel [disabled]="true">
+        <amw-expansion-panel-header>
+          <amw-panel-title>Disabled Panel</amw-panel-title>
+        </amw-expansion-panel-header>
+        <p>This content is not accessible because the panel is disabled.</p>
+      </amw-expansion-panel>
+    </div>
+  </div>
+
+  <!-- Panel with Events -->
+  <div class="variation-section">
+    <h3 class="variation-section__title">Panel with Events</h3>
+    <div class="variation-section__content">
+      <amw-expansion-panel
+        (opened)="onPanelOpened()"
+        (closed)="onPanelClosed()">
+        <amw-expansion-panel-header>
+          <amw-panel-title>Interactive Panel</amw-panel-title>
+        </amw-expansion-panel-header>
+        <p>Open and close this panel to see the state change.</p>
+      </amw-expansion-panel>
+      <p class="state-text">Panel is: <strong>{{ panelOpenState() ? 'Open' : 'Closed' }}</strong></p>
+    </div>
+  </div>
+
+  <!-- Accordion (Single Mode) -->
+  <div class="variation-section">
+    <h3 class="variation-section__title">Accordion (Single Panel Mode)</h3>
+    <div class="variation-section__content">
+      <amw-accordion [multi]="false">
+        @for (item of faqItems; track item.question) {
+          <amw-expansion-panel>
+            <amw-expansion-panel-header>
+              <amw-panel-title>{{ item.question }}</amw-panel-title>
+            </amw-expansion-panel-header>
+            <p>{{ item.answer }}</p>
+          </amw-expansion-panel>
+        }
+      </amw-accordion>
+      <p class="info-text">Only one panel can be open at a time.</p>
+    </div>
+  </div>
+
+  <!-- Accordion (Multi Mode) -->
+  <div class="variation-section">
+    <h3 class="variation-section__title">Accordion (Multi Panel Mode)</h3>
+    <div class="variation-section__content">
+      <amw-button appearance="outlined" (buttonClick)="toggleMultiMode()">
+        Multi Mode: {{ multiMode() ? 'On' : 'Off' }}
+      </amw-button>
+      <amw-accordion [multi]="multiMode()">
+        @for (item of faqItems; track item.question) {
+          <amw-expansion-panel>
+            <amw-expansion-panel-header>
+              <amw-panel-title>{{ item.question }}</amw-panel-title>
+            </amw-expansion-panel-header>
+            <p>{{ item.answer }}</p>
+          </amw-expansion-panel>
+        }
+      </amw-accordion>
+      <p class="info-text">{{ multiMode() ? 'Multiple panels can be open simultaneously.' : 'Toggle multi mode to allow multiple panels.' }}</p>
+    </div>
+  </div>
+
+  <!-- Flat Display Mode -->
+  <div class="variation-section">
+    <h3 class="variation-section__title">Flat Display Mode</h3>
+    <div class="variation-section__content">
+      <amw-accordion displayMode="flat">
+        <amw-expansion-panel>
+          <amw-expansion-panel-header>
+            <amw-panel-title>Flat Panel 1</amw-panel-title>
+          </amw-expansion-panel-header>
+          <p>Content with flat styling (no elevation).</p>
+        </amw-expansion-panel>
+        <amw-expansion-panel>
+          <amw-expansion-panel-header>
+            <amw-panel-title>Flat Panel 2</amw-panel-title>
+          </amw-expansion-panel-header>
+          <p>Another flat panel.</p>
+        </amw-expansion-panel>
+      </amw-accordion>
+    </div>
+  </div>
+</div>

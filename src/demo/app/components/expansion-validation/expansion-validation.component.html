@@ -1,0 +1,121 @@
+<div class="amw-demo-expansion-validation">
+  <!-- Multi-step Form in Expansion Panels -->
+  <div class="validation-section">
+    <h3 class="validation-section__title">Multi-step Form with Validation</h3>
+    <amw-accordion>
+      <!-- Step 1: Personal Information -->
+      <amw-expansion-panel [expanded]="!step1Complete()">
+        <amw-expansion-panel-header>
+          <amw-panel-title>Step 1: Personal Information</amw-panel-title>
+          <amw-panel-description>{{ getStepStatus(step1Complete(), personalForm) }}</amw-panel-description>
+        </amw-expansion-panel-header>
+        <form [formGroup]="personalForm" class="step-form">
+          <amw-input
+            label="First Name"
+            formControlName="firstName"
+            placeholder="Enter first name"
+            [errorMessage]="'First name is required'">
+          </amw-input>
+          <amw-input
+            label="Last Name"
+            formControlName="lastName"
+            placeholder="Enter last name"
+            [errorMessage]="'Last name is required'">
+          </amw-input>
+          <amw-input
+            label="Email"
+            formControlName="email"
+            placeholder="Enter email"
+            [errorMessage]="personalForm.get('email')?.hasError('required') ? 'Email is required' : 'Invalid email format'">
+          </amw-input>
+          <amw-button
+            appearance="filled"
+            [disabled]="!personalForm.valid"
+            (buttonClick)="validateStep1()">
+            Complete Step 1
+          </amw-button>
+        </form>
+      </amw-expansion-panel>
+
+      <!-- Step 2: Address -->
+      <amw-expansion-panel [disabled]="!step1Complete()" [expanded]="step1Complete() && !step2Complete()">
+        <amw-expansion-panel-header>
+          <amw-panel-title>Step 2: Address</amw-panel-title>
+          <amw-panel-description>{{ getStepStatus(step2Complete(), addressForm) }}</amw-panel-description>
+        </amw-expansion-panel-header>
+        <form [formGroup]="addressForm" class="step-form">
+          <amw-input
+            label="Street Address"
+            formControlName="street"
+            placeholder="Enter street address"
+            [errorMessage]="'Street address is required'">
+          </amw-input>
+          <amw-input
+            label="City"
+            formControlName="city"
+            placeholder="Enter city"
+            [errorMessage]="'City is required'">
+          </amw-input>
+          <amw-input
+            label="ZIP Code"
+            formControlName="zip"
+            placeholder="Enter 5-digit ZIP"
+            [errorMessage]="addressForm.get('zip')?.hasError('required') ? 'ZIP is required' : 'Must be 5 digits'">
+          </amw-input>
+          <amw-button
+            appearance="filled"
+            [disabled]="!addressForm.valid"
+            (buttonClick)="validateStep2()">
+            Complete Step 2
+          </amw-button>
+        </form>
+      </amw-expansion-panel>
+
+      <!-- Step 3: Review -->
+      <amw-expansion-panel [disabled]="!step2Complete()" [expanded]="step2Complete()">
+        <amw-expansion-panel-header>
+          <amw-panel-title>Step 3: Review</amw-panel-title>
+          <amw-panel-description>{{ step2Complete() ? 'Ready to submit' : 'Complete previous steps' }}</amw-panel-description>
+        </amw-expansion-panel-header>
+        <div class="review-content">
+          <h4>Personal Information</h4>
+          <p><strong>Name:</strong> {{ personalForm.value.firstName }} {{ personalForm.value.lastName }}</p>
+          <p><strong>Email:</strong> {{ personalForm.value.email }}</p>
+
+          <h4>Address</h4>
+          <p><strong>Street:</strong> {{ addressForm.value.street }}</p>
+          <p><strong>City:</strong> {{ addressForm.value.city }}</p>
+          <p><strong>ZIP:</strong> {{ addressForm.value.zip }}</p>
+
+          <div class="action-buttons">
+            <amw-button appearance="outlined" (buttonClick)="resetForms()">
+              Start Over
+            </amw-button>
+            <amw-button appearance="filled">
+              Submit
+            </amw-button>
+          </div>
+        </div>
+      </amw-expansion-panel>
+    </amw-accordion>
+  </div>
+
+  <!-- Validation State -->
+  <div class="validation-section">
+    <h3 class="validation-section__title">Form State</h3>
+    <div class="state-display">
+      <div class="state-item">
+        <span class="state-label">Step 1:</span>
+        <span class="state-value" [class.complete]="step1Complete()">
+          {{ step1Complete() ? 'Complete' : 'Pending' }}
+        </span>
+      </div>
+      <div class="state-item">
+        <span class="state-label">Step 2:</span>
+        <span class="state-value" [class.complete]="step2Complete()">
+          {{ step2Complete() ? 'Complete' : 'Pending' }}
+        </span>
+      </div>
+    </div>
+  </div>
+</div>

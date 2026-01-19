@@ -1,0 +1,60 @@
+<div class="amw-demo-table-validation">
+  <!-- Add Row Form -->
+  <div class="validation-section">
+    <h3 class="validation-section__title">Add Row with Validation</h3>
+    <form [formGroup]="addForm" (ngSubmit)="addRow()" class="add-form">
+      <amw-input
+        label="Name"
+        formControlName="name"
+        placeholder="Enter name"
+        [errorMessage]="addForm.get('name')?.hasError('required') ? 'Name is required' : 'Min 2 characters'">
+      </amw-input>
+      <amw-input
+        label="Email"
+        formControlName="email"
+        placeholder="Enter email"
+        [errorMessage]="addForm.get('email')?.hasError('required') ? 'Email is required' : 'Invalid email'">
+      </amw-input>
+      <amw-button
+        type="submit"
+        appearance="filled"
+        [disabled]="!addForm.valid">
+        Add Row
+      </amw-button>
+    </form>
+  </div>
+
+  <!-- Filter -->
+  <div class="validation-section">
+    <h3 class="validation-section__title">Filter Table</h3>
+    <amw-input
+      label="Search"
+      placeholder="Filter by name or email"
+      [value]="filterValue()"
+      (valueChange)="onFilterChange($event || '')">
+    </amw-input>
+  </div>
+
+  <!-- Table -->
+  <div class="validation-section">
+    <h3 class="validation-section__title">Data Table</h3>
+    <amw-table [dataSource]="filteredData" [displayedColumns]="displayedColumns">
+    </amw-table>
+    @if (filteredData.length === 0) {
+      <p class="empty-message">No data matches your filter.</p>
+    }
+  </div>
+
+  <!-- Selected Row -->
+  @if (selectedRow()) {
+    <div class="validation-section">
+      <h3 class="validation-section__title">Selected Row</h3>
+      <div class="selected-info">
+        <p><strong>ID:</strong> {{ selectedRow()?.id }}</p>
+        <p><strong>Name:</strong> {{ selectedRow()?.name }}</p>
+        <p><strong>Email:</strong> {{ selectedRow()?.email }}</p>
+        <p><strong>Status:</strong> {{ selectedRow()?.status }}</p>
+      </div>
+    </div>
+  }
+</div>

@@ -1,0 +1,92 @@
+<div class="amw-demo-divider">
+  <!-- Basic Horizontal Divider -->
+  <div class="variation-section">
+    <h3 class="variation-section__title">Horizontal Divider</h3>
+    <div class="variation-section__content">
+      <p>Content above the divider</p>
+      <amw-divider></amw-divider>
+      <p>Content below the divider</p>
+    </div>
+  </div>
+
+  <!-- Vertical Divider -->
+  <div class="variation-section">
+    <h3 class="variation-section__title">Vertical Divider</h3>
+    <div class="variation-section__content vertical-container">
+      <span>Left</span>
+      <amw-divider [vertical]="true"></amw-divider>
+      <span>Center</span>
+      <amw-divider [vertical]="true"></amw-divider>
+      <span>Right</span>
+    </div>
+  </div>
+
+  <!-- Inset Divider -->
+  <div class="variation-section">
+    <h3 class="variation-section__title">Inset Divider</h3>
+    <div class="variation-section__content">
+      <p class="with-icon"><mat-icon>star</mat-icon> Item with icon</p>
+      <amw-divider [inset]="true"></amw-divider>
+      <p class="with-icon"><mat-icon>star</mat-icon> Another item with icon</p>
+      <amw-divider [inset]="true"></amw-divider>
+      <p class="with-icon"><mat-icon>star</mat-icon> Third item with icon</p>
+    </div>
+  </div>
+
+  <!-- Divider in List -->
+  <div class="variation-section">
+    <h3 class="variation-section__title">Divider in List</h3>
+    <div class="variation-section__content">
+      <amw-list>
+        @for (item of listItems; track item.text; let last = $last) {
+          <amw-list-item>
+            <mat-icon amwListItemIcon>{{ item.icon }}</mat-icon>
+            <span amwListItemTitle>{{ item.text }}</span>
+          </amw-list-item>
+          @if (!last) {
+            <amw-divider></amw-divider>
+          }
+        }
+      </amw-list>
+    </div>
+  </div>
+
+  <!-- Divider with Inset in List -->
+  <div class="variation-section">
+    <h3 class="variation-section__title">Inset Divider in List</h3>
+    <div class="variation-section__content">
+      <amw-list>
+        @for (item of listItems; track item.text; let last = $last) {
+          <amw-list-item>
+            <mat-icon amwListItemIcon>{{ item.icon }}</mat-icon>
+            <span amwListItemTitle>{{ item.text }}</span>
+          </amw-list-item>
+          @if (!last) {
+            <amw-divider [inset]="true"></amw-divider>
+          }
+        }
+      </amw-list>
+    </div>
+  </div>
+
+  <!-- Multiple Sections -->
+  <div class="variation-section">
+    <h3 class="variation-section__title">Section Dividers</h3>
+    <div class="variation-section__content sections-demo">
+      <div class="section">
+        <h4>Section 1</h4>
+        <p>This is the first section content.</p>
+      </div>
+      <amw-divider></amw-divider>
+      <div class="section">
+        <h4>Section 2</h4>
+        <p>This is the second section content.</p>
+      </div>
+      <amw-divider></amw-divider>
+      <div class="section">
+        <h4>Section 3</h4>
+        <p>This is the third section content.</p>
+      </div>
+    </div>
+  </div>
+</div>

@@ -1,43 +1,129 @@
 <div class="dialog-demo">
-  <!-- Service Methods Section -->
-  <div class="dialog-demo__service-section">
+  <!-- RECOMMENDED: Signal-based Pattern Section -->
+  <div class="dialog-demo__recommended-section">
     <amw-card>
       <ng-template #cardHeader>
-        <h2>Dialog Service Methods</h2>
-        <p class="subtitle">Quick access to common dialog types using the service</p>
+        <h2>
+          <amw-icon name="check_circle" color="primary"></amw-icon>
+          Recommended: Signal-based Dialogs
+        </h2>
+        <p class="subtitle">Modern pattern using <code>dialogService.open(title, component, config)</code> with signals</p>
       </ng-template>
 
       <ng-template #cardContent>
-        <div class="dialog-demo__service-buttons">
-          <amw-button appearance="elevated" color="primary" (click)="openAlert()" icon="warning" iconPosition="left">Alert</amw-button>
-          <amw-button appearance="elevated" color="accent" (click)="openConfirm()" icon="help_outline" iconPosition="left">Confirm</amw-button>
-          <amw-button appearance="elevated" color="primary" (click)="openInfo()" icon="info" iconPosition="left">Info</amw-button>
-          <amw-button appearance="elevated" color="warn" (click)="openWarning()" icon="warning" iconPosition="left">Warning</amw-button>
-          <amw-button appearance="elevated" color="warn" (click)="openError()" icon="error" iconPosition="left">Error</amw-button>
-          <amw-button appearance="elevated" color="primary" (click)="openSuccess()" icon="check_circle" iconPosition="left">Success</amw-button>
-          <amw-button appearance="elevated" color="accent" (click)="openLoading()" icon="hourglass_empty" iconPosition="left">Loading</amw-button>
+        <div class="dialog-demo__info-box">
+          <amw-icon name="info" color="primary"></amw-icon>
+          <div>
+            <strong>How it works:</strong>
+            <ul>
+              <li>Call <code>dialogService.open('Title', MyComponent, &#123; data: ... &#125;)</code></li>
+              <li>Dialog component exposes signals (e.g., <code>savedData = signal&lt;T | null&gt;(null)</code>)</li>
+              <li>Parent uses <code>effect()</code> to react when signals change</li>
+              <li>Parent closes dialog when ready: <code>dialogRef.close()</code></li>
+            </ul>
+          </div>
         </div>
+
+        <div class="dialog-demo__service-buttons">
+          <amw-button appearance="elevated" color="primary" (click)="openEditDialog()" icon="edit" iconPosition="left">
+            Edit Dialog
+          </amw-button>
+          <amw-button appearance="elevated" color="accent" (click)="openSignalConfirmDialog()" icon="help_outline" iconPosition="left">
+            Confirm Dialog
+          </amw-button>
+          <amw-button appearance="elevated" color="primary" (click)="openFormDialog()" icon="add_circle" iconPosition="left">
+            Form Dialog
+          </amw-button>
+        </div>
+
+        <!-- Results display -->
+        @if (savedItems().length > 0 || lastDialogResult()) {
+          <div class="dialog-demo__results">
+            <div class="dialog-demo__results-header">
+              <h4>Dialog Results:</h4>
+              <amw-button appearance="text" color="warn" (click)="clearSavedItems()" icon="clear">
+                Clear
+              </amw-button>
+            </div>
+            @if (lastDialogResult()) {
+              <p class="dialog-demo__last-result">
+                <amw-icon name="arrow_forward" color="primary"></amw-icon>
+                {{ lastDialogResult() }}
+              </p>
+            }
+            @if (savedItems().length > 0) {
+              <ul class="dialog-demo__saved-items">
+                @for (item of savedItems(); track item) {
+                  <li>{{ item }}</li>
+                }
+              </ul>
+            }
+          </div>
+        }
       </ng-template>
-</amw-card>
+    </amw-card>
   </div>
 
-  <!-- Custom Dialog Variations -->
-  <div class="dialog-demo__grid">
-    @for (variation of dialogVariations; track variation) {
-      <amw-card class="dialog-demo__card">
-        <ng-template #cardHeader>
-          <h2>{{ variation.title }}</h2>
-          <p class="subtitle">{{ variation.description }}</p>
-        </ng-template>
-        <ng-template #cardContent>
-          <div class="dialog-demo__example">
-            <amw-button appearance="elevated"
-              color="primary"
-              (click)="openDialog(variation)"
-              class="dialog-demo__button" icon="open_in_new" iconPosition="left">Open Dialog</amw-button>
-          </div>
+  <!-- LEGACY: Deprecated Service Methods Section -->
+  <div class="dialog-demo__legacy-section">
+    <amw-card>
+      <ng-template #cardHeader>
+        <h2>
+          <amw-icon name="warning" color="warn"></amw-icon>
+          Legacy: Deprecated Service Methods
+        </h2>
+        <p class="subtitle">These methods are deprecated. Migrate to signal-based pattern above.</p>
       </ng-template>
-</amw-card>
-    }
+
+      <ng-template #cardContent>
+        <div class="dialog-demo__warning-box">
+          <amw-icon name="warning" color="warn"></amw-icon>
+          <div>
+            <strong>Deprecation Notice:</strong> The methods below (<code>alert()</code>, <code>confirm()</code>, etc.)
+            are deprecated and will show console warnings. Use <code>dialogService.open(title, component, config)</code>
+            with custom dialog components instead.
+          </div>
+        </div>
+
+        <div class="dialog-demo__service-buttons dialog-demo__service-buttons--legacy">
+          <amw-button appearance="outlined" color="warn" (click)="openLegacyAlert()" icon="warning" iconPosition="left">
+            Alert (deprecated)
+          </amw-button>
+          <amw-button appearance="outlined" color="warn" (click)="openLegacyConfirm()" icon="help_outline" iconPosition="left">
+            Confirm (deprecated)
+          </amw-button>
+        </div>
+      </ng-template>
+    </amw-card>
+  </div>
+
+  <!-- LEGACY: Custom Dialog Variations -->
+  <div class="dialog-demo__legacy-section">
+    <amw-card>
+      <ng-template #cardHeader>
+        <h2>
+          <amw-icon name="history" color="warn"></amw-icon>
+          Legacy: Options-based Dialogs
+        </h2>
+        <p class="subtitle">Using deprecated <code>openWithOptions()</code> method</p>
+      </ng-template>
+
+      <ng-template #cardContent>
+        <div class="dialog-demo__grid">
+          @for (variation of legacyDialogVariations; track variation.title) {
+            <div class="dialog-demo__card-mini">
+              <h4>{{ variation.title }}</h4>
+              <p>{{ variation.description }}</p>
+              <amw-button appearance="outlined"
+                color="warn"
+                (click)="openLegacyDialog(variation)"
+                icon="open_in_new" iconPosition="left">
+                Open (deprecated)
+              </amw-button>
+            </div>
+          }
+        </div>
+      </ng-template>
+    </amw-card>
   </div>
 </div>

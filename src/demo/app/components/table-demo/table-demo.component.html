@@ -1,0 +1,77 @@
+<div class="amw-demo-table">
+  <!-- Basic Table -->
+  <div class="variation-section">
+    <h3 class="variation-section__title">Basic Table</h3>
+    <div class="variation-section__content">
+      <amw-table [dataSource]="basicData" [displayedColumns]="displayedColumns">
+      </amw-table>
+    </div>
+  </div>
+
+  <!-- Table with TrackBy -->
+  <div class="variation-section">
+    <h3 class="variation-section__title">Table with TrackBy</h3>
+    <div class="variation-section__content">
+      <amw-table
+        [dataSource]="basicData"
+        [displayedColumns]="displayedColumns"
+        [trackBy]="trackByPosition">
+      </amw-table>
+    </div>
+  </div>
+
+  <!-- Table with Sorting -->
+  <div class="variation-section">
+    <h3 class="variation-section__title">Table with Sorting</h3>
+    <div class="variation-section__content">
+      <div
+        amwSort
+        [amwSortActive]="sortActive()"
+        [amwSortDirection]="sortDirection()"
+        (amwSortChange)="onSortChange($event)">
+        <amw-table [dataSource]="basicData" [displayedColumns]="displayedColumns">
+        </amw-table>
+      </div>
+      <p class="info-text">Sort: {{ sortActive() }} ({{ sortDirection() || 'none' }})</p>
+    </div>
+  </div>
+
+  <!-- Table with Pagination -->
+  <div class="variation-section">
+    <h3 class="variation-section__title">Table with Pagination</h3>
+    <div class="variation-section__content">
+      <amw-table
+        [dataSource]="paginatedData"
+        [displayedColumns]="displayedColumns"
+        [trackBy]="trackByPosition">
+      </amw-table>
+      <amw-paginator
+        [length]="extendedData.length"
+        [pageSize]="pageSize()"
+        [pageIndex]="pageIndex()"
+        [pageSizeOptions]="[5, 10]"
+        (page)="onPageChange($event)">
+      </amw-paginator>
+    </div>
+  </div>
+
+  <!-- Empty Table -->
+  <div class="variation-section">
+    <h3 class="variation-section__title">Empty Table</h3>
+    <div class="variation-section__content">
+      <amw-table [dataSource]="[]" [displayedColumns]="displayedColumns">
+      </amw-table>
+    </div>
+  </div>
+
+  <!-- Custom Column Display -->
+  <div class="variation-section">
+    <h3 class="variation-section__title">Custom Column Display</h3>
+    <div class="variation-section__content">
+      <amw-table
+        [dataSource]="basicData"
+        [displayedColumns]="['name', 'symbol']">
+      </amw-table>
+    </div>
+  </div>
+</div>
