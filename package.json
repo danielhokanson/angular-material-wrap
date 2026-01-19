@@ -1,6 +1,6 @@
 {
   "name": "angular-material-wrap",
-  "version": "0.1.0-beta.6",
+  "version": "0.1.0-beta.7",
   "scripts": {
     "ng": "ng",
     "start": "ng serve angular-material-wrap-demo",
