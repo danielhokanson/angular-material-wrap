@@ -1,6 +1,6 @@
-import { Component, ViewEncapsulation, TemplateRef, QueryList, input, output, viewChild, contentChildren, computed } from '@angular/core';
+import { Component, ViewEncapsulation, TemplateRef, input, output, viewChild, contentChildren, computed } from '@angular/core';
 import { NgTemplateOutlet } from '@angular/common';
-import { MatMenuModule, MatMenuTrigger } from '@angular/material/menu';
+import { MatMenuModule, MatMenuTrigger, MatMenu } from '@angular/material/menu';
 import { MatIconModule } from '@angular/material/icon';
 import { AmwButtonComponent } from '../../../controls/components/amw-button/amw-button.component';
 import { AmwMenuItemComponent } from './amw-menu-item.component';
@@ -69,6 +69,20 @@ export class AmwMenuComponent {
 
     readonly menuTrigger = viewChild(MatMenuTrigger);
     readonly menuItems = contentChildren(AmwMenuItemComponent);
+
+    /**
+     * The underlying MatMenu instance. Use this when passing the menu
+     * to amwMenuTriggerFor from an external trigger element.
+     *
+     * @example
+     * ```html
+     * <amw-button [amwMenuTriggerFor]="menu.matMenu">Options</amw-button>
+     * <amw-menu #menu>
+     *   <amw-menu-item label="Edit" (itemClick)="edit()"></amw-menu-item>
+     * </amw-menu>
+     * ```
+     */
+    readonly matMenu = viewChild.required<MatMenu>('menu');
 
     /**
      * Opens the menu

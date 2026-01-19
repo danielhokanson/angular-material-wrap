@@ -4,6 +4,7 @@ import { Overlay } from '@angular/cdk/overlay';
 import { Directionality } from '@angular/cdk/bidi';
 import { FocusMonitor } from '@angular/cdk/a11y';
 import { Subscription } from 'rxjs';
+import { AmwMenuComponent } from './amw-menu.component';
 
 /**
  * Directive that allows any element to trigger a mat-menu or amw-menu.
@@ -47,10 +48,10 @@ import { Subscription } from 'rxjs';
 })
 export class AmwMenuTriggerForDirective implements OnInit, OnDestroy {
     /**
-     * The menu to trigger. Accepts either a MatMenu or an AmwMenuComponent
-     * (which exposes a MatMenu via #menu template reference).
+     * The menu to trigger. Accepts either a MatMenu or an AmwMenuComponent.
+     * When an AmwMenuComponent is provided, its internal MatMenu is used automatically.
      */
-    readonly amwMenuTriggerFor = input.required<MatMenu>();
+    readonly amwMenuTriggerFor = input.required<MatMenu | AmwMenuComponent>();
 
     /**
      * Data to be passed to the menu when opened.
@@ -96,8 +97,10 @@ export class AmwMenuTriggerForDirective implements OnInit, OnDestroy {
             undefined // ngZone
         );
 
-        // Set up the menu
-        this.matTrigger.menu = this.amwMenuTriggerFor();
+        // Set up the menu - extract MatMenu from AmwMenuComponent if needed
+        const menuInput = this.amwMenuTriggerFor();
+        const matMenu = menuInput instanceof AmwMenuComponent ? menuInput.matMenu() : menuInput;
+        this.matTrigger.menu = matMenu;
         this.menuId = this.matTrigger.menu?.panelId || null;
 
         // Subscribe to menu events
