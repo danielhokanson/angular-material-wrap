@@ -3,7 +3,7 @@ import { HttpResponse, HttpHeaders } from '@angular/common/http';
 import { Observable, from, of, defer } from 'rxjs';
 import { map, catchError, switchMap } from 'rxjs/operators';
 
-export interface StoredCacheEntry {
+export interface AmwStoredCacheEntry {
     url: string;
     response: {
         body: any;
@@ -19,7 +19,7 @@ export interface StoredCacheEntry {
 @Injectable({
     providedIn: 'root'
 })
-export class IndexedDbStorageService {
+export class AmwIndexedDbStorageService {
     private dbName = 'HttpCacheDB';
     private storeName = 'cache';
     private version = 1;
@@ -68,7 +68,7 @@ export class IndexedDbStorageService {
                 const request = store.get(url);
 
                 request.onsuccess = () => {
-                    const entry: StoredCacheEntry | undefined = request.result;
+                    const entry: AmwStoredCacheEntry | undefined = request.result;
 
                     if (!entry) {
                         resolve(null);
@@ -121,7 +121,7 @@ export class IndexedDbStorageService {
                 const store = transaction.objectStore(this.storeName);
 
                 // Serialize HttpResponse for storage
-                const entry: StoredCacheEntry = {
+                const entry: AmwStoredCacheEntry = {
                     url,
                     response: {
                         body: response.body,
@@ -261,7 +261,7 @@ export class IndexedDbStorageService {
                 request.onsuccess = (event) => {
                     const cursor = (event.target as IDBRequest).result as IDBCursorWithValue;
                     if (cursor) {
-                        const entry: StoredCacheEntry = cursor.value;
+                        const entry: AmwStoredCacheEntry = cursor.value;
                         const age = now - entry.timestamp;
                         if (age > entry.timeout) {
                             cursor.delete();

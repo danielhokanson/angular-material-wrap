@@ -1,11 +1,26 @@
-<mat-button-toggle-group
-    [class]="groupClasses()"
-    [value]="value()"
-    [multiple]="multiple()"
-    [disabled]="isDisabled()"
-    [vertical]="vertical()"
-    [name]="name() || ''"
-    (change)="onToggleChange($event)"
-    [attr.aria-label]="name() || 'Toggle group'">
-    <ng-content></ng-content>
-</mat-button-toggle-group>
+<!-- Signal Forms binding (scenario 3) - Field directive manages value, disabled automatically -->
+@if (field()) {
+  <mat-button-toggle-group
+      [class]="groupClasses()"
+      [field]="field()"
+      [multiple]="multiple()"
+      [vertical]="vertical()"
+      [name]="name() || ''"
+      (change)="onToggleChange($event)"
+      [attr.aria-label]="name() || 'Toggle group'">
+      <ng-content></ng-content>
+  </mat-button-toggle-group>
+} @else {
+  <!-- ngModel / Reactive Forms binding (scenarios 1 & 2) -->
+  <mat-button-toggle-group
+      [class]="groupClasses()"
+      [value]="value()"
+      [multiple]="multiple()"
+      [disabled]="isDisabled()"
+      [vertical]="vertical()"
+      [name]="name() || ''"
+      (change)="onToggleChange($event)"
+      [attr.aria-label]="name() || 'Toggle group'">
+      <ng-content></ng-content>
+  </mat-button-toggle-group>
+}

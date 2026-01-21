@@ -1,2 +1,2 @@
-export * from './theme-colors.interface';
-export * from './theme-config.interface';
+export * from './amw-theme-colors.interface';
+export * from './amw-theme-config.interface';

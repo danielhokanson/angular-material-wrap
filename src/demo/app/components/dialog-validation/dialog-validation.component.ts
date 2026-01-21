@@ -2,7 +2,7 @@ import { Component, OnInit, ViewEncapsulation } from '@angular/core';
 
 import { ReactiveFormsModule, FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { AmwNotificationService } from '../../../../library/src/services/amw-notification/amw-notification.service';
-import { DialogService } from '../../../../library/src/components/services/dialog.service';
+import { AmwDialogService } from '../../../../library/src/components/services/amw-dialog.service';
 import { DialogConfig, DialogType, DialogSize } from '../../../../library/src/components/components/amw-dialog/interfaces';
 import { AmwCardComponent } from '../../../../library/src/components/components/amw-card/amw-card.component';
 
@@ -50,7 +50,7 @@ export class DialogValidationComponent implements OnInit {
     constructor(
         private fb: FormBuilder,
         private notification: AmwNotificationService,
-        private dialogService: DialogService
+        private dialogService: AmwDialogService
     ) {
         this.dialogForm = this.fb.group({
             title: ['', Validators.required],

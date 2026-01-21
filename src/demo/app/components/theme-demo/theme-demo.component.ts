@@ -2,7 +2,7 @@ import { Component, ViewEncapsulation } from '@angular/core';
 
 import { FormsModule } from '@angular/forms';
 
-import { ThemeManagerComponent } from '../../../../library/src/styling/components/theme-manager/theme-manager.component';
+import { AmwThemeManagerComponent } from '../../../../library/src/styling/components/theme-manager/theme-manager.component';
 
 import { AmwButtonComponent } from '../../../../library/src/controls/components/amw-button/amw-button.component';
 import { AmwInputComponent } from '../../../../library/src/controls/components/amw-input/amw-input.component';
@@ -18,7 +18,7 @@ import { AmwCardComponent, AmwIconComponent } from '../../../../library/src/comp
     selector: 'amw-demo-theme',
     standalone: true,
     imports: [FormsModule,
-    ThemeManagerComponent,
+    AmwThemeManagerComponent,
     AmwButtonComponent,
     AmwInputComponent,
     AmwSelectComponent,

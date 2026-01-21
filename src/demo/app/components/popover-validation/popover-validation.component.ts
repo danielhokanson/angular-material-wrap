@@ -6,7 +6,7 @@ import { Subject, takeUntil } from 'rxjs';
 import { AmwPopoverComponent } from '../../../../library/src/components/components/amw-popover/amw-popover.component';
 import { PopoverConfig } from '../../../../library/src/components/components/amw-popover/interfaces/popover-config.interface';
 import { PopoverTrigger } from '../../../../library/src/components/components/amw-popover/interfaces/popover-trigger.interface';
-import { PopoverService } from '../../../../library/src/components/services/popover.service';
+import { AmwPopoverService } from '../../../../library/src/components/services/amw-popover.service';
 import { AmwSize } from '../../../../library/src/shared/types';
 import { AmwButtonComponent } from '../../../../library/src/controls/components/amw-button/amw-button.component';
 import { AmwInputComponent } from '../../../../library/src/controls/components/amw-input/amw-input.component';
@@ -59,7 +59,7 @@ export class PopoverValidationComponent implements OnInit, OnDestroy {
 
     constructor(
         private fb: FormBuilder,
-        private popoverService: PopoverService,
+        private popoverService: AmwPopoverService,
         private notification: AmwNotificationService
     ) {
         this.configForm = this.createConfigForm();

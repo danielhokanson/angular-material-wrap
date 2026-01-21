@@ -1,0 +1,156 @@
+<div class="amw-demo-signal-forms-api">
+    <div class="demo-header">
+        <h2>Signal Forms API Reference</h2>
+        <p class="demo-subtitle">
+            Complete API documentation for Angular Signal Forms integration with AMW
+            <span class="experimental-badge">Experimental</span>
+        </p>
+    </div>
+
+    <!-- Import Statement -->
+    <amw-card class="import-card">
+        <h3>
+            <amw-icon name="download"></amw-icon>
+            Import Statement
+        </h3>
+        <pre><code>{{ importStatement }}</code></pre>
+    </amw-card>
+
+    <!-- Form Factory API -->
+    <amw-card class="api-card">
+        <h3>
+            <amw-icon name="description"></amw-icon>
+            form() Factory API
+        </h3>
+        <p class="api-description">
+            The <code>form()</code> factory creates a signal-based form group with reactive state management.
+        </p>
+
+        <table class="api-table">
+            <thead>
+                <tr>
+                    <th>Method/Property</th>
+                    <th>Returns</th>
+                    <th>Description</th>
+                </tr>
+            </thead>
+            <tbody>
+                @for (item of formFactoryApi; track item.name) {
+                    <tr>
+                        <td class="api-name"><code>{{ item.name }}</code></td>
+                        <td class="api-type"><code>{{ item.type }}</code></td>
+                        <td>{{ item.description }}</td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </amw-card>
+
+    <!-- Field API -->
+    <amw-card class="api-card">
+        <h3>
+            <amw-icon name="input"></amw-icon>
+            Field API
+        </h3>
+        <p class="api-description">
+            Each field in the form provides reactive signals for its state.
+        </p>
+
+        <table class="api-table">
+            <thead>
+                <tr>
+                    <th>Method</th>
+                    <th>Returns</th>
+                    <th>Description</th>
+                </tr>
+            </thead>
+            <tbody>
+                @for (item of fieldApi; track item.name) {
+                    <tr>
+                        <td class="api-name"><code>{{ item.name }}</code></td>
+                        <td class="api-type"><code>{{ item.type }}</code></td>
+                        <td>{{ item.description }}</td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </amw-card>
+
+    <!-- Supported Controls -->
+    <amw-card class="api-card">
+        <h3>
+            <amw-icon name="widgets"></amw-icon>
+            Supported AMW Controls
+        </h3>
+        <p class="api-description">
+            All these AMW form controls support the <code>[field]</code> binding for Signal Forms.
+        </p>
+
+        <table class="api-table controls-table">
+            <thead>
+                <tr>
+                    <th>Control</th>
+                    <th>Selector</th>
+                    <th>Notes</th>
+                </tr>
+            </thead>
+            <tbody>
+                @for (control of supportedControls; track control.selector) {
+                    <tr>
+                        <td>{{ control.name }}</td>
+                        <td class="api-name"><code>&lt;{{ control.selector }}&gt;</code></td>
+                        <td>{{ control.notes || '-' }}</td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </amw-card>
+
+    <!-- Binding Syntax -->
+    <amw-card class="api-card">
+        <h3>
+            <amw-icon name="link"></amw-icon>
+            Binding Syntax
+        </h3>
+
+        <div class="syntax-section">
+            <h4>Basic Field Binding</h4>
+            <pre><code>&lt;amw-input [field]="myForm.fieldName"&gt;&lt;/amw-input&gt;</code></pre>
+        </div>
+
+        <div class="syntax-section">
+            <h4>Three Mutually Exclusive Approaches</h4>
+            <div class="syntax-comparison">
+                <div class="syntax-item">
+                    <span class="syntax-label">ngModel</span>
+                    <code>&lt;amw-input [(ngModel)]="value"&gt;</code>
+                </div>
+                <div class="syntax-item">
+                    <span class="syntax-label">formControl</span>
+                    <code>&lt;amw-input [formControl]="ctrl"&gt;</code>
+                </div>
+                <div class="syntax-item highlight">
+                    <span class="syntax-label">field (Signal)</span>
+                    <code>&lt;amw-input [field]="form.x"&gt;</code>
+                </div>
+            </div>
+            <p class="warning">
+                <amw-icon name="warning" color="warn"></amw-icon>
+                Do NOT mix these approaches on the same control. They are mutually exclusive.
+            </p>
+        </div>
+    </amw-card>
+
+    <!-- Usage Notes -->
+    <amw-card class="notes-card">
+        <h3>
+            <amw-icon name="info"></amw-icon>
+            Usage Notes
+        </h3>
+        <ul class="notes-list">
+            @for (note of usageNotes; track note) {
+                <li>{{ note }}</li>
+            }
+        </ul>
+    </amw-card>
+</div>

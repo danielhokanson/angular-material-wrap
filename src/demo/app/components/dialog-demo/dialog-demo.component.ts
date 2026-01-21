@@ -4,7 +4,7 @@ import { FormsModule } from '@angular/forms';
 import { MAT_DIALOG_DATA, MatDialogModule } from '@angular/material/dialog';
 
 import { AmwNotificationService } from '../../../../library/src/services/amw-notification/amw-notification.service';
-import { DialogService, AmwDialogRef, getAmwDialogTitle, AmwDialogData } from '../../../../library/src/components/services/dialog.service';
+import { AmwDialogService, AmwDialogRef, getAmwDialogTitle, AmwDialogData } from '../../../../library/src/components/services/amw-dialog.service';
 import { DialogType, DialogSize } from '../../../../library/src/components/components/amw-dialog/interfaces';
 
 import { AmwButtonComponent } from '../../../../library/src/controls/components/amw-button/amw-button.component';
@@ -77,7 +77,7 @@ export class DialogDemoComponent {
     ];
 
     constructor(
-        private dialogService: DialogService,
+        private dialogService: AmwDialogService,
         private notification: AmwNotificationService
     ) { }
 

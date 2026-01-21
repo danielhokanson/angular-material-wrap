@@ -1,25 +1,48 @@
 <div [class]="getRadioClasses()">
-  <mat-radio-button
-    [color]="getMaterialColor()"
-    [disabled]="disabled()"
-    [required]="required()"
-    [checked]="checked()"
-    [value]="radioValue()"
-    [name]="name()"
-    [tabIndex]="tabIndex()"
-    [attr.aria-label]="ariaLabel()"
-    [attr.aria-labelledby]="ariaLabelledby()"
-    [attr.aria-describedby]="ariaDescribedby()"
-    [attr.aria-required]="ariaRequired()"
-    [attr.aria-invalid]="ariaInvalid()"
-    [disableRipple]="disableRipple()"
-    [style.animation-duration]="animationDuration()"
-    [style.animation-timing-function]="animationTimingFunction()"
-    (change)="onRadioChange($event)"
-    (focus)="onFocus($event)"
-    (blur)="onBlur($event)">
-    <span [innerHTML]="label()"></span>
-  </mat-radio-button>
+  <!-- Signal Forms binding (scenario 3) - Field directive manages disabled, required automatically -->
+  @if (field()) {
+    <mat-radio-button
+      [field]="field()"
+      [color]="getMaterialColor()"
+      [checked]="checked()"
+      [value]="radioValue()"
+      [name]="name()"
+      [tabIndex]="tabIndex()"
+      [attr.aria-label]="ariaLabel()"
+      [attr.aria-labelledby]="ariaLabelledby()"
+      [attr.aria-describedby]="ariaDescribedby()"
+      [disableRipple]="disableRipple()"
+      [style.animation-duration]="animationDuration()"
+      [style.animation-timing-function]="animationTimingFunction()"
+      (change)="onRadioChange($event)"
+      (focus)="onFocus($event)"
+      (blur)="onBlur($event)">
+      <span [innerHTML]="label()"></span>
+    </mat-radio-button>
+  } @else {
+    <!-- ngModel / Reactive Forms binding (scenarios 1 & 2) -->
+    <mat-radio-button
+      [color]="getMaterialColor()"
+      [disabled]="disabled()"
+      [required]="required()"
+      [checked]="checked()"
+      [value]="radioValue()"
+      [name]="name()"
+      [tabIndex]="tabIndex()"
+      [attr.aria-label]="ariaLabel()"
+      [attr.aria-labelledby]="ariaLabelledby()"
+      [attr.aria-describedby]="ariaDescribedby()"
+      [attr.aria-required]="ariaRequired()"
+      [attr.aria-invalid]="ariaInvalid()"
+      [disableRipple]="disableRipple()"
+      [style.animation-duration]="animationDuration()"
+      [style.animation-timing-function]="animationTimingFunction()"
+      (change)="onRadioChange($event)"
+      (focus)="onFocus($event)"
+      (blur)="onBlur($event)">
+      <span [innerHTML]="label()"></span>
+    </mat-radio-button>
+  }
 
   @if (hasError() && errorMessage()) {
     <div class="amw-radio__error">

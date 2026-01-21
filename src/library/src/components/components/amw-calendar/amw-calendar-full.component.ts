@@ -8,8 +8,8 @@ import { MatChipsModule } from '@angular/material/chips';
 import { MatDialogModule, MatDialog } from '@angular/material/dialog';
 import { AmwCalendarBaseComponent } from './amw-calendar-base.component';
 import { CalendarEvent, CalendarView } from './interfaces';
-import { CalendarItemRegistryService } from './services/calendar-item-registry.service';
-import { CalendarItemPopoverService } from './services/calendar-item-popover.service';
+import { AmwCalendarItemRegistryService } from './services/amw-calendar-item-registry.service';
+import { AmwCalendarItemPopoverService } from './services/amw-calendar-item-popover.service';
 import { AmwProgressSpinnerComponent } from '../amw-progress-spinner/amw-progress-spinner.component';
 import { AmwButtonComponent } from '../../../controls/components/amw-button/amw-button.component';
 import { AmwTooltipDirective } from '../../../directives';
@@ -62,8 +62,8 @@ export class AmwCalendarFullComponent<T = any> extends AmwCalendarBaseComponent<
 
     constructor(
         cdr: ChangeDetectorRef,
-        itemRegistry: CalendarItemRegistryService,
-        popoverService: CalendarItemPopoverService,
+        itemRegistry: AmwCalendarItemRegistryService,
+        popoverService: AmwCalendarItemPopoverService,
         dialog: MatDialog
     ) {
         super(cdr, itemRegistry, popoverService, dialog);

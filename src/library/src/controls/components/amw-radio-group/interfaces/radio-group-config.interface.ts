@@ -1,11 +1,11 @@
-import { RadioGroupOption } from './radio-group-option.interface';
+import { AmwRadioGroupOption } from './amw-radio-group-option.interface';
 import { AmwSize } from '../../../../shared/types/amw-size.type';
 
 /**
  * Radio group configuration interface
  */
 export interface RadioGroupConfig {
-    options: RadioGroupOption[];
+    options: AmwRadioGroupOption[];
     size?: AmwSize;
     label?: string;
     hint?: string;

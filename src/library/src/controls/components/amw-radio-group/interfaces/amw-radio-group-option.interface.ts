@@ -2,7 +2,7 @@
  * Radio group option interface
  * Inherits from select option structure for consistency
  */
-export interface RadioGroupOption {
+export interface AmwRadioGroupOption {
     value: any;
     label: string;
     disabled?: boolean;

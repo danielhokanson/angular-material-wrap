@@ -8,18 +8,32 @@
     <label class="amw-switch__label amw-switch__label--before">{{ label() }}</label>
   }
 
-  <mat-slide-toggle
-    class="amw-switch__toggle"
-    [ngModel]="checked()"
-    (ngModelChange)="onCheckedChange($event)"
-    [disabled]="disabled()"
-    [color]="color()"
-    [required]="required()">
+  <!-- Signal Forms binding (scenario 3) - Field directive manages disabled, required automatically -->
+  @if (field()) {
+    <mat-slide-toggle
+      class="amw-switch__toggle"
+      [field]="field()"
+      [color]="color()">
 
-    @if (label() && labelPosition() === 'after') {
-      <span class="amw-switch__label amw-switch__label--after">{{ label() }}</span>
-    }
-  </mat-slide-toggle>
+      @if (label() && labelPosition() === 'after') {
+        <span class="amw-switch__label amw-switch__label--after">{{ label() }}</span>
+      }
+    </mat-slide-toggle>
+  } @else {
+    <!-- ngModel / Reactive Forms binding (scenarios 1 & 2) -->
+    <mat-slide-toggle
+      class="amw-switch__toggle"
+      [ngModel]="checked()"
+      (ngModelChange)="onCheckedChange($event)"
+      [disabled]="disabled()"
+      [color]="color()"
+      [required]="required()">
+
+      @if (label() && labelPosition() === 'after') {
+        <span class="amw-switch__label amw-switch__label--after">{{ label() }}</span>
+      }
+    </mat-slide-toggle>
+  }
 
   @if (errorMessage() || hasValidationError) {
     <div class="amw-switch__error">

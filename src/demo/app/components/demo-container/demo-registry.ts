@@ -165,6 +165,13 @@ import { ExpansionValidationComponent } from '../expansion-validation/expansion-
 import { ExpansionCodeComponent } from '../expansion-code/expansion-code.component';
 import { ExpansionApiComponent } from '../expansion-api/expansion-api.component';
 
+// Signal Forms demos - temporarily disabled due to Angular Signal Forms API type inference issues
+// TODO: Re-enable when Angular Signal Forms API stabilizes
+// import { SignalFormsDemoComponent } from '../signal-forms-demo/signal-forms-demo.component';
+// import { SignalFormsValidationComponent } from '../signal-forms-validation/signal-forms-validation.component';
+// import { SignalFormsCodeComponent } from '../signal-forms-code/signal-forms-code.component';
+// import { SignalFormsApiComponent } from '../signal-forms-api/signal-forms-api.component';
+
 export interface DemoComponents {
     demo?: Type<any>;
     validation?: Type<any>;
@@ -419,7 +426,16 @@ export const DEMO_REGISTRY: Record<string, DemoComponents> = {
         validation: ExpansionValidationComponent,
         code: ExpansionCodeComponent,
         api: ExpansionApiComponent
-    }
+    },
+
+    // Signal Forms (experimental) - temporarily disabled due to Angular Signal Forms API type inference issues
+    // TODO: Re-enable when Angular Signal Forms API stabilizes
+    // 'signal-forms': {
+    //     demo: SignalFormsDemoComponent,
+    //     validation: SignalFormsValidationComponent,
+    //     code: SignalFormsCodeComponent,
+    //     api: SignalFormsApiComponent
+    // }
 };
 
 export const DEMO_CONFIGS: Record<string, DemoConfig> = {
@@ -444,6 +460,7 @@ export const DEMO_CONFIGS: Record<string, DemoConfig> = {
             { id: 'radio-group', name: 'Radio Group' },
             { id: 'range-slider', name: 'Range Slider' },
             { id: 'select', name: 'Select' },
+            // { id: 'signal-forms', name: 'Signal Forms' }, // Temporarily disabled - experimental API
             { id: 'slider', name: 'Slider' },
             { id: 'switch', name: 'Switch' },
             { id: 'textarea', name: 'Textarea' },

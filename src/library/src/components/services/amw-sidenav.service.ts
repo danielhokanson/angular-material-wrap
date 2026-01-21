@@ -29,7 +29,7 @@ import { SidenavItem } from '../components/amw-sidenav/interfaces/sidenav-item.i
 @Injectable({
     providedIn: 'root'
 })
-export class SidenavService {
+export class AmwSidenavService {
     /** Subject for sidenav opened state */
     private openedSubject = new BehaviorSubject<boolean>(false);
 
@@ -43,7 +43,7 @@ export class SidenavService {
     private activeItemSubject = new BehaviorSubject<SidenavItem | null>(null);
 
     /** Subject for sidenav events */
-    private eventsSubject = new Subject<SidenavEvent>();
+    private eventsSubject = new Subject<AmwSidenavEvent>();
 
     /** Current sidenav configuration */
     private currentConfig: SidenavConfig = {};
@@ -85,7 +85,7 @@ export class SidenavService {
     /**
      * Observable for sidenav events
      */
-    get events$(): Observable<SidenavEvent> {
+    get events$(): Observable<AmwSidenavEvent> {
         return this.eventsSubject.asObservable();
     }
 
@@ -574,7 +574,7 @@ export class SidenavService {
 /**
  * Interface for sidenav events
  */
-export interface SidenavEvent {
+export interface AmwSidenavEvent {
     /** The event type */
     type: string;
 

@@ -101,7 +101,24 @@ export * from './styling/interfaces';
 export * from './styling/services';
 
 // Individual styling component exports for better tree-shaking
-export { ThemeService } from './styling/services/theme.service';
-export { ThemePickerComponent } from './styling/components/theme-picker/theme-picker.component';
-export { ThemeEditorComponent } from './styling/components/theme-editor/theme-editor.component';
-export { ThemeManagerComponent } from './styling/components/theme-manager/theme-manager.component';
+export { AmwThemeService } from './styling/services/amw-theme.service';
+export { AmwThemePickerComponent } from './styling/components/theme-picker/theme-picker.component';
+export { AmwThemeEditorComponent } from './styling/components/theme-editor/theme-editor.component';
+export { AmwThemeManagerComponent } from './styling/components/theme-manager/theme-manager.component';
+
+/**
+ * Signal Forms exports (experimental)
+ * Re-exports Angular's experimental Signal Forms API for convenience.
+ * @experimental Signal Forms are experimental and may change in future Angular releases.
+ *
+ * All AMW form controls support the [field] binding for Signal Forms:
+ * - amw-input, amw-textarea, amw-select, amw-checkbox, amw-datepicker, amw-radio-group
+ * - amw-autocomplete, amw-button-toggle-group, amw-radio, amw-toggle, amw-switch
+ * - amw-slider, amw-range-slider
+ *
+ * Three mutually exclusive form binding scenarios are supported:
+ * 1. ngModel/ngModelChange - Template-driven forms with simple models
+ * 2. formControl/formControlName - Reactive forms with FormGroup/FormControl
+ * 3. [field] - Signal Forms with form() and field bindings
+ */
+export { Field, form } from '@angular/forms/signals';

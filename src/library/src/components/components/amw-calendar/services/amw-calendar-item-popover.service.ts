@@ -10,7 +10,7 @@ import { CalendarItemEditorContext } from '../interfaces/calendar-item.interface
 @Injectable({
     providedIn: 'root'
 })
-export class CalendarItemPopoverService {
+export class AmwCalendarItemPopoverService {
     private overlayRef: OverlayRef | null = null;
 
     constructor(private overlay: Overlay) { }

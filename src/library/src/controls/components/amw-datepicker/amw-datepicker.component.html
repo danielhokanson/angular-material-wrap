@@ -4,20 +4,35 @@
       <mat-label [innerHTML]="label()"></mat-label>
     }
 
-    <input
-      matInput
-      [matDatepicker]="picker"
-      [placeholder]="placeholder()"
-      [value]="selectedDate()"
-      (dateChange)="onDateChange($event.value)"
-      (blur)="onTouched()"
-      (input)="onInputChange($event)"
-      [required]="required()"
-      [disabled]="disabled()"
-      [readonly]="readonly()"
-      [min]="min()"
-      [max]="max()"
-      class="amw-datepicker__input">
+    <!-- Signal Forms binding (scenario 3) - Field directive manages disabled, readonly, required automatically -->
+    @if (field()) {
+      <input
+        matInput
+        [field]="field()"
+        [matDatepicker]="picker"
+        [placeholder]="placeholder()"
+        (dateChange)="onDateChange($event.value)"
+        (blur)="onTouched()"
+        [min]="min()"
+        [max]="max()"
+        class="amw-datepicker__input">
+    } @else {
+      <!-- ngModel / Reactive Forms binding (scenarios 1 & 2) -->
+      <input
+        matInput
+        [matDatepicker]="picker"
+        [placeholder]="placeholder()"
+        [value]="selectedDate()"
+        (dateChange)="onDateChange($event.value)"
+        (blur)="onTouched()"
+        (input)="onInputChange($event)"
+        [required]="required()"
+        [disabled]="disabled()"
+        [readonly]="readonly()"
+        [min]="min()"
+        [max]="max()"
+        class="amw-datepicker__input">
+    }
 
     <mat-datepicker-toggle
       matSuffix

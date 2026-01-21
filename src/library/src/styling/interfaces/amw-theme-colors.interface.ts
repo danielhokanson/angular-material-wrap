@@ -1,7 +1,7 @@
 /**
  * Color palette for theme configuration
  */
-export interface ThemeColors {
+export interface AmwThemeColors {
     /** Primary color */
     primary: string;
     /** Accent color */

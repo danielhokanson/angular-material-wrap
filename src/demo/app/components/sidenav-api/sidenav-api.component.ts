@@ -5,7 +5,7 @@ import { Subject, takeUntil } from 'rxjs';
 import { AmwSidenavComponent } from '../../../../library/src/components/components/amw-sidenav/amw-sidenav.component';
 import { SidenavConfig } from '../../../../library/src/components/components/amw-sidenav/interfaces/sidenav-config.interface';
 import { SidenavItem } from '../../../../library/src/components/components/amw-sidenav/interfaces/sidenav-item.interface';
-import { SidenavService } from '../../../../library/src/components/services/sidenav.service';
+import { AmwSidenavService } from '../../../../library/src/components/services/amw-sidenav.service';
 import { AmwTabsComponent, AmwTabComponent, AmwCardComponent } from '../../../../library/src/components/components';
 
 /**
@@ -47,7 +47,7 @@ export class SidenavApiComponent implements OnInit, OnDestroy {
     readonly sidenavEventProperties: any[];
 
     constructor(
-        private sidenavService: SidenavService,
+        private sidenavService: AmwSidenavService,
         private notification: AmwNotificationService
     ) {
         // Initialize cached arrays in constructor

@@ -16,7 +16,7 @@ import {
 @Injectable({
     providedIn: 'root'
 })
-export class DataTableService {
+export class AmwDataTableService {
     private dataSubject = new BehaviorSubject<any[]>([]);
     private configSubject = new BehaviorSubject<DataTableConfig | null>(null);
     private sortSubject = new BehaviorSubject<DataTableSort | null>(null);

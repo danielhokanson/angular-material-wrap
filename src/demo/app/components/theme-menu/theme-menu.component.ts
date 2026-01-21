@@ -2,7 +2,7 @@ import { Component, signal, ViewEncapsulation, effect } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { RouterModule } from '@angular/router';
 
-import { ThemeService, ThemeConfig } from '../../../../library/src/styling/services/theme.service';
+import { AmwThemeService, AmwThemeConfig } from '../../../../library/src/styling/services/amw-theme.service';
 import { AmwDividerComponent } from '../../../../library/src/components/components/amw-divider/amw-divider.component';
 
 import { AmwButtonComponent } from '../../../../library/src/controls/components/amw-button/amw-button.component';
@@ -23,10 +23,10 @@ import { AmwTooltipDirective } from '../../../../library/src/directives';
     encapsulation: ViewEncapsulation.None
 })
 export class ThemeMenuComponent {
-    currentTheme = signal<ThemeConfig | null>(null);
-    allThemes = signal<ThemeConfig[]>([]);
+    currentTheme = signal<AmwThemeConfig | null>(null);
+    allThemes = signal<AmwThemeConfig[]>([]);
 
-    constructor(private themeService: ThemeService) {
+    constructor(private themeService: AmwThemeService) {
         this.loadThemes();
         this.subscribeToThemeChanges();
 
@@ -56,27 +56,27 @@ export class ThemeMenuComponent {
         this.themeService.setTheme(themeId);
     }
 
-    getThemeIcon(theme: ThemeConfig): string {
+    getThemeIcon(theme: AmwThemeConfig): string {
         if (theme.isCustom) {
             return 'palette';
         }
         return theme.isDark ? 'dark_mode' : 'light_mode';
     }
 
-    getThemeDescription(theme: ThemeConfig): string {
+    getThemeDescription(theme: AmwThemeConfig): string {
         const mode = theme.isDark ? 'Dark' : 'Light';
         const type = theme.isCustom ? 'Custom' : 'Built-in';
         return `${mode} theme (${type})`;
     }
 
-    getThemeColor(theme: ThemeConfig | null, colorType: 'primary' | 'accent'): string {
+    getThemeColor(theme: AmwThemeConfig | null, colorType: 'primary' | 'accent'): string {
         if (!theme || !theme.colors) {
             return colorType === 'primary' ? '#6750A4' : '#625B71';
         }
         return theme.colors[colorType] || (colorType === 'primary' ? '#6750A4' : '#625B71');
     }
 
-    getColorStyle(theme: ThemeConfig | null, colorType: 'primary' | 'accent'): { [key: string]: string } {
+    getColorStyle(theme: AmwThemeConfig | null, colorType: 'primary' | 'accent'): { [key: string]: string } {
         const color = this.getThemeColor(theme, colorType);
         return { 'background-color': color };
     }

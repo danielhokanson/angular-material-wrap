@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { Subject, Observable } from 'rxjs';
 
-export interface CacheSyncMessage {
+export interface AmwCacheSyncMessage {
     type: 'put' | 'delete' | 'clear' | 'prune';
     url?: string;
     timestamp?: number;
@@ -10,10 +10,10 @@ export interface CacheSyncMessage {
 @Injectable({
     providedIn: 'root'
 })
-export class CacheSyncService {
+export class AmwCacheSyncService {
     private channelName = 'http-cache-sync';
     private channel: BroadcastChannel | null = null;
-    private messages$ = new Subject<CacheSyncMessage>();
+    private messages$ = new Subject<AmwCacheSyncMessage>();
 
     constructor() {
         this.initBroadcastChannel();
@@ -27,7 +27,7 @@ export class CacheSyncService {
             try {
                 this.channel = new BroadcastChannel(this.channelName);
 
-                this.channel.onmessage = (event: MessageEvent<CacheSyncMessage>) => {
+                this.channel.onmessage = (event: MessageEvent<AmwCacheSyncMessage>) => {
                     // Notify subscribers about cache changes from other tabs
                     this.messages$.next(event.data);
                 };
@@ -46,7 +46,7 @@ export class CacheSyncService {
     /**
      * Broadcast a cache update to other tabs
      */
-    broadcast(message: CacheSyncMessage): void {
+    broadcast(message: AmwCacheSyncMessage): void {
         if (this.channel) {
             try {
                 this.channel.postMessage(message);
@@ -59,7 +59,7 @@ export class CacheSyncService {
     /**
      * Get an observable of cache sync messages from other tabs
      */
-    getMessages(): Observable<CacheSyncMessage> {
+    getMessages(): Observable<AmwCacheSyncMessage> {
         return this.messages$.asObservable();
     }
 

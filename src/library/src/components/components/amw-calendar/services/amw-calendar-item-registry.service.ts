@@ -7,7 +7,7 @@ import { CalendarItemType, CalendarItemTypeRegistry, CalendarItem, CalendarItemT
 @Injectable({
     providedIn: 'root'
 })
-export class CalendarItemRegistryService {
+export class AmwCalendarItemRegistryService {
     private registry: CalendarItemTypeRegistry = {};
 
     /**

@@ -1,7 +1,7 @@
 /**
  * Select option interface
  */
-export interface SelectOption {
+export interface AmwSelectOption {
     value: any;
     label: string;
     disabled?: boolean;

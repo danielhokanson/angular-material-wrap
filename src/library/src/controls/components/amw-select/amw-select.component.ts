@@ -1,13 +1,14 @@
 import { Component, input, output, signal, computed, ViewEncapsulation, OnInit } from '@angular/core';
-import { CommonModule } from '@angular/common';
+import { CommonModule, NgTemplateOutlet } from '@angular/common';
 import { FormsModule, ReactiveFormsModule, ControlValueAccessor, NG_VALUE_ACCESSOR } from '@angular/forms';
+import { Field } from '@angular/forms/signals';
 import { MatSelectModule } from '@angular/material/select';
 import { MatFormFieldModule, MatFormFieldAppearance } from '@angular/material/form-field';
 import { MatIconModule } from '@angular/material/icon';
 import { MatButtonModule } from '@angular/material/button';
 import { MatInputModule } from '@angular/material/input';
 import { BaseComponent } from '../base/base.component';
-import { SelectOption } from './interfaces/select.interface';
+import { AmwSelectOption } from './interfaces/select.interface';
 import { AmwProgressSpinnerComponent } from '../../../components/components/amw-progress-spinner/amw-progress-spinner.component';
 
 /**
@@ -22,8 +23,10 @@ import { AmwProgressSpinnerComponent } from '../../../components/components/amw-
     standalone: true,
     imports: [
         CommonModule,
+        NgTemplateOutlet,
         FormsModule,
         ReactiveFormsModule,
+        Field,
         MatSelectModule,
         MatFormFieldModule,
         MatIconModule,
@@ -47,11 +50,19 @@ export class AmwSelectComponent extends BaseComponent<any> implements ControlVal
     // errorMessage, hasError, name, id, tabIndex, size, color, ariaLabel, ariaLabelledby,
     // ariaDescribedby, ariaRequired, ariaInvalid, hint, readonly, value, change, focus, blur)
 
+    /**
+     * Signal Forms field binding (experimental).
+     * Use this for Angular Signal Forms API integration.
+     * Mutually exclusive with ngModel and formControl/formControlName.
+     * @experimental
+     */
+    field = input<any>(undefined);
+
     appearance = input<MatFormFieldAppearance>('outline');
     multiple = input<boolean>(false);
     compareWith = input<(a: any, b: any) => boolean>((a, b) => a === b);
-    options = input<SelectOption[]>([]);
-    groups = input<{ [key: string]: SelectOption[] }>({});
+    options = input<AmwSelectOption[]>([]);
+    groups = input<{ [key: string]: AmwSelectOption[] }>({});
     searchable = input<boolean>(false);
     clearable = input<boolean>(false);
     loading = input<boolean>(false);
@@ -113,7 +124,7 @@ export class AmwSelectComponent extends BaseComponent<any> implements ControlVal
         const grps = this.groups();
         const search = this.searchValue();
         if (this.searchable() && search) {
-            const filtered: { [key: string]: SelectOption[] } = {};
+            const filtered: { [key: string]: AmwSelectOption[] } = {};
             Object.keys(grps).forEach(groupKey => {
                 const filteredGroup = grps[groupKey].filter(option =>
                     option.label.toLowerCase().includes(search.toLowerCase()) ||

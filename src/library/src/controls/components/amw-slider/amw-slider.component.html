@@ -1,21 +1,42 @@
 <div [class]="getSliderClasses()">
-  <mat-slider
-    [color]="getMaterialColor()"
-    [disabled]="getDisabled()"
-    [min]="min()"
-    [max]="max()"
-    [step]="step()"
-    [attr.aria-label]="ariaLabel()"
-    [attr.aria-labelledby]="ariaLabelledby()"
-    [attr.aria-describedby]="ariaDescribedby()"
-    [tabIndex]="tabIndex()">
-    <input matSliderThumb
-      [value]="value()"
-      (valueChange)="onSliderChange($event)"
-      (input)="onSliderInput($event)"
-      (focus)="onFocus($event)"
-      (blur)="onBlur($event)">
-  </mat-slider>
+  <!-- Signal Forms binding (scenario 3) - Field directive manages disabled automatically -->
+  @if (field()) {
+    <mat-slider
+      [color]="getMaterialColor()"
+      [min]="min()"
+      [max]="max()"
+      [step]="step()"
+      [attr.aria-label]="ariaLabel()"
+      [attr.aria-labelledby]="ariaLabelledby()"
+      [attr.aria-describedby]="ariaDescribedby()"
+      [tabIndex]="tabIndex()">
+      <input matSliderThumb
+        [field]="field()"
+        (valueChange)="onSliderChange($event)"
+        (input)="onSliderInput($event)"
+        (focus)="onFocus($event)"
+        (blur)="onBlur($event)">
+    </mat-slider>
+  } @else {
+    <!-- ngModel / Reactive Forms binding (scenarios 1 & 2) -->
+    <mat-slider
+      [color]="getMaterialColor()"
+      [disabled]="getDisabled()"
+      [min]="min()"
+      [max]="max()"
+      [step]="step()"
+      [attr.aria-label]="ariaLabel()"
+      [attr.aria-labelledby]="ariaLabelledby()"
+      [attr.aria-describedby]="ariaDescribedby()"
+      [tabIndex]="tabIndex()">
+      <input matSliderThumb
+        [value]="value()"
+        (valueChange)="onSliderChange($event)"
+        (input)="onSliderInput($event)"
+        (focus)="onFocus($event)"
+        (blur)="onBlur($event)">
+    </mat-slider>
+  }
 
   @if (hasError() && errorMessage()) {
     <div class="amw-slider__error">

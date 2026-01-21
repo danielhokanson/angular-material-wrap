@@ -8,7 +8,7 @@ import { ViewEncapsulation } from '@angular/core';
 import { CalendarEvent, CalendarConfig, CalendarEventChangeEvent, CalendarView } from '../../../../library/src/components/components/amw-calendar/interfaces';
 import { CalendarItem, CalendarItemChangeEvent } from '../../../../library/src/components/components/amw-calendar/interfaces/calendar-item.interface';
 import { CalendarItemConfig } from '../../../../library/src/components/components/amw-calendar/interfaces/calendar-item-config.interface';
-import { CalendarItemRegistryService } from '../../../../library/src/components/components/amw-calendar/services/calendar-item-registry.service';
+import { AmwCalendarItemRegistryService } from '../../../../library/src/components/components/amw-calendar/services/amw-calendar-item-registry.service';
 import { ExampleItemTypes } from '../../../../library/src/components/components/amw-calendar/examples/calendar-item-types.example';
 
 // Sample event data interface
@@ -328,7 +328,7 @@ export class CalendarDemoComponent implements OnInit {
 
     constructor(
         private notification: AmwNotificationService,
-        private itemRegistry: CalendarItemRegistryService
+        private itemRegistry: AmwCalendarItemRegistryService
     ) { }
 
     ngOnInit(): void {

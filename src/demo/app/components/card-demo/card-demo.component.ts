@@ -3,7 +3,7 @@ import { Component, ViewEncapsulation, OnInit, OnDestroy } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { AmwNotificationService } from '../../../../library/src/services/amw-notification/amw-notification.service';
 import { AmwCardComponent } from '../../../../library/src/components/components';
-import { CardService, CardData, CardFilter, CardSort } from '../../../../library/src/components/services/card.service';
+import { AmwCardService, AmwCardData, AmwCardFilter, AmwCardSort } from '../../../../library/src/components/services/amw-card.service';
 import { CardConfig, CardVariant, CardElevation } from '../../../../library/src/components/components/amw-card/interfaces';
 import { AmwSize } from '../../../../library/src/shared/types';
 import { Subscription } from 'rxjs';
@@ -31,15 +31,15 @@ import { AmwTooltipDirective } from '../../../../library/src/directives';
     styleUrl: './card-demo.component.scss'
 })
 export class CardDemoComponent implements OnInit, OnDestroy {
-    cards: CardData[] = [];
-    filteredCards: CardData[] = [];
+    cards: AmwCardData[] = [];
+    filteredCards: AmwCardData[] = [];
     searchTerm = '';
     selectedVariant: CardVariant | '' = '';
     selectedSize: AmwSize | '' = '';
     showClickableOnly = false;
     showWithImagesOnly = false;
     showWithActionsOnly = false;
-    sortField: keyof CardData = 'createdAt';
+    sortField: keyof AmwCardData = 'createdAt';
     sortDirection: 'asc' | 'desc' = 'desc';
     isLoading = false;
     private subscription = new Subscription();
@@ -70,7 +70,7 @@ export class CardDemoComponent implements OnInit, OnDestroy {
     ];
 
     constructor(
-        private cardService: CardService,
+        private cardService: AmwCardService,
         private notification: AmwNotificationService
     ) { }
 
@@ -100,7 +100,7 @@ export class CardDemoComponent implements OnInit, OnDestroy {
     }
 
     onFilterChange() {
-        const filter: CardFilter = {};
+        const filter: AmwCardFilter = {};
 
         if (this.selectedVariant) filter.variant = this.selectedVariant;
         if (this.selectedSize) filter.size = this.selectedSize;
@@ -132,7 +132,7 @@ export class CardDemoComponent implements OnInit, OnDestroy {
         const sampleCard = this.cardService.addCard({
             title: 'New Sample Card',
             subtitle: 'Created via service',
-            content: 'This card was created using the CardService.',
+            content: 'This card was created using the AmwCardService.',
             variant: 'elevated',
             size: 'medium',
             clickable: true,
@@ -145,26 +145,26 @@ export class CardDemoComponent implements OnInit, OnDestroy {
         this.notification.success('Success', `Card "${sampleCard.title}" added successfully!`, { duration: 3000 });
     }
 
-    duplicateCard(card: CardData) {
+    duplicateCard(card: AmwCardData) {
         const duplicatedCard = this.cardService.duplicateCard(card.id);
         if (duplicatedCard) {
             this.notification.info('Info', `Card "${duplicatedCard.title}" duplicated!`, { duration: 3000 });
         }
     }
 
-    deleteCard(card: CardData) {
+    deleteCard(card: AmwCardData) {
         if (this.cardService.removeCard(card.id)) {
             this.notification.success('Success', `Card "${card.title}" deleted!`, { duration: 3000 });
         }
     }
 
-    toggleCardLoading(card: CardData) {
+    toggleCardLoading(card: AmwCardData) {
         this.cardService.updateCard(card.id, {
             loading: !card.loading
         });
     }
 
-    toggleCardDisabled(card: CardData) {
+    toggleCardDisabled(card: AmwCardData) {
         this.cardService.updateCard(card.id, {
             disabled: !card.disabled
         });

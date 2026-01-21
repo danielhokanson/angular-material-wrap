@@ -1,22 +1,42 @@
 <div [class]="getToggleClasses()">
-  <mat-slide-toggle
-    [color]="color()"
-    [disabled]="disabled()"
-    [required]="required()"
-    [checked]="checked()"
-    [name]="name()"
-    [tabIndex]="tabIndex()"
-    [attr.aria-label]="ariaLabel()"
-    [attr.aria-labelledby]="ariaLabelledby()"
-    [attr.aria-describedby]="ariaDescribedby()"
-    [attr.aria-required]="ariaRequired()"
-    [attr.aria-invalid]="ariaInvalid()"
-    [disableRipple]="disableRipple()"
-    (change)="onToggleChange($event)"
-    (focus)="onFocus($event)"
-    (blur)="onBlur($event)">
-    <span [innerHTML]="label()"></span>
-  </mat-slide-toggle>
+  <!-- Signal Forms binding (scenario 3) - Field directive manages disabled, required automatically -->
+  @if (field()) {
+    <mat-slide-toggle
+      [field]="field()"
+      [color]="color()"
+      [checked]="checked()"
+      [name]="name()"
+      [tabIndex]="tabIndex()"
+      [attr.aria-label]="ariaLabel()"
+      [attr.aria-labelledby]="ariaLabelledby()"
+      [attr.aria-describedby]="ariaDescribedby()"
+      [disableRipple]="disableRipple()"
+      (change)="onToggleChange($event)"
+      (focus)="onFocus($event)"
+      (blur)="onBlur($event)">
+      <span [innerHTML]="label()"></span>
+    </mat-slide-toggle>
+  } @else {
+    <!-- ngModel / Reactive Forms binding (scenarios 1 & 2) -->
+    <mat-slide-toggle
+      [color]="color()"
+      [disabled]="disabled()"
+      [required]="required()"
+      [checked]="checked()"
+      [name]="name()"
+      [tabIndex]="tabIndex()"
+      [attr.aria-label]="ariaLabel()"
+      [attr.aria-labelledby]="ariaLabelledby()"
+      [attr.aria-describedby]="ariaDescribedby()"
+      [attr.aria-required]="ariaRequired()"
+      [attr.aria-invalid]="ariaInvalid()"
+      [disableRipple]="disableRipple()"
+      (change)="onToggleChange($event)"
+      (focus)="onFocus($event)"
+      (blur)="onBlur($event)">
+      <span [innerHTML]="label()"></span>
+    </mat-slide-toggle>
+  }
 
   @if (hasError() && errorMessage()) {
     <div class="amw-toggle__error">

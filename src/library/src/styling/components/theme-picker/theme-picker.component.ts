@@ -7,7 +7,7 @@ import { MatTooltipModule } from '@angular/material/tooltip';
 import { MatDividerModule } from '@angular/material/divider';
 import { MatCardModule } from '@angular/material/card';
 
-import { ThemeService, ThemeConfig } from '../../services/theme.service';
+import { AmwThemeService, AmwThemeConfig } from '../../services/amw-theme.service';
 
 @Component({
     selector: 'amw-theme-picker',
@@ -24,17 +24,17 @@ import { ThemeService, ThemeConfig } from '../../services/theme.service';
     styleUrl: './theme-picker.component.scss',
     host: { 'data-amw-id': 'amw-theme-picker' }
 })
-export class ThemePickerComponent implements OnInit {
-    currentTheme = signal<ThemeConfig | null>(null);
-    allThemes = signal<ThemeConfig[]>([]);
-    builtInThemes = signal<ThemeConfig[]>([]);
-    customThemes = signal<ThemeConfig[]>([]);
+export class AmwThemePickerComponent implements OnInit {
+    currentTheme = signal<AmwThemeConfig | null>(null);
+    allThemes = signal<AmwThemeConfig[]>([]);
+    builtInThemes = signal<AmwThemeConfig[]>([]);
+    customThemes = signal<AmwThemeConfig[]>([]);
 
     // Computed properties
     isDarkMode = computed(() => this.currentTheme()?.isDark ?? false);
     hasCustomThemes = computed(() => this.customThemes().length > 0);
 
-    constructor(private themeService: ThemeService) { }
+    constructor(private themeService: AmwThemeService) { }
 
     ngOnInit(): void {
         this.loadThemes();
@@ -58,14 +58,14 @@ export class ThemePickerComponent implements OnInit {
         this.themeService.setTheme(themeId);
     }
 
-    getThemeIcon(theme: ThemeConfig): string {
+    getThemeIcon(theme: AmwThemeConfig): string {
         if (theme.isCustom) {
             return 'palette';
         }
         return theme.isDark ? 'dark_mode' : 'light_mode';
     }
 
-    getThemeDescription(theme: ThemeConfig): string {
+    getThemeDescription(theme: AmwThemeConfig): string {
         const mode = theme.isDark ? 'Dark' : 'Light';
         const type = theme.isCustom ? 'Custom' : 'Built-in';
         return `${mode} theme (${type})`;

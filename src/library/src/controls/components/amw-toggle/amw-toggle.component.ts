@@ -1,13 +1,14 @@
 import { Component, input, model, ViewEncapsulation } from '@angular/core';
 
 import { FormsModule, ReactiveFormsModule, ControlValueAccessor, NG_VALUE_ACCESSOR } from '@angular/forms';
+import { Field } from '@angular/forms/signals';
 import { MatSlideToggleModule } from '@angular/material/slide-toggle';
 import { BaseComponent } from '../base/base.component';
 
 @Component({
     selector: 'amw-toggle',
     standalone: true,
-    imports: [FormsModule, ReactiveFormsModule, MatSlideToggleModule],
+    imports: [FormsModule, ReactiveFormsModule, Field, MatSlideToggleModule],
     encapsulation: ViewEncapsulation.None,
     templateUrl: './amw-toggle.component.html',
     styleUrl: './amw-toggle.component.scss',
@@ -23,6 +24,14 @@ export class AmwToggleComponent extends BaseComponent<boolean> implements Contro
     // Toggle-specific properties (inherited from BaseComponent: disabled, required, label, placeholder,
     // errorMessage, hasError, name, id, tabIndex, size, color, ariaLabel, ariaLabelledby, ariaDescribedby,
     // ariaRequired, ariaInvalid, hint, readonly, value, change, focus, blur)
+
+    /**
+     * Signal Forms field binding (experimental).
+     * Use this for Angular Signal Forms API integration.
+     * Mutually exclusive with ngModel and formControl/formControlName.
+     * @experimental
+     */
+    field = input<any>(undefined);
 
     checked = model<boolean>(false);
     disableRipple = input<boolean>(false);

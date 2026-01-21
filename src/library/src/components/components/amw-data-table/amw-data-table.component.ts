@@ -29,7 +29,7 @@ import {
     DataTableSelectionEvent,
     DataTableEditEvent
 } from './interfaces/data-table.interface';
-import { DialogService } from '../../services/dialog.service';
+import { AmwDialogService } from '../../services/amw-dialog.service';
 
 /**
  * AMW Data Table Component
@@ -112,7 +112,7 @@ export class AmwDataTableComponent implements OnInit, OnDestroy {
 
     constructor(
         private cdr: ChangeDetectorRef,
-        @Inject(DialogService) private dialogService: DialogService
+        @Inject(AmwDialogService) private dialogService: AmwDialogService
     ) {
         // Effect to reinitialize when data or config changes
         effect(() => {

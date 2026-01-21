@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule, ReactiveFormsModule, FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { AmwRadioGroupComponent } from '../../../../library/src/controls/components/amw-radio-group/amw-radio-group.component';
-import { RadioGroupOption, RadioGroupConfig } from '../../../../library/src/controls/components/amw-radio-group/interfaces/radio-group.interface';
+import { AmwRadioGroupOption, RadioGroupConfig } from '../../../../library/src/controls/components/amw-radio-group/interfaces/radio-group.interface';
 import { AmwSize } from '../../../../library/src/shared/types/amw-size.type';
 import { AmwDividerComponent } from '../../../../library/src/components/components/amw-divider/amw-divider.component';
 import { AmwButtonComponent } from '../../../../library/src/controls/components/amw-button/amw-button.component';
@@ -50,20 +50,20 @@ export class RadioGroupDemoComponent implements OnInit {
     hint: string = 'Select one option from the list below';
 
     // Sample options
-    readonly basicOptions: RadioGroupOption[] = [
+    readonly basicOptions: AmwRadioGroupOption[] = [
         { value: 'option1', label: 'Option 1' },
         { value: 'option2', label: 'Option 2' },
         { value: 'option3', label: 'Option 3' }
     ];
 
-    readonly iconOptions: RadioGroupOption[] = [
+    readonly iconOptions: AmwRadioGroupOption[] = [
         { value: 'home', label: 'Home', icon: 'home' },
         { value: 'work', label: 'Work', icon: 'work' },
         { value: 'school', label: 'School', icon: 'school' },
         { value: 'other', label: 'Other', icon: 'more_horiz' }
     ];
 
-    readonly descriptionOptions: RadioGroupOption[] = [
+    readonly descriptionOptions: AmwRadioGroupOption[] = [
         {
             value: 'basic',
             label: 'Basic Plan',
@@ -84,7 +84,7 @@ export class RadioGroupDemoComponent implements OnInit {
         }
     ];
 
-    readonly colorOptions: RadioGroupOption[] = [
+    readonly colorOptions: AmwRadioGroupOption[] = [
         { value: 'red', label: 'Red', icon: 'favorite' },
         { value: 'blue', label: 'Blue', icon: 'favorite' },
         { value: 'green', label: 'Green', icon: 'favorite' },
@@ -132,7 +132,7 @@ export class RadioGroupDemoComponent implements OnInit {
     /**
      * Handle selection change events
      */
-    onSelectionChange(option: RadioGroupOption, source: string): void {
+    onSelectionChange(option: AmwRadioGroupOption, source: string): void {
         console.log(`${source} selection changed:`, option);
     }
 

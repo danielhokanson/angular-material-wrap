@@ -2,10 +2,10 @@ import { Injectable, OnDestroy } from '@angular/core';
 import { HttpResponse } from '@angular/common/http';
 import { Observable, of, Subject } from 'rxjs';
 import { map, switchMap, tap, shareReplay, takeUntil, catchError } from 'rxjs/operators';
-import { IndexedDbStorageService } from './indexed-db-storage.service';
-import { CacheSyncService } from './cache-sync.service';
+import { AmwIndexedDbStorageService } from './amw-indexed-db-storage.service';
+import { AmwCacheSyncService } from './amw-cache-sync.service';
 
-export interface CacheEntry {
+export interface AmwCacheEntry {
     response: HttpResponse<any>;
     timestamp: number;
     timeout: number;
@@ -14,9 +14,9 @@ export interface CacheEntry {
 @Injectable({
     providedIn: 'root'
 })
-export class HttpCacheService implements OnDestroy {
+export class AmwHttpCacheService implements OnDestroy {
     // In-memory cache for fast access (L1 cache)
-    private memoryCache = new Map<string, CacheEntry>();
+    private memoryCache = new Map<string, AmwCacheEntry>();
 
     // Track ongoing operations to prevent race conditions
     private ongoingGets = new Map<string, Observable<HttpResponse<any> | null>>();
@@ -24,8 +24,8 @@ export class HttpCacheService implements OnDestroy {
     private destroy$ = new Subject<void>();
 
     constructor(
-        private indexedDbStorage: IndexedDbStorageService,
-        private cacheSyncService: CacheSyncService
+        private indexedDbStorage: AmwIndexedDbStorageService,
+        private cacheSyncService: AmwCacheSyncService
     ) {
         this.initCrossTabSync();
         this.loadMemoryCacheFromIndexedDB();
@@ -152,7 +152,7 @@ export class HttpCacheService implements OnDestroy {
      * @returns Observable that completes when caching is done
      */
     put(url: string, response: HttpResponse<any>, timeout: number): Observable<void> {
-        const entry: CacheEntry = {
+        const entry: AmwCacheEntry = {
             response,
             timestamp: Date.now(),
             timeout

@@ -1,1 +1,1 @@
-export * from './theme.service';
+export * from './amw-theme.service';

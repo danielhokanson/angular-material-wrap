@@ -1,0 +1,87 @@
+<div class="amw-demo-signal-forms-code">
+    <div class="demo-header">
+        <h2>Signal Forms Code Examples</h2>
+        <p class="demo-subtitle">
+            Code snippets for integrating Angular Signal Forms with AMW components
+        </p>
+    </div>
+
+    <!-- Example Selector -->
+    <div class="example-selector">
+        <amw-button
+            [appearance]="selectedExample() === 'basic' ? 'filled' : 'outlined'"
+            (click)="selectExample('basic')">
+            Basic Form
+        </amw-button>
+        <amw-button
+            [appearance]="selectedExample() === 'validation' ? 'filled' : 'outlined'"
+            (click)="selectExample('validation')">
+            Validation
+        </amw-button>
+        <amw-button
+            [appearance]="selectedExample() === 'computed' ? 'filled' : 'outlined'"
+            (click)="selectExample('computed')">
+            Computed
+        </amw-button>
+        <amw-button
+            [appearance]="selectedExample() === 'controls' ? 'filled' : 'outlined'"
+            (click)="selectExample('controls')">
+            All Controls
+        </amw-button>
+        <amw-button
+            [appearance]="selectedExample() === 'reset' ? 'filled' : 'outlined'"
+            (click)="selectExample('reset')">
+            Reset & Patch
+        </amw-button>
+    </div>
+
+    <!-- Code Display -->
+    <amw-card class="code-card">
+        <div class="code-header">
+            <div class="code-info">
+                <h3>{{ codeExamples[selectedExample()].title }}</h3>
+                <p>{{ codeExamples[selectedExample()].description }}</p>
+            </div>
+            <amw-button appearance="text" (click)="copyCode()">
+                <amw-icon name="content_copy"></amw-icon>
+                Copy
+            </amw-button>
+        </div>
+        <pre class="code-block"><code>{{ codeExamples[selectedExample()].code }}</code></pre>
+    </amw-card>
+
+    <!-- Quick Reference -->
+    <amw-card class="reference-card">
+        <h3>Quick Reference</h3>
+
+        <div class="reference-section">
+            <h4>Imports</h4>
+            <pre><code>import &#123; form, Field &#125; from '&#64;angular/forms/signals';
+import &#123; Validators &#125; from '&#64;angular/forms';</code></pre>
+        </div>
+
+        <div class="reference-section">
+            <h4>Creating a Form</h4>
+            <pre><code>const myForm = form(&#123;
+  fieldName: [initialValue, validators]
+&#125;);</code></pre>
+        </div>
+
+        <div class="reference-section">
+            <h4>Binding to AMW Components</h4>
+            <pre><code>&lt;amw-input [field]="myForm.controls.fieldName"&gt;&lt;/amw-input&gt;</code></pre>
+        </div>
+
+        <div class="reference-section">
+            <h4>Reading Values (Signals)</h4>
+            <pre><code>// All values
+const values = myForm.value();
+
+// Single field
+const name = myForm.controls.name.value();
+
+// Validity
+const isValid = myForm.valid();</code></pre>
+        </div>
+    </amw-card>
+</div>

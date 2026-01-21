@@ -4,7 +4,7 @@ import { AmwNotificationService } from '../../../../library/src/services/amw-not
 import { ReactiveFormsModule, FormBuilder, FormGroup, Validators } from '@angular/forms';
 
 import { AmwInputComponent } from '../../../../library/src/controls/components/amw-input/amw-input.component';
-import { InputType } from '../../../../library/src/controls/components/amw-input/interfaces/input-type.type';
+import { AmwInputType } from '../../../../library/src/controls/components/amw-input/interfaces/amw-input-type.type';
 import { InputAppearance } from '../../../../library/src/controls/components/amw-input/interfaces/input-appearance.type';
 import { AmwSize } from '../../../../library/src/shared/types';
 
@@ -26,13 +26,13 @@ export class InputDemoComponent implements OnInit {
     // Input variations for display
     inputVariations = {
         types: [
-            { type: 'text' as InputType, label: 'Text' },
-            { type: 'email' as InputType, label: 'Email' },
-            { type: 'password' as InputType, label: 'Password' },
-            { type: 'number' as InputType, label: 'Number' },
-            { type: 'tel' as InputType, label: 'Telephone' },
-            { type: 'url' as InputType, label: 'URL' },
-            { type: 'search' as InputType, label: 'Search' }
+            { type: 'text' as AmwInputType, label: 'Text' },
+            { type: 'email' as AmwInputType, label: 'Email' },
+            { type: 'password' as AmwInputType, label: 'Password' },
+            { type: 'number' as AmwInputType, label: 'Number' },
+            { type: 'tel' as AmwInputType, label: 'Telephone' },
+            { type: 'url' as AmwInputType, label: 'URL' },
+            { type: 'search' as AmwInputType, label: 'Search' }
         ],
         appearances: [
             { appearance: 'outline' as InputAppearance, label: 'Outline' },
@@ -96,7 +96,7 @@ export class InputDemoComponent implements OnInit {
         inputs: [
             {
                 name: 'type',
-                type: 'InputType',
+                type: 'AmwInputType',
                 default: 'text',
                 description: 'The HTML input type',
                 options: ['text', 'email', 'password', 'number', 'tel', 'url', 'search']

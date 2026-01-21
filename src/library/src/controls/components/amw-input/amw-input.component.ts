@@ -1,13 +1,14 @@
 import { Component, input, output, ViewEncapsulation } from '@angular/core';
 
 import { FormsModule, ReactiveFormsModule, ControlValueAccessor, NG_VALUE_ACCESSOR } from '@angular/forms';
+import { Field } from '@angular/forms/signals';
 import { MatInputModule } from '@angular/material/input';
 import { MatFormFieldModule, MatFormFieldAppearance } from '@angular/material/form-field';
 import { MatIconModule } from '@angular/material/icon';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { AmwButtonComponent } from '../amw-button/amw-button.component';
 import { BaseComponent } from '../base/base.component';
-import { InputType } from './interfaces/input-type.type';
+import { AmwInputType } from './interfaces/amw-input-type.type';
 
 /**
  * AMW Input Component
@@ -22,6 +23,7 @@ import { InputType } from './interfaces/input-type.type';
     imports: [
     FormsModule,
     ReactiveFormsModule,
+    Field,
     MatInputModule,
     MatFormFieldModule,
     MatIconModule,
@@ -44,7 +46,15 @@ export class AmwInputComponent extends BaseComponent<string> implements ControlV
     // errorMessage, hasError, name, id, tabIndex, size, color, ariaLabel, ariaLabelledby,
     // ariaDescribedby, ariaRequired, ariaInvalid, hint, readonly, value, change, focus, blur)
 
-    type = input<InputType>('text');
+    /**
+     * Signal Forms field binding (experimental).
+     * Use this for Angular Signal Forms API integration.
+     * Mutually exclusive with ngModel and formControl/formControlName.
+     * @experimental
+     */
+    field = input<any>(undefined);
+
+    type = input<AmwInputType>('text');
     appearance = input<MatFormFieldAppearance>('outline');
     prefix = input<string>('');
     suffix = input<string>('');

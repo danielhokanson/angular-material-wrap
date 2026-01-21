@@ -4,7 +4,7 @@ import { Subject, takeUntil } from 'rxjs';
 import { AmwPopoverComponent } from '../../../../library/src/components/components/amw-popover/amw-popover.component';
 import { PopoverConfig } from '../../../../library/src/components/components/amw-popover/interfaces/popover-config.interface';
 import { PopoverTrigger } from '../../../../library/src/components/components/amw-popover/interfaces/popover-trigger.interface';
-import { PopoverService } from '../../../../library/src/components/services/popover.service';
+import { AmwPopoverService } from '../../../../library/src/components/services/amw-popover.service';
 import { AmwButtonComponent } from '../../../../library/src/controls/components/amw-button/amw-button.component';
 import { AmwTabsComponent, AmwTabComponent } from '../../../../library/src/components/components';
 import { AmwTooltipDirective } from '../../../../library/src/directives';
@@ -605,7 +605,7 @@ export class PopoverApiComponent implements OnInit, OnDestroy {
     };
 
     constructor(
-        private popoverService: PopoverService,
+        private popoverService: AmwPopoverService,
         private notification: AmwNotificationService
     ) { }
 

@@ -213,7 +213,7 @@ export interface AmwDialogConfig<D = any> {
 @Injectable({
     providedIn: 'root'
 })
-export class DialogService {
+export class AmwDialogService {
     constructor(
         private dialog: MatDialog,
         private injector: Injector

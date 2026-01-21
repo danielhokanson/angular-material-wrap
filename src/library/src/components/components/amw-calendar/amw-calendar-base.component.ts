@@ -5,8 +5,8 @@ import { Subject } from 'rxjs';
 import { CalendarEvent, CalendarEventChangeEvent, CalendarConfig, CalendarView, CalendarNavigationEvent } from './interfaces';
 import { CalendarItem, CalendarItemChangeEvent, CalendarItemEditorContext, CalendarItemTimePattern, CalendarItemTemplateContext } from './interfaces/calendar-item.interface';
 import { CalendarItemConfig } from './interfaces/calendar-item-config.interface';
-import { CalendarItemRegistryService } from './services/calendar-item-registry.service';
-import { CalendarItemPopoverService } from './services/calendar-item-popover.service';
+import { AmwCalendarItemRegistryService } from './services/amw-calendar-item-registry.service';
+import { AmwCalendarItemPopoverService } from './services/amw-calendar-item-popover.service';
 import { AmwCalendarItemDialogComponent, CalendarItemDialogData } from './amw-calendar-item-dialog.component';
 import { MatDialog } from '@angular/material/dialog';
 
@@ -81,8 +81,8 @@ export abstract class AmwCalendarBaseComponent<T = any> implements OnInit, OnDes
 
     constructor(
         protected cdr: ChangeDetectorRef,
-        protected itemRegistry: CalendarItemRegistryService,
-        protected popoverService: CalendarItemPopoverService,
+        protected itemRegistry: AmwCalendarItemRegistryService,
+        protected popoverService: AmwCalendarItemPopoverService,
         protected dialog: MatDialog
     ) {
         this.internalConfig = this.getDefaultConfig();

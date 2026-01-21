@@ -9,49 +9,66 @@
     </label>
   }
 
+  <!-- Shared radio options template -->
+  <ng-template #radioOptionsContent>
+    @for (option of options(); track trackByValue($index, option)) {
+      <mat-radio-button
+        [value]="option.value"
+        [disabled]="option.disabled"
+        [color]="getMaterialColor()"
+        [class]="getRadioButtonClasses(option)"
+        class="amw-radio-group__radio-button">
+        <!-- Option Content -->
+        <div class="amw-radio-group__option-content">
+          <!-- Icon -->
+          @if (option.icon) {
+            <mat-icon
+              class="amw-radio-group__option-icon">
+              {{ option.icon }}
+            </mat-icon>
+          }
+          <!-- Label and Description -->
+          <div class="amw-radio-group__option-text">
+            <span class="amw-radio-group__option-label">{{ option.label }}</span>
+            @if (option.description) {
+              <span
+                class="amw-radio-group__option-description">
+                {{ option.description }}
+              </span>
+            }
+          </div>
+        </div>
+      </mat-radio-button>
+    }
+  </ng-template>
+
   <!-- Radio Group Container -->
   <div class="amw-radio-group__container" [class]="'amw-radio-group__container--' + orientation()">
-    <mat-radio-group
-      [name]="name() || 'amw-radio-group-' + componentId"
-      [value]="internalValue()"
-      [disabled]="disabled()"
-      [required]="required()"
-      (change)="onRadioChange($event.value)"
-      (focus)="handleFocus()"
-      (blur)="handleBlur()"
-      class="amw-radio-group__mat-radio-group">
-
-      <!-- Radio Button Options -->
-      @for (option of options(); track trackByValue($index, option)) {
-        <mat-radio-button
-          [value]="option.value"
-          [disabled]="option.disabled"
-          [color]="getMaterialColor()"
-          [class]="getRadioButtonClasses(option)"
-          class="amw-radio-group__radio-button">
-          <!-- Option Content -->
-          <div class="amw-radio-group__option-content">
-            <!-- Icon -->
-            @if (option.icon) {
-              <mat-icon
-                class="amw-radio-group__option-icon">
-                {{ option.icon }}
-              </mat-icon>
-            }
-            <!-- Label and Description -->
-            <div class="amw-radio-group__option-text">
-              <span class="amw-radio-group__option-label">{{ option.label }}</span>
-              @if (option.description) {
-                <span
-                  class="amw-radio-group__option-description">
-                  {{ option.description }}
-                </span>
-              }
-            </div>
-          </div>
-        </mat-radio-button>
-      }
-    </mat-radio-group>
+    <!-- Signal Forms binding (scenario 3) - Field directive manages disabled, required automatically -->
+    @if (field()) {
+      <mat-radio-group
+        [field]="field()"
+        [name]="name() || 'amw-radio-group-' + componentId"
+        (change)="onRadioChange($event.value)"
+        (focus)="handleFocus()"
+        (blur)="handleBlur()"
+        class="amw-radio-group__mat-radio-group">
+        <ng-container *ngTemplateOutlet="radioOptionsContent"></ng-container>
+      </mat-radio-group>
+    } @else {
+      <!-- ngModel / Reactive Forms binding (scenarios 1 & 2) -->
+      <mat-radio-group
+        [name]="name() || 'amw-radio-group-' + componentId"
+        [value]="internalValue()"
+        [disabled]="disabled()"
+        [required]="required()"
+        (change)="onRadioChange($event.value)"
+        (focus)="handleFocus()"
+        (blur)="handleBlur()"
+        class="amw-radio-group__mat-radio-group">
+        <ng-container *ngTemplateOutlet="radioOptionsContent"></ng-container>
+      </mat-radio-group>
+    }
   </div>
 
   <!-- Hint Text -->

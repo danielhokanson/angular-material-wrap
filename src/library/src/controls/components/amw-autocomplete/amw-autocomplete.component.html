@@ -11,19 +11,33 @@
       <mat-icon matPrefix class="amw-autocomplete__start-icon">{{ startIcon() }}</mat-icon>
     }
 
-    <input
-      matInput
-      [placeholder]="placeholder()"
-      [value]="inputValue"
-      (input)="onInputChange($event)"
-      (blur)="onTouched()"
-      [required]="required()"
-      [disabled]="disabled() || loading()"
-      [readonly]="readonly()"
-      [attr.minlength]="minLength() || null"
-      [attr.maxlength]="maxLength() || null"
-      [matAutocomplete]="auto"
-      class="amw-autocomplete__input">
+    <!-- Signal Forms binding (scenario 3) - Field directive manages disabled, required, readonly automatically -->
+    @if (field()) {
+      <input
+        matInput
+        [field]="field()"
+        [placeholder]="placeholder()"
+        [value]="inputValue"
+        (input)="onInputChange($event)"
+        (blur)="onTouched()"
+        [matAutocomplete]="auto"
+        class="amw-autocomplete__input">
+    } @else {
+      <!-- ngModel / Reactive Forms binding (scenarios 1 & 2) -->
+      <input
+        matInput
+        [placeholder]="placeholder()"
+        [value]="inputValue"
+        (input)="onInputChange($event)"
+        (blur)="onTouched()"
+        [required]="required()"
+        [disabled]="disabled() || loading()"
+        [readonly]="readonly()"
+        [attr.minlength]="minLength() || null"
+        [attr.maxlength]="maxLength() || null"
+        [matAutocomplete]="auto"
+        class="amw-autocomplete__input">
+    }
 
     <!-- Loading Spinner -->
     @if (loading()) {

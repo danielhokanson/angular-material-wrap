@@ -4,7 +4,7 @@ import { AmwCardComponent, AmwIconComponent } from '../../../../library/src/comp
 import { AmwButtonComponent } from '../../../../library/src/controls/components/amw-button/amw-button.component';
 import { AmwInputComponent } from '../../../../library/src/controls/components/amw-input/amw-input.component';
 import { AmwSelectComponent } from '../../../../library/src/controls/components/amw-select/amw-select.component';
-import { SelectOption } from '../../../../library/src/controls/components/amw-select/interfaces/select-option.interface';
+import { AmwSelectOption } from '../../../../library/src/controls/components/amw-select/interfaces/amw-select-option.interface';
 import { AmwChipsComponent } from '../../../../library/src/controls/components/amw-chips/amw-chips.component';
 import { Chip, ChipEvent } from '../../../../library/src/controls/components/amw-chips/interfaces';
 
@@ -37,7 +37,7 @@ export class ChipsValidationComponent {
   skillForm: FormGroup;
 
   // Skill level options for select
-  skillLevelOptions: SelectOption[] = [
+  skillLevelOptions: AmwSelectOption[] = [
     { value: 'beginner', label: 'Beginner' },
     { value: 'intermediate', label: 'Intermediate' },
     { value: 'advanced', label: 'Advanced' }

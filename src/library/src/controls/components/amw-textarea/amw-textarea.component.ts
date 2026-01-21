@@ -1,6 +1,7 @@
 import { Component, input, output, ViewEncapsulation } from '@angular/core';
 
 import { FormsModule, ReactiveFormsModule, ControlValueAccessor, NG_VALUE_ACCESSOR } from '@angular/forms';
+import { Field } from '@angular/forms/signals';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
 import { TextFieldModule } from '@angular/cdk/text-field';
@@ -10,7 +11,7 @@ import { MatFormFieldAppearance } from '@angular/material/form-field';
 @Component({
     selector: 'amw-textarea',
     standalone: true,
-    imports: [FormsModule, ReactiveFormsModule, MatFormFieldModule, MatInputModule, TextFieldModule],
+    imports: [FormsModule, ReactiveFormsModule, Field, MatFormFieldModule, MatInputModule, TextFieldModule],
     encapsulation: ViewEncapsulation.None,
     templateUrl: './amw-textarea.component.html',
     styleUrl: './amw-textarea.component.scss',
@@ -26,6 +27,14 @@ export class AmwTextareaComponent extends BaseComponent<string> implements Contr
     // Textarea-specific properties (inherited from BaseComponent: disabled, required, label, placeholder,
     // errorMessage, hasError, name, id, tabIndex, size, color, ariaLabel, ariaLabelledby, ariaDescribedby,
     // ariaRequired, ariaInvalid, hint, readonly, value, change, focus, blur)
+
+    /**
+     * Signal Forms field binding (experimental).
+     * Use this for Angular Signal Forms API integration.
+     * Mutually exclusive with ngModel and formControl/formControlName.
+     * @experimental
+     */
+    field = input<any>(undefined);
 
     appearance = input<MatFormFieldAppearance>('outline');
     maxLength = input<number | undefined>(undefined);

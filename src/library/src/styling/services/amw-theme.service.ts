@@ -1,19 +1,19 @@
 import { Injectable, signal, computed } from '@angular/core';
 import { BehaviorSubject, Observable } from 'rxjs';
-import { ThemeColors } from '../interfaces/theme-colors.interface';
-import { ThemeConfig } from '../interfaces/theme-config.interface';
+import { AmwThemeColors } from '../interfaces/amw-theme-colors.interface';
+import { AmwThemeConfig } from '../interfaces/amw-theme-config.interface';
 
 // Re-export interfaces for convenience
-export type { ThemeColors, ThemeConfig };
+export type { AmwThemeColors, AmwThemeConfig };
 
 @Injectable({
     providedIn: 'root'
 })
-export class ThemeService {
+export class AmwThemeService {
     private readonly THEME_STORAGE_KEY = 'amw-theme';
 
     // Available built-in themes - Material Design 3 only
-    private readonly builtInThemes: ThemeConfig[] = [
+    private readonly builtInThemes: AmwThemeConfig[] = [
         {
             id: 'm3-dynamic-light',
             name: 'm3-dynamic-light',
@@ -106,12 +106,12 @@ export class ThemeService {
         }
     ];
 
-    private customThemesSubject = new BehaviorSubject<ThemeConfig[]>([]);
-    private currentThemeSubject = new BehaviorSubject<ThemeConfig>(this.builtInThemes[0]); // M3 Dynamic Light
+    private customThemesSubject = new BehaviorSubject<AmwThemeConfig[]>([]);
+    private currentThemeSubject = new BehaviorSubject<AmwThemeConfig>(this.builtInThemes[0]); // M3 Dynamic Light
 
     // Signals for reactive state
-    public currentTheme = signal<ThemeConfig>(this.builtInThemes[0]);
-    public customThemes = signal<ThemeConfig[]>([]);
+    public currentTheme = signal<AmwThemeConfig>(this.builtInThemes[0]);
+    public customThemes = signal<AmwThemeConfig[]>([]);
     public allThemes = computed(() => [...this.builtInThemes, ...this.customThemes()]);
 
     constructor() {
@@ -125,35 +125,35 @@ export class ThemeService {
     /**
      * Get all available themes (built-in + custom)
      */
-    getAllThemes(): ThemeConfig[] {
+    getAllThemes(): AmwThemeConfig[] {
         return this.allThemes();
     }
 
     /**
      * Get only built-in themes
      */
-    getBuiltInThemes(): ThemeConfig[] {
+    getBuiltInThemes(): AmwThemeConfig[] {
         return [...this.builtInThemes];
     }
 
     /**
      * Get only custom themes
      */
-    getCustomThemes(): ThemeConfig[] {
+    getCustomThemes(): AmwThemeConfig[] {
         return this.customThemes();
     }
 
     /**
      * Get current theme
      */
-    getCurrentTheme(): ThemeConfig {
+    getCurrentTheme(): AmwThemeConfig {
         return this.currentTheme();
     }
 
     /**
      * Get current theme as observable
      */
-    getCurrentTheme$(): Observable<ThemeConfig> {
+    getCurrentTheme$(): Observable<AmwThemeConfig> {
         return this.currentThemeSubject.asObservable();
     }
 
@@ -177,8 +177,8 @@ export class ThemeService {
     /**
      * Create a new custom theme
      */
-    createCustomTheme(theme: Omit<ThemeConfig, 'isCustom'>): boolean {
-        const newTheme: ThemeConfig = {
+    createCustomTheme(theme: Omit<AmwThemeConfig, 'isCustom'>): boolean {
+        const newTheme: AmwThemeConfig = {
             ...theme,
             isCustom: true
         };
@@ -199,7 +199,7 @@ export class ThemeService {
     /**
      * Update an existing custom theme
      */
-    updateCustomTheme(themeId: string, updates: Partial<ThemeConfig>): boolean {
+    updateCustomTheme(themeId: string, updates: Partial<AmwThemeConfig>): boolean {
         const customThemes = this.customThemes();
         const themeIndex = customThemes.findIndex(t => t.id === themeId);
 
@@ -254,7 +254,7 @@ export class ThemeService {
     /**
      * Apply theme to the document
      */
-    private applyTheme(theme: ThemeConfig): void {
+    private applyTheme(theme: AmwThemeConfig): void {
         const root = document.documentElement;
 
         // Remove existing theme classes
@@ -374,7 +374,7 @@ export class ThemeService {
         }
     }
 
-    private applyM3Theme(theme: ThemeConfig): void {
+    private applyM3Theme(theme: AmwThemeConfig): void {
         const root = document.documentElement;
         const isDark = theme.isDark;
 
@@ -530,7 +530,7 @@ export class ThemeService {
     /**
      * Save current theme to localStorage
      */
-    private saveThemeToStorage(theme: ThemeConfig): void {
+    private saveThemeToStorage(theme: AmwThemeConfig): void {
         try {
             localStorage.setItem(this.THEME_STORAGE_KEY, JSON.stringify(theme));
         } catch (error) {
@@ -545,7 +545,7 @@ export class ThemeService {
         try {
             const stored = localStorage.getItem(this.THEME_STORAGE_KEY);
             if (stored) {
-                const theme = JSON.parse(stored) as ThemeConfig;
+                const theme = JSON.parse(stored) as AmwThemeConfig;
                 // Verify theme still exists
                 if (this.allThemes().some(t => t.id === theme.id)) {
                     this.setTheme(theme.id);
@@ -559,7 +559,7 @@ export class ThemeService {
     /**
      * Save custom themes to localStorage
      */
-    private saveCustomThemesToStorage(themes: ThemeConfig[]): void {
+    private saveCustomThemesToStorage(themes: AmwThemeConfig[]): void {
         try {
             localStorage.setItem('amw-custom-themes', JSON.stringify(themes));
         } catch (error) {
@@ -574,7 +574,7 @@ export class ThemeService {
         try {
             const stored = localStorage.getItem('amw-custom-themes');
             if (stored) {
-                const themes = JSON.parse(stored) as ThemeConfig[];
+                const themes = JSON.parse(stored) as AmwThemeConfig[];
                 this.customThemes.set(themes);
                 this.customThemesSubject.next(themes);
             }

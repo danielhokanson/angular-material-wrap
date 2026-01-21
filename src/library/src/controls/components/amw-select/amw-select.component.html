@@ -11,28 +11,8 @@
       <mat-label [innerHTML]="label()"></mat-label>
     }
 
-    <!-- Select Element -->
-    <mat-select
-      [placeholder]="placeholder()"
-      [disabled]="disabled()"
-      [required]="required()"
-      [multiple]="multiple()"
-      [compareWith]="compareWith()"
-      [value]="internalValue()"
-      [panelClass]="panelClass()"
-      [disableRipple]="disableRipple()"
-      [attr.aria-label]="ariaLabel()"
-      [attr.aria-labelledby]="ariaLabelledby()"
-      [attr.aria-describedby]="ariaDescribedby()"
-      [attr.tabindex]="tabIndex()"
-      [attr.autofocus]="autofocus()"
-      [attr.id]="id()"
-      (selectionChange)="onSelectionChange($event.value)"
-      (openedChange)="onOpenedChange($event)"
-      (focus)="onFocus($event)"
-      (blur)="onBlur($event)"
-      class="amw-select__field">
-
+    <!-- Shared options content template -->
+    <ng-template #selectOptionsContent>
       <!-- Search Box (if enabled) -->
       @if (searchable() && showSearchBox()) {
         <mat-option disabled class="amw-select__search-option">
@@ -116,7 +96,56 @@
           }
         </mat-optgroup>
       }
-    </mat-select>
+    </ng-template>
+
+    <!-- Select Element -->
+    <!-- Signal Forms binding (scenario 3) - Field directive manages disabled, required automatically -->
+    @if (field()) {
+      <mat-select
+        [field]="field()"
+        [placeholder]="placeholder()"
+        [multiple]="multiple()"
+        [compareWith]="compareWith()"
+        [panelClass]="panelClass()"
+        [disableRipple]="disableRipple()"
+        [attr.aria-label]="ariaLabel()"
+        [attr.aria-labelledby]="ariaLabelledby()"
+        [attr.aria-describedby]="ariaDescribedby()"
+        [attr.tabindex]="tabIndex()"
+        [attr.autofocus]="autofocus()"
+        [attr.id]="id()"
+        (selectionChange)="onSelectionChange($event.value)"
+        (openedChange)="onOpenedChange($event)"
+        (focus)="onFocus($event)"
+        (blur)="onBlur($event)"
+        class="amw-select__field">
+        <ng-container *ngTemplateOutlet="selectOptionsContent"></ng-container>
+      </mat-select>
+    } @else {
+      <!-- ngModel / Reactive Forms binding (scenarios 1 & 2) -->
+      <mat-select
+        [placeholder]="placeholder()"
+        [disabled]="disabled()"
+        [required]="required()"
+        [multiple]="multiple()"
+        [compareWith]="compareWith()"
+        [value]="internalValue()"
+        [panelClass]="panelClass()"
+        [disableRipple]="disableRipple()"
+        [attr.aria-label]="ariaLabel()"
+        [attr.aria-labelledby]="ariaLabelledby()"
+        [attr.aria-describedby]="ariaDescribedby()"
+        [attr.tabindex]="tabIndex()"
+        [attr.autofocus]="autofocus()"
+        [attr.id]="id()"
+        (selectionChange)="onSelectionChange($event.value)"
+        (openedChange)="onOpenedChange($event)"
+        (focus)="onFocus($event)"
+        (blur)="onBlur($event)"
+        class="amw-select__field">
+        <ng-container *ngTemplateOutlet="selectOptionsContent"></ng-container>
+      </mat-select>
+    }
 
     <!-- Hint Text -->
     @if (hint() && !hasValidationError) {

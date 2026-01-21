@@ -4,7 +4,7 @@ import { MatButtonModule } from '@angular/material/button';
 import { MatRippleModule } from '@angular/material/core';
 import { MatIconModule } from '@angular/material/icon';
 import { BaseComponent } from '../base/base.component';
-import { ButtonStyle, FabType } from './interfaces/button.interface';
+import { AmwButtonStyle, AmwFabType } from './interfaces/amw-button.interface';
 import { ButtonType } from './interfaces/button-type.type';
 import { AmwColor } from '../../../shared/types/amw-color.type';
 import { IconPosition } from './interfaces/icon-position.type';
@@ -37,7 +37,7 @@ export class AmwButtonComponent extends BaseComponent<void> implements AfterCont
      * Visual appearance of the button (surface treatment)
      * Controls how the button looks, independent of its form factor
      */
-    appearance = input<ButtonStyle>('filled');
+    appearance = input<AmwButtonStyle>('filled');
 
     /**
      * FAB (Floating Action Button) configuration
@@ -46,7 +46,7 @@ export class AmwButtonComponent extends BaseComponent<void> implements AfterCont
      * - 'mini': mini FAB (40px)
      * - 'extended': extended FAB with text + icon
      */
-    fab = input<FabType>(false);
+    fab = input<AmwFabType>(false);
 
     // Icon properties
     icon = input<string | undefined>(undefined);
@@ -98,12 +98,12 @@ export class AmwButtonComponent extends BaseComponent<void> implements AfterCont
     /**
      * Gets the effective appearance for the button
      */
-    effectiveAppearance = computed<ButtonStyle>(() => this.appearance());
+    effectiveAppearance = computed<AmwButtonStyle>(() => this.appearance());
 
     /**
      * Gets the effective FAB type
      */
-    effectiveFab = computed<FabType>(() => this.fab());
+    effectiveFab = computed<AmwFabType>(() => this.fab());
 
     /**
      * Determines if this is a FAB button

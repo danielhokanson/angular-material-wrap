@@ -1,6 +1,6 @@
 import { SelectAppearance } from './select-appearance.type';
 import { AmwSize } from '../../../../shared/types/amw-size.type';
-import { SelectOption } from './select-option.interface';
+import { AmwSelectOption } from './amw-select-option.interface';
 
 /**
  * Select configuration interface
@@ -16,8 +16,8 @@ export interface SelectConfig {
     multiple?: boolean;
     compareWith?: (a: any, b: any) => boolean;
     value?: any;
-    options?: SelectOption[];
-    groups?: { [key: string]: SelectOption[] };
+    options?: AmwSelectOption[];
+    groups?: { [key: string]: AmwSelectOption[] };
     searchable?: boolean;
     clearable?: boolean;
     loading?: boolean;

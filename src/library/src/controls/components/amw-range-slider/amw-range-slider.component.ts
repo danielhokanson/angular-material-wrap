@@ -1,7 +1,8 @@
 import { Component, input, output, signal, ViewEncapsulation, effect } from '@angular/core';
 
 import { MatSliderModule } from '@angular/material/slider';
-import { FormsModule, ControlValueAccessor, NG_VALUE_ACCESSOR } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule, ControlValueAccessor, NG_VALUE_ACCESSOR } from '@angular/forms';
+import { Field } from '@angular/forms/signals';
 import { BaseComponent } from '../base/base.component';
 import { RangeSliderConfig } from './interfaces';
 
@@ -14,7 +15,7 @@ import { RangeSliderConfig } from './interfaces';
 @Component({
     selector: 'amw-range-slider',
     standalone: true,
-    imports: [MatSliderModule, FormsModule],
+    imports: [MatSliderModule, FormsModule, ReactiveFormsModule, Field],
     encapsulation: ViewEncapsulation.None,
     templateUrl: './amw-range-slider.component.html',
     styleUrl: './amw-range-slider.component.scss',
@@ -30,6 +31,14 @@ export class AmwRangeSliderComponent extends BaseComponent<{ start: number; end:
     // Range slider-specific properties (inherited from BaseComponent: disabled, required, label,
     // placeholder, errorMessage, hasError, name, id, tabIndex, size, color, ariaLabel,
     // ariaLabelledby, ariaDescribedby, ariaRequired, ariaInvalid, hint, readonly, value, change, focus, blur)
+
+    /**
+     * Signal Forms field binding (experimental).
+     * Use this for Angular Signal Forms API integration.
+     * Mutually exclusive with ngModel and formControl/formControlName.
+     * @experimental
+     */
+    field = input<any>(undefined);
 
     min = input<number>(0);
     max = input<number>(100);

@@ -4,7 +4,7 @@ import { ReactiveFormsModule, FormBuilder, FormGroup, Validators } from '@angula
 import { AmwNotificationService } from '../../../../library/src/services/amw-notification/amw-notification.service';
 
 import { AmwButtonComponent } from '../../../../library/src/controls/components/amw-button/amw-button.component';
-import { ButtonStyle, FabType } from '../../../../library/src/controls/components/amw-button/interfaces/button.interface';
+import { AmwButtonStyle, AmwFabType } from '../../../../library/src/controls/components/amw-button/interfaces/amw-button.interface';
 import { AmwSize, AmwColor } from '../../../../library/src/shared/types';
 
 @Component({
@@ -30,17 +30,17 @@ export class ButtonDemoComponent implements OnInit {
             { size: 'large' as AmwSize, label: 'Large' }
         ],
         appearances: [
-            { appearance: 'text' as ButtonStyle, label: 'Text' },
-            { appearance: 'elevated' as ButtonStyle, label: 'Elevated' },
-            { appearance: 'outlined' as ButtonStyle, label: 'Outlined' },
-            { appearance: 'filled' as ButtonStyle, label: 'Filled' },
-            { appearance: 'tonal' as ButtonStyle, label: 'Tonal' }
+            { appearance: 'text' as AmwButtonStyle, label: 'Text' },
+            { appearance: 'elevated' as AmwButtonStyle, label: 'Elevated' },
+            { appearance: 'outlined' as AmwButtonStyle, label: 'Outlined' },
+            { appearance: 'filled' as AmwButtonStyle, label: 'Filled' },
+            { appearance: 'tonal' as AmwButtonStyle, label: 'Tonal' }
         ],
         fabTypes: [
-            { fab: false as FabType, label: 'None' },
-            { fab: true as FabType, label: 'FAB' },
-            { fab: 'mini' as FabType, label: 'Mini FAB' },
-            { fab: 'extended' as FabType, label: 'Extended FAB' }
+            { fab: false as AmwFabType, label: 'None' },
+            { fab: true as AmwFabType, label: 'FAB' },
+            { fab: 'mini' as AmwFabType, label: 'Mini FAB' },
+            { fab: 'extended' as AmwFabType, label: 'Extended FAB' }
         ],
         colors: [
             { color: 'primary' as AmwColor, label: 'Primary' },
@@ -80,14 +80,14 @@ export class ButtonDemoComponent implements OnInit {
         inputs: [
             {
                 name: 'appearance',
-                type: 'ButtonStyle',
+                type: 'AmwButtonStyle',
                 default: 'filled',
                 description: 'The visual style of the button',
                 options: ['text', 'elevated', 'outlined', 'filled', 'tonal']
             },
             {
                 name: 'fab',
-                type: 'FabType',
+                type: 'AmwFabType',
                 default: 'false',
                 description: 'FAB (Floating Action Button) configuration',
                 options: ['false', 'true', '"standard"', '"mini"', '"extended"']

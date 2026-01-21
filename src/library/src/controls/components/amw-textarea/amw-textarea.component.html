@@ -3,36 +3,61 @@
     @if (label()) {
       <mat-label [innerHTML]="label()"></mat-label>
     }
-    <textarea
-      matInput
-      [placeholder]="placeholder()"
-      [disabled]="disabled()"
-      [required]="required()"
-      [value]="value()"
-      [name]="name()"
-      [id]="id()"
-      [tabIndex]="tabIndex()"
-      [attr.maxlength]="maxLength()"
-      [attr.minlength]="minLength()"
-      [rows]="autoResize() ? null : rows()"
-      [cols]="cols()"
-      [wrap]="wrap()"
-      [readonly]="readonly()"
-      [spellcheck]="spellcheck()"
-      [attr.autocomplete]="autocomplete()"
-      [attr.aria-label]="ariaLabel()"
-      [attr.aria-labelledby]="ariaLabelledby()"
-      [attr.aria-describedby]="ariaDescribedby()"
-      [attr.aria-required]="ariaRequired()"
-      [attr.aria-invalid]="ariaInvalid()"
-      [cdkTextareaAutosize]="autoResize()"
-      [cdkAutosizeMinRows]="minRows()"
-      [cdkAutosizeMaxRows]="maxRows()"
-      (change)="onTextareaChange($event)"
-      (input)="onTextareaInput($event)"
-      (focus)="onFocus($event)"
-      (blur)="onBlur($event)">
-    </textarea>
+    <!-- Signal Forms binding (scenario 3) - Field directive manages most attributes automatically -->
+    @if (field()) {
+      <textarea
+        matInput
+        [field]="field()"
+        [placeholder]="placeholder()"
+        [id]="id()"
+        [tabIndex]="tabIndex()"
+        [rows]="autoResize() ? null : rows()"
+        [cols]="cols()"
+        [wrap]="wrap()"
+        [spellcheck]="spellcheck()"
+        [attr.autocomplete]="autocomplete()"
+        [attr.aria-label]="ariaLabel()"
+        [attr.aria-labelledby]="ariaLabelledby()"
+        [attr.aria-describedby]="ariaDescribedby()"
+        [cdkTextareaAutosize]="autoResize()"
+        [cdkAutosizeMinRows]="minRows()"
+        [cdkAutosizeMaxRows]="maxRows()"
+        (focus)="onFocus($event)"
+        (blur)="onBlur($event)">
+      </textarea>
+    } @else {
+      <!-- ngModel / Reactive Forms binding (scenarios 1 & 2) -->
+      <textarea
+        matInput
+        [placeholder]="placeholder()"
+        [disabled]="disabled()"
+        [required]="required()"
+        [value]="value()"
+        [name]="name()"
+        [id]="id()"
+        [tabIndex]="tabIndex()"
+        [attr.maxlength]="maxLength()"
+        [attr.minlength]="minLength()"
+        [rows]="autoResize() ? null : rows()"
+        [cols]="cols()"
+        [wrap]="wrap()"
+        [readonly]="readonly()"
+        [spellcheck]="spellcheck()"
+        [attr.autocomplete]="autocomplete()"
+        [attr.aria-label]="ariaLabel()"
+        [attr.aria-labelledby]="ariaLabelledby()"
+        [attr.aria-describedby]="ariaDescribedby()"
+        [attr.aria-required]="ariaRequired()"
+        [attr.aria-invalid]="ariaInvalid()"
+        [cdkTextareaAutosize]="autoResize()"
+        [cdkAutosizeMinRows]="minRows()"
+        [cdkAutosizeMaxRows]="maxRows()"
+        (change)="onTextareaChange($event)"
+        (input)="onTextareaInput($event)"
+        (focus)="onFocus($event)"
+        (blur)="onBlur($event)">
+      </textarea>
+    }
     @if (hint()) {
       <mat-hint>{{ hint() }}</mat-hint>
     }

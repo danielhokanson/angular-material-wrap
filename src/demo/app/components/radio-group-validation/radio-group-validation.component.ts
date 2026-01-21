@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule, ReactiveFormsModule, FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { AmwRadioGroupComponent } from '../../../../library/src/controls/components/amw-radio-group/amw-radio-group.component';
-import { RadioGroupOption } from '../../../../library/src/controls/components/amw-radio-group/interfaces/radio-group.interface';
+import { AmwRadioGroupOption } from '../../../../library/src/controls/components/amw-radio-group/interfaces/radio-group.interface';
 import { AmwDividerComponent } from '../../../../library/src/components/components/amw-divider/amw-divider.component';
 import { AmwButtonComponent } from '../../../../library/src/controls/components/amw-button/amw-button.component';
 import { AmwCardComponent, AmwIconComponent } from '../../../../library/src/components/components';
@@ -32,25 +32,25 @@ export class RadioGroupValidationComponent implements OnInit {
     validationForm: FormGroup;
 
     // Sample options for different validation scenarios
-    readonly requiredOptions: RadioGroupOption[] = [
+    readonly requiredOptions: AmwRadioGroupOption[] = [
         { value: 'yes', label: 'Yes' },
         { value: 'no', label: 'No' },
         { value: 'maybe', label: 'Maybe' }
     ];
 
-    readonly agreementOptions: RadioGroupOption[] = [
+    readonly agreementOptions: AmwRadioGroupOption[] = [
         { value: 'agree', label: 'I agree to the terms and conditions' },
         { value: 'disagree', label: 'I do not agree' }
     ];
 
-    readonly priorityOptions: RadioGroupOption[] = [
+    readonly priorityOptions: AmwRadioGroupOption[] = [
         { value: 'low', label: 'Low Priority', icon: 'keyboard_arrow_down' },
         { value: 'medium', label: 'Medium Priority', icon: 'remove' },
         { value: 'high', label: 'High Priority', icon: 'keyboard_arrow_up' },
         { value: 'urgent', label: 'Urgent', icon: 'priority_high' }
     ];
 
-    readonly sizeOptions: RadioGroupOption[] = [
+    readonly sizeOptions: AmwRadioGroupOption[] = [
         { value: 'xs', label: 'Extra Small' },
         { value: 'sm', label: 'Small' },
         { value: 'md', label: 'Medium' },

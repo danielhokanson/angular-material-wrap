@@ -1,2 +1,2 @@
-export * from './dialog.service';
-export * from './card.service';
+export * from './amw-dialog.service';
+export * from './amw-card.service';

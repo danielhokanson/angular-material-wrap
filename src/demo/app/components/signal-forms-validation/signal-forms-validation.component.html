@@ -1,0 +1,195 @@
+<div class="amw-demo-signal-forms-validation">
+    <div class="demo-header">
+        <h2>Form Binding Approaches Comparison</h2>
+        <p class="demo-subtitle">
+            AMW form controls support three mutually exclusive binding scenarios.
+            This demo compares them side-by-side.
+        </p>
+    </div>
+
+    <div class="comparison-grid">
+        <!-- Approach 1: ngModel -->
+        <amw-card class="approach-card">
+            <div class="approach-header">
+                <amw-icon name="code" color="accent"></amw-icon>
+                <h3>1. ngModel (Template-driven)</h3>
+            </div>
+            <p class="approach-description">
+                Simple two-way binding with <code>[(ngModel)]</code>.
+                Best for simple forms with minimal validation.
+            </p>
+
+            <amw-divider></amw-divider>
+
+            <div class="form-fields">
+                <amw-input
+                    [(ngModel)]="ngModelValue"
+                    label="Name"
+                    placeholder="Enter name"
+                    [hasError]="ngModelValue.length > 0 && ngModelValue.length < 2"
+                    [errorMessage]="'Name must be at least 2 characters'">
+                </amw-input>
+
+                <amw-input
+                    [(ngModel)]="ngModelEmail"
+                    type="email"
+                    label="Email"
+                    placeholder="Enter email"
+                    [hasError]="ngModelEmail.length > 0 && !ngModelValidation.emailValid"
+                    [errorMessage]="'Please enter a valid email'">
+                </amw-input>
+            </div>
+
+            <div class="values-display">
+                <strong>Values:</strong>
+                <pre>{{ { name: ngModelValue, email: ngModelEmail } | json }}</pre>
+            </div>
+
+            <div class="code-snippet">
+                <code>&lt;amw-input [(ngModel)]="value"&gt;&lt;/amw-input&gt;</code>
+            </div>
+        </amw-card>
+
+        <!-- Approach 2: Reactive Forms -->
+        <amw-card class="approach-card">
+            <div class="approach-header">
+                <amw-icon name="settings" color="primary"></amw-icon>
+                <h3>2. formControl (Reactive)</h3>
+            </div>
+            <p class="approach-description">
+                FormGroup/FormControl with <code>[formControl]</code>.
+                Best for complex forms with validation logic.
+            </p>
+
+            <amw-divider></amw-divider>
+
+            <div class="form-fields" [formGroup]="reactiveForm">
+                <amw-input
+                    [formControl]="$any(reactiveForm.get('name'))"
+                    label="Name"
+                    placeholder="Enter name"
+                    [hasError]="reactiveForm.get('name')?.invalid && reactiveForm.get('name')?.touched"
+                    [errorMessage]="'Name must be at least 2 characters'">
+                </amw-input>
+
+                <amw-input
+                    [formControl]="$any(reactiveForm.get('email'))"
+                    type="email"
+                    label="Email"
+                    placeholder="Enter email"
+                    [hasError]="reactiveForm.get('email')?.invalid && reactiveForm.get('email')?.touched"
+                    [errorMessage]="'Please enter a valid email'">
+                </amw-input>
+            </div>
+
+            <div class="values-display">
+                <strong>Values:</strong>
+                <pre>{{ reactiveForm.value | json }}</pre>
+            </div>
+
+            <div class="code-snippet">
+                <code>&lt;amw-input [formControl]="ctrl"&gt;&lt;/amw-input&gt;</code>
+            </div>
+        </amw-card>
+
+        <!-- Approach 3: Signal Forms -->
+        <amw-card class="approach-card signal-forms">
+            <div class="approach-header">
+                <amw-icon name="bolt" color="warn"></amw-icon>
+                <h3>3. field (Signal Forms)</h3>
+                <span class="experimental-badge">Experimental</span>
+            </div>
+            <p class="approach-description">
+                Modern signal-based API with <code>[field]</code> binding.
+                Best for future Angular apps using signals.
+            </p>
+
+            <amw-divider></amw-divider>
+
+            <div class="form-fields">
+                <amw-input
+                    [field]="$any(signalForm).name"
+                    label="Name"
+                    placeholder="Enter name">
+                </amw-input>
+
+                <amw-input
+                    [field]="$any(signalForm).email"
+                    type="email"
+                    label="Email"
+                    placeholder="Enter email">
+                </amw-input>
+            </div>
+
+            <div class="values-display">
+                <strong>Values (reactive computed):</strong>
+                <pre>{{ signalFormValues() | json }}</pre>
+            </div>
+
+            <div class="validity-status">
+                <amw-icon [name]="signalFormValid() ? 'check_circle' : 'cancel'"
+                          [color]="signalFormValid() ? 'primary' : 'warn'"></amw-icon>
+                <span>Valid: {{ signalFormValid() }}</span>
+            </div>
+
+            <div class="code-snippet">
+                <code>&lt;amw-input [field]="form.name"&gt;&lt;/amw-input&gt;</code>
+            </div>
+        </amw-card>
+    </div>
+
+    <amw-divider></amw-divider>
+
+    <!-- Key Differences Table -->
+    <amw-card class="differences-card">
+        <h3>Key Differences</h3>
+        <table class="differences-table">
+            <thead>
+                <tr>
+                    <th>Feature</th>
+                    <th>ngModel</th>
+                    <th>formControl</th>
+                    <th>field (Signal Forms)</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>Reactivity</td>
+                    <td>Zone.js based</td>
+                    <td>RxJS Observables</td>
+                    <td>Signals (fine-grained)</td>
+                </tr>
+                <tr>
+                    <td>Validation</td>
+                    <td>Template directives</td>
+                    <td>Validator functions</td>
+                    <td>Validator functions</td>
+                </tr>
+                <tr>
+                    <td>Type Safety</td>
+                    <td>Weak</td>
+                    <td>Good (typed forms)</td>
+                    <td>Excellent</td>
+                </tr>
+                <tr>
+                    <td>disabled/required</td>
+                    <td>Manual binding</td>
+                    <td>Manual binding</td>
+                    <td>Auto from Field</td>
+                </tr>
+                <tr>
+                    <td>Status</td>
+                    <td>Stable</td>
+                    <td>Stable</td>
+                    <td>Experimental</td>
+                </tr>
+            </tbody>
+        </table>
+    </amw-card>
+
+    <div class="actions">
+        <amw-button appearance="outlined" (click)="resetAll()">
+            Reset All Forms
+        </amw-button>
+    </div>
+</div>

@@ -1,1 +1,1 @@
-export * from './button.interface';
+export * from './amw-button.interface';

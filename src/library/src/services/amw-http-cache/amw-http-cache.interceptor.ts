@@ -8,8 +8,8 @@ import {
 } from '@angular/common/http';
 import { of, Observable } from 'rxjs';
 import { tap, switchMap, shareReplay } from 'rxjs/operators';
-import { HttpCacheService } from './http-cache.service';
-import { CacheConfigService } from './cache-config.service';
+import { AmwHttpCacheService } from './amw-http-cache.service';
+import { AmwCacheConfigService } from './amw-cache-config.service';
 
 /**
  * Shared caching logic for both functional and class-based interceptors
@@ -17,8 +17,8 @@ import { CacheConfigService } from './cache-config.service';
 function processCacheRequest(
     req: HttpRequest<any>,
     next: HttpHandler,
-    cacheService: HttpCacheService,
-    configService: CacheConfigService,
+    cacheService: AmwHttpCacheService,
+    configService: AmwCacheConfigService,
     debugPrefix: string = '[HTTP Cache]'
 ): Observable<any> {
     // Only cache GET requests
@@ -84,8 +84,8 @@ function processCacheRequest(
 @Injectable()
 export class HttpCacheInterceptor implements HttpInterceptor {
     constructor(
-        private cacheService: HttpCacheService,
-        private configService: CacheConfigService
+        private cacheService: AmwHttpCacheService,
+        private configService: AmwCacheConfigService
     ) { }
 
     intercept(req: HttpRequest<any>, next: HttpHandler) {
@@ -110,8 +110,8 @@ export const httpCacheInterceptor: HttpInterceptorFn = (req, next) => {
 
     try {
         console.log(`[HTTP Cache Interceptor] Injecting services for: ${req.url}`);
-        const cacheService = inject(HttpCacheService);
-        const configService = inject(CacheConfigService);
+        const cacheService = inject(AmwHttpCacheService);
+        const configService = inject(AmwCacheConfigService);
         console.log(`[HTTP Cache Interceptor] Services injected successfully`);
 
         // Convert functional interceptor signature to class-based signature

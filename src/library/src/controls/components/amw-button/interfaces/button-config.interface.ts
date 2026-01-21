@@ -1,4 +1,4 @@
-import { ButtonStyle, FabType } from './button.interface';
+import { AmwButtonStyle, AmwFabType } from './amw-button.interface';
 import { AmwSize } from '../../../shared/types/amw-size.type';
 import { ButtonType } from './button-type.type';
 import { AmwColor } from '../../../shared/types/amw-color.type';
@@ -8,8 +8,8 @@ import { IconPosition } from './icon-position.type';
  * Button configuration interface
  */
 export interface ButtonConfig {
-    appearance?: ButtonStyle;
-    fab?: FabType;
+    appearance?: AmwButtonStyle;
+    fab?: AmwFabType;
     size?: AmwSize;
     type?: ButtonType;
     color?: AmwColor;

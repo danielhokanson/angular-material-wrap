@@ -6,7 +6,7 @@ import { MatCardModule } from '@angular/material/card';
 import { MatSlideToggleModule } from '@angular/material/slide-toggle';
 import { MatSnackBarModule, MatSnackBar } from '@angular/material/snack-bar';
 
-import { ThemeService, ThemeConfig, ThemeColors } from '../../services/theme.service';
+import { AmwThemeService, AmwThemeConfig, AmwThemeColors } from '../../services/amw-theme.service';
 import { AmwDividerComponent } from '../../../components/components/amw-divider/amw-divider.component';
 import { AmwButtonComponent } from '../../../controls/components/amw-button/amw-button.component';
 import { AmwTooltipDirective } from '../../../directives/amw-tooltip/amw-tooltip.directive';
@@ -32,12 +32,12 @@ import { AmwColorPickerComponent } from '../../../controls/components/amw-color-
     styleUrl: './theme-editor.component.scss',
     host: { 'data-amw-id': 'amw-theme-editor' }
 })
-export class ThemeEditorComponent implements OnInit {
+export class AmwThemeEditorComponent implements OnInit {
     // Form data
     themeName = '';
     themeId = '';
     isDarkMode = false;
-    colors: ThemeColors = {
+    colors: AmwThemeColors = {
         primary: '#6750A4',
         accent: '#625B71',
         warn: '#BA1A1A',
@@ -49,7 +49,7 @@ export class ThemeEditorComponent implements OnInit {
     // State
     isEditing = signal(false);
     editingThemeId = signal<string | null>(null);
-    customThemes = signal<ThemeConfig[]>([]);
+    customThemes = signal<AmwThemeConfig[]>([]);
 
     // Computed properties
     get isValid(): boolean {
@@ -58,7 +58,7 @@ export class ThemeEditorComponent implements OnInit {
         return name.length > 0 && id.length > 0 && this.isValidColorFormat();
     }
 
-    get previewTheme(): ThemeConfig {
+    get previewTheme(): AmwThemeConfig {
         return {
             id: this.themeId || 'preview',
             name: this.themeName || 'Preview Theme',
@@ -70,7 +70,7 @@ export class ThemeEditorComponent implements OnInit {
     }
 
     constructor(
-        private themeService: ThemeService,
+        private themeService: AmwThemeService,
         private snackBar: MatSnackBar
     ) { }
 
@@ -99,7 +99,7 @@ export class ThemeEditorComponent implements OnInit {
         this.generateThemeId();
     }
 
-    onColorChange(colorKey: keyof ThemeColors, value: string): void {
+    onColorChange(colorKey: keyof AmwThemeColors, value: string): void {
         if (this.isValidColor(value)) {
             this.colors = {
                 ...this.colors,
@@ -131,7 +131,7 @@ export class ThemeEditorComponent implements OnInit {
         }
     }
 
-    onLoadTheme(theme: ThemeConfig): void {
+    onLoadTheme(theme: AmwThemeConfig): void {
         this.isEditing.set(true);
         this.editingThemeId.set(theme.id);
         this.themeName = theme.displayName;
@@ -154,7 +154,7 @@ export class ThemeEditorComponent implements OnInit {
             return;
         }
 
-        const theme: Omit<ThemeConfig, 'isCustom'> = {
+        const theme: Omit<AmwThemeConfig, 'isCustom'> = {
             id: this.themeId.trim(),
             name: this.themeId.trim(),
             displayName: this.themeName.trim(),
@@ -188,7 +188,7 @@ export class ThemeEditorComponent implements OnInit {
         }
     }
 
-    onDeleteTheme(theme: ThemeConfig): void {
+    onDeleteTheme(theme: AmwThemeConfig): void {
         if (confirm(`Are you sure you want to delete the theme "${theme.displayName}"?`)) {
             const success = this.themeService.deleteCustomTheme(theme.id);
             if (success) {

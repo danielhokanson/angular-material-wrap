@@ -3,15 +3,15 @@ import { HttpClient } from '@angular/common/http';
 import { Observable, of, BehaviorSubject } from 'rxjs';
 import { map, catchError, tap } from 'rxjs/operators';
 
-export interface CacheConfig {
+export interface AmwCacheConfig {
     [key: string]: number;  // URL pattern -> timeout in milliseconds
 }
 
 @Injectable({
     providedIn: 'root'
 })
-export class CacheConfigService {
-    private config$ = new BehaviorSubject<CacheConfig>({});
+export class AmwCacheConfigService {
+    private config$ = new BehaviorSubject<AmwCacheConfig>({});
     private configLoaded = false;
 
     constructor(private http: HttpClient) {
@@ -23,7 +23,7 @@ export class CacheConfigService {
      * Load the cache configuration from assets/cache-map.json
      */
     private loadConfig(): void {
-        this.http.get<CacheConfig>('assets/cache-map.json')
+        this.http.get<AmwCacheConfig>('assets/cache-map.json')
             .pipe(
                 catchError(error => {
                     console.warn('Failed to load cache-map.json, caching will be disabled', error);
@@ -37,14 +37,14 @@ export class CacheConfigService {
     /**
      * Get the cache configuration as an observable
      */
-    getConfig(): Observable<CacheConfig> {
+    getConfig(): Observable<AmwCacheConfig> {
         return this.config$.asObservable();
     }
 
     /**
      * Get the cache configuration synchronously (may be empty if not loaded yet)
      */
-    getConfigSync(): CacheConfig {
+    getConfigSync(): AmwCacheConfig {
         return this.config$.value;
     }
 

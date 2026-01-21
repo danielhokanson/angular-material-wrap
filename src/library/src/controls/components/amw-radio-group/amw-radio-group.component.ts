@@ -1,11 +1,12 @@
 import { Component, input, output, signal, computed, ViewEncapsulation, OnInit, OnChanges, SimpleChanges, effect } from '@angular/core';
-
+import { NgTemplateOutlet } from '@angular/common';
 import { FormsModule, ReactiveFormsModule, ControlValueAccessor, NG_VALUE_ACCESSOR } from '@angular/forms';
+import { Field } from '@angular/forms/signals';
 import { MatRadioModule } from '@angular/material/radio';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatIconModule } from '@angular/material/icon';
 import { BaseComponent } from '../base/base.component';
-import { RadioGroupOption, RadioGroupConfig } from './interfaces/radio-group.interface';
+import { AmwRadioGroupOption, RadioGroupConfig } from './interfaces/radio-group.interface';
 
 /**
  * AMW Radio Group Component
@@ -18,8 +19,10 @@ import { RadioGroupOption, RadioGroupConfig } from './interfaces/radio-group.int
     selector: 'amw-radio-group',
     standalone: true,
     imports: [
+    NgTemplateOutlet,
     FormsModule,
     ReactiveFormsModule,
+    Field,
     MatRadioModule,
     MatFormFieldModule,
     MatIconModule
@@ -40,16 +43,24 @@ export class AmwRadioGroupComponent extends BaseComponent<any> implements Contro
     // placeholder, errorMessage, hasError, name, id, tabIndex, size, color, ariaLabel,
     // ariaLabelledby, ariaDescribedby, ariaRequired, ariaInvalid, hint, readonly, value, change, focus, blur)
 
+    /**
+     * Signal Forms field binding (experimental).
+     * Use this for Angular Signal Forms API integration.
+     * Mutually exclusive with ngModel and formControl/formControlName.
+     * @experimental
+     */
+    field = input<any>(undefined);
+
     orientation = input<'horizontal' | 'vertical'>('vertical');
 
     // Options and configuration
-    options = input<RadioGroupOption[]>([]);
+    options = input<AmwRadioGroupOption[]>([]);
     config = input<RadioGroupConfig | null>(null);
 
     // Value and change handling
     selectedValue = input<any>(null);
     selectedValueChange = output<any>();
-    selectionChange = output<RadioGroupOption>();
+    selectionChange = output<AmwRadioGroupOption>();
 
     // Internal state
     internalValue = signal<any>(null);
@@ -165,7 +176,7 @@ export class AmwRadioGroupComponent extends BaseComponent<any> implements Contro
     /**
      * Get CSS classes for individual radio buttons
      */
-    getRadioButtonClasses(option: RadioGroupOption): string {
+    getRadioButtonClasses(option: AmwRadioGroupOption): string {
         const classes = ['amw-radio-group__option'];
 
         if (option.disabled) {
@@ -178,7 +189,7 @@ export class AmwRadioGroupComponent extends BaseComponent<any> implements Contro
     /**
      * Track by function for ngFor
      */
-    trackByValue(index: number, option: RadioGroupOption): any {
+    trackByValue(index: number, option: AmwRadioGroupOption): any {
         return option.value;
     }
 

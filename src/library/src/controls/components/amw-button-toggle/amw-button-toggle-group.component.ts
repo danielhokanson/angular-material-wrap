@@ -1,6 +1,7 @@
 import { Component, ViewEncapsulation, input, output, computed, model, forwardRef, contentChildren } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { ControlValueAccessor, NG_VALUE_ACCESSOR } from '@angular/forms';
+import { ControlValueAccessor, NG_VALUE_ACCESSOR, FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { Field } from '@angular/forms/signals';
 import { MatButtonToggleModule, MatButtonToggleChange } from '@angular/material/button-toggle';
 import { AmwButtonToggleComponent } from './amw-button-toggle.component';
 
@@ -46,6 +47,9 @@ export type AmwButtonToggleAppearance = 'standard' | 'legacy';
     standalone: true,
     imports: [
         CommonModule,
+        FormsModule,
+        ReactiveFormsModule,
+        Field,
         MatButtonToggleModule
     ],
     encapsulation: ViewEncapsulation.None,
@@ -60,6 +64,14 @@ export type AmwButtonToggleAppearance = 'standard' | 'legacy';
     ]
 })
 export class AmwButtonToggleGroupComponent implements ControlValueAccessor {
+    /**
+     * Signal Forms field binding (experimental).
+     * Use this for Angular Signal Forms API integration.
+     * Mutually exclusive with ngModel and formControl/formControlName.
+     * @experimental
+     */
+    readonly field = input<any>(undefined);
+
     /** Current selected value(s) (two-way bindable) */
     readonly value = model<any>();
 

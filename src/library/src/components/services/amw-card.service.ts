@@ -6,7 +6,7 @@ import { AmwSize } from '../../shared/types/amw-size.type';
 /**
  * Represents a card data object with all configurable properties
  */
-export interface CardData {
+export interface AmwCardData {
     /** Unique identifier for the card */
     id: string;
     /** Card title text */
@@ -71,7 +71,7 @@ export interface CardData {
 /**
  * Filter options for card queries
  */
-export interface CardFilter {
+export interface AmwCardFilter {
     /** Search term to filter by title, subtitle, or content */
     search?: string;
     /** Filter by card variant */
@@ -102,9 +102,9 @@ export interface CardFilter {
 /**
  * Sort options for card queries
  */
-export interface CardSort {
+export interface AmwCardSort {
     /** Field to sort by */
-    field: keyof CardData;
+    field: keyof AmwCardData;
     /** Sort direction */
     direction: 'asc' | 'desc';
 }
@@ -141,11 +141,11 @@ export interface CardSort {
 @Injectable({
     providedIn: 'root'
 })
-export class CardService {
-    private cardsSubject = new BehaviorSubject<CardData[]>([]);
-    private filteredCardsSubject = new BehaviorSubject<CardData[]>([]);
-    private currentFilter: CardFilter = {};
-    private currentSort: CardSort = { field: 'createdAt', direction: 'desc' };
+export class AmwCardService {
+    private cardsSubject = new BehaviorSubject<AmwCardData[]>([]);
+    private filteredCardsSubject = new BehaviorSubject<AmwCardData[]>([]);
+    private currentFilter: AmwCardFilter = {};
+    private currentSort: AmwCardSort = { field: 'createdAt', direction: 'desc' };
 
     public cards$ = this.cardsSubject.asObservable();
     public filteredCards$ = this.filteredCardsSubject.asObservable();
@@ -166,7 +166,7 @@ export class CardService {
      * console.log(`Total cards: ${allCards.length}`);
      * ```
      */
-    getCards(): CardData[] {
+    getCards(): AmwCardData[] {
         return this.cardsSubject.value;
     }
 
@@ -181,7 +181,7 @@ export class CardService {
      * console.log(`Filtered cards: ${filteredCards.length}`);
      * ```
      */
-    getFilteredCards(): CardData[] {
+    getFilteredCards(): AmwCardData[] {
         return this.filteredCardsSubject.value;
     }
 
@@ -203,8 +203,8 @@ export class CardService {
      * console.log('Created card with ID:', newCard.id);
      * ```
      */
-    addCard(card: Omit<CardData, 'id' | 'createdAt' | 'updatedAt'>): CardData {
-        const newCard: CardData = {
+    addCard(card: Omit<AmwCardData, 'id' | 'createdAt' | 'updatedAt'>): AmwCardData {
+        const newCard: AmwCardData = {
             ...card,
             id: this.generateId(),
             createdAt: new Date(),
@@ -238,7 +238,7 @@ export class CardService {
      * }
      * ```
      */
-    updateCard(id: string, updates: Partial<CardData>): CardData | null {
+    updateCard(id: string, updates: Partial<AmwCardData>): AmwCardData | null {
         const cards = this.cardsSubject.value;
         const index = cards.findIndex(card => card.id === id);
 
@@ -305,7 +305,7 @@ export class CardService {
      * }
      * ```
      */
-    getCardById(id: string): CardData | null {
+    getCardById(id: string): AmwCardData | null {
         return this.cardsSubject.value.find(card => card.id === id) || null;
     }
 
@@ -331,7 +331,7 @@ export class CardService {
      * });
      * ```
      */
-    filterCards(filter: CardFilter): void {
+    filterCards(filter: AmwCardFilter): void {
         this.currentFilter = { ...this.currentFilter, ...filter };
         this.applyFilters();
     }
@@ -370,7 +370,7 @@ export class CardService {
      * });
      * ```
      */
-    sortCards(sort: CardSort): void {
+    sortCards(sort: AmwCardSort): void {
         this.currentSort = sort;
         this.applyFilters();
     }
@@ -393,35 +393,35 @@ export class CardService {
     /**
      * Get cards by variant
      */
-    getCardsByVariant(variant: CardVariant): CardData[] {
+    getCardsByVariant(variant: CardVariant): AmwCardData[] {
         return this.cardsSubject.value.filter(card => card.variant === variant);
     }
 
     /**
      * Get cards by size
      */
-    getCardsBySize(size: AmwSize): CardData[] {
+    getCardsBySize(size: AmwSize): AmwCardData[] {
         return this.cardsSubject.value.filter(card => card.size === size);
     }
 
     /**
      * Get clickable cards
      */
-    getClickableCards(): CardData[] {
+    getClickableCards(): AmwCardData[] {
         return this.cardsSubject.value.filter(card => card.clickable);
     }
 
     /**
      * Get cards with images
      */
-    getCardsWithImages(): CardData[] {
+    getCardsWithImages(): AmwCardData[] {
         return this.cardsSubject.value.filter(card => !!card.image);
     }
 
     /**
      * Get cards with actions
      */
-    getCardsWithActions(): CardData[] {
+    getCardsWithActions(): AmwCardData[] {
         return this.cardsSubject.value.filter(card => card.actions && card.actions.length > 0);
     }
 
@@ -439,7 +439,7 @@ export class CardService {
      * }
      * ```
      */
-    duplicateCard(id: string): CardData | null {
+    duplicateCard(id: string): AmwCardData | null {
         const originalCard = this.getCardById(id);
         if (!originalCard) {
             return null;
@@ -455,9 +455,9 @@ export class CardService {
     /**
      * Bulk update cards
      */
-    bulkUpdateCards(ids: string[], updates: Partial<CardData>): CardData[] {
+    bulkUpdateCards(ids: string[], updates: Partial<AmwCardData>): AmwCardData[] {
         const cards = this.cardsSubject.value;
-        const updatedCards: CardData[] = [];
+        const updatedCards: AmwCardData[] = [];
 
         cards.forEach(card => {
             if (ids.includes(card.id)) {
@@ -525,7 +525,7 @@ export class CardService {
      * console.log(`Imported ${importedCards.length} cards`);
      * ```
      */
-    importCards(jsonData: string): CardData[] {
+    importCards(jsonData: string): AmwCardData[] {
         try {
             const importedCards = JSON.parse(jsonData);
             if (Array.isArray(importedCards)) {
@@ -677,7 +677,7 @@ export class CardService {
     }
 
     private initializeSampleCards(): void {
-        const sampleCards: CardData[] = [
+        const sampleCards: AmwCardData[] = [
             {
                 id: 'card_1',
                 title: 'Welcome Card',

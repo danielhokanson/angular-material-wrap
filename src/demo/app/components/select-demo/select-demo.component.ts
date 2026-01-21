@@ -5,7 +5,7 @@ import { ReactiveFormsModule, FormBuilder, FormGroup, Validators } from '@angula
 
 import { AmwSelectComponent } from '../../../../library/src/controls/components/amw-select/amw-select.component';
 import { AmwSize } from '../../../../library/src/shared/types';
-import { SelectOption } from '../../../../library/src/controls/components/amw-select/interfaces/select.interface';
+import { AmwSelectOption } from '../../../../library/src/controls/components/amw-select/interfaces/select.interface';
 import { MatFormFieldAppearance } from '@angular/material/form-field';
 
 @Component({
@@ -43,7 +43,7 @@ export class SelectDemoComponent implements OnInit {
     };
 
     // Sample options
-    sampleOptions: SelectOption[] = [
+    sampleOptions: AmwSelectOption[] = [
         { value: 'option1', label: 'Option 1' },
         { value: 'option2', label: 'Option 2' },
         { value: 'option3', label: 'Option 3', disabled: true },
@@ -51,7 +51,7 @@ export class SelectDemoComponent implements OnInit {
         { value: 'option5', label: 'Option 5' }
     ];
 
-    groupedOptions: SelectOption[] = [
+    groupedOptions: AmwSelectOption[] = [
         { value: 'fruit1', label: 'Apple', group: 'Fruits' },
         { value: 'fruit2', label: 'Banana', group: 'Fruits' },
         { value: 'fruit3', label: 'Orange', group: 'Fruits' },
@@ -99,10 +99,10 @@ export class SelectDemoComponent implements OnInit {
         inputs: [
             {
                 name: 'options',
-                type: 'SelectOption[]',
+                type: 'AmwSelectOption[]',
                 default: '[]',
                 description: 'Array of options to display in the select',
-                options: ['Array of SelectOption objects']
+                options: ['Array of AmwSelectOption objects']
             },
             {
                 name: 'label',

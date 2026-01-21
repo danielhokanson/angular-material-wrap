@@ -1,9 +1,9 @@
-import { ThemeColors } from './theme-colors.interface';
+import { AmwThemeColors } from './amw-theme-colors.interface';
 
 /**
  * Complete theme configuration
  */
-export interface ThemeConfig {
+export interface AmwThemeConfig {
     /** Unique theme identifier */
     id: string;
     /** Theme name */
@@ -11,7 +11,7 @@ export interface ThemeConfig {
     /** Display name for UI */
     displayName: string;
     /** Color palette */
-    colors: ThemeColors;
+    colors: AmwThemeColors;
     /** Whether this is a dark theme */
     isDark: boolean;
     /** Whether this is a custom theme */

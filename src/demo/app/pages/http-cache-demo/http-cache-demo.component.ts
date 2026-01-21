@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { HttpClient } from '@angular/common/http';
 import { ViewEncapsulation } from '@angular/core';
-import { HttpCacheService, CacheConfigService } from '../../../../library/src/services/amw-http-cache';
+import { AmwHttpCacheService, AmwCacheConfigService } from '../../../../library/src/services/amw-http-cache';
 import { AmwTabsComponent, AmwTabComponent, AmwCardComponent, AmwIconComponent, AmwProgressSpinnerComponent } from '../../../../library/src/components/components';
 import { AmwButtonComponent } from '../../../../library/src/controls/components/amw-button/amw-button.component';
 
@@ -41,8 +41,8 @@ export class HttpCacheDemoComponent implements OnInit {
 
     constructor(
         private http: HttpClient,
-        private cacheService: HttpCacheService,
-        private configService: CacheConfigService
+        private cacheService: AmwHttpCacheService,
+        private configService: AmwCacheConfigService
     ) { }
 
     ngOnInit(): void {

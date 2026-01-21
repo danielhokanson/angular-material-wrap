@@ -1,6 +1,6 @@
-export * from './http-cache.service';
-export * from './cache-config.service';
-export * from './http-cache.interceptor';
-export * from './indexed-db-storage.service';
-export * from './cache-sync.service';
+export * from './amw-http-cache.service';
+export * from './amw-cache-config.service';
+export * from './amw-http-cache.interceptor';
+export * from './amw-indexed-db-storage.service';
+export * from './amw-cache-sync.service';
 

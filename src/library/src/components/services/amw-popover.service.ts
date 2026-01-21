@@ -29,7 +29,7 @@ import { PopoverTrigger } from '../components/amw-popover/interfaces/popover-tri
 @Injectable({
     providedIn: 'root'
 })
-export class PopoverService {
+export class AmwPopoverService {
     /** Subject for popover opened state */
     private openedSubject = new BehaviorSubject<boolean>(false);
 
@@ -40,7 +40,7 @@ export class PopoverService {
     private triggerSubject = new BehaviorSubject<PopoverTrigger>({});
 
     /** Subject for popover events */
-    private eventsSubject = new Subject<PopoverEvent>();
+    private eventsSubject = new Subject<AmwPopoverEvent>();
 
     /** Current popover configuration */
     private currentConfig: PopoverConfig = {};
@@ -72,7 +72,7 @@ export class PopoverService {
     /**
      * Observable for popover events
      */
-    get events$(): Observable<PopoverEvent> {
+    get events$(): Observable<AmwPopoverEvent> {
         return this.eventsSubject.asObservable();
     }
 
@@ -476,7 +476,7 @@ export class PopoverService {
 /**
  * Interface for popover events
  */
-export interface PopoverEvent {
+export interface AmwPopoverEvent {
     /** The event type */
     type: string;
 
