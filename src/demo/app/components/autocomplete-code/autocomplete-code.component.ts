@@ -2,7 +2,6 @@ import { Component, ViewEncapsulation, OnInit } from '@angular/core';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { CommonModule } from '@angular/common';
 import { AmwCodeDocComponent, CodeExample } from '../../shared/components/code-doc/code-doc.component';
-import { AmwButtonComponent } from '../../../../library/src/controls/components/amw-button/amw-button.component';
 import { AmwIconComponent } from '../../../../library/src/components/components';
 import { AmwAutocompleteComponent } from '../../../../library/src/controls/components/amw-autocomplete/amw-autocomplete.component';
 
@@ -14,7 +13,6 @@ import { AmwAutocompleteComponent } from '../../../../library/src/controls/compo
     FormsModule,
     ReactiveFormsModule,
     AmwCodeDocComponent,
-    AmwButtonComponent,
     AmwIconComponent,
     AmwAutocompleteComponent,
   ],

@@ -2,7 +2,6 @@ import { Component, ViewEncapsulation, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { AmwCodeDocComponent, CodeExample } from '../../shared/components/code-doc/code-doc.component';
-import { AmwButtonComponent } from '../../../../library/src/controls/components/amw-button/amw-button.component';
 import { AmwSwitchComponent } from '../../../../library/src/controls/components/amw-switch/amw-switch.component';
 
 @Component({
@@ -12,7 +11,6 @@ import { AmwSwitchComponent } from '../../../../library/src/controls/components/
     CommonModule,
     FormsModule,
     AmwCodeDocComponent,
-    AmwButtonComponent,
     AmwSwitchComponent
   ],
   encapsulation: ViewEncapsulation.None,

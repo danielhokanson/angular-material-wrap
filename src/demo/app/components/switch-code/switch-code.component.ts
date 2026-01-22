@@ -1,7 +1,6 @@
 import { Component, ViewEncapsulation, OnInit } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { AmwCodeDocComponent, CodeExample } from '../../shared/components/code-doc/code-doc.component';
-import { AmwButtonComponent } from '../../../../library/src/controls/components/amw-button/amw-button.component';
 import { AmwSwitchComponent } from '../../../../library/src/controls/components/amw-switch/amw-switch.component';
 import { AmwIconComponent } from '../../../../library/src/components/components';
 
@@ -11,7 +10,6 @@ import { AmwIconComponent } from '../../../../library/src/components/components'
   imports: [
     FormsModule,
     AmwCodeDocComponent,
-    AmwButtonComponent,
     AmwSwitchComponent,
     AmwIconComponent
   ],

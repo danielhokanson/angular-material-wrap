@@ -2,7 +2,6 @@ import { Component, ViewEncapsulation, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { AmwCodeDocComponent, CodeExample } from '../../shared/components/code-doc/code-doc.component';
-import { AmwButtonComponent } from '../../../../library/src/controls/components/amw-button/amw-button.component';
 import { AmwCheckboxComponent } from '../../../../library/src/controls/components/amw-checkbox/amw-checkbox.component';
 import { AmwIconComponent } from '../../../../library/src/components/components';
 
@@ -13,7 +12,6 @@ import { AmwIconComponent } from '../../../../library/src/components/components'
     CommonModule,
     FormsModule,
     AmwCodeDocComponent,
-    AmwButtonComponent,
     AmwCheckboxComponent,
     AmwIconComponent
   ],

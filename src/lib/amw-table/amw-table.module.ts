@@ -34,7 +34,7 @@ export class AmwRowDefDirective {
     template: `
 		<table class="amw-table">
 			<thead>
-				<tr *ngIf="displayedColumns?.length">
+				<tr *ngIf="displayedColumns.length">
 					<th *ngFor="let c of displayedColumns">{{ c }}</th>
 				</tr>
 			</thead>

@@ -3,7 +3,7 @@ import { CommonModule } from '@angular/common';
 import { ReactiveFormsModule, FormGroup } from '@angular/forms';
 import { AmwValidationDocComponent, ValidationInfo } from '../../shared/components/validation-doc/validation-doc.component';
 import { BaseValidationComponent } from '../base/base-validation.component';
-import { AmwSortDirective, AmwSortHeaderComponent, AmwSort } from '../../../../lib/amw-sort/amw-sort.module';
+import { AmwSortDirective, AmwSort } from '../../../../lib/amw-sort/amw-sort.module';
 import { AmwTableComponent } from '../../../../lib/amw-table/amw-table.module';
 import { AmwButtonComponent } from '../../../../library/src/controls/components/amw-button/amw-button.component';
 
@@ -23,7 +23,6 @@ interface Product {
     ReactiveFormsModule,
     AmwValidationDocComponent,
     AmwSortDirective,
-    AmwSortHeaderComponent,
     AmwTableComponent,
     AmwButtonComponent
   ],

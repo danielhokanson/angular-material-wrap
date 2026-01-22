@@ -1,7 +1,6 @@
 import { Component, ViewEncapsulation, OnInit } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { AmwCodeDocComponent, CodeExample } from '../../shared/components/code-doc/code-doc.component';
-import { AmwButtonComponent } from '../../../../library/src/controls/components/amw-button/amw-button.component';
 import { AmwInputComponent } from '../../../../library/src/controls/components/amw-input/amw-input.component';
 import { AmwTextareaComponent } from '../../../../library/src/controls/components/amw-textarea/amw-textarea.component';
 
@@ -11,7 +10,6 @@ import { AmwTextareaComponent } from '../../../../library/src/controls/component
   imports: [
     FormsModule,
     AmwCodeDocComponent,
-    AmwButtonComponent,
     AmwInputComponent,
     AmwTextareaComponent
   ],

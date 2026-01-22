@@ -4,7 +4,6 @@ import { FormsModule } from '@angular/forms';
 import { AmwCodeDocComponent, CodeExample } from '../../shared/components/code-doc/code-doc.component';
 import { AmwButtonToggleComponent } from '../../../../library/src/controls/components/amw-button-toggle/amw-button-toggle.component';
 import { AmwButtonToggleGroupComponent } from '../../../../library/src/controls/components/amw-button-toggle/amw-button-toggle-group.component';
-import { AmwIconComponent } from '../../../../library/src/components/components';
 
 @Component({
   selector: 'amw-demo-button-toggle-code',
@@ -14,8 +13,7 @@ import { AmwIconComponent } from '../../../../library/src/components/components'
     FormsModule,
     AmwCodeDocComponent,
     AmwButtonToggleComponent,
-    AmwButtonToggleGroupComponent,
-    AmwIconComponent
+    AmwButtonToggleGroupComponent
   ],
   encapsulation: ViewEncapsulation.None,
   templateUrl: './button-toggle-code.component.html',

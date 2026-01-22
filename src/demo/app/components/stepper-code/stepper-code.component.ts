@@ -1,7 +1,6 @@
 import { Component, ViewEncapsulation, OnInit } from '@angular/core';
 import { FormsModule, ReactiveFormsModule, FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { AmwCodeDocComponent, CodeExample } from '../../shared/components/code-doc/code-doc.component';
-import { AmwButtonComponent } from '../../../../library/src/controls/components/amw-button/amw-button.component';
 import { AmwInputComponent } from '../../../../library/src/controls/components/amw-input/amw-input.component';
 import { AmwIconComponent } from '../../../../library/src/components/components';
 import { AmwStepperComponent } from '../../../../library/src/components/components/amw-stepper/amw-stepper.component';
@@ -15,7 +14,6 @@ import { StepperStep, StepperConfig } from '../../../../library/src/components/c
     ReactiveFormsModule,
     AmwCodeDocComponent,
     AmwInputComponent,
-    AmwButtonComponent,
     AmwIconComponent,
     AmwStepperComponent
   ],

@@ -113,32 +113,6 @@ import { ThemeValidationComponent } from '../theme-validation/theme-validation.c
 import { ThemeCodeComponent } from '../theme-code/theme-code.component';
 import { ThemeApiComponent } from '../theme-api/theme-api.component';
 
-// New component demos
-import { IconButtonDemoComponent } from '../icon-button-demo/icon-button-demo.component';
-import { IconButtonValidationComponent } from '../icon-button-validation/icon-button-validation.component';
-import { IconButtonCodeComponent } from '../icon-button-code/icon-button-code.component';
-import { IconButtonApiComponent } from '../icon-button-api/icon-button-api.component';
-import { ChipDemoComponent } from '../chip-demo/chip-demo.component';
-import { ChipValidationComponent } from '../chip-validation/chip-validation.component';
-import { ChipCodeComponent } from '../chip-code/chip-code.component';
-import { ChipApiComponent } from '../chip-api/chip-api.component';
-import { ButtonToggleDemoComponent } from '../button-toggle-demo/button-toggle-demo.component';
-import { ButtonToggleValidationComponent } from '../button-toggle-validation/button-toggle-validation.component';
-import { ButtonToggleCodeComponent } from '../button-toggle-code/button-toggle-code.component';
-import { ButtonToggleApiComponent } from '../button-toggle-api/button-toggle-api.component';
-import { ListDemoComponent } from '../list-demo/list-demo.component';
-import { ListValidationComponent } from '../list-validation/list-validation.component';
-import { ListCodeComponent } from '../list-code/list-code.component';
-import { ListApiComponent } from '../list-api/list-api.component';
-import { PaginatorDemoComponent } from '../paginator-demo/paginator-demo.component';
-import { PaginatorValidationComponent } from '../paginator-validation/paginator-validation.component';
-import { PaginatorCodeComponent } from '../paginator-code/paginator-code.component';
-import { PaginatorApiComponent } from '../paginator-api/paginator-api.component';
-import { BadgeDemoComponent } from '../badge-demo/badge-demo.component';
-import { BadgeValidationComponent } from '../badge-validation/badge-validation.component';
-import { BadgeCodeComponent } from '../badge-code/badge-code.component';
-import { BadgeApiComponent } from '../badge-api/badge-api.component';
-
 @Component({
     selector: 'amw-demo-container',
     standalone: true,
@@ -253,32 +227,7 @@ import { BadgeApiComponent } from '../badge-api/badge-api.component';
     ThemeDemoComponent,
     ThemeValidationComponent,
     ThemeCodeComponent,
-    ThemeApiComponent,
-    // New component demos
-    IconButtonDemoComponent,
-    IconButtonValidationComponent,
-    IconButtonCodeComponent,
-    IconButtonApiComponent,
-    ChipDemoComponent,
-    ChipValidationComponent,
-    ChipCodeComponent,
-    ChipApiComponent,
-    ButtonToggleDemoComponent,
-    ButtonToggleValidationComponent,
-    ButtonToggleCodeComponent,
-    ButtonToggleApiComponent,
-    ListDemoComponent,
-    ListValidationComponent,
-    ListCodeComponent,
-    ListApiComponent,
-    PaginatorDemoComponent,
-    PaginatorValidationComponent,
-    PaginatorCodeComponent,
-    PaginatorApiComponent,
-    BadgeDemoComponent,
-    BadgeValidationComponent,
-    BadgeCodeComponent,
-    BadgeApiComponent
+    ThemeApiComponent
   ],
     encapsulation: ViewEncapsulation.None,
     templateUrl: './demo-container.component.html',

@@ -3,7 +3,6 @@ import { FormsModule, ReactiveFormsModule, FormBuilder, FormGroup, Validators } 
 import { CommonModule } from '@angular/common';
 import { AmwCodeDocComponent, CodeExample } from '../../shared/components/code-doc/code-doc.component';
 import { AmwFileInputComponent } from '../../../../library/src/controls/components/amw-file-input/amw-file-input.component';
-import { AmwButtonComponent } from '../../../../library/src/controls/components/amw-button/amw-button.component';
 
 @Component({
   selector: 'amw-demo-file-input-code',
@@ -13,8 +12,7 @@ import { AmwButtonComponent } from '../../../../library/src/controls/components/
     FormsModule,
     ReactiveFormsModule,
     AmwCodeDocComponent,
-    AmwFileInputComponent,
-    AmwButtonComponent
+    AmwFileInputComponent
   ],
   encapsulation: ViewEncapsulation.None,
   templateUrl: './file-input-code.component.html',

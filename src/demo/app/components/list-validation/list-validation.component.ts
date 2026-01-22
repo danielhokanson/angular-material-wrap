@@ -6,7 +6,6 @@ import { BaseValidationComponent } from '../base/base-validation.component';
 import { AmwListComponent } from '../../../../library/src/components/components/amw-list/amw-list.component';
 import { AmwListItemComponent } from '../../../../library/src/components/components/amw-list/amw-list-item.component';
 import { AmwIconComponent, AmwCardComponent } from '../../../../library/src/components/components';
-import { AmwButtonComponent } from '../../../../library/src/controls/components/amw-button/amw-button.component';
 
 interface ListItem {
   title: string;
@@ -26,8 +25,7 @@ interface ListItem {
     AmwListComponent,
     AmwListItemComponent,
     AmwIconComponent,
-    AmwCardComponent,
-    AmwButtonComponent
+    AmwCardComponent
   ],
   encapsulation: ViewEncapsulation.None,
   templateUrl: './list-validation.component.html',

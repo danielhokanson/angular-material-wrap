@@ -1,7 +1,6 @@
 import { Component, ViewEncapsulation, OnInit } from '@angular/core';
 import { FormsModule, ReactiveFormsModule, FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { AmwCodeDocComponent, CodeExample } from '../../shared/components/code-doc/code-doc.component';
-import { AmwButtonComponent } from '../../../../library/src/controls/components/amw-button/amw-button.component';
 import { AmwRadioGroupComponent } from '../../../../library/src/controls/components/amw-radio-group/amw-radio-group.component';
 import { AmwIconComponent } from '../../../../library/src/components/components';
 
@@ -12,7 +11,6 @@ import { AmwIconComponent } from '../../../../library/src/components/components'
     FormsModule,
     ReactiveFormsModule,
     AmwCodeDocComponent,
-    AmwButtonComponent,
     AmwRadioGroupComponent,
     AmwIconComponent
   ],
