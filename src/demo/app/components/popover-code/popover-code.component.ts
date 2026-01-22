@@ -1,41 +1,51 @@
-import { Component, ViewEncapsulation } from '@angular/core';
+import { Component, ViewEncapsulation, OnInit } from '@angular/core';
 import { FormsModule } from '@angular/forms';
-import { BaseCodeComponent } from '../base/base-code.component';
-
-type PopoverExamples = 'basic' | 'positions' | 'styling' | 'interactive';
-
+import { AmwCodeDocComponent, CodeExample } from '../../shared/components/code-doc/code-doc.component';
 import { AmwButtonComponent } from '../../../../library/src/controls/components/amw-button/amw-button.component';
-import { AmwAccordionComponent, AmwAccordionPanelComponent, AmwIconComponent } from '../../../../library/src/components/components';
+import { AmwIconComponent } from '../../../../library/src/components/components';
 import { AmwPopoverComponent } from '../../../../library/src/components/components/amw-popover/amw-popover.component';
 
 @Component({
-    selector: 'app-popover-code',
-    standalone: true,
-    imports: [
-        FormsModule,
-        AmwButtonComponent,
-        AmwAccordionComponent,
-        AmwAccordionPanelComponent,
-        AmwIconComponent,
-        AmwPopoverComponent
-    ],
-    encapsulation: ViewEncapsulation.None,
-    templateUrl: './popover-code.component.html',
-    styleUrl: './popover-code.component.scss'
+  selector: 'app-popover-code',
+  standalone: true,
+  imports: [
+    FormsModule,
+    AmwCodeDocComponent,
+    AmwButtonComponent,
+    AmwIconComponent,
+    AmwPopoverComponent
+  ],
+  encapsulation: ViewEncapsulation.None,
+  templateUrl: './popover-code.component.html',
+  styleUrl: './popover-code.component.scss'
 })
-export class PopoverCodeComponent extends BaseCodeComponent<PopoverExamples> {
-    // Original code examples (for reset functionality)
-    readonly codeExamples: Record<PopoverExamples, string> = {
-        basic: `<amw-popover [config]="{ position: 'bottom', showArrow: true }">
+export class PopoverCodeComponent implements OnInit {
+  // State for interactive example
+  tooltipDisabled = false;
+
+  // Editable code for the shared component
+  editableCode: Record<string, string> = {};
+
+  // Code examples data
+  readonly examples: CodeExample[] = [
+    {
+      key: 'basic',
+      title: 'Basic Popover',
+      description: 'Simple popover with click trigger',
+      code: `<amw-popover [config]="{ position: 'bottom', showArrow: true }">
   <ng-template #trigger>
     <amw-button appearance="elevated">Hover Me</amw-button>
   </ng-template>
   <ng-template #content>
     <p>This is a basic popover</p>
   </ng-template>
-</amw-popover>`,
-
-        positions: `<!-- Popover on top -->
+</amw-popover>`
+    },
+    {
+      key: 'positions',
+      title: 'Popover Positions',
+      description: 'Popovers in different positions',
+      code: `<!-- Popover on top -->
 <amw-popover [config]="{ position: 'top', showArrow: true }">
   <ng-template #trigger>
     <amw-button appearance="text">Top</amw-button>
@@ -73,18 +83,26 @@ export class PopoverCodeComponent extends BaseCodeComponent<PopoverExamples> {
   <ng-template #content>
     <p>Popover on left</p>
   </ng-template>
-</amw-popover>`,
-
-        styling: `<amw-popover [config]="{ position: 'bottom', showArrow: true, size: 'large' }">
+</amw-popover>`
+    },
+    {
+      key: 'styling',
+      title: 'Custom Styling',
+      description: 'Popover with custom styling',
+      code: `<amw-popover [config]="{ position: 'bottom', showArrow: true, size: 'large' }">
   <ng-template #trigger>
     <amw-button appearance="elevated" color="primary">Custom Popover</amw-button>
   </ng-template>
   <ng-template #content>
     <p>Custom styled popover content</p>
   </ng-template>
-</amw-popover>`,
-
-        interactive: `<amw-popover
+</amw-popover>`
+    },
+    {
+      key: 'interactive',
+      title: 'Interactive Popover',
+      description: 'Popover with interactive controls',
+      code: `<amw-popover
   [config]="{ position: 'bottom', showArrow: true, showClose: true, disabled: popoverDisabled }">
   <ng-template #trigger>
     <amw-button appearance="elevated" (click)="togglePopover()">Toggle Popover</amw-button>
@@ -93,18 +111,19 @@ export class PopoverCodeComponent extends BaseCodeComponent<PopoverExamples> {
     <p>Click to show/hide</p>
   </ng-template>
 </amw-popover>`
-    };
-
-    // State for interactive example
-    tooltipDisabled = false;
-
-    constructor() {
-        super();
     }
+  ];
 
-    // Toggle tooltip state
-    toggleTooltip() {
-        this.tooltipDisabled = !this.tooltipDisabled;
-        console.log('Tooltip disabled:', this.tooltipDisabled);
-    }
+  ngOnInit(): void {
+    // Initialize editable code from examples
+    this.examples.forEach(example => {
+      this.editableCode[example.key] = example.code;
+    });
+  }
+
+  // Toggle tooltip state
+  toggleTooltip() {
+    this.tooltipDisabled = !this.tooltipDisabled;
+    console.log('Tooltip disabled:', this.tooltipDisabled);
+  }
 }

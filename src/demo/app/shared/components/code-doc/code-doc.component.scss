@@ -1,0 +1,143 @@
+.amw-code-doc {
+  padding: 24px;
+  max-width: 1400px;
+
+  // Header section
+  &__header {
+    margin-bottom: 24px;
+  }
+
+  &__title {
+    font-size: 1.5rem;
+    font-weight: 500;
+    margin: 0 0 8px 0;
+    color: var(--mat-sys-on-surface);
+  }
+
+  &__description {
+    font-size: 0.95rem;
+    line-height: 1.6;
+    color: var(--mat-sys-on-surface-variant);
+    margin: 0;
+  }
+
+  // Accordion styling
+  &__accordion {
+    display: block;
+  }
+
+  // Example container
+  &__example {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 24px;
+    padding: 16px 0;
+
+    @media (max-width: 900px) {
+      grid-template-columns: 1fr;
+    }
+  }
+
+  // Code panel
+  &__code-panel {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+  }
+
+  &__code-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+
+    h4 {
+      margin: 0;
+      font-size: 0.95rem;
+      font-weight: 500;
+      color: var(--mat-sys-on-surface);
+    }
+  }
+
+  &__editor {
+    font-family: 'Roboto Mono', 'SF Mono', 'Monaco', 'Consolas', monospace;
+    font-size: 0.85rem;
+    line-height: 1.5;
+    padding: 16px;
+    border: 1px solid var(--mat-sys-outline-variant);
+    border-radius: 8px;
+    background-color: var(--mat-sys-surface-container);
+    color: var(--mat-sys-on-surface);
+    resize: vertical;
+    min-height: 120px;
+    white-space: pre;
+    overflow-x: auto;
+
+    &:focus {
+      outline: none;
+      border-color: var(--mat-sys-primary);
+      box-shadow: 0 0 0 1px var(--mat-sys-primary);
+    }
+  }
+
+  // Preview panel
+  &__preview-panel {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+
+    h4 {
+      margin: 0;
+      font-size: 0.95rem;
+      font-weight: 500;
+      color: var(--mat-sys-on-surface);
+    }
+  }
+
+  &__preview-content {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 16px;
+    padding: 24px;
+    border: 1px solid var(--mat-sys-outline-variant);
+    border-radius: 8px;
+    background-color: var(--mat-sys-surface-container-low);
+    min-height: 80px;
+  }
+
+  &__no-preview {
+    color: var(--mat-sys-on-surface-variant);
+    font-style: italic;
+    margin: 0;
+  }
+
+  // Responsive design
+  @media (max-width: 768px) {
+    padding: 16px;
+
+    &__example {
+      gap: 16px;
+    }
+
+    &__editor {
+      min-height: 100px;
+      font-size: 0.8rem;
+    }
+
+    &__preview-content {
+      padding: 16px;
+    }
+  }
+
+  @media (max-width: 480px) {
+    padding: 12px;
+
+    &__title {
+      font-size: 1.25rem;
+    }
+
+    &__description {
+      font-size: 0.9rem;
+    }
+  }
+}

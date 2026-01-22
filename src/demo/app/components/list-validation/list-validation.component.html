@@ -1,10 +1,8 @@
-<div class="amw-demo-list-validation">
-  <div class="validation-section">
-    <h3 class="validation-section__title">List Validation Examples</h3>
-    <p class="validation-section__description">
-      This page demonstrates various list states including disabled items, selected items, and mixed states.
-    </p>
-
+<amw-validation-doc
+  componentName="amw-list"
+  [validationForm]="validationForm"
+  [validationInfo]="validationInfo">
+  <ng-template #formContent>
     <div class="validation-forms">
       <!-- Disabled Items Example -->
       <amw-card class="validation-card">
@@ -108,15 +106,5 @@
         </ng-template>
       </amw-card>
     </div>
-
-    <div class="validation-info">
-      <h4>Validation States Applied:</h4>
-      <ul>
-        <li><strong>Disabled Items:</strong> Cannot be clicked or selected, visually dimmed</li>
-        <li><strong>Selected Items:</strong> Shows visual indication of current selection</li>
-        <li><strong>Mixed States:</strong> Combines both disabled and selected states</li>
-        <li><strong>Click Events:</strong> Only fire on enabled items</li>
-      </ul>
-    </div>
-  </div>
-</div>
+  </ng-template>
+</amw-validation-doc>

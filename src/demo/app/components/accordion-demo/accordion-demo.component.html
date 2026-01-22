@@ -1,104 +1,108 @@
-<div class="accordion-demo">
-    <h2>Accordion Component Demo</h2>
-    <p>Interactive demonstration of the Material Expansion Panel (Accordion) component with various configurations.</p>
+<amw-demo-doc componentName="amw-accordion">
+  <ng-template #content>
+    <div class="accordion-demo">
+      <h2>Accordion Component Demo</h2>
+      <p>Interactive demonstration of the Material Expansion Panel (Accordion) component with various configurations.</p>
 
-    <div class="demo-section">
+      <div class="demo-section">
         <h3>Basic Accordion</h3>
         <amw-accordion>
-            <amw-accordion-panel amwTitle="Personal Information" amwDescription="Enter your personal details">
-                <div class="panel-content">
-                    <amw-input
-                        label="First Name"
-                        placeholder="Enter your first name">
-                    </amw-input>
-                    <amw-input
-                        label="Last Name"
-                        placeholder="Enter your last name">
-                    </amw-input>
-                </div>
-            </amw-accordion-panel>
+          <amw-accordion-panel amwTitle="Personal Information" amwDescription="Enter your personal details">
+            <div class="panel-content">
+              <amw-input
+                label="First Name"
+                placeholder="Enter your first name">
+              </amw-input>
+              <amw-input
+                label="Last Name"
+                placeholder="Enter your last name">
+              </amw-input>
+            </div>
+          </amw-accordion-panel>
 
-            <amw-accordion-panel amwTitle="Contact Information" amwDescription="Add your contact details">
-                <div class="panel-content">
-                    <amw-input
-                        label="Email"
-                        placeholder="Enter your email">
-                    </amw-input>
-                    <amw-input
-                        label="Phone"
-                        placeholder="Enter your phone number">
-                    </amw-input>
-                </div>
-            </amw-accordion-panel>
+          <amw-accordion-panel amwTitle="Contact Information" amwDescription="Add your contact details">
+            <div class="panel-content">
+              <amw-input
+                label="Email"
+                placeholder="Enter your email">
+              </amw-input>
+              <amw-input
+                label="Phone"
+                placeholder="Enter your phone number">
+              </amw-input>
+            </div>
+          </amw-accordion-panel>
 
-            <amw-accordion-panel amwTitle="Preferences" amwDescription="Set your preferences">
-                <div class="panel-content">
-                    <amw-checkbox>Receive email notifications</amw-checkbox>
-                    <amw-checkbox>Receive SMS notifications</amw-checkbox>
-                    <amw-checkbox>Subscribe to newsletter</amw-checkbox>
-                </div>
-            </amw-accordion-panel>
+          <amw-accordion-panel amwTitle="Preferences" amwDescription="Set your preferences">
+            <div class="panel-content">
+              <amw-checkbox>Receive email notifications</amw-checkbox>
+              <amw-checkbox>Receive SMS notifications</amw-checkbox>
+              <amw-checkbox>Subscribe to newsletter</amw-checkbox>
+            </div>
+          </amw-accordion-panel>
         </amw-accordion>
-    </div>
+      </div>
 
-    <div class="demo-section">
+      <div class="demo-section">
         <h3>Accordion with Icons</h3>
         <amw-accordion>
-            <amw-accordion-panel amwDescription="Home related settings">
-                <ng-template #header>
-                    <amw-icon name="home"></amw-icon>
-                    Home
-                </ng-template>
-                <div class="panel-content">
-                    <p>This panel contains home-related settings and information.</p>
-                    <amw-button appearance="elevated" color="primary">Save Home Settings</amw-button>
-                </div>
-            </amw-accordion-panel>
+          <amw-accordion-panel amwDescription="Home related settings">
+            <ng-template #header>
+              <amw-icon name="home"></amw-icon>
+              Home
+            </ng-template>
+            <div class="panel-content">
+              <p>This panel contains home-related settings and information.</p>
+              <amw-button appearance="elevated" color="primary">Save Home Settings</amw-button>
+            </div>
+          </amw-accordion-panel>
 
-            <amw-accordion-panel amwDescription="Work related settings">
-                <ng-template #header>
-                    <amw-icon name="work"></amw-icon>
-                    Work
-                </ng-template>
-                <div class="panel-content">
-                    <p>This panel contains work-related settings and information.</p>
-                    <amw-button appearance="elevated" color="accent">Save Work Settings</amw-button>
-                </div>
-            </amw-accordion-panel>
+          <amw-accordion-panel amwDescription="Work related settings">
+            <ng-template #header>
+              <amw-icon name="work"></amw-icon>
+              Work
+            </ng-template>
+            <div class="panel-content">
+              <p>This panel contains work-related settings and information.</p>
+              <amw-button appearance="elevated" color="accent">Save Work Settings</amw-button>
+            </div>
+          </amw-accordion-panel>
 
-            <amw-accordion-panel amwDescription="General application settings">
-                <ng-template #header>
-                    <amw-icon name="settings"></amw-icon>
-                    Settings
-                </ng-template>
-                <div class="panel-content">
-                    <p>This panel contains general application settings.</p>
-                    <amw-button appearance="elevated">Save Settings</amw-button>
-                </div>
-            </amw-accordion-panel>
+          <amw-accordion-panel amwDescription="General application settings">
+            <ng-template #header>
+              <amw-icon name="settings"></amw-icon>
+              Settings
+            </ng-template>
+            <div class="panel-content">
+              <p>This panel contains general application settings.</p>
+              <amw-button appearance="elevated">Save Settings</amw-button>
+            </div>
+          </amw-accordion-panel>
         </amw-accordion>
-    </div>
+      </div>
 
-    <div class="demo-section">
+      <div class="demo-section">
         <h3>Multi-Select Accordion</h3>
         <amw-accordion [multi]="true">
-            <amw-accordion-panel amwTitle="Section 1" amwDescription="Multiple panels can be open">
-                <div class="panel-content">
-                    <p>This is the content of section 1. Multiple panels can be open at the same time.</p>
-                </div>
-            </amw-accordion-panel>
+          <amw-accordion-panel amwTitle="Section 1" amwDescription="Multiple panels can be open">
+            <div class="panel-content">
+              <p>This is the content of section 1. Multiple panels can be open at the same time.</p>
+            </div>
+          </amw-accordion-panel>
 
-            <amw-accordion-panel amwTitle="Section 2" amwDescription="Try opening multiple panels">
-                <div class="panel-content">
-                    <p>This is the content of section 2. You can have multiple panels open simultaneously.</p>
-                </div>
-            </amw-accordion-panel>
+          <amw-accordion-panel amwTitle="Section 2" amwDescription="Try opening multiple panels">
+            <div class="panel-content">
+              <p>This is the content of section 2. You can have multiple panels open simultaneously.</p>
+            </div>
+          </amw-accordion-panel>
 
-            <amw-accordion-panel amwTitle="Section 3" amwDescription="All panels can be expanded">
-                <div class="panel-content">
-                    <p>This is the content of section 3. All panels can be expanded at the same time.</p>
-                </div>
-            </amw-accordion-panel>
+          <amw-accordion-panel amwTitle="Section 3" amwDescription="All panels can be expanded">
+            <div class="panel-content">
+              <p>This is the content of section 3. All panels can be expanded at the same time.</p>
+            </div>
+          </amw-accordion-panel>
         </amw-accordion>
+      </div>
     </div>
-</div>
+  </ng-template>
+</amw-demo-doc>

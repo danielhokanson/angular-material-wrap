@@ -2,11 +2,12 @@ import { Component, ViewEncapsulation, signal } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { AmwAccordionComponent, AmwExpansionPanelComponent, AmwExpansionPanelHeaderComponent, AmwPanelTitleDirective, AmwPanelDescriptionDirective } from '../../../../lib/amw-expansion/amw-expansion.module';
 import { AmwButtonComponent } from '../../../../library/src/controls/components/amw-button/amw-button.component';
+import { AmwDemoDocComponent } from '../../shared/components/demo-doc/demo-doc.component';
 
 @Component({
     selector: 'amw-demo-expansion',
     standalone: true,
-    imports: [CommonModule, AmwAccordionComponent, AmwExpansionPanelComponent, AmwExpansionPanelHeaderComponent, AmwPanelTitleDirective, AmwPanelDescriptionDirective, AmwButtonComponent],
+    imports: [CommonModule, AmwAccordionComponent, AmwExpansionPanelComponent, AmwExpansionPanelHeaderComponent, AmwPanelTitleDirective, AmwPanelDescriptionDirective, AmwButtonComponent, AmwDemoDocComponent],
     encapsulation: ViewEncapsulation.None,
     templateUrl: './expansion-demo.component.html',
     styleUrl: './expansion-demo.component.scss'

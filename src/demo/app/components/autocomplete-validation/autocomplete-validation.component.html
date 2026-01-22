@@ -1,140 +1,108 @@
-<div class="amw-demo-autocomplete-validation">
-  <div class="validation-section">
-    <h3 class="validation-section__title">Autocomplete Validation Examples</h3>
-    <p class="validation-section__description">
-      This form demonstrates various validation patterns using Angular Material autocomplete components.
-    </p>
-
-    <form [formGroup]="validationForm" (ngSubmit)="onSubmit()" class="validation-form">
-      <!-- Country Selection -->
-      <div class="form-section">
-        <h4>Required Country Selection</h4>
-        <div class="autocomplete-group">
-          <amw-autocomplete
-            formControlName="country"
-            label="Country"
-            placeholder="Select your country..."
-            [options]="countries"
-            [required]="true"
-            appearance="outline">
-          </amw-autocomplete>
-          @if (getFieldError('country')) {
-            <div class="field-error">
-              {{ getFieldError('country') }}
-            </div>
-          }
-        </div>
+<amw-validation-doc
+  componentName="amw-autocomplete"
+  [validationForm]="validationForm"
+  [validationInfo]="validationInfo">
+  <ng-template #formContent>
+    <!-- Country Selection -->
+    <div class="form-section">
+      <h4>Required Country Selection</h4>
+      <div class="autocomplete-group">
+        <amw-autocomplete
+          formControlName="country"
+          label="Country"
+          placeholder="Select your country..."
+          [options]="countries"
+          [required]="true"
+          appearance="outline">
+        </amw-autocomplete>
+        @if (getFieldError('country')) {
+          <div class="field-error">
+            {{ getFieldError('country') }}
+          </div>
+        }
       </div>
-
-      <!-- Skills Selection -->
-      <div class="form-section">
-        <h4>Required Skills Selection</h4>
-        <div class="autocomplete-group">
-          <amw-autocomplete
-            formControlName="skills"
-            label="Primary Skill"
-            placeholder="Select your primary skill..."
-            [options]="skills"
-            [required]="true"
-            appearance="outline">
-          </amw-autocomplete>
-          @if (getFieldError('skills')) {
-            <div class="field-error">
-              {{ getFieldError('skills') }}
-            </div>
-          }
-        </div>
-      </div>
-
-      <!-- Color Selection -->
-      <div class="form-section">
-        <h4>Required Color Selection</h4>
-        <div class="autocomplete-group">
-          <amw-autocomplete
-            formControlName="favoriteColor"
-            label="Favorite Color"
-            placeholder="Choose your favorite color..."
-            [options]="colors"
-            [required]="true"
-            appearance="outline">
-          </amw-autocomplete>
-          @if (getFieldError('favoriteColor')) {
-            <div class="field-error">
-              {{ getFieldError('favoriteColor') }}
-            </div>
-          }
-        </div>
-      </div>
-
-      <!-- Company with Custom Validation -->
-      <div class="form-section">
-        <h4>Company with Custom Validation</h4>
-        <div class="autocomplete-group">
-          <amw-autocomplete
-            formControlName="company"
-            label="Company"
-            placeholder="Enter or select your company..."
-            [options]="[]"
-            [required]="true"
-            [minlength]="2"
-            appearance="outline">
-          </amw-autocomplete>
-          @if (getFieldError('company')) {
-            <div class="field-error">
-              {{ getFieldError('company') }}
-            </div>
-          }
-        </div>
-      </div>
-
-      <!-- Email with Validation -->
-      <div class="form-section">
-        <h4>Email with Validation</h4>
-        <div class="autocomplete-group">
-          <amw-autocomplete
-            formControlName="email"
-            label="Email"
-            placeholder="Enter your email address..."
-            [options]="[]"
-            [required]="true"
-            type="email"
-            appearance="outline">
-          </amw-autocomplete>
-          @if (getFieldError('email')) {
-            <div class="field-error">
-              {{ getFieldError('email') }}
-            </div>
-          }
-        </div>
-      </div>
-
-      <div class="form-actions">
-        <amw-button
-          type="submit"
-          appearance="elevated"
-          color="primary"
-          [disabled]="validationForm.invalid">
-          Submit Form
-        </amw-button>
-        <amw-button
-          type="button"
-          appearance="outlined"
-          color="primary"
-          (click)="validationForm.reset()">
-          Reset Form
-        </amw-button>
-      </div>
-    </form>
-
-    <div class="validation-info">
-      <h4>Validation Rules Applied:</h4>
-      <ul>
-        <li><strong>Country:</strong> Required selection from predefined list</li>
-        <li><strong>Skills:</strong> Required selection from predefined list</li>
-        <li><strong>Favorite Color:</strong> Required selection from predefined list</li>
-        <li><strong>Company:</strong> Required, minimum 2 characters</li>
-        <li><strong>Email:</strong> Required, valid email format</li>
-      </ul>
     </div>
-  </div>
-</div>
+
+    <!-- Skills Selection -->
+    <div class="form-section">
+      <h4>Required Skills Selection</h4>
+      <div class="autocomplete-group">
+        <amw-autocomplete
+          formControlName="skills"
+          label="Primary Skill"
+          placeholder="Select your primary skill..."
+          [options]="skills"
+          [required]="true"
+          appearance="outline">
+        </amw-autocomplete>
+        @if (getFieldError('skills')) {
+          <div class="field-error">
+            {{ getFieldError('skills') }}
+          </div>
+        }
+      </div>
+    </div>
+
+    <!-- Color Selection -->
+    <div class="form-section">
+      <h4>Required Color Selection</h4>
+      <div class="autocomplete-group">
+        <amw-autocomplete
+          formControlName="favoriteColor"
+          label="Favorite Color"
+          placeholder="Choose your favorite color..."
+          [options]="colors"
+          [required]="true"
+          appearance="outline">
+        </amw-autocomplete>
+        @if (getFieldError('favoriteColor')) {
+          <div class="field-error">
+            {{ getFieldError('favoriteColor') }}
+          </div>
+        }
+      </div>
+    </div>
+
+    <!-- Company with Custom Validation -->
+    <div class="form-section">
+      <h4>Company with Custom Validation</h4>
+      <div class="autocomplete-group">
+        <amw-autocomplete
+          formControlName="company"
+          label="Company"
+          placeholder="Enter or select your company..."
+          [options]="[]"
+          [required]="true"
+          [minlength]="2"
+          appearance="outline">
+        </amw-autocomplete>
+        @if (getFieldError('company')) {
+          <div class="field-error">
+            {{ getFieldError('company') }}
+          </div>
+        }
+      </div>
+    </div>
+
+    <!-- Email with Validation -->
+    <div class="form-section">
+      <h4>Email with Validation</h4>
+      <div class="autocomplete-group">
+        <amw-autocomplete
+          formControlName="email"
+          label="Email"
+          placeholder="Enter your email address..."
+          [options]="[]"
+          [required]="true"
+          type="email"
+          appearance="outline">
+        </amw-autocomplete>
+        @if (getFieldError('email')) {
+          <div class="field-error">
+            {{ getFieldError('email') }}
+          </div>
+        }
+      </div>
+    </div>
+  </ng-template>
+</amw-validation-doc>

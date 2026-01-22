@@ -37,6 +37,7 @@ import { AmwButtonComponent } from '../../../../library/src/controls/components/
 import { AmwCardComponent } from '../../../../library/src/components/components/amw-card/amw-card.component';
 import { AmwTabComponent } from '../../../../library/src/components/components/amw-tabs/amw-tab.component';
 import { AmwIconComponent } from '../../../../library/src/components/components';
+import { AmwDemoDocComponent } from '../../shared/components/demo-doc/demo-doc.component';
 @Component({
     selector: 'amw-demo-calendar',
     standalone: true,
@@ -49,7 +50,8 @@ import { AmwIconComponent } from '../../../../library/src/components/components'
         AmwCardComponent,
         AmwDividerComponent,
         AmwButtonComponent,
-        AmwIconComponent],
+        AmwIconComponent,
+        AmwDemoDocComponent],
     encapsulation: ViewEncapsulation.None,
     templateUrl: './calendar-demo.component.html',
     styleUrl: './calendar-demo.component.scss'

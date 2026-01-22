@@ -1,32 +1,37 @@
-<div class="amw-demo-chip-validation">
-  <div class="validation-section">
-    <h3 class="validation-section__title">Selection State</h3>
-    <div class="validation-section__content">
-      <amw-chip
-        label="Selectable Chip"
-        [selectable]="true"
-        [(selected)]="selected">
-      </amw-chip>
-      <span class="state-label">Selected: {{ selected() }}</span>
-      <button class="toggle-btn" (click)="toggleSelected()">Toggle Selection</button>
+<amw-validation-doc
+  componentName="amw-chip"
+  [validationForm]="validationForm"
+  [validationInfo]="validationInfo">
+  <ng-template #formContent>
+    <div class="validation-section">
+      <h3 class="validation-section__title">Selection State</h3>
+      <div class="validation-section__content">
+        <amw-chip
+          label="Selectable Chip"
+          [selectable]="true"
+          [(selected)]="selected">
+        </amw-chip>
+        <span class="state-label">Selected: {{ selected() }}</span>
+        <button class="toggle-btn" (click)="toggleSelected()">Toggle Selection</button>
+      </div>
     </div>
-  </div>
 
-  <div class="validation-section">
-    <h3 class="validation-section__title">Disabled State</h3>
-    <div class="validation-section__content">
-      <amw-chip label="Toggle Disabled" [disabled]="disabled()" [removable]="true"></amw-chip>
-      <button class="toggle-btn" (click)="toggleDisabled()">
-        {{ disabled() ? 'Enable' : 'Disable' }}
-      </button>
+    <div class="validation-section">
+      <h3 class="validation-section__title">Disabled State</h3>
+      <div class="validation-section__content">
+        <amw-chip label="Toggle Disabled" [disabled]="disabled()" [removable]="true"></amw-chip>
+        <button class="toggle-btn" (click)="toggleDisabled()">
+          {{ disabled() ? 'Enable' : 'Disable' }}
+        </button>
+      </div>
     </div>
-  </div>
 
-  <div class="validation-section">
-    <h3 class="validation-section__title">Required Label</h3>
-    <div class="validation-section__content">
-      <p class="info-text">The <code>label</code> input is required for all chips.</p>
-      <amw-chip label="Required Label"></amw-chip>
+    <div class="validation-section">
+      <h3 class="validation-section__title">Required Label</h3>
+      <div class="validation-section__content">
+        <p class="info-text">The <code>label</code> input is required for all chips.</p>
+        <amw-chip label="Required Label"></amw-chip>
+      </div>
     </div>
-  </div>
-</div>
+  </ng-template>
+</amw-validation-doc>

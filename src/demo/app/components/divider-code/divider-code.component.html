@@ -1,26 +1,65 @@
-<div class="amw-demo-divider-code">
-  <div class="code-section">
-    <h3 class="code-section__title">Basic Usage</h3>
-    <pre class="code-block"><code>{{ editableCode['basic'] }}</code></pre>
-  </div>
+<amw-code-doc
+  componentName="amw-divider"
+  [examples]="examples"
+  [editableCode]="editableCode">
 
-  <div class="code-section">
-    <h3 class="code-section__title">Vertical Divider</h3>
-    <pre class="code-block"><code>{{ editableCode['vertical'] }}</code></pre>
-  </div>
-
-  <div class="code-section">
-    <h3 class="code-section__title">Inset Divider</h3>
-    <pre class="code-block"><code>{{ editableCode['inset'] }}</code></pre>
-  </div>
-
-  <div class="code-section">
-    <h3 class="code-section__title">In Lists</h3>
-    <pre class="code-block"><code>{{ editableCode['list'] }}</code></pre>
-  </div>
-
-  <div class="code-section">
-    <h3 class="code-section__title">Section Dividers</h3>
-    <pre class="code-block"><code>{{ editableCode['sections'] }}</code></pre>
-  </div>
-</div>
+  <ng-template #preview let-example>
+    @switch (example.key) {
+      @case ('basic') {
+        <p>Content above</p>
+        <amw-divider></amw-divider>
+        <p>Content below</p>
+      }
+      @case ('vertical') {
+        <div style="display: flex; align-items: center; height: 50px; gap: 16px;">
+          <span>Left</span>
+          <amw-divider [vertical]="true"></amw-divider>
+          <span>Center</span>
+          <amw-divider [vertical]="true"></amw-divider>
+          <span>Right</span>
+        </div>
+        <div class="preview-note">
+          <amw-icon name="info"></amw-icon>
+          <span>Container needs height for vertical divider to be visible</span>
+        </div>
+      }
+      @case ('inset') {
+        <div style="display: flex; align-items: center; gap: 16px; padding: 8px 0;">
+          <amw-icon name="inbox"></amw-icon>
+          <span>Inbox</span>
+        </div>
+        <amw-divider [inset]="true"></amw-divider>
+        <div style="display: flex; align-items: center; gap: 16px; padding: 8px 0;">
+          <amw-icon name="send"></amw-icon>
+          <span>Sent</span>
+        </div>
+        <div class="preview-note">
+          <amw-icon name="info"></amw-icon>
+          <span>Inset adds left margin to align with content after icons</span>
+        </div>
+      }
+      @case ('list') {
+        <div class="preview-note">
+          <amw-icon name="info"></amw-icon>
+          <span>This example shows code for using dividers within lists</span>
+        </div>
+      }
+      @case ('sections') {
+        <div class="section">
+          <h4>Section 1</h4>
+          <p>Content for section 1</p>
+        </div>
+        <amw-divider></amw-divider>
+        <div class="section">
+          <h4>Section 2</h4>
+          <p>Content for section 2</p>
+        </div>
+        <amw-divider></amw-divider>
+        <div class="section">
+          <h4>Section 3</h4>
+          <p>Content for section 3</p>
+        </div>
+      }
+    }
+  </ng-template>
+</amw-code-doc>

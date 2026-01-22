@@ -1,142 +1,146 @@
-<div class="amw-demo-theme">
-  <div class="demo-header">
-    <h1>Theme Management Demo</h1>
-    <p>Switch between built-in themes or create your own custom themes. See how the changes affect all Material components in real-time.</p>
-  </div>
+<amw-demo-doc componentName="amw-theme">
+  <ng-template #content>
+    <div class="amw-demo-theme">
+      <div class="demo-header">
+        <h1>Theme Management Demo</h1>
+        <p>Switch between built-in themes or create your own custom themes. See how the changes affect all Material components in real-time.</p>
+      </div>
 
-  <div class="demo-content">
-    <!-- Theme Manager -->
-    <div class="theme-section">
-      <h2>Theme Controls</h2>
-      <amw-theme-manager></amw-theme-manager>
-    </div>
+      <div class="demo-content">
+        <!-- Theme Manager -->
+        <div class="theme-section">
+          <h2>Theme Controls</h2>
+          <amw-theme-manager></amw-theme-manager>
+        </div>
 
-    <!-- Preview Section -->
-    <div class="preview-section">
-      <h2>Preview</h2>
-      <p>This section shows how different themes affect various Material components:</p>
+        <!-- Preview Section -->
+        <div class="preview-section">
+          <h2>Preview</h2>
+          <p>This section shows how different themes affect various Material components:</p>
 
-      <div class="preview-grid">
-        <!-- Buttons Preview -->
-        <amw-card class="preview-card">
-          <ng-template #cardHeader>
-            <h2>Buttons</h2>
+          <div class="preview-grid">
+            <!-- Buttons Preview -->
+            <amw-card class="preview-card">
+              <ng-template #cardHeader>
+                <h2>Buttons</h2>
+              </ng-template>
+              <ng-template #cardContent>
+                <div class="button-group">
+                  <amw-button appearance="elevated" color="primary">Primary</amw-button>
+                  <amw-button appearance="elevated" color="accent">Accent</amw-button>
+                  <amw-button appearance="elevated" color="warn">Warn</amw-button>
+                  <amw-button appearance="outlined">Stroked</amw-button>
+                  <amw-button>Flat</amw-button>
+                </div>
+              </ng-template>
+    </amw-card>
+
+            <!-- Form Controls Preview -->
+            <amw-card class="preview-card">
+              <ng-template #cardHeader>
+                <h2>Form Controls</h2>
+              </ng-template>
+              <ng-template #cardContent>
+                <div class="form-group">
+                  <amw-input
+                    label="Name"
+                    [(ngModel)]="sampleForm.name">
+                  </amw-input>
+
+                  <amw-input
+                    label="Email"
+                    type="email"
+                    [(ngModel)]="sampleForm.email">
+                  </amw-input>
+
+                  <amw-select
+                    label="Country"
+                    [(ngModel)]="sampleForm.country"
+                    [options]="countries">
+                  </amw-select>
+                </div>
           </ng-template>
-          <ng-template #cardContent>
-            <div class="button-group">
-              <amw-button appearance="elevated" color="primary">Primary</amw-button>
-              <amw-button appearance="elevated" color="accent">Accent</amw-button>
-              <amw-button appearance="elevated" color="warn">Warn</amw-button>
-              <amw-button appearance="outlined">Stroked</amw-button>
-              <amw-button>Flat</amw-button>
-            </div>
+    </amw-card>
+
+            <!-- Selection Controls Preview -->
+            <amw-card class="preview-card">
+              <ng-template #cardHeader>
+                <h2>Selection Controls</h2>
+              </ng-template>
+              <ng-template #cardContent>
+                <div class="selection-group">
+                  <amw-checkbox [(ngModel)]="sampleForm.newsletter">
+                    Subscribe to newsletter
+                  </amw-checkbox>
+
+                  <amw-radio-group [(ngModel)]="sampleForm.notifications">
+                    @for (option of notificationOptions; track option) {
+                      <amw-radio [radioValue]="option.value">
+                        {{ option.label }}
+                      </amw-radio>
+                    }
+                  </amw-radio-group>
+
+                  <amw-switch [(ngModel)]="sampleForm.darkMode">
+                    Dark mode
+                  </amw-switch>
+                </div>
           </ng-template>
-</amw-card>
+    </amw-card>
 
-        <!-- Form Controls Preview -->
-        <amw-card class="preview-card">
-          <ng-template #cardHeader>
-            <h2>Form Controls</h2>
+            <!-- Slider Preview -->
+            <amw-card class="preview-card">
+              <ng-template #cardHeader>
+                <h2>Slider</h2>
+              </ng-template>
+              <ng-template #cardContent>
+                <div class="slider-group">
+                  <label>Volume: {{ sampleForm.volume }}%</label>
+                  <amw-slider
+                    [(ngModel)]="sampleForm.volume"
+                    [min]="0"
+                    [max]="100"
+                    [step]="1">
+                  </amw-slider>
+                </div>
           </ng-template>
-          <ng-template #cardContent>
-            <div class="form-group">
-              <amw-input
-                label="Name"
-                [(ngModel)]="sampleForm.name">
-              </amw-input>
+    </amw-card>
 
-              <amw-input
-                label="Email"
-                type="email"
-                [(ngModel)]="sampleForm.email">
-              </amw-input>
-
-              <amw-select
-                label="Country"
-                [(ngModel)]="sampleForm.country"
-                [options]="countries">
-              </amw-select>
-            </div>
-      </ng-template>
-</amw-card>
-
-        <!-- Selection Controls Preview -->
-        <amw-card class="preview-card">
-          <ng-template #cardHeader>
-            <h2>Selection Controls</h2>
+            <!-- Icons and Colors Preview -->
+            <amw-card class="preview-card">
+              <ng-template #cardHeader>
+                <h2>Icons & Colors</h2>
+              </ng-template>
+              <ng-template #cardContent>
+                <div class="icon-group">
+                  <amw-icon name="favorite" color="primary"></amw-icon>
+                  <amw-icon name="star" color="accent"></amw-icon>
+                  <amw-icon name="warning" color="warn"></amw-icon>
+                  <amw-icon name="home"></amw-icon>
+                  <amw-icon name="settings"></amw-icon>
+                  <amw-icon name="person"></amw-icon>
+                </div>
           </ng-template>
-          <ng-template #cardContent>
-            <div class="selection-group">
-              <amw-checkbox [(ngModel)]="sampleForm.newsletter">
-                Subscribe to newsletter
-              </amw-checkbox>
+    </amw-card>
 
-              <amw-radio-group [(ngModel)]="sampleForm.notifications">
-                @for (option of notificationOptions; track option) {
-                  <amw-radio [radioValue]="option.value">
-                    {{ option.label }}
-                  </amw-radio>
-                }
-              </amw-radio-group>
-
-              <amw-switch [(ngModel)]="sampleForm.darkMode">
-                Dark mode
-              </amw-switch>
-            </div>
-      </ng-template>
-</amw-card>
-
-        <!-- Slider Preview -->
-        <amw-card class="preview-card">
-          <ng-template #cardHeader>
-            <h2>Slider</h2>
+            <!-- Typography Preview -->
+            <amw-card class="preview-card">
+              <ng-template #cardHeader>
+                <h2>Typography</h2>
+              </ng-template>
+              <ng-template #cardContent>
+                <div class="typography-group">
+                  <h1>Heading 1</h1>
+                  <h2>Heading 2</h2>
+                  <h3>Heading 3</h3>
+                  <p>This is a paragraph with regular text. It demonstrates how the theme affects typography and readability.</p>
+                  <p class="mat-caption">This is a caption with smaller text.</p>
+                </div>
           </ng-template>
-          <ng-template #cardContent>
-            <div class="slider-group">
-              <label>Volume: {{ sampleForm.volume }}%</label>
-              <amw-slider
-                [(ngModel)]="sampleForm.volume"
-                [min]="0"
-                [max]="100"
-                [step]="1">
-              </amw-slider>
-            </div>
-      </ng-template>
-</amw-card>
-
-        <!-- Icons and Colors Preview -->
-        <amw-card class="preview-card">
-          <ng-template #cardHeader>
-            <h2>Icons & Colors</h2>
-          </ng-template>
-          <ng-template #cardContent>
-            <div class="icon-group">
-              <amw-icon name="favorite" color="primary"></amw-icon>
-              <amw-icon name="star" color="accent"></amw-icon>
-              <amw-icon name="warning" color="warn"></amw-icon>
-              <amw-icon name="home"></amw-icon>
-              <amw-icon name="settings"></amw-icon>
-              <amw-icon name="person"></amw-icon>
-            </div>
-      </ng-template>
-</amw-card>
-
-        <!-- Typography Preview -->
-        <amw-card class="preview-card">
-          <ng-template #cardHeader>
-            <h2>Typography</h2>
-          </ng-template>
-          <ng-template #cardContent>
-            <div class="typography-group">
-              <h1>Heading 1</h1>
-              <h2>Heading 2</h2>
-              <h3>Heading 3</h3>
-              <p>This is a paragraph with regular text. It demonstrates how the theme affects typography and readability.</p>
-              <p class="mat-caption">This is a caption with smaller text.</p>
-            </div>
-      </ng-template>
-</amw-card>
+    </amw-card>
+          </div>
+        </div>
       </div>
     </div>
-  </div>
-</div>
+  </ng-template>
+</amw-demo-doc>

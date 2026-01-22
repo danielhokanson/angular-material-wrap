@@ -1,224 +1,224 @@
-<div class="validation-section">
-  <h3>Form Validation Examples</h3>
-  <p>Interactive forms demonstrating date picker validation, date range constraints, and error handling.</p>
+<amw-validation-doc
+  componentName="amw-datepicker"
+  [validationForm]="validationForm"
+  [validationInfo]="validationInfo">
+  <ng-template #formContent>
+    <div class="validation-forms">
+      <!-- Basic Date Picker Form -->
+      <amw-card class="validation-card">
+        <ng-template #cardHeader>
+          <h2>
+            <amw-icon name="event"></amw-icon>
+            Basic Date Picker
+          </h2>
+          <p class="subtitle">Simple date selection with required validation</p>
+        </ng-template>
+        <ng-template #cardContent>
+          <form [formGroup]="validationForm" (ngSubmit)="submitBasicDate()">
+            <amw-datepicker
+              class="full-width"
+              label="Birth Date"
+              formControlName="birthDate"
+              [max]="today"
+              placeholder="MM/DD/YYYY"
+              hint="Select a date in the past">
+            </amw-datepicker>
+            @if (validationForm.get('birthDate')?.invalid && validationForm.get('birthDate')?.touched) {
+              <div class="field-error">{{ getCalendarErrorMessage(validationForm, 'birthDate') }}</div>
+            }
 
-  <div class="validation-forms">
-    <!-- Basic Date Picker Form -->
-    <amw-card class="validation-card">
-      <ng-template #cardHeader>
-        <h2>
-          <amw-icon name="event"></amw-icon>
-          Basic Date Picker
-        </h2>
-        <p class="subtitle">Simple date selection with required validation</p>
-      </ng-template>
-      <ng-template #cardContent>
-        <form [formGroup]="basicDateForm" (ngSubmit)="submitBasicDate()">
-          <amw-datepicker
-            class="full-width"
-            label="Birth Date"
-            formControlName="birthDate"
-            [max]="today"
-            placeholder="MM/DD/YYYY"
-            hint="Select a date in the past">
-          </amw-datepicker>
-          @if (basicDateForm.get('birthDate')?.invalid && basicDateForm.get('birthDate')?.touched) {
-            <div class="field-error">{{ getErrorMessage(basicDateForm, 'birthDate') }}</div>
-          }
+            <div class="form-actions">
+              <amw-button appearance="elevated"
+                color="primary"
+                type="submit"
+                [disabled]="!isBasicDateValid()" icon="check" iconPosition="left">Submit</amw-button>
+            </div>
+          </form>
 
-          <div class="form-actions">
-            <amw-button appearance="elevated"
-              color="primary"
-              type="submit"
-              [disabled]="!isBasicDateValid()" icon="check" iconPosition="left">Submit</amw-button>
+          <div class="validation-status">
+            @if (isBasicDateValid()) {
+              <div class="status-message status-message--success">
+                <amw-icon name="check_circle"></amw-icon>
+                <span>Valid: Date selected</span>
+              </div>
+            } @else {
+              <div class="status-message status-message--warning">
+                <amw-icon name="warning"></amw-icon>
+                <span>Select a birth date to continue</span>
+              </div>
+            }
           </div>
-        </form>
+        </ng-template>
+      </amw-card>
 
-        <div class="validation-status">
-          @if (isBasicDateValid()) {
-            <div class="status-message status-message--success">
-              <amw-icon name="check_circle"></amw-icon>
-              <span>Valid: Date selected</span>
+      <!-- Date Range Form -->
+      <amw-card class="validation-card">
+        <ng-template #cardHeader>
+          <h2>
+            <amw-icon name="date_range"></amw-icon>
+            Date Range Selection
+          </h2>
+          <p class="subtitle">Start and end date with range validation</p>
+        </ng-template>
+        <ng-template #cardContent>
+          <form [formGroup]="dateRangeForm" (ngSubmit)="submitDateRange()">
+            <div class="date-range-fields">
+              <amw-datepicker
+                class="date-field"
+                label="Start Date"
+                formControlName="startDate"
+                [min]="minDate"
+                [max]="maxDate"
+                placeholder="MM/DD/YYYY">
+              </amw-datepicker>
+              @if (dateRangeForm.get('startDate')?.invalid && dateRangeForm.get('startDate')?.touched) {
+                <div class="field-error">{{ getCalendarErrorMessage(dateRangeForm, 'startDate') }}</div>
+              }
+
+              <amw-datepicker
+                class="date-field"
+                label="End Date"
+                formControlName="endDate"
+                [min]="minDate"
+                [max]="maxDate"
+                placeholder="MM/DD/YYYY">
+              </amw-datepicker>
+              @if (dateRangeForm.get('endDate')?.invalid && dateRangeForm.get('endDate')?.touched) {
+                <div class="field-error">{{ getCalendarErrorMessage(dateRangeForm, 'endDate') }}</div>
+              }
+            </div>
+
+            <amw-form-validation
+              [form]="dateRangeForm"
+              [errors]="dateRangeValidation"
+              displayMode="inline"
+              position="bottom">
+            </amw-form-validation>
+
+            <div class="form-actions">
+              <amw-button appearance="elevated"
+                color="primary"
+                type="submit"
+                [disabled]="!isDateRangeValid()" icon="check" iconPosition="left">Submit Range</amw-button>
+            </div>
+          </form>
+
+          <div class="validation-status">
+            @if (isDateRangeValid()) {
+              <div class="status-message status-message--success">
+                <amw-icon name="check_circle"></amw-icon>
+                <span>Valid: Date range selected</span>
+              </div>
+            }
+          </div>
+        </ng-template>
+      </amw-card>
+
+      <!-- Event Booking Form -->
+      <amw-card class="validation-card">
+        <ng-template #cardHeader>
+          <h2>
+            <amw-icon name="event_available"></amw-icon>
+            Event Booking
+          </h2>
+          <p class="subtitle">Complex form with multiple date constraints</p>
+        </ng-template>
+        <ng-template #cardContent>
+          <form [formGroup]="eventBookingForm" (ngSubmit)="submitEventBooking()">
+            <amw-input
+              class="full-width"
+              label="Event Name"
+              formControlName="eventName"
+              placeholder="Enter event name">
+            </amw-input>
+            @if (eventBookingForm.get('eventName')?.invalid && eventBookingForm.get('eventName')?.touched) {
+              <div class="field-error">{{ getCalendarErrorMessage(eventBookingForm, 'eventName') }}</div>
+            }
+
+            <amw-datepicker
+              class="full-width"
+              label="Event Date"
+              formControlName="eventDate"
+              [min]="minDate"
+              placeholder="MM/DD/YYYY"
+              hint="Weekends only">
+            </amw-datepicker>
+            @if (eventBookingForm.get('eventDate')?.invalid && eventBookingForm.get('eventDate')?.touched) {
+              <div class="field-error">{{ getCalendarErrorMessage(eventBookingForm, 'eventDate') }}</div>
+            }
+
+            <amw-datepicker
+              class="full-width"
+              label="Registration Deadline"
+              formControlName="registrationDeadline"
+              [min]="minDate"
+              placeholder="MM/DD/YYYY"
+              hint="Weekdays only, before event date">
+            </amw-datepicker>
+            @if (eventBookingForm.get('registrationDeadline')?.invalid && eventBookingForm.get('registrationDeadline')?.touched) {
+              <div class="field-error">{{ getCalendarErrorMessage(eventBookingForm, 'registrationDeadline') }}</div>
+            }
+
+            <amw-form-validation
+              [form]="eventBookingForm"
+              [errors]="eventBookingValidation"
+              displayMode="inline"
+              position="bottom">
+            </amw-form-validation>
+
+            <div class="form-actions">
+              <amw-button appearance="elevated"
+                color="primary"
+                type="submit"
+                [disabled]="!isEventBookingValid()" icon="send" iconPosition="left">Book Event</amw-button>
+            </div>
+          </form>
+
+          <div class="validation-status">
+            @if (isEventBookingValid()) {
+              <div class="status-message status-message--success">
+                <amw-icon name="check_circle"></amw-icon>
+                <span>Valid: Event booking ready to submit</span>
+              </div>
+            }
+          </div>
+        </ng-template>
+      </amw-card>
+
+      <!-- Form Summary -->
+      <amw-card class="validation-card validation-card--summary">
+        <ng-template #cardContent>
+          <div class="form-summary">
+            <h4>Validation Summary</h4>
+            <div class="summary-items">
+              <div class="summary-item">
+                <amw-icon [name]="isBasicDateValid() ? 'check_circle' : 'cancel'" [class.valid]="isBasicDateValid()" [class.invalid]="!isBasicDateValid()"></amw-icon>
+                <span>Basic Date Picker</span>
+              </div>
+              <div class="summary-item">
+                <amw-icon [name]="isDateRangeValid() ? 'check_circle' : 'cancel'" [class.valid]="isDateRangeValid()" [class.invalid]="!isDateRangeValid()"></amw-icon>
+                <span>Date Range Selection</span>
+              </div>
+              <div class="summary-item">
+                <amw-icon [name]="isEventBookingValid() ? 'check_circle' : 'cancel'" [class.valid]="isEventBookingValid()" [class.invalid]="!isEventBookingValid()"></amw-icon>
+                <span>Event Booking</span>
+              </div>
+            </div>
+          </div>
+
+          @if (!isBasicDateValid() || !isDateRangeValid() || !isEventBookingValid()) {
+            <div class="summary-message">
+              <amw-icon name="info"></amw-icon>
+              <span>Complete all forms to see validation in action</span>
             </div>
           } @else {
-            <div class="status-message status-message--warning">
-              <amw-icon name="warning"></amw-icon>
-              <span>Select a birth date to continue</span>
-            </div>
-          }
-        </div>
-      </ng-template>
-</amw-card>
-
-    <!-- Date Range Form -->
-    <amw-card class="validation-card">
-      <ng-template #cardHeader>
-        <h2>
-          <amw-icon name="date_range"></amw-icon>
-          Date Range Selection
-        </h2>
-        <p class="subtitle">Start and end date with range validation</p>
-      </ng-template>
-      <ng-template #cardContent>
-        <form [formGroup]="dateRangeForm" (ngSubmit)="submitDateRange()">
-          <div class="date-range-fields">
-            <amw-datepicker
-              class="date-field"
-              label="Start Date"
-              formControlName="startDate"
-              [min]="minDate"
-              [max]="maxDate"
-              placeholder="MM/DD/YYYY">
-            </amw-datepicker>
-            @if (dateRangeForm.get('startDate')?.invalid && dateRangeForm.get('startDate')?.touched) {
-              <div class="field-error">{{ getErrorMessage(dateRangeForm, 'startDate') }}</div>
-            }
-
-            <amw-datepicker
-              class="date-field"
-              label="End Date"
-              formControlName="endDate"
-              [min]="minDate"
-              [max]="maxDate"
-              placeholder="MM/DD/YYYY">
-            </amw-datepicker>
-            @if (dateRangeForm.get('endDate')?.invalid && dateRangeForm.get('endDate')?.touched) {
-              <div class="field-error">{{ getErrorMessage(dateRangeForm, 'endDate') }}</div>
-            }
-          </div>
-
-          <!-- Form-level validation using AMW -->
-          <amw-form-validation
-            [form]="dateRangeForm"
-            [errors]="dateRangeValidation"
-            displayMode="inline"
-            position="bottom">
-          </amw-form-validation>
-
-          <div class="form-actions">
-            <amw-button appearance="elevated"
-              color="primary"
-              type="submit"
-              [disabled]="!isDateRangeValid()" icon="check" iconPosition="left">Submit Range</amw-button>
-          </div>
-        </form>
-
-        <div class="validation-status">
-          @if (isDateRangeValid()) {
-            <div class="status-message status-message--success">
+            <div class="summary-message summary-message--success">
               <amw-icon name="check_circle"></amw-icon>
-              <span>Valid: Date range selected</span>
+              <span>All forms are valid!</span>
             </div>
           }
-        </div>
-      </ng-template>
-</amw-card>
-
-    <!-- Event Booking Form -->
-    <amw-card class="validation-card">
-      <ng-template #cardHeader>
-        <h2>
-          <amw-icon name="event_available"></amw-icon>
-          Event Booking
-        </h2>
-        <p class="subtitle">Complex form with multiple date constraints</p>
-      </ng-template>
-      <ng-template #cardContent>
-        <form [formGroup]="eventBookingForm" (ngSubmit)="submitEventBooking()">
-          <amw-input
-            class="full-width"
-            label="Event Name"
-            formControlName="eventName"
-            placeholder="Enter event name">
-          </amw-input>
-          @if (eventBookingForm.get('eventName')?.invalid && eventBookingForm.get('eventName')?.touched) {
-            <div class="field-error">{{ getErrorMessage(eventBookingForm, 'eventName') }}</div>
-          }
-
-          <amw-datepicker
-            class="full-width"
-            label="Event Date"
-            formControlName="eventDate"
-            [min]="minDate"
-            placeholder="MM/DD/YYYY"
-            hint="Weekends only">
-          </amw-datepicker>
-          @if (eventBookingForm.get('eventDate')?.invalid && eventBookingForm.get('eventDate')?.touched) {
-            <div class="field-error">{{ getErrorMessage(eventBookingForm, 'eventDate') }}</div>
-          }
-
-          <amw-datepicker
-            class="full-width"
-            label="Registration Deadline"
-            formControlName="registrationDeadline"
-            [min]="minDate"
-            placeholder="MM/DD/YYYY"
-            hint="Weekdays only, before event date">
-          </amw-datepicker>
-          @if (eventBookingForm.get('registrationDeadline')?.invalid && eventBookingForm.get('registrationDeadline')?.touched) {
-            <div class="field-error">{{ getErrorMessage(eventBookingForm, 'registrationDeadline') }}</div>
-          }
-
-          <!-- Form-level validation using AMW -->
-          <amw-form-validation
-            [form]="eventBookingForm"
-            [errors]="eventBookingValidation"
-            displayMode="inline"
-            position="bottom">
-          </amw-form-validation>
-
-          <div class="form-actions">
-            <amw-button appearance="elevated"
-              color="primary"
-              type="submit"
-              [disabled]="!isEventBookingValid()" icon="send" iconPosition="left">Book Event</amw-button>
-          </div>
-        </form>
-
-        <div class="validation-status">
-          @if (isEventBookingValid()) {
-            <div class="status-message status-message--success">
-              <amw-icon name="check_circle"></amw-icon>
-              <span>Valid: Event booking ready to submit</span>
-            </div>
-          }
-        </div>
-      </ng-template>
-</amw-card>
-
-    <!-- Form Summary -->
-    <amw-card class="validation-card validation-card--summary">
-      <ng-template #cardContent>
-        <div class="form-summary">
-          <h4>Validation Summary</h4>
-          <div class="summary-items">
-            <div class="summary-item">
-              <amw-icon [name]="isBasicDateValid() ? 'check_circle' : 'cancel'" [class.valid]="isBasicDateValid()" [class.invalid]="!isBasicDateValid()"></amw-icon>
-              <span>Basic Date Picker</span>
-            </div>
-            <div class="summary-item">
-              <amw-icon [name]="isDateRangeValid() ? 'check_circle' : 'cancel'" [class.valid]="isDateRangeValid()" [class.invalid]="!isDateRangeValid()"></amw-icon>
-              <span>Date Range Selection</span>
-            </div>
-            <div class="summary-item">
-              <amw-icon [name]="isEventBookingValid() ? 'check_circle' : 'cancel'" [class.valid]="isEventBookingValid()" [class.invalid]="!isEventBookingValid()"></amw-icon>
-              <span>Event Booking</span>
-            </div>
-          </div>
-        </div>
-
-        @if (!isBasicDateValid() || !isDateRangeValid() || !isEventBookingValid()) {
-          <div class="summary-message">
-            <amw-icon name="info"></amw-icon>
-            <span>Complete all forms to see validation in action</span>
-          </div>
-        } @else {
-          <div class="summary-message summary-message--success">
-            <amw-icon name="check_circle"></amw-icon>
-            <span>All forms are valid!</span>
-          </div>
-        }
-      </ng-template>
-</amw-card>
-  </div>
-</div>
+        </ng-template>
+      </amw-card>
+    </div>
+  </ng-template>
+</amw-validation-doc>

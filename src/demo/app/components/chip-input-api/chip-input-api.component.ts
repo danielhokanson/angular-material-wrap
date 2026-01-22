@@ -1,10 +1,11 @@
 import { Component, ViewEncapsulation } from '@angular/core';
 import { BaseApiComponent, ApiDocumentation } from '../base/base-api.component';
+import { AmwApiDocComponent, ApiInterface } from '../../shared/components/api-doc/api-doc.component';
 
 @Component({
     selector: 'amw-demo-chip-input-api',
     standalone: true,
-    imports: [],
+    imports: [AmwApiDocComponent],
     encapsulation: ViewEncapsulation.None,
     templateUrl: './chip-input-api.component.html',
     styleUrl: './chip-input-api.component.scss'
@@ -132,6 +133,22 @@ export class ChipInputApiComponent extends BaseApiComponent {
             }
         ]
     };
+
+    interfaces: ApiInterface[] = [
+        {
+            name: 'ChipInputOption',
+            description: 'Interface for chip input options',
+            properties: [
+                { name: 'value', type: 'any', description: 'Unique identifier' },
+                { name: 'label', type: 'string', description: 'Display text' },
+                { name: 'icon', type: 'string', description: 'Optional Material icon name' },
+                { name: 'subtitle', type: 'string', description: 'Optional secondary text' },
+                { name: 'isCustom', type: 'boolean', description: 'Whether user-created' },
+                { name: 'disabled', type: 'boolean', description: 'Whether option is disabled' },
+                { name: 'data', type: 'any', description: 'Additional custom data' }
+            ]
+        }
+    ];
 
     constructor() {
         super();

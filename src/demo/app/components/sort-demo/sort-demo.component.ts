@@ -3,6 +3,7 @@ import { CommonModule } from '@angular/common';
 import { AmwSortDirective, AmwSortHeaderComponent, AmwSort } from '../../../../lib/amw-sort/amw-sort.module';
 import { AmwTableComponent } from '../../../../lib/amw-table/amw-table.module';
 import { AmwButtonComponent } from '../../../../library/src/controls/components/amw-button/amw-button.component';
+import { AmwDemoDocComponent } from '../../shared/components/demo-doc/demo-doc.component';
 
 interface Person {
     id: number;
@@ -14,7 +15,7 @@ interface Person {
 @Component({
     selector: 'amw-demo-sort',
     standalone: true,
-    imports: [CommonModule, AmwSortDirective, AmwSortHeaderComponent, AmwTableComponent, AmwButtonComponent],
+    imports: [CommonModule, AmwSortDirective, AmwSortHeaderComponent, AmwTableComponent, AmwButtonComponent, AmwDemoDocComponent],
     encapsulation: ViewEncapsulation.None,
     templateUrl: './sort-demo.component.html',
     styleUrl: './sort-demo.component.scss'

@@ -1,27 +1,31 @@
-<div class="timepicker-demo">
-  <div class="timepicker-demo__grid">
-    @for (variation of timepickerVariations; track variation; let i = $index) {
-      <amw-card class="timepicker-demo__card">
-        <ng-template #cardHeader>
-          <h2>{{ variation.title }}</h2>
-          <p class="subtitle">{{ variation.description }}</p>
-        </ng-template>
-        <ng-template #cardContent>
-          <div class="timepicker-demo__example">
-            <amw-timepicker
-              [value]="variation.timepicker.value"
-              [format]="variation.timepicker.format || '24h'"
-              [showSeconds]="variation.timepicker.showSeconds || false"
-              [size]="variation.timepicker.size || 'medium'"
-              [color]="variation.timepicker.color || 'primary'"
-              [disabled]="variation.timepicker.disabled || false"
-              [required]="variation.timepicker.required || false"
-              [placeholder]="variation.timepicker.placeholder || 'Select time'"
-              (timeChange)="onTimeChange($event, i)"
-            ></amw-timepicker>
-          </div>
-      </ng-template>
-</amw-card>
-    }
-  </div>
-</div>
+<amw-demo-doc componentName="amw-timepicker">
+  <ng-template #content>
+    <div class="timepicker-demo">
+      <div class="timepicker-demo__grid">
+        @for (variation of timepickerVariations; track variation; let i = $index) {
+          <amw-card class="timepicker-demo__card">
+            <ng-template #cardHeader>
+              <h2>{{ variation.title }}</h2>
+              <p class="subtitle">{{ variation.description }}</p>
+            </ng-template>
+            <ng-template #cardContent>
+              <div class="timepicker-demo__example">
+                <amw-timepicker
+                  [value]="variation.timepicker.value"
+                  [format]="variation.timepicker.format || '24h'"
+                  [showSeconds]="variation.timepicker.showSeconds || false"
+                  [size]="variation.timepicker.size || 'medium'"
+                  [color]="variation.timepicker.color || 'primary'"
+                  [disabled]="variation.timepicker.disabled || false"
+                  [required]="variation.timepicker.required || false"
+                  [placeholder]="variation.timepicker.placeholder || 'Select time'"
+                  (timeChange)="onTimeChange($event, i)"
+                ></amw-timepicker>
+              </div>
+            </ng-template>
+          </amw-card>
+        }
+      </div>
+    </div>
+  </ng-template>
+</amw-demo-doc>

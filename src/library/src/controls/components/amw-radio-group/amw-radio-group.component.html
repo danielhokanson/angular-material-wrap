@@ -44,10 +44,10 @@
 
   <!-- Radio Group Container -->
   <div class="amw-radio-group__container" [class]="'amw-radio-group__container--' + orientation()">
-    <!-- Signal Forms binding (scenario 3) - Field directive manages disabled, required automatically -->
-    @if (field()) {
+    <!-- Signal Forms binding (scenario 3) - FormField directive manages disabled, required automatically -->
+    @if (formField()) {
       <mat-radio-group
-        [field]="field()"
+        [formField]="formField()"
         [name]="name() || 'amw-radio-group-' + componentId"
         (change)="onRadioChange($event.value)"
         (focus)="handleFocus()"

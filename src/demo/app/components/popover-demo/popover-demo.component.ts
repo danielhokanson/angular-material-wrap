@@ -14,6 +14,7 @@ import { AmwInputComponent } from '../../../../library/src/controls/components/a
 import { AmwSelectComponent } from '../../../../library/src/controls/components/amw-select/amw-select.component';
 import { AmwSwitchComponent } from '../../../../library/src/controls/components/amw-switch/amw-switch.component';
 import { AmwCardComponent, AmwIconComponent } from '../../../../library/src/components/components';
+import { AmwDemoDocComponent } from '../../shared/components/demo-doc/demo-doc.component';
 
 /**
  * Demo component for showcasing popover variations and configurations
@@ -29,7 +30,8 @@ import { AmwCardComponent, AmwIconComponent } from '../../../../library/src/comp
     AmwSelectComponent,
     AmwSwitchComponent,
     AmwCardComponent,
-    AmwIconComponent
+    AmwIconComponent,
+    AmwDemoDocComponent
 ],
     templateUrl: './popover-demo.component.html',
     styleUrl: './popover-demo.component.scss'

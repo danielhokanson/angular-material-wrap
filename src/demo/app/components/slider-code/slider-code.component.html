@@ -1,247 +1,60 @@
-<div class="code-section">
-  <h3>Code Examples</h3>
-  <p>Interactive examples with live previews. The code is editable for reference, and working examples are shown alongside.</p>
+<amw-code-doc
+  componentName="amw-slider"
+  [examples]="examples"
+  [editableCode]="editableCode">
 
-  <amw-accordion class="code-examples-accordion">
-    <!-- Basic Slider -->
-    <amw-accordion-panel amwDescription="A simple slider with default settings">
-      <ng-template #header>
-        <amw-icon name="code"></amw-icon>
-        Basic Slider
-      </ng-template>
-      <div class="example-container">
-        <div class="code-panel">
-          <div class="code-header">
-            <h4>Code</h4>
-            <amw-button icon="refresh" (click)="resetCode('basic')" title="Reset to original"></amw-button>
-          </div>
-          <textarea
-            [(ngModel)]="editableCode.basic"
-            class="code-editor"
-            spellcheck="false"></textarea>
-        </div>
-        <div class="preview-panel">
-          <h4>Preview</h4>
-          <div class="preview-content">
-            <amw-slider [min]="0" [max]="100" [(ngModel)]="volumeValue"></amw-slider>
-            <p>Volume: {{volumeValue}}</p>
-          </div>
-        </div>
-      </div>
-    </amw-accordion-panel>
+  <ng-template #preview let-example>
+    @switch (example.key) {
+      @case ('basic') {
+        <amw-slider [min]="0" [max]="100" [(ngModel)]="volumeValue"></amw-slider>
+        <p>Volume: {{volumeValue}}</p>
+      }
+      @case ('withThumbLabel') {
+        <amw-slider [min]="0" [max]="100" [thumbLabel]="true" [(ngModel)]="brightnessValue"></amw-slider>
+        <p>Brightness: {{brightnessValue}}%</p>
+      }
+      @case ('withSteps') {
+        <amw-slider [min]="1" [max]="5" [step]="0.5" [thumbLabel]="true" [(ngModel)]="ratingValue"></amw-slider>
+        <p>Rating: {{ratingValue}}</p>
+      }
+      @case ('differentColors') {
+        <amw-slider color="primary" [min]="0" [max]="100" [(ngModel)]="primaryValue"></amw-slider>
+        <p>Primary: {{primaryValue}}</p>
 
-    <!-- Slider with Thumb Label -->
-    <amw-accordion-panel amwDescription="Slider showing current value on the thumb">
-      <ng-template #header>
-        <amw-icon name="code"></amw-icon>
-        Slider with Thumb Label
-      </ng-template>
-      <div class="example-container">
-        <div class="code-panel">
-          <div class="code-header">
-            <h4>Code</h4>
-            <amw-button icon="refresh" (click)="resetCode('withThumbLabel')" title="Reset to original"></amw-button>
-          </div>
-          <textarea
-            [(ngModel)]="editableCode.withThumbLabel"
-            class="code-editor"
-            spellcheck="false"
-            readonly></textarea>
-        </div>
-        <div class="preview-panel">
-          <h4>Preview</h4>
-          <div class="preview-content">
-            <amw-slider [min]="0" [max]="100" [thumbLabel]="true" [(ngModel)]="brightnessValue"></amw-slider>
-            <p>Brightness: {{brightnessValue}}%</p>
-          </div>
-        </div>
-      </div>
-    </amw-accordion-panel>
+        <amw-slider color="accent" [min]="0" [max]="100" [(ngModel)]="accentValue"></amw-slider>
+        <p>Accent: {{accentValue}}</p>
 
-    <!-- Slider with Steps -->
-    <amw-accordion-panel amwDescription="Slider with discrete step values">
-      <ng-template #header>
-        <amw-icon name="code"></amw-icon>
-        Slider with Steps
-      </ng-template>
-      <div class="example-container">
-        <div class="code-panel">
-          <div class="code-header">
-            <h4>Code</h4>
-            <amw-button icon="refresh" (click)="resetCode('withSteps')" title="Reset to original"></amw-button>
-          </div>
-          <textarea
-            [(ngModel)]="editableCode.withSteps"
-            class="code-editor"
-            spellcheck="false"
-            readonly></textarea>
+        <amw-slider color="warn" [min]="0" [max]="100" [(ngModel)]="warnValue"></amw-slider>
+        <p>Warn: {{warnValue}}</p>
+      }
+      @case ('disabled') {
+        <amw-slider [min]="0" [max]="100" [disabled]="true" [value]="50"></amw-slider>
+        <p>Disabled slider at value 50</p>
+      }
+      @case ('reactiveForm') {
+        <div class="preview-note">
+          <amw-icon name="info"></amw-icon>
+          <span>This example shows code for reactive form integration</span>
         </div>
-        <div class="preview-panel">
-          <h4>Preview</h4>
-          <div class="preview-content">
-            <amw-slider [min]="1" [max]="5" [step]="0.5" [thumbLabel]="true" [(ngModel)]="ratingValue"></amw-slider>
-            <p>Rating: {{ratingValue}}</p>
-          </div>
+      }
+      @case ('withEvents') {
+        <amw-slider [min]="0" [max]="100"
+          [(ngModel)]="eventValue"
+          (change)="onSliderChange($event)"
+          (input)="onSliderInput($event)">
+        </amw-slider>
+        <p>Value: {{eventValue}}</p>
+        <div class="preview-note">
+          <amw-icon name="info"></amw-icon>
+          <span>Open your browser console to see event logs</span>
         </div>
-      </div>
-    </amw-accordion-panel>
-
-    <!-- Different Colors -->
-    <amw-accordion-panel amwDescription="Sliders with different color themes">
-      <ng-template #header>
-        <amw-icon name="code"></amw-icon>
-        Different Colors
-      </ng-template>
-      <div class="example-container">
-        <div class="code-panel">
-          <div class="code-header">
-            <h4>Code</h4>
-            <amw-button icon="refresh" (click)="resetCode('differentColors')" title="Reset to original"></amw-button>
-          </div>
-          <textarea
-            [(ngModel)]="editableCode.differentColors"
-            class="code-editor"
-            spellcheck="false"
-            readonly></textarea>
+      }
+      @case ('settingsPanel') {
+        <div class="preview-note">
+          <amw-icon name="info"></amw-icon>
+          <span>This example shows code for a settings panel with multiple sliders</span>
         </div>
-        <div class="preview-panel">
-          <h4>Preview</h4>
-          <div class="preview-content">
-            <amw-slider color="primary" [min]="0" [max]="100" [(ngModel)]="primaryValue"></amw-slider>
-            <p>Primary: {{primaryValue}}</p>
-
-            <amw-slider color="accent" [min]="0" [max]="100" [(ngModel)]="accentValue"></amw-slider>
-            <p>Accent: {{accentValue}}</p>
-
-            <amw-slider color="warn" [min]="0" [max]="100" [(ngModel)]="warnValue"></amw-slider>
-            <p>Warn: {{warnValue}}</p>
-          </div>
-        </div>
-      </div>
-    </amw-accordion-panel>
-
-    <!-- Disabled Slider -->
-    <amw-accordion-panel amwDescription="Slider in disabled state">
-      <ng-template #header>
-        <amw-icon name="code"></amw-icon>
-        Disabled Slider
-      </ng-template>
-      <div class="example-container">
-        <div class="code-panel">
-          <div class="code-header">
-            <h4>Code</h4>
-            <amw-button icon="refresh" (click)="resetCode('disabled')" title="Reset to original"></amw-button>
-          </div>
-          <textarea
-            [(ngModel)]="editableCode.disabled"
-            class="code-editor"
-            spellcheck="false"
-            readonly></textarea>
-        </div>
-        <div class="preview-panel">
-          <h4>Preview</h4>
-          <div class="preview-content">
-            <amw-slider [min]="0" [max]="100" [disabled]="true" [value]="50"></amw-slider>
-            <p>Disabled slider at value 50</p>
-          </div>
-        </div>
-      </div>
-    </amw-accordion-panel>
-
-    <!-- Reactive Form Integration -->
-    <amw-accordion-panel amwDescription="Using sliders with Angular reactive forms">
-      <ng-template #header>
-        <amw-icon name="code"></amw-icon>
-        Reactive Form Integration
-      </ng-template>
-      <div class="example-container">
-        <div class="code-panel">
-          <div class="code-header">
-            <h4>Code</h4>
-            <amw-button icon="refresh" (click)="resetCode('reactiveForm')" title="Reset to original"></amw-button>
-          </div>
-          <textarea
-            [(ngModel)]="editableCode.reactiveForm"
-            class="code-editor"
-            spellcheck="false"
-            readonly></textarea>
-        </div>
-        <div class="preview-panel">
-          <h4>Preview</h4>
-          <div class="preview-content">
-            <div class="preview-note">
-              <amw-icon name="info"></amw-icon>
-              <span>This example shows code for reactive form integration</span>
-            </div>
-          </div>
-        </div>
-      </div>
-    </amw-accordion-panel>
-
-    <!-- Slider with Events -->
-    <amw-accordion-panel amwDescription="Sliders with event handling">
-      <ng-template #header>
-        <amw-icon name="code"></amw-icon>
-        Slider with Events
-      </ng-template>
-      <div class="example-container">
-        <div class="code-panel">
-          <div class="code-header">
-            <h4>Code</h4>
-            <amw-button icon="refresh" (click)="resetCode('withEvents')" title="Reset to original"></amw-button>
-          </div>
-          <textarea
-            [(ngModel)]="editableCode.withEvents"
-            class="code-editor"
-            spellcheck="false"
-            readonly></textarea>
-        </div>
-        <div class="preview-panel">
-          <h4>Preview</h4>
-          <div class="preview-content">
-            <amw-slider [min]="0" [max]="100"
-              [(ngModel)]="eventValue"
-              (change)="onSliderChange($event)"
-              (input)="onSliderInput($event)">
-            </amw-slider>
-            <p>Value: {{eventValue}}</p>
-            <div class="preview-note">
-              <amw-icon name="info"></amw-icon>
-              <span>Open your browser console to see event logs</span>
-            </div>
-          </div>
-        </div>
-      </div>
-    </amw-accordion-panel>
-
-    <!-- Settings Panel -->
-    <amw-accordion-panel amwDescription="Multiple sliders in a settings panel">
-      <ng-template #header>
-        <amw-icon name="code"></amw-icon>
-        Settings Panel
-      </ng-template>
-      <div class="example-container">
-        <div class="code-panel">
-          <div class="code-header">
-            <h4>Code</h4>
-            <amw-button icon="refresh" (click)="resetCode('settingsPanel')" title="Reset to original"></amw-button>
-          </div>
-          <textarea
-            [(ngModel)]="editableCode.settingsPanel"
-            class="code-editor"
-            spellcheck="false"
-            readonly></textarea>
-        </div>
-        <div class="preview-panel">
-          <h4>Preview</h4>
-          <div class="preview-content">
-            <div class="preview-note">
-              <amw-icon name="info"></amw-icon>
-              <span>This example shows code for a settings panel with multiple sliders</span>
-            </div>
-          </div>
-        </div>
-      </div>
-    </amw-accordion-panel>
-  </amw-accordion>
-</div>
+      }
+    }
+  </ng-template>
+</amw-code-doc>

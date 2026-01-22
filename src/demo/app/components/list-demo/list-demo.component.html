@@ -1,75 +1,79 @@
-<div class="amw-demo-list">
-  <!-- Basic List -->
-  <div class="variation-section">
-    <h3 class="variation-section__title">Basic List</h3>
-    <div class="variation-section__content">
-      <amw-list class="demo-list">
-        <amw-list-item>Item 1</amw-list-item>
-        <amw-list-item>Item 2</amw-list-item>
-        <amw-list-item>Item 3</amw-list-item>
-      </amw-list>
-    </div>
-  </div>
+<amw-demo-doc componentName="amw-list">
+  <ng-template #content>
+    <div class="amw-demo-list">
+      <!-- Basic List -->
+      <div class="variation-section">
+        <h3 class="variation-section__title">Basic List</h3>
+        <div class="variation-section__content">
+          <amw-list class="demo-list">
+            <amw-list-item>Item 1</amw-list-item>
+            <amw-list-item>Item 2</amw-list-item>
+            <amw-list-item>Item 3</amw-list-item>
+          </amw-list>
+        </div>
+      </div>
 
-  <!-- Navigation List with Icons -->
-  <div class="variation-section">
-    <h3 class="variation-section__title">Navigation List with Icons</h3>
-    <div class="variation-section__content">
-      <amw-list class="demo-list">
-        @for (item of items; track item.id) {
-          <amw-list-item
-            [selected]="selectedItem() === item.id"
-            (itemClick)="onItemClick(item.id)">
-            <mat-icon matListItemIcon>{{ item.icon }}</mat-icon>
-            <span matListItemTitle>{{ item.title }}</span>
-            @if (item.badge > 0) {
-              <span matListItemMeta class="badge">{{ item.badge }}</span>
+      <!-- Navigation List with Icons -->
+      <div class="variation-section">
+        <h3 class="variation-section__title">Navigation List with Icons</h3>
+        <div class="variation-section__content">
+          <amw-list class="demo-list">
+            @for (item of items; track item.id) {
+              <amw-list-item
+                [selected]="selectedItem() === item.id"
+                (itemClick)="onItemClick(item.id)">
+                <mat-icon matListItemIcon>{{ item.icon }}</mat-icon>
+                <span matListItemTitle>{{ item.title }}</span>
+                @if (item.badge > 0) {
+                  <span matListItemMeta class="badge">{{ item.badge }}</span>
+                }
+              </amw-list-item>
             }
-          </amw-list-item>
-        }
-      </amw-list>
-    </div>
-  </div>
+          </amw-list>
+        </div>
+      </div>
 
-  <!-- Dense List -->
-  <div class="variation-section">
-    <h3 class="variation-section__title">Dense List</h3>
-    <div class="variation-section__content">
-      <amw-list [dense]="true" class="demo-list">
-        <amw-list-item>Compact Item 1</amw-list-item>
-        <amw-list-item>Compact Item 2</amw-list-item>
-        <amw-list-item>Compact Item 3</amw-list-item>
-        <amw-list-item>Compact Item 4</amw-list-item>
-        <amw-list-item>Compact Item 5</amw-list-item>
-      </amw-list>
-    </div>
-  </div>
+      <!-- Dense List -->
+      <div class="variation-section">
+        <h3 class="variation-section__title">Dense List</h3>
+        <div class="variation-section__content">
+          <amw-list [dense]="true" class="demo-list">
+            <amw-list-item>Compact Item 1</amw-list-item>
+            <amw-list-item>Compact Item 2</amw-list-item>
+            <amw-list-item>Compact Item 3</amw-list-item>
+            <amw-list-item>Compact Item 4</amw-list-item>
+            <amw-list-item>Compact Item 5</amw-list-item>
+          </amw-list>
+        </div>
+      </div>
 
-  <!-- Contact List with Avatars -->
-  <div class="variation-section">
-    <h3 class="variation-section__title">Contact List with Avatars</h3>
-    <div class="variation-section__content">
-      <amw-list class="demo-list">
-        @for (contact of contacts; track contact.email) {
-          <amw-list-item (itemClick)="onItemClick(contact.name)">
-            <img matListItemAvatar [src]="contact.avatar" [alt]="contact.name">
-            <span matListItemTitle>{{ contact.name }}</span>
-            <span matListItemLine>{{ contact.email }}</span>
-          </amw-list-item>
-        }
-      </amw-list>
-    </div>
-  </div>
+      <!-- Contact List with Avatars -->
+      <div class="variation-section">
+        <h3 class="variation-section__title">Contact List with Avatars</h3>
+        <div class="variation-section__content">
+          <amw-list class="demo-list">
+            @for (contact of contacts; track contact.email) {
+              <amw-list-item (itemClick)="onItemClick(contact.name)">
+                <img matListItemAvatar [src]="contact.avatar" [alt]="contact.name">
+                <span matListItemTitle>{{ contact.name }}</span>
+                <span matListItemLine>{{ contact.email }}</span>
+              </amw-list-item>
+            }
+          </amw-list>
+        </div>
+      </div>
 
-  <!-- Disabled Items -->
-  <div class="variation-section">
-    <h3 class="variation-section__title">Disabled Items</h3>
-    <div class="variation-section__content">
-      <amw-list class="demo-list">
-        <amw-list-item>Enabled Item</amw-list-item>
-        <amw-list-item [disabled]="true">Disabled Item</amw-list-item>
-        <amw-list-item>Another Enabled Item</amw-list-item>
-      </amw-list>
+      <!-- Disabled Items -->
+      <div class="variation-section">
+        <h3 class="variation-section__title">Disabled Items</h3>
+        <div class="variation-section__content">
+          <amw-list class="demo-list">
+            <amw-list-item>Enabled Item</amw-list-item>
+            <amw-list-item [disabled]="true">Disabled Item</amw-list-item>
+            <amw-list-item>Another Enabled Item</amw-list-item>
+          </amw-list>
+        </div>
+      </div>
     </div>
-  </div>
-</div>
+  </ng-template>
+</amw-demo-doc>

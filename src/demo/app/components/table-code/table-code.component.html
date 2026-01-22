@@ -1,26 +1,40 @@
-<div class="amw-demo-table-code">
-  <div class="code-section">
-    <h3 class="code-section__title">Basic Usage</h3>
-    <pre class="code-block"><code>{{ editableCode['basic'] }}</code></pre>
-  </div>
+<amw-code-doc
+  componentName="amw-table"
+  [examples]="examples"
+  [editableCode]="editableCode">
 
-  <div class="code-section">
-    <h3 class="code-section__title">With TrackBy</h3>
-    <pre class="code-block"><code>{{ editableCode['withTrackBy'] }}</code></pre>
-  </div>
-
-  <div class="code-section">
-    <h3 class="code-section__title">With Sorting</h3>
-    <pre class="code-block"><code>{{ editableCode['withSort'] }}</code></pre>
-  </div>
-
-  <div class="code-section">
-    <h3 class="code-section__title">With Pagination</h3>
-    <pre class="code-block"><code>{{ editableCode['withPagination'] }}</code></pre>
-  </div>
-
-  <div class="code-section">
-    <h3 class="code-section__title">Directive-Based Table</h3>
-    <pre class="code-block"><code>{{ editableCode['directives'] }}</code></pre>
-  </div>
-</div>
+  <ng-template #preview let-example>
+    @switch (example.key) {
+      @case ('basic') {
+        <div class="preview-note">
+          <amw-icon name="info"></amw-icon>
+          <span>This example shows code for a basic table with data source</span>
+        </div>
+      }
+      @case ('withTrackBy') {
+        <div class="preview-note">
+          <amw-icon name="info"></amw-icon>
+          <span>TrackBy improves performance by helping Angular identify which items have changed</span>
+        </div>
+      }
+      @case ('withSort') {
+        <div class="preview-note">
+          <amw-icon name="info"></amw-icon>
+          <span>This example shows code for table sorting functionality</span>
+        </div>
+      }
+      @case ('withPagination') {
+        <div class="preview-note">
+          <amw-icon name="info"></amw-icon>
+          <span>This example shows code for table pagination</span>
+        </div>
+      }
+      @case ('directives') {
+        <div class="preview-note">
+          <amw-icon name="info"></amw-icon>
+          <span>Directive-based tables allow custom column definitions and templates</span>
+        </div>
+      }
+    }
+  </ng-template>
+</amw-code-doc>

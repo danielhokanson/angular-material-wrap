@@ -1,299 +1,303 @@
-<div class="popover-demo">
-  <!-- Header -->
-  <div class="popover-demo__header">
-    <h2>Popover Component Demo</h2>
-    <p>Explore different popover configurations and trigger behaviors</p>
+<amw-demo-doc componentName="amw-popover">
+  <ng-template #content>
+    <div class="popover-demo">
+      <!-- Header -->
+      <div class="popover-demo__header">
+        <h2>Popover Component Demo</h2>
+        <p>Explore different popover configurations and trigger behaviors</p>
 
-    <div class="popover-demo__actions">
-      <amw-button appearance="elevated"
-        color="primary"
-        (click)="toggleConfig()" icon="{{ showConfig ? 'settings' : 'tune' }}" iconPosition="left">{{ showConfig ? 'Hide' : 'Show' }} Configuration</amw-button>
+        <div class="popover-demo__actions">
+          <amw-button appearance="elevated"
+            color="primary"
+            (click)="toggleConfig()" icon="{{ showConfig ? 'settings' : 'tune' }}" iconPosition="left">{{ showConfig ? 'Hide' : 'Show' }} Configuration</amw-button>
 
-      <amw-button appearance="text"
-        (click)="resetConfig()" icon="refresh" iconPosition="left">Reset</amw-button>
-    </div>
-  </div>
+          <amw-button appearance="text"
+            (click)="resetConfig()" icon="refresh" iconPosition="left">Reset</amw-button>
+        </div>
+      </div>
 
-  <!-- Configuration Panel -->
-  @if (showConfig) {
-    <amw-card class="popover-demo__config">
-      <ng-template #cardHeader>
-        <h2>Configuration</h2>
-        <p class="subtitle">Customize the popover behavior and appearance</p>
-      </ng-template>
-      <ng-template #cardContent>
-        <form [formGroup]="configForm" class="popover-demo__form">
-          <div class="popover-demo__form-row">
-            <amw-select label="Size" formControlName="size" [options]="sizeOptions"></amw-select>
-            <amw-select label="Position" formControlName="position" [options]="positionOptions"></amw-select>
-            <amw-select label="Arrow Size" formControlName="arrowSize" [options]="arrowSizeOptions"></amw-select>
-          </div>
-          <div class="popover-demo__form-row">
-            <amw-input
-              label="Width"
-              formControlName="width"
-              placeholder="e.g., 300px">
-            </amw-input>
-            <amw-input
-              label="Height"
-              formControlName="height"
-              placeholder="e.g., 200px">
-            </amw-input>
-            <amw-input
-              label="Z-Index"
-              formControlName="zIndex"
-              type="number"
-              placeholder="1000">
-            </amw-input>
-          </div>
-          <div class="popover-demo__form-row">
-            <amw-input
-              label="Header Title"
-              formControlName="headerTitle"
-              placeholder="Popover Title">
-            </amw-input>
-            <amw-input
-              label="Header Subtitle"
-              formControlName="headerSubtitle"
-              placeholder="Subtitle text">
-            </amw-input>
-            <amw-input
-              label="Footer Text"
-              formControlName="footerText"
-              placeholder="Footer text">
-            </amw-input>
-          </div>
-          <div class="popover-demo__form-row">
-            <amw-input
-              label="Close Text"
-              formControlName="closeText"
-              placeholder="Close">
-            </amw-input>
-            <amw-input
-              label="Close Icon"
-              formControlName="closeIcon"
-              placeholder="close">
-            </amw-input>
-            <amw-input
-              label="Arrow Color"
-              formControlName="arrowColor"
-              placeholder="#ffffff">
-            </amw-input>
-          </div>
-          <div class="popover-demo__form-row">
-            <amw-input
-              label="Offset X"
-              formControlName="offsetX"
-              type="number"
-              placeholder="0">
-            </amw-input>
-            <amw-input
-              label="Offset Y"
-              formControlName="offsetY"
-              type="number"
-              placeholder="0">
-            </amw-input>
-            <amw-input
-              label="Animation Duration"
-              formControlName="animationDuration"
-              type="number"
-              placeholder="300">
-            </amw-input>
-          </div>
-          <div class="popover-demo__form-row">
-            <amw-select label="Animation Easing" formControlName="animationEasing" [options]="animationEasingOptions"></amw-select>
-          </div>
-          <div class="popover-demo__form-row">
-            <amw-switch formControlName="showArrow">
-              Show Arrow
-            </amw-switch>
-            <amw-switch formControlName="showClose">
-              Show Close Button
-            </amw-switch>
-            <amw-switch formControlName="showHeader">
-              Show Header
-            </amw-switch>
-          </div>
-          <div class="popover-demo__form-row">
-            <amw-switch formControlName="showFooter">
-              Show Footer
-            </amw-switch>
-            <amw-switch formControlName="showBackdrop">
-              Show Backdrop
-            </amw-switch>
-            <amw-switch formControlName="showScrollbar">
-              Show Scrollbar
-            </amw-switch>
-          </div>
-          <div class="popover-demo__form-row">
-            <amw-switch formControlName="disabled">
-              Disabled
-            </amw-switch>
-            <amw-switch formControlName="autoFocus">
-              Auto Focus
-            </amw-switch>
-            <amw-switch formControlName="restoreFocus">
-              Restore Focus
-            </amw-switch>
-          </div>
-          <div class="popover-demo__form-row">
-            <amw-switch formControlName="keyboardNavigation">
-              Keyboard Navigation
-            </amw-switch>
-            <amw-switch formControlName="escapeKeyClose">
-              Escape Key Close
-            </amw-switch>
-            <amw-switch formControlName="clickOutsideClose">
-              Click Outside Close
-            </amw-switch>
-          </div>
-          <div class="popover-demo__form-row">
-            <amw-switch formControlName="hoverOpen">
-              Hover Open
-            </amw-switch>
-            <amw-switch formControlName="hoverClose">
-              Hover Close
-            </amw-switch>
-            <amw-switch formControlName="focusOpen">
-              Focus Open
-            </amw-switch>
-          </div>
-          <div class="popover-demo__form-row">
-            <amw-switch formControlName="focusClose">
-              Focus Close
-            </amw-switch>
-            <amw-switch formControlName="scrollClose">
-              Scroll Close
-            </amw-switch>
-            <amw-switch formControlName="resizeClose">
-              Resize Close
-            </amw-switch>
-          </div>
-        </form>
-      </ng-template>
-</amw-card>
-  }
-
-  <!-- Variations -->
-  <div class="popover-demo__variations">
-    <h3>Variations</h3>
-
-    <div class="popover-demo__variation-grid">
-      @for (variation of popoverVariations; track variation; let i = $index) {
-        <amw-card
-          class="popover-demo__variation-card"
-          [class.popover-demo__variation-card--selected]="selectedVariation === variation"
-          (click)="loadVariation(variation)">
+      <!-- Configuration Panel -->
+      @if (showConfig) {
+        <amw-card class="popover-demo__config">
           <ng-template #cardHeader>
-            <h2>{{ variation.title }}</h2>
-            <p class="subtitle">{{ variation.description }}</p>
+            <h2>Configuration</h2>
+            <p class="subtitle">Customize the popover behavior and appearance</p>
           </ng-template>
           <ng-template #cardContent>
-            <div class="popover-demo__variation-preview">
-              <div class="popover-demo__preview-popover">
-                <div class="popover-demo__preview-trigger">
-                  <amw-icon name="info"></amw-icon>
-                  <span>Trigger</span>
-                </div>
-                <div class="popover-demo__preview-content">
-                  @if (variation.config.showArrow) {
-                    <div class="popover-demo__preview-arrow"></div>
-                  }
-                  <div class="popover-demo__preview-panel">
-                    @if (variation.config.showHeader) {
-                      <div class="popover-demo__preview-header">
-                        <span>Header</span>
-                        @if (variation.config.showClose) {
-                          <amw-icon name="close"></amw-icon>
+            <form [formGroup]="configForm" class="popover-demo__form">
+              <div class="popover-demo__form-row">
+                <amw-select label="Size" formControlName="size" [options]="sizeOptions"></amw-select>
+                <amw-select label="Position" formControlName="position" [options]="positionOptions"></amw-select>
+                <amw-select label="Arrow Size" formControlName="arrowSize" [options]="arrowSizeOptions"></amw-select>
+              </div>
+              <div class="popover-demo__form-row">
+                <amw-input
+                  label="Width"
+                  formControlName="width"
+                  placeholder="e.g., 300px">
+                </amw-input>
+                <amw-input
+                  label="Height"
+                  formControlName="height"
+                  placeholder="e.g., 200px">
+                </amw-input>
+                <amw-input
+                  label="Z-Index"
+                  formControlName="zIndex"
+                  type="number"
+                  placeholder="1000">
+                </amw-input>
+              </div>
+              <div class="popover-demo__form-row">
+                <amw-input
+                  label="Header Title"
+                  formControlName="headerTitle"
+                  placeholder="Popover Title">
+                </amw-input>
+                <amw-input
+                  label="Header Subtitle"
+                  formControlName="headerSubtitle"
+                  placeholder="Subtitle text">
+                </amw-input>
+                <amw-input
+                  label="Footer Text"
+                  formControlName="footerText"
+                  placeholder="Footer text">
+                </amw-input>
+              </div>
+              <div class="popover-demo__form-row">
+                <amw-input
+                  label="Close Text"
+                  formControlName="closeText"
+                  placeholder="Close">
+                </amw-input>
+                <amw-input
+                  label="Close Icon"
+                  formControlName="closeIcon"
+                  placeholder="close">
+                </amw-input>
+                <amw-input
+                  label="Arrow Color"
+                  formControlName="arrowColor"
+                  placeholder="#ffffff">
+                </amw-input>
+              </div>
+              <div class="popover-demo__form-row">
+                <amw-input
+                  label="Offset X"
+                  formControlName="offsetX"
+                  type="number"
+                  placeholder="0">
+                </amw-input>
+                <amw-input
+                  label="Offset Y"
+                  formControlName="offsetY"
+                  type="number"
+                  placeholder="0">
+                </amw-input>
+                <amw-input
+                  label="Animation Duration"
+                  formControlName="animationDuration"
+                  type="number"
+                  placeholder="300">
+                </amw-input>
+              </div>
+              <div class="popover-demo__form-row">
+                <amw-select label="Animation Easing" formControlName="animationEasing" [options]="animationEasingOptions"></amw-select>
+              </div>
+              <div class="popover-demo__form-row">
+                <amw-switch formControlName="showArrow">
+                  Show Arrow
+                </amw-switch>
+                <amw-switch formControlName="showClose">
+                  Show Close Button
+                </amw-switch>
+                <amw-switch formControlName="showHeader">
+                  Show Header
+                </amw-switch>
+              </div>
+              <div class="popover-demo__form-row">
+                <amw-switch formControlName="showFooter">
+                  Show Footer
+                </amw-switch>
+                <amw-switch formControlName="showBackdrop">
+                  Show Backdrop
+                </amw-switch>
+                <amw-switch formControlName="showScrollbar">
+                  Show Scrollbar
+                </amw-switch>
+              </div>
+              <div class="popover-demo__form-row">
+                <amw-switch formControlName="disabled">
+                  Disabled
+                </amw-switch>
+                <amw-switch formControlName="autoFocus">
+                  Auto Focus
+                </amw-switch>
+                <amw-switch formControlName="restoreFocus">
+                  Restore Focus
+                </amw-switch>
+              </div>
+              <div class="popover-demo__form-row">
+                <amw-switch formControlName="keyboardNavigation">
+                  Keyboard Navigation
+                </amw-switch>
+                <amw-switch formControlName="escapeKeyClose">
+                  Escape Key Close
+                </amw-switch>
+                <amw-switch formControlName="clickOutsideClose">
+                  Click Outside Close
+                </amw-switch>
+              </div>
+              <div class="popover-demo__form-row">
+                <amw-switch formControlName="hoverOpen">
+                  Hover Open
+                </amw-switch>
+                <amw-switch formControlName="hoverClose">
+                  Hover Close
+                </amw-switch>
+                <amw-switch formControlName="focusOpen">
+                  Focus Open
+                </amw-switch>
+              </div>
+              <div class="popover-demo__form-row">
+                <amw-switch formControlName="focusClose">
+                  Focus Close
+                </amw-switch>
+                <amw-switch formControlName="scrollClose">
+                  Scroll Close
+                </amw-switch>
+                <amw-switch formControlName="resizeClose">
+                  Resize Close
+                </amw-switch>
+              </div>
+            </form>
+          </ng-template>
+        </amw-card>
+      }
+
+      <!-- Variations -->
+      <div class="popover-demo__variations">
+        <h3>Variations</h3>
+
+        <div class="popover-demo__variation-grid">
+          @for (variation of popoverVariations; track variation; let i = $index) {
+            <amw-card
+              class="popover-demo__variation-card"
+              [class.popover-demo__variation-card--selected]="selectedVariation === variation"
+              (click)="loadVariation(variation)">
+              <ng-template #cardHeader>
+                <h2>{{ variation.title }}</h2>
+                <p class="subtitle">{{ variation.description }}</p>
+              </ng-template>
+              <ng-template #cardContent>
+                <div class="popover-demo__variation-preview">
+                  <div class="popover-demo__preview-popover">
+                    <div class="popover-demo__preview-trigger">
+                      <amw-icon name="info"></amw-icon>
+                      <span>Trigger</span>
+                    </div>
+                    <div class="popover-demo__preview-content">
+                      @if (variation.config.showArrow) {
+                        <div class="popover-demo__preview-arrow"></div>
+                      }
+                      <div class="popover-demo__preview-panel">
+                        @if (variation.config.showHeader) {
+                          <div class="popover-demo__preview-header">
+                            <span>Header</span>
+                            @if (variation.config.showClose) {
+                              <amw-icon name="close"></amw-icon>
+                            }
+                          </div>
+                        }
+                        <div class="popover-demo__preview-body">Content</div>
+                        @if (variation.config.showFooter) {
+                          <div class="popover-demo__preview-footer">
+                            Footer
+                          </div>
                         }
                       </div>
-                    }
-                    <div class="popover-demo__preview-body">Content</div>
-                    @if (variation.config.showFooter) {
-                      <div class="popover-demo__preview-footer">
-                        Footer
-                      </div>
-                    }
+                    </div>
                   </div>
                 </div>
+              </ng-template>
+            </amw-card>
+          }
+        </div>
+      </div>
+
+      <!-- Live Demo -->
+      <div class="popover-demo__live">
+        <h3>Live Demo</h3>
+
+        <div class="popover-demo__demo-container">
+          <amw-popover
+            [content]="selectedVariation.description"
+            [size]="currentConfig.size || 'medium'"
+            [position]="currentConfig.position || 'bottom'"
+            [showArrow]="currentConfig.showArrow || false"
+            [showClose]="currentConfig.showClose || true"
+            [showHeader]="currentConfig.showHeader || false"
+            [showFooter]="currentConfig.showFooter || false"
+            [headerTitle]="currentConfig.headerTitle || ''"
+            [headerSubtitle]="currentConfig.headerSubtitle || ''"
+            [footerText]="currentConfig.footerText || ''"
+            [closeButtonText]="currentConfig.closeText || 'Close'"
+            [closeButtonIcon]="currentConfig.closeIcon || 'close'"
+            [arrowSize]="currentConfig.arrowSize || 'medium'"
+            [arrowColor]="currentConfig.arrowColor || 'var(--mat-sys-surface)'"
+            [zIndex]="currentConfig.zIndex || 1000"
+            [backdrop]="currentConfig.showBackdrop || false"
+            [opened]="currentConfig.opened ?? false"
+            (openedChange)="onPopoverOpenedChange($event)"
+            (beforeOpen)="onPopoverBeforeOpen()"
+            (afterOpen)="onPopoverAfterOpen()"
+            (beforeClose)="onPopoverBeforeClose()"
+            (afterClose)="onPopoverAfterClose()"
+            (toggle)="onPopoverToggle($event)"
+            (close)="onPopoverClose()">
+
+            <!-- Trigger Template -->
+            <ng-template #trigger>
+              <amw-button appearance="elevated" color="primary" icon="info" iconPosition="left">{{ selectedVariation.title }}</amw-button>
+            </ng-template>
+
+            <!-- Content Template -->
+            <ng-template #contentRef>
+              <div class="popover-demo__content">
+                <h4>{{ selectedVariation.title }}</h4>
+                <p>{{ selectedVariation.description }}</p>
+
+                <div class="popover-demo__content-details">
+                  <h5>Configuration:</h5>
+                  <ul>
+                    <li><strong>Size:</strong> {{ currentConfig.size }}</li>
+                    <li><strong>Position:</strong> {{ currentConfig.position }}</li>
+                    <li><strong>Arrow:</strong> {{ currentConfig.showArrow ? 'Yes' : 'No' }}</li>
+                    <li><strong>Close Button:</strong> {{ currentConfig.showClose ? 'Yes' : 'No' }}</li>
+                    <li><strong>Header:</strong> {{ currentConfig.showHeader ? 'Yes' : 'No' }}</li>
+                    <li><strong>Footer:</strong> {{ currentConfig.showFooter ? 'Yes' : 'No' }}</li>
+                  </ul>
+                </div>
+
+                <div class="popover-demo__content-details">
+                  <h5>Trigger:</h5>
+                  <ul>
+                    <li><strong>Type:</strong> {{ currentTrigger.type }}</li>
+                    <li><strong>Toggle:</strong> {{ currentTrigger.toggle ? 'Yes' : 'No' }}</li>
+                    <li><strong>Escape Key:</strong> {{ currentTrigger.escapeKey ? 'Yes' : 'No' }}</li>
+                    <li><strong>Outside Click:</strong> {{ currentTrigger.outsideClick ? 'Yes' : 'No' }}</li>
+                  </ul>
+                </div>
+
+                <div class="popover-demo__content-actions">
+                  <amw-button appearance="text" (click)="onPopoverClose()" icon="close" iconPosition="left">Close</amw-button>
+                </div>
               </div>
-            </div>
-          </ng-template>
-</amw-card>
-      }
+            </ng-template>
+          </amw-popover>
+        </div>
+      </div>
     </div>
-  </div>
-
-  <!-- Live Demo -->
-  <div class="popover-demo__live">
-    <h3>Live Demo</h3>
-
-    <div class="popover-demo__demo-container">
-      <amw-popover
-        [content]="selectedVariation.description"
-        [size]="currentConfig.size || 'medium'"
-        [position]="currentConfig.position || 'bottom'"
-        [showArrow]="currentConfig.showArrow || false"
-        [showClose]="currentConfig.showClose || true"
-        [showHeader]="currentConfig.showHeader || false"
-        [showFooter]="currentConfig.showFooter || false"
-        [headerTitle]="currentConfig.headerTitle || ''"
-        [headerSubtitle]="currentConfig.headerSubtitle || ''"
-        [footerText]="currentConfig.footerText || ''"
-        [closeButtonText]="currentConfig.closeText || 'Close'"
-        [closeButtonIcon]="currentConfig.closeIcon || 'close'"
-        [arrowSize]="currentConfig.arrowSize || 'medium'"
-        [arrowColor]="currentConfig.arrowColor || 'var(--mat-sys-surface)'"
-        [zIndex]="currentConfig.zIndex || 1000"
-        [backdrop]="currentConfig.showBackdrop || false"
-        [opened]="currentConfig.opened ?? false"
-        (openedChange)="onPopoverOpenedChange($event)"
-        (beforeOpen)="onPopoverBeforeOpen()"
-        (afterOpen)="onPopoverAfterOpen()"
-        (beforeClose)="onPopoverBeforeClose()"
-        (afterClose)="onPopoverAfterClose()"
-        (toggle)="onPopoverToggle($event)"
-        (close)="onPopoverClose()">
-
-        <!-- Trigger Template -->
-        <ng-template #trigger>
-          <amw-button appearance="elevated" color="primary" icon="info" iconPosition="left">{{ selectedVariation.title }}</amw-button>
-        </ng-template>
-
-        <!-- Content Template -->
-        <ng-template #contentRef>
-          <div class="popover-demo__content">
-            <h4>{{ selectedVariation.title }}</h4>
-            <p>{{ selectedVariation.description }}</p>
-
-            <div class="popover-demo__content-details">
-              <h5>Configuration:</h5>
-              <ul>
-                <li><strong>Size:</strong> {{ currentConfig.size }}</li>
-                <li><strong>Position:</strong> {{ currentConfig.position }}</li>
-                <li><strong>Arrow:</strong> {{ currentConfig.showArrow ? 'Yes' : 'No' }}</li>
-                <li><strong>Close Button:</strong> {{ currentConfig.showClose ? 'Yes' : 'No' }}</li>
-                <li><strong>Header:</strong> {{ currentConfig.showHeader ? 'Yes' : 'No' }}</li>
-                <li><strong>Footer:</strong> {{ currentConfig.showFooter ? 'Yes' : 'No' }}</li>
-              </ul>
-            </div>
-
-            <div class="popover-demo__content-details">
-              <h5>Trigger:</h5>
-              <ul>
-                <li><strong>Type:</strong> {{ currentTrigger.type }}</li>
-                <li><strong>Toggle:</strong> {{ currentTrigger.toggle ? 'Yes' : 'No' }}</li>
-                <li><strong>Escape Key:</strong> {{ currentTrigger.escapeKey ? 'Yes' : 'No' }}</li>
-                <li><strong>Outside Click:</strong> {{ currentTrigger.outsideClick ? 'Yes' : 'No' }}</li>
-              </ul>
-            </div>
-
-            <div class="popover-demo__content-actions">
-              <amw-button appearance="text" (click)="onPopoverClose()" icon="close" iconPosition="left">Close</amw-button>
-            </div>
-          </div>
-        </ng-template>
-      </amw-popover>
-    </div>
-  </div>
-</div>
+  </ng-template>
+</amw-demo-doc>

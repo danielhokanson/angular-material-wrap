@@ -1,103 +1,107 @@
-<div class="amw-demo-sort">
-  <!-- Basic Sort -->
-  <div class="variation-section">
-    <h3 class="variation-section__title">Basic Sort</h3>
-    <div class="variation-section__content">
-      <div
-        amwSort
-        [amwSortActive]="sortActive()"
-        [amwSortDirection]="sortDirection()"
-        (amwSortChange)="onSortChange($event)">
-        <amw-table [dataSource]="sortedData" [displayedColumns]="displayedColumns">
-        </amw-table>
+<amw-demo-doc componentName="amw-sort">
+  <ng-template #content>
+    <div class="amw-demo-sort">
+      <!-- Basic Sort -->
+      <div class="variation-section">
+        <h3 class="variation-section__title">Basic Sort</h3>
+        <div class="variation-section__content">
+          <div
+            amwSort
+            [amwSortActive]="sortActive()"
+            [amwSortDirection]="sortDirection()"
+            (amwSortChange)="onSortChange($event)">
+            <amw-table [dataSource]="sortedData" [displayedColumns]="displayedColumns">
+            </amw-table>
+          </div>
+          <div class="sort-info">
+            <p>Active: <strong>{{ sortActive() || 'none' }}</strong></p>
+            <p>Direction: <strong>{{ sortDirection() || 'none' }}</strong></p>
+          </div>
+        </div>
       </div>
-      <div class="sort-info">
-        <p>Active: <strong>{{ sortActive() || 'none' }}</strong></p>
-        <p>Direction: <strong>{{ sortDirection() || 'none' }}</strong></p>
-      </div>
-    </div>
-  </div>
 
-  <!-- Sort Controls -->
-  <div class="variation-section">
-    <h3 class="variation-section__title">Sort Controls</h3>
-    <div class="variation-section__content">
-      <div class="button-group">
-        <amw-button appearance="outlined" (buttonClick)="setSort('name', 'asc')">
-          Sort by Name (Asc)
-        </amw-button>
-        <amw-button appearance="outlined" (buttonClick)="setSort('name', 'desc')">
-          Sort by Name (Desc)
-        </amw-button>
-        <amw-button appearance="outlined" (buttonClick)="setSort('age', 'asc')">
-          Sort by Age (Asc)
-        </amw-button>
-        <amw-button appearance="outlined" (buttonClick)="setSort('age', 'desc')">
-          Sort by Age (Desc)
-        </amw-button>
-        <amw-button appearance="text" (buttonClick)="resetSort()">
-          Reset
-        </amw-button>
+      <!-- Sort Controls -->
+      <div class="variation-section">
+        <h3 class="variation-section__title">Sort Controls</h3>
+        <div class="variation-section__content">
+          <div class="button-group">
+            <amw-button appearance="outlined" (buttonClick)="setSort('name', 'asc')">
+              Sort by Name (Asc)
+            </amw-button>
+            <amw-button appearance="outlined" (buttonClick)="setSort('name', 'desc')">
+              Sort by Name (Desc)
+            </amw-button>
+            <amw-button appearance="outlined" (buttonClick)="setSort('age', 'asc')">
+              Sort by Age (Asc)
+            </amw-button>
+            <amw-button appearance="outlined" (buttonClick)="setSort('age', 'desc')">
+              Sort by Age (Desc)
+            </amw-button>
+            <amw-button appearance="text" (buttonClick)="resetSort()">
+              Reset
+            </amw-button>
+          </div>
+        </div>
       </div>
-    </div>
-  </div>
 
-  <!-- Disabled Sort -->
-  <div class="variation-section">
-    <h3 class="variation-section__title">Disabled Sort</h3>
-    <div class="variation-section__content">
-      <amw-button appearance="outlined" (buttonClick)="toggleDisabled()">
-        {{ sortDisabled() ? 'Enable' : 'Disable' }} Sorting
-      </amw-button>
-      <div
-        amwSort
-        [amwSortActive]="sortActive()"
-        [amwSortDirection]="sortDirection()"
-        [amwSortDisabled]="sortDisabled()"
-        (amwSortChange)="onSortChange($event)">
-        <amw-table [dataSource]="sortedData" [displayedColumns]="displayedColumns">
-        </amw-table>
+      <!-- Disabled Sort -->
+      <div class="variation-section">
+        <h3 class="variation-section__title">Disabled Sort</h3>
+        <div class="variation-section__content">
+          <amw-button appearance="outlined" (buttonClick)="toggleDisabled()">
+            {{ sortDisabled() ? 'Enable' : 'Disable' }} Sorting
+          </amw-button>
+          <div
+            amwSort
+            [amwSortActive]="sortActive()"
+            [amwSortDirection]="sortDirection()"
+            [amwSortDisabled]="sortDisabled()"
+            (amwSortChange)="onSortChange($event)">
+            <amw-table [dataSource]="sortedData" [displayedColumns]="displayedColumns">
+            </amw-table>
+          </div>
+          @if (sortDisabled()) {
+            <p class="disabled-notice">Sorting is currently disabled.</p>
+          }
+        </div>
       </div>
-      @if (sortDisabled()) {
-        <p class="disabled-notice">Sorting is currently disabled.</p>
-      }
-    </div>
-  </div>
 
-  <!-- Sort Header Component -->
-  <div class="variation-section">
-    <h3 class="variation-section__title">Sort Header Integration</h3>
-    <div class="variation-section__content">
-      <p class="info-text">
-        Use <code>amw-sort-header</code> component on table headers for sortable columns.
-        Click headers to toggle sort direction.
-      </p>
-      <div
-        amwSort
-        [amwSortActive]="sortActive()"
-        [amwSortDirection]="sortDirection()"
-        (amwSortChange)="onSortChange($event)">
-        <table class="sort-table">
-          <thead>
-            <tr>
-              <th amw-sort-header="id">ID</th>
-              <th amw-sort-header="name">Name</th>
-              <th amw-sort-header="age">Age</th>
-              <th amw-sort-header="city">City</th>
-            </tr>
-          </thead>
-          <tbody>
-            @for (row of sortedData; track row.id) {
-              <tr>
-                <td>{{ row.id }}</td>
-                <td>{{ row.name }}</td>
-                <td>{{ row.age }}</td>
-                <td>{{ row.city }}</td>
-              </tr>
-            }
-          </tbody>
-        </table>
+      <!-- Sort Header Component -->
+      <div class="variation-section">
+        <h3 class="variation-section__title">Sort Header Integration</h3>
+        <div class="variation-section__content">
+          <p class="info-text">
+            Use <code>amw-sort-header</code> component on table headers for sortable columns.
+            Click headers to toggle sort direction.
+          </p>
+          <div
+            amwSort
+            [amwSortActive]="sortActive()"
+            [amwSortDirection]="sortDirection()"
+            (amwSortChange)="onSortChange($event)">
+            <table class="sort-table">
+              <thead>
+                <tr>
+                  <th amw-sort-header="id">ID</th>
+                  <th amw-sort-header="name">Name</th>
+                  <th amw-sort-header="age">Age</th>
+                  <th amw-sort-header="city">City</th>
+                </tr>
+              </thead>
+              <tbody>
+                @for (row of sortedData; track row.id) {
+                  <tr>
+                    <td>{{ row.id }}</td>
+                    <td>{{ row.name }}</td>
+                    <td>{{ row.age }}</td>
+                    <td>{{ row.city }}</td>
+                  </tr>
+                }
+              </tbody>
+            </table>
+          </div>
+        </div>
       </div>
     </div>
-  </div>
-</div>
+  </ng-template>
+</amw-demo-doc>

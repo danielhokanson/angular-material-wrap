@@ -1,59 +1,63 @@
-<div class="stepper-demo">
-    <h2>Stepper Component Demo</h2>
-    <p>Interactive demonstration of the AMW Stepper component with form validation.</p>
+<amw-demo-doc componentName="amw-stepper">
+  <ng-template #content>
+    <div class="stepper-demo">
+      <h2>Stepper Component Demo</h2>
+      <p>Interactive demonstration of the AMW Stepper component with form validation.</p>
 
-    <amw-stepper
+      <amw-stepper
         [config]="stepperConfig"
         [steps]="stepperSteps"
         [currentStep]="currentStep"
         (stepChange)="onStepChange($event)"
         (completed)="onStepperCompleted()">
-    </amw-stepper>
+      </amw-stepper>
 
-    <!-- Form content displayed based on current step -->
-    <div class="step-content">
+      <!-- Form content displayed based on current step -->
+      <div class="step-content">
         @if (currentStep === 0) {
-            <form [formGroup]="firstFormGroup" class="step-form">
-                <amw-input
-                    label="First Name"
-                    formControlName="firstName"
-                    placeholder="Enter your first name"
-                    [required]="true">
-                </amw-input>
-                <amw-input
-                    label="Last Name"
-                    formControlName="lastName"
-                    placeholder="Enter your last name"
-                    [required]="true">
-                </amw-input>
-            </form>
+          <form [formGroup]="firstFormGroup" class="step-form">
+            <amw-input
+              label="First Name"
+              formControlName="firstName"
+              placeholder="Enter your first name"
+              [required]="true">
+            </amw-input>
+            <amw-input
+              label="Last Name"
+              formControlName="lastName"
+              placeholder="Enter your last name"
+              [required]="true">
+            </amw-input>
+          </form>
         }
 
         @if (currentStep === 1) {
-            <form [formGroup]="secondFormGroup" class="step-form">
-                <amw-input
-                    label="Email"
-                    formControlName="email"
-                    placeholder="Enter your email"
-                    type="email"
-                    [required]="true">
-                </amw-input>
-                <amw-input
-                    label="Phone"
-                    formControlName="phone"
-                    placeholder="Enter your phone number"
-                    [required]="true">
-                </amw-input>
-            </form>
+          <form [formGroup]="secondFormGroup" class="step-form">
+            <amw-input
+              label="Email"
+              formControlName="email"
+              placeholder="Enter your email"
+              type="email"
+              [required]="true">
+            </amw-input>
+            <amw-input
+              label="Phone"
+              formControlName="phone"
+              placeholder="Enter your phone number"
+              [required]="true">
+            </amw-input>
+          </form>
         }
 
         @if (currentStep === 2) {
-            <div class="review-section">
-                <h3>Review Your Information</h3>
-                <p><strong>Name:</strong> {{ firstFormGroup.value.firstName }} {{ firstFormGroup.value.lastName }}</p>
-                <p><strong>Email:</strong> {{ secondFormGroup.value.email }}</p>
-                <p><strong>Phone:</strong> {{ secondFormGroup.value.phone }}</p>
-            </div>
+          <div class="review-section">
+            <h3>Review Your Information</h3>
+            <p><strong>Name:</strong> {{ firstFormGroup.value.firstName }} {{ firstFormGroup.value.lastName }}</p>
+            <p><strong>Email:</strong> {{ secondFormGroup.value.email }}</p>
+            <p><strong>Phone:</strong> {{ secondFormGroup.value.phone }}</p>
+          </div>
         }
+      </div>
     </div>
-</div>
+  </ng-template>
+</amw-demo-doc>

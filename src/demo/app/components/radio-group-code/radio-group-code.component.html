@@ -1,225 +1,83 @@
-<div class="code-section">
-  <h3>Code Examples</h3>
-  <p>Interactive examples with live previews. The code is editable for reference, and working examples are shown alongside.</p>
+<amw-code-doc
+  componentName="amw-radio-group"
+  [examples]="examples"
+  [editableCode]="editableCode">
 
-  <amw-accordion class="code-examples-accordion">
-    <!-- Basic Radio Group -->
-    <amw-accordion-panel amwDescription="Simple radio button group">
-      <ng-template #header>
-        <amw-icon name="code"></amw-icon>
-        Basic Radio Group
-      </ng-template>
-      <div class="example-container">
-        <div class="code-panel">
-          <div class="code-header">
-            <h4>Code</h4>
-            <amw-button icon="refresh" (click)="resetCode('basic')" title="Reset to original"></amw-button>
-          </div>
-          <textarea
-            [(ngModel)]="editableCode.basic"
-            class="code-editor"
-            spellcheck="false"
-            readonly></textarea>
+  <ng-template #preview let-example>
+    @switch (example.key) {
+      @case ('basic') {
+        <amw-radio-group
+          orientation="vertical"
+          [options]="[
+            { value: 'option1', label: 'Option 1' },
+            { value: 'option2', label: 'Option 2' },
+            { value: 'option3', label: 'Option 3' }
+          ]">
+        </amw-radio-group>
+      }
+      @case ('ngModel') {
+        <amw-radio-group
+          [(ngModel)]="selectedValue"
+          orientation="vertical"
+          [options]="[
+            { value: 'yes', label: 'Yes' },
+            { value: 'no', label: 'No' },
+            { value: 'maybe', label: 'Maybe' }
+          ]">
+        </amw-radio-group>
+        <div class="preview-note">
+          <amw-icon name="info"></amw-icon>
+          <span>Selected: {{selectedValue || 'None'}}</span>
         </div>
-        <div class="preview-panel">
-          <h4>Preview</h4>
-          <div class="preview-content">
-            <amw-radio-group
-              orientation="vertical"
-              [options]="[
-                { value: 'option1', label: 'Option 1' },
-                { value: 'option2', label: 'Option 2' },
-                { value: 'option3', label: 'Option 3' }
-              ]">
-            </amw-radio-group>
-          </div>
+      }
+      @case ('disabled') {
+        <amw-radio-group
+          orientation="vertical"
+          [options]="[
+            { value: 'enabled', label: 'Enabled' },
+            { value: 'disabled', label: 'Disabled', disabled: true },
+            { value: 'enabled2', label: 'Enabled' }
+          ]">
+        </amw-radio-group>
+      }
+      @case ('labelPosition') {
+        <amw-radio-group
+          [(ngModel)]="selectedAlign"
+          orientation="vertical"
+          [options]="[
+            { value: 'before', label: 'Label Before' },
+            { value: 'after', label: 'Label After' }
+          ]">
+        </amw-radio-group>
+      }
+      @case ('color') {
+        <amw-radio-group
+          [(ngModel)]="selectedColor"
+          orientation="vertical"
+          [options]="[
+            { value: 'primary', label: 'Primary' },
+            { value: 'accent', label: 'Accent' },
+            { value: 'warn', label: 'Warn' }
+          ]">
+        </amw-radio-group>
+      }
+      @case ('reactiveForm') {
+        <form [formGroup]="myForm">
+          <amw-radio-group
+            formControlName="priority"
+            orientation="vertical"
+            [options]="[
+              { value: 'low', label: 'Low' },
+              { value: 'medium', label: 'Medium' },
+              { value: 'high', label: 'High' }
+            ]">
+          </amw-radio-group>
+        </form>
+        <div class="preview-note">
+          <amw-icon name="info"></amw-icon>
+          <span>Form Valid: {{myForm.valid}} | Value: {{myForm.value.priority || 'None'}}</span>
         </div>
-      </div>
-    </amw-accordion-panel>
-
-    <!-- Two-way Binding -->
-    <amw-accordion-panel amwDescription="Bind radio group to component property">
-      <ng-template #header>
-        <amw-icon name="code"></amw-icon>
-        Two-way Binding with ngModel
-      </ng-template>
-      <div class="example-container">
-        <div class="code-panel">
-          <div class="code-header">
-            <h4>Code</h4>
-            <amw-button icon="refresh" (click)="resetCode('ngModel')" title="Reset to original"></amw-button>
-          </div>
-          <textarea
-            [(ngModel)]="editableCode.ngModel"
-            class="code-editor"
-            spellcheck="false"
-            readonly></textarea>
-        </div>
-        <div class="preview-panel">
-          <h4>Preview</h4>
-          <div class="preview-content">
-            <amw-radio-group
-              [(ngModel)]="selectedValue"
-              orientation="vertical"
-              [options]="[
-                { value: 'yes', label: 'Yes' },
-                { value: 'no', label: 'No' },
-                { value: 'maybe', label: 'Maybe' }
-              ]">
-            </amw-radio-group>
-
-            <div class="preview-note">
-              <amw-icon name="info"></amw-icon>
-              <span>Selected: {{selectedValue || 'None'}}</span>
-            </div>
-          </div>
-        </div>
-      </div>
-    </amw-accordion-panel>
-
-    <!-- Disabled State -->
-    <amw-accordion-panel amwDescription="Disable individual radio buttons">
-      <ng-template #header>
-        <amw-icon name="code"></amw-icon>
-        Disabled State
-      </ng-template>
-      <div class="example-container">
-        <div class="code-panel">
-          <div class="code-header">
-            <h4>Code</h4>
-            <amw-button icon="refresh" (click)="resetCode('disabled')" title="Reset to original"></amw-button>
-          </div>
-          <textarea
-            [(ngModel)]="editableCode.disabled"
-            class="code-editor"
-            spellcheck="false"
-            readonly></textarea>
-        </div>
-        <div class="preview-panel">
-          <h4>Preview</h4>
-          <div class="preview-content">
-            <amw-radio-group
-              orientation="vertical"
-              [options]="[
-                { value: 'enabled', label: 'Enabled' },
-                { value: 'disabled', label: 'Disabled', disabled: true },
-                { value: 'enabled2', label: 'Enabled' }
-              ]">
-            </amw-radio-group>
-          </div>
-        </div>
-      </div>
-    </amw-accordion-panel>
-
-    <!-- Label Position -->
-    <amw-accordion-panel amwDescription="Position labels before or after the radio button">
-      <ng-template #header>
-        <amw-icon name="code"></amw-icon>
-        Label Position
-      </ng-template>
-      <div class="example-container">
-        <div class="code-panel">
-          <div class="code-header">
-            <h4>Code</h4>
-            <amw-button icon="refresh" (click)="resetCode('labelPosition')" title="Reset to original"></amw-button>
-          </div>
-          <textarea
-            [(ngModel)]="editableCode.labelPosition"
-            class="code-editor"
-            spellcheck="false"
-            readonly></textarea>
-        </div>
-        <div class="preview-panel">
-          <h4>Preview</h4>
-          <div class="preview-content">
-            <amw-radio-group
-              [(ngModel)]="selectedAlign"
-              orientation="vertical"
-              [options]="[
-                { value: 'before', label: 'Label Before' },
-                { value: 'after', label: 'Label After' }
-              ]">
-            </amw-radio-group>
-          </div>
-        </div>
-      </div>
-    </amw-accordion-panel>
-
-    <!-- Color Theming -->
-    <amw-accordion-panel amwDescription="Apply different theme colors">
-      <ng-template #header>
-        <amw-icon name="code"></amw-icon>
-        Color Theming
-      </ng-template>
-      <div class="example-container">
-        <div class="code-panel">
-          <div class="code-header">
-            <h4>Code</h4>
-            <amw-button icon="refresh" (click)="resetCode('color')" title="Reset to original"></amw-button>
-          </div>
-          <textarea
-            [(ngModel)]="editableCode.color"
-            class="code-editor"
-            spellcheck="false"
-            readonly></textarea>
-        </div>
-        <div class="preview-panel">
-          <h4>Preview</h4>
-          <div class="preview-content">
-            <amw-radio-group
-              [(ngModel)]="selectedColor"
-              orientation="vertical"
-              [options]="[
-                { value: 'primary', label: 'Primary' },
-                { value: 'accent', label: 'Accent' },
-                { value: 'warn', label: 'Warn' }
-              ]">
-            </amw-radio-group>
-          </div>
-        </div>
-      </div>
-    </amw-accordion-panel>
-
-    <!-- Reactive Forms -->
-    <amw-accordion-panel amwDescription="Use with Angular reactive forms">
-      <ng-template #header>
-        <amw-icon name="code"></amw-icon>
-        Reactive Forms Integration
-      </ng-template>
-      <div class="example-container">
-        <div class="code-panel">
-          <div class="code-header">
-            <h4>Code</h4>
-            <amw-button icon="refresh" (click)="resetCode('reactiveForm')" title="Reset to original"></amw-button>
-          </div>
-          <textarea
-            [(ngModel)]="editableCode.reactiveForm"
-            class="code-editor"
-            spellcheck="false"
-            readonly></textarea>
-        </div>
-        <div class="preview-panel">
-          <h4>Preview</h4>
-          <div class="preview-content">
-            <form [formGroup]="myForm">
-              <amw-radio-group
-                formControlName="priority"
-                orientation="vertical"
-                [options]="[
-                  { value: 'low', label: 'Low' },
-                  { value: 'medium', label: 'Medium' },
-                  { value: 'high', label: 'High' }
-                ]">
-              </amw-radio-group>
-            </form>
-
-            <div class="preview-note">
-              <amw-icon name="info"></amw-icon>
-              <span>Form Valid: {{myForm.valid}} | Value: {{myForm.value.priority || 'None'}}</span>
-            </div>
-          </div>
-        </div>
-      </div>
-    </amw-accordion-panel>
-  </amw-accordion>
-</div>
+      }
+    }
+  </ng-template>
+</amw-code-doc>

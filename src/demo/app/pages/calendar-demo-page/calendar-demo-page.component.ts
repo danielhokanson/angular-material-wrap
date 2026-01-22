@@ -7,6 +7,8 @@ import { AmwCalendarFullComponent } from '../../../../library/src/components/com
 import { AmwCalendarMiniComponent } from '../../../../library/src/components/components/amw-calendar/amw-calendar-mini.component';
 import { AmwTabsComponent, AmwTabComponent, AmwDividerComponent, AmwCardComponent, AmwIconComponent } from '../../../../library/src/components/components';
 import { AmwButtonComponent } from '../../../../library/src/controls/components/amw-button/amw-button.component';
+import { AmwApiDocComponent, ApiInterface } from '../../shared/components/api-doc/api-doc.component';
+import { ApiDocumentation } from '../../components/base/base-api.component';
 
 // Sample event data interface
 interface SampleEvent {
@@ -30,6 +32,7 @@ interface SampleEvent {
     AmwCardComponent,
     AmwIconComponent,
     AmwButtonComponent,
+    AmwApiDocComponent,
 ],
     encapsulation: ViewEncapsulation.None,
     templateUrl: './calendar-demo-page.component.html',
@@ -193,6 +196,213 @@ export class CalendarDemoPageComponent implements OnInit {
 
     // Current date for calendars
     currentDate = new Date(2024, 0, 15); // January 15, 2024
+
+    // Code examples for documentation
+    codeExamples = {
+        basicUsage: `<!-- Calendar Demo Page Structure -->
+<div class="calendar-demo-page">
+  <div class="demo-header">
+    <h1>AMW Calendar Components</h1>
+    <p>Comprehensive calendar components with event management</p>
+  </div>
+
+  <amw-tabs>
+    <amw-tab label="Full Calendar">
+      <amw-card>
+        <ng-template #cardContent>
+          <amw-calendar-full
+            [events]="sampleEvents"
+            [config]="calendarConfig"
+            [currentDate]="currentDate"
+            [height]="'600px'"
+            (eventChange)="onEventChange($event)"
+            (eventClick)="onEventClick($event)">
+          </amw-calendar-full>
+        </ng-template>
+      </amw-card>
+    </amw-tab>
+
+    <amw-tab label="Mini Calendar">
+      <amw-calendar-mini
+        [events]="sampleEvents"
+        [config]="miniConfig"
+        [showWeekView]="true">
+      </amw-calendar-mini>
+    </amw-tab>
+  </amw-tabs>
+</div>`,
+
+        fullCalendarPattern: `<!-- Full Calendar Component -->
+<amw-calendar-full
+  [events]="sampleEvents"
+  [config]="fullCalendarConfig"
+  [currentDate]="currentDate"
+  [height]="'600px'"
+  (eventChange)="onEventChange($event)"
+  (eventClick)="onEventClick($event)"
+  (eventDoubleClick)="onEventDoubleClick($event)"
+  (eventEdit)="onEventEdit($event)"
+  (eventDelete)="onEventDelete($event)"
+  (eventMove)="onEventMove($event)"
+  (navigationChange)="onNavigationChange($event)"
+  (viewChange)="onViewChange($event)"
+  (dateChange)="onDateChange($event)"
+  (cellClick)="onCellClick($event)"
+  (cellDoubleClick)="onCellDoubleClick($event)">
+</amw-calendar-full>`,
+
+        miniCalendarPattern: `<!-- Mini Calendar - Single Day View -->
+<amw-calendar-mini
+  [events]="sampleEvents"
+  [config]="miniCalendarConfig"
+  [currentDate]="currentDate"
+  [showWeekView]="false"
+  [maxEventsPerDay]="3"
+  [showMoreButton]="true"
+  [compactMode]="false"
+  (eventChange)="onEventChange($event)"
+  (eventClick)="onEventClick($event)">
+</amw-calendar-mini>
+
+<!-- Mini Calendar - Week View -->
+<amw-calendar-mini
+  [events]="sampleEvents"
+  [config]="miniCalendarConfig"
+  [showWeekView]="true"
+  [compactMode]="true">
+</amw-calendar-mini>`,
+
+        componentCode: `import { Component } from '@angular/core';
+import {
+  CalendarEvent,
+  CalendarConfig,
+  CalendarEventChangeEvent,
+  CalendarView
+} from 'angular-material-wrap';
+import {
+  AmwCalendarFullComponent,
+  AmwCalendarMiniComponent,
+  AmwTabsComponent,
+  AmwTabComponent,
+  AmwCardComponent,
+  AmwButtonComponent
+} from 'angular-material-wrap';
+
+interface MyEvent {
+  id: string;
+  title: string;
+  category: string;
+  priority: 'low' | 'medium' | 'high';
+}
+
+@Component({
+  selector: 'app-calendar-demo',
+  standalone: true,
+  imports: [
+    AmwCalendarFullComponent,
+    AmwCalendarMiniComponent,
+    AmwTabsComponent,
+    AmwTabComponent,
+    AmwCardComponent,
+    AmwButtonComponent
+  ],
+  templateUrl: './calendar-demo.component.html'
+})
+export class CalendarDemoComponent {
+  sampleEvents: CalendarEvent<MyEvent>[] = [
+    {
+      id: '1',
+      data: { id: '1', title: 'Meeting', category: 'work', priority: 'high' },
+      start: new Date(),
+      end: new Date(Date.now() + 3600000),
+      title: 'Meeting',
+      color: '#6750a4'
+    }
+  ];
+
+  calendarConfig: CalendarConfig<MyEvent> = {
+    displayProperty: 'title',
+    editable: true,
+    deletable: true,
+    draggable: true,
+    allowCreate: true,
+    eventColor: (event) => event.data.priority === 'high' ? '#ba1a1a' : '#388e3c'
+  };
+
+  onEventChange(event: CalendarEventChangeEvent<MyEvent>): void {
+    switch (event.type) {
+      case 'create':
+        this.sampleEvents.push(event.event);
+        break;
+      case 'update':
+        const index = this.sampleEvents.findIndex(e => e.id === event.event.id);
+        if (index !== -1) this.sampleEvents[index] = event.event;
+        break;
+      case 'delete':
+        this.sampleEvents = this.sampleEvents.filter(e => e.id !== event.event.id);
+        break;
+    }
+  }
+}`
+    };
+
+    // API documentation
+    calendarPageApiDoc: ApiDocumentation = {
+        inputs: [],
+        outputs: [],
+        usageNotes: [
+            'The Calendar Demo Page showcases two calendar components: Full Calendar and Mini Calendar',
+            'Full Calendar provides month, week, and day views with comprehensive event management',
+            'Mini Calendar offers a compact view suitable for sidebars and dashboards',
+            'Both calendars support drag-and-drop event moving and resizing',
+            'Events are strongly typed using TypeScript generics for custom data structures',
+            'Calendar configuration allows customizing appearance, behavior, and event colors',
+            'Event handlers provide hooks for create, update, delete, and move operations',
+            'This page demonstrates integration of: AmwCalendarFull, AmwCalendarMini, AmwTabs, AmwCard, AmwButton, AmwDivider, AmwIcon'
+        ]
+    };
+
+    // Interfaces for documentation
+    calendarPageInterfaces: ApiInterface[] = [
+        {
+            name: 'CalendarEvent<T>',
+            description: 'Structure for calendar events with generic data type',
+            properties: [
+                { name: 'id', type: 'string', description: 'Unique event identifier' },
+                { name: 'data', type: 'T', description: 'Custom event data of generic type' },
+                { name: 'start', type: 'Date', description: 'Event start date and time' },
+                { name: 'end', type: 'Date', description: 'Event end date and time (optional)' },
+                { name: 'title', type: 'string', description: 'Event display title' },
+                { name: 'description', type: 'string', description: 'Event description (optional)' },
+                { name: 'color', type: 'string', description: 'Event color (optional)' },
+                { name: 'allDay', type: 'boolean', description: 'Whether event spans all day' },
+                { name: 'editable', type: 'boolean', description: 'Whether event can be edited' },
+                { name: 'deletable', type: 'boolean', description: 'Whether event can be deleted' }
+            ]
+        },
+        {
+            name: 'CalendarConfig<T>',
+            description: 'Configuration options for calendar components',
+            properties: [
+                { name: 'displayProperty', type: 'string', description: 'Property to display as event title' },
+                { name: 'editable', type: 'boolean', description: 'Enable event editing' },
+                { name: 'deletable', type: 'boolean', description: 'Enable event deletion' },
+                { name: 'draggable', type: 'boolean', description: 'Enable drag-and-drop' },
+                { name: 'allowCreate', type: 'boolean', description: 'Allow creating new events' },
+                { name: 'defaultDuration', type: 'number', description: 'Default event duration in minutes' },
+                { name: 'eventColor', type: '(event: CalendarEvent<T>) => string', description: 'Function to determine event color' }
+            ]
+        },
+        {
+            name: 'CalendarEventChangeEvent<T>',
+            description: 'Event emitted when calendar events change',
+            properties: [
+                { name: 'type', type: "'create' | 'update' | 'delete' | 'move'", description: 'Type of change' },
+                { name: 'event', type: 'CalendarEvent<T>', description: 'The affected event' },
+                { name: 'previousEvent', type: 'CalendarEvent<T>', description: 'Previous event state (for updates)' }
+            ]
+        }
+    ];
 
     constructor(
         private notification: AmwNotificationService

@@ -1,89 +1,63 @@
-<div class="amw-demo-range-slider-validation">
-  <div class="validation-section">
-    <h3>Range Slider Validation</h3>
-    <p>This form demonstrates validation for range slider components with various constraints and error handling.</p>
-
-    <form [formGroup]="validationForm" (ngSubmit)="onSubmit()" class="validation-form">
-      <h4>Range Slider Validation Examples</h4>
-      
-      <div class="form-field">
-        <label>Price Range ($0 - $1000)</label>
-        <amw-range-slider
-          formControlName="priceRange"
-          [min]="0"
-          [max]="1000"
-          [step]="10"
-          [showTicks]="true"
-          [showLabels]="true"
-          startThumbLabel="Min Price"
-          endThumbLabel="Max Price"
-          [hasError]="hasError('priceRange')"
-          [errorMessage]="getErrorMessage('priceRange')">
-        </amw-range-slider>
-        @if (hasError('priceRange')) {
-          <div class="error-message">{{ getErrorMessage('priceRange') }}</div>
-        }
-      </div>
-
-      <div class="form-field">
-        <label>Age Range (18 - 100 years)</label>
-        <amw-range-slider
-          formControlName="ageRange"
-          [min]="18"
-          [max]="100"
-          [step]="1"
-          [showTicks]="true"
-          [showLabels]="true"
-          startThumbLabel="Min Age"
-          endThumbLabel="Max Age"
-          [hasError]="hasError('ageRange')"
-          [errorMessage]="getErrorMessage('ageRange')">
-        </amw-range-slider>
-        @if (hasError('ageRange')) {
-          <div class="error-message">{{ getErrorMessage('ageRange') }}</div>
-        }
-      </div>
-
-      <div class="form-field">
-        <label>Temperature Range (-50°C - 100°C)</label>
-        <amw-range-slider
-          formControlName="temperatureRange"
-          [min]="-50"
-          [max]="100"
-          [step]="1"
-          [showTicks]="true"
-          [showLabels]="true"
-          startThumbLabel="Min Temp"
-          endThumbLabel="Max Temp"
-          [hasError]="hasError('temperatureRange')"
-          [errorMessage]="getErrorMessage('temperatureRange')">
-        </amw-range-slider>
-        @if (hasError('temperatureRange')) {
-          <div class="error-message">{{ getErrorMessage('temperatureRange') }}</div>
-        }
-      </div>
-
-      <div class="form-actions">
-        <amw-button appearance="text" type="button" (click)="onReset()">Reset</amw-button>
-        <amw-button appearance="elevated" color="primary" type="submit" [disabled]="validationForm.invalid">
-          Submit
-        </amw-button>
-      </div>
-    </form>
-
-    <div class="validation-info">
-      <h4>Validation Rules</h4>
-      <ul>
-        <li><strong>Required:</strong> All range sliders are required</li>
-        <li><strong>Range Logic:</strong> Start value must be less than end value</li>
-        <li><strong>Bounds:</strong> Values must be within specified min/max ranges</li>
-        <li><strong>Price Range:</strong> $0 - $1000 with $10 increments</li>
-        <li><strong>Age Range:</strong> 18 - 100 years with 1 year increments</li>
-        <li><strong>Temperature:</strong> -50°C - 100°C with 1°C increments</li>
-      </ul>
+<amw-validation-doc
+  componentName="amw-range-slider"
+  [validationForm]="validationForm"
+  [validationInfo]="validationInfo">
+  <ng-template #formContent>
+    <div class="form-field">
+      <label>Price Range ($0 - $1000)</label>
+      <amw-range-slider
+        formControlName="priceRange"
+        [min]="0"
+        [max]="1000"
+        [step]="10"
+        [showTicks]="true"
+        [showLabels]="true"
+        startThumbLabel="Min Price"
+        endThumbLabel="Max Price"
+        [hasError]="hasRangeError('priceRange')"
+        [errorMessage]="getErrorMessage('priceRange')">
+      </amw-range-slider>
+      @if (hasRangeError('priceRange')) {
+        <div class="error-message">{{ getErrorMessage('priceRange') }}</div>
+      }
     </div>
-  </div>
-</div>
 
+    <div class="form-field">
+      <label>Age Range (18 - 100 years)</label>
+      <amw-range-slider
+        formControlName="ageRange"
+        [min]="18"
+        [max]="100"
+        [step]="1"
+        [showTicks]="true"
+        [showLabels]="true"
+        startThumbLabel="Min Age"
+        endThumbLabel="Max Age"
+        [hasError]="hasRangeError('ageRange')"
+        [errorMessage]="getErrorMessage('ageRange')">
+      </amw-range-slider>
+      @if (hasRangeError('ageRange')) {
+        <div class="error-message">{{ getErrorMessage('ageRange') }}</div>
+      }
+    </div>
 
-
+    <div class="form-field">
+      <label>Temperature Range (-50 to 100 degrees)</label>
+      <amw-range-slider
+        formControlName="temperatureRange"
+        [min]="-50"
+        [max]="100"
+        [step]="1"
+        [showTicks]="true"
+        [showLabels]="true"
+        startThumbLabel="Min Temp"
+        endThumbLabel="Max Temp"
+        [hasError]="hasRangeError('temperatureRange')"
+        [errorMessage]="getErrorMessage('temperatureRange')">
+      </amw-range-slider>
+      @if (hasRangeError('temperatureRange')) {
+        <div class="error-message">{{ getErrorMessage('temperatureRange') }}</div>
+      }
+    </div>
+  </ng-template>
+</amw-validation-doc>

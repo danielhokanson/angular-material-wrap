@@ -1,27 +1,22 @@
-import { Component, OnInit, ViewEncapsulation } from '@angular/core';
-
-import { ReactiveFormsModule, FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { AmwNotificationService } from '../../../../library/src/services/amw-notification/amw-notification.service';
+import { Component, ViewEncapsulation } from '@angular/core';
+import { ReactiveFormsModule, FormGroup, Validators } from '@angular/forms';
+import { AmwValidationDocComponent, ValidationInfo } from '../../shared/components/validation-doc/validation-doc.component';
+import { BaseValidationComponent } from '../base/base-validation.component';
 import { AmwAutocompleteComponent } from '../../../../library/src/controls/components/amw-autocomplete/amw-autocomplete.component';
-import { AmwButtonComponent } from '../../../../library/src/controls/components/amw-button/amw-button.component';
 
 @Component({
   selector: 'amw-demo-autocomplete-validation',
   standalone: true,
   imports: [
     ReactiveFormsModule,
-    AmwAutocompleteComponent,
-    AmwButtonComponent,
-    AmwAutocompleteComponent,
-    AmwButtonComponent
-],
+    AmwValidationDocComponent,
+    AmwAutocompleteComponent
+  ],
   encapsulation: ViewEncapsulation.None,
   templateUrl: './autocomplete-validation.component.html',
   styleUrl: './autocomplete-validation.component.scss'
 })
-export class AutocompleteValidationComponent implements OnInit {
-  validationForm: FormGroup;
-
+export class AutocompleteValidationComponent extends BaseValidationComponent {
   // Sample data for autocomplete options
   countries = [
     { value: 'us', label: 'United States' },
@@ -62,36 +57,19 @@ export class AutocompleteValidationComponent implements OnInit {
     { value: 'white', label: 'White' }
   ];
 
-  constructor(
-    private fb: FormBuilder,
-    private notification: AmwNotificationService
-  ) {
-    this.validationForm = this.fb.group({
-      country: ['', [Validators.required]],
-      skills: ['', [Validators.required]],
-      favoriteColor: ['', [Validators.required]],
-      company: ['', [Validators.required, Validators.minLength(2)]],
-      email: ['', [Validators.required, Validators.email]]
-    });
-  }
+  validationForm: FormGroup = this.fb.group({
+    country: ['', [Validators.required]],
+    skills: ['', [Validators.required]],
+    favoriteColor: ['', [Validators.required]],
+    company: ['', [Validators.required, Validators.minLength(2)]],
+    email: ['', [Validators.required, Validators.email]]
+  });
 
-  ngOnInit(): void { }
-
-  onSubmit(): void {
-    if (this.validationForm.valid) {
-      this.notification.success('Success', 'Form is valid! All autocomplete fields are properly filled.', { duration: 3000 });
-    } else {
-      this.notification.error('Error', 'Form has validation errors. Please check the autocomplete fields.', { duration: 3000 });
-    }
-  }
-
-  getFieldError(fieldName: string): string {
-    const field = this.validationForm.get(fieldName);
-    if (field?.errors && field.touched) {
-      if (field.errors['required']) return `${fieldName} is required`;
-      if (field.errors['email']) return 'Please enter a valid email address';
-      if (field.errors['minlength']) return `Minimum length is ${field.errors['minlength'].requiredLength} characters`;
-    }
-    return '';
-  }
+  validationInfo: ValidationInfo[] = [
+    { title: 'Country', description: 'Required selection from predefined list' },
+    { title: 'Skills', description: 'Required selection from predefined list' },
+    { title: 'Favorite Color', description: 'Required selection from predefined list' },
+    { title: 'Company', description: 'Required, minimum 2 characters' },
+    { title: 'Email', description: 'Required, valid email format' }
+  ];
 }

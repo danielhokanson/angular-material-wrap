@@ -1,31 +1,39 @@
-import { Component, ViewEncapsulation } from '@angular/core';
+import { Component, ViewEncapsulation, OnInit } from '@angular/core';
 import { FormsModule } from '@angular/forms';
-import { BaseCodeComponent } from '../base/base-code.component';
-
-type AccordionExamples = 'basic' | 'multiExpand' | 'hideToggle' | 'disabled' | 'programmatic' | 'events' | 'togglePosition';
-
+import { AmwCodeDocComponent, CodeExample } from '../../shared/components/code-doc/code-doc.component';
 import { AmwButtonComponent } from '../../../../library/src/controls/components/amw-button/amw-button.component';
 import { AmwIconComponent, AmwAccordionComponent, AmwAccordionPanelComponent } from '../../../../library/src/components/components';
+
 @Component({
   selector: 'amw-demo-accordion-code',
   standalone: true,
-  imports: [FormsModule,
+  imports: [
+    FormsModule,
+    AmwCodeDocComponent,
     AmwButtonComponent,
     AmwIconComponent,
     AmwAccordionComponent,
-    AmwAccordionPanelComponent],
+    AmwAccordionPanelComponent
+  ],
   encapsulation: ViewEncapsulation.None,
   templateUrl: './accordion-code.component.html',
   styleUrl: './accordion-code.component.scss'
 })
-export class AccordionCodeComponent extends BaseCodeComponent<AccordionExamples> {
+export class AccordionCodeComponent implements OnInit {
   // State for live preview examples
   step = 0;
   multiExpandMode = false;
 
-  // Original code examples (for reset functionality)
-  readonly codeExamples: Record<AccordionExamples, string> = {
-    basic: `<amw-accordion>
+  // Editable code for the shared component
+  editableCode: Record<string, string> = {};
+
+  // Code examples data
+  readonly examples: CodeExample[] = [
+    {
+      key: 'basic',
+      title: 'Basic Accordion',
+      description: 'Simple accordion with expandable panels',
+      code: `<amw-accordion>
   <amw-accordion-panel amwTitle="Panel 1" amwDescription="First panel content">
     <p>First panel content</p>
   </amw-accordion-panel>
@@ -33,9 +41,13 @@ export class AccordionCodeComponent extends BaseCodeComponent<AccordionExamples>
   <amw-accordion-panel amwTitle="Panel 2" amwDescription="Second panel content">
     <p>Second panel content</p>
   </amw-accordion-panel>
-</amw-accordion>`,
-
-    multiExpand: `<amw-accordion [multi]="true">
+</amw-accordion>`
+    },
+    {
+      key: 'multiExpand',
+      title: 'Multi-Expansion Mode',
+      description: 'Multiple panels can be open simultaneously',
+      code: `<amw-accordion [multi]="true">
   <amw-accordion-panel amwTitle="Panel 1">
     <p>Content 1 - can stay open with others</p>
   </amw-accordion-panel>
@@ -43,21 +55,33 @@ export class AccordionCodeComponent extends BaseCodeComponent<AccordionExamples>
   <amw-accordion-panel amwTitle="Panel 2">
     <p>Content 2 - can stay open with others</p>
   </amw-accordion-panel>
-</amw-accordion>`,
-
-    hideToggle: `<amw-accordion>
+</amw-accordion>`
+    },
+    {
+      key: 'hideToggle',
+      title: 'Hide Toggle Indicator',
+      description: 'Panel without visible toggle indicator',
+      code: `<amw-accordion>
   <amw-accordion-panel amwTitle="No Toggle Indicator" [hideToggle]="true">
     <p>Panel without toggle indicator</p>
   </amw-accordion-panel>
-</amw-accordion>`,
-
-    disabled: `<amw-accordion>
+</amw-accordion>`
+    },
+    {
+      key: 'disabled',
+      title: 'Disabled State',
+      description: 'Non-interactive panel',
+      code: `<amw-accordion>
   <amw-accordion-panel amwTitle="Disabled Panel" [disabled]="true">
     <p>This content cannot be accessed</p>
   </amw-accordion-panel>
-</amw-accordion>`,
-
-    programmatic: `<amw-accordion>
+</amw-accordion>`
+    },
+    {
+      key: 'programmatic',
+      title: 'Programmatic Control',
+      description: 'Control expansion with methods',
+      code: `<amw-accordion>
   <amw-accordion-panel #panel amwTitle="Programmatically Controlled">
     <p>Control this panel with methods</p>
   </amw-accordion-panel>
@@ -65,26 +89,38 @@ export class AccordionCodeComponent extends BaseCodeComponent<AccordionExamples>
 
 <amw-button appearance="elevated" (click)="panel.expanded = true">Open</amw-button>
 <amw-button appearance="elevated" (click)="panel.expanded = false">Close</amw-button>
-<amw-button appearance="elevated" (click)="panel.expanded = !panel.expanded">Toggle</amw-button>`,
-
-    events: `<amw-accordion>
+<amw-button appearance="elevated" (click)="panel.expanded = !panel.expanded">Toggle</amw-button>`
+    },
+    {
+      key: 'events',
+      title: 'Event Handling',
+      description: 'Listen to open and close events',
+      code: `<amw-accordion>
   <amw-accordion-panel
     amwTitle="Event Handling"
     (opened)="onOpened()"
     (closed)="onClosed()">
     <p>Check console for event logs</p>
   </amw-accordion-panel>
-</amw-accordion>`,
-
-    togglePosition: `<amw-accordion [togglePosition]="'before'">
+</amw-accordion>`
+    },
+    {
+      key: 'togglePosition',
+      title: 'Toggle Position',
+      description: 'Toggle indicator on the left',
+      code: `<amw-accordion [togglePosition]="'before'">
   <amw-accordion-panel amwTitle="Toggle Before Title">
     <p>Toggle indicator on the left</p>
   </amw-accordion-panel>
 </amw-accordion>`
-  };
+    }
+  ];
 
-  constructor() {
-    super();
+  ngOnInit(): void {
+    // Initialize editable code from examples
+    this.examples.forEach(example => {
+      this.editableCode[example.key] = example.code;
+    });
   }
 
   // Event handlers for event example

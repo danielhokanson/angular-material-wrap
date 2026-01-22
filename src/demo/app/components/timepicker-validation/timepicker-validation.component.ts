@@ -1,78 +1,74 @@
-import { Component, OnInit, ViewEncapsulation } from '@angular/core';
-
-import { ReactiveFormsModule, FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { AmwNotificationService } from '../../../../library/src/services/amw-notification/amw-notification.service';
+import { Component, ViewEncapsulation, OnInit } from '@angular/core';
+import { ReactiveFormsModule, FormGroup, Validators, AbstractControl, ValidationErrors } from '@angular/forms';
+import { AmwValidationDocComponent, ValidationInfo } from '../../shared/components/validation-doc/validation-doc.component';
+import { BaseValidationComponent } from '../base/base-validation.component';
 import { AmwTimepickerComponent } from '../../../../library/src/controls/components/amw-timepicker/amw-timepicker.component';
-import { AmwCardComponent } from '../../../../library/src/components/components/amw-card/amw-card.component';
 
-import { AmwButtonComponent } from '../../../../library/src/controls/components/amw-button/amw-button.component';
 @Component({
-    selector: 'amw-demo-timepicker-validation',
-    standalone: true,
-    imports: [ReactiveFormsModule,
-    AmwTimepickerComponent,
-    AmwButtonComponent,
-    AmwCardComponent],
-    encapsulation: ViewEncapsulation.None,
-    templateUrl: './timepicker-validation.component.html',
-    styleUrl: './timepicker-validation.component.scss'
+  selector: 'amw-demo-timepicker-validation',
+  standalone: true,
+  imports: [
+    ReactiveFormsModule,
+    AmwValidationDocComponent,
+    AmwTimepickerComponent
+  ],
+  encapsulation: ViewEncapsulation.None,
+  templateUrl: './timepicker-validation.component.html',
+  styleUrl: './timepicker-validation.component.scss'
 })
-export class TimepickerValidationComponent implements OnInit {
-    timepickerForm: FormGroup;
+export class TimepickerValidationComponent extends BaseValidationComponent implements OnInit {
+  validationForm: FormGroup = this.fb.group({
+    startTime: ['', Validators.required],
+    endTime: ['', Validators.required],
+    breakTime: ['', Validators.required],
+    meetingTime: ['', Validators.required]
+  });
 
-    constructor(
-        private fb: FormBuilder,
-        private notification: AmwNotificationService
-    ) {
-        this.timepickerForm = this.fb.group({
-            startTime: ['', Validators.required],
-            endTime: ['', Validators.required],
-            breakTime: ['', Validators.required],
-            meetingTime: ['', Validators.required]
-        });
-    }
+  validationInfo: ValidationInfo[] = [
+    { title: 'Start Time', description: 'Required field' },
+    { title: 'End Time', description: 'Required, must be after start time' },
+    { title: 'Break Time', description: 'Required, uses 12-hour format' },
+    { title: 'Meeting Time', description: 'Required, includes seconds' }
+  ];
 
-    ngOnInit() {
-        // Add custom validators
-        this.timepickerForm.get('endTime')?.setValidators([
-            Validators.required,
-            this.timeAfterValidator('startTime')
-        ]);
-    }
+  ngOnInit(): void {
+    this.validationForm.get('endTime')?.setValidators([
+      Validators.required,
+      this.timeAfterValidator('startTime')
+    ]);
+  }
 
-    timeAfterValidator(startTimeControl: string) {
-        return (control: any) => {
-            const startTime = this.timepickerForm?.get(startTimeControl)?.value;
-            const endTime = control.value;
+  timeAfterValidator(startTimeControl: string) {
+    return (control: AbstractControl): ValidationErrors | null => {
+      const startTime = this.validationForm?.get(startTimeControl)?.value;
+      const endTime = control.value;
 
-            if (startTime && endTime) {
-                const start = this.timeToMinutes(startTime);
-                const end = this.timeToMinutes(endTime);
+      if (startTime && endTime) {
+        const start = this.timeToMinutes(startTime);
+        const end = this.timeToMinutes(endTime);
 
-                if (end <= start) {
-                    return { timeAfter: true };
-                }
-            }
-
-            return null;
-        };
-    }
-
-    timeToMinutes(time: string): number {
-        const [hours, minutes] = time.split(':').map(Number);
-        return hours * 60 + minutes;
-    }
-
-    onSubmit() {
-        if (this.timepickerForm.valid) {
-            this.notification.success('Success', 'Form submitted successfully!', { duration: 3000 });
-            console.log('Form values:', this.timepickerForm.value);
-        } else {
-            this.notification.info('Info', 'Please fill in all required fields correctly', { duration: 3000 });
+        if (end <= start) {
+          return { timeAfter: true };
         }
-    }
+      }
 
-    onReset() {
-        this.timepickerForm.reset();
+      return null;
+    };
+  }
+
+  timeToMinutes(time: string): number {
+    const [hours, minutes] = time.split(':').map(Number);
+    return hours * 60 + minutes;
+  }
+
+  getTimeError(controlName: string): string {
+    const control = this.validationForm.get(controlName);
+    if (control?.hasError('required')) {
+      return `${controlName.replace(/([A-Z])/g, ' $1').trim()} is required`;
     }
+    if (control?.hasError('timeAfter')) {
+      return 'End time must be after start time';
+    }
+    return '';
+  }
 }

@@ -1,149 +1,53 @@
-<div class="code-section">
-  <h3>Code Examples</h3>
-  <p>Interactive examples with live previews. The code is editable for reference, and working examples are shown alongside.</p>
+<amw-code-doc
+  componentName="amw-card"
+  [examples]="examples"
+  [editableCode]="editableCode">
 
-  <amw-accordion class="code-examples-accordion">
-    <!-- Basic Card -->
-    <amw-accordion-panel amwDescription="Simple card with title, subtitle, and content">
-      <ng-template #header>
-        <amw-icon name="code"></amw-icon>
-        Basic Card
-      </ng-template>
-      <div class="example-container">
-        <div class="code-panel">
-          <div class="code-header">
-            <h4>Code</h4>
-            <amw-button icon="refresh" (click)="resetCode('basic')" title="Reset to original"></amw-button>
-          </div>
-          <textarea
-            [(ngModel)]="editableCode.basic"
-            class="code-editor"
-            spellcheck="false"></textarea>
-        </div>
-        <div class="preview-panel">
-          <h4>Preview</h4>
-          <div class="preview-content">
-            <amw-card
-              headerTitle="Card Title"
-              headerSubtitle="Card subtitle"
-              content="This is a basic card with title, subtitle, and content."
-              [actions]="[{ label: 'ACTION 1' }, { label: 'ACTION 2' }]">
-            </amw-card>
-          </div>
-        </div>
-      </div>
-    </amw-accordion-panel>
+  <ng-template #preview let-example>
+    @switch (example.key) {
+      @case ('basic') {
+        <amw-card
+          headerTitle="Card Title"
+          headerSubtitle="Card subtitle"
+          content="This is a basic card with title, subtitle, and content."
+          [actions]="[{ label: 'ACTION 1' }, { label: 'ACTION 2' }]">
+        </amw-card>
+      }
+      @case ('withImage') {
+        <amw-card
+          headerTitle="Shiba Inu"
+          headerSubtitle="Dog Breed"
+          image="https://material.angular.io/assets/img/examples/shiba2.jpg"
+          imageAlt="Photo of a Shiba Inu"
+          content="The Shiba Inu is the smallest of the six original and distinct spitz breeds of dog from Japan."
+          [actions]="[{ label: 'LIKE' }, { label: 'SHARE' }]">
+        </amw-card>
+      }
+      @case ('clickable') {
+        <amw-card
+          headerTitle="Interactive Card"
+          headerSubtitle="Click anywhere on this card"
+          content="This entire card is clickable and will respond to user interactions."
+          [clickable]="true"
+          (cardClick)="onCardClick()">
+        </amw-card>
+      }
+      @case ('variants') {
+        <div class="card-variants-container">
+          <amw-card
+            headerTitle="Outlined Card"
+            content="This card uses an outlined appearance."
+            variant="outlined">
+          </amw-card>
 
-    <!-- Card with Image -->
-    <amw-accordion-panel amwDescription="Card featuring an image with content">
-      <ng-template #header>
-        <amw-icon name="code"></amw-icon>
-        Card with Image
-      </ng-template>
-      <div class="example-container">
-        <div class="code-panel">
-          <div class="code-header">
-            <h4>Code</h4>
-            <amw-button icon="refresh" (click)="resetCode('withImage')" title="Reset to original"></amw-button>
-          </div>
-          <textarea
-            [(ngModel)]="editableCode.withImage"
-            class="code-editor"
-            spellcheck="false"
-            readonly></textarea>
+          <amw-card
+            headerTitle="Raised Card"
+            content="This card uses a raised appearance with elevation."
+            variant="elevated"
+            [elevation]="3">
+          </amw-card>
         </div>
-        <div class="preview-panel">
-          <h4>Preview</h4>
-          <div class="preview-content">
-            <amw-card
-              headerTitle="Shiba Inu"
-              headerSubtitle="Dog Breed"
-              image="https://material.angular.io/assets/img/examples/shiba2.jpg"
-              imageAlt="Photo of a Shiba Inu"
-              content="The Shiba Inu is the smallest of the six original and distinct spitz breeds of dog from Japan."
-              [actions]="[{ label: 'LIKE' }, { label: 'SHARE' }]">
-            </amw-card>
-          </div>
-        </div>
-      </div>
-    </amw-accordion-panel>
-
-    <!-- Clickable Card -->
-    <amw-accordion-panel amwDescription="Interactive card that responds to clicks">
-      <ng-template #header>
-        <amw-icon name="code"></amw-icon>
-        Clickable Card
-      </ng-template>
-      <div class="example-container">
-        <div class="code-panel">
-          <div class="code-header">
-            <h4>Code</h4>
-            <amw-button icon="refresh" (click)="resetCode('clickable')" title="Reset to original"></amw-button>
-          </div>
-          <textarea
-            [(ngModel)]="editableCode.clickable"
-            class="code-editor"
-            spellcheck="false"
-            readonly></textarea>
-        </div>
-        <div class="preview-panel">
-          <h4>Preview</h4>
-          <div class="preview-content">
-            <amw-card
-              headerTitle="Interactive Card"
-              headerSubtitle="Click anywhere on this card"
-              content="This entire card is clickable and will respond to user interactions."
-              [clickable]="true"
-              (cardClick)="onCardClick()"
-              class="example-card">
-            </amw-card>
-            <div class="preview-note">
-              <amw-icon name="info"></amw-icon>
-              <span>Open your browser console to see click events</span>
-            </div>
-          </div>
-        </div>
-      </div>
-    </amw-accordion-panel>
-
-    <!-- Card Variants -->
-    <amw-accordion-panel amwDescription="Different card styles and appearances">
-      <ng-template #header>
-        <amw-icon name="code"></amw-icon>
-        Card Variants
-      </ng-template>
-      <div class="example-container">
-        <div class="code-panel">
-          <div class="code-header">
-            <h4>Code</h4>
-            <amw-button icon="refresh" (click)="resetCode('variants')" title="Reset to original"></amw-button>
-          </div>
-          <textarea
-            [(ngModel)]="editableCode.variants"
-            class="code-editor"
-            spellcheck="false"
-            readonly></textarea>
-        </div>
-        <div class="preview-panel">
-          <h4>Preview</h4>
-          <div class="preview-content">
-            <div class="card-variants-container">
-              <amw-card
-                headerTitle="Outlined Card"
-                content="This card uses an outlined appearance."
-                variant="outlined">
-              </amw-card>
-
-              <amw-card
-                headerTitle="Raised Card"
-                content="This card uses a raised appearance with elevation."
-                variant="elevated"
-                [elevation]="3">
-              </amw-card>
-            </div>
-          </div>
-        </div>
-      </div>
-    </amw-accordion-panel>
-  </amw-accordion>
-</div>
+      }
+    }
+  </ng-template>
+</amw-code-doc>

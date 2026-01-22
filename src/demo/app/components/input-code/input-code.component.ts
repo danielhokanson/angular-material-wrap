@@ -1,44 +1,50 @@
-import { Component, ViewEncapsulation } from '@angular/core';
+import { Component, ViewEncapsulation, OnInit } from '@angular/core';
 import { FormsModule } from '@angular/forms';
-import { BaseCodeComponent } from '../base/base-code.component';
+import { AmwCodeDocComponent, CodeExample } from '../../shared/components/code-doc/code-doc.component';
 import { AmwButtonComponent } from '../../../../library/src/controls/components/amw-button/amw-button.component';
 import { AmwInputComponent } from '../../../../library/src/controls/components/amw-input/amw-input.component';
 import { AmwTextareaComponent } from '../../../../library/src/controls/components/amw-textarea/amw-textarea.component';
-import { AmwAccordionComponent, AmwAccordionPanelComponent, AmwIconComponent } from '../../../../library/src/components/components';
-
-type InputExamples = 'basic' | 'withLabel' | 'withHint' | 'withError' | 'withIcon' | 'disabled' | 'textarea';
 
 @Component({
   selector: 'amw-demo-input-code',
   standalone: true,
   imports: [
     FormsModule,
+    AmwCodeDocComponent,
     AmwButtonComponent,
     AmwInputComponent,
-    AmwTextareaComponent,
-    AmwAccordionComponent,
-    AmwAccordionPanelComponent,
-    AmwIconComponent
+    AmwTextareaComponent
   ],
   encapsulation: ViewEncapsulation.None,
   templateUrl: './input-code.component.html',
   styleUrl: './input-code.component.scss'
 })
-export class InputCodeComponent extends BaseCodeComponent<InputExamples> {
+export class InputCodeComponent implements OnInit {
   // State for live preview examples
   basicValue = '';
   emailValue = '';
   disabledValue = 'This field is disabled';
   readonlyValue = 'This field is readonly';
 
-  // Original code examples (for reset functionality)
-  readonly codeExamples: Record<InputExamples, string> = {
-    basic: `<amw-input
+  // Editable code for the shared component
+  editableCode: Record<string, string> = {};
+
+  // Code examples data
+  readonly examples: CodeExample[] = [
+    {
+      key: 'basic',
+      title: 'Basic Input',
+      description: 'Simple input with label and placeholder',
+      code: `<amw-input
   label="Basic Input"
   placeholder="Enter text">
-</amw-input>`,
-
-    withLabel: `<amw-input
+</amw-input>`
+    },
+    {
+      key: 'withLabel',
+      title: 'Input Appearances',
+      description: 'Different visual styles for inputs',
+      code: `<amw-input
   label="Fill Appearance"
   placeholder="Placeholder text"
   appearance="fill">
@@ -48,22 +54,34 @@ export class InputCodeComponent extends BaseCodeComponent<InputExamples> {
   label="Outline Appearance"
   placeholder="Placeholder text"
   appearance="outline">
-</amw-input>`,
-
-    withHint: `<amw-input
+</amw-input>`
+    },
+    {
+      key: 'withHint',
+      title: 'Input with Hint',
+      description: 'Display helpful hint text below input',
+      code: `<amw-input
   label="Username"
   placeholder="Enter username"
   hint="Choose a unique username">
-</amw-input>`,
-
-    withError: `<amw-input
+</amw-input>`
+    },
+    {
+      key: 'withError',
+      title: 'Input with Error',
+      description: 'Display error messages for validation',
+      code: `<amw-input
   label="Email"
   type="email"
   placeholder="email@example.com"
   required>
-</amw-input>`,
-
-    withIcon: `<amw-input
+</amw-input>`
+    },
+    {
+      key: 'withIcon',
+      title: 'Input with Icons/Affixes',
+      description: 'Add prefix and suffix content',
+      code: `<amw-input
   label="Search"
   placeholder="Search..."
   prefix="search">
@@ -75,9 +93,13 @@ export class InputCodeComponent extends BaseCodeComponent<InputExamples> {
   placeholder="0"
   prefix="$"
   suffix=".00">
-</amw-input>`,
-
-    disabled: `<amw-input
+</amw-input>`
+    },
+    {
+      key: 'disabled',
+      title: 'Disabled and Readonly States',
+      description: 'Non-editable input variants',
+      code: `<amw-input
   label="Disabled Input"
   disabled
   value="Cannot edit this">
@@ -87,16 +109,24 @@ export class InputCodeComponent extends BaseCodeComponent<InputExamples> {
   label="Readonly Input"
   readonly
   value="This is readonly">
-</amw-input>`,
-
-    textarea: `<amw-textarea
+</amw-input>`
+    },
+    {
+      key: 'textarea',
+      title: 'Textarea',
+      description: 'Multi-line text input',
+      code: `<amw-textarea
   label="Description"
   rows="4"
   placeholder="Enter description">
 </amw-textarea>`
-  };
+    }
+  ];
 
-  constructor() {
-    super();
+  ngOnInit(): void {
+    // Initialize editable code from examples
+    this.examples.forEach(example => {
+      this.editableCode[example.key] = example.code;
+    });
   }
 }

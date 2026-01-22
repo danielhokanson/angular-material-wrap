@@ -1,295 +1,290 @@
-<div class="popover-validation">
-  <!-- Header -->
-  <div class="popover-validation__header">
-    <h2>Popover Validation Demo</h2>
-    <p>Test form validation and error handling for popover configuration</p>
-  </div>
+<amw-validation-doc
+  componentName="amw-popover"
+  [validationForm]="validationForm"
+  [validationInfo]="validationInfo">
+  <ng-template #formContent>
+    <div class="popover-validation__content">
+      <!-- Configuration Form -->
+      <amw-card class="popover-validation__form-card">
+        <ng-template #cardHeader>
+          <h2>Configuration Validation</h2>
+          <p class="subtitle">Test validation rules for popover configuration</p>
+        </ng-template>
 
-  <div class="popover-validation__content">
-    <!-- Configuration Form -->
-    <amw-card class="popover-validation__form-card">
-      <ng-template #cardHeader>
-        <h2>Configuration Validation</h2>
-        <p class="subtitle">Test validation rules for popover configuration</p>
-      </ng-template>
+        <ng-template #cardContent>
+          <div class="popover-validation__form">
+            <div class="popover-validation__form-row">
+              <amw-select
+                label="Size *"
+                formControlName="size"
+                [required]="true"
+                [options]="sizeOptions">
+              </amw-select>
 
-      <ng-template #cardContent>
-        <form [formGroup]="configForm" (ngSubmit)="onSubmit()" class="popover-validation__form">
-          <div class="popover-validation__form-row">
-            <amw-select
-              label="Size *"
-              formControlName="size"
-              [required]="true"
-              [options]="sizeOptions">
-            </amw-select>
+              <amw-select
+                label="Position *"
+                formControlName="position"
+                [required]="true"
+                [options]="positionOptions">
+              </amw-select>
 
-            <amw-select
-              label="Position *"
-              formControlName="position"
-              [required]="true"
-              [options]="positionOptions">
-            </amw-select>
+              <amw-input
+                label="Z-Index"
+                formControlName="zIndex"
+                type="number"
+                placeholder="1000"
+                hint="0-10000">
+              </amw-input>
+            </div>
 
-            <amw-input
-              label="Z-Index"
-              formControlName="zIndex"
-              type="number"
-              placeholder="1000"
-              hint="0-10000">
-            </amw-input>
+            <div class="popover-validation__form-row">
+              <amw-input
+                label="Width"
+                formControlName="width"
+                placeholder="e.g., 300px"
+                hint="Enter width with unit (px, %, rem, em, vw, vh)">
+              </amw-input>
+
+              <amw-input
+                label="Height"
+                formControlName="height"
+                placeholder="e.g., 200px"
+                hint="Enter height with unit">
+              </amw-input>
+
+              <amw-input
+                label="Min Width"
+                formControlName="minWidth"
+                placeholder="e.g., 200px"
+                hint="Enter minimum width with unit">
+              </amw-input>
+            </div>
+
+            <div class="popover-validation__form-row">
+              <amw-input
+                label="Max Width"
+                formControlName="maxWidth"
+                placeholder="e.g., 500px"
+                hint="Enter maximum width with unit">
+              </amw-input>
+
+              <amw-input
+                label="Min Height"
+                formControlName="minHeight"
+                placeholder="e.g., 100px"
+                hint="Enter minimum height with unit">
+              </amw-input>
+
+              <amw-input
+                label="Max Height"
+                formControlName="maxHeight"
+                placeholder="e.g., 400px"
+                hint="Enter maximum height with unit">
+              </amw-input>
+            </div>
+
+            <div class="popover-validation__form-row">
+              <amw-input
+                label="Offset X"
+                formControlName="offsetX"
+                type="number"
+                placeholder="0"
+                hint="-1000 to 1000">
+              </amw-input>
+
+              <amw-input
+                label="Offset Y"
+                formControlName="offsetY"
+                type="number"
+                placeholder="0"
+                hint="-1000 to 1000">
+              </amw-input>
+
+              <amw-input
+                label="Animation Duration"
+                formControlName="animationDuration"
+                type="number"
+                placeholder="300"
+                hint="0-5000 milliseconds">
+              </amw-input>
+            </div>
+
+            <div class="popover-validation__form-row">
+              <amw-select
+                label="Animation Easing"
+                formControlName="animationEasing"
+                [options]="animationEasingOptions">
+              </amw-select>
+
+              <amw-input
+                label="Header Title"
+                formControlName="headerTitle"
+                placeholder="Popover Title"
+                hint="Maximum 100 characters">
+              </amw-input>
+
+              <amw-input
+                label="Header Subtitle"
+                formControlName="headerSubtitle"
+                placeholder="Subtitle text"
+                hint="Maximum 200 characters">
+              </amw-input>
+            </div>
+
+            <div class="popover-validation__form-row">
+              <amw-input
+                label="Footer Text"
+                formControlName="footerText"
+                placeholder="Footer text"
+                hint="Maximum 200 characters">
+              </amw-input>
+
+              <amw-input
+                label="Close Text"
+                formControlName="closeText"
+                placeholder="Close"
+                hint="Maximum 50 characters">
+              </amw-input>
+
+              <amw-input
+                label="Close Icon"
+                formControlName="closeIcon"
+                placeholder="close"
+                hint="Material icon name (alphanumeric and underscores only)">
+              </amw-input>
+            </div>
+
+            <div class="popover-validation__form-row">
+              <amw-input
+                label="Arrow Color"
+                formControlName="arrowColor"
+                placeholder="#ffffff"
+                hint="Hex color code (e.g., #ffffff or #fff)">
+              </amw-input>
+            </div>
+
+            <div class="popover-validation__form-actions">
+              <amw-button appearance="elevated" color="primary" type="button" (click)="onSubmit()" icon="save" iconPosition="left">Update Configuration</amw-button>
+              <amw-button appearance="text" type="button" (click)="resetConfig()" icon="refresh" iconPosition="left">Reset</amw-button>
+            </div>
           </div>
+        </ng-template>
+      </amw-card>
 
-          <div class="popover-validation__form-row">
-            <amw-input
-              label="Width"
-              formControlName="width"
-              placeholder="e.g., 300px"
-              hint="Enter width with unit (px, %, rem, em, vw, vh)">
-            </amw-input>
+      <!-- Trigger Form -->
+      <amw-card class="popover-validation__form-card">
+        <ng-template #cardHeader>
+          <h2>Trigger Validation</h2>
+          <p class="subtitle">Test validation rules for popover trigger</p>
+        </ng-template>
 
-            <amw-input
-              label="Height"
-              formControlName="height"
-              placeholder="e.g., 200px"
-              hint="Enter height with unit">
-            </amw-input>
+        <ng-template #cardContent>
+          <form [formGroup]="triggerForm" (ngSubmit)="onSubmit()" class="popover-validation__form">
+            <div class="popover-validation__form-row">
+              <amw-select
+                label="Trigger Type *"
+                formControlName="type"
+                [required]="true"
+                [options]="triggerTypeOptions">
+              </amw-select>
 
-            <amw-input
-              label="Min Width"
-              formControlName="minWidth"
-              placeholder="e.g., 200px"
-              hint="Enter minimum width with unit">
-            </amw-input>
-          </div>
+              <amw-input
+                label="Delay"
+                formControlName="delay"
+                type="number"
+                placeholder="0"
+                hint="0-10000 milliseconds">
+              </amw-input>
 
-          <div class="popover-validation__form-row">
-            <amw-input
-              label="Max Width"
-              formControlName="maxWidth"
-              placeholder="e.g., 500px"
-              hint="Enter maximum width with unit">
-            </amw-input>
+              <amw-input
+                label="Close Delay"
+                formControlName="closeDelay"
+                type="number"
+                placeholder="0"
+                hint="0-10000 milliseconds">
+              </amw-input>
+            </div>
 
-            <amw-input
-              label="Min Height"
-              formControlName="minHeight"
-              placeholder="e.g., 100px"
-              hint="Enter minimum height with unit">
-            </amw-input>
+            <div class="popover-validation__form-row">
+              <amw-input
+                label="ARIA Label"
+                formControlName="ariaLabel"
+                placeholder="Popover trigger"
+                hint="Maximum 200 characters">
+              </amw-input>
 
-            <amw-input
-              label="Max Height"
-              formControlName="maxHeight"
-              placeholder="e.g., 400px"
-              hint="Enter maximum height with unit">
-            </amw-input>
-          </div>
+              <amw-input
+                label="ARIA Described By"
+                formControlName="ariaDescribedBy"
+                placeholder="popover-description"
+                hint="Maximum 200 characters">
+              </amw-input>
 
-          <div class="popover-validation__form-row">
-            <amw-input
-              label="Offset X"
-              formControlName="offsetX"
-              type="number"
-              placeholder="0"
-              hint="-1000 to 1000">
-            </amw-input>
+              <amw-input
+                label="ARIA Controls"
+                formControlName="ariaControls"
+                placeholder="popover-content"
+                hint="Maximum 200 characters">
+              </amw-input>
+            </div>
 
-            <amw-input
-              label="Offset Y"
-              formControlName="offsetY"
-              type="number"
-              placeholder="0"
-              hint="-1000 to 1000">
-            </amw-input>
+            <div class="popover-validation__form-actions">
+              <amw-button appearance="elevated" color="primary" type="submit" icon="save" iconPosition="left">Update Trigger</amw-button>
+              <amw-button appearance="text" type="button" (click)="resetTrigger()" icon="refresh" iconPosition="left">Reset</amw-button>
+            </div>
+          </form>
+        </ng-template>
+      </amw-card>
 
-            <amw-input
-              label="Animation Duration"
-              formControlName="animationDuration"
-              type="number"
-              placeholder="300"
-              hint="0-5000 milliseconds">
-            </amw-input>
-          </div>
+      <!-- Live Demo -->
+      <amw-card class="popover-validation__demo-card">
+        <ng-template #cardHeader>
+          <h2>Live Demo</h2>
+          <p class="subtitle">Test the popover with current configuration</p>
+        </ng-template>
 
-          <div class="popover-validation__form-row">
-            <amw-select
-              label="Animation Easing"
-              formControlName="animationEasing"
-              [options]="animationEasingOptions">
-            </amw-select>
+        <ng-template #cardContent>
+          <div class="popover-validation__demo-container">
+            <amw-popover
+              [config]="currentConfig"
+              [trigger]="currentTrigger"
+              [opened]="currentConfig.opened ?? false"
+              (openedChange)="onPopoverOpenedChange($event)"
+              (beforeOpen)="onPopoverBeforeOpen()"
+              (afterOpen)="onPopoverAfterOpen()"
+              (beforeClose)="onPopoverBeforeClose()"
+              (afterClose)="onPopoverAfterClose()">
 
-            <amw-input
-              label="Header Title"
-              formControlName="headerTitle"
-              placeholder="Popover Title"
-              hint="Maximum 100 characters">
-            </amw-input>
+              <ng-template #trigger>
+                <amw-button appearance="elevated" color="primary" icon="info" iconPosition="left">Test Popover</amw-button>
+              </ng-template>
 
-            <amw-input
-              label="Header Subtitle"
-              formControlName="headerSubtitle"
-              placeholder="Subtitle text"
-              hint="Maximum 200 characters">
-            </amw-input>
-          </div>
+              <ng-template #content>
+                <div class="popover-validation__popover-content">
+                  <h4>Validation Demo</h4>
+                  <p>
+                    This demo shows how the popover component handles validation and error states.
+                    Try submitting invalid data to see validation errors in action.
+                  </p>
 
-          <div class="popover-validation__form-row">
-            <amw-input
-              label="Footer Text"
-              formControlName="footerText"
-              placeholder="Footer text"
-              hint="Maximum 200 characters">
-            </amw-input>
-
-            <amw-input
-              label="Close Text"
-              formControlName="closeText"
-              placeholder="Close"
-              hint="Maximum 50 characters">
-            </amw-input>
-
-            <amw-input
-              label="Close Icon"
-              formControlName="closeIcon"
-              placeholder="close"
-              hint="Material icon name (alphanumeric and underscores only)">
-            </amw-input>
-          </div>
-
-          <div class="popover-validation__form-row">
-            <amw-input
-              label="Arrow Color"
-              formControlName="arrowColor"
-              placeholder="#ffffff"
-              hint="Hex color code (e.g., #ffffff or #fff)">
-            </amw-input>
-          </div>
-
-          <div class="popover-validation__form-actions">
-            <amw-button appearance="elevated" color="primary" type="submit" icon="save" iconPosition="left">Update Configuration</amw-button>
-
-            <amw-button appearance="text" type="button" (click)="resetConfig()" icon="refresh" iconPosition="left">Reset</amw-button>
-          </div>
-        </form>
-      </ng-template>
-</amw-card>
-
-    <!-- Trigger Form -->
-    <amw-card class="popover-validation__form-card">
-      <ng-template #cardHeader>
-        <h2>Trigger Validation</h2>
-        <p class="subtitle">Test validation rules for popover trigger</p>
-      </ng-template>
-
-      <ng-template #cardContent>
-        <form [formGroup]="triggerForm" (ngSubmit)="onSubmit()" class="popover-validation__form">
-          <div class="popover-validation__form-row">
-            <amw-select
-              label="Trigger Type *"
-              formControlName="type"
-              [required]="true"
-              [options]="triggerTypeOptions">
-            </amw-select>
-
-            <amw-input
-              label="Delay"
-              formControlName="delay"
-              type="number"
-              placeholder="0"
-              hint="0-10000 milliseconds">
-            </amw-input>
-
-            <amw-input
-              label="Close Delay"
-              formControlName="closeDelay"
-              type="number"
-              placeholder="0"
-              hint="0-10000 milliseconds">
-            </amw-input>
-          </div>
-
-          <div class="popover-validation__form-row">
-            <amw-input
-              label="ARIA Label"
-              formControlName="ariaLabel"
-              placeholder="Popover trigger"
-              hint="Maximum 200 characters">
-            </amw-input>
-
-            <amw-input
-              label="ARIA Described By"
-              formControlName="ariaDescribedBy"
-              placeholder="popover-description"
-              hint="Maximum 200 characters">
-            </amw-input>
-
-            <amw-input
-              label="ARIA Controls"
-              formControlName="ariaControls"
-              placeholder="popover-content"
-              hint="Maximum 200 characters">
-            </amw-input>
-          </div>
-
-          <div class="popover-validation__form-actions">
-            <amw-button appearance="elevated" color="primary" type="submit" icon="save" iconPosition="left">Update Trigger</amw-button>
-
-            <amw-button appearance="text" type="button" (click)="resetTrigger()" icon="refresh" iconPosition="left">Reset</amw-button>
-          </div>
-        </form>
-      </ng-template>
-</amw-card>
-
-    <!-- Live Demo -->
-    <amw-card class="popover-validation__demo-card">
-      <ng-template #cardHeader>
-        <h2>Live Demo</h2>
-        <p class="subtitle">Test the popover with current configuration</p>
-      </ng-template>
-
-      <ng-template #cardContent>
-        <div class="popover-validation__demo-container">
-          <amw-popover
-            [config]="currentConfig"
-            [trigger]="currentTrigger"
-            [opened]="currentConfig.opened ?? false"
-            (openedChange)="onPopoverOpenedChange($event)"
-            (beforeOpen)="onPopoverBeforeOpen()"
-            (afterOpen)="onPopoverAfterOpen()"
-            (beforeClose)="onPopoverBeforeClose()"
-            (afterClose)="onPopoverAfterClose()">
-
-            <!-- Trigger Template -->
-            <ng-template #trigger>
-              <amw-button appearance="elevated" color="primary" icon="info" iconPosition="left">Test Popover</amw-button>
-            </ng-template>
-
-            <!-- Content Template -->
-            <ng-template #content>
-              <div class="popover-validation__content">
-                <h4>Validation Demo</h4>
-                <p>
-                  This demo shows how the popover component handles validation and error states.
-                  Try submitting invalid data to see validation errors in action.
-                </p>
-
-                <div class="popover-validation__validation-info">
-                  <h5>Validation Rules:</h5>
-                  <ul>
-                    <li><strong>Required fields:</strong> Size, Position, Trigger Type</li>
-                    <li><strong>Width/Height fields:</strong> Must include unit (px, %, rem, em, vw, vh)</li>
-                    <li><strong>Numeric fields:</strong> Must be within specified ranges</li>
-                    <li><strong>Text fields:</strong> Must not exceed character limits</li>
-                    <li><strong>Icon field:</strong> Must be valid Material icon name</li>
-                    <li><strong>Color field:</strong> Must be valid hex color code</li>
-                    <li><strong>Easing field:</strong> Must be valid CSS easing function</li>
-                  </ul>
+                  <div class="popover-validation__validation-info">
+                    <h5>Validation Rules:</h5>
+                    <ul>
+                      <li><strong>Required fields:</strong> Size, Position, Trigger Type</li>
+                      <li><strong>Width/Height fields:</strong> Must include unit (px, %, rem, em, vw, vh)</li>
+                      <li><strong>Numeric fields:</strong> Must be within specified ranges</li>
+                      <li><strong>Text fields:</strong> Must not exceed character limits</li>
+                      <li><strong>Icon field:</strong> Must be valid Material icon name</li>
+                      <li><strong>Color field:</strong> Must be valid hex color code</li>
+                      <li><strong>Easing field:</strong> Must be valid CSS easing function</li>
+                    </ul>
+                  </div>
                 </div>
-              </div>
-            </ng-template>
-          </amw-popover>
-        </div>
-      </ng-template>
-</amw-card>
-  </div>
-</div>
+              </ng-template>
+            </amw-popover>
+          </div>
+        </ng-template>
+      </amw-card>
+    </div>
+  </ng-template>
+</amw-validation-doc>

@@ -1,351 +1,147 @@
-<div class="code-section">
-  <h3>Code Examples</h3>
-  <p>Interactive examples with live previews. The code is editable for reference, and working examples are shown alongside.</p>
+<amw-code-doc
+  componentName="amw-datepicker"
+  [examples]="examples"
+  [editableCode]="editableCode">
 
-  <amw-accordion class="code-examples-accordion">
-    <!-- Basic Datepicker -->
-    <amw-accordion-panel>
-      <ng-template #panelHeader>
-        <div class="panel-title">
-          <amw-icon name="code"></amw-icon>
-          Basic Datepicker
-        </div>
-        <div class="panel-description">A simple datepicker with default settings</div>
-      </ng-template>
-      <div class="example-container">
-        <div class="code-panel">
-          <div class="code-header">
-            <h4>Code</h4>
-            <amw-button icon="refresh" (click)="resetCode('basic')" title="Reset to original"></amw-button>
-          </div>
-          <textarea
-            [(ngModel)]="editableCode.basic"
-            class="code-editor"
-            spellcheck="false"></textarea>
-        </div>
-        <div class="preview-panel">
-          <h4>Preview</h4>
-          <div class="preview-content">
-            <amw-datepicker
-              label="Select Date"
-              placeholder="Choose a date..."
-              [(ngModel)]="selectedDate">
-            </amw-datepicker>
-            <p>Selected date: {{ selectedDate | date }}</p>
-          </div>
-        </div>
-      </div>
-    </amw-accordion-panel>
+  <ng-template #preview let-example>
+    @switch (example.key) {
+      @case ('basic') {
+        <amw-datepicker
+          label="Select Date"
+          placeholder="Choose a date..."
+          [(ngModel)]="selectedDate">
+        </amw-datepicker>
+        <p>Selected date: {{ selectedDate | date }}</p>
+      }
+      @case ('withMinMax') {
+        <amw-datepicker
+          label="Birth Date"
+          placeholder="Select your birth date..."
+          [min]="minDate"
+          [max]="maxDate"
+          [(ngModel)]="birthDate">
+        </amw-datepicker>
+        <p>Selected date: {{ birthDate | date }}</p>
+      }
+      @case ('withValidation') {
+        <form [formGroup]="dateForm">
+          <amw-datepicker
+            formControlName="startDate"
+            label="Start Date *"
+            placeholder="Select start date..."
+            [required]="true"
+            [min]="currentDate"
+            appearance="outline"
+            [errorMessage]="dateForm.get('startDate')?.hasError('required') ? 'Start date is required' : ''">
+          </amw-datepicker>
+        </form>
+        <p>Form valid: {{ dateForm.valid ? 'Yes' : 'No' }}</p>
+      }
+      @case ('differentFormats') {
+        <amw-datepicker
+          label="Short Date"
+          placeholder="MM/DD/YYYY"
+          [(ngModel)]="shortDate"
+          format="short">
+        </amw-datepicker>
+        <p>Short format: {{ shortDate | date:'short' }}</p>
 
-    <!-- With Min/Max Dates -->
-    <amw-accordion-panel>
-      <ng-template #panelHeader>
-        <div class="panel-title">
-          <amw-icon name="code"></amw-icon>
-          Datepicker with Min/Max Dates
-        </div>
-        <div class="panel-description">Datepicker with date range restrictions</div>
-      </ng-template>
-      <div class="example-container">
-        <div class="code-panel">
-          <div class="code-header">
-            <h4>Code</h4>
-            <amw-button icon="refresh" (click)="resetCode('withMinMax')" title="Reset to original"></amw-button>
-          </div>
-          <textarea
-            [(ngModel)]="editableCode.withMinMax"
-            class="code-editor"
-            spellcheck="false"></textarea>
-        </div>
-        <div class="preview-panel">
-          <h4>Preview</h4>
-          <div class="preview-content">
-            <amw-datepicker
-              label="Birth Date"
-              placeholder="Select your birth date..."
-              [min]="minDate"
-              [max]="maxDate"
-              [(ngModel)]="birthDate">
-            </amw-datepicker>
-            <p>Selected date: {{ birthDate | date }}</p>
-          </div>
-        </div>
-      </div>
-    </amw-accordion-panel>
+        <amw-datepicker
+          label="Long Date"
+          placeholder="Month Day, Year"
+          [(ngModel)]="longDate"
+          format="long">
+        </amw-datepicker>
+        <p>Long format: {{ longDate | date:'long' }}</p>
 
-    <!-- With Validation -->
-    <amw-accordion-panel>
-      <ng-template #panelHeader>
-        <div class="panel-title">
-          <amw-icon name="code"></amw-icon>
-          Datepicker with Validation
-        </div>
-        <div class="panel-description">Datepicker with required validation</div>
-      </ng-template>
-      <div class="example-container">
-        <div class="code-panel">
-          <div class="code-header">
-            <h4>Code</h4>
-            <amw-button icon="refresh" (click)="resetCode('withValidation')" title="Reset to original"></amw-button>
-          </div>
-          <textarea
-            [(ngModel)]="editableCode.withValidation"
-            class="code-editor"
-            spellcheck="false"></textarea>
-        </div>
-        <div class="preview-panel">
-          <h4>Preview</h4>
-          <div class="preview-content">
-            <form [formGroup]="dateForm">
-              <amw-datepicker
-                formControlName="startDate"
-                label="Start Date *"
-                placeholder="Select start date..."
-                [required]="true"
-                [min]="currentDate"
-                appearance="outline"
-                [errorMessage]="dateForm.get('startDate')?.hasError('required') ? 'Start date is required' : ''">
-              </amw-datepicker>
-            </form>
-            <p>Form valid: {{ dateForm.valid ? 'Yes' : 'No' }}</p>
-          </div>
-        </div>
-      </div>
-    </amw-accordion-panel>
+        <amw-datepicker
+          label="Custom Format"
+          placeholder="DD-MM-YYYY"
+          [(ngModel)]="customDate"
+          format="dd-MM-yyyy">
+        </amw-datepicker>
+        <p>Custom format: {{ customDate | date:'dd-MM-yyyy' }}</p>
+      }
+      @case ('disabled') {
+        <amw-datepicker
+          label="Disabled Datepicker"
+          placeholder="This is disabled..."
+          [(ngModel)]="selectedDate"
+          [disabled]="true">
+        </amw-datepicker>
+        <p>Selected date: {{ selectedDate | date }}</p>
+      }
+      @case ('reactiveForm') {
+        <form [formGroup]="dateForm">
+          <amw-datepicker
+            formControlName="startDate"
+            label="Start Date *"
+            placeholder="Select start date..."
+            [min]="minDate"
+            [required]="true">
+          </amw-datepicker>
+        </form>
+        <p>Form valid: {{ dateForm.valid ? 'Yes' : 'No' }}</p>
+        <p>Form value: {{ dateForm.get('startDate')?.value | date }}</p>
+      }
+      @case ('withEvents') {
+        <amw-datepicker
+          label="Event Date"
+          placeholder="Select event date..."
+          [(ngModel)]="eventDate"
+          (dateChange)="onDateChange($event)"
+          (opened)="onDatepickerOpened()"
+          (closed)="onDatepickerClosed()">
+        </amw-datepicker>
+        <p>Selected date: {{ eventDate | date }}</p>
+        <p class="info-note">
+          <amw-icon name="info"></amw-icon>
+          Open your browser console to see event logs
+        </p>
+      }
+      @case ('bookingForm') {
+        <form [formGroup]="bookingForm" class="booking-form">
+          <h3>Event Booking</h3>
 
-    <!-- Different Formats -->
-    <amw-accordion-panel>
-      <ng-template #panelHeader>
-        <div class="panel-title">
-          <amw-icon name="code"></amw-icon>
-          Different Date Formats
-        </div>
-        <div class="panel-description">Datepickers with various display formats</div>
-      </ng-template>
-      <div class="example-container">
-        <div class="code-panel">
-          <div class="code-header">
-            <h4>Code</h4>
-            <amw-button icon="refresh" (click)="resetCode('differentFormats')" title="Reset to original"></amw-button>
-          </div>
-          <textarea
-            [(ngModel)]="editableCode.differentFormats"
-            class="code-editor"
-            spellcheck="false"></textarea>
-        </div>
-        <div class="preview-panel">
-          <h4>Preview</h4>
-          <div class="preview-content">
-            <amw-datepicker
-              label="Short Date"
-              placeholder="MM/DD/YYYY"
-              [(ngModel)]="shortDate"
-              format="short">
-            </amw-datepicker>
-            <p>Short format: {{ shortDate | date:'short' }}</p>
+          <amw-datepicker
+            formControlName="eventDate"
+            label="Event Date *"
+            placeholder="Select event date..."
+            [min]="currentDate"
+            [required]="true">
+          </amw-datepicker>
 
-            <amw-datepicker
-              label="Long Date"
-              placeholder="Month Day, Year"
-              [(ngModel)]="longDate"
-              format="long">
-            </amw-datepicker>
-            <p>Long format: {{ longDate | date:'long' }}</p>
+          <amw-datepicker
+            formControlName="startTime"
+            label="Start Time *"
+            placeholder="Select start time..."
+            [min]="currentDate"
+            [required]="true">
+          </amw-datepicker>
 
-            <amw-datepicker
-              label="Custom Format"
-              placeholder="DD-MM-YYYY"
-              [(ngModel)]="customDate"
-              format="dd-MM-yyyy">
-            </amw-datepicker>
-            <p>Custom format: {{ customDate | date:'dd-MM-yyyy' }}</p>
-          </div>
-        </div>
-      </div>
-    </amw-accordion-panel>
+          <amw-datepicker
+            formControlName="endTime"
+            label="End Time *"
+            placeholder="Select end time..."
+            [min]="currentDate"
+            [required]="true">
+          </amw-datepicker>
 
-    <!-- Disabled State -->
-    <amw-accordion-panel>
-      <ng-template #panelHeader>
-        <div class="panel-title">
-          <amw-icon name="code"></amw-icon>
-          Disabled Datepicker
-        </div>
-        <div class="panel-description">Datepicker in disabled state</div>
-      </ng-template>
-      <div class="example-container">
-        <div class="code-panel">
-          <div class="code-header">
-            <h4>Code</h4>
-            <amw-button icon="refresh" (click)="resetCode('disabled')" title="Reset to original"></amw-button>
-          </div>
-          <textarea
-            [(ngModel)]="editableCode.disabled"
-            class="code-editor"
-            spellcheck="false"></textarea>
-        </div>
-        <div class="preview-panel">
-          <h4>Preview</h4>
-          <div class="preview-content">
-            <amw-datepicker
-              label="Disabled Datepicker"
-              placeholder="This is disabled..."
-              [(ngModel)]="selectedDate"
-              [disabled]="true">
-            </amw-datepicker>
-            <p>Selected date: {{ selectedDate | date }}</p>
-          </div>
-        </div>
-      </div>
-    </amw-accordion-panel>
+          <amw-datepicker
+            formControlName="setupDate"
+            label="Setup Date"
+            placeholder="Select setup date..."
+            [min]="currentDate">
+          </amw-datepicker>
 
-    <!-- Reactive Form Integration -->
-    <amw-accordion-panel>
-      <ng-template #panelHeader>
-        <div class="panel-title">
-          <amw-icon name="code"></amw-icon>
-          Reactive Form Integration
-        </div>
-        <div class="panel-description">Using datepickers with Angular reactive forms</div>
-      </ng-template>
-      <div class="example-container">
-        <div class="code-panel">
-          <div class="code-header">
-            <h4>Code</h4>
-            <amw-button icon="refresh" (click)="resetCode('reactiveForm')" title="Reset to original"></amw-button>
-          </div>
-          <textarea
-            [(ngModel)]="editableCode.reactiveForm"
-            class="code-editor"
-            spellcheck="false"></textarea>
-        </div>
-        <div class="preview-panel">
-          <h4>Preview</h4>
-          <div class="preview-content">
-            <form [formGroup]="dateForm">
-              <amw-datepicker
-                formControlName="startDate"
-                label="Start Date *"
-                placeholder="Select start date..."
-                [min]="minDate"
-                [required]="true">
-              </amw-datepicker>
-            </form>
-            <p>Form valid: {{ dateForm.valid ? 'Yes' : 'No' }}</p>
-            <p>Form value: {{ dateForm.get('startDate')?.value | date }}</p>
-          </div>
-        </div>
-      </div>
-    </amw-accordion-panel>
-
-    <!-- With Events -->
-    <amw-accordion-panel>
-      <ng-template #panelHeader>
-        <div class="panel-title">
-          <amw-icon name="code"></amw-icon>
-          Datepicker with Events
-        </div>
-        <div class="panel-description">Datepickers with event handling</div>
-      </ng-template>
-      <div class="example-container">
-        <div class="code-panel">
-          <div class="code-header">
-            <h4>Code</h4>
-            <amw-button icon="refresh" (click)="resetCode('withEvents')" title="Reset to original"></amw-button>
-          </div>
-          <textarea
-            [(ngModel)]="editableCode.withEvents"
-            class="code-editor"
-            spellcheck="false"></textarea>
-        </div>
-        <div class="preview-panel">
-          <h4>Preview</h4>
-          <div class="preview-content">
-            <amw-datepicker
-              label="Event Date"
-              placeholder="Select event date..."
-              [(ngModel)]="eventDate"
-              (dateChange)="onDateChange($event)"
-              (opened)="onDatepickerOpened()"
-              (closed)="onDatepickerClosed()">
-            </amw-datepicker>
-            <p>Selected date: {{ eventDate | date }}</p>
-            <p class="info-note">
-              <amw-icon name="info"></amw-icon>
-              Open your browser console to see event logs
-            </p>
-          </div>
-        </div>
-      </div>
-    </amw-accordion-panel>
-
-    <!-- Booking Form Example -->
-    <amw-accordion-panel>
-      <ng-template #panelHeader>
-        <div class="panel-title">
-          <amw-icon name="code"></amw-icon>
-          Booking Form Example
-        </div>
-        <div class="panel-description">Complete booking form with multiple datepickers</div>
-      </ng-template>
-      <div class="example-container">
-        <div class="code-panel">
-          <div class="code-header">
-            <h4>Code</h4>
-            <amw-button icon="refresh" (click)="resetCode('bookingForm')" title="Reset to original"></amw-button>
-          </div>
-          <textarea
-            [(ngModel)]="editableCode.bookingForm"
-            class="code-editor"
-            spellcheck="false"></textarea>
-        </div>
-        <div class="preview-panel">
-          <h4>Preview</h4>
-          <div class="preview-content">
-            <form [formGroup]="bookingForm" class="booking-form">
-              <h3>Event Booking</h3>
-
-              <amw-datepicker
-                formControlName="eventDate"
-                label="Event Date *"
-                placeholder="Select event date..."
-                [min]="currentDate"
-                [required]="true">
-              </amw-datepicker>
-
-              <amw-datepicker
-                formControlName="startTime"
-                label="Start Time *"
-                placeholder="Select start time..."
-                [min]="currentDate"
-                [required]="true">
-              </amw-datepicker>
-
-              <amw-datepicker
-                formControlName="endTime"
-                label="End Time *"
-                placeholder="Select end time..."
-                [min]="currentDate"
-                [required]="true">
-              </amw-datepicker>
-
-              <amw-datepicker
-                formControlName="setupDate"
-                label="Setup Date"
-                placeholder="Select setup date..."
-                [min]="currentDate">
-              </amw-datepicker>
-
-              <amw-button appearance="elevated"
-                color="primary"
-                [disabled]="bookingForm.invalid">
-                Book Event
-              </amw-button>
-            </form>
-            <p>Form valid: {{ bookingForm.valid ? 'Yes' : 'No' }}</p>
-          </div>
-        </div>
-      </div>
-    </amw-accordion-panel>
-  </amw-accordion>
-</div>
+          <amw-button appearance="elevated"
+            color="primary"
+            [disabled]="bookingForm.invalid">
+            Book Event
+          </amw-button>
+        </form>
+        <p>Form valid: {{ bookingForm.valid ? 'Yes' : 'No' }}</p>
+      }
+    }
+  </ng-template>
+</amw-code-doc>

@@ -10,6 +10,8 @@ import { AmwNotificationService, Notification } from '../../../../library/src/se
 import { AmwTabsComponent, AmwTabComponent, AmwCardComponent, AmwIconComponent } from '../../../../library/src/components/components';
 import { AmwButtonComponent } from '../../../../library/src/controls/components/amw-button/amw-button.component';
 import { AmwInputComponent } from '../../../../library/src/controls/components/amw-input/amw-input.component';
+import { AmwApiDocComponent } from '../../shared/components/api-doc/api-doc.component';
+import { ApiDocumentation } from '../../components/base/base-api.component';
 
 @Component({
     selector: 'amw-demo-services',
@@ -23,6 +25,7 @@ import { AmwInputComponent } from '../../../../library/src/controls/components/a
     AmwIconComponent,
     AmwButtonComponent,
     AmwInputComponent,
+    AmwApiDocComponent,
 ],
     encapsulation: ViewEncapsulation.None,
     templateUrl: './services-demo.component.html',
@@ -365,7 +368,7 @@ export class MyComponent {
     };
 
     // Messaging Service API Documentation
-    messagingServiceApiDocumentation = {
+    messagingServiceApiDoc: ApiDocumentation = {
         methods: [
             {
                 name: 'info(title: string, content: string, options?: Partial<Message>)',
@@ -419,6 +422,16 @@ export class MyComponent {
                 type: 'Observable<Message[]>',
                 description: 'Observable stream of all current messages. Subscribe to receive real-time updates when messages are added or removed.'
             }
+        ],
+        usageNotes: [
+            'Inject the service using Angular\'s DI: constructor(private messagingService: AmwMessagingService)',
+            'Four message types available: info, success, warning, and error',
+            'Messages auto-dismiss based on type (info: 5s, success: 3s, warning: 7s, error: 10s)',
+            'Override default duration with options parameter',
+            'Subscribe to messages$ to track all active messages',
+            'Add custom action buttons to messages for user interaction',
+            'Set dismissible: false to prevent user from closing without action',
+            'Clear specific message types while keeping others'
         ]
     };
 
@@ -584,7 +597,7 @@ export class MyComponent {
     };
 
     // Loading Service API Documentation
-    loadingServiceApiDocumentation = {
+    loadingServiceApiDoc: ApiDocumentation = {
         methods: [
             {
                 name: 'show(message?: string, options?: { progress?: number; overlay?: boolean })',
@@ -628,6 +641,16 @@ export class MyComponent {
                 type: 'Observable<LoadingState>',
                 description: 'Observable stream of the current loading state. Subscribe to receive updates when loading state changes.'
             }
+        ],
+        usageNotes: [
+            'Inject the service: constructor(private loadingService: AmwLoadingService)',
+            'Service maintains a stack of loading states for concurrent operations',
+            'Each show() call returns a unique ID for targeted hide() operations',
+            'Update progress from 0-100 for long-running operations',
+            'Update loading message while operation is in progress',
+            'Subscribe to loading$ to react to state changes in UI',
+            'Use with RxJS finalize() operator for automatic cleanup',
+            'Show overlay to prevent user interaction during loading'
         ]
     };
 
@@ -818,7 +841,7 @@ export class MyComponent {
     };
 
     // Notification Service API Documentation
-    notificationServiceApiDocumentation = {
+    notificationServiceApiDoc: ApiDocumentation = {
         methods: [
             {
                 name: 'info(title: string, message: string, options?: NotificationOptions)',
@@ -882,6 +905,16 @@ export class MyComponent {
                 type: 'Observable<Notification[]>',
                 description: 'Observable stream of all active notifications. Subscribe to receive real-time updates.'
             }
+        ],
+        usageNotes: [
+            'Inject the service: constructor(private notificationService: AmwNotificationService)',
+            'Four types available: info, success, warning, and error',
+            'Notifications auto-dismiss based on type (info: 5s, success: 3s, warning: 7s, error: 10s)',
+            'Set persistent: true to require manual dismissal',
+            'Optional sound plays when notification appears (enabled by default)',
+            'Add action buttons for user interaction',
+            'Request permission and show native browser notifications',
+            'Subscribe to notifications$ to track active notifications'
         ]
     };
 }

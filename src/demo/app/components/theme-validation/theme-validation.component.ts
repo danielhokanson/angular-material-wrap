@@ -1,6 +1,8 @@
-import { Component, signal } from '@angular/core';
+import { Component, ViewEncapsulation, signal } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { FormBuilder, FormGroup, Validators, ReactiveFormsModule } from '@angular/forms';
+import { ReactiveFormsModule, FormGroup, Validators } from '@angular/forms';
+import { AmwValidationDocComponent, ValidationInfo } from '../../shared/components/validation-doc/validation-doc.component';
+import { BaseValidationComponent } from '../base/base-validation.component';
 import { AmwButtonComponent } from '../../../../library/src/controls/components/amw-button/amw-button.component';
 import { AmwSelectComponent } from '../../../../library/src/controls/components/amw-select/amw-select.component';
 import { AmwCardComponent } from '../../../../library/src/components/components/amw-card/amw-card.component';
@@ -24,22 +26,20 @@ interface ThemeConfig {
   imports: [
     CommonModule,
     ReactiveFormsModule,
+    AmwValidationDocComponent,
     AmwButtonComponent,
     AmwSelectComponent,
     AmwCardComponent,
     AmwRadioGroupComponent,
     AmwRadioComponent,
     AmwColorPickerComponent,
-    AmwIconComponent,
+    AmwIconComponent
   ],
+  encapsulation: ViewEncapsulation.None,
   templateUrl: './theme-validation.component.html',
   styleUrl: './theme-validation.component.scss'
 })
-export class ThemeValidationComponent {
-  // Theme configuration form
-  themeForm: FormGroup;
-
-  // Current theme configuration
+export class ThemeValidationComponent extends BaseValidationComponent {
   currentTheme = signal<ThemeConfig>({
     primaryColor: '#6750a4',
     accentColor: '#625b71',
@@ -49,10 +49,8 @@ export class ThemeValidationComponent {
     typography: 'roboto'
   });
 
-  // Preview state
   previewEnabled = signal(true);
 
-  // Predefined color options
   colorOptions = [
     { name: 'Purple', value: '#6750a4' },
     { name: 'Blue', value: '#1976d2' },
@@ -62,44 +60,39 @@ export class ThemeValidationComponent {
     { name: 'Custom', value: 'custom' }
   ];
 
-  // Typography options
   typographyOptions = [
     { value: 'roboto', label: 'Roboto' },
     { value: 'montserrat', label: 'Montserrat' },
     { value: 'open-sans', label: 'Open Sans' }
   ];
 
-  // Density options
   densityOptions = [
     { value: 'default', label: 'Default - Standard spacing' },
     { value: 'comfortable', label: 'Comfortable - More space' },
     { value: 'compact', label: 'Compact - Less space' }
   ];
 
-  constructor(private fb: FormBuilder) {
-    // Initialize theme form
-    this.themeForm = this.fb.group({
-      primaryColor: [this.currentTheme().primaryColor, [Validators.required, Validators.pattern(/^#[0-9a-fA-F]{6}$/)]],
-      accentColor: [this.currentTheme().accentColor, [Validators.required, Validators.pattern(/^#[0-9a-fA-F]{6}$/)]],
-      warnColor: [this.currentTheme().warnColor, [Validators.required, Validators.pattern(/^#[0-9a-fA-F]{6}$/)]],
-      mode: [this.currentTheme().mode, Validators.required],
-      density: [this.currentTheme().density, Validators.required],
-      typography: [this.currentTheme().typography, Validators.required]
-    });
-  }
+  validationForm: FormGroup = this.fb.group({
+    primaryColor: [this.currentTheme().primaryColor, [Validators.required, Validators.pattern(/^#[0-9a-fA-F]{6}$/)]],
+    accentColor: [this.currentTheme().accentColor, [Validators.required, Validators.pattern(/^#[0-9a-fA-F]{6}$/)]],
+    warnColor: [this.currentTheme().warnColor, [Validators.required, Validators.pattern(/^#[0-9a-fA-F]{6}$/)]],
+    mode: [this.currentTheme().mode, Validators.required],
+    density: [this.currentTheme().density, Validators.required],
+    typography: [this.currentTheme().typography, Validators.required]
+  });
 
-  // Validation helper
-  getErrorMessage(field: string): string {
-    const control = this.themeForm.get(field);
-    if (control?.hasError('required')) return 'This field is required';
-    if (control?.hasError('pattern')) return 'Invalid color format (use #RRGGBB)';
-    return '';
-  }
+  validationInfo: ValidationInfo[] = [
+    { title: 'Primary Color', description: 'Must be a valid hex color (#RRGGBB)' },
+    { title: 'Accent Color', description: 'Must be a valid hex color (#RRGGBB)' },
+    { title: 'Warn Color', description: 'Must be a valid hex color (#RRGGBB)' },
+    { title: 'Mode', description: 'Theme mode is required (light/dark)' },
+    { title: 'Density', description: 'Component density must be selected' },
+    { title: 'Typography', description: 'Font family must be selected' }
+  ];
 
-  // Apply theme changes
-  applyTheme() {
-    if (this.themeForm.valid) {
-      const formValue = this.themeForm.value;
+  applyTheme(): void {
+    if (this.validationForm.valid) {
+      const formValue = this.validationForm.value;
       this.currentTheme.set({
         primaryColor: formValue.primaryColor,
         accentColor: formValue.accentColor,
@@ -109,15 +102,12 @@ export class ThemeValidationComponent {
         typography: formValue.typography
       });
 
-      // Apply CSS variables
       this.updateCSSVariables();
-
-      alert('Theme applied successfully!');
+      this.notification.success('Success', 'Theme applied successfully!', { duration: 3000 });
     }
   }
 
-  // Update CSS variables
-  private updateCSSVariables() {
+  private updateCSSVariables(): void {
     const theme = this.currentTheme();
     const root = document.documentElement;
 
@@ -125,7 +115,6 @@ export class ThemeValidationComponent {
     root.style.setProperty('--custom-accent', theme.accentColor);
     root.style.setProperty('--custom-warn', theme.warnColor);
 
-    // Apply mode
     if (theme.mode === 'dark') {
       root.style.setProperty('--custom-background', '#1c1b1f');
       root.style.setProperty('--custom-surface', '#28272a');
@@ -137,8 +126,7 @@ export class ThemeValidationComponent {
     }
   }
 
-  // Reset to defaults
-  resetTheme() {
+  resetTheme(): void {
     const defaultTheme: ThemeConfig = {
       primaryColor: '#6750a4',
       accentColor: '#625b71',
@@ -149,32 +137,27 @@ export class ThemeValidationComponent {
     };
 
     this.currentTheme.set(defaultTheme);
-    this.themeForm.patchValue(defaultTheme);
+    this.validationForm.patchValue(defaultTheme);
     this.updateCSSVariables();
   }
 
-  // Toggle preview
-  togglePreview() {
+  togglePreview(): void {
     this.previewEnabled.update(val => !val);
   }
 
-  // Get theme mode icon
   getModeIcon(): string {
     return this.currentTheme().mode === 'dark' ? 'dark_mode' : 'light_mode';
   }
 
-  // Check if form is valid
   isFormValid(): boolean {
-    return this.themeForm.valid;
+    return this.validationForm.valid;
   }
 
-  // Export theme configuration
-  exportTheme() {
+  exportTheme(): void {
     const theme = this.currentTheme();
     const themeJson = JSON.stringify(theme, null, 2);
     console.log('Theme configuration:', themeJson);
 
-    // Create downloadable file
     const blob = new Blob([themeJson], { type: 'application/json' });
     const url = window.URL.createObjectURL(blob);
     const link = document.createElement('a');
@@ -184,7 +167,6 @@ export class ThemeValidationComponent {
     window.URL.revokeObjectURL(url);
   }
 
-  // Get preview styles
   getPreviewStyles() {
     const theme = this.currentTheme();
     return {

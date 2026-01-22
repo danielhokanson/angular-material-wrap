@@ -1,73 +1,77 @@
-<div class="demo-section">
-  <h3>Color Variations</h3>
-  <div class="variation-grid">
-    @for (variation of radioVariations.colors; track variation) {
-      <div class="variation-item">
-        <h4>{{ variation.label }}</h4>
-        <amw-radio
-          [color]="variation.color"
-          [label]="variation.label + ' Radio'"
-          [checked]="true">
-        </amw-radio>
+<amw-demo-doc componentName="amw-radio">
+  <ng-template #content>
+    <div class="demo-section">
+      <h3>Color Variations</h3>
+      <div class="variation-grid">
+        @for (variation of radioVariations.colors; track variation) {
+          <div class="variation-item">
+            <h4>{{ variation.label }}</h4>
+            <amw-radio
+              [color]="variation.color"
+              [label]="variation.label + ' Radio'"
+              [checked]="true">
+            </amw-radio>
+          </div>
+        }
       </div>
-    }
-  </div>
 
-  <h3>Size Variations</h3>
-  <div class="variation-grid">
-    @for (variation of radioVariations.sizes; track variation) {
-      <div class="variation-item">
-        <h4>{{ variation.label }}</h4>
-        <amw-radio
-          [size]="variation.size"
-          [label]="variation.label + ' Radio'"
-          [checked]="true">
-        </amw-radio>
+      <h3>Size Variations</h3>
+      <div class="variation-grid">
+        @for (variation of radioVariations.sizes; track variation) {
+          <div class="variation-item">
+            <h4>{{ variation.label }}</h4>
+            <amw-radio
+              [size]="variation.size"
+              [label]="variation.label + ' Radio'"
+              [checked]="true">
+            </amw-radio>
+          </div>
+        }
       </div>
-    }
-  </div>
 
-  <h3>State Variations</h3>
-  <div class="variation-grid">
-    @for (variation of radioVariations.states; track variation) {
-      <div class="variation-item">
-        <h4>{{ variation.label }}</h4>
-        <amw-radio
-          [checked]="variation.checked"
-          [disabled]="variation.disabled"
-          [label]="variation.label + ' Radio'">
-        </amw-radio>
+      <h3>State Variations</h3>
+      <div class="variation-grid">
+        @for (variation of radioVariations.states; track variation) {
+          <div class="variation-item">
+            <h4>{{ variation.label }}</h4>
+            <amw-radio
+              [checked]="variation.checked"
+              [disabled]="variation.disabled"
+              [label]="variation.label + ' Radio'">
+            </amw-radio>
+          </div>
+        }
       </div>
-    }
-  </div>
 
-  <h3>Label Position</h3>
-  <div class="variation-grid">
-    <div class="variation-item">
-      <h4>Label After</h4>
-      <amw-radio
-        labelPosition="after"
-        label="Label after radio"
-        [checked]="true">
-      </amw-radio>
+      <h3>Label Position</h3>
+      <div class="variation-grid">
+        <div class="variation-item">
+          <h4>Label After</h4>
+          <amw-radio
+            labelPosition="after"
+            label="Label after radio"
+            [checked]="true">
+          </amw-radio>
+        </div>
+        <div class="variation-item">
+          <h4>Label Before</h4>
+          <amw-radio
+            labelPosition="before"
+            label="Label before radio"
+            [checked]="true">
+          </amw-radio>
+        </div>
+      </div>
+
+      <h3>Radio Group</h3>
+      <div class="variation-item">
+        <h4>Radio Group Example</h4>
+        <amw-radio-group>
+          <amw-radio value="option1" label="Option 1" [checked]="true"></amw-radio>
+          <amw-radio value="option2" label="Option 2"></amw-radio>
+          <amw-radio value="option3" label="Option 3"></amw-radio>
+        </amw-radio-group>
+      </div>
     </div>
-    <div class="variation-item">
-      <h4>Label Before</h4>
-      <amw-radio
-        labelPosition="before"
-        label="Label before radio"
-        [checked]="true">
-      </amw-radio>
-    </div>
-  </div>
-
-  <h3>Radio Group</h3>
-  <div class="variation-item">
-    <h4>Radio Group Example</h4>
-    <amw-radio-group>
-      <amw-radio value="option1" label="Option 1" [checked]="true"></amw-radio>
-      <amw-radio value="option2" label="Option 2"></amw-radio>
-      <amw-radio value="option3" label="Option 3"></amw-radio>
-    </amw-radio-group>
-  </div>
-</div>
+  </ng-template>
+</amw-demo-doc>

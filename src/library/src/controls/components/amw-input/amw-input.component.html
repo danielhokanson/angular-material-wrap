@@ -29,10 +29,10 @@
 
     <!-- Input Element -->
     <!-- Signal Forms binding (scenario 3) - Field directive manages most attributes automatically -->
-    @if (field()) {
+    @if (formField()) {
       <input
         matInput
-        [field]="field()"
+        [formField]="formField()"
         [type]="inputType"
         [placeholder]="placeholder()"
         [step]="step()"

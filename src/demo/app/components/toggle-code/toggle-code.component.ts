@@ -1,53 +1,77 @@
-import { Component, ViewEncapsulation } from '@angular/core';
+import { Component, ViewEncapsulation, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
-import { BaseCodeComponent } from '../base/base-code.component';
-
-type ToggleExamples = 'basic' | 'colors' | 'disabled' | 'labelPosition' | 'ngModel' | 'events' | 'formField';
-
+import { AmwCodeDocComponent, CodeExample } from '../../shared/components/code-doc/code-doc.component';
 import { AmwButtonComponent } from '../../../../library/src/controls/components/amw-button/amw-button.component';
 import { AmwSwitchComponent } from '../../../../library/src/controls/components/amw-switch/amw-switch.component';
-import { AmwAccordionComponent, AmwAccordionPanelComponent, AmwIconComponent } from '../../../../library/src/components/components';
+
 @Component({
   selector: 'amw-demo-toggle-code',
   standalone: true,
-  imports: [CommonModule,
+  imports: [
+    CommonModule,
     FormsModule,
+    AmwCodeDocComponent,
     AmwButtonComponent,
-    AmwSwitchComponent,
-    AmwAccordionComponent,
-    AmwAccordionPanelComponent,
-    AmwIconComponent],
+    AmwSwitchComponent
+  ],
   encapsulation: ViewEncapsulation.None,
   templateUrl: './toggle-code.component.html',
   styleUrl: './toggle-code.component.scss'
 })
-export class ToggleCodeComponent extends BaseCodeComponent<ToggleExamples> {
+export class ToggleCodeComponent implements OnInit {
   // State for live preview examples
   isChecked = true;
   isDisabled = false;
   labelPosition: 'before' | 'after' = 'after';
 
-  // Original code examples (for reset functionality)
-  readonly codeExamples: Record<ToggleExamples, string> = {
-    basic: `<amw-switch>Enable notifications</amw-switch>`,
+  // Editable code for the shared component
+  editableCode: Record<string, string> = {};
 
-    colors: `<amw-switch color="primary">Primary toggle</amw-switch>
+  // Code examples data
+  readonly examples: CodeExample[] = [
+    {
+      key: 'basic',
+      title: 'Basic Toggle',
+      description: 'Simple toggle with basic functionality',
+      code: `<amw-switch>Enable notifications</amw-switch>`
+    },
+    {
+      key: 'colors',
+      title: 'Toggle Colors',
+      description: 'Different color themes for toggles',
+      code: `<amw-switch color="primary">Primary toggle</amw-switch>
 <amw-switch color="accent">Accent toggle</amw-switch>
-<amw-switch color="warn">Warn toggle</amw-switch>`,
-
-    disabled: `<amw-switch [checked]="true">Checked toggle</amw-switch>
+<amw-switch color="warn">Warn toggle</amw-switch>`
+    },
+    {
+      key: 'disabled',
+      title: 'Disabled State',
+      description: 'Toggles in different states including disabled',
+      code: `<amw-switch [checked]="true">Checked toggle</amw-switch>
 <amw-switch [checked]="false">Unchecked toggle</amw-switch>
-<amw-switch [checked]="true" [disabled]="true">Disabled toggle</amw-switch>`,
-
-    labelPosition: `<amw-switch labelPosition="after">Label after toggle</amw-switch>
-<amw-switch labelPosition="before">Label before toggle</amw-switch>`,
-
-    ngModel: `<amw-switch [(ngModel)]="isChecked">
+<amw-switch [checked]="true" [disabled]="true">Disabled toggle</amw-switch>`
+    },
+    {
+      key: 'labelPosition',
+      title: 'Label Position',
+      description: 'Positioning label before or after the toggle',
+      code: `<amw-switch labelPosition="after">Label after toggle</amw-switch>
+<amw-switch labelPosition="before">Label before toggle</amw-switch>`
+    },
+    {
+      key: 'ngModel',
+      title: 'NgModel Binding',
+      description: 'Two-way data binding with ngModel',
+      code: `<amw-switch [(ngModel)]="isChecked">
   Toggle is {{ isChecked ? 'ON' : 'OFF' }}
-</amw-switch>`,
-
-    events: `<amw-switch
+</amw-switch>`
+    },
+    {
+      key: 'events',
+      title: 'Events',
+      description: 'Handling toggle change events',
+      code: `<amw-switch
   [checked]="isChecked"
   (switchChange)="onToggleChange($event)">
   Enable feature
@@ -57,9 +81,13 @@ export class ToggleCodeComponent extends BaseCodeComponent<ToggleExamples> {
 onToggleChange(event: any): void {
   this.isChecked = event.checked;
   console.log('Toggle changed:', event.checked);
-}`,
-
-    formField: `<div class="settings-panel">
+}`
+    },
+    {
+      key: 'formField',
+      title: 'Form Field Example',
+      description: 'Toggle groups in a settings panel',
+      code: `<div class="settings-panel">
   <h3>User Preferences</h3>
 
   <amw-switch color="primary">
@@ -78,9 +106,13 @@ onToggleChange(event: any): void {
     Delete account
   </amw-switch>
 </div>`
-  };
+    }
+  ];
 
-  constructor() {
-    super();
+  ngOnInit(): void {
+    // Initialize editable code from examples
+    this.examples.forEach(example => {
+      this.editableCode[example.key] = example.code;
+    });
   }
 }

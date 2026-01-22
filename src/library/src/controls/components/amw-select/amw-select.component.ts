@@ -1,7 +1,7 @@
 import { Component, input, output, signal, computed, ViewEncapsulation, OnInit } from '@angular/core';
 import { CommonModule, NgTemplateOutlet } from '@angular/common';
 import { FormsModule, ReactiveFormsModule, ControlValueAccessor, NG_VALUE_ACCESSOR } from '@angular/forms';
-import { Field } from '@angular/forms/signals';
+import { FormField } from '@angular/forms/signals';
 import { MatSelectModule } from '@angular/material/select';
 import { MatFormFieldModule, MatFormFieldAppearance } from '@angular/material/form-field';
 import { MatIconModule } from '@angular/material/icon';
@@ -26,7 +26,7 @@ import { AmwProgressSpinnerComponent } from '../../../components/components/amw-
         NgTemplateOutlet,
         FormsModule,
         ReactiveFormsModule,
-        Field,
+        FormField,
         MatSelectModule,
         MatFormFieldModule,
         MatIconModule,
@@ -56,7 +56,7 @@ export class AmwSelectComponent extends BaseComponent<any> implements ControlVal
      * Mutually exclusive with ngModel and formControl/formControlName.
      * @experimental
      */
-    field = input<any>(undefined);
+    formField = input<any>(undefined);
 
     appearance = input<MatFormFieldAppearance>('outline');
     multiple = input<boolean>(false);

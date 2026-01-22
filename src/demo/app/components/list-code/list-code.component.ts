@@ -1,13 +1,10 @@
-import { Component, ViewEncapsulation } from '@angular/core';
+import { Component, ViewEncapsulation, OnInit } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { CommonModule } from '@angular/common';
-import { BaseCodeComponent } from '../base/base-code.component';
+import { AmwCodeDocComponent, CodeExample } from '../../shared/components/code-doc/code-doc.component';
 import { AmwListComponent } from '../../../../library/src/components/components/amw-list/amw-list.component';
 import { AmwListItemComponent } from '../../../../library/src/components/components/amw-list/amw-list-item.component';
-import { AmwButtonComponent } from '../../../../library/src/controls/components/amw-button/amw-button.component';
-import { AmwAccordionComponent, AmwAccordionPanelComponent, AmwIconComponent } from '../../../../library/src/components/components';
-
-type ListExamples = 'basic' | 'dense' | 'navigation' | 'disabled';
+import { AmwIconComponent } from '../../../../library/src/components/components';
 
 @Component({
   selector: 'amw-demo-list-code',
@@ -15,20 +12,29 @@ type ListExamples = 'basic' | 'dense' | 'navigation' | 'disabled';
   imports: [
     CommonModule,
     FormsModule,
+    AmwCodeDocComponent,
     AmwListComponent,
     AmwListItemComponent,
-    AmwButtonComponent,
-    AmwAccordionComponent,
-    AmwAccordionPanelComponent,
     AmwIconComponent
   ],
   encapsulation: ViewEncapsulation.None,
   templateUrl: './list-code.component.html',
   styleUrl: './list-code.component.scss'
 })
-export class ListCodeComponent extends BaseCodeComponent<ListExamples> {
-  readonly codeExamples: Record<ListExamples, string> = {
-    basic: `<amw-list>
+export class ListCodeComponent implements OnInit {
+  // Track click events for demo
+  lastClickedItem: string | null = null;
+
+  // Editable code for the shared component
+  editableCode: Record<string, string> = {};
+
+  // Code examples data
+  readonly examples: CodeExample[] = [
+    {
+      key: 'basic',
+      title: 'Basic List',
+      description: 'Simple list with icons, titles, subtitles and meta',
+      code: `<amw-list>
   <amw-list-item>
     <amw-icon amwListItemIcon name="inbox"></amw-icon>
     <span amwListItemTitle>Inbox</span>
@@ -47,9 +53,13 @@ export class ListCodeComponent extends BaseCodeComponent<ListExamples> {
     <span amwListItemSubtitle>45 sent messages</span>
     <span amwListItemMeta>45</span>
   </amw-list-item>
-</amw-list>`,
-
-    dense: `<amw-list [dense]="true">
+</amw-list>`
+    },
+    {
+      key: 'dense',
+      title: 'Dense List',
+      description: 'Compact list with reduced spacing',
+      code: `<amw-list [dense]="true">
   <amw-list-item>
     <amw-icon amwListItemIcon name="folder"></amw-icon>
     <span amwListItemTitle>Documents</span>
@@ -66,9 +76,13 @@ export class ListCodeComponent extends BaseCodeComponent<ListExamples> {
     <amw-icon amwListItemIcon name="video_library"></amw-icon>
     <span amwListItemTitle>Videos</span>
   </amw-list-item>
-</amw-list>`,
-
-    navigation: `<amw-list>
+</amw-list>`
+    },
+    {
+      key: 'navigation',
+      title: 'Navigation List',
+      description: 'List items with router navigation',
+      code: `<amw-list>
   <amw-list-item [routerLink]="['/home']">
     <amw-icon amwListItemIcon name="home"></amw-icon>
     <span amwListItemTitle>Home</span>
@@ -84,9 +98,13 @@ export class ListCodeComponent extends BaseCodeComponent<ListExamples> {
     <span amwListItemTitle>Settings</span>
     <span amwListItemSubtitle>Configure app</span>
   </amw-list-item>
-</amw-list>`,
-
-    disabled: `<amw-list>
+</amw-list>`
+    },
+    {
+      key: 'disabled',
+      title: 'Disabled Items',
+      description: 'List with disabled items that cannot be clicked',
+      code: `<amw-list>
   <amw-list-item>
     <amw-icon amwListItemIcon name="check_circle"></amw-icon>
     <span amwListItemTitle>Available Item</span>
@@ -103,16 +121,17 @@ export class ListCodeComponent extends BaseCodeComponent<ListExamples> {
     <span amwListItemSubtitle>This item is enabled</span>
   </amw-list-item>
 </amw-list>`
-  };
+    }
+  ];
 
-  // Track click events for demo
-  lastClickedItem: string | null = null;
+  ngOnInit(): void {
+    // Initialize editable code from examples
+    this.examples.forEach(example => {
+      this.editableCode[example.key] = example.code;
+    });
+  }
 
   onItemClick(itemName: string): void {
     this.lastClickedItem = itemName;
-  }
-
-  constructor() {
-    super();
   }
 }

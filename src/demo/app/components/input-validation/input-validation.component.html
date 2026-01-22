@@ -1,134 +1,98 @@
-<div class="amw-demo-input-validation">
-  <div class="validation-section">
-    <h3 class="validation-section__title">Input Validation Examples</h3>
-    <p class="validation-section__description">
-      This form demonstrates various validation patterns using Angular Material inputs.
-    </p>
-
-    <form [formGroup]="validationForm" (ngSubmit)="onSubmit()" class="validation-form">
-      <div class="form-row">
-        <amw-input
-          formControlName="requiredField"
-          label="Required Field"
-          placeholder="This field is required"
-          [required]="true"
-          appearance="outline">
-        </amw-input>
-        @if (getFieldError('requiredField')) {
-          <div class="field-error">
-            {{ getFieldError('requiredField') }}
-          </div>
-        }
-      </div>
-
-      <div class="form-row">
-        <amw-input
-          formControlName="emailField"
-          type="email"
-          label="Email Field"
-          placeholder="Enter valid email"
-          [required]="true"
-          appearance="outline">
-        </amw-input>
-        @if (getFieldError('emailField')) {
-          <div class="field-error">
-            {{ getFieldError('emailField') }}
-          </div>
-        }
-      </div>
-
-      <div class="form-row">
-        <amw-input
-          formControlName="minLengthField"
-          label="Minimum Length (3 chars)"
-          placeholder="Enter at least 3 characters"
-          [required]="true"
-          appearance="outline">
-        </amw-input>
-        @if (getFieldError('minLengthField')) {
-          <div class="field-error">
-            {{ getFieldError('minLengthField') }}
-          </div>
-        }
-      </div>
-
-      <div class="form-row">
-        <amw-input
-          formControlName="maxLengthField"
-          label="Maximum Length (10 chars)"
-          placeholder="Enter max 10 characters"
-          [required]="true"
-          appearance="outline">
-        </amw-input>
-        @if (getFieldError('maxLengthField')) {
-          <div class="field-error">
-            {{ getFieldError('maxLengthField') }}
-          </div>
-        }
-      </div>
-
-      <div class="form-row">
-        <amw-input
-          formControlName="patternField"
-          label="Pattern (Letters Only)"
-          placeholder="Enter letters only"
-          [required]="true"
-          appearance="outline">
-        </amw-input>
-        @if (getFieldError('patternField')) {
-          <div class="field-error">
-            {{ getFieldError('patternField') }}
-          </div>
-        }
-      </div>
-
-      <div class="form-row">
-        <amw-input
-          formControlName="numberField"
-          type="number"
-          label="Number (1-100)"
-          placeholder="Enter number between 1-100"
-          [required]="true"
-          appearance="outline">
-        </amw-input>
-        @if (getFieldError('numberField')) {
-          <div class="field-error">
-            {{ getFieldError('numberField') }}
-          </div>
-        }
-      </div>
-
-      <div class="form-actions">
-        <amw-button
-          type="submit"
-          appearance="elevated"
-          color="primary"
-          [disabled]="validationForm.invalid">
-          Submit Form
-        </amw-button>
-        <amw-button
-          type="button"
-          appearance="outlined"
-          color="primary"
-          (click)="validationForm.reset()">
-          Reset Form
-        </amw-button>
-      </div>
-    </form>
-
-    <div class="validation-info">
-      <h4>Validation Rules Applied:</h4>
-      <ul>
-        <li><strong>Required Field:</strong> Must not be empty</li>
-        <li><strong>Email Field:</strong> Must be a valid email format</li>
-        <li><strong>Min Length:</strong> Must be at least 3 characters</li>
-        <li><strong>Max Length:</strong> Must not exceed 10 characters</li>
-        <li><strong>Pattern:</strong> Must contain only letters (A-Z, a-z)</li>
-        <li><strong>Number:</strong> Must be between 1 and 100</li>
-      </ul>
+<amw-validation-doc
+  componentName="amw-input"
+  [validationForm]="validationForm"
+  [validationInfo]="validationInfo">
+  <ng-template #formContent>
+    <div class="form-row">
+      <amw-input
+        formControlName="requiredField"
+        label="Required Field"
+        placeholder="This field is required"
+        [required]="true"
+        appearance="outline">
+      </amw-input>
+      @if (getFieldError('requiredField')) {
+        <div class="field-error">
+          {{ getFieldError('requiredField') }}
+        </div>
+      }
     </div>
-  </div>
-</div>
 
+    <div class="form-row">
+      <amw-input
+        formControlName="emailField"
+        type="email"
+        label="Email Field"
+        placeholder="Enter valid email"
+        [required]="true"
+        appearance="outline">
+      </amw-input>
+      @if (getFieldError('emailField')) {
+        <div class="field-error">
+          {{ getFieldError('emailField') }}
+        </div>
+      }
+    </div>
 
+    <div class="form-row">
+      <amw-input
+        formControlName="minLengthField"
+        label="Minimum Length (3 chars)"
+        placeholder="Enter at least 3 characters"
+        [required]="true"
+        appearance="outline">
+      </amw-input>
+      @if (getFieldError('minLengthField')) {
+        <div class="field-error">
+          {{ getFieldError('minLengthField') }}
+        </div>
+      }
+    </div>
 
+    <div class="form-row">
+      <amw-input
+        formControlName="maxLengthField"
+        label="Maximum Length (10 chars)"
+        placeholder="Enter max 10 characters"
+        [required]="true"
+        appearance="outline">
+      </amw-input>
+      @if (getFieldError('maxLengthField')) {
+        <div class="field-error">
+          {{ getFieldError('maxLengthField') }}
+        </div>
+      }
+    </div>
+
+    <div class="form-row">
+      <amw-input
+        formControlName="patternField"
+        label="Pattern (Letters Only)"
+        placeholder="Enter letters only"
+        [required]="true"
+        appearance="outline">
+      </amw-input>
+      @if (getFieldError('patternField')) {
+        <div class="field-error">
+          {{ getFieldError('patternField') }}
+        </div>
+      }
+    </div>
+
+    <div class="form-row">
+      <amw-input
+        formControlName="numberField"
+        type="number"
+        label="Number (1-100)"
+        placeholder="Enter number between 1-100"
+        [required]="true"
+        appearance="outline">
+      </amw-input>
+      @if (getFieldError('numberField')) {
+        <div class="field-error">
+          {{ getFieldError('numberField') }}
+        </div>
+      }
+    </div>
+  </ng-template>
+</amw-validation-doc>

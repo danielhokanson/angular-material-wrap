@@ -1,43 +1,58 @@
-import { Component, ViewEncapsulation } from '@angular/core';
+import { Component, ViewEncapsulation, OnInit } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { CommonModule } from '@angular/common';
-import { BaseCodeComponent } from '../base/base-code.component';
-
-type ThemeExamples = 'colorPalette' | 'cssVariables' | 'componentTheming' | 'darkMode' | 'customTheme';
-
+import { AmwCodeDocComponent, CodeExample } from '../../shared/components/code-doc/code-doc.component';
 import { AmwButtonComponent } from '../../../../library/src/controls/components/amw-button/amw-button.component';
-import { AmwAccordionComponent, AmwAccordionPanelComponent, AmwIconComponent, AmwCardComponent } from '../../../../library/src/components/components';
+import { AmwIconComponent, AmwCardComponent } from '../../../../library/src/components/components';
+
 @Component({
   selector: 'amw-demo-theme-code',
   standalone: true,
-  imports: [CommonModule,
+  imports: [
+    CommonModule,
     FormsModule,
+    AmwCodeDocComponent,
     AmwButtonComponent,
-    AmwAccordionComponent,
-    AmwAccordionPanelComponent,
     AmwIconComponent,
-    AmwCardComponent],
+    AmwCardComponent
+  ],
   encapsulation: ViewEncapsulation.None,
   templateUrl: './theme-code.component.html',
   styleUrl: './theme-code.component.scss'
 })
-export class ThemeCodeComponent extends BaseCodeComponent<ThemeExamples> {
-  readonly codeExamples: Record<ThemeExamples, string> = {
-    colorPalette: `<!-- Using Material theme colors -->
+export class ThemeCodeComponent implements OnInit {
+  // Editable code for the shared component
+  editableCode: Record<string, string> = {};
+
+  // Code examples data
+  readonly examples: CodeExample[] = [
+    {
+      key: 'colorPalette',
+      title: 'Color Palette Usage',
+      description: 'Using built-in theme colors',
+      code: `<!-- Using Material theme colors -->
 <amw-button appearance="elevated" color="primary">Primary</amw-button>
 <amw-button appearance="elevated" color="accent">Accent</amw-button>
-<amw-button appearance="elevated" color="warn">Warn</amw-button>`,
-
-    cssVariables: `<!-- Using CSS variables in components -->
+<amw-button appearance="elevated" color="warn">Warn</amw-button>`
+    },
+    {
+      key: 'cssVariables',
+      title: 'CSS Variables',
+      description: 'Using Material Design 3 CSS variables',
+      code: `<!-- Using CSS variables in components -->
 <div style="
   background-color: var(--mdc-theme-primary);
   color: var(--mdc-theme-on-primary);
   padding: 16px;
   border-radius: 8px;">
   Themed Container
-</div>`,
-
-    componentTheming: `<!-- Component-specific theming -->
+</div>`
+    },
+    {
+      key: 'componentTheming',
+      title: 'Component Theming',
+      description: 'Applying themes to Material components',
+      code: `<!-- Component-specific theming -->
 <amw-card headerTitle="Themed Card">
   <ng-template #cardContent>
     Content styled with theme colors
@@ -45,18 +60,26 @@ export class ThemeCodeComponent extends BaseCodeComponent<ThemeExamples> {
   <ng-template #cardActions>
     <amw-button appearance="text" color="primary">Action</amw-button>
   </ng-template>
-</amw-card>`,
-
-    darkMode: `<!-- Dark mode implementation -->
+</amw-card>`
+    },
+    {
+      key: 'darkMode',
+      title: 'Dark Mode',
+      description: 'Implementing dark theme support',
+      code: `<!-- Dark mode implementation -->
 <div class="dark-theme">
   <amw-card headerTitle="Dark Theme Card">
     <ng-template #cardContent>
       This content adapts to dark theme
     </ng-template>
   </amw-card>
-</div>`,
-
-    customTheme: `<!-- Custom theme example -->
+</div>`
+    },
+    {
+      key: 'customTheme',
+      title: 'Custom Theme',
+      description: 'Creating custom theme overrides',
+      code: `<!-- Custom theme example -->
 <style>
   .custom-theme {
     --mdc-theme-primary: #ff5722;
@@ -68,9 +91,13 @@ export class ThemeCodeComponent extends BaseCodeComponent<ThemeExamples> {
     Custom Primary Color
   </amw-button>
 </div>`
-  };
+    }
+  ];
 
-  constructor() {
-    super();
+  ngOnInit(): void {
+    // Initialize editable code from examples
+    this.examples.forEach(example => {
+      this.editableCode[example.key] = example.code;
+    });
   }
 }

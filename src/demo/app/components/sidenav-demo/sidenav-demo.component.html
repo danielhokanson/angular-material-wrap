@@ -1,185 +1,189 @@
-<div class="sidenav-demo">
-  <!-- Header -->
-  <div class="sidenav-demo__header">
-    <h2>Sidenav Component Demo</h2>
-    <p>Explore different sidenav configurations and variations</p>
+<amw-demo-doc componentName="amw-sidenav">
+  <ng-template #content>
+    <div class="sidenav-demo">
+      <!-- Header -->
+      <div class="sidenav-demo__header">
+        <h2>Sidenav Component Demo</h2>
+        <p>Explore different sidenav configurations and variations</p>
 
-    <div class="sidenav-demo__actions">
-      <amw-button appearance="elevated"
-        color="primary"
-        (click)="toggleConfig()" icon="{{ showConfig ? 'settings' : 'tune' }}" iconPosition="left">{{ showConfig ? 'Hide' : 'Show' }} Configuration</amw-button>
+        <div class="sidenav-demo__actions">
+          <amw-button appearance="elevated"
+            color="primary"
+            (click)="toggleConfig()" icon="{{ showConfig ? 'settings' : 'tune' }}" iconPosition="left">{{ showConfig ? 'Hide' : 'Show' }} Configuration</amw-button>
 
-      <amw-button appearance="text"
-        (click)="resetConfig()" icon="refresh" iconPosition="left">Reset</amw-button>
-    </div>
-  </div>
+          <amw-button appearance="text"
+            (click)="resetConfig()" icon="refresh" iconPosition="left">Reset</amw-button>
+        </div>
+      </div>
 
-  <!-- Configuration Panel -->
-  @if (showConfig) {
-    <amw-card class="sidenav-demo__config">
-      <ng-template #cardHeader>
-        <h2>Configuration</h2>
-        <p class="subtitle">Customize the sidenav behavior</p>
-      </ng-template>
-      <ng-template #cardContent>
-        <form [formGroup]="configForm" class="sidenav-demo__form">
-          <div class="sidenav-demo__form-row">
-            <amw-select label="Mode" formControlName="mode" [options]="modeOptions"></amw-select>
-            <amw-select label="Size" formControlName="size" [options]="sizeOptions"></amw-select>
-            <amw-select label="Position" formControlName="position" [options]="positionOptions"></amw-select>
-          </div>
-          <div class="sidenav-demo__form-row">
-            <amw-input
-              label="Width"
-              formControlName="width"
-              placeholder="e.g., 300px">
-            </amw-input>
-            <amw-input
-              label="Min Width"
-              formControlName="minWidth"
-              placeholder="e.g., 200px">
-            </amw-input>
-            <amw-input
-              label="Max Width"
-              formControlName="maxWidth"
-              placeholder="e.g., 500px">
-            </amw-input>
-          </div>
-          <div class="sidenav-demo__form-row">
-            <amw-switch formControlName="opened">
-              Opened
-            </amw-switch>
-            <amw-switch formControlName="showToggle">
-              Show Toggle Button
-            </amw-switch>
-            <amw-switch formControlName="showClose">
-              Show Close Button
-            </amw-switch>
-          </div>
-          <div class="sidenav-demo__form-row">
-            <amw-switch formControlName="showBackdrop">
-              Show Backdrop
-            </amw-switch>
-            <amw-switch formControlName="disableClose">
-              Disable Close
-            </amw-switch>
-            <amw-switch formControlName="fixedInViewport">
-              Fixed in Viewport
-            </amw-switch>
-          </div>
-          <div class="sidenav-demo__form-row">
-            <amw-switch formControlName="autoFocus">
-              Auto Focus
-            </amw-switch>
-            <amw-switch formControlName="restoreFocus">
-              Restore Focus
-            </amw-switch>
-            <amw-switch formControlName="responsive">
-              Responsive
-            </amw-switch>
-          </div>
-          <div class="sidenav-demo__form-row">
-            <amw-switch formControlName="disabled">
-              Disabled
-            </amw-switch>
-          </div>
-        </form>
-      </ng-template>
-</amw-card>
-  }
-
-  <!-- Variations -->
-  <div class="sidenav-demo__variations">
-    <h3>Variations</h3>
-
-    <div class="sidenav-demo__variation-grid">
-      @for (variation of sidenavVariations; track variation; let i = $index) {
-        <amw-card
-          class="sidenav-demo__variation-card"
-          [class.sidenav-demo__variation-card--selected]="selectedVariation === variation"
-          (click)="loadVariation(variation)">
+      <!-- Configuration Panel -->
+      @if (showConfig) {
+        <amw-card class="sidenav-demo__config">
           <ng-template #cardHeader>
-            <h2>{{ variation.title }}</h2>
-            <p class="subtitle">{{ variation.description }}</p>
+            <h2>Configuration</h2>
+            <p class="subtitle">Customize the sidenav behavior</p>
           </ng-template>
           <ng-template #cardContent>
-            <div class="sidenav-demo__variation-preview">
-              <div class="sidenav-demo__preview-sidenav">
-                <div class="sidenav-demo__preview-header">
-                  <amw-icon name="menu"></amw-icon>
-                  <span>Menu</span>
-                </div>
-                <div class="sidenav-demo__preview-items">
-                  @for (item of variation.items.slice(0, 3); track item) {
-                    <div
-                      class="sidenav-demo__preview-item">
-                      @if (item.icon) {
-                        <amw-icon [name]="item.icon"></amw-icon>
-                      }
-                      <span>{{ item.label }}</span>
-                    </div>
-                  }
-                  @if (variation.items.length > 3) {
-                    <div class="sidenav-demo__preview-more">
-                      +{{ variation.items.length - 3 }} more
-                    </div>
-                  }
-                </div>
+            <form [formGroup]="configForm" class="sidenav-demo__form">
+              <div class="sidenav-demo__form-row">
+                <amw-select label="Mode" formControlName="mode" [options]="modeOptions"></amw-select>
+                <amw-select label="Size" formControlName="size" [options]="sizeOptions"></amw-select>
+                <amw-select label="Position" formControlName="position" [options]="positionOptions"></amw-select>
               </div>
-            </div>
+              <div class="sidenav-demo__form-row">
+                <amw-input
+                  label="Width"
+                  formControlName="width"
+                  placeholder="e.g., 300px">
+                </amw-input>
+                <amw-input
+                  label="Min Width"
+                  formControlName="minWidth"
+                  placeholder="e.g., 200px">
+                </amw-input>
+                <amw-input
+                  label="Max Width"
+                  formControlName="maxWidth"
+                  placeholder="e.g., 500px">
+                </amw-input>
+              </div>
+              <div class="sidenav-demo__form-row">
+                <amw-switch formControlName="opened">
+                  Opened
+                </amw-switch>
+                <amw-switch formControlName="showToggle">
+                  Show Toggle Button
+                </amw-switch>
+                <amw-switch formControlName="showClose">
+                  Show Close Button
+                </amw-switch>
+              </div>
+              <div class="sidenav-demo__form-row">
+                <amw-switch formControlName="showBackdrop">
+                  Show Backdrop
+                </amw-switch>
+                <amw-switch formControlName="disableClose">
+                  Disable Close
+                </amw-switch>
+                <amw-switch formControlName="fixedInViewport">
+                  Fixed in Viewport
+                </amw-switch>
+              </div>
+              <div class="sidenav-demo__form-row">
+                <amw-switch formControlName="autoFocus">
+                  Auto Focus
+                </amw-switch>
+                <amw-switch formControlName="restoreFocus">
+                  Restore Focus
+                </amw-switch>
+                <amw-switch formControlName="responsive">
+                  Responsive
+                </amw-switch>
+              </div>
+              <div class="sidenav-demo__form-row">
+                <amw-switch formControlName="disabled">
+                  Disabled
+                </amw-switch>
+              </div>
+            </form>
           </ng-template>
-</amw-card>
+        </amw-card>
       }
-    </div>
-  </div>
 
-  <!-- Live Demo -->
-  <div class="sidenav-demo__live">
-    <h3>Live Demo</h3>
+      <!-- Variations -->
+      <div class="sidenav-demo__variations">
+        <h3>Variations</h3>
 
-    <div class="sidenav-demo__demo-container">
-      <amw-sidenav
-        [config]="currentConfig"
-        [items]="selectedVariation.items"
-        [opened]="currentConfig.opened ?? false"
-        [showToggle]="currentConfig.showToggle ?? false"
-        [showClose]="currentConfig.showClose ?? false"
-        (openedChange)="onSidenavOpenedChange($event)"
-        (itemClick)="onItemClick($event)"
-        (toggleEvent)="onSidenavToggle($event)"
-        (closeEvent)="onSidenavClose()">
-
-        <!-- Main Content -->
-        <div class="sidenav-demo__main-content">
-          <amw-card class="sidenav-demo__content-card">
-            <ng-template #cardHeader>
-              <h2>Main Content Area</h2>
-              <p class="subtitle">This is the main content that gets pushed/overlaid by the sidenav</p>
-            </ng-template>
-
-            <ng-template #cardContent>
-              <p>
-                This is the main content area. The sidenav behavior depends on the selected mode:
-              </p>
-
-              <ul>
-                <li><strong>Side:</strong> The sidenav is always visible alongside the main content</li>
-                <li><strong>Over:</strong> The sidenav overlays the main content when opened</li>
-                <li><strong>Push:</strong> The sidenav pushes the main content when opened</li>
-              </ul>
-
-              <p>
-                Try different variations above to see how the sidenav behaves with different configurations.
-              </p>
-
-              <div class="sidenav-demo__content-actions">
-                <amw-button appearance="elevated" color="primary" icon="add" iconPosition="left">Action Button</amw-button>
-                <amw-button appearance="text" icon="info" iconPosition="left">Info Button</amw-button>
-              </div>
-            </ng-template>
-</amw-card>
+        <div class="sidenav-demo__variation-grid">
+          @for (variation of sidenavVariations; track variation; let i = $index) {
+            <amw-card
+              class="sidenav-demo__variation-card"
+              [class.sidenav-demo__variation-card--selected]="selectedVariation === variation"
+              (click)="loadVariation(variation)">
+              <ng-template #cardHeader>
+                <h2>{{ variation.title }}</h2>
+                <p class="subtitle">{{ variation.description }}</p>
+              </ng-template>
+              <ng-template #cardContent>
+                <div class="sidenav-demo__variation-preview">
+                  <div class="sidenav-demo__preview-sidenav">
+                    <div class="sidenav-demo__preview-header">
+                      <amw-icon name="menu"></amw-icon>
+                      <span>Menu</span>
+                    </div>
+                    <div class="sidenav-demo__preview-items">
+                      @for (item of variation.items.slice(0, 3); track item) {
+                        <div
+                          class="sidenav-demo__preview-item">
+                          @if (item.icon) {
+                            <amw-icon [name]="item.icon"></amw-icon>
+                          }
+                          <span>{{ item.label }}</span>
+                        </div>
+                      }
+                      @if (variation.items.length > 3) {
+                        <div class="sidenav-demo__preview-more">
+                          +{{ variation.items.length - 3 }} more
+                        </div>
+                      }
+                    </div>
+                  </div>
+                </div>
+              </ng-template>
+            </amw-card>
+          }
         </div>
-      </amw-sidenav>
+      </div>
+
+      <!-- Live Demo -->
+      <div class="sidenav-demo__live">
+        <h3>Live Demo</h3>
+
+        <div class="sidenav-demo__demo-container">
+          <amw-sidenav
+            [config]="currentConfig"
+            [items]="selectedVariation.items"
+            [opened]="currentConfig.opened ?? false"
+            [showToggle]="currentConfig.showToggle ?? false"
+            [showClose]="currentConfig.showClose ?? false"
+            (openedChange)="onSidenavOpenedChange($event)"
+            (itemClick)="onItemClick($event)"
+            (toggleEvent)="onSidenavToggle($event)"
+            (closeEvent)="onSidenavClose()">
+
+            <!-- Main Content -->
+            <div class="sidenav-demo__main-content">
+              <amw-card class="sidenav-demo__content-card">
+                <ng-template #cardHeader>
+                  <h2>Main Content Area</h2>
+                  <p class="subtitle">This is the main content that gets pushed/overlaid by the sidenav</p>
+                </ng-template>
+
+                <ng-template #cardContent>
+                  <p>
+                    This is the main content area. The sidenav behavior depends on the selected mode:
+                  </p>
+
+                  <ul>
+                    <li><strong>Side:</strong> The sidenav is always visible alongside the main content</li>
+                    <li><strong>Over:</strong> The sidenav overlays the main content when opened</li>
+                    <li><strong>Push:</strong> The sidenav pushes the main content when opened</li>
+                  </ul>
+
+                  <p>
+                    Try different variations above to see how the sidenav behaves with different configurations.
+                  </p>
+
+                  <div class="sidenav-demo__content-actions">
+                    <amw-button appearance="elevated" color="primary" icon="add" iconPosition="left">Action Button</amw-button>
+                    <amw-button appearance="text" icon="info" iconPosition="left">Info Button</amw-button>
+                  </div>
+                </ng-template>
+              </amw-card>
+            </div>
+          </amw-sidenav>
+        </div>
+      </div>
     </div>
-  </div>
-</div>
+  </ng-template>
+</amw-demo-doc>

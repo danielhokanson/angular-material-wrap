@@ -165,7 +165,8 @@ import { ExpansionValidationComponent } from '../expansion-validation/expansion-
 import { ExpansionCodeComponent } from '../expansion-code/expansion-code.component';
 import { ExpansionApiComponent } from '../expansion-api/expansion-api.component';
 
-// Signal Forms demos - temporarily disabled due to Angular Signal Forms API type inference issues
+// Signal Forms demos - temporarily disabled due to Angular Signal Forms API still being experimental
+// The form() API syntax has changed between Angular versions and type inference is unreliable
 // TODO: Re-enable when Angular Signal Forms API stabilizes
 // import { SignalFormsDemoComponent } from '../signal-forms-demo/signal-forms-demo.component';
 // import { SignalFormsValidationComponent } from '../signal-forms-validation/signal-forms-validation.component';
@@ -428,7 +429,7 @@ export const DEMO_REGISTRY: Record<string, DemoComponents> = {
         api: ExpansionApiComponent
     },
 
-    // Signal Forms (experimental) - temporarily disabled due to Angular Signal Forms API type inference issues
+    // Signal Forms (experimental) - temporarily disabled
     // TODO: Re-enable when Angular Signal Forms API stabilizes
     // 'signal-forms': {
     //     demo: SignalFormsDemoComponent,
@@ -460,7 +461,7 @@ export const DEMO_CONFIGS: Record<string, DemoConfig> = {
             { id: 'radio-group', name: 'Radio Group' },
             { id: 'range-slider', name: 'Range Slider' },
             { id: 'select', name: 'Select' },
-            // { id: 'signal-forms', name: 'Signal Forms' }, // Temporarily disabled - experimental API
+            // { id: 'signal-forms', name: 'Signal Forms' }, // Temporarily disabled - API unstable
             { id: 'slider', name: 'Slider' },
             { id: 'switch', name: 'Switch' },
             { id: 'textarea', name: 'Textarea' },

@@ -1,9 +1,8 @@
-<div class="stepper-validation-demo">
-  <h3>Stepper Validation Examples</h3>
-  <p>Demonstrates various validation scenarios for the stepper component.</p>
-
-  <div class="demo-section">
-    <h4>Required Field Validation</h4>
+<amw-validation-doc
+  componentName="amw-stepper"
+  [validationForm]="validationForm"
+  [validationInfo]="validationInfo">
+  <ng-template #formContent>
     <amw-card>
       <ng-template #cardContent>
         <amw-stepper
@@ -13,18 +12,17 @@
           (stepChange)="onStepChange($event)">
         </amw-stepper>
 
-        <!-- Form content displayed based on current step -->
         <div class="step-content">
           @if (currentStep === 0) {
-            <form [formGroup]="firstFormGroup" class="step-form">
+            <form [formGroup]="validationForm" class="step-form">
               <amw-input
                 formControlName="firstName"
                 label="First Name *"
                 [required]="true">
               </amw-input>
-              @if (firstFormGroup.get('firstName')?.hasError('required') && firstFormGroup.get('firstName')?.touched) {
+              @if (getStepperError(validationForm, 'firstName')) {
                 <div class="field-error">
-                  First name is required
+                  {{ getStepperError(validationForm, 'firstName') }}
                 </div>
               }
               <amw-input
@@ -32,9 +30,9 @@
                 label="Last Name *"
                 [required]="true">
               </amw-input>
-              @if (firstFormGroup.get('lastName')?.hasError('required') && firstFormGroup.get('lastName')?.touched) {
+              @if (getStepperError(validationForm, 'lastName')) {
                 <div class="field-error">
-                  Last name is required
+                  {{ getStepperError(validationForm, 'lastName') }}
                 </div>
               }
             </form>
@@ -48,14 +46,9 @@
                 type="email"
                 [required]="true">
               </amw-input>
-              @if (secondFormGroup.get('email')?.hasError('required') && secondFormGroup.get('email')?.touched) {
+              @if (getStepperError(secondFormGroup, 'email')) {
                 <div class="field-error">
-                  Email is required
-                </div>
-              }
-              @if (secondFormGroup.get('email')?.hasError('email') && secondFormGroup.get('email')?.touched) {
-                <div class="field-error">
-                  Please enter a valid email
+                  {{ getStepperError(secondFormGroup, 'email') }}
                 </div>
               }
               <amw-input
@@ -63,9 +56,9 @@
                 label="Phone *"
                 [required]="true">
               </amw-input>
-              @if (secondFormGroup.get('phone')?.hasError('required') && secondFormGroup.get('phone')?.touched) {
+              @if (getStepperError(secondFormGroup, 'phone')) {
                 <div class="field-error">
-                  Phone is required
+                  {{ getStepperError(secondFormGroup, 'phone') }}
                 </div>
               }
             </form>
@@ -75,8 +68,8 @@
             <div class="review-section">
               <p>Review your information before submitting.</p>
               <div class="review-data">
-                <p><strong>First Name:</strong> {{ firstFormGroup.value.firstName }}</p>
-                <p><strong>Last Name:</strong> {{ firstFormGroup.value.lastName }}</p>
+                <p><strong>First Name:</strong> {{ validationForm.value.firstName }}</p>
+                <p><strong>Last Name:</strong> {{ validationForm.value.lastName }}</p>
                 <p><strong>Email:</strong> {{ secondFormGroup.value.email }}</p>
                 <p><strong>Phone:</strong> {{ secondFormGroup.value.phone }}</p>
               </div>
@@ -88,5 +81,5 @@
         </div>
       </ng-template>
     </amw-card>
-  </div>
-</div>
+  </ng-template>
+</amw-validation-doc>

@@ -1,152 +1,154 @@
-<div class="validation-section">
-  <h3>Form Validation Examples</h3>
-  <p>Demonstration of accordion panels with form validation in a multi-step wizard pattern.</p>
+<amw-validation-doc
+  componentName="amw-accordion"
+  [validationForm]="validationForm"
+  [validationInfo]="validationInfo">
+  <ng-template #formContent>
+    <amw-accordion class="validation-accordion">
+      <!-- Step 1: Personal Information -->
+      <amw-accordion-panel [expanded]="step === 0" (opened)="setStep(0)" [hideToggle]="true">
+        <ng-template #header>
+          <h3>
+            <amw-icon name="person"></amw-icon>
+            Personal Information
+          </h3>
+          <p>
+            Enter your basic details
+            @if (personalInfoForm.valid) {
+              <amw-icon name="check_circle" class="status-icon status-icon--valid"></amw-icon>
+            }
+          </p>
+        </ng-template>
 
-  <amw-accordion class="validation-accordion">
-    <!-- Step 1: Personal Information -->
-    <amw-accordion-panel [expanded]="step === 0" (opened)="setStep(0)" [hideToggle]="true">
-      <ng-template #header>
-        <h3>
-          <amw-icon name="person"></amw-icon>
-          Personal Information
-        </h3>
-        <p>
-          Enter your basic details
-          @if (personalInfoForm.valid) {
-            <amw-icon name="check_circle" class="status-icon status-icon--valid"></amw-icon>
+        <form [formGroup]="personalInfoForm">
+          <amw-input
+            label="First Name"
+            formControlName="firstName"
+            placeholder="Enter your first name">
+          </amw-input>
+          @if (personalInfoForm.get('firstName')?.invalid && personalInfoForm.get('firstName')?.touched) {
+            <div class="field-error">{{ getAccordionErrorMessage(personalInfoForm, 'firstName') }}</div>
           }
-        </p>
-      </ng-template>
 
-      <form [formGroup]="personalInfoForm">
-        <amw-input
-          label="First Name"
-          formControlName="firstName"
-          placeholder="Enter your first name">
-        </amw-input>
-        @if (personalInfoForm.get('firstName')?.invalid && personalInfoForm.get('firstName')?.touched) {
-          <div class="field-error">{{ getErrorMessage(personalInfoForm, 'firstName') }}</div>
-        }
-
-        <amw-input
-          label="Last Name"
-          formControlName="lastName"
-          placeholder="Enter your last name">
-        </amw-input>
-        @if (personalInfoForm.get('lastName')?.invalid && personalInfoForm.get('lastName')?.touched) {
-          <div class="field-error">{{ getErrorMessage(personalInfoForm, 'lastName') }}</div>
-        }
-
-        <amw-input
-          label="Email"
-          type="email"
-          formControlName="email"
-          placeholder="your@email.com">
-        </amw-input>
-        @if (personalInfoForm.get('email')?.invalid && personalInfoForm.get('email')?.touched) {
-          <div class="field-error">{{ getErrorMessage(personalInfoForm, 'email') }}</div>
-        }
-
-        <div class="button-row">
-          <amw-button appearance="elevated" color="primary" (click)="nextStep()" [disabled]="!personalInfoForm.valid">
-            Next <amw-icon name="arrow_forward"></amw-icon>
-          </amw-button>
-        </div>
-      </form>
-    </amw-accordion-panel>
-
-    <!-- Step 2: Contact Information -->
-    <amw-accordion-panel [expanded]="step === 1" (opened)="setStep(1)" [hideToggle]="true">
-      <ng-template #header>
-        <h3>
-          <amw-icon name="contact_phone"></amw-icon>
-          Contact Information
-        </h3>
-        <p>
-          Add your contact details
-          @if (contactForm.valid) {
-            <amw-icon name="check_circle" class="status-icon status-icon--valid"></amw-icon>
+          <amw-input
+            label="Last Name"
+            formControlName="lastName"
+            placeholder="Enter your last name">
+          </amw-input>
+          @if (personalInfoForm.get('lastName')?.invalid && personalInfoForm.get('lastName')?.touched) {
+            <div class="field-error">{{ getAccordionErrorMessage(personalInfoForm, 'lastName') }}</div>
           }
-        </p>
-      </ng-template>
 
-      <form [formGroup]="contactForm">
-        <amw-input
-          label="Phone Number"
-          formControlName="phone"
-          placeholder="1234567890">
-        </amw-input>
-        @if (contactForm.get('phone')?.invalid && contactForm.get('phone')?.touched) {
-          <div class="field-error">{{ getErrorMessage(contactForm, 'phone') }}</div>
-        }
-
-        <amw-input
-          label="Address"
-          formControlName="address"
-          placeholder="123 Main St">
-        </amw-input>
-        @if (contactForm.get('address')?.invalid && contactForm.get('address')?.touched) {
-          <div class="field-error">{{ getErrorMessage(contactForm, 'address') }}</div>
-        }
-
-        <amw-input
-          label="City"
-          formControlName="city"
-          placeholder="Your City">
-        </amw-input>
-        @if (contactForm.get('city')?.invalid && contactForm.get('city')?.touched) {
-          <div class="field-error">{{ getErrorMessage(contactForm, 'city') }}</div>
-        }
-
-        <amw-input
-          label="ZIP Code"
-          formControlName="zipCode"
-          placeholder="12345">
-        </amw-input>
-        @if (contactForm.get('zipCode')?.invalid && contactForm.get('zipCode')?.touched) {
-          <div class="field-error">{{ getErrorMessage(contactForm, 'zipCode') }}</div>
-        }
-
-        <div class="button-row">
-          <amw-button appearance="text" (click)="prevStep()" icon="arrow_back" iconPosition="left">Previous</amw-button>
-          <amw-button appearance="elevated" color="primary" (click)="nextStep()" [disabled]="!contactForm.valid">
-            Next <amw-icon name="arrow_forward"></amw-icon>
-          </amw-button>
-        </div>
-      </form>
-    </amw-accordion-panel>
-
-    <!-- Step 3: Preferences -->
-    <amw-accordion-panel [expanded]="step === 2" (opened)="setStep(2)" [hideToggle]="true">
-      <ng-template #header>
-        <h3>
-          <amw-icon name="settings"></amw-icon>
-          Preferences
-        </h3>
-        <p>
-          Set your preferences
-          @if (preferencesForm.valid) {
-            <amw-icon name="check_circle" class="status-icon status-icon--valid"></amw-icon>
+          <amw-input
+            label="Email"
+            type="email"
+            formControlName="email"
+            placeholder="your@email.com">
+          </amw-input>
+          @if (personalInfoForm.get('email')?.invalid && personalInfoForm.get('email')?.touched) {
+            <div class="field-error">{{ getAccordionErrorMessage(personalInfoForm, 'email') }}</div>
           }
-        </p>
-      </ng-template>
 
-      <form [formGroup]="preferencesForm">
-        <div class="checkbox-group">
-          <amw-checkbox formControlName="newsletter">Subscribe to newsletter</amw-checkbox>
-          <amw-checkbox formControlName="notifications">Enable notifications</amw-checkbox>
-        </div>
+          <div class="button-row">
+            <amw-button appearance="elevated" color="primary" (click)="nextStep()" [disabled]="!personalInfoForm.valid">
+              Next <amw-icon name="arrow_forward"></amw-icon>
+            </amw-button>
+          </div>
+        </form>
+      </amw-accordion-panel>
 
-        <div class="button-row">
-          <amw-button appearance="text" (click)="prevStep()" icon="arrow_back" iconPosition="left">Previous</amw-button>
-          <amw-button appearance="elevated" 
-            color="primary" 
-            (click)="onSubmit()" 
-            [disabled]="!personalInfoForm.valid || !contactForm.valid || !preferencesForm.valid">
-            Submit <amw-icon name="check"></amw-icon>
-          </amw-button>
-        </div>
-      </form>
-    </amw-accordion-panel>
-  </amw-accordion>
-</div>
+      <!-- Step 2: Contact Information -->
+      <amw-accordion-panel [expanded]="step === 1" (opened)="setStep(1)" [hideToggle]="true">
+        <ng-template #header>
+          <h3>
+            <amw-icon name="contact_phone"></amw-icon>
+            Contact Information
+          </h3>
+          <p>
+            Add your contact details
+            @if (contactForm.valid) {
+              <amw-icon name="check_circle" class="status-icon status-icon--valid"></amw-icon>
+            }
+          </p>
+        </ng-template>
+
+        <form [formGroup]="contactForm">
+          <amw-input
+            label="Phone Number"
+            formControlName="phone"
+            placeholder="1234567890">
+          </amw-input>
+          @if (contactForm.get('phone')?.invalid && contactForm.get('phone')?.touched) {
+            <div class="field-error">{{ getAccordionErrorMessage(contactForm, 'phone') }}</div>
+          }
+
+          <amw-input
+            label="Address"
+            formControlName="address"
+            placeholder="123 Main St">
+          </amw-input>
+          @if (contactForm.get('address')?.invalid && contactForm.get('address')?.touched) {
+            <div class="field-error">{{ getAccordionErrorMessage(contactForm, 'address') }}</div>
+          }
+
+          <amw-input
+            label="City"
+            formControlName="city"
+            placeholder="Your City">
+          </amw-input>
+          @if (contactForm.get('city')?.invalid && contactForm.get('city')?.touched) {
+            <div class="field-error">{{ getAccordionErrorMessage(contactForm, 'city') }}</div>
+          }
+
+          <amw-input
+            label="ZIP Code"
+            formControlName="zipCode"
+            placeholder="12345">
+          </amw-input>
+          @if (contactForm.get('zipCode')?.invalid && contactForm.get('zipCode')?.touched) {
+            <div class="field-error">{{ getAccordionErrorMessage(contactForm, 'zipCode') }}</div>
+          }
+
+          <div class="button-row">
+            <amw-button appearance="text" (click)="prevStep()" icon="arrow_back" iconPosition="left">Previous</amw-button>
+            <amw-button appearance="elevated" color="primary" (click)="nextStep()" [disabled]="!contactForm.valid">
+              Next <amw-icon name="arrow_forward"></amw-icon>
+            </amw-button>
+          </div>
+        </form>
+      </amw-accordion-panel>
+
+      <!-- Step 3: Preferences -->
+      <amw-accordion-panel [expanded]="step === 2" (opened)="setStep(2)" [hideToggle]="true">
+        <ng-template #header>
+          <h3>
+            <amw-icon name="settings"></amw-icon>
+            Preferences
+          </h3>
+          <p>
+            Set your preferences
+            @if (preferencesForm.valid) {
+              <amw-icon name="check_circle" class="status-icon status-icon--valid"></amw-icon>
+            }
+          </p>
+        </ng-template>
+
+        <form [formGroup]="preferencesForm">
+          <div class="checkbox-group">
+            <amw-checkbox formControlName="newsletter">Subscribe to newsletter</amw-checkbox>
+            <amw-checkbox formControlName="notifications">Enable notifications</amw-checkbox>
+          </div>
+
+          <div class="button-row">
+            <amw-button appearance="text" (click)="prevStep()" icon="arrow_back" iconPosition="left">Previous</amw-button>
+            <amw-button appearance="elevated"
+              color="primary"
+              (click)="onAccordionSubmit()"
+              [disabled]="!personalInfoForm.valid || !contactForm.valid || !preferencesForm.valid">
+              Submit <amw-icon name="check"></amw-icon>
+            </amw-button>
+          </div>
+        </form>
+      </amw-accordion-panel>
+    </amw-accordion>
+  </ng-template>
+</amw-validation-doc>

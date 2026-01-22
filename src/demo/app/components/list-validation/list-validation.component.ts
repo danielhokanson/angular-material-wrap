@@ -1,5 +1,8 @@
 import { Component, ViewEncapsulation } from '@angular/core';
 import { CommonModule } from '@angular/common';
+import { ReactiveFormsModule, FormGroup } from '@angular/forms';
+import { AmwValidationDocComponent, ValidationInfo } from '../../shared/components/validation-doc/validation-doc.component';
+import { BaseValidationComponent } from '../base/base-validation.component';
 import { AmwListComponent } from '../../../../library/src/components/components/amw-list/amw-list.component';
 import { AmwListItemComponent } from '../../../../library/src/components/components/amw-list/amw-list-item.component';
 import { AmwIconComponent, AmwCardComponent } from '../../../../library/src/components/components';
@@ -18,6 +21,8 @@ interface ListItem {
   standalone: true,
   imports: [
     CommonModule,
+    ReactiveFormsModule,
+    AmwValidationDocComponent,
     AmwListComponent,
     AmwListItemComponent,
     AmwIconComponent,
@@ -28,8 +33,16 @@ interface ListItem {
   templateUrl: './list-validation.component.html',
   styleUrl: './list-validation.component.scss'
 })
-export class ListValidationComponent {
-  // Items with disabled states
+export class ListValidationComponent extends BaseValidationComponent {
+  validationForm: FormGroup = this.fb.group({});
+
+  validationInfo: ValidationInfo[] = [
+    { title: 'Disabled Items', description: 'Cannot be clicked or selected, visually dimmed' },
+    { title: 'Selected Items', description: 'Shows visual indication of current selection' },
+    { title: 'Mixed States', description: 'Combines both disabled and selected states' },
+    { title: 'Click Events', description: 'Only fire on enabled items' }
+  ];
+
   disabledItems: ListItem[] = [
     { title: 'Available Item', subtitle: 'This item is enabled', icon: 'check_circle', disabled: false },
     { title: 'Disabled Item', subtitle: 'This item is disabled', icon: 'block', disabled: true },
@@ -37,7 +50,6 @@ export class ListValidationComponent {
     { title: 'Unavailable Item', subtitle: 'This item is also disabled', icon: 'block', disabled: true }
   ];
 
-  // Items with selection states
   selectableItems: ListItem[] = [
     { title: 'Inbox', subtitle: '5 new messages', icon: 'inbox', selected: false },
     { title: 'Starred', subtitle: '12 items', icon: 'star', selected: true },
@@ -45,7 +57,6 @@ export class ListValidationComponent {
     { title: 'Sent', subtitle: '45 sent messages', icon: 'send', selected: false }
   ];
 
-  // Mixed states
   mixedStateItems: ListItem[] = [
     { title: 'Home', subtitle: 'Go to home page', icon: 'home', disabled: false, selected: true },
     { title: 'Settings', subtitle: 'Configure app', icon: 'settings', disabled: false, selected: false },
@@ -54,7 +65,6 @@ export class ListValidationComponent {
     { title: 'Deprecated Feature', subtitle: 'No longer available', icon: 'warning', disabled: true, selected: false }
   ];
 
-  // Track click events
   lastClickedItem: string | null = null;
 
   onItemClick(item: ListItem): void {
@@ -65,18 +75,14 @@ export class ListValidationComponent {
 
   toggleSelection(item: ListItem): void {
     if (!item.disabled) {
-      // Deselect all items in selectableItems
       this.selectableItems.forEach(i => i.selected = false);
-      // Select the clicked item
       item.selected = true;
     }
   }
 
   toggleMixedSelection(item: ListItem): void {
     if (!item.disabled) {
-      // Deselect all items in mixedStateItems
       this.mixedStateItems.forEach(i => i.selected = false);
-      // Select the clicked item
       item.selected = true;
     }
   }

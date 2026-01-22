@@ -5,13 +5,15 @@ import { FormsModule } from '@angular/forms';
 import { AmwAutocompleteComponent } from '../../../../library/src/controls/components/amw-autocomplete/amw-autocomplete.component';
 import { AmwSize, AmwAppearance } from '../../../../library/src/shared/types';
 import { AutocompleteOption } from '../../../../library/src/controls/components/amw-autocomplete/interfaces/autocomplete-option.interface';
+import { AmwDemoDocComponent } from '../../shared/components/demo-doc/demo-doc.component';
 
 @Component({
     selector: 'amw-demo-autocomplete',
     standalone: true,
     imports: [
     FormsModule,
-    AmwAutocompleteComponent
+    AmwAutocompleteComponent,
+    AmwDemoDocComponent
 ],
     templateUrl: './autocomplete-demo.component.html',
     styleUrl: './autocomplete-demo.component.scss',

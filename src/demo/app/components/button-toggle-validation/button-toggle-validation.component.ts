@@ -1,10 +1,10 @@
-import { Component, OnInit, ViewEncapsulation } from '@angular/core';
+import { Component, ViewEncapsulation } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { ReactiveFormsModule, FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { AmwNotificationService } from '../../../../library/src/services/amw-notification/amw-notification.service';
+import { ReactiveFormsModule, FormGroup, Validators } from '@angular/forms';
+import { AmwValidationDocComponent, ValidationInfo } from '../../shared/components/validation-doc/validation-doc.component';
+import { BaseValidationComponent } from '../base/base-validation.component';
 import { AmwButtonToggleComponent } from '../../../../library/src/controls/components/amw-button-toggle/amw-button-toggle.component';
 import { AmwButtonToggleGroupComponent } from '../../../../library/src/controls/components/amw-button-toggle/amw-button-toggle-group.component';
-import { AmwButtonComponent } from '../../../../library/src/controls/components/amw-button/amw-button.component';
 
 @Component({
   selector: 'amw-demo-button-toggle-validation',
@@ -12,44 +12,27 @@ import { AmwButtonComponent } from '../../../../library/src/controls/components/
   imports: [
     CommonModule,
     ReactiveFormsModule,
+    AmwValidationDocComponent,
     AmwButtonToggleComponent,
-    AmwButtonToggleGroupComponent,
-    AmwButtonComponent
+    AmwButtonToggleGroupComponent
   ],
   encapsulation: ViewEncapsulation.None,
   templateUrl: './button-toggle-validation.component.html',
   styleUrl: './button-toggle-validation.component.scss'
 })
-export class ButtonToggleValidationComponent implements OnInit {
-  validationForm: FormGroup;
+export class ButtonToggleValidationComponent extends BaseValidationComponent {
   disabledDemoValue: string | null = null;
 
-  constructor(
-    private fb: FormBuilder,
-    private notification: AmwNotificationService
-  ) {
-    this.validationForm = this.fb.group({
-      viewMode: ['', Validators.required],
-      alignment: ['', Validators.required],
-      textFormatting: [[], Validators.required]
-    });
-  }
+  validationForm: FormGroup = this.fb.group({
+    viewMode: ['', Validators.required],
+    alignment: ['', Validators.required],
+    textFormatting: [[], Validators.required]
+  });
 
-  ngOnInit(): void { }
-
-  onSubmit(): void {
-    if (this.validationForm.valid) {
-      this.notification.success('Success', 'Form is valid! All required selections have been made.', { duration: 3000 });
-    } else {
-      this.notification.error('Error', 'Form has validation errors. Please make all required selections.', { duration: 3000 });
-    }
-  }
-
-  getFieldError(fieldName: string): string {
-    const field = this.validationForm.get(fieldName);
-    if (field?.errors && field.touched) {
-      if (field.errors['required']) return `${fieldName} selection is required`;
-    }
-    return '';
-  }
+  validationInfo: ValidationInfo[] = [
+    { title: 'View Mode', description: 'Must select one option' },
+    { title: 'Alignment', description: 'Must select one option' },
+    { title: 'Text Formatting', description: 'Must select at least one option' },
+    { title: 'Disabled States', description: 'Individual toggles and groups can be disabled' }
+  ];
 }

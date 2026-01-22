@@ -2,11 +2,12 @@ import { Component, ViewEncapsulation, signal } from '@angular/core';
 import { AmwPaginatorComponent } from '../../../../library/src/components/components/amw-paginator/amw-paginator.component';
 import { PageEvent } from '@angular/material/paginator';
 import { AmwNotificationService } from '../../../../library/src/services/amw-notification/amw-notification.service';
+import { AmwDemoDocComponent } from '../../shared/components/demo-doc/demo-doc.component';
 
 @Component({
     selector: 'amw-demo-paginator',
     standalone: true,
-    imports: [AmwPaginatorComponent],
+    imports: [AmwPaginatorComponent, AmwDemoDocComponent],
     encapsulation: ViewEncapsulation.None,
     templateUrl: './paginator-demo.component.html',
     styleUrl: './paginator-demo.component.scss'

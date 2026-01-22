@@ -4,82 +4,169 @@
     <p>This demo showcases the AMW Search Page component with product search, including advanced filtering, suggestions, and multiple view modes.</p>
   </div>
 
-  <div class="search-page-demo__controls">
-    <amw-card class="search-page-demo__controls-card">
-      <ng-template #cardContent>
-        <amw-tabs [(selectedIndex)]="currentViewIndex" (selectedIndexChange)="onViewChange($event)">
-          <amw-tab label="Basic View">
-            <div class="search-page-demo__tab-content">
-              <p>Basic search view with essential search and filtering capabilities.</p>
-            </div>
-          </amw-tab>
-          <amw-tab label="Advanced View">
-            <div class="search-page-demo__tab-content">
-              <p>Advanced search view with saved searches, search history, and multiple view modes.</p>
-            </div>
-          </amw-tab>
-        </amw-tabs>
-      </ng-template>
-</amw-card>
-  </div>
-
   <div class="search-page-demo__content">
-    <amw-search-page
-      [config]="searchConfig"
-      [dataSource]="dataSource"
-      (resultClick)="onResultClick($event)"
-      (search)="onSearchChange($event)"
-      (filterChange)="onFilterChange($event)">
-    </amw-search-page>
-  </div>
-
-  <div class="search-page-demo__info">
-    <amw-card class="search-page-demo__info-card">
-      <ng-template #cardHeader>
-        <h2>Demo Information</h2>
-      </ng-template>
-      <ng-template #cardContent>
-        <div class="search-page-demo__info-content">
-          <div class="search-page-demo__info-section">
-            <h4>Features Demonstrated:</h4>
-            <ul>
-              <li>Real-time search with debounced input</li>
-              <li>Search suggestions and autocomplete</li>
-              <li>Quick filter chips</li>
-              <li>Advanced filter panel with multiple field types</li>
-              <li>Multiple view modes (list/grid/table)</li>
-              <li>Saved searches and search history</li>
-              <li>Export capabilities (PDF/Excel/CSV)</li>
-              <li>Faceted search with counts</li>
-            </ul>
-          </div>
-          
-          <div class="search-page-demo__info-section">
-            <h4>Search Data:</h4>
-            <p>The demo includes a product catalog with:</p>
-            <ul>
-              <li>Books, Courses, and Software products</li>
-              <li>Price ranges from $29.99 to $199.99</li>
-              <li>Ratings from 4.4 to 4.9 stars</li>
-              <li>Stock availability status</li>
-              <li>Tags for enhanced searchability</li>
-              <li>Author and publication date information</li>
-            </ul>
+    <amw-tabs>
+      <!-- Demo Tab -->
+      <amw-tab label="Demo" icon="play_arrow">
+        <div class="tab-content">
+          <div class="search-page-demo__controls">
+            <amw-card class="search-page-demo__controls-card">
+              <ng-template #cardContent>
+                <amw-tabs [(selectedIndex)]="currentViewIndex" (selectedIndexChange)="onViewChange($event)">
+                  <amw-tab label="Basic View">
+                    <div class="search-page-demo__tab-content">
+                      <p>Basic search view with essential search and filtering capabilities.</p>
+                    </div>
+                  </amw-tab>
+                  <amw-tab label="Advanced View">
+                    <div class="search-page-demo__tab-content">
+                      <p>Advanced search view with saved searches, search history, and multiple view modes.</p>
+                    </div>
+                  </amw-tab>
+                </amw-tabs>
+              </ng-template>
+            </amw-card>
           </div>
 
-          <div class="search-page-demo__info-section">
-            <h4>Search Features:</h4>
-            <ul>
-              <li><strong>Basic Search:</strong> Title, subtitle, description, tags, author</li>
-              <li><strong>Quick Filters:</strong> In stock, category, rating</li>
-              <li><strong>Advanced Filters:</strong> Price range, minimum rating, tags</li>
-              <li><strong>Sorting:</strong> Relevance, title, price, rating, date</li>
-              <li><strong>View Modes:</strong> List, grid, and table views</li>
-            </ul>
+          <div class="search-page-demo__search">
+            <amw-search-page
+              [config]="searchConfig"
+              [dataSource]="dataSource"
+              (resultClick)="onResultClick($event)"
+              (search)="onSearchChange($event)"
+              (filterChange)="onFilterChange($event)">
+            </amw-search-page>
+          </div>
+
+          <div class="search-page-demo__info">
+            <amw-card class="search-page-demo__info-card">
+              <ng-template #cardHeader>
+                <h2>Demo Information</h2>
+              </ng-template>
+              <ng-template #cardContent>
+                <div class="search-page-demo__info-content">
+                  <div class="search-page-demo__info-section">
+                    <h4>Features Demonstrated:</h4>
+                    <ul>
+                      <li>Real-time search with debounced input</li>
+                      <li>Search suggestions and autocomplete</li>
+                      <li>Quick filter chips</li>
+                      <li>Advanced filter panel with multiple field types</li>
+                      <li>Multiple view modes (list/grid/table)</li>
+                      <li>Saved searches and search history</li>
+                      <li>Export capabilities (PDF/Excel/CSV)</li>
+                      <li>Faceted search with counts</li>
+                    </ul>
+                  </div>
+
+                  <div class="search-page-demo__info-section">
+                    <h4>Search Data:</h4>
+                    <p>The demo includes a product catalog with:</p>
+                    <ul>
+                      <li>Books, Courses, and Software products</li>
+                      <li>Price ranges from $29.99 to $199.99</li>
+                      <li>Ratings from 4.4 to 4.9 stars</li>
+                      <li>Stock availability status</li>
+                      <li>Tags for enhanced searchability</li>
+                      <li>Author and publication date information</li>
+                    </ul>
+                  </div>
+
+                  <div class="search-page-demo__info-section">
+                    <h4>Search Features:</h4>
+                    <ul>
+                      <li><strong>Basic Search:</strong> Title, subtitle, description, tags, author</li>
+                      <li><strong>Quick Filters:</strong> In stock, category, rating</li>
+                      <li><strong>Advanced Filters:</strong> Price range, minimum rating, tags</li>
+                      <li><strong>Sorting:</strong> Relevance, title, price, rating, date</li>
+                      <li><strong>View Modes:</strong> List, grid, and table views</li>
+                    </ul>
+                  </div>
+                </div>
+              </ng-template>
+            </amw-card>
           </div>
         </div>
-      </ng-template>
-</amw-card>
+      </amw-tab>
+
+      <!-- Code Tab -->
+      <amw-tab label="Code" icon="code">
+        <div class="tab-content">
+          <div class="code-examples">
+            <h3>AmwSearchPageComponent Code Examples</h3>
+            <p>Setup and usage examples for the search page component.</p>
+
+            <div class="code-example">
+              <h4>1. Basic Usage</h4>
+              <pre><code>{{ codeExamples.basic }}</code></pre>
+            </div>
+
+            <div class="code-example">
+              <h4>2. Configuration Options (SearchPageConfig)</h4>
+              <pre><code>{{ codeExamples.config }}</code></pre>
+            </div>
+
+            <div class="code-example">
+              <h4>3. Data Source Implementation</h4>
+              <pre><code>{{ codeExamples.dataSource }}</code></pre>
+            </div>
+
+            <div class="code-example">
+              <h4>4. Event Handling</h4>
+              <pre><code>{{ codeExamples.eventHandling }}</code></pre>
+            </div>
+          </div>
+
+          <amw-card>
+            <ng-template #cardHeader>
+              <h2>Implementation Tips</h2>
+            </ng-template>
+            <ng-template #cardContent>
+              <ul class="tips-list">
+                <li><strong>Data Source:</strong> Implement SearchPageDataSource interface - only search() is required, other methods are optional</li>
+                <li><strong>Search Fields:</strong> Configure fields as basic (always visible) or advanced (shown in expandable panel)</li>
+                <li><strong>Quick Filters:</strong> Use for common filtering actions - they appear as clickable chips</li>
+                <li><strong>Pagination:</strong> The component handles pagination internally, your data source receives pageIndex and pageSize</li>
+                <li><strong>Sorting:</strong> Enable showSortOptions to allow users to sort results</li>
+                <li><strong>View Modes:</strong> Enable showViewOptions to let users switch between list, grid, and table views</li>
+                <li><strong>Saved Searches:</strong> Implement saveSearch() and loadSavedSearches() for persistence</li>
+                <li><strong>Suggestions:</strong> Implement getSuggestions() for search autocomplete</li>
+              </ul>
+            </ng-template>
+          </amw-card>
+
+          <amw-card>
+            <ng-template #cardHeader>
+              <h2>Best Practices</h2>
+            </ng-template>
+            <ng-template #cardContent>
+              <ul class="features-list">
+                <li><strong>Debouncing:</strong> Search input is automatically debounced to prevent excessive API calls</li>
+                <li><strong>Loading States:</strong> The component handles loading indicators automatically</li>
+                <li><strong>Error Handling:</strong> Handle errors in your data source Observable and show appropriate messages</li>
+                <li><strong>Accessibility:</strong> The component includes ARIA labels for screen readers</li>
+                <li><strong>Responsive:</strong> The layout adapts to different screen sizes automatically</li>
+                <li><strong>Performance:</strong> Use trackBy functions and virtual scrolling for large result sets</li>
+                <li><strong>URL State:</strong> Consider syncing search state with URL query parameters for bookmarkability</li>
+              </ul>
+            </ng-template>
+          </amw-card>
+        </div>
+      </amw-tab>
+
+      <!-- API Tab -->
+      <amw-tab label="API" icon="description">
+        <div class="tab-content">
+          <div class="api-section">
+            <amw-api-doc
+              componentName="AmwSearchPageComponent"
+              [apiDocumentation]="searchPageApiDoc"
+              [interfaces]="searchPageInterfaces"
+              description="A comprehensive search page component with advanced filtering, saved searches, and multiple view modes.">
+            </amw-api-doc>
+          </div>
+        </div>
+      </amw-tab>
+    </amw-tabs>
   </div>
 </div>
-

@@ -1,0 +1,80 @@
+<div class="demo-page">
+  <h1>Dashboard Page Component</h1>
+  <p>A comprehensive dashboard layout with stats pills, view mode toggles, and flexible content areas for analytics and data visualization.</p>
+
+  <amw-tabs>
+    <amw-tab label="Demo" icon="play_arrow">
+      <div class="demo-container">
+        <amw-dashboard-page
+          [config]="config"
+          [dataSource]="dataSource"
+          (viewModeChange)="onViewModeChange($event)"
+          (statClick)="onStatClick($event)"
+          (itemClick)="onItemClick($event)">
+        </amw-dashboard-page>
+      </div>
+    </amw-tab>
+
+    <amw-tab label="Code" icon="code">
+      <div class="code-content">
+        <h3>Dashboard Page Code Examples</h3>
+        <p>Interactive examples showing different dashboard page configurations.</p>
+
+        <div class="code-example">
+          <h4>Basic Usage</h4>
+          <pre><code>{{ codeExamples.basic }}</code></pre>
+        </div>
+
+        <div class="code-example">
+          <h4>Dashboard Configuration</h4>
+          <pre><code>{{ codeExamples.config }}</code></pre>
+        </div>
+
+        <div class="code-example">
+          <h4>Custom Data Source</h4>
+          <pre><code>{{ codeExamples.dataSource }}</code></pre>
+        </div>
+
+        <div class="code-example">
+          <h4>Handling Events</h4>
+          <pre><code>{{ codeExamples.events }}</code></pre>
+        </div>
+
+        <div class="code-example">
+          <h4>Stats with Trend Indicators</h4>
+          <pre><code>{{ codeExamples.statsTrends }}</code></pre>
+        </div>
+
+        <amw-card class="features-card">
+          <ng-template #cardHeader>
+            <h3>Features</h3>
+          </ng-template>
+          <ng-template #cardContent>
+            <ul>
+              <li>Stat pills with trend indicators and icons</li>
+              <li>View mode toggles (week, month, list, grid)</li>
+              <li>Search and filter toolbar</li>
+              <li>Multiple content layouts (grid, list, calendar, widgets)</li>
+              <li>Auto-refresh capability</li>
+              <li>Responsive grid layouts</li>
+              <li>Action buttons in header</li>
+              <li>Customizable stats per row</li>
+              <li>Loading and empty states</li>
+            </ul>
+          </ng-template>
+        </amw-card>
+      </div>
+    </amw-tab>
+
+    <amw-tab label="API" icon="description">
+      <div class="api-content">
+        <amw-api-doc
+          componentName="Dashboard Page"
+          [apiDocumentation]="dashboardPageApiDoc"
+          [interfaces]="dashboardPageInterfaces"
+          description="Complete reference for the AmwDashboardPageComponent properties, events, and usage.">
+        </amw-api-doc>
+      </div>
+    </amw-tab>
+  </amw-tabs>
+</div>

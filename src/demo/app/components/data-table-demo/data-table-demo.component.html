@@ -1,140 +1,144 @@
-<div class="data-table-demo">
-  <h1>Data Table Demo</h1>
-  <p>Comprehensive demonstration of the AMW Data Table component with all features.</p>
+<amw-demo-doc componentName="amw-data-table">
+  <ng-template #content>
+    <div class="data-table-demo">
+      <h1>Data Table Demo</h1>
+      <p>Comprehensive demonstration of the AMW Data Table component with all features.</p>
 
-  <!-- Demo Controls -->
-  <amw-card class="demo-controls">
-    <ng-template #cardHeader>
-      <h2>Demo Controls</h2>
-    </ng-template>
-    <ng-template #cardContent>
-      <div class="controls-grid">
-        <amw-button appearance="elevated" color="primary" (click)="addSampleRecord()" icon="add" iconPosition="left">Add Record</amw-button>
+      <!-- Demo Controls -->
+      <amw-card class="demo-controls">
+        <ng-template #cardHeader>
+          <h2>Demo Controls</h2>
+        </ng-template>
+        <ng-template #cardContent>
+          <div class="controls-grid">
+            <amw-button appearance="elevated" color="primary" (click)="addSampleRecord()" icon="add" iconPosition="left">Add Record</amw-button>
 
-        <amw-button appearance="elevated" color="accent" (click)="refreshData()" icon="refresh" iconPosition="left">Refresh Data</amw-button>
+            <amw-button appearance="elevated" color="accent" (click)="refreshData()" icon="refresh" iconPosition="left">Refresh Data</amw-button>
 
-        <amw-button appearance="elevated" (click)="toggleLoading()" icon="hourglass_empty" iconPosition="left">Toggle Loading</amw-button>
+            <amw-button appearance="elevated" (click)="toggleLoading()" icon="hourglass_empty" iconPosition="left">Toggle Loading</amw-button>
 
-        <amw-button appearance="elevated" (click)="exportData()" icon="download" iconPosition="left">Export Data</amw-button>
+            <amw-button appearance="elevated" (click)="exportData()" icon="download" iconPosition="left">Export Data</amw-button>
 
-        <amw-button appearance="elevated" (click)="clearSelection()" [disabled]="selectedRows.length === 0" icon="clear" iconPosition="left">Clear Selection</amw-button>
-      </div>
-      </ng-template>
-</amw-card>
-
-  <!-- Selection Info -->
-  @if (selectedRows.length > 0) {
-    <amw-card class="selection-info">
-      <ng-template #cardContent>
-        <div class="selection-details">
-          <amw-icon name="check_circle"></amw-icon>
-          <span>{{ selectedRows.length }} row(s) selected</span>
-          <div class="chip-list">
-            @for (row of selectedRows.slice(0, 3); track row) {
-              <span class="chip">{{ row.name }}</span>
-            }
-            @if (selectedRows.length > 3) {
-              <span class="chip">+{{ selectedRows.length - 3 }} more</span>
-            }
+            <amw-button appearance="elevated" (click)="clearSelection()" [disabled]="selectedRows.length === 0" icon="clear" iconPosition="left">Clear Selection</amw-button>
           </div>
-        </div>
-      </ng-template>
-</amw-card>
-  }
+        </ng-template>
+      </amw-card>
 
-  <!-- Sort Info -->
-  @if (currentSort) {
-    <amw-card class="sort-info">
-      <ng-template #cardContent>
-        <div class="sort-details">
-          <amw-icon name="sort"></amw-icon>
-          <span>Sorted by: {{ currentSort.column }} ({{ currentSort.direction }})</span>
-        </div>
-      </ng-template>
-</amw-card>
-  }
+      <!-- Selection Info -->
+      @if (selectedRows.length > 0) {
+        <amw-card class="selection-info">
+          <ng-template #cardContent>
+            <div class="selection-details">
+              <amw-icon name="check_circle"></amw-icon>
+              <span>{{ selectedRows.length }} row(s) selected</span>
+              <div class="chip-list">
+                @for (row of selectedRows.slice(0, 3); track row) {
+                  <span class="chip">{{ row.name }}</span>
+                }
+                @if (selectedRows.length > 3) {
+                  <span class="chip">+{{ selectedRows.length - 3 }} more</span>
+                }
+              </div>
+            </div>
+          </ng-template>
+        </amw-card>
+      }
 
-  <!-- Filter Info -->
-  @if (currentFilters.length > 0) {
-    <amw-card class="filter-info">
-      <ng-template #cardContent>
-        <div class="filter-details">
-          <amw-icon name="filter_list"></amw-icon>
-          <span>{{ currentFilters.length }} filter(s) applied</span>
-          <div class="chip-list">
-            @for (filter of currentFilters; track filter) {
-              <span class="chip">{{ filter.column }}: {{ filter.value }}</span>
-            }
+      <!-- Sort Info -->
+      @if (currentSort) {
+        <amw-card class="sort-info">
+          <ng-template #cardContent>
+            <div class="sort-details">
+              <amw-icon name="sort"></amw-icon>
+              <span>Sorted by: {{ currentSort.column }} ({{ currentSort.direction }})</span>
+            </div>
+          </ng-template>
+        </amw-card>
+      }
+
+      <!-- Filter Info -->
+      @if (currentFilters.length > 0) {
+        <amw-card class="filter-info">
+          <ng-template #cardContent>
+            <div class="filter-details">
+              <amw-icon name="filter_list"></amw-icon>
+              <span>{{ currentFilters.length }} filter(s) applied</span>
+              <div class="chip-list">
+                @for (filter of currentFilters; track filter) {
+                  <span class="chip">{{ filter.column }}: {{ filter.value }}</span>
+                }
+              </div>
+            </div>
+          </ng-template>
+        </amw-card>
+      }
+
+      <!-- Data Table -->
+      <amw-card class="data-table-card">
+        <ng-template #cardHeader>
+          <h2>Employee Records</h2>
+          <p class="subtitle">Interactive data table with sorting, filtering, pagination, and selection</p>
+        </ng-template>
+        <ng-template #cardContent>
+          <amw-data-table
+            [data]="sampleData"
+            [config]="tableConfig"
+            [loading]="loading"
+            (sortChange)="onSortChange($event)"
+            (filterChange)="onFilterChange($event)"
+            (pageChange)="onPageChange($event)"
+            (selectionChange)="onSelectionChange($event)"
+            (editChange)="onEditChange($event)"
+            (actionClick)="onActionClick($event)">
+          </amw-data-table>
+        </ng-template>
+      </amw-card>
+
+      <!-- Feature Highlights -->
+      <amw-card class="features-card">
+        <ng-template #cardHeader>
+          <h2>Features Demonstrated</h2>
+        </ng-template>
+        <ng-template #cardContent>
+          <div class="features-grid">
+            <div class="feature-item">
+              <amw-icon name="sort"></amw-icon>
+              <h3>Sorting</h3>
+              <p>Click column headers to sort data in ascending or descending order</p>
+            </div>
+
+            <div class="feature-item">
+              <amw-icon name="search"></amw-icon>
+              <h3>Filtering</h3>
+              <p>Use the global search to filter across all columns</p>
+            </div>
+
+            <div class="feature-item">
+              <amw-icon name="view_list"></amw-icon>
+              <h3>Pagination</h3>
+              <p>Navigate through pages with configurable page sizes</p>
+            </div>
+
+            <div class="feature-item">
+              <amw-icon name="check_box"></amw-icon>
+              <h3>Selection</h3>
+              <p>Select single or multiple rows with checkboxes</p>
+            </div>
+
+            <div class="feature-item">
+              <amw-icon name="edit"></amw-icon>
+              <h3>Actions</h3>
+              <p>Perform actions on individual rows with action buttons</p>
+            </div>
+
+            <div class="feature-item">
+              <amw-icon name="responsive"></amw-icon>
+              <h3>Responsive</h3>
+              <p>Table adapts to different screen sizes and orientations</p>
+            </div>
           </div>
-        </div>
-      </ng-template>
-</amw-card>
-  }
-
-  <!-- Data Table -->
-  <amw-card class="data-table-card">
-    <ng-template #cardHeader>
-      <h2>Employee Records</h2>
-      <p class="subtitle">Interactive data table with sorting, filtering, pagination, and selection</p>
-    </ng-template>
-    <ng-template #cardContent>
-      <amw-data-table
-        [data]="sampleData"
-        [config]="tableConfig"
-        [loading]="loading"
-        (sortChange)="onSortChange($event)"
-        (filterChange)="onFilterChange($event)"
-        (pageChange)="onPageChange($event)"
-        (selectionChange)="onSelectionChange($event)"
-        (editChange)="onEditChange($event)"
-        (actionClick)="onActionClick($event)">
-      </amw-data-table>
-    </ng-template>
-  </amw-card>
-
-  <!-- Feature Highlights -->
-  <amw-card class="features-card">
-    <ng-template #cardHeader>
-      <h2>Features Demonstrated</h2>
-    </ng-template>
-    <ng-template #cardContent>
-      <div class="features-grid">
-        <div class="feature-item">
-          <amw-icon name="sort"></amw-icon>
-          <h3>Sorting</h3>
-          <p>Click column headers to sort data in ascending or descending order</p>
-        </div>
-
-        <div class="feature-item">
-          <amw-icon name="search"></amw-icon>
-          <h3>Filtering</h3>
-          <p>Use the global search to filter across all columns</p>
-        </div>
-
-        <div class="feature-item">
-          <amw-icon name="view_list"></amw-icon>
-          <h3>Pagination</h3>
-          <p>Navigate through pages with configurable page sizes</p>
-        </div>
-
-        <div class="feature-item">
-          <amw-icon name="check_box"></amw-icon>
-          <h3>Selection</h3>
-          <p>Select single or multiple rows with checkboxes</p>
-        </div>
-
-        <div class="feature-item">
-          <amw-icon name="edit"></amw-icon>
-          <h3>Actions</h3>
-          <p>Perform actions on individual rows with action buttons</p>
-        </div>
-
-        <div class="feature-item">
-          <amw-icon name="responsive"></amw-icon>
-          <h3>Responsive</h3>
-          <p>Table adapts to different screen sizes and orientations</p>
-        </div>
-      </div>
-    </ng-template>
-</amw-card>
-</div>
+        </ng-template>
+      </amw-card>
+    </div>
+  </ng-template>
+</amw-demo-doc>

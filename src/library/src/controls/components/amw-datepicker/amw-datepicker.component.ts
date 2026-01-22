@@ -1,7 +1,7 @@
 import { Component, input, output, signal, ViewEncapsulation } from '@angular/core';
 
 import { FormsModule, ControlValueAccessor, NG_VALUE_ACCESSOR } from '@angular/forms';
-import { Field } from '@angular/forms/signals';
+import { FormField } from '@angular/forms/signals';
 import { MatDatepickerModule } from '@angular/material/datepicker';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
@@ -23,7 +23,7 @@ import { AmwAppearance } from '../../../shared/types/amw-appearance.type';
     standalone: true,
     imports: [
         FormsModule,
-        Field,
+        FormField,
         MatDatepickerModule,
         MatFormFieldModule,
         MatInputModule,
@@ -53,7 +53,7 @@ export class AmwDatepickerComponent extends BaseComponent<Date> implements Contr
      * Mutually exclusive with ngModel and formControl/formControlName.
      * @experimental
      */
-    field = input<any>(undefined);
+    formField = input<any>(undefined);
 
     appearance = input<AmwAppearance>('outline');
     min = input<Date | null>(null);

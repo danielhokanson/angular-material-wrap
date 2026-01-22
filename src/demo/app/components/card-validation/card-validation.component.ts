@@ -1,125 +1,95 @@
-import { Component, OnInit, ViewEncapsulation } from '@angular/core';
-import { ReactiveFormsModule, FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { AmwNotificationService } from '../../../../library/src/services/amw-notification/amw-notification.service';
+import { Component, ViewEncapsulation, OnInit } from '@angular/core';
+import { ReactiveFormsModule, FormGroup, Validators } from '@angular/forms';
+import { AmwValidationDocComponent, ValidationInfo } from '../../shared/components/validation-doc/validation-doc.component';
+import { BaseValidationComponent } from '../base/base-validation.component';
 import { AmwCardComponent } from '../../../../library/src/components/components/amw-card/amw-card.component';
-import { AmwButtonComponent } from '../../../../library/src/controls/components/amw-button/amw-button.component';
 import { AmwInputComponent } from '../../../../library/src/controls/components/amw-input/amw-input.component';
 
 @Component({
-    selector: 'amw-demo-card-validation',
-    standalone: true,
-    imports: [
-        ReactiveFormsModule,
-        AmwInputComponent,
-        AmwCardComponent,
-        AmwButtonComponent
-    ],
-    encapsulation: ViewEncapsulation.None,
-    templateUrl: './card-validation.component.html',
-    styleUrl: './card-validation.component.scss'
+  selector: 'amw-demo-card-validation',
+  standalone: true,
+  imports: [
+    ReactiveFormsModule,
+    AmwValidationDocComponent,
+    AmwCardComponent,
+    AmwInputComponent
+  ],
+  encapsulation: ViewEncapsulation.None,
+  templateUrl: './card-validation.component.html',
+  styleUrl: './card-validation.component.scss'
 })
-export class CardValidationComponent implements OnInit {
-    cardForm: FormGroup;
-    selectedCards: any[] = [];
+export class CardValidationComponent extends BaseValidationComponent implements OnInit {
+  selectedCards: number[] = [];
 
-    cardOptions = [
-        { id: 1, title: 'Basic Plan', subtitle: 'Perfect for individuals', price: '$9.99', features: ['Feature 1', 'Feature 2'] },
-        { id: 2, title: 'Pro Plan', subtitle: 'Great for small teams', price: '$19.99', features: ['Feature 1', 'Feature 2', 'Feature 3'] },
-        { id: 3, title: 'Enterprise Plan', subtitle: 'For large organizations', price: '$49.99', features: ['All Features', 'Priority Support', 'Custom Integration'] }
-    ];
+  cardOptions = [
+    { id: 1, title: 'Basic Plan', subtitle: 'Perfect for individuals', price: '$9.99', features: ['Feature 1', 'Feature 2'] },
+    { id: 2, title: 'Pro Plan', subtitle: 'Great for small teams', price: '$19.99', features: ['Feature 1', 'Feature 2', 'Feature 3'] },
+    { id: 3, title: 'Enterprise Plan', subtitle: 'For large organizations', price: '$49.99', features: ['All Features', 'Priority Support', 'Custom Integration'] }
+  ];
 
-    constructor(
-        private fb: FormBuilder,
-        private notification: AmwNotificationService
-    ) {
-        this.cardForm = this.fb.group({
-            selectedCards: [[], Validators.required],
-            minSelection: [1, [Validators.required, Validators.min(1)]],
-            maxSelection: [2, [Validators.required, Validators.min(1)]]
-        });
+  validationForm: FormGroup = this.fb.group({
+    selectedCards: [[], Validators.required],
+    minSelection: [1, [Validators.required, Validators.min(1)]],
+    maxSelection: [2, [Validators.required, Validators.min(1)]]
+  });
+
+  validationInfo: ValidationInfo[] = [
+    { title: 'Card Selection', description: 'Must select at least one card' },
+    { title: 'Minimum Selection', description: 'Configure minimum number of cards to select' },
+    { title: 'Maximum Selection', description: 'Configure maximum number of cards to select' },
+    { title: 'Dynamic Validation', description: 'Selection limits are configurable' }
+  ];
+
+  ngOnInit() {
+    this.validationForm.patchValue({
+      selectedCards: this.selectedCards
+    });
+  }
+
+  onCardClick(card: { id: number; title: string; subtitle: string; price: string; features: string[] }) {
+    const currentSelection = this.validationForm.get('selectedCards')?.value || [];
+    const maxSelection = this.validationForm.get('maxSelection')?.value || 2;
+
+    if (currentSelection.includes(card.id)) {
+      this.selectedCards = currentSelection.filter((id: number) => id !== card.id);
+    } else if (currentSelection.length < maxSelection) {
+      this.selectedCards = [...currentSelection, card.id];
+    } else {
+      this.notification.info('Info', `Maximum ${maxSelection} cards can be selected`, { duration: 3000 });
+      return;
     }
 
-    ngOnInit() {
-        this.cardForm.patchValue({
-            selectedCards: this.selectedCards
-        });
+    this.validationForm.patchValue({ selectedCards: this.selectedCards });
+    this.validateSelection();
+  }
+
+  validateSelection() {
+    const selectedCards = this.validationForm.get('selectedCards')?.value || [];
+    const minSelection = this.validationForm.get('minSelection')?.value || 1;
+    const maxSelection = this.validationForm.get('maxSelection')?.value || 2;
+
+    const errors: Record<string, unknown> = {};
+
+    if (selectedCards.length === 0) {
+      errors['required'] = true;
+    } else if (selectedCards.length < minSelection) {
+      errors['minSelection'] = { required: minSelection, actual: selectedCards.length };
+    } else if (selectedCards.length > maxSelection) {
+      errors['maxSelection'] = { max: maxSelection, actual: selectedCards.length };
     }
 
-    onCardClick(card: any) {
-        const currentSelection = this.cardForm.get('selectedCards')?.value || [];
-        const maxSelection = this.cardForm.get('maxSelection')?.value || 2;
-
-        if (currentSelection.includes(card.id)) {
-            // Remove from selection
-            this.selectedCards = currentSelection.filter((id: any) => id !== card.id);
-        } else if (currentSelection.length < maxSelection) {
-            // Add to selection
-            this.selectedCards = [...currentSelection, card.id];
-        } else {
-            this.notification.info('Info', `Maximum ${maxSelection} cards can be selected`, { duration: 3000 });
-            return;
-        }
-
-        this.cardForm.patchValue({ selectedCards: this.selectedCards });
-        this.validateSelection();
+    if (Object.keys(errors).length > 0) {
+      this.validationForm.get('selectedCards')?.setErrors(errors);
+    } else {
+      this.validationForm.get('selectedCards')?.setErrors(null);
     }
+  }
 
-    validateSelection() {
-        const selectedCards = this.cardForm.get('selectedCards')?.value || [];
-        const minSelection = this.cardForm.get('minSelection')?.value || 1;
-        const maxSelection = this.cardForm.get('maxSelection')?.value || 2;
+  isCardSelected(cardId: number): boolean {
+    return this.selectedCards.includes(cardId);
+  }
 
-        let errors: any = {};
-
-        if (selectedCards.length === 0) {
-            errors['required'] = true;
-        } else if (selectedCards.length < minSelection) {
-            errors['minSelection'] = { required: minSelection, actual: selectedCards.length };
-        } else if (selectedCards.length > maxSelection) {
-            errors['maxSelection'] = { max: maxSelection, actual: selectedCards.length };
-        }
-
-        if (Object.keys(errors).length > 0) {
-            this.cardForm.get('selectedCards')?.setErrors(errors);
-        } else {
-            this.cardForm.get('selectedCards')?.setErrors(null);
-        }
-    }
-
-    onSubmit() {
-        if (this.cardForm.valid) {
-            const selectedCards = this.cardForm.get('selectedCards')?.value || [];
-            this.notification.success('Success', `Form submitted successfully! Selected ${selectedCards.length} cards.`, { duration: 3000 });
-            console.log('Form values:', this.cardForm.value);
-        } else {
-            const errors = this.cardForm.get('selectedCards')?.errors;
-            let message = 'Please fix the validation errors';
-
-            if (errors?.['required']) {
-                message = 'Please select at least one card';
-            } else if (errors?.['minSelection']) {
-                const min = errors['minSelection'].required;
-                message = `Please select at least ${min} cards`;
-            } else if (errors?.['maxSelection']) {
-                const max = errors['maxSelection'].max;
-                message = `Please select no more than ${max} cards`;
-            }
-
-            this.notification.info('Info', message, { duration: 3000 });
-        }
-    }
-
-    onReset() {
-        this.cardForm.reset();
-        this.selectedCards = [];
-    }
-
-    isCardSelected(cardId: number): boolean {
-        return this.selectedCards.includes(cardId);
-    }
-
-    /** Get selected cards - computed property that updates when selection changes */
-    get selectedCardsList() {
-        return this.cardOptions.filter(card => this.selectedCards.includes(card.id));
-    }
+  get selectedCardsList() {
+    return this.cardOptions.filter(card => this.selectedCards.includes(card.id));
+  }
 }

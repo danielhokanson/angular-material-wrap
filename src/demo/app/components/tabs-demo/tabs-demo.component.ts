@@ -3,6 +3,7 @@ import { CommonModule } from '@angular/common';
 import { AmwButtonComponent } from '../../../../library/src/controls/components/amw-button/amw-button.component';
 import { AmwInputComponent } from '../../../../library/src/controls/components/amw-input/amw-input.component';
 import { AmwTabsComponent, AmwTabComponent, AmwCardComponent, AmwIconComponent } from '../../../../library/src/components/components';
+import { AmwDemoDocComponent } from '../../shared/components/demo-doc/demo-doc.component';
 
 @Component({
     selector: 'amw-demo-tabs',
@@ -14,7 +15,8 @@ import { AmwTabsComponent, AmwTabComponent, AmwCardComponent, AmwIconComponent }
         AmwCardComponent,
         AmwIconComponent,
         AmwButtonComponent,
-        AmwInputComponent
+        AmwInputComponent,
+        AmwDemoDocComponent
     ],
     templateUrl: './tabs-demo.component.html',
     styleUrl: './tabs-demo.component.scss'

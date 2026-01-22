@@ -1,12 +1,11 @@
 import { Component, ViewEncapsulation } from '@angular/core';
 import { BaseApiComponent, ApiDocumentation } from '../base/base-api.component';
+import { AmwApiDocComponent } from '../../shared/components/api-doc/api-doc.component';
 
 @Component({
     selector: 'amw-demo-select-api',
     standalone: true,
-    imports: [
-    
-],
+    imports: [AmwApiDocComponent],
     encapsulation: ViewEncapsulation.None,
     templateUrl: './select-api.component.html',
     styleUrl: './select-api.component.scss'
@@ -85,6 +84,12 @@ export class SelectApiComponent extends BaseApiComponent {
                 type: 'string',
                 default: 'undefined',
                 description: 'Error message to display below the select'
+            },
+            {
+                name: 'formField',
+                type: 'FormField',
+                default: 'undefined',
+                description: 'Signal Forms FormField binding (experimental). Mutually exclusive with ngModel and formControl.'
             }
         ],
         outputs: [
@@ -103,6 +108,14 @@ export class SelectApiComponent extends BaseApiComponent {
                 type: 'EventEmitter<boolean>',
                 description: 'Emitted when the select panel is opened or closed'
             }
+        ],
+        usageNotes: [
+            'This component supports three mutually exclusive form binding approaches:',
+            '1. ngModel: Two-way binding with [(ngModel)]="value" for template-driven forms',
+            '2. formControl: Reactive forms binding with [formControl]="control" or formControlName',
+            '3. formField: Signal Forms binding with [formField]="form.field" (experimental)',
+            'Do NOT mix these approaches on the same component instance.',
+            'The component implements ControlValueAccessor for ngModel and formControl support.'
         ]
     };
 

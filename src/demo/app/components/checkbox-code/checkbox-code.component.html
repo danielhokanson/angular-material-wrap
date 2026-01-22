@@ -1,220 +1,63 @@
-<div class="code-section">
-  <h3>Code Examples</h3>
-  <p>Interactive examples with live previews. The code is editable for reference, and working examples are shown alongside.</p>
+<amw-code-doc
+  componentName="amw-checkbox"
+  [examples]="examples"
+  [editableCode]="editableCode">
 
-  <amw-accordion class="code-examples-accordion">
-    <!-- Basic Checkbox -->
-    <amw-accordion-panel amwDescription="Simple checkbox with different states">
-      <ng-template #header>
-        <amw-icon name="code"></amw-icon>
-        Basic Checkbox
-      </ng-template>
-      <div class="example-container">
-        <div class="code-panel">
-          <div class="code-header">
-            <h4>Code</h4>
-            <amw-button icon="refresh" (click)="resetCode('basic')" title="Reset to original"></amw-button>
-          </div>
-          <textarea
-            [(ngModel)]="editableCode.basic"
-            class="code-editor"
-            spellcheck="false"></textarea>
+  <ng-template #preview let-example>
+    @switch (example.key) {
+      @case ('basic') {
+        <amw-checkbox>Check me</amw-checkbox>
+        <amw-checkbox [checked]="true">Checked</amw-checkbox>
+        <amw-checkbox [indeterminate]="true">Indeterminate</amw-checkbox>
+      }
+      @case ('colors') {
+        <amw-checkbox color="primary" [checked]="true">Primary</amw-checkbox>
+        <amw-checkbox color="accent" [checked]="true">Accent</amw-checkbox>
+        <amw-checkbox color="warn" [checked]="true">Warn</amw-checkbox>
+      }
+      @case ('states') {
+        <amw-checkbox [checked]="true">Checked</amw-checkbox>
+        <amw-checkbox [checked]="false">Unchecked</amw-checkbox>
+        <amw-checkbox [indeterminate]="true">Indeterminate</amw-checkbox>
+      }
+      @case ('labelPosition') {
+        <amw-checkbox labelPosition="before">Label before</amw-checkbox>
+        <amw-checkbox labelPosition="after">Label after</amw-checkbox>
+      }
+      @case ('indeterminate') {
+        <amw-checkbox
+          [checked]="allComplete"
+          [indeterminate]="someComplete()"
+          (change)="setAll(!!$event)">
+          {{task.name}}
+        </amw-checkbox>
+        <ul>
+          @for (subtask of task.subtasks; track subtask.name) {
+            <li>
+              <amw-checkbox
+                [(ngModel)]="subtask.completed"
+                (ngModelChange)="updateAllComplete()">
+                {{subtask.name}}
+              </amw-checkbox>
+            </li>
+          }
+        </ul>
+      }
+      @case ('disabled') {
+        <amw-checkbox [disabled]="true">Disabled unchecked</amw-checkbox>
+        <amw-checkbox [disabled]="true" [checked]="true">Disabled checked</amw-checkbox>
+      }
+      @case ('events') {
+        <amw-checkbox
+          (change)="onCheckboxChange($event)"
+          (indeterminateChange)="onIndeterminateChange($event)">
+          Event tracking
+        </amw-checkbox>
+        <div class="preview-note">
+          <amw-icon name="info"></amw-icon>
+          <span>Open your browser console to see event logs</span>
         </div>
-        <div class="preview-panel">
-          <h4>Preview</h4>
-          <div class="preview-content">
-            <amw-checkbox>Check me</amw-checkbox>
-            <amw-checkbox [checked]="true">Checked</amw-checkbox>
-            <amw-checkbox [indeterminate]="true">Indeterminate</amw-checkbox>
-          </div>
-        </div>
-      </div>
-    </amw-accordion-panel>
-
-    <!-- Checkbox Colors -->
-    <amw-accordion-panel amwDescription="Different color themes">
-      <ng-template #header>
-        <amw-icon name="code"></amw-icon>
-        Checkbox Colors
-      </ng-template>
-      <div class="example-container">
-        <div class="code-panel">
-          <div class="code-header">
-            <h4>Code</h4>
-            <amw-button icon="refresh" (click)="resetCode('colors')" title="Reset to original"></amw-button>
-          </div>
-          <textarea
-            [(ngModel)]="editableCode.colors"
-            class="code-editor"
-            spellcheck="false"></textarea>
-        </div>
-        <div class="preview-panel">
-          <h4>Preview</h4>
-          <div class="preview-content">
-            <amw-checkbox color="primary" [checked]="true">Primary</amw-checkbox>
-            <amw-checkbox color="accent" [checked]="true">Accent</amw-checkbox>
-            <amw-checkbox color="warn" [checked]="true">Warn</amw-checkbox>
-          </div>
-        </div>
-      </div>
-    </amw-accordion-panel>
-
-    <!-- Checkbox States -->
-    <amw-accordion-panel amwDescription="Checked, unchecked, and indeterminate">
-      <ng-template #header>
-        <amw-icon name="code"></amw-icon>
-        Checkbox States
-      </ng-template>
-      <div class="example-container">
-        <div class="code-panel">
-          <div class="code-header">
-            <h4>Code</h4>
-            <amw-button icon="refresh" (click)="resetCode('states')" title="Reset to original"></amw-button>
-          </div>
-          <textarea
-            [(ngModel)]="editableCode.states"
-            class="code-editor"
-            spellcheck="false"></textarea>
-        </div>
-        <div class="preview-panel">
-          <h4>Preview</h4>
-          <div class="preview-content">
-            <amw-checkbox [checked]="true">Checked</amw-checkbox>
-            <amw-checkbox [checked]="false">Unchecked</amw-checkbox>
-            <amw-checkbox [indeterminate]="true">Indeterminate</amw-checkbox>
-          </div>
-        </div>
-      </div>
-    </amw-accordion-panel>
-
-    <!-- Label Position -->
-    <amw-accordion-panel amwDescription="Position label before or after checkbox">
-      <ng-template #header>
-        <amw-icon name="code"></amw-icon>
-        Label Position
-      </ng-template>
-      <div class="example-container">
-        <div class="code-panel">
-          <div class="code-header">
-            <h4>Code</h4>
-            <amw-button icon="refresh" (click)="resetCode('labelPosition')" title="Reset to original"></amw-button>
-          </div>
-          <textarea
-            [(ngModel)]="editableCode.labelPosition"
-            class="code-editor"
-            spellcheck="false"></textarea>
-        </div>
-        <div class="preview-panel">
-          <h4>Preview</h4>
-          <div class="preview-content">
-            <amw-checkbox labelPosition="before">Label before</amw-checkbox>
-            <amw-checkbox labelPosition="after">Label after</amw-checkbox>
-          </div>
-        </div>
-      </div>
-    </amw-accordion-panel>
-
-    <!-- Indeterminate with Nested List -->
-    <amw-accordion-panel amwDescription="Parent checkbox with child checkboxes">
-      <ng-template #header>
-        <amw-icon name="code"></amw-icon>
-        Indeterminate State
-      </ng-template>
-      <div class="example-container">
-        <div class="code-panel">
-          <div class="code-header">
-            <h4>Code</h4>
-            <amw-button icon="refresh" (click)="resetCode('indeterminate')" title="Reset to original"></amw-button>
-          </div>
-          <textarea
-            [(ngModel)]="editableCode.indeterminate"
-            class="code-editor"
-            spellcheck="false"></textarea>
-        </div>
-        <div class="preview-panel">
-          <h4>Preview</h4>
-          <div class="preview-content">
-            <amw-checkbox
-              [checked]="allComplete"
-              [indeterminate]="someComplete()"
-              (change)="setAll(!!$event)">
-              {{task.name}}
-            </amw-checkbox>
-            <ul>
-              @for (subtask of task.subtasks; track subtask.name) {
-                <li>
-                  <amw-checkbox
-                    [(ngModel)]="subtask.completed"
-                    (ngModelChange)="updateAllComplete()">
-                    {{subtask.name}}
-                  </amw-checkbox>
-                </li>
-              }
-            </ul>
-          </div>
-        </div>
-      </div>
-    </amw-accordion-panel>
-
-    <!-- Disabled State -->
-    <amw-accordion-panel amwDescription="Non-interactive checkboxes">
-      <ng-template #header>
-        <amw-icon name="code"></amw-icon>
-        Disabled State
-      </ng-template>
-      <div class="example-container">
-        <div class="code-panel">
-          <div class="code-header">
-            <h4>Code</h4>
-            <amw-button icon="refresh" (click)="resetCode('disabled')" title="Reset to original"></amw-button>
-          </div>
-          <textarea
-            [(ngModel)]="editableCode.disabled"
-            class="code-editor"
-            spellcheck="false"></textarea>
-        </div>
-        <div class="preview-panel">
-          <h4>Preview</h4>
-          <div class="preview-content">
-            <amw-checkbox [disabled]="true">Disabled unchecked</amw-checkbox>
-            <amw-checkbox [disabled]="true" [checked]="true">Disabled checked</amw-checkbox>
-          </div>
-        </div>
-      </div>
-    </amw-accordion-panel>
-
-    <!-- Event Handling -->
-    <amw-accordion-panel amwDescription="Listen to checkbox change events">
-      <ng-template #header>
-        <amw-icon name="code"></amw-icon>
-        Event Handling
-      </ng-template>
-      <div class="example-container">
-        <div class="code-panel">
-          <div class="code-header">
-            <h4>Code</h4>
-            <amw-button icon="refresh" (click)="resetCode('events')" title="Reset to original"></amw-button>
-          </div>
-          <textarea
-            [(ngModel)]="editableCode.events"
-            class="code-editor"
-            spellcheck="false"></textarea>
-        </div>
-        <div class="preview-panel">
-          <h4>Preview</h4>
-          <div class="preview-content">
-            <amw-checkbox
-              (change)="onCheckboxChange($event)"
-              (indeterminateChange)="onIndeterminateChange($event)">
-              Event tracking
-            </amw-checkbox>
-            <div class="preview-note">
-              <amw-icon name="info"></amw-icon>
-              <span>Open your browser console to see event logs</span>
-            </div>
-          </div>
-        </div>
-      </div>
-    </amw-accordion-panel>
-  </amw-accordion>
-</div>
+      }
+    }
+  </ng-template>
+</amw-code-doc>

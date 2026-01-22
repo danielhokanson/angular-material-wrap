@@ -1,107 +1,89 @@
-<div class="card-validation">
-  <amw-card>
-    <ng-template #cardHeader>
-      <h2>Card Selection Validation</h2>
-      <p class="subtitle">Interactive card selection with validation</p>
-    </ng-template>
+<amw-validation-doc
+  componentName="amw-card"
+  [validationForm]="validationForm"
+  [validationInfo]="validationInfo">
+  <ng-template #formContent>
+    <div class="card-validation__section">
+      <h3>Select Your Plan</h3>
+      <p>Choose your preferred plan(s) from the cards below. Configure minimum and maximum selection limits.</p>
 
-    <ng-template #cardContent>
-      <form [formGroup]="cardForm" (ngSubmit)="onSubmit()">
-        <div class="card-validation__form">
-          <div class="card-validation__section">
-            <h3>Select Your Plan</h3>
-            <p>Choose your preferred plan(s) from the cards below. Configure minimum and maximum selection limits.</p>
+      <div class="card-validation__controls">
+        <amw-input
+          class="card-validation__control"
+          label="Minimum Selection"
+          type="number"
+          formControlName="minSelection"
+          [min]="1"
+          [max]="3"
+          hint="Minimum number of cards to select">
+        </amw-input>
 
-            <div class="card-validation__controls">
-              <amw-input
-                class="card-validation__control"
-                label="Minimum Selection"
-                type="number"
-                formControlName="minSelection"
-                [min]="1"
-                [max]="3"
-                hint="Minimum number of cards to select">
-              </amw-input>
+        <amw-input
+          class="card-validation__control"
+          label="Maximum Selection"
+          type="number"
+          formControlName="maxSelection"
+          [min]="1"
+          [max]="3"
+          hint="Maximum number of cards to select">
+        </amw-input>
+      </div>
 
-              <amw-input
-                class="card-validation__control"
-                label="Maximum Selection"
-                type="number"
-                formControlName="maxSelection"
-                [min]="1"
-                [max]="3"
-                hint="Maximum number of cards to select">
-              </amw-input>
-            </div>
-
-            <div class="card-validation__cards">
-              @for (card of cardOptions; track card) {
-                <amw-card
-                  [headerTitle]="card.title"
-                  [headerSubtitle]="card.subtitle"
-                  [content]="card.price + ' per month'"
-                  [clickable]="true"
-                [config]="{ 
-                  class: isCardSelected(card.id) ? 'selected-card' : '',
-                  style: isCardSelected(card.id) ? { 'border': '2px solid var(--mdc-theme-primary)' } : {}
-                }"
-                  (cardClick)="onCardClick(card)"
-                  class="card-validation__card"
-                  >
-                  <ng-template #cardContent>
-                    <div class="card-validation__card-content">
-                      <h4>{{ card.price }}</h4>
-                      <ul>
-                        @for (feature of card.features; track feature) {
-                          <li>{{ feature }}</li>
-                        }
-                      </ul>
-                    </div>
-      </ng-template>
-                </amw-card>
-              }
-            </div>
-
-            @if (selectedCards.length > 0) {
-              <div class="card-validation__selection-info">
-                <h4>Selected Plans ({{ selectedCards.length }}):</h4>
-                <div class="card-validation__selected-chips">
-                  @for (card of selectedCardsList; track card) {
-                    <span class="card-validation__selected-chip">
-                      {{ card.title }} - {{ card.price }}
-                    </span>
+      <div class="card-validation__cards">
+        @for (card of cardOptions; track card.id) {
+          <amw-card
+            [headerTitle]="card.title"
+            [headerSubtitle]="card.subtitle"
+            [content]="card.price + ' per month'"
+            [clickable]="true"
+            [config]="{
+              class: isCardSelected(card.id) ? 'selected-card' : '',
+              style: isCardSelected(card.id) ? { 'border': '2px solid var(--mdc-theme-primary)' } : {}
+            }"
+            (cardClick)="onCardClick(card)"
+            class="card-validation__card">
+            <ng-template #cardContent>
+              <div class="card-validation__card-content">
+                <h4>{{ card.price }}</h4>
+                <ul>
+                  @for (feature of card.features; track feature) {
+                    <li>{{ feature }}</li>
                   }
-                </div>
+                </ul>
               </div>
-            }
+            </ng-template>
+          </amw-card>
+        }
+      </div>
 
-            @if (cardForm.get('selectedCards')?.hasError('required')) {
-              <div class="card-validation__error">
-                Please select at least one card
-              </div>
-            }
-            @if (cardForm.get('selectedCards')?.hasError('minSelection')) {
-              <div class="card-validation__error">
-                Please select at least {{ cardForm.get('selectedCards')?.errors?.['minSelection']?.required }} cards
-              </div>
-            }
-            @if (cardForm.get('selectedCards')?.hasError('maxSelection')) {
-              <div class="card-validation__error">
-                Please select no more than {{ cardForm.get('selectedCards')?.errors?.['maxSelection']?.max }} cards
-              </div>
+      @if (selectedCards.length > 0) {
+        <div class="card-validation__selection-info">
+          <h4>Selected Plans ({{ selectedCards.length }}):</h4>
+          <div class="card-validation__selected-chips">
+            @for (card of selectedCardsList; track card.id) {
+              <span class="card-validation__selected-chip">
+                {{ card.title }} - {{ card.price }}
+              </span>
             }
           </div>
         </div>
+      }
 
-        <div class="card-validation__actions">
-          <amw-button appearance="text" type="button" (click)="onReset()">Reset</amw-button>
-          <amw-button appearance="elevated" color="primary" type="submit" [disabled]="cardForm.invalid">
-            Submit Selection
-          </amw-button>
+      @if (validationForm.get('selectedCards')?.hasError('required')) {
+        <div class="card-validation__error">
+          Please select at least one card
         </div>
-      </form>
-    </ng-template>
-</amw-card>
-</div>
-
-
+      }
+      @if (validationForm.get('selectedCards')?.hasError('minSelection')) {
+        <div class="card-validation__error">
+          Please select at least {{ validationForm.get('selectedCards')?.errors?.['minSelection']?.required }} cards
+        </div>
+      }
+      @if (validationForm.get('selectedCards')?.hasError('maxSelection')) {
+        <div class="card-validation__error">
+          Please select no more than {{ validationForm.get('selectedCards')?.errors?.['maxSelection']?.max }} cards
+        </div>
+      }
+    </div>
+  </ng-template>
+</amw-validation-doc>

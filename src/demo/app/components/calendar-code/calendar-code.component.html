@@ -1,177 +1,66 @@
-<div class="code-section">
-  <h3>Code Examples</h3>
-  <p>Interactive examples with live previews. Edit the code to see real-time changes.</p>
+<amw-code-doc
+  componentName="amw-calendar-picker"
+  [examples]="examples"
+  [editableCode]="editableCode">
 
-  <amw-accordion class="code-examples-accordion">
-    <!-- Basic Calendar -->
-    <amw-accordion-panel amwDescription="Simple calendar with date selection">
-      <ng-template #header>
-        <amw-icon name="code"></amw-icon>
-        Basic Calendar
-      </ng-template>
-      <div class="example-container">
-        <div class="code-panel">
-          <div class="code-header">
-            <h4>Code</h4>
-            <amw-button icon="refresh" (click)="resetCode('basic')" title="Reset to original"></amw-button>
-          </div>
-          <textarea
-            [(ngModel)]="editableCode.basic"
-            class="code-editor"
-            spellcheck="false"></textarea>
+  <ng-template #preview let-example>
+    @switch (example.key) {
+      @case ('basic') {
+        <amw-card headerTitle="Basic Calendar">
+          <ng-template #cardContent>
+            <amw-calendar-picker [(selected)]="selectedDate"></amw-calendar-picker>
+          </ng-template>
+        </amw-card>
+      }
+      @case ('range') {
+        <amw-card headerTitle="Date Range Calendar">
+          <ng-template #cardContent>
+            <amw-calendar-picker
+              [(selected)]="selectedDate"
+              [startView]="'month'">
+            </amw-calendar-picker>
+          </ng-template>
+        </amw-card>
+      }
+      @case ('minMax') {
+        <amw-card headerTitle="Min/Max Date Calendar">
+          <ng-template #cardContent>
+            <amw-calendar-picker
+              [(selected)]="selectedDate"
+              [minDate]="minDate"
+              [maxDate]="maxDate">
+            </amw-calendar-picker>
+          </ng-template>
+        </amw-card>
+      }
+      @case ('filter') {
+        <amw-card headerTitle="Filtered Calendar">
+          <ng-template #cardContent>
+            <amw-calendar-picker
+              [(selected)]="selectedDate"
+              [dateFilter]="myFilter">
+            </amw-calendar-picker>
+          </ng-template>
+        </amw-card>
+        <div class="preview-note">
+          <amw-icon name="info"></amw-icon>
+          <span>Note: Weekends are disabled in this example</span>
         </div>
-        <div class="preview-panel">
-          <h4>Preview</h4>
-          <div class="preview-content">
-            <amw-card headerTitle="Basic Calendar">
-              <ng-template #cardContent>
-                <amw-calendar-picker [(selected)]="selectedDate"></amw-calendar-picker>
-              </ng-template>
-            </amw-card>
-          </div>
+      }
+      @case ('customClass') {
+        <amw-card headerTitle="Custom Styled Calendar">
+          <ng-template #cardContent>
+            <amw-calendar-picker
+              [(selected)]="selectedDate"
+              [dateClass]="dateClass">
+            </amw-calendar-picker>
+          </ng-template>
+        </amw-card>
+        <div class="preview-note">
+          <amw-icon name="info"></amw-icon>
+          <span>Note: Dates that are multiples of 5 are highlighted</span>
         </div>
-      </div>
-    </amw-accordion-panel>
-
-    <!-- Date Range Calendar -->
-    <amw-accordion-panel amwDescription="Calendar with start view configuration">
-      <ng-template #header>
-        <amw-icon name="code"></amw-icon>
-        Date Range Calendar
-      </ng-template>
-      <div class="example-container">
-        <div class="code-panel">
-          <div class="code-header">
-            <h4>Code</h4>
-            <amw-button icon="refresh" (click)="resetCode('range')" title="Reset to original"></amw-button>
-          </div>
-          <textarea
-            [(ngModel)]="editableCode.range"
-            class="code-editor"
-            spellcheck="false"></textarea>
-        </div>
-        <div class="preview-panel">
-          <h4>Preview</h4>
-          <div class="preview-content">
-            <amw-card headerTitle="Date Range Calendar">
-              <ng-template #cardContent>
-                <amw-calendar-picker
-                  [(selected)]="selectedDate"
-                  [startView]="'month'">
-                </amw-calendar-picker>
-              </ng-template>
-            </amw-card>
-          </div>
-        </div>
-      </div>
-    </amw-accordion-panel>
-
-    <!-- Min/Max Date Calendar -->
-    <amw-accordion-panel amwDescription="Calendar with date range restrictions">
-      <ng-template #header>
-        <amw-icon name="code"></amw-icon>
-        Min/Max Date Calendar
-      </ng-template>
-      <div class="example-container">
-        <div class="code-panel">
-          <div class="code-header">
-            <h4>Code</h4>
-            <amw-button icon="refresh" (click)="resetCode('minMax')" title="Reset to original"></amw-button>
-          </div>
-          <textarea
-            [(ngModel)]="editableCode.minMax"
-            class="code-editor"
-            spellcheck="false"></textarea>
-        </div>
-        <div class="preview-panel">
-          <h4>Preview</h4>
-          <div class="preview-content">
-            <amw-card headerTitle="Min/Max Date Calendar">
-              <ng-template #cardContent>
-                <amw-calendar-picker
-                  [(selected)]="selectedDate"
-                  [minDate]="minDate"
-                  [maxDate]="maxDate">
-                </amw-calendar-picker>
-              </ng-template>
-            </amw-card>
-          </div>
-        </div>
-      </div>
-    </amw-accordion-panel>
-
-    <!-- Filtered Calendar -->
-    <amw-accordion-panel amwDescription="Calendar with custom date filter">
-      <ng-template #header>
-        <amw-icon name="code"></amw-icon>
-        Filtered Calendar
-      </ng-template>
-      <div class="example-container">
-        <div class="code-panel">
-          <div class="code-header">
-            <h4>Code</h4>
-            <amw-button icon="refresh" (click)="resetCode('filter')" title="Reset to original"></amw-button>
-          </div>
-          <textarea
-            [(ngModel)]="editableCode.filter"
-            class="code-editor"
-            spellcheck="false"></textarea>
-        </div>
-        <div class="preview-panel">
-          <h4>Preview</h4>
-          <div class="preview-content">
-            <amw-card headerTitle="Filtered Calendar">
-              <ng-template #cardContent>
-                <amw-calendar-picker
-                  [(selected)]="selectedDate"
-                  [dateFilter]="myFilter">
-                </amw-calendar-picker>
-              </ng-template>
-            </amw-card>
-            <div class="preview-note">
-              <amw-icon name="info"></amw-icon>
-              <span>Note: Weekends are disabled in this example</span>
-            </div>
-          </div>
-        </div>
-      </div>
-    </amw-accordion-panel>
-
-    <!-- Custom Styled Calendar -->
-    <amw-accordion-panel amwDescription="Calendar with custom date classes">
-      <ng-template #header>
-        <amw-icon name="code"></amw-icon>
-        Custom Styled Calendar
-      </ng-template>
-      <div class="example-container">
-        <div class="code-panel">
-          <div class="code-header">
-            <h4>Code</h4>
-            <amw-button icon="refresh" (click)="resetCode('customClass')" title="Reset to original"></amw-button>
-          </div>
-          <textarea
-            [(ngModel)]="editableCode.customClass"
-            class="code-editor"
-            spellcheck="false"></textarea>
-        </div>
-        <div class="preview-panel">
-          <h4>Preview</h4>
-          <div class="preview-content">
-            <amw-card headerTitle="Custom Styled Calendar">
-              <ng-template #cardContent>
-                <amw-calendar-picker
-                  [(selected)]="selectedDate"
-                  [dateClass]="dateClass">
-                </amw-calendar-picker>
-              </ng-template>
-            </amw-card>
-            <div class="preview-note">
-              <amw-icon name="info"></amw-icon>
-              <span>Note: Dates that are multiples of 5 are highlighted</span>
-            </div>
-          </div>
-        </div>
-      </div>
-    </amw-accordion-panel>
-  </amw-accordion>
-</div>
+      }
+    }
+  </ng-template>
+</amw-code-doc>

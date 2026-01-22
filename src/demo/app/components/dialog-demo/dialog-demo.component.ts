@@ -10,6 +10,7 @@ import { DialogType, DialogSize } from '../../../../library/src/components/compo
 import { AmwButtonComponent } from '../../../../library/src/controls/components/amw-button/amw-button.component';
 import { AmwCardComponent, AmwIconComponent } from '../../../../library/src/components/components';
 import { AmwInputComponent } from '../../../../library/src/controls/components/amw-input/amw-input.component';
+import { AmwDemoDocComponent } from '../../shared/components/demo-doc/demo-doc.component';
 
 @Component({
     selector: 'amw-demo-dialog',
@@ -20,6 +21,7 @@ import { AmwInputComponent } from '../../../../library/src/controls/components/a
         AmwButtonComponent,
         AmwCardComponent,
         AmwIconComponent,
+        AmwDemoDocComponent,
     ],
     encapsulation: ViewEncapsulation.None,
     templateUrl: './dialog-demo.component.html',

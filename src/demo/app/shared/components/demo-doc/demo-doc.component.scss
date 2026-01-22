@@ -1,0 +1,142 @@
+.amw-demo-doc {
+  padding: 24px;
+  max-width: 1400px;
+
+  // Section styling
+  &__section {
+    margin-bottom: 32px;
+
+    &:last-child {
+      margin-bottom: 0;
+    }
+  }
+
+  &__section-title {
+    font-size: 1.1rem;
+    font-weight: 500;
+    margin: 0 0 12px 0;
+    color: var(--mat-sys-on-surface);
+  }
+
+  &__section-description {
+    font-size: 0.95rem;
+    line-height: 1.6;
+    color: var(--mat-sys-on-surface-variant);
+    margin: 0 0 16px 0;
+  }
+
+  &__section-content {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 24px;
+    align-items: flex-start;
+  }
+
+  // Variation group styling (used by child components)
+  :host ::ng-deep .variation-section {
+    margin-bottom: 32px;
+
+    &:last-child {
+      margin-bottom: 0;
+    }
+  }
+
+  :host ::ng-deep .variation-section__title {
+    font-size: 1.1rem;
+    font-weight: 500;
+    margin: 0 0 12px 0;
+    color: var(--mat-sys-on-surface);
+  }
+
+  :host ::ng-deep .variation-section__content {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 24px;
+    align-items: center;
+  }
+
+  :host ::ng-deep .variation-group {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 8px;
+    padding: 16px;
+    border-radius: 8px;
+    background-color: var(--mat-sys-surface-container-low);
+    min-width: 120px;
+  }
+
+  :host ::ng-deep .variation-label {
+    font-size: 0.85rem;
+    font-weight: 500;
+    color: var(--mat-sys-on-surface-variant);
+  }
+
+  // Real-world example styling
+  &__section--real-world {
+    margin-top: 40px;
+    padding-top: 24px;
+    border-top: 1px solid var(--mat-sys-outline-variant);
+  }
+
+  &__real-world-content {
+    padding: 24px;
+    background-color: var(--mat-sys-surface-container-low);
+    border-radius: 12px;
+    border: 1px solid var(--mat-sys-outline-variant);
+  }
+
+  :host ::ng-deep .real-world-example,
+  :host ::ng-deep .example-toolbar,
+  :host ::ng-deep .example-actions {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 16px;
+    align-items: center;
+  }
+
+  :host ::ng-deep .example-description {
+    width: 100%;
+    margin: 0 0 16px 0;
+    color: var(--mat-sys-on-surface-variant);
+  }
+
+  // Responsive design
+  @media (max-width: 768px) {
+    padding: 16px;
+
+    &__section-content {
+      gap: 16px;
+    }
+
+    :host ::ng-deep .variation-section__content {
+      gap: 16px;
+    }
+
+    :host ::ng-deep .variation-group {
+      min-width: 100px;
+      padding: 12px;
+    }
+
+    &__real-world-content {
+      padding: 16px;
+    }
+  }
+
+  @media (max-width: 480px) {
+    padding: 12px;
+
+    &__section-title {
+      font-size: 1rem;
+    }
+
+    :host ::ng-deep .variation-section__title {
+      font-size: 1rem;
+    }
+
+    :host ::ng-deep .variation-group {
+      flex: 1 1 calc(50% - 8px);
+      min-width: unset;
+    }
+  }
+}

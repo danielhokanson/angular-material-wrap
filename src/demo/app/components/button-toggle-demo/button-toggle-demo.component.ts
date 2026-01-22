@@ -2,11 +2,12 @@ import { Component, ViewEncapsulation, signal } from '@angular/core';
 import { AmwButtonToggleGroupComponent } from '../../../../library/src/controls/components/amw-button-toggle/amw-button-toggle-group.component';
 import { AmwButtonToggleComponent } from '../../../../library/src/controls/components/amw-button-toggle/amw-button-toggle.component';
 import { AmwNotificationService } from '../../../../library/src/services/amw-notification/amw-notification.service';
+import { AmwDemoDocComponent } from '../../shared/components/demo-doc/demo-doc.component';
 
 @Component({
     selector: 'amw-demo-button-toggle',
     standalone: true,
-    imports: [AmwButtonToggleGroupComponent, AmwButtonToggleComponent],
+    imports: [AmwButtonToggleGroupComponent, AmwButtonToggleComponent, AmwDemoDocComponent],
     encapsulation: ViewEncapsulation.None,
     templateUrl: './button-toggle-demo.component.html',
     styleUrl: './button-toggle-demo.component.scss'

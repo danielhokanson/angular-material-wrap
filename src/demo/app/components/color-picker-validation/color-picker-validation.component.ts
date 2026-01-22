@@ -1,75 +1,64 @@
-import { Component, OnInit, ViewEncapsulation } from '@angular/core';
-
-import { ReactiveFormsModule, FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { AmwNotificationService } from '../../../../library/src/services/amw-notification/amw-notification.service';
+import { Component, ViewEncapsulation, OnInit } from '@angular/core';
+import { ReactiveFormsModule, FormGroup, Validators, AbstractControl, ValidationErrors } from '@angular/forms';
+import { AmwValidationDocComponent, ValidationInfo } from '../../shared/components/validation-doc/validation-doc.component';
+import { BaseValidationComponent } from '../base/base-validation.component';
 import { AmwColorPickerComponent } from '../../../../library/src/controls/components/amw-color-picker/amw-color-picker.component';
 
-import { AmwButtonComponent } from '../../../../library/src/controls/components/amw-button/amw-button.component';
-import { AmwCardComponent } from '../../../../library/src/components/components/amw-card/amw-card.component';
 @Component({
-    selector: 'amw-demo-color-picker-validation',
-    standalone: true,
-    imports: [ReactiveFormsModule,
-    AmwCardComponent,
-    AmwColorPickerComponent,
-    AmwButtonComponent],
-    encapsulation: ViewEncapsulation.None,
-    templateUrl: './color-picker-validation.component.html',
-    styleUrl: './color-picker-validation.component.scss'
+  selector: 'amw-demo-color-picker-validation',
+  standalone: true,
+  imports: [
+    ReactiveFormsModule,
+    AmwValidationDocComponent,
+    AmwColorPickerComponent
+  ],
+  encapsulation: ViewEncapsulation.None,
+  templateUrl: './color-picker-validation.component.html',
+  styleUrl: './color-picker-validation.component.scss'
 })
-export class ColorPickerValidationComponent implements OnInit {
-    colorPickerForm: FormGroup;
+export class ColorPickerValidationComponent extends BaseValidationComponent implements OnInit {
+  validationForm: FormGroup = this.fb.group({
+    primaryColor: ['', Validators.required],
+    secondaryColor: ['', Validators.required],
+    accentColor: ['', Validators.required],
+    backgroundColor: ['', Validators.required]
+  });
 
-    constructor(
-        private fb: FormBuilder,
-        private notification: AmwNotificationService
-    ) {
-        this.colorPickerForm = this.fb.group({
-            primaryColor: ['', Validators.required],
-            secondaryColor: ['', Validators.required],
-            accentColor: ['', Validators.required],
-            backgroundColor: ['', Validators.required]
-        });
+  validationInfo: ValidationInfo[] = [
+    { title: 'Primary Color', description: 'Required field' },
+    { title: 'Secondary Color', description: 'Required, must be different from primary' },
+    { title: 'Accent Color', description: 'Required, text input mode' },
+    { title: 'Background Color', description: 'Required, all modes available' }
+  ];
+
+  ngOnInit(): void {
+    this.validationForm.get('secondaryColor')?.setValidators([
+      Validators.required,
+      this.differentColorValidator('primaryColor')
+    ]);
+  }
+
+  differentColorValidator(primaryColorControl: string) {
+    return (control: AbstractControl): ValidationErrors | null => {
+      const primaryColor = this.validationForm?.get(primaryColorControl)?.value;
+      const secondaryColor = control.value;
+
+      if (primaryColor && secondaryColor && primaryColor === secondaryColor) {
+        return { sameColor: true };
+      }
+
+      return null;
+    };
+  }
+
+  getColorError(controlName: string): string {
+    const control = this.validationForm.get(controlName);
+    if (control?.hasError('required')) {
+      return `${controlName.replace(/([A-Z])/g, ' $1').trim()} is required`;
     }
-
-    ngOnInit() {
-        // Add custom validators
-        this.colorPickerForm.get('secondaryColor')?.setValidators([
-            Validators.required,
-            this.differentColorValidator('primaryColor')
-        ]);
+    if (control?.hasError('sameColor')) {
+      return 'Secondary color must be different from primary color';
     }
-
-    differentColorValidator(primaryColorControl: string) {
-        return (control: any) => {
-            const primaryColor = this.colorPickerForm?.get(primaryColorControl)?.value;
-            const secondaryColor = control.value;
-
-            if (primaryColor && secondaryColor && primaryColor === secondaryColor) {
-                return { sameColor: true };
-            }
-
-            return null;
-        };
-    }
-
-    isValidColor(color: string): boolean {
-        const s = new Option().style;
-        s.color = color;
-        return s.color !== '';
-    }
-
-    onSubmit() {
-        if (this.colorPickerForm.valid) {
-            this.notification.success('Success', 'Form submitted successfully!', { duration: 3000 });
-            console.log('Form values:', this.colorPickerForm.value);
-        } else {
-            this.notification.info('Info', 'Please fill in all required fields correctly', { duration: 3000 });
-        }
-    }
-
-    onReset() {
-        this.colorPickerForm.reset();
-    }
+    return '';
+  }
 }
-

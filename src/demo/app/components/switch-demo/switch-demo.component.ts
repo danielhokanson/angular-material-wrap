@@ -3,13 +3,15 @@ import { Component, ViewEncapsulation } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 
 import { AmwSwitchComponent } from '../../../../library/src/controls/components/amw-switch/amw-switch.component';
+import { AmwDemoDocComponent } from '../../shared/components/demo-doc/demo-doc.component';
 
 @Component({
     selector: 'amw-demo-switch',
     standalone: true,
     imports: [
     FormsModule,
-    AmwSwitchComponent
+    AmwSwitchComponent,
+    AmwDemoDocComponent
 ],
     encapsulation: ViewEncapsulation.None,
     templateUrl: './switch-demo.component.html',

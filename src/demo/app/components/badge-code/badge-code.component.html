@@ -1,26 +1,74 @@
-<div class="amw-demo-badge-code">
-  <div class="code-section">
-    <h3 class="code-section__title">Basic Usage</h3>
-    <pre class="code-block"><code>{{ editableCode['basic'] }}</code></pre>
-  </div>
+<amw-code-doc
+  componentName="amwBadge"
+  [examples]="examples"
+  [editableCode]="editableCode">
 
-  <div class="code-section">
-    <h3 class="code-section__title">Colors</h3>
-    <pre class="code-block"><code>{{ editableCode['colors'] }}</code></pre>
-  </div>
-
-  <div class="code-section">
-    <h3 class="code-section__title">Positions</h3>
-    <pre class="code-block"><code>{{ editableCode['positions'] }}</code></pre>
-  </div>
-
-  <div class="code-section">
-    <h3 class="code-section__title">Sizes</h3>
-    <pre class="code-block"><code>{{ editableCode['sizes'] }}</code></pre>
-  </div>
-
-  <div class="code-section">
-    <h3 class="code-section__title">Hidden Badge</h3>
-    <pre class="code-block"><code>{{ editableCode['hidden'] }}</code></pre>
-  </div>
-</div>
+  <ng-template #preview let-example>
+    @switch (example.key) {
+      @case ('basic') {
+        <div class="badge-row">
+          <span [amwBadge]="5">
+            <amw-icon name="notifications"></amw-icon>
+          </span>
+          <span [amwBadge]="'New'">
+            <amw-icon name="star"></amw-icon>
+          </span>
+        </div>
+      }
+      @case ('colors') {
+        <div class="badge-row">
+          <span [amwBadge]="3" amwBadgeColor="primary">
+            <amw-icon name="mail"></amw-icon>
+          </span>
+          <span [amwBadge]="7" amwBadgeColor="accent">
+            <amw-icon name="inbox"></amw-icon>
+          </span>
+          <span [amwBadge]="12" amwBadgeColor="warn">
+            <amw-icon name="warning"></amw-icon>
+          </span>
+        </div>
+      }
+      @case ('positions') {
+        <div class="badge-row badge-row--spaced">
+          <span [amwBadge]="1" amwBadgePosition="above after">
+            <amw-icon name="inbox"></amw-icon>
+          </span>
+          <span [amwBadge]="2" amwBadgePosition="above before">
+            <amw-icon name="inbox"></amw-icon>
+          </span>
+          <span [amwBadge]="3" amwBadgePosition="below after">
+            <amw-icon name="inbox"></amw-icon>
+          </span>
+          <span [amwBadge]="4" amwBadgePosition="below before">
+            <amw-icon name="inbox"></amw-icon>
+          </span>
+        </div>
+      }
+      @case ('sizes') {
+        <div class="badge-row">
+          <span [amwBadge]="1" amwBadgeSize="small">
+            <amw-icon name="inbox"></amw-icon>
+          </span>
+          <span [amwBadge]="2" amwBadgeSize="medium">
+            <amw-icon name="inbox"></amw-icon>
+          </span>
+          <span [amwBadge]="3" amwBadgeSize="large">
+            <amw-icon name="inbox"></amw-icon>
+          </span>
+        </div>
+      }
+      @case ('hidden') {
+        <span
+          [amwBadge]="unreadCount"
+          [amwBadgeHidden]="unreadCount === 0">
+          <amw-icon name="mail"></amw-icon>
+        </span>
+        <p>Unread count: {{ unreadCount }}</p>
+        <div class="preview-note">
+          <amw-icon name="info"></amw-icon>
+          <span>Badge is hidden when count is 0</span>
+        </div>
+      }
+    }
+  </ng-template>
+</amw-code-doc>

@@ -1,26 +1,51 @@
-<div class="amw-demo-chip-code">
-  <div class="code-section">
-    <h3 class="code-section__title">Basic Usage</h3>
-    <pre class="code-block"><code>{{ editableCode['basic'] }}</code></pre>
-  </div>
+<amw-code-doc
+  componentName="amw-chip"
+  [examples]="examples"
+  [editableCode]="editableCode">
 
-  <div class="code-section">
-    <h3 class="code-section__title">Removable Chips</h3>
-    <pre class="code-block"><code>{{ editableCode['removable'] }}</code></pre>
-  </div>
-
-  <div class="code-section">
-    <h3 class="code-section__title">Selectable Chips</h3>
-    <pre class="code-block"><code>{{ editableCode['selectable'] }}</code></pre>
-  </div>
-
-  <div class="code-section">
-    <h3 class="code-section__title">Chips with Icons</h3>
-    <pre class="code-block"><code>{{ editableCode['icons'] }}</code></pre>
-  </div>
-
-  <div class="code-section">
-    <h3 class="code-section__title">Chips with Avatars</h3>
-    <pre class="code-block"><code>{{ editableCode['avatars'] }}</code></pre>
-  </div>
-</div>
+  <ng-template #preview let-example>
+    @switch (example.key) {
+      @case ('basic') {
+        <div class="chip-row">
+          <amw-chip label="Basic Chip"></amw-chip>
+          <amw-chip label="Primary" color="primary"></amw-chip>
+          <amw-chip label="Accent" color="accent"></amw-chip>
+          <amw-chip label="Warn" color="warn"></amw-chip>
+        </div>
+      }
+      @case ('removable') {
+        <amw-chip
+          label="Removable"
+          [removable]="true"
+          (removed)="onChipRemoved()">
+        </amw-chip>
+        <div class="preview-note">
+          <amw-icon name="info"></amw-icon>
+          <span>Click the X to remove - check console for event</span>
+        </div>
+      }
+      @case ('selectable') {
+        <amw-chip
+          label="Option"
+          [selectable]="true"
+          [(selected)]="isSelected"
+          (selectionChange)="onSelectionChange($event)">
+        </amw-chip>
+        <p>Selected: {{ isSelected }}</p>
+      }
+      @case ('icons') {
+        <div class="chip-row">
+          <amw-chip label="Home" icon="home"></amw-chip>
+          <amw-chip label="Settings" icon="settings"></amw-chip>
+          <amw-chip label="Favorite" icon="favorite" color="warn"></amw-chip>
+        </div>
+      }
+      @case ('avatars') {
+        <div class="preview-note">
+          <amw-icon name="info"></amw-icon>
+          <span>This example shows code for chips with avatar images</span>
+        </div>
+      }
+    }
+  </ng-template>
+</amw-code-doc>

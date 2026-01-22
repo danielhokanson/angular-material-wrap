@@ -1,181 +1,52 @@
-<div class="code-section">
-  <h3>Code Examples</h3>
-  <p>Interactive examples with live previews. Edit the code to see real-time changes.</p>
+<amw-code-doc
+  componentName="amw-tabs"
+  [examples]="examples"
+  [editableCode]="editableCode">
 
-  <amw-accordion class="code-examples-accordion">
-    <!-- Basic Tabs -->
-    <amw-accordion-panel amwDescription="Simple tab group with text labels">
-      <ng-template #header>
-        <amw-icon name="code"></amw-icon>
-        Basic Tabs
-      </ng-template>
-      <div class="example-container">
-        <div class="code-panel">
-          <div class="code-header">
-            <h4>Code</h4>
-            <amw-button icon="refresh" (click)="resetCode('basic')" title="Reset to original"></amw-button>
-          </div>
-          <textarea
-            [(ngModel)]="editableCode.basic"
-            class="code-editor"
-            spellcheck="false"></textarea>
+  <ng-template #preview let-example>
+    @switch (example.key) {
+      @case ('basic') {
+        <amw-tabs>
+          <amw-tab label="First">Content 1</amw-tab>
+          <amw-tab label="Second">Content 2</amw-tab>
+          <amw-tab label="Third">Content 3</amw-tab>
+        </amw-tabs>
+      }
+      @case ('icons') {
+        <amw-tabs>
+          <amw-tab label="Home" icon="home">Home content</amw-tab>
+          <amw-tab label="Profile" icon="person">Profile content</amw-tab>
+          <amw-tab label="Settings" icon="settings">Settings content</amw-tab>
+        </amw-tabs>
+      }
+      @case ('lazy') {
+        <amw-tabs>
+          <amw-tab label="Eager">This content is loaded immediately</amw-tab>
+          <amw-tab label="Lazy">This content is lazy loaded</amw-tab>
+        </amw-tabs>
+        <div class="preview-note">
+          <amw-icon name="info"></amw-icon>
+          <span>Note: Lazy loading requires matTabContent directive</span>
         </div>
-        <div class="preview-panel">
-          <h4>Preview</h4>
-          <div class="preview-content">
-            <amw-tabs>
-              <amw-tab label="First">Content 1</amw-tab>
-              <amw-tab label="Second">Content 2</amw-tab>
-              <amw-tab label="Third">Content 3</amw-tab>
-            </amw-tabs>
-          </div>
+      }
+      @case ('dynamic') {
+        <amw-tabs [(selectedIndex)]="selectedIndex">
+          @for (tab of dynamicTabs; track tab) {
+            <amw-tab [label]="tab.label">{{ tab.content }}</amw-tab>
+          }
+        </amw-tabs>
+        <div class="preview-note">
+          <amw-icon name="info"></amw-icon>
+          <span>Note: Dynamic tabs require component logic</span>
         </div>
-      </div>
-    </amw-accordion-panel>
-
-    <!-- Tabs with Icons -->
-    <amw-accordion-panel amwDescription="Tab labels with icon and text">
-      <ng-template #header>
-        <amw-icon name="code"></amw-icon>
-        Tabs with Icons
-      </ng-template>
-      <div class="example-container">
-        <div class="code-panel">
-          <div class="code-header">
-            <h4>Code</h4>
-            <amw-button icon="refresh" (click)="resetCode('icons')" title="Reset to original"></amw-button>
-          </div>
-          <textarea
-            [(ngModel)]="editableCode.icons"
-            class="code-editor"
-            spellcheck="false"></textarea>
-        </div>
-        <div class="preview-panel">
-          <h4>Preview</h4>
-          <div class="preview-content">
-            <amw-tabs>
-              <amw-tab label="Home" icon="home">
-                Home content
-              </amw-tab>
-              <amw-tab label="Profile" icon="person">
-                Profile content
-              </amw-tab>
-              <amw-tab label="Settings" icon="settings">
-                Settings content
-              </amw-tab>
-            </amw-tabs>
-          </div>
-        </div>
-      </div>
-    </amw-accordion-panel>
-
-    <!-- Lazy Loaded Tabs -->
-    <amw-accordion-panel amwDescription="Tab content loaded on demand">
-      <ng-template #header>
-        <amw-icon name="code"></amw-icon>
-        Lazy Loaded Tabs
-      </ng-template>
-      <div class="example-container">
-        <div class="code-panel">
-          <div class="code-header">
-            <h4>Code</h4>
-            <amw-button icon="refresh" (click)="resetCode('lazy')" title="Reset to original"></amw-button>
-          </div>
-          <textarea
-            [(ngModel)]="editableCode.lazy"
-            class="code-editor"
-            spellcheck="false"></textarea>
-        </div>
-        <div class="preview-panel">
-          <h4>Preview</h4>
-          <div class="preview-content">
-            <amw-tabs>
-              <amw-tab label="Eager">
-                This content is loaded immediately
-              </amw-tab>
-              <amw-tab label="Lazy">
-                This content is lazy loaded
-              </amw-tab>
-            </amw-tabs>
-            <div class="preview-note">
-              <amw-icon name="info"></amw-icon>
-              <span>Note: Lazy loading requires matTabContent directive</span>
-            </div>
-          </div>
-        </div>
-      </div>
-    </amw-accordion-panel>
-
-    <!-- Dynamic Tabs -->
-    <amw-accordion-panel amwDescription="Tabs generated from data array">
-      <ng-template #header>
-        <amw-icon name="code"></amw-icon>
-        Dynamic Tabs
-      </ng-template>
-      <div class="example-container">
-        <div class="code-panel">
-          <div class="code-header">
-            <h4>Code</h4>
-            <amw-button icon="refresh" (click)="resetCode('dynamic')" title="Reset to original"></amw-button>
-          </div>
-          <textarea
-            [(ngModel)]="editableCode.dynamic"
-            class="code-editor"
-            spellcheck="false"></textarea>
-        </div>
-        <div class="preview-panel">
-          <h4>Preview</h4>
-          <div class="preview-content">
-            <amw-tabs [(selectedIndex)]="selectedIndex">
-              @for (tab of dynamicTabs; track tab) {
-                <amw-tab [label]="tab.label">
-                  {{ tab.content }}
-                </amw-tab>
-              }
-            </amw-tabs>
-            <div class="preview-note">
-              <amw-icon name="info"></amw-icon>
-              <span>Note: Dynamic tabs require component logic</span>
-            </div>
-          </div>
-        </div>
-      </div>
-    </amw-accordion-panel>
-
-    <!-- Styled Tabs -->
-    <amw-accordion-panel amwDescription="Tabs with custom colors and disabled state">
-      <ng-template #header>
-        <amw-icon name="code"></amw-icon>
-        Styled Tabs
-      </ng-template>
-      <div class="example-container">
-        <div class="code-panel">
-          <div class="code-header">
-            <h4>Code</h4>
-            <amw-button icon="refresh" (click)="resetCode('styled')" title="Reset to original"></amw-button>
-          </div>
-          <textarea
-            [(ngModel)]="editableCode.styled"
-            class="code-editor"
-            spellcheck="false"></textarea>
-        </div>
-        <div class="preview-panel">
-          <h4>Preview</h4>
-          <div class="preview-content">
-            <amw-tabs color="accent">
-              <amw-tab label="Primary Tab">
-                Content with custom colors
-              </amw-tab>
-              <amw-tab label="Accent Tab">
-                More content
-              </amw-tab>
-              <amw-tab label="Disabled" [disabled]="true">
-                Disabled content
-              </amw-tab>
-            </amw-tabs>
-          </div>
-        </div>
-      </div>
-    </amw-accordion-panel>
-  </amw-accordion>
-</div>
+      }
+      @case ('styled') {
+        <amw-tabs color="accent">
+          <amw-tab label="Primary Tab">Content with custom colors</amw-tab>
+          <amw-tab label="Accent Tab">More content</amw-tab>
+          <amw-tab label="Disabled" [disabled]="true">Disabled content</amw-tab>
+        </amw-tabs>
+      }
+    }
+  </ng-template>
+</amw-code-doc>

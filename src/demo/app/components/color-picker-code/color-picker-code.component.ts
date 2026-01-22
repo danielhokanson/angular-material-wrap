@@ -1,29 +1,26 @@
 import { Component, ViewEncapsulation, OnInit } from '@angular/core';
 import { FormsModule, ReactiveFormsModule, FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { CommonModule } from '@angular/common';
-import { BaseCodeComponent } from '../base/base-code.component';
+import { AmwCodeDocComponent, CodeExample } from '../../shared/components/code-doc/code-doc.component';
 import { AmwColorPickerComponent } from '../../../../library/src/controls/components/amw-color-picker/amw-color-picker.component';
-
-type ColorPickerExamples = 'basic' | 'mode' | 'validation' | 'configuration';
-
 import { AmwButtonComponent } from '../../../../library/src/controls/components/amw-button/amw-button.component';
-import { AmwAccordionComponent, AmwAccordionPanelComponent, AmwIconComponent } from '../../../../library/src/components/components';
+
 @Component({
   selector: 'amw-demo-color-picker-code',
   standalone: true,
-  imports: [CommonModule,
+  imports: [
+    CommonModule,
     FormsModule,
     ReactiveFormsModule,
+    AmwCodeDocComponent,
     AmwColorPickerComponent,
-    AmwButtonComponent,
-    AmwAccordionComponent,
-    AmwAccordionPanelComponent,
-    AmwIconComponent],
+    AmwButtonComponent
+  ],
   encapsulation: ViewEncapsulation.None,
   templateUrl: './color-picker-code.component.html',
   styleUrl: './color-picker-code.component.scss'
 })
-export class ColorPickerCodeComponent extends BaseCodeComponent<ColorPickerExamples> implements OnInit {
+export class ColorPickerCodeComponent implements OnInit {
   // State for live preview examples
   selectedColor = '#FF5722';
   customColor = '#2196F3';
@@ -31,9 +28,16 @@ export class ColorPickerCodeComponent extends BaseCodeComponent<ColorPickerExamp
   isDisabled = false;
   colorForm!: FormGroup;
 
-  // Original code examples (for reset functionality)
-  readonly codeExamples: Record<ColorPickerExamples, string> = {
-    basic: `<amw-color-picker
+  // Editable code for the shared component
+  editableCode: Record<string, string> = {};
+
+  // Code examples data
+  readonly examples: CodeExample[] = [
+    {
+      key: 'basic',
+      title: 'Basic Color Picker',
+      description: 'Simple color picker with default palette',
+      code: `<amw-color-picker
   [value]="selectedColor"
   (colorChange)="onColorChange($event)">
 </amw-color-picker>
@@ -45,9 +49,13 @@ export class MyComponent {
   onColorChange(color: string) {
     console.log('Selected color:', color);
   }
-}`,
-
-    mode: `<amw-color-picker
+}`
+    },
+    {
+      key: 'mode',
+      title: 'Custom Color Mode',
+      description: 'Color picker with custom color input',
+      code: `<amw-color-picker
   [value]="selectedColor"
   mode="custom"
   (colorChange)="onColorChange($event)">
@@ -60,9 +68,13 @@ export class MyComponent {
   onColorChange(color: string) {
     console.log('Selected color:', color);
   }
-}`,
-
-    validation: `<form [formGroup]="colorForm">
+}`
+    },
+    {
+      key: 'validation',
+      title: 'Form Validation',
+      description: 'Color picker with form validation',
+      code: `<form [formGroup]="colorForm">
   <amw-color-picker
     label="Select Color"
     formControlName="color"
@@ -81,9 +93,13 @@ export class MyComponent implements OnInit {
       color: ['', Validators.required]
     });
   }
-}`,
-
-    configuration: `<amw-color-picker
+}`
+    },
+    {
+      key: 'configuration',
+      title: 'Advanced Configuration',
+      description: 'Color picker with custom configuration',
+      code: `<amw-color-picker
   [value]="selectedColor"
   [config]="colorPickerConfig"
   mode="all"
@@ -109,14 +125,16 @@ export class MyComponent {
     console.log('Selected color:', color);
   }
 }`
-  };
+    }
+  ];
 
-  constructor(private fb: FormBuilder) {
-    super();
-  }
+  constructor(private fb: FormBuilder) {}
 
-  override ngOnInit(): void {
-    super.ngOnInit();
+  ngOnInit(): void {
+    // Initialize editable code from examples
+    this.examples.forEach(example => {
+      this.editableCode[example.key] = example.code;
+    });
 
     // Initialize form for validation example
     this.colorForm = this.fb.group({
@@ -129,4 +147,3 @@ export class MyComponent {
     console.log('Selected color:', color);
   }
 }
-

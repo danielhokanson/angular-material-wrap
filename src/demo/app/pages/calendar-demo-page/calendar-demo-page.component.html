@@ -1,335 +1,336 @@
-<div class="amw-demo-calendar-page">
-  <div class="demo-header">
+<div class="calendar-demo-page">
+  <div class="calendar-demo-page__header">
     <h1>AMW Calendar Components</h1>
-    <p>Comprehensive calendar components with event management and multiple view modes</p>
+    <p>Comprehensive calendar components with event management and multiple view modes.</p>
   </div>
 
-  <amw-tabs [(selectedIndex)]="selectedTab" class="demo-tabs">
-    
-    <!-- Full Calendar Tab -->
-    <amw-tab label="Full Calendar" icon="calendar_view_month">
-      <div class="tab-content">
-        <amw-card class="demo-card">
-          <ng-template #cardHeader>
-            <h2>Full Calendar Component</h2>
-            <p class="subtitle">Full-screen calendar with month, week, and day views</p>
-          </ng-template>
-          <ng-template #cardContent>
-            <div class="demo-section">
-              <h3>Interactive Calendar</h3>
-              <p>Full-featured calendar with drag-and-drop, editing, and multiple view modes</p>
-              
-              <!-- Demo Controls -->
-              <div class="demo-controls">
-                <amw-button appearance="elevated" 
-                        color="primary" 
-                        (click)="addSampleEvent()" icon="add" iconPosition="left">Add Sample Event</amw-button>
-                <amw-button appearance="text" 
-                        (click)="clearAllEvents()" icon="clear" iconPosition="left">Clear All</amw-button>
-                <amw-button appearance="text"
-                        (click)="resetSampleEvents()" icon="refresh" iconPosition="left">Reset Sample</amw-button>
-              </div>
+  <!-- Outer tabs: Demo, Code, API -->
+  <amw-tabs>
+    <!-- Demo Tab -->
+    <amw-tab label="Demo">
+      <div class="demo-container">
+        <div class="amw-demo-calendar-page">
+          <div class="demo-header">
+            <h2>Calendar Demo</h2>
+            <p>Interactive calendar components with drag-and-drop support</p>
+          </div>
 
-              <!-- Full Calendar Component -->
-              <div class="calendar-container">
-                <amw-calendar-full
-                  [events]="sampleEvents"
-                  [config]="fullCalendarConfig"
-                  [currentDate]="currentDate"
-                  [height]="'600px'"
-                  (eventChange)="onEventChange($event)"
-                  (eventClick)="onEventClick($event)"
-                  (eventDoubleClick)="onEventDoubleClick($event)"
-                  (eventEdit)="onEventEdit($event)"
-                  (eventDelete)="onEventDelete($event)"
-                  (eventMove)="onEventMove($event)"
-                  (navigationChange)="onNavigationChange($event)"
-                  (viewChange)="onViewChange($event)"
-                  (dateChange)="onDateChange($event)"
-                  (cellClick)="onCellClick($event)"
-                  (cellDoubleClick)="onCellDoubleClick($event)">
-                </amw-calendar-full>
+          <!-- Inner tabs: Full Calendar, Mini Calendar, Features -->
+          <amw-tabs [(selectedIndex)]="selectedTab" class="demo-tabs">
+
+            <!-- Full Calendar Tab -->
+            <amw-tab label="Full Calendar" icon="calendar_view_month">
+              <div class="tab-content">
+                <amw-card class="demo-card">
+                  <ng-template #cardHeader>
+                    <h3>Full Calendar Component</h3>
+                    <p class="subtitle">Full-screen calendar with month, week, and day views</p>
+                  </ng-template>
+                  <ng-template #cardContent>
+                    <div class="demo-section">
+                      <h4>Interactive Calendar</h4>
+                      <p>Full-featured calendar with drag-and-drop, editing, and multiple view modes</p>
+
+                      <!-- Demo Controls -->
+                      <div class="demo-controls">
+                        <amw-button appearance="elevated"
+                                color="primary"
+                                (click)="addSampleEvent()" icon="add" iconPosition="left">Add Sample Event</amw-button>
+                        <amw-button appearance="text"
+                                (click)="clearAllEvents()" icon="clear" iconPosition="left">Clear All</amw-button>
+                        <amw-button appearance="text"
+                                (click)="resetSampleEvents()" icon="refresh" iconPosition="left">Reset Sample</amw-button>
+                      </div>
+
+                      <!-- Full Calendar Component -->
+                      <div class="calendar-container">
+                        <amw-calendar-full
+                          [events]="sampleEvents"
+                          [config]="fullCalendarConfig"
+                          [currentDate]="currentDate"
+                          [height]="'600px'"
+                          (eventChange)="onEventChange($event)"
+                          (eventClick)="onEventClick($event)"
+                          (eventDoubleClick)="onEventDoubleClick($event)"
+                          (eventEdit)="onEventEdit($event)"
+                          (eventDelete)="onEventDelete($event)"
+                          (eventMove)="onEventMove($event)"
+                          (navigationChange)="onNavigationChange($event)"
+                          (viewChange)="onViewChange($event)"
+                          (dateChange)="onDateChange($event)"
+                          (cellClick)="onCellClick($event)"
+                          (cellDoubleClick)="onCellDoubleClick($event)">
+                        </amw-calendar-full>
+                      </div>
+                    </div>
+                  </ng-template>
+                </amw-card>
               </div>
-            </div>
-          </ng-template>
-</amw-card>
+            </amw-tab>
+
+            <!-- Mini Calendar Tab -->
+            <amw-tab label="Mini Calendar" icon="calendar_today">
+              <div class="tab-content">
+                <amw-card class="demo-card">
+                  <ng-template #cardHeader>
+                    <h3>Mini Calendar Component</h3>
+                    <p class="subtitle">Compact calendar for single day and week views</p>
+                  </ng-template>
+                  <ng-template #cardContent>
+                    <div class="demo-section">
+                      <h4>Single Day View</h4>
+                      <p>Compact calendar showing events for a single day</p>
+
+                      <!-- Mini Calendar - Single Day -->
+                      <div class="calendar-container mini">
+                        <amw-calendar-mini
+                          [events]="sampleEvents"
+                          [config]="miniCalendarConfig"
+                          [currentDate]="currentDate"
+                          [showWeekView]="false"
+                          [maxEventsPerDay]="3"
+                          [showMoreButton]="true"
+                          [compactMode]="false"
+                          (eventChange)="onEventChange($event)"
+                          (eventClick)="onEventClick($event)"
+                          (eventDoubleClick)="onEventDoubleClick($event)"
+                          (eventEdit)="onEventEdit($event)"
+                          (eventDelete)="onEventDelete($event)"
+                          (eventMove)="onEventMove($event)"
+                          (navigationChange)="onNavigationChange($event)"
+                          (viewChange)="onViewChange($event)"
+                          (dateChange)="onDateChange($event)"
+                          (showMoreClick)="onShowMoreClick($event)"
+                          (weekViewToggle)="onWeekViewToggle($event)">
+                        </amw-calendar-mini>
+                      </div>
+                    </div>
+
+                    <amw-divider></amw-divider>
+
+                    <div class="demo-section">
+                      <h4>Week View</h4>
+                      <p>Mini calendar showing events for an entire week</p>
+
+                      <!-- Mini Calendar - Week View -->
+                      <div class="calendar-container mini">
+                        <amw-calendar-mini
+                          [events]="sampleEvents"
+                          [config]="miniCalendarConfig"
+                          [currentDate]="currentDate"
+                          [showWeekView]="true"
+                          [maxEventsPerDay]="2"
+                          [showMoreButton]="true"
+                          [compactMode]="false"
+                          (eventChange)="onEventChange($event)"
+                          (eventClick)="onEventClick($event)"
+                          (eventDoubleClick)="onEventDoubleClick($event)"
+                          (eventEdit)="onEventEdit($event)"
+                          (eventDelete)="onEventDelete($event)"
+                          (eventMove)="onEventMove($event)"
+                          (navigationChange)="onNavigationChange($event)"
+                          (viewChange)="onViewChange($event)"
+                          (dateChange)="onDateChange($event)"
+                          (showMoreClick)="onShowMoreClick($event)"
+                          (weekViewToggle)="onWeekViewToggle($event)">
+                        </amw-calendar-mini>
+                      </div>
+                    </div>
+
+                    <amw-divider></amw-divider>
+
+                    <div class="demo-section">
+                      <h4>Compact Mode</h4>
+                      <p>Ultra-compact mini calendar for space-constrained layouts</p>
+
+                      <!-- Mini Calendar - Compact Mode -->
+                      <div class="calendar-container mini compact">
+                        <amw-calendar-mini
+                          [events]="sampleEvents"
+                          [config]="miniCalendarConfig"
+                          [currentDate]="currentDate"
+                          [showWeekView]="true"
+                          [maxEventsPerDay]="1"
+                          [showMoreButton]="true"
+                          [compactMode]="true"
+                          (eventChange)="onEventChange($event)"
+                          (eventClick)="onEventClick($event)"
+                          (eventDoubleClick)="onEventDoubleClick($event)"
+                          (eventEdit)="onEventEdit($event)"
+                          (eventDelete)="onEventDelete($event)"
+                          (eventMove)="onEventMove($event)"
+                          (navigationChange)="onNavigationChange($event)"
+                          (viewChange)="onViewChange($event)"
+                          (dateChange)="onDateChange($event)"
+                          (showMoreClick)="onShowMoreClick($event)"
+                          (weekViewToggle)="onWeekViewToggle($event)">
+                        </amw-calendar-mini>
+                      </div>
+                    </div>
+                  </ng-template>
+                </amw-card>
+              </div>
+            </amw-tab>
+
+            <!-- Features Tab -->
+            <amw-tab label="Features" icon="star">
+              <div class="tab-content">
+                <amw-card class="demo-card">
+                  <ng-template #cardHeader>
+                    <h3>Calendar Features</h3>
+                    <p class="subtitle">Comprehensive feature overview</p>
+                  </ng-template>
+                  <ng-template #cardContent>
+                    <div class="features-grid">
+                      <div class="feature-item">
+                        <amw-icon name="event"></amw-icon>
+                        <h4>Event Management</h4>
+                        <p>Create, edit, delete, and move events with drag-and-drop support</p>
+                      </div>
+
+                      <div class="feature-item">
+                        <amw-icon name="view_module"></amw-icon>
+                        <h4>Multiple Views</h4>
+                        <p>Month, week, and day views with smooth transitions</p>
+                      </div>
+
+                      <div class="feature-item">
+                        <amw-icon name="drag_indicator"></amw-icon>
+                        <h4>Drag and Drop</h4>
+                        <p>Intuitive drag-and-drop for moving events between dates and times</p>
+                      </div>
+
+                      <div class="feature-item">
+                        <amw-icon name="palette"></amw-icon>
+                        <h4>Customizable</h4>
+                        <p>Custom colors, styling, and event rendering</p>
+                      </div>
+
+                      <div class="feature-item">
+                        <amw-icon name="code"></amw-icon>
+                        <h4>Generic Types</h4>
+                        <p>Strongly typed with TypeScript generics for any data type</p>
+                      </div>
+
+                      <div class="feature-item">
+                        <amw-icon name="responsive"></amw-icon>
+                        <h4>Responsive</h4>
+                        <p>Fully responsive design that works on all screen sizes</p>
+                      </div>
+
+                      <div class="feature-item">
+                        <amw-icon name="accessibility"></amw-icon>
+                        <h4>Accessible</h4>
+                        <p>Built with accessibility in mind, supporting screen readers</p>
+                      </div>
+
+                      <div class="feature-item">
+                        <amw-icon name="settings"></amw-icon>
+                        <h4>Configurable</h4>
+                        <p>Highly configurable with extensive customization options</p>
+                      </div>
+                    </div>
+                  </ng-template>
+                </amw-card>
+              </div>
+            </amw-tab>
+          </amw-tabs>
+        </div>
       </div>
     </amw-tab>
 
-    <!-- Mini Calendar Tab -->
-    <amw-tab label="Mini Calendar" icon="calendar_today">
-      <div class="tab-content">
-        <amw-card class="demo-card">
-          <ng-template #cardHeader>
-            <h2>Mini Calendar Component</h2>
-            <p class="subtitle">Compact calendar for single day and week views</p>
-          </ng-template>
-          <ng-template #cardContent>
-            <div class="demo-section">
-              <h3>Single Day View</h3>
-              <p>Compact calendar showing events for a single day</p>
-              
-              <!-- Mini Calendar - Single Day -->
-              <div class="calendar-container mini">
-                <amw-calendar-mini
-                  [events]="sampleEvents"
-                  [config]="miniCalendarConfig"
-                  [currentDate]="currentDate"
-                  [showWeekView]="false"
-                  [maxEventsPerDay]="3"
-                  [showMoreButton]="true"
-                  [compactMode]="false"
-                  (eventChange)="onEventChange($event)"
-                  (eventClick)="onEventClick($event)"
-                  (eventDoubleClick)="onEventDoubleClick($event)"
-                  (eventEdit)="onEventEdit($event)"
-                  (eventDelete)="onEventDelete($event)"
-                  (eventMove)="onEventMove($event)"
-                  (navigationChange)="onNavigationChange($event)"
-                  (viewChange)="onViewChange($event)"
-                  (dateChange)="onDateChange($event)"
-                  (showMoreClick)="onShowMoreClick($event)"
-                  (weekViewToggle)="onWeekViewToggle($event)">
-                </amw-calendar-mini>
-              </div>
-            </div>
+    <!-- Code Tab -->
+    <amw-tab label="Code">
+      <amw-card>
+        <ng-template #cardContent>
+          <h3>Basic Calendar Page Structure</h3>
+          <pre><code>{{ codeExamples.basicUsage }}</code></pre>
 
-            <amw-divider></amw-divider>
+          <h3>Full Calendar Component</h3>
+          <p>Full-featured calendar with all event bindings:</p>
+          <pre><code>{{ codeExamples.fullCalendarPattern }}</code></pre>
 
-            <div class="demo-section">
-              <h3>Week View</h3>
-              <p>Mini calendar showing events for an entire week</p>
-              
-              <!-- Mini Calendar - Week View -->
-              <div class="calendar-container mini">
-                <amw-calendar-mini
-                  [events]="sampleEvents"
-                  [config]="miniCalendarConfig"
-                  [currentDate]="currentDate"
-                  [showWeekView]="true"
-                  [maxEventsPerDay]="2"
-                  [showMoreButton]="true"
-                  [compactMode]="false"
-                  (eventChange)="onEventChange($event)"
-                  (eventClick)="onEventClick($event)"
-                  (eventDoubleClick)="onEventDoubleClick($event)"
-                  (eventEdit)="onEventEdit($event)"
-                  (eventDelete)="onEventDelete($event)"
-                  (eventMove)="onEventMove($event)"
-                  (navigationChange)="onNavigationChange($event)"
-                  (viewChange)="onViewChange($event)"
-                  (dateChange)="onDateChange($event)"
-                  (showMoreClick)="onShowMoreClick($event)"
-                  (weekViewToggle)="onWeekViewToggle($event)">
-                </amw-calendar-mini>
-              </div>
-            </div>
+          <h3>Mini Calendar Component</h3>
+          <p>Compact calendar variations:</p>
+          <pre><code>{{ codeExamples.miniCalendarPattern }}</code></pre>
 
-            <amw-divider></amw-divider>
+          <h3>Component Implementation</h3>
+          <pre><code>{{ codeExamples.componentCode }}</code></pre>
 
-            <div class="demo-section">
-              <h3>Compact Mode</h3>
-              <p>Ultra-compact mini calendar for space-constrained layouts</p>
-              
-              <!-- Mini Calendar - Compact Mode -->
-              <div class="calendar-container mini compact">
-                <amw-calendar-mini
-                  [events]="sampleEvents"
-                  [config]="miniCalendarConfig"
-                  [currentDate]="currentDate"
-                  [showWeekView]="true"
-                  [maxEventsPerDay]="1"
-                  [showMoreButton]="true"
-                  [compactMode]="true"
-                  (eventChange)="onEventChange($event)"
-                  (eventClick)="onEventClick($event)"
-                  (eventDoubleClick)="onEventDoubleClick($event)"
-                  (eventEdit)="onEventEdit($event)"
-                  (eventDelete)="onEventDelete($event)"
-                  (eventMove)="onEventMove($event)"
-                  (navigationChange)="onNavigationChange($event)"
-                  (viewChange)="onViewChange($event)"
-                  (dateChange)="onDateChange($event)"
-                  (showMoreClick)="onShowMoreClick($event)"
-                  (weekViewToggle)="onWeekViewToggle($event)">
-                </amw-calendar-mini>
-              </div>
-            </div>
-          </ng-template>
-</amw-card>
-      </div>
+          <h3>Key Features</h3>
+          <ul>
+            <li>Full Calendar with month, week, and day views</li>
+            <li>Mini Calendar for compact layouts</li>
+            <li>Drag-and-drop event management</li>
+            <li>Strongly typed events with TypeScript generics</li>
+            <li>Customizable event colors via configuration</li>
+            <li>Comprehensive event handlers for all interactions</li>
+            <li>Responsive design for all screen sizes</li>
+          </ul>
+
+          <h3>Best Practices</h3>
+          <ul>
+            <li>Define a typed interface for your event data</li>
+            <li>Use eventColor function for dynamic color coding</li>
+            <li>Handle all event change types (create, update, delete, move)</li>
+            <li>Provide visual feedback using notifications</li>
+            <li>Use Mini Calendar for dashboard widgets</li>
+            <li>Configure time slots based on your use case</li>
+          </ul>
+        </ng-template>
+      </amw-card>
     </amw-tab>
 
-    <!-- Features Tab -->
-    <amw-tab label="Features" icon="star">
-      <div class="tab-content">
-        <amw-card class="demo-card">
-          <ng-template #cardHeader>
-            <h2>Calendar Features</h2>
-            <p class="subtitle">Comprehensive feature overview</p>
-          </ng-template>
-          <ng-template #cardContent>
-            <div class="features-grid">
-              <div class="feature-item">
-                <amw-icon name="event"></amw-icon>
-                <h4>Event Management</h4>
-                <p>Create, edit, delete, and move events with drag-and-drop support</p>
-              </div>
+    <!-- API Tab -->
+    <amw-tab label="API">
+      <amw-api-doc
+        componentName="Calendar Demo Page Pattern"
+        [apiDocumentation]="calendarPageApiDoc"
+        [interfaces]="calendarPageInterfaces"
+        description="The Calendar Demo Page showcases the AMW Calendar components including Full Calendar and Mini Calendar with comprehensive event management capabilities.">
+      </amw-api-doc>
 
-              <div class="feature-item">
-                <amw-icon name="view_module"></amw-icon>
-                <h4>Multiple Views</h4>
-                <p>Month, week, and day views with smooth transitions</p>
-              </div>
+      <amw-card>
+        <ng-template #cardContent>
+          <h3>Components Used</h3>
+          <ul>
+            <li><code>AmwCalendarFullComponent</code> - Full-screen calendar with multiple views</li>
+            <li><code>AmwCalendarMiniComponent</code> - Compact calendar for sidebars and dashboards</li>
+            <li><code>AmwTabsComponent</code> / <code>AmwTabComponent</code> - For organizing demo sections</li>
+            <li><code>AmwCardComponent</code> - For grouping content</li>
+            <li><code>AmwDividerComponent</code> - For separating sections</li>
+            <li><code>AmwButtonComponent</code> - For demo controls</li>
+            <li><code>AmwIconComponent</code> - For feature icons</li>
+          </ul>
 
-              <div class="feature-item">
-                <amw-icon name="drag_indicator"></amw-icon>
-                <h4>Drag & Drop</h4>
-                <p>Intuitive drag-and-drop for moving events between dates and times</p>
-              </div>
+          <h3>Calendar Views</h3>
+          <ul>
+            <li><strong>Month View:</strong> Overview of the entire month with event indicators</li>
+            <li><strong>Week View:</strong> Detailed view of a week with time slots</li>
+            <li><strong>Day View:</strong> Detailed view of a single day with time slots</li>
+            <li><strong>Mini Calendar:</strong> Compact single day or week view</li>
+          </ul>
 
-              <div class="feature-item">
-                <amw-icon name="palette"></amw-icon>
-                <h4>Customizable</h4>
-                <p>Custom colors, styling, and event rendering</p>
-              </div>
+          <h3>Event Operations</h3>
+          <ul>
+            <li><strong>Create:</strong> Click or double-click on empty cell to create event</li>
+            <li><strong>Edit:</strong> Click on event to open edit dialog</li>
+            <li><strong>Delete:</strong> Use delete button in event popup</li>
+            <li><strong>Move:</strong> Drag and drop events to new dates/times</li>
+            <li><strong>Resize:</strong> Drag event edges to change duration</li>
+          </ul>
 
-              <div class="feature-item">
-                <amw-icon name="code"></amw-icon>
-                <h4>Generic Types</h4>
-                <p>Strongly typed with TypeScript generics for any data type</p>
-              </div>
-
-              <div class="feature-item">
-                <amw-icon name="responsive"></amw-icon>
-                <h4>Responsive</h4>
-                <p>Fully responsive design that works on all screen sizes</p>
-              </div>
-
-              <div class="feature-item">
-                <amw-icon name="accessibility"></amw-icon>
-                <h4>Accessible</h4>
-                <p>Built with accessibility in mind, supporting screen readers</p>
-              </div>
-
-              <div class="feature-item">
-                <amw-icon name="settings"></amw-icon>
-                <h4>Configurable</h4>
-                <p>Highly configurable with extensive customization options</p>
-              </div>
-            </div>
-          </ng-template>
-</amw-card>
-      </div>
-    </amw-tab>
-
-    <!-- Code Examples Tab -->
-    <amw-tab label="Code Examples" icon="code">
-      <div class="tab-content">
-        <amw-card class="demo-card">
-          <ng-template #cardHeader>
-            <h2>Usage Examples</h2>
-            <p class="subtitle">Code snippets and implementation examples</p>
-          </ng-template>
-          <ng-template #cardContent>
-            <div class="code-section">
-              <h3>Basic Usage</h3>
-              <div class="code-block">
-                <pre><code>&lt;!-- Full Calendar --&gt;
-&lt;amw-calendar-full
-  [events]="myEvents"
-  [config]="calendarConfig"
-  [currentDate]="selectedDate"
-  (eventChange)="onEventChange($event)"
-  (eventClick)="onEventClick($event)"&gt;
-&lt;/amw-calendar-full&gt;
-
-&lt;!-- Mini Calendar --&gt;
-&lt;amw-calendar-mini
-  [events]="myEvents"
-  [config]="miniConfig"
-  [showWeekView]="true"
-  [compactMode]="false"&gt;
-&lt;/amw-calendar-mini&gt;</code></pre>
-              </div>
-            </div>
-
-            <amw-divider></amw-divider>
-
-            <div class="code-section">
-              <h3>TypeScript Configuration</h3>
-              <div class="code-block">
-                <pre><code>// Event interface
-interface MyEvent &#123;
-  id: string;
-  title: string;
-  description?: string;
-  category: string;
-  priority: 'low' | 'medium' | 'high';
-&#125;
-
-// Calendar configuration
-const calendarConfig: CalendarConfig&lt;MyEvent&gt; = &#123;
-  displayProperty: 'title',
-  editable: true,
-  deletable: true,
-  draggable: true,
-  defaultDuration: 60,
-  allowCreate: true,
-  eventColor: (event) => event.data.priority === 'high' ? '#ba1a1a' : '#388e3c'
-&#125;;
-
-// Sample events
-const myEvents: CalendarEvent&lt;MyEvent&gt;[] = [
-  &#123;
-    id: '1',
-    data: &#123; id: '1', title: 'Meeting', category: 'work', priority: 'high' &#125;,
-    start: new Date(2024, 0, 15, 10, 0),
-    end: new Date(2024, 0, 15, 11, 0),
-    title: 'Meeting',
-    color: '#6750a4'
-  &#125;
-];</code></pre>
-              </div>
-            </div>
-
-            <amw-divider></amw-divider>
-
-            <div class="code-section">
-              <h3>Event Handlers</h3>
-              <div class="code-block">
-                <pre><code>// Event change handler
-onEventChange(event: CalendarEventChangeEvent&lt;MyEvent&gt;): void &#123;
-  switch (event.type) &#123;
-    case 'create':
-      // Handle event creation
-      break;
-    case 'update':
-      // Handle event update
-      break;
-    case 'delete':
-      // Handle event deletion
-      break;
-    case 'move':
-      // Handle event move
-      break;
-  &#125;
-&#125;
-
-// Event click handler
-onEventClick(event: CalendarEvent&lt;MyEvent&gt;): void &#123;
-  console.log('Event clicked:', event.data.title);
-&#125;
-
-// Event create handler
-onEventCreate(event: &#123; date: Date; time?: Date &#125;): void &#123;
-  console.log('Create event at:', event.date);
-&#125;</code></pre>
-              </div>
-            </div>
-          </ng-template>
-</amw-card>
-      </div>
+          <h3>Customization</h3>
+          <ul>
+            <li>Configure start/end hours for time views</li>
+            <li>Set time slot intervals (15, 30, 60 minutes)</li>
+            <li>Customize event colors based on data</li>
+            <li>Show/hide weekends</li>
+            <li>Enable/disable specific features (edit, delete, drag)</li>
+            <li>Set default event duration</li>
+          </ul>
+        </ng-template>
+      </amw-card>
     </amw-tab>
   </amw-tabs>
 </div>

@@ -6,6 +6,7 @@ import { AmwRangeSliderComponent } from '../../../../library/src/controls/compon
 import { AmwInputComponent } from '../../../../library/src/controls/components/amw-input/amw-input.component';
 import { AmwCheckboxComponent } from '../../../../library/src/controls/components/amw-checkbox/amw-checkbox.component';
 import { AmwSelectComponent } from '../../../../library/src/controls/components/amw-select/amw-select.component';
+import { AmwDemoDocComponent } from '../../shared/components/demo-doc/demo-doc.component';
 
 @Component({
     selector: 'amw-demo-range-slider',
@@ -16,6 +17,7 @@ import { AmwSelectComponent } from '../../../../library/src/controls/components/
         AmwInputComponent,
         AmwCheckboxComponent,
         AmwSelectComponent,
+        AmwDemoDocComponent,
     ],
     encapsulation: ViewEncapsulation.None,
     templateUrl: './range-slider-demo.component.html',

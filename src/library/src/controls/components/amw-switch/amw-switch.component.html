@@ -8,11 +8,11 @@
     <label class="amw-switch__label amw-switch__label--before">{{ label() }}</label>
   }
 
-  <!-- Signal Forms binding (scenario 3) - Field directive manages disabled, required automatically -->
-  @if (field()) {
+  <!-- Signal Forms binding (scenario 3) - FormField directive manages disabled, required automatically -->
+  @if (formField()) {
     <mat-slide-toggle
       class="amw-switch__toggle"
-      [field]="field()"
+      [formField]="formField()"
       [color]="color()">
 
       @if (label() && labelPosition() === 'after') {

@@ -8,6 +8,8 @@ import { AmwDatePipe } from '../../../../library/src/pipes/amw-date/amw-date.pip
 import { AmwTextTransformPipe } from '../../../../library/src/pipes/amw-text-transform/amw-text-transform.pipe';
 import { AmwTabsComponent, AmwTabComponent, AmwCardComponent } from '../../../../library/src/components/components';
 import { AmwInputComponent } from '../../../../library/src/controls/components/amw-input/amw-input.component';
+import { AmwApiDocComponent } from '../../shared/components/api-doc/api-doc.component';
+import { ApiDocumentation } from '../../components/base/base-api.component';
 
 @Component({
     selector: 'amw-demo-pipes',
@@ -21,6 +23,7 @@ import { AmwInputComponent } from '../../../../library/src/controls/components/a
     AmwTabComponent,
     AmwCardComponent,
     AmwInputComponent,
+    AmwApiDocComponent,
 ],
     encapsulation: ViewEncapsulation.None,
     templateUrl: './pipes-demo.component.html',
@@ -125,12 +128,12 @@ export class MyComponent {
     };
 
     // Currency Pipe API documentation
-    currencyPipeApiDocumentation = {
-        parameters: [
+    currencyPipeApiDoc: ApiDocumentation = {
+        inputs: [
             {
                 name: 'value',
                 type: 'number | string | null | undefined',
-                required: 'Yes',
+                default: 'Required',
                 description: 'The numeric value to format. String values will be parsed to numbers.'
             },
             {
@@ -158,23 +161,16 @@ export class MyComponent {
                 description: 'Locale code for number formatting (e.g., en-US, de-DE, fr-FR)'
             }
         ],
-        currencyCodes: [
-            { code: 'USD', symbol: '$', name: 'US Dollar' },
-            { code: 'EUR', symbol: '€', name: 'Euro' },
-            { code: 'GBP', symbol: '£', name: 'British Pound' },
-            { code: 'JPY', symbol: '¥', name: 'Japanese Yen' },
-            { code: 'CAD', symbol: 'CA$', name: 'Canadian Dollar' },
-            { code: 'AUD', symbol: 'A$', name: 'Australian Dollar' },
-            { code: 'CHF', symbol: 'CHF', name: 'Swiss Franc' },
-            { code: 'CNY', symbol: '¥', name: 'Chinese Yuan' }
-        ],
-        quickExamples: {
-            basic: "{{ 1234.56 | amwCurrency }}",
-            eurSymbol: "{{ 1234.56 | amwCurrency:'EUR' }}",
-            noDecimals: "{{ 1234 | amwCurrency:'USD':'symbol':'1.0-0' }}",
-            germanLocale: "{{ 1234.56 | amwCurrency:'EUR':'symbol':'1.2-2':'de-DE' }}"
-        },
-        digitFormatString: "{minIntegerDigits}.{minFractionDigits}-{maxFractionDigits}"
+        usageNotes: [
+            'Use {{ value | amwCurrency }} for default USD formatting',
+            'Supports ISO 4217 currency codes (USD, EUR, GBP, JPY, etc.)',
+            'Choose between symbol ($), code (USD), or name (US dollars) display modes',
+            'Digit formatting uses format: {minIntegerDigits}.{minFractionDigits}-{maxFractionDigits}',
+            'Uses Intl.NumberFormat for locale-specific formatting',
+            'Returns null for null, undefined, or empty string values',
+            'Automatically parses string values to numbers',
+            'Falls back to en-US/USD format if locale/currency is invalid'
+        ]
     };
 
     // Date Pipe code examples
@@ -237,12 +233,12 @@ export class MyComponent {
     };
 
     // Date Pipe API documentation
-    datePipeApiDocumentation = {
-        parameters: [
+    datePipeApiDoc: ApiDocumentation = {
+        inputs: [
             {
                 name: 'value',
                 type: 'Date | string | number | null | undefined',
-                required: 'Yes',
+                default: 'Required',
                 description: 'The date value to format. Accepts Date objects, ISO strings, or timestamps.'
             },
             {
@@ -264,56 +260,16 @@ export class MyComponent {
                 description: 'Locale code for date formatting (e.g., en-US, de-DE, fr-FR, ja-JP)'
             }
         ],
-        formats: [
-            {
-                format: 'short',
-                pattern: 'MMM d, y',
-                example: 'Jan 15, 2025',
-                description: 'Short date format'
-            },
-            {
-                format: 'medium',
-                pattern: 'MMM d, y, h:mm a',
-                example: 'Jan 15, 2025, 10:30 AM',
-                description: 'Medium date and time format'
-            },
-            {
-                format: 'long',
-                pattern: 'MMMM d, y, h:mm:ss a',
-                example: 'January 15, 2025, 10:30:45 AM',
-                description: 'Long date and time with seconds'
-            },
-            {
-                format: 'full',
-                pattern: 'EEEE, MMMM d, y, h:mm:ss a',
-                example: 'Monday, January 15, 2025, 10:30:45 AM',
-                description: 'Full date with weekday'
-            },
-            {
-                format: 'date',
-                pattern: 'MMM d, y',
-                example: 'Jan 15, 2025',
-                description: 'Date only (no time)'
-            },
-            {
-                format: 'time',
-                pattern: 'h:mm a',
-                example: '10:30 AM',
-                description: 'Time only (no date)'
-            },
-            {
-                format: 'datetime',
-                pattern: 'MMM d, y, h:mm a',
-                example: 'Jan 15, 2025, 10:30 AM',
-                description: 'Date and time (same as medium)'
-            }
-        ],
-        quickExamples: {
-            basic: "{{ date | amwDate }}",
-            shortFormat: "{{ date | amwDate:'short' }}",
-            timeOnly: "{{ date | amwDate:'time' }}",
-            germanLocale: "{{ date | amwDate:'medium':'':'de-DE' }}"
-        }
+        usageNotes: [
+            'Use {{ date | amwDate }} for default medium formatting',
+            'Accepts Date objects, ISO strings, or Unix timestamps',
+            'Choose from short, medium, long, full, date, time, or datetime formats',
+            'Uses Intl.DateTimeFormat for locale-specific formatting',
+            'Returns null for null, undefined, or empty string values',
+            'Returns null if the date cannot be parsed',
+            'Currently uses the browser\'s local timezone',
+            'Falls back to en-US format if locale is invalid'
+        ]
     };
 
     // Text Transform Pipe code examples
@@ -398,12 +354,12 @@ export class MyComponent {
     };
 
     // Text Transform Pipe API documentation
-    textTransformPipeApiDocumentation = {
-        parameters: [
+    textTransformPipeApiDoc: ApiDocumentation = {
+        inputs: [
             {
                 name: 'value',
                 type: 'string | null | undefined',
-                required: 'Yes',
+                default: 'Required',
                 description: 'The text string to transform. Returns null for null/undefined/empty values.'
             },
             {
@@ -413,48 +369,15 @@ export class MyComponent {
                 description: 'The type of transformation to apply to the text'
             }
         ],
-        transforms: [
-            {
-                type: 'uppercase',
-                description: 'Converts all characters to uppercase',
-                example: 'hello world → HELLO WORLD'
-            },
-            {
-                type: 'lowercase',
-                description: 'Converts all characters to lowercase',
-                example: 'HELLO WORLD → hello world'
-            },
-            {
-                type: 'capitalize',
-                description: 'Capitalizes the first character, lowercases the rest',
-                example: 'hello world → Hello world'
-            },
-            {
-                type: 'titlecase',
-                description: 'Capitalizes the first letter of each word',
-                example: 'hello world → Hello World'
-            },
-            {
-                type: 'camelcase',
-                description: 'Converts to camelCase (first word lowercase, subsequent words capitalized, no spaces)',
-                example: 'hello world → helloWorld'
-            },
-            {
-                type: 'kebabcase',
-                description: 'Converts to kebab-case (all lowercase, words separated by hyphens)',
-                example: 'hello world → hello-world'
-            },
-            {
-                type: 'snakecase',
-                description: 'Converts to snake_case (all lowercase, words separated by underscores)',
-                example: 'hello world → hello_world'
-            }
-        ],
-        quickExamples: {
-            uppercase: "{{ text | amwTextTransform:'uppercase' }}",
-            titleCase: "{{ text | amwTextTransform:'titlecase' }}",
-            camelCase: "{{ text | amwTextTransform:'camelcase' }}",
-            kebabCase: "{{ text | amwTextTransform:'kebabcase' }}"
-        }
+        usageNotes: [
+            'Use {{ text | amwTextTransform }} for uppercase transformation',
+            'Support for uppercase, lowercase, capitalize, and titlecase transformations',
+            'Convert between camelCase, kebab-case, and snake_case programming styles',
+            'Returns null for null, undefined, or empty string values',
+            'Only accepts string values (numbers and other types return null)',
+            'Programming styles remove or replace spaces appropriately',
+            'Handles hyphens and underscores intelligently in programming styles',
+            'Works seamlessly with component properties and form inputs'
+        ]
     };
 }

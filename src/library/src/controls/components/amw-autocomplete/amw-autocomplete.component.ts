@@ -1,7 +1,7 @@
 import { Component, input, output, ViewEncapsulation, ContentChild, TemplateRef } from '@angular/core';
 
 import { FormsModule, ReactiveFormsModule, ControlValueAccessor, NG_VALUE_ACCESSOR } from '@angular/forms';
-import { Field } from '@angular/forms/signals';
+import { FormField } from '@angular/forms/signals';
 import { NgTemplateOutlet } from '@angular/common';
 import { MatAutocompleteModule } from '@angular/material/autocomplete';
 import { MatFormFieldModule } from '@angular/material/form-field';
@@ -28,7 +28,7 @@ import { AmwAppearance } from '../../../shared/types/amw-appearance.type';
     imports: [
     FormsModule,
     ReactiveFormsModule,
-    Field,
+    FormField,
     NgTemplateOutlet,
     MatAutocompleteModule,
     MatFormFieldModule,
@@ -61,7 +61,7 @@ export class AmwAutocompleteComponent extends BaseComponent<any> implements Cont
      * Mutually exclusive with ngModel and formControl/formControlName.
      * @experimental
      */
-    field = input<any>(undefined);
+    formField = input<any>(undefined);
 
     options = input<AutocompleteOption[]>([]);
     multiple = input<boolean>(false);

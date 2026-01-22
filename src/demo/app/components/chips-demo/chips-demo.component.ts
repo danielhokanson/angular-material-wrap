@@ -9,6 +9,7 @@ import { AmwTabsComponent } from '../../../../library/src/components/components/
 import { AmwTabComponent } from '../../../../library/src/components/components/amw-tabs/amw-tab.component';
 import { AmwDividerComponent } from '../../../../library/src/components/components/amw-divider/amw-divider.component';
 import { AmwCardComponent } from '../../../../library/src/components/components';
+import { AmwDemoDocComponent } from '../../shared/components/demo-doc/demo-doc.component';
 
 @Component({
     selector: 'amw-demo-chips',
@@ -19,7 +20,8 @@ import { AmwCardComponent } from '../../../../library/src/components/components'
     AmwTabsComponent,
     AmwTabComponent,
     AmwDividerComponent,
-    AmwCardComponent
+    AmwCardComponent,
+    AmwDemoDocComponent
 ],
     encapsulation: ViewEncapsulation.None,
     templateUrl: './chips-demo.component.html',

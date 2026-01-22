@@ -1,55 +1,42 @@
-<div class="timepicker-validation">
-  <amw-card>
-    <ng-template #cardHeader>
-      <h2>Timepicker Validation Examples</h2>
-      <p class="subtitle">Form validation with timepicker controls</p>
-    </ng-template>
+<amw-validation-doc
+  componentName="amw-timepicker"
+  [validationForm]="validationForm"
+  [validationInfo]="validationInfo">
+  <ng-template #formContent>
+    <div class="timepicker-validation__form">
+      <amw-timepicker
+        label="Start Time *"
+        formControlName="startTime"
+        placeholder="Select start time"
+        [required]="true"
+        [errorMessage]="getTimeError('startTime')">
+      </amw-timepicker>
 
-    <ng-template #cardContent>
-      <form [formGroup]="timepickerForm" (ngSubmit)="onSubmit()">
-        <div class="timepicker-validation__form">
-          <amw-timepicker
-            label="Start Time *"
-            formControlName="startTime"
-            placeholder="Select start time"
-            [required]="true"
-            [errorMessage]="timepickerForm.get('startTime')?.hasError('required') ? 'Start time is required' : ''"
-          ></amw-timepicker>
+      <amw-timepicker
+        label="End Time *"
+        formControlName="endTime"
+        placeholder="Select end time"
+        [required]="true"
+        [errorMessage]="getTimeError('endTime')">
+      </amw-timepicker>
 
-          <amw-timepicker
-            label="End Time *"
-            formControlName="endTime"
-            placeholder="Select end time"
-            [required]="true"
-            [errorMessage]="timepickerForm.get('endTime')?.hasError('required') ? 'End time is required' : timepickerForm.get('endTime')?.hasError('timeAfter') ? 'End time must be after start time' : ''"
-          ></amw-timepicker>
+      <amw-timepicker
+        label="Break Time *"
+        formControlName="breakTime"
+        placeholder="Select break time"
+        format="12h"
+        [required]="true"
+        [errorMessage]="getTimeError('breakTime')">
+      </amw-timepicker>
 
-          <amw-timepicker
-            label="Break Time *"
-            formControlName="breakTime"
-            placeholder="Select break time"
-            format="12h"
-            [required]="true"
-            [errorMessage]="timepickerForm.get('breakTime')?.hasError('required') ? 'Break time is required' : ''"
-          ></amw-timepicker>
-
-          <amw-timepicker
-            label="Meeting Time *"
-            formControlName="meetingTime"
-            placeholder="Select meeting time"
-            [showSeconds]="true"
-            [required]="true"
-            [errorMessage]="timepickerForm.get('meetingTime')?.hasError('required') ? 'Meeting time is required' : ''"
-          ></amw-timepicker>
-        </div>
-
-        <div class="timepicker-validation__actions">
-          <amw-button appearance="text" type="button" (click)="onReset()">Reset</amw-button>
-          <amw-button appearance="elevated" color="primary" type="submit" [disabled]="timepickerForm.invalid">
-            Submit
-          </amw-button>
-        </div>
-      </form>
-    </ng-template>
-</amw-card>
-</div>
+      <amw-timepicker
+        label="Meeting Time *"
+        formControlName="meetingTime"
+        placeholder="Select meeting time"
+        [showSeconds]="true"
+        [required]="true"
+        [errorMessage]="getTimeError('meetingTime')">
+      </amw-timepicker>
+    </div>
+  </ng-template>
+</amw-validation-doc>

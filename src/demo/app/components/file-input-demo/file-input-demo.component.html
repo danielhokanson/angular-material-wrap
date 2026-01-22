@@ -1,175 +1,176 @@
-<div class="amw-demo-file-input">
-  <div class="demo-section">
-    <h3 class="demo-section__title">Basic File Input</h3>
-    <div class="demo-section__content">
-      <div class="variation-group">
-        <span class="variation-label">Default File Input</span>
-        <amw-file-input
-          [(selectedFiles)]="basicFiles"
-          (filesChange)="onFilesChange($event)"
-          (fileSelect)="onFileSelect($event)"
-          (fileRemove)="onFileRemove($event)">
-        </amw-file-input>
-        <small>Selected files: {{ basicFiles.length }}</small>
-      </div>
-    </div>
-  </div>
-
-  <div class="demo-section">
-    <h3 class="demo-section__title">Configuration Options</h3>
-    <div class="demo-section__content">
-      <div class="variation-group">
-        <span class="variation-label">Multiple Files</span>
-        <amw-file-input
-          [multiple]="true"
-          [maxFiles]="3"
-          [selectedFiles]="basicFiles"
-          (filesChange)="basicFiles = $event">
-          Upload Multiple Files
-        </amw-file-input>
-        <amw-checkbox [(ngModel)]="multiple">Allow Multiple</amw-checkbox>
-      </div>
-
-      <div class="variation-group">
-        <span class="variation-label">File Type Restrictions</span>
-        <amw-file-input
-          [accept]="'image/*'"
-          [selectedFiles]="basicFiles"
-          (filesChange)="basicFiles = $event">
-          Images Only
-        </amw-file-input>
-        <amw-file-input
-          [accept]="'application/pdf'"
-          [selectedFiles]="basicFiles"
-          (filesChange)="basicFiles = $event">
-          PDF Only
-        </amw-file-input>
-        <amw-file-input
-          [accept]="'.jpg,.jpeg,.png,.gif'"
-          [selectedFiles]="basicFiles"
-          (filesChange)="basicFiles = $event">
-          Specific Extensions
-        </amw-file-input>
-      </div>
-
-      <div class="variation-group">
-        <span class="variation-label">Size Restrictions</span>
-        <amw-file-input
-          [maxSize]="1024 * 1024"
-          [selectedFiles]="basicFiles"
-          (filesChange)="basicFiles = $event">
-          Max 1MB
-        </amw-file-input>
-        <amw-file-input
-          [maxSize]="50 * 1024 * 1024"
-          [selectedFiles]="basicFiles"
-          (filesChange)="basicFiles = $event">
-          Max 50MB
-        </amw-file-input>
-      </div>
-
-      <div class="variation-group">
-        <span class="variation-label">Display Options</span>
-        <amw-file-input
-          [showFileList]="false"
-          [selectedFiles]="basicFiles"
-          (filesChange)="basicFiles = $event">
-          No File List
-        </amw-file-input>
-        <amw-file-input
-          [allowDragDrop]="false"
-          [selectedFiles]="basicFiles"
-          (filesChange)="basicFiles = $event">
-          No Drag & Drop
-        </amw-file-input>
-        <amw-file-input
-          [disabled]="true"
-          [selectedFiles]="basicFiles"
-          (filesChange)="basicFiles = $event">
-          Disabled
-        </amw-file-input>
-      </div>
-    </div>
-  </div>
-
-  <div class="demo-section">
-    <h3 class="demo-section__title">Real-World Examples</h3>
-    <div class="demo-section__content">
-      <div class="variation-group">
-        <span class="variation-label">Image Upload</span>
-        <div class="real-world-example">
-          <div class="example-description">
-            Upload images with preview and size validation
+<amw-demo-doc componentName="amw-file-input">
+  <ng-template #content>
+    <div class="amw-demo-file-input">
+      <div class="demo-section">
+        <h3 class="demo-section__title">Basic File Input</h3>
+        <div class="demo-section__content">
+          <div class="variation-group">
+            <span class="variation-label">Default File Input</span>
+            <amw-file-input
+              [(selectedFiles)]="basicFiles"
+              (filesChange)="onFilesChange($event)"
+              (fileSelect)="onFileSelect($event)"
+              (fileRemove)="onFileRemove($event)">
+            </amw-file-input>
+            <small>Selected files: {{ basicFiles.length }}</small>
           </div>
-          <div class="example-controls">
+        </div>
+      </div>
+
+      <div class="demo-section">
+        <h3 class="demo-section__title">Configuration Options</h3>
+        <div class="demo-section__content">
+          <div class="variation-group">
+            <span class="variation-label">Multiple Files</span>
+            <amw-file-input
+              [multiple]="true"
+              [maxFiles]="3"
+              [selectedFiles]="basicFiles"
+              (filesChange)="basicFiles = $event">
+              Upload Multiple Files
+            </amw-file-input>
+            <amw-checkbox [(ngModel)]="multiple">Allow Multiple</amw-checkbox>
+          </div>
+
+          <div class="variation-group">
+            <span class="variation-label">File Type Restrictions</span>
             <amw-file-input
               [accept]="'image/*'"
-              [maxSize]="5 * 1024 * 1024"
-              [maxFiles]="5"
-              [multiple]="true"
-              [selectedFiles]="imageFiles"
-              (filesChange)="onImageFilesChange($event)"
-              placeholder="Upload images (max 5MB each)"
-              buttonText="Choose Images">
+              [selectedFiles]="basicFiles"
+              (filesChange)="basicFiles = $event">
+              Images Only
+            </amw-file-input>
+            <amw-file-input
+              [accept]="'application/pdf'"
+              [selectedFiles]="basicFiles"
+              (filesChange)="basicFiles = $event">
+              PDF Only
+            </amw-file-input>
+            <amw-file-input
+              [accept]="'.jpg,.jpeg,.png,.gif'"
+              [selectedFiles]="basicFiles"
+              (filesChange)="basicFiles = $event">
+              Specific Extensions
             </amw-file-input>
           </div>
-        </div>
-      </div>
 
-      <div class="variation-group">
-        <span class="variation-label">Document Upload</span>
-        <div class="real-world-example">
-          <div class="example-description">
-            Upload documents with type and size restrictions
-          </div>
-          <div class="example-controls">
+          <div class="variation-group">
+            <span class="variation-label">Size Restrictions</span>
             <amw-file-input
-              [accept]="'.pdf,.doc,.docx,.txt'"
-              [maxSize]="10 * 1024 * 1024"
-              [maxFiles]="3"
-              [multiple]="true"
-              [selectedFiles]="documentFiles"
-              (filesChange)="onDocumentFilesChange($event)"
-              placeholder="Upload documents (PDF, DOC, TXT)"
-              buttonText="Choose Documents">
-            </amw-file-input>
-          </div>
-        </div>
-      </div>
-
-      <div class="variation-group">
-        <span class="variation-label">Media Upload</span>
-        <div class="real-world-example">
-          <div class="example-description">
-            Upload video and audio files with large size limits
-          </div>
-          <div class="example-controls">
-            <amw-file-input
-              [accept]="'video/*'"
-              [maxSize]="100 * 1024 * 1024"
-              [maxFiles]="2"
-              [multiple]="true"
-              [selectedFiles]="videoFiles"
-              (filesChange)="onVideoFilesChange($event)"
-              placeholder="Upload videos (max 100MB each)"
-              buttonText="Choose Videos">
+              [maxSize]="1024 * 1024"
+              [selectedFiles]="basicFiles"
+              (filesChange)="basicFiles = $event">
+              Max 1MB
             </amw-file-input>
             <amw-file-input
-              [accept]="'audio/*'"
               [maxSize]="50 * 1024 * 1024"
-              [maxFiles]="3"
-              [multiple]="true"
-              [selectedFiles]="audioFiles"
-              (filesChange)="onAudioFilesChange($event)"
-              placeholder="Upload audio files (max 50MB each)"
-              buttonText="Choose Audio">
+              [selectedFiles]="basicFiles"
+              (filesChange)="basicFiles = $event">
+              Max 50MB
             </amw-file-input>
+          </div>
+
+          <div class="variation-group">
+            <span class="variation-label">Display Options</span>
+            <amw-file-input
+              [showFileList]="false"
+              [selectedFiles]="basicFiles"
+              (filesChange)="basicFiles = $event">
+              No File List
+            </amw-file-input>
+            <amw-file-input
+              [allowDragDrop]="false"
+              [selectedFiles]="basicFiles"
+              (filesChange)="basicFiles = $event">
+              No Drag & Drop
+            </amw-file-input>
+            <amw-file-input
+              [disabled]="true"
+              [selectedFiles]="basicFiles"
+              (filesChange)="basicFiles = $event">
+              Disabled
+            </amw-file-input>
+          </div>
+        </div>
+      </div>
+
+      <div class="demo-section">
+        <h3 class="demo-section__title">Real-World Examples</h3>
+        <div class="demo-section__content">
+          <div class="variation-group">
+            <span class="variation-label">Image Upload</span>
+            <div class="real-world-example">
+              <div class="example-description">
+                Upload images with preview and size validation
+              </div>
+              <div class="example-controls">
+                <amw-file-input
+                  [accept]="'image/*'"
+                  [maxSize]="5 * 1024 * 1024"
+                  [maxFiles]="5"
+                  [multiple]="true"
+                  [selectedFiles]="imageFiles"
+                  (filesChange)="onImageFilesChange($event)"
+                  placeholder="Upload images (max 5MB each)"
+                  buttonText="Choose Images">
+                </amw-file-input>
+              </div>
+            </div>
+          </div>
+
+          <div class="variation-group">
+            <span class="variation-label">Document Upload</span>
+            <div class="real-world-example">
+              <div class="example-description">
+                Upload documents with type and size restrictions
+              </div>
+              <div class="example-controls">
+                <amw-file-input
+                  [accept]="'.pdf,.doc,.docx,.txt'"
+                  [maxSize]="10 * 1024 * 1024"
+                  [maxFiles]="3"
+                  [multiple]="true"
+                  [selectedFiles]="documentFiles"
+                  (filesChange)="onDocumentFilesChange($event)"
+                  placeholder="Upload documents (PDF, DOC, TXT)"
+                  buttonText="Choose Documents">
+                </amw-file-input>
+              </div>
+            </div>
+          </div>
+
+          <div class="variation-group">
+            <span class="variation-label">Media Upload</span>
+            <div class="real-world-example">
+              <div class="example-description">
+                Upload video and audio files with large size limits
+              </div>
+              <div class="example-controls">
+                <amw-file-input
+                  [accept]="'video/*'"
+                  [maxSize]="100 * 1024 * 1024"
+                  [maxFiles]="2"
+                  [multiple]="true"
+                  [selectedFiles]="videoFiles"
+                  (filesChange)="onVideoFilesChange($event)"
+                  placeholder="Upload videos (max 100MB each)"
+                  buttonText="Choose Videos">
+                </amw-file-input>
+                <amw-file-input
+                  [accept]="'audio/*'"
+                  [maxSize]="50 * 1024 * 1024"
+                  [maxFiles]="3"
+                  [multiple]="true"
+                  [selectedFiles]="audioFiles"
+                  (filesChange)="onAudioFilesChange($event)"
+                  placeholder="Upload audio files (max 50MB each)"
+                  buttonText="Choose Audio">
+                </amw-file-input>
+              </div>
+            </div>
           </div>
         </div>
       </div>
     </div>
-  </div>
-</div>
-
-
-
+  </ng-template>
+</amw-demo-doc>

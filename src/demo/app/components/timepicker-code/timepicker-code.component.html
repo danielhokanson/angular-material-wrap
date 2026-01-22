@@ -1,169 +1,58 @@
-<div class="code-section">
-  <h3>Code Examples</h3>
-  <p>Interactive examples with live previews. The code is editable for reference, and working examples are shown alongside.</p>
+<amw-code-doc
+  componentName="amw-timepicker"
+  [examples]="examples"
+  [editableCode]="editableCode">
 
-  <amw-accordion class="code-examples-accordion">
-    <!-- Basic Timepicker -->
-    <amw-accordion-panel amwDescription="Simple timepicker with default settings">
-      <ng-template #header>
-        <amw-icon name="code"></amw-icon>
-        Basic Timepicker
-      </ng-template>
-      <div class="example-container">
-        <div class="code-panel">
-          <div class="code-header">
-            <h4>Code</h4>
-            <amw-button icon="refresh" (click)="resetCode('basic')" title="Reset to original"></amw-button>
-          </div>
-          <textarea
-            [(ngModel)]="editableCode.basic"
-            class="code-editor"
-            spellcheck="false"></textarea>
-        </div>
-        <div class="preview-panel">
-          <h4>Preview</h4>
-          <div class="preview-content">
-            <amw-timepicker
-              [(value)]="selectedTime"
-              (timeChange)="onTimeChange($event)">
-            </amw-timepicker>
-            <p>Selected time: {{ selectedTime }}</p>
-          </div>
-        </div>
-      </div>
-    </amw-accordion-panel>
-
-    <!-- 12-Hour Format -->
-    <amw-accordion-panel amwDescription="Timepicker with AM/PM display">
-      <ng-template #header>
-        <amw-icon name="code"></amw-icon>
-        12-Hour Format
-      </ng-template>
-      <div class="example-container">
-        <div class="code-panel">
-          <div class="code-header">
-            <h4>Code</h4>
-            <amw-button icon="refresh" (click)="resetCode('format')" title="Reset to original"></amw-button>
-          </div>
-          <textarea
-            [(ngModel)]="editableCode.format"
-            class="code-editor"
-            spellcheck="false"></textarea>
-        </div>
-        <div class="preview-panel">
-          <h4>Preview</h4>
-          <div class="preview-content">
-            <amw-timepicker
-              [(value)]="time12h"
-              format="12h"
-              (timeChange)="onTimeChange($event)">
-            </amw-timepicker>
-            <p>Selected time: {{ time12h }}</p>
-          </div>
-        </div>
-      </div>
-    </amw-accordion-panel>
-
-    <!-- With Seconds -->
-    <amw-accordion-panel amwDescription="Timepicker showing seconds">
-      <ng-template #header>
-        <amw-icon name="code"></amw-icon>
-        With Seconds
-      </ng-template>
-      <div class="example-container">
-        <div class="code-panel">
-          <div class="code-header">
-            <h4>Code</h4>
-            <amw-button icon="refresh" (click)="resetCode('seconds')" title="Reset to original"></amw-button>
-          </div>
-          <textarea
-            [(ngModel)]="editableCode.seconds"
-            class="code-editor"
-            spellcheck="false"></textarea>
-        </div>
-        <div class="preview-panel">
-          <h4>Preview</h4>
-          <div class="preview-content">
-            <amw-timepicker
-              [(value)]="timeWithSeconds"
-              [showSeconds]="true"
-              (timeChange)="onTimeChange($event)">
-            </amw-timepicker>
-            <p>Selected time: {{ timeWithSeconds }}</p>
-          </div>
-        </div>
-      </div>
-    </amw-accordion-panel>
-
-    <!-- Form Validation -->
-    <amw-accordion-panel amwDescription="Timepicker with form validation">
-      <ng-template #header>
-        <amw-icon name="code"></amw-icon>
-        Form Validation
-      </ng-template>
-      <div class="example-container">
-        <div class="code-panel">
-          <div class="code-header">
-            <h4>Code</h4>
-            <amw-button icon="refresh" (click)="resetCode('validation')" title="Reset to original"></amw-button>
-          </div>
-          <textarea
-            [(ngModel)]="editableCode.validation"
-            class="code-editor"
-            spellcheck="false"></textarea>
-        </div>
-        <div class="preview-panel">
-          <h4>Preview</h4>
-          <div class="preview-content">
-            <form [formGroup]="timeForm">
-              <amw-timepicker
-                formControlName="time"
-                label="Select Time *"
-                placeholder="Choose time"
-                [required]="true"
-                [errorMessage]="timeForm.get('time')?.hasError('required') ? 'Time is required' : ''">
-              </amw-timepicker>
-            </form>
-            <p>Form valid: {{ timeForm.valid ? 'Yes' : 'No' }}</p>
-          </div>
-        </div>
-      </div>
-    </amw-accordion-panel>
-
-    <!-- Advanced Configuration -->
-    <amw-accordion-panel amwDescription="Timepicker with custom configuration">
-      <ng-template #header>
-        <amw-icon name="code"></amw-icon>
-        Advanced Configuration
-      </ng-template>
-      <div class="example-container">
-        <div class="code-panel">
-          <div class="code-header">
-            <h4>Code</h4>
-            <amw-button icon="refresh" (click)="resetCode('configuration')" title="Reset to original"></amw-button>
-          </div>
-          <textarea
-            [(ngModel)]="editableCode.configuration"
-            class="code-editor"
-            spellcheck="false"></textarea>
-        </div>
-        <div class="preview-panel">
-          <h4>Preview</h4>
-          <div class="preview-content">
-            <amw-timepicker
-              [(value)]="advancedTime"
-              color="accent"
-              size="large"
-              [disabled]="isDisabled"
-              (timeChange)="onTimeChange($event)">
-            </amw-timepicker>
-            <p>Selected time: {{ advancedTime }}</p>
-            <amw-button appearance="text" (click)="isDisabled = !isDisabled">
-              {{ isDisabled ? 'Enable' : 'Disable' }} Timepicker
-            </amw-button>
-          </div>
-        </div>
-      </div>
-    </amw-accordion-panel>
-  </amw-accordion>
-</div>
+  <ng-template #preview let-example>
+    @switch (example.key) {
+      @case ('basic') {
+        <amw-timepicker
+          [(value)]="selectedTime"
+          (timeChange)="onTimeChange($event)">
+        </amw-timepicker>
+        <p>Selected time: {{ selectedTime }}</p>
+      }
+      @case ('format') {
+        <amw-timepicker
+          [(value)]="time12h"
+          format="12h"
+          (timeChange)="onTimeChange($event)">
+        </amw-timepicker>
+        <p>Selected time: {{ time12h }}</p>
+      }
+      @case ('seconds') {
+        <amw-timepicker
+          [(value)]="timeWithSeconds"
+          [showSeconds]="true"
+          (timeChange)="onTimeChange($event)">
+        </amw-timepicker>
+        <p>Selected time: {{ timeWithSeconds }}</p>
+      }
+      @case ('validation') {
+        <form [formGroup]="timeForm">
+          <amw-timepicker
+            formControlName="time"
+            label="Select Time *"
+            placeholder="Choose time"
+            [required]="true"
+            [errorMessage]="timeForm.get('time')?.hasError('required') ? 'Time is required' : ''">
+          </amw-timepicker>
+        </form>
+        <p>Form valid: {{ timeForm.valid ? 'Yes' : 'No' }}</p>
+      }
+      @case ('configuration') {
+        <amw-timepicker
+          [(value)]="advancedTime"
+          color="accent"
+          size="large"
+          [disabled]="isDisabled"
+          (timeChange)="onTimeChange($event)">
+        </amw-timepicker>
+        <p>Selected time: {{ advancedTime }}</p>
+        <amw-button appearance="text" (click)="isDisabled = !isDisabled">
+          {{ isDisabled ? 'Enable' : 'Disable' }} Timepicker
+        </amw-button>
+      }
+    }
+  </ng-template>
+</amw-code-doc>

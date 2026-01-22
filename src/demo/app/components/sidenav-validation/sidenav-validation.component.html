@@ -1,212 +1,206 @@
-<div class="sidenav-validation">
-  <!-- Header -->
-  <div class="sidenav-validation__header">
-    <h2>Sidenav Validation Demo</h2>
-    <p>Test form validation and error handling for sidenav configuration</p>
-  </div>
+<amw-validation-doc
+  componentName="amw-sidenav"
+  [validationForm]="validationForm"
+  [validationInfo]="validationInfo">
+  <ng-template #formContent>
+    <div class="sidenav-validation__content">
+      <!-- Configuration Form -->
+      <amw-card class="sidenav-validation__form-card">
+        <ng-template #cardHeader>
+          <h2>Configuration Validation</h2>
+          <p class="subtitle">Test validation rules for sidenav configuration</p>
+        </ng-template>
 
-  <div class="sidenav-validation__content">
-    <!-- Configuration Form -->
-    <amw-card class="sidenav-validation__form-card">
-      <ng-template #cardHeader>
-        <h2>Configuration Validation</h2>
-        <p class="subtitle">Test validation rules for sidenav configuration</p>
-      </ng-template>
+        <ng-template #cardContent>
+          <div class="sidenav-validation__form">
+            <div class="sidenav-validation__form-row">
+              <amw-select
+                label="Mode *"
+                formControlName="mode"
+                [options]="modeOptions"
+                [required]="true">
+              </amw-select>
 
-      <ng-template #cardContent>
-        <form [formGroup]="configForm" (ngSubmit)="onSubmit()" class="sidenav-validation__form">
-          <div class="sidenav-validation__form-row">
-            <amw-select
-              label="Mode *"
-              formControlName="mode"
-              [options]="modeOptions"
-              [required]="true">
-            </amw-select>
+              <amw-select
+                label="Size *"
+                formControlName="size"
+                [options]="sizeOptions"
+                [required]="true">
+              </amw-select>
 
-            <amw-select
-              label="Size *"
-              formControlName="size"
-              [options]="sizeOptions"
-              [required]="true">
-            </amw-select>
+              <amw-select
+                label="Position *"
+                formControlName="position"
+                [options]="positionOptions"
+                [required]="true">
+              </amw-select>
+            </div>
 
-            <amw-select
-              label="Position *"
-              formControlName="position"
-              [options]="positionOptions"
-              [required]="true">
-            </amw-select>
-          </div>
+            <div class="sidenav-validation__form-row">
+              <amw-input
+                label="Width"
+                formControlName="width"
+                placeholder="e.g., 300px"
+                hint="Enter width with unit (px, %, rem, em, vw, vh)">
+              </amw-input>
 
-          <div class="sidenav-validation__form-row">
-            <amw-input
-              label="Width"
-              formControlName="width"
-              placeholder="e.g., 300px"
-              hint="Enter width with unit (px, %, rem, em, vw, vh)">
-            </amw-input>
+              <amw-input
+                label="Min Width"
+                formControlName="minWidth"
+                placeholder="e.g., 200px"
+                hint="Enter minimum width with unit">
+              </amw-input>
 
-            <amw-input
-              label="Min Width"
-              formControlName="minWidth"
-              placeholder="e.g., 200px"
-              hint="Enter minimum width with unit">
-            </amw-input>
+              <amw-input
+                label="Max Width"
+                formControlName="maxWidth"
+                placeholder="e.g., 500px"
+                hint="Enter maximum width with unit">
+              </amw-input>
+            </div>
 
-            <amw-input
-              label="Max Width"
-              formControlName="maxWidth"
-              placeholder="e.g., 500px"
-              hint="Enter maximum width with unit">
-            </amw-input>
-          </div>
-
-          <div class="sidenav-validation__form-actions">
-            <amw-button appearance="elevated" color="primary" type="submit" icon="save" iconPosition="left">Update Configuration</amw-button>
-
-            <amw-button appearance="text" type="button" (click)="resetConfig()" icon="refresh" iconPosition="left">Reset</amw-button>
-          </div>
-        </form>
-      </ng-template>
-</amw-card>
-
-    <!-- Item Form -->
-    <amw-card class="sidenav-validation__form-card">
-      <ng-template #cardHeader>
-        <h2>Navigation Item Validation</h2>
-        <p class="subtitle">Test validation rules for navigation items</p>
-      </ng-template>
-
-      <ng-template #cardContent>
-        <form [formGroup]="itemForm" (ngSubmit)="onItemSubmit()" class="sidenav-validation__form">
-          <div class="sidenav-validation__form-row">
-            <amw-input
-              label="ID *"
-              formControlName="id"
-              placeholder="e.g., dashboard"
-              hint="2-50 characters, alphanumeric and underscores only"
-              [required]="true">
-            </amw-input>
-
-            <amw-input
-              label="Label *"
-              formControlName="label"
-              placeholder="e.g., Dashboard"
-              hint="2-100 characters"
-              [required]="true">
-            </amw-input>
-
-            <amw-input
-              label="Icon"
-              formControlName="icon"
-              placeholder="e.g., dashboard"
-              hint="Material icon name (alphanumeric and underscores only)">
-            </amw-input>
-          </div>
-
-          <div class="sidenav-validation__form-row">
-            <amw-input
-              label="Route"
-              formControlName="route"
-              placeholder="e.g., /dashboard"
-              hint="Angular route path (starts with /)">
-            </amw-input>
-
-            <amw-input
-              label="URL"
-              formControlName="href"
-              placeholder="e.g., https://example.com"
-              hint="External URL (starts with http:// or https://)">
-            </amw-input>
-
-            <amw-input
-              label="Tooltip"
-              formControlName="tooltip"
-              placeholder="e.g., View dashboard"
-              hint="Optional tooltip text (max 200 characters)">
-            </amw-input>
-          </div>
-
-          <div class="sidenav-validation__form-row">
-            <amw-input
-              label="Badge"
-              formControlName="badge"
-              placeholder="e.g., 5"
-              hint="Badge text (max 10 characters)">
-            </amw-input>
-
-            <amw-select
-              label="Badge Color"
-              formControlName="badgeColor"
-              [options]="badgeColorOptions">
-            </amw-select>
-
-            <div class="sidenav-validation__checkbox-group">
-              <amw-switch formControlName="disabled">
-                Disabled
-              </amw-switch>
+            <div class="sidenav-validation__form-actions">
+              <amw-button appearance="elevated" color="primary" type="button" (click)="onSubmit()" icon="save" iconPosition="left">Update Configuration</amw-button>
+              <amw-button appearance="text" type="button" (click)="resetConfig()" icon="refresh" iconPosition="left">Reset</amw-button>
             </div>
           </div>
+        </ng-template>
+      </amw-card>
 
-          <div class="sidenav-validation__form-actions">
-            <amw-button appearance="elevated" color="primary" type="submit" icon="add" iconPosition="left">Add Item</amw-button>
+      <!-- Item Form -->
+      <amw-card class="sidenav-validation__form-card">
+        <ng-template #cardHeader>
+          <h2>Navigation Item Validation</h2>
+          <p class="subtitle">Test validation rules for navigation items</p>
+        </ng-template>
 
-            <amw-button appearance="text" type="button" (click)="resetItem()" icon="refresh" iconPosition="left">Reset</amw-button>
-          </div>
-        </form>
-      </ng-template>
-</amw-card>
+        <ng-template #cardContent>
+          <form [formGroup]="itemForm" (ngSubmit)="onItemSubmit()" class="sidenav-validation__form">
+            <div class="sidenav-validation__form-row">
+              <amw-input
+                label="ID *"
+                formControlName="id"
+                placeholder="e.g., dashboard"
+                hint="2-50 characters, alphanumeric and underscores only"
+                [required]="true">
+              </amw-input>
 
-    <!-- Live Demo -->
-    <amw-card class="sidenav-validation__demo-card">
-      <ng-template #cardHeader>
-        <h2>Live Demo</h2>
-        <p class="subtitle">See the sidenav with current configuration</p>
-      </ng-template>
+              <amw-input
+                label="Label *"
+                formControlName="label"
+                placeholder="e.g., Dashboard"
+                hint="2-100 characters"
+                [required]="true">
+              </amw-input>
 
-      <ng-template #cardContent>
-        <div class="sidenav-validation__demo-container">
-          <amw-sidenav
-            [config]="currentConfig"
-            [items]="navigationItems"
-            [opened]="currentConfig.opened ?? false"
-            (openedChange)="onSidenavOpenedChange($event)"
-            (itemClick)="onItemClick($event)">
-
-            <!-- Main Content -->
-            <div class="sidenav-validation__main-content">
-              <amw-card class="sidenav-validation__content-card">
-                <ng-template #cardHeader>
-                  <h2>Validation Demo</h2>
-                  <p class="subtitle">Test the sidenav with different configurations</p>
-                </ng-template>
-
-                <ng-template #cardContent>
-                  <p>
-                    This demo shows how the sidenav component handles validation and error states.
-                    Try submitting invalid data to see validation errors in action.
-                  </p>
-
-                  <div class="sidenav-validation__validation-info">
-                    <h4>Validation Rules:</h4>
-                    <ul>
-                      <li><strong>Required fields:</strong> Mode, Size, Position, ID, Label</li>
-                      <li><strong>Width fields:</strong> Must include unit (px, %, rem, em, vw, vh)</li>
-                      <li><strong>ID:</strong> 2-50 characters, alphanumeric and underscores only</li>
-                      <li><strong>Label:</strong> 2-100 characters</li>
-                      <li><strong>Icon:</strong> Alphanumeric and underscores only</li>
-                      <li><strong>Route:</strong> Must start with /</li>
-                      <li><strong>URL:</strong> Must start with http:// or https://</li>
-                      <li><strong>Tooltip:</strong> Maximum 200 characters</li>
-                      <li><strong>Badge:</strong> Maximum 10 characters</li>
-                    </ul>
-                  </div>
-      </ng-template>
-</amw-card>
+              <amw-input
+                label="Icon"
+                formControlName="icon"
+                placeholder="e.g., dashboard"
+                hint="Material icon name (alphanumeric and underscores only)">
+              </amw-input>
             </div>
-          </amw-sidenav>
-        </div>
-      </ng-template>
-</amw-card>
-  </div>
-</div>
+
+            <div class="sidenav-validation__form-row">
+              <amw-input
+                label="Route"
+                formControlName="route"
+                placeholder="e.g., /dashboard"
+                hint="Angular route path (starts with /)">
+              </amw-input>
+
+              <amw-input
+                label="URL"
+                formControlName="href"
+                placeholder="e.g., https://example.com"
+                hint="External URL (starts with http:// or https://)">
+              </amw-input>
+
+              <amw-input
+                label="Tooltip"
+                formControlName="tooltip"
+                placeholder="e.g., View dashboard"
+                hint="Optional tooltip text (max 200 characters)">
+              </amw-input>
+            </div>
+
+            <div class="sidenav-validation__form-row">
+              <amw-input
+                label="Badge"
+                formControlName="badge"
+                placeholder="e.g., 5"
+                hint="Badge text (max 10 characters)">
+              </amw-input>
+
+              <amw-select
+                label="Badge Color"
+                formControlName="badgeColor"
+                [options]="badgeColorOptions">
+              </amw-select>
+
+              <div class="sidenav-validation__checkbox-group">
+                <amw-switch formControlName="disabled">Disabled</amw-switch>
+              </div>
+            </div>
+
+            <div class="sidenav-validation__form-actions">
+              <amw-button appearance="elevated" color="primary" type="submit" icon="add" iconPosition="left">Add Item</amw-button>
+              <amw-button appearance="text" type="button" (click)="resetItem()" icon="refresh" iconPosition="left">Reset</amw-button>
+            </div>
+          </form>
+        </ng-template>
+      </amw-card>
+
+      <!-- Live Demo -->
+      <amw-card class="sidenav-validation__demo-card">
+        <ng-template #cardHeader>
+          <h2>Live Demo</h2>
+          <p class="subtitle">See the sidenav with current configuration</p>
+        </ng-template>
+
+        <ng-template #cardContent>
+          <div class="sidenav-validation__demo-container">
+            <amw-sidenav
+              [config]="currentConfig"
+              [items]="navigationItems"
+              [opened]="currentConfig.opened ?? false"
+              (openedChange)="onSidenavOpenedChange($event)"
+              (itemClick)="onItemClick($event)">
+
+              <div class="sidenav-validation__main-content">
+                <amw-card class="sidenav-validation__content-card">
+                  <ng-template #cardHeader>
+                    <h2>Validation Demo</h2>
+                    <p class="subtitle">Test the sidenav with different configurations</p>
+                  </ng-template>
+
+                  <ng-template #cardContent>
+                    <p>
+                      This demo shows how the sidenav component handles validation and error states.
+                      Try submitting invalid data to see validation errors in action.
+                    </p>
+
+                    <div class="sidenav-validation__validation-info">
+                      <h4>Validation Rules:</h4>
+                      <ul>
+                        <li><strong>Required fields:</strong> Mode, Size, Position, ID, Label</li>
+                        <li><strong>Width fields:</strong> Must include unit (px, %, rem, em, vw, vh)</li>
+                        <li><strong>ID:</strong> 2-50 characters, alphanumeric and underscores only</li>
+                        <li><strong>Label:</strong> 2-100 characters</li>
+                        <li><strong>Icon:</strong> Alphanumeric and underscores only</li>
+                        <li><strong>Route:</strong> Must start with /</li>
+                        <li><strong>URL:</strong> Must start with http:// or https://</li>
+                        <li><strong>Tooltip:</strong> Maximum 200 characters</li>
+                        <li><strong>Badge:</strong> Maximum 10 characters</li>
+                      </ul>
+                    </div>
+                  </ng-template>
+                </amw-card>
+              </div>
+            </amw-sidenav>
+          </div>
+        </ng-template>
+      </amw-card>
+    </div>
+  </ng-template>
+</amw-validation-doc>

@@ -1,10 +1,8 @@
-<div class="amw-demo-paginator-validation">
-  <div class="validation-section">
-    <h3 class="validation-section__title">Paginator Validation Examples</h3>
-    <p class="validation-section__description">
-      This page demonstrates various validation states and boundary conditions for the paginator component.
-    </p>
-
+<amw-validation-doc
+  componentName="amw-paginator"
+  [validationForm]="validationForm"
+  [validationInfo]="validationInfo">
+  <ng-template #formContent>
     <!-- Disabled State -->
     <div class="form-section">
       <h4>Disabled State</h4>
@@ -160,17 +158,5 @@
         }
       </div>
     </div>
-
-    <div class="validation-info">
-      <h4>Validation Rules Applied:</h4>
-      <ul>
-        <li><strong>Disabled:</strong> Paginator should not respond to any user interaction</li>
-        <li><strong>First Page:</strong> Previous and first page buttons should be disabled</li>
-        <li><strong>Last Page:</strong> Next and last page buttons should be disabled</li>
-        <li><strong>Empty Dataset:</strong> All navigation buttons should be disabled</li>
-        <li><strong>Single Page:</strong> All navigation buttons should be disabled when items fit on one page</li>
-        <li><strong>Large Dataset:</strong> Paginator should handle large numbers efficiently</li>
-      </ul>
-    </div>
-  </div>
-</div>
+  </ng-template>
+</amw-validation-doc>

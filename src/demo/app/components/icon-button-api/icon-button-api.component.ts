@@ -1,10 +1,11 @@
 import { Component, ViewEncapsulation } from '@angular/core';
 import { BaseApiComponent, ApiDocumentation } from '../base/base-api.component';
+import { AmwApiDocComponent } from '../../shared/components/api-doc/api-doc.component';
 
 @Component({
     selector: 'amw-demo-icon-button-api',
     standalone: true,
-    imports: [],
+    imports: [AmwApiDocComponent],
     encapsulation: ViewEncapsulation.None,
     templateUrl: './icon-button-api.component.html',
     styleUrl: './icon-button-api.component.scss'

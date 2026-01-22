@@ -1,7 +1,7 @@
 import { Component, input, output, signal, computed, ViewEncapsulation, OnInit, OnChanges, SimpleChanges, effect } from '@angular/core';
 import { NgTemplateOutlet } from '@angular/common';
 import { FormsModule, ReactiveFormsModule, ControlValueAccessor, NG_VALUE_ACCESSOR } from '@angular/forms';
-import { Field } from '@angular/forms/signals';
+import { FormField } from '@angular/forms/signals';
 import { MatRadioModule } from '@angular/material/radio';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatIconModule } from '@angular/material/icon';
@@ -22,7 +22,7 @@ import { AmwRadioGroupOption, RadioGroupConfig } from './interfaces/radio-group.
     NgTemplateOutlet,
     FormsModule,
     ReactiveFormsModule,
-    Field,
+    FormField,
     MatRadioModule,
     MatFormFieldModule,
     MatIconModule
@@ -49,7 +49,7 @@ export class AmwRadioGroupComponent extends BaseComponent<any> implements Contro
      * Mutually exclusive with ngModel and formControl/formControlName.
      * @experimental
      */
-    field = input<any>(undefined);
+    formField = input<any>(undefined);
 
     orientation = input<'horizontal' | 'vertical'>('vertical');
 

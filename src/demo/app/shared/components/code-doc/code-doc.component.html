@@ -1,0 +1,52 @@
+<div class="amw-code-doc">
+  <div class="amw-code-doc__header">
+    <h3 class="amw-code-doc__title">Code Examples</h3>
+    <p class="amw-code-doc__description">
+      Interactive examples with live previews. The code is editable for reference, and working examples are shown alongside.
+    </p>
+  </div>
+
+  <amw-accordion class="amw-code-doc__accordion">
+    @for (example of examples; track example.key) {
+      <amw-accordion-panel [amwDescription]="example.description">
+        <ng-template #header>
+          <amw-icon name="code"></amw-icon>
+          {{ example.title }}
+        </ng-template>
+
+        <div class="amw-code-doc__example">
+          <div class="amw-code-doc__code-panel">
+            <div class="amw-code-doc__code-header">
+              <h4>Code</h4>
+              <amw-button
+                icon="refresh"
+                (click)="onResetCode(example)"
+                title="Reset to original">
+              </amw-button>
+            </div>
+            <textarea
+              [ngModel]="editableCode[example.key]"
+              (ngModelChange)="onCodeChange(example.key, $event)"
+              class="amw-code-doc__editor"
+              spellcheck="false">
+            </textarea>
+          </div>
+
+          <div class="amw-code-doc__preview-panel">
+            <h4>Preview</h4>
+            <div class="amw-code-doc__preview-content">
+              @if (previewTemplate) {
+                <ng-container
+                  [ngTemplateOutlet]="previewTemplate"
+                  [ngTemplateOutletContext]="{ $implicit: example }">
+                </ng-container>
+              } @else {
+                <p class="amw-code-doc__no-preview">No preview available</p>
+              }
+            </div>
+          </div>
+        </div>
+      </amw-accordion-panel>
+    }
+  </amw-accordion>
+</div>

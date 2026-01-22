@@ -1,13 +1,15 @@
 import { Component, signal, ViewEncapsulation } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { AmwChipInputComponent, ChipInputOption } from '../../../../library/src/controls/components/amw-chip-input';
+import { AmwDemoDocComponent } from '../../shared/components/demo-doc/demo-doc.component';
 
 @Component({
     selector: 'amw-demo-chip-input',
     standalone: true,
     imports: [
         FormsModule,
-        AmwChipInputComponent
+        AmwChipInputComponent,
+        AmwDemoDocComponent
     ],
     encapsulation: ViewEncapsulation.None,
     templateUrl: './chip-input-demo.component.html',

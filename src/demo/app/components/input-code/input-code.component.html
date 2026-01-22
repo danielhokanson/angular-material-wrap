@@ -1,238 +1,81 @@
-<div class="code-section">
-  <h3>Code Examples</h3>
-  <p>Interactive examples with live previews. The code is editable for reference, and working examples are shown alongside.</p>
+<amw-code-doc
+  componentName="amw-input"
+  [examples]="examples"
+  [editableCode]="editableCode">
 
-  <amw-accordion class="code-examples-accordion">
-    <!-- Basic Input -->
-    <amw-accordion-panel amwDescription="Simple input with label and placeholder">
-      <ng-template #header>
-        <amw-icon name="code"></amw-icon>
-        Basic Input
-      </ng-template>
-      <div class="example-container">
-        <div class="code-panel">
-          <div class="code-header">
-            <h4>Code</h4>
-            <amw-button icon="refresh" (click)="resetCode('basic')" title="Reset to original"></amw-button>
-          </div>
-          <textarea
-            [(ngModel)]="editableCode.basic"
-            class="code-editor"
-            spellcheck="false"></textarea>
-        </div>
-        <div class="preview-panel">
-          <h4>Preview</h4>
-          <div class="preview-content">
-            <amw-input
-              label="Basic Input"
-              placeholder="Enter text"
-              [(ngModel)]="basicValue">
-            </amw-input>
-          </div>
-        </div>
-      </div>
-    </amw-accordion-panel>
+  <ng-template #preview let-example>
+    @switch (example.key) {
+      @case ('basic') {
+        <amw-input
+          label="Basic Input"
+          placeholder="Enter text"
+          [(ngModel)]="basicValue">
+        </amw-input>
+      }
+      @case ('withLabel') {
+        <amw-input
+          label="Fill Appearance"
+          placeholder="Placeholder text"
+          appearance="fill">
+        </amw-input>
 
-    <!-- Input Appearances -->
-    <amw-accordion-panel amwDescription="Different visual styles for inputs">
-      <ng-template #header>
-        <amw-icon name="code"></amw-icon>
-        Input Appearances
-      </ng-template>
-      <div class="example-container">
-        <div class="code-panel">
-          <div class="code-header">
-            <h4>Code</h4>
-            <amw-button icon="refresh" (click)="resetCode('withLabel')" title="Reset to original"></amw-button>
-          </div>
-          <textarea
-            [(ngModel)]="editableCode.withLabel"
-            class="code-editor"
-            spellcheck="false"></textarea>
-        </div>
-        <div class="preview-panel">
-          <h4>Preview</h4>
-          <div class="preview-content">
-            <amw-input
-              label="Fill Appearance"
-              placeholder="Placeholder text"
-              appearance="fill">
-            </amw-input>
+        <amw-input
+          label="Outline Appearance"
+          placeholder="Placeholder text"
+          appearance="outline">
+        </amw-input>
+      }
+      @case ('withHint') {
+        <amw-input
+          label="Username"
+          placeholder="Enter username"
+          hint="Choose a unique username">
+        </amw-input>
+      }
+      @case ('withError') {
+        <amw-input
+          label="Email"
+          type="email"
+          placeholder="email@example.com"
+          [(ngModel)]="emailValue"
+          [required]="true">
+        </amw-input>
+      }
+      @case ('withIcon') {
+        <amw-input
+          label="Search"
+          placeholder="Search..."
+          startIcon="search">
+        </amw-input>
 
-            <amw-input
-              label="Outline Appearance"
-              placeholder="Placeholder text"
-              appearance="outline">
-            </amw-input>
-          </div>
-        </div>
-      </div>
-    </amw-accordion-panel>
+        <amw-input
+          label="Amount"
+          type="number"
+          placeholder="0"
+          prefix="$ "
+          suffix=".00">
+        </amw-input>
+      }
+      @case ('disabled') {
+        <amw-input
+          label="Disabled Input"
+          [disabled]="true"
+          [value]="disabledValue">
+        </amw-input>
 
-    <!-- Input with Hint -->
-    <amw-accordion-panel amwDescription="Display helpful hint text below input">
-      <ng-template #header>
-        <amw-icon name="code"></amw-icon>
-        Input with Hint
-      </ng-template>
-      <div class="example-container">
-        <div class="code-panel">
-          <div class="code-header">
-            <h4>Code</h4>
-            <amw-button icon="refresh" (click)="resetCode('withHint')" title="Reset to original"></amw-button>
-          </div>
-          <textarea
-            [(ngModel)]="editableCode.withHint"
-            class="code-editor"
-            spellcheck="false"></textarea>
-        </div>
-        <div class="preview-panel">
-          <h4>Preview</h4>
-          <div class="preview-content">
-            <amw-input
-              label="Username"
-              placeholder="Enter username"
-              hint="Choose a unique username">
-            </amw-input>
-          </div>
-        </div>
-      </div>
-    </amw-accordion-panel>
-
-    <!-- Input with Error -->
-    <amw-accordion-panel amwDescription="Display error messages for validation">
-      <ng-template #header>
-        <amw-icon name="code"></amw-icon>
-        Input with Error
-      </ng-template>
-      <div class="example-container">
-        <div class="code-panel">
-          <div class="code-header">
-            <h4>Code</h4>
-            <amw-button icon="refresh" (click)="resetCode('withError')" title="Reset to original"></amw-button>
-          </div>
-          <textarea
-            [(ngModel)]="editableCode.withError"
-            class="code-editor"
-            spellcheck="false"></textarea>
-        </div>
-        <div class="preview-panel">
-          <h4>Preview</h4>
-          <div class="preview-content">
-            <amw-input
-              label="Email"
-              type="email"
-              placeholder="email@example.com"
-              [(ngModel)]="emailValue"
-              [required]="true">
-            </amw-input>
-          </div>
-        </div>
-      </div>
-    </amw-accordion-panel>
-
-    <!-- Input with Icons -->
-    <amw-accordion-panel amwDescription="Add prefix and suffix content">
-      <ng-template #header>
-        <amw-icon name="code"></amw-icon>
-        Input with Icons/Affixes
-      </ng-template>
-      <div class="example-container">
-        <div class="code-panel">
-          <div class="code-header">
-            <h4>Code</h4>
-            <amw-button icon="refresh" (click)="resetCode('withIcon')" title="Reset to original"></amw-button>
-          </div>
-          <textarea
-            [(ngModel)]="editableCode.withIcon"
-            class="code-editor"
-            spellcheck="false"></textarea>
-        </div>
-        <div class="preview-panel">
-          <h4>Preview</h4>
-          <div class="preview-content">
-            <amw-input
-              label="Search"
-              placeholder="Search..."
-              startIcon="search">
-            </amw-input>
-
-            <amw-input
-              label="Amount"
-              type="number"
-              placeholder="0"
-              prefix="$ "
-              suffix=".00">
-            </amw-input>
-          </div>
-        </div>
-      </div>
-    </amw-accordion-panel>
-
-    <!-- Disabled/Readonly States -->
-    <amw-accordion-panel amwDescription="Non-editable input variants">
-      <ng-template #header>
-        <amw-icon name="code"></amw-icon>
-        Disabled and Readonly States
-      </ng-template>
-      <div class="example-container">
-        <div class="code-panel">
-          <div class="code-header">
-            <h4>Code</h4>
-            <amw-button icon="refresh" (click)="resetCode('disabled')" title="Reset to original"></amw-button>
-          </div>
-          <textarea
-            [(ngModel)]="editableCode.disabled"
-            class="code-editor"
-            spellcheck="false"></textarea>
-        </div>
-        <div class="preview-panel">
-          <h4>Preview</h4>
-          <div class="preview-content">
-            <amw-input
-              label="Disabled Input"
-              [disabled]="true"
-              [value]="disabledValue">
-            </amw-input>
-
-            <amw-input
-              label="Readonly Input"
-              [readonly]="true"
-              [value]="readonlyValue">
-            </amw-input>
-          </div>
-        </div>
-      </div>
-    </amw-accordion-panel>
-
-    <!-- Textarea -->
-    <amw-accordion-panel amwDescription="Multi-line text input">
-      <ng-template #header>
-        <amw-icon name="code"></amw-icon>
-        Textarea
-      </ng-template>
-      <div class="example-container">
-        <div class="code-panel">
-          <div class="code-header">
-            <h4>Code</h4>
-            <amw-button icon="refresh" (click)="resetCode('textarea')" title="Reset to original"></amw-button>
-          </div>
-          <textarea
-            [(ngModel)]="editableCode.textarea"
-            class="code-editor"
-            spellcheck="false"></textarea>
-        </div>
-        <div class="preview-panel">
-          <h4>Preview</h4>
-          <div class="preview-content">
-            <amw-textarea
-              label="Description"
-              [rows]="4"
-              placeholder="Enter description">
-            </amw-textarea>
-          </div>
-        </div>
-      </div>
-    </amw-accordion-panel>
-  </amw-accordion>
-</div>
+        <amw-input
+          label="Readonly Input"
+          [readonly]="true"
+          [value]="readonlyValue">
+        </amw-input>
+      }
+      @case ('textarea') {
+        <amw-textarea
+          label="Description"
+          [rows]="4"
+          placeholder="Enter description">
+        </amw-textarea>
+      }
+    }
+  </ng-template>
+</amw-code-doc>

@@ -1,10 +1,11 @@
 import { Component, ViewEncapsulation } from '@angular/core';
 import { BaseApiComponent, ApiDocumentation } from '../base/base-api.component';
+import { AmwApiDocComponent } from '../../shared/components/api-doc/api-doc.component';
 
 @Component({
   selector: 'amw-demo-list-api',
   standalone: true,
-  imports: [],
+  imports: [AmwApiDocComponent],
   encapsulation: ViewEncapsulation.None,
   templateUrl: './list-api.component.html',
   styleUrl: './list-api.component.scss'

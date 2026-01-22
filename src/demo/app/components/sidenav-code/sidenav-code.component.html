@@ -1,213 +1,122 @@
-<div class="code-section">
-  <h3>Code Examples</h3>
-  <p>Interactive examples with live previews. The code is editable for reference, and working examples are shown alongside.</p>
+<amw-code-doc
+  componentName="amw-sidenav"
+  [examples]="examples"
+  [editableCode]="editableCode">
 
-  <amw-accordion class="code-examples-accordion">
-    <!-- Basic Sidenav -->
-    <amw-accordion-panel amwDescription="Side mode with navigation list">
-      <ng-template #header>
-        <amw-icon name="code"></amw-icon>
-        Basic Sidenav
-      </ng-template>
-      <div class="example-container">
-        <div class="code-panel">
-          <div class="code-header">
-            <h4>Code</h4>
-            <amw-button icon="refresh" (click)="resetCode('basic')" title="Reset to original"></amw-button>
-          </div>
-          <textarea
-            [(ngModel)]="editableCode.basic"
-            class="code-editor"
-            spellcheck="false"></textarea>
-        </div>
-        <div class="preview-panel">
-          <h4>Preview</h4>
-          <div class="preview-content">
-            <amw-sidenav [opened]="sidenavOpened" mode="side">
-              <ng-template #sidenavContent>
-                <div class="sidenav-nav-list">
-                  <a href="#" class="nav-item">
-                    <amw-icon name="home"></amw-icon>
-                    <span>Home</span>
-                  </a>
-                  <a href="#" class="nav-item">
-                    <amw-icon name="person"></amw-icon>
-                    <span>Profile</span>
-                  </a>
-                  <a href="#" class="nav-item">
-                    <amw-icon name="settings"></amw-icon>
-                    <span>Settings</span>
-                  </a>
-                </div>
-              </ng-template>
-              <ng-template #mainContent>
-                <div class="sidenav-content-padding">
-                  <amw-button appearance="elevated" (click)="sidenavOpened = !sidenavOpened">
-                    Toggle Sidenav
-                  </amw-button>
-                  <p>Main content area. The sidenav stays open by default in side mode.</p>
-                </div>
-              </ng-template>
-            </amw-sidenav>
-          </div>
-        </div>
-      </div>
-    </amw-accordion-panel>
-
-    <!-- Overlay Mode -->
-    <amw-accordion-panel amwDescription="Sidenav overlays content with backdrop">
-      <ng-template #header>
-        <amw-icon name="code"></amw-icon>
-        Overlay Mode
-      </ng-template>
-      <div class="example-container">
-        <div class="code-panel">
-          <div class="code-header">
-            <h4>Code</h4>
-            <amw-button icon="refresh" (click)="resetCode('overlay')" title="Reset to original"></amw-button>
-          </div>
-          <textarea
-            [(ngModel)]="editableCode.overlay"
-            class="code-editor"
-            spellcheck="false"
-            readonly></textarea>
-        </div>
-        <div class="preview-panel">
-          <h4>Preview</h4>
-          <div class="preview-content">
-            <amw-sidenav [(opened)]="overlaySidenavOpened" mode="over">
-              <ng-template #sidenavContent>
-                <div class="sidenav-nav-list">
-                  <a href="#" class="nav-item">
-                    <amw-icon name="home"></amw-icon>
-                    <span>Home</span>
-                  </a>
-                  <a href="#" class="nav-item">
-                    <amw-icon name="person"></amw-icon>
-                    <span>Profile</span>
-                  </a>
-                  <a href="#" class="nav-item">
-                    <amw-icon name="settings"></amw-icon>
-                    <span>Settings</span>
-                  </a>
-                </div>
-              </ng-template>
-              <ng-template #mainContent>
-                <div class="sidenav-content-padding">
-                  <amw-button appearance="elevated" (click)="overlaySidenavOpened = !overlaySidenavOpened">
-                    Toggle Sidenav
-                  </amw-button>
-                  <p>The sidenav overlays the content with a backdrop in over mode.</p>
-                </div>
-              </ng-template>
-            </amw-sidenav>
-          </div>
-        </div>
-      </div>
-    </amw-accordion-panel>
-
-    <!-- Push Mode -->
-    <amw-accordion-panel amwDescription="Sidenav pushes content to the side">
-      <ng-template #header>
-        <amw-icon name="code"></amw-icon>
-        Push Mode
-      </ng-template>
-      <div class="example-container">
-        <div class="code-panel">
-          <div class="code-header">
-            <h4>Code</h4>
-            <amw-button icon="refresh" (click)="resetCode('push')" title="Reset to original"></amw-button>
-          </div>
-          <textarea
-            [(ngModel)]="editableCode.push"
-            class="code-editor"
-            spellcheck="false"
-            readonly></textarea>
-        </div>
-        <div class="preview-panel">
-          <h4>Preview</h4>
-          <div class="preview-content">
-            <amw-sidenav [(opened)]="pushSidenavOpened" mode="push">
-              <ng-template #sidenavContent>
-                <div class="sidenav-nav-list">
-                  <a href="#" class="nav-item">
-                    <amw-icon name="home"></amw-icon>
-                    <span>Home</span>
-                  </a>
-                  <a href="#" class="nav-item">
-                    <amw-icon name="person"></amw-icon>
-                    <span>Profile</span>
-                  </a>
-                  <a href="#" class="nav-item">
-                    <amw-icon name="settings"></amw-icon>
-                    <span>Settings</span>
-                  </a>
-                </div>
-              </ng-template>
-              <ng-template #mainContent>
-                <div class="sidenav-content-padding">
-                  <amw-button appearance="elevated" (click)="pushSidenavOpened = !pushSidenavOpened">
-                    Toggle Sidenav
-                  </amw-button>
-                  <p>The content is pushed to the side when sidenav opens in push mode.</p>
-                </div>
-              </ng-template>
-            </amw-sidenav>
-          </div>
-        </div>
-      </div>
-    </amw-accordion-panel>
-
-    <!-- Fixed Position -->
-    <amw-accordion-panel amwDescription="Sidenav on the right side">
-      <ng-template #header>
-        <amw-icon name="code"></amw-icon>
-        Fixed Position
-      </ng-template>
-      <div class="example-container">
-        <div class="code-panel">
-          <div class="code-header">
-            <h4>Code</h4>
-            <amw-button icon="refresh" (click)="resetCode('fixed')" title="Reset to original"></amw-button>
-          </div>
-          <textarea
-            [(ngModel)]="editableCode.fixed"
-            class="code-editor"
-            spellcheck="false"
-            readonly></textarea>
-        </div>
-        <div class="preview-panel">
-          <h4>Preview</h4>
-          <div class="preview-content">
-            <amw-sidenav [(opened)]="fixedSidenavOpened" mode="side" position="end">
-              <ng-template #sidenavContent>
-                <div class="sidenav-nav-list">
-                  <a href="#" class="nav-item">
-                    <amw-icon name="home"></amw-icon>
-                    <span>Home</span>
-                  </a>
-                  <a href="#" class="nav-item">
-                    <amw-icon name="person"></amw-icon>
-                    <span>Profile</span>
-                  </a>
-                  <a href="#" class="nav-item">
-                    <amw-icon name="settings"></amw-icon>
-                    <span>Settings</span>
-                  </a>
-                </div>
-              </ng-template>
-              <ng-template #mainContent>
-                <div class="sidenav-content-padding">
-                  <amw-button appearance="elevated" (click)="fixedSidenavOpened = !fixedSidenavOpened">
-                    Toggle Right Sidenav
-                  </amw-button>
-                  <p>The sidenav can be positioned on the right side using position="end".</p>
-                </div>
-              </ng-template>
-            </amw-sidenav>
-          </div>
-        </div>
-      </div>
-    </amw-accordion-panel>
-  </amw-accordion>
-</div>
+  <ng-template #preview let-example>
+    @switch (example.key) {
+      @case ('basic') {
+        <amw-sidenav [opened]="sidenavOpened" mode="side">
+          <ng-template #sidenavContent>
+            <div class="sidenav-nav-list">
+              <a href="#" class="nav-item">
+                <amw-icon name="home"></amw-icon>
+                <span>Home</span>
+              </a>
+              <a href="#" class="nav-item">
+                <amw-icon name="person"></amw-icon>
+                <span>Profile</span>
+              </a>
+              <a href="#" class="nav-item">
+                <amw-icon name="settings"></amw-icon>
+                <span>Settings</span>
+              </a>
+            </div>
+          </ng-template>
+          <ng-template #mainContent>
+            <div class="sidenav-content-padding">
+              <amw-button appearance="elevated" (click)="sidenavOpened = !sidenavOpened">
+                Toggle Sidenav
+              </amw-button>
+              <p>Main content area. The sidenav stays open by default in side mode.</p>
+            </div>
+          </ng-template>
+        </amw-sidenav>
+      }
+      @case ('overlay') {
+        <amw-sidenav [(opened)]="overlaySidenavOpened" mode="over">
+          <ng-template #sidenavContent>
+            <div class="sidenav-nav-list">
+              <a href="#" class="nav-item">
+                <amw-icon name="home"></amw-icon>
+                <span>Home</span>
+              </a>
+              <a href="#" class="nav-item">
+                <amw-icon name="person"></amw-icon>
+                <span>Profile</span>
+              </a>
+              <a href="#" class="nav-item">
+                <amw-icon name="settings"></amw-icon>
+                <span>Settings</span>
+              </a>
+            </div>
+          </ng-template>
+          <ng-template #mainContent>
+            <div class="sidenav-content-padding">
+              <amw-button appearance="elevated" (click)="overlaySidenavOpened = !overlaySidenavOpened">
+                Toggle Sidenav
+              </amw-button>
+              <p>The sidenav overlays the content with a backdrop in over mode.</p>
+            </div>
+          </ng-template>
+        </amw-sidenav>
+      }
+      @case ('push') {
+        <amw-sidenav [(opened)]="pushSidenavOpened" mode="push">
+          <ng-template #sidenavContent>
+            <div class="sidenav-nav-list">
+              <a href="#" class="nav-item">
+                <amw-icon name="home"></amw-icon>
+                <span>Home</span>
+              </a>
+              <a href="#" class="nav-item">
+                <amw-icon name="person"></amw-icon>
+                <span>Profile</span>
+              </a>
+              <a href="#" class="nav-item">
+                <amw-icon name="settings"></amw-icon>
+                <span>Settings</span>
+              </a>
+            </div>
+          </ng-template>
+          <ng-template #mainContent>
+            <div class="sidenav-content-padding">
+              <amw-button appearance="elevated" (click)="pushSidenavOpened = !pushSidenavOpened">
+                Toggle Sidenav
+              </amw-button>
+              <p>The content is pushed to the side when sidenav opens in push mode.</p>
+            </div>
+          </ng-template>
+        </amw-sidenav>
+      }
+      @case ('fixed') {
+        <amw-sidenav [(opened)]="fixedSidenavOpened" mode="side" position="end">
+          <ng-template #sidenavContent>
+            <div class="sidenav-nav-list">
+              <a href="#" class="nav-item">
+                <amw-icon name="home"></amw-icon>
+                <span>Home</span>
+              </a>
+              <a href="#" class="nav-item">
+                <amw-icon name="person"></amw-icon>
+                <span>Profile</span>
+              </a>
+              <a href="#" class="nav-item">
+                <amw-icon name="settings"></amw-icon>
+                <span>Settings</span>
+              </a>
+            </div>
+          </ng-template>
+          <ng-template #mainContent>
+            <div class="sidenav-content-padding">
+              <amw-button appearance="elevated" (click)="fixedSidenavOpened = !fixedSidenavOpened">
+                Toggle Right Sidenav
+              </amw-button>
+              <p>The sidenav can be positioned on the right side using position="end".</p>
+            </div>
+          </ng-template>
+        </amw-sidenav>
+      }
+    }
+  </ng-template>
+</amw-code-doc>

@@ -1,143 +1,147 @@
-<div class="amw-demo-chip-input">
-  <div class="demo-section">
-    <h3>Basic Chip Input with Suggestions</h3>
-    <div class="variation-grid">
-      <div class="variation-item">
-        <h4>Ingredients</h4>
-        <amw-chip-input
-          [suggestions]="ingredientSuggestions"
-          [(ngModel)]="selectedIngredients"
-          (chipAdded)="onChipAdded($event)"
-          (chipRemoved)="onChipRemoved($event)"
-          label="Select Ingredients"
-          placeholder="Add ingredient...">
-        </amw-chip-input>
-        <p class="demo-value">Selected: {{ selectedIngredients.length }} items</p>
+<amw-demo-doc componentName="amw-chip-input">
+  <ng-template #content>
+    <div class="amw-demo-chip-input">
+      <div class="demo-section">
+        <h3>Basic Chip Input with Suggestions</h3>
+        <div class="variation-grid">
+          <div class="variation-item">
+            <h4>Ingredients</h4>
+            <amw-chip-input
+              [suggestions]="ingredientSuggestions"
+              [(ngModel)]="selectedIngredients"
+              (chipAdded)="onChipAdded($event)"
+              (chipRemoved)="onChipRemoved($event)"
+              label="Select Ingredients"
+              placeholder="Add ingredient...">
+            </amw-chip-input>
+            <p class="demo-value">Selected: {{ selectedIngredients.length }} items</p>
+          </div>
+          <div class="variation-item">
+            <h4>Tags with Subtitles</h4>
+            <amw-chip-input
+              [suggestions]="tagSuggestions"
+              [(ngModel)]="selectedTags"
+              label="Technology Tags"
+              placeholder="Add tag...">
+            </amw-chip-input>
+            <p class="demo-value">Selected: {{ selectedTags.length }} items</p>
+          </div>
+        </div>
       </div>
-      <div class="variation-item">
-        <h4>Tags with Subtitles</h4>
-        <amw-chip-input
-          [suggestions]="tagSuggestions"
-          [(ngModel)]="selectedTags"
-          label="Technology Tags"
-          placeholder="Add tag...">
-        </amw-chip-input>
-        <p class="demo-value">Selected: {{ selectedTags.length }} items</p>
-      </div>
-    </div>
-  </div>
 
-  <div class="demo-section">
-    <h3>Appearance Variations</h3>
-    <div class="variation-grid">
-      <div class="variation-item">
-        <h4>Outline (Default)</h4>
-        <amw-chip-input
-          [suggestions]="dietaryRestrictions"
-          appearance="outline"
-          label="Dietary Restrictions"
-          placeholder="Add restriction...">
-        </amw-chip-input>
+      <div class="demo-section">
+        <h3>Appearance Variations</h3>
+        <div class="variation-grid">
+          <div class="variation-item">
+            <h4>Outline (Default)</h4>
+            <amw-chip-input
+              [suggestions]="dietaryRestrictions"
+              appearance="outline"
+              label="Dietary Restrictions"
+              placeholder="Add restriction...">
+            </amw-chip-input>
+          </div>
+          <div class="variation-item">
+            <h4>Fill</h4>
+            <amw-chip-input
+              [suggestions]="dietaryRestrictions"
+              appearance="fill"
+              label="Dietary Restrictions"
+              placeholder="Add restriction...">
+            </amw-chip-input>
+          </div>
+        </div>
       </div>
-      <div class="variation-item">
-        <h4>Fill</h4>
-        <amw-chip-input
-          [suggestions]="dietaryRestrictions"
-          appearance="fill"
-          label="Dietary Restrictions"
-          placeholder="Add restriction...">
-        </amw-chip-input>
-      </div>
-    </div>
-  </div>
 
-  <div class="demo-section">
-    <h3>Feature Variations</h3>
-    <div class="variation-grid">
-      <div class="variation-item">
-        <h4>Custom Values Only (No Suggestions)</h4>
-        <amw-chip-input
-          [suggestions]="[]"
-          [(ngModel)]="customOnlyChips"
-          [allowCustomValues]="true"
-          label="Custom Tags"
-          placeholder="Type and press Enter...">
-        </amw-chip-input>
-        <p class="demo-value">Chips: {{ customOnlyChips.length }}</p>
+      <div class="demo-section">
+        <h3>Feature Variations</h3>
+        <div class="variation-grid">
+          <div class="variation-item">
+            <h4>Custom Values Only (No Suggestions)</h4>
+            <amw-chip-input
+              [suggestions]="[]"
+              [(ngModel)]="customOnlyChips"
+              [allowCustomValues]="true"
+              label="Custom Tags"
+              placeholder="Type and press Enter...">
+            </amw-chip-input>
+            <p class="demo-value">Chips: {{ customOnlyChips.length }}</p>
+          </div>
+          <div class="variation-item">
+            <h4>Limited to 3 Chips</h4>
+            <amw-chip-input
+              [suggestions]="ingredientSuggestions"
+              [(ngModel)]="limitedChips"
+              [maxChips]="3"
+              label="Max 3 Items"
+              placeholder="Add up to 3 items...">
+            </amw-chip-input>
+            <p class="demo-value">{{ limitedChips.length }} / 3</p>
+          </div>
+          <div class="variation-item">
+            <h4>No Custom Values</h4>
+            <amw-chip-input
+              [suggestions]="dietaryRestrictions"
+              [allowCustomValues]="false"
+              label="Select Only"
+              placeholder="Select from list...">
+            </amw-chip-input>
+          </div>
+          <div class="variation-item">
+            <h4>Non-Removable</h4>
+            <amw-chip-input
+              [suggestions]="ingredientSuggestions"
+              [removable]="false"
+              label="Permanent Chips"
+              placeholder="Add items...">
+            </amw-chip-input>
+          </div>
+        </div>
       </div>
-      <div class="variation-item">
-        <h4>Limited to 3 Chips</h4>
-        <amw-chip-input
-          [suggestions]="ingredientSuggestions"
-          [(ngModel)]="limitedChips"
-          [maxChips]="3"
-          label="Max 3 Items"
-          placeholder="Add up to 3 items...">
-        </amw-chip-input>
-        <p class="demo-value">{{ limitedChips.length }} / 3</p>
-      </div>
-      <div class="variation-item">
-        <h4>No Custom Values</h4>
-        <amw-chip-input
-          [suggestions]="dietaryRestrictions"
-          [allowCustomValues]="false"
-          label="Select Only"
-          placeholder="Select from list...">
-        </amw-chip-input>
-      </div>
-      <div class="variation-item">
-        <h4>Non-Removable</h4>
-        <amw-chip-input
-          [suggestions]="ingredientSuggestions"
-          [removable]="false"
-          label="Permanent Chips"
-          placeholder="Add items...">
-        </amw-chip-input>
-      </div>
-    </div>
-  </div>
 
-  <div class="demo-section">
-    <h3>State Variations</h3>
-    <div class="variation-grid">
-      <div class="variation-item">
-        <h4>Loading State</h4>
-        <amw-chip-input
-          [suggestions]="ingredientSuggestions"
-          [loading]="isLoading()"
-          label="With Loading"
-          placeholder="Type to search...">
-        </amw-chip-input>
-        <button (click)="simulateLoading()" class="demo-button">Simulate Loading</button>
-      </div>
-      <div class="variation-item">
-        <h4>Disabled</h4>
-        <amw-chip-input
-          [suggestions]="ingredientSuggestions"
-          [disabled]="true"
-          label="Disabled Input"
-          placeholder="Cannot interact...">
-        </amw-chip-input>
-      </div>
-      <div class="variation-item">
-        <h4>With Hint</h4>
-        <amw-chip-input
-          [suggestions]="tagSuggestions"
-          label="Technologies"
-          hint="Select up to 5 technologies"
-          placeholder="Add technology...">
-        </amw-chip-input>
-      </div>
-      <div class="variation-item">
-        <h4>With Error</h4>
-        <amw-chip-input
-          [suggestions]="dietaryRestrictions"
-          [hasError]="true"
-          errorMessage="Please select at least one option"
-          label="Required Selection"
-          placeholder="Add selection...">
-        </amw-chip-input>
+      <div class="demo-section">
+        <h3>State Variations</h3>
+        <div class="variation-grid">
+          <div class="variation-item">
+            <h4>Loading State</h4>
+            <amw-chip-input
+              [suggestions]="ingredientSuggestions"
+              [loading]="isLoading()"
+              label="With Loading"
+              placeholder="Type to search...">
+            </amw-chip-input>
+            <button (click)="simulateLoading()" class="demo-button">Simulate Loading</button>
+          </div>
+          <div class="variation-item">
+            <h4>Disabled</h4>
+            <amw-chip-input
+              [suggestions]="ingredientSuggestions"
+              [disabled]="true"
+              label="Disabled Input"
+              placeholder="Cannot interact...">
+            </amw-chip-input>
+          </div>
+          <div class="variation-item">
+            <h4>With Hint</h4>
+            <amw-chip-input
+              [suggestions]="tagSuggestions"
+              label="Technologies"
+              hint="Select up to 5 technologies"
+              placeholder="Add technology...">
+            </amw-chip-input>
+          </div>
+          <div class="variation-item">
+            <h4>With Error</h4>
+            <amw-chip-input
+              [suggestions]="dietaryRestrictions"
+              [hasError]="true"
+              errorMessage="Please select at least one option"
+              label="Required Selection"
+              placeholder="Add selection...">
+            </amw-chip-input>
+          </div>
+        </div>
       </div>
     </div>
-  </div>
-</div>
+  </ng-template>
+</amw-demo-doc>

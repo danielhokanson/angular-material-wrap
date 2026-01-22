@@ -3,11 +3,12 @@ import { AmwListComponent } from '../../../../library/src/components/components/
 import { AmwListItemComponent } from '../../../../library/src/components/components/amw-list/amw-list-item.component';
 import { MatIconModule } from '@angular/material/icon';
 import { AmwNotificationService } from '../../../../library/src/services/amw-notification/amw-notification.service';
+import { AmwDemoDocComponent } from '../../shared/components/demo-doc/demo-doc.component';
 
 @Component({
     selector: 'amw-demo-list',
     standalone: true,
-    imports: [AmwListComponent, AmwListItemComponent, MatIconModule],
+    imports: [AmwListComponent, AmwListItemComponent, MatIconModule, AmwDemoDocComponent],
     encapsulation: ViewEncapsulation.None,
     templateUrl: './list-demo.component.html',
     styleUrl: './list-demo.component.scss'

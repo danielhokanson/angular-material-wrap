@@ -1,27 +1,41 @@
-import { Component, ViewEncapsulation } from '@angular/core';
-import { BaseCodeComponent } from '../base/base-code.component';
-
-type ExpansionCodeExamples = 'basic' | 'withDescription' | 'accordion' | 'multiMode' | 'events' | 'disabled';
+import { Component, ViewEncapsulation, OnInit } from '@angular/core';
+import { AmwCodeDocComponent, CodeExample } from '../../shared/components/code-doc/code-doc.component';
+import { AmwIconComponent } from '../../../../library/src/components/components';
 
 @Component({
-    selector: 'amw-demo-expansion-code',
-    standalone: true,
-    imports: [],
-    encapsulation: ViewEncapsulation.None,
-    templateUrl: './expansion-code.component.html',
-    styleUrl: './expansion-code.component.scss'
+  selector: 'amw-demo-expansion-code',
+  standalone: true,
+  imports: [
+    AmwCodeDocComponent,
+    AmwIconComponent
+  ],
+  encapsulation: ViewEncapsulation.None,
+  templateUrl: './expansion-code.component.html',
+  styleUrl: './expansion-code.component.scss'
 })
-export class ExpansionCodeComponent extends BaseCodeComponent<ExpansionCodeExamples> {
-    readonly codeExamples: Record<ExpansionCodeExamples, string> = {
-        basic: `<!-- Basic Expansion Panel -->
+export class ExpansionCodeComponent implements OnInit {
+  // Editable code for the shared component
+  editableCode: Record<string, string> = {};
+
+  // Code examples data
+  readonly examples: CodeExample[] = [
+    {
+      key: 'basic',
+      title: 'Basic Expansion Panel',
+      description: 'Simple expansion panel',
+      code: `<!-- Basic Expansion Panel -->
 <amw-expansion-panel>
   <amw-expansion-panel-header>
     <amw-panel-title>Panel Title</amw-panel-title>
   </amw-expansion-panel-header>
   <p>Panel content goes here.</p>
-</amw-expansion-panel>`,
-
-        withDescription: `<!-- Panel with Title and Description -->
+</amw-expansion-panel>`
+    },
+    {
+      key: 'withDescription',
+      title: 'With Title and Description',
+      description: 'Panel with both title and description',
+      code: `<!-- Panel with Title and Description -->
 <amw-expansion-panel>
   <amw-expansion-panel-header>
     <amw-panel-title>Personal Information</amw-panel-title>
@@ -30,9 +44,13 @@ export class ExpansionCodeComponent extends BaseCodeComponent<ExpansionCodeExamp
   <form>
     <!-- Form fields here -->
   </form>
-</amw-expansion-panel>`,
-
-        accordion: `<!-- Accordion (Single Panel Mode) -->
+</amw-expansion-panel>`
+    },
+    {
+      key: 'accordion',
+      title: 'Accordion (Single Mode)',
+      description: 'Only one panel can be open at a time',
+      code: `<!-- Accordion (Single Panel Mode) -->
 <amw-accordion [multi]="false">
   <amw-expansion-panel>
     <amw-expansion-panel-header>
@@ -56,9 +74,13 @@ export class ExpansionCodeComponent extends BaseCodeComponent<ExpansionCodeExamp
   </amw-expansion-panel>
 </amw-accordion>
 
-<!-- Only one panel can be open at a time -->`,
-
-        multiMode: `<!-- Accordion (Multi Panel Mode) -->
+<!-- Only one panel can be open at a time -->`
+    },
+    {
+      key: 'multiMode',
+      title: 'Accordion (Multi Mode)',
+      description: 'Multiple panels can be open simultaneously',
+      code: `<!-- Accordion (Multi Panel Mode) -->
 <amw-accordion [multi]="true">
   <amw-expansion-panel>
     <amw-expansion-panel-header>
@@ -75,9 +97,13 @@ export class ExpansionCodeComponent extends BaseCodeComponent<ExpansionCodeExamp
   </amw-expansion-panel>
 </amw-accordion>
 
-<!-- Multiple panels can be open simultaneously -->`,
-
-        events: `<!-- Panel with Events -->
+<!-- Multiple panels can be open simultaneously -->`
+    },
+    {
+      key: 'events',
+      title: 'Handling Events',
+      description: 'Panel with event handlers',
+      code: `<!-- Panel with Events -->
 <amw-expansion-panel
   [expanded]="isExpanded"
   (opened)="onOpened()"
@@ -102,9 +128,13 @@ onClosed() {
 
 onExpandedChange(expanded: boolean) {
   this.isExpanded = expanded;
-}`,
-
-        disabled: `<!-- Disabled Panel -->
+}`
+    },
+    {
+      key: 'disabled',
+      title: 'Disabled Panels',
+      description: 'Non-interactive panels',
+      code: `<!-- Disabled Panel -->
 <amw-expansion-panel [disabled]="true">
   <amw-expansion-panel-header>
     <amw-panel-title>Disabled Panel</amw-panel-title>
@@ -119,9 +149,13 @@ onExpandedChange(expanded: boolean) {
   </amw-expansion-panel-header>
   <p>Complete step 1 first.</p>
 </amw-expansion-panel>`
-    };
-
-    constructor() {
-        super();
     }
+  ];
+
+  ngOnInit(): void {
+    // Initialize editable code from examples
+    this.examples.forEach(example => {
+      this.editableCode[example.key] = example.code;
+    });
+  }
 }

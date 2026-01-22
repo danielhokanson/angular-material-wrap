@@ -111,7 +111,7 @@ export { AmwThemeManagerComponent } from './styling/components/theme-manager/the
  * Re-exports Angular's experimental Signal Forms API for convenience.
  * @experimental Signal Forms are experimental and may change in future Angular releases.
  *
- * All AMW form controls support the [field] binding for Signal Forms:
+ * All AMW form controls support the [formField] binding for Signal Forms (Angular 21.1+):
  * - amw-input, amw-textarea, amw-select, amw-checkbox, amw-datepicker, amw-radio-group
  * - amw-autocomplete, amw-button-toggle-group, amw-radio, amw-toggle, amw-switch
  * - amw-slider, amw-range-slider
@@ -119,6 +119,6 @@ export { AmwThemeManagerComponent } from './styling/components/theme-manager/the
  * Three mutually exclusive form binding scenarios are supported:
  * 1. ngModel/ngModelChange - Template-driven forms with simple models
  * 2. formControl/formControlName - Reactive forms with FormGroup/FormControl
- * 3. [field] - Signal Forms with form() and field bindings
+ * 3. [formField] - Signal Forms with form() and field bindings
  */
-export { Field, form } from '@angular/forms/signals';
+export { FormField, form } from '@angular/forms/signals';

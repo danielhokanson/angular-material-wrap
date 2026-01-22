@@ -1,29 +1,26 @@
 import { Component, ViewEncapsulation, OnInit } from '@angular/core';
 import { FormsModule, ReactiveFormsModule, FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { CommonModule } from '@angular/common';
-import { BaseCodeComponent } from '../base/base-code.component';
+import { AmwCodeDocComponent, CodeExample } from '../../shared/components/code-doc/code-doc.component';
 import { AmwFileInputComponent } from '../../../../library/src/controls/components/amw-file-input/amw-file-input.component';
-
-type FileInputExamples = 'basic' | 'configured' | 'formControl' | 'validation' | 'dragDrop' | 'fileTypes';
-
 import { AmwButtonComponent } from '../../../../library/src/controls/components/amw-button/amw-button.component';
-import { AmwAccordionComponent, AmwAccordionPanelComponent, AmwIconComponent } from '../../../../library/src/components/components';
+
 @Component({
   selector: 'amw-demo-file-input-code',
   standalone: true,
-  imports: [CommonModule,
+  imports: [
+    CommonModule,
     FormsModule,
     ReactiveFormsModule,
+    AmwCodeDocComponent,
     AmwFileInputComponent,
-    AmwButtonComponent,
-    AmwAccordionComponent,
-    AmwAccordionPanelComponent,
-    AmwIconComponent],
+    AmwButtonComponent
+  ],
   encapsulation: ViewEncapsulation.None,
   templateUrl: './file-input-code.component.html',
   styleUrl: './file-input-code.component.scss'
 })
-export class FileInputCodeComponent extends BaseCodeComponent<FileInputExamples> implements OnInit {
+export class FileInputCodeComponent implements OnInit {
   // State for live preview examples
   basicFiles: File[] = [];
   imageFiles: File[] = [];
@@ -35,16 +32,27 @@ export class FileInputCodeComponent extends BaseCodeComponent<FileInputExamples>
   videoFiles: File[] = [];
   fileForm!: FormGroup;
 
-  // Original code examples (for reset functionality)
-  readonly codeExamples: Record<FileInputExamples, string> = {
-    basic: `<amw-file-input
+  // Editable code for the shared component
+  editableCode: Record<string, string> = {};
+
+  // Code examples data
+  readonly examples: CodeExample[] = [
+    {
+      key: 'basic',
+      title: 'Basic File Input',
+      description: 'Simple file input with default configuration',
+      code: `<amw-file-input
   [(selectedFiles)]="files"
   (filesChange)="onFilesChange($event)"
   (fileSelect)="onFileSelect($event)"
   (fileRemove)="onFileRemove($event)">
-</amw-file-input>`,
-
-    configured: `<amw-file-input
+</amw-file-input>`
+    },
+    {
+      key: 'configured',
+      title: 'Configured File Input',
+      description: 'File input with custom configuration and restrictions',
+      code: `<amw-file-input
   [multiple]="true"
   [accept]="'image/*'"
   [maxSize]="5 * 1024 * 1024"
@@ -55,9 +63,13 @@ export class FileInputCodeComponent extends BaseCodeComponent<FileInputExamples>
   (filesChange)="onImageFilesChange($event)"
   placeholder="Upload images (max 5MB each)"
   buttonText="Choose Images">
-</amw-file-input>`,
-
-    formControl: `// Component
+</amw-file-input>`
+    },
+    {
+      key: 'formControl',
+      title: 'Reactive Form Integration',
+      description: 'File input integrated with Angular reactive forms',
+      code: `// Component
 export class MyComponent {
   form = this.fb.group({
     profileImage: [[], [Validators.required, this.validateFileCount(1)]],
@@ -83,9 +95,13 @@ export class MyComponent {
     [hasError]="form.get('profileImage')?.invalid">
     Profile Image
   </amw-file-input>
-</form>`,
-
-    validation: `// Component
+</form>`
+    },
+    {
+      key: 'validation',
+      title: 'With Custom Validation',
+      description: 'File input with custom validation and error handling',
+      code: `// Component
 export class MyComponent {
   form = this.fb.group({
     documents: [[], [Validators.required, this.validateDocuments]]
@@ -125,9 +141,13 @@ export class MyComponent {
     [errorMessage]="getErrorMessage('documents')">
     Upload Documents
   </amw-file-input>
-</form>`,
-
-    dragDrop: `<amw-file-input
+</form>`
+    },
+    {
+      key: 'dragDrop',
+      title: 'Drag & Drop Configuration',
+      description: 'File input with drag and drop functionality',
+      code: `<amw-file-input
   [allowDragDrop]="true"
   [multiple]="true"
   [accept]="'*/*'"
@@ -135,9 +155,13 @@ export class MyComponent {
   (filesChange)="onFilesChange($event)"
   placeholder="Drag and drop files here or click to browse"
   dropText="Drop files here to upload">
-</amw-file-input>`,
-
-    fileTypes: `<!-- Images only -->
+</amw-file-input>`
+    },
+    {
+      key: 'fileTypes',
+      title: 'File Type Restrictions',
+      description: 'Different file type restrictions and MIME types',
+      code: `<!-- Images only -->
 <amw-file-input [accept]="'image/*'">Images</amw-file-input>
 
 <!-- Specific extensions -->
@@ -151,14 +175,16 @@ export class MyComponent {
 
 <!-- Video files -->
 <amw-file-input [accept]="'video/*'">Video Files</amw-file-input>`
-  };
+    }
+  ];
 
-  constructor(private fb: FormBuilder) {
-    super();
-  }
+  constructor(private fb: FormBuilder) {}
 
-  override ngOnInit(): void {
-    super.ngOnInit();
+  ngOnInit(): void {
+    // Initialize editable code from examples
+    this.examples.forEach(example => {
+      this.editableCode[example.key] = example.code;
+    });
 
     // Initialize form for validation examples
     this.fileForm = this.fb.group({
@@ -218,4 +244,3 @@ export class MyComponent {
     return '';
   }
 }
-

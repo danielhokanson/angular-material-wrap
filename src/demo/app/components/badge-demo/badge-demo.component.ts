@@ -4,11 +4,12 @@ import { MatIconModule } from '@angular/material/icon';
 import { MatButtonModule } from '@angular/material/button';
 import { AmwButtonComponent } from '../../../../library/src/controls/components/amw-button/amw-button.component';
 import { AmwIconButtonComponent } from '../../../../library/src/controls/components/amw-icon-button/amw-icon-button.component';
+import { AmwDemoDocComponent } from '../../shared/components/demo-doc/demo-doc.component';
 
 @Component({
     selector: 'amw-demo-badge',
     standalone: true,
-    imports: [AmwBadgeDirective, MatIconModule, MatButtonModule, AmwButtonComponent, AmwIconButtonComponent],
+    imports: [AmwBadgeDirective, MatIconModule, MatButtonModule, AmwButtonComponent, AmwIconButtonComponent, AmwDemoDocComponent],
     encapsulation: ViewEncapsulation.None,
     templateUrl: './badge-demo.component.html',
     styleUrl: './badge-demo.component.scss'

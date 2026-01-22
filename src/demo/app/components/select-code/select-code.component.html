@@ -1,220 +1,63 @@
-<div class="code-section">
-  <h3>Code Examples</h3>
-  <p>Interactive examples with live previews. The code is editable for reference, and working examples are shown alongside.</p>
+<amw-code-doc
+  componentName="amw-select"
+  [examples]="examples"
+  [editableCode]="editableCode">
 
-  <amw-accordion class="code-examples-accordion">
-    <!-- Basic Select -->
-    <amw-accordion-panel amwDescription="Simple dropdown selection">
-      <ng-template #header>
-        <amw-icon name="code"></amw-icon>
-        Basic Select
-      </ng-template>
-      <div class="example-container">
-        <div class="code-panel">
-          <div class="code-header">
-            <h4>Code</h4>
-            <amw-button icon="refresh" (click)="resetCode('basic')" title="Reset to original"></amw-button>
-          </div>
-          <textarea
-            [(ngModel)]="editableCode.basic"
-            class="code-editor"
-            spellcheck="false"></textarea>
-        </div>
-        <div class="preview-panel">
-          <h4>Preview</h4>
-          <div class="preview-content">
-            <amw-select
-              label="Favorite food"
-              [(ngModel)]="selectedFood"
-              [options]="foods">
-            </amw-select>
-          </div>
-        </div>
-      </div>
-    </amw-accordion-panel>
-
-    <!-- Select with Value Binding -->
-    <amw-accordion-panel amwDescription="Two-way data binding example">
-      <ng-template #header>
-        <amw-icon name="code"></amw-icon>
-        Select with Value Binding
-      </ng-template>
-      <div class="example-container">
-        <div class="code-panel">
-          <div class="code-header">
-            <h4>Code</h4>
-            <amw-button icon="refresh" (click)="resetCode('withValue')" title="Reset to original"></amw-button>
-          </div>
-          <textarea
-            [(ngModel)]="editableCode.withValue"
-            class="code-editor"
-            spellcheck="false"></textarea>
-        </div>
-        <div class="preview-panel">
-          <h4>Preview</h4>
-          <div class="preview-content">
-            <amw-select
-              label="Select your car"
-              [(ngModel)]="selectedCar"
-              [options]="cars">
-            </amw-select>
-            <p>You selected: {{selectedCar}}</p>
-          </div>
-        </div>
-      </div>
-    </amw-accordion-panel>
-
-    <!-- Multiple Selection -->
-    <amw-accordion-panel amwDescription="Select multiple options at once">
-      <ng-template #header>
-        <amw-icon name="code"></amw-icon>
-        Multiple Selection
-      </ng-template>
-      <div class="example-container">
-        <div class="code-panel">
-          <div class="code-header">
-            <h4>Code</h4>
-            <amw-button icon="refresh" (click)="resetCode('multiple')" title="Reset to original"></amw-button>
-          </div>
-          <textarea
-            [(ngModel)]="editableCode.multiple"
-            class="code-editor"
-            spellcheck="false"></textarea>
-        </div>
-        <div class="preview-panel">
-          <h4>Preview</h4>
-          <div class="preview-content">
-            <amw-select
-              label="Toppings"
-              [multiple]="true"
-              [(ngModel)]="selectedMultiple"
-              [options]="toppings">
-            </amw-select>
-          </div>
-        </div>
-      </div>
-    </amw-accordion-panel>
-
-    <!-- Option Groups -->
-    <amw-accordion-panel amwDescription="Organize options into groups">
-      <ng-template #header>
-        <amw-icon name="code"></amw-icon>
-        Option Groups
-      </ng-template>
-      <div class="example-container">
-        <div class="code-panel">
-          <div class="code-header">
-            <h4>Code</h4>
-            <amw-button icon="refresh" (click)="resetCode('optGroups')" title="Reset to original"></amw-button>
-          </div>
-          <textarea
-            [(ngModel)]="editableCode.optGroups"
-            class="code-editor"
-            spellcheck="false"></textarea>
-        </div>
-        <div class="preview-panel">
-          <h4>Preview</h4>
-          <div class="preview-content">
-            <amw-select
-              label="Pokemon"
-              [groups]="pokemonGroups">
-            </amw-select>
-          </div>
-        </div>
-      </div>
-    </amw-accordion-panel>
-
-    <!-- Disabled State -->
-    <amw-accordion-panel amwDescription="Non-interactive select">
-      <ng-template #header>
-        <amw-icon name="code"></amw-icon>
-        Disabled State
-      </ng-template>
-      <div class="example-container">
-        <div class="code-panel">
-          <div class="code-header">
-            <h4>Code</h4>
-            <amw-button icon="refresh" (click)="resetCode('disabled')" title="Reset to original"></amw-button>
-          </div>
-          <textarea
-            [(ngModel)]="editableCode.disabled"
-            class="code-editor"
-            spellcheck="false"></textarea>
-        </div>
-        <div class="preview-panel">
-          <h4>Preview</h4>
-          <div class="preview-content">
-            <amw-select
-              label="Disabled select"
-              [disabled]="true"
-              [options]="[
-                { value: 'option1', label: 'Option 1' },
-                { value: 'option2', label: 'Option 2' }
-              ]">
-            </amw-select>
-          </div>
-        </div>
-      </div>
-    </amw-accordion-panel>
-
-    <!-- Custom Trigger -->
-    <amw-accordion-panel amwDescription="Customize the display trigger">
-      <ng-template #header>
-        <amw-icon name="code"></amw-icon>
-        Custom Trigger
-      </ng-template>
-      <div class="example-container">
-        <div class="code-panel">
-          <div class="code-header">
-            <h4>Code</h4>
-            <amw-button icon="refresh" (click)="resetCode('customTrigger')" title="Reset to original"></amw-button>
-          </div>
-          <textarea
-            [(ngModel)]="editableCode.customTrigger"
-            class="code-editor"
-            spellcheck="false"></textarea>
-        </div>
-        <div class="preview-panel">
-          <h4>Preview</h4>
-          <div class="preview-content">
-            <amw-select
-              label="Favorite food"
-              [options]="foods">
-            </amw-select>
-          </div>
-        </div>
-      </div>
-    </amw-accordion-panel>
-
-    <!-- Error State -->
-    <amw-accordion-panel amwDescription="Display validation errors">
-      <ng-template #header>
-        <amw-icon name="code"></amw-icon>
-        Error State
-      </ng-template>
-      <div class="example-container">
-        <div class="code-panel">
-          <div class="code-header">
-            <h4>Code</h4>
-            <amw-button icon="refresh" (click)="resetCode('errorState')" title="Reset to original"></amw-button>
-          </div>
-          <textarea
-            [(ngModel)]="editableCode.errorState"
-            class="code-editor"
-            spellcheck="false"></textarea>
-        </div>
-        <div class="preview-panel">
-          <h4>Preview</h4>
-          <div class="preview-content">
-            <amw-select
-              label="Favorite food"
-              [(ngModel)]="selectedValue"
-              [required]="true"
-              [options]="foods">
-            </amw-select>
-          </div>
-        </div>
-      </div>
-    </amw-accordion-panel>
-  </amw-accordion>
-</div>
+  <ng-template #preview let-example>
+    @switch (example.key) {
+      @case ('basic') {
+        <amw-select
+          label="Favorite food"
+          [(ngModel)]="selectedFood"
+          [options]="foods">
+        </amw-select>
+      }
+      @case ('withValue') {
+        <amw-select
+          label="Select your car"
+          [(ngModel)]="selectedCar"
+          [options]="cars">
+        </amw-select>
+        <p>You selected: {{selectedCar}}</p>
+      }
+      @case ('multiple') {
+        <amw-select
+          label="Toppings"
+          [multiple]="true"
+          [(ngModel)]="selectedMultiple"
+          [options]="toppings">
+        </amw-select>
+      }
+      @case ('optGroups') {
+        <amw-select
+          label="Pokemon"
+          [groups]="pokemonGroups">
+        </amw-select>
+      }
+      @case ('disabled') {
+        <amw-select
+          label="Disabled select"
+          [disabled]="true"
+          [options]="[
+            { value: 'option1', label: 'Option 1' },
+            { value: 'option2', label: 'Option 2' }
+          ]">
+        </amw-select>
+      }
+      @case ('customTrigger') {
+        <amw-select
+          label="Favorite food"
+          [options]="foods">
+        </amw-select>
+      }
+      @case ('errorState') {
+        <amw-select
+          label="Favorite food"
+          [(ngModel)]="selectedValue"
+          [required]="true"
+          [options]="foods">
+        </amw-select>
+      }
+    }
+  </ng-template>
+</amw-code-doc>

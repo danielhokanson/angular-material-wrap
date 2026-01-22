@@ -1,188 +1,97 @@
-<div class="code-section">
-  <h3>Code Examples</h3>
-  <p>Interactive examples with live previews. The code is editable for reference, and working examples are shown alongside.</p>
+<amw-code-doc
+  componentName="amw-popover"
+  [examples]="examples"
+  [editableCode]="editableCode">
 
-  <amw-accordion class="code-examples-accordion">
-    <!-- Basic Popover -->
-    <amw-accordion-panel amwDescription="Simple popover with click trigger">
-      <ng-template #header>
-        <amw-icon name="code"></amw-icon>
-        Basic Popover
-      </ng-template>
-      <div class="example-container">
-        <div class="code-panel">
-          <div class="code-header">
-            <h4>Code</h4>
-            <amw-button icon="refresh" (click)="resetCode('basic')" title="Reset to original"></amw-button>
-          </div>
-          <textarea
-            [(ngModel)]="editableCode.basic"
-            class="code-editor"
-            spellcheck="false"></textarea>
+  <ng-template #preview let-example>
+    @switch (example.key) {
+      @case ('basic') {
+        <amw-popover [config]="{ position: 'bottom', showArrow: true }">
+          <ng-template #trigger>
+            <amw-button appearance="elevated">Hover Me</amw-button>
+          </ng-template>
+          <ng-template #content>
+            <p>This is a basic popover</p>
+          </ng-template>
+        </amw-popover>
+        <div class="preview-note">
+          <amw-icon name="info"></amw-icon>
+          <span>Click or hover over the button to see the popover</span>
         </div>
-        <div class="preview-panel">
-          <h4>Preview</h4>
-          <div class="preview-content">
-            <amw-popover [config]="{ position: 'bottom', showArrow: true }">
-              <ng-template #trigger>
-                <amw-button appearance="elevated">Hover Me</amw-button>
-              </ng-template>
-              <ng-template #content>
-                <p>This is a basic popover</p>
-              </ng-template>
-            </amw-popover>
-            <div class="preview-note">
-              <amw-icon name="info"></amw-icon>
-              <span>Click or hover over the button to see the popover</span>
-            </div>
-          </div>
-        </div>
-      </div>
-    </amw-accordion-panel>
+      }
+      @case ('positions') {
+        <div class="button-grid">
+          <amw-popover [config]="{ position: 'top', showArrow: true }">
+            <ng-template #trigger>
+              <amw-button appearance="text">Top</amw-button>
+            </ng-template>
+            <ng-template #content>
+              <p>Popover on top</p>
+            </ng-template>
+          </amw-popover>
 
-    <!-- Popover Positions -->
-    <amw-accordion-panel amwDescription="Popovers in different positions">
-      <ng-template #header>
-        <amw-icon name="code"></amw-icon>
-        Popover Positions
-      </ng-template>
-      <div class="example-container">
-        <div class="code-panel">
-          <div class="code-header">
-            <h4>Code</h4>
-            <amw-button icon="refresh" (click)="resetCode('positions')" title="Reset to original"></amw-button>
-          </div>
-          <textarea
-            [(ngModel)]="editableCode.positions"
-            class="code-editor"
-            spellcheck="false"
-            readonly></textarea>
-        </div>
-        <div class="preview-panel">
-          <h4>Preview</h4>
-          <div class="preview-content">
-            <div class="button-grid">
-              <amw-popover [config]="{ position: 'top', showArrow: true }">
-                <ng-template #trigger>
-                  <amw-button appearance="text">Top</amw-button>
-                </ng-template>
-                <ng-template #content>
-                  <p>Popover on top</p>
-                </ng-template>
-              </amw-popover>
+          <amw-popover [config]="{ position: 'right', showArrow: true }">
+            <ng-template #trigger>
+              <amw-button appearance="text">Right</amw-button>
+            </ng-template>
+            <ng-template #content>
+              <p>Popover on right</p>
+            </ng-template>
+          </amw-popover>
 
-              <amw-popover [config]="{ position: 'right', showArrow: true }">
-                <ng-template #trigger>
-                  <amw-button appearance="text">Right</amw-button>
-                </ng-template>
-                <ng-template #content>
-                  <p>Popover on right</p>
-                </ng-template>
-              </amw-popover>
+          <amw-popover [config]="{ position: 'bottom', showArrow: true }">
+            <ng-template #trigger>
+              <amw-button appearance="text">Bottom</amw-button>
+            </ng-template>
+            <ng-template #content>
+              <p>Popover on bottom</p>
+            </ng-template>
+          </amw-popover>
 
-              <amw-popover [config]="{ position: 'bottom', showArrow: true }">
-                <ng-template #trigger>
-                  <amw-button appearance="text">Bottom</amw-button>
-                </ng-template>
-                <ng-template #content>
-                  <p>Popover on bottom</p>
-                </ng-template>
-              </amw-popover>
-
-              <amw-popover [config]="{ position: 'left', showArrow: true }">
-                <ng-template #trigger>
-                  <amw-button appearance="text">Left</amw-button>
-                </ng-template>
-                <ng-template #content>
-                  <p>Popover on left</p>
-                </ng-template>
-              </amw-popover>
-            </div>
-            <div class="preview-note">
-              <amw-icon name="info"></amw-icon>
-              <span>Click each button to see different positions</span>
-            </div>
-          </div>
+          <amw-popover [config]="{ position: 'left', showArrow: true }">
+            <ng-template #trigger>
+              <amw-button appearance="text">Left</amw-button>
+            </ng-template>
+            <ng-template #content>
+              <p>Popover on left</p>
+            </ng-template>
+          </amw-popover>
         </div>
-      </div>
-    </amw-accordion-panel>
-
-    <!-- Custom Styling -->
-    <amw-accordion-panel amwDescription="Popover with custom styling">
-      <ng-template #header>
-        <amw-icon name="code"></amw-icon>
-        Custom Styling
-      </ng-template>
-      <div class="example-container">
-        <div class="code-panel">
-          <div class="code-header">
-            <h4>Code</h4>
-            <amw-button icon="refresh" (click)="resetCode('styling')" title="Reset to original"></amw-button>
-          </div>
-          <textarea
-            [(ngModel)]="editableCode.styling"
-            class="code-editor"
-            spellcheck="false"
-            readonly></textarea>
+        <div class="preview-note">
+          <amw-icon name="info"></amw-icon>
+          <span>Click each button to see different positions</span>
         </div>
-        <div class="preview-panel">
-          <h4>Preview</h4>
-          <div class="preview-content">
-            <amw-popover [config]="{ position: 'bottom', showArrow: true, size: 'large' }">
-              <ng-template #trigger>
-                <amw-button appearance="elevated" color="primary">Custom Popover</amw-button>
-              </ng-template>
-              <ng-template #content>
-                <p>Custom styled popover content</p>
-              </ng-template>
-            </amw-popover>
-            <div class="preview-note">
-              <amw-icon name="info"></amw-icon>
-              <span>Apply custom configurations to style popovers</span>
-            </div>
-          </div>
+      }
+      @case ('styling') {
+        <amw-popover [config]="{ position: 'bottom', showArrow: true, size: 'large' }">
+          <ng-template #trigger>
+            <amw-button appearance="elevated" color="primary">Custom Popover</amw-button>
+          </ng-template>
+          <ng-template #content>
+            <p>Custom styled popover content</p>
+          </ng-template>
+        </amw-popover>
+        <div class="preview-note">
+          <amw-icon name="info"></amw-icon>
+          <span>Apply custom configurations to style popovers</span>
         </div>
-      </div>
-    </amw-accordion-panel>
-
-    <!-- Interactive Popover -->
-    <amw-accordion-panel amwDescription="Popover with interactive controls">
-      <ng-template #header>
-        <amw-icon name="code"></amw-icon>
-        Interactive Popover
-      </ng-template>
-      <div class="example-container">
-        <div class="code-panel">
-          <div class="code-header">
-            <h4>Code</h4>
-            <amw-button icon="refresh" (click)="resetCode('interactive')" title="Reset to original"></amw-button>
-          </div>
-          <textarea
-            [(ngModel)]="editableCode.interactive"
-            class="code-editor"
-            spellcheck="false"
-            readonly></textarea>
+      }
+      @case ('interactive') {
+        <amw-popover
+          [config]="{ position: 'bottom', showArrow: true, showClose: true, disabled: tooltipDisabled }">
+          <ng-template #trigger>
+            <amw-button appearance="elevated" (click)="toggleTooltip()">Toggle Popover</amw-button>
+          </ng-template>
+          <ng-template #content>
+            <p>Click to show/hide</p>
+          </ng-template>
+        </amw-popover>
+        <p class="status-text">Popover is {{ tooltipDisabled ? 'disabled' : 'enabled' }}</p>
+        <div class="preview-note">
+          <amw-icon name="info"></amw-icon>
+          <span>Click to toggle popover state, check console for events</span>
         </div>
-        <div class="preview-panel">
-          <h4>Preview</h4>
-          <div class="preview-content">
-            <amw-popover
-              [config]="{ position: 'bottom', showArrow: true, showClose: true, disabled: tooltipDisabled }">
-              <ng-template #trigger>
-                <amw-button appearance="elevated" (click)="toggleTooltip()">Toggle Popover</amw-button>
-              </ng-template>
-              <ng-template #content>
-                <p>Click to show/hide</p>
-              </ng-template>
-            </amw-popover>
-            <p class="status-text">Popover is {{ tooltipDisabled ? 'disabled' : 'enabled' }}</p>
-            <div class="preview-note">
-              <amw-icon name="info"></amw-icon>
-              <span>Click to toggle popover state, check console for events</span>
-            </div>
-          </div>
-        </div>
-      </div>
-    </amw-accordion-panel>
-  </amw-accordion>
-</div>
+      }
+    }
+  </ng-template>
+</amw-code-doc>

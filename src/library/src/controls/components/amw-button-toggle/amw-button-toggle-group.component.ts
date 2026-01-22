@@ -1,7 +1,7 @@
 import { Component, ViewEncapsulation, input, output, computed, model, forwardRef, contentChildren } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { ControlValueAccessor, NG_VALUE_ACCESSOR, FormsModule, ReactiveFormsModule } from '@angular/forms';
-import { Field } from '@angular/forms/signals';
+import { FormField } from '@angular/forms/signals';
 import { MatButtonToggleModule, MatButtonToggleChange } from '@angular/material/button-toggle';
 import { AmwButtonToggleComponent } from './amw-button-toggle.component';
 
@@ -49,7 +49,7 @@ export type AmwButtonToggleAppearance = 'standard' | 'legacy';
         CommonModule,
         FormsModule,
         ReactiveFormsModule,
-        Field,
+        FormField,
         MatButtonToggleModule
     ],
     encapsulation: ViewEncapsulation.None,
@@ -70,7 +70,7 @@ export class AmwButtonToggleGroupComponent implements ControlValueAccessor {
      * Mutually exclusive with ngModel and formControl/formControlName.
      * @experimental
      */
-    readonly field = input<any>(undefined);
+    readonly formField = input<any>(undefined);
 
     /** Current selected value(s) (two-way bindable) */
     readonly value = model<any>();

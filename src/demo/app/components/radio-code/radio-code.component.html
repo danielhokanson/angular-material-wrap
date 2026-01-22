@@ -1,231 +1,74 @@
-<div class="code-section">
-  <h3>Code Examples</h3>
-  <p>Interactive examples with live previews. The code is editable for reference, and working examples are shown alongside.</p>
+<amw-code-doc
+  componentName="amw-radio-group"
+  [examples]="examples"
+  [editableCode]="editableCode">
 
-  <amw-accordion class="code-examples-accordion">
-    <!-- Basic Radio Group -->
-    <amw-accordion-panel amwDescription="Simple radio button group">
-      <ng-template #header>
-        <amw-icon name="code"></amw-icon>
-        Basic Radio Group
-      </ng-template>
-      <div class="example-container">
-        <div class="code-panel">
-          <div class="code-header">
-            <h4>Code</h4>
-            <amw-button icon="refresh" (click)="resetCode('basic')" title="Reset to original"></amw-button>
-          </div>
-          <textarea
-            [(ngModel)]="editableCode.basic"
-            class="code-editor"
-            spellcheck="false"></textarea>
+  <ng-template #preview let-example>
+    @switch (example.key) {
+      @case ('basic') {
+        <amw-radio-group
+          [(ngModel)]="selectedOption"
+          [options]="[
+            { value: '1', label: 'Option 1' },
+            { value: '2', label: 'Option 2' },
+            { value: '3', label: 'Option 3' }
+          ]">
+        </amw-radio-group>
+      }
+      @case ('colors') {
+        <amw-radio-group
+          color="primary"
+          [options]="[
+            { value: 'primary', label: 'Primary' },
+            { value: 'accent', label: 'Accent' },
+            { value: 'warn', label: 'Warn' }
+          ]">
+        </amw-radio-group>
+      }
+      @case ('disabled') {
+        <amw-radio-group
+          [options]="[
+            { value: '1', label: 'Enabled' },
+            { value: '2', label: 'Disabled', disabled: true },
+            { value: '3', label: 'Enabled' }
+          ]">
+        </amw-radio-group>
+      }
+      @case ('labelPosition') {
+        <amw-radio-group
+          [options]="[
+            { value: '1', label: 'Label before' },
+            { value: '2', label: 'Label after' }
+          ]">
+        </amw-radio-group>
+      }
+      @case ('ngModel') {
+        <amw-radio-group
+          [(ngModel)]="selectedSeason"
+          [options]="seasons">
+        </amw-radio-group>
+        <p>Your favorite season is: {{selectedSeason}}</p>
+      }
+      @case ('events') {
+        <amw-radio-group
+          (selectionChange)="onRadioChange($event)"
+          [options]="[
+            { value: '1', label: 'Option 1' },
+            { value: '2', label: 'Option 2' },
+            { value: '3', label: 'Option 3' }
+          ]">
+        </amw-radio-group>
+        <div class="preview-note">
+          <amw-icon name="info"></amw-icon>
+          <span>Open your browser console to see event logs</span>
         </div>
-        <div class="preview-panel">
-          <h4>Preview</h4>
-          <div class="preview-content">
-            <amw-radio-group
-              [(ngModel)]="selectedOption"
-              [options]="[
-                { value: '1', label: 'Option 1' },
-                { value: '2', label: 'Option 2' },
-                { value: '3', label: 'Option 3' }
-              ]">
-            </amw-radio-group>
-          </div>
-        </div>
-      </div>
-    </amw-accordion-panel>
-
-    <!-- Radio Colors -->
-    <amw-accordion-panel amwDescription="Different color themes">
-      <ng-template #header>
-        <amw-icon name="code"></amw-icon>
-        Radio Button Colors
-      </ng-template>
-      <div class="example-container">
-        <div class="code-panel">
-          <div class="code-header">
-            <h4>Code</h4>
-            <amw-button icon="refresh" (click)="resetCode('colors')" title="Reset to original"></amw-button>
-          </div>
-          <textarea
-            [(ngModel)]="editableCode.colors"
-            class="code-editor"
-            spellcheck="false"></textarea>
-        </div>
-        <div class="preview-panel">
-          <h4>Preview</h4>
-          <div class="preview-content">
-            <amw-radio-group
-              color="primary"
-              [options]="[
-                { value: 'primary', label: 'Primary' },
-                { value: 'accent', label: 'Accent' },
-                { value: 'warn', label: 'Warn' }
-              ]">
-            </amw-radio-group>
-          </div>
-        </div>
-      </div>
-    </amw-accordion-panel>
-
-    <!-- Disabled State -->
-    <amw-accordion-panel amwDescription="Individual buttons can be disabled">
-      <ng-template #header>
-        <amw-icon name="code"></amw-icon>
-        Disabled Radio Buttons
-      </ng-template>
-      <div class="example-container">
-        <div class="code-panel">
-          <div class="code-header">
-            <h4>Code</h4>
-            <amw-button icon="refresh" (click)="resetCode('disabled')" title="Reset to original"></amw-button>
-          </div>
-          <textarea
-            [(ngModel)]="editableCode.disabled"
-            class="code-editor"
-            spellcheck="false"></textarea>
-        </div>
-        <div class="preview-panel">
-          <h4>Preview</h4>
-          <div class="preview-content">
-            <amw-radio-group
-              [options]="[
-                { value: '1', label: 'Enabled' },
-                { value: '2', label: 'Disabled', disabled: true },
-                { value: '3', label: 'Enabled' }
-              ]">
-            </amw-radio-group>
-          </div>
-        </div>
-      </div>
-    </amw-accordion-panel>
-
-    <!-- Label Position -->
-    <amw-accordion-panel amwDescription="Position label before or after button">
-      <ng-template #header>
-        <amw-icon name="code"></amw-icon>
-        Label Position
-      </ng-template>
-      <div class="example-container">
-        <div class="code-panel">
-          <div class="code-header">
-            <h4>Code</h4>
-            <amw-button icon="refresh" (click)="resetCode('labelPosition')" title="Reset to original"></amw-button>
-          </div>
-          <textarea
-            [(ngModel)]="editableCode.labelPosition"
-            class="code-editor"
-            spellcheck="false"></textarea>
-        </div>
-        <div class="preview-panel">
-          <h4>Preview</h4>
-          <div class="preview-content">
-            <amw-radio-group
-              [options]="[
-                { value: '1', label: 'Label before' },
-                { value: '2', label: 'Label after' }
-              ]">
-            </amw-radio-group>
-          </div>
-        </div>
-      </div>
-    </amw-accordion-panel>
-
-    <!-- NgModel Binding -->
-    <amw-accordion-panel amwDescription="Bind radio group to a model property">
-      <ng-template #header>
-        <amw-icon name="code"></amw-icon>
-        Two-Way Binding with ngModel
-      </ng-template>
-      <div class="example-container">
-        <div class="code-panel">
-          <div class="code-header">
-            <h4>Code</h4>
-            <amw-button icon="refresh" (click)="resetCode('ngModel')" title="Reset to original"></amw-button>
-          </div>
-          <textarea
-            [(ngModel)]="editableCode.ngModel"
-            class="code-editor"
-            spellcheck="false"></textarea>
-        </div>
-        <div class="preview-panel">
-          <h4>Preview</h4>
-          <div class="preview-content">
-            <amw-radio-group
-              [(ngModel)]="selectedSeason"
-              [options]="seasons">
-            </amw-radio-group>
-            <p>Your favorite season is: {{selectedSeason}}</p>
-          </div>
-        </div>
-      </div>
-    </amw-accordion-panel>
-
-    <!-- Event Handling -->
-    <amw-accordion-panel amwDescription="Listen to radio group change events">
-      <ng-template #header>
-        <amw-icon name="code"></amw-icon>
-        Event Handling
-      </ng-template>
-      <div class="example-container">
-        <div class="code-panel">
-          <div class="code-header">
-            <h4>Code</h4>
-            <amw-button icon="refresh" (click)="resetCode('events')" title="Reset to original"></amw-button>
-          </div>
-          <textarea
-            [(ngModel)]="editableCode.events"
-            class="code-editor"
-            spellcheck="false"></textarea>
-        </div>
-        <div class="preview-panel">
-          <h4>Preview</h4>
-          <div class="preview-content">
-            <amw-radio-group
-              (selectionChange)="onRadioChange($event)"
-              [options]="[
-                { value: '1', label: 'Option 1' },
-                { value: '2', label: 'Option 2' },
-                { value: '3', label: 'Option 3' }
-              ]">
-            </amw-radio-group>
-            <div class="preview-note">
-              <amw-icon name="info"></amw-icon>
-              <span>Open your browser console to see event logs</span>
-            </div>
-          </div>
-        </div>
-      </div>
-    </amw-accordion-panel>
-
-    <!-- Dynamic Options -->
-    <amw-accordion-panel amwDescription="Generate radio buttons from array">
-      <ng-template #header>
-        <amw-icon name="code"></amw-icon>
-        Dynamic Options
-      </ng-template>
-      <div class="example-container">
-        <div class="code-panel">
-          <div class="code-header">
-            <h4>Code</h4>
-            <amw-button icon="refresh" (click)="resetCode('dynamicOptions')" title="Reset to original"></amw-button>
-          </div>
-          <textarea
-            [(ngModel)]="editableCode.dynamicOptions"
-            class="code-editor"
-            spellcheck="false"></textarea>
-        </div>
-        <div class="preview-panel">
-          <h4>Preview</h4>
-          <div class="preview-content">
-            <amw-radio-group
-              [(ngModel)]="selectedColor"
-              [options]="seasons">
-            </amw-radio-group>
-          </div>
-        </div>
-      </div>
-    </amw-accordion-panel>
-  </amw-accordion>
-</div>
+      }
+      @case ('dynamicOptions') {
+        <amw-radio-group
+          [(ngModel)]="selectedColor"
+          [options]="seasons">
+        </amw-radio-group>
+      }
+    }
+  </ng-template>
+</amw-code-doc>

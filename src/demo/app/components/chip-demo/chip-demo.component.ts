@@ -1,11 +1,12 @@
 import { Component, ViewEncapsulation, signal } from '@angular/core';
 import { AmwChipComponent } from '../../../../library/src/controls/components/amw-chip/amw-chip.component';
 import { AmwNotificationService } from '../../../../library/src/services/amw-notification/amw-notification.service';
+import { AmwDemoDocComponent } from '../../shared/components/demo-doc/demo-doc.component';
 
 @Component({
     selector: 'amw-demo-chip',
     standalone: true,
-    imports: [AmwChipComponent],
+    imports: [AmwChipComponent, AmwDemoDocComponent],
     encapsulation: ViewEncapsulation.None,
     templateUrl: './chip-demo.component.html',
     styleUrl: './chip-demo.component.scss'

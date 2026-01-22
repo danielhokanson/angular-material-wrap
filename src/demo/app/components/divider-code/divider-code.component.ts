@@ -1,24 +1,40 @@
-import { Component, ViewEncapsulation } from '@angular/core';
-import { BaseCodeComponent } from '../base/base-code.component';
-
-type DividerCodeExamples = 'basic' | 'vertical' | 'inset' | 'list' | 'sections';
+import { Component, ViewEncapsulation, OnInit } from '@angular/core';
+import { AmwCodeDocComponent, CodeExample } from '../../shared/components/code-doc/code-doc.component';
+import { AmwDividerComponent } from '../../../../library/src/components/components/amw-divider/amw-divider.component';
+import { AmwIconComponent } from '../../../../library/src/components/components';
 
 @Component({
-    selector: 'amw-demo-divider-code',
-    standalone: true,
-    imports: [],
-    encapsulation: ViewEncapsulation.None,
-    templateUrl: './divider-code.component.html',
-    styleUrl: './divider-code.component.scss'
+  selector: 'amw-demo-divider-code',
+  standalone: true,
+  imports: [
+    AmwCodeDocComponent,
+    AmwDividerComponent,
+    AmwIconComponent
+  ],
+  encapsulation: ViewEncapsulation.None,
+  templateUrl: './divider-code.component.html',
+  styleUrl: './divider-code.component.scss'
 })
-export class DividerCodeComponent extends BaseCodeComponent<DividerCodeExamples> {
-    readonly codeExamples: Record<DividerCodeExamples, string> = {
-        basic: `<!-- Basic Horizontal Divider -->
+export class DividerCodeComponent implements OnInit {
+  // Editable code for the shared component
+  editableCode: Record<string, string> = {};
+
+  // Code examples data
+  readonly examples: CodeExample[] = [
+    {
+      key: 'basic',
+      title: 'Basic Horizontal Divider',
+      description: 'Simple horizontal divider',
+      code: `<!-- Basic Horizontal Divider -->
 <p>Content above</p>
 <amw-divider></amw-divider>
-<p>Content below</p>`,
-
-        vertical: `<!-- Vertical Divider -->
+<p>Content below</p>`
+    },
+    {
+      key: 'vertical',
+      title: 'Vertical Divider',
+      description: 'Divider with vertical orientation',
+      code: `<!-- Vertical Divider -->
 <div style="display: flex; align-items: center; height: 50px;">
   <span>Left</span>
   <amw-divider [vertical]="true"></amw-divider>
@@ -27,9 +43,13 @@ export class DividerCodeComponent extends BaseCodeComponent<DividerCodeExamples>
   <span>Right</span>
 </div>
 
-<!-- Note: Container needs height for vertical divider to be visible -->`,
-
-        inset: `<!-- Inset Divider (for lists with icons) -->
+<!-- Note: Container needs height for vertical divider to be visible -->`
+    },
+    {
+      key: 'inset',
+      title: 'Inset Divider',
+      description: 'Divider with left margin for lists with icons',
+      code: `<!-- Inset Divider (for lists with icons) -->
 <div class="list-item">
   <mat-icon>inbox</mat-icon>
   <span>Inbox</span>
@@ -40,9 +60,13 @@ export class DividerCodeComponent extends BaseCodeComponent<DividerCodeExamples>
   <span>Sent</span>
 </div>
 
-<!-- Inset adds left margin (72px default) to align with content after icons -->`,
-
-        list: `<!-- Divider in List -->
+<!-- Inset adds left margin (72px default) to align with content after icons -->`
+    },
+    {
+      key: 'list',
+      title: 'In Lists',
+      description: 'Using dividers within lists',
+      code: `<!-- Divider in List -->
 <amw-list>
   @for (item of items; track item.id; let last = $last) {
     <amw-list-item>
@@ -66,9 +90,13 @@ export class DividerCodeComponent extends BaseCodeComponent<DividerCodeExamples>
       <amw-divider [inset]="true"></amw-divider>
     }
   }
-</amw-list>`,
-
-        sections: `<!-- Section Dividers -->
+</amw-list>`
+    },
+    {
+      key: 'sections',
+      title: 'Section Dividers',
+      description: 'Using dividers between sections',
+      code: `<!-- Section Dividers -->
 <div class="section">
   <h3>Section 1</h3>
   <p>Content for section 1</p>
@@ -83,9 +111,13 @@ export class DividerCodeComponent extends BaseCodeComponent<DividerCodeExamples>
   <h3>Section 3</h3>
   <p>Content for section 3</p>
 </div>`
-    };
-
-    constructor() {
-        super();
     }
+  ];
+
+  ngOnInit(): void {
+    // Initialize editable code from examples
+    this.examples.forEach(example => {
+      this.editableCode[example.key] = example.code;
+    });
+  }
 }

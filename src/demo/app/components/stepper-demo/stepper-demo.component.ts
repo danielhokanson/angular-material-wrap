@@ -5,6 +5,7 @@ import { ReactiveFormsModule, FormBuilder, FormGroup, Validators } from '@angula
 import { AmwInputComponent } from '../../../../library/src/controls/components/amw-input/amw-input.component';
 import { AmwStepperComponent } from '../../../../library/src/components/components/amw-stepper/amw-stepper.component';
 import { StepperStep, StepperConfig } from '../../../../library/src/components/components/amw-stepper/interfaces';
+import { AmwDemoDocComponent } from '../../shared/components/demo-doc/demo-doc.component';
 
 @Component({
     selector: 'amw-demo-stepper',
@@ -12,7 +13,8 @@ import { StepperStep, StepperConfig } from '../../../../library/src/components/c
     imports: [
         ReactiveFormsModule,
         AmwInputComponent,
-        AmwStepperComponent
+        AmwStepperComponent,
+        AmwDemoDocComponent
     ],
     templateUrl: './stepper-demo.component.html',
     styleUrl: './stepper-demo.component.scss'

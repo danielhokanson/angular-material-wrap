@@ -1,94 +1,98 @@
-<div class="tabs-demo">
-  <h2>Tabs Component Demo</h2>
-  <p>Interactive demonstration of the Material Tabs component with various configurations.</p>
+<amw-demo-doc componentName="amw-tabs">
+  <ng-template #content>
+    <div class="tabs-demo">
+      <h2>Tabs Component Demo</h2>
+      <p>Interactive demonstration of the Material Tabs component with various configurations.</p>
 
-  <div class="demo-section">
-    <h3>Basic Tabs</h3>
-    <amw-tabs>
-      <amw-tab label="First">
-        <div class="tab-content">
-          <h4>First Tab Content</h4>
-          <p>This is the content of the first tab. You can put any content here.</p>
-          <amw-input
-            label="Sample Input"
-            placeholder="Enter some text">
-          </amw-input>
-        </div>
-      </amw-tab>
-      <amw-tab label="Second">
-        <div class="tab-content">
-          <h4>Second Tab Content</h4>
-          <p>This is the content of the second tab with different content.</p>
-          <amw-button appearance="elevated" color="primary">Sample Button</amw-button>
-        </div>
-      </amw-tab>
-      <amw-tab label="Third">
-        <div class="tab-content">
-          <h4>Third Tab Content</h4>
-          <p>This is the content of the third tab.</p>
-          <amw-card>
-            <ng-template #cardContent>
-              <h5>Sample Card</h5>
-              <p>You can include any Angular Material components inside tabs.</p>
+      <div class="demo-section">
+        <h3>Basic Tabs</h3>
+        <amw-tabs>
+          <amw-tab label="First">
+            <div class="tab-content">
+              <h4>First Tab Content</h4>
+              <p>This is the content of the first tab. You can put any content here.</p>
+              <amw-input
+                label="Sample Input"
+                placeholder="Enter some text">
+              </amw-input>
+            </div>
+          </amw-tab>
+          <amw-tab label="Second">
+            <div class="tab-content">
+              <h4>Second Tab Content</h4>
+              <p>This is the content of the second tab with different content.</p>
+              <amw-button appearance="elevated" color="primary">Sample Button</amw-button>
+            </div>
+          </amw-tab>
+          <amw-tab label="Third">
+            <div class="tab-content">
+              <h4>Third Tab Content</h4>
+              <p>This is the content of the third tab.</p>
+              <amw-card>
+                <ng-template #cardContent>
+                  <h5>Sample Card</h5>
+                  <p>You can include any Angular Material components inside tabs.</p>
+                </ng-template>
+              </amw-card>
+            </div>
+          </amw-tab>
+        </amw-tabs>
+      </div>
+
+      <div class="demo-section">
+        <h3>Tabs with Icons</h3>
+        <amw-tabs>
+          <amw-tab>
+            <ng-template #tabHeader>
+              <amw-icon name="home"></amw-icon>
+              Home
             </ng-template>
-          </amw-card>
-        </div>
-      </amw-tab>
-    </amw-tabs>
-  </div>
+            <div class="tab-content">
+              <h4>Home Tab</h4>
+              <p>This tab has a home icon.</p>
+            </div>
+          </amw-tab>
+          <amw-tab>
+            <ng-template #tabHeader>
+              <amw-icon name="settings"></amw-icon>
+              Settings
+            </ng-template>
+            <div class="tab-content">
+              <h4>Settings Tab</h4>
+              <p>This tab has a settings icon.</p>
+            </div>
+          </amw-tab>
+          <amw-tab>
+            <ng-template #tabHeader>
+              <amw-icon name="info"></amw-icon>
+              About
+            </ng-template>
+            <div class="tab-content">
+              <h4>About Tab</h4>
+              <p>This tab has an info icon.</p>
+            </div>
+          </amw-tab>
+        </amw-tabs>
+      </div>
 
-  <div class="demo-section">
-    <h3>Tabs with Icons</h3>
-    <amw-tabs>
-      <amw-tab>
-        <ng-template #tabHeader>
-          <amw-icon name="home"></amw-icon>
-          Home
-        </ng-template>
-        <div class="tab-content">
-          <h4>Home Tab</h4>
-          <p>This tab has a home icon.</p>
+      <div class="demo-section">
+        <h3>Dynamic Tabs</h3>
+        <div class="tab-controls">
+          <amw-button appearance="elevated" (click)="addTab()">Add Tab</amw-button>
+          <amw-button appearance="text" (click)="removeTab()" [disabled]="tabs.length <= 1">Remove Tab</amw-button>
         </div>
-      </amw-tab>
-      <amw-tab>
-        <ng-template #tabHeader>
-          <amw-icon name="settings"></amw-icon>
-          Settings
-        </ng-template>
-        <div class="tab-content">
-          <h4>Settings Tab</h4>
-          <p>This tab has a settings icon.</p>
-        </div>
-      </amw-tab>
-      <amw-tab>
-        <ng-template #tabHeader>
-          <amw-icon name="info"></amw-icon>
-          About
-        </ng-template>
-        <div class="tab-content">
-          <h4>About Tab</h4>
-          <p>This tab has an info icon.</p>
-        </div>
-      </amw-tab>
-    </amw-tabs>
-  </div>
-
-  <div class="demo-section">
-    <h3>Dynamic Tabs</h3>
-    <div class="tab-controls">
-      <amw-button appearance="elevated" (click)="addTab()">Add Tab</amw-button>
-      <amw-button appearance="text" (click)="removeTab()" [disabled]="tabs.length <= 1">Remove Tab</amw-button>
+        <amw-tabs [(selectedIndex)]="selectedTabIndex">
+          @for (tab of tabs; track tab; let i = $index) {
+            <amw-tab [label]="tab.name">
+              <div class="tab-content">
+                <h4>{{ tab.name }}</h4>
+                <p>This is dynamically created tab #{{ i + 1 }}</p>
+                <p>Created at: {{ tab.createdAt | date:'short' }}</p>
+              </div>
+            </amw-tab>
+          }
+        </amw-tabs>
+      </div>
     </div>
-    <amw-tabs [(selectedIndex)]="selectedTabIndex">
-      @for (tab of tabs; track tab; let i = $index) {
-        <amw-tab [label]="tab.name">
-          <div class="tab-content">
-            <h4>{{ tab.name }}</h4>
-            <p>This is dynamically created tab #{{ i + 1 }}</p>
-            <p>Created at: {{ tab.createdAt | date:'short' }}</p>
-          </div>
-        </amw-tab>
-      }
-    </amw-tabs>
-  </div>
-</div>
+  </ng-template>
+</amw-demo-doc>

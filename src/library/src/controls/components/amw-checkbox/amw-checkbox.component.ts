@@ -1,7 +1,7 @@
 import { Component, input, output, model, ViewEncapsulation } from '@angular/core';
 
 import { FormsModule, ReactiveFormsModule, ControlValueAccessor, NG_VALUE_ACCESSOR } from '@angular/forms';
-import { Field } from '@angular/forms/signals';
+import { FormField } from '@angular/forms/signals';
 import { MatCheckboxModule } from '@angular/material/checkbox';
 import { MatRippleModule } from '@angular/material/core';
 import { BaseComponent } from '../base/base.component';
@@ -9,7 +9,7 @@ import { BaseComponent } from '../base/base.component';
 @Component({
     selector: 'amw-checkbox',
     standalone: true,
-    imports: [FormsModule, ReactiveFormsModule, Field, MatCheckboxModule, MatRippleModule],
+    imports: [FormsModule, ReactiveFormsModule, FormField, MatCheckboxModule, MatRippleModule],
     encapsulation: ViewEncapsulation.None,
     templateUrl: './amw-checkbox.component.html',
     styleUrl: './amw-checkbox.component.scss',
@@ -32,7 +32,7 @@ export class AmwCheckboxComponent extends BaseComponent<boolean> implements Cont
      * Mutually exclusive with ngModel and formControl/formControlName.
      * @experimental
      */
-    field = input<any>(undefined);
+    formField = input<any>(undefined);
 
     labelPosition = input<'before' | 'after'>('after');
     indeterminate = model<boolean>(false);

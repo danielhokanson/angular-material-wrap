@@ -1,108 +1,112 @@
-<div class="amw-demo-autocomplete">
-  <div class="demo-section">
-    <h3>Size Variations</h3>
-    <div class="variation-grid">
-      @for (variation of autocompleteVariations.sizes; track variation) {
-        <div class="variation-item">
-          <h4>{{ variation.label }}</h4>
+<amw-demo-doc componentName="amw-autocomplete">
+  <ng-template #content>
+    <div class="amw-demo-autocomplete">
+      <div class="demo-section">
+        <h3>Size Variations</h3>
+        <div class="variation-grid">
+          @for (variation of autocompleteVariations.sizes; track variation) {
+            <div class="variation-item">
+              <h4>{{ variation.label }}</h4>
+              <amw-autocomplete
+                [options]="sampleOptions"
+                [size]="variation.size"
+                placeholder="Select a framework"
+                label="Framework">
+              </amw-autocomplete>
+            </div>
+          }
+        </div>
+      </div>
+
+      <div class="demo-section">
+        <h3>Appearance Variations</h3>
+        <div class="variation-grid">
+          @for (variation of autocompleteVariations.appearances; track variation) {
+            <div class="variation-item">
+              <h4>{{ variation.label }}</h4>
+              <amw-autocomplete
+                [options]="sampleOptions"
+                [appearance]="variation.appearance"
+                placeholder="Select a framework"
+                label="Framework">
+              </amw-autocomplete>
+            </div>
+          }
+        </div>
+      </div>
+
+      <div class="demo-section">
+        <h3>State Variations</h3>
+        <div class="variation-grid">
+          @for (variation of autocompleteVariations.states; track variation) {
+            <div class="variation-item">
+              <h4>{{ variation.label }}</h4>
+              <amw-autocomplete
+                [options]="sampleOptions"
+                [disabled]="variation.disabled"
+                [required]="variation.required"
+                placeholder="Select a framework"
+                label="Framework">
+              </amw-autocomplete>
+            </div>
+          }
+        </div>
+      </div>
+
+      <div class="demo-section">
+        <h3>Single Selection</h3>
+        <div class="demo-example">
           <amw-autocomplete
             [options]="sampleOptions"
-            [size]="variation.size"
-            placeholder="Select a framework"
-            label="Framework">
+            [(ngModel)]="selectedFramework"
+            placeholder="Choose your favorite framework"
+            label="Framework"
+            hint="Start typing to search">
           </amw-autocomplete>
+          @if (selectedFramework) {
+            <p class="selected-value">
+              Selected: {{ selectedFramework }}
+            </p>
+          }
         </div>
-      }
-    </div>
-  </div>
+      </div>
 
-  <div class="demo-section">
-    <h3>Appearance Variations</h3>
-    <div class="variation-grid">
-      @for (variation of autocompleteVariations.appearances; track variation) {
-        <div class="variation-item">
-          <h4>{{ variation.label }}</h4>
+      <div class="demo-section">
+        <h3>Multiple Selection</h3>
+        <div class="demo-example">
           <amw-autocomplete
-            [options]="sampleOptions"
-            [appearance]="variation.appearance"
-            placeholder="Select a framework"
-            label="Framework">
+            [options]="countryOptions"
+            [(ngModel)]="selectedMultiple"
+            [multiple]="true"
+            placeholder="Select countries"
+            label="Countries"
+            hint="You can select multiple countries">
           </amw-autocomplete>
+          @if (selectedMultiple.length > 0) {
+            <p class="selected-value">
+              Selected: {{ selectedMultiple.join(', ') }}
+            </p>
+          }
         </div>
-      }
-    </div>
-  </div>
+      </div>
 
-  <div class="demo-section">
-    <h3>State Variations</h3>
-    <div class="variation-grid">
-      @for (variation of autocompleteVariations.states; track variation) {
-        <div class="variation-item">
-          <h4>{{ variation.label }}</h4>
+      <div class="demo-section">
+        <h3>With Custom Display</h3>
+        <div class="demo-example">
           <amw-autocomplete
-            [options]="sampleOptions"
-            [disabled]="variation.disabled"
-            [required]="variation.required"
-            placeholder="Select a framework"
-            label="Framework">
+            [options]="countryOptions"
+            [(ngModel)]="selectedCountry"
+            placeholder="Choose a country"
+            label="Country"
+            hint="Countries are displayed with custom formatting">
           </amw-autocomplete>
+          @if (selectedCountry) {
+            <p class="selected-value">
+              Selected: {{ selectedCountry }}
+            </p>
+          }
         </div>
-      }
+      </div>
     </div>
-  </div>
-
-  <div class="demo-section">
-    <h3>Single Selection</h3>
-    <div class="demo-example">
-      <amw-autocomplete
-        [options]="sampleOptions"
-        [(ngModel)]="selectedFramework"
-        placeholder="Choose your favorite framework"
-        label="Framework"
-        hint="Start typing to search">
-      </amw-autocomplete>
-      @if (selectedFramework) {
-        <p class="selected-value">
-          Selected: {{ selectedFramework }}
-        </p>
-      }
-    </div>
-  </div>
-
-  <div class="demo-section">
-    <h3>Multiple Selection</h3>
-    <div class="demo-example">
-      <amw-autocomplete
-        [options]="countryOptions"
-        [(ngModel)]="selectedMultiple"
-        [multiple]="true"
-        placeholder="Select countries"
-        label="Countries"
-        hint="You can select multiple countries">
-      </amw-autocomplete>
-      @if (selectedMultiple.length > 0) {
-        <p class="selected-value">
-          Selected: {{ selectedMultiple.join(', ') }}
-        </p>
-      }
-    </div>
-  </div>
-
-  <div class="demo-section">
-    <h3>With Custom Display</h3>
-    <div class="demo-example">
-      <amw-autocomplete
-        [options]="countryOptions"
-        [(ngModel)]="selectedCountry"
-        placeholder="Choose a country"
-        label="Country"
-        hint="Countries are displayed with custom formatting">
-      </amw-autocomplete>
-      @if (selectedCountry) {
-        <p class="selected-value">
-          Selected: {{ selectedCountry }}
-        </p>
-      }
-    </div>
-  </div>
-</div>
+  </ng-template>
+</amw-demo-doc>

@@ -1,26 +1,40 @@
-<div class="amw-demo-sort-code">
-  <div class="code-section">
-    <h3 class="code-section__title">Basic Usage</h3>
-    <pre class="code-block"><code>{{ editableCode['basic'] }}</code></pre>
-  </div>
+<amw-code-doc
+  componentName="amwSort"
+  [examples]="examples"
+  [editableCode]="editableCode">
 
-  <div class="code-section">
-    <h3 class="code-section__title">With Table</h3>
-    <pre class="code-block"><code>{{ editableCode['withTable'] }}</code></pre>
-  </div>
-
-  <div class="code-section">
-    <h3 class="code-section__title">Programmatic Control</h3>
-    <pre class="code-block"><code>{{ editableCode['programmatic'] }}</code></pre>
-  </div>
-
-  <div class="code-section">
-    <h3 class="code-section__title">Disabled Sort</h3>
-    <pre class="code-block"><code>{{ editableCode['disabled'] }}</code></pre>
-  </div>
-
-  <div class="code-section">
-    <h3 class="code-section__title">Sort Header Component</h3>
-    <pre class="code-block"><code>{{ editableCode['sortHeader'] }}</code></pre>
-  </div>
-</div>
+  <ng-template #preview let-example>
+    @switch (example.key) {
+      @case ('basic') {
+        <div class="preview-note">
+          <amw-icon name="info"></amw-icon>
+          <span>This example shows basic sort directive usage</span>
+        </div>
+      }
+      @case ('withTable') {
+        <div class="preview-note">
+          <amw-icon name="info"></amw-icon>
+          <span>This example shows code for sorting with AmwTable</span>
+        </div>
+      }
+      @case ('programmatic') {
+        <div class="preview-note">
+          <amw-icon name="info"></amw-icon>
+          <span>This example shows code for programmatic sort control</span>
+        </div>
+      }
+      @case ('disabled') {
+        <div class="preview-note">
+          <amw-icon name="info"></amw-icon>
+          <span>This example shows code for disabling sort functionality</span>
+        </div>
+      }
+      @case ('sortHeader') {
+        <div class="preview-note">
+          <amw-icon name="info"></amw-icon>
+          <span>Sort headers provide visual indicators and click handling for sorting</span>
+        </div>
+      }
+    }
+  </ng-template>
+</amw-code-doc>

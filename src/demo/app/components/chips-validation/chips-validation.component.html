@@ -1,172 +1,174 @@
-<div class="validation-section">
-  <h3>Form Validation Examples</h3>
-  <p>Interactive forms demonstrating chip input with validation, error handling, and constraints.</p>
+<amw-validation-doc
+  componentName="amw-chips"
+  [validationForm]="validationForm"
+  [validationInfo]="validationInfo">
+  <ng-template #formContent>
+    <div class="validation-forms">
+      <!-- Tag Management Form -->
+      <amw-card class="validation-card">
+        <ng-template #cardHeader>
+          <h2>
+            <amw-icon name="label"></amw-icon>
+            Tag Management
+          </h2>
+          <p class="subtitle">Add tags with min/max constraints (1-10 tags)</p>
+        </ng-template>
+        <ng-template #cardContent>
+          <amw-chips
+            [chips]="tagChips"
+            [addable]="!hasMaxTags()"
+            [removable]="true"
+            [maxChips]="10"
+            [minChips]="1"
+            placeholder="Type and press Enter..."
+            [hasError]="!hasMinTags()"
+            [errorMessage]="getTagsValidationMessage()"
+            (chipAdd)="onTagAdd($event)"
+            (chipRemove)="onTagRemove($event)">
+          </amw-chips>
 
-  <div class="validation-forms">
-    <!-- Tag Management Form -->
-    <amw-card class="validation-card">
-      <ng-template #cardHeader>
-        <h2>
-          <amw-icon name="label"></amw-icon>
-          Tag Management
-        </h2>
-        <p class="subtitle">Add tags with min/max constraints (1-10 tags)</p>
-      </ng-template>
-      <ng-template #cardContent>
-        <amw-chips
-          [chips]="tagChips"
-          [addable]="!hasMaxTags()"
-          [removable]="true"
-          [maxChips]="10"
-          [minChips]="1"
-          placeholder="Type and press Enter..."
-          [hasError]="!hasMinTags()"
-          [errorMessage]="getTagsValidationMessage()"
-          (chipAdd)="onTagAdd($event)"
-          (chipRemove)="onTagRemove($event)">
-        </amw-chips>
-
-        <div class="validation-status">
-          @if (hasMinTags() && !hasMaxTags()) {
-            <div class="status-message status-message--success">
-              <amw-icon name="check_circle"></amw-icon>
-              <span>Valid: {{ tags.length }} tags added</span>
-            </div>
-          }
-        </div>
-      </ng-template>
-    </amw-card>
-
-    <!-- Skill Level Form -->
-    <amw-card class="validation-card">
-      <ng-template #cardHeader>
-        <h2>
-          <amw-icon name="school"></amw-icon>
-          Skills with Levels
-        </h2>
-        <p class="subtitle">Add skills with proficiency levels and validation</p>
-      </ng-template>
-      <ng-template #cardContent>
-        <amw-chips
-          [chips]="skillChips"
-          [addable]="false"
-          [removable]="true"
-          (chipRemove)="onSkillChipRemove($event)">
-        </amw-chips>
-
-        <form [formGroup]="skillForm" (ngSubmit)="addSkill()" class="skill-form">
-          <div class="form-row">
-            <amw-input
-              class="skill-name-field"
-              label="Skill Name"
-              formControlName="skillName"
-              placeholder="e.g., JavaScript">
-            </amw-input>
-            @if (skillForm.get('skillName')?.invalid && skillForm.get('skillName')?.touched) {
-              <div class="field-error">{{ getSkillErrorMessage('skillName') }}</div>
+          <div class="validation-status">
+            @if (hasMinTags() && !hasMaxTags()) {
+              <div class="status-message status-message--success">
+                <amw-icon name="check_circle"></amw-icon>
+                <span>Valid: {{ tags.length }} tags added</span>
+              </div>
             }
+          </div>
+        </ng-template>
+      </amw-card>
 
-            <amw-select
-              appearance="outline"
-              class="skill-level-field"
-              label="Proficiency Level"
-              formControlName="skillLevel"
-              [options]="skillLevelOptions">
-            </amw-select>
+      <!-- Skill Level Form -->
+      <amw-card class="validation-card">
+        <ng-template #cardHeader>
+          <h2>
+            <amw-icon name="school"></amw-icon>
+            Skills with Levels
+          </h2>
+          <p class="subtitle">Add skills with proficiency levels and validation</p>
+        </ng-template>
+        <ng-template #cardContent>
+          <amw-chips
+            [chips]="skillChips"
+            [addable]="false"
+            [removable]="true"
+            (chipRemove)="onSkillChipRemove($event)">
+          </amw-chips>
 
+          <form [formGroup]="skillForm" (ngSubmit)="addSkill()" class="skill-form">
+            <div class="form-row">
+              <amw-input
+                class="skill-name-field"
+                label="Skill Name"
+                formControlName="skillName"
+                placeholder="e.g., JavaScript">
+              </amw-input>
+              @if (skillForm.get('skillName')?.invalid && skillForm.get('skillName')?.touched) {
+                <div class="field-error">{{ getSkillErrorMessage('skillName') }}</div>
+              }
+
+              <amw-select
+                appearance="outline"
+                class="skill-level-field"
+                label="Proficiency Level"
+                formControlName="skillLevel"
+                [options]="skillLevelOptions">
+              </amw-select>
+
+              <amw-button appearance="elevated"
+                color="primary"
+                type="submit"
+                [disabled]="skillForm.invalid"
+                class="add-skill-button" icon="add" iconPosition="left">Add Skill</amw-button>
+            </div>
+          </form>
+
+          <div class="validation-status">
+            @if (skills.length > 0) {
+              <div class="status-message status-message--success">
+                <amw-icon name="check_circle"></amw-icon>
+                <span>{{ skills.length }} skill(s) added</span>
+              </div>
+            } @else {
+              <div class="status-message status-message--warning">
+                <amw-icon name="warning"></amw-icon>
+                <span>Add at least one skill</span>
+              </div>
+            }
+          </div>
+        </ng-template>
+      </amw-card>
+
+      <!-- Email Validation Form -->
+      <amw-card class="validation-card">
+        <ng-template #cardHeader>
+          <h2>
+            <amw-icon name="email"></amw-icon>
+            Email Validation
+          </h2>
+          <p class="subtitle">Add email addresses with format validation</p>
+        </ng-template>
+        <ng-template #cardContent>
+          <amw-chips
+            [chips]="emailChips"
+            [addable]="true"
+            [removable]="true"
+            [minChips]="1"
+            placeholder="Enter email and press Enter..."
+            [hasError]="!hasMinEmails()"
+            [errorMessage]="getEmailValidationMessage()"
+            (chipAdd)="onEmailAdd($event)"
+            (chipRemove)="onEmailRemove($event)">
+          </amw-chips>
+
+          <div class="validation-status">
+            @if (hasMinEmails()) {
+              <div class="status-message status-message--success">
+                <amw-icon name="check_circle"></amw-icon>
+                <span>Valid: {{ emails.length }} email(s) added</span>
+              </div>
+            }
+          </div>
+        </ng-template>
+      </amw-card>
+
+      <!-- Form Actions -->
+      <amw-card class="validation-card validation-card--actions">
+        <ng-template #cardContent>
+          <div class="form-summary">
+            <h4>Form Summary</h4>
+            <div class="summary-items">
+              <div class="summary-item">
+                <amw-icon [name]="hasMinTags() ? 'check_circle' : 'cancel'" [class.valid]="hasMinTags()" [class.invalid]="!hasMinTags()"></amw-icon>
+                <span>Tags: {{ tags.length }} (min: 1)</span>
+              </div>
+              <div class="summary-item">
+                <amw-icon [name]="skills.length > 0 ? 'check_circle' : 'cancel'" [class.valid]="skills.length > 0" [class.invalid]="skills.length === 0"></amw-icon>
+                <span>Skills: {{ skills.length }} (min: 1)</span>
+              </div>
+              <div class="summary-item">
+                <amw-icon [name]="hasMinEmails() ? 'check_circle' : 'cancel'" [class.valid]="hasMinEmails()" [class.invalid]="!hasMinEmails()"></amw-icon>
+                <span>Emails: {{ emails.length }} (min: 1)</span>
+              </div>
+            </div>
+          </div>
+
+          <div class="action-buttons">
             <amw-button appearance="elevated"
               color="primary"
-              type="submit"
-              [disabled]="skillForm.invalid"
-              class="add-skill-button" icon="add" iconPosition="left">Add Skill</amw-button>
+              (click)="submitForms()"
+              [disabled]="!areFormsValid()"
+              class="submit-button" icon="send" iconPosition="left">Submit All Forms</amw-button>
+
+            @if (!areFormsValid()) {
+              <div class="validation-message">
+                <amw-icon name="info"></amw-icon>
+                <span>Complete all required fields to submit</span>
+              </div>
+            }
           </div>
-        </form>
-
-        <div class="validation-status">
-          @if (skills.length > 0) {
-            <div class="status-message status-message--success">
-              <amw-icon name="check_circle"></amw-icon>
-              <span>{{ skills.length }} skill(s) added</span>
-            </div>
-          } @else {
-            <div class="status-message status-message--warning">
-              <amw-icon name="warning"></amw-icon>
-              <span>Add at least one skill</span>
-            </div>
-          }
-        </div>
-      </ng-template>
-    </amw-card>
-
-    <!-- Email Validation Form -->
-    <amw-card class="validation-card">
-      <ng-template #cardHeader>
-        <h2>
-          <amw-icon name="email"></amw-icon>
-          Email Validation
-        </h2>
-        <p class="subtitle">Add email addresses with format validation</p>
-      </ng-template>
-      <ng-template #cardContent>
-        <amw-chips
-          [chips]="emailChips"
-          [addable]="true"
-          [removable]="true"
-          [minChips]="1"
-          placeholder="Enter email and press Enter..."
-          [hasError]="!hasMinEmails()"
-          [errorMessage]="getEmailValidationMessage()"
-          (chipAdd)="onEmailAdd($event)"
-          (chipRemove)="onEmailRemove($event)">
-        </amw-chips>
-
-        <div class="validation-status">
-          @if (hasMinEmails()) {
-            <div class="status-message status-message--success">
-              <amw-icon name="check_circle"></amw-icon>
-              <span>Valid: {{ emails.length }} email(s) added</span>
-            </div>
-          }
-        </div>
-      </ng-template>
-    </amw-card>
-
-    <!-- Form Actions -->
-    <amw-card class="validation-card validation-card--actions">
-      <ng-template #cardContent>
-        <div class="form-summary">
-          <h4>Form Summary</h4>
-          <div class="summary-items">
-            <div class="summary-item">
-              <amw-icon [name]="hasMinTags() ? 'check_circle' : 'cancel'" [class.valid]="hasMinTags()" [class.invalid]="!hasMinTags()"></amw-icon>
-              <span>Tags: {{ tags.length }} (min: 1)</span>
-            </div>
-            <div class="summary-item">
-              <amw-icon [name]="skills.length > 0 ? 'check_circle' : 'cancel'" [class.valid]="skills.length > 0" [class.invalid]="skills.length === 0"></amw-icon>
-              <span>Skills: {{ skills.length }} (min: 1)</span>
-            </div>
-            <div class="summary-item">
-              <amw-icon [name]="hasMinEmails() ? 'check_circle' : 'cancel'" [class.valid]="hasMinEmails()" [class.invalid]="!hasMinEmails()"></amw-icon>
-              <span>Emails: {{ emails.length }} (min: 1)</span>
-            </div>
-          </div>
-        </div>
-
-        <div class="action-buttons">
-          <amw-button appearance="elevated"
-            color="primary"
-            (click)="submitForms()"
-            [disabled]="!areFormsValid()"
-            class="submit-button" icon="send" iconPosition="left">Submit All Forms</amw-button>
-
-          @if (!areFormsValid()) {
-            <div class="validation-message">
-              <amw-icon name="info"></amw-icon>
-              <span>Complete all required fields to submit</span>
-            </div>
-          }
-        </div>
-      </ng-template>
-    </amw-card>
-  </div>
-</div>
+        </ng-template>
+      </amw-card>
+    </div>
+  </ng-template>
+</amw-validation-doc>

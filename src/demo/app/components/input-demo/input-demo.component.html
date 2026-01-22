@@ -1,245 +1,249 @@
-<div class="amw-demo-input">
-    <!-- Type Variations -->
-    <div class="variation-section">
-      <h3 class="variation-section__title">Input Type Variations</h3>
-      <div class="variation-section__content">
-        <div class="variation-group">
-          <span class="variation-label">Text</span>
-          <amw-input 
-            type="text"
-            placeholder="Enter your name"
-            label="Full Name">
-          </amw-input>
-        </div>
-        <div class="variation-group">
-          <span class="variation-label">Email</span>
-          <amw-input 
-            type="email"
-            placeholder="Enter your email"
-            label="Email Address">
-          </amw-input>
-        </div>
-        <div class="variation-group">
-          <span class="variation-label">Password</span>
-          <amw-input 
-            type="password"
-            placeholder="Enter password"
-            label="Password">
-          </amw-input>
-        </div>
-        <div class="variation-group">
-          <span class="variation-label">Number</span>
-          <amw-input 
-            type="number"
-            placeholder="Enter amount"
-            label="Amount">
-          </amw-input>
-        </div>
-        <div class="variation-group">
-          <span class="variation-label">Telephone</span>
-          <amw-input 
-            type="tel"
-            placeholder="Enter phone number"
-            label="Phone Number">
-          </amw-input>
-        </div>
-        <div class="variation-group">
-          <span class="variation-label">URL</span>
-          <amw-input 
-            type="url"
-            placeholder="Enter website URL"
-            label="Website">
-          </amw-input>
-        </div>
-        <div class="variation-group">
-          <span class="variation-label">Search</span>
-          <amw-input 
-            type="search"
-            placeholder="Search..."
-            label="Search">
-          </amw-input>
-        </div>
-      </div>
-    </div>
-
-    <!-- Appearance Variations -->
-    <div class="variation-section">
-      <h3 class="variation-section__title">Appearance Variations</h3>
-      <div class="variation-section__content">
-        <div class="variation-group">
-          <span class="variation-label">Outline</span>
-          <amw-input 
-            appearance="outline"
-            placeholder="Enter text"
-            label="Outline Input">
-          </amw-input>
-        </div>
-        <div class="variation-group">
-          <span class="variation-label">Fill</span>
-          <amw-input 
-            appearance="fill"
-            placeholder="Enter text"
-            label="Fill Input">
-          </amw-input>
-        </div>
-      </div>
-    </div>
-
-    <!-- Size Variations -->
-    <div class="variation-section">
-      <h3 class="variation-section__title">Size Variations</h3>
-      <div class="variation-section__content">
-        <div class="variation-group">
-          <span class="variation-label">Small</span>
-          <amw-input 
-            size="small"
-            placeholder="Enter text"
-            label="Small Input">
-          </amw-input>
-        </div>
-        <div class="variation-group">
-          <span class="variation-label">Medium</span>
-          <amw-input 
-            size="medium"
-            placeholder="Enter text"
-            label="Medium Input">
-          </amw-input>
-        </div>
-        <div class="variation-group">
-          <span class="variation-label">Large</span>
-          <amw-input 
-            size="large"
-            placeholder="Enter text"
-            label="Large Input">
-          </amw-input>
-        </div>
-      </div>
-    </div>
-
-    <!-- State Variations -->
-    <div class="variation-section">
-      <h3 class="variation-section__title">State Variations</h3>
-      <div class="variation-section__content">
-        <div class="variation-group">
-          <span class="variation-label">Normal</span>
-          <amw-input 
-            placeholder="Enter text"
-            label="Normal Input">
-          </amw-input>
-        </div>
-        <div class="variation-group">
-          <span class="variation-label">Disabled</span>
-          <amw-input 
-            [disabled]="true"
-            placeholder="Enter text"
-            label="Disabled Input">
-          </amw-input>
-        </div>
-        <div class="variation-group">
-          <span class="variation-label">Required</span>
-          <amw-input 
-            [required]="true"
-            placeholder="Enter text"
-            label="Required Input">
-          </amw-input>
-        </div>
-        <div class="variation-group">
-          <span class="variation-label">Readonly</span>
-          <amw-input 
-            [readonly]="true"
-            value="Read-only value"
-            label="Readonly Input">
-          </amw-input>
-        </div>
-      </div>
-    </div>
-
-    <!-- Prefix/Suffix Variations -->
-    <div class="variation-section">
-      <h3 class="variation-section__title">Prefix & Suffix Variations</h3>
-      <div class="variation-section__content">
-        <div class="variation-group">
-          <span class="variation-label">With Icon</span>
-          <amw-input 
-            type="email"
-            placeholder="Enter your email"
-            label="Email Address"
-            icon="email">
-          </amw-input>
-        </div>
-        <div class="variation-group">
-          <span class="variation-label">With Prefix</span>
-          <amw-input 
-            type="text"
-            placeholder="Enter amount"
-            label="Amount"
-            prefix="$">
-          </amw-input>
-        </div>
-        <div class="variation-group">
-          <span class="variation-label">With Suffix</span>
-          <amw-input 
-            type="text"
-            placeholder="Enter website"
-            label="Website"
-            suffix=".com">
-          </amw-input>
-        </div>
-      </div>
-    </div>
-
-    <!-- Real-world Example -->
-    <div class="variation-section">
-      <h3 class="variation-section__title">Real-world Example</h3>
-      <div class="real-world-example">
-        <p class="example-description">Here's how inputs would typically be used in a real application form:</p>
-        <div class="example-form">
-          <div class="form-row">
-            <amw-input 
+<amw-demo-doc componentName="amw-input">
+  <ng-template #content>
+    <div class="amw-demo-input">
+      <!-- Type Variations -->
+      <div class="variation-section">
+        <h3 class="variation-section__title">Input Type Variations</h3>
+        <div class="variation-section__content">
+          <div class="variation-group">
+            <span class="variation-label">Text</span>
+            <amw-input
               type="text"
-              placeholder="Enter first name"
-              label="First Name"
-              [required]="true">
-            </amw-input>
-            <amw-input 
-              type="text"
-              placeholder="Enter last name"
-              label="Last Name"
-              [required]="true">
+              placeholder="Enter your name"
+              label="Full Name">
             </amw-input>
           </div>
-          <div class="form-row">
-            <amw-input 
+          <div class="variation-group">
+            <span class="variation-label">Email</span>
+            <amw-input
               type="email"
-              placeholder="Enter email address"
-              label="Email Address"
-              [required]="true"
-              icon="email">
+              placeholder="Enter your email"
+              label="Email Address">
             </amw-input>
-            <amw-input 
+          </div>
+          <div class="variation-group">
+            <span class="variation-label">Password</span>
+            <amw-input
+              type="password"
+              placeholder="Enter password"
+              label="Password">
+            </amw-input>
+          </div>
+          <div class="variation-group">
+            <span class="variation-label">Number</span>
+            <amw-input
+              type="number"
+              placeholder="Enter amount"
+              label="Amount">
+            </amw-input>
+          </div>
+          <div class="variation-group">
+            <span class="variation-label">Telephone</span>
+            <amw-input
               type="tel"
               placeholder="Enter phone number"
-              label="Phone Number"
-              icon="phone">
+              label="Phone Number">
             </amw-input>
           </div>
-          <div class="form-row">
-            <amw-input 
-              type="password"
-              placeholder="Create password"
-              label="Password"
-              [required]="true"
-              icon="lock">
+          <div class="variation-group">
+            <span class="variation-label">URL</span>
+            <amw-input
+              type="url"
+              placeholder="Enter website URL"
+              label="Website">
             </amw-input>
-            <amw-input 
-              type="password"
-              placeholder="Confirm password"
-              label="Confirm Password"
-              [required]="true"
-              icon="lock">
+          </div>
+          <div class="variation-group">
+            <span class="variation-label">Search</span>
+            <amw-input
+              type="search"
+              placeholder="Search..."
+              label="Search">
             </amw-input>
           </div>
         </div>
       </div>
+
+      <!-- Appearance Variations -->
+      <div class="variation-section">
+        <h3 class="variation-section__title">Appearance Variations</h3>
+        <div class="variation-section__content">
+          <div class="variation-group">
+            <span class="variation-label">Outline</span>
+            <amw-input
+              appearance="outline"
+              placeholder="Enter text"
+              label="Outline Input">
+            </amw-input>
+          </div>
+          <div class="variation-group">
+            <span class="variation-label">Fill</span>
+            <amw-input
+              appearance="fill"
+              placeholder="Enter text"
+              label="Fill Input">
+            </amw-input>
+          </div>
+        </div>
+      </div>
+
+      <!-- Size Variations -->
+      <div class="variation-section">
+        <h3 class="variation-section__title">Size Variations</h3>
+        <div class="variation-section__content">
+          <div class="variation-group">
+            <span class="variation-label">Small</span>
+            <amw-input
+              size="small"
+              placeholder="Enter text"
+              label="Small Input">
+            </amw-input>
+          </div>
+          <div class="variation-group">
+            <span class="variation-label">Medium</span>
+            <amw-input
+              size="medium"
+              placeholder="Enter text"
+              label="Medium Input">
+            </amw-input>
+          </div>
+          <div class="variation-group">
+            <span class="variation-label">Large</span>
+            <amw-input
+              size="large"
+              placeholder="Enter text"
+              label="Large Input">
+            </amw-input>
+          </div>
+        </div>
+      </div>
+
+      <!-- State Variations -->
+      <div class="variation-section">
+        <h3 class="variation-section__title">State Variations</h3>
+        <div class="variation-section__content">
+          <div class="variation-group">
+            <span class="variation-label">Normal</span>
+            <amw-input
+              placeholder="Enter text"
+              label="Normal Input">
+            </amw-input>
+          </div>
+          <div class="variation-group">
+            <span class="variation-label">Disabled</span>
+            <amw-input
+              [disabled]="true"
+              placeholder="Enter text"
+              label="Disabled Input">
+            </amw-input>
+          </div>
+          <div class="variation-group">
+            <span class="variation-label">Required</span>
+            <amw-input
+              [required]="true"
+              placeholder="Enter text"
+              label="Required Input">
+            </amw-input>
+          </div>
+          <div class="variation-group">
+            <span class="variation-label">Readonly</span>
+            <amw-input
+              [readonly]="true"
+              value="Read-only value"
+              label="Readonly Input">
+            </amw-input>
+          </div>
+        </div>
+      </div>
+
+      <!-- Prefix/Suffix Variations -->
+      <div class="variation-section">
+        <h3 class="variation-section__title">Prefix & Suffix Variations</h3>
+        <div class="variation-section__content">
+          <div class="variation-group">
+            <span class="variation-label">With Icon</span>
+            <amw-input
+              type="email"
+              placeholder="Enter your email"
+              label="Email Address"
+              icon="email">
+            </amw-input>
+          </div>
+          <div class="variation-group">
+            <span class="variation-label">With Prefix</span>
+            <amw-input
+              type="text"
+              placeholder="Enter amount"
+              label="Amount"
+              prefix="$">
+            </amw-input>
+          </div>
+          <div class="variation-group">
+            <span class="variation-label">With Suffix</span>
+            <amw-input
+              type="text"
+              placeholder="Enter website"
+              label="Website"
+              suffix=".com">
+            </amw-input>
+          </div>
+        </div>
+      </div>
+
+      <!-- Real-world Example -->
+      <div class="variation-section">
+        <h3 class="variation-section__title">Real-world Example</h3>
+        <div class="real-world-example">
+          <p class="example-description">Here's how inputs would typically be used in a real application form:</p>
+          <div class="example-form">
+            <div class="form-row">
+              <amw-input
+                type="text"
+                placeholder="Enter first name"
+                label="First Name"
+                [required]="true">
+              </amw-input>
+              <amw-input
+                type="text"
+                placeholder="Enter last name"
+                label="Last Name"
+                [required]="true">
+              </amw-input>
+            </div>
+            <div class="form-row">
+              <amw-input
+                type="email"
+                placeholder="Enter email address"
+                label="Email Address"
+                [required]="true"
+                icon="email">
+              </amw-input>
+              <amw-input
+                type="tel"
+                placeholder="Enter phone number"
+                label="Phone Number"
+                icon="phone">
+              </amw-input>
+            </div>
+            <div class="form-row">
+              <amw-input
+                type="password"
+                placeholder="Create password"
+                label="Password"
+                [required]="true"
+                icon="lock">
+              </amw-input>
+              <amw-input
+                type="password"
+                placeholder="Confirm password"
+                label="Confirm Password"
+                [required]="true"
+                icon="lock">
+              </amw-input>
+            </div>
+          </div>
+        </div>
+      </div>
     </div>
-</div>
+  </ng-template>
+</amw-demo-doc>

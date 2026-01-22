@@ -4,86 +4,116 @@
     <p>This demo showcases the AMW Workflow Page component with an employee onboarding process, including step validation, progress tracking, and navigation.</p>
   </div>
 
-  <div class="workflow-page-demo__controls">
-    <amw-card class="workflow-page-demo__controls-card">
-      <ng-template #cardContent>
-        <amw-tabs [(selectedIndex)]="currentViewIndex" (selectedIndexChange)="onViewChange($event)">
-          <amw-tab label="Basic View">
-            <div class="workflow-page-demo__tab-content">
-              <p>Basic workflow view with essential step navigation and validation.</p>
+  <amw-card class="workflow-page-demo__main-card">
+    <ng-template #cardContent>
+      <amw-tabs [(selectedIndex)]="selectedTab" class="workflow-page-demo__tabs">
+        <!-- Demo Tab -->
+        <amw-tab label="Demo" icon="play_arrow">
+          <div class="workflow-page-demo__demo-content">
+            <!-- View Toggle Controls -->
+            <div class="workflow-page-demo__view-toggle">
+              <span class="workflow-page-demo__view-label">View Mode:</span>
+              <button
+                class="workflow-page-demo__toggle-btn"
+                [class.active]="!isAdvancedView"
+                (click)="onViewToggle(false)">
+                Basic View
+              </button>
+              <button
+                class="workflow-page-demo__toggle-btn"
+                [class.active]="isAdvancedView"
+                (click)="onViewToggle(true)">
+                Advanced View
+              </button>
             </div>
-          </amw-tab>
-          <amw-tab label="Advanced View">
-            <div class="workflow-page-demo__tab-content">
-              <p>Advanced workflow view with preview functionality and additional actions.</p>
+
+            <div class="workflow-page-demo__view-description">
+              @if (isAdvancedView) {
+                <p>Advanced workflow view with preview functionality and additional actions.</p>
+              } @else {
+                <p>Basic workflow view with essential step navigation and validation.</p>
+              }
             </div>
-          </amw-tab>
-        </amw-tabs>
-      </ng-template>
-</amw-card>
-  </div>
 
-  <div class="workflow-page-demo__content">
-    <amw-workflow-page
-      [config]="workflowConfig"
-      [workflowId]="currentWorkflowId"
-      [dataSource]="dataSource"
-      [autoSave]="false"
-      (stepChange)="onStepChange($event)"
-      (workflowComplete)="onWorkflowComplete($event)"
-      (workflowCancel)="onWorkflowCancel()"
-      (workflowSave)="onWorkflowSave($event)"
-      (workflowReset)="onWorkflowReset()">
-    </amw-workflow-page>
-  </div>
+            <!-- Workflow Component -->
+            <div class="workflow-page-demo__workflow-container">
+              <amw-workflow-page
+                [config]="workflowConfig"
+                [workflowId]="currentWorkflowId"
+                [dataSource]="dataSource"
+                [autoSave]="false"
+                (stepChange)="onStepChange($event)"
+                (workflowComplete)="onWorkflowComplete($event)"
+                (workflowCancel)="onWorkflowCancel()"
+                (workflowSave)="onWorkflowSave($event)"
+                (workflowReset)="onWorkflowReset()">
+              </amw-workflow-page>
+            </div>
 
-  <div class="workflow-page-demo__info">
-    <amw-card class="workflow-page-demo__info-card">
-      <ng-template #cardHeader>
-        <h2>Demo Information</h2>
-      </ng-template>
-      <ng-template #cardContent>
-        <div class="workflow-page-demo__info-content">
-          <div class="workflow-page-demo__info-section">
-            <h4>Features Demonstrated:</h4>
-            <ul>
-              <li>Step-by-step navigation with progress tracking</li>
-              <li>Step validation with custom validators</li>
-              <li>Skip functionality for optional steps</li>
-              <li>Custom step content and components</li>
-              <li>Workflow state management</li>
-              <li>Auto-save support</li>
-              <li>Responsive design</li>
-            </ul>
-          </div>
-          
-          <div class="workflow-page-demo__info-section">
-            <h4>Workflow Steps:</h4>
-            <ol>
-              <li><strong>Personal Information:</strong> Basic contact details (required)</li>
-              <li><strong>Employment Details:</strong> Job title, department, start date (required)</li>
-              <li><strong>Document Upload:</strong> Required documents (optional, skippable)</li>
-              <li><strong>Benefits Selection:</strong> Health, dental, retirement (optional, skippable)</li>
-              <li><strong>Equipment & Access:</strong> Computer, software, permissions (optional, skippable)</li>
-              <li><strong>Orientation & Training:</strong> Required training modules (required)</li>
-              <li><strong>Review & Approval:</strong> Final review and submission (required)</li>
-            </ol>
-          </div>
+            <!-- Demo Information -->
+            <div class="workflow-page-demo__info">
+              <h3>Features Demonstrated</h3>
+              <ul>
+                <li>Step-by-step navigation with progress tracking</li>
+                <li>Step validation with custom validators</li>
+                <li>Skip functionality for optional steps</li>
+                <li>Custom step content and components</li>
+                <li>Workflow state management</li>
+                <li>Auto-save support</li>
+                <li>Responsive design</li>
+              </ul>
 
-          <div class="workflow-page-demo__info-section">
-            <h4>Validation Rules:</h4>
-            <ul>
-              <li>Personal Information: All fields required</li>
-              <li>Employment Details: Job title, department, start date required</li>
-              <li>Document Upload: At least one document (optional step)</li>
-              <li>Benefits Selection: Health insurance selection (optional step)</li>
-              <li>Orientation & Training: All training modules required</li>
-              <li>Review & Approval: All information must be verified</li>
-            </ul>
+              <h3>Workflow Steps</h3>
+              <ol>
+                <li><strong>Personal Information:</strong> Basic contact details (required)</li>
+                <li><strong>Employment Details:</strong> Job title, department, start date (required)</li>
+                <li><strong>Document Upload:</strong> Required documents (optional, skippable)</li>
+                <li><strong>Benefits Selection:</strong> Health, dental, retirement (optional, skippable)</li>
+                <li><strong>Equipment & Access:</strong> Computer, software, permissions (optional, skippable)</li>
+                <li><strong>Orientation & Training:</strong> Required training modules (required)</li>
+                <li><strong>Review & Approval:</strong> Final review and submission (required)</li>
+              </ol>
+            </div>
           </div>
-        </div>
-      </ng-template>
-</amw-card>
-  </div>
+        </amw-tab>
+
+        <!-- Code Tab -->
+        <amw-tab label="Code" icon="code">
+          <div class="workflow-page-demo__code-content">
+            <h3>Basic Usage</h3>
+            <p>Import and configure the AmwWorkflowPageComponent with your workflow configuration.</p>
+            <pre><code>{{ codeExamples.basic }}</code></pre>
+
+            <h3>Configuration Options</h3>
+            <p>The WorkflowPageConfig interface provides extensive customization options.</p>
+            <pre><code>{{ codeExamples.configuration }}</code></pre>
+
+            <h3>Data Source Implementation</h3>
+            <p>Implement the WorkflowPageDataSource interface to connect with your backend API.</p>
+            <pre><code>{{ codeExamples.dataSource }}</code></pre>
+
+            <h3>Event Handling</h3>
+            <p>Handle workflow events to respond to user actions and workflow state changes.</p>
+            <pre><code>{{ codeExamples.eventHandling }}</code></pre>
+
+            <h3>Custom Actions</h3>
+            <p>Add custom action buttons to the workflow toolbar for workflow-specific operations.</p>
+            <pre><code>{{ codeExamples.customActions }}</code></pre>
+          </div>
+        </amw-tab>
+
+        <!-- API Tab -->
+        <amw-tab label="API" icon="description">
+          <div class="workflow-page-demo__api-content">
+            <amw-api-doc
+              componentName="AmwWorkflowPageComponent"
+              [apiDocumentation]="workflowPageApiDoc"
+              [interfaces]="workflowPageInterfaces"
+              description="A comprehensive workflow/process page component for building step-by-step multi-stage processes with validation, progress tracking, and state management.">
+            </amw-api-doc>
+          </div>
+        </amw-tab>
+      </amw-tabs>
+    </ng-template>
+  </amw-card>
 </div>
-

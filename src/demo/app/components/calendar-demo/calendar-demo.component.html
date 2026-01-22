@@ -1,315 +1,317 @@
-<div class="amw-demo-calendar">
-  <div class="demo-header">
-    <h1>AMW Calendar</h1>
-    <p>Comprehensive calendar components with event management and multiple view modes</p>
-  </div>
-
-  <amw-tabs [(selectedIndex)]="selectedTab" class="demo-tabs">
-    
-    <!-- Full Calendar Tab -->
-    <amw-tab label="Full Calendar" icon="calendar_view_month">
-      <div class="tab-content">
-        <amw-card class="demo-card">
-          <ng-template #cardHeader>
-            <h2>Full Calendar Component</h2>
-            <p class="subtitle">Full-screen calendar with month, week, and day views</p>
-          </ng-template>
-          <ng-template #cardContent>
-            <div class="demo-section">
-              <h3>Interactive Calendar</h3>
-              <p>Full-featured calendar with drag-and-drop, editing, and multiple view modes</p>
-              
-              <!-- Demo Controls -->
-              <div class="demo-controls">
-                <h4>Event Creation Examples:</h4>
-                <div class="control-group">
-                  <amw-button appearance="elevated"
-                          color="primary"
-                          (click)="addSampleEventWithTime()" icon="schedule" iconPosition="left">Add Time Event (2:00-3:00 PM)</amw-button>
-                  <amw-button appearance="elevated"
-                          color="accent"
-                          (click)="addSampleEventDateOnly()" icon="event" iconPosition="left">Add All-Day Event</amw-button>
-                </div>
-                <div class="control-group">
-                  <amw-button appearance="text" 
-                          (click)="clearAllEvents()" icon="clear" iconPosition="left">Clear All</amw-button>
-                  <amw-button appearance="text" 
-                          (click)="resetSampleEvents()" icon="refresh" iconPosition="left">Reset Sample</amw-button>
-                </div>
-              </div>
-
-              <!-- Full Calendar Component -->
-              <div class="calendar-container">
-                <amw-calendar-full
-                  [events]="sampleEvents"
-                  [config]="fullCalendarConfig"
-                  [items]="sampleItems"
-                  [itemConfig]="itemConfig"
-                  [useNewItemSystem]="useNewItemSystem"
-                  [currentDate]="currentDate"
-                  [height]="'1000px'"
-                  (eventChange)="onEventChange($event)"
-                  (eventClick)="onEventClick($event)"
-                  (eventDoubleClick)="onEventDoubleClick($event)"
-                  (eventEdit)="onEventEdit($event)"
-                  (eventDelete)="onEventDelete($event)"
-                  (eventMove)="onEventMove($event)"
-                  (itemChange)="onItemChange($event)"
-                  (itemClick)="onItemClick($event)"
-                  (itemDoubleClick)="onItemDoubleClick($event)"
-                  (itemCreate)="onItemCreate($event)"
-                  (itemEdit)="onItemEdit($event)"
-                  (itemDelete)="onItemDelete($event)"
-                  (itemMove)="onItemMove($event)"
-                  (navigationChange)="onNavigationChange($event)"
-                  (viewChange)="onViewChange($event)"
-                  (dateChange)="onDateChange($event)"
-                  (cellClick)="onCellClick($event)"
-                  (cellDoubleClick)="onCellDoubleClick($event)">
-                </amw-calendar-full>
-              </div>
-            </div>
-          </ng-template>
-</amw-card>
+<amw-demo-doc componentName="amw-calendar">
+  <ng-template #content>
+    <div class="amw-demo-calendar">
+      <div class="demo-header">
+        <h1>AMW Calendar</h1>
+        <p>Comprehensive calendar components with event management and multiple view modes</p>
       </div>
-    </amw-tab>
 
-    <!-- Mini Calendar Tab -->
-    <amw-tab label="Mini Calendar" icon="calendar_today">
-      <div class="tab-content">
-        <amw-card class="demo-card">
-          <ng-template #cardHeader>
-            <h2>Mini Calendar Component</h2>
-            <p class="subtitle">Compact calendar for single day and week views</p>
-          </ng-template>
-          <ng-template #cardContent>
-            <div class="demo-section">
-              <h3>Single Day View</h3>
-              <p>Compact calendar showing events for a single day</p>
-              
-              <!-- Demo Controls for Mini Calendar -->
-              <div class="demo-controls">
-                <h4>Quick Event Creation:</h4>
-                <div class="control-group">
-                  <amw-button appearance="elevated"
-                          color="primary"
-                          (click)="addSampleEventWithTime()" icon="schedule" iconPosition="left">Add Time Event</amw-button>
-                  <amw-button appearance="elevated"
-                          color="accent"
-                          (click)="addSampleEventDateOnly()" icon="event" iconPosition="left">Add All-Day Event</amw-button>
+      <amw-tabs [(selectedIndex)]="selectedTab" class="demo-tabs">
+
+        <!-- Full Calendar Tab -->
+        <amw-tab label="Full Calendar" icon="calendar_view_month">
+          <div class="tab-content">
+            <amw-card class="demo-card">
+              <ng-template #cardHeader>
+                <h2>Full Calendar Component</h2>
+                <p class="subtitle">Full-screen calendar with month, week, and day views</p>
+              </ng-template>
+              <ng-template #cardContent>
+                <div class="demo-section">
+                  <h3>Interactive Calendar</h3>
+                  <p>Full-featured calendar with drag-and-drop, editing, and multiple view modes</p>
+
+                  <!-- Demo Controls -->
+                  <div class="demo-controls">
+                    <h4>Event Creation Examples:</h4>
+                    <div class="control-group">
+                      <amw-button appearance="elevated"
+                              color="primary"
+                              (click)="addSampleEventWithTime()" icon="schedule" iconPosition="left">Add Time Event (2:00-3:00 PM)</amw-button>
+                      <amw-button appearance="elevated"
+                              color="accent"
+                              (click)="addSampleEventDateOnly()" icon="event" iconPosition="left">Add All-Day Event</amw-button>
+                    </div>
+                    <div class="control-group">
+                      <amw-button appearance="text"
+                              (click)="clearAllEvents()" icon="clear" iconPosition="left">Clear All</amw-button>
+                      <amw-button appearance="text"
+                              (click)="resetSampleEvents()" icon="refresh" iconPosition="left">Reset Sample</amw-button>
+                    </div>
+                  </div>
+
+                  <!-- Full Calendar Component -->
+                  <div class="calendar-container">
+                    <amw-calendar-full
+                      [events]="sampleEvents"
+                      [config]="fullCalendarConfig"
+                      [items]="sampleItems"
+                      [itemConfig]="itemConfig"
+                      [useNewItemSystem]="useNewItemSystem"
+                      [currentDate]="currentDate"
+                      [height]="'1000px'"
+                      (eventChange)="onEventChange($event)"
+                      (eventClick)="onEventClick($event)"
+                      (eventDoubleClick)="onEventDoubleClick($event)"
+                      (eventEdit)="onEventEdit($event)"
+                      (eventDelete)="onEventDelete($event)"
+                      (eventMove)="onEventMove($event)"
+                      (itemChange)="onItemChange($event)"
+                      (itemClick)="onItemClick($event)"
+                      (itemDoubleClick)="onItemDoubleClick($event)"
+                      (itemCreate)="onItemCreate($event)"
+                      (itemEdit)="onItemEdit($event)"
+                      (itemDelete)="onItemDelete($event)"
+                      (itemMove)="onItemMove($event)"
+                      (navigationChange)="onNavigationChange($event)"
+                      (viewChange)="onViewChange($event)"
+                      (dateChange)="onDateChange($event)"
+                      (cellClick)="onCellClick($event)"
+                      (cellDoubleClick)="onCellDoubleClick($event)">
+                    </amw-calendar-full>
+                  </div>
                 </div>
-              </div>
-              
-              <!-- Mini Calendar - Single Day -->
-              <div class="calendar-container mini">
-                <amw-calendar-mini
-                  [events]="sampleEvents"
-                  [config]="miniCalendarConfig"
-                  [currentDate]="currentDate"
-                  [showWeekView]="false"
-                  [maxEventsPerDay]="3"
-                  [showMoreButton]="true"
-                  [compactMode]="false"
-                  (eventChange)="onEventChange($event)"
-                  (eventClick)="onEventClick($event)"
-                  (eventDoubleClick)="onEventDoubleClick($event)"
-                  (eventEdit)="onEventEdit($event)"
-                  (eventDelete)="onEventDelete($event)"
-                  (eventMove)="onEventMove($event)"
-                  (navigationChange)="onNavigationChange($event)"
-                  (viewChange)="onViewChange($event)"
-                  (dateChange)="onDateChange($event)"
-                  (showMoreClick)="onShowMoreClick($event)"
-                  (weekViewToggle)="onWeekViewToggle($event)">
-                </amw-calendar-mini>
-              </div>
-            </div>
+              </ng-template>
+    </amw-card>
+          </div>
+        </amw-tab>
 
-            <amw-divider></amw-divider>
+        <!-- Mini Calendar Tab -->
+        <amw-tab label="Mini Calendar" icon="calendar_today">
+          <div class="tab-content">
+            <amw-card class="demo-card">
+              <ng-template #cardHeader>
+                <h2>Mini Calendar Component</h2>
+                <p class="subtitle">Compact calendar for single day and week views</p>
+              </ng-template>
+              <ng-template #cardContent>
+                <div class="demo-section">
+                  <h3>Single Day View</h3>
+                  <p>Compact calendar showing events for a single day</p>
 
-            <div class="demo-section">
-              <h3>Week View</h3>
-              <p>Mini calendar showing events for an entire week</p>
-              
-              <!-- Mini Calendar - Week View -->
-              <div class="calendar-container mini">
-                <amw-calendar-mini
-                  [events]="sampleEvents"
-                  [config]="miniCalendarConfig"
-                  [currentDate]="currentDate"
-                  [showWeekView]="true"
-                  [maxEventsPerDay]="2"
-                  [showMoreButton]="true"
-                  [compactMode]="false"
-                  (eventChange)="onEventChange($event)"
-                  (eventClick)="onEventClick($event)"
-                  (eventDoubleClick)="onEventDoubleClick($event)"
-                  (eventEdit)="onEventEdit($event)"
-                  (eventDelete)="onEventDelete($event)"
-                  (eventMove)="onEventMove($event)"
-                  (navigationChange)="onNavigationChange($event)"
-                  (viewChange)="onViewChange($event)"
-                  (dateChange)="onDateChange($event)"
-                  (showMoreClick)="onShowMoreClick($event)"
-                  (weekViewToggle)="onWeekViewToggle($event)">
-                </amw-calendar-mini>
-              </div>
-            </div>
+                  <!-- Demo Controls for Mini Calendar -->
+                  <div class="demo-controls">
+                    <h4>Quick Event Creation:</h4>
+                    <div class="control-group">
+                      <amw-button appearance="elevated"
+                              color="primary"
+                              (click)="addSampleEventWithTime()" icon="schedule" iconPosition="left">Add Time Event</amw-button>
+                      <amw-button appearance="elevated"
+                              color="accent"
+                              (click)="addSampleEventDateOnly()" icon="event" iconPosition="left">Add All-Day Event</amw-button>
+                    </div>
+                  </div>
 
-            <amw-divider></amw-divider>
-
-            <div class="demo-section">
-              <h3>Compact Mode</h3>
-              <p>Ultra-compact mini calendar for space-constrained layouts</p>
-              
-              <!-- Mini Calendar - Compact Mode -->
-              <div class="calendar-container mini compact">
-                <amw-calendar-mini
-                  [events]="sampleEvents"
-                  [config]="miniCalendarConfig"
-                  [currentDate]="currentDate"
-                  [showWeekView]="true"
-                  [maxEventsPerDay]="1"
-                  [showMoreButton]="true"
-                  [compactMode]="true"
-                  (eventChange)="onEventChange($event)"
-                  (eventClick)="onEventClick($event)"
-                  (eventDoubleClick)="onEventDoubleClick($event)"
-                  (eventEdit)="onEventEdit($event)"
-                  (eventDelete)="onEventDelete($event)"
-                  (eventMove)="onEventMove($event)"
-                  (navigationChange)="onNavigationChange($event)"
-                  (viewChange)="onViewChange($event)"
-                  (dateChange)="onDateChange($event)"
-                  (showMoreClick)="onShowMoreClick($event)"
-                  (weekViewToggle)="onWeekViewToggle($event)">
-                </amw-calendar-mini>
-              </div>
-            </div>
-          </ng-template>
-</amw-card>
-      </div>
-    </amw-tab>
-
-    <!-- Custom Fields Tab -->
-    <amw-tab label="Custom Fields" icon="extension">
-      <div class="tab-content">
-        <amw-card class="demo-card">
-          <ng-template #cardHeader>
-            <h2>Custom Field Templates</h2>
-            <p class="subtitle">Extend calendar items with custom fields using template projection</p>
-          </ng-template>
-          <ng-template #cardContent>
-            <div class="demo-section">
-              <h3>Meeting Calendar with Custom Fields</h3>
-              <p>This example demonstrates how to add custom fields (location, attendees, meeting URL) to calendar items using template projection.</p>
-
-              <div class="info-box">
-                <amw-icon name="info"></amw-icon>
-                <div>
-                  <strong>Custom Fields:</strong>
-                  <ul>
-                    <li><strong>Location:</strong> Meeting room or virtual location</li>
-                    <li><strong>Attendees:</strong> Email addresses of participants</li>
-                    <li><strong>Meeting URL:</strong> Video conference link</li>
-                    <li><strong>Notes:</strong> Additional meeting notes</li>
-                  </ul>
-                  <p>Try creating or editing a meeting to see the custom fields in action. Validation ensures location and attendees are provided.</p>
+                  <!-- Mini Calendar - Single Day -->
+                  <div class="calendar-container mini">
+                    <amw-calendar-mini
+                      [events]="sampleEvents"
+                      [config]="miniCalendarConfig"
+                      [currentDate]="currentDate"
+                      [showWeekView]="false"
+                      [maxEventsPerDay]="3"
+                      [showMoreButton]="true"
+                      [compactMode]="false"
+                      (eventChange)="onEventChange($event)"
+                      (eventClick)="onEventClick($event)"
+                      (eventDoubleClick)="onEventDoubleClick($event)"
+                      (eventEdit)="onEventEdit($event)"
+                      (eventDelete)="onEventDelete($event)"
+                      (eventMove)="onEventMove($event)"
+                      (navigationChange)="onNavigationChange($event)"
+                      (viewChange)="onViewChange($event)"
+                      (dateChange)="onDateChange($event)"
+                      (showMoreClick)="onShowMoreClick($event)"
+                      (weekViewToggle)="onWeekViewToggle($event)">
+                    </amw-calendar-mini>
+                  </div>
                 </div>
-              </div>
 
-              <!-- Custom Fields Calendar -->
-              <div class="calendar-container">
-                <amw-calendar-full
-                  [items]="meetingItems"
-                  [itemConfig]="itemConfig"
-                  [useNewItemSystem]="true"
-                  [currentDate]="currentDate"
-                  [height]="'800px'"
-                  [validateCustomFields]="validateMeetingFields"
-                  (itemChange)="onMeetingItemChange($event)"
-                  (itemClick)="onItemClick($event)"
-                  (itemDoubleClick)="onItemDoubleClick($event)">
+                <amw-divider></amw-divider>
 
-                  <!-- Custom fields template for edit mode -->
-                  <ng-template #customFieldsTemplate let-item let-data="data">
-                    <div class="amw-calendar-item-editor__field">
-                      <label>Location: <span class="required">*</span></label>
-                      <input type="text"
-                        [(ngModel)]="data.location"
-                        placeholder="e.g., Conference Room A or Virtual"
-                        class="amw-calendar-item-editor__input">
+                <div class="demo-section">
+                  <h3>Week View</h3>
+                  <p>Mini calendar showing events for an entire week</p>
+
+                  <!-- Mini Calendar - Week View -->
+                  <div class="calendar-container mini">
+                    <amw-calendar-mini
+                      [events]="sampleEvents"
+                      [config]="miniCalendarConfig"
+                      [currentDate]="currentDate"
+                      [showWeekView]="true"
+                      [maxEventsPerDay]="2"
+                      [showMoreButton]="true"
+                      [compactMode]="false"
+                      (eventChange)="onEventChange($event)"
+                      (eventClick)="onEventClick($event)"
+                      (eventDoubleClick)="onEventDoubleClick($event)"
+                      (eventEdit)="onEventEdit($event)"
+                      (eventDelete)="onEventDelete($event)"
+                      (eventMove)="onEventMove($event)"
+                      (navigationChange)="onNavigationChange($event)"
+                      (viewChange)="onViewChange($event)"
+                      (dateChange)="onDateChange($event)"
+                      (showMoreClick)="onShowMoreClick($event)"
+                      (weekViewToggle)="onWeekViewToggle($event)">
+                    </amw-calendar-mini>
+                  </div>
+                </div>
+
+                <amw-divider></amw-divider>
+
+                <div class="demo-section">
+                  <h3>Compact Mode</h3>
+                  <p>Ultra-compact mini calendar for space-constrained layouts</p>
+
+                  <!-- Mini Calendar - Compact Mode -->
+                  <div class="calendar-container mini compact">
+                    <amw-calendar-mini
+                      [events]="sampleEvents"
+                      [config]="miniCalendarConfig"
+                      [currentDate]="currentDate"
+                      [showWeekView]="true"
+                      [maxEventsPerDay]="1"
+                      [showMoreButton]="true"
+                      [compactMode]="true"
+                      (eventChange)="onEventChange($event)"
+                      (eventClick)="onEventClick($event)"
+                      (eventDoubleClick)="onEventDoubleClick($event)"
+                      (eventEdit)="onEventEdit($event)"
+                      (eventDelete)="onEventDelete($event)"
+                      (eventMove)="onEventMove($event)"
+                      (navigationChange)="onNavigationChange($event)"
+                      (viewChange)="onViewChange($event)"
+                      (dateChange)="onDateChange($event)"
+                      (showMoreClick)="onShowMoreClick($event)"
+                      (weekViewToggle)="onWeekViewToggle($event)">
+                    </amw-calendar-mini>
+                  </div>
+                </div>
+              </ng-template>
+    </amw-card>
+          </div>
+        </amw-tab>
+
+        <!-- Custom Fields Tab -->
+        <amw-tab label="Custom Fields" icon="extension">
+          <div class="tab-content">
+            <amw-card class="demo-card">
+              <ng-template #cardHeader>
+                <h2>Custom Field Templates</h2>
+                <p class="subtitle">Extend calendar items with custom fields using template projection</p>
+              </ng-template>
+              <ng-template #cardContent>
+                <div class="demo-section">
+                  <h3>Meeting Calendar with Custom Fields</h3>
+                  <p>This example demonstrates how to add custom fields (location, attendees, meeting URL) to calendar items using template projection.</p>
+
+                  <div class="info-box">
+                    <amw-icon name="info"></amw-icon>
+                    <div>
+                      <strong>Custom Fields:</strong>
+                      <ul>
+                        <li><strong>Location:</strong> Meeting room or virtual location</li>
+                        <li><strong>Attendees:</strong> Email addresses of participants</li>
+                        <li><strong>Meeting URL:</strong> Video conference link</li>
+                        <li><strong>Notes:</strong> Additional meeting notes</li>
+                      </ul>
+                      <p>Try creating or editing a meeting to see the custom fields in action. Validation ensures location and attendees are provided.</p>
                     </div>
+                  </div>
 
-                    <div class="amw-calendar-item-editor__field">
-                      <label>Attendees (comma-separated): <span class="required">*</span></label>
-                      <input type="text"
-                        [ngModel]="attendeesToString(data.attendees)"
-                        (ngModelChange)="data.attendees = stringToAttendees($event)"
-                        placeholder="email1@example.com, email2@example.com"
-                        class="amw-calendar-item-editor__input">
-                    </div>
+                  <!-- Custom Fields Calendar -->
+                  <div class="calendar-container">
+                    <amw-calendar-full
+                      [items]="meetingItems"
+                      [itemConfig]="itemConfig"
+                      [useNewItemSystem]="true"
+                      [currentDate]="currentDate"
+                      [height]="'800px'"
+                      [validateCustomFields]="validateMeetingFields"
+                      (itemChange)="onMeetingItemChange($event)"
+                      (itemClick)="onItemClick($event)"
+                      (itemDoubleClick)="onItemDoubleClick($event)">
 
-                    <div class="amw-calendar-item-editor__field">
-                      <label>Meeting URL:</label>
-                      <input type="url"
-                        [(ngModel)]="data.meetingUrl"
-                        placeholder="https://meet.google.com/..."
-                        class="amw-calendar-item-editor__input">
-                    </div>
+                      <!-- Custom fields template for edit mode -->
+                      <ng-template #customFieldsTemplate let-item let-data="data">
+                        <div class="amw-calendar-item-editor__field">
+                          <label>Location: <span class="required">*</span></label>
+                          <input type="text"
+                            [(ngModel)]="data.location"
+                            placeholder="e.g., Conference Room A or Virtual"
+                            class="amw-calendar-item-editor__input">
+                        </div>
 
-                    <div class="amw-calendar-item-editor__field">
-                      <label>Notes:</label>
-                      <textarea [(ngModel)]="data.notes"
-                        placeholder="Additional meeting notes"
-                        class="amw-calendar-item-editor__textarea"
-                        rows="3"></textarea>
-                    </div>
-                  </ng-template>
+                        <div class="amw-calendar-item-editor__field">
+                          <label>Attendees (comma-separated): <span class="required">*</span></label>
+                          <input type="text"
+                            [ngModel]="attendeesToString(data.attendees)"
+                            (ngModelChange)="data.attendees = stringToAttendees($event)"
+                            placeholder="email1@example.com, email2@example.com"
+                            class="amw-calendar-item-editor__input">
+                        </div>
 
-                  <!-- Custom fields template for readonly mode -->
-                  <ng-template #customReadonlyFieldsTemplate let-item let-data="data">
-                    <div class="amw-calendar-item-editor__field">
-                      <label>Location:</label>
-                      <span class="amw-calendar-item-editor__value">{{ data.location || 'No location specified' }}</span>
-                    </div>
+                        <div class="amw-calendar-item-editor__field">
+                          <label>Meeting URL:</label>
+                          <input type="url"
+                            [(ngModel)]="data.meetingUrl"
+                            placeholder="https://meet.google.com/..."
+                            class="amw-calendar-item-editor__input">
+                        </div>
 
-                    <div class="amw-calendar-item-editor__field">
-                      <label>Attendees:</label>
-                      <span class="amw-calendar-item-editor__value">
-                        {{ data.attendees?.join(', ') || 'No attendees' }}
-                      </span>
-                    </div>
+                        <div class="amw-calendar-item-editor__field">
+                          <label>Notes:</label>
+                          <textarea [(ngModel)]="data.notes"
+                            placeholder="Additional meeting notes"
+                            class="amw-calendar-item-editor__textarea"
+                            rows="3"></textarea>
+                        </div>
+                      </ng-template>
 
-                    @if (data.meetingUrl) {
-                      <div class="amw-calendar-item-editor__field">
-                        <label>Meeting URL:</label>
-                        <a [href]="data.meetingUrl"
-                           target="_blank"
-                           class="amw-calendar-item-editor__value meeting-link">
-                          <amw-icon name="video_call"></amw-icon>
-                          Join Meeting
-                        </a>
-                      </div>
-                    }
+                      <!-- Custom fields template for readonly mode -->
+                      <ng-template #customReadonlyFieldsTemplate let-item let-data="data">
+                        <div class="amw-calendar-item-editor__field">
+                          <label>Location:</label>
+                          <span class="amw-calendar-item-editor__value">{{ data.location || 'No location specified' }}</span>
+                        </div>
 
-                    @if (data.notes) {
-                      <div class="amw-calendar-item-editor__field">
-                        <label>Notes:</label>
-                        <span class="amw-calendar-item-editor__value">{{ data.notes }}</span>
-                      </div>
-                    }
-                  </ng-template>
-                </amw-calendar-full>
-              </div>
-            </div>
+                        <div class="amw-calendar-item-editor__field">
+                          <label>Attendees:</label>
+                          <span class="amw-calendar-item-editor__value">
+                            {{ data.attendees?.join(', ') || 'No attendees' }}
+                          </span>
+                        </div>
 
-            <amw-divider></amw-divider>
+                        @if (data.meetingUrl) {
+                          <div class="amw-calendar-item-editor__field">
+                            <label>Meeting URL:</label>
+                            <a [href]="data.meetingUrl"
+                               target="_blank"
+                               class="amw-calendar-item-editor__value meeting-link">
+                              <amw-icon name="video_call"></amw-icon>
+                              Join Meeting
+                            </a>
+                          </div>
+                        }
 
-            <div class="demo-section">
-              <h3>Code Example</h3>
-              <div class="code-example">
-                <pre><code>// Define extended meeting model
+                        @if (data.notes) {
+                          <div class="amw-calendar-item-editor__field">
+                            <label>Notes:</label>
+                            <span class="amw-calendar-item-editor__value">{{ data.notes }}</span>
+                          </div>
+                        }
+                      </ng-template>
+                    </amw-calendar-full>
+                  </div>
+                </div>
+
+                <amw-divider></amw-divider>
+
+                <div class="demo-section">
+                  <h3>Code Example</h3>
+                  <div class="code-example">
+                    <pre><code>// Define extended meeting model
 interface MeetingEvent &#123;
   itemType: string;
   location: string;
@@ -343,74 +345,76 @@ validateMeetingFields = (data: MeetingEvent): boolean => &#123;
     &lt;a [href]="data.meetingUrl"&gt;Join Meeting&lt;/a&gt;
   &lt;/ng-template&gt;
 &lt;/amw-calendar-full&gt;</code></pre>
-              </div>
-            </div>
-          </ng-template>
-</amw-card>
-      </div>
-    </amw-tab>
+                  </div>
+                </div>
+              </ng-template>
+    </amw-card>
+          </div>
+        </amw-tab>
 
-    <!-- Features Tab -->
-    <amw-tab label="Features" icon="star">
-      <div class="tab-content">
-        <amw-card class="demo-card">
-          <ng-template #cardHeader>
-            <h2>Calendar Features</h2>
-            <p class="subtitle">Comprehensive feature overview</p>
-          </ng-template>
-          <ng-template #cardContent>
-            <div class="features-grid">
-              <div class="feature-item">
-                <amw-icon name="event"></amw-icon>
-                <h4>Event Management</h4>
-                <p>Create, edit, delete, and move events with drag-and-drop support</p>
-              </div>
+        <!-- Features Tab -->
+        <amw-tab label="Features" icon="star">
+          <div class="tab-content">
+            <amw-card class="demo-card">
+              <ng-template #cardHeader>
+                <h2>Calendar Features</h2>
+                <p class="subtitle">Comprehensive feature overview</p>
+              </ng-template>
+              <ng-template #cardContent>
+                <div class="features-grid">
+                  <div class="feature-item">
+                    <amw-icon name="event"></amw-icon>
+                    <h4>Event Management</h4>
+                    <p>Create, edit, delete, and move events with drag-and-drop support</p>
+                  </div>
 
-              <div class="feature-item">
-                <amw-icon name="view_module"></amw-icon>
-                <h4>Multiple Views</h4>
-                <p>Month, week, and day views with smooth transitions</p>
-              </div>
+                  <div class="feature-item">
+                    <amw-icon name="view_module"></amw-icon>
+                    <h4>Multiple Views</h4>
+                    <p>Month, week, and day views with smooth transitions</p>
+                  </div>
 
-              <div class="feature-item">
-                <amw-icon name="drag_indicator"></amw-icon>
-                <h4>Drag & Drop</h4>
-                <p>Intuitive drag-and-drop for moving events between dates and times</p>
-              </div>
+                  <div class="feature-item">
+                    <amw-icon name="drag_indicator"></amw-icon>
+                    <h4>Drag & Drop</h4>
+                    <p>Intuitive drag-and-drop for moving events between dates and times</p>
+                  </div>
 
-              <div class="feature-item">
-                <amw-icon name="palette"></amw-icon>
-                <h4>Customizable</h4>
-                <p>Custom colors, styling, and event rendering</p>
-              </div>
+                  <div class="feature-item">
+                    <amw-icon name="palette"></amw-icon>
+                    <h4>Customizable</h4>
+                    <p>Custom colors, styling, and event rendering</p>
+                  </div>
 
-              <div class="feature-item">
-                <amw-icon name="code"></amw-icon>
-                <h4>Generic Types</h4>
-                <p>Strongly typed with TypeScript generics for any data type</p>
-              </div>
+                  <div class="feature-item">
+                    <amw-icon name="code"></amw-icon>
+                    <h4>Generic Types</h4>
+                    <p>Strongly typed with TypeScript generics for any data type</p>
+                  </div>
 
-              <div class="feature-item">
-                <amw-icon name="responsive"></amw-icon>
-                <h4>Responsive</h4>
-                <p>Fully responsive design that works on all screen sizes</p>
-              </div>
+                  <div class="feature-item">
+                    <amw-icon name="responsive"></amw-icon>
+                    <h4>Responsive</h4>
+                    <p>Fully responsive design that works on all screen sizes</p>
+                  </div>
 
-              <div class="feature-item">
-                <amw-icon name="accessibility"></amw-icon>
-                <h4>Accessible</h4>
-                <p>Built with accessibility in mind, supporting screen readers</p>
-              </div>
+                  <div class="feature-item">
+                    <amw-icon name="accessibility"></amw-icon>
+                    <h4>Accessible</h4>
+                    <p>Built with accessibility in mind, supporting screen readers</p>
+                  </div>
 
-              <div class="feature-item">
-                <amw-icon name="settings"></amw-icon>
-                <h4>Configurable</h4>
-                <p>Highly configurable with extensive customization options</p>
-              </div>
-            </div>
-          </ng-template>
-</amw-card>
-      </div>
-    </amw-tab>
-  </amw-tabs>
-</div>
+                  <div class="feature-item">
+                    <amw-icon name="settings"></amw-icon>
+                    <h4>Configurable</h4>
+                    <p>Highly configurable with extensive customization options</p>
+                  </div>
+                </div>
+              </ng-template>
+    </amw-card>
+          </div>
+        </amw-tab>
+      </amw-tabs>
+    </div>
+  </ng-template>
+</amw-demo-doc>

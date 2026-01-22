@@ -3,11 +3,11 @@
     @if (label()) {
       <mat-label [innerHTML]="label()"></mat-label>
     }
-    <!-- Signal Forms binding (scenario 3) - Field directive manages most attributes automatically -->
-    @if (field()) {
+    <!-- Signal Forms binding (scenario 3) - FormField directive manages most attributes automatically -->
+    @if (formField()) {
       <textarea
         matInput
-        [field]="field()"
+        [formField]="formField()"
         [placeholder]="placeholder()"
         [id]="id()"
         [tabIndex]="tabIndex()"

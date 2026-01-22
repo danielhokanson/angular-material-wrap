@@ -1,12 +1,10 @@
 import { Component, ViewEncapsulation, OnInit } from '@angular/core';
 import { FormsModule, ReactiveFormsModule, FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { CommonModule } from '@angular/common';
-import { BaseCodeComponent } from '../base/base-code.component';
+import { AmwCodeDocComponent, CodeExample } from '../../shared/components/code-doc/code-doc.component';
 import { AmwDatepickerComponent } from '../../../../library/src/controls/components/amw-datepicker/amw-datepicker.component';
 import { AmwButtonComponent } from '../../../../library/src/controls/components/amw-button/amw-button.component';
-import { AmwAccordionComponent, AmwAccordionPanelComponent, AmwIconComponent } from '../../../../library/src/components/components';
-
-type DatepickerExamples = 'basic' | 'withMinMax' | 'withValidation' | 'differentFormats' | 'disabled' | 'reactiveForm' | 'withEvents' | 'bookingForm';
+import { AmwIconComponent } from '../../../../library/src/components/components';
 
 @Component({
   selector: 'amw-demo-datepicker-code',
@@ -15,17 +13,16 @@ type DatepickerExamples = 'basic' | 'withMinMax' | 'withValidation' | 'different
     CommonModule,
     FormsModule,
     ReactiveFormsModule,
+    AmwCodeDocComponent,
     AmwDatepickerComponent,
     AmwButtonComponent,
-    AmwAccordionComponent,
-    AmwAccordionPanelComponent,
     AmwIconComponent
   ],
   encapsulation: ViewEncapsulation.None,
   templateUrl: './datepicker-code.component.html',
   styleUrl: './datepicker-code.component.scss'
 })
-export class DatepickerCodeComponent extends BaseCodeComponent<DatepickerExamples> implements OnInit {
+export class DatepickerCodeComponent implements OnInit {
   // State for live preview examples
   selectedDate = new Date();
   minDate = new Date(1900, 0, 1);
@@ -40,15 +37,26 @@ export class DatepickerCodeComponent extends BaseCodeComponent<DatepickerExample
   dateForm!: FormGroup;
   bookingForm!: FormGroup;
 
-  // Original code examples (for reset functionality)
-  readonly codeExamples: Record<DatepickerExamples, string> = {
-    basic: `<amw-datepicker
+  // Editable code for the shared component
+  editableCode: Record<string, string> = {};
+
+  // Code examples data
+  readonly examples: CodeExample[] = [
+    {
+      key: 'basic',
+      title: 'Basic Datepicker',
+      description: 'A simple datepicker with default settings',
+      code: `<amw-datepicker
   label="Select Date"
   placeholder="Choose a date..."
   [value]="selectedDate">
-</amw-datepicker>`,
-
-    withMinMax: `<amw-datepicker
+</amw-datepicker>`
+    },
+    {
+      key: 'withMinMax',
+      title: 'Datepicker with Min/Max Dates',
+      description: 'Datepicker with date range restrictions',
+      code: `<amw-datepicker
   label="Birth Date"
   placeholder="Select your birth date..."
   [min]="minDate"
@@ -59,9 +67,13 @@ export class DatepickerCodeComponent extends BaseCodeComponent<DatepickerExample
 // Component setup
 minDate = new Date(1900, 0, 1);
 maxDate = new Date();
-birthDate = new Date(1990, 0, 1);`,
-
-    withValidation: `<amw-datepicker
+birthDate = new Date(1990, 0, 1);`
+    },
+    {
+      key: 'withValidation',
+      title: 'Datepicker with Validation',
+      description: 'Datepicker with required validation',
+      code: `<amw-datepicker
   formControlName="startDate"
   label="Start Date"
   placeholder="Select start date..."
@@ -73,9 +85,13 @@ birthDate = new Date(1990, 0, 1);`,
 // Form setup
 form = this.fb.group({
   startDate: ['', Validators.required]
-});`,
-
-    differentFormats: `<amw-datepicker
+});`
+    },
+    {
+      key: 'differentFormats',
+      title: 'Different Date Formats',
+      description: 'Datepickers with various display formats',
+      code: `<amw-datepicker
   label="Short Date"
   placeholder="MM/DD/YYYY"
   [value]="shortDate"
@@ -94,19 +110,26 @@ form = this.fb.group({
   placeholder="DD-MM-YYYY"
   [value]="customDate"
   format="dd-MM-yyyy">
-</amw-datepicker>`,
-
-    disabled: `<amw-datepicker
+</amw-datepicker>`
+    },
+    {
+      key: 'disabled',
+      title: 'Disabled Datepicker',
+      description: 'Datepicker in disabled state',
+      code: `<amw-datepicker
   label="Disabled Datepicker"
   placeholder="This is disabled..."
   [value]="selectedDate"
   [disabled]="true">
-</amw-datepicker>`,
-
-    reactiveForm: `// Component TypeScript
+</amw-datepicker>`
+    },
+    {
+      key: 'reactiveForm',
+      title: 'Reactive Form Integration',
+      description: 'Using datepickers with Angular reactive forms',
+      code: `// Component TypeScript
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 
-import { AmwButtonComponent } from '../../../../library/src/controls/components/amw-button/amw-button.component';
 export class MyComponent {
   form: FormGroup;
   minDate = new Date();
@@ -147,9 +170,13 @@ export class MyComponent {
     [min]="minDate"
     [required]="true">
   </amw-datepicker>
-</form>`,
-
-    withEvents: `<amw-datepicker
+</form>`
+    },
+    {
+      key: 'withEvents',
+      title: 'Datepicker with Events',
+      description: 'Datepickers with event handling',
+      code: `<amw-datepicker
   label="Event Date"
   placeholder="Select event date..."
   [value]="eventDate"
@@ -170,9 +197,13 @@ onDatepickerOpened(): void {
 
 onDatepickerClosed(): void {
   console.log('Datepicker closed');
-}`,
-
-    bookingForm: `<form [formGroup]="bookingForm" class="booking-form">
+}`
+    },
+    {
+      key: 'bookingForm',
+      title: 'Booking Form Example',
+      description: 'Complete booking form with multiple datepickers',
+      code: `<form [formGroup]="bookingForm" class="booking-form">
   <h3>Event Booking</h3>
 
   <amw-datepicker
@@ -214,14 +245,16 @@ onDatepickerClosed(): void {
     Book Event
   </amw-button>
 </form>`
-  };
+    }
+  ];
 
-  constructor(private fb: FormBuilder) {
-    super();
-  }
+  constructor(private fb: FormBuilder) {}
 
-  override ngOnInit(): void {
-    super.ngOnInit();
+  ngOnInit(): void {
+    // Initialize editable code from examples
+    this.examples.forEach(example => {
+      this.editableCode[example.key] = example.code;
+    });
 
     // Initialize form for validation example
     this.dateForm = this.fb.group({

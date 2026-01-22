@@ -1,58 +1,43 @@
-<div class="color-picker-validation">
-  <amw-card>
-    <ng-template #cardHeader>
-      <h2>Color Picker Validation Examples</h2>
-      <p class="subtitle">Form validation with color picker controls</p>
-    </ng-template>
+<amw-validation-doc
+  componentName="amw-color-picker"
+  [validationForm]="validationForm"
+  [validationInfo]="validationInfo">
+  <ng-template #formContent>
+    <div class="color-picker-validation__form">
+      <amw-color-picker
+        label="Primary Color *"
+        formControlName="primaryColor"
+        placeholder="Select primary color"
+        [required]="true"
+        [errorMessage]="getColorError('primaryColor')">
+      </amw-color-picker>
 
-    <ng-template #cardContent>
-      <form [formGroup]="colorPickerForm" (ngSubmit)="onSubmit()">
-        <div class="color-picker-validation__form">
-          <amw-color-picker
-            label="Primary Color *"
-            formControlName="primaryColor"
-            placeholder="Select primary color"
-            [required]="true"
-            [errorMessage]="colorPickerForm.get('primaryColor')?.hasError('required') ? 'Primary color is required' : ''"
-          ></amw-color-picker>
+      <amw-color-picker
+        label="Secondary Color *"
+        formControlName="secondaryColor"
+        placeholder="Select secondary color"
+        mode="custom"
+        [required]="true"
+        [errorMessage]="getColorError('secondaryColor')">
+      </amw-color-picker>
 
-          <amw-color-picker
-            label="Secondary Color *"
-            formControlName="secondaryColor"
-            placeholder="Select secondary color"
-            mode="custom"
-            [required]="true"
-            [errorMessage]="colorPickerForm.get('secondaryColor')?.hasError('required') ? 'Secondary color is required' : colorPickerForm.get('secondaryColor')?.hasError('sameColor') ? 'Secondary color must be different from primary color' : ''"
-          ></amw-color-picker>
+      <amw-color-picker
+        label="Accent Color *"
+        formControlName="accentColor"
+        placeholder="Select accent color"
+        mode="text"
+        [required]="true"
+        [errorMessage]="getColorError('accentColor')">
+      </amw-color-picker>
 
-          <amw-color-picker
-            label="Accent Color *"
-            formControlName="accentColor"
-            placeholder="Select accent color"
-            mode="text"
-            [required]="true"
-            [errorMessage]="colorPickerForm.get('accentColor')?.hasError('required') ? 'Accent color is required' : ''"
-          ></amw-color-picker>
-
-          <amw-color-picker
-            label="Background Color *"
-            formControlName="backgroundColor"
-            placeholder="Select background color"
-            mode="all"
-            [required]="true"
-            [errorMessage]="colorPickerForm.get('backgroundColor')?.hasError('required') ? 'Background color is required' : ''"
-          ></amw-color-picker>
-        </div>
-
-        <div class="color-picker-validation__actions">
-          <amw-button appearance="text" type="button" (click)="onReset()">Reset</amw-button>
-          <amw-button appearance="elevated" color="primary" type="submit" [disabled]="colorPickerForm.invalid">
-            Submit
-          </amw-button>
-        </div>
-      </form>
-    </ng-template>
-</amw-card>
-</div>
-
-
+      <amw-color-picker
+        label="Background Color *"
+        formControlName="backgroundColor"
+        placeholder="Select background color"
+        mode="all"
+        [required]="true"
+        [errorMessage]="getColorError('backgroundColor')">
+      </amw-color-picker>
+    </div>
+  </ng-template>
+</amw-validation-doc>

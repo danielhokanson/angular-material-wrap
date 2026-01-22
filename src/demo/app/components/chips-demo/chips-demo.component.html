@@ -1,45 +1,49 @@
-<div class="amw-demo-chips">
-  <div class="demo-header">
-    <h1>AMW Chips</h1>
-    <p>Comprehensive chip component with various configurations and use cases</p>
-  </div>
-
-  <amw-tabs [(selectedIndex)]="selectedTab" class="demo-tabs">
-    
-    <!-- Basic Chips Tab -->
-    <amw-tab label="Basic Chips" icon="view_module">
-      <div class="tab-content">
-        <amw-card class="demo-card">
-          <ng-template #cardHeader>
-            <h2>Basic Chips</h2>
-            <p class="subtitle">Simple chips with add/remove functionality</p>
-          </ng-template>
-          <ng-template #cardContent>
-            <div class="demo-section">
-              <h3>Default Chips</h3>
-              <p>Basic chips with add and remove functionality</p>
-              <amw-chips
-                [config]="basicConfig"
-                (chipAdd)="onChipAdd($event)"
-                (chipRemove)="onChipRemove($event)"
-                (chipsChange)="onChipsChange($event)">
-              </amw-chips>
-            </div>
-
-            <amw-divider></amw-divider>
-
-            <div class="demo-section">
-              <h3>Chips with Menus</h3>
-              <p>Chips with contextual menu actions</p>
-              <amw-chips
-                [config]="menuConfig"
-                (chipMenuItemClick)="onMenuItemClick($event)"
-                (chipsChange)="onChipsChange($event)">
-              </amw-chips>
-            </div>
-          </ng-template>
-</amw-card>
+<amw-demo-doc componentName="amw-chips">
+  <ng-template #content>
+    <div class="amw-demo-chips">
+      <div class="demo-header">
+        <h1>AMW Chips</h1>
+        <p>Comprehensive chip component with various configurations and use cases</p>
       </div>
-    </amw-tab>
-  </amw-tabs>
-</div>
+
+      <amw-tabs [(selectedIndex)]="selectedTab" class="demo-tabs">
+
+        <!-- Basic Chips Tab -->
+        <amw-tab label="Basic Chips" icon="view_module">
+          <div class="tab-content">
+            <amw-card class="demo-card">
+              <ng-template #cardHeader>
+                <h2>Basic Chips</h2>
+                <p class="subtitle">Simple chips with add/remove functionality</p>
+              </ng-template>
+              <ng-template #cardContent>
+                <div class="demo-section">
+                  <h3>Default Chips</h3>
+                  <p>Basic chips with add and remove functionality</p>
+                  <amw-chips
+                    [config]="basicConfig"
+                    (chipAdd)="onChipAdd($event)"
+                    (chipRemove)="onChipRemove($event)"
+                    (chipsChange)="onChipsChange($event)">
+                  </amw-chips>
+                </div>
+
+                <amw-divider></amw-divider>
+
+                <div class="demo-section">
+                  <h3>Chips with Menus</h3>
+                  <p>Chips with contextual menu actions</p>
+                  <amw-chips
+                    [config]="menuConfig"
+                    (chipMenuItemClick)="onMenuItemClick($event)"
+                    (chipsChange)="onChipsChange($event)">
+                  </amw-chips>
+                </div>
+              </ng-template>
+            </amw-card>
+          </div>
+        </amw-tab>
+      </amw-tabs>
+    </div>
+  </ng-template>
+</amw-demo-doc>

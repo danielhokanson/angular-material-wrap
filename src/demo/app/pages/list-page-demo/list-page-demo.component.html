@@ -4,81 +4,128 @@
     <p>This demo showcases the AMW List Page component with employee data, including filtering, sorting, pagination, and bulk operations.</p>
   </div>
 
-  <div class="list-page-demo__controls">
-    <amw-card class="list-page-demo__controls-card">
-      <ng-template #cardContent>
-        <amw-tabs [(selectedIndex)]="currentViewIndex" (selectedIndexChange)="onViewChange($event)">
-          <amw-tab label="Basic View">
-            <div class="list-page-demo__tab-content">
-              <p>Basic list view with essential features: search, sorting, and pagination.</p>
+  <amw-card class="list-page-demo__main-card">
+    <ng-template #cardContent>
+      <amw-tabs [(selectedIndex)]="selectedTab" class="list-page-demo__tabs">
+        <!-- Demo Tab -->
+        <amw-tab label="Demo" icon="play_arrow">
+          <div class="list-page-demo__demo-content">
+            <div class="list-page-demo__controls">
+              <amw-card class="list-page-demo__controls-card">
+                <ng-template #cardContent>
+                  <amw-tabs [(selectedIndex)]="currentViewIndex" (selectedIndexChange)="onViewChange($event)">
+                    <amw-tab label="Basic View">
+                      <div class="list-page-demo__tab-content">
+                        <p>Basic list view with essential features: search, sorting, and pagination.</p>
+                      </div>
+                    </amw-tab>
+                    <amw-tab label="Advanced View">
+                      <div class="list-page-demo__tab-content">
+                        <p>Advanced list view with all features: filters, bulk actions, column visibility, density controls, and export.</p>
+                      </div>
+                    </amw-tab>
+                  </amw-tabs>
+                </ng-template>
+              </amw-card>
             </div>
-          </amw-tab>
-          <amw-tab label="Advanced View">
-            <div class="list-page-demo__tab-content">
-              <p>Advanced list view with all features: filters, bulk actions, column visibility, density controls, and export.</p>
+
+            <div class="list-page-demo__content">
+              <amw-list-page
+                [config]="listConfig"
+                [dataSource]="dataSource"
+                [realTimeUpdates]="false"
+                (itemSelect)="onItemSelect($event)"
+                (actionClick)="onActionClick($event)"
+                (bulkActionClick)="onBulkActionClick($event)"
+                (filterChange)="onFilterChange($event)"
+                (sortChange)="onSortChange($event)"
+                (pageChange)="onPageChange($event)">
+              </amw-list-page>
             </div>
-          </amw-tab>
-        </amw-tabs>
-      </ng-template>
-</amw-card>
-  </div>
 
-  <div class="list-page-demo__content">
-    <amw-list-page
-      [config]="listConfig"
-      [dataSource]="dataSource"
-      [realTimeUpdates]="false"
-      (itemSelect)="onItemSelect($event)"
-      (actionClick)="onActionClick($event)"
-      (bulkActionClick)="onBulkActionClick($event)"
-      (filterChange)="onFilterChange($event)"
-      (sortChange)="onSortChange($event)"
-      (pageChange)="onPageChange($event)">
-    </amw-list-page>
-  </div>
+            <div class="list-page-demo__info">
+              <amw-card class="list-page-demo__info-card">
+                <ng-template #cardHeader>
+                  <h2>Demo Information</h2>
+                </ng-template>
+                <ng-template #cardContent>
+                  <div class="list-page-demo__info-content">
+                    <div class="list-page-demo__info-section">
+                      <h4>Features Demonstrated:</h4>
+                      <ul>
+                        <li>Real-time search with debounced input</li>
+                        <li>Advanced filtering with multiple field types</li>
+                        <li>Column sorting and visibility controls</li>
+                        <li>Bulk selection and operations</li>
+                        <li>Pagination with configurable page sizes</li>
+                        <li>Density settings (compact/comfortable/spacious)</li>
+                        <li>Export functionality</li>
+                        <li>Responsive design</li>
+                      </ul>
+                    </div>
 
-  <div class="list-page-demo__info">
-    <amw-card class="list-page-demo__info-card">
-      <ng-template #cardHeader>
-        <h2>Demo Information</h2>
-      </ng-template>
-      <ng-template #cardContent>
-        <div class="list-page-demo__info-content">
-          <div class="list-page-demo__info-section">
-            <h4>Features Demonstrated:</h4>
-            <ul>
-              <li>Real-time search with debounced input</li>
-              <li>Advanced filtering with multiple field types</li>
-              <li>Column sorting and visibility controls</li>
-              <li>Bulk selection and operations</li>
-              <li>Pagination with configurable page sizes</li>
-              <li>Density settings (compact/comfortable/spacious)</li>
-              <li>Export functionality</li>
-              <li>Responsive design</li>
-            </ul>
+                    <div class="list-page-demo__info-section">
+                      <h4>Data Source:</h4>
+                      <p>Custom implementation of <code>ListPageDataSource</code> with simulated API calls and 500ms delay.</p>
+                    </div>
+
+                    <div class="list-page-demo__info-section">
+                      <h4>Selected Items:</h4>
+                      @if (selectedItems.length === 0) {
+                        <p>No items selected</p>
+                      }
+                      @if (selectedItems.length > 0) {
+                        <div class="list-page-demo__selected-items chip-list">
+                            @for (item of selectedItems; track item) {
+                              <span class="chip">{{ item.name }}</span>
+                            }
+                        </div>
+                      }
+                    </div>
+                  </div>
+                </ng-template>
+              </amw-card>
+            </div>
           </div>
+        </amw-tab>
 
-          <div class="list-page-demo__info-section">
-            <h4>Data Source:</h4>
-            <p>Custom implementation of <code>ListPageDataSource</code> with simulated API calls and 500ms delay.</p>
-          </div>
+        <!-- Code Tab -->
+        <amw-tab label="Code" icon="code">
+          <div class="list-page-demo__code-content">
+            <h3>Basic Usage</h3>
+            <p>Import and configure the AmwListPageComponent with your list configuration and data source.</p>
+            <pre><code>{{ codeExamples.basic }}</code></pre>
 
-          <div class="list-page-demo__info-section">
-            <h4>Selected Items:</h4>
-            @if (selectedItems.length === 0) {
-              <p>No items selected</p>
-            }
-            @if (selectedItems.length > 0) {
-              <div class="list-page-demo__selected-items chip-list">
-                  @for (item of selectedItems; track item) {
-                    <span class="chip">{{ item.name }}</span>
-                  }
-              </div>
-            }
+            <h3>Configuration Options</h3>
+            <p>The ListPageConfig interface provides extensive customization options for the list/table.</p>
+            <pre><code>{{ codeExamples.configuration }}</code></pre>
+
+            <h3>Column Configuration</h3>
+            <p>Configure individual columns with type-specific options and custom renderers.</p>
+            <pre><code>{{ codeExamples.columns }}</code></pre>
+
+            <h3>Data Source Implementation</h3>
+            <p>Implement the ListPageDataSource interface to connect with your backend API.</p>
+            <pre><code>{{ codeExamples.dataSource }}</code></pre>
+
+            <h3>Event Handling</h3>
+            <p>Handle list events to respond to user actions and data changes.</p>
+            <pre><code>{{ codeExamples.eventHandling }}</code></pre>
           </div>
-        </div>
-      </ng-template>
-</amw-card>
-  </div>
+        </amw-tab>
+
+        <!-- API Tab -->
+        <amw-tab label="API" icon="description">
+          <div class="list-page-demo__api-content">
+            <amw-api-doc
+              componentName="AmwListPageComponent"
+              [apiDocumentation]="listPageApiDoc"
+              [interfaces]="listPageInterfaces"
+              description="A comprehensive list/table page component for displaying and managing tabular data with pagination, sorting, filtering, and bulk operations.">
+            </amw-api-doc>
+          </div>
+        </amw-tab>
+      </amw-tabs>
+    </ng-template>
+  </amw-card>
 </div>
-

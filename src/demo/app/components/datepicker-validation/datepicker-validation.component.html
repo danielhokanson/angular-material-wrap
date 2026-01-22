@@ -1,174 +1,142 @@
-<div class="amw-demo-datepicker-validation">
-  <div class="validation-section">
-    <h3 class="validation-section__title">Datepicker Validation Examples</h3>
-    <p class="validation-section__description">
-      This form demonstrates various validation patterns using Angular Material datepickers.
-    </p>
-
-    <form [formGroup]="validationForm" (ngSubmit)="onSubmit()" class="validation-form">
-      <!-- Birth Date -->
-      <div class="form-section">
-        <h4>Birth Date (Required)</h4>
-        <div class="datepicker-group">
-          <amw-datepicker
-            formControlName="birthDate"
-            label="Birth Date"
-            placeholder="Select your birth date..."
-            [min]="minDate"
-            [max]="maxDate"
-            [required]="true"
-            appearance="outline">
-          </amw-datepicker>
-          <div class="field-info">
-            @if (getFieldValue('birthDate')) {
-              <span class="selected-date">
-                Selected: {{ getFieldValue('birthDate') | date:'mediumDate' }}
-              </span>
-            }
-            @if (getFieldError('birthDate')) {
-              <div class="field-error">
-                {{ getFieldError('birthDate') }}
-              </div>
-            }
-          </div>
+<amw-validation-doc
+  componentName="amw-datepicker"
+  [validationForm]="validationForm"
+  [validationInfo]="validationInfo">
+  <ng-template #formContent>
+    <!-- Birth Date -->
+    <div class="form-section">
+      <h4>Birth Date (Required)</h4>
+      <div class="datepicker-group">
+        <amw-datepicker
+          formControlName="birthDate"
+          label="Birth Date"
+          placeholder="Select your birth date..."
+          [min]="minDate"
+          [max]="maxDate"
+          [required]="true"
+          appearance="outline">
+        </amw-datepicker>
+        <div class="field-info">
+          @if (getFieldValue('birthDate')) {
+            <span class="selected-date">
+              Selected: {{ getFieldValue('birthDate') | date:'mediumDate' }}
+            </span>
+          }
+          @if (getFieldError('birthDate')) {
+            <div class="field-error">
+              {{ getFieldError('birthDate') }}
+            </div>
+          }
         </div>
       </div>
-
-      <!-- Start Date -->
-      <div class="form-section">
-        <h4>Start Date (Required)</h4>
-        <div class="datepicker-group">
-          <amw-datepicker
-            formControlName="startDate"
-            label="Start Date"
-            placeholder="Select start date..."
-            [min]="today"
-            [required]="true"
-            appearance="outline">
-          </amw-datepicker>
-          <div class="field-info">
-            @if (getFieldValue('startDate')) {
-              <span class="selected-date">
-                Selected: {{ getFieldValue('startDate') | date:'mediumDate' }}
-              </span>
-            }
-            @if (getFieldError('startDate')) {
-              <div class="field-error">
-                {{ getFieldError('startDate') }}
-              </div>
-            }
-          </div>
-        </div>
-      </div>
-
-      <!-- End Date -->
-      <div class="form-section">
-        <h4>End Date (Required)</h4>
-        <div class="datepicker-group">
-          <amw-datepicker
-            formControlName="endDate"
-            label="End Date"
-            placeholder="Select end date..."
-            [min]="today"
-            [required]="true"
-            appearance="outline">
-          </amw-datepicker>
-          <div class="field-info">
-            @if (getFieldValue('endDate')) {
-              <span class="selected-date">
-                Selected: {{ getFieldValue('endDate') | date:'mediumDate' }}
-              </span>
-            }
-            @if (getFieldError('endDate')) {
-              <div class="field-error">
-                {{ getFieldError('endDate') }}
-              </div>
-            }
-          </div>
-        </div>
-      </div>
-
-      <!-- Event Date -->
-      <div class="form-section">
-        <h4>Event Date (Required)</h4>
-        <div class="datepicker-group">
-          <amw-datepicker
-            formControlName="eventDate"
-            label="Event Date"
-            placeholder="Select event date..."
-            [min]="today"
-            [required]="true"
-            appearance="outline">
-          </amw-datepicker>
-          <div class="field-info">
-            @if (getFieldValue('eventDate')) {
-              <span class="selected-date">
-                Selected: {{ getFieldValue('eventDate') | date:'mediumDate' }}
-              </span>
-            }
-            @if (getFieldError('eventDate')) {
-              <div class="field-error">
-                {{ getFieldError('eventDate') }}
-              </div>
-            }
-          </div>
-        </div>
-      </div>
-
-      <!-- Appointment Date -->
-      <div class="form-section">
-        <h4>Appointment Date (Required)</h4>
-        <div class="datepicker-group">
-          <amw-datepicker
-            formControlName="appointmentDate"
-            label="Appointment Date"
-            placeholder="Select appointment date..."
-            [min]="today"
-            [required]="true"
-            appearance="outline">
-          </amw-datepicker>
-          <div class="field-info">
-            @if (getFieldValue('appointmentDate')) {
-              <span class="selected-date">
-                Selected: {{ getFieldValue('appointmentDate') | date:'mediumDate' }}
-              </span>
-            }
-            @if (getFieldError('appointmentDate')) {
-              <div class="field-error">
-                {{ getFieldError('appointmentDate') }}
-              </div>
-            }
-          </div>
-        </div>
-      </div>
-
-      <div class="form-actions">
-        <amw-button
-          type="submit"
-          appearance="elevated"
-          color="primary"
-          [disabled]="validationForm.invalid">
-          Submit Form
-        </amw-button>
-        <amw-button
-          type="button"
-          appearance="outlined"
-          color="primary"
-          (click)="validationForm.reset()">
-          Reset Form
-        </amw-button>
-      </div>
-    </form>
-
-    <div class="validation-info">
-      <h4>Validation Rules Applied:</h4>
-      <ul>
-        <li><strong>Birth Date:</strong> Required, must be between 1900 and today</li>
-        <li><strong>Start Date:</strong> Required, must be today or later</li>
-        <li><strong>End Date:</strong> Required, must be today or later</li>
-        <li><strong>Event Date:</strong> Required, must be today or later</li>
-        <li><strong>Appointment Date:</strong> Required, must be today or later</li>
-      </ul>
     </div>
-  </div>
-</div>
+
+    <!-- Start Date -->
+    <div class="form-section">
+      <h4>Start Date (Required)</h4>
+      <div class="datepicker-group">
+        <amw-datepicker
+          formControlName="startDate"
+          label="Start Date"
+          placeholder="Select start date..."
+          [min]="today"
+          [required]="true"
+          appearance="outline">
+        </amw-datepicker>
+        <div class="field-info">
+          @if (getFieldValue('startDate')) {
+            <span class="selected-date">
+              Selected: {{ getFieldValue('startDate') | date:'mediumDate' }}
+            </span>
+          }
+          @if (getFieldError('startDate')) {
+            <div class="field-error">
+              {{ getFieldError('startDate') }}
+            </div>
+          }
+        </div>
+      </div>
+    </div>
+
+    <!-- End Date -->
+    <div class="form-section">
+      <h4>End Date (Required)</h4>
+      <div class="datepicker-group">
+        <amw-datepicker
+          formControlName="endDate"
+          label="End Date"
+          placeholder="Select end date..."
+          [min]="today"
+          [required]="true"
+          appearance="outline">
+        </amw-datepicker>
+        <div class="field-info">
+          @if (getFieldValue('endDate')) {
+            <span class="selected-date">
+              Selected: {{ getFieldValue('endDate') | date:'mediumDate' }}
+            </span>
+          }
+          @if (getFieldError('endDate')) {
+            <div class="field-error">
+              {{ getFieldError('endDate') }}
+            </div>
+          }
+        </div>
+      </div>
+    </div>
+
+    <!-- Event Date -->
+    <div class="form-section">
+      <h4>Event Date (Required)</h4>
+      <div class="datepicker-group">
+        <amw-datepicker
+          formControlName="eventDate"
+          label="Event Date"
+          placeholder="Select event date..."
+          [min]="today"
+          [required]="true"
+          appearance="outline">
+        </amw-datepicker>
+        <div class="field-info">
+          @if (getFieldValue('eventDate')) {
+            <span class="selected-date">
+              Selected: {{ getFieldValue('eventDate') | date:'mediumDate' }}
+            </span>
+          }
+          @if (getFieldError('eventDate')) {
+            <div class="field-error">
+              {{ getFieldError('eventDate') }}
+            </div>
+          }
+        </div>
+      </div>
+    </div>
+
+    <!-- Appointment Date -->
+    <div class="form-section">
+      <h4>Appointment Date (Required)</h4>
+      <div class="datepicker-group">
+        <amw-datepicker
+          formControlName="appointmentDate"
+          label="Appointment Date"
+          placeholder="Select appointment date..."
+          [min]="today"
+          [required]="true"
+          appearance="outline">
+        </amw-datepicker>
+        <div class="field-info">
+          @if (getFieldValue('appointmentDate')) {
+            <span class="selected-date">
+              Selected: {{ getFieldValue('appointmentDate') | date:'mediumDate' }}
+            </span>
+          }
+          @if (getFieldError('appointmentDate')) {
+            <div class="field-error">
+              {{ getFieldError('appointmentDate') }}
+            </div>
+          }
+        </div>
+      </div>
+    </div>
+  </ng-template>
+</amw-validation-doc>

@@ -1,256 +1,93 @@
-<div class="code-section">
-  <h3>Code Examples</h3>
-  <p>Interactive examples with live previews. The code is editable for reference, and working examples are shown alongside.</p>
+<amw-code-doc
+  componentName="amw-textarea"
+  [examples]="examples"
+  [editableCode]="editableCode">
 
-  <amw-accordion class="code-examples-accordion">
-    <!-- Basic Textarea -->
-    <amw-accordion-panel amwDescription="A simple textarea with label and placeholder">
-      <ng-template #header>
-        <amw-icon name="code"></amw-icon>
-        Basic Textarea
-      </ng-template>
-      <div class="example-container">
-        <div class="code-panel">
-          <div class="code-header">
-            <h4>Code</h4>
-            <amw-button icon="refresh" (click)="resetCode('basic')" title="Reset to original"></amw-button>
-          </div>
-          <textarea
-            [(ngModel)]="editableCode.basic"
-            class="code-editor"
-            spellcheck="false"></textarea>
-        </div>
-        <div class="preview-panel">
-          <h4>Preview</h4>
-          <div class="preview-content">
-            <amw-textarea
-              label="Description"
-              [(ngModel)]="descriptionValue"
-              placeholder="Enter your description here..."
-              [rows]="4"
-              appearance="outline">
-            </amw-textarea>
-          </div>
-        </div>
-      </div>
-    </amw-accordion-panel>
+  <ng-template #preview let-example>
+    @switch (example.key) {
+      @case ('basic') {
+        <amw-textarea
+          label="Description"
+          [(ngModel)]="descriptionValue"
+          placeholder="Enter your description here..."
+          [rows]="4"
+          appearance="outline">
+        </amw-textarea>
+      }
+      @case ('withValidation') {
+        <amw-textarea
+          label="Project Description"
+          [(ngModel)]="projectValue"
+          placeholder="Describe your project..."
+          minlength="10"
+          maxlength="500"
+          [required]="true"
+          [rows]="4"
+          hint="Min 10, Max 500 characters"
+          appearance="outline">
+        </amw-textarea>
+      }
+      @case ('differentSizes') {
+        <amw-textarea
+          label="Short Note"
+          [(ngModel)]="noteValue"
+          placeholder="Brief note..."
+          [rows]="2"
+          appearance="outline">
+        </amw-textarea>
 
-    <!-- Textarea with Validation -->
-    <amw-accordion-panel amwDescription="Textarea with character limits and validation">
-      <ng-template #header>
-        <amw-icon name="code"></amw-icon>
-        Textarea with Validation
-      </ng-template>
-      <div class="example-container">
-        <div class="code-panel">
-          <div class="code-header">
-            <h4>Code</h4>
-            <amw-button icon="refresh" (click)="resetCode('withValidation')" title="Reset to original"></amw-button>
-          </div>
-          <textarea
-            [(ngModel)]="editableCode.withValidation"
-            class="code-editor"
-            spellcheck="false"
-            readonly></textarea>
-        </div>
-        <div class="preview-panel">
-          <h4>Preview</h4>
-          <div class="preview-content">
-            <amw-textarea
-              label="Project Description"
-              [(ngModel)]="projectValue"
-              placeholder="Describe your project..."
-              minlength="10"
-              maxlength="500"
-              [required]="true"
-              [rows]="4"
-              hint="Min 10, Max 500 characters"
-              appearance="outline">
-            </amw-textarea>
-          </div>
-        </div>
-      </div>
-    </amw-accordion-panel>
+        <amw-textarea
+          label="Detailed Description"
+          placeholder="Detailed description..."
+          [rows]="6"
+          appearance="outline">
+        </amw-textarea>
 
-    <!-- Different Sizes -->
-    <amw-accordion-panel amwDescription="Textareas with different row counts">
-      <ng-template #header>
-        <amw-icon name="code"></amw-icon>
-        Different Sizes
-      </ng-template>
-      <div class="example-container">
-        <div class="code-panel">
-          <div class="code-header">
-            <h4>Code</h4>
-            <amw-button icon="refresh" (click)="resetCode('differentSizes')" title="Reset to original"></amw-button>
-          </div>
-          <textarea
-            [(ngModel)]="editableCode.differentSizes"
-            class="code-editor"
-            spellcheck="false"
-            readonly></textarea>
+        <amw-textarea
+          label="Long Text"
+          placeholder="Very long text..."
+          [rows]="10"
+          appearance="outline">
+        </amw-textarea>
+      }
+      @case ('withCharacterCount') {
+        <amw-textarea
+          label="Bio"
+          #bioInput
+          placeholder="Tell us about yourself..."
+          maxlength="200"
+          [rows]="4"
+          appearance="outline">
+        </amw-textarea>
+      }
+      @case ('reactiveForm') {
+        <div class="preview-note">
+          <amw-icon name="info"></amw-icon>
+          <span>This example shows code for reactive form integration</span>
         </div>
-        <div class="preview-panel">
-          <h4>Preview</h4>
-          <div class="preview-content">
-            <amw-textarea
-              label="Short Note"
-              [(ngModel)]="noteValue"
-              placeholder="Brief note..."
-              [rows]="2"
-              appearance="outline">
-            </amw-textarea>
-
-            <amw-textarea
-              label="Detailed Description"
-              placeholder="Detailed description..."
-              [rows]="6"
-              appearance="outline">
-            </amw-textarea>
-
-            <amw-textarea
-              label="Long Text"
-              placeholder="Very long text..."
-              [rows]="10"
-              appearance="outline">
-            </amw-textarea>
-          </div>
+      }
+      @case ('withEvents') {
+        <amw-textarea
+          label="Message"
+          [(ngModel)]="messageValue"
+          (input)="onTextInput($event)"
+          (focus)="onTextFocus($event)"
+          (blur)="onTextBlur($event)"
+          placeholder="Type your message..."
+          [rows]="4"
+          appearance="outline">
+        </amw-textarea>
+        <div class="preview-note">
+          <amw-icon name="info"></amw-icon>
+          <span>Open your browser console to see event logs</span>
         </div>
-      </div>
-    </amw-accordion-panel>
-
-    <!-- With Character Count -->
-    <amw-accordion-panel amwDescription="Textarea with character count display">
-      <ng-template #header>
-        <amw-icon name="code"></amw-icon>
-        With Character Count
-      </ng-template>
-      <div class="example-container">
-        <div class="code-panel">
-          <div class="code-header">
-            <h4>Code</h4>
-            <amw-button icon="refresh" (click)="resetCode('withCharacterCount')" title="Reset to original"></amw-button>
-          </div>
-          <textarea
-            [(ngModel)]="editableCode.withCharacterCount"
-            class="code-editor"
-            spellcheck="false"
-            readonly></textarea>
+      }
+      @case ('contactForm') {
+        <div class="preview-note">
+          <amw-icon name="info"></amw-icon>
+          <span>This example shows code for a contact form with multiple textareas</span>
         </div>
-        <div class="preview-panel">
-          <h4>Preview</h4>
-          <div class="preview-content">
-            <amw-textarea
-              label="Bio"
-              #bioInput
-              placeholder="Tell us about yourself..."
-              maxlength="200"
-              [rows]="4"
-              appearance="outline">
-            </amw-textarea>
-          </div>
-        </div>
-      </div>
-    </amw-accordion-panel>
-
-    <!-- Reactive Form Integration -->
-    <amw-accordion-panel amwDescription="Using textareas with Angular reactive forms">
-      <ng-template #header>
-        <amw-icon name="code"></amw-icon>
-        Reactive Form Integration
-      </ng-template>
-      <div class="example-container">
-        <div class="code-panel">
-          <div class="code-header">
-            <h4>Code</h4>
-            <amw-button icon="refresh" (click)="resetCode('reactiveForm')" title="Reset to original"></amw-button>
-          </div>
-          <textarea
-            [(ngModel)]="editableCode.reactiveForm"
-            class="code-editor"
-            spellcheck="false"
-            readonly></textarea>
-        </div>
-        <div class="preview-panel">
-          <h4>Preview</h4>
-          <div class="preview-content">
-            <div class="preview-note">
-              <amw-icon name="info"></amw-icon>
-              <span>This example shows code for reactive form integration</span>
-            </div>
-          </div>
-        </div>
-      </div>
-    </amw-accordion-panel>
-
-    <!-- Textarea with Events -->
-    <amw-accordion-panel amwDescription="Textareas with event handling">
-      <ng-template #header>
-        <amw-icon name="code"></amw-icon>
-        Textarea with Events
-      </ng-template>
-      <div class="example-container">
-        <div class="code-panel">
-          <div class="code-header">
-            <h4>Code</h4>
-            <amw-button icon="refresh" (click)="resetCode('withEvents')" title="Reset to original"></amw-button>
-          </div>
-          <textarea
-            [(ngModel)]="editableCode.withEvents"
-            class="code-editor"
-            spellcheck="false"
-            readonly></textarea>
-        </div>
-        <div class="preview-panel">
-          <h4>Preview</h4>
-          <div class="preview-content">
-            <amw-textarea
-              label="Message"
-              [(ngModel)]="messageValue"
-              (input)="onTextInput($event)"
-              (focus)="onTextFocus($event)"
-              (blur)="onTextBlur($event)"
-              placeholder="Type your message..."
-              [rows]="4"
-              appearance="outline">
-            </amw-textarea>
-            <div class="preview-note">
-              <amw-icon name="info"></amw-icon>
-              <span>Open your browser console to see event logs</span>
-            </div>
-          </div>
-        </div>
-      </div>
-    </amw-accordion-panel>
-
-    <!-- Contact Form Example -->
-    <amw-accordion-panel amwDescription="Complete contact form with multiple textareas">
-      <ng-template #header>
-        <amw-icon name="code"></amw-icon>
-        Contact Form Example
-      </ng-template>
-      <div class="example-container">
-        <div class="code-panel">
-          <div class="code-header">
-            <h4>Code</h4>
-            <amw-button icon="refresh" (click)="resetCode('contactForm')" title="Reset to original"></amw-button>
-          </div>
-          <textarea
-            [(ngModel)]="editableCode.contactForm"
-            class="code-editor"
-            spellcheck="false"
-            readonly></textarea>
-        </div>
-        <div class="preview-panel">
-          <h4>Preview</h4>
-          <div class="preview-content">
-            <div class="preview-note">
-              <amw-icon name="info"></amw-icon>
-              <span>This example shows code for a contact form with multiple textareas</span>
-            </div>
-          </div>
-        </div>
-      </div>
-    </amw-accordion-panel>
-  </amw-accordion>
-</div>
+      }
+    }
+  </ng-template>
+</amw-code-doc>

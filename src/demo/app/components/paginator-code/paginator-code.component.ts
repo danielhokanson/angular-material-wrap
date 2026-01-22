@@ -1,28 +1,23 @@
-import { Component, ViewEncapsulation } from '@angular/core';
+import { Component, ViewEncapsulation, OnInit } from '@angular/core';
 import { FormsModule } from '@angular/forms';
-import { BaseCodeComponent } from '../base/base-code.component';
-import { AmwButtonComponent } from '../../../../library/src/controls/components/amw-button/amw-button.component';
+import { AmwCodeDocComponent, CodeExample } from '../../shared/components/code-doc/code-doc.component';
 import { AmwPaginatorComponent, AmwPageEvent } from '../../../../library/src/components/components/amw-paginator/amw-paginator.component';
-import { AmwAccordionComponent, AmwAccordionPanelComponent, AmwIconComponent } from '../../../../library/src/components/components';
-
-type PaginatorExamples = 'basic' | 'pageSizeOptions' | 'firstLast' | 'hidePageSize';
+import { AmwIconComponent } from '../../../../library/src/components/components';
 
 @Component({
   selector: 'amw-demo-paginator-code',
   standalone: true,
   imports: [
     FormsModule,
-    AmwButtonComponent,
+    AmwCodeDocComponent,
     AmwPaginatorComponent,
-    AmwAccordionComponent,
-    AmwAccordionPanelComponent,
     AmwIconComponent
   ],
   encapsulation: ViewEncapsulation.None,
   templateUrl: './paginator-code.component.html',
   styleUrl: './paginator-code.component.scss'
 })
-export class PaginatorCodeComponent extends BaseCodeComponent<PaginatorExamples> {
+export class PaginatorCodeComponent implements OnInit {
   // Expose Math for template usage
   Math = Math;
 
@@ -43,9 +38,16 @@ export class PaginatorCodeComponent extends BaseCodeComponent<PaginatorExamples>
   hidePageSizeValue = 20;
   hidePageSizeLength = 200;
 
-  // Original code examples (for reset functionality)
-  readonly codeExamples: Record<PaginatorExamples, string> = {
-    basic: `<amw-paginator
+  // Editable code for the shared component
+  editableCode: Record<string, string> = {};
+
+  // Code examples data
+  readonly examples: CodeExample[] = [
+    {
+      key: 'basic',
+      title: 'Basic Paginator',
+      description: 'A simple paginator with default settings',
+      code: `<amw-paginator
   [length]="100"
   [pageSize]="10"
   (page)="onPageChange($event)">
@@ -56,9 +58,13 @@ onPageChange(event: AmwPageEvent): void {
   console.log('Page index:', event.pageIndex);
   console.log('Page size:', event.pageSize);
   console.log('Total items:', event.length);
-}`,
-
-    pageSizeOptions: `<amw-paginator
+}`
+    },
+    {
+      key: 'pageSizeOptions',
+      title: 'Page Size Options',
+      description: 'Paginator with custom page size options',
+      code: `<amw-paginator
   [length]="500"
   [pageSize]="25"
   [pageSizeOptions]="[10, 25, 50, 100]"
@@ -72,9 +78,13 @@ pageSizeOptions = [10, 25, 50, 100];
 onPageChange(event: AmwPageEvent): void {
   this.pageSize = event.pageSize;
   this.loadData(event.pageIndex, event.pageSize);
-}`,
-
-    firstLast: `<amw-paginator
+}`
+    },
+    {
+      key: 'firstLast',
+      title: 'First/Last Buttons',
+      description: 'Paginator with first and last page buttons',
+      code: `<amw-paginator
   [length]="100"
   [pageSize]="10"
   [showFirstLastButtons]="true"
@@ -83,9 +93,13 @@ onPageChange(event: AmwPageEvent): void {
 
 // Shows first/last page navigation buttons
 // Useful for quickly jumping to the beginning
-// or end of large datasets`,
-
-    hidePageSize: `<amw-paginator
+// or end of large datasets`
+    },
+    {
+      key: 'hidePageSize',
+      title: 'Hide Page Size',
+      description: 'Paginator with hidden page size selector',
+      code: `<amw-paginator
   [length]="200"
   [pageSize]="20"
   [hidePageSize]="true"
@@ -95,10 +109,14 @@ onPageChange(event: AmwPageEvent): void {
 // Hides the page size selector
 // Useful when you want to control the
 // page size programmatically`
-  };
+    }
+  ];
 
-  constructor() {
-    super();
+  ngOnInit(): void {
+    // Initialize editable code from examples
+    this.examples.forEach(example => {
+      this.editableCode[example.key] = example.code;
+    });
   }
 
   // Event handlers for preview examples

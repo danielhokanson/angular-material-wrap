@@ -1,79 +1,97 @@
-<div class="data-table-validation">
-  <amw-card>
-    <ng-template #cardHeader>
-      <h2>Data Table Validation Examples</h2>
-      <p class="subtitle">Form validation with data table controls</p>
-    </ng-template>
-    
-    <ng-template #cardContent>
-      <form [formGroup]="dataTableForm" (ngSubmit)="onSubmit()">
-        <div class="data-table-validation__form">
-          <div class="data-table-validation__section">
-            <h3>User Selection with Validation</h3>
-            <p>Select users from the table below. Configure minimum and maximum selection limits.</p>
-            
-            <div class="data-table-validation__controls">
-              <amw-input
-                label="Minimum Selection"
-                type="number"
-                formControlName="minSelection"
-                min="1"
-                max="10"
-                hint="Minimum number of users to select"
-                class="data-table-validation__control">
-              </amw-input>
+<amw-validation-doc
+  componentName="amw-data-table"
+  [validationForm]="validationForm"
+  [validationInfo]="validationInfo">
+  <ng-template #formContent>
+    <div class="data-table-validation__section">
+      <h3>User Selection with Validation</h3>
+      <p>Select users from the table below. Configure minimum and maximum selection limits.</p>
 
-              <amw-input
-                label="Maximum Selection"
-                type="number"
-                formControlName="maxSelection"
-                min="1"
-                max="10"
-                hint="Maximum number of users to select"
-                class="data-table-validation__control">
-              </amw-input>
-            </div>
+      <div class="data-table-validation__controls">
+        <amw-input
+          label="Minimum Selection"
+          type="number"
+          formControlName="minSelection"
+          [min]="1"
+          [max]="10"
+          hint="Minimum number of users to select"
+          class="data-table-validation__control">
+        </amw-input>
 
-            <amw-data-table
-              [value]="users"
-              [columns]="columns"
-              [actions]="actions"
-              [selectable]="true"
-              [multiSelect]="true"
-              [filterable]="true"
-              [config]="{ pageSize: 4 }"
-              (selectionChange)="onSelectionChange($event)"
-              (actionClick)="onActionClick($event)"
-            ></amw-data-table>
-            
-            <div class="data-table-validation__selection-info" *ngIf="selectedUsers.length > 0">
-              <h4>Selected Users ({{ selectedUsers.length }}):</h4>
-              <div class="data-table-validation__user-chips">
-                <span *ngFor="let user of selectedUsers" class="chip data-table-validation__user-chip">
-                  {{ user.name }} - {{ user.department }}
-                </span>
-              </div>
-            </div>
-            
-            <div class="data-table-validation__error" *ngIf="dataTableForm.get('selectedUsers')?.hasError('required')">
-              Please select at least one user
-            </div>
-            <div class="data-table-validation__error" *ngIf="dataTableForm.get('selectedUsers')?.hasError('minSelection')">
-              Please select at least {{ dataTableForm.get('selectedUsers')?.errors?.['minSelection']?.required }} users
-            </div>
-            <div class="data-table-validation__error" *ngIf="dataTableForm.get('selectedUsers')?.hasError('maxSelection')">
-              Please select no more than {{ dataTableForm.get('selectedUsers')?.errors?.['maxSelection']?.max }} users
+        <amw-input
+          label="Maximum Selection"
+          type="number"
+          formControlName="maxSelection"
+          [min]="1"
+          [max]="10"
+          hint="Maximum number of users to select"
+          class="data-table-validation__control">
+        </amw-input>
+      </div>
+
+      <amw-card>
+        <ng-template #cardContent>
+          <div class="placeholder-table">
+            <p>Data table validation examples will be demonstrated here.</p>
+            <p>This shows validation for user selection with configurable limits.</p>
+            <div class="mock-table">
+              <table>
+                <thead>
+                  <tr>
+                    <th>Select</th>
+                    <th>Name</th>
+                    <th>Email</th>
+                    <th>Department</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  @for (user of users; track user.id) {
+                    <tr>
+                      <td>
+                        <input type="checkbox"
+                          [checked]="selectedUsers.includes(user)"
+                          (change)="toggleUserSelection(user)">
+                      </td>
+                      <td>{{ user.name }}</td>
+                      <td>{{ user.email }}</td>
+                      <td>{{ user.department }}</td>
+                    </tr>
+                  }
+                </tbody>
+              </table>
             </div>
           </div>
-        </div>
+        </ng-template>
+      </amw-card>
 
-        <div class="data-table-validation__actions">
-          <amw-button appearance="text" type="button" (click)="onReset()">Reset</amw-button>
-          <amw-button appearance="elevated" color="primary" type="submit" [disabled]="dataTableForm.invalid">
-            Submit Selection
-          </amw-button>
+      @if (selectedUsers.length > 0) {
+        <div class="data-table-validation__selection-info">
+          <h4>Selected Users ({{ selectedUsers.length }}):</h4>
+          <div class="data-table-validation__user-chips">
+            @for (user of selectedUsers; track user.id) {
+              <span class="chip data-table-validation__user-chip">
+                {{ user.name }} - {{ user.department }}
+              </span>
+            }
+          </div>
         </div>
-      </form>
-    </ng-template>
-</amw-card>
-</div>
+      }
+
+      @if (validationForm.get('selectedUsers')?.hasError('required')) {
+        <div class="data-table-validation__error">
+          Please select at least one user
+        </div>
+      }
+      @if (validationForm.get('selectedUsers')?.hasError('minSelection')) {
+        <div class="data-table-validation__error">
+          Please select at least {{ validationForm.get('selectedUsers')?.errors?.['minSelection']?.required }} users
+        </div>
+      }
+      @if (validationForm.get('selectedUsers')?.hasError('maxSelection')) {
+        <div class="data-table-validation__error">
+          Please select no more than {{ validationForm.get('selectedUsers')?.errors?.['maxSelection']?.max }} users
+        </div>
+      }
+    </div>
+  </ng-template>
+</amw-validation-doc>

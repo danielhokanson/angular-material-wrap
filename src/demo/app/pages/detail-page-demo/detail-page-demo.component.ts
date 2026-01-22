@@ -15,6 +15,11 @@ import {
     DetailPageRelatedData
 } from '../../../../library/src/pages/components/amw-detail-page';
 
+// Import shared components
+import { AmwTabsComponent, AmwTabComponent, AmwCardComponent } from '../../../../library/src/components/components';
+import { AmwApiDocComponent, ApiInterface } from '../../shared/components/api-doc/api-doc.component';
+import { ApiDocumentation } from '../../components/base/base-api.component';
+
 // Sample data
 const SAMPLE_EMPLOYEE = {
     id: 1,
@@ -339,17 +344,17 @@ class DetailPageDemoDataSource implements DetailPageDataSource {
         ];
     }
 }
-import { AmwTabsComponent, AmwTabComponent, AmwCardComponent } from '../../../../library/src/components/components';
 
 @Component({
     selector: 'app-detail-page-demo',
     standalone: true,
     imports: [
-    AmwDetailPageComponent,
-    AmwTabsComponent,
-    AmwTabComponent,
-    AmwCardComponent,
-],
+        AmwDetailPageComponent,
+        AmwTabsComponent,
+        AmwTabComponent,
+        AmwCardComponent,
+        AmwApiDocComponent,
+    ],
     templateUrl: './detail-page-demo.component.html',
     styleUrl: './detail-page-demo.component.scss'
 })
@@ -394,6 +399,398 @@ export class DetailPageDemoComponent implements OnInit, OnDestroy {
     // State
     currentItemId = '1';
     currentViewIndex = 0;
+    selectedTab = 0; // 0 = Demo, 1 = Code, 2 = API
+
+    // Code examples for the Code tab
+    codeExamples = {
+        basic: `// Basic usage of AmwDetailPageComponent
+import { AmwDetailPageComponent, DetailPageConfig, DetailPageDataSource } from 'angular-material-wrap';
+
+@Component({
+  selector: 'app-employee-detail',
+  standalone: true,
+  imports: [AmwDetailPageComponent],
+  template: \`
+    <amw-detail-page
+      [config]="detailConfig"
+      [itemId]="itemId"
+      [dataSource]="dataSource"
+      (editClick)="onEditClick($event)"
+      (deleteClick)="onDeleteClick($event)"
+      (backClick)="onBackClick()">
+    </amw-detail-page>
+  \`
+})
+export class EmployeeDetailComponent {
+  itemId = '1';
+  dataSource = new MyDetailDataSource();
+
+  detailConfig: DetailPageConfig = {
+    title: 'Employee Details',
+    subtitle: 'View employee information',
+    showBackButton: true,
+    showEditButton: true,
+    showDeleteButton: true
+  };
+
+  onEditClick(item: any): void {
+    this.router.navigate(['/employees', item.id, 'edit']);
+  }
+}`,
+
+        configuration: `// DetailPageConfig - Configuration options
+const detailConfig: DetailPageConfig = {
+  // Page header
+  title: 'Employee Details',
+  subtitle: 'View comprehensive information',
+
+  // Action buttons
+  showBackButton: true,       // Show back navigation button
+  showEditButton: true,       // Show edit button
+  showDeleteButton: true,     // Show delete button
+  showPrintButton: true,      // Show print button
+  showShareButton: true,      // Show share button
+  showRefreshButton: true,    // Show refresh button
+
+  // Custom action buttons
+  customActions: [
+    {
+      key: 'export',
+      label: 'Export Profile',
+      icon: 'download',
+      color: 'primary',
+      onClick: (item) => { ... }
+    },
+    {
+      key: 'schedule',
+      label: 'Schedule Meeting',
+      icon: 'event',
+      color: 'accent',
+      onClick: (item) => { ... }
+    }
+  ]
+};`,
+
+        sections: `// DetailPageSection - Section configuration
+const sections: DetailPageSection[] = [
+  {
+    key: 'personal',          // Unique section identifier
+    title: 'Personal Information',
+    subtitle: 'Basic personal details',
+    icon: 'person',           // Material icon
+    collapsible: true,        // Can section be collapsed
+    collapsed: false,         // Initial collapsed state
+    fields: [                 // Array of field definitions
+      {
+        key: 'name',
+        label: 'Full Name',
+        value: 'John Doe',
+        type: 'text',
+        icon: 'person',
+        copyable: true        // Show copy button
+      },
+      {
+        key: 'email',
+        label: 'Email',
+        value: 'john@example.com',
+        type: 'email',
+        icon: 'email',
+        copyable: true,
+        linkable: true,       // Make it a clickable link
+        linkUrl: 'mailto:john@example.com'
+      }
+    ]
+  }
+];
+
+// Supported field types:
+// 'text', 'email', 'phone', 'number', 'currency', 'date',
+// 'datetime', 'boolean', 'badge', 'link', 'image', 'custom'`,
+
+        dataSource: `// Implementing DetailPageDataSource
+import { DetailPageDataSource, DetailPageData } from 'angular-material-wrap';
+
+class MyDetailDataSource implements DetailPageDataSource {
+  // Required: Fetch item data by ID
+  getData(id: string): Observable<DetailPageData> {
+    return this.http.get<any>(\`/api/employees/\${id}\`).pipe(
+      map(item => ({
+        item: item,
+        sections: this.buildSections(item),
+        relatedData: this.buildRelatedData(item)
+      }))
+    );
+  }
+
+  // Optional: Delete item
+  deleteItem(id: string): Observable<boolean> {
+    return this.http.delete<boolean>(\`/api/employees/\${id}\`);
+  }
+
+  // Optional: Refresh item data
+  refreshItem(id: string): Observable<DetailPageData> {
+    return this.getData(id);
+  }
+
+  // Build sections from item data
+  private buildSections(item: any): DetailPageSection[] {
+    return [
+      {
+        key: 'personal',
+        title: 'Personal Information',
+        icon: 'person',
+        fields: [
+          { key: 'name', label: 'Name', value: item.name, type: 'text' },
+          { key: 'email', label: 'Email', value: item.email, type: 'email' }
+        ]
+      }
+    ];
+  }
+
+  // Build related data sections
+  private buildRelatedData(item: any): DetailPageRelatedData[] {
+    return [
+      {
+        key: 'projects',
+        title: 'Projects',
+        type: 'table',
+        data: item.projects,
+        columns: [
+          { key: 'name', title: 'Name', type: 'text' },
+          { key: 'status', title: 'Status', type: 'badge' }
+        ]
+      }
+    ];
+  }
+}`,
+
+        eventHandling: `// Event handling for detail page
+@Component({
+  template: \`
+    <amw-detail-page
+      [config]="detailConfig"
+      [itemId]="itemId"
+      [dataSource]="dataSource"
+      [realTimeUpdates]="false"
+      (editClick)="onEditClick($event)"
+      (deleteClick)="onDeleteClick($event)"
+      (backClick)="onBackClick()"
+      (actionClick)="onActionClick($event)"
+      (refreshClick)="onRefreshClick($event)">
+    </amw-detail-page>
+  \`
+})
+export class DetailComponent {
+  // Handle edit button click
+  onEditClick(item: any): void {
+    this.router.navigate(['/employees', item.id, 'edit']);
+  }
+
+  // Handle delete button click
+  onDeleteClick(item: any): void {
+    const confirmed = confirm(\`Delete \${item.name}?\`);
+    if (confirmed) {
+      this.dataSource.deleteItem(item.id).subscribe(() => {
+        this.notification.success('Deleted', 'Employee deleted');
+        this.router.navigate(['/employees']);
+      });
+    }
+  }
+
+  // Handle back button click
+  onBackClick(): void {
+    this.router.navigate(['/employees']);
+  }
+
+  // Handle custom action clicks
+  onActionClick(event: { action: string; item: any }): void {
+    switch (event.action) {
+      case 'export':
+        this.exportEmployee(event.item);
+        break;
+      case 'schedule':
+        this.scheduleMeeting(event.item);
+        break;
+    }
+  }
+
+  // Handle refresh click
+  onRefreshClick(item: any): void {
+    console.log('Refreshing data for:', item.id);
+    // Data will be automatically reloaded
+  }
+}`,
+
+        relatedData: `// DetailPageRelatedData - Related data sections
+const relatedData: DetailPageRelatedData[] = [
+  {
+    key: 'projects',
+    title: 'Current Projects',
+    type: 'table',            // 'table', 'list', 'cards', 'timeline'
+    data: projectsArray,
+    columns: [                // For table type
+      { key: 'name', title: 'Project Name', type: 'text' },
+      { key: 'status', title: 'Status', type: 'badge' },
+      { key: 'progress', title: 'Progress', type: 'number' }
+    ],
+    visible: true,
+    collapsible: true,
+    expanded: true
+  },
+  {
+    key: 'reviews',
+    title: 'Performance Reviews',
+    type: 'list',             // Simple list rendering
+    data: reviewStrings,      // Array of strings
+    visible: true,
+    collapsible: true,
+    expanded: false
+  },
+  {
+    key: 'activity',
+    title: 'Recent Activity',
+    type: 'timeline',         // Timeline rendering
+    data: activityItems,
+    visible: true,
+    collapsible: true,
+    expanded: true
+  }
+];`
+    };
+
+    // Interface documentation for the API tab
+    detailPageInterfaces: ApiInterface[] = [
+        {
+            name: 'DetailPageConfig',
+            description: 'Configuration options for the detail page component.',
+            properties: [
+                { name: 'title', type: 'string', description: 'The main title displayed at the top of the page' },
+                { name: 'subtitle', type: 'string', description: 'Optional subtitle providing additional context' },
+                { name: 'showBackButton', type: 'boolean', description: 'Whether to show the back button (default: true)' },
+                { name: 'showEditButton', type: 'boolean', description: 'Whether to show the edit button (default: true)' },
+                { name: 'showDeleteButton', type: 'boolean', description: 'Whether to show the delete button (default: false)' },
+                { name: 'showPrintButton', type: 'boolean', description: 'Whether to show the print button (default: false)' },
+                { name: 'showShareButton', type: 'boolean', description: 'Whether to show the share button (default: false)' },
+                { name: 'showRefreshButton', type: 'boolean', description: 'Whether to show the refresh button (default: false)' },
+                { name: 'customActions', type: 'DetailPageAction[]', description: 'Array of custom action buttons' }
+            ]
+        },
+        {
+            name: 'DetailPageSection',
+            description: 'Configuration for a section within the detail page.',
+            properties: [
+                { name: 'key', type: 'string', description: 'Unique identifier for the section' },
+                { name: 'title', type: 'string', description: 'Display title for the section' },
+                { name: 'subtitle', type: 'string', description: 'Optional section description' },
+                { name: 'icon', type: 'string', description: 'Material icon name for the section' },
+                { name: 'fields', type: 'DetailPageField[]', description: 'Array of field definitions' },
+                { name: 'collapsible', type: 'boolean', description: 'Whether the section can be collapsed' },
+                { name: 'collapsed', type: 'boolean', description: 'Initial collapsed state' }
+            ]
+        },
+        {
+            name: 'DetailPageField',
+            description: 'Configuration for a field within a detail page section.',
+            properties: [
+                { name: 'key', type: 'string', description: 'Unique field identifier' },
+                { name: 'label', type: 'string', description: 'Display label for the field' },
+                { name: 'value', type: 'any', description: 'Field value to display' },
+                { name: 'type', type: 'string', description: 'Field type: text, email, phone, number, currency, date, etc.' },
+                { name: 'icon', type: 'string', description: 'Material icon for the field' },
+                { name: 'copyable', type: 'boolean', description: 'Whether to show copy button' },
+                { name: 'linkable', type: 'boolean', description: 'Whether the value is a clickable link' },
+                { name: 'linkUrl', type: 'string', description: 'URL for linkable fields' }
+            ]
+        },
+        {
+            name: 'DetailPageDataSource',
+            description: 'Interface for the data source that provides detail page data.',
+            properties: [
+                { name: 'getData(id: string)', type: 'Observable<DetailPageData>', description: 'Load item data including sections and related data (required)' },
+                { name: 'deleteItem(id: string)', type: 'Observable<boolean>', description: 'Delete item by ID (optional)' },
+                { name: 'refreshItem(id: string)', type: 'Observable<DetailPageData>', description: 'Refresh item data (optional)' }
+            ]
+        }
+    ];
+
+    // API documentation for the API tab
+    detailPageApiDoc: ApiDocumentation = {
+        inputs: [
+            {
+                name: 'config',
+                type: 'DetailPageConfig',
+                default: '{}',
+                description: 'Configuration object containing page title, action buttons, and display options'
+            },
+            {
+                name: 'itemId',
+                type: 'string',
+                default: 'undefined',
+                description: 'ID of the item to load and display'
+            },
+            {
+                name: 'dataSource',
+                type: 'DetailPageDataSource',
+                default: 'undefined',
+                description: 'Data source implementation for loading item data, sections, and related data'
+            },
+            {
+                name: 'realTimeUpdates',
+                type: 'boolean',
+                default: 'false',
+                description: 'When enabled, subscribes to real-time updates for the displayed item'
+            }
+        ],
+        outputs: [
+            {
+                name: 'editClick',
+                type: 'EventEmitter<any>',
+                description: 'Emits when the edit button is clicked, providing the current item'
+            },
+            {
+                name: 'deleteClick',
+                type: 'EventEmitter<any>',
+                description: 'Emits when the delete button is clicked, providing the current item'
+            },
+            {
+                name: 'backClick',
+                type: 'EventEmitter<void>',
+                description: 'Emits when the back button is clicked'
+            },
+            {
+                name: 'actionClick',
+                type: 'EventEmitter<{ action: string; item: any }>',
+                description: 'Emits when a custom action button is clicked'
+            },
+            {
+                name: 'refreshClick',
+                type: 'EventEmitter<any>',
+                description: 'Emits when the refresh button is clicked'
+            },
+            {
+                name: 'printClick',
+                type: 'EventEmitter<any>',
+                description: 'Emits when the print button is clicked'
+            },
+            {
+                name: 'shareClick',
+                type: 'EventEmitter<any>',
+                description: 'Emits when the share button is clicked'
+            }
+        ],
+        usageNotes: [
+            'The detail page component is designed for displaying comprehensive information about a single item',
+            'Implement DetailPageDataSource to structure your item data into sections and fields',
+            'Sections group related fields together with optional icons and descriptions',
+            'Fields support various types: text, email, phone, number, currency, date, boolean, badge, link, image, and custom',
+            'Use copyable: true to add a copy button for field values',
+            'Use linkable: true with linkUrl to make field values clickable links',
+            'Related data sections support different display types: table, list, cards, and timeline',
+            'Custom actions can be added for item-specific operations like export, schedule, or archive',
+            'Enable realTimeUpdates for live data synchronization via WebSocket or polling',
+            'The component automatically handles loading states and error handling'
+        ]
+    };
 
     constructor(private notification: AmwNotificationService) { }
 

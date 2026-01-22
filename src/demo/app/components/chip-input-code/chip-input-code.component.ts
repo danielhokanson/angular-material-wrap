@@ -1,32 +1,52 @@
-import { Component, ViewEncapsulation } from '@angular/core';
+import { Component, ViewEncapsulation, OnInit } from '@angular/core';
 import { FormsModule } from '@angular/forms';
-import { AmwAccordionComponent } from '../../../../library/src/components/components/amw-accordion/amw-accordion.component';
-import { AmwAccordionPanelComponent } from '../../../../library/src/components/components/amw-accordion/amw-accordion-panel.component';
+import { AmwCodeDocComponent, CodeExample } from '../../shared/components/code-doc/code-doc.component';
 import { AmwChipInputComponent, ChipInputOption } from '../../../../library/src/controls/components/amw-chip-input';
+import { AmwIconComponent } from '../../../../library/src/components/components';
 
 @Component({
-    selector: 'amw-demo-chip-input-code',
-    standalone: true,
-    imports: [
-        FormsModule,
-        AmwAccordionComponent,
-        AmwAccordionPanelComponent,
-        AmwChipInputComponent
-    ],
-    encapsulation: ViewEncapsulation.None,
-    templateUrl: './chip-input-code.component.html',
-    styleUrl: './chip-input-code.component.scss'
+  selector: 'amw-demo-chip-input-code',
+  standalone: true,
+  imports: [
+    FormsModule,
+    AmwCodeDocComponent,
+    AmwChipInputComponent,
+    AmwIconComponent
+  ],
+  encapsulation: ViewEncapsulation.None,
+  templateUrl: './chip-input-code.component.html',
+  styleUrl: './chip-input-code.component.scss'
 })
-export class ChipInputCodeComponent {
-    // Code examples
-    editableCode = {
-        basic: `<amw-chip-input
+export class ChipInputCodeComponent implements OnInit {
+  // Preview data
+  previewSuggestions: ChipInputOption[] = [
+    { value: '1', label: 'Option 1' },
+    { value: '2', label: 'Option 2' },
+    { value: '3', label: 'Option 3' }
+  ];
+  previewSelected: ChipInputOption[] = [];
+
+  // Editable code for the shared component
+  editableCode: Record<string, string> = {};
+
+  // Code examples data
+  readonly examples: CodeExample[] = [
+    {
+      key: 'basic',
+      title: 'Basic Usage',
+      description: 'Simple chip input with suggestions',
+      code: `<amw-chip-input
   [suggestions]="suggestions"
   [(ngModel)]="selectedItems"
   label="Tags"
   placeholder="Add tag...">
-</amw-chip-input>`,
-        customTemplate: `<amw-chip-input
+</amw-chip-input>`
+    },
+    {
+      key: 'customTemplate',
+      title: 'Custom Template',
+      description: 'Chip input with custom suggestion template',
+      code: `<amw-chip-input
   [suggestions]="suggestions"
   [(ngModel)]="selectedItems"
   label="Items with Custom Template">
@@ -35,8 +55,13 @@ export class ChipInputCodeComponent {
     <span>{{ option.label }}</span>
     <small>{{ option.subtitle }}</small>
   </ng-template>
-</amw-chip-input>`,
-        asyncSearch: `<amw-chip-input
+</amw-chip-input>`
+    },
+    {
+      key: 'asyncSearch',
+      title: 'Async Search',
+      description: 'Chip input with async search functionality',
+      code: `<amw-chip-input
   [suggestions]="filteredSuggestions"
   [loading]="isSearching"
   (inputChanged)="onSearch($event)"
@@ -51,8 +76,13 @@ onSearch(query: string): void {
     this.filteredSuggestions = results;
     this.isSearching = false;
   });
-}`,
-        withValidation: `<amw-chip-input
+}`
+    },
+    {
+      key: 'withValidation',
+      title: 'With Form Validation',
+      description: 'Chip input with form validation support',
+      code: `<amw-chip-input
   formControlName="skills"
   [suggestions]="skillSuggestions"
   [hasError]="hasError('skills')"
@@ -60,13 +90,13 @@ onSearch(query: string): void {
   label="Required Skills"
   hint="Select at least one">
 </amw-chip-input>`
-    };
+    }
+  ];
 
-    // Preview data
-    previewSuggestions: ChipInputOption[] = [
-        { value: '1', label: 'Option 1' },
-        { value: '2', label: 'Option 2' },
-        { value: '3', label: 'Option 3' }
-    ];
-    previewSelected: ChipInputOption[] = [];
+  ngOnInit(): void {
+    // Initialize editable code from examples
+    this.examples.forEach(example => {
+      this.editableCode[example.key] = example.code;
+    });
+  }
 }

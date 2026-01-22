@@ -1,49 +1,53 @@
-<div class="demo-section">
-  <h3>Color Variations</h3>
-  <div class="variation-grid">
-    @for (variation of toggleVariations.colors; track variation) {
-      <div class="variation-item">
-        <h4>{{ variation.label }}</h4>
-        <amw-toggle
-          [color]="variation.color"
-          [label]="variation.label + ' Toggle'"
-          [checked]="true">
-        </amw-toggle>
+<amw-demo-doc componentName="amw-toggle">
+  <ng-template #content>
+    <div class="demo-section">
+      <h3>Color Variations</h3>
+      <div class="variation-grid">
+        @for (variation of toggleVariations.colors; track variation) {
+          <div class="variation-item">
+            <h4>{{ variation.label }}</h4>
+            <amw-toggle
+              [color]="variation.color"
+              [label]="variation.label + ' Toggle'"
+              [checked]="true">
+            </amw-toggle>
+          </div>
+        }
       </div>
-    }
-  </div>
 
-  <h3>State Variations</h3>
-  <div class="variation-grid">
-    @for (variation of toggleVariations.states; track variation) {
-      <div class="variation-item">
-        <h4>{{ variation.label }}</h4>
-        <amw-toggle
-          [checked]="variation.checked"
-          [disabled]="variation.disabled"
-          [label]="variation.label + ' Toggle'">
-        </amw-toggle>
+      <h3>State Variations</h3>
+      <div class="variation-grid">
+        @for (variation of toggleVariations.states; track variation) {
+          <div class="variation-item">
+            <h4>{{ variation.label }}</h4>
+            <amw-toggle
+              [checked]="variation.checked"
+              [disabled]="variation.disabled"
+              [label]="variation.label + ' Toggle'">
+            </amw-toggle>
+          </div>
+        }
       </div>
-    }
-  </div>
 
-  <h3>Label Position</h3>
-  <div class="variation-grid">
-    <div class="variation-item">
-      <h4>Label After</h4>
-      <amw-toggle
-        labelPosition="after"
-        label="Label after toggle"
-        [checked]="true">
-      </amw-toggle>
+      <h3>Label Position</h3>
+      <div class="variation-grid">
+        <div class="variation-item">
+          <h4>Label After</h4>
+          <amw-toggle
+            labelPosition="after"
+            label="Label after toggle"
+            [checked]="true">
+          </amw-toggle>
+        </div>
+        <div class="variation-item">
+          <h4>Label Before</h4>
+          <amw-toggle
+            labelPosition="before"
+            label="Label before toggle"
+            [checked]="true">
+          </amw-toggle>
+        </div>
+      </div>
     </div>
-    <div class="variation-item">
-      <h4>Label Before</h4>
-      <amw-toggle
-        labelPosition="before"
-        label="Label before toggle"
-        [checked]="true">
-      </amw-toggle>
-    </div>
-  </div>
-</div>
+  </ng-template>
+</amw-demo-doc>

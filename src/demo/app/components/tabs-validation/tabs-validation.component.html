@@ -1,8 +1,8 @@
-<div class="validation-section">
-  <h3>Form Validation Examples</h3>
-  <p>Multi-step form using tabs with validation, progress tracking, and error handling.</p>
-
-  <div class="validation-forms">
+<amw-validation-doc
+  componentName="amw-tabs"
+  [validationForm]="validationForm"
+  [validationInfo]="validationInfo">
+  <ng-template #formContent>
     <amw-card class="validation-card">
       <ng-template #cardHeader>
         <h2>
@@ -20,7 +20,7 @@
                 <amw-icon [name]="getStepIcon(0)"></amw-icon>
                 <span>{{ steps[0].label }}</span>
               </div>
-      </ng-template>
+            </ng-template>
             <div class="tab-content">
               <h4>Step 1: Personal Information</h4>
               <form [formGroup]="personalInfoForm">
@@ -32,7 +32,7 @@
                     placeholder="John">
                   </amw-input>
                   @if (personalInfoForm.get('firstName')?.invalid && personalInfoForm.get('firstName')?.touched) {
-                    <div class="field-error">{{ getErrorMessage(personalInfoForm, 'firstName') }}</div>
+                    <div class="field-error">{{ getStepErrorMessage(personalInfoForm, 'firstName') }}</div>
                   }
 
                   <amw-input
@@ -42,7 +42,7 @@
                     placeholder="Doe">
                   </amw-input>
                   @if (personalInfoForm.get('lastName')?.invalid && personalInfoForm.get('lastName')?.touched) {
-                    <div class="field-error">{{ getErrorMessage(personalInfoForm, 'lastName') }}</div>
+                    <div class="field-error">{{ getStepErrorMessage(personalInfoForm, 'lastName') }}</div>
                   }
                 </div>
 
@@ -54,7 +54,7 @@
                   placeholder="john.doe@example.com">
                 </amw-input>
                 @if (personalInfoForm.get('email')?.invalid && personalInfoForm.get('email')?.touched) {
-                  <div class="field-error">{{ getErrorMessage(personalInfoForm, 'email') }}</div>
+                  <div class="field-error">{{ getStepErrorMessage(personalInfoForm, 'email') }}</div>
                 }
 
                 <amw-input
@@ -65,7 +65,7 @@
                   hint="Enter 10 digits without spaces or dashes">
                 </amw-input>
                 @if (personalInfoForm.get('phone')?.invalid && personalInfoForm.get('phone')?.touched) {
-                  <div class="field-error">{{ getErrorMessage(personalInfoForm, 'phone') }}</div>
+                  <div class="field-error">{{ getStepErrorMessage(personalInfoForm, 'phone') }}</div>
                 }
               </form>
             </div>
@@ -90,7 +90,7 @@
                   hint="Minimum 4 characters">
                 </amw-input>
                 @if (accountDetailsForm.get('username')?.invalid && accountDetailsForm.get('username')?.touched) {
-                  <div class="field-error">{{ getErrorMessage(accountDetailsForm, 'username') }}</div>
+                  <div class="field-error">{{ getStepErrorMessage(accountDetailsForm, 'username') }}</div>
                 }
 
                 <amw-input
@@ -101,7 +101,7 @@
                   hint="Minimum 8 characters">
                 </amw-input>
                 @if (accountDetailsForm.get('password')?.invalid && accountDetailsForm.get('password')?.touched) {
-                  <div class="field-error">{{ getErrorMessage(accountDetailsForm, 'password') }}</div>
+                  <div class="field-error">{{ getStepErrorMessage(accountDetailsForm, 'password') }}</div>
                 }
 
                 <amw-input
@@ -111,10 +111,9 @@
                   type="password">
                 </amw-input>
                 @if (accountDetailsForm.get('confirmPassword')?.invalid && accountDetailsForm.get('confirmPassword')?.touched) {
-                  <div class="field-error">{{ getErrorMessage(accountDetailsForm, 'confirmPassword') }}</div>
+                  <div class="field-error">{{ getStepErrorMessage(accountDetailsForm, 'confirmPassword') }}</div>
                 }
 
-                <!-- Form-level validation using AMW -->
                 <amw-form-validation
                   [form]="accountDetailsForm"
                   [errors]="accountDetailsValidation"
@@ -143,7 +142,7 @@
                   [options]="languageOptions">
                 </amw-select>
                 @if (preferencesForm.get('language')?.invalid && preferencesForm.get('language')?.touched) {
-                  <div class="field-error">{{ getErrorMessage(preferencesForm, 'language') }}</div>
+                  <div class="field-error">{{ getStepErrorMessage(preferencesForm, 'language') }}</div>
                 }
 
                 <amw-select
@@ -153,7 +152,7 @@
                   [options]="timezoneOptions">
                 </amw-select>
                 @if (preferencesForm.get('timezone')?.invalid && preferencesForm.get('timezone')?.touched) {
-                  <div class="field-error">{{ getErrorMessage(preferencesForm, 'timezone') }}</div>
+                  <div class="field-error">{{ getStepErrorMessage(preferencesForm, 'timezone') }}</div>
                 }
 
                 <amw-select
@@ -267,6 +266,6 @@
           </div>
         </div>
       </ng-template>
-</amw-card>
-  </div>
-</div>
+    </amw-card>
+  </ng-template>
+</amw-validation-doc>

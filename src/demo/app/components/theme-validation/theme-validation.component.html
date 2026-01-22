@@ -1,8 +1,8 @@
-<div class="validation-section">
-  <h3>Theme Configuration</h3>
-  <p>Interactive theme builder with live preview and validation. Customize colors, mode, density, and typography.</p>
-
-  <div class="validation-forms">
+<amw-validation-doc
+  componentName="Theme Configuration"
+  [validationForm]="validationForm"
+  [validationInfo]="validationInfo">
+  <ng-template #formContent>
     <div class="theme-builder">
       <!-- Configuration Panel -->
       <amw-card class="validation-card config-panel">
@@ -14,100 +14,98 @@
           <p class="subtitle">Customize your Material Design theme</p>
         </ng-template>
         <ng-template #cardContent>
-          <form [formGroup]="themeForm">
-            <!-- Color Configuration -->
-            <div class="config-section">
-              <h4>
-                <amw-icon name="color_lens"></amw-icon>
-                Color Palette
-              </h4>
+          <!-- Color Configuration -->
+          <div class="config-section">
+            <h4>
+              <amw-icon name="color_lens"></amw-icon>
+              Color Palette
+            </h4>
 
-              <div class="color-field">
-                <label>Primary Color</label>
-                <amw-color-picker
-                  formControlName="primaryColor"
-                  [showPalette]="true"
-                  [showCustom]="true">
-                </amw-color-picker>
-              </div>
-              @if (themeForm.get('primaryColor')?.invalid && themeForm.get('primaryColor')?.touched) {
-                <div class="field-error">{{ getErrorMessage('primaryColor') }}</div>
-              }
-
-              <div class="color-field">
-                <label>Accent Color</label>
-                <amw-color-picker
-                  formControlName="accentColor"
-                  [showPalette]="true"
-                  [showCustom]="true">
-                </amw-color-picker>
-              </div>
-              @if (themeForm.get('accentColor')?.invalid && themeForm.get('accentColor')?.touched) {
-                <div class="field-error">{{ getErrorMessage('accentColor') }}</div>
-              }
-
-              <div class="color-field">
-                <label>Warn Color</label>
-                <amw-color-picker
-                  formControlName="warnColor"
-                  [showPalette]="true"
-                  [showCustom]="true">
-                </amw-color-picker>
-              </div>
-              @if (themeForm.get('warnColor')?.invalid && themeForm.get('warnColor')?.touched) {
-                <div class="field-error">{{ getErrorMessage('warnColor') }}</div>
-              }
+            <div class="color-field">
+              <label>Primary Color</label>
+              <amw-color-picker
+                formControlName="primaryColor"
+                [showPalette]="true"
+                [showCustom]="true">
+              </amw-color-picker>
             </div>
+            @if (getFieldError('primaryColor')) {
+              <div class="field-error">{{ getFieldError('primaryColor') }}</div>
+            }
 
-            <!-- Mode Configuration -->
-            <div class="config-section">
-              <h4>
-                <amw-icon [name]="getModeIcon()"></amw-icon>
-                Theme Mode
-              </h4>
-
-              <amw-radio-group formControlName="mode" class="mode-radio-group">
-                <amw-radio value="light">
-                  <amw-icon name="light_mode"></amw-icon>
-                  Light Mode
-                </amw-radio>
-                <amw-radio value="dark">
-                  <amw-icon name="dark_mode"></amw-icon>
-                  Dark Mode
-                </amw-radio>
-              </amw-radio-group>
+            <div class="color-field">
+              <label>Accent Color</label>
+              <amw-color-picker
+                formControlName="accentColor"
+                [showPalette]="true"
+                [showCustom]="true">
+              </amw-color-picker>
             </div>
+            @if (getFieldError('accentColor')) {
+              <div class="field-error">{{ getFieldError('accentColor') }}</div>
+            }
 
-            <!-- Density Configuration -->
-            <div class="config-section">
-              <h4>
-                <amw-icon name="height"></amw-icon>
-                Component Density
-              </h4>
-
-              <amw-select
-                class="full-width"
-                label="Density Level"
-                formControlName="density"
-                [options]="densityOptions">
-              </amw-select>
+            <div class="color-field">
+              <label>Warn Color</label>
+              <amw-color-picker
+                formControlName="warnColor"
+                [showPalette]="true"
+                [showCustom]="true">
+              </amw-color-picker>
             </div>
+            @if (getFieldError('warnColor')) {
+              <div class="field-error">{{ getFieldError('warnColor') }}</div>
+            }
+          </div>
 
-            <!-- Typography Configuration -->
-            <div class="config-section">
-              <h4>
-                <amw-icon name="text_fields"></amw-icon>
-                Typography
-              </h4>
+          <!-- Mode Configuration -->
+          <div class="config-section">
+            <h4>
+              <amw-icon [name]="getModeIcon()"></amw-icon>
+              Theme Mode
+            </h4>
 
-              <amw-select
-                class="full-width"
-                label="Font Family"
-                formControlName="typography"
-                [options]="typographyOptions">
-              </amw-select>
-            </div>
-          </form>
+            <amw-radio-group formControlName="mode" class="mode-radio-group">
+              <amw-radio value="light">
+                <amw-icon name="light_mode"></amw-icon>
+                Light Mode
+              </amw-radio>
+              <amw-radio value="dark">
+                <amw-icon name="dark_mode"></amw-icon>
+                Dark Mode
+              </amw-radio>
+            </amw-radio-group>
+          </div>
+
+          <!-- Density Configuration -->
+          <div class="config-section">
+            <h4>
+              <amw-icon name="height"></amw-icon>
+              Component Density
+            </h4>
+
+            <amw-select
+              class="full-width"
+              label="Density Level"
+              formControlName="density"
+              [options]="densityOptions">
+            </amw-select>
+          </div>
+
+          <!-- Typography Configuration -->
+          <div class="config-section">
+            <h4>
+              <amw-icon name="text_fields"></amw-icon>
+              Typography
+            </h4>
+
+            <amw-select
+              class="full-width"
+              label="Font Family"
+              formControlName="typography"
+              [options]="typographyOptions">
+            </amw-select>
+          </div>
 
           <!-- Action Buttons -->
           <div class="config-actions">
@@ -131,7 +129,7 @@
             </div>
           }
         </ng-template>
-</amw-card>
+      </amw-card>
 
       <!-- Preview Panel -->
       <amw-card class="validation-card preview-panel" [ngStyle]="getPreviewStyles()">
@@ -213,7 +211,7 @@
             </div>
           }
         </ng-template>
-</amw-card>
+      </amw-card>
     </div>
-  </div>
-</div>
+  </ng-template>
+</amw-validation-doc>

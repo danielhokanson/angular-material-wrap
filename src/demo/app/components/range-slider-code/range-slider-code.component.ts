@@ -1,52 +1,64 @@
-import { Component, ViewEncapsulation } from '@angular/core';
+import { Component, ViewEncapsulation, OnInit } from '@angular/core';
 import { FormsModule } from '@angular/forms';
-import { BaseCodeComponent } from '../base/base-code.component';
+import { AmwCodeDocComponent, CodeExample } from '../../shared/components/code-doc/code-doc.component';
 import { AmwButtonComponent } from '../../../../library/src/controls/components/amw-button/amw-button.component';
-import { AmwAccordionComponent, AmwAccordionPanelComponent, AmwIconComponent } from '../../../../library/src/components/components';
 import { AmwSliderComponent } from '../../../../library/src/controls/components/amw-slider/amw-slider.component';
-
-type RangeSliderExamples = 'basic' | 'configured' | 'vertical' | 'formControl' | 'validation';
+import { AmwIconComponent } from '../../../../library/src/components/components';
 
 @Component({
   selector: 'amw-demo-range-slider-code',
   standalone: true,
   imports: [
     FormsModule,
+    AmwCodeDocComponent,
     AmwButtonComponent,
-    AmwAccordionComponent,
-    AmwAccordionPanelComponent,
-    AmwIconComponent,
-    AmwSliderComponent
+    AmwSliderComponent,
+    AmwIconComponent
   ],
   encapsulation: ViewEncapsulation.None,
   templateUrl: './range-slider-code.component.html',
   styleUrl: './range-slider-code.component.scss'
 })
-export class RangeSliderCodeComponent extends BaseCodeComponent<RangeSliderExamples> {
+export class RangeSliderCodeComponent implements OnInit {
   // State for live preview examples
   startValue = 20;
   endValue = 80;
   priceStart = 100;
   priceEnd = 500;
 
-  // Original code examples (for reset functionality)
-  readonly codeExamples: Record<RangeSliderExamples, string> = {
-    basic: `<amw-slider
+  // Editable code for the shared component
+  editableCode: Record<string, string> = {};
+
+  // Code examples data
+  readonly examples: CodeExample[] = [
+    {
+      key: 'basic',
+      title: 'Basic Range Slider',
+      description: 'Simple range slider with default configuration',
+      code: `<amw-slider
   [min]="0"
   [max]="100"
   [(value)]="sliderValue">
 </amw-slider>
-<p>Value: {{sliderValue}}</p>`,
-
-    configured: `<amw-slider
+<p>Value: {{sliderValue}}</p>`
+    },
+    {
+      key: 'configured',
+      title: 'Configured Range Slider',
+      description: 'Range slider with custom configuration and styling',
+      code: `<amw-slider
   [min]="0"
   [max]="1000"
   [step]="10"
   [(value)]="priceValue">
 </amw-slider>
-<p>Price: \${{priceValue}}</p>`,
-
-    vertical: `<div style="height: 300px;">
+<p>Price: \${{priceValue}}</p>`
+    },
+    {
+      key: 'vertical',
+      title: 'Vertical Range Slider',
+      description: 'Range slider in vertical orientation',
+      code: `<div style="height: 300px;">
   <amw-slider
     [vertical]="true"
     [min]="0"
@@ -54,9 +66,13 @@ export class RangeSliderCodeComponent extends BaseCodeComponent<RangeSliderExamp
     [(value)]="sliderValue">
   </amw-slider>
 </div>
-<p>Vertical Value: {{sliderValue}}</p>`,
-
-    formControl: `// Component TypeScript
+<p>Vertical Value: {{sliderValue}}</p>`
+    },
+    {
+      key: 'formControl',
+      title: 'Reactive Form Integration',
+      description: 'Range slider integrated with Angular reactive forms',
+      code: `// Component TypeScript
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 
 export class MyComponent {
@@ -77,9 +93,13 @@ export class MyComponent {
     [step]="10"
     formControlName="priceValue">
   </amw-slider>
-</form>`,
-
-    validation: `// Component TypeScript
+</form>`
+    },
+    {
+      key: 'validation',
+      title: 'With Validation',
+      description: 'Range slider with custom validation and error handling',
+      code: `// Component TypeScript
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 
 export class MyComponent {
@@ -106,10 +126,14 @@ export class MyComponent {
     <div class="error">Value must be at most 100</div>
   }
 </form>`
-  };
+    }
+  ];
 
-  constructor() {
-    super();
+  ngOnInit(): void {
+    // Initialize editable code from examples
+    this.examples.forEach(example => {
+      this.editableCode[example.key] = example.code;
+    });
   }
 
   // Format label for thumb display

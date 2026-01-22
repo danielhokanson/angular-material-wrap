@@ -1,305 +1,157 @@
-<div class="code-section">
-  <h3>Code Examples</h3>
-  <p>Interactive examples with live previews. The code is editable for reference, and working examples are shown alongside.</p>
+<amw-code-doc
+  componentName="data-table"
+  [examples]="examples"
+  [editableCode]="editableCode">
 
-  <amw-accordion class="code-examples-accordion">
-    <!-- Basic Table -->
-    <amw-accordion-panel>
-      <ng-template #header>
-        <div class="panel-title">
-          <amw-icon name="code"></amw-icon>
-          Basic Table
+  <ng-template #preview let-example>
+    @switch (example.key) {
+      @case ('basic') {
+        <table class="demo-table">
+          <thead>
+            <tr>
+              <th>No.</th>
+              <th>Name</th>
+              <th>Weight</th>
+              <th>Symbol</th>
+            </tr>
+          </thead>
+          <tbody>
+            @for (element of dataSource; track element.position) {
+              <tr>
+                <td>{{element.position}}</td>
+                <td>{{element.name}}</td>
+                <td>{{element.weight}}</td>
+                <td>{{element.symbol}}</td>
+              </tr>
+            }
+          </tbody>
+        </table>
+      }
+      @case ('sorting') {
+        <table class="demo-table">
+          <thead>
+            <tr>
+              <th>No.</th>
+              <th>Name</th>
+              <th>Weight</th>
+              <th>Symbol</th>
+            </tr>
+          </thead>
+          <tbody>
+            @for (element of dataSource; track element.position) {
+              <tr>
+                <td>{{element.position}}</td>
+                <td>{{element.name}}</td>
+                <td>{{element.weight}}</td>
+                <td>{{element.symbol}}</td>
+              </tr>
+            }
+          </tbody>
+        </table>
+        <div class="preview-note">
+          <amw-icon name="info"></amw-icon>
+          <span>Sorting requires MatSort directive - see documentation for implementation</span>
         </div>
-        <div class="panel-description">Simple data table with static data</div>
-      </ng-template>
-      <div class="example-container">
-        <div class="code-panel">
-          <div class="code-header">
-            <h4>Code</h4>
-            <amw-button icon="refresh" (click)="resetCode('basic')" title="Reset to original"></amw-button>
-          </div>
-          <textarea
-            [(ngModel)]="editableCode.basic"
-            class="code-editor"
-            spellcheck="false"
-            readonly></textarea>
+      }
+      @case ('pagination') {
+        <table class="demo-table">
+          <thead>
+            <tr>
+              <th>No.</th>
+              <th>Name</th>
+              <th>Weight</th>
+              <th>Symbol</th>
+            </tr>
+          </thead>
+          <tbody>
+            @for (element of dataSource; track element.position) {
+              <tr>
+                <td>{{element.position}}</td>
+                <td>{{element.name}}</td>
+                <td>{{element.weight}}</td>
+                <td>{{element.symbol}}</td>
+              </tr>
+            }
+          </tbody>
+        </table>
+        <div class="preview-note">
+          <amw-icon name="info"></amw-icon>
+          <span>Pagination requires MatPaginator - see documentation for implementation</span>
         </div>
-        <div class="preview-panel">
-          <h4>Preview</h4>
-          <div class="preview-content">
-            <table class="demo-table">
-              <thead>
-                <tr>
-                  <th>No.</th>
-                  <th>Name</th>
-                  <th>Weight</th>
-                  <th>Symbol</th>
-                </tr>
-              </thead>
-              <tbody>
-                <tr *ngFor="let element of dataSource">
-                  <td>{{element.position}}</td>
-                  <td>{{element.name}}</td>
-                  <td>{{element.weight}}</td>
-                  <td>{{element.symbol}}</td>
-                </tr>
-              </tbody>
-            </table>
-          </div>
+      }
+      @case ('selection') {
+        <table class="demo-table">
+          <thead>
+            <tr>
+              <th>
+                <amw-checkbox (change)="toggleAll()"
+                              [checked]="isAllSelected()">
+                </amw-checkbox>
+              </th>
+              <th>No.</th>
+              <th>Name</th>
+              <th>Weight</th>
+              <th>Symbol</th>
+            </tr>
+          </thead>
+          <tbody>
+            @for (element of dataSource; track element.position) {
+              <tr>
+                <td>
+                  <amw-checkbox (change)="toggleRow(element)"
+                                [checked]="isSelected(element)">
+                  </amw-checkbox>
+                </td>
+                <td>{{element.position}}</td>
+                <td>{{element.name}}</td>
+                <td>{{element.weight}}</td>
+                <td>{{element.symbol}}</td>
+              </tr>
+            }
+          </tbody>
+        </table>
+        <div class="preview-note">
+          <amw-icon name="info"></amw-icon>
+          <span>Selected: {{selection.length}} row(s)</span>
         </div>
-      </div>
-    </amw-accordion-panel>
-
-    <!-- Sortable Table -->
-    <amw-accordion-panel>
-      <ng-template #header>
-        <div class="panel-title">
-          <amw-icon name="code"></amw-icon>
-          Sortable Table
+      }
+      @case ('actions') {
+        <table class="demo-table">
+          <thead>
+            <tr>
+              <th>No.</th>
+              <th>Name</th>
+              <th>Weight</th>
+              <th>Symbol</th>
+              <th>Actions</th>
+            </tr>
+          </thead>
+          <tbody>
+            @for (element of dataSource; track element.position) {
+              <tr>
+                <td>{{element.position}}</td>
+                <td>{{element.name}}</td>
+                <td>{{element.weight}}</td>
+                <td>{{element.symbol}}</td>
+                <td>
+                  <amw-button icon="edit" (click)="onEdit(element)" title="Edit"></amw-button>
+                  <amw-button icon="delete" (click)="onDelete(element)" title="Delete"></amw-button>
+                </td>
+              </tr>
+            }
+          </tbody>
+        </table>
+        <div class="preview-note">
+          <amw-icon name="info"></amw-icon>
+          <span>Check console for action logs</span>
         </div>
-        <div class="panel-description">Table with sortable columns</div>
-      </ng-template>
-      <div class="example-container">
-        <div class="code-panel">
-          <div class="code-header">
-            <h4>Code</h4>
-            <amw-button icon="refresh" (click)="resetCode('sorting')" title="Reset to original"></amw-button>
-          </div>
-          <textarea
-            [(ngModel)]="editableCode.sorting"
-            class="code-editor"
-            spellcheck="false"
-            readonly></textarea>
+      }
+      @case ('filtering') {
+        <div class="preview-note">
+          <amw-icon name="info"></amw-icon>
+          <span>Filtering requires MatTableDataSource - see documentation for implementation</span>
         </div>
-        <div class="preview-panel">
-          <h4>Preview</h4>
-          <div class="preview-content">
-            <table class="demo-table">
-              <thead>
-                <tr>
-                  <th>No.</th>
-                  <th>Name</th>
-                  <th>Weight</th>
-                  <th>Symbol</th>
-                </tr>
-              </thead>
-              <tbody>
-                <tr *ngFor="let element of dataSource">
-                  <td>{{element.position}}</td>
-                  <td>{{element.name}}</td>
-                  <td>{{element.weight}}</td>
-                  <td>{{element.symbol}}</td>
-                </tr>
-              </tbody>
-            </table>
-            <div class="preview-note">
-              <amw-icon name="info"></amw-icon>
-              <span>Sorting requires MatSort directive - see documentation for implementation</span>
-            </div>
-          </div>
-        </div>
-      </div>
-    </amw-accordion-panel>
-
-    <!-- Table with Pagination -->
-    <amw-accordion-panel>
-      <ng-template #header>
-        <div class="panel-title">
-          <amw-icon name="code"></amw-icon>
-          Table with Pagination
-        </div>
-        <div class="panel-description">Add pagination controls to the table</div>
-      </ng-template>
-      <div class="example-container">
-        <div class="code-panel">
-          <div class="code-header">
-            <h4>Code</h4>
-            <amw-button icon="refresh" (click)="resetCode('pagination')" title="Reset to original"></amw-button>
-          </div>
-          <textarea
-            [(ngModel)]="editableCode.pagination"
-            class="code-editor"
-            spellcheck="false"
-            readonly></textarea>
-        </div>
-        <div class="preview-panel">
-          <h4>Preview</h4>
-          <div class="preview-content">
-            <table class="demo-table">
-              <thead>
-                <tr>
-                  <th>No.</th>
-                  <th>Name</th>
-                  <th>Weight</th>
-                  <th>Symbol</th>
-                </tr>
-              </thead>
-              <tbody>
-                <tr *ngFor="let element of dataSource">
-                  <td>{{element.position}}</td>
-                  <td>{{element.name}}</td>
-                  <td>{{element.weight}}</td>
-                  <td>{{element.symbol}}</td>
-                </tr>
-              </tbody>
-            </table>
-            <div class="preview-note">
-              <amw-icon name="info"></amw-icon>
-              <span>Pagination requires MatPaginator - see documentation for implementation</span>
-            </div>
-          </div>
-        </div>
-      </div>
-    </amw-accordion-panel>
-
-    <!-- Table with Selection -->
-    <amw-accordion-panel>
-      <ng-template #header>
-        <div class="panel-title">
-          <amw-icon name="code"></amw-icon>
-          Table with Selection
-        </div>
-        <div class="panel-description">Allow row selection with checkboxes</div>
-      </ng-template>
-      <div class="example-container">
-        <div class="code-panel">
-          <div class="code-header">
-            <h4>Code</h4>
-            <amw-button icon="refresh" (click)="resetCode('selection')" title="Reset to original"></amw-button>
-          </div>
-          <textarea
-            [(ngModel)]="editableCode.selection"
-            class="code-editor"
-            spellcheck="false"
-            readonly></textarea>
-        </div>
-        <div class="preview-panel">
-          <h4>Preview</h4>
-          <div class="preview-content">
-            <table class="demo-table">
-              <thead>
-                <tr>
-                  <th>
-                    <amw-checkbox (change)="toggleAll()"
-                                  [checked]="isAllSelected()">
-                    </amw-checkbox>
-                  </th>
-                  <th>No.</th>
-                  <th>Name</th>
-                  <th>Weight</th>
-                  <th>Symbol</th>
-                </tr>
-              </thead>
-              <tbody>
-                <tr *ngFor="let element of dataSource">
-                  <td>
-                    <amw-checkbox (change)="toggleRow(element)"
-                                  [checked]="isSelected(element)">
-                    </amw-checkbox>
-                  </td>
-                  <td>{{element.position}}</td>
-                  <td>{{element.name}}</td>
-                  <td>{{element.weight}}</td>
-                  <td>{{element.symbol}}</td>
-                </tr>
-              </tbody>
-            </table>
-            <div class="preview-note">
-              <amw-icon name="info"></amw-icon>
-              <span>Selected: {{selection.length}} row(s)</span>
-            </div>
-          </div>
-        </div>
-      </div>
-    </amw-accordion-panel>
-
-    <!-- Table with Actions -->
-    <amw-accordion-panel>
-      <ng-template #header>
-        <div class="panel-title">
-          <amw-icon name="code"></amw-icon>
-          Table with Actions
-        </div>
-        <div class="panel-description">Add action buttons to each row</div>
-      </ng-template>
-      <div class="example-container">
-        <div class="code-panel">
-          <div class="code-header">
-            <h4>Code</h4>
-            <amw-button icon="refresh" (click)="resetCode('actions')" title="Reset to original"></amw-button>
-          </div>
-          <textarea
-            [(ngModel)]="editableCode.actions"
-            class="code-editor"
-            spellcheck="false"
-            readonly></textarea>
-        </div>
-        <div class="preview-panel">
-          <h4>Preview</h4>
-          <div class="preview-content">
-            <table class="demo-table">
-              <thead>
-                <tr>
-                  <th>No.</th>
-                  <th>Name</th>
-                  <th>Weight</th>
-                  <th>Symbol</th>
-                  <th>Actions</th>
-                </tr>
-              </thead>
-              <tbody>
-                <tr *ngFor="let element of dataSource">
-                  <td>{{element.position}}</td>
-                  <td>{{element.name}}</td>
-                  <td>{{element.weight}}</td>
-                  <td>{{element.symbol}}</td>
-                  <td>
-                    <amw-button icon="edit" (click)="onEdit(element)" title="Edit"></amw-button>
-                    <amw-button icon="delete" (click)="onDelete(element)" title="Delete"></amw-button>
-                  </td>
-                </tr>
-              </tbody>
-            </table>
-            <div class="preview-note">
-              <amw-icon name="info"></amw-icon>
-              <span>Check console for action logs</span>
-            </div>
-          </div>
-        </div>
-      </div>
-    </amw-accordion-panel>
-
-    <!-- Table with Filtering -->
-    <amw-accordion-panel>
-      <ng-template #header>
-        <div class="panel-title">
-          <amw-icon name="code"></amw-icon>
-          Table with Filtering
-        </div>
-        <div class="panel-description">Add search/filter functionality</div>
-      </ng-template>
-      <div class="example-container">
-        <div class="code-panel">
-          <div class="code-header">
-            <h4>Code</h4>
-            <amw-button icon="refresh" (click)="resetCode('filtering')" title="Reset to original"></amw-button>
-          </div>
-          <textarea
-            [(ngModel)]="editableCode.filtering"
-            class="code-editor"
-            spellcheck="false"
-            readonly></textarea>
-        </div>
-        <div class="preview-panel">
-          <h4>Preview</h4>
-          <div class="preview-content">
-            <div class="preview-note">
-              <amw-icon name="info"></amw-icon>
-              <span>Filtering requires MatTableDataSource - see documentation for implementation</span>
-            </div>
-          </div>
-        </div>
-      </div>
-    </amw-accordion-panel>
-  </amw-accordion>
-</div>
+      }
+    }
+  </ng-template>
+</amw-code-doc>

@@ -5,6 +5,8 @@ import { ViewEncapsulation } from '@angular/core';
 import { AmwHttpCacheService, AmwCacheConfigService } from '../../../../library/src/services/amw-http-cache';
 import { AmwTabsComponent, AmwTabComponent, AmwCardComponent, AmwIconComponent, AmwProgressSpinnerComponent } from '../../../../library/src/components/components';
 import { AmwButtonComponent } from '../../../../library/src/controls/components/amw-button/amw-button.component';
+import { AmwApiDocComponent } from '../../shared/components/api-doc/api-doc.component';
+import { ApiDocumentation } from '../../components/base/base-api.component';
 
 @Component({
     selector: 'amw-demo-http-cache',
@@ -17,6 +19,7 @@ import { AmwButtonComponent } from '../../../../library/src/controls/components/
     AmwIconComponent,
     AmwProgressSpinnerComponent,
     AmwButtonComponent,
+    AmwApiDocComponent,
 ],
     templateUrl: './http-cache-demo.component.html',
     styleUrl: './http-cache-demo.component.scss',
@@ -38,6 +41,185 @@ export class HttpCacheDemoComponent implements OnInit {
         { url: '/api/products', label: 'Products List (30s cache)' },
         { url: '/api/products/34', label: 'Product Detail (5min cache)' }
     ];
+
+    // Code examples for the Code tab
+    codeExamples = {
+        basic: `// app.config.ts - Register the HTTP cache interceptor
+import { provideHttpClient, withInterceptors } from '@angular/common/http';
+import { amwHttpCacheInterceptor } from '@anthropic/angular-material-wrap';
+
+export const appConfig: ApplicationConfig = {
+  providers: [
+    provideHttpClient(withInterceptors([amwHttpCacheInterceptor]))
+  ]
+};`,
+
+        cacheMap: `// assets/cache-map.json - Configure URL patterns and timeouts
+{
+  "/api/users": 60000,
+  "/api/users/:id": 300000,
+  "/api/products": 30000,
+  "/api/products/:id": 300000,
+  "/api/search/*": 120000
+}`,
+
+        serviceUsage: `// Using AmwHttpCacheService directly
+import { AmwHttpCacheService } from '@anthropic/angular-material-wrap';
+
+@Component({...})
+export class MyComponent {
+  constructor(private cacheService: AmwHttpCacheService) {}
+
+  clearUserCache(): void {
+    this.cacheService.delete('/api/users').subscribe(() => {
+      console.log('User cache cleared');
+    });
+  }
+
+  clearAllCache(): void {
+    this.cacheService.clear().subscribe(() => {
+      console.log('All cache cleared');
+    });
+  }
+
+  getStats(): void {
+    this.cacheService.getStorageStats().subscribe(stats => {
+      console.log('Memory entries:', stats.memorySize);
+      console.log('IndexedDB entries:', stats.indexedDbSize);
+    });
+  }
+}`,
+
+        configUsage: `// Using AmwCacheConfigService
+import { AmwCacheConfigService } from '@anthropic/angular-material-wrap';
+
+@Component({...})
+export class MyComponent {
+  constructor(private configService: AmwCacheConfigService) {}
+
+  checkCacheability(url: string): void {
+    const timeout = this.configService.getTimeoutForUrl(url);
+    if (timeout !== null) {
+      console.log(\`URL will be cached for \${timeout}ms\`);
+    } else {
+      console.log('URL will not be cached');
+    }
+  }
+
+  viewConfig(): void {
+    const config = this.configService.getConfigSync();
+    console.log('Cache configuration:', config);
+  }
+}`,
+
+        patternMatching: `// URL Pattern Examples
+// Exact match
+"/api/users": 60000                  // Matches /api/users exactly
+
+// Numeric ID placeholder
+"/api/users/:id": 300000             // Matches /api/users/123, /api/users/456
+
+// Generic parameter placeholder
+"/api/products/:param": 300000       // Matches /api/products/abc, /api/products/xyz
+
+// Wildcard matching
+"/api/search/*": 120000              // Matches /api/search/anything/here
+
+// Partial path matching (without leading /)
+"SomeController/Thing": 60000        // Matches /api/SomeController/Thing`
+    };
+
+    // AmwHttpCacheService API documentation
+    httpCacheServiceApiDoc: ApiDocumentation = {
+        methods: [
+            {
+                name: 'get',
+                parameters: 'url: string',
+                returns: 'Observable<HttpResponse<any> | null>',
+                description: 'Get a cached response. Checks memory cache first (L1), then IndexedDB (L2). Returns null if not found or expired.'
+            },
+            {
+                name: 'put',
+                parameters: 'url: string, response: HttpResponse<any>, timeout: number',
+                returns: 'Observable<void>',
+                description: 'Store a response in both memory and IndexedDB cache. The timeout is in milliseconds.'
+            },
+            {
+                name: 'delete',
+                parameters: 'url: string',
+                returns: 'Observable<void>',
+                description: 'Delete a specific cached entry from both memory and IndexedDB.'
+            },
+            {
+                name: 'clear',
+                returns: 'Observable<void>',
+                description: 'Clear all cached entries from both memory and IndexedDB. Notifies other tabs via BroadcastChannel.'
+            },
+            {
+                name: 'size',
+                returns: 'number',
+                description: 'Get the number of entries in the memory cache (L1). This is synchronous and returns immediately.'
+            },
+            {
+                name: 'totalSize',
+                returns: 'Observable<number>',
+                description: 'Get the total number of entries in IndexedDB (L2). Returns an Observable since IndexedDB access is async.'
+            },
+            {
+                name: 'getStorageStats',
+                returns: 'Observable<StorageStats>',
+                description: 'Get comprehensive storage statistics including memory cache size, IndexedDB count, and browser storage quota usage.'
+            },
+            {
+                name: 'pruneExpired',
+                returns: 'Observable<number>',
+                description: 'Remove all expired entries from both memory and IndexedDB. Returns the count of deleted entries.'
+            }
+        ],
+        usageNotes: [
+            'Two-tier caching: Memory (L1) for fast access + IndexedDB (L2) for persistence.',
+            'Cross-tab synchronization via BroadcastChannel API keeps all tabs in sync.',
+            'Cache survives browser restarts using IndexedDB storage.',
+            'Automatic expiration based on configured timeouts per URL pattern.',
+            'In-flight request deduplication prevents duplicate network calls.',
+            'Supports 10,000+ records efficiently with IndexedDB.'
+        ]
+    };
+
+    // AmwCacheConfigService API documentation
+    cacheConfigServiceApiDoc: ApiDocumentation = {
+        methods: [
+            {
+                name: 'getConfig',
+                returns: 'Observable<AmwCacheConfig>',
+                description: 'Get the cache configuration as an Observable. Emits whenever the configuration changes.'
+            },
+            {
+                name: 'getConfigSync',
+                returns: 'AmwCacheConfig',
+                description: 'Get the cache configuration synchronously. May return empty object if config has not loaded yet.'
+            },
+            {
+                name: 'getTimeoutForUrl',
+                parameters: 'url: string',
+                returns: 'number | null',
+                description: 'Get the cache timeout for a specific URL based on configured patterns. Returns null if no matching pattern found.'
+            },
+            {
+                name: 'shouldCache',
+                parameters: 'url: string',
+                returns: 'boolean',
+                description: 'Check if a URL should be cached based on the configuration. Returns true if a matching pattern exists.'
+            }
+        ],
+        usageNotes: [
+            'Configuration is loaded from assets/cache-map.json on application startup.',
+            'Supports exact URL matching, placeholder patterns (:id, :param), and wildcards (*).',
+            'Pattern matching is case-sensitive for paths but API prefix normalization is case-insensitive.',
+            'Partial path patterns (without leading /) can match URLs with /api/ prefix.',
+            'Query parameters and hash fragments are stripped before pattern matching.'
+        ]
+    };
 
     constructor(
         private http: HttpClient,
@@ -129,4 +311,3 @@ export class HttpCacheDemoComponent implements OnInit {
         return `${ms / 60000}min`;
     }
 }
-

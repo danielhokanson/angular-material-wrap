@@ -1,36 +1,39 @@
-import { Component, ViewEncapsulation, signal } from '@angular/core';
+import { Component, ViewEncapsulation, OnInit, signal } from '@angular/core';
 import { CommonModule } from '@angular/common';
+import { AmwCodeDocComponent, CodeExample } from '../../shared/components/code-doc/code-doc.component';
 import { AmwCardComponent, AmwIconComponent } from '../../../../library/src/components/components';
 import { AmwButtonComponent } from '../../../../library/src/controls/components/amw-button/amw-button.component';
-
-type CodeExample = 'basic' | 'validation' | 'computed' | 'controls' | 'reset';
 
 /**
  * Signal Forms Code Component
  * Shows code examples for using Angular Signal Forms with AMW components
  */
 @Component({
-    selector: 'amw-demo-signal-forms-code',
-    standalone: true,
-    imports: [
-        CommonModule,
-        AmwCardComponent,
-        AmwIconComponent,
-        AmwButtonComponent
-    ],
-    encapsulation: ViewEncapsulation.None,
-    templateUrl: './signal-forms-code.component.html',
-    styleUrl: './signal-forms-code.component.scss'
+  selector: 'amw-demo-signal-forms-code',
+  standalone: true,
+  imports: [
+    CommonModule,
+    AmwCodeDocComponent,
+    AmwCardComponent,
+    AmwIconComponent,
+    AmwButtonComponent
+  ],
+  encapsulation: ViewEncapsulation.None,
+  templateUrl: './signal-forms-code.component.html',
+  styleUrl: './signal-forms-code.component.scss'
 })
-export class SignalFormsCodeComponent {
-    selectedExample = signal<CodeExample>('basic');
+export class SignalFormsCodeComponent implements OnInit {
+  // Editable code for the shared component
+  editableCode: Record<string, string> = {};
 
-    readonly codeExamples: Record<CodeExample, { title: string; description: string; code: string }> = {
-        basic: {
-            title: 'Basic Signal Form',
-            description: 'Create a simple form using form() and bind with [field]',
-            code: `import { Component, computed } from '@angular/core';
-import { form, Field } from '@angular/forms/signals';
+  // Code examples data
+  readonly examples: CodeExample[] = [
+    {
+      key: 'basic',
+      title: 'Basic Signal Form',
+      description: 'Create a simple form using form() and bind with [formField]',
+      code: `import { Component, computed } from '@angular/core';
+import { form } from '@angular/forms/signals';
 import { Validators } from '@angular/forms';
 import { AmwInputComponent } from 'angular-material-wrap';
 
@@ -40,13 +43,13 @@ import { AmwInputComponent } from 'angular-material-wrap';
   imports: [AmwInputComponent],
   template: \`
     <amw-input
-      [field]="userForm.name"
+      [formField]="userForm.name"
       label="Name"
       placeholder="Enter your name">
     </amw-input>
 
     <amw-input
-      [field]="userForm.email"
+      [formField]="userForm.email"
       type="email"
       label="Email"
       placeholder="Enter email">
@@ -65,11 +68,12 @@ export class ExampleComponent {
   // Computed signal reacts to form changes
   isValid = computed(() => this.userForm.valid());
 }`
-        },
-        validation: {
-            title: 'Form Validation',
-            description: 'Add validators and check form/field validity',
-            code: `import { form, Field } from '@angular/forms/signals';
+    },
+    {
+      key: 'validation',
+      title: 'Form Validation',
+      description: 'Add validators and check form/field validity',
+      code: `import { form } from '@angular/forms/signals';
 import { Validators } from '@angular/forms';
 
 // Create form with validators
@@ -103,11 +107,12 @@ if (registrationForm.password.valid()) {
 if (registrationForm.age.errors()?.min) {
   console.log('Must be 18 or older');
 }`
-        },
-        computed: {
-            title: 'Computed Values',
-            description: 'Create reactive computed signals from form state',
-            code: `import { Component, computed, effect } from '@angular/core';
+    },
+    {
+      key: 'computed',
+      title: 'Computed Values',
+      description: 'Create reactive computed signals from form state',
+      code: `import { Component, computed, effect } from '@angular/core';
 import { form } from '@angular/forms/signals';
 
 @Component({ ... })
@@ -145,36 +150,38 @@ export class FormComponent {
     });
   }
 }`
-        },
-        controls: {
-            title: 'All Supported Controls',
-            description: 'AMW components that support [field] binding',
-            code: `// All these AMW controls support [field] binding:
+    },
+    {
+      key: 'controls',
+      title: 'All Supported Controls',
+      description: 'AMW components that support [formField] binding',
+      code: `// All these AMW controls support [formField] binding:
 
-<amw-input [field]="form.text" />
-<amw-textarea [field]="form.description" />
-<amw-select [field]="form.country" [options]="countries" />
-<amw-checkbox [field]="form.agree" />
-<amw-radio-group [field]="form.preference" [options]="opts" />
-<amw-slider [field]="form.rating" />
-<amw-range-slider [field]="form.priceRange" />
-<amw-toggle [field]="form.enabled" />
-<amw-switch [field]="form.darkMode" />
-<amw-datepicker [field]="form.birthDate" />
-<amw-autocomplete [field]="form.city" [options]="cities" />
-<amw-button-toggle-group [field]="form.size" />
-<amw-radio [field]="form.option" />
+<amw-input [formField]="form.text" />
+<amw-textarea [formField]="form.description" />
+<amw-select [formField]="form.country" [options]="countries" />
+<amw-checkbox [formField]="form.agree" />
+<amw-radio-group [formField]="form.preference" [options]="opts" />
+<amw-slider [formField]="form.rating" />
+<amw-range-slider [formField]="form.priceRange" />
+<amw-toggle [formField]="form.enabled" />
+<amw-switch [formField]="form.darkMode" />
+<amw-datepicker [formField]="form.birthDate" />
+<amw-autocomplete [formField]="form.city" [options]="cities" />
+<amw-button-toggle-group [formField]="form.size" />
+<amw-radio [formField]="form.option" />
 
-// Note: [field] is MUTUALLY EXCLUSIVE with:
+// Note: [formField] is MUTUALLY EXCLUSIVE with:
 // - [(ngModel)] / (ngModelChange)
 // - [formControl] / formControlName
 
 // Do NOT mix binding approaches on the same control!`
-        },
-        reset: {
-            title: 'Reset & Patch Values',
-            description: 'Reset or programmatically update form values',
-            code: `import { form } from '@angular/forms/signals';
+    },
+    {
+      key: 'reset',
+      title: 'Reset & Patch Values',
+      description: 'Reset or programmatically update form values',
+      code: `import { form } from '@angular/forms/signals';
 
 const profileForm = form({
   firstName: [''],
@@ -210,15 +217,20 @@ profileForm.setValue({
 // Access current values
 const currentValues = profileForm.value();
 const firstName = profileForm.firstName.value();`
-        }
-    };
-
-    selectExample(example: CodeExample): void {
-        this.selectedExample.set(example);
     }
+  ];
 
-    copyCode(): void {
-        const code = this.codeExamples[this.selectedExample()].code;
-        navigator.clipboard.writeText(code);
+  ngOnInit(): void {
+    // Initialize editable code from examples
+    this.examples.forEach(example => {
+      this.editableCode[example.key] = example.code;
+    });
+  }
+
+  copyCode(key: string): void {
+    const example = this.examples.find(e => e.key === key);
+    if (example) {
+      navigator.clipboard.writeText(example.code);
     }
+  }
 }

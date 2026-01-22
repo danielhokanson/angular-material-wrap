@@ -1,8 +1,8 @@
-<div class="validation-section">
-  <h3>Form Validation Examples</h3>
-  <p>Buttons can be used in forms with validation. Here are examples showing different validation states:</p>
-
-  <form [formGroup]="validationForm" (ngSubmit)="onSubmit()" class="validation-form">
+<amw-validation-doc
+  componentName="amw-button"
+  [validationForm]="validationForm"
+  [validationInfo]="validationInfo">
+  <ng-template #formContent>
     <div class="form-field">
       <amw-input
         formControlName="requiredField"
@@ -47,25 +47,5 @@
         <div class="field-error">{{ getFieldError('maxLengthField') }}</div>
       }
     </div>
-
-    <div class="form-actions">
-      <amw-button appearance="outlined" color="primary" type="button">Cancel</amw-button>
-      <amw-button appearance="elevated" color="primary" type="submit"
-      [disabled]="!validationForm.valid">Submit Form</amw-button>
-    </div>
-  </form>
-
-  <div class="validation-info">
-    <h4>Validation States</h4>
-    <ul>
-      <li><strong>Valid Form:</strong> Submit button is enabled and ready to process</li>
-      <li><strong>Invalid Form:</strong> Submit button is disabled until all validation passes</li>
-      <li><strong>Required Fields:</strong> Must have a value before form can be submitted</li>
-      <li><strong>Email Validation:</strong> Must be a valid email format</li>
-      <li><strong>Length Validation:</strong> Must meet minimum/maximum character requirements</li>
-    </ul>
-  </div>
-</div>
-
-
-
+  </ng-template>
+</amw-validation-doc>

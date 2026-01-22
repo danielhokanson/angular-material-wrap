@@ -7,7 +7,7 @@
   <div class="http-cache-demo__content">
     <amw-tabs>
       <!-- Demo Tab -->
-      <amw-tab label="Interactive Demo">
+      <amw-tab label="Demo" icon="play_arrow">
         <div class="tab-content">
           <amw-card>
             <ng-template #cardHeader>
@@ -77,12 +77,7 @@
               }
             </ng-template>
           </amw-card>
-        </div>
-      </amw-tab>
 
-      <!-- Configuration Tab -->
-      <amw-tab label="Cache Configuration">
-        <div class="tab-content">
           <amw-card>
             <ng-template #cardHeader>
               <h2>Current Cache Configuration</h2>
@@ -105,16 +100,62 @@
         </div>
       </amw-tab>
 
-      <!-- Documentation Tab -->
-      <amw-tab label="How It Works">
+      <!-- Code Tab -->
+      <amw-tab label="Code" icon="code">
         <div class="tab-content">
+          <div class="code-examples">
+            <h3>HTTP Cache Interceptor Code Examples</h3>
+            <p>Setup and usage examples for the HTTP caching system.</p>
+
+            <div class="code-example">
+              <h4>1. Register the Interceptor</h4>
+              <pre><code>{{ codeExamples.basic }}</code></pre>
+            </div>
+
+            <div class="code-example">
+              <h4>2. Configure Cache Patterns</h4>
+              <pre><code>{{ codeExamples.cacheMap }}</code></pre>
+            </div>
+
+            <div class="code-example">
+              <h4>3. Using AmwHttpCacheService</h4>
+              <pre><code>{{ codeExamples.serviceUsage }}</code></pre>
+            </div>
+
+            <div class="code-example">
+              <h4>4. Using AmwCacheConfigService</h4>
+              <pre><code>{{ codeExamples.configUsage }}</code></pre>
+            </div>
+
+            <div class="code-example">
+              <h4>5. URL Pattern Matching</h4>
+              <pre><code>{{ codeExamples.patternMatching }}</code></pre>
+            </div>
+          </div>
+
           <amw-card>
             <ng-template #cardHeader>
-              <h2>HTTP Cache Interceptor</h2>
+              <h2>Testing Tips</h2>
             </ng-template>
             <ng-template #cardContent>
-              <h3>Features</h3>
-              <ul>
+              <ul class="tips-list">
+                <li><strong>Test Caching:</strong> Click a test endpoint button twice quickly - the second request should be instant (cached)</li>
+                <li><strong>Test Expiration:</strong> Wait for the timeout period, then click again - a fresh request will be made</li>
+                <li><strong>Network Tab:</strong> Use the browser's Network tab to see which requests actually hit the network</li>
+                <li><strong>Console Logging:</strong> Check the console for cache hit/miss logging</li>
+                <li><strong>Test Persistence:</strong> Click a button, close the browser, reopen - the cache should still be there</li>
+                <li><strong>Test Cross-Tab:</strong> Open two tabs, cache data in one - it's available in the other instantly</li>
+                <li><strong>Monitor Storage:</strong> Check the storage usage statistics to see IndexedDB usage</li>
+              </ul>
+            </ng-template>
+          </amw-card>
+
+          <amw-card>
+            <ng-template #cardHeader>
+              <h2>Features</h2>
+            </ng-template>
+            <ng-template #cardContent>
+              <ul class="features-list">
                 <li><strong>Automatic Caching:</strong> GET requests are automatically cached based on URL patterns</li>
                 <li><strong>Persistent Storage:</strong> Cache survives browser restarts using IndexedDB</li>
                 <li><strong>Cross-Tab Sharing:</strong> Cache is shared between all browser tabs/windows</li>
@@ -126,33 +167,29 @@
                 <li><strong>Automatic Expiration:</strong> Cached responses expire after the configured timeout</li>
                 <li><strong>Storage Monitoring:</strong> Track storage usage and quota</li>
               </ul>
-
-              <h3>Pattern Examples</h3>
-              <ul>
-                <li><code>api/users</code> - Exact match</li>
-                <li><code>api/users/:id</code> - Matches <code>api/users/123</code></li>
-                <li><code>api/products/:param</code> - Matches any path segment</li>
-                <li><code>api/search/*</code> - Matches any sub-path</li>
-              </ul>
-
-              <h3>Usage</h3>
-              <p>
-                Simply configure the <code>assets/cache-map.json</code> file with URL patterns and timeouts.
-                The interceptor will automatically cache matching GET requests.
-              </p>
-
-              <h3>Testing Tips</h3>
-              <ol>
-                <li>Click a test endpoint button twice quickly - the second request should be instant (cached)</li>
-                <li>Wait for the timeout period, then click again - a fresh request will be made</li>
-                <li>Use the browser's Network tab to see which requests actually hit the network</li>
-                <li>Check the console for cache hit/miss logging</li>
-                <li><strong>Test Persistence:</strong> Click a button, close the browser, reopen - the cache should still be there</li>
-                <li><strong>Test Cross-Tab:</strong> Open two tabs, cache data in one - it's available in the other instantly</li>
-                <li><strong>Monitor Storage:</strong> Check the storage usage statistics to see IndexedDB usage</li>
-              </ol>
             </ng-template>
           </amw-card>
+        </div>
+      </amw-tab>
+
+      <!-- API Tab -->
+      <amw-tab label="API" icon="description">
+        <div class="tab-content">
+          <div class="api-section">
+            <amw-api-doc
+              componentName="AmwHttpCacheService"
+              [apiDocumentation]="httpCacheServiceApiDoc"
+              description="Service for managing HTTP response caching with two-tier storage (memory + IndexedDB).">
+            </amw-api-doc>
+          </div>
+
+          <div class="api-section">
+            <amw-api-doc
+              componentName="AmwCacheConfigService"
+              [apiDocumentation]="cacheConfigServiceApiDoc"
+              description="Service for loading and querying cache configuration from assets/cache-map.json.">
+            </amw-api-doc>
+          </div>
         </div>
       </amw-tab>
     </amw-tabs>

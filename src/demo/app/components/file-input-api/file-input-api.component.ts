@@ -1,13 +1,12 @@
 import { Component, ViewEncapsulation } from '@angular/core';
 
 import { BaseApiComponent, ApiDocumentation } from '../base/base-api.component';
+import { AmwApiDocComponent, ApiInterface } from '../../shared/components/api-doc/api-doc.component';
 
 @Component({
     selector: 'amw-demo-file-input-api',
     standalone: true,
-    imports: [
-    
-],
+    imports: [AmwApiDocComponent],
     encapsulation: ViewEncapsulation.None,
     templateUrl: './file-input-api.component.html',
     styleUrl: './file-input-api.component.scss'
@@ -212,6 +211,29 @@ export class FileInputApiComponent extends BaseApiComponent {
             description: 'Upload progress information for a file'
         }
     ];
+
+    interfaces: ApiInterface[] = [
+        {
+            name: 'FileValidationResult',
+            description: 'Result of file validation',
+            properties: [
+                { name: 'valid', type: 'boolean', description: 'Whether all files are valid' },
+                { name: 'errors', type: 'string[]', description: 'Array of error messages' },
+                { name: 'files', type: 'File[]', description: 'Array of validated files' }
+            ]
+        },
+        {
+            name: 'FileUploadProgress',
+            description: 'Upload progress information for a file',
+            properties: [
+                { name: 'file', type: 'File', description: 'The file being uploaded' },
+                { name: 'progress', type: 'number', description: 'Upload progress (0-100)' },
+                { name: 'status', type: '"pending" | "uploading" | "completed" | "error"', description: 'Current upload status' },
+                { name: 'error', type: 'string', description: 'Error message if status is error' }
+            ]
+        }
+    ];
+
     constructor() {
 
         super();

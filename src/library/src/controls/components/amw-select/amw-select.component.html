@@ -99,10 +99,10 @@
     </ng-template>
 
     <!-- Select Element -->
-    <!-- Signal Forms binding (scenario 3) - Field directive manages disabled, required automatically -->
-    @if (field()) {
+    <!-- Signal Forms binding (scenario 3) - FormField directive manages disabled, required automatically -->
+    @if (formField()) {
       <mat-select
-        [field]="field()"
+        [formField]="formField()"
         [placeholder]="placeholder()"
         [multiple]="multiple()"
         [compareWith]="compareWith()"

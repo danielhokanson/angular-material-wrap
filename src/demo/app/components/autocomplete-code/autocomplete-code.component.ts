@@ -1,13 +1,10 @@
-import { Component, ViewEncapsulation } from '@angular/core';
+import { Component, ViewEncapsulation, OnInit } from '@angular/core';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { CommonModule } from '@angular/common';
-import { BaseCodeComponent } from '../base/base-code.component';
-
+import { AmwCodeDocComponent, CodeExample } from '../../shared/components/code-doc/code-doc.component';
 import { AmwButtonComponent } from '../../../../library/src/controls/components/amw-button/amw-button.component';
-import { AmwAccordionComponent, AmwAccordionPanelComponent, AmwIconComponent } from '../../../../library/src/components/components';
+import { AmwIconComponent } from '../../../../library/src/components/components';
 import { AmwAutocompleteComponent } from '../../../../library/src/controls/components/amw-autocomplete/amw-autocomplete.component';
-
-type AutocompleteExamples = 'basic' | 'withValidation' | 'withFiltering' | 'multipleSelection' | 'withCustomDisplay' | 'reactiveForm' | 'withEvents' | 'searchForm';
 
 @Component({
   selector: 'amw-demo-autocomplete-code',
@@ -16,9 +13,8 @@ type AutocompleteExamples = 'basic' | 'withValidation' | 'withFiltering' | 'mult
     CommonModule,
     FormsModule,
     ReactiveFormsModule,
+    AmwCodeDocComponent,
     AmwButtonComponent,
-    AmwAccordionComponent,
-    AmwAccordionPanelComponent,
     AmwIconComponent,
     AmwAutocompleteComponent,
   ],
@@ -26,7 +22,7 @@ type AutocompleteExamples = 'basic' | 'withValidation' | 'withFiltering' | 'mult
   templateUrl: './autocomplete-code.component.html',
   styleUrl: './autocomplete-code.component.scss'
 })
-export class AutocompleteCodeComponent extends BaseCodeComponent<AutocompleteExamples> {
+export class AutocompleteCodeComponent implements OnInit {
   // State for live preview examples
   countryValue = '';
   skillValue = '';
@@ -42,9 +38,16 @@ export class AutocompleteCodeComponent extends BaseCodeComponent<AutocompleteExa
   countryOptions = this.countries.map(c => ({ value: c, label: c }));
   skillOptions = this.skills.map(s => ({ value: s, label: s }));
 
-  // Original code examples (for reset functionality)
-  readonly codeExamples: Record<AutocompleteExamples, string> = {
-    basic: `<amw-autocomplete
+  // Editable code for the shared component
+  editableCode: Record<string, string> = {};
+
+  // Code examples data
+  readonly examples: CodeExample[] = [
+    {
+      key: 'basic',
+      title: 'Basic Autocomplete',
+      description: 'A simple autocomplete with predefined options',
+      code: `<amw-autocomplete
   label="Country"
   [(ngModel)]="countryValue"
   placeholder="Select your country..."
@@ -57,9 +60,13 @@ countryOptions = [
   { value: 'United States', label: 'United States' },
   { value: 'Canada', label: 'Canada' },
   { value: 'United Kingdom', label: 'United Kingdom' }
-];`,
-
-    withValidation: `<amw-autocomplete
+];`
+    },
+    {
+      key: 'withValidation',
+      title: 'Autocomplete with Validation',
+      description: 'Autocomplete with required validation',
+      code: `<amw-autocomplete
   label="Country"
   [(ngModel)]="countryValue"
   placeholder="Select your country..."
@@ -67,9 +74,13 @@ countryOptions = [
   appearance="outline"
   [required]="true"
   hint="Country is required">
-</amw-autocomplete>`,
-
-    withFiltering: `<amw-autocomplete
+</amw-autocomplete>`
+    },
+    {
+      key: 'withFiltering',
+      title: 'Autocomplete with Filtering',
+      description: 'Autocomplete that filters options as you type',
+      code: `<amw-autocomplete
   label="Search Skills"
   [(ngModel)]="skillValue"
   placeholder="Type to search skills..."
@@ -84,9 +95,13 @@ filterSkills(event: any): void {
   this.filteredSkillOptions = this.skillOptions.filter(skill =>
     skill.label.toLowerCase().includes(value)
   );
-}`,
-
-    multipleSelection: `// For multiple selection, use amw-chips with autocomplete
+}`
+    },
+    {
+      key: 'multipleSelection',
+      title: 'Multiple Selection',
+      description: 'Autocomplete allowing multiple selections',
+      code: `// For multiple selection, use amw-chips with autocomplete
 <amw-chips
   [chips]="selectedSkillChips"
   [addable]="true"
@@ -101,9 +116,13 @@ filterSkills(event: any): void {
   [options]="availableSkillOptions"
   (optionSelected)="onSkillSelected($event)"
   appearance="outline">
-</amw-autocomplete>`,
-
-    withCustomDisplay: `<amw-autocomplete
+</amw-autocomplete>`
+    },
+    {
+      key: 'withCustomDisplay',
+      title: 'Custom Display Format',
+      description: 'Autocomplete with custom option display',
+      code: `<amw-autocomplete
   label="Users"
   placeholder="Search users..."
   [options]="userOptions"
@@ -119,9 +138,13 @@ userOptions = [
 
 displayUser(user: any): string {
   return user ? user.name : '';
-}`,
-
-    reactiveForm: `// Component TypeScript
+}`
+    },
+    {
+      key: 'reactiveForm',
+      title: 'Reactive Form Integration',
+      description: 'Using autocomplete with Angular reactive forms',
+      code: `// Component TypeScript
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 
 export class MyComponent {
@@ -148,9 +171,13 @@ export class MyComponent {
     [options]="countryOptions"
     appearance="outline">
   </amw-autocomplete>
-</form>`,
-
-    withEvents: `<amw-autocomplete
+</form>`
+    },
+    {
+      key: 'withEvents',
+      title: 'Autocomplete with Events',
+      description: 'Autocomplete with event handling',
+      code: `<amw-autocomplete
   label="Search"
   [(ngModel)]="searchValue"
   placeholder="Type to search..."
@@ -168,9 +195,13 @@ onInputChange(event: any): void {
 
 onOptionSelected(event: any): void {
   console.log('Option selected:', event);
-}`,
-
-    searchForm: `<form class="search-form">
+}`
+    },
+    {
+      key: 'searchForm',
+      title: 'Search Form Example',
+      description: 'Complete search form with multiple autocompletes',
+      code: `<form class="search-form">
   <h3>Advanced Search</h3>
 
   <amw-autocomplete
@@ -192,10 +223,14 @@ onOptionSelected(event: any): void {
     Search
   </amw-button>
 </form>`
-  };
+    }
+  ];
 
-  constructor() {
-    super();
+  ngOnInit(): void {
+    // Initialize editable code from examples
+    this.examples.forEach(example => {
+      this.editableCode[example.key] = example.code;
+    });
   }
 
   // Filter methods

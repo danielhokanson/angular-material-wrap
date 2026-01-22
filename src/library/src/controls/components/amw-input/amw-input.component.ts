@@ -1,7 +1,7 @@
 import { Component, input, output, ViewEncapsulation } from '@angular/core';
 
 import { FormsModule, ReactiveFormsModule, ControlValueAccessor, NG_VALUE_ACCESSOR } from '@angular/forms';
-import { Field } from '@angular/forms/signals';
+import { FormField } from '@angular/forms/signals';
 import { MatInputModule } from '@angular/material/input';
 import { MatFormFieldModule, MatFormFieldAppearance } from '@angular/material/form-field';
 import { MatIconModule } from '@angular/material/icon';
@@ -23,7 +23,7 @@ import { AmwInputType } from './interfaces/amw-input-type.type';
     imports: [
     FormsModule,
     ReactiveFormsModule,
-    Field,
+    FormField,
     MatInputModule,
     MatFormFieldModule,
     MatIconModule,
@@ -52,7 +52,7 @@ export class AmwInputComponent extends BaseComponent<string> implements ControlV
      * Mutually exclusive with ngModel and formControl/formControlName.
      * @experimental
      */
-    field = input<any>(undefined);
+    formField = input<any>(undefined);
 
     type = input<AmwInputType>('text');
     appearance = input<MatFormFieldAppearance>('outline');

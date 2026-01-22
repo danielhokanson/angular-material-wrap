@@ -6,7 +6,8 @@ import { AmwSidenavComponent } from '../../../../library/src/components/componen
 import { SidenavConfig } from '../../../../library/src/components/components/amw-sidenav/interfaces/sidenav-config.interface';
 import { SidenavItem } from '../../../../library/src/components/components/amw-sidenav/interfaces/sidenav-item.interface';
 import { AmwSidenavService } from '../../../../library/src/components/services/amw-sidenav.service';
-import { AmwTabsComponent, AmwTabComponent, AmwCardComponent } from '../../../../library/src/components/components';
+import { AmwApiDocComponent } from '../../shared/components/api-doc/api-doc.component';
+import { ApiDocumentation } from '../base/base-api.component';
 
 /**
  * API documentation component for sidenav
@@ -16,16 +17,24 @@ import { AmwTabsComponent, AmwTabComponent, AmwCardComponent } from '../../../..
 @Component({
     selector: 'app-sidenav-api',
     standalone: true,
-    imports: [
-    AmwSidenavComponent,
-    AmwTabsComponent,
-    AmwTabComponent,
-    AmwCardComponent,
-],
+    imports: [AmwApiDocComponent],
     templateUrl: './sidenav-api.component.html',
     styleUrl: './sidenav-api.component.scss'
 })
 export class SidenavApiComponent implements OnInit, OnDestroy {
+    /** API documentation for the shared component */
+    apiDocumentation: ApiDocumentation = {
+        inputs: [
+            { name: 'config', type: 'SidenavConfig', default: '{}', description: 'Configuration object for the sidenav' },
+            { name: 'items', type: 'SidenavItem[]', default: '[]', description: 'Navigation items to display' },
+            { name: 'opened', type: 'boolean', default: 'false', description: 'Whether the sidenav is opened' }
+        ],
+        outputs: [
+            { name: 'openedChange', type: 'EventEmitter<boolean>', description: 'Emitted when sidenav opened state changes' },
+            { name: 'itemClick', type: 'EventEmitter<SidenavItem>', description: 'Emitted when a navigation item is clicked' }
+        ]
+    };
+
     /** Subject for component destruction */
     private destroy$ = new Subject<void>();
 

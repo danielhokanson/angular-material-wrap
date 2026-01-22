@@ -1,229 +1,89 @@
-<div class="code-section">
-  <h3>Code Examples</h3>
-  <p>Interactive examples with live previews. The code is editable for reference, and working examples are shown alongside.</p>
+<amw-code-doc
+  componentName="amw-stepper"
+  [examples]="examples"
+  [editableCode]="editableCode">
 
-  <amw-accordion class="code-examples-accordion">
-    <!-- Basic Stepper -->
-    <amw-accordion-panel amwDescription="Simple horizontal stepper with navigation buttons">
-      <ng-template #header>
-        <amw-icon name="code"></amw-icon>
-        Basic Stepper
-      </ng-template>
-      <div class="example-container">
-        <div class="code-panel">
-          <div class="code-header">
-            <h4>Code</h4>
-            <amw-button icon="refresh" (click)="resetCode('basic')" title="Reset to original"></amw-button>
-          </div>
-          <textarea
-            [(ngModel)]="editableCode.basic"
-            class="code-editor"
-            spellcheck="false"
-            readonly></textarea>
-        </div>
-        <div class="preview-panel">
-          <h4>Preview</h4>
-          <div class="preview-content">
-            <amw-stepper
-              [config]="basicConfig"
-              [steps]="basicSteps"
-              [currentStep]="basicCurrentStep"
-              (stepChange)="onBasicStepChange($event)">
-            </amw-stepper>
-          </div>
-        </div>
-      </div>
-    </amw-accordion-panel>
+  <ng-template #preview let-example>
+    @switch (example.key) {
+      @case ('basic') {
+        <amw-stepper
+          [config]="basicConfig"
+          [steps]="basicSteps"
+          [currentStep]="basicCurrentStep"
+          (stepChange)="onBasicStepChange($event)">
+        </amw-stepper>
+      }
+      @case ('linear') {
+        <amw-stepper
+          [config]="linearConfig"
+          [steps]="linearSteps"
+          [currentStep]="linearCurrentStep"
+          (stepChange)="onLinearStepChange($event)">
+        </amw-stepper>
 
-    <!-- Linear Stepper -->
-    <amw-accordion-panel amwDescription="Form validation with linear progression">
-      <ng-template #header>
-        <amw-icon name="code"></amw-icon>
-        Linear Stepper
-      </ng-template>
-      <div class="example-container">
-        <div class="code-panel">
-          <div class="code-header">
-            <h4>Code</h4>
-            <amw-button icon="refresh" (click)="resetCode('linear')" title="Reset to original"></amw-button>
-          </div>
-          <textarea
-            [(ngModel)]="editableCode.linear"
-            class="code-editor"
-            spellcheck="false"
-            readonly></textarea>
+        <!-- Form content for linear stepper -->
+        <div class="step-form-content">
+          @if (linearCurrentStep === 0) {
+            <form [formGroup]="firstFormGroup">
+              <amw-input
+                label="Name"
+                formControlName="name"
+                [required]="true">
+              </amw-input>
+            </form>
+          }
+          @if (linearCurrentStep === 1) {
+            <form [formGroup]="secondFormGroup">
+              <amw-input
+                label="Email"
+                formControlName="email"
+                type="email"
+                [required]="true">
+              </amw-input>
+            </form>
+          }
+          @if (linearCurrentStep === 2) {
+            <p>All information collected!</p>
+          }
         </div>
-        <div class="preview-panel">
-          <h4>Preview</h4>
-          <div class="preview-content">
-            <amw-stepper
-              [config]="linearConfig"
-              [steps]="linearSteps"
-              [currentStep]="linearCurrentStep"
-              (stepChange)="onLinearStepChange($event)">
-            </amw-stepper>
 
-            <!-- Form content for linear stepper -->
-            <div class="step-form-content">
-              @if (linearCurrentStep === 0) {
-                <form [formGroup]="firstFormGroup">
-                  <amw-input
-                    label="Name"
-                    formControlName="name"
-                    [required]="true">
-                  </amw-input>
-                </form>
-              }
-              @if (linearCurrentStep === 1) {
-                <form [formGroup]="secondFormGroup">
-                  <amw-input
-                    label="Email"
-                    formControlName="email"
-                    type="email"
-                    [required]="true">
-                  </amw-input>
-                </form>
-              }
-              @if (linearCurrentStep === 2) {
-                <p>All information collected!</p>
-              }
-            </div>
-
-            <div class="preview-note">
-              <amw-icon name="info"></amw-icon>
-              <span>Linear mode requires valid form data to proceed</span>
-            </div>
-          </div>
+        <div class="preview-note">
+          <amw-icon name="info"></amw-icon>
+          <span>Linear mode requires valid form data to proceed</span>
         </div>
-      </div>
-    </amw-accordion-panel>
-
-    <!-- Editable Steps -->
-    <amw-accordion-panel amwDescription="Control whether completed steps can be edited">
-      <ng-template #header>
-        <amw-icon name="code"></amw-icon>
-        Editable Steps
-      </ng-template>
-      <div class="example-container">
-        <div class="code-panel">
-          <div class="code-header">
-            <h4>Code</h4>
-            <amw-button icon="refresh" (click)="resetCode('editable')" title="Reset to original"></amw-button>
-          </div>
-          <textarea
-            [(ngModel)]="editableCode.editable"
-            class="code-editor"
-            spellcheck="false"
-            readonly></textarea>
-        </div>
-        <div class="preview-panel">
-          <h4>Preview</h4>
-          <div class="preview-content">
-            <amw-stepper
-              [config]="basicConfig"
-              [steps]="editableSteps"
-              [currentStep]="editableCurrentStep"
-              (stepChange)="onEditableStepChange($event)">
-            </amw-stepper>
-          </div>
-        </div>
-      </div>
-    </amw-accordion-panel>
-
-    <!-- Optional Steps -->
-    <amw-accordion-panel amwDescription="Mark steps as optional in the workflow">
-      <ng-template #header>
-        <amw-icon name="code"></amw-icon>
-        Optional Steps
-      </ng-template>
-      <div class="example-container">
-        <div class="code-panel">
-          <div class="code-header">
-            <h4>Code</h4>
-            <amw-button icon="refresh" (click)="resetCode('optional')" title="Reset to original"></amw-button>
-          </div>
-          <textarea
-            [(ngModel)]="editableCode.optional"
-            class="code-editor"
-            spellcheck="false"
-            readonly></textarea>
-        </div>
-        <div class="preview-panel">
-          <h4>Preview</h4>
-          <div class="preview-content">
-            <amw-stepper
-              [config]="basicConfig"
-              [steps]="optionalSteps"
-              [currentStep]="optionalCurrentStep"
-              (stepChange)="onOptionalStepChange($event)">
-            </amw-stepper>
-          </div>
-        </div>
-      </div>
-    </amw-accordion-panel>
-
-    <!-- Vertical Stepper -->
-    <amw-accordion-panel amwDescription="Display steps vertically instead of horizontally">
-      <ng-template #header>
-        <amw-icon name="code"></amw-icon>
-        Vertical Stepper
-      </ng-template>
-      <div class="example-container">
-        <div class="code-panel">
-          <div class="code-header">
-            <h4>Code</h4>
-            <amw-button icon="refresh" (click)="resetCode('vertical')" title="Reset to original"></amw-button>
-          </div>
-          <textarea
-            [(ngModel)]="editableCode.vertical"
-            class="code-editor"
-            spellcheck="false"
-            readonly></textarea>
-        </div>
-        <div class="preview-panel">
-          <h4>Preview</h4>
-          <div class="preview-content">
-            <amw-stepper
-              [config]="verticalConfig"
-              [steps]="verticalSteps"
-              [currentStep]="verticalCurrentStep"
-              (stepChange)="onVerticalStepChange($event)">
-            </amw-stepper>
-          </div>
-        </div>
-      </div>
-    </amw-accordion-panel>
-
-    <!-- Custom Icons -->
-    <amw-accordion-panel amwDescription="Add icons to step labels for better UX">
-      <ng-template #header>
-        <amw-icon name="code"></amw-icon>
-        Custom Icons in Labels
-      </ng-template>
-      <div class="example-container">
-        <div class="code-panel">
-          <div class="code-header">
-            <h4>Code</h4>
-            <amw-button icon="refresh" (click)="resetCode('customIcons')" title="Reset to original"></amw-button>
-          </div>
-          <textarea
-            [(ngModel)]="editableCode.customIcons"
-            class="code-editor"
-            spellcheck="false"
-            readonly></textarea>
-        </div>
-        <div class="preview-panel">
-          <h4>Preview</h4>
-          <div class="preview-content">
-            <amw-stepper
-              [config]="basicConfig"
-              [steps]="customIconSteps"
-              [currentStep]="customIconsCurrentStep"
-              (stepChange)="onCustomIconsStepChange($event)">
-            </amw-stepper>
-          </div>
-        </div>
-      </div>
-    </amw-accordion-panel>
-  </amw-accordion>
-</div>
+      }
+      @case ('editable') {
+        <amw-stepper
+          [config]="basicConfig"
+          [steps]="editableSteps"
+          [currentStep]="editableCurrentStep"
+          (stepChange)="onEditableStepChange($event)">
+        </amw-stepper>
+      }
+      @case ('optional') {
+        <amw-stepper
+          [config]="basicConfig"
+          [steps]="optionalSteps"
+          [currentStep]="optionalCurrentStep"
+          (stepChange)="onOptionalStepChange($event)">
+        </amw-stepper>
+      }
+      @case ('vertical') {
+        <amw-stepper
+          [config]="verticalConfig"
+          [steps]="verticalSteps"
+          [currentStep]="verticalCurrentStep"
+          (stepChange)="onVerticalStepChange($event)">
+        </amw-stepper>
+      }
+      @case ('customIcons') {
+        <amw-stepper
+          [config]="basicConfig"
+          [steps]="customIconSteps"
+          [currentStep]="customIconsCurrentStep"
+          (stepChange)="onCustomIconsStepChange($event)">
+        </amw-stepper>
+      }
+    }
+  </ng-template>
+</amw-code-doc>

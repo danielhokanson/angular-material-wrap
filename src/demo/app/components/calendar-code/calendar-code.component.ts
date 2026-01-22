@@ -1,49 +1,63 @@
-import { Component, ViewEncapsulation } from '@angular/core';
+import { Component, ViewEncapsulation, OnInit } from '@angular/core';
 import { FormsModule } from '@angular/forms';
-import { BaseCodeComponent } from '../base/base-code.component';
-
-type CalendarExamples = 'basic' | 'range' | 'minMax' | 'filter' | 'customClass';
-
+import { AmwCodeDocComponent, CodeExample } from '../../shared/components/code-doc/code-doc.component';
 import { AmwButtonComponent } from '../../../../library/src/controls/components/amw-button/amw-button.component';
-import { AmwAccordionComponent, AmwAccordionPanelComponent, AmwIconComponent, AmwCardComponent, AmwCalendarPickerComponent } from '../../../../library/src/components/components';
+import { AmwIconComponent, AmwCardComponent, AmwCalendarPickerComponent } from '../../../../library/src/components/components';
+
 @Component({
   selector: 'amw-demo-calendar-code',
   standalone: true,
-  imports: [FormsModule,
+  imports: [
+    FormsModule,
+    AmwCodeDocComponent,
     AmwCalendarPickerComponent,
     AmwButtonComponent,
-    AmwAccordionComponent,
-    AmwAccordionPanelComponent,
     AmwIconComponent,
-    AmwCardComponent],
+    AmwCardComponent
+  ],
   encapsulation: ViewEncapsulation.None,
   templateUrl: './calendar-code.component.html',
   styleUrl: './calendar-code.component.scss'
 })
-export class CalendarCodeComponent extends BaseCodeComponent<CalendarExamples> {
+export class CalendarCodeComponent implements OnInit {
   // Example dates for previews
   selectedDate: Date | null = new Date();
   minDate = new Date(2020, 0, 1);
   maxDate = new Date(2025, 11, 31);
 
-  // Original code examples (for reset functionality)
-  readonly codeExamples: Record<CalendarExamples, string> = {
-    basic: `<amw-card headerTitle="Basic Calendar">
+  // Editable code for the shared component
+  editableCode: Record<string, string> = {};
+
+  // Code examples data
+  readonly examples: CodeExample[] = [
+    {
+      key: 'basic',
+      title: 'Basic Calendar',
+      description: 'Simple calendar with date selection',
+      code: `<amw-card headerTitle="Basic Calendar">
   <ng-template #cardContent>
     <amw-calendar-picker [(selected)]="selectedDate"></amw-calendar-picker>
   </ng-template>
-</amw-card>`,
-
-    range: `<amw-card headerTitle="Date Range Calendar">
+</amw-card>`
+    },
+    {
+      key: 'range',
+      title: 'Date Range Calendar',
+      description: 'Calendar with start view configuration',
+      code: `<amw-card headerTitle="Date Range Calendar">
   <ng-template #cardContent>
     <amw-calendar-picker
       [(selected)]="selectedDate"
       [startView]="'month'">
     </amw-calendar-picker>
   </ng-template>
-</amw-card>`,
-
-    minMax: `<amw-card headerTitle="Min/Max Date Calendar">
+</amw-card>`
+    },
+    {
+      key: 'minMax',
+      title: 'Min/Max Date Calendar',
+      description: 'Calendar with date range restrictions',
+      code: `<amw-card headerTitle="Min/Max Date Calendar">
   <ng-template #cardContent>
     <amw-calendar-picker
       [(selected)]="selectedDate"
@@ -51,18 +65,26 @@ export class CalendarCodeComponent extends BaseCodeComponent<CalendarExamples> {
       [maxDate]="maxDate">
     </amw-calendar-picker>
   </ng-template>
-</amw-card>`,
-
-    filter: `<amw-card headerTitle="Filtered Calendar">
+</amw-card>`
+    },
+    {
+      key: 'filter',
+      title: 'Filtered Calendar',
+      description: 'Calendar with custom date filter',
+      code: `<amw-card headerTitle="Filtered Calendar">
   <ng-template #cardContent>
     <amw-calendar-picker
       [(selected)]="selectedDate"
       [dateFilter]="myFilter">
     </amw-calendar-picker>
   </ng-template>
-</amw-card>`,
-
-    customClass: `<amw-card headerTitle="Custom Styled Calendar">
+</amw-card>`
+    },
+    {
+      key: 'customClass',
+      title: 'Custom Styled Calendar',
+      description: 'Calendar with custom date classes',
+      code: `<amw-card headerTitle="Custom Styled Calendar">
   <ng-template #cardContent>
     <amw-calendar-picker
       [(selected)]="selectedDate"
@@ -70,10 +92,14 @@ export class CalendarCodeComponent extends BaseCodeComponent<CalendarExamples> {
     </amw-calendar-picker>
   </ng-template>
 </amw-card>`
-  };
+    }
+  ];
 
-  constructor() {
-    super();
+  ngOnInit(): void {
+    // Initialize editable code from examples
+    this.examples.forEach(example => {
+      this.editableCode[example.key] = example.code;
+    });
   }
 
   // Date filter function for filtered calendar example

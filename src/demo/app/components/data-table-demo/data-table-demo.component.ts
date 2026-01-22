@@ -17,6 +17,7 @@ import {
 
 import { AmwButtonComponent } from '../../../../library/src/controls/components/amw-button/amw-button.component';
 import { AmwIconComponent, AmwCardComponent } from '../../../../library/src/components/components';
+import { AmwDemoDocComponent } from '../../shared/components/demo-doc/demo-doc.component';
 
 /**
  * Data Table Demo Component
@@ -32,6 +33,7 @@ import { AmwIconComponent, AmwCardComponent } from '../../../../library/src/comp
         AmwButtonComponent,
         AmwIconComponent,
         AmwCardComponent,
+        AmwDemoDocComponent,
 ],
     templateUrl: './data-table-demo.component.html',
     styleUrl: './data-table-demo.component.scss'

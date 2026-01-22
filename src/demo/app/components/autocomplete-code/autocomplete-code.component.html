@@ -1,263 +1,76 @@
-<div class="code-section">
-  <h3>Code Examples</h3>
-  <p>Code examples demonstrating amw-autocomplete usage patterns.</p>
+<amw-code-doc
+  componentName="amw-autocomplete"
+  [examples]="examples"
+  [editableCode]="editableCode">
 
-  <amw-accordion class="code-examples-accordion">
-    <!-- Basic Autocomplete -->
-    <amw-accordion-panel amwDescription="A simple autocomplete with predefined options">
-      <ng-template #header>
-        <amw-icon name="code"></amw-icon>
-        Basic Autocomplete
-      </ng-template>
-      <div class="example-container">
-        <div class="code-panel">
-          <div class="code-header">
-            <h4>Code</h4>
-            <amw-button icon="refresh" (click)="resetCode('basic')" title="Reset to original"></amw-button>
-          </div>
-          <textarea
-            [(ngModel)]="editableCode.basic"
-            class="code-editor"
-            spellcheck="false"></textarea>
+  <ng-template #preview let-example>
+    @switch (example.key) {
+      @case ('basic') {
+        <amw-autocomplete
+          label="Country"
+          [(ngModel)]="countryValue"
+          placeholder="Select your country..."
+          [options]="countryOptions"
+          appearance="outline">
+        </amw-autocomplete>
+      }
+      @case ('withValidation') {
+        <amw-autocomplete
+          label="Country"
+          placeholder="Select your country..."
+          [options]="countryOptions"
+          [required]="true"
+          hint="Country is required"
+          appearance="outline">
+        </amw-autocomplete>
+      }
+      @case ('withFiltering') {
+        <amw-autocomplete
+          label="Search Skills"
+          [(ngModel)]="skillValue"
+          placeholder="Type to search skills..."
+          [options]="skillOptions"
+          appearance="outline">
+        </amw-autocomplete>
+      }
+      @case ('multipleSelection') {
+        <div class="preview-note">
+          <amw-icon name="info"></amw-icon>
+          <span>This example shows code for multiple selection with chips</span>
         </div>
-        <div class="preview-panel">
-          <h4>Preview</h4>
-          <div class="preview-content">
-            <amw-autocomplete
-              label="Country"
-              [(ngModel)]="countryValue"
-              placeholder="Select your country..."
-              [options]="countryOptions"
-              appearance="outline">
-            </amw-autocomplete>
-          </div>
+      }
+      @case ('withCustomDisplay') {
+        <div class="preview-note">
+          <amw-icon name="info"></amw-icon>
+          <span>This example shows code for custom display formatting</span>
         </div>
-      </div>
-    </amw-accordion-panel>
-
-    <!-- Autocomplete with Validation -->
-    <amw-accordion-panel amwDescription="Autocomplete with required validation">
-      <ng-template #header>
-        <amw-icon name="code"></amw-icon>
-        Autocomplete with Validation
-      </ng-template>
-      <div class="example-container">
-        <div class="code-panel">
-          <div class="code-header">
-            <h4>Code</h4>
-            <amw-button icon="refresh" (click)="resetCode('withValidation')" title="Reset to original"></amw-button>
-          </div>
-          <textarea
-            [(ngModel)]="editableCode.withValidation"
-            class="code-editor"
-            spellcheck="false"
-            readonly></textarea>
+      }
+      @case ('reactiveForm') {
+        <div class="preview-note">
+          <amw-icon name="info"></amw-icon>
+          <span>This example shows code for reactive form integration</span>
         </div>
-        <div class="preview-panel">
-          <h4>Preview</h4>
-          <div class="preview-content">
-            <amw-autocomplete
-              label="Country"
-              placeholder="Select your country..."
-              [options]="countryOptions"
-              [required]="true"
-              hint="Country is required"
-              appearance="outline">
-            </amw-autocomplete>
-          </div>
+      }
+      @case ('withEvents') {
+        <amw-autocomplete
+          label="Search"
+          [(ngModel)]="searchValue"
+          placeholder="Type to search..."
+          [options]="skillOptions"
+          (optionSelected)="onOptionSelected($event)"
+          appearance="outline">
+        </amw-autocomplete>
+        <div class="preview-note">
+          <amw-icon name="info"></amw-icon>
+          <span>Open your browser console to see event logs</span>
         </div>
-      </div>
-    </amw-accordion-panel>
-
-    <!-- Autocomplete with Filtering -->
-    <amw-accordion-panel amwDescription="Autocomplete that filters options as you type">
-      <ng-template #header>
-        <amw-icon name="code"></amw-icon>
-        Autocomplete with Filtering
-      </ng-template>
-      <div class="example-container">
-        <div class="code-panel">
-          <div class="code-header">
-            <h4>Code</h4>
-            <amw-button icon="refresh" (click)="resetCode('withFiltering')" title="Reset to original"></amw-button>
-          </div>
-          <textarea
-            [(ngModel)]="editableCode.withFiltering"
-            class="code-editor"
-            spellcheck="false"
-            readonly></textarea>
+      }
+      @case ('searchForm') {
+        <div class="preview-note">
+          <amw-icon name="info"></amw-icon>
+          <span>This example shows code for a search form with multiple autocompletes</span>
         </div>
-        <div class="preview-panel">
-          <h4>Preview</h4>
-          <div class="preview-content">
-            <amw-autocomplete
-              label="Search Skills"
-              [(ngModel)]="skillValue"
-              placeholder="Type to search skills..."
-              [options]="skillOptions"
-              appearance="outline">
-            </amw-autocomplete>
-          </div>
-        </div>
-      </div>
-    </amw-accordion-panel>
-
-    <!-- Multiple Selection -->
-    <amw-accordion-panel amwDescription="Autocomplete allowing multiple selections">
-      <ng-template #header>
-        <amw-icon name="code"></amw-icon>
-        Multiple Selection
-      </ng-template>
-      <div class="example-container">
-        <div class="code-panel">
-          <div class="code-header">
-            <h4>Code</h4>
-            <amw-button icon="refresh" (click)="resetCode('multipleSelection')" title="Reset to original"></amw-button>
-          </div>
-          <textarea
-            [(ngModel)]="editableCode.multipleSelection"
-            class="code-editor"
-            spellcheck="false"
-            readonly></textarea>
-        </div>
-        <div class="preview-panel">
-          <h4>Preview</h4>
-          <div class="preview-content">
-            <div class="preview-note">
-              <amw-icon name="info"></amw-icon>
-              <span>This example shows code for multiple selection with chips</span>
-            </div>
-          </div>
-        </div>
-      </div>
-    </amw-accordion-panel>
-
-    <!-- Custom Display Format -->
-    <amw-accordion-panel amwDescription="Autocomplete with custom option display">
-      <ng-template #header>
-        <amw-icon name="code"></amw-icon>
-        Custom Display Format
-      </ng-template>
-      <div class="example-container">
-        <div class="code-panel">
-          <div class="code-header">
-            <h4>Code</h4>
-            <amw-button icon="refresh" (click)="resetCode('withCustomDisplay')" title="Reset to original"></amw-button>
-          </div>
-          <textarea
-            [(ngModel)]="editableCode.withCustomDisplay"
-            class="code-editor"
-            spellcheck="false"
-            readonly></textarea>
-        </div>
-        <div class="preview-panel">
-          <h4>Preview</h4>
-          <div class="preview-content">
-            <div class="preview-note">
-              <amw-icon name="info"></amw-icon>
-              <span>This example shows code for custom display formatting</span>
-            </div>
-          </div>
-        </div>
-      </div>
-    </amw-accordion-panel>
-
-    <!-- Reactive Form Integration -->
-    <amw-accordion-panel amwDescription="Using autocomplete with Angular reactive forms">
-      <ng-template #header>
-        <amw-icon name="code"></amw-icon>
-        Reactive Form Integration
-      </ng-template>
-      <div class="example-container">
-        <div class="code-panel">
-          <div class="code-header">
-            <h4>Code</h4>
-            <amw-button icon="refresh" (click)="resetCode('reactiveForm')" title="Reset to original"></amw-button>
-          </div>
-          <textarea
-            [(ngModel)]="editableCode.reactiveForm"
-            class="code-editor"
-            spellcheck="false"
-            readonly></textarea>
-        </div>
-        <div class="preview-panel">
-          <h4>Preview</h4>
-          <div class="preview-content">
-            <div class="preview-note">
-              <amw-icon name="info"></amw-icon>
-              <span>This example shows code for reactive form integration</span>
-            </div>
-          </div>
-        </div>
-      </div>
-    </amw-accordion-panel>
-
-    <!-- Autocomplete with Events -->
-    <amw-accordion-panel amwDescription="Autocomplete with event handling">
-      <ng-template #header>
-        <amw-icon name="code"></amw-icon>
-        Autocomplete with Events
-      </ng-template>
-      <div class="example-container">
-        <div class="code-panel">
-          <div class="code-header">
-            <h4>Code</h4>
-            <amw-button icon="refresh" (click)="resetCode('withEvents')" title="Reset to original"></amw-button>
-          </div>
-          <textarea
-            [(ngModel)]="editableCode.withEvents"
-            class="code-editor"
-            spellcheck="false"
-            readonly></textarea>
-        </div>
-        <div class="preview-panel">
-          <h4>Preview</h4>
-          <div class="preview-content">
-            <amw-autocomplete
-              label="Search"
-              [(ngModel)]="searchValue"
-              placeholder="Type to search..."
-              [options]="skillOptions"
-              (optionSelected)="onOptionSelected($event)"
-              appearance="outline">
-            </amw-autocomplete>
-            <div class="preview-note">
-              <amw-icon name="info"></amw-icon>
-              <span>Open your browser console to see event logs</span>
-            </div>
-          </div>
-        </div>
-      </div>
-    </amw-accordion-panel>
-
-    <!-- Search Form Example -->
-    <amw-accordion-panel amwDescription="Complete search form with multiple autocompletes">
-      <ng-template #header>
-        <amw-icon name="code"></amw-icon>
-        Search Form Example
-      </ng-template>
-      <div class="example-container">
-        <div class="code-panel">
-          <div class="code-header">
-            <h4>Code</h4>
-            <amw-button icon="refresh" (click)="resetCode('searchForm')" title="Reset to original"></amw-button>
-          </div>
-          <textarea
-            [(ngModel)]="editableCode.searchForm"
-            class="code-editor"
-            spellcheck="false"
-            readonly></textarea>
-        </div>
-        <div class="preview-panel">
-          <h4>Preview</h4>
-          <div class="preview-content">
-            <div class="preview-note">
-              <amw-icon name="info"></amw-icon>
-              <span>This example shows code for a search form with multiple autocompletes</span>
-            </div>
-          </div>
-        </div>
-      </div>
-    </amw-accordion-panel>
-  </amw-accordion>
-</div>
+      }
+    }
+  </ng-template>
+</amw-code-doc>

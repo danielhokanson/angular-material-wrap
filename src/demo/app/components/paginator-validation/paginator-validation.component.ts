@@ -1,5 +1,8 @@
 import { Component, ViewEncapsulation } from '@angular/core';
 import { CommonModule } from '@angular/common';
+import { ReactiveFormsModule, FormGroup } from '@angular/forms';
+import { AmwValidationDocComponent, ValidationInfo } from '../../shared/components/validation-doc/validation-doc.component';
+import { BaseValidationComponent } from '../base/base-validation.component';
 import { AmwPaginatorComponent } from '../../../../library/src/components/components/amw-paginator/amw-paginator.component';
 import { AmwButtonComponent } from '../../../../library/src/controls/components/amw-button/amw-button.component';
 
@@ -8,6 +11,8 @@ import { AmwButtonComponent } from '../../../../library/src/controls/components/
   standalone: true,
   imports: [
     CommonModule,
+    ReactiveFormsModule,
+    AmwValidationDocComponent,
     AmwPaginatorComponent,
     AmwButtonComponent
   ],
@@ -15,40 +20,43 @@ import { AmwButtonComponent } from '../../../../library/src/controls/components/
   templateUrl: './paginator-validation.component.html',
   styleUrl: './paginator-validation.component.scss'
 })
-export class PaginatorValidationComponent {
-  // Expose Math for template usage
+export class PaginatorValidationComponent extends BaseValidationComponent {
   Math = Math;
 
-  // Disabled state
+  validationForm: FormGroup = this.fb.group({});
+
+  validationInfo: ValidationInfo[] = [
+    { title: 'Disabled', description: 'Paginator should not respond to any user interaction' },
+    { title: 'First Page', description: 'Previous and first page buttons should be disabled' },
+    { title: 'Last Page', description: 'Next and last page buttons should be disabled' },
+    { title: 'Empty Dataset', description: 'All navigation buttons should be disabled' },
+    { title: 'Single Page', description: 'All navigation buttons should be disabled when items fit on one page' },
+    { title: 'Large Dataset', description: 'Paginator should handle large numbers efficiently' }
+  ];
+
   disabledPageIndex = 0;
   disabledPageSize = 10;
 
-  // Boundary conditions - First page
   firstPageIndex = 0;
   firstPageSize = 10;
   firstPageLength = 100;
 
-  // Boundary conditions - Last page
   lastPageIndex = 9;
   lastPageSize = 10;
   lastPageLength = 100;
 
-  // Empty dataset
   emptyPageIndex = 0;
   emptyPageSize = 10;
   emptyPageLength = 0;
 
-  // Single page
   singlePageIndex = 0;
   singlePageSize = 10;
   singlePageLength = 5;
 
-  // Large dataset
   largePageIndex = 0;
   largePageSize = 25;
   largePageLength = 10000;
 
-  // Page event logs
   eventLogs: string[] = [];
 
   onDisabledPageChange(event: any): void {

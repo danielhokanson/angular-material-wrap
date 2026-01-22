@@ -1,7 +1,7 @@
 import { Component, ViewEncapsulation, computed } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule, Validators } from '@angular/forms';
-import { form, Field } from '@angular/forms/signals';
+import { form } from '@angular/forms/signals';
 
 import { AmwInputComponent } from '../../../../library/src/controls/components/amw-input/amw-input.component';
 import { AmwTextareaComponent } from '../../../../library/src/controls/components/amw-textarea/amw-textarea.component';
@@ -16,6 +16,7 @@ import { AmwButtonComponent } from '../../../../library/src/controls/components/
 import { AmwCardComponent, AmwIconComponent, AmwDividerComponent } from '../../../../library/src/components/components';
 import { AmwSelectOption } from '../../../../library/src/controls/components/amw-select/interfaces/amw-select-option.interface';
 import { AmwRadioGroupOption } from '../../../../library/src/controls/components/amw-radio-group/interfaces/amw-radio-group-option.interface';
+import { AmwDemoDocComponent } from '../../shared/components/demo-doc/demo-doc.component';
 
 /**
  * Signal Forms Demo Component
@@ -40,7 +41,8 @@ import { AmwRadioGroupOption } from '../../../../library/src/controls/components
         AmwButtonComponent,
         AmwCardComponent,
         AmwIconComponent,
-        AmwDividerComponent
+        AmwDividerComponent,
+        AmwDemoDocComponent
     ],
     encapsulation: ViewEncapsulation.None,
     templateUrl: './signal-forms-demo.component.html',
@@ -50,6 +52,7 @@ export class SignalFormsDemoComponent {
     /**
      * Create a signal-based form using form() factory
      * This is the new Angular Signal Forms API (experimental)
+     * Note: Using 'as any' cast due to Angular Signal Forms type inference limitations
      */
     userForm = form({
         // Text inputs
@@ -78,11 +81,11 @@ export class SignalFormsDemoComponent {
 
         // Date
         birthDate: [null as Date | null]
-    });
+    }) as any;
 
     // Computed values that react to form changes
-    formValues = computed(() => this.userForm.value());
-    isFormValid = computed(() => this.userForm.valid());
+    formValues = computed(() => (this.userForm as any).value());
+    isFormValid = computed(() => (this.userForm as any).valid());
 
     // Options for select and radio group
     countryOptions: AmwSelectOption[] = [
@@ -100,9 +103,9 @@ export class SignalFormsDemoComponent {
     ];
 
     onSubmit(): void {
-        if (this.userForm.valid()) {
-            console.log('Form submitted:', this.userForm.value());
-            alert('Form submitted successfully!\n\n' + JSON.stringify(this.userForm.value(), null, 2));
+        if ((this.userForm as any).valid()) {
+            console.log('Form submitted:', (this.userForm as any).value());
+            alert('Form submitted successfully!\n\n' + JSON.stringify((this.userForm as any).value(), null, 2));
         } else {
             console.log('Form is invalid');
             alert('Please fill in all required fields correctly.');
@@ -110,6 +113,6 @@ export class SignalFormsDemoComponent {
     }
 
     resetForm(): void {
-        this.userForm.reset();
+        (this.userForm as any).reset();
     }
 }

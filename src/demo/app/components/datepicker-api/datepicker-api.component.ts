@@ -1,12 +1,11 @@
 import { Component, ViewEncapsulation } from '@angular/core';
 import { BaseApiComponent, ApiDocumentation } from '../base/base-api.component';
+import { AmwApiDocComponent } from '../../shared/components/api-doc/api-doc.component';
 
 @Component({
   selector: 'amw-demo-datepicker-api',
   standalone: true,
-  imports: [
-    
-],
+  imports: [AmwApiDocComponent],
   encapsulation: ViewEncapsulation.None,
   templateUrl: './datepicker-api.component.html',
   styleUrl: './datepicker-api.component.scss'
@@ -85,6 +84,12 @@ export class DatepickerApiComponent extends BaseApiComponent {
         type: 'boolean',
         default: 'false',
         description: 'Whether to show error state'
+      },
+      {
+        name: 'formField',
+        type: 'FormField',
+        default: 'undefined',
+        description: 'Signal Forms FormField binding (experimental). Mutually exclusive with ngModel and formControl.'
       }
     ],
     outputs: [
@@ -118,6 +123,14 @@ export class DatepickerApiComponent extends BaseApiComponent {
         type: 'EventEmitter<FocusEvent>',
         description: 'Emitted when the datepicker loses focus'
       }
+    ],
+    usageNotes: [
+      'This component supports three mutually exclusive form binding approaches:',
+      '1. ngModel: Two-way binding with [(ngModel)]="value" for template-driven forms',
+      '2. formControl: Reactive forms binding with [formControl]="control" or formControlName',
+      '3. formField: Signal Forms binding with [formField]="form.field" (experimental)',
+      'Do NOT mix these approaches on the same component instance.',
+      'The component implements ControlValueAccessor for ngModel and formControl support.'
     ]
   };
 

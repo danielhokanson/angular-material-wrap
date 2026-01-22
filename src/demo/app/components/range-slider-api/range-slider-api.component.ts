@@ -1,13 +1,11 @@
 import { Component, ViewEncapsulation } from '@angular/core';
-
 import { BaseApiComponent, ApiDocumentation } from '../base/base-api.component';
+import { AmwApiDocComponent } from '../../shared/components/api-doc/api-doc.component';
 
 @Component({
     selector: 'amw-demo-range-slider-api',
     standalone: true,
-    imports: [
-    
-],
+    imports: [AmwApiDocComponent],
     encapsulation: ViewEncapsulation.None,
     templateUrl: './range-slider-api.component.html',
     styleUrl: './range-slider-api.component.scss'
@@ -122,6 +120,12 @@ export class RangeSliderApiComponent extends BaseApiComponent {
                 type: 'boolean',
                 default: 'false',
                 description: 'Whether the slider is in an error state'
+            },
+            {
+                name: 'formField',
+                type: 'FormField',
+                default: 'undefined',
+                description: 'Signal Forms FormField binding (experimental). Uses {start, end} value type. Mutually exclusive with ngModel and formControl.'
             }
         ],
         outputs: [
@@ -152,6 +156,15 @@ export class RangeSliderApiComponent extends BaseApiComponent {
                 returns: 'RangeSliderConfig',
                 description: 'Returns the current configuration object'
             }
+        ],
+        usageNotes: [
+            'This component supports three mutually exclusive form binding approaches:',
+            '1. ngModel: Two-way binding with [(ngModel)]="rangeValue" for template-driven forms',
+            '2. formControl: Reactive forms binding with [formControl]="control" or formControlName',
+            '3. formField: Signal Forms binding with [formField]="form.field" (experimental)',
+            'Do NOT mix these approaches on the same component instance.',
+            'The component implements ControlValueAccessor for ngModel and formControl support.',
+            'Range value is an object with {start, end} properties.'
         ]
     };
 

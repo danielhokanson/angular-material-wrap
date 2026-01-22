@@ -1,221 +1,225 @@
-<div class="amw-demo-signal-forms">
-    <div class="demo-header">
-        <h2>Signal Forms Demo</h2>
-        <p class="demo-subtitle">
-            Demonstrates Angular Signal Forms API integration using the <code>[field]</code> binding.
-            <span class="experimental-badge">Experimental</span>
-        </p>
+<amw-demo-doc componentName="amw-signal-forms">
+  <ng-template #content>
+    <div class="amw-demo-signal-forms">
+        <div class="demo-header">
+            <h2>Signal Forms Demo</h2>
+            <p class="demo-subtitle">
+                Demonstrates Angular Signal Forms API integration using the <code>[formField]</code> binding.
+                <span class="experimental-badge">Experimental</span>
+            </p>
+        </div>
+
+        <amw-divider></amw-divider>
+
+        <!-- Form Status Card -->
+        <amw-card class="status-card">
+            <div class="status-header">
+                <amw-icon [name]="isFormValid() ? 'check_circle' : 'error'"
+                          [color]="isFormValid() ? 'primary' : 'warn'"></amw-icon>
+                <span>Form Status: {{ isFormValid() ? 'Valid' : 'Invalid' }}</span>
+            </div>
+            <div class="form-values">
+                <strong>Current Values (reactive):</strong>
+                <pre>{{ formValues() | json }}</pre>
+            </div>
+        </amw-card>
+
+        <amw-divider></amw-divider>
+
+        <!-- Signal Forms Demo Form -->
+        <div class="form-container">
+            <!-- Text Inputs Section -->
+            <div class="form-section">
+                <h3 class="section-title">
+                    <amw-icon name="text_fields"></amw-icon>
+                    Text Inputs
+                </h3>
+
+                <div class="form-row">
+                    <amw-input
+                        [formField]="$any(userForm).firstName"
+                        label="First Name"
+                        placeholder="Enter first name"
+                        hint="Required field">
+                    </amw-input>
+
+                    <amw-input
+                        [formField]="$any(userForm).lastName"
+                        label="Last Name"
+                        placeholder="Enter last name"
+                        hint="Required field">
+                    </amw-input>
+                </div>
+
+                <div class="form-row">
+                    <amw-input
+                        [formField]="$any(userForm).email"
+                        type="email"
+                        label="Email Address"
+                        placeholder="Enter email"
+                        hint="Required, must be valid email">
+                    </amw-input>
+                </div>
+            </div>
+
+            <amw-divider></amw-divider>
+
+            <!-- Textarea Section -->
+            <div class="form-section">
+                <h3 class="section-title">
+                    <amw-icon name="notes"></amw-icon>
+                    Textarea
+                </h3>
+
+                <amw-textarea
+                    [formField]="$any(userForm).bio"
+                    label="Biography"
+                    placeholder="Tell us about yourself..."
+                    hint="Optional"
+                    [rows]="4">
+                </amw-textarea>
+            </div>
+
+            <amw-divider></amw-divider>
+
+            <!-- Select Section -->
+            <div class="form-section">
+                <h3 class="section-title">
+                    <amw-icon name="list"></amw-icon>
+                    Select
+                </h3>
+
+                <amw-select
+                    [formField]="$any(userForm).country"
+                    [options]="countryOptions"
+                    label="Country"
+                    placeholder="Select your country"
+                    hint="Optional">
+                </amw-select>
+            </div>
+
+            <amw-divider></amw-divider>
+
+            <!-- Radio Group Section -->
+            <div class="form-section">
+                <h3 class="section-title">
+                    <amw-icon name="radio_button_checked"></amw-icon>
+                    Radio Group
+                </h3>
+
+                <amw-radio-group
+                    [formField]="$any(userForm).preferredContact"
+                    [options]="contactOptions"
+                    label="Preferred Contact Method"
+                    hint="How should we contact you?">
+                </amw-radio-group>
+            </div>
+
+            <amw-divider></amw-divider>
+
+            <!-- Checkbox Section -->
+            <div class="form-section">
+                <h3 class="section-title">
+                    <amw-icon name="check_box"></amw-icon>
+                    Checkbox
+                </h3>
+
+                <amw-checkbox
+                    [formField]="$any(userForm).agreeToTerms"
+                    label="I agree to the Terms and Conditions"
+                    hint="Required to submit">
+                </amw-checkbox>
+            </div>
+
+            <amw-divider></amw-divider>
+
+            <!-- Slider Section -->
+            <div class="form-section">
+                <h3 class="section-title">
+                    <amw-icon name="tune"></amw-icon>
+                    Slider
+                </h3>
+
+                <amw-slider
+                    [formField]="$any(userForm).experience"
+                    label="Years of Experience"
+                    [min]="0"
+                    [max]="20"
+                    [step]="1"
+                    [showTickMarks]="true"
+                    hint="Slide to select">
+                </amw-slider>
+            </div>
+
+            <amw-divider></amw-divider>
+
+            <!-- Toggle/Switch Section -->
+            <div class="form-section">
+                <h3 class="section-title">
+                    <amw-icon name="toggle_on"></amw-icon>
+                    Toggle & Switch
+                </h3>
+
+                <div class="form-row toggles">
+                    <amw-toggle
+                        [formField]="$any(userForm).notifications"
+                        label="Enable Notifications">
+                    </amw-toggle>
+
+                    <amw-switch
+                        [formField]="$any(userForm).darkMode"
+                        label="Dark Mode">
+                    </amw-switch>
+                </div>
+            </div>
+
+            <amw-divider></amw-divider>
+
+            <!-- Datepicker Section -->
+            <div class="form-section">
+                <h3 class="section-title">
+                    <amw-icon name="calendar_today"></amw-icon>
+                    Date Picker
+                </h3>
+
+                <amw-datepicker
+                    [formField]="$any(userForm).birthDate"
+                    label="Birth Date"
+                    placeholder="Select date"
+                    hint="Optional">
+                </amw-datepicker>
+            </div>
+
+            <amw-divider></amw-divider>
+
+            <!-- Form Actions -->
+            <div class="form-actions">
+                <amw-button
+                    appearance="outlined"
+                    (click)="resetForm()">
+                    Reset Form
+                </amw-button>
+
+                <amw-button
+                    appearance="filled"
+                    color="primary"
+                    [disabled]="!isFormValid()"
+                    (click)="onSubmit()">
+                    Submit Form
+                </amw-button>
+            </div>
+        </div>
+
+        <!-- Key Concepts Card -->
+        <amw-card class="concepts-card">
+            <h3>Key Concepts</h3>
+            <ul>
+                <li><strong>form()</strong> - Creates a signal-based form with reactive state</li>
+                <li><strong>[formField]</strong> - Binds a form field to the component, automatically handling disabled/required</li>
+                <li><strong>formValues()</strong> - Computed signal that reacts to any form change</li>
+                <li><strong>isFormValid()</strong> - Computed signal for form validity state</li>
+            </ul>
+        </amw-card>
     </div>
-
-    <amw-divider></amw-divider>
-
-    <!-- Form Status Card -->
-    <amw-card class="status-card">
-        <div class="status-header">
-            <amw-icon [name]="isFormValid() ? 'check_circle' : 'error'"
-                      [color]="isFormValid() ? 'primary' : 'warn'"></amw-icon>
-            <span>Form Status: {{ isFormValid() ? 'Valid' : 'Invalid' }}</span>
-        </div>
-        <div class="form-values">
-            <strong>Current Values (reactive):</strong>
-            <pre>{{ formValues() | json }}</pre>
-        </div>
-    </amw-card>
-
-    <amw-divider></amw-divider>
-
-    <!-- Signal Forms Demo Form -->
-    <div class="form-container">
-        <!-- Text Inputs Section -->
-        <div class="form-section">
-            <h3 class="section-title">
-                <amw-icon name="text_fields"></amw-icon>
-                Text Inputs
-            </h3>
-
-            <div class="form-row">
-                <amw-input
-                    [field]="$any(userForm).firstName"
-                    label="First Name"
-                    placeholder="Enter first name"
-                    hint="Required field">
-                </amw-input>
-
-                <amw-input
-                    [field]="$any(userForm).lastName"
-                    label="Last Name"
-                    placeholder="Enter last name"
-                    hint="Required field">
-                </amw-input>
-            </div>
-
-            <div class="form-row">
-                <amw-input
-                    [field]="$any(userForm).email"
-                    type="email"
-                    label="Email Address"
-                    placeholder="Enter email"
-                    hint="Required, must be valid email">
-                </amw-input>
-            </div>
-        </div>
-
-        <amw-divider></amw-divider>
-
-        <!-- Textarea Section -->
-        <div class="form-section">
-            <h3 class="section-title">
-                <amw-icon name="notes"></amw-icon>
-                Textarea
-            </h3>
-
-            <amw-textarea
-                [field]="$any(userForm).bio"
-                label="Biography"
-                placeholder="Tell us about yourself..."
-                hint="Optional"
-                [rows]="4">
-            </amw-textarea>
-        </div>
-
-        <amw-divider></amw-divider>
-
-        <!-- Select Section -->
-        <div class="form-section">
-            <h3 class="section-title">
-                <amw-icon name="list"></amw-icon>
-                Select
-            </h3>
-
-            <amw-select
-                [field]="$any(userForm).country"
-                [options]="countryOptions"
-                label="Country"
-                placeholder="Select your country"
-                hint="Optional">
-            </amw-select>
-        </div>
-
-        <amw-divider></amw-divider>
-
-        <!-- Radio Group Section -->
-        <div class="form-section">
-            <h3 class="section-title">
-                <amw-icon name="radio_button_checked"></amw-icon>
-                Radio Group
-            </h3>
-
-            <amw-radio-group
-                [field]="$any(userForm).preferredContact"
-                [options]="contactOptions"
-                label="Preferred Contact Method"
-                hint="How should we contact you?">
-            </amw-radio-group>
-        </div>
-
-        <amw-divider></amw-divider>
-
-        <!-- Checkbox Section -->
-        <div class="form-section">
-            <h3 class="section-title">
-                <amw-icon name="check_box"></amw-icon>
-                Checkbox
-            </h3>
-
-            <amw-checkbox
-                [field]="$any(userForm).agreeToTerms"
-                label="I agree to the Terms and Conditions"
-                hint="Required to submit">
-            </amw-checkbox>
-        </div>
-
-        <amw-divider></amw-divider>
-
-        <!-- Slider Section -->
-        <div class="form-section">
-            <h3 class="section-title">
-                <amw-icon name="tune"></amw-icon>
-                Slider
-            </h3>
-
-            <amw-slider
-                [field]="$any(userForm).experience"
-                label="Years of Experience"
-                [min]="0"
-                [max]="20"
-                [step]="1"
-                [showTickMarks]="true"
-                hint="Slide to select">
-            </amw-slider>
-        </div>
-
-        <amw-divider></amw-divider>
-
-        <!-- Toggle/Switch Section -->
-        <div class="form-section">
-            <h3 class="section-title">
-                <amw-icon name="toggle_on"></amw-icon>
-                Toggle & Switch
-            </h3>
-
-            <div class="form-row toggles">
-                <amw-toggle
-                    [field]="$any(userForm).notifications"
-                    label="Enable Notifications">
-                </amw-toggle>
-
-                <amw-switch
-                    [field]="$any(userForm).darkMode"
-                    label="Dark Mode">
-                </amw-switch>
-            </div>
-        </div>
-
-        <amw-divider></amw-divider>
-
-        <!-- Datepicker Section -->
-        <div class="form-section">
-            <h3 class="section-title">
-                <amw-icon name="calendar_today"></amw-icon>
-                Date Picker
-            </h3>
-
-            <amw-datepicker
-                [field]="$any(userForm).birthDate"
-                label="Birth Date"
-                placeholder="Select date"
-                hint="Optional">
-            </amw-datepicker>
-        </div>
-
-        <amw-divider></amw-divider>
-
-        <!-- Form Actions -->
-        <div class="form-actions">
-            <amw-button
-                appearance="outlined"
-                (click)="resetForm()">
-                Reset Form
-            </amw-button>
-
-            <amw-button
-                appearance="filled"
-                color="primary"
-                [disabled]="!isFormValid()"
-                (click)="onSubmit()">
-                Submit Form
-            </amw-button>
-        </div>
-    </div>
-
-    <!-- Key Concepts Card -->
-    <amw-card class="concepts-card">
-        <h3>Key Concepts</h3>
-        <ul>
-            <li><strong>form()</strong> - Creates a signal-based form with reactive state</li>
-            <li><strong>[field]</strong> - Binds a form field to the component, automatically handling disabled/required</li>
-            <li><strong>formValues()</strong> - Computed signal that reacts to any form change</li>
-            <li><strong>isFormValid()</strong> - Computed signal for form validity state</li>
-        </ul>
-    </amw-card>
-</div>
+  </ng-template>
+</amw-demo-doc>

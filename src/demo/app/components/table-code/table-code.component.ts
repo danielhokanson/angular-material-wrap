@@ -1,19 +1,29 @@
-import { Component, ViewEncapsulation } from '@angular/core';
-import { BaseCodeComponent } from '../base/base-code.component';
-
-type TableCodeExamples = 'basic' | 'withTrackBy' | 'withSort' | 'withPagination' | 'directives';
+import { Component, ViewEncapsulation, OnInit } from '@angular/core';
+import { AmwCodeDocComponent, CodeExample } from '../../shared/components/code-doc/code-doc.component';
+import { AmwIconComponent } from '../../../../library/src/components/components';
 
 @Component({
-    selector: 'amw-demo-table-code',
-    standalone: true,
-    imports: [],
-    encapsulation: ViewEncapsulation.None,
-    templateUrl: './table-code.component.html',
-    styleUrl: './table-code.component.scss'
+  selector: 'amw-demo-table-code',
+  standalone: true,
+  imports: [
+    AmwCodeDocComponent,
+    AmwIconComponent
+  ],
+  encapsulation: ViewEncapsulation.None,
+  templateUrl: './table-code.component.html',
+  styleUrl: './table-code.component.scss'
 })
-export class TableCodeComponent extends BaseCodeComponent<TableCodeExamples> {
-    readonly codeExamples: Record<TableCodeExamples, string> = {
-        basic: `<!-- Basic Table -->
+export class TableCodeComponent implements OnInit {
+  // Editable code for the shared component
+  editableCode: Record<string, string> = {};
+
+  // Code examples data
+  readonly examples: CodeExample[] = [
+    {
+      key: 'basic',
+      title: 'Basic Table',
+      description: 'Simple table with data source',
+      code: `<!-- Basic Table -->
 <amw-table
   [dataSource]="dataSource"
   [displayedColumns]="['position', 'name', 'weight', 'symbol']">
@@ -24,9 +34,13 @@ dataSource = [
   { position: 1, name: 'Hydrogen', weight: 1.0079, symbol: 'H' },
   { position: 2, name: 'Helium', weight: 4.0026, symbol: 'He' },
   { position: 3, name: 'Lithium', weight: 6.941, symbol: 'Li' }
-];`,
-
-        withTrackBy: `<!-- Table with TrackBy for performance -->
+];`
+    },
+    {
+      key: 'withTrackBy',
+      title: 'With TrackBy',
+      description: 'Table with TrackBy for performance',
+      code: `<!-- Table with TrackBy for performance -->
 <amw-table
   [dataSource]="dataSource"
   [displayedColumns]="displayedColumns"
@@ -36,9 +50,13 @@ dataSource = [
 <!-- In component -->
 trackByFn(index: number, item: PeriodicElement): number {
   return item.position;
-}`,
-
-        withSort: `<!-- Table with Sorting -->
+}`
+    },
+    {
+      key: 'withSort',
+      title: 'With Sorting',
+      description: 'Table with sorting functionality',
+      code: `<!-- Table with Sorting -->
 <div amwSort
      [amwSortActive]="sortActive"
      [amwSortDirection]="sortDirection"
@@ -57,9 +75,13 @@ onSortChange(event: { active: string; direction: string }) {
   this.sortActive = event.active;
   this.sortDirection = event.direction;
   // Re-sort data based on active column and direction
-}`,
-
-        withPagination: `<!-- Table with Pagination -->
+}`
+    },
+    {
+      key: 'withPagination',
+      title: 'With Pagination',
+      description: 'Table with pagination',
+      code: `<!-- Table with Pagination -->
 <amw-table
   [dataSource]="paginatedData"
   [displayedColumns]="displayedColumns">
@@ -85,9 +107,13 @@ get paginatedData() {
 onPageChange(event: AmwPageEvent) {
   this.pageIndex = event.pageIndex;
   this.pageSize = event.pageSize;
-}`,
-
-        directives: `<!-- Table with Column Definition Directives -->
+}`
+    },
+    {
+      key: 'directives',
+      title: 'Directive-Based Table',
+      description: 'Table with column definition directives',
+      code: `<!-- Table with Column Definition Directives -->
 <table amw-table [dataSource]="dataSource">
   <ng-container amwColumnDef="position">
     <th *amwHeaderCellDef>No.</th>
@@ -102,9 +128,13 @@ onPageChange(event: AmwPageEvent) {
   <tr *amwHeaderRowDef="displayedColumns"></tr>
   <tr *amwRowDef="let row; columns: displayedColumns"></tr>
 </table>`
-    };
-
-    constructor() {
-        super();
     }
+  ];
+
+  ngOnInit(): void {
+    // Initialize editable code from examples
+    this.examples.forEach(example => {
+      this.editableCode[example.key] = example.code;
+    });
+  }
 }

@@ -1,8 +1,8 @@
 <div [class]="getCheckboxClasses()">
-  <!-- Signal Forms binding (scenario 3) - Field directive manages disabled, required automatically -->
-  @if (field()) {
+  <!-- Signal Forms binding (scenario 3) - FormField directive manages disabled, required automatically -->
+  @if (formField()) {
     <mat-checkbox
-      [field]="field()"
+      [formField]="formField()"
       [color]="color()"
       [indeterminate]="indeterminate()"
       [name]="name()"

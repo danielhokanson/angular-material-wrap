@@ -1,87 +1,74 @@
-<div class="amw-demo-signal-forms-code">
-    <div class="demo-header">
-        <h2>Signal Forms Code Examples</h2>
-        <p class="demo-subtitle">
-            Code snippets for integrating Angular Signal Forms with AMW components
-        </p>
-    </div>
+<amw-code-doc
+  componentName="signal-forms"
+  [examples]="examples"
+  [editableCode]="editableCode">
 
-    <!-- Example Selector -->
-    <div class="example-selector">
-        <amw-button
-            [appearance]="selectedExample() === 'basic' ? 'filled' : 'outlined'"
-            (click)="selectExample('basic')">
-            Basic Form
-        </amw-button>
-        <amw-button
-            [appearance]="selectedExample() === 'validation' ? 'filled' : 'outlined'"
-            (click)="selectExample('validation')">
-            Validation
-        </amw-button>
-        <amw-button
-            [appearance]="selectedExample() === 'computed' ? 'filled' : 'outlined'"
-            (click)="selectExample('computed')">
-            Computed
-        </amw-button>
-        <amw-button
-            [appearance]="selectedExample() === 'controls' ? 'filled' : 'outlined'"
-            (click)="selectExample('controls')">
-            All Controls
-        </amw-button>
-        <amw-button
-            [appearance]="selectedExample() === 'reset' ? 'filled' : 'outlined'"
-            (click)="selectExample('reset')">
-            Reset & Patch
-        </amw-button>
-    </div>
-
-    <!-- Code Display -->
-    <amw-card class="code-card">
-        <div class="code-header">
-            <div class="code-info">
-                <h3>{{ codeExamples[selectedExample()].title }}</h3>
-                <p>{{ codeExamples[selectedExample()].description }}</p>
-            </div>
-            <amw-button appearance="text" (click)="copyCode()">
-                <amw-icon name="content_copy"></amw-icon>
-                Copy
-            </amw-button>
+  <ng-template #preview let-example>
+    @switch (example.key) {
+      @case ('basic') {
+        <div class="preview-note">
+          <amw-icon name="info"></amw-icon>
+          <div>
+            <strong>Key Points:</strong>
+            <ul>
+              <li>Use <code>form()</code> factory to create signal-based forms</li>
+              <li>Bind controls with <code>[formField]="form.fieldName"</code></li>
+              <li>Use <code>computed()</code> to react to form changes</li>
+            </ul>
+          </div>
         </div>
-        <pre class="code-block"><code>{{ codeExamples[selectedExample()].code }}</code></pre>
-    </amw-card>
-
-    <!-- Quick Reference -->
-    <amw-card class="reference-card">
-        <h3>Quick Reference</h3>
-
-        <div class="reference-section">
-            <h4>Imports</h4>
-            <pre><code>import &#123; form, Field &#125; from '&#64;angular/forms/signals';
-import &#123; Validators &#125; from '&#64;angular/forms';</code></pre>
+      }
+      @case ('validation') {
+        <div class="preview-note">
+          <amw-icon name="info"></amw-icon>
+          <div>
+            <strong>Validation Features:</strong>
+            <ul>
+              <li>Pass validators as second array element</li>
+              <li>Access <code>field.valid()</code> and <code>field.errors()</code> as signals</li>
+              <li>Create computed signals for reactive validation display</li>
+            </ul>
+          </div>
         </div>
-
-        <div class="reference-section">
-            <h4>Creating a Form</h4>
-            <pre><code>const myForm = form(&#123;
-  fieldName: [initialValue, validators]
-&#125;);</code></pre>
+      }
+      @case ('computed') {
+        <div class="preview-note">
+          <amw-icon name="info"></amw-icon>
+          <div>
+            <strong>Computed Values:</strong>
+            <ul>
+              <li>Use <code>computed()</code> to derive values from form state</li>
+              <li>Computed signals update automatically when dependencies change</li>
+              <li>Use <code>effect()</code> for side effects on form changes</li>
+            </ul>
+          </div>
         </div>
-
-        <div class="reference-section">
-            <h4>Binding to AMW Components</h4>
-            <pre><code>&lt;amw-input [field]="myForm.controls.fieldName"&gt;&lt;/amw-input&gt;</code></pre>
+      }
+      @case ('controls') {
+        <div class="preview-note">
+          <amw-icon name="info"></amw-icon>
+          <div>
+            <strong>Supported Controls:</strong>
+            <p>All AMW form controls support <code>[formField]</code> binding for signal forms integration.</p>
+            <p><strong>Warning:</strong> Do not mix <code>[formField]</code> with <code>[(ngModel)]</code> or <code>[formControl]</code> on the same component.</p>
+          </div>
         </div>
-
-        <div class="reference-section">
-            <h4>Reading Values (Signals)</h4>
-            <pre><code>// All values
-const values = myForm.value();
-
-// Single field
-const name = myForm.controls.name.value();
-
-// Validity
-const isValid = myForm.valid();</code></pre>
+      }
+      @case ('reset') {
+        <div class="preview-note">
+          <amw-icon name="info"></amw-icon>
+          <div>
+            <strong>Value Management:</strong>
+            <ul>
+              <li><code>reset()</code> - Reset to initial values</li>
+              <li><code>reset(values)</code> - Reset with specific values</li>
+              <li><code>patchValue(partial)</code> - Update specific fields</li>
+              <li><code>setValue(all)</code> - Set all fields</li>
+              <li><code>value()</code> - Read current form value as signal</li>
+            </ul>
+          </div>
         </div>
-    </amw-card>
-</div>
+      }
+    }
+  </ng-template>
+</amw-code-doc>

@@ -1,43 +1,5 @@
-<div class="card-api">
-  <amw-card>
-    <ng-template #cardHeader>
-      <h2>Card API Documentation</h2>
-      <p class="subtitle">Complete API reference for the amw-card component</p>
-    </ng-template>
-
-    <ng-template #cardContent>
-      <!-- Inputs -->
-      <div class="card-api__section">
-        <h3>Inputs</h3>
-        <amw-data-table
-          [data]="getDisplayedColumns('inputs')"
-          [config]="inputsTableConfig">
-        </amw-data-table>
-      </div>
-
-      <!-- Outputs -->
-      <div class="card-api__section">
-        <h3>Outputs</h3>
-        <amw-data-table
-          [data]="getDisplayedColumns('outputs')"
-          [config]="outputsTableConfig">
-        </amw-data-table>
-      </div>
-
-      <!-- Interfaces -->
-      <div class="card-api__section">
-        <h3>Interfaces</h3>
-        @for (interface of interfacesList; track interface) {
-          <div class="card-api__interface">
-            <h4>{{ interface.name }}</h4>
-            <p>{{ interface.description }}</p>
-            <amw-data-table
-              [data]="interface.properties"
-              [config]="interfaceTableConfig">
-            </amw-data-table>
-          </div>
-        }
-      </div>
-    </ng-template>
-  </amw-card>
-</div>
+<amw-api-doc
+  componentName="amw-card"
+  [apiDocumentation]="apiDocumentation"
+  [interfaces]="interfaces">
+</amw-api-doc>

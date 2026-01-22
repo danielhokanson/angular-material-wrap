@@ -3,6 +3,7 @@ import { CommonModule } from '@angular/common';
 import { AmwTableComponent } from '../../../../lib/amw-table/amw-table.module';
 import { AmwSortDirective, AmwSortHeaderComponent } from '../../../../lib/amw-sort/amw-sort.module';
 import { AmwPaginatorComponent } from '../../../../lib/amw-paginator/amw-paginator.component';
+import { AmwDemoDocComponent } from '../../shared/components/demo-doc/demo-doc.component';
 
 interface PeriodicElement {
     name: string;
@@ -14,7 +15,7 @@ interface PeriodicElement {
 @Component({
     selector: 'amw-demo-table',
     standalone: true,
-    imports: [CommonModule, AmwTableComponent, AmwSortDirective, AmwSortHeaderComponent, AmwPaginatorComponent],
+    imports: [CommonModule, AmwTableComponent, AmwSortDirective, AmwSortHeaderComponent, AmwPaginatorComponent, AmwDemoDocComponent],
     encapsulation: ViewEncapsulation.None,
     templateUrl: './table-demo.component.html',
     styleUrl: './table-demo.component.scss'

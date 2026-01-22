@@ -1,10 +1,11 @@
 import { Component, ViewEncapsulation } from '@angular/core';
 import { BaseApiComponent, ApiDocumentation } from '../base/base-api.component';
+import { AmwApiDocComponent, ApiInterface } from '../../shared/components/api-doc/api-doc.component';
 
 @Component({
   selector: 'amw-demo-paginator-api',
   standalone: true,
-  imports: [],
+  imports: [AmwApiDocComponent],
   encapsulation: ViewEncapsulation.None,
   templateUrl: './paginator-api.component.html',
   styleUrl: './paginator-api.component.scss'
@@ -70,6 +71,19 @@ export class PaginatorApiComponent extends BaseApiComponent {
       'The paginator wraps Angular Material mat-paginator with a consistent AMW API.'
     ]
   };
+
+  interfaces: ApiInterface[] = [
+    {
+      name: 'AmwPageEvent',
+      description: 'Event emitted when the page changes',
+      properties: [
+        { name: 'pageIndex', type: 'number', description: 'Current page index (0-based)' },
+        { name: 'previousPageIndex', type: 'number', description: 'Previous page index before the change' },
+        { name: 'pageSize', type: 'number', description: 'Items per page' },
+        { name: 'length', type: 'number', description: 'Total number of items' }
+      ]
+    }
+  ];
 
   constructor() {
     super();

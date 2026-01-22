@@ -1,38 +1,49 @@
-import { Component, ViewEncapsulation } from '@angular/core';
+import { Component, ViewEncapsulation, OnInit } from '@angular/core';
 import { FormsModule } from '@angular/forms';
-import { BaseCodeComponent } from '../base/base-code.component';
-
-type SwitchExamples = 'basic' | 'configured' | 'formControl' | 'validation' | 'sizes' | 'colors';
-
+import { AmwCodeDocComponent, CodeExample } from '../../shared/components/code-doc/code-doc.component';
 import { AmwButtonComponent } from '../../../../library/src/controls/components/amw-button/amw-button.component';
 import { AmwSwitchComponent } from '../../../../library/src/controls/components/amw-switch/amw-switch.component';
-import { AmwAccordionComponent, AmwAccordionPanelComponent, AmwIconComponent } from '../../../../library/src/components/components';
+import { AmwIconComponent } from '../../../../library/src/components/components';
+
 @Component({
   selector: 'amw-demo-switch-code',
   standalone: true,
-  imports: [FormsModule,
+  imports: [
+    FormsModule,
+    AmwCodeDocComponent,
     AmwButtonComponent,
     AmwSwitchComponent,
-    AmwAccordionComponent,
-    AmwAccordionPanelComponent,
-    AmwIconComponent],
+    AmwIconComponent
+  ],
   encapsulation: ViewEncapsulation.None,
   templateUrl: './switch-code.component.html',
   styleUrl: './switch-code.component.scss'
 })
-export class SwitchCodeComponent extends BaseCodeComponent<SwitchExamples> {
+export class SwitchCodeComponent implements OnInit {
   // State for preview examples
   isEnabled = false;
   notificationsEnabled = true;
   darkModeEnabled = false;
 
-  readonly codeExamples: Record<SwitchExamples, string> = {
-    basic: `<amw-switch
+  // Editable code for the shared component
+  editableCode: Record<string, string> = {};
+
+  // Code examples data
+  readonly examples: CodeExample[] = [
+    {
+      key: 'basic',
+      title: 'Basic Switch',
+      description: 'Simple switch with two-way binding',
+      code: `<amw-switch
   [(checked)]="isEnabled"
   (switchChange)="onSwitchChange($event)">
-</amw-switch>`,
-
-    configured: `<amw-switch
+</amw-switch>`
+    },
+    {
+      key: 'configured',
+      title: 'Configured Switch',
+      description: 'Switch with custom configuration options',
+      code: `<amw-switch
   [(checked)]="notificationsEnabled"
   [size]="'large'"
   [color]="'accent'"
@@ -41,9 +52,13 @@ export class SwitchCodeComponent extends BaseCodeComponent<SwitchExamples> {
   [required]="true"
   (switchChange)="onNotificationChange($event)">
   Enable Notifications
-</amw-switch>`,
-
-    formControl: `// Component
+</amw-switch>`
+    },
+    {
+      key: 'formControl',
+      title: 'Form Control Integration',
+      description: 'Using switch with reactive forms',
+      code: `// Component
 export class MyComponent {
   form = this.fb.group({
     notificationsEnabled: [false, Validators.requiredTrue],
@@ -64,9 +79,13 @@ export class MyComponent {
   <amw-switch formControlName="darkModeEnabled">
     Dark Mode
   </amw-switch>
-</form>`,
-
-    validation: `// Component
+</form>`
+    },
+    {
+      key: 'validation',
+      title: 'Validation',
+      description: 'Switch with form validation',
+      code: `// Component
 export class MyComponent {
   form = this.fb.group({
     termsAccepted: [false, [Validators.requiredTrue, this.validateTerms]]
@@ -99,19 +118,31 @@ export class MyComponent {
     [errorMessage]="getErrorMessage('termsAccepted')">
     Accept Terms and Conditions
   </amw-switch>
-</form>`,
-
-    sizes: `<amw-switch [size]="'small'">Small Switch</amw-switch>
+</form>`
+    },
+    {
+      key: 'sizes',
+      title: 'Sizes',
+      description: 'Different switch sizes',
+      code: `<amw-switch [size]="'small'">Small Switch</amw-switch>
 <amw-switch [size]="'medium'">Medium Switch</amw-switch>
-<amw-switch [size]="'large'">Large Switch</amw-switch>`,
-
-    colors: `<amw-switch [color]="'primary'">Primary Switch</amw-switch>
+<amw-switch [size]="'large'">Large Switch</amw-switch>`
+    },
+    {
+      key: 'colors',
+      title: 'Colors',
+      description: 'Different color themes',
+      code: `<amw-switch [color]="'primary'">Primary Switch</amw-switch>
 <amw-switch [color]="'accent'">Accent Switch</amw-switch>
 <amw-switch [color]="'warn'">Warn Switch</amw-switch>`
-  };
+    }
+  ];
 
-  constructor() {
-    super();
+  ngOnInit(): void {
+    // Initialize editable code from examples
+    this.examples.forEach(example => {
+      this.editableCode[example.key] = example.code;
+    });
   }
 
   onSwitchChange(event: any) {

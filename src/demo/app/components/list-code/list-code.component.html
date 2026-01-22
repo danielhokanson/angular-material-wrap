@@ -1,199 +1,111 @@
-<div class="code-section">
-  <h3>Code Examples</h3>
-  <p>Interactive examples with live previews. Edit the code to see real-time changes.</p>
+<amw-code-doc
+  componentName="amw-list"
+  [examples]="examples"
+  [editableCode]="editableCode">
 
-  <amw-accordion class="code-examples-accordion">
-    <!-- Basic List -->
-    <amw-accordion-panel amwDescription="Simple list with icons, titles, subtitles and meta">
-      <ng-template #header>
-        <amw-icon name="code"></amw-icon>
-        Basic List
-      </ng-template>
-      <div class="example-container">
-        <div class="code-panel">
-          <div class="code-header">
-            <h4>Code</h4>
-            <amw-button icon="refresh" (click)="resetCode('basic')" title="Reset to original"></amw-button>
+  <ng-template #preview let-example>
+    @switch (example.key) {
+      @case ('basic') {
+        <amw-list>
+          <amw-list-item (itemClick)="onItemClick('Inbox')">
+            <amw-icon amwListItemIcon name="inbox"></amw-icon>
+            <span amwListItemTitle>Inbox</span>
+            <span amwListItemSubtitle>5 new messages</span>
+            <span amwListItemMeta>5</span>
+          </amw-list-item>
+          <amw-list-item (itemClick)="onItemClick('Starred')">
+            <amw-icon amwListItemIcon name="star"></amw-icon>
+            <span amwListItemTitle>Starred</span>
+            <span amwListItemSubtitle>12 items</span>
+            <span amwListItemMeta>12</span>
+          </amw-list-item>
+          <amw-list-item (itemClick)="onItemClick('Sent')">
+            <amw-icon amwListItemIcon name="send"></amw-icon>
+            <span amwListItemTitle>Sent</span>
+            <span amwListItemSubtitle>45 sent messages</span>
+            <span amwListItemMeta>45</span>
+          </amw-list-item>
+        </amw-list>
+        @if (lastClickedItem) {
+          <div class="preview-note">
+            <amw-icon name="touch_app"></amw-icon>
+            <span>Last clicked: {{ lastClickedItem }}</span>
           </div>
-          <textarea
-            [(ngModel)]="editableCode.basic"
-            class="code-editor"
-            spellcheck="false"></textarea>
+        }
+      }
+      @case ('dense') {
+        <amw-list [dense]="true">
+          <amw-list-item>
+            <amw-icon amwListItemIcon name="folder"></amw-icon>
+            <span amwListItemTitle>Documents</span>
+          </amw-list-item>
+          <amw-list-item>
+            <amw-icon amwListItemIcon name="image"></amw-icon>
+            <span amwListItemTitle>Photos</span>
+          </amw-list-item>
+          <amw-list-item>
+            <amw-icon amwListItemIcon name="music_note"></amw-icon>
+            <span amwListItemTitle>Music</span>
+          </amw-list-item>
+          <amw-list-item>
+            <amw-icon amwListItemIcon name="video_library"></amw-icon>
+            <span amwListItemTitle>Videos</span>
+          </amw-list-item>
+        </amw-list>
+        <div class="preview-note">
+          <amw-icon name="info"></amw-icon>
+          <span>Dense mode reduces vertical padding for more compact display</span>
         </div>
-        <div class="preview-panel">
-          <h4>Preview</h4>
-          <div class="preview-content">
-            <amw-list>
-              <amw-list-item (itemClick)="onItemClick('Inbox')">
-                <amw-icon amwListItemIcon name="inbox"></amw-icon>
-                <span amwListItemTitle>Inbox</span>
-                <span amwListItemSubtitle>5 new messages</span>
-                <span amwListItemMeta>5</span>
-              </amw-list-item>
-              <amw-list-item (itemClick)="onItemClick('Starred')">
-                <amw-icon amwListItemIcon name="star"></amw-icon>
-                <span amwListItemTitle>Starred</span>
-                <span amwListItemSubtitle>12 items</span>
-                <span amwListItemMeta>12</span>
-              </amw-list-item>
-              <amw-list-item (itemClick)="onItemClick('Sent')">
-                <amw-icon amwListItemIcon name="send"></amw-icon>
-                <span amwListItemTitle>Sent</span>
-                <span amwListItemSubtitle>45 sent messages</span>
-                <span amwListItemMeta>45</span>
-              </amw-list-item>
-            </amw-list>
-            @if (lastClickedItem) {
-              <div class="preview-note">
-                <amw-icon name="touch_app"></amw-icon>
-                <span>Last clicked: {{ lastClickedItem }}</span>
-              </div>
-            }
-          </div>
+      }
+      @case ('navigation') {
+        <amw-list>
+          <amw-list-item>
+            <amw-icon amwListItemIcon name="home"></amw-icon>
+            <span amwListItemTitle>Home</span>
+            <span amwListItemSubtitle>Go to home page</span>
+            <amw-icon amwListItemMeta name="chevron_right"></amw-icon>
+          </amw-list-item>
+          <amw-list-item>
+            <amw-icon amwListItemIcon name="person"></amw-icon>
+            <span amwListItemTitle>Profile</span>
+            <span amwListItemSubtitle>View your profile</span>
+            <amw-icon amwListItemMeta name="chevron_right"></amw-icon>
+          </amw-list-item>
+          <amw-list-item>
+            <amw-icon amwListItemIcon name="settings"></amw-icon>
+            <span amwListItemTitle>Settings</span>
+            <span amwListItemSubtitle>Configure app</span>
+            <amw-icon amwListItemMeta name="chevron_right"></amw-icon>
+          </amw-list-item>
+        </amw-list>
+        <div class="preview-note">
+          <amw-icon name="info"></amw-icon>
+          <span>Note: RouterLink navigation is disabled in this preview</span>
         </div>
-      </div>
-    </amw-accordion-panel>
-
-    <!-- Dense List -->
-    <amw-accordion-panel amwDescription="Compact list with reduced spacing">
-      <ng-template #header>
-        <amw-icon name="code"></amw-icon>
-        Dense List
-      </ng-template>
-      <div class="example-container">
-        <div class="code-panel">
-          <div class="code-header">
-            <h4>Code</h4>
-            <amw-button icon="refresh" (click)="resetCode('dense')" title="Reset to original"></amw-button>
-          </div>
-          <textarea
-            [(ngModel)]="editableCode.dense"
-            class="code-editor"
-            spellcheck="false"></textarea>
+      }
+      @case ('disabled') {
+        <amw-list>
+          <amw-list-item>
+            <amw-icon amwListItemIcon name="check_circle"></amw-icon>
+            <span amwListItemTitle>Available Item</span>
+            <span amwListItemSubtitle>This item is enabled</span>
+          </amw-list-item>
+          <amw-list-item [disabled]="true">
+            <amw-icon amwListItemIcon name="block"></amw-icon>
+            <span amwListItemTitle>Disabled Item</span>
+            <span amwListItemSubtitle>This item is disabled</span>
+          </amw-list-item>
+          <amw-list-item>
+            <amw-icon amwListItemIcon name="check_circle"></amw-icon>
+            <span amwListItemTitle>Another Available</span>
+            <span amwListItemSubtitle>This item is enabled</span>
+          </amw-list-item>
+        </amw-list>
+        <div class="preview-note">
+          <amw-icon name="info"></amw-icon>
+          <span>Disabled items appear dimmed and do not respond to clicks</span>
         </div>
-        <div class="preview-panel">
-          <h4>Preview</h4>
-          <div class="preview-content">
-            <amw-list [dense]="true">
-              <amw-list-item>
-                <amw-icon amwListItemIcon name="folder"></amw-icon>
-                <span amwListItemTitle>Documents</span>
-              </amw-list-item>
-              <amw-list-item>
-                <amw-icon amwListItemIcon name="image"></amw-icon>
-                <span amwListItemTitle>Photos</span>
-              </amw-list-item>
-              <amw-list-item>
-                <amw-icon amwListItemIcon name="music_note"></amw-icon>
-                <span amwListItemTitle>Music</span>
-              </amw-list-item>
-              <amw-list-item>
-                <amw-icon amwListItemIcon name="video_library"></amw-icon>
-                <span amwListItemTitle>Videos</span>
-              </amw-list-item>
-            </amw-list>
-            <div class="preview-note">
-              <amw-icon name="info"></amw-icon>
-              <span>Dense mode reduces vertical padding for more compact display</span>
-            </div>
-          </div>
-        </div>
-      </div>
-    </amw-accordion-panel>
-
-    <!-- Navigation List -->
-    <amw-accordion-panel amwDescription="List items with router navigation">
-      <ng-template #header>
-        <amw-icon name="code"></amw-icon>
-        Navigation List
-      </ng-template>
-      <div class="example-container">
-        <div class="code-panel">
-          <div class="code-header">
-            <h4>Code</h4>
-            <amw-button icon="refresh" (click)="resetCode('navigation')" title="Reset to original"></amw-button>
-          </div>
-          <textarea
-            [(ngModel)]="editableCode.navigation"
-            class="code-editor"
-            spellcheck="false"></textarea>
-        </div>
-        <div class="preview-panel">
-          <h4>Preview</h4>
-          <div class="preview-content">
-            <amw-list>
-              <amw-list-item>
-                <amw-icon amwListItemIcon name="home"></amw-icon>
-                <span amwListItemTitle>Home</span>
-                <span amwListItemSubtitle>Go to home page</span>
-                <amw-icon amwListItemMeta name="chevron_right"></amw-icon>
-              </amw-list-item>
-              <amw-list-item>
-                <amw-icon amwListItemIcon name="person"></amw-icon>
-                <span amwListItemTitle>Profile</span>
-                <span amwListItemSubtitle>View your profile</span>
-                <amw-icon amwListItemMeta name="chevron_right"></amw-icon>
-              </amw-list-item>
-              <amw-list-item>
-                <amw-icon amwListItemIcon name="settings"></amw-icon>
-                <span amwListItemTitle>Settings</span>
-                <span amwListItemSubtitle>Configure app</span>
-                <amw-icon amwListItemMeta name="chevron_right"></amw-icon>
-              </amw-list-item>
-            </amw-list>
-            <div class="preview-note">
-              <amw-icon name="info"></amw-icon>
-              <span>Note: RouterLink navigation is disabled in this preview</span>
-            </div>
-          </div>
-        </div>
-      </div>
-    </amw-accordion-panel>
-
-    <!-- Disabled Items -->
-    <amw-accordion-panel amwDescription="List with disabled items that cannot be clicked">
-      <ng-template #header>
-        <amw-icon name="code"></amw-icon>
-        Disabled Items
-      </ng-template>
-      <div class="example-container">
-        <div class="code-panel">
-          <div class="code-header">
-            <h4>Code</h4>
-            <amw-button icon="refresh" (click)="resetCode('disabled')" title="Reset to original"></amw-button>
-          </div>
-          <textarea
-            [(ngModel)]="editableCode.disabled"
-            class="code-editor"
-            spellcheck="false"></textarea>
-        </div>
-        <div class="preview-panel">
-          <h4>Preview</h4>
-          <div class="preview-content">
-            <amw-list>
-              <amw-list-item>
-                <amw-icon amwListItemIcon name="check_circle"></amw-icon>
-                <span amwListItemTitle>Available Item</span>
-                <span amwListItemSubtitle>This item is enabled</span>
-              </amw-list-item>
-              <amw-list-item [disabled]="true">
-                <amw-icon amwListItemIcon name="block"></amw-icon>
-                <span amwListItemTitle>Disabled Item</span>
-                <span amwListItemSubtitle>This item is disabled</span>
-              </amw-list-item>
-              <amw-list-item>
-                <amw-icon amwListItemIcon name="check_circle"></amw-icon>
-                <span amwListItemTitle>Another Available</span>
-                <span amwListItemSubtitle>This item is enabled</span>
-              </amw-list-item>
-            </amw-list>
-            <div class="preview-note">
-              <amw-icon name="info"></amw-icon>
-              <span>Disabled items appear dimmed and do not respond to clicks</span>
-            </div>
-          </div>
-        </div>
-      </div>
-    </amw-accordion-panel>
-  </amw-accordion>
-</div>
+      }
+    }
+  </ng-template>
+</amw-code-doc>

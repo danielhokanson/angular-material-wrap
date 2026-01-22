@@ -1,183 +1,286 @@
-<div class="profile-page">
-  <div class="profile-header">
-    <h1>Profile</h1>
-    <p>Manage your account settings and preferences</p>
+<div class="profile-page-demo">
+  <div class="profile-page-demo__header">
+    <h1>Profile Page</h1>
+    <p>A user profile page pattern demonstrating personal information forms, account settings, and preference management.</p>
   </div>
 
-  <div class="profile-content">
-    <amw-tabs>
-      <!-- Personal Information -->
-      <amw-tab label="Personal Info">
-        <div class="tab-content">
-          <amw-card>
-            <ng-template #cardHeader>
-              <h2>Personal Information</h2>
-              <p class="subtitle">Update your personal details</p>
-            </ng-template>
-            <ng-template #cardContent>
-              <form [formGroup]="personalForm" class="profile-form">
-                <div class="form-row">
-                  <amw-input
-                    label="First Name"
-                    formControlName="firstName"
-                    placeholder="Enter first name">
-                  </amw-input>
-                  <amw-input
-                    label="Last Name"
-                    formControlName="lastName"
-                    placeholder="Enter last name">
-                  </amw-input>
+  <!-- Outer tabs: Demo, Code, API -->
+  <amw-tabs>
+    <!-- Demo Tab -->
+    <amw-tab label="Demo">
+      <div class="demo-container">
+        <div class="profile-page">
+          <div class="profile-header">
+            <h2>Profile</h2>
+            <p>Manage your account settings and preferences</p>
+          </div>
+
+          <div class="profile-content">
+            <!-- Inner tabs: Personal Info, Account, Preferences -->
+            <amw-tabs>
+              <!-- Personal Information -->
+              <amw-tab label="Personal Info">
+                <div class="tab-content">
+                  <amw-card>
+                    <ng-template #cardHeader>
+                      <h3>Personal Information</h3>
+                      <p class="subtitle">Update your personal details</p>
+                    </ng-template>
+                    <ng-template #cardContent>
+                      <form [formGroup]="personalForm" class="profile-form">
+                        <div class="form-row">
+                          <amw-input
+                            label="First Name"
+                            formControlName="firstName"
+                            placeholder="Enter first name">
+                          </amw-input>
+                          <amw-input
+                            label="Last Name"
+                            formControlName="lastName"
+                            placeholder="Enter last name">
+                          </amw-input>
+                        </div>
+
+                        <div class="form-row">
+                          <amw-input
+                            label="Email"
+                            formControlName="email"
+                            type="email"
+                            placeholder="Enter email">
+                          </amw-input>
+                          <amw-input
+                            label="Phone"
+                            formControlName="phone"
+                            placeholder="Enter phone number">
+                          </amw-input>
+                        </div>
+
+                        <div class="form-row">
+                          <amw-input
+                            label="Job Title"
+                            formControlName="jobTitle"
+                            placeholder="Enter job title">
+                          </amw-input>
+                          <amw-input
+                            label="Company"
+                            formControlName="company"
+                            placeholder="Enter company">
+                          </amw-input>
+                        </div>
+
+                        <div class="form-actions">
+                          <amw-button appearance="elevated" color="primary" (click)="savePersonalInfo()" icon="save" iconPosition="left">Save Changes</amw-button>
+                          <amw-button appearance="text" (click)="resetPersonalForm()" icon="refresh" iconPosition="left">Reset</amw-button>
+                        </div>
+                      </form>
+                    </ng-template>
+                  </amw-card>
                 </div>
-                
-                <div class="form-row">
-                  <amw-input
-                    label="Email"
-                    formControlName="email"
-                    type="email"
-                    placeholder="Enter email">
-                  </amw-input>
-                  <amw-input
-                    label="Phone"
-                    formControlName="phone"
-                    placeholder="Enter phone number">
-                  </amw-input>
+              </amw-tab>
+
+              <!-- Account Settings -->
+              <amw-tab label="Account">
+                <div class="tab-content">
+                  <amw-card>
+                    <ng-template #cardHeader>
+                      <h3>Account Settings</h3>
+                      <p class="subtitle">Manage your account preferences</p>
+                    </ng-template>
+                    <ng-template #cardContent>
+                      <div class="settings-section">
+                        <h4>Profile Picture</h4>
+                        <div class="profile-picture-section">
+                          <div class="profile-avatar">
+                            <amw-icon name="person"></amw-icon>
+                          </div>
+                          <div class="avatar-actions">
+                            <amw-button appearance="elevated" color="primary" icon="photo_camera" iconPosition="left">Change Photo</amw-button>
+                            <amw-button appearance="text" color="warn" icon="delete" iconPosition="left">Remove Photo</amw-button>
+                          </div>
+                        </div>
+                      </div>
+
+                      <amw-divider></amw-divider>
+
+                      <div class="settings-section">
+                        <h4>Password</h4>
+                        <form [formGroup]="passwordForm" class="password-form">
+                          <amw-input
+                            label="Current Password"
+                            formControlName="currentPassword"
+                            type="password"
+                            placeholder="Enter current password">
+                          </amw-input>
+
+                          <amw-input
+                            label="New Password"
+                            formControlName="newPassword"
+                            type="password"
+                            placeholder="Enter new password">
+                          </amw-input>
+
+                          <amw-input
+                            label="Confirm New Password"
+                            formControlName="confirmPassword"
+                            type="password"
+                            placeholder="Confirm new password">
+                          </amw-input>
+
+                          <div class="form-actions">
+                            <amw-button appearance="elevated" color="primary" (click)="changePassword()" icon="lock" iconPosition="left">Change Password</amw-button>
+                          </div>
+                        </form>
+                      </div>
+                    </ng-template>
+                  </amw-card>
                 </div>
-                
-                <div class="form-row">
-                  <amw-input
-                    label="Job Title"
-                    formControlName="jobTitle"
-                    placeholder="Enter job title">
-                  </amw-input>
-                  <amw-input
-                    label="Company"
-                    formControlName="company"
-                    placeholder="Enter company">
-                  </amw-input>
+              </amw-tab>
+
+              <!-- Preferences -->
+              <amw-tab label="Preferences">
+                <div class="tab-content">
+                  <amw-card>
+                    <ng-template #cardHeader>
+                      <h3>Preferences</h3>
+                      <p class="subtitle">Customize your experience</p>
+                    </ng-template>
+                    <ng-template #cardContent>
+                      <div class="settings-section">
+                        <h4>Appearance</h4>
+                        <div class="setting-item">
+                          <span>Theme</span>
+                          <amw-select
+                            label="Select Theme"
+                            [(ngModel)]="selectedTheme"
+                            [options]="themeOptions">
+                          </amw-select>
+                        </div>
+                        <div class="setting-item">
+                          <span>Language</span>
+                          <amw-select
+                            label="Select Language"
+                            [(ngModel)]="selectedLanguage"
+                            [options]="languageOptions">
+                          </amw-select>
+                        </div>
+                      </div>
+
+                      <amw-divider></amw-divider>
+
+                      <div class="settings-section">
+                        <h4>Notifications</h4>
+                        <div class="setting-item">
+                          <span>Email notifications</span>
+                          <amw-switch [(ngModel)]="emailNotifications"></amw-switch>
+                        </div>
+                        <div class="setting-item">
+                          <span>Push notifications</span>
+                          <amw-switch [(ngModel)]="pushNotifications"></amw-switch>
+                        </div>
+                        <div class="setting-item">
+                          <span>Marketing emails</span>
+                          <amw-switch [(ngModel)]="marketingEmails"></amw-switch>
+                        </div>
+                      </div>
+
+                      <div class="form-actions">
+                        <amw-button appearance="elevated" color="primary" (click)="savePreferences()" icon="save" iconPosition="left">Save Preferences</amw-button>
+                      </div>
+                    </ng-template>
+                  </amw-card>
                 </div>
-                
-                <div class="form-actions">
-                  <amw-button appearance="elevated" color="primary" (click)="savePersonalInfo()" icon="save" iconPosition="left">Save Changes</amw-button>
-                  <amw-button appearance="text" (click)="resetPersonalForm()" icon="refresh" iconPosition="left">Reset</amw-button>
-                </div>
-              </form>
-            </ng-template>
-</amw-card>
+              </amw-tab>
+            </amw-tabs>
+          </div>
         </div>
-      </amw-tab>
+      </div>
+    </amw-tab>
 
-      <!-- Account Settings -->
-      <amw-tab label="Account">
-        <div class="tab-content">
-          <amw-card>
-            <ng-template #cardHeader>
-              <h2>Account Settings</h2>
-              <p class="subtitle">Manage your account preferences</p>
-            </ng-template>
-            <ng-template #cardContent>
-              <div class="settings-section">
-                <h4>Profile Picture</h4>
-                <div class="profile-picture-section">
-                  <div class="profile-avatar">
-                    <amw-icon name="person"></amw-icon>
-                  </div>
-                  <div class="avatar-actions">
-                    <amw-button appearance="elevated" color="primary" icon="photo_camera" iconPosition="left">Change Photo</amw-button>
-                    <amw-button appearance="text" color="warn" icon="delete" iconPosition="left">Remove Photo</amw-button>
-                  </div>
-                </div>
-              </div>
+    <!-- Code Tab -->
+    <amw-tab label="Code">
+      <amw-card>
+        <ng-template #cardContent>
+          <h3>Basic Profile Page Structure</h3>
+          <pre><code>{{ codeExamples.basicUsage }}</code></pre>
 
-              <amw-divider></amw-divider>
+          <h3>Reactive Form Pattern</h3>
+          <p>Use reactive forms for form validation and data handling:</p>
+          <pre><code>{{ codeExamples.formPattern }}</code></pre>
 
-              <div class="settings-section">
-                <h4>Password</h4>
-                <form [formGroup]="passwordForm" class="password-form">
-                  <amw-input
-                    label="Current Password"
-                    formControlName="currentPassword"
-                    type="password"
-                    placeholder="Enter current password">
-                  </amw-input>
-                  
-                  <amw-input
-                    label="New Password"
-                    formControlName="newPassword"
-                    type="password"
-                    placeholder="Enter new password">
-                  </amw-input>
-                  
-                  <amw-input
-                    label="Confirm New Password"
-                    formControlName="confirmPassword"
-                    type="password"
-                    placeholder="Confirm new password">
-                  </amw-input>
-                  
-                  <div class="form-actions">
-                    <amw-button appearance="elevated" color="primary" (click)="changePassword()" icon="lock" iconPosition="left">Change Password</amw-button>
-                  </div>
-                </form>
-              </div>
-            </ng-template>
-</amw-card>
-        </div>
-      </amw-tab>
+          <h3>Preferences Pattern</h3>
+          <p>Use switches and selects for user preferences:</p>
+          <pre><code>{{ codeExamples.preferencesPattern }}</code></pre>
 
-      <!-- Preferences -->
-      <amw-tab label="Preferences">
-        <div class="tab-content">
-          <amw-card>
-            <ng-template #cardHeader>
-              <h2>Preferences</h2>
-              <p class="subtitle">Customize your experience</p>
-            </ng-template>
-            <ng-template #cardContent>
-              <div class="settings-section">
-                <h4>Appearance</h4>
-                <div class="setting-item">
-                  <span>Theme</span>
-                  <amw-select
-                    label="Select Theme"
-                    [(ngModel)]="selectedTheme"
-                    [options]="themeOptions">
-                  </amw-select>
-                </div>
-                <div class="setting-item">
-                  <span>Language</span>
-                  <amw-select
-                    label="Select Language"
-                    [(ngModel)]="selectedLanguage"
-                    [options]="languageOptions">
-                  </amw-select>
-                </div>
-              </div>
+          <h3>Component Implementation</h3>
+          <pre><code>{{ codeExamples.componentCode }}</code></pre>
 
-              <amw-divider></amw-divider>
+          <h3>Key Features</h3>
+          <ul>
+            <li>Tabbed navigation for organizing profile sections</li>
+            <li>Reactive forms for personal information with validation</li>
+            <li>Profile picture upload and management</li>
+            <li>Password change functionality with confirmation</li>
+            <li>User preferences with theme and language selection</li>
+            <li>Notification toggles using switches</li>
+            <li>Action buttons for saving and resetting</li>
+          </ul>
 
-              <div class="settings-section">
-                <h4>Notifications</h4>
-                <div class="setting-item">
-                  <span>Email notifications</span>
-                  <amw-switch [(ngModel)]="emailNotifications"></amw-switch>
-                </div>
-                <div class="setting-item">
-                  <span>Push notifications</span>
-                  <amw-switch [(ngModel)]="pushNotifications"></amw-switch>
-                </div>
-                <div class="setting-item">
-                  <span>Marketing emails</span>
-                  <amw-switch [(ngModel)]="marketingEmails"></amw-switch>
-                </div>
-              </div>
+          <h3>Best Practices</h3>
+          <ul>
+            <li>Use reactive forms for complex forms with validation</li>
+            <li>Use ngModel for simple preference toggles</li>
+            <li>Group related settings with clear headings</li>
+            <li>Provide visual feedback when saving changes</li>
+            <li>Validate passwords match before submission</li>
+            <li>Consider auto-save for preferences</li>
+          </ul>
+        </ng-template>
+      </amw-card>
+    </amw-tab>
 
-              <div class="form-actions">
-                <amw-button appearance="elevated" color="primary" (click)="savePreferences()" icon="save" iconPosition="left">Save Preferences</amw-button>
-              </div>
-            </ng-template>
-</amw-card>
-        </div>
-      </amw-tab>
-    </amw-tabs>
-  </div>
+    <!-- API Tab -->
+    <amw-tab label="API">
+      <amw-api-doc
+        componentName="Profile Page Pattern"
+        [apiDocumentation]="profilePageApiDoc"
+        [interfaces]="profilePageInterfaces"
+        description="The Profile Page is a composite page pattern that demonstrates how to build a comprehensive user profile interface using AMW components.">
+      </amw-api-doc>
+
+      <amw-card>
+        <ng-template #cardContent>
+          <h3>Components Used</h3>
+          <ul>
+            <li><code>AmwTabsComponent</code> / <code>AmwTabComponent</code> - For organizing profile sections</li>
+            <li><code>AmwCardComponent</code> - For grouping related content</li>
+            <li><code>AmwDividerComponent</code> - For separating setting groups</li>
+            <li><code>AmwInputComponent</code> - For text inputs and password fields</li>
+            <li><code>AmwSelectComponent</code> - For dropdown selections</li>
+            <li><code>AmwSwitchComponent</code> - For toggle preferences</li>
+            <li><code>AmwButtonComponent</code> - For save/reset actions</li>
+            <li><code>AmwIconComponent</code> - For profile avatar placeholder</li>
+          </ul>
+
+          <h3>Page Structure</h3>
+          <ul>
+            <li><strong>Header:</strong> Page title and description</li>
+            <li><strong>Tab Navigation:</strong> Personal Info, Account, Preferences tabs</li>
+            <li><strong>Personal Info:</strong> User details form with validation</li>
+            <li><strong>Account:</strong> Profile picture and password management</li>
+            <li><strong>Preferences:</strong> Theme, language, and notification settings</li>
+          </ul>
+
+          <h3>Customization</h3>
+          <ul>
+            <li>Add additional profile fields as needed</li>
+            <li>Implement profile picture upload with file input</li>
+            <li>Add two-factor authentication settings</li>
+            <li>Include account deletion or deactivation options</li>
+            <li>Add linked accounts (social login) management</li>
+            <li>Implement session management and active devices</li>
+          </ul>
+        </ng-template>
+      </amw-card>
+    </amw-tab>
+  </amw-tabs>
 </div>

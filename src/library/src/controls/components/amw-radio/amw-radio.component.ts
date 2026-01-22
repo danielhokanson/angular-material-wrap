@@ -1,7 +1,7 @@
 import { Component, input, model, ViewEncapsulation } from '@angular/core';
 
 import { FormsModule, ReactiveFormsModule, ControlValueAccessor, NG_VALUE_ACCESSOR } from '@angular/forms';
-import { Field } from '@angular/forms/signals';
+import { FormField } from '@angular/forms/signals';
 import { MatRadioModule } from '@angular/material/radio';
 import { MatRippleModule } from '@angular/material/core';
 import { BaseComponent } from '../base/base.component';
@@ -9,7 +9,7 @@ import { BaseComponent } from '../base/base.component';
 @Component({
     selector: 'amw-radio',
     standalone: true,
-    imports: [FormsModule, ReactiveFormsModule, Field, MatRadioModule, MatRippleModule],
+    imports: [FormsModule, ReactiveFormsModule, FormField, MatRadioModule, MatRippleModule],
     encapsulation: ViewEncapsulation.None,
     templateUrl: './amw-radio.component.html',
     styleUrl: './amw-radio.component.scss',
@@ -32,7 +32,7 @@ export class AmwRadioComponent extends BaseComponent<any> implements ControlValu
      * Mutually exclusive with ngModel and formControl/formControlName.
      * @experimental
      */
-    field = input<any>(undefined);
+    formField = input<any>(undefined);
 
     labelPosition = input<'before' | 'after'>('after');
     checked = model<boolean>(false);

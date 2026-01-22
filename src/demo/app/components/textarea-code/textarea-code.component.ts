@@ -1,45 +1,53 @@
-import { Component, ViewEncapsulation } from '@angular/core';
+import { Component, ViewEncapsulation, OnInit } from '@angular/core';
 import { FormsModule } from '@angular/forms';
-import { BaseCodeComponent } from '../base/base-code.component';
+import { AmwCodeDocComponent, CodeExample } from '../../shared/components/code-doc/code-doc.component';
 import { AmwButtonComponent } from '../../../../library/src/controls/components/amw-button/amw-button.component';
 import { AmwTextareaComponent } from '../../../../library/src/controls/components/amw-textarea/amw-textarea.component';
-import { AmwAccordionComponent, AmwAccordionPanelComponent, AmwIconComponent } from '../../../../library/src/components/components';
-
-type TextareaExamples = 'basic' | 'withValidation' | 'differentSizes' | 'withCharacterCount' | 'reactiveForm' | 'withEvents' | 'contactForm';
+import { AmwIconComponent } from '../../../../library/src/components/components';
 
 @Component({
   selector: 'amw-demo-textarea-code',
   standalone: true,
   imports: [
     FormsModule,
+    AmwCodeDocComponent,
     AmwButtonComponent,
     AmwTextareaComponent,
-    AmwAccordionComponent,
-    AmwAccordionPanelComponent,
     AmwIconComponent
   ],
   encapsulation: ViewEncapsulation.None,
   templateUrl: './textarea-code.component.html',
   styleUrl: './textarea-code.component.scss'
 })
-export class TextareaCodeComponent extends BaseCodeComponent<TextareaExamples> {
+export class TextareaCodeComponent implements OnInit {
   // State for live preview examples
   descriptionValue = '';
   projectValue = '';
   noteValue = '';
   messageValue = '';
 
-  // Original code examples (for reset functionality)
-  readonly codeExamples: Record<TextareaExamples, string> = {
-    basic: `<amw-textarea
+  // Editable code for the shared component
+  editableCode: Record<string, string> = {};
+
+  // Code examples data
+  readonly examples: CodeExample[] = [
+    {
+      key: 'basic',
+      title: 'Basic Textarea',
+      description: 'A simple textarea with label and placeholder',
+      code: `<amw-textarea
   label="Description"
   [(ngModel)]="descriptionValue"
   placeholder="Enter your description here..."
   appearance="outline"
   rows="4">
-</amw-textarea>`,
-
-    withValidation: `<amw-textarea
+</amw-textarea>`
+    },
+    {
+      key: 'withValidation',
+      title: 'Textarea with Validation',
+      description: 'Textarea with character limits and validation',
+      code: `<amw-textarea
   label="Project Description"
   [(ngModel)]="projectValue"
   placeholder="Describe your project..."
@@ -49,9 +57,13 @@ export class TextareaCodeComponent extends BaseCodeComponent<TextareaExamples> {
   required
   rows="4"
   hint="Min 10, Max 500 characters">
-</amw-textarea>`,
-
-    differentSizes: `<amw-textarea
+</amw-textarea>`
+    },
+    {
+      key: 'differentSizes',
+      title: 'Different Sizes',
+      description: 'Textareas with different row counts',
+      code: `<amw-textarea
   label="Short Note"
   [(ngModel)]="noteValue"
   placeholder="Brief note..."
@@ -71,9 +83,13 @@ export class TextareaCodeComponent extends BaseCodeComponent<TextareaExamples> {
   placeholder="Very long text..."
   appearance="outline"
   rows="10">
-</amw-textarea>`,
-
-    withCharacterCount: `<amw-textarea
+</amw-textarea>`
+    },
+    {
+      key: 'withCharacterCount',
+      title: 'With Character Count',
+      description: 'Textarea with character count display',
+      code: `<amw-textarea
   label="Bio"
   #bioInput
   placeholder="Tell us about yourself..."
@@ -81,12 +97,15 @@ export class TextareaCodeComponent extends BaseCodeComponent<TextareaExamples> {
   maxlength="200"
   rows="4"
   hint="{{bioInput.value.length}}/200">
-</amw-textarea>`,
-
-    reactiveForm: `// Component TypeScript
+</amw-textarea>`
+    },
+    {
+      key: 'reactiveForm',
+      title: 'Reactive Form Integration',
+      description: 'Using textareas with Angular reactive forms',
+      code: `// Component TypeScript
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 
-import { AmwButtonComponent } from '../../../../library/src/controls/components/amw-button/amw-button.component';
 export class MyComponent {
   form: FormGroup;
 
@@ -126,9 +145,13 @@ export class MyComponent {
     required
     rows="4">
   </amw-textarea>
-</form>`,
-
-    withEvents: `<amw-textarea
+</form>`
+    },
+    {
+      key: 'withEvents',
+      title: 'Textarea with Events',
+      description: 'Textareas with event handling',
+      code: `<amw-textarea
   label="Message"
   [(ngModel)]="messageValue"
   (input)="onTextInput($event)"
@@ -150,9 +173,13 @@ onTextFocus(event: FocusEvent): void {
 
 onTextBlur(event: FocusEvent): void {
   console.log('Textarea blurred');
-}`,
-
-    contactForm: `<form class="contact-form">
+}`
+    },
+    {
+      key: 'contactForm',
+      title: 'Contact Form Example',
+      description: 'Complete contact form with multiple textareas',
+      code: `<form class="contact-form">
   <h3>Contact Us</h3>
 
   <amw-textarea
@@ -184,10 +211,14 @@ onTextBlur(event: FocusEvent): void {
     Send Message
   </amw-button>
 </form>`
-  };
+    }
+  ];
 
-  constructor() {
-    super();
+  ngOnInit(): void {
+    // Initialize editable code from examples
+    this.examples.forEach(example => {
+      this.editableCode[example.key] = example.code;
+    });
   }
 
   // Event handlers for event example

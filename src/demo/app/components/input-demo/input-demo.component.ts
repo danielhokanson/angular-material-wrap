@@ -7,6 +7,7 @@ import { AmwInputComponent } from '../../../../library/src/controls/components/a
 import { AmwInputType } from '../../../../library/src/controls/components/amw-input/interfaces/amw-input-type.type';
 import { InputAppearance } from '../../../../library/src/controls/components/amw-input/interfaces/input-appearance.type';
 import { AmwSize } from '../../../../library/src/shared/types';
+import { AmwDemoDocComponent } from '../../shared/components/demo-doc/demo-doc.component';
 
 @Component({
     selector: 'amw-demo-input',
@@ -14,6 +15,7 @@ import { AmwSize } from '../../../../library/src/shared/types';
     imports: [
     ReactiveFormsModule,
     AmwInputComponent,
+    AmwDemoDocComponent,
 ],
     encapsulation: ViewEncapsulation.None,
     templateUrl: './input-demo.component.html',

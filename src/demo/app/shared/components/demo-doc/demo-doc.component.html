@@ -1,0 +1,37 @@
+<div class="amw-demo-doc" [class]="'amw-demo-doc--' + componentName">
+  <!-- Simple content mode -->
+  @if (contentTemplate && !useSectionsMode) {
+    <ng-container [ngTemplateOutlet]="contentTemplate"></ng-container>
+  }
+
+  <!-- Sections mode -->
+  @if (useSectionsMode) {
+    @for (section of sections; track section.title; let i = $index) {
+      <div class="amw-demo-doc__section">
+        <h3 class="amw-demo-doc__section-title">{{ section.title }}</h3>
+        @if (section.description) {
+          <p class="amw-demo-doc__section-description">{{ section.description }}</p>
+        }
+        <div class="amw-demo-doc__section-content">
+          <ng-container
+            [ngTemplateOutlet]="sectionContentTemplate!"
+            [ngTemplateOutletContext]="{ $implicit: section, index: i }">
+          </ng-container>
+        </div>
+      </div>
+    }
+  }
+
+  <!-- Real-world example section -->
+  @if (realWorldExampleTemplate) {
+    <div class="amw-demo-doc__section amw-demo-doc__section--real-world">
+      <h3 class="amw-demo-doc__section-title">Real-world Example</h3>
+      <p class="amw-demo-doc__section-description">
+        Here's how this component would typically be used in a real application:
+      </p>
+      <div class="amw-demo-doc__real-world-content">
+        <ng-container [ngTemplateOutlet]="realWorldExampleTemplate"></ng-container>
+      </div>
+    </div>
+  }
+</div>

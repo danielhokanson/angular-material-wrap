@@ -15,6 +15,12 @@ import {
     DateRange,
 } from '../../../../library/src/pages/components/amw-report-page';
 
+// Import API documentation components
+import { AmwApiDocComponent, ApiInterface } from '../../shared/components/api-doc/api-doc.component';
+import { ApiDocumentation } from '../../components/base/base-api.component';
+
+import { AmwTabsComponent, AmwTabComponent, AmwCardComponent } from '../../../../library/src/components/components';
+
 // Sample data
 const SAMPLE_METRICS = {
     totalRevenue: 1250000,
@@ -301,17 +307,17 @@ class ReportPageDemoDataSource implements ReportPageDataSource {
         ];
     }
 }
-import { AmwTabsComponent, AmwTabComponent, AmwCardComponent } from '../../../../library/src/components/components';
 
 @Component({
     selector: 'app-report-page-demo',
     standalone: true,
     imports: [
-    AmwReportPageComponent,
-    AmwTabsComponent,
-    AmwTabComponent,
-    AmwCardComponent,
-],
+        AmwReportPageComponent,
+        AmwTabsComponent,
+        AmwTabComponent,
+        AmwCardComponent,
+        AmwApiDocComponent
+    ],
     templateUrl: './report-page-demo.component.html',
     styleUrl: './report-page-demo.component.scss'
 })
@@ -403,6 +409,451 @@ export class ReportPageDemoComponent implements OnInit, OnDestroy {
 
     // State
     currentViewIndex = 0;
+
+    // Code Examples
+    codeExamples = {
+        basic: `import { Component } from '@angular/core';
+import { AmwReportPageComponent, ReportPageConfig } from 'angular-material-wrap';
+
+@Component({
+  selector: 'app-sales-report',
+  standalone: true,
+  imports: [AmwReportPageComponent],
+  template: \`
+    <amw-report-page
+      [config]="reportConfig"
+      [dataSource]="dataSource"
+      (widgetClick)="onWidgetClick($event)"
+      (filterChange)="onFilterChange($event)"
+      (exportClick)="onExportClick($event)">
+    </amw-report-page>
+  \`
+})
+export class SalesReportComponent {
+  reportConfig: ReportPageConfig = {
+    title: 'Sales Dashboard',
+    subtitle: 'Comprehensive sales analytics',
+    showDateRange: true,
+    showFilters: true,
+    showExport: true
+  };
+
+  dataSource = new MyReportDataSource();
+
+  onWidgetClick(event: { widget: ReportWidget; data: any }): void {
+    console.log('Widget clicked:', event.widget.title);
+  }
+
+  onFilterChange(event: { filters: any; dateRange: DateRange }): void {
+    console.log('Filters changed:', event);
+  }
+
+  onExportClick(event: { format: string; data: any }): void {
+    console.log('Export:', event.format);
+  }
+}`,
+
+        config: `// ReportPageConfig with all options
+const reportConfig: ReportPageConfig = {
+  // Header
+  title: 'Sales Dashboard',
+  subtitle: 'Comprehensive sales analytics and performance metrics',
+
+  // Feature toggles
+  showDateRange: true,      // Date range picker
+  showFilters: true,        // Filter panel
+  showExport: true,         // Export button (PDF, Excel, CSV)
+  showPrint: true,          // Print button
+  showRefresh: true,        // Refresh button
+  showFullscreen: true,     // Fullscreen toggle
+
+  // Date range configuration
+  dateRange: {
+    start: new Date(Date.now() - 365 * 24 * 60 * 60 * 1000),
+    end: new Date(),
+    preset: 'lastYear'
+  },
+
+  // Filters configuration
+  filters: [
+    {
+      key: 'region',
+      label: 'Region',
+      type: 'select',
+      options: [
+        { value: '', label: 'All Regions' },
+        { value: 'North America', label: 'North America' },
+        { value: 'Europe', label: 'Europe' }
+      ],
+      visible: true
+    },
+    {
+      key: 'product',
+      label: 'Product Category',
+      type: 'select',
+      options: [...],
+      visible: true
+    }
+  ],
+
+  // Custom action buttons
+  customActions: [
+    {
+      key: 'schedule',
+      label: 'Schedule Report',
+      icon: 'schedule',
+      color: 'primary',
+      onClick: (data) => console.log('Schedule clicked')
+    },
+    {
+      key: 'share',
+      label: 'Share',
+      icon: 'share',
+      color: 'accent',
+      onClick: (data) => console.log('Share clicked')
+    }
+  ]
+};`,
+
+        dataSource: `import { Observable, of } from 'rxjs';
+import { delay } from 'rxjs/operators';
+import { ReportPageDataSource, ReportData, ReportWidget, DateRange } from 'angular-material-wrap';
+
+class MyReportDataSource implements ReportPageDataSource {
+  getData(params: {
+    dateRange?: DateRange;
+    filters?: { [key: string]: any };
+  }): Observable<ReportData> {
+    return of({
+      widgets: this.buildWidgets(params),
+      dateRange: params.dateRange || { start: new Date(), end: new Date() },
+      filters: params.filters || {},
+      lastUpdated: new Date()
+    }).pipe(delay(800));
+  }
+
+  getReportData(params: {
+    dateRange: DateRange;
+    filters: { [key: string]: any };
+    widgets: string[];
+  }): Observable<ReportData> {
+    return this.http.post<ReportData>('/api/report', params);
+  }
+
+  exportReport(format: 'pdf' | 'excel' | 'csv', params: any): Observable<Blob> {
+    return this.http.post('/api/report/export', { format, ...params }, {
+      responseType: 'blob'
+    });
+  }
+
+  refreshWidget(widgetId: string, params: any): Observable<any> {
+    return this.http.get(\`/api/widget/\${widgetId}\`, { params });
+  }
+
+  private buildWidgets(params: any): ReportWidget[] {
+    return [
+      {
+        id: 'revenue-metric',
+        title: 'Total Revenue',
+        type: 'metric',
+        size: 'small',
+        position: { row: 0, col: 0 },
+        data: { value: 1250000, change: 12.5, format: 'currency' },
+        visible: true,
+        refreshable: true
+      },
+      // ... more widgets
+    ];
+  }
+}`,
+
+        widgets: `// Widget types and configuration
+const widgets: ReportWidget[] = [
+  // Metric widget - single KPI value
+  {
+    id: 'revenue',
+    title: 'Total Revenue',
+    type: 'metric',
+    size: 'small',
+    position: { row: 0, col: 0 },
+    data: {
+      value: 1250000,
+      label: 'Total Revenue',
+      change: 12.5,
+      changeType: 'increase',
+      format: 'currency',
+      icon: 'attach_money',
+      color: 'primary'
+    },
+    visible: true,
+    refreshable: true
+  },
+
+  // Chart widget - line/bar/pie charts
+  {
+    id: 'sales-chart',
+    title: 'Sales Trend',
+    type: 'chart',
+    size: 'large',
+    position: { row: 1, col: 0, colspan: 2 },
+    data: {
+      labels: ['Jan', 'Feb', 'Mar', ...],
+      datasets: [{
+        label: 'Revenue',
+        data: [95000, 110000, 125000, ...],
+        backgroundColor: 'rgba(25, 118, 210, 0.2)',
+        borderColor: 'rgba(25, 118, 210, 1)'
+      }]
+    },
+    config: {
+      type: 'line',
+      options: { responsive: true }
+    },
+    visible: true,
+    refreshable: true
+  },
+
+  // Table widget - data grid
+  {
+    id: 'product-table',
+    title: 'Top Products',
+    type: 'table',
+    size: 'medium',
+    position: { row: 2, col: 0, colspan: 2 },
+    data: {
+      columns: [
+        { key: 'product', title: 'Product', type: 'text' },
+        { key: 'sales', title: 'Sales', type: 'currency' }
+      ],
+      rows: [...],
+      totalCount: 100,
+      pageSize: 10
+    },
+    visible: true,
+    refreshable: true
+  },
+
+  // KPI widget - summary score
+  {
+    id: 'kpi-summary',
+    title: 'Performance Score',
+    type: 'kpi',
+    size: 'full',
+    position: { row: 3, col: 0, colspan: 4 },
+    data: {
+      value: 94.2,
+      label: 'Overall Performance',
+      icon: 'dashboard',
+      color: 'primary'
+    },
+    visible: true,
+    refreshable: true
+  }
+];`,
+
+        events: `// Handling report page events
+@Component({
+  template: \`
+    <amw-report-page
+      [config]="config"
+      [dataSource]="dataSource"
+      [autoRefresh]="true"
+      [refreshInterval]="60000"
+      (widgetClick)="onWidgetClick($event)"
+      (filterChange)="onFilterChange($event)"
+      (dateRangeChange)="onDateRangeChange($event)"
+      (exportClick)="onExportClick($event)"
+      (refreshClick)="onRefreshClick($event)"
+      (fullscreenChange)="onFullscreenChange($event)">
+    </amw-report-page>
+  \`
+})
+export class ReportComponent {
+  onWidgetClick(event: { widget: ReportWidget; data: any }): void {
+    console.log('Widget clicked:', event.widget.title);
+    // Navigate to detail view, open dialog, etc.
+    if (event.widget.id === 'sales-chart') {
+      this.router.navigate(['/reports/sales-detail']);
+    }
+  }
+
+  onFilterChange(event: { filters: any; dateRange: DateRange }): void {
+    console.log('Filters changed:', event.filters);
+    console.log('Date range:', event.dateRange);
+    // Update URL params, track analytics, etc.
+  }
+
+  onDateRangeChange(dateRange: DateRange): void {
+    console.log('Date range changed:', dateRange);
+    // Refresh data with new date range
+  }
+
+  onExportClick(event: { format: string; data: any }): void {
+    console.log('Exporting as:', event.format);
+    this.notification.info(\`Exporting as \${event.format.toUpperCase()}\`);
+    // Trigger download
+  }
+
+  onRefreshClick(): void {
+    console.log('Manual refresh triggered');
+  }
+
+  onFullscreenChange(isFullscreen: boolean): void {
+    console.log('Fullscreen:', isFullscreen);
+  }
+}`
+    };
+
+    // API Documentation
+    reportPageApiDoc: ApiDocumentation = {
+        inputs: [
+            {
+                name: 'config',
+                type: 'ReportPageConfig',
+                default: '{}',
+                description: 'Configuration object for the report page including title, feature toggles, date range, filters, and custom actions.'
+            },
+            {
+                name: 'dataSource',
+                type: 'ReportPageDataSource',
+                default: 'undefined',
+                description: 'Data source implementing the ReportPageDataSource interface. Provides methods for fetching report data, exporting, and refreshing widgets.'
+            },
+            {
+                name: 'autoRefresh',
+                type: 'boolean',
+                default: 'false',
+                description: 'Enable automatic data refresh at the specified interval.'
+            },
+            {
+                name: 'refreshInterval',
+                type: 'number',
+                default: '60000',
+                description: 'Refresh interval in milliseconds when autoRefresh is enabled.'
+            }
+        ],
+        outputs: [
+            {
+                name: 'widgetClick',
+                type: 'EventEmitter<{ widget: ReportWidget; data: any }>',
+                description: 'Emits when a widget is clicked. Includes the widget configuration and associated data.'
+            },
+            {
+                name: 'filterChange',
+                type: 'EventEmitter<{ filters: { [key: string]: any }; dateRange: DateRange }>',
+                description: 'Emits when filters or date range change. Includes all current filter values and date range.'
+            },
+            {
+                name: 'dateRangeChange',
+                type: 'EventEmitter<DateRange>',
+                description: 'Emits when the date range is changed via the date picker.'
+            },
+            {
+                name: 'exportClick',
+                type: 'EventEmitter<{ format: string; data: any }>',
+                description: 'Emits when an export action is triggered. Includes the format (pdf, excel, csv) and current report data.'
+            },
+            {
+                name: 'refreshClick',
+                type: 'EventEmitter<void>',
+                description: 'Emits when the refresh button is clicked.'
+            },
+            {
+                name: 'fullscreenChange',
+                type: 'EventEmitter<boolean>',
+                description: 'Emits when fullscreen mode is toggled. True when entering fullscreen, false when exiting.'
+            }
+        ],
+        methods: [
+            {
+                name: 'refresh()',
+                returns: 'void',
+                description: 'Manually triggers a refresh of all report data from the data source.'
+            },
+            {
+                name: 'refreshWidget(widgetId: string)',
+                returns: 'void',
+                description: 'Refreshes a specific widget by its ID.'
+            },
+            {
+                name: 'export(format: string)',
+                returns: 'void',
+                description: 'Programmatically triggers an export in the specified format.'
+            },
+            {
+                name: 'toggleFullscreen()',
+                returns: 'void',
+                description: 'Toggles fullscreen mode for the report page.'
+            }
+        ],
+        usageNotes: [
+            'Import AmwReportPageComponent from angular-material-wrap',
+            'Implement ReportPageDataSource interface for custom data loading',
+            'Widgets support multiple types: metric, chart, table, kpi, and custom',
+            'Charts are rendered using Chart.js - configure via widget.config',
+            'Tables support sorting, pagination, and multiple column types',
+            'Use autoRefresh for real-time dashboards with live data',
+            'Export functionality supports PDF, Excel, and CSV formats',
+            'Fullscreen mode hides browser chrome for presentation/wall displays',
+            'Custom actions allow adding application-specific toolbar buttons'
+        ]
+    };
+
+    // Interface documentation
+    reportPageInterfaces: ApiInterface[] = [
+        {
+            name: 'ReportPageConfig',
+            description: 'Configuration interface for the report page component.',
+            properties: [
+                { name: 'title', type: 'string', description: 'Report page title' },
+                { name: 'subtitle', type: 'string', description: 'Report page subtitle/description' },
+                { name: 'showDateRange', type: 'boolean', description: 'Show date range picker' },
+                { name: 'showFilters', type: 'boolean', description: 'Show filter panel' },
+                { name: 'showExport', type: 'boolean', description: 'Show export button' },
+                { name: 'showPrint', type: 'boolean', description: 'Show print button' },
+                { name: 'showRefresh', type: 'boolean', description: 'Show refresh button' },
+                { name: 'showFullscreen', type: 'boolean', description: 'Show fullscreen toggle' },
+                { name: 'dateRange', type: 'DateRange', description: 'Initial date range configuration' },
+                { name: 'filters', type: 'ReportFilter[]', description: 'Filter field configurations' },
+                { name: 'widgets', type: 'ReportWidget[]', description: 'Widget configurations' },
+                { name: 'customActions', type: 'ReportAction[]', description: 'Custom toolbar actions' }
+            ]
+        },
+        {
+            name: 'ReportPageDataSource',
+            description: 'Interface for the report data source. Provides data for widgets and export functionality.',
+            properties: [
+                { name: 'getData(params)', type: 'Observable<ReportData>', description: 'Required. Fetches initial report data.' },
+                { name: 'getReportData(params)', type: 'Observable<ReportData>', description: 'Optional. Fetches report data with specific parameters.' },
+                { name: 'exportReport(format, params)', type: 'Observable<Blob>', description: 'Optional. Exports report in specified format.' },
+                { name: 'refreshWidget(widgetId, params)', type: 'Observable<any>', description: 'Optional. Refreshes a specific widget.' }
+            ]
+        },
+        {
+            name: 'ReportWidget',
+            description: 'Configuration for a report widget.',
+            properties: [
+                { name: 'id', type: 'string', description: 'Unique widget identifier' },
+                { name: 'title', type: 'string', description: 'Widget title' },
+                { name: 'type', type: "'metric' | 'chart' | 'table' | 'kpi' | 'custom'", description: 'Widget type' },
+                { name: 'size', type: "'small' | 'medium' | 'large' | 'full'", description: 'Widget size' },
+                { name: 'position', type: '{ row: number; col: number; colspan?: number }', description: 'Grid position' },
+                { name: 'data', type: 'any', description: 'Widget-specific data' },
+                { name: 'config', type: 'any', description: 'Widget-specific configuration (e.g., chart options)' },
+                { name: 'visible', type: 'boolean', description: 'Widget visibility' },
+                { name: 'refreshable', type: 'boolean', description: 'Allow individual refresh' }
+            ]
+        },
+        {
+            name: 'DateRange',
+            description: 'Date range configuration.',
+            properties: [
+                { name: 'start', type: 'Date', description: 'Start date' },
+                { name: 'end', type: 'Date', description: 'End date' },
+                { name: 'preset', type: 'string', description: 'Optional preset name (today, lastWeek, lastMonth, etc.)' }
+            ]
+        }
+    ];
 
     constructor(private notification: AmwNotificationService) { }
 

@@ -1,91 +1,95 @@
-<div class="demo-section">
-  <h3>Appearance Variations</h3>
-  <div class="variation-grid">
-    @for (variation of textareaVariations.appearances; track variation) {
-      <div class="variation-item">
-        <h4>{{ variation.label }}</h4>
-        <amw-textarea
-          [appearance]="variation.appearance"
-          [label]="variation.label + ' Textarea'"
-          placeholder="Enter your text here...">
-        </amw-textarea>
+<amw-demo-doc componentName="amw-textarea">
+  <ng-template #content>
+    <div class="demo-section">
+      <h3>Appearance Variations</h3>
+      <div class="variation-grid">
+        @for (variation of textareaVariations.appearances; track variation) {
+          <div class="variation-item">
+            <h4>{{ variation.label }}</h4>
+            <amw-textarea
+              [appearance]="variation.appearance"
+              [label]="variation.label + ' Textarea'"
+              placeholder="Enter your text here...">
+            </amw-textarea>
+          </div>
+        }
       </div>
-    }
-  </div>
 
-  <h3>Size Variations</h3>
-  <div class="variation-grid">
-    <div class="variation-item">
-      <h4>Small (2 rows)</h4>
-      <amw-textarea
-        [rows]="2"
-        [label]="'Small Textarea'"
-        placeholder="Enter your text here...">
-      </amw-textarea>
-    </div>
-    <div class="variation-item">
-      <h4>Medium (4 rows)</h4>
-      <amw-textarea
-        [rows]="4"
-        [label]="'Medium Textarea'"
-        placeholder="Enter your text here...">
-      </amw-textarea>
-    </div>
-    <div class="variation-item">
-      <h4>Large (6 rows)</h4>
-      <amw-textarea
-        [rows]="6"
-        [label]="'Large Textarea'"
-        placeholder="Enter your text here...">
-      </amw-textarea>
-    </div>
-  </div>
-
-  <h3>State Variations</h3>
-  <div class="variation-grid">
-    @for (variation of textareaVariations.states; track variation) {
-      <div class="variation-item">
-        <h4>{{ variation.label }}</h4>
-        <amw-textarea
-          [disabled]="variation.disabled"
-          [required]="variation.required"
-          [label]="variation.label + ' Textarea'"
-          placeholder="Enter your text here...">
-        </amw-textarea>
+      <h3>Size Variations</h3>
+      <div class="variation-grid">
+        <div class="variation-item">
+          <h4>Small (2 rows)</h4>
+          <amw-textarea
+            [rows]="2"
+            [label]="'Small Textarea'"
+            placeholder="Enter your text here...">
+          </amw-textarea>
+        </div>
+        <div class="variation-item">
+          <h4>Medium (4 rows)</h4>
+          <amw-textarea
+            [rows]="4"
+            [label]="'Medium Textarea'"
+            placeholder="Enter your text here...">
+          </amw-textarea>
+        </div>
+        <div class="variation-item">
+          <h4>Large (6 rows)</h4>
+          <amw-textarea
+            [rows]="6"
+            [label]="'Large Textarea'"
+            placeholder="Enter your text here...">
+          </amw-textarea>
+        </div>
       </div>
-    }
-  </div>
 
-  <h3>Auto-Resize Variations</h3>
-  <div class="variation-grid">
-    <div class="variation-item">
-      <h4>Auto-Resize (2-6 rows)</h4>
-      <amw-textarea
-        [autoResize]="true"
-        [minRows]="2"
-        [maxRows]="6"
-        label="Auto-Resize Textarea"
-        placeholder="Type here and watch it grow...">
-      </amw-textarea>
+      <h3>State Variations</h3>
+      <div class="variation-grid">
+        @for (variation of textareaVariations.states; track variation) {
+          <div class="variation-item">
+            <h4>{{ variation.label }}</h4>
+            <amw-textarea
+              [disabled]="variation.disabled"
+              [required]="variation.required"
+              [label]="variation.label + ' Textarea'"
+              placeholder="Enter your text here...">
+            </amw-textarea>
+          </div>
+        }
+      </div>
+
+      <h3>Auto-Resize Variations</h3>
+      <div class="variation-grid">
+        <div class="variation-item">
+          <h4>Auto-Resize (2-6 rows)</h4>
+          <amw-textarea
+            [autoResize]="true"
+            [minRows]="2"
+            [maxRows]="6"
+            label="Auto-Resize Textarea"
+            placeholder="Type here and watch it grow...">
+          </amw-textarea>
+        </div>
+        <div class="variation-item">
+          <h4>Auto-Resize (3-10 rows)</h4>
+          <amw-textarea
+            [autoResize]="true"
+            [minRows]="3"
+            [maxRows]="10"
+            label="Larger Auto-Resize"
+            placeholder="This can grow up to 10 rows...">
+          </amw-textarea>
+        </div>
+        <div class="variation-item">
+          <h4>Auto-Resize (No Max)</h4>
+          <amw-textarea
+            [autoResize]="true"
+            [minRows]="2"
+            label="Unlimited Growth"
+            placeholder="This can grow indefinitely...">
+          </amw-textarea>
+        </div>
+      </div>
     </div>
-    <div class="variation-item">
-      <h4>Auto-Resize (3-10 rows)</h4>
-      <amw-textarea
-        [autoResize]="true"
-        [minRows]="3"
-        [maxRows]="10"
-        label="Larger Auto-Resize"
-        placeholder="This can grow up to 10 rows...">
-      </amw-textarea>
-    </div>
-    <div class="variation-item">
-      <h4>Auto-Resize (No Max)</h4>
-      <amw-textarea
-        [autoResize]="true"
-        [minRows]="2"
-        label="Unlimited Growth"
-        placeholder="This can grow indefinitely...">
-      </amw-textarea>
-    </div>
-  </div>
-</div>
+  </ng-template>
+</amw-demo-doc>

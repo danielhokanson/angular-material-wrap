@@ -1,11 +1,10 @@
-<!-- Signal Forms binding (scenario 3) - Field directive manages value, disabled automatically -->
-@if (field()) {
+<!-- Signal Forms binding (scenario 3) - FormField directive manages value, disabled, name automatically -->
+@if (formField()) {
   <mat-button-toggle-group
       [class]="groupClasses()"
-      [field]="field()"
+      [formField]="formField()"
       [multiple]="multiple()"
       [vertical]="vertical()"
-      [name]="name() || ''"
       (change)="onToggleChange($event)"
       [attr.aria-label]="name() || 'Toggle group'">
       <ng-content></ng-content>

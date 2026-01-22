@@ -1,202 +1,68 @@
-<div class="code-section">
-  <h3>Code Examples</h3>
-  <p>Interactive examples with live previews. The code is editable for reference, and working examples are shown alongside.</p>
+<amw-code-doc
+  componentName="amw-button-toggle"
+  [examples]="examples"
+  [editableCode]="editableCode">
 
-  <amw-accordion class="code-examples-accordion">
-    <!-- Basic Button Toggle -->
-    <amw-accordion-panel amwDescription="Simple button toggle group with single selection">
-      <ng-template #header>
-        <amw-icon name="code"></amw-icon>
-        Basic Button Toggle
-      </ng-template>
-      <div class="example-container">
-        <div class="code-panel">
-          <div class="code-header">
-            <h4>Code</h4>
-            <amw-button icon="refresh" (click)="resetCode('basic')" title="Reset to original"></amw-button>
-          </div>
-          <textarea
-            [(ngModel)]="editableCode.basic"
-            class="code-editor"
-            spellcheck="false"></textarea>
-        </div>
-        <div class="preview-panel">
-          <h4>Preview</h4>
-          <div class="preview-content">
-            <amw-button-toggle-group [(value)]="selectedView">
-              <amw-button-toggle value="list">List</amw-button-toggle>
-              <amw-button-toggle value="grid">Grid</amw-button-toggle>
-              <amw-button-toggle value="table">Table</amw-button-toggle>
-            </amw-button-toggle-group>
-            <p>Selected: {{ selectedView }}</p>
-          </div>
-        </div>
-      </div>
-    </amw-accordion-panel>
-
-    <!-- Multiple Selection -->
-    <amw-accordion-panel amwDescription="Button toggle group allowing multiple selections">
-      <ng-template #header>
-        <amw-icon name="code"></amw-icon>
-        Multiple Selection
-      </ng-template>
-      <div class="example-container">
-        <div class="code-panel">
-          <div class="code-header">
-            <h4>Code</h4>
-            <amw-button icon="refresh" (click)="resetCode('multiple')" title="Reset to original"></amw-button>
-          </div>
-          <textarea
-            [(ngModel)]="editableCode.multiple"
-            class="code-editor"
-            spellcheck="false"></textarea>
-        </div>
-        <div class="preview-panel">
-          <h4>Preview</h4>
-          <div class="preview-content">
-            <amw-button-toggle-group [(value)]="selectedFormats" [multiple]="true">
-              <amw-button-toggle value="bold" icon="format_bold"></amw-button-toggle>
-              <amw-button-toggle value="italic" icon="format_italic"></amw-button-toggle>
-              <amw-button-toggle value="underline" icon="format_underlined"></amw-button-toggle>
-            </amw-button-toggle-group>
-            <p>Selected formats: {{ selectedFormats.length > 0 ? selectedFormats.join(', ') : 'none' }}</p>
-          </div>
-        </div>
-      </div>
-    </amw-accordion-panel>
-
-    <!-- Vertical Layout -->
-    <amw-accordion-panel amwDescription="Button toggle group with vertical orientation">
-      <ng-template #header>
-        <amw-icon name="code"></amw-icon>
-        Vertical Layout
-      </ng-template>
-      <div class="example-container">
-        <div class="code-panel">
-          <div class="code-header">
-            <h4>Code</h4>
-            <amw-button icon="refresh" (click)="resetCode('vertical')" title="Reset to original"></amw-button>
-          </div>
-          <textarea
-            [(ngModel)]="editableCode.vertical"
-            class="code-editor"
-            spellcheck="false"></textarea>
-        </div>
-        <div class="preview-panel">
-          <h4>Preview</h4>
-          <div class="preview-content">
-            <amw-button-toggle-group [(value)]="selectedOption" [vertical]="true">
-              <amw-button-toggle value="a">Option A</amw-button-toggle>
-              <amw-button-toggle value="b">Option B</amw-button-toggle>
-              <amw-button-toggle value="c">Option C</amw-button-toggle>
-            </amw-button-toggle-group>
-            <p>Selected: {{ selectedOption }}</p>
-          </div>
-        </div>
-      </div>
-    </amw-accordion-panel>
-
-    <!-- Icons -->
-    <amw-accordion-panel amwDescription="Button toggles with icons only or icons with text">
-      <ng-template #header>
-        <amw-icon name="code"></amw-icon>
-        Icons
-      </ng-template>
-      <div class="example-container">
-        <div class="code-panel">
-          <div class="code-header">
-            <h4>Code</h4>
-            <amw-button icon="refresh" (click)="resetCode('icons')" title="Reset to original"></amw-button>
-          </div>
-          <textarea
-            [(ngModel)]="editableCode.icons"
-            class="code-editor"
-            spellcheck="false"></textarea>
-        </div>
-        <div class="preview-panel">
-          <h4>Preview</h4>
-          <div class="preview-content">
-            <p>Icon only:</p>
-            <amw-button-toggle-group [(value)]="alignment">
-              <amw-button-toggle value="left" icon="format_align_left"></amw-button-toggle>
-              <amw-button-toggle value="center" icon="format_align_center"></amw-button-toggle>
-              <amw-button-toggle value="right" icon="format_align_right"></amw-button-toggle>
-            </amw-button-toggle-group>
-            <p style="margin-top: 16px;">Icon with text:</p>
-            <amw-button-toggle-group [(value)]="viewMode">
-              <amw-button-toggle value="list" icon="view_list">List View</amw-button-toggle>
-              <amw-button-toggle value="grid" icon="grid_view">Grid View</amw-button-toggle>
-            </amw-button-toggle-group>
-          </div>
-        </div>
-      </div>
-    </amw-accordion-panel>
-
-    <!-- Appearance -->
-    <amw-accordion-panel amwDescription="Different visual appearance styles">
-      <ng-template #header>
-        <amw-icon name="code"></amw-icon>
-        Appearance Styles
-      </ng-template>
-      <div class="example-container">
-        <div class="code-panel">
-          <div class="code-header">
-            <h4>Code</h4>
-            <amw-button icon="refresh" (click)="resetCode('appearance')" title="Reset to original"></amw-button>
-          </div>
-          <textarea
-            [(ngModel)]="editableCode.appearance"
-            class="code-editor"
-            spellcheck="false"></textarea>
-        </div>
-        <div class="preview-panel">
-          <h4>Preview</h4>
-          <div class="preview-content">
-            <p>Standard appearance (default):</p>
-            <amw-button-toggle-group appearance="standard" value="a">
-              <amw-button-toggle value="a">Option A</amw-button-toggle>
-              <amw-button-toggle value="b">Option B</amw-button-toggle>
-            </amw-button-toggle-group>
-            <p style="margin-top: 16px;">Legacy appearance:</p>
-            <amw-button-toggle-group appearance="legacy" value="a">
-              <amw-button-toggle value="a">Option A</amw-button-toggle>
-              <amw-button-toggle value="b">Option B</amw-button-toggle>
-            </amw-button-toggle-group>
-          </div>
-        </div>
-      </div>
-    </amw-accordion-panel>
-
-    <!-- Events -->
-    <amw-accordion-panel amwDescription="Handling value change events">
-      <ng-template #header>
-        <amw-icon name="code"></amw-icon>
-        Events
-      </ng-template>
-      <div class="example-container">
-        <div class="code-panel">
-          <div class="code-header">
-            <h4>Code</h4>
-            <amw-button icon="refresh" (click)="resetCode('events')" title="Reset to original"></amw-button>
-          </div>
-          <textarea
-            [(ngModel)]="editableCode.events"
-            class="code-editor"
-            spellcheck="false"></textarea>
-        </div>
-        <div class="preview-panel">
-          <h4>Preview</h4>
-          <div class="preview-content">
-            <amw-button-toggle-group
-              [(value)]="selectedOption"
-              (valueChange)="onValueChange($event)">
-              <amw-button-toggle value="option1">Option 1</amw-button-toggle>
-              <amw-button-toggle value="option2">Option 2</amw-button-toggle>
-            </amw-button-toggle-group>
-            <p>Last change event value: {{ lastChangeValue !== null ? lastChangeValue : '(no change yet)' }}</p>
-          </div>
-        </div>
-      </div>
-    </amw-accordion-panel>
-  </amw-accordion>
-</div>
+  <ng-template #preview let-example>
+    @switch (example.key) {
+      @case ('basic') {
+        <amw-button-toggle-group [(value)]="selectedView">
+          <amw-button-toggle value="list">List</amw-button-toggle>
+          <amw-button-toggle value="grid">Grid</amw-button-toggle>
+          <amw-button-toggle value="table">Table</amw-button-toggle>
+        </amw-button-toggle-group>
+        <p>Selected: {{ selectedView }}</p>
+      }
+      @case ('multiple') {
+        <amw-button-toggle-group [(value)]="selectedFormats" [multiple]="true">
+          <amw-button-toggle value="bold" icon="format_bold"></amw-button-toggle>
+          <amw-button-toggle value="italic" icon="format_italic"></amw-button-toggle>
+          <amw-button-toggle value="underline" icon="format_underlined"></amw-button-toggle>
+        </amw-button-toggle-group>
+        <p>Selected formats: {{ selectedFormats.length > 0 ? selectedFormats.join(', ') : 'none' }}</p>
+      }
+      @case ('vertical') {
+        <amw-button-toggle-group [(value)]="selectedOption" [vertical]="true">
+          <amw-button-toggle value="a">Option A</amw-button-toggle>
+          <amw-button-toggle value="b">Option B</amw-button-toggle>
+          <amw-button-toggle value="c">Option C</amw-button-toggle>
+        </amw-button-toggle-group>
+        <p>Selected: {{ selectedOption }}</p>
+      }
+      @case ('icons') {
+        <p>Icon only:</p>
+        <amw-button-toggle-group [(value)]="alignment">
+          <amw-button-toggle value="left" icon="format_align_left"></amw-button-toggle>
+          <amw-button-toggle value="center" icon="format_align_center"></amw-button-toggle>
+          <amw-button-toggle value="right" icon="format_align_right"></amw-button-toggle>
+        </amw-button-toggle-group>
+        <p style="margin-top: 16px;">Icon with text:</p>
+        <amw-button-toggle-group [(value)]="viewMode">
+          <amw-button-toggle value="list" icon="view_list">List View</amw-button-toggle>
+          <amw-button-toggle value="grid" icon="grid_view">Grid View</amw-button-toggle>
+        </amw-button-toggle-group>
+      }
+      @case ('appearance') {
+        <p>Standard appearance (default):</p>
+        <amw-button-toggle-group appearance="standard" value="a">
+          <amw-button-toggle value="a">Option A</amw-button-toggle>
+          <amw-button-toggle value="b">Option B</amw-button-toggle>
+        </amw-button-toggle-group>
+        <p style="margin-top: 16px;">Legacy appearance:</p>
+        <amw-button-toggle-group appearance="legacy" value="a">
+          <amw-button-toggle value="a">Option A</amw-button-toggle>
+          <amw-button-toggle value="b">Option B</amw-button-toggle>
+        </amw-button-toggle-group>
+      }
+      @case ('events') {
+        <amw-button-toggle-group
+          [(value)]="selectedOption"
+          (valueChange)="onValueChange($event)">
+          <amw-button-toggle value="option1">Option 1</amw-button-toggle>
+          <amw-button-toggle value="option2">Option 2</amw-button-toggle>
+        </amw-button-toggle-group>
+        <p>Last change event value: {{ lastChangeValue !== null ? lastChangeValue : '(no change yet)' }}</p>
+      }
+    }
+  </ng-template>
+</amw-code-doc>

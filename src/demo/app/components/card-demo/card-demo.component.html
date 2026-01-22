@@ -1,157 +1,161 @@
-<div class="card-demo">
-  <!-- Service Controls Section -->
-  <div class="card-demo__service-section">
-    <amw-card>
-      <ng-template #cardHeader>
-        <h2>Card Service Demo</h2>
-        <p class="subtitle">Manage cards using the CardService with filtering, sorting, and CRUD operations</p>
-      </ng-template>
-
-      <ng-template #cardContent>
-        <!-- Search and Filters -->
-        <div class="card-demo__controls">
-          <amw-input
-            label="Search Cards"
-            [(ngModel)]="searchTerm"
-            (input)="onSearch()"
-            placeholder="Search by title, subtitle, or content"
-            class="card-demo__search">
-          </amw-input>
-
-          <amw-select
-            label="Variant"
-            [(ngModel)]="selectedVariant"
-            (selectionChange)="onFilterChange()"
-            [options]="variantOptions"
-            class="card-demo__filter">
-          </amw-select>
-
-          <amw-select
-            label="Size"
-            [(ngModel)]="selectedSize"
-            (selectionChange)="onFilterChange()"
-            [options]="sizeOptions"
-            class="card-demo__filter">
-          </amw-select>
-        </div>
-
-        <!-- Filter Checkboxes -->
-        <div class="card-demo__checkboxes">
-          <amw-checkbox [(ngModel)]="showClickableOnly" (change)="onFilterChange()">
-            Clickable Only
-          </amw-checkbox>
-          <amw-checkbox [(ngModel)]="showWithImagesOnly" (change)="onFilterChange()">
-            With Images Only
-          </amw-checkbox>
-          <amw-checkbox [(ngModel)]="showWithActionsOnly" (change)="onFilterChange()">
-            With Actions Only
-          </amw-checkbox>
-        </div>
-
-        <!-- Sort Controls -->
-        <div class="card-demo__sort">
-          <amw-select
-            label="Sort By"
-            [(ngModel)]="sortField"
-            (selectionChange)="onSortChange()"
-            [options]="sortFieldOptions"
-            class="card-demo__sort-field">
-          </amw-select>
-
-          <amw-select
-            label="Direction"
-            [(ngModel)]="sortDirection"
-            (selectionChange)="onSortChange()"
-            [options]="sortDirectionOptions"
-            class="card-demo__sort-field">
-          </amw-select>
-        </div>
-
-        <!-- Action Buttons -->
-        <div class="card-demo__actions">
-          <amw-button appearance="elevated" color="primary" (click)="addSampleCard()" icon="add" iconPosition="left">Add Sample Card</amw-button>
-          <amw-button appearance="text" (click)="clearFilters()" icon="clear" iconPosition="left">Clear Filters</amw-button>
-          <amw-button appearance="text" (click)="getCardStatistics()" icon="analytics" iconPosition="left">Statistics</amw-button>
-          <amw-button appearance="text" (click)="exportCards()" icon="download" iconPosition="left">Export</amw-button>
-        </div>
-      </ng-template>
-    </amw-card>
-  </div>
-
-  <!-- Service Cards Display -->
-  @if (filteredCards.length > 0) {
-    <div class="card-demo__service-cards">
-      <h3>Service-Managed Cards ({{ filteredCards.length }})</h3>
-      <div class="card-demo__service-grid">
-        @for (card of filteredCards; track card) {
-          <amw-card
-            [headerTitle]="card.title"
-            [headerSubtitle]="card.subtitle || ''"
-            [image]="card.image || ''"
-            [imageAlt]="card.imageAlt || ''"
-            [content]="card.content"
-            [actions]="card.actions || []"
-            [clickable]="card.clickable || false"
-            [disabled]="card.disabled || false"
-            [loading]="card.loading || false"
-            [variant]="card.variant || 'elevated'"
-            [size]="card.size || 'medium'"
-            [elevation]="card.elevation || 1"
-            [config]="card.config || {}"
-            (cardClick)="onCardClick()"
-            (actionClick)="onActionClick($event)"
-            (headerClick)="onHeaderClick()"
-            (imageClick)="onImageClick()"
-            class="card-demo__service-card"
-            >
-            <ng-template #cardActions>
-              <amw-button icon="content_copy" (click)="duplicateCard(card)" amwTooltip="Duplicate"></amw-button>
-              <amw-button icon="{{ card.loading ? 'pause' : 'play_arrow' }}" (click)="toggleCardLoading(card)" amwTooltip="Toggle Loading"></amw-button>
-              <amw-button icon="{{ card.disabled ? 'check_circle' : 'cancel' }}" (click)="toggleCardDisabled(card)" amwTooltip="Toggle Disabled"></amw-button>
-              <amw-button icon="delete" (click)="deleteCard(card)" amwTooltip="Delete" color="warn"></amw-button>
-            </ng-template>
-          </amw-card>
-        }
-      </div>
-    </div>
-  }
-
-  <!-- Static Card Variations -->
-  <div class="card-demo__variations">
-    <h3>Static Card Variations</h3>
-    <div class="card-demo__grid">
-      @for (variation of cardVariations; track variation) {
-        <amw-card class="card-demo__card">
+<amw-demo-doc componentName="amw-card">
+  <ng-template #content>
+    <div class="card-demo">
+      <!-- Service Controls Section -->
+      <div class="card-demo__service-section">
+        <amw-card>
           <ng-template #cardHeader>
-            <h2>{{ variation.title }}</h2>
-            <p class="subtitle">{{ variation.description }}</p>
+            <h2>Card Service Demo</h2>
+            <p class="subtitle">Manage cards using the CardService with filtering, sorting, and CRUD operations</p>
           </ng-template>
+
           <ng-template #cardContent>
-            <div class="card-demo__example">
+            <!-- Search and Filters -->
+            <div class="card-demo__controls">
+              <amw-input
+                label="Search Cards"
+                [(ngModel)]="searchTerm"
+                (input)="onSearch()"
+                placeholder="Search by title, subtitle, or content"
+                class="card-demo__search">
+              </amw-input>
+
+              <amw-select
+                label="Variant"
+                [(ngModel)]="selectedVariant"
+                (selectionChange)="onFilterChange()"
+                [options]="variantOptions"
+                class="card-demo__filter">
+              </amw-select>
+
+              <amw-select
+                label="Size"
+                [(ngModel)]="selectedSize"
+                (selectionChange)="onFilterChange()"
+                [options]="sizeOptions"
+                class="card-demo__filter">
+              </amw-select>
+            </div>
+
+            <!-- Filter Checkboxes -->
+            <div class="card-demo__checkboxes">
+              <amw-checkbox [(ngModel)]="showClickableOnly" (change)="onFilterChange()">
+                Clickable Only
+              </amw-checkbox>
+              <amw-checkbox [(ngModel)]="showWithImagesOnly" (change)="onFilterChange()">
+                With Images Only
+              </amw-checkbox>
+              <amw-checkbox [(ngModel)]="showWithActionsOnly" (change)="onFilterChange()">
+                With Actions Only
+              </amw-checkbox>
+            </div>
+
+            <!-- Sort Controls -->
+            <div class="card-demo__sort">
+              <amw-select
+                label="Sort By"
+                [(ngModel)]="sortField"
+                (selectionChange)="onSortChange()"
+                [options]="sortFieldOptions"
+                class="card-demo__sort-field">
+              </amw-select>
+
+              <amw-select
+                label="Direction"
+                [(ngModel)]="sortDirection"
+                (selectionChange)="onSortChange()"
+                [options]="sortDirectionOptions"
+                class="card-demo__sort-field">
+              </amw-select>
+            </div>
+
+            <!-- Action Buttons -->
+            <div class="card-demo__actions">
+              <amw-button appearance="elevated" color="primary" (click)="addSampleCard()" icon="add" iconPosition="left">Add Sample Card</amw-button>
+              <amw-button appearance="text" (click)="clearFilters()" icon="clear" iconPosition="left">Clear Filters</amw-button>
+              <amw-button appearance="text" (click)="getCardStatistics()" icon="analytics" iconPosition="left">Statistics</amw-button>
+              <amw-button appearance="text" (click)="exportCards()" icon="download" iconPosition="left">Export</amw-button>
+            </div>
+          </ng-template>
+        </amw-card>
+      </div>
+
+      <!-- Service Cards Display -->
+      @if (filteredCards.length > 0) {
+        <div class="card-demo__service-cards">
+          <h3>Service-Managed Cards ({{ filteredCards.length }})</h3>
+          <div class="card-demo__service-grid">
+            @for (card of filteredCards; track card) {
               <amw-card
-                [headerTitle]="variation.card.headerTitle"
-                [headerSubtitle]="variation.card.headerSubtitle"
-                [headerIcon]="variation.card.headerIcon || ''"
-                [image]="variation.card.image || ''"
-                [imageAlt]="variation.card.imageAlt || ''"
-                [content]="variation.card.content"
-                [actions]="variation.card.actions || []"
-                [clickable]="variation.card.clickable || false"
-                [disabled]="variation.card.disabled || false"
-                [loading]="variation.card.loading || false"
-                [variant]="variation.card.variant || 'elevated'"
-                [size]="variation.card.size || 'medium'"
-                [elevation]="variation.card.elevation || 1"
-                [config]="variation.card.config || {}"
+                [headerTitle]="card.title"
+                [headerSubtitle]="card.subtitle || ''"
+                [image]="card.image || ''"
+                [imageAlt]="card.imageAlt || ''"
+                [content]="card.content"
+                [actions]="card.actions || []"
+                [clickable]="card.clickable || false"
+                [disabled]="card.disabled || false"
+                [loading]="card.loading || false"
+                [variant]="card.variant || 'elevated'"
+                [size]="card.size || 'medium'"
+                [elevation]="card.elevation || 1"
+                [config]="card.config || {}"
                 (cardClick)="onCardClick()"
                 (actionClick)="onActionClick($event)"
                 (headerClick)="onHeaderClick()"
                 (imageClick)="onImageClick()"
-              ></amw-card>
-            </div>
-          </ng-template>
-        </amw-card>
+                class="card-demo__service-card"
+                >
+                <ng-template #cardActions>
+                  <amw-button icon="content_copy" (click)="duplicateCard(card)" amwTooltip="Duplicate"></amw-button>
+                  <amw-button icon="{{ card.loading ? 'pause' : 'play_arrow' }}" (click)="toggleCardLoading(card)" amwTooltip="Toggle Loading"></amw-button>
+                  <amw-button icon="{{ card.disabled ? 'check_circle' : 'cancel' }}" (click)="toggleCardDisabled(card)" amwTooltip="Toggle Disabled"></amw-button>
+                  <amw-button icon="delete" (click)="deleteCard(card)" amwTooltip="Delete" color="warn"></amw-button>
+                </ng-template>
+              </amw-card>
+            }
+          </div>
+        </div>
       }
+
+      <!-- Static Card Variations -->
+      <div class="card-demo__variations">
+        <h3>Static Card Variations</h3>
+        <div class="card-demo__grid">
+          @for (variation of cardVariations; track variation) {
+            <amw-card class="card-demo__card">
+              <ng-template #cardHeader>
+                <h2>{{ variation.title }}</h2>
+                <p class="subtitle">{{ variation.description }}</p>
+              </ng-template>
+              <ng-template #cardContent>
+                <div class="card-demo__example">
+                  <amw-card
+                    [headerTitle]="variation.card.headerTitle"
+                    [headerSubtitle]="variation.card.headerSubtitle"
+                    [headerIcon]="variation.card.headerIcon || ''"
+                    [image]="variation.card.image || ''"
+                    [imageAlt]="variation.card.imageAlt || ''"
+                    [content]="variation.card.content"
+                    [actions]="variation.card.actions || []"
+                    [clickable]="variation.card.clickable || false"
+                    [disabled]="variation.card.disabled || false"
+                    [loading]="variation.card.loading || false"
+                    [variant]="variation.card.variant || 'elevated'"
+                    [size]="variation.card.size || 'medium'"
+                    [elevation]="variation.card.elevation || 1"
+                    [config]="variation.card.config || {}"
+                    (cardClick)="onCardClick()"
+                    (actionClick)="onActionClick($event)"
+                    (headerClick)="onHeaderClick()"
+                    (imageClick)="onImageClick()"
+                  ></amw-card>
+                </div>
+              </ng-template>
+            </amw-card>
+          }
+        </div>
+      </div>
     </div>
-  </div>
-</div>
+  </ng-template>
+</amw-demo-doc>

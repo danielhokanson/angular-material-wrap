@@ -13,6 +13,7 @@ import { AmwRadioGroupComponent } from '../../../../library/src/controls/compone
 import { AmwSwitchComponent } from '../../../../library/src/controls/components/amw-switch/amw-switch.component';
 import { AmwSliderComponent } from '../../../../library/src/controls/components/amw-slider/amw-slider.component';
 import { AmwCardComponent, AmwIconComponent } from '../../../../library/src/components/components';
+import { AmwDemoDocComponent } from '../../shared/components/demo-doc/demo-doc.component';
 
 @Component({
     selector: 'amw-demo-theme',
@@ -28,7 +29,8 @@ import { AmwCardComponent, AmwIconComponent } from '../../../../library/src/comp
     AmwSwitchComponent,
     AmwSliderComponent,
     AmwCardComponent,
-    AmwIconComponent],
+    AmwIconComponent,
+    AmwDemoDocComponent],
     templateUrl: './theme-demo.component.html',
     styleUrl: './theme-demo.component.scss',
     encapsulation: ViewEncapsulation.None

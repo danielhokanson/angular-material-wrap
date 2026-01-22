@@ -1,179 +1,183 @@
-<div class="radio-group-demo">
-  <h1>Radio Group Component Demo</h1>
-  <p>Demonstrates the AMW Radio Group component with various configurations and use cases.</p>
+<amw-demo-doc componentName="amw-radio-group">
+  <ng-template #content>
+    <div class="radio-group-demo">
+      <h1>Radio Group Component Demo</h1>
+      <p>Demonstrates the AMW Radio Group component with various configurations and use cases.</p>
 
-  <!-- Basic Usage -->
-  <amw-card class="demo-card">
-    <ng-template #cardHeader>
-      <h2>Basic Usage</h2>
-      <p class="subtitle">Simple radio group with basic options</p>
-    </ng-template>
-    <ng-template #cardContent>
-      <amw-radio-group
-        [options]="basicOptions"
-        [label]="label"
-        [hint]="hint"
-        [size]="size"
-        [orientation]="orientation"
-        [color]="color"
-        [disabled]="disabled"
-        [required]="required"
-        [(selectedValue)]="selectedValue"
-        (valueChange)="onValueChange($event, 'Basic')"
-        (selectionChange)="onSelectionChange($event, 'Basic')">
-      </amw-radio-group>
+      <!-- Basic Usage -->
+      <amw-card class="demo-card">
+        <ng-template #cardHeader>
+          <h2>Basic Usage</h2>
+          <p class="subtitle">Simple radio group with basic options</p>
+        </ng-template>
+        <ng-template #cardContent>
+          <amw-radio-group
+            [options]="basicOptions"
+            [label]="label"
+            [hint]="hint"
+            [size]="size"
+            [orientation]="orientation"
+            [color]="color"
+            [disabled]="disabled"
+            [required]="required"
+            [(selectedValue)]="selectedValue"
+            (valueChange)="onValueChange($event, 'Basic')"
+            (selectionChange)="onSelectionChange($event, 'Basic')">
+          </amw-radio-group>
 
-      <div class="demo-result">
-        <strong>Selected Value:</strong> {{ selectedValue || 'None' }}
-      </div>
-      </ng-template>
-</amw-card>
-
-  <!-- With Icons -->
-  <amw-card class="demo-card">
-    <ng-template #cardHeader>
-      <h2>With Icons</h2>
-      <p class="subtitle">Radio group with icon options</p>
-    </ng-template>
-    <ng-template #cardContent>
-      <amw-radio-group
-        [options]="iconOptions"
-        label="Location Type"
-        hint="Choose your primary location type"
-        [size]="size"
-        [orientation]="orientation"
-        [color]="color"
-        [disabled]="disabled"
-        [required]="required"
-        [(selectedValue)]="selectedValue2"
-        (valueChange)="onValueChange($event, 'Icons')"
-        (selectionChange)="onSelectionChange($event, 'Icons')">
-      </amw-radio-group>
-
-      <div class="demo-result">
-        <strong>Selected Value:</strong> {{ selectedValue2 || 'None' }}
-      </div>
-      </ng-template>
-</amw-card>
-
-  <!-- With Descriptions -->
-  <amw-card class="demo-card">
-    <ng-template #cardHeader>
-      <h2>With Descriptions</h2>
-      <p class="subtitle">Radio group with detailed option descriptions</p>
-    </ng-template>
-    <ng-template #cardContent>
-      <amw-radio-group
-        [options]="descriptionOptions"
-        label="Subscription Plan"
-        hint="Select the plan that best fits your needs"
-        [size]="size"
-        [orientation]="orientation"
-        [color]="color"
-        [disabled]="disabled"
-        [required]="required"
-        [(selectedValue)]="selectedValue3"
-        (valueChange)="onValueChange($event, 'Descriptions')"
-        (selectionChange)="onSelectionChange($event, 'Descriptions')">
-      </amw-radio-group>
-
-      <div class="demo-result">
-        <strong>Selected Value:</strong> {{ selectedValue3 || 'None' }}
-      </div>
-      </ng-template>
-</amw-card>
-
-  <!-- Reactive Forms -->
-  <amw-card class="demo-card">
-    <ng-template #cardHeader>
-      <h2>Reactive Forms</h2>
-      <p class="subtitle">Radio group integrated with Angular reactive forms</p>
-    </ng-template>
-    <ng-template #cardContent>
-      <form [formGroup]="reactiveForm" (ngSubmit)="onSubmit()">
-        <amw-radio-group
-          [options]="colorOptions"
-          label="Favorite Color"
-          hint="Choose your favorite color"
-          [size]="size"
-          [orientation]="orientation"
-          [color]="color"
-          [disabled]="disabled"
-          [required]="required"
-          formControlName="selectedOption">
-        </amw-radio-group>
-
-        <div class="demo-result">
-          <strong>Form Value:</strong> {{ reactiveForm.value | json }}
-          <br>
-            <strong>Form Valid:</strong> {{ reactiveForm.valid }}
+          <div class="demo-result">
+            <strong>Selected Value:</strong> {{ selectedValue || 'None' }}
           </div>
-        </form>
-      </ng-template>
-</amw-card>
-
-    <!-- Configuration Controls -->
-    <amw-card class="demo-card">
-      <ng-template #cardHeader>
-        <h2>Configuration Controls</h2>
-        <p class="subtitle">Adjust component properties in real-time</p>
-      </ng-template>
-      <ng-template #cardContent>
-        <div class="config-controls">
-          <div class="config-row">
-            <amw-select
-              label="Size"
-              [(ngModel)]="size"
-              [options]="sizeOptions">
-            </amw-select>
-
-            <amw-select
-              label="Orientation"
-              [(ngModel)]="orientation"
-              [options]="orientationOptions">
-            </amw-select>
-
-            <amw-select
-              label="Color"
-              [(ngModel)]="color"
-              [options]="colorOptionsForDemo">
-            </amw-select>
-          </div>
-
-          <div class="config-row">
-            <amw-input
-              label="Label"
-              [(ngModel)]="label">
-            </amw-input>
-
-            <amw-input
-              label="Hint"
-              [(ngModel)]="hint">
-            </amw-input>
-          </div>
-
-          <div class="config-row">
-            <amw-switch [(ngModel)]="disabled">Disabled</amw-switch>
-            <amw-switch [(ngModel)]="required">Required</amw-switch>
-          </div>
-        </div>
-
-        <amw-divider></amw-divider>
-
-        <div class="config-actions">
-          <amw-button appearance="elevated" color="primary" (click)="resetValues()" icon="refresh" iconPosition="left">Reset Values</amw-button>
-        </div>
-      </ng-template>
-</amw-card>
-
-    <!-- Configuration Display -->
-    <amw-card class="demo-card">
-      <ng-template #cardHeader>
-        <h2>Current Configuration</h2>
-        <p class="subtitle">JSON representation of current component config</p>
-      </ng-template>
-      <ng-template #cardContent>
-        <pre class="config-display">{{ currentConfig | json }}</pre>
-      </ng-template>
+          </ng-template>
     </amw-card>
-  </div>
+
+      <!-- With Icons -->
+      <amw-card class="demo-card">
+        <ng-template #cardHeader>
+          <h2>With Icons</h2>
+          <p class="subtitle">Radio group with icon options</p>
+        </ng-template>
+        <ng-template #cardContent>
+          <amw-radio-group
+            [options]="iconOptions"
+            label="Location Type"
+            hint="Choose your primary location type"
+            [size]="size"
+            [orientation]="orientation"
+            [color]="color"
+            [disabled]="disabled"
+            [required]="required"
+            [(selectedValue)]="selectedValue2"
+            (valueChange)="onValueChange($event, 'Icons')"
+            (selectionChange)="onSelectionChange($event, 'Icons')">
+          </amw-radio-group>
+
+          <div class="demo-result">
+            <strong>Selected Value:</strong> {{ selectedValue2 || 'None' }}
+          </div>
+          </ng-template>
+    </amw-card>
+
+      <!-- With Descriptions -->
+      <amw-card class="demo-card">
+        <ng-template #cardHeader>
+          <h2>With Descriptions</h2>
+          <p class="subtitle">Radio group with detailed option descriptions</p>
+        </ng-template>
+        <ng-template #cardContent>
+          <amw-radio-group
+            [options]="descriptionOptions"
+            label="Subscription Plan"
+            hint="Select the plan that best fits your needs"
+            [size]="size"
+            [orientation]="orientation"
+            [color]="color"
+            [disabled]="disabled"
+            [required]="required"
+            [(selectedValue)]="selectedValue3"
+            (valueChange)="onValueChange($event, 'Descriptions')"
+            (selectionChange)="onSelectionChange($event, 'Descriptions')">
+          </amw-radio-group>
+
+          <div class="demo-result">
+            <strong>Selected Value:</strong> {{ selectedValue3 || 'None' }}
+          </div>
+          </ng-template>
+    </amw-card>
+
+      <!-- Reactive Forms -->
+      <amw-card class="demo-card">
+        <ng-template #cardHeader>
+          <h2>Reactive Forms</h2>
+          <p class="subtitle">Radio group integrated with Angular reactive forms</p>
+        </ng-template>
+        <ng-template #cardContent>
+          <form [formGroup]="reactiveForm" (ngSubmit)="onSubmit()">
+            <amw-radio-group
+              [options]="colorOptions"
+              label="Favorite Color"
+              hint="Choose your favorite color"
+              [size]="size"
+              [orientation]="orientation"
+              [color]="color"
+              [disabled]="disabled"
+              [required]="required"
+              formControlName="selectedOption">
+            </amw-radio-group>
+
+            <div class="demo-result">
+              <strong>Form Value:</strong> {{ reactiveForm.value | json }}
+              <br>
+                <strong>Form Valid:</strong> {{ reactiveForm.valid }}
+              </div>
+            </form>
+          </ng-template>
+    </amw-card>
+
+        <!-- Configuration Controls -->
+        <amw-card class="demo-card">
+          <ng-template #cardHeader>
+            <h2>Configuration Controls</h2>
+            <p class="subtitle">Adjust component properties in real-time</p>
+          </ng-template>
+          <ng-template #cardContent>
+            <div class="config-controls">
+              <div class="config-row">
+                <amw-select
+                  label="Size"
+                  [(ngModel)]="size"
+                  [options]="sizeOptions">
+                </amw-select>
+
+                <amw-select
+                  label="Orientation"
+                  [(ngModel)]="orientation"
+                  [options]="orientationOptions">
+                </amw-select>
+
+                <amw-select
+                  label="Color"
+                  [(ngModel)]="color"
+                  [options]="colorOptionsForDemo">
+                </amw-select>
+              </div>
+
+              <div class="config-row">
+                <amw-input
+                  label="Label"
+                  [(ngModel)]="label">
+                </amw-input>
+
+                <amw-input
+                  label="Hint"
+                  [(ngModel)]="hint">
+                </amw-input>
+              </div>
+
+              <div class="config-row">
+                <amw-switch [(ngModel)]="disabled">Disabled</amw-switch>
+                <amw-switch [(ngModel)]="required">Required</amw-switch>
+              </div>
+            </div>
+
+            <amw-divider></amw-divider>
+
+            <div class="config-actions">
+              <amw-button appearance="elevated" color="primary" (click)="resetValues()" icon="refresh" iconPosition="left">Reset Values</amw-button>
+            </div>
+          </ng-template>
+    </amw-card>
+
+        <!-- Configuration Display -->
+        <amw-card class="demo-card">
+          <ng-template #cardHeader>
+            <h2>Current Configuration</h2>
+            <p class="subtitle">JSON representation of current component config</p>
+          </ng-template>
+          <ng-template #cardContent>
+            <pre class="config-display">{{ currentConfig | json }}</pre>
+          </ng-template>
+        </amw-card>
+      </div>
+  </ng-template>
+</amw-demo-doc>

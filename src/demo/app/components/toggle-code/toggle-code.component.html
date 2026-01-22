@@ -1,218 +1,49 @@
-<div class="code-section">
-  <h3>Code Examples</h3>
-  <p>Interactive examples with live previews. The code is editable for reference, and working examples are shown alongside.</p>
+<amw-code-doc
+  componentName="amw-switch"
+  [examples]="examples"
+  [editableCode]="editableCode">
 
-  <amw-accordion class="code-examples-accordion">
-    <!-- Basic Toggle -->
-    <amw-accordion-panel amwDescription="Simple toggle with basic functionality">
-      <ng-template #header>
-        <amw-icon name="code"></amw-icon>
-        Basic Toggle
-      </ng-template>
-      <div class="example-container">
-        <div class="code-panel">
-          <div class="code-header">
-            <h4>Code</h4>
-            <amw-button icon="refresh" (click)="resetCode('basic')" title="Reset to original"></amw-button>
-          </div>
-          <textarea
-            [(ngModel)]="editableCode.basic"
-            class="code-editor"
-            spellcheck="false"></textarea>
+  <ng-template #preview let-example>
+    @switch (example.key) {
+      @case ('basic') {
+        <amw-switch>Enable notifications</amw-switch>
+      }
+      @case ('colors') {
+        <amw-switch color="primary">Primary toggle</amw-switch>
+        <amw-switch color="accent">Accent toggle</amw-switch>
+        <amw-switch color="warn">Warn toggle</amw-switch>
+      }
+      @case ('disabled') {
+        <amw-switch [checked]="true">Checked toggle</amw-switch>
+        <amw-switch [checked]="false">Unchecked toggle</amw-switch>
+        <amw-switch [checked]="true" [disabled]="true">Disabled toggle</amw-switch>
+      }
+      @case ('labelPosition') {
+        <amw-switch labelPosition="after">Label after toggle</amw-switch>
+        <amw-switch labelPosition="before">Label before toggle</amw-switch>
+      }
+      @case ('ngModel') {
+        <amw-switch [(checked)]="isChecked">
+          Toggle is {{ isChecked ? 'ON' : 'OFF' }}
+        </amw-switch>
+      }
+      @case ('events') {
+        <amw-switch
+          [(checked)]="isChecked"
+          (switchChange)="isChecked = $event">
+          Enable feature
+        </amw-switch>
+        <p>Toggle state: {{ isChecked ? 'Enabled' : 'Disabled' }}</p>
+      }
+      @case ('formField') {
+        <div class="settings-panel">
+          <h3>User Preferences</h3>
+          <amw-switch color="primary">Email notifications</amw-switch>
+          <amw-switch color="primary">Push notifications</amw-switch>
+          <amw-switch color="accent">Dark mode</amw-switch>
+          <amw-switch color="warn">Delete account</amw-switch>
         </div>
-        <div class="preview-panel">
-          <h4>Preview</h4>
-          <div class="preview-content">
-            <amw-switch>Enable notifications</amw-switch>
-          </div>
-        </div>
-      </div>
-    </amw-accordion-panel>
-
-    <!-- Toggle Colors -->
-    <amw-accordion-panel amwDescription="Different color themes for toggles">
-      <ng-template #header>
-        <amw-icon name="code"></amw-icon>
-        Toggle Colors
-      </ng-template>
-      <div class="example-container">
-        <div class="code-panel">
-          <div class="code-header">
-            <h4>Code</h4>
-            <amw-button icon="refresh" (click)="resetCode('colors')" title="Reset to original"></amw-button>
-          </div>
-          <textarea
-            [(ngModel)]="editableCode.colors"
-            class="code-editor"
-            spellcheck="false"></textarea>
-        </div>
-        <div class="preview-panel">
-          <h4>Preview</h4>
-          <div class="preview-content">
-            <amw-switch color="primary">Primary toggle</amw-switch>
-            <amw-switch color="accent">Accent toggle</amw-switch>
-            <amw-switch color="warn">Warn toggle</amw-switch>
-          </div>
-        </div>
-      </div>
-    </amw-accordion-panel>
-
-    <!-- Disabled State -->
-    <amw-accordion-panel amwDescription="Toggles in different states including disabled">
-      <ng-template #header>
-        <amw-icon name="code"></amw-icon>
-        Disabled State
-      </ng-template>
-      <div class="example-container">
-        <div class="code-panel">
-          <div class="code-header">
-            <h4>Code</h4>
-            <amw-button icon="refresh" (click)="resetCode('disabled')" title="Reset to original"></amw-button>
-          </div>
-          <textarea
-            [(ngModel)]="editableCode.disabled"
-            class="code-editor"
-            spellcheck="false"></textarea>
-        </div>
-        <div class="preview-panel">
-          <h4>Preview</h4>
-          <div class="preview-content">
-            <amw-switch [checked]="true">Checked toggle</amw-switch>
-            <amw-switch [checked]="false">Unchecked toggle</amw-switch>
-            <amw-switch [checked]="true" [disabled]="true">Disabled toggle</amw-switch>
-          </div>
-        </div>
-      </div>
-    </amw-accordion-panel>
-
-    <!-- Label Position -->
-    <amw-accordion-panel amwDescription="Positioning label before or after the toggle">
-      <ng-template #header>
-        <amw-icon name="code"></amw-icon>
-        Label Position
-      </ng-template>
-      <div class="example-container">
-        <div class="code-panel">
-          <div class="code-header">
-            <h4>Code</h4>
-            <amw-button icon="refresh" (click)="resetCode('labelPosition')" title="Reset to original"></amw-button>
-          </div>
-          <textarea
-            [(ngModel)]="editableCode.labelPosition"
-            class="code-editor"
-            spellcheck="false"></textarea>
-        </div>
-        <div class="preview-panel">
-          <h4>Preview</h4>
-          <div class="preview-content">
-            <amw-switch labelPosition="after">Label after toggle</amw-switch>
-            <amw-switch labelPosition="before">Label before toggle</amw-switch>
-          </div>
-        </div>
-      </div>
-    </amw-accordion-panel>
-
-    <!-- NgModel Binding -->
-    <amw-accordion-panel amwDescription="Two-way data binding with ngModel">
-      <ng-template #header>
-        <amw-icon name="code"></amw-icon>
-        NgModel Binding
-      </ng-template>
-      <div class="example-container">
-        <div class="code-panel">
-          <div class="code-header">
-            <h4>Code</h4>
-            <amw-button icon="refresh" (click)="resetCode('ngModel')" title="Reset to original"></amw-button>
-          </div>
-          <textarea
-            [(ngModel)]="editableCode.ngModel"
-            class="code-editor"
-            spellcheck="false"></textarea>
-        </div>
-        <div class="preview-panel">
-          <h4>Preview</h4>
-          <div class="preview-content">
-            <amw-switch [(checked)]="isChecked">
-              Toggle is {{ isChecked ? 'ON' : 'OFF' }}
-            </amw-switch>
-          </div>
-        </div>
-      </div>
-    </amw-accordion-panel>
-
-    <!-- Events -->
-    <amw-accordion-panel amwDescription="Handling toggle change events">
-      <ng-template #header>
-        <amw-icon name="code"></amw-icon>
-        Events
-      </ng-template>
-      <div class="example-container">
-        <div class="code-panel">
-          <div class="code-header">
-            <h4>Code</h4>
-            <amw-button icon="refresh" (click)="resetCode('events')" title="Reset to original"></amw-button>
-          </div>
-          <textarea
-            [(ngModel)]="editableCode.events"
-            class="code-editor"
-            spellcheck="false"></textarea>
-        </div>
-        <div class="preview-panel">
-          <h4>Preview</h4>
-          <div class="preview-content">
-            <amw-switch
-              [(checked)]="isChecked"
-              (switchChange)="isChecked = $event">
-              Enable feature
-            </amw-switch>
-            <p>Toggle state: {{ isChecked ? 'Enabled' : 'Disabled' }}</p>
-          </div>
-        </div>
-      </div>
-    </amw-accordion-panel>
-
-    <!-- Form Field -->
-    <amw-accordion-panel amwDescription="Toggle groups in a settings panel">
-      <ng-template #header>
-        <amw-icon name="code"></amw-icon>
-        Form Field Example
-      </ng-template>
-      <div class="example-container">
-        <div class="code-panel">
-          <div class="code-header">
-            <h4>Code</h4>
-            <amw-button icon="refresh" (click)="resetCode('formField')" title="Reset to original"></amw-button>
-          </div>
-          <textarea
-            [(ngModel)]="editableCode.formField"
-            class="code-editor"
-            spellcheck="false"></textarea>
-        </div>
-        <div class="preview-panel">
-          <h4>Preview</h4>
-          <div class="preview-content">
-            <div class="settings-panel">
-              <h3>User Preferences</h3>
-
-              <amw-switch color="primary">
-                Email notifications
-              </amw-switch>
-
-              <amw-switch color="primary">
-                Push notifications
-              </amw-switch>
-
-              <amw-switch color="accent">
-                Dark mode
-              </amw-switch>
-
-              <amw-switch color="warn">
-                Delete account
-              </amw-switch>
-            </div>
-          </div>
-        </div>
-      </div>
-    </amw-accordion-panel>
-  </amw-accordion>
-</div>
+      }
+    }
+  </ng-template>
+</amw-code-doc>

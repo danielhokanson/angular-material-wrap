@@ -1,12 +1,9 @@
-import { Component, ViewEncapsulation } from '@angular/core';
+import { Component, ViewEncapsulation, OnInit } from '@angular/core';
 import { FormsModule, ReactiveFormsModule, FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { BaseCodeComponent } from '../base/base-code.component';
-
-type StepperExamples = 'basic' | 'linear' | 'editable' | 'optional' | 'vertical' | 'customIcons';
-
+import { AmwCodeDocComponent, CodeExample } from '../../shared/components/code-doc/code-doc.component';
 import { AmwButtonComponent } from '../../../../library/src/controls/components/amw-button/amw-button.component';
 import { AmwInputComponent } from '../../../../library/src/controls/components/amw-input/amw-input.component';
-import { AmwAccordionComponent, AmwAccordionPanelComponent, AmwIconComponent } from '../../../../library/src/components/components';
+import { AmwIconComponent } from '../../../../library/src/components/components';
 import { AmwStepperComponent } from '../../../../library/src/components/components/amw-stepper/amw-stepper.component';
 import { StepperStep, StepperConfig } from '../../../../library/src/components/components/amw-stepper/interfaces';
 
@@ -16,10 +13,9 @@ import { StepperStep, StepperConfig } from '../../../../library/src/components/c
   imports: [
     FormsModule,
     ReactiveFormsModule,
+    AmwCodeDocComponent,
     AmwInputComponent,
     AmwButtonComponent,
-    AmwAccordionComponent,
-    AmwAccordionPanelComponent,
     AmwIconComponent,
     AmwStepperComponent
   ],
@@ -27,7 +23,7 @@ import { StepperStep, StepperConfig } from '../../../../library/src/components/c
   templateUrl: './stepper-code.component.html',
   styleUrl: './stepper-code.component.scss'
 })
-export class StepperCodeComponent extends BaseCodeComponent<StepperExamples> {
+export class StepperCodeComponent implements OnInit {
   // Form groups for reactive forms example
   firstFormGroup: FormGroup;
   secondFormGroup: FormGroup;
@@ -105,9 +101,16 @@ export class StepperCodeComponent extends BaseCodeComponent<StepperExamples> {
     { label: 'Complete', description: 'All done!', icon: 'check_circle', isValid: true }
   ];
 
-  // Original code examples (for reset functionality)
-  readonly codeExamples: Record<StepperExamples, string> = {
-    basic: `<amw-stepper
+  // Editable code for the shared component
+  editableCode: Record<string, string> = {};
+
+  // Code examples data
+  readonly examples: CodeExample[] = [
+    {
+      key: 'basic',
+      title: 'Basic Stepper',
+      description: 'Simple horizontal stepper with navigation buttons',
+      code: `<amw-stepper
   [config]="basicConfig"
   [steps]="basicSteps"
   [currentStep]="currentStep"
@@ -127,9 +130,13 @@ basicSteps: StepperStep[] = [
   { label: 'Step 1', description: 'First step', isValid: true },
   { label: 'Step 2', description: 'Second step', isValid: true },
   { label: 'Step 3', description: 'Final step', isValid: true }
-];`,
-
-    linear: `<amw-stepper
+];`
+    },
+    {
+      key: 'linear',
+      title: 'Linear Stepper',
+      description: 'Form validation with linear progression',
+      code: `<amw-stepper
   [config]="linearConfig"
   [steps]="linearSteps"
   [currentStep]="currentStep"
@@ -149,14 +156,13 @@ linearSteps: StepperStep[] = [
   { label: 'Personal Info', icon: 'person', isValid: false },
   { label: 'Contact Info', icon: 'email', isValid: false },
   { label: 'Done', icon: 'check', isValid: true }
-];
-
-// Update step validity based on form status
-this.formGroup.statusChanges.subscribe(() => {
-  this.linearSteps[0].isValid = this.formGroup.valid;
-});`,
-
-    editable: `<amw-stepper
+];`
+    },
+    {
+      key: 'editable',
+      title: 'Editable Steps',
+      description: 'Control whether completed steps can be edited',
+      code: `<amw-stepper
   [config]="stepperConfig"
   [steps]="editableSteps"
   [currentStep]="currentStep"
@@ -167,9 +173,13 @@ this.formGroup.statusChanges.subscribe(() => {
 editableSteps: StepperStep[] = [
   { label: 'Editable Step', isValid: true },
   { label: 'Non-editable Step', isValid: true }
-];`,
-
-    optional: `<amw-stepper
+];`
+    },
+    {
+      key: 'optional',
+      title: 'Optional Steps',
+      description: 'Mark steps as optional in the workflow',
+      code: `<amw-stepper
   [config]="stepperConfig"
   [steps]="optionalSteps"
   [currentStep]="currentStep"
@@ -181,9 +191,13 @@ optionalSteps: StepperStep[] = [
   { label: 'Required Step', isValid: true },
   { label: 'Optional Step', isOptional: true, isValid: true },
   { label: 'Final Step', isValid: true }
-];`,
-
-    vertical: `<amw-stepper
+];`
+    },
+    {
+      key: 'vertical',
+      title: 'Vertical Stepper',
+      description: 'Display steps vertically instead of horizontally',
+      code: `<amw-stepper
   [config]="verticalConfig"
   [steps]="verticalSteps"
   [currentStep]="currentStep"
@@ -197,9 +211,13 @@ verticalConfig: StepperConfig = {
   showLabels: true,
   showIcons: true,
   showNavigation: true
-};`,
-
-    customIcons: `<amw-stepper
+};`
+    },
+    {
+      key: 'customIcons',
+      title: 'Custom Icons in Labels',
+      description: 'Add icons to step labels for better UX',
+      code: `<amw-stepper
   [config]="stepperConfig"
   [steps]="customIconSteps"
   [currentStep]="currentStep"
@@ -212,11 +230,10 @@ customIconSteps: StepperStep[] = [
   { label: 'Contact', icon: 'email', isValid: true },
   { label: 'Complete', icon: 'check_circle', isValid: true }
 ];`
-  };
+    }
+  ];
 
   constructor(private fb: FormBuilder) {
-    super();
-
     // Initialize form groups
     this.firstFormGroup = this.fb.group({
       name: ['', Validators.required]
@@ -237,6 +254,13 @@ customIconSteps: StepperStep[] = [
 
     this.secondFormGroup.statusChanges.subscribe(() => {
       this.linearSteps[1].isValid = this.secondFormGroup.valid;
+    });
+  }
+
+  ngOnInit(): void {
+    // Initialize editable code from examples
+    this.examples.forEach(example => {
+      this.editableCode[example.key] = example.code;
     });
   }
 

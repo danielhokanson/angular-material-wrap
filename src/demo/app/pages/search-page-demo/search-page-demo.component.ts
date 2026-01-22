@@ -16,6 +16,10 @@ import {
     SearchResult
 } from '../../../../library/src/pages/components/amw-search-page';
 
+// Import API documentation components
+import { AmwApiDocComponent, ApiInterface } from '../../shared/components/api-doc/api-doc.component';
+import { ApiDocumentation } from '../../components/base/base-api.component';
+
 // Sample data
 const SAMPLE_PRODUCTS = [
     {
@@ -308,11 +312,12 @@ import { AmwTabsComponent, AmwTabComponent, AmwCardComponent } from '../../../..
     selector: 'app-search-page-demo',
     standalone: true,
     imports: [
-    AmwSearchPageComponent,
-    AmwTabsComponent,
-    AmwTabComponent,
-    AmwCardComponent,
-],
+        AmwSearchPageComponent,
+        AmwTabsComponent,
+        AmwTabComponent,
+        AmwCardComponent,
+        AmwApiDocComponent,
+    ],
     templateUrl: './search-page-demo.component.html',
     styleUrl: './search-page-demo.component.scss'
 })
@@ -447,6 +452,305 @@ export class SearchPageDemoComponent implements OnInit, OnDestroy {
 
     // State
     currentViewIndex = 0;
+
+    // Code examples for the Code tab
+    codeExamples = {
+        basic: `// Basic usage of AmwSearchPageComponent
+import { AmwSearchPageComponent, SearchPageConfig, SearchPageDataSource } from '@anthropic/angular-material-wrap';
+
+@Component({
+  selector: 'app-product-search',
+  standalone: true,
+  imports: [AmwSearchPageComponent],
+  template: \`
+    <amw-search-page
+      [config]="searchConfig"
+      [dataSource]="dataSource"
+      (resultClick)="onResultClick($event)"
+      (search)="onSearchChange($event)"
+      (filterChange)="onFilterChange($event)">
+    </amw-search-page>
+  \`
+})
+export class ProductSearchComponent {
+  searchConfig: SearchPageConfig = {
+    title: 'Product Search',
+    subtitle: 'Find the perfect product',
+    showAdvancedSearch: true,
+    showQuickFilters: true,
+    showResultsCount: true
+  };
+
+  dataSource = new MySearchDataSource();
+
+  onResultClick(result: SearchResult): void {
+    console.log('Selected:', result);
+  }
+}`,
+
+        config: `// SearchPageConfig - Configuration options
+const searchConfig: SearchPageConfig = {
+  // Page header
+  title: 'Product Search',
+  subtitle: 'Search our catalog',
+
+  // Feature toggles
+  showAdvancedSearch: true,    // Enable advanced search panel
+  showAdvancedFilters: true,   // Show advanced filter fields
+  showQuickFilters: true,      // Show quick filter chips
+  showSavedSearches: true,     // Enable saved searches feature
+  showSearchHistory: true,     // Show search history
+  showResultsCount: true,      // Display total results count
+  showSortOptions: true,       // Enable sorting controls
+  showViewOptions: true,       // Enable view mode switching
+
+  // Search fields configuration
+  searchFields: [
+    {
+      key: 'category',
+      label: 'Category',
+      type: 'select',           // 'text' | 'select' | 'boolean' | 'date' | 'number'
+      options: [
+        { value: '', label: 'All Categories' },
+        { value: 'books', label: 'Books' }
+      ],
+      visible: true,
+      advanced: false           // Show in basic or advanced panel
+    },
+    {
+      key: 'priceRange',
+      label: 'Price Range',
+      type: 'select',
+      options: [...],
+      visible: true,
+      advanced: true            // Only show in advanced panel
+    }
+  ],
+
+  // Quick filter chips
+  quickFilters: [
+    {
+      key: 'inStock',
+      label: 'In Stock',
+      icon: 'check_circle',
+      color: 'primary',
+      value: true,
+      active: false
+    }
+  ],
+
+  // Saved searches
+  savedSearches: [
+    {
+      id: '1',
+      name: 'My Search',
+      description: 'Saved search description',
+      filters: { category: 'books' },
+      criteria: { category: 'books' },
+      isDefault: false
+    }
+  ]
+};`,
+
+        dataSource: `// Implementing SearchPageDataSource
+import { SearchPageDataSource, SearchData } from '@anthropic/angular-material-wrap';
+
+class MySearchDataSource implements SearchPageDataSource {
+  // Required: Main search method
+  search(params: {
+    query: string;
+    filters: { [key: string]: any };
+    pageIndex: number;
+    pageSize: number;
+    sortField?: string;
+    sortDirection?: 'asc' | 'desc';
+  }): Observable<SearchData> {
+    return this.http.post<SearchData>('/api/search', params);
+  }
+
+  // Optional: Search suggestions/autocomplete
+  getSuggestions(query: string): Observable<string[]> {
+    return this.http.get<string[]>(\`/api/suggestions?q=\${query}\`);
+  }
+
+  // Optional: Faceted search counts
+  getFacets(filters: { [key: string]: any }): Observable<{ [key: string]: { [key: string]: number } }> {
+    return this.http.post('/api/facets', { filters });
+  }
+
+  // Optional: Export results
+  exportSearchResults(format: string, criteria: { [key: string]: any }): Observable<any> {
+    return this.http.post('/api/export', { format, criteria });
+  }
+
+  // Optional: Save search
+  saveSearch(name: string, criteria: { [key: string]: any }): Observable<boolean> {
+    return this.http.post<boolean>('/api/saved-searches', { name, criteria });
+  }
+
+  // Optional: Load saved searches
+  loadSavedSearches(): Observable<{ name: string; criteria: { [key: string]: any } }[]> {
+    return this.http.get('/api/saved-searches');
+  }
+
+  // Optional: Delete saved search
+  deleteSavedSearch(name: string): Observable<boolean> {
+    return this.http.delete<boolean>(\`/api/saved-searches/\${name}\`);
+  }
+}`,
+
+        eventHandling: `// Event handling
+@Component({
+  template: \`
+    <amw-search-page
+      [config]="config"
+      [dataSource]="dataSource"
+      (resultClick)="onResultClick($event)"
+      (search)="onSearchChange($event)"
+      (filterChange)="onFilterChange($event)"
+      (savedSearchSelect)="onSavedSearchSelect($event)"
+      (exportClick)="onExportClick($event)">
+    </amw-search-page>
+  \`
+})
+export class SearchComponent {
+  // Handle result selection
+  onResultClick(result: SearchResult): void {
+    console.log('Selected result:', result.id, result.title);
+    this.router.navigate(['/details', result.id]);
+  }
+
+  // Handle search query/filter changes
+  onSearchChange(event: { query: string; filters: { [key: string]: any } }): void {
+    console.log('Search query:', event.query);
+    console.log('Active filters:', event.filters);
+    // Track analytics, update URL, etc.
+  }
+
+  // Handle filter-only changes
+  onFilterChange(event: { filters: { [key: string]: any } }): void {
+    console.log('Filters changed:', event.filters);
+  }
+
+  // Handle saved search selection
+  onSavedSearchSelect(savedSearch: SavedSearch): void {
+    console.log('Applied saved search:', savedSearch.name);
+    this.notification.info(\`Applied: \${savedSearch.name}\`);
+  }
+
+  // Handle export requests
+  onExportClick(event: { format: string; data: any }): void {
+    console.log('Export requested:', event.format);
+    // Trigger download or show export dialog
+  }
+}`
+    };
+
+    // AmwSearchPageComponent API documentation
+    searchPageApiDoc: ApiDocumentation = {
+        inputs: [
+            {
+                name: 'config',
+                type: 'SearchPageConfig',
+                default: '{}',
+                description: 'Configuration object for the search page including title, feature toggles, search fields, quick filters, and saved searches.'
+            },
+            {
+                name: 'dataSource',
+                type: 'SearchPageDataSource',
+                default: 'undefined',
+                description: 'Data source implementing the SearchPageDataSource interface. Provides methods for searching, suggestions, facets, and saved searches.'
+            }
+        ],
+        outputs: [
+            {
+                name: 'resultClick',
+                type: 'EventEmitter<SearchResult>',
+                description: 'Emits when a search result item is clicked. Payload includes the full SearchResult object with id, title, metadata, etc.'
+            },
+            {
+                name: 'search',
+                type: 'EventEmitter<{ query: string; filters: { [key: string]: any } }>',
+                description: 'Emits when a search is performed. Includes the search query and all active filters.'
+            },
+            {
+                name: 'filterChange',
+                type: 'EventEmitter<{ filters: { [key: string]: any } }>',
+                description: 'Emits when filters change (via quick filters or advanced filter panel).'
+            },
+            {
+                name: 'savedSearchSelect',
+                type: 'EventEmitter<SavedSearch>',
+                description: 'Emits when a saved search is selected from the saved searches dropdown.'
+            },
+            {
+                name: 'exportClick',
+                type: 'EventEmitter<{ format: string; data: any }>',
+                description: 'Emits when the export button is clicked. Includes the requested format (pdf, excel, csv) and current search data.'
+            }
+        ],
+        usageNotes: [
+            'The dataSource is required and must implement the SearchPageDataSource interface with at least the search() method.',
+            'SearchPageConfig allows fine-grained control over which features are enabled (search fields, quick filters, saved searches, etc.).',
+            'Search fields can be configured as basic or advanced using the "advanced" property in SearchField.',
+            'Quick filters provide one-click filtering and can be styled with different colors (primary, accent, warn).',
+            'The component supports multiple view modes (list, grid, table) when showViewOptions is enabled.',
+            'Saved searches are persisted via the dataSource methods saveSearch() and loadSavedSearches().',
+            'Search suggestions are provided by implementing getSuggestions() in the dataSource.',
+            'Faceted search counts are supported via the getFacets() method for dynamic filter counts.'
+        ]
+    };
+
+    // Interface documentation
+    searchPageInterfaces: ApiInterface[] = [
+        {
+            name: 'SearchPageConfig',
+            description: 'Configuration interface for the search page component.',
+            properties: [
+                { name: 'title', type: 'string', description: 'Page title displayed in the header' },
+                { name: 'subtitle', type: 'string', description: 'Page subtitle/description' },
+                { name: 'showAdvancedSearch', type: 'boolean', description: 'Enable advanced search panel toggle' },
+                { name: 'showAdvancedFilters', type: 'boolean', description: 'Show advanced filter fields' },
+                { name: 'showQuickFilters', type: 'boolean', description: 'Display quick filter chips' },
+                { name: 'showSavedSearches', type: 'boolean', description: 'Enable saved searches feature' },
+                { name: 'showSearchHistory', type: 'boolean', description: 'Show recent search history' },
+                { name: 'showResultsCount', type: 'boolean', description: 'Display total results count' },
+                { name: 'showSortOptions', type: 'boolean', description: 'Enable sorting controls' },
+                { name: 'showViewOptions', type: 'boolean', description: 'Enable view mode switching (list/grid/table)' },
+                { name: 'searchFields', type: 'SearchField[]', description: 'Array of search field configurations' },
+                { name: 'quickFilters', type: 'QuickFilter[]', description: 'Array of quick filter configurations' },
+                { name: 'savedSearches', type: 'SavedSearch[]', description: 'Array of pre-configured saved searches' }
+            ]
+        },
+        {
+            name: 'SearchPageDataSource',
+            description: 'Interface for the search page data source. Only search() is required; other methods are optional.',
+            properties: [
+                { name: 'search(params)', type: 'Observable<SearchData>', description: 'Required. Performs the search with query, filters, pagination, and sorting.' },
+                { name: 'getSuggestions(query)', type: 'Observable<string[]>', description: 'Optional. Returns autocomplete suggestions for the query.' },
+                { name: 'getFacets(filters)', type: 'Observable<FacetData>', description: 'Optional. Returns facet counts for dynamic filter options.' },
+                { name: 'exportSearchResults(format, criteria)', type: 'Observable<any>', description: 'Optional. Exports results in the specified format.' },
+                { name: 'saveSearch(name, criteria)', type: 'Observable<boolean>', description: 'Optional. Saves a search with the given name and criteria.' },
+                { name: 'loadSavedSearches()', type: 'Observable<SavedSearch[]>', description: 'Optional. Loads all saved searches for the current user.' },
+                { name: 'deleteSavedSearch(name)', type: 'Observable<boolean>', description: 'Optional. Deletes a saved search by name.' }
+            ]
+        },
+        {
+            name: 'SearchResult',
+            description: 'Interface for individual search result items.',
+            properties: [
+                { name: 'id', type: 'string', description: 'Unique identifier for the result' },
+                { name: 'title', type: 'string', description: 'Result title/name' },
+                { name: 'subtitle', type: 'string', description: 'Optional subtitle or secondary text' },
+                { name: 'description', type: 'string', description: 'Result description or summary' },
+                { name: 'image', type: 'string', description: 'Optional image URL for the result' },
+                { name: 'data', type: 'any', description: 'The original data object' },
+                { name: 'metadata', type: '{ [key: string]: any }', description: 'Additional metadata fields' },
+                { name: 'score', type: 'number', description: 'Optional relevance score (0-1)' },
+                { name: 'highlights', type: '{ [key: string]: string[] }', description: 'Optional field highlights from search matching' }
+            ]
+        }
+    ];
 
     constructor(private notification: AmwNotificationService) { }
 

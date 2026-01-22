@@ -1,243 +1,80 @@
-<div class="code-section">
-  <h3>Code Examples</h3>
-  <p>Interactive examples with live previews. The code is editable for reference, and working examples are shown alongside.</p>
+<amw-code-doc
+  componentName="amw-accordion"
+  [examples]="examples"
+  [editableCode]="editableCode">
 
-  <amw-accordion class="code-examples-accordion">
-    <!-- Basic Accordion -->
-    <amw-accordion-panel>
-      <ng-template #header>
-        <amw-icon name="code"></amw-icon>
-        Basic Accordion
-      </ng-template>
-      <div class="example-container">
-        <div class="code-panel">
-          <div class="code-header">
-            <h4>Code</h4>
-            <amw-button icon="refresh" (click)="resetCode('basic')" title="Reset to original"></amw-button>
-          </div>
-          <textarea
-            [(ngModel)]="editableCode.basic"
-            class="code-editor"
-            spellcheck="false"></textarea>
-        </div>
-        <div class="preview-panel">
-          <h4>Preview</h4>
-          <div class="preview-content">
-            <amw-accordion>
-              <amw-accordion-panel amwTitle="Panel 1" amwDescription="First panel content">
-                <p>First panel content</p>
-              </amw-accordion-panel>
+  <ng-template #preview let-example>
+    @switch (example.key) {
+      @case ('basic') {
+        <amw-accordion>
+          <amw-accordion-panel amwTitle="Panel 1" amwDescription="First panel content">
+            <p>First panel content</p>
+          </amw-accordion-panel>
 
-              <amw-accordion-panel amwTitle="Panel 2" amwDescription="Second panel content">
-                <p>Second panel content</p>
-              </amw-accordion-panel>
-            </amw-accordion>
-          </div>
-        </div>
-      </div>
-    </amw-accordion-panel>
+          <amw-accordion-panel amwTitle="Panel 2" amwDescription="Second panel content">
+            <p>Second panel content</p>
+          </amw-accordion-panel>
+        </amw-accordion>
+      }
+      @case ('multiExpand') {
+        <amw-accordion [multi]="true">
+          <amw-accordion-panel amwTitle="Panel 1">
+            <p>Content 1 - can stay open with others</p>
+          </amw-accordion-panel>
 
-    <!-- Multi-Expansion Mode -->
-    <amw-accordion-panel>
-      <ng-template #header>
-        <amw-icon name="code"></amw-icon>
-        Multi-Expansion Mode
-      </ng-template>
-      <div class="example-container">
-        <div class="code-panel">
-          <div class="code-header">
-            <h4>Code</h4>
-            <amw-button icon="refresh" (click)="resetCode('multiExpand')" title="Reset to original"></amw-button>
-          </div>
-          <textarea
-            [(ngModel)]="editableCode.multiExpand"
-            class="code-editor"
-            spellcheck="false"
-            readonly></textarea>
-        </div>
-        <div class="preview-panel">
-          <h4>Preview</h4>
-          <div class="preview-content">
-            <amw-accordion [multi]="true">
-              <amw-accordion-panel amwTitle="Panel 1">
-                <p>Content 1 - can stay open with others</p>
-              </amw-accordion-panel>
+          <amw-accordion-panel amwTitle="Panel 2">
+            <p>Content 2 - can stay open with others</p>
+          </amw-accordion-panel>
+        </amw-accordion>
+      }
+      @case ('hideToggle') {
+        <amw-accordion>
+          <amw-accordion-panel amwTitle="No Toggle Indicator" [hideToggle]="true">
+            <p>Panel without toggle indicator</p>
+          </amw-accordion-panel>
+        </amw-accordion>
+      }
+      @case ('disabled') {
+        <amw-accordion>
+          <amw-accordion-panel amwTitle="Disabled Panel" [disabled]="true">
+            <p>This content cannot be accessed</p>
+          </amw-accordion-panel>
+        </amw-accordion>
+      }
+      @case ('programmatic') {
+        <amw-accordion>
+          <amw-accordion-panel #panel amwTitle="Programmatically Controlled">
+            <p>Control this panel with methods</p>
+          </amw-accordion-panel>
+        </amw-accordion>
 
-              <amw-accordion-panel amwTitle="Panel 2">
-                <p>Content 2 - can stay open with others</p>
-              </amw-accordion-panel>
-            </amw-accordion>
-          </div>
+        <div class="control-buttons">
+          <amw-button appearance="elevated" (click)="panel.expanded.set(true)">Open</amw-button>
+          <amw-button appearance="elevated" (click)="panel.expanded.set(false)">Close</amw-button>
+          <amw-button appearance="elevated" (click)="panel.expanded.set(!panel.expanded())">Toggle</amw-button>
         </div>
-      </div>
-    </amw-accordion-panel>
-
-    <!-- Hide Toggle Indicator -->
-    <amw-accordion-panel>
-      <ng-template #header>
-        <amw-icon name="code"></amw-icon>
-        Hide Toggle Indicator
-      </ng-template>
-      <div class="example-container">
-        <div class="code-panel">
-          <div class="code-header">
-            <h4>Code</h4>
-            <amw-button icon="refresh" (click)="resetCode('hideToggle')" title="Reset to original"></amw-button>
-          </div>
-          <textarea
-            [(ngModel)]="editableCode.hideToggle"
-            class="code-editor"
-            spellcheck="false"
-            readonly></textarea>
+      }
+      @case ('events') {
+        <amw-accordion>
+          <amw-accordion-panel
+            amwTitle="Event Handling"
+            (opened)="onOpened()"
+            (closed)="onClosed()">
+            <p>Check console for event logs</p>
+          </amw-accordion-panel>
+        </amw-accordion>
+        <div class="preview-note">
+          <amw-icon name="info"></amw-icon>
+          <span>Open your browser console to see event logs</span>
         </div>
-        <div class="preview-panel">
-          <h4>Preview</h4>
-          <div class="preview-content">
-            <amw-accordion>
-              <amw-accordion-panel amwTitle="No Toggle Indicator" [hideToggle]="true">
-                <p>Panel without toggle indicator</p>
-              </amw-accordion-panel>
-            </amw-accordion>
-          </div>
-        </div>
-      </div>
-    </amw-accordion-panel>
-
-    <!-- Disabled State -->
-    <amw-accordion-panel>
-      <ng-template #header>
-        <amw-icon name="code"></amw-icon>
-        Disabled State
-      </ng-template>
-      <div class="example-container">
-        <div class="code-panel">
-          <div class="code-header">
-            <h4>Code</h4>
-            <amw-button icon="refresh" (click)="resetCode('disabled')" title="Reset to original"></amw-button>
-          </div>
-          <textarea
-            [(ngModel)]="editableCode.disabled"
-            class="code-editor"
-            spellcheck="false"
-            readonly></textarea>
-        </div>
-        <div class="preview-panel">
-          <h4>Preview</h4>
-          <div class="preview-content">
-            <amw-accordion>
-              <amw-accordion-panel amwTitle="Disabled Panel" [disabled]="true">
-                <p>This content cannot be accessed</p>
-              </amw-accordion-panel>
-            </amw-accordion>
-          </div>
-        </div>
-      </div>
-    </amw-accordion-panel>
-
-    <!-- Programmatic Control -->
-    <amw-accordion-panel>
-      <ng-template #header>
-        <amw-icon name="code"></amw-icon>
-        Programmatic Control
-      </ng-template>
-      <div class="example-container">
-        <div class="code-panel">
-          <div class="code-header">
-            <h4>Code</h4>
-            <amw-button icon="refresh" (click)="resetCode('programmatic')" title="Reset to original"></amw-button>
-          </div>
-          <textarea
-            [(ngModel)]="editableCode.programmatic"
-            class="code-editor"
-            spellcheck="false"
-            readonly></textarea>
-        </div>
-        <div class="preview-panel">
-          <h4>Preview</h4>
-          <div class="preview-content">
-            <amw-accordion>
-              <amw-accordion-panel #panel amwTitle="Programmatically Controlled">
-                <p>Control this panel with methods</p>
-              </amw-accordion-panel>
-            </amw-accordion>
-
-            <div class="control-buttons">
-              <amw-button appearance="elevated" (click)="panel.expanded.set(true)">Open</amw-button>
-              <amw-button appearance="elevated" (click)="panel.expanded.set(false)">Close</amw-button>
-              <amw-button appearance="elevated" (click)="panel.expanded.set(!panel.expanded())">Toggle</amw-button>
-            </div>
-          </div>
-        </div>
-      </div>
-    </amw-accordion-panel>
-
-    <!-- Event Handling -->
-    <amw-accordion-panel>
-      <ng-template #header>
-        <amw-icon name="code"></amw-icon>
-        Event Handling
-      </ng-template>
-      <div class="example-container">
-        <div class="code-panel">
-          <div class="code-header">
-            <h4>Code</h4>
-            <amw-button icon="refresh" (click)="resetCode('events')" title="Reset to original"></amw-button>
-          </div>
-          <textarea
-            [(ngModel)]="editableCode.events"
-            class="code-editor"
-            spellcheck="false"
-            readonly></textarea>
-        </div>
-        <div class="preview-panel">
-          <h4>Preview</h4>
-          <div class="preview-content">
-            <amw-accordion>
-              <amw-accordion-panel
-                amwTitle="Event Handling"
-                (opened)="onOpened()"
-                (closed)="onClosed()">
-                <p>Check console for event logs</p>
-              </amw-accordion-panel>
-            </amw-accordion>
-            <div class="preview-note">
-              <amw-icon name="info"></amw-icon>
-              <span>Open your browser console to see event logs</span>
-            </div>
-          </div>
-        </div>
-      </div>
-    </amw-accordion-panel>
-
-    <!-- Toggle Position -->
-    <amw-accordion-panel>
-      <ng-template #header>
-        <amw-icon name="code"></amw-icon>
-        Toggle Position
-      </ng-template>
-      <div class="example-container">
-        <div class="code-panel">
-          <div class="code-header">
-            <h4>Code</h4>
-            <amw-button icon="refresh" (click)="resetCode('togglePosition')" title="Reset to original"></amw-button>
-          </div>
-          <textarea
-            [(ngModel)]="editableCode.togglePosition"
-            class="code-editor"
-            spellcheck="false"
-            readonly></textarea>
-        </div>
-        <div class="preview-panel">
-          <h4>Preview</h4>
-          <div class="preview-content">
-            <amw-accordion [togglePosition]="'before'">
-              <amw-accordion-panel amwTitle="Toggle Before Title">
-                <p>Toggle indicator on the left</p>
-              </amw-accordion-panel>
-            </amw-accordion>
-          </div>
-        </div>
-      </div>
-    </amw-accordion-panel>
-  </amw-accordion>
-</div>
+      }
+      @case ('togglePosition') {
+        <amw-accordion [togglePosition]="'before'">
+          <amw-accordion-panel amwTitle="Toggle Before Title">
+            <p>Toggle indicator on the left</p>
+          </amw-accordion-panel>
+        </amw-accordion>
+      }
+    }
+  </ng-template>
+</amw-code-doc>

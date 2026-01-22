@@ -1,26 +1,54 @@
-<div class="amw-demo-icon-button-code">
-  <div class="code-section">
-    <h3 class="code-section__title">Basic Usage</h3>
-    <pre class="code-block"><code>{{ editableCode['basic'] }}</code></pre>
-  </div>
+<amw-code-doc
+  componentName="amw-icon-button"
+  [examples]="examples"
+  [editableCode]="editableCode">
 
-  <div class="code-section">
-    <h3 class="code-section__title">Colors</h3>
-    <pre class="code-block"><code>{{ editableCode['colors'] }}</code></pre>
-  </div>
-
-  <div class="code-section">
-    <h3 class="code-section__title">Sizes</h3>
-    <pre class="code-block"><code>{{ editableCode['sizes'] }}</code></pre>
-  </div>
-
-  <div class="code-section">
-    <h3 class="code-section__title">Loading State</h3>
-    <pre class="code-block"><code>{{ editableCode['loading'] }}</code></pre>
-  </div>
-
-  <div class="code-section">
-    <h3 class="code-section__title">Disabled State</h3>
-    <pre class="code-block"><code>{{ editableCode['disabled'] }}</code></pre>
-  </div>
-</div>
+  <ng-template #preview let-example>
+    @switch (example.key) {
+      @case ('basic') {
+        <amw-icon-button
+          icon="settings"
+          ariaLabel="Settings"
+          (buttonClick)="onSettingsClick()">
+        </amw-icon-button>
+        <div class="preview-note">
+          <amw-icon name="info"></amw-icon>
+          <span>Click the button and check the console</span>
+        </div>
+      }
+      @case ('colors') {
+        <div class="button-row">
+          <amw-icon-button icon="favorite" ariaLabel="Favorite" color="primary"></amw-icon-button>
+          <amw-icon-button icon="star" ariaLabel="Star" color="accent"></amw-icon-button>
+          <amw-icon-button icon="delete" ariaLabel="Delete" color="warn"></amw-icon-button>
+        </div>
+      }
+      @case ('sizes') {
+        <div class="button-row">
+          <amw-icon-button icon="menu" ariaLabel="Menu" size="sm"></amw-icon-button>
+          <amw-icon-button icon="menu" ariaLabel="Menu" size="md"></amw-icon-button>
+          <amw-icon-button icon="menu" ariaLabel="Menu" size="lg"></amw-icon-button>
+        </div>
+      }
+      @case ('loading') {
+        <amw-icon-button
+          icon="refresh"
+          ariaLabel="Refresh"
+          [loading]="isLoading"
+          (buttonClick)="refresh()">
+        </amw-icon-button>
+        <div class="preview-note">
+          <amw-icon name="info"></amw-icon>
+          <span>Click to see loading state</span>
+        </div>
+      }
+      @case ('disabled') {
+        <amw-icon-button
+          icon="edit"
+          ariaLabel="Edit"
+          [disabled]="true">
+        </amw-icon-button>
+      }
+    }
+  </ng-template>
+</amw-code-doc>

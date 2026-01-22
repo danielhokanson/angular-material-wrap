@@ -1,165 +1,50 @@
-<div class="code-section">
-  <h3>Code Examples</h3>
-  <p>Interactive examples with live previews. The code is editable for reference, and working examples are shown alongside.</p>
+<amw-code-doc
+  componentName="amw-slider"
+  [examples]="examples"
+  [editableCode]="editableCode">
 
-  <amw-accordion class="code-examples-accordion">
-    <!-- Basic Range Slider -->
-    <amw-accordion-panel amwDescription="Simple range slider with default configuration">
-      <ng-template #header>
-        <amw-icon name="code"></amw-icon>
-        Basic Range Slider
-      </ng-template>
-      <div class="example-container">
-        <div class="code-panel">
-          <div class="code-header">
-            <h4>Code</h4>
-            <amw-button icon="refresh" (click)="resetCode('basic')" title="Reset to original"></amw-button>
-          </div>
-          <textarea
-            [(ngModel)]="editableCode.basic"
-            class="code-editor"
-            spellcheck="false"></textarea>
+  <ng-template #preview let-example>
+    @switch (example.key) {
+      @case ('basic') {
+        <amw-slider
+          [min]="0"
+          [max]="100"
+          [(value)]="startValue">
+        </amw-slider>
+        <p>Value: {{startValue}}</p>
+      }
+      @case ('configured') {
+        <amw-slider
+          [min]="0"
+          [max]="1000"
+          [step]="10"
+          [(value)]="priceStart">
+        </amw-slider>
+        <p>Price: ${{priceStart}}</p>
+      }
+      @case ('vertical') {
+        <div style="height: 300px;">
+          <amw-slider
+            [vertical]="true"
+            [min]="0"
+            [max]="100"
+            [(value)]="endValue">
+          </amw-slider>
         </div>
-        <div class="preview-panel">
-          <h4>Preview</h4>
-          <div class="preview-content">
-            <amw-slider
-              [min]="0"
-              [max]="100"
-              [(value)]="startValue">
-            </amw-slider>
-            <p>Value: {{startValue}}</p>
-          </div>
+        <p>Vertical Value: {{endValue}}</p>
+      }
+      @case ('formControl') {
+        <div class="preview-note">
+          <amw-icon name="info"></amw-icon>
+          <span>This example shows code for reactive form integration</span>
         </div>
-      </div>
-    </amw-accordion-panel>
-
-    <!-- Configured Range Slider -->
-    <amw-accordion-panel amwDescription="Range slider with custom configuration and styling">
-      <ng-template #header>
-        <amw-icon name="code"></amw-icon>
-        Configured Range Slider
-      </ng-template>
-      <div class="example-container">
-        <div class="code-panel">
-          <div class="code-header">
-            <h4>Code</h4>
-            <amw-button icon="refresh" (click)="resetCode('configured')" title="Reset to original"></amw-button>
-          </div>
-          <textarea
-            [(ngModel)]="editableCode.configured"
-            class="code-editor"
-            spellcheck="false"
-            readonly></textarea>
+      }
+      @case ('validation') {
+        <div class="preview-note">
+          <amw-icon name="info"></amw-icon>
+          <span>This example shows code for validation with error handling</span>
         </div>
-        <div class="preview-panel">
-          <h4>Preview</h4>
-          <div class="preview-content">
-            <amw-slider
-              [min]="0"
-              [max]="1000"
-              [step]="10"
-              [(value)]="priceStart">
-            </amw-slider>
-            <p>Price: ${{priceStart}}</p>
-          </div>
-        </div>
-      </div>
-    </amw-accordion-panel>
-
-    <!-- Vertical Range Slider -->
-    <amw-accordion-panel amwDescription="Range slider in vertical orientation">
-      <ng-template #header>
-        <amw-icon name="code"></amw-icon>
-        Vertical Range Slider
-      </ng-template>
-      <div class="example-container">
-        <div class="code-panel">
-          <div class="code-header">
-            <h4>Code</h4>
-            <amw-button icon="refresh" (click)="resetCode('vertical')" title="Reset to original"></amw-button>
-          </div>
-          <textarea
-            [(ngModel)]="editableCode.vertical"
-            class="code-editor"
-            spellcheck="false"
-            readonly></textarea>
-        </div>
-        <div class="preview-panel">
-          <h4>Preview</h4>
-          <div class="preview-content">
-            <div style="height: 300px;">
-              <amw-slider
-                [vertical]="true"
-                [min]="0"
-                [max]="100"
-                [(value)]="endValue">
-              </amw-slider>
-            </div>
-            <p>Vertical Value: {{endValue}}</p>
-          </div>
-        </div>
-      </div>
-    </amw-accordion-panel>
-
-    <!-- Reactive Form Integration -->
-    <amw-accordion-panel amwDescription="Range slider integrated with Angular reactive forms">
-      <ng-template #header>
-        <amw-icon name="code"></amw-icon>
-        Reactive Form Integration
-      </ng-template>
-      <div class="example-container">
-        <div class="code-panel">
-          <div class="code-header">
-            <h4>Code</h4>
-            <amw-button icon="refresh" (click)="resetCode('formControl')" title="Reset to original"></amw-button>
-          </div>
-          <textarea
-            [(ngModel)]="editableCode.formControl"
-            class="code-editor"
-            spellcheck="false"
-            readonly></textarea>
-        </div>
-        <div class="preview-panel">
-          <h4>Preview</h4>
-          <div class="preview-content">
-            <div class="preview-note">
-              <amw-icon name="info"></amw-icon>
-              <span>This example shows code for reactive form integration</span>
-            </div>
-          </div>
-        </div>
-      </div>
-    </amw-accordion-panel>
-
-    <!-- With Validation -->
-    <amw-accordion-panel amwDescription="Range slider with custom validation and error handling">
-      <ng-template #header>
-        <amw-icon name="code"></amw-icon>
-        With Validation
-      </ng-template>
-      <div class="example-container">
-        <div class="code-panel">
-          <div class="code-header">
-            <h4>Code</h4>
-            <amw-button icon="refresh" (click)="resetCode('validation')" title="Reset to original"></amw-button>
-          </div>
-          <textarea
-            [(ngModel)]="editableCode.validation"
-            class="code-editor"
-            spellcheck="false"
-            readonly></textarea>
-        </div>
-        <div class="preview-panel">
-          <h4>Preview</h4>
-          <div class="preview-content">
-            <div class="preview-note">
-              <amw-icon name="info"></amw-icon>
-              <span>This example shows code for validation with error handling</span>
-            </div>
-          </div>
-        </div>
-      </div>
-    </amw-accordion-panel>
-  </amw-accordion>
-</div>
+      }
+    }
+  </ng-template>
+</amw-code-doc>

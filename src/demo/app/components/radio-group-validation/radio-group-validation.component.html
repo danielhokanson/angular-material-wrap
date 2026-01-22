@@ -1,15 +1,15 @@
-<div class="radio-group-validation">
-  <h1>Radio Group Validation Demo</h1>
-  <p>Demonstrates validation scenarios and error handling for the AMW Radio Group component.</p>
-
-  <!-- Validation Form -->
-  <amw-card class="validation-card">
-    <ng-template #cardHeader>
-      <h2>Validation Form</h2>
-      <p class="subtitle">All fields are required - try submitting without selecting values</p>
-    </ng-template>
-    <ng-template #cardContent>
-      <form [formGroup]="validationForm" (ngSubmit)="onSubmit()">
+<amw-validation-doc
+  componentName="amw-radio-group"
+  [validationForm]="validationForm"
+  [validationInfo]="validationInfo">
+  <ng-template #formContent>
+    <!-- Validation Form -->
+    <amw-card class="validation-card">
+      <ng-template #cardHeader>
+        <h2>Validation Form</h2>
+        <p class="subtitle">All fields are required - try submitting without selecting values</p>
+      </ng-template>
+      <ng-template #cardContent>
         <!-- Required Field -->
         <div class="form-field">
           <amw-radio-group
@@ -94,51 +94,51 @@
 
         <!-- Form Actions -->
         <div class="form-actions">
-          <amw-button appearance="elevated" type="submit" color="primary" [disabled]="!isFormValid" icon="check" iconPosition="left">Submit Form</amw-button>
+          <amw-button appearance="elevated" type="button" color="primary" [disabled]="!isFormValid" icon="check" iconPosition="left" (buttonClick)="onSubmit()">Submit Form</amw-button>
 
-          <amw-button appearance="text" type="button" (click)="resetForm()" icon="refresh" iconPosition="left">Reset</amw-button>
+          <amw-button appearance="text" type="button" (buttonClick)="resetForm()" icon="refresh" iconPosition="left">Reset</amw-button>
         </div>
-      </form>
-    </ng-template>
-</amw-card>
+      </ng-template>
+    </amw-card>
 
-  <!-- Validation Status -->
-  <amw-card class="status-card">
-    <ng-template #cardHeader>
-      <h2>Validation Status</h2>
-      <p class="subtitle">Current form validation state</p>
-    </ng-template>
-    <ng-template #cardContent>
-      <div class="status-display">
-        <div class="status-item">
-          <amw-icon [name]="isFormValid ? 'check_circle' : 'error'" [class]="isFormValid ? 'status-valid' : 'status-invalid'"></amw-icon>
-          <span [class]="isFormValid ? 'status-valid' : 'status-invalid'">
-            Form {{ isFormValid ? 'Valid' : 'Invalid' }}
-          </span>
-        </div>
-
-        @if (formErrors.length > 0) {
-          <div class="error-list">
-            <h4>Validation Errors:</h4>
-            <ul>
-              @for (error of formErrors; track error) {
-                <li>{{ error }}</li>
-              }
-            </ul>
+    <!-- Validation Status -->
+    <amw-card class="status-card">
+      <ng-template #cardHeader>
+        <h2>Validation Status</h2>
+        <p class="subtitle">Current form validation state</p>
+      </ng-template>
+      <ng-template #cardContent>
+        <div class="status-display">
+          <div class="status-item">
+            <amw-icon [name]="isFormValid ? 'check_circle' : 'error'" [class]="isFormValid ? 'status-valid' : 'status-invalid'"></amw-icon>
+            <span [class]="isFormValid ? 'status-valid' : 'status-invalid'">
+              Form {{ isFormValid ? 'Valid' : 'Invalid' }}
+            </span>
           </div>
-        }
-      </div>
-    </ng-template>
-</amw-card>
 
-  <!-- Form Values Display -->
-  <amw-card class="values-card">
-    <ng-template #cardHeader>
-      <h2>Form Values</h2>
-      <p class="subtitle">Current form data</p>
-    </ng-template>
-    <ng-template #cardContent>
-      <pre class="values-display">{{ validationForm.value | json }}</pre>
-    </ng-template>
-  </amw-card>
-</div>
+          @if (formErrors.length > 0) {
+            <div class="error-list">
+              <h4>Validation Errors:</h4>
+              <ul>
+                @for (error of formErrors; track error) {
+                  <li>{{ error }}</li>
+                }
+              </ul>
+            </div>
+          }
+        </div>
+      </ng-template>
+    </amw-card>
+
+    <!-- Form Values Display -->
+    <amw-card class="values-card">
+      <ng-template #cardHeader>
+        <h2>Form Values</h2>
+        <p class="subtitle">Current form data</p>
+      </ng-template>
+      <ng-template #cardContent>
+        <pre class="values-display">{{ validationForm.value | json }}</pre>
+      </ng-template>
+    </amw-card>
+  </ng-template>
+</amw-validation-doc>

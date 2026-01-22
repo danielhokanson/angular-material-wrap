@@ -1,162 +1,51 @@
-<div class="code-section">
-  <h3>Code Examples</h3>
-  <p>Interactive examples with live previews. Edit the code to see real-time changes.</p>
+<amw-code-doc
+  componentName="amw-chips"
+  [examples]="examples"
+  [editableCode]="editableCode">
 
-  <amw-accordion class="code-examples-accordion">
-    <!-- Basic Chips -->
-    <amw-accordion-panel amwDescription="Simple chip collection">
-      <ng-template #header>
-        <amw-icon name="code"></amw-icon>
-        Basic Chip Set
-      </ng-template>
-      <div class="example-container">
-        <div class="code-panel">
-          <div class="code-header">
-            <h4>Code</h4>
-            <amw-button icon="refresh" (click)="resetCode('basic')" title="Reset to original"></amw-button>
-          </div>
-          <textarea
-            [(ngModel)]="editableCode.basic"
-            class="code-editor"
-            spellcheck="false"></textarea>
-        </div>
-        <div class="preview-panel">
-          <h4>Preview</h4>
-          <div class="preview-content">
-            <amw-chips
-              [chips]="basicChips"
-              [addable]="false"
-              [removable]="false">
-            </amw-chips>
-          </div>
-        </div>
-      </div>
-    </amw-accordion-panel>
-
-    <!-- Removable Chips -->
-    <amw-accordion-panel amwDescription="Chips with remove functionality">
-      <ng-template #header>
-        <amw-icon name="code"></amw-icon>
-        Removable Chips
-      </ng-template>
-      <div class="example-container">
-        <div class="code-panel">
-          <div class="code-header">
-            <h4>Code</h4>
-            <amw-button icon="refresh" (click)="resetCode('removable')" title="Reset to original"></amw-button>
-          </div>
-          <textarea
-            [(ngModel)]="editableCode.removable"
-            class="code-editor"
-            spellcheck="false"></textarea>
-        </div>
-        <div class="preview-panel">
-          <h4>Preview</h4>
-          <div class="preview-content">
-            <amw-chips
-              [chips]="removableChipsList"
-              [removable]="true"
-              [addable]="false"
-              (chipRemove)="onChipRemove($event)">
-            </amw-chips>
-          </div>
-        </div>
-      </div>
-    </amw-accordion-panel>
-
-    <!-- Selectable Chips -->
-    <amw-accordion-panel amwDescription="Chips that can be selected">
-      <ng-template #header>
-        <amw-icon name="code"></amw-icon>
-        Selectable Chips
-      </ng-template>
-      <div class="example-container">
-        <div class="code-panel">
-          <div class="code-header">
-            <h4>Code</h4>
-            <amw-button icon="refresh" (click)="resetCode('selectable')" title="Reset to original"></amw-button>
-          </div>
-          <textarea
-            [(ngModel)]="editableCode.selectable"
-            class="code-editor"
-            spellcheck="false"></textarea>
-        </div>
-        <div class="preview-panel">
-          <h4>Preview</h4>
-          <div class="preview-content">
-            <amw-chips
-              [chips]="selectableChips"
-              [selectable]="true"
-              [addable]="false"
-              [removable]="false"
-              (chipSelect)="onChipSelect($event)">
-            </amw-chips>
-          </div>
-        </div>
-      </div>
-    </amw-accordion-panel>
-
-    <!-- Chip Input -->
-    <amw-accordion-panel amwDescription="Add chips with input field">
-      <ng-template #header>
-        <amw-icon name="code"></amw-icon>
-        Chip Input
-      </ng-template>
-      <div class="example-container">
-        <div class="code-panel">
-          <div class="code-header">
-            <h4>Code</h4>
-            <amw-button icon="refresh" (click)="resetCode('input')" title="Reset to original"></amw-button>
-          </div>
-          <textarea
-            [(ngModel)]="editableCode.input"
-            class="code-editor"
-            spellcheck="false"></textarea>
-        </div>
-        <div class="preview-panel">
-          <h4>Preview</h4>
-          <div class="preview-content">
-            <amw-chips
-              [chips]="inputChipsList"
-              [addable]="true"
-              [removable]="true"
-              placeholder="Add a chip..."
-              (chipAdd)="onChipAdd($event)"
-              (chipRemove)="onInputChipRemove($event)">
-            </amw-chips>
-          </div>
-        </div>
-      </div>
-    </amw-accordion-panel>
-
-    <!-- Styled Chips -->
-    <amw-accordion-panel amwDescription="Chips with color themes">
-      <ng-template #header>
-        <amw-icon name="code"></amw-icon>
-        Styled Chips
-      </ng-template>
-      <div class="example-container">
-        <div class="code-panel">
-          <div class="code-header">
-            <h4>Code</h4>
-            <amw-button icon="refresh" (click)="resetCode('styled')" title="Reset to original"></amw-button>
-          </div>
-          <textarea
-            [(ngModel)]="editableCode.styled"
-            class="code-editor"
-            spellcheck="false"></textarea>
-        </div>
-        <div class="preview-panel">
-          <h4>Preview</h4>
-          <div class="preview-content">
-            <amw-chips
-              [chips]="styledChips"
-              [addable]="false"
-              [removable]="false">
-            </amw-chips>
-          </div>
-        </div>
-      </div>
-    </amw-accordion-panel>
-  </amw-accordion>
-</div>
+  <ng-template #preview let-example>
+    @switch (example.key) {
+      @case ('basic') {
+        <amw-chips
+          [chips]="basicChips"
+          [addable]="false"
+          [removable]="false">
+        </amw-chips>
+      }
+      @case ('removable') {
+        <amw-chips
+          [chips]="removableChipsList"
+          [removable]="true"
+          [addable]="false"
+          (chipRemove)="onChipRemove($event)">
+        </amw-chips>
+      }
+      @case ('selectable') {
+        <amw-chips
+          [chips]="selectableChips"
+          [selectable]="true"
+          [addable]="false"
+          [removable]="false"
+          (chipSelect)="onChipSelect($event)">
+        </amw-chips>
+      }
+      @case ('input') {
+        <amw-chips
+          [chips]="inputChipsList"
+          [addable]="true"
+          [removable]="true"
+          placeholder="Add a chip..."
+          (chipAdd)="onChipAdd($event)"
+          (chipRemove)="onInputChipRemove($event)">
+        </amw-chips>
+      }
+      @case ('styled') {
+        <amw-chips
+          [chips]="styledChips"
+          [addable]="false"
+          [removable]="false">
+        </amw-chips>
+      }
+    }
+  </ng-template>
+</amw-code-doc>

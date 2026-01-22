@@ -13,6 +13,7 @@ import { AmwInputComponent } from '../../../../library/src/controls/components/a
 import { AmwSelectComponent } from '../../../../library/src/controls/components/amw-select/amw-select.component';
 import { AmwCheckboxComponent } from '../../../../library/src/controls/components/amw-checkbox/amw-checkbox.component';
 import { AmwTooltipDirective } from '../../../../library/src/directives';
+import { AmwDemoDocComponent } from '../../shared/components/demo-doc/demo-doc.component';
 
 @Component({
     selector: 'amw-demo-card',
@@ -24,7 +25,8 @@ import { AmwTooltipDirective } from '../../../../library/src/directives';
         AmwInputComponent,
         AmwSelectComponent,
         AmwCheckboxComponent,
-        AmwTooltipDirective
+        AmwTooltipDirective,
+        AmwDemoDocComponent
     ],
     encapsulation: ViewEncapsulation.None,
     templateUrl: './card-demo.component.html',

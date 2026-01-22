@@ -4,11 +4,11 @@
       <mat-label [innerHTML]="label()"></mat-label>
     }
 
-    <!-- Signal Forms binding (scenario 3) - Field directive manages disabled, readonly, required automatically -->
-    @if (field()) {
+    <!-- Signal Forms binding (scenario 3) - FormField directive manages disabled, readonly, required automatically -->
+    @if (formField()) {
       <input
         matInput
-        [field]="field()"
+        [formField]="formField()"
         [matDatepicker]="picker"
         [placeholder]="placeholder()"
         (dateChange)="onDateChange($event.value)"

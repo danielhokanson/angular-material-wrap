@@ -4,83 +4,176 @@
     <p>This demo showcases the AMW Report Page component with interactive widgets, data visualization, and comprehensive analytics.</p>
   </div>
 
-  <div class="report-page-demo__controls">
-    <amw-card class="report-page-demo__controls-card">
-      <ng-template #cardContent>
-        <amw-tabs [(selectedIndex)]="currentViewIndex" (selectedIndexChange)="onViewChange($event)">
-          <amw-tab label="Basic View">
-            <div class="report-page-demo__tab-content">
-              <p>Basic report view with essential widgets and metrics.</p>
-            </div>
-          </amw-tab>
-          <amw-tab label="Advanced View">
-            <div class="report-page-demo__tab-content">
-              <p>Advanced report view with fullscreen mode and additional analytics features.</p>
-            </div>
-          </amw-tab>
-        </amw-tabs>
-      </ng-template>
-</amw-card>
-  </div>
-
   <div class="report-page-demo__content">
-    <amw-report-page
-      [config]="reportConfig"
-      [dataSource]="dataSource"
-      [autoRefresh]="false"
-      (widgetClick)="onWidgetClick($event)"
-      (filterChange)="onFilterChange($event)"
-      (dateRangeChange)="onDateRangeChange($event)"
-      (exportClick)="onExportClick($event)">
-    </amw-report-page>
-  </div>
-
-  <div class="report-page-demo__info">
-    <amw-card class="report-page-demo__info-card">
-      <ng-template #cardHeader>
-        <h2>Demo Information</h2>
-      </ng-template>
-      <ng-template #cardContent>
-        <div class="report-page-demo__info-content">
-          <div class="report-page-demo__info-section">
-            <h4>Features Demonstrated:</h4>
-            <ul>
-              <li>Interactive widget grid with multiple sizes</li>
-              <li>Multiple widget types (metrics, charts, tables, KPIs)</li>
-              <li>Date range filtering with presets</li>
-              <li>Advanced filtering capabilities</li>
-              <li>Export to PDF/Excel/CSV</li>
-              <li>Fullscreen mode</li>
-              <li>Real-time data updates</li>
-              <li>Responsive design</li>
-            </ul>
-          </div>
-          
-          <div class="report-page-demo__info-section">
-            <h4>Widget Types:</h4>
-            <ul>
-              <li><strong>Metrics:</strong> Key performance indicators with trends</li>
-              <li><strong>Charts:</strong> Line and bar charts for data visualization</li>
-              <li><strong>Tables:</strong> Sortable data tables with pagination</li>
-              <li><strong>KPIs:</strong> Overall performance scores and summaries</li>
-              <li><strong>Custom:</strong> Placeholder for custom widget components</li>
-            </ul>
+    <amw-tabs>
+      <!-- Demo Tab -->
+      <amw-tab label="Demo" icon="play_arrow">
+        <div class="tab-content">
+          <div class="report-page-demo__controls">
+            <amw-card class="report-page-demo__controls-card">
+              <ng-template #cardContent>
+                <amw-tabs [(selectedIndex)]="currentViewIndex" (selectedIndexChange)="onViewChange($event)">
+                  <amw-tab label="Basic View">
+                    <div class="report-page-demo__tab-content">
+                      <p>Basic report view with essential widgets and metrics.</p>
+                    </div>
+                  </amw-tab>
+                  <amw-tab label="Advanced View">
+                    <div class="report-page-demo__tab-content">
+                      <p>Advanced report view with fullscreen mode and additional analytics features.</p>
+                    </div>
+                  </amw-tab>
+                </amw-tabs>
+              </ng-template>
+            </amw-card>
           </div>
 
-          <div class="report-page-demo__info-section">
-            <h4>Sample Data:</h4>
-            <ul>
-              <li>Sales metrics and trends</li>
-              <li>Product performance data</li>
-              <li>Regional customer analysis</li>
-              <li>Monthly revenue and order data</li>
-              <li>Customer satisfaction scores</li>
-              <li>Conversion and bounce rates</li>
-            </ul>
+          <div class="report-page-demo__report">
+            <amw-report-page
+              [config]="reportConfig"
+              [dataSource]="dataSource"
+              [autoRefresh]="false"
+              (widgetClick)="onWidgetClick($event)"
+              (filterChange)="onFilterChange($event)"
+              (dateRangeChange)="onDateRangeChange($event)"
+              (exportClick)="onExportClick($event)">
+            </amw-report-page>
+          </div>
+
+          <div class="report-page-demo__info">
+            <amw-card class="report-page-demo__info-card">
+              <ng-template #cardHeader>
+                <h2>Demo Information</h2>
+              </ng-template>
+              <ng-template #cardContent>
+                <div class="report-page-demo__info-content">
+                  <div class="report-page-demo__info-section">
+                    <h4>Features Demonstrated:</h4>
+                    <ul>
+                      <li>Interactive widget grid with multiple sizes</li>
+                      <li>Multiple widget types (metrics, charts, tables, KPIs)</li>
+                      <li>Date range filtering with presets</li>
+                      <li>Advanced filtering capabilities</li>
+                      <li>Export to PDF/Excel/CSV</li>
+                      <li>Fullscreen mode</li>
+                      <li>Real-time data updates</li>
+                      <li>Responsive design</li>
+                    </ul>
+                  </div>
+
+                  <div class="report-page-demo__info-section">
+                    <h4>Widget Types:</h4>
+                    <ul>
+                      <li><strong>Metrics:</strong> Key performance indicators with trends</li>
+                      <li><strong>Charts:</strong> Line and bar charts for data visualization</li>
+                      <li><strong>Tables:</strong> Sortable data tables with pagination</li>
+                      <li><strong>KPIs:</strong> Overall performance scores and summaries</li>
+                      <li><strong>Custom:</strong> Placeholder for custom widget components</li>
+                    </ul>
+                  </div>
+
+                  <div class="report-page-demo__info-section">
+                    <h4>Sample Data:</h4>
+                    <ul>
+                      <li>Sales metrics and trends</li>
+                      <li>Product performance data</li>
+                      <li>Regional customer analysis</li>
+                      <li>Monthly revenue and order data</li>
+                      <li>Customer satisfaction scores</li>
+                      <li>Conversion and bounce rates</li>
+                    </ul>
+                  </div>
+                </div>
+              </ng-template>
+            </amw-card>
           </div>
         </div>
-      </ng-template>
-</amw-card>
+      </amw-tab>
+
+      <!-- Code Tab -->
+      <amw-tab label="Code" icon="code">
+        <div class="tab-content">
+          <div class="code-examples">
+            <h3>AmwReportPageComponent Code Examples</h3>
+            <p>Setup and usage examples for the report page component.</p>
+
+            <div class="code-example">
+              <h4>1. Basic Usage</h4>
+              <pre><code>{{ codeExamples.basic }}</code></pre>
+            </div>
+
+            <div class="code-example">
+              <h4>2. Configuration Options (ReportPageConfig)</h4>
+              <pre><code>{{ codeExamples.config }}</code></pre>
+            </div>
+
+            <div class="code-example">
+              <h4>3. Data Source Implementation</h4>
+              <pre><code>{{ codeExamples.dataSource }}</code></pre>
+            </div>
+
+            <div class="code-example">
+              <h4>4. Widget Types and Configuration</h4>
+              <pre><code>{{ codeExamples.widgets }}</code></pre>
+            </div>
+
+            <div class="code-example">
+              <h4>5. Event Handling</h4>
+              <pre><code>{{ codeExamples.events }}</code></pre>
+            </div>
+          </div>
+
+          <amw-card>
+            <ng-template #cardHeader>
+              <h2>Implementation Tips</h2>
+            </ng-template>
+            <ng-template #cardContent>
+              <ul class="tips-list">
+                <li><strong>Data Source:</strong> Implement ReportPageDataSource interface - getData() is required, other methods are optional</li>
+                <li><strong>Widgets:</strong> Configure widgets with type, size, position, and data properties</li>
+                <li><strong>Charts:</strong> Use Chart.js configuration format in widget.config for chart customization</li>
+                <li><strong>Filters:</strong> Define filter fields with key, label, type, and options</li>
+                <li><strong>Date Range:</strong> Use presets for common ranges (today, lastWeek, lastMonth, lastYear)</li>
+                <li><strong>Auto Refresh:</strong> Enable autoRefresh with refreshInterval for real-time dashboards</li>
+                <li><strong>Export:</strong> Implement exportReport() in data source for PDF/Excel/CSV export</li>
+                <li><strong>Custom Actions:</strong> Add custom toolbar buttons with onClick handlers</li>
+              </ul>
+            </ng-template>
+          </amw-card>
+
+          <amw-card>
+            <ng-template #cardHeader>
+              <h2>Best Practices</h2>
+            </ng-template>
+            <ng-template #cardContent>
+              <ul class="features-list">
+                <li><strong>Widget Layout:</strong> Use grid positions and colspan for responsive layouts</li>
+                <li><strong>Loading States:</strong> The component handles loading indicators automatically</li>
+                <li><strong>Error Handling:</strong> Handle errors in your data source Observable and show appropriate messages</li>
+                <li><strong>Performance:</strong> Use refreshWidget() to update individual widgets instead of full refresh</li>
+                <li><strong>Accessibility:</strong> The component includes ARIA labels for screen readers</li>
+                <li><strong>Responsive:</strong> Widget grid adapts to screen size automatically</li>
+                <li><strong>Fullscreen:</strong> Use fullscreen mode for presentations and wall displays</li>
+              </ul>
+            </ng-template>
+          </amw-card>
+        </div>
+      </amw-tab>
+
+      <!-- API Tab -->
+      <amw-tab label="API" icon="description">
+        <div class="tab-content">
+          <div class="api-section">
+            <amw-api-doc
+              componentName="AmwReportPageComponent"
+              [apiDocumentation]="reportPageApiDoc"
+              [interfaces]="reportPageInterfaces"
+              description="A comprehensive report/analytics page component with interactive widgets, charts, tables, and data visualization.">
+            </amw-api-doc>
+          </div>
+
+        </div>
+      </amw-tab>
+    </amw-tabs>
   </div>
 </div>
-

@@ -4,83 +4,134 @@
     <p>This demo showcases the AMW Detail Page component with comprehensive employee information, including personal details, professional information, and related data.</p>
   </div>
 
-  <div class="detail-page-demo__controls">
-    <amw-card class="detail-page-demo__controls-card">
-      <ng-template #cardContent>
-        <amw-tabs [(selectedIndex)]="currentViewIndex" (selectedIndexChange)="onViewChange($event)">
-          <amw-tab label="Basic View">
-            <div class="detail-page-demo__tab-content">
-              <p>Basic detail view with essential information and actions.</p>
+  <amw-card class="detail-page-demo__main-card">
+    <ng-template #cardContent>
+      <amw-tabs [(selectedIndex)]="selectedTab" class="detail-page-demo__tabs">
+        <!-- Demo Tab -->
+        <amw-tab label="Demo" icon="play_arrow">
+          <div class="detail-page-demo__demo-content">
+            <div class="detail-page-demo__controls">
+              <amw-card class="detail-page-demo__controls-card">
+                <ng-template #cardContent>
+                  <amw-tabs [(selectedIndex)]="currentViewIndex" (selectedIndexChange)="onViewChange($event)">
+                    <amw-tab label="Basic View">
+                      <div class="detail-page-demo__tab-content">
+                        <p>Basic detail view with essential information and actions.</p>
+                      </div>
+                    </amw-tab>
+                    <amw-tab label="Advanced View">
+                      <div class="detail-page-demo__tab-content">
+                        <p>Advanced detail view with all features: print, share, and additional actions.</p>
+                      </div>
+                    </amw-tab>
+                  </amw-tabs>
+                </ng-template>
+              </amw-card>
             </div>
-          </amw-tab>
-          <amw-tab label="Advanced View">
-            <div class="detail-page-demo__tab-content">
-              <p>Advanced detail view with all features: print, share, and additional actions.</p>
+
+            <div class="detail-page-demo__content">
+              <amw-detail-page
+                [config]="detailConfig"
+                [itemId]="currentItemId"
+                [dataSource]="dataSource"
+                [realTimeUpdates]="false"
+                (actionClick)="onActionClick($event)"
+                (deleteClick)="onItemDelete($event)"
+                (editClick)="onItemRefresh($event)"
+                (backClick)="onBackClick()">
+              </amw-detail-page>
             </div>
-          </amw-tab>
-        </amw-tabs>
-      </ng-template>
-</amw-card>
-  </div>
 
-  <div class="detail-page-demo__content">
-    <amw-detail-page
-      [config]="detailConfig"
-      [itemId]="currentItemId"
-      [dataSource]="dataSource"
-      [realTimeUpdates]="false"
-      (actionClick)="onActionClick($event)"
-      (deleteClick)="onItemDelete($event)"
-      (editClick)="onItemRefresh($event)"
-      (backClick)="onBackClick()">
-    </amw-detail-page>
-  </div>
+            <div class="detail-page-demo__info">
+              <amw-card class="detail-page-demo__info-card">
+                <ng-template #cardHeader>
+                  <h2>Demo Information</h2>
+                </ng-template>
+                <ng-template #cardContent>
+                  <div class="detail-page-demo__info-content">
+                    <div class="detail-page-demo__info-section">
+                      <h4>Features Demonstrated:</h4>
+                      <ul>
+                        <li>Tabbed and single-section content layouts</li>
+                        <li>Field-level actions (copy, link)</li>
+                        <li>Custom field renderers and components</li>
+                        <li>Related data sections (tables, lists)</li>
+                        <li>Action buttons (edit, delete, print, share)</li>
+                        <li>Real-time updates support</li>
+                        <li>Responsive design</li>
+                      </ul>
+                    </div>
 
-  <div class="detail-page-demo__info">
-    <amw-card class="detail-page-demo__info-card">
-      <ng-template #cardHeader>
-        <h2>Demo Information</h2>
-      </ng-template>
-      <ng-template #cardContent>
-        <div class="detail-page-demo__info-content">
-          <div class="detail-page-demo__info-section">
-            <h4>Features Demonstrated:</h4>
-            <ul>
-              <li>Tabbed and single-section content layouts</li>
-              <li>Field-level actions (copy, link)</li>
-              <li>Custom field renderers and components</li>
-              <li>Related data sections (tables, lists)</li>
-              <li>Action buttons (edit, delete, print, share)</li>
-              <li>Real-time updates support</li>
-              <li>Responsive design</li>
-            </ul>
-          </div>
-          
-          <div class="detail-page-demo__info-section">
-            <h4>Data Structure:</h4>
-            <p>The demo uses a comprehensive employee record with:</p>
-            <ul>
-              <li>Personal information (name, email, phone, address)</li>
-              <li>Professional details (department, role, manager, team)</li>
-              <li>Compensation and benefits</li>
-              <li>Skills and performance metrics</li>
-              <li>Related projects and performance reviews</li>
-            </ul>
-          </div>
+                    <div class="detail-page-demo__info-section">
+                      <h4>Data Structure:</h4>
+                      <p>The demo uses a comprehensive employee record with:</p>
+                      <ul>
+                        <li>Personal information (name, email, phone, address)</li>
+                        <li>Professional details (department, role, manager, team)</li>
+                        <li>Compensation and benefits</li>
+                        <li>Skills and performance metrics</li>
+                        <li>Related projects and performance reviews</li>
+                      </ul>
+                    </div>
 
-          <div class="detail-page-demo__info-section">
-            <h4>Custom Features:</h4>
-            <ul>
-              <li>Clickable email and phone links</li>
-              <li>Copyable field values</li>
-              <li>Custom field renderers for complex data</li>
-              <li>Color-coded status indicators</li>
-              <li>Collapsible related data sections</li>
-            </ul>
+                    <div class="detail-page-demo__info-section">
+                      <h4>Custom Features:</h4>
+                      <ul>
+                        <li>Clickable email and phone links</li>
+                        <li>Copyable field values</li>
+                        <li>Custom field renderers for complex data</li>
+                        <li>Color-coded status indicators</li>
+                        <li>Collapsible related data sections</li>
+                      </ul>
+                    </div>
+                  </div>
+                </ng-template>
+              </amw-card>
+            </div>
           </div>
-        </div>
-      </ng-template>
-</amw-card>
-  </div>
+        </amw-tab>
+
+        <!-- Code Tab -->
+        <amw-tab label="Code" icon="code">
+          <div class="detail-page-demo__code-content">
+            <h3>Basic Usage</h3>
+            <p>Import and configure the AmwDetailPageComponent with your detail configuration and data source.</p>
+            <pre><code>{{ codeExamples.basic }}</code></pre>
+
+            <h3>Configuration Options</h3>
+            <p>The DetailPageConfig interface provides customization options for the detail page.</p>
+            <pre><code>{{ codeExamples.configuration }}</code></pre>
+
+            <h3>Section Configuration</h3>
+            <p>Configure sections to group related fields with icons and descriptions.</p>
+            <pre><code>{{ codeExamples.sections }}</code></pre>
+
+            <h3>Data Source Implementation</h3>
+            <p>Implement the DetailPageDataSource interface to connect with your backend API.</p>
+            <pre><code>{{ codeExamples.dataSource }}</code></pre>
+
+            <h3>Event Handling</h3>
+            <p>Handle detail page events to respond to user actions.</p>
+            <pre><code>{{ codeExamples.eventHandling }}</code></pre>
+
+            <h3>Related Data Configuration</h3>
+            <p>Configure related data sections to display associated information.</p>
+            <pre><code>{{ codeExamples.relatedData }}</code></pre>
+          </div>
+        </amw-tab>
+
+        <!-- API Tab -->
+        <amw-tab label="API" icon="description">
+          <div class="detail-page-demo__api-content">
+            <amw-api-doc
+              componentName="AmwDetailPageComponent"
+              [apiDocumentation]="detailPageApiDoc"
+              [interfaces]="detailPageInterfaces"
+              description="A comprehensive detail/view page component for displaying item information with sections, fields, related data, and action buttons.">
+            </amw-api-doc>
+          </div>
+        </amw-tab>
+      </amw-tabs>
+    </ng-template>
+  </amw-card>
 </div>
-

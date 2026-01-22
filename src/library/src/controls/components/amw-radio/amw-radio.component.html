@@ -1,8 +1,8 @@
 <div [class]="getRadioClasses()">
-  <!-- Signal Forms binding (scenario 3) - Field directive manages disabled, required automatically -->
-  @if (field()) {
+  <!-- Signal Forms binding (scenario 3) - FormField directive manages disabled, required automatically -->
+  @if (formField()) {
     <mat-radio-button
-      [field]="field()"
+      [formField]="formField()"
       [color]="getMaterialColor()"
       [checked]="checked()"
       [value]="radioValue()"

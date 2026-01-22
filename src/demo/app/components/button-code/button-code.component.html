@@ -1,201 +1,44 @@
-<div class="code-section">
-  <h3>Code Examples</h3>
-  <p>Interactive examples with live previews. The code is editable for reference, and working examples are shown alongside.</p>
+<amw-code-doc
+  componentName="amw-button"
+  [examples]="examples"
+  [editableCode]="editableCode">
 
-  <amw-accordion class="code-examples-accordion">
-    <!-- Basic Buttons -->
-    <amw-accordion-panel amwDescription="Simple text buttons with different colors">
-      <ng-template #header>
-        <amw-icon name="code"></amw-icon>
-        Basic Buttons
-      </ng-template>
-      <div class="example-container">
-        <div class="code-panel">
-          <div class="code-header">
-            <h4>Code</h4>
-            <amw-button icon="refresh" (click)="resetCode('basic')" title="Reset to original"></amw-button>
-          </div>
-          <textarea
-            [(ngModel)]="editableCode.basic"
-            class="code-editor"
-            spellcheck="false"></textarea>
-        </div>
-        <div class="preview-panel">
-          <h4>Preview</h4>
-          <div class="preview-content">
-            <amw-button appearance="text" color="primary">Basic Button</amw-button>
-            <amw-button appearance="text" color="accent">Accent Button</amw-button>
-            <amw-button appearance="text" color="warn">Warn Button</amw-button>
-          </div>
-        </div>
-      </div>
-    </amw-accordion-panel>
-
-    <!-- Raised Buttons -->
-    <amw-accordion-panel amwDescription="Elevated buttons with shadow">
-      <ng-template #header>
-        <amw-icon name="code"></amw-icon>
-        Raised Buttons
-      </ng-template>
-      <div class="example-container">
-        <div class="code-panel">
-          <div class="code-header">
-            <h4>Code</h4>
-            <amw-button icon="refresh" (click)="resetCode('raised')" title="Reset to original"></amw-button>
-          </div>
-          <textarea
-            [(ngModel)]="editableCode.raised"
-            class="code-editor"
-            spellcheck="false"></textarea>
-        </div>
-        <div class="preview-panel">
-          <h4>Preview</h4>
-          <div class="preview-content">
-            <amw-button appearance="elevated" color="primary">Raised Button</amw-button>
-            <amw-button appearance="elevated" color="accent">Accent Raised</amw-button>
-            <amw-button appearance="elevated" color="warn">Warn Raised</amw-button>
-          </div>
-        </div>
-      </div>
-    </amw-accordion-panel>
-
-    <!-- Stroked Buttons -->
-    <amw-accordion-panel amwDescription="Outlined buttons with border">
-      <ng-template #header>
-        <amw-icon name="code"></amw-icon>
-        Stroked Buttons
-      </ng-template>
-      <div class="example-container">
-        <div class="code-panel">
-          <div class="code-header">
-            <h4>Code</h4>
-            <amw-button icon="refresh" (click)="resetCode('stroked')" title="Reset to original"></amw-button>
-          </div>
-          <textarea
-            [(ngModel)]="editableCode.stroked"
-            class="code-editor"
-            spellcheck="false"></textarea>
-        </div>
-        <div class="preview-panel">
-          <h4>Preview</h4>
-          <div class="preview-content">
-            <amw-button appearance="outlined" color="primary">Stroked Button</amw-button>
-            <amw-button appearance="outlined" color="accent">Accent Stroked</amw-button>
-            <amw-button appearance="outlined" color="warn">Warn Stroked</amw-button>
-          </div>
-        </div>
-      </div>
-    </amw-accordion-panel>
-
-    <!-- Flat Buttons -->
-    <amw-accordion-panel amwDescription="Filled buttons without shadow">
-      <ng-template #header>
-        <amw-icon name="code"></amw-icon>
-        Flat Buttons
-      </ng-template>
-      <div class="example-container">
-        <div class="code-panel">
-          <div class="code-header">
-            <h4>Code</h4>
-            <amw-button icon="refresh" (click)="resetCode('flat')" title="Reset to original"></amw-button>
-          </div>
-          <textarea
-            [(ngModel)]="editableCode.flat"
-            class="code-editor"
-            spellcheck="false"></textarea>
-        </div>
-        <div class="preview-panel">
-          <h4>Preview</h4>
-          <div class="preview-content">
-            <amw-button color="primary">Flat Button</amw-button>
-            <amw-button color="accent">Accent Flat</amw-button>
-            <amw-button color="warn">Warn Flat</amw-button>
-          </div>
-        </div>
-      </div>
-    </amw-accordion-panel>
-
-    <!-- Icon Buttons -->
-    <amw-accordion-panel amwDescription="Circular buttons with icons">
-      <ng-template #header>
-        <amw-icon name="code"></amw-icon>
-        Icon Buttons
-      </ng-template>
-      <div class="example-container">
-        <div class="code-panel">
-          <div class="code-header">
-            <h4>Code</h4>
-            <amw-button icon="refresh" (click)="resetCode('icon')" title="Reset to original"></amw-button>
-          </div>
-          <textarea
-            [(ngModel)]="editableCode.icon"
-            class="code-editor"
-            spellcheck="false"></textarea>
-        </div>
-        <div class="preview-panel">
-          <h4>Preview</h4>
-          <div class="preview-content">
-            <amw-button icon="favorite" color="primary"></amw-button>
-            <amw-button icon="delete" color="accent"></amw-button>
-            <amw-button icon="warning" color="warn"></amw-button>
-          </div>
-        </div>
-      </div>
-    </amw-accordion-panel>
-
-    <!-- FAB Buttons -->
-    <amw-accordion-panel amwDescription="Primary action buttons with elevated appearance">
-      <ng-template #header>
-        <amw-icon name="code"></amw-icon>
-        Floating Action Buttons (FAB)
-      </ng-template>
-      <div class="example-container">
-        <div class="code-panel">
-          <div class="code-header">
-            <h4>Code</h4>
-            <amw-button icon="refresh" (click)="resetCode('fab')" title="Reset to original"></amw-button>
-          </div>
-          <textarea
-            [(ngModel)]="editableCode.fab"
-            class="code-editor"
-            spellcheck="false"></textarea>
-        </div>
-        <div class="preview-panel">
-          <h4>Preview</h4>
-          <div class="preview-content">
-            <amw-button [fab]="true" icon="add" color="primary"></amw-button>
-            <amw-button fab="mini" icon="edit" color="accent"></amw-button>
-            <amw-button fab="mini" icon="delete" color="warn"></amw-button>
-          </div>
-        </div>
-      </div>
-    </amw-accordion-panel>
-
-    <!-- Disabled State -->
-    <amw-accordion-panel amwDescription="Buttons in disabled state">
-      <ng-template #header>
-        <amw-icon name="code"></amw-icon>
-        Disabled State
-      </ng-template>
-      <div class="example-container">
-        <div class="code-panel">
-          <div class="code-header">
-            <h4>Code</h4>
-            <amw-button icon="refresh" (click)="resetCode('disabled')" title="Reset to original"></amw-button>
-          </div>
-          <textarea
-            [(ngModel)]="editableCode.disabled"
-            class="code-editor"
-            spellcheck="false"></textarea>
-        </div>
-        <div class="preview-panel">
-          <h4>Preview</h4>
-          <div class="preview-content">
-            <amw-button appearance="elevated" color="primary" [disabled]="true">Disabled Button</amw-button>
-            <amw-button appearance="elevated" color="accent" [disabled]="true">Disabled Accent</amw-button>
-          </div>
-        </div>
-      </div>
-    </amw-accordion-panel>
-  </amw-accordion>
-</div>
+  <ng-template #preview let-example>
+    @switch (example.key) {
+      @case ('basic') {
+        <amw-button appearance="text" color="primary">Basic Button</amw-button>
+        <amw-button appearance="text" color="accent">Accent Button</amw-button>
+        <amw-button appearance="text" color="warn">Warn Button</amw-button>
+      }
+      @case ('raised') {
+        <amw-button appearance="elevated" color="primary">Raised Button</amw-button>
+        <amw-button appearance="elevated" color="accent">Accent Raised</amw-button>
+        <amw-button appearance="elevated" color="warn">Warn Raised</amw-button>
+      }
+      @case ('stroked') {
+        <amw-button appearance="outlined" color="primary">Stroked Button</amw-button>
+        <amw-button appearance="outlined" color="accent">Accent Stroked</amw-button>
+        <amw-button appearance="outlined" color="warn">Warn Stroked</amw-button>
+      }
+      @case ('flat') {
+        <amw-button color="primary">Flat Button</amw-button>
+        <amw-button color="accent">Accent Flat</amw-button>
+        <amw-button color="warn">Warn Flat</amw-button>
+      }
+      @case ('icon') {
+        <amw-button icon="favorite" color="primary"></amw-button>
+        <amw-button icon="delete" color="accent"></amw-button>
+        <amw-button icon="warning" color="warn"></amw-button>
+      }
+      @case ('fab') {
+        <amw-button [fab]="true" icon="add" color="primary"></amw-button>
+        <amw-button fab="mini" icon="edit" color="accent"></amw-button>
+        <amw-button fab="mini" icon="delete" color="warn"></amw-button>
+      }
+      @case ('disabled') {
+        <amw-button appearance="elevated" color="primary" [disabled]="true">Disabled Button</amw-button>
+        <amw-button appearance="elevated" color="accent" [disabled]="true">Disabled Accent</amw-button>
+      }
+    }
+  </ng-template>
+</amw-code-doc>

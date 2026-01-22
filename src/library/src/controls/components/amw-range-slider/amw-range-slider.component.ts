@@ -2,7 +2,7 @@ import { Component, input, output, signal, ViewEncapsulation, effect } from '@an
 
 import { MatSliderModule } from '@angular/material/slider';
 import { FormsModule, ReactiveFormsModule, ControlValueAccessor, NG_VALUE_ACCESSOR } from '@angular/forms';
-import { Field } from '@angular/forms/signals';
+import { FormField } from '@angular/forms/signals';
 import { BaseComponent } from '../base/base.component';
 import { RangeSliderConfig } from './interfaces';
 
@@ -15,7 +15,7 @@ import { RangeSliderConfig } from './interfaces';
 @Component({
     selector: 'amw-range-slider',
     standalone: true,
-    imports: [MatSliderModule, FormsModule, ReactiveFormsModule, Field],
+    imports: [MatSliderModule, FormsModule, ReactiveFormsModule, FormField],
     encapsulation: ViewEncapsulation.None,
     templateUrl: './amw-range-slider.component.html',
     styleUrl: './amw-range-slider.component.scss',
@@ -38,7 +38,7 @@ export class AmwRangeSliderComponent extends BaseComponent<{ start: number; end:
      * Mutually exclusive with ngModel and formControl/formControlName.
      * @experimental
      */
-    field = input<any>(undefined);
+    formField = input<any>(undefined);
 
     min = input<number>(0);
     max = input<number>(100);

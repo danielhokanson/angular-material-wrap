@@ -1,246 +1,109 @@
-<div class="code-section">
-  <h3>Code Examples</h3>
-  <p>Interactive examples with live previews. The code is editable for reference, and working examples are shown alongside.</p>
+<amw-code-doc
+  componentName="amw-file-input"
+  [examples]="examples"
+  [editableCode]="editableCode">
 
-  <amw-accordion class="code-examples-accordion">
-    <!-- Basic File Input -->
-    <amw-accordion-panel>
-      <ng-template #panelHeader>
-        <div class="panel-title">
-          <amw-icon name="code"></amw-icon>
-          Basic File Input
-        </div>
-        <div class="panel-description">Simple file input with default configuration</div>
-      </ng-template>
-      <div class="example-container">
-        <div class="code-panel">
-          <div class="code-header">
-            <h4>Code</h4>
-            <amw-button icon="refresh" (click)="resetCode('basic')" title="Reset to original"></amw-button>
-          </div>
-          <textarea
-            [(ngModel)]="editableCode.basic"
-            class="code-editor"
-            spellcheck="false"></textarea>
-        </div>
-        <div class="preview-panel">
-          <h4>Preview</h4>
-          <div class="preview-content">
-            <amw-file-input
-              [(selectedFiles)]="basicFiles"
-              (filesChange)="onFilesChange($event)"
-              (fileSelect)="onFileSelect($event)"
-              (fileRemove)="onFileRemove($event)">
-            </amw-file-input>
-            <p *ngIf="basicFiles.length > 0">Selected files: {{ basicFiles.length }}</p>
-          </div>
-        </div>
-      </div>
-    </amw-accordion-panel>
+  <ng-template #preview let-example>
+    @switch (example.key) {
+      @case ('basic') {
+        <amw-file-input
+          [(selectedFiles)]="basicFiles"
+          (filesChange)="onFilesChange($event)"
+          (fileSelect)="onFileSelect($event)"
+          (fileRemove)="onFileRemove($event)">
+        </amw-file-input>
+        @if (basicFiles.length > 0) {
+          <p>Selected files: {{ basicFiles.length }}</p>
+        }
+      }
+      @case ('configured') {
+        <amw-file-input
+          [multiple]="true"
+          [accept]="'image/*'"
+          [maxSize]="5 * 1024 * 1024"
+          [maxFiles]="5"
+          [showPreview]="true"
+          [allowDragDrop]="true"
+          [selectedFiles]="imageFiles"
+          (filesChange)="onImageFilesChange($event)"
+          placeholder="Upload images (max 5MB each)"
+          buttonText="Choose Images">
+        </amw-file-input>
+        @if (imageFiles.length > 0) {
+          <p>Selected images: {{ imageFiles.length }}</p>
+        }
+      }
+      @case ('formControl') {
+        <form [formGroup]="fileForm">
+          <amw-file-input
+            formControlName="profileImage"
+            [accept]="'image/*'"
+            [maxSize]="5 * 1024 * 1024"
+            [hasError]="!!(fileForm.get('profileImage')?.invalid && fileForm.get('profileImage')?.touched)">
+            Profile Image
+          </amw-file-input>
+        </form>
+        <p>Form valid: {{ fileForm.valid ? 'Yes' : 'No' }}</p>
+        @if (fileForm.get('profileImage')?.hasError('minFiles')) {
+          <p>At least one file is required</p>
+        }
+      }
+      @case ('validation') {
+        <form [formGroup]="fileForm">
+          <amw-file-input
+            formControlName="documents"
+            [accept]="'.pdf'"
+            [maxSize]="10 * 1024 * 1024"
+            [hasError]="!!(fileForm.get('documents')?.invalid && fileForm.get('documents')?.touched)"
+            [errorMessage]="getErrorMessage('documents')">
+            Upload Documents
+          </amw-file-input>
+        </form>
+        <p>Form valid: {{ fileForm.valid ? 'Yes' : 'No' }}</p>
+        @if (fileForm.get('documents')?.errors) {
+          <p class="error-text">{{ getErrorMessage('documents') }}</p>
+        }
+      }
+      @case ('dragDrop') {
+        <amw-file-input
+          [allowDragDrop]="true"
+          [multiple]="true"
+          [accept]="'*/*'"
+          [selectedFiles]="dragDropFiles"
+          (filesChange)="onFilesChange($event)"
+          placeholder="Drag and drop files here or click to browse"
+          dropText="Drop files here to upload">
+        </amw-file-input>
+        @if (dragDropFiles.length > 0) {
+          <p>Dropped files: {{ dragDropFiles.length }}</p>
+        }
+      }
+      @case ('fileTypes') {
+        <amw-file-input [accept]="'image/*'" [selectedFiles]="imageOnlyFiles">Images</amw-file-input>
+        @if (imageOnlyFiles.length > 0) {
+          <p>Images: {{ imageOnlyFiles.length }}</p>
+        }
 
-    <!-- Configured File Input -->
-    <amw-accordion-panel>
-      <ng-template #panelHeader>
-        <div class="panel-title">
-          <amw-icon name="code"></amw-icon>
-          Configured File Input
-        </div>
-        <div class="panel-description">File input with custom configuration and restrictions</div>
-      </ng-template>
-      <div class="example-container">
-        <div class="code-panel">
-          <div class="code-header">
-            <h4>Code</h4>
-            <amw-button icon="refresh" (click)="resetCode('configured')" title="Reset to original"></amw-button>
-          </div>
-          <textarea
-            [(ngModel)]="editableCode.configured"
-            class="code-editor"
-            spellcheck="false"></textarea>
-        </div>
-        <div class="preview-panel">
-          <h4>Preview</h4>
-          <div class="preview-content">
-            <amw-file-input
-              [multiple]="true"
-              [accept]="'image/*'"
-              [maxSize]="5 * 1024 * 1024"
-              [maxFiles]="5"
-              [showPreview]="true"
-              [allowDragDrop]="true"
-              [selectedFiles]="imageFiles"
-              (filesChange)="onImageFilesChange($event)"
-              placeholder="Upload images (max 5MB each)"
-              buttonText="Choose Images">
-            </amw-file-input>
-            <p *ngIf="imageFiles.length > 0">Selected images: {{ imageFiles.length }}</p>
-          </div>
-        </div>
-      </div>
-    </amw-accordion-panel>
+        <amw-file-input [accept]="'.jpg,.jpeg,.png,.gif'" [selectedFiles]="specificImageFiles">Specific Images</amw-file-input>
+        @if (specificImageFiles.length > 0) {
+          <p>Specific images: {{ specificImageFiles.length }}</p>
+        }
 
-    <!-- Reactive Form Integration -->
-    <amw-accordion-panel>
-      <ng-template #panelHeader>
-        <div class="panel-title">
-          <amw-icon name="code"></amw-icon>
-          Reactive Form Integration
-        </div>
-        <div class="panel-description">File input integrated with Angular reactive forms</div>
-      </ng-template>
-      <div class="example-container">
-        <div class="code-panel">
-          <div class="code-header">
-            <h4>Code</h4>
-            <amw-button icon="refresh" (click)="resetCode('formControl')" title="Reset to original"></amw-button>
-          </div>
-          <textarea
-            [(ngModel)]="editableCode.formControl"
-            class="code-editor"
-            spellcheck="false"></textarea>
-        </div>
-        <div class="preview-panel">
-          <h4>Preview</h4>
-          <div class="preview-content">
-            <form [formGroup]="fileForm">
-              <amw-file-input
-                formControlName="profileImage"
-                [accept]="'image/*'"
-                [maxSize]="5 * 1024 * 1024"
-                [hasError]="!!(fileForm.get('profileImage')?.invalid && fileForm.get('profileImage')?.touched)">
-                Profile Image
-              </amw-file-input>
-            </form>
-            <p>Form valid: {{ fileForm.valid ? 'Yes' : 'No' }}</p>
-            <p *ngIf="fileForm.get('profileImage')?.hasError('minFiles')">At least one file is required</p>
-          </div>
-        </div>
-      </div>
-    </amw-accordion-panel>
+        <amw-file-input [accept]="'application/pdf'" [selectedFiles]="pdfFiles">PDF Files</amw-file-input>
+        @if (pdfFiles.length > 0) {
+          <p>PDFs: {{ pdfFiles.length }}</p>
+        }
 
-    <!-- With Custom Validation -->
-    <amw-accordion-panel>
-      <ng-template #panelHeader>
-        <div class="panel-title">
-          <amw-icon name="code"></amw-icon>
-          With Custom Validation
-        </div>
-        <div class="panel-description">File input with custom validation and error handling</div>
-      </ng-template>
-      <div class="example-container">
-        <div class="code-panel">
-          <div class="code-header">
-            <h4>Code</h4>
-            <amw-button icon="refresh" (click)="resetCode('validation')" title="Reset to original"></amw-button>
-          </div>
-          <textarea
-            [(ngModel)]="editableCode.validation"
-            class="code-editor"
-            spellcheck="false"></textarea>
-        </div>
-        <div class="preview-panel">
-          <h4>Preview</h4>
-          <div class="preview-content">
-            <form [formGroup]="fileForm">
-              <amw-file-input
-                formControlName="documents"
-                [accept]="'.pdf'"
-                [maxSize]="10 * 1024 * 1024"
-                [hasError]="!!(fileForm.get('documents')?.invalid && fileForm.get('documents')?.touched)"
-                [errorMessage]="getErrorMessage('documents')">
-                Upload Documents
-              </amw-file-input>
-            </form>
-            <p>Form valid: {{ fileForm.valid ? 'Yes' : 'No' }}</p>
-            <p *ngIf="fileForm.get('documents')?.errors" class="error-text">{{ getErrorMessage('documents') }}</p>
-          </div>
-        </div>
-      </div>
-    </amw-accordion-panel>
+        <amw-file-input [accept]="'image/*,application/pdf'" [selectedFiles]="mixedFiles">Images & PDFs</amw-file-input>
+        @if (mixedFiles.length > 0) {
+          <p>Mixed files: {{ mixedFiles.length }}</p>
+        }
 
-    <!-- Drag & Drop Configuration -->
-    <amw-accordion-panel>
-      <ng-template #panelHeader>
-        <div class="panel-title">
-          <amw-icon name="code"></amw-icon>
-          Drag & Drop Configuration
-        </div>
-        <div class="panel-description">File input with drag and drop functionality</div>
-      </ng-template>
-      <div class="example-container">
-        <div class="code-panel">
-          <div class="code-header">
-            <h4>Code</h4>
-            <amw-button icon="refresh" (click)="resetCode('dragDrop')" title="Reset to original"></amw-button>
-          </div>
-          <textarea
-            [(ngModel)]="editableCode.dragDrop"
-            class="code-editor"
-            spellcheck="false"></textarea>
-        </div>
-        <div class="preview-panel">
-          <h4>Preview</h4>
-          <div class="preview-content">
-            <amw-file-input
-              [allowDragDrop]="true"
-              [multiple]="true"
-              [accept]="'*/*'"
-              [selectedFiles]="dragDropFiles"
-              (filesChange)="onFilesChange($event)"
-              placeholder="Drag and drop files here or click to browse"
-              dropText="Drop files here to upload">
-            </amw-file-input>
-            <p *ngIf="dragDropFiles.length > 0">Dropped files: {{ dragDropFiles.length }}</p>
-          </div>
-        </div>
-      </div>
-    </amw-accordion-panel>
-
-    <!-- File Type Restrictions -->
-    <amw-accordion-panel>
-      <ng-template #panelHeader>
-        <div class="panel-title">
-          <amw-icon name="code"></amw-icon>
-          File Type Restrictions
-        </div>
-        <div class="panel-description">Different file type restrictions and MIME types</div>
-      </ng-template>
-      <div class="example-container">
-        <div class="code-panel">
-          <div class="code-header">
-            <h4>Code</h4>
-            <amw-button icon="refresh" (click)="resetCode('fileTypes')" title="Reset to original"></amw-button>
-          </div>
-          <textarea
-            [(ngModel)]="editableCode.fileTypes"
-            class="code-editor"
-            spellcheck="false"></textarea>
-        </div>
-        <div class="preview-panel">
-          <h4>Preview</h4>
-          <div class="preview-content">
-            <!-- Images only -->
-            <amw-file-input [accept]="'image/*'" [selectedFiles]="imageOnlyFiles">Images</amw-file-input>
-            <p *ngIf="imageOnlyFiles.length > 0">Images: {{ imageOnlyFiles.length }}</p>
-
-            <!-- Specific extensions -->
-            <amw-file-input [accept]="'.jpg,.jpeg,.png,.gif'" [selectedFiles]="specificImageFiles">Specific Images</amw-file-input>
-            <p *ngIf="specificImageFiles.length > 0">Specific images: {{ specificImageFiles.length }}</p>
-
-            <!-- PDF only -->
-            <amw-file-input [accept]="'application/pdf'" [selectedFiles]="pdfFiles">PDF Files</amw-file-input>
-            <p *ngIf="pdfFiles.length > 0">PDFs: {{ pdfFiles.length }}</p>
-
-            <!-- Multiple types -->
-            <amw-file-input [accept]="'image/*,application/pdf'" [selectedFiles]="mixedFiles">Images & PDFs</amw-file-input>
-            <p *ngIf="mixedFiles.length > 0">Mixed files: {{ mixedFiles.length }}</p>
-
-            <!-- Video files -->
-            <amw-file-input [accept]="'video/*'" [selectedFiles]="videoFiles">Video Files</amw-file-input>
-            <p *ngIf="videoFiles.length > 0">Videos: {{ videoFiles.length }}</p>
-          </div>
-        </div>
-      </div>
-    </amw-accordion-panel>
-  </amw-accordion>
-</div>
+        <amw-file-input [accept]="'video/*'" [selectedFiles]="videoFiles">Video Files</amw-file-input>
+        @if (videoFiles.length > 0) {
+          <p>Videos: {{ videoFiles.length }}</p>
+        }
+      }
+    }
+  </ng-template>
+</amw-code-doc>

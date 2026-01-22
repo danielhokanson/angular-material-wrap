@@ -1,28 +1,25 @@
-import { Component, ViewEncapsulation } from '@angular/core';
+import { Component, ViewEncapsulation, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
-import { BaseCodeComponent } from '../base/base-code.component';
-
-type SelectExamples = 'basic' | 'withValue' | 'multiple' | 'optGroups' | 'disabled' | 'customTrigger' | 'errorState';
-
+import { AmwCodeDocComponent, CodeExample } from '../../shared/components/code-doc/code-doc.component';
 import { AmwButtonComponent } from '../../../../library/src/controls/components/amw-button/amw-button.component';
 import { AmwSelectComponent } from '../../../../library/src/controls/components/amw-select/amw-select.component';
-import { AmwAccordionComponent, AmwAccordionPanelComponent, AmwIconComponent } from '../../../../library/src/components/components';
+
 @Component({
   selector: 'amw-demo-select-code',
   standalone: true,
-  imports: [CommonModule,
+  imports: [
+    CommonModule,
     FormsModule,
+    AmwCodeDocComponent,
     AmwButtonComponent,
-    AmwSelectComponent,
-    AmwAccordionComponent,
-    AmwAccordionPanelComponent,
-    AmwIconComponent],
+    AmwSelectComponent
+  ],
   encapsulation: ViewEncapsulation.None,
   templateUrl: './select-code.component.html',
   styleUrl: './select-code.component.scss'
 })
-export class SelectCodeComponent extends BaseCodeComponent<SelectExamples> {
+export class SelectCodeComponent implements OnInit {
   // State for live preview examples
   selectedValue = '';
   selectedFood = '';
@@ -65,31 +62,50 @@ export class SelectCodeComponent extends BaseCodeComponent<SelectExamples> {
     ]
   };
 
-  // Original code examples (for reset functionality)
-  readonly codeExamples: Record<SelectExamples, string> = {
-    basic: `<amw-select
+  // Editable code for the shared component
+  editableCode: Record<string, string> = {};
+
+  // Code examples data
+  readonly examples: CodeExample[] = [
+    {
+      key: 'basic',
+      title: 'Basic Select',
+      description: 'Simple dropdown selection',
+      code: `<amw-select
   label="Favorite food"
   [options]="[
     { value: 'steak', label: 'Steak' },
     { value: 'pizza', label: 'Pizza' },
     { value: 'tacos', label: 'Tacos' }
   ]">
-</amw-select>`,
-
-    withValue: `<amw-select
+</amw-select>`
+    },
+    {
+      key: 'withValue',
+      title: 'Select with Value Binding',
+      description: 'Two-way data binding example',
+      code: `<amw-select
   label="Select your car"
   [(ngModel)]="selectedCar"
   [options]="cars">
 </amw-select>
-<p>You selected: {{selectedCar}}</p>`,
-
-    multiple: `<amw-select
+<p>You selected: {{selectedCar}}</p>`
+    },
+    {
+      key: 'multiple',
+      title: 'Multiple Selection',
+      description: 'Select multiple options at once',
+      code: `<amw-select
   label="Toppings"
   [multiple]="true"
   [options]="toppings">
-</amw-select>`,
-
-    optGroups: `<amw-select
+</amw-select>`
+    },
+    {
+      key: 'optGroups',
+      title: 'Option Groups',
+      description: 'Organize options into groups',
+      code: `<amw-select
   label="Pokemon"
   [options]="[
     { value: 'bulbasaur', label: 'Bulbasaur', group: 'Grass' },
@@ -99,30 +115,46 @@ export class SelectCodeComponent extends BaseCodeComponent<SelectExamples> {
     { value: 'charmander', label: 'Charmander', group: 'Fire' },
     { value: 'vulpix', label: 'Vulpix', group: 'Fire' }
   ]">
-</amw-select>`,
-
-    disabled: `<amw-select
+</amw-select>`
+    },
+    {
+      key: 'disabled',
+      title: 'Disabled State',
+      description: 'Non-interactive select',
+      code: `<amw-select
   label="Disabled select"
   [disabled]="true"
   [options]="[
     { value: 'option1', label: 'Option 1' },
     { value: 'option2', label: 'Option 2' }
   ]">
-</amw-select>`,
-
-    customTrigger: `<amw-select
+</amw-select>`
+    },
+    {
+      key: 'customTrigger',
+      title: 'Custom Trigger',
+      description: 'Customize the display trigger',
+      code: `<amw-select
   label="Favorite food"
   [options]="foods">
-</amw-select>`,
-
-    errorState: `<amw-select
+</amw-select>`
+    },
+    {
+      key: 'errorState',
+      title: 'Error State',
+      description: 'Display validation errors',
+      code: `<amw-select
   label="Favorite food"
   [required]="true"
   [options]="foods">
 </amw-select>`
-  };
+    }
+  ];
 
-  constructor() {
-    super();
+  ngOnInit(): void {
+    // Initialize editable code from examples
+    this.examples.forEach(example => {
+      this.editableCode[example.key] = example.code;
+    });
   }
 }

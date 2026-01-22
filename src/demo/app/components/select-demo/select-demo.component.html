@@ -1,173 +1,177 @@
-<div class="amw-demo-select">
-    <!-- Appearance Variations -->
-    <div class="variation-section">
-      <h3 class="variation-section__title">Appearance Variations</h3>
-      <div class="variation-section__content">
-        <div class="variation-group">
-          <span class="variation-label">Outline</span>
-          <amw-select
-            [options]="sampleOptions"
-            appearance="outline"
-            placeholder="Select option"
-            label="Outline Select">
-          </amw-select>
-        </div>
-        <div class="variation-group">
-          <span class="variation-label">Fill</span>
-          <amw-select
-            [options]="sampleOptions"
-            appearance="fill"
-            placeholder="Select option"
-            label="Fill Select">
-          </amw-select>
-        </div>
-      </div>
-    </div>
-
-    <!-- Size Variations -->
-    <div class="variation-section">
-      <h3 class="variation-section__title">Size Variations</h3>
-      <div class="variation-section__content">
-        <div class="variation-group">
-          <span class="variation-label">Small</span>
-          <amw-select
-            [options]="sampleOptions"
-            size="small"
-            placeholder="Select option"
-            label="Small Select">
-          </amw-select>
-        </div>
-        <div class="variation-group">
-          <span class="variation-label">Medium</span>
-          <amw-select
-            [options]="sampleOptions"
-            size="medium"
-            placeholder="Select option"
-            label="Medium Select">
-          </amw-select>
-        </div>
-        <div class="variation-group">
-          <span class="variation-label">Large</span>
-          <amw-select
-            [options]="sampleOptions"
-            size="large"
-            placeholder="Select option"
-            label="Large Select">
-          </amw-select>
-        </div>
-      </div>
-    </div>
-
-    <!-- State Variations -->
-    <div class="variation-section">
-      <h3 class="variation-section__title">State Variations</h3>
-      <div class="variation-section__content">
-        <div class="variation-group">
-          <span class="variation-label">Normal</span>
-          <amw-select
-            [options]="sampleOptions"
-            placeholder="Select option"
-            label="Normal Select">
-          </amw-select>
-        </div>
-        <div class="variation-group">
-          <span class="variation-label">Disabled</span>
-          <amw-select
-            [options]="sampleOptions"
-            [disabled]="true"
-            placeholder="Select option"
-            label="Disabled Select">
-          </amw-select>
-        </div>
-        <div class="variation-group">
-          <span class="variation-label">Required</span>
-          <amw-select
-            [options]="sampleOptions"
-            [required]="true"
-            placeholder="Select option"
-            label="Required Select">
-          </amw-select>
-        </div>
-        <div class="variation-group">
-          <span class="variation-label">Multiple</span>
-          <amw-select
-            [options]="sampleOptions"
-            [multiple]="true"
-            placeholder="Select multiple"
-            label="Multiple Select">
-          </amw-select>
-        </div>
-      </div>
-    </div>
-
-    <!-- Special Features -->
-    <div class="variation-section">
-      <h3 class="variation-section__title">Special Features</h3>
-      <div class="variation-section__content">
-        <div class="variation-group">
-          <span class="variation-label">Grouped Options</span>
-                      <amw-select
-                        [options]="sampleOptions"
-                        placeholder="Select option"
-                        label="Regular Options">
-                      </amw-select>
-        </div>
-        <div class="variation-group">
-          <span class="variation-label">With Icon</span>
-          <amw-select
-            [options]="sampleOptions"
-            icon="favorite"
-            placeholder="Select option"
-            label="Select with Icon">
-          </amw-select>
-        </div>
-        <div class="variation-group">
-          <span class="variation-label">Multiple Selection</span>
-          <amw-select
-            [options]="sampleOptions"
-            [multiple]="true"
-            placeholder="Select multiple"
-            label="Multiple Select">
-          </amw-select>
-        </div>
-      </div>
-    </div>
-
-    <!-- Real-world Example -->
-    <div class="variation-section">
-      <h3 class="variation-section__title">Real-world Example</h3>
-      <div class="real-world-example">
-        <p class="example-description">Here's how selects would typically be used in a real application form:</p>
-        <div class="example-form">
-          <div class="form-row">
+<amw-demo-doc componentName="amw-select">
+  <ng-template #content>
+    <div class="amw-demo-select">
+      <!-- Appearance Variations -->
+      <div class="variation-section">
+        <h3 class="variation-section__title">Appearance Variations</h3>
+        <div class="variation-section__content">
+          <div class="variation-group">
+            <span class="variation-label">Outline</span>
             <amw-select
-              [options]="[{value: 'mr', label: 'Mr.'}, {value: 'mrs', label: 'Mrs.'}, {value: 'ms', label: 'Ms.'}, {value: 'dr', label: 'Dr.'}]"
-              placeholder="Select title"
-              label="Title"
-              [required]="true">
-            </amw-select>
-            <amw-select
-              [options]="[{value: 'us', label: 'United States'}, {value: 'ca', label: 'Canada'}, {value: 'uk', label: 'United Kingdom'}, {value: 'au', label: 'Australia'}]"
-              placeholder="Select country"
-              label="Country"
-              [required]="true">
+              [options]="sampleOptions"
+              appearance="outline"
+              placeholder="Select option"
+              label="Outline Select">
             </amw-select>
           </div>
-          <div class="form-row">
+          <div class="variation-group">
+            <span class="variation-label">Fill</span>
             <amw-select
-              [options]="[{value: 'small', label: 'Small'}, {value: 'medium', label: 'Medium'}, {value: 'large', label: 'Large'}, {value: 'xl', label: 'Extra Large'}]"
-              placeholder="Select size"
-              label="Size"
-              [required]="true">
+              [options]="sampleOptions"
+              appearance="fill"
+              placeholder="Select option"
+              label="Fill Select">
             </amw-select>
+          </div>
+        </div>
+      </div>
+
+      <!-- Size Variations -->
+      <div class="variation-section">
+        <h3 class="variation-section__title">Size Variations</h3>
+        <div class="variation-section__content">
+          <div class="variation-group">
+            <span class="variation-label">Small</span>
             <amw-select
-              [options]="[{value: 'red', label: 'Red'}, {value: 'blue', label: 'Blue'}, {value: 'green', label: 'Green'}, {value: 'yellow', label: 'Yellow'}]"
+              [options]="sampleOptions"
+              size="small"
+              placeholder="Select option"
+              label="Small Select">
+            </amw-select>
+          </div>
+          <div class="variation-group">
+            <span class="variation-label">Medium</span>
+            <amw-select
+              [options]="sampleOptions"
+              size="medium"
+              placeholder="Select option"
+              label="Medium Select">
+            </amw-select>
+          </div>
+          <div class="variation-group">
+            <span class="variation-label">Large</span>
+            <amw-select
+              [options]="sampleOptions"
+              size="large"
+              placeholder="Select option"
+              label="Large Select">
+            </amw-select>
+          </div>
+        </div>
+      </div>
+
+      <!-- State Variations -->
+      <div class="variation-section">
+        <h3 class="variation-section__title">State Variations</h3>
+        <div class="variation-section__content">
+          <div class="variation-group">
+            <span class="variation-label">Normal</span>
+            <amw-select
+              [options]="sampleOptions"
+              placeholder="Select option"
+              label="Normal Select">
+            </amw-select>
+          </div>
+          <div class="variation-group">
+            <span class="variation-label">Disabled</span>
+            <amw-select
+              [options]="sampleOptions"
+              [disabled]="true"
+              placeholder="Select option"
+              label="Disabled Select">
+            </amw-select>
+          </div>
+          <div class="variation-group">
+            <span class="variation-label">Required</span>
+            <amw-select
+              [options]="sampleOptions"
+              [required]="true"
+              placeholder="Select option"
+              label="Required Select">
+            </amw-select>
+          </div>
+          <div class="variation-group">
+            <span class="variation-label">Multiple</span>
+            <amw-select
+              [options]="sampleOptions"
               [multiple]="true"
-              placeholder="Select colors"
-              label="Colors">
+              placeholder="Select multiple"
+              label="Multiple Select">
             </amw-select>
           </div>
         </div>
       </div>
+
+      <!-- Special Features -->
+      <div class="variation-section">
+        <h3 class="variation-section__title">Special Features</h3>
+        <div class="variation-section__content">
+          <div class="variation-group">
+            <span class="variation-label">Grouped Options</span>
+            <amw-select
+              [options]="sampleOptions"
+              placeholder="Select option"
+              label="Regular Options">
+            </amw-select>
+          </div>
+          <div class="variation-group">
+            <span class="variation-label">With Icon</span>
+            <amw-select
+              [options]="sampleOptions"
+              icon="favorite"
+              placeholder="Select option"
+              label="Select with Icon">
+            </amw-select>
+          </div>
+          <div class="variation-group">
+            <span class="variation-label">Multiple Selection</span>
+            <amw-select
+              [options]="sampleOptions"
+              [multiple]="true"
+              placeholder="Select multiple"
+              label="Multiple Select">
+            </amw-select>
+          </div>
+        </div>
+      </div>
+
+      <!-- Real-world Example -->
+      <div class="variation-section">
+        <h3 class="variation-section__title">Real-world Example</h3>
+        <div class="real-world-example">
+          <p class="example-description">Here's how selects would typically be used in a real application form:</p>
+          <div class="example-form">
+            <div class="form-row">
+              <amw-select
+                [options]="[{value: 'mr', label: 'Mr.'}, {value: 'mrs', label: 'Mrs.'}, {value: 'ms', label: 'Ms.'}, {value: 'dr', label: 'Dr.'}]"
+                placeholder="Select title"
+                label="Title"
+                [required]="true">
+              </amw-select>
+              <amw-select
+                [options]="[{value: 'us', label: 'United States'}, {value: 'ca', label: 'Canada'}, {value: 'uk', label: 'United Kingdom'}, {value: 'au', label: 'Australia'}]"
+                placeholder="Select country"
+                label="Country"
+                [required]="true">
+              </amw-select>
+            </div>
+            <div class="form-row">
+              <amw-select
+                [options]="[{value: 'small', label: 'Small'}, {value: 'medium', label: 'Medium'}, {value: 'large', label: 'Large'}, {value: 'xl', label: 'Extra Large'}]"
+                placeholder="Select size"
+                label="Size"
+                [required]="true">
+              </amw-select>
+              <amw-select
+                [options]="[{value: 'red', label: 'Red'}, {value: 'blue', label: 'Blue'}, {value: 'green', label: 'Green'}, {value: 'yellow', label: 'Yellow'}]"
+                [multiple]="true"
+                placeholder="Select colors"
+                label="Colors">
+              </amw-select>
+            </div>
+          </div>
+        </div>
+      </div>
     </div>
-</div>
+  </ng-template>
+</amw-demo-doc>

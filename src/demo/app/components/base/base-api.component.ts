@@ -31,12 +31,22 @@ export interface ApiMethod {
 }
 
 /**
+ * Interface for API property documentation (for services/observables)
+ */
+export interface ApiProperty {
+  name: string;
+  type: string;
+  description: string;
+}
+
+/**
  * Interface for complete API documentation
  */
 export interface ApiDocumentation {
   inputs?: ApiInput[];
   outputs?: ApiOutput[];
   methods?: ApiMethod[];
+  properties?: ApiProperty[];
   usageNotes?: string[];
 }
 

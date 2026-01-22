@@ -2,14 +2,14 @@ import { Component, input, output, model, ViewEncapsulation } from '@angular/cor
 
 import { MatSlideToggleModule } from '@angular/material/slide-toggle';
 import { FormsModule, ReactiveFormsModule, ControlValueAccessor, NG_VALUE_ACCESSOR } from '@angular/forms';
-import { Field } from '@angular/forms/signals';
+import { FormField } from '@angular/forms/signals';
 import { BaseComponent } from '../base/base.component';
 import { SwitchConfig } from './interfaces';
 
 @Component({
     selector: 'amw-switch',
     standalone: true,
-    imports: [MatSlideToggleModule, FormsModule, ReactiveFormsModule, Field],
+    imports: [MatSlideToggleModule, FormsModule, ReactiveFormsModule, FormField],
     encapsulation: ViewEncapsulation.None,
     templateUrl: './amw-switch.component.html',
     styleUrl: './amw-switch.component.scss',
@@ -32,7 +32,7 @@ export class AmwSwitchComponent extends BaseComponent<boolean> implements Contro
      * Mutually exclusive with ngModel and formControl/formControlName.
      * @experimental
      */
-    field = input<any>(undefined);
+    formField = input<any>(undefined);
 
     checked = model<boolean>(false);
     labelPosition = input<'before' | 'after'>('after');

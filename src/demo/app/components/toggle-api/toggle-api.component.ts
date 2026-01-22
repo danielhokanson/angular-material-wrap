@@ -1,12 +1,11 @@
 import { Component, ViewEncapsulation } from '@angular/core';
 import { BaseApiComponent, ApiDocumentation } from '../base/base-api.component';
+import { AmwApiDocComponent } from '../../shared/components/api-doc/api-doc.component';
 
 @Component({
   selector: 'amw-demo-toggle-api',
   standalone: true,
-  imports: [
-    
-],
+  imports: [AmwApiDocComponent],
   encapsulation: ViewEncapsulation.None,
   templateUrl: './toggle-api.component.html',
   styleUrl: './toggle-api.component.scss'
@@ -61,6 +60,12 @@ export class ToggleApiComponent extends BaseApiComponent {
         type: 'number',
         default: 'undefined',
         description: 'Tab index for keyboard navigation'
+      },
+      {
+        name: 'formField',
+        type: 'FormField',
+        default: 'undefined',
+        description: 'Signal Forms FormField binding (experimental). Mutually exclusive with ngModel and formControl.'
       }
     ],
     outputs: [
@@ -79,6 +84,14 @@ export class ToggleApiComponent extends BaseApiComponent {
         type: 'EventEmitter<FocusEvent>',
         description: 'Emitted when the toggle loses focus'
       }
+    ],
+    usageNotes: [
+      'This component supports three mutually exclusive form binding approaches:',
+      '1. ngModel: Two-way binding with [(ngModel)]="checked" for template-driven forms',
+      '2. formControl: Reactive forms binding with [formControl]="control" or formControlName',
+      '3. formField: Signal Forms binding with [formField]="form.field" (experimental)',
+      'Do NOT mix these approaches on the same component instance.',
+      'The component implements ControlValueAccessor for ngModel and formControl support.'
     ]
   };
 

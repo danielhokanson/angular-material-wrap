@@ -1,195 +1,61 @@
-<div class="code-section">
-  <h3>Code Examples</h3>
-  <p>Interactive examples with live previews. The code is editable for reference, and working examples are shown alongside.</p>
+<amw-code-doc
+  componentName="amw-switch"
+  [examples]="examples"
+  [editableCode]="editableCode">
 
-  <amw-accordion class="code-examples-accordion">
-    <!-- Basic Switch -->
-    <amw-accordion-panel amwDescription="Simple switch with two-way binding">
-      <ng-template #header>
-        <amw-icon name="code"></amw-icon>
-        Basic Switch
-      </ng-template>
-      <div class="example-container">
-        <div class="code-panel">
-          <div class="code-header">
-            <h4>Code</h4>
-            <amw-button icon="refresh" (click)="resetCode('basic')" title="Reset to original"></amw-button>
-          </div>
-          <textarea
-            [(ngModel)]="editableCode.basic"
-            class="code-editor"
-            spellcheck="false"></textarea>
+  <ng-template #preview let-example>
+    @switch (example.key) {
+      @case ('basic') {
+        <amw-switch
+          [(checked)]="isEnabled"
+          (switchChange)="onSwitchChange($event)">
+          Toggle Me
+        </amw-switch>
+        <p>Switch is: {{ isEnabled ? 'Enabled' : 'Disabled' }}</p>
+      }
+      @case ('configured') {
+        <amw-switch
+          [(checked)]="notificationsEnabled"
+          color="accent"
+          labelPosition="before"
+          [disabled]="false"
+          [required]="true"
+          (switchChange)="onNotificationChange($event)">
+          Enable Notifications
+        </amw-switch>
+        <p>Notifications: {{ notificationsEnabled ? 'ON' : 'OFF' }}</p>
+      }
+      @case ('formControl') {
+        <amw-switch [(checked)]="notificationsEnabled">
+          Enable Notifications
+        </amw-switch>
+        <amw-switch [(checked)]="darkModeEnabled">
+          Dark Mode
+        </amw-switch>
+        <div class="preview-note">
+          <amw-icon name="info"></amw-icon>
+          <span>This example shows the template syntax. Full reactive forms setup shown in code.</span>
         </div>
-        <div class="preview-panel">
-          <h4>Preview</h4>
-          <div class="preview-content">
-            <amw-switch
-              [(checked)]="isEnabled"
-              (switchChange)="onSwitchChange($event)">
-              Toggle Me
-            </amw-switch>
-            <p>Switch is: {{ isEnabled ? 'Enabled' : 'Disabled' }}</p>
-          </div>
+      }
+      @case ('validation') {
+        <amw-switch [(checked)]="isEnabled" [required]="true">
+          Accept Terms and Conditions
+        </amw-switch>
+        <div class="preview-note">
+          <amw-icon name="info"></amw-icon>
+          <span>Full validation setup shown in code example</span>
         </div>
-      </div>
-    </amw-accordion-panel>
-
-    <!-- Configured Switch -->
-    <amw-accordion-panel amwDescription="Switch with custom configuration options">
-      <ng-template #header>
-        <amw-icon name="code"></amw-icon>
-        Configured Switch
-      </ng-template>
-      <div class="example-container">
-        <div class="code-panel">
-          <div class="code-header">
-            <h4>Code</h4>
-            <amw-button icon="refresh" (click)="resetCode('configured')" title="Reset to original"></amw-button>
-          </div>
-          <textarea
-            [(ngModel)]="editableCode.configured"
-            class="code-editor"
-            spellcheck="false"></textarea>
-        </div>
-        <div class="preview-panel">
-          <h4>Preview</h4>
-          <div class="preview-content">
-            <amw-switch
-              [(checked)]="notificationsEnabled"
-              color="accent"
-              labelPosition="before"
-              [disabled]="false"
-              [required]="true"
-              (switchChange)="onNotificationChange($event)">
-              Enable Notifications
-            </amw-switch>
-            <p>Notifications: {{ notificationsEnabled ? 'ON' : 'OFF' }}</p>
-          </div>
-        </div>
-      </div>
-    </amw-accordion-panel>
-
-    <!-- Form Control -->
-    <amw-accordion-panel amwDescription="Using switch with reactive forms">
-      <ng-template #header>
-        <amw-icon name="code"></amw-icon>
-        Form Control Integration
-      </ng-template>
-      <div class="example-container">
-        <div class="code-panel">
-          <div class="code-header">
-            <h4>Code</h4>
-            <amw-button icon="refresh" (click)="resetCode('formControl')" title="Reset to original"></amw-button>
-          </div>
-          <textarea
-            [(ngModel)]="editableCode.formControl"
-            class="code-editor"
-            spellcheck="false"></textarea>
-        </div>
-        <div class="preview-panel">
-          <h4>Preview</h4>
-          <div class="preview-content">
-            <amw-switch [(checked)]="notificationsEnabled">
-              Enable Notifications
-            </amw-switch>
-            <amw-switch [(checked)]="darkModeEnabled">
-              Dark Mode
-            </amw-switch>
-            <div class="preview-note">
-              <amw-icon name="info"></amw-icon>
-              <span>This example shows the template syntax. Full reactive forms setup shown in code.</span>
-            </div>
-          </div>
-        </div>
-      </div>
-    </amw-accordion-panel>
-
-    <!-- Validation -->
-    <amw-accordion-panel amwDescription="Switch with form validation">
-      <ng-template #header>
-        <amw-icon name="code"></amw-icon>
-        Validation
-      </ng-template>
-      <div class="example-container">
-        <div class="code-panel">
-          <div class="code-header">
-            <h4>Code</h4>
-            <amw-button icon="refresh" (click)="resetCode('validation')" title="Reset to original"></amw-button>
-          </div>
-          <textarea
-            [(ngModel)]="editableCode.validation"
-            class="code-editor"
-            spellcheck="false"></textarea>
-        </div>
-        <div class="preview-panel">
-          <h4>Preview</h4>
-          <div class="preview-content">
-            <amw-switch [(checked)]="isEnabled" [required]="true">
-              Accept Terms and Conditions
-            </amw-switch>
-            <div class="preview-note">
-              <amw-icon name="info"></amw-icon>
-              <span>Full validation setup shown in code example</span>
-            </div>
-          </div>
-        </div>
-      </div>
-    </amw-accordion-panel>
-
-    <!-- Sizes -->
-    <amw-accordion-panel amwDescription="Different switch sizes">
-      <ng-template #header>
-        <amw-icon name="code"></amw-icon>
-        Sizes
-      </ng-template>
-      <div class="example-container">
-        <div class="code-panel">
-          <div class="code-header">
-            <h4>Code</h4>
-            <amw-button icon="refresh" (click)="resetCode('sizes')" title="Reset to original"></amw-button>
-          </div>
-          <textarea
-            [(ngModel)]="editableCode.sizes"
-            class="code-editor"
-            spellcheck="false"></textarea>
-        </div>
-        <div class="preview-panel">
-          <h4>Preview</h4>
-          <div class="preview-content">
-            <amw-switch size="small">Small Switch</amw-switch>
-            <amw-switch size="medium">Medium Switch</amw-switch>
-            <amw-switch size="large">Large Switch</amw-switch>
-          </div>
-        </div>
-      </div>
-    </amw-accordion-panel>
-
-    <!-- Colors -->
-    <amw-accordion-panel amwDescription="Different color themes">
-      <ng-template #header>
-        <amw-icon name="code"></amw-icon>
-        Colors
-      </ng-template>
-      <div class="example-container">
-        <div class="code-panel">
-          <div class="code-header">
-            <h4>Code</h4>
-            <amw-button icon="refresh" (click)="resetCode('colors')" title="Reset to original"></amw-button>
-          </div>
-          <textarea
-            [(ngModel)]="editableCode.colors"
-            class="code-editor"
-            spellcheck="false"></textarea>
-        </div>
-        <div class="preview-panel">
-          <h4>Preview</h4>
-          <div class="preview-content">
-            <amw-switch color="primary">Primary Switch</amw-switch>
-            <amw-switch color="accent">Accent Switch</amw-switch>
-            <amw-switch color="warn">Warn Switch</amw-switch>
-          </div>
-        </div>
-      </div>
-    </amw-accordion-panel>
-  </amw-accordion>
-</div>
+      }
+      @case ('sizes') {
+        <amw-switch size="small">Small Switch</amw-switch>
+        <amw-switch size="medium">Medium Switch</amw-switch>
+        <amw-switch size="large">Large Switch</amw-switch>
+      }
+      @case ('colors') {
+        <amw-switch color="primary">Primary Switch</amw-switch>
+        <amw-switch color="accent">Accent Switch</amw-switch>
+        <amw-switch color="warn">Warn Switch</amw-switch>
+      }
+    }
+  </ng-template>
+</amw-code-doc>

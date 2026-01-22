@@ -1,169 +1,58 @@
-<div class="code-section">
-  <h3>Code Examples</h3>
-  <p>Interactive examples demonstrating Material Design 3 theming. Edit the code to see real-time changes.</p>
+<amw-code-doc
+  componentName="theme"
+  [examples]="examples"
+  [editableCode]="editableCode">
 
-  <amw-accordion class="code-examples-accordion">
-    <!-- Color Palette -->
-    <amw-accordion-panel amwDescription="Using built-in theme colors">
-      <ng-template #header>
-        <amw-icon name="code"></amw-icon>
-        Color Palette Usage
-      </ng-template>
-      <div class="example-container">
-        <div class="code-panel">
-          <div class="code-header">
-            <h4>Code</h4>
-            <amw-button icon="refresh" (click)="resetCode('colorPalette')" title="Reset to original"></amw-button>
-          </div>
-          <textarea
-            [(ngModel)]="editableCode.colorPalette"
-            class="code-editor"
-            spellcheck="false"></textarea>
+  <ng-template #preview let-example>
+    @switch (example.key) {
+      @case ('colorPalette') {
+        <amw-button appearance="elevated" color="primary">Primary</amw-button>
+        <amw-button appearance="elevated" color="accent">Accent</amw-button>
+        <amw-button appearance="elevated" color="warn">Warn</amw-button>
+      }
+      @case ('cssVariables') {
+        <div style="
+          background-color: var(--mdc-theme-primary);
+          color: var(--mdc-theme-on-primary);
+          padding: 16px;
+          border-radius: 8px;">
+          Themed Container
         </div>
-        <div class="preview-panel">
-          <h4>Preview</h4>
-          <div class="preview-content">
-            <amw-button appearance="elevated" color="primary">Primary</amw-button>
-            <amw-button appearance="elevated" color="accent">Accent</amw-button>
-            <amw-button appearance="elevated" color="warn">Warn</amw-button>
-          </div>
+      }
+      @case ('componentTheming') {
+        <amw-card headerTitle="Themed Card">
+          <ng-template #cardContent>
+            Content styled with theme colors
+          </ng-template>
+          <ng-template #cardActions>
+            <amw-button appearance="text" color="primary">Action</amw-button>
+          </ng-template>
+        </amw-card>
+      }
+      @case ('darkMode') {
+        <div class="dark-theme">
+          <amw-card>
+            <ng-template #cardContent>
+              This content adapts to dark theme
+            </ng-template>
+          </amw-card>
         </div>
-      </div>
-    </amw-accordion-panel>
-
-    <!-- CSS Variables -->
-    <amw-accordion-panel amwDescription="Using Material Design 3 CSS variables">
-      <ng-template #header>
-        <amw-icon name="code"></amw-icon>
-        CSS Variables
-      </ng-template>
-      <div class="example-container">
-        <div class="code-panel">
-          <div class="code-header">
-            <h4>Code</h4>
-            <amw-button icon="refresh" (click)="resetCode('cssVariables')" title="Reset to original"></amw-button>
-          </div>
-          <textarea
-            [(ngModel)]="editableCode.cssVariables"
-            class="code-editor"
-            spellcheck="false"></textarea>
+        <div class="preview-note">
+          <amw-icon name="info"></amw-icon>
+          <span>Note: Full dark mode requires global theme configuration</span>
         </div>
-        <div class="preview-panel">
-          <h4>Preview</h4>
-          <div class="preview-content">
-            <div style="
-              background-color: var(--mdc-theme-primary);
-              color: var(--mdc-theme-on-primary);
-              padding: 16px;
-              border-radius: 8px;">
-              Themed Container
-            </div>
-          </div>
+      }
+      @case ('customTheme') {
+        <div class="custom-theme" style="--mdc-theme-primary: #ff5722; --mdc-theme-on-primary: #ffffff;">
+          <amw-button appearance="elevated" color="primary">
+            Custom Primary Color
+          </amw-button>
         </div>
-      </div>
-    </amw-accordion-panel>
-
-    <!-- Component Theming -->
-    <amw-accordion-panel amwDescription="Applying themes to Material components">
-      <ng-template #header>
-        <amw-icon name="code"></amw-icon>
-        Component Theming
-      </ng-template>
-      <div class="example-container">
-        <div class="code-panel">
-          <div class="code-header">
-            <h4>Code</h4>
-            <amw-button icon="refresh" (click)="resetCode('componentTheming')" title="Reset to original"></amw-button>
-          </div>
-          <textarea
-            [(ngModel)]="editableCode.componentTheming"
-            class="code-editor"
-            spellcheck="false"></textarea>
+        <div class="preview-note">
+          <amw-icon name="info"></amw-icon>
+          <span>Note: CSS variables can be scoped to specific elements</span>
         </div>
-        <div class="preview-panel">
-          <h4>Preview</h4>
-          <div class="preview-content">
-            <amw-card headerTitle="Themed Card">
-              <ng-template #cardContent>
-                Content styled with theme colors
-              </ng-template>
-              <ng-template #cardActions>
-                <amw-button appearance="text" color="primary">Action</amw-button>
-              </ng-template>
-            </amw-card>
-          </div>
-        </div>
-      </div>
-    </amw-accordion-panel>
-
-    <!-- Dark Mode -->
-    <amw-accordion-panel amwDescription="Implementing dark theme support">
-      <ng-template #header>
-        <amw-icon name="code"></amw-icon>
-        Dark Mode
-      </ng-template>
-      <div class="example-container">
-        <div class="code-panel">
-          <div class="code-header">
-            <h4>Code</h4>
-            <amw-button icon="refresh" (click)="resetCode('darkMode')" title="Reset to original"></amw-button>
-          </div>
-          <textarea
-            [(ngModel)]="editableCode.darkMode"
-            class="code-editor"
-            spellcheck="false"></textarea>
-        </div>
-        <div class="preview-panel">
-          <h4>Preview</h4>
-          <div class="preview-content">
-            <div class="dark-theme">
-              <amw-card>
-                <ng-template #cardContent>
-                  This content adapts to dark theme
-                </ng-template>
-              </amw-card>
-            </div>
-            <div class="preview-note">
-              <amw-icon name="info"></amw-icon>
-              <span>Note: Full dark mode requires global theme configuration</span>
-            </div>
-          </div>
-        </div>
-      </div>
-    </amw-accordion-panel>
-
-    <!-- Custom Theme -->
-    <amw-accordion-panel amwDescription="Creating custom theme overrides">
-      <ng-template #header>
-        <amw-icon name="code"></amw-icon>
-        Custom Theme
-      </ng-template>
-      <div class="example-container">
-        <div class="code-panel">
-          <div class="code-header">
-            <h4>Code</h4>
-            <amw-button icon="refresh" (click)="resetCode('customTheme')" title="Reset to original"></amw-button>
-          </div>
-          <textarea
-            [(ngModel)]="editableCode.customTheme"
-            class="code-editor"
-            spellcheck="false"></textarea>
-        </div>
-        <div class="preview-panel">
-          <h4>Preview</h4>
-          <div class="preview-content">
-            <div class="custom-theme" style="--mdc-theme-primary: #ff5722; --mdc-theme-on-primary: #ffffff;">
-              <amw-button appearance="elevated" color="primary">
-                Custom Primary Color
-              </amw-button>
-            </div>
-            <div class="preview-note">
-              <amw-icon name="info"></amw-icon>
-              <span>Note: CSS variables can be scoped to specific elements</span>
-            </div>
-          </div>
-        </div>
-      </div>
-    </amw-accordion-panel>
-  </amw-accordion>
-</div>
+      }
+    }
+  </ng-template>
+</amw-code-doc>

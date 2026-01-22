@@ -1,0 +1,200 @@
+<div class="amw-api-doc">
+  <div class="amw-api-doc__header">
+    <h3 class="amw-api-doc__title">{{ componentName }} API</h3>
+    <p class="amw-api-doc__description">{{ computedDescription }}</p>
+  </div>
+
+  <!-- Inputs Section -->
+  @if (apiDocumentation.inputs?.length) {
+    <section class="amw-api-doc__section">
+      <h4 class="amw-api-doc__section-title">Inputs</h4>
+      <div class="amw-api-doc__table-wrapper">
+        <table class="amw-api-doc__table">
+          <thead>
+            <tr>
+              <th class="amw-api-doc__th amw-api-doc__th--property">Property</th>
+              <th class="amw-api-doc__th amw-api-doc__th--type">Type</th>
+              <th class="amw-api-doc__th amw-api-doc__th--default">Default</th>
+              <th class="amw-api-doc__th amw-api-doc__th--description">Description</th>
+            </tr>
+          </thead>
+          <tbody>
+            @for (input of apiDocumentation.inputs; track input.name) {
+              <tr class="amw-api-doc__row">
+                <td class="amw-api-doc__td amw-api-doc__td--property">
+                  <code class="amw-api-doc__code amw-api-doc__code--property">{{ input.name }}</code>
+                </td>
+                <td class="amw-api-doc__td amw-api-doc__td--type">
+                  <code class="amw-api-doc__code amw-api-doc__code--type">{{ input.type }}</code>
+                </td>
+                <td class="amw-api-doc__td amw-api-doc__td--default">
+                  <code class="amw-api-doc__code amw-api-doc__code--default">{{ input.default }}</code>
+                </td>
+                <td class="amw-api-doc__td amw-api-doc__td--description">
+                  {{ input.description }}
+                  @if (input.options?.length) {
+                    <div class="amw-api-doc__options">
+                      <strong>Options:</strong> {{ input.options?.join(', ') }}
+                    </div>
+                  }
+                </td>
+              </tr>
+            }
+          </tbody>
+        </table>
+      </div>
+    </section>
+  }
+
+  <!-- Outputs Section -->
+  @if (apiDocumentation.outputs?.length) {
+    <section class="amw-api-doc__section">
+      <h4 class="amw-api-doc__section-title">Outputs</h4>
+      <div class="amw-api-doc__table-wrapper">
+        <table class="amw-api-doc__table">
+          <thead>
+            <tr>
+              <th class="amw-api-doc__th amw-api-doc__th--property">Event</th>
+              <th class="amw-api-doc__th amw-api-doc__th--type">Type</th>
+              <th class="amw-api-doc__th amw-api-doc__th--description">Description</th>
+            </tr>
+          </thead>
+          <tbody>
+            @for (output of apiDocumentation.outputs; track output.name) {
+              <tr class="amw-api-doc__row">
+                <td class="amw-api-doc__td amw-api-doc__td--property">
+                  <code class="amw-api-doc__code amw-api-doc__code--property">{{ output.name }}</code>
+                </td>
+                <td class="amw-api-doc__td amw-api-doc__td--type">
+                  <code class="amw-api-doc__code amw-api-doc__code--type">{{ output.type }}</code>
+                </td>
+                <td class="amw-api-doc__td amw-api-doc__td--description">
+                  {{ output.description }}
+                </td>
+              </tr>
+            }
+          </tbody>
+        </table>
+      </div>
+    </section>
+  }
+
+  <!-- Methods Section -->
+  @if (apiDocumentation.methods?.length) {
+    <section class="amw-api-doc__section">
+      <h4 class="amw-api-doc__section-title">Methods</h4>
+      <div class="amw-api-doc__table-wrapper">
+        <table class="amw-api-doc__table">
+          <thead>
+            <tr>
+              <th class="amw-api-doc__th amw-api-doc__th--property">Method</th>
+              <th class="amw-api-doc__th amw-api-doc__th--type">Returns</th>
+              <th class="amw-api-doc__th amw-api-doc__th--description">Description</th>
+            </tr>
+          </thead>
+          <tbody>
+            @for (method of apiDocumentation.methods; track method.name) {
+              <tr class="amw-api-doc__row">
+                <td class="amw-api-doc__td amw-api-doc__td--property">
+                  <code class="amw-api-doc__code amw-api-doc__code--method">{{ method.name }}@if (method.parameters) {({{ method.parameters }})}@else {()}</code>
+                </td>
+                <td class="amw-api-doc__td amw-api-doc__td--type">
+                  <code class="amw-api-doc__code amw-api-doc__code--type">{{ method.returns }}</code>
+                </td>
+                <td class="amw-api-doc__td amw-api-doc__td--description">
+                  {{ method.description }}
+                </td>
+              </tr>
+            }
+          </tbody>
+        </table>
+      </div>
+    </section>
+  }
+
+  <!-- Properties Section (for services/observables) -->
+  @if (apiDocumentation.properties?.length) {
+    <section class="amw-api-doc__section">
+      <h4 class="amw-api-doc__section-title">Properties</h4>
+      <div class="amw-api-doc__table-wrapper">
+        <table class="amw-api-doc__table">
+          <thead>
+            <tr>
+              <th class="amw-api-doc__th amw-api-doc__th--property">Property</th>
+              <th class="amw-api-doc__th amw-api-doc__th--type">Type</th>
+              <th class="amw-api-doc__th amw-api-doc__th--description">Description</th>
+            </tr>
+          </thead>
+          <tbody>
+            @for (property of apiDocumentation.properties; track property.name) {
+              <tr class="amw-api-doc__row">
+                <td class="amw-api-doc__td amw-api-doc__td--property">
+                  <code class="amw-api-doc__code amw-api-doc__code--property">{{ property.name }}</code>
+                </td>
+                <td class="amw-api-doc__td amw-api-doc__td--type">
+                  <code class="amw-api-doc__code amw-api-doc__code--type">{{ property.type }}</code>
+                </td>
+                <td class="amw-api-doc__td amw-api-doc__td--description">
+                  {{ property.description }}
+                </td>
+              </tr>
+            }
+          </tbody>
+        </table>
+      </div>
+    </section>
+  }
+
+  <!-- Interfaces Section -->
+  @if (interfaces?.length) {
+    <section class="amw-api-doc__section">
+      <h4 class="amw-api-doc__section-title">Interfaces</h4>
+      @for (interface of interfaces; track interface.name) {
+        <div class="amw-api-doc__interface">
+          <h5 class="amw-api-doc__interface-title">{{ interface.name }}</h5>
+          <p class="amw-api-doc__interface-description">{{ interface.description }}</p>
+          <div class="amw-api-doc__table-wrapper">
+            <table class="amw-api-doc__table">
+              <thead>
+                <tr>
+                  <th class="amw-api-doc__th amw-api-doc__th--property">Property</th>
+                  <th class="amw-api-doc__th amw-api-doc__th--type">Type</th>
+                  <th class="amw-api-doc__th amw-api-doc__th--description">Description</th>
+                </tr>
+              </thead>
+              <tbody>
+                @for (prop of interface.properties; track prop.name) {
+                  <tr class="amw-api-doc__row">
+                    <td class="amw-api-doc__td amw-api-doc__td--property">
+                      <code class="amw-api-doc__code amw-api-doc__code--property">{{ prop.name }}</code>
+                    </td>
+                    <td class="amw-api-doc__td amw-api-doc__td--type">
+                      <code class="amw-api-doc__code amw-api-doc__code--type">{{ prop.type }}</code>
+                    </td>
+                    <td class="amw-api-doc__td amw-api-doc__td--description">
+                      {{ prop.description }}
+                    </td>
+                  </tr>
+                }
+              </tbody>
+            </table>
+          </div>
+        </div>
+      }
+    </section>
+  }
+
+  <!-- Form Binding Notes -->
+  @if (apiDocumentation.usageNotes?.length) {
+    <section class="amw-api-doc__section">
+      <h4 class="amw-api-doc__section-title">Form Binding</h4>
+      <div class="amw-api-doc__notes">
+        <ul class="amw-api-doc__notes-list">
+          @for (note of apiDocumentation.usageNotes; track note) {
+            <li class="amw-api-doc__note">{{ note }}</li>
+          }
+        </ul>
+      </div>
+    </section>
+  }
+</div>

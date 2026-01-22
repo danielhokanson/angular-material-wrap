@@ -1,138 +1,50 @@
-<div class="code-section">
-  <h3>Code Examples</h3>
-  <p>Interactive examples with live previews. The code is editable for reference, and working examples are shown alongside.</p>
+<amw-code-doc
+  componentName="amw-color-picker"
+  [examples]="examples"
+  [editableCode]="editableCode">
 
-  <amw-accordion class="code-examples-accordion">
-    <!-- Basic Color Picker -->
-    <amw-accordion-panel amwDescription="Simple color picker with default palette">
-      <ng-template #header>
-        <amw-icon name="code"></amw-icon>
-        Basic Color Picker
-      </ng-template>
-      <div class="example-container">
-        <div class="code-panel">
-          <div class="code-header">
-            <h4>Code</h4>
-            <amw-button icon="refresh" (click)="resetCode('basic')" title="Reset to original"></amw-button>
-          </div>
-          <textarea
-            [(ngModel)]="editableCode.basic"
-            class="code-editor"
-            spellcheck="false"></textarea>
-        </div>
-        <div class="preview-panel">
-          <h4>Preview</h4>
-          <div class="preview-content">
-            <amw-color-picker
-              [(value)]="selectedColor"
-              (colorChange)="onColorChange($event)">
-            </amw-color-picker>
-            <p>Selected color: {{ selectedColor }}</p>
-          </div>
-        </div>
-      </div>
-    </amw-accordion-panel>
-
-    <!-- Custom Color Mode -->
-    <amw-accordion-panel amwDescription="Color picker with custom color input">
-      <ng-template #header>
-        <amw-icon name="code"></amw-icon>
-        Custom Color Mode
-      </ng-template>
-      <div class="example-container">
-        <div class="code-panel">
-          <div class="code-header">
-            <h4>Code</h4>
-            <amw-button icon="refresh" (click)="resetCode('mode')" title="Reset to original"></amw-button>
-          </div>
-          <textarea
-            [(ngModel)]="editableCode.mode"
-            class="code-editor"
-            spellcheck="false"></textarea>
-        </div>
-        <div class="preview-panel">
-          <h4>Preview</h4>
-          <div class="preview-content">
-            <amw-color-picker
-              [(value)]="customColor"
-              mode="custom"
-              (colorChange)="onColorChange($event)">
-            </amw-color-picker>
-            <p>Selected color: {{ customColor }}</p>
-          </div>
-        </div>
-      </div>
-    </amw-accordion-panel>
-
-    <!-- Form Validation -->
-    <amw-accordion-panel amwDescription="Color picker with form validation">
-      <ng-template #header>
-        <amw-icon name="code"></amw-icon>
-        Form Validation
-      </ng-template>
-      <div class="example-container">
-        <div class="code-panel">
-          <div class="code-header">
-            <h4>Code</h4>
-            <amw-button icon="refresh" (click)="resetCode('validation')" title="Reset to original"></amw-button>
-          </div>
-          <textarea
-            [(ngModel)]="editableCode.validation"
-            class="code-editor"
-            spellcheck="false"></textarea>
-        </div>
-        <div class="preview-panel">
-          <h4>Preview</h4>
-          <div class="preview-content">
-            <form [formGroup]="colorForm">
-              <amw-color-picker
-                formControlName="color"
-                label="Select Color *"
-                placeholder="Choose color"
-                [required]="true"
-                [errorMessage]="colorForm.get('color')?.hasError('required') ? 'Color is required' : ''">
-              </amw-color-picker>
-            </form>
-            <p>Form valid: {{ colorForm.valid ? 'Yes' : 'No' }}</p>
-          </div>
-        </div>
-      </div>
-    </amw-accordion-panel>
-
-    <!-- Advanced Configuration -->
-    <amw-accordion-panel amwDescription="Color picker with custom configuration">
-      <ng-template #header>
-        <amw-icon name="code"></amw-icon>
-        Advanced Configuration
-      </ng-template>
-      <div class="example-container">
-        <div class="code-panel">
-          <div class="code-header">
-            <h4>Code</h4>
-            <amw-button icon="refresh" (click)="resetCode('configuration')" title="Reset to original"></amw-button>
-          </div>
-          <textarea
-            [(ngModel)]="editableCode.configuration"
-            class="code-editor"
-            spellcheck="false"></textarea>
-        </div>
-        <div class="preview-panel">
-          <h4>Preview</h4>
-          <div class="preview-content">
-            <amw-color-picker
-              [(value)]="advancedColor"
-              mode="all"
-              size="large"
-              [disabled]="isDisabled"
-              (colorChange)="onColorChange($event)">
-            </amw-color-picker>
-            <p>Selected color: {{ advancedColor }}</p>
-            <amw-button appearance="text" (click)="isDisabled = !isDisabled">
-              {{ isDisabled ? 'Enable' : 'Disable' }} Picker
-            </amw-button>
-          </div>
-        </div>
-      </div>
-    </amw-accordion-panel>
-  </amw-accordion>
-</div>
+  <ng-template #preview let-example>
+    @switch (example.key) {
+      @case ('basic') {
+        <amw-color-picker
+          [(value)]="selectedColor"
+          (colorChange)="onColorChange($event)">
+        </amw-color-picker>
+        <p>Selected color: {{ selectedColor }}</p>
+      }
+      @case ('mode') {
+        <amw-color-picker
+          [(value)]="customColor"
+          mode="custom"
+          (colorChange)="onColorChange($event)">
+        </amw-color-picker>
+        <p>Selected color: {{ customColor }}</p>
+      }
+      @case ('validation') {
+        <form [formGroup]="colorForm">
+          <amw-color-picker
+            formControlName="color"
+            label="Select Color *"
+            placeholder="Choose color"
+            [required]="true"
+            [errorMessage]="colorForm.get('color')?.hasError('required') ? 'Color is required' : ''">
+          </amw-color-picker>
+        </form>
+        <p>Form valid: {{ colorForm.valid ? 'Yes' : 'No' }}</p>
+      }
+      @case ('configuration') {
+        <amw-color-picker
+          [(value)]="advancedColor"
+          mode="all"
+          size="large"
+          [disabled]="isDisabled"
+          (colorChange)="onColorChange($event)">
+        </amw-color-picker>
+        <p>Selected color: {{ advancedColor }}</p>
+        <amw-button appearance="text" (click)="isDisabled = !isDisabled">
+          {{ isDisabled ? 'Enable' : 'Disable' }} Picker
+        </amw-button>
+      }
+    }
+  </ng-template>
+</amw-code-doc>

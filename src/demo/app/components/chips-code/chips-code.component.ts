@@ -1,12 +1,8 @@
-import { Component, ViewEncapsulation } from '@angular/core';
+import { Component, ViewEncapsulation, OnInit } from '@angular/core';
 import { FormsModule } from '@angular/forms';
-import { BaseCodeComponent } from '../base/base-code.component';
-
-type ChipsExamples = 'basic' | 'removable' | 'selectable' | 'input' | 'styled';
-
+import { AmwCodeDocComponent, CodeExample } from '../../shared/components/code-doc/code-doc.component';
 import { AmwButtonComponent } from '../../../../library/src/controls/components/amw-button/amw-button.component';
 import { AmwChipsComponent } from '../../../../library/src/controls/components/amw-chips/amw-chips.component';
-import { AmwAccordionComponent, AmwAccordionPanelComponent, AmwIconComponent } from '../../../../library/src/components/components';
 import { Chip, ChipEvent } from '../../../../library/src/controls/components/amw-chips/interfaces';
 
 @Component({
@@ -14,17 +10,15 @@ import { Chip, ChipEvent } from '../../../../library/src/controls/components/amw
   standalone: true,
   imports: [
     FormsModule,
+    AmwCodeDocComponent,
     AmwButtonComponent,
-    AmwChipsComponent,
-    AmwAccordionComponent,
-    AmwAccordionPanelComponent,
-    AmwIconComponent
+    AmwChipsComponent
   ],
   encapsulation: ViewEncapsulation.None,
   templateUrl: './chips-code.component.html',
   styleUrl: './chips-code.component.scss'
 })
-export class ChipsCodeComponent extends BaseCodeComponent<ChipsExamples> {
+export class ChipsCodeComponent implements OnInit {
   // Basic chips data
   basicChips: Chip[] = [
     { id: '1', label: 'Tag 1' },
@@ -59,9 +53,16 @@ export class ChipsCodeComponent extends BaseCodeComponent<ChipsExamples> {
     { id: '3', label: 'Warn', color: 'warn' }
   ];
 
-  // Original code examples (for reset functionality)
-  readonly codeExamples: Record<ChipsExamples, string> = {
-    basic: `<amw-chips
+  // Editable code for the shared component
+  editableCode: Record<string, string> = {};
+
+  // Code examples data
+  readonly examples: CodeExample[] = [
+    {
+      key: 'basic',
+      title: 'Basic Chip Set',
+      description: 'Simple chip collection',
+      code: `<amw-chips
   [chips]="chips"
   [addable]="false"
   [removable]="false">
@@ -72,9 +73,13 @@ chips: Chip[] = [
   { id: '1', label: 'Tag 1' },
   { id: '2', label: 'Tag 2' },
   { id: '3', label: 'Tag 3' }
-];`,
-
-    removable: `<amw-chips
+];`
+    },
+    {
+      key: 'removable',
+      title: 'Removable Chips',
+      description: 'Chips with remove functionality',
+      code: `<amw-chips
   [chips]="chips"
   [removable]="true"
   (chipRemove)="onRemove($event)">
@@ -87,9 +92,13 @@ chips: Chip[] = [
 
 onRemove(event: ChipEvent) {
   console.log('Removed:', event.chip);
-}`,
-
-    selectable: `<amw-chips
+}`
+    },
+    {
+      key: 'selectable',
+      title: 'Selectable Chips',
+      description: 'Chips that can be selected',
+      code: `<amw-chips
   [chips]="chips"
   [selectable]="true"
   (chipSelect)="onSelect($event)">
@@ -99,9 +108,13 @@ onRemove(event: ChipEvent) {
 chips: Chip[] = [
   { id: '1', label: 'Selected', selected: true },
   { id: '2', label: 'Not Selected', selected: false }
-];`,
-
-    input: `<amw-chips
+];`
+    },
+    {
+      key: 'input',
+      title: 'Chip Input',
+      description: 'Add chips with input field',
+      code: `<amw-chips
   [chips]="chips"
   [addable]="true"
   [removable]="true"
@@ -114,9 +127,13 @@ chips: Chip[] = [
 chips: Chip[] = [
   { id: '1', label: 'Apple' },
   { id: '2', label: 'Banana' }
-];`,
-
-    styled: `<amw-chips
+];`
+    },
+    {
+      key: 'styled',
+      title: 'Styled Chips',
+      description: 'Chips with color themes',
+      code: `<amw-chips
   [chips]="chips"
   [addable]="false"
   [removable]="false">
@@ -128,10 +145,14 @@ chips: Chip[] = [
   { id: '2', label: 'Accent', color: 'accent' },
   { id: '3', label: 'Warn', color: 'warn' }
 ];`
-  };
+    }
+  ];
 
-  constructor() {
-    super();
+  ngOnInit(): void {
+    // Initialize editable code from examples
+    this.examples.forEach(example => {
+      this.editableCode[example.key] = example.code;
+    });
   }
 
   // Event handlers

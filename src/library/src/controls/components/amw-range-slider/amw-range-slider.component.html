@@ -7,8 +7,8 @@
   }
 
   <div class="amw-range-slider__container">
-    <!-- Signal Forms binding (scenario 3) - Field directive manages disabled automatically -->
-    @if (field()) {
+    <!-- Signal Forms binding (scenario 3) - FormField directive manages disabled automatically -->
+    @if (formField()) {
       <mat-slider
         class="amw-range-slider__slider"
         [min]="min()"
@@ -17,7 +17,7 @@
         [showTickMarks]="showTicks()"
         [color]="getMaterialColor()">
         <input matSliderStartThumb
-          [field]="field()"
+          [formField]="formField()"
           (valueChange)="onStartValueChange($event)">
         <input matSliderEndThumb
           [ngModel]="endValue"

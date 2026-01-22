@@ -1,29 +1,26 @@
 import { Component, ViewEncapsulation, OnInit } from '@angular/core';
 import { FormsModule, ReactiveFormsModule, FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { CommonModule } from '@angular/common';
-import { BaseCodeComponent } from '../base/base-code.component';
+import { AmwCodeDocComponent, CodeExample } from '../../shared/components/code-doc/code-doc.component';
 import { AmwTimepickerComponent } from '../../../../library/src/controls/components/amw-timepicker/amw-timepicker.component';
-
-type TimepickerExamples = 'basic' | 'format' | 'seconds' | 'validation' | 'configuration';
-
 import { AmwButtonComponent } from '../../../../library/src/controls/components/amw-button/amw-button.component';
-import { AmwAccordionComponent, AmwAccordionPanelComponent, AmwIconComponent } from '../../../../library/src/components/components';
+
 @Component({
   selector: 'amw-demo-timepicker-code',
   standalone: true,
-  imports: [CommonModule,
+  imports: [
+    CommonModule,
     FormsModule,
     ReactiveFormsModule,
+    AmwCodeDocComponent,
     AmwTimepickerComponent,
-    AmwButtonComponent,
-    AmwAccordionComponent,
-    AmwAccordionPanelComponent,
-    AmwIconComponent],
+    AmwButtonComponent
+  ],
   encapsulation: ViewEncapsulation.None,
   templateUrl: './timepicker-code.component.html',
   styleUrl: './timepicker-code.component.scss'
 })
-export class TimepickerCodeComponent extends BaseCodeComponent<TimepickerExamples> implements OnInit {
+export class TimepickerCodeComponent implements OnInit {
   // State for live preview examples
   selectedTime = '14:30';
   time12h = '02:30 PM';
@@ -32,9 +29,16 @@ export class TimepickerCodeComponent extends BaseCodeComponent<TimepickerExample
   isDisabled = false;
   timeForm!: FormGroup;
 
-  // Original code examples (for reset functionality)
-  readonly codeExamples: Record<TimepickerExamples, string> = {
-    basic: `<amw-timepicker
+  // Editable code for the shared component
+  editableCode: Record<string, string> = {};
+
+  // Code examples data
+  readonly examples: CodeExample[] = [
+    {
+      key: 'basic',
+      title: 'Basic Timepicker',
+      description: 'Simple timepicker with default settings',
+      code: `<amw-timepicker
   [value]="selectedTime"
   (timeChange)="onTimeChange($event)">
 </amw-timepicker>
@@ -46,9 +50,13 @@ export class MyComponent {
   onTimeChange(time: string) {
     console.log('Selected time:', time);
   }
-}`,
-
-    format: `<amw-timepicker
+}`
+    },
+    {
+      key: 'format',
+      title: '12-Hour Format',
+      description: 'Timepicker with AM/PM display',
+      code: `<amw-timepicker
   [value]="selectedTime"
   format="12h"
   (timeChange)="onTimeChange($event)">
@@ -61,9 +69,13 @@ export class MyComponent {
   onTimeChange(time: string) {
     console.log('Selected time:', time);
   }
-}`,
-
-    seconds: `<amw-timepicker
+}`
+    },
+    {
+      key: 'seconds',
+      title: 'With Seconds',
+      description: 'Timepicker showing seconds',
+      code: `<amw-timepicker
   [value]="selectedTime"
   [showSeconds]="true"
   (timeChange)="onTimeChange($event)">
@@ -76,9 +88,13 @@ export class MyComponent {
   onTimeChange(time: string) {
     console.log('Selected time:', time);
   }
-}`,
-
-    validation: `<form [formGroup]="timeForm">
+}`
+    },
+    {
+      key: 'validation',
+      title: 'Form Validation',
+      description: 'Timepicker with form validation',
+      code: `<form [formGroup]="timeForm">
   <amw-timepicker
     label="Select Time"
     formControlName="time"
@@ -97,9 +113,13 @@ export class MyComponent implements OnInit {
       time: ['', Validators.required]
     });
   }
-}`,
-
-    configuration: `<amw-timepicker
+}`
+    },
+    {
+      key: 'configuration',
+      title: 'Advanced Configuration',
+      description: 'Timepicker with custom configuration',
+      code: `<amw-timepicker
   [value]="selectedTime"
   [config]="timepickerConfig"
   color="accent"
@@ -124,14 +144,16 @@ export class MyComponent {
     console.log('Selected time:', time);
   }
 }`
-  };
+    }
+  ];
 
-  constructor(private fb: FormBuilder) {
-    super();
-  }
+  constructor(private fb: FormBuilder) {}
 
-  override ngOnInit(): void {
-    super.ngOnInit();
+  ngOnInit(): void {
+    // Initialize editable code from examples
+    this.examples.forEach(example => {
+      this.editableCode[example.key] = example.code;
+    });
 
     // Initialize form for validation example
     this.timeForm = this.fb.group({

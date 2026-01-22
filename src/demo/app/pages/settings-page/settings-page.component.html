@@ -1,259 +1,362 @@
-<div class="settings-page">
-  <div class="settings-header">
-    <h1>Settings</h1>
-    <p>Configure your application preferences and system settings</p>
+<div class="settings-page-demo">
+  <div class="settings-page-demo__header">
+    <h1>Settings Page</h1>
+    <p>A comprehensive settings page pattern demonstrating tabbed navigation, grouped settings, and various control types for application configuration.</p>
   </div>
 
-  <div class="settings-content">
-    <amw-tabs>
-      <!-- General Settings -->
-      <amw-tab label="General">
-        <div class="tab-content">
-          <amw-card>
-            <ng-template #cardHeader>
-              <h2>General Settings</h2>
-              <p class="subtitle">Basic application configuration</p>
-            </ng-template>
-            <ng-template #cardContent>
-              <div class="settings-group">
-                <h4>Application</h4>
-                <div class="setting-item">
-                  <div class="setting-info">
-                    <span class="setting-label">Application Name</span>
-                    <span class="setting-description">The name displayed in the application header</span>
-                  </div>
-                  <amw-input
-                    label="Application Name"
-                    name="appName"
-                    [(ngModel)]="appName"
-                    placeholder="Enter application name">
-                  </amw-input>
-                </div>
-                
-                <div class="setting-item">
-                  <div class="setting-info">
-                    <span class="setting-label">Default Language</span>
-                    <span class="setting-description">The default language for the application</span>
-                  </div>
-                  <amw-select
-                    label="Language"
-                    [(ngModel)]="defaultLanguage"
-                    [options]="languageOptions">
-                  </amw-select>
-                </div>
-              </div>
+  <!-- Outer tabs: Demo, Code, API -->
+  <amw-tabs>
+    <!-- Demo Tab -->
+    <amw-tab label="Demo">
+      <div class="demo-container">
+        <div class="settings-page">
+          <div class="settings-header">
+            <h2>Settings</h2>
+            <p>Configure your application preferences and system settings</p>
+          </div>
 
-              <amw-divider></amw-divider>
+          <div class="settings-content">
+            <!-- Inner tabs: General, Notifications, Privacy, Advanced -->
+            <amw-tabs>
+              <!-- General Settings -->
+              <amw-tab label="General">
+                <div class="tab-content">
+                  <amw-card>
+                    <ng-template #cardHeader>
+                      <h3>General Settings</h3>
+                      <p class="subtitle">Basic application configuration</p>
+                    </ng-template>
+                    <ng-template #cardContent>
+                      <div class="settings-group">
+                        <h4>Application</h4>
+                        <div class="setting-item">
+                          <div class="setting-info">
+                            <span class="setting-label">Application Name</span>
+                            <span class="setting-description">The name displayed in the application header</span>
+                          </div>
+                          <amw-input
+                            label="Application Name"
+                            name="appName"
+                            [(ngModel)]="appName"
+                            placeholder="Enter application name">
+                          </amw-input>
+                        </div>
 
-              <div class="settings-group">
-                <h4>Display</h4>
-                <div class="setting-item">
-                  <div class="setting-info">
-                    <span class="setting-label">Theme</span>
-                    <span class="setting-description">Choose your preferred theme</span>
-                  </div>
-                  <amw-select
-                    label="Theme"
-                    [(ngModel)]="theme"
-                    [options]="themeOptions">
-                  </amw-select>
+                        <div class="setting-item">
+                          <div class="setting-info">
+                            <span class="setting-label">Default Language</span>
+                            <span class="setting-description">The default language for the application</span>
+                          </div>
+                          <amw-select
+                            label="Language"
+                            [(ngModel)]="defaultLanguage"
+                            [options]="languageOptions">
+                          </amw-select>
+                        </div>
+                      </div>
+
+                      <amw-divider></amw-divider>
+
+                      <div class="settings-group">
+                        <h4>Display</h4>
+                        <div class="setting-item">
+                          <div class="setting-info">
+                            <span class="setting-label">Theme</span>
+                            <span class="setting-description">Choose your preferred theme</span>
+                          </div>
+                          <amw-select
+                            label="Theme"
+                            [(ngModel)]="theme"
+                            [options]="themeOptions">
+                          </amw-select>
+                        </div>
+
+                        <div class="setting-item">
+                          <div class="setting-info">
+                            <span class="setting-label">Font Size</span>
+                            <span class="setting-description">Adjust the base font size</span>
+                          </div>
+                          <div class="slider-container">
+                            <amw-slider
+                              [min]="12"
+                              [max]="20"
+                              [step]="1"
+                              [(ngModel)]="fontSize">
+                            </amw-slider>
+                            <span class="slider-value">{{ fontSize }}px</span>
+                          </div>
+                        </div>
+                      </div>
+                    </ng-template>
+                  </amw-card>
                 </div>
-                
-                <div class="setting-item">
-                  <div class="setting-info">
-                    <span class="setting-label">Font Size</span>
-                    <span class="setting-description">Adjust the base font size</span>
-                  </div>
-                  <div class="slider-container">
-                    <amw-slider
-                      [min]="12"
-                      [max]="20"
-                      [step]="1"
-                      [(ngModel)]="fontSize">
-                    </amw-slider>
-                    <span class="slider-value">{{ fontSize }}px</span>
-                  </div>
+              </amw-tab>
+
+              <!-- Notifications -->
+              <amw-tab label="Notifications">
+                <div class="tab-content">
+                  <amw-card>
+                    <ng-template #cardHeader>
+                      <h3>Notification Settings</h3>
+                      <p class="subtitle">Configure how you receive notifications</p>
+                    </ng-template>
+                    <ng-template #cardContent>
+                      <div class="settings-group">
+                        <h4>Email Notifications</h4>
+                        <div class="setting-item">
+                          <div class="setting-info">
+                            <span class="setting-label">Email Address</span>
+                            <span class="setting-description">Where to send notifications</span>
+                          </div>
+                          <amw-input
+                            label="Email Address"
+                            type="email"
+                            [(ngModel)]="emailAddress"
+                            placeholder="user@example.com">
+                          </amw-input>
+                        </div>
+
+                        <div class="setting-item">
+                          <div class="setting-info">
+                            <span class="setting-label">System Notifications</span>
+                            <span class="setting-description">Receive system updates and alerts</span>
+                          </div>
+                          <amw-switch [(ngModel)]="systemNotifications"></amw-switch>
+                        </div>
+
+                        <div class="setting-item">
+                          <div class="setting-info">
+                            <span class="setting-label">Marketing Emails</span>
+                            <span class="setting-description">Receive promotional content and updates</span>
+                          </div>
+                          <amw-switch [(ngModel)]="marketingEmails"></amw-switch>
+                        </div>
+                      </div>
+
+                      <amw-divider></amw-divider>
+
+                      <div class="settings-group">
+                        <h4>Push Notifications</h4>
+                        <div class="setting-item">
+                          <div class="setting-info">
+                            <span class="setting-label">Enable Push Notifications</span>
+                            <span class="setting-description">Receive notifications in your browser</span>
+                          </div>
+                          <amw-switch [(ngModel)]="pushNotifications"></amw-switch>
+                        </div>
+                      </div>
+                    </ng-template>
+                  </amw-card>
                 </div>
-              </div>
-            </ng-template>
-</amw-card>
+              </amw-tab>
+
+              <!-- Privacy -->
+              <amw-tab label="Privacy">
+                <div class="tab-content">
+                  <amw-card>
+                    <ng-template #cardHeader>
+                      <h3>Privacy Settings</h3>
+                      <p class="subtitle">Control your data and privacy preferences</p>
+                    </ng-template>
+                    <ng-template #cardContent>
+                      <div class="settings-group">
+                        <h4>Data Collection</h4>
+                        <div class="setting-item">
+                          <div class="setting-info">
+                            <span class="setting-label">Usage Analytics</span>
+                            <span class="setting-description">Help improve the app by sharing usage data</span>
+                          </div>
+                          <amw-switch [(ngModel)]="usageAnalytics"></amw-switch>
+                        </div>
+
+                        <div class="setting-item">
+                          <div class="setting-info">
+                            <span class="setting-label">Performance Monitoring</span>
+                            <span class="setting-description">Monitor app performance and errors</span>
+                          </div>
+                          <amw-switch [(ngModel)]="performanceMonitoring"></amw-switch>
+                        </div>
+                      </div>
+
+                      <amw-divider></amw-divider>
+
+                      <div class="settings-group">
+                        <h4>Data Privacy</h4>
+                        <div class="setting-item">
+                          <div class="setting-info">
+                            <span class="setting-label">Analytics Tracking</span>
+                            <span class="setting-description">Allow analytics data collection</span>
+                          </div>
+                          <amw-switch [(ngModel)]="analyticsTracking"></amw-switch>
+                        </div>
+
+                        <div class="setting-item">
+                          <div class="setting-info">
+                            <span class="setting-label">Error Reporting</span>
+                            <span class="setting-description">Automatically report errors for debugging</span>
+                          </div>
+                          <amw-switch [(ngModel)]="errorReporting"></amw-switch>
+                        </div>
+                      </div>
+                    </ng-template>
+                  </amw-card>
+                </div>
+              </amw-tab>
+
+              <!-- Advanced -->
+              <amw-tab label="Advanced">
+                <div class="tab-content">
+                  <amw-card>
+                    <ng-template #cardHeader>
+                      <h3>Advanced Settings</h3>
+                      <p class="subtitle">Advanced configuration options</p>
+                    </ng-template>
+                    <ng-template #cardContent>
+                      <amw-accordion>
+                        <amw-accordion-panel amwTitle="API Configuration">
+                          <div class="setting-item">
+                            <div class="setting-info">
+                              <span class="setting-label">API Base URL</span>
+                              <span class="setting-description">The base URL for API requests</span>
+                            </div>
+                            <amw-input
+                              label="API Base URL"
+                              name="apiBaseUrl"
+                              [(ngModel)]="apiBaseUrl"
+                              placeholder="https://api.example.com">
+                            </amw-input>
+                          </div>
+                        </amw-accordion-panel>
+
+                        <amw-accordion-panel amwTitle="Cache Settings">
+                          <div class="setting-item">
+                            <div class="setting-info">
+                              <span class="setting-label">Cache Duration</span>
+                              <span class="setting-description">How long to cache data</span>
+                            </div>
+                            <div class="slider-container">
+                              <amw-slider
+                                [min]="1"
+                                [max]="60"
+                                [step]="1"
+                                [(ngModel)]="cacheDuration">
+                              </amw-slider>
+                              <span class="slider-value">{{ cacheDuration }} minutes</span>
+                            </div>
+                          </div>
+                        </amw-accordion-panel>
+
+                        <amw-accordion-panel amwTitle="Debug Settings">
+                          <div class="setting-item">
+                            <div class="setting-info">
+                              <span class="setting-label">Debug Mode</span>
+                              <span class="setting-description">Enable debug logging</span>
+                            </div>
+                            <amw-switch [(ngModel)]="debugMode"></amw-switch>
+                          </div>
+                        </amw-accordion-panel>
+                      </amw-accordion>
+                    </ng-template>
+                  </amw-card>
+                </div>
+              </amw-tab>
+            </amw-tabs>
+          </div>
+
+          <div class="settings-actions">
+            <amw-button appearance="elevated" color="primary" (click)="saveSettings()" icon="save" iconPosition="left">Save Settings</amw-button>
+            <amw-button appearance="text" (click)="resetSettings()" icon="refresh" iconPosition="left">Reset to Defaults</amw-button>
+          </div>
         </div>
-      </amw-tab>
+      </div>
+    </amw-tab>
 
-      <!-- Notifications -->
-      <amw-tab label="Notifications">
-        <div class="tab-content">
-          <amw-card>
-            <ng-template #cardHeader>
-              <h2>Notification Settings</h2>
-              <p class="subtitle">Configure how you receive notifications</p>
-            </ng-template>
-            <ng-template #cardContent>
-              <div class="settings-group">
-                <h4>Email Notifications</h4>
-                <div class="setting-item">
-                  <div class="setting-info">
-                    <span class="setting-label">Email Address</span>
-                    <span class="setting-description">Where to send notifications</span>
-                  </div>
-                  <amw-input
-                    label="Email Address"
-                    type="email"
-                    [(ngModel)]="emailAddress"
-                    placeholder="user@example.com">
-                  </amw-input>
-                </div>
-                
-                <div class="setting-item">
-                  <div class="setting-info">
-                    <span class="setting-label">System Notifications</span>
-                    <span class="setting-description">Receive system updates and alerts</span>
-                  </div>
-                  <amw-switch [(ngModel)]="systemNotifications"></amw-switch>
-                </div>
-                
-                <div class="setting-item">
-                  <div class="setting-info">
-                    <span class="setting-label">Marketing Emails</span>
-                    <span class="setting-description">Receive promotional content and updates</span>
-                  </div>
-                  <amw-switch [(ngModel)]="marketingEmails"></amw-switch>
-                </div>
-              </div>
+    <!-- Code Tab -->
+    <amw-tab label="Code">
+      <amw-card>
+        <ng-template #cardContent>
+          <h3>Basic Settings Page Structure</h3>
+          <pre><code>{{ codeExamples.basicUsage }}</code></pre>
 
-              <amw-divider></amw-divider>
+          <h3>Setting Item Pattern</h3>
+          <p>Each setting follows a consistent pattern with label, description, and control:</p>
+          <pre><code>{{ codeExamples.settingItemPattern }}</code></pre>
 
-              <div class="settings-group">
-                <h4>Push Notifications</h4>
-                <div class="setting-item">
-                  <div class="setting-info">
-                    <span class="setting-label">Enable Push Notifications</span>
-                    <span class="setting-description">Receive notifications in your browser</span>
-                  </div>
-                  <amw-switch [(ngModel)]="pushNotifications"></amw-switch>
-                </div>
-              </div>
-            </ng-template>
-</amw-card>
-        </div>
-      </amw-tab>
+          <h3>Advanced Settings with Accordion</h3>
+          <p>Use accordion panels for collapsible advanced configuration sections:</p>
+          <pre><code>{{ codeExamples.accordionPattern }}</code></pre>
 
-      <!-- Privacy -->
-      <amw-tab label="Privacy">
-        <div class="tab-content">
-          <amw-card>
-            <ng-template #cardHeader>
-              <h2>Privacy Settings</h2>
-              <p class="subtitle">Control your data and privacy preferences</p>
-            </ng-template>
-            <ng-template #cardContent>
-              <div class="settings-group">
-                <h4>Data Collection</h4>
-                <div class="setting-item">
-                  <div class="setting-info">
-                    <span class="setting-label">Usage Analytics</span>
-                    <span class="setting-description">Help improve the app by sharing usage data</span>
-                  </div>
-                  <amw-switch [(ngModel)]="usageAnalytics"></amw-switch>
-                </div>
-                
-                <div class="setting-item">
-                  <div class="setting-info">
-                    <span class="setting-label">Performance Monitoring</span>
-                    <span class="setting-description">Monitor app performance and errors</span>
-                  </div>
-                  <amw-switch [(ngModel)]="performanceMonitoring"></amw-switch>
-                </div>
-              </div>
+          <h3>Component Implementation</h3>
+          <pre><code>{{ codeExamples.componentCode }}</code></pre>
 
-              <amw-divider></amw-divider>
+          <h3>Key Features</h3>
+          <ul>
+            <li>Tabbed navigation for organizing settings into logical categories</li>
+            <li>Consistent setting item pattern with label and description</li>
+            <li>Various control types: inputs, selects, switches, sliders</li>
+            <li>Dividers to separate logical groups within tabs</li>
+            <li>Accordion panels for advanced/collapsible settings</li>
+            <li>Action buttons for saving and resetting settings</li>
+            <li>Responsive layout that works on all screen sizes</li>
+          </ul>
 
-              <div class="settings-group">
-                <h4>Data Privacy</h4>
-                <div class="setting-item">
-                  <div class="setting-info">
-                    <span class="setting-label">Analytics Tracking</span>
-                    <span class="setting-description">Allow analytics data collection</span>
-                  </div>
-                  <amw-switch [(ngModel)]="analyticsTracking"></amw-switch>
-                </div>
-                
-                <div class="setting-item">
-                  <div class="setting-info">
-                    <span class="setting-label">Error Reporting</span>
-                    <span class="setting-description">Automatically report errors for debugging</span>
-                  </div>
-                  <amw-switch [(ngModel)]="errorReporting"></amw-switch>
-                </div>
-              </div>
-            </ng-template>
-</amw-card>
-        </div>
-      </amw-tab>
+          <h3>Best Practices</h3>
+          <ul>
+            <li>Group related settings together with clear headings</li>
+            <li>Provide helpful descriptions for each setting</li>
+            <li>Use appropriate control types (switch for on/off, slider for ranges)</li>
+            <li>Hide advanced settings behind accordions to reduce visual clutter</li>
+            <li>Always provide save and reset functionality</li>
+            <li>Consider auto-save for certain settings</li>
+          </ul>
+        </ng-template>
+      </amw-card>
+    </amw-tab>
 
-      <!-- Advanced -->
-      <amw-tab label="Advanced">
-        <div class="tab-content">
-          <amw-card>
-            <ng-template #cardHeader>
-              <h2>Advanced Settings</h2>
-              <p class="subtitle">Advanced configuration options</p>
-            </ng-template>
-            <ng-template #cardContent>
-              <amw-accordion>
-                <amw-accordion-panel amwTitle="API Configuration">
-                  <div class="setting-item">
-                    <div class="setting-info">
-                      <span class="setting-label">API Base URL</span>
-                      <span class="setting-description">The base URL for API requests</span>
-                    </div>
-                    <amw-input
-                      label="API Base URL"
-                      name="apiBaseUrl"
-                      [(ngModel)]="apiBaseUrl"
-                      placeholder="https://api.example.com">
-                    </amw-input>
-                  </div>
-                </amw-accordion-panel>
+    <!-- API Tab -->
+    <amw-tab label="API">
+      <amw-api-doc
+        componentName="Settings Page Pattern"
+        [apiDocumentation]="settingsPageApiDoc"
+        [interfaces]="settingsPageInterfaces"
+        description="The Settings Page is a composite page pattern that demonstrates how to build a comprehensive settings interface using AMW components.">
+      </amw-api-doc>
 
-                <amw-accordion-panel amwTitle="Cache Settings">
-                  <div class="setting-item">
-                    <div class="setting-info">
-                      <span class="setting-label">Cache Duration</span>
-                      <span class="setting-description">How long to cache data</span>
-                    </div>
-                    <div class="slider-container">
-                      <amw-slider
-                        [min]="1"
-                        [max]="60"
-                        [step]="1"
-                        [(ngModel)]="cacheDuration">
-                      </amw-slider>
-                      <span class="slider-value">{{ cacheDuration }} minutes</span>
-                    </div>
-                  </div>
-                </amw-accordion-panel>
+      <amw-card>
+        <ng-template #cardContent>
+          <h3>Components Used</h3>
+          <ul>
+            <li><code>AmwTabsComponent</code> / <code>AmwTabComponent</code> - For organizing settings into categories</li>
+            <li><code>AmwCardComponent</code> - For grouping related settings</li>
+            <li><code>AmwDividerComponent</code> - For separating setting groups</li>
+            <li><code>AmwAccordionComponent</code> / <code>AmwAccordionPanelComponent</code> - For collapsible advanced settings</li>
+            <li><code>AmwInputComponent</code> - For text-based settings</li>
+            <li><code>AmwSelectComponent</code> - For dropdown selections</li>
+            <li><code>AmwSwitchComponent</code> - For toggle settings</li>
+            <li><code>AmwSliderComponent</code> - For range-based settings</li>
+            <li><code>AmwButtonComponent</code> - For save/reset actions</li>
+          </ul>
 
-                <amw-accordion-panel amwTitle="Debug Settings">
-                  <div class="setting-item">
-                    <div class="setting-info">
-                      <span class="setting-label">Debug Mode</span>
-                      <span class="setting-description">Enable debug logging</span>
-                    </div>
-                    <amw-switch [(ngModel)]="debugMode"></amw-switch>
-                  </div>
-                </amw-accordion-panel>
-              </amw-accordion>
-            </ng-template>
-</amw-card>
-        </div>
-      </amw-tab>
-    </amw-tabs>
-  </div>
+          <h3>Page Structure</h3>
+          <ul>
+            <li><strong>Header:</strong> Page title and description</li>
+            <li><strong>Tab Navigation:</strong> Categories like General, Notifications, Privacy, Advanced</li>
+            <li><strong>Settings Cards:</strong> Grouped settings within each tab</li>
+            <li><strong>Setting Items:</strong> Individual settings with label, description, and control</li>
+            <li><strong>Actions:</strong> Save and Reset buttons</li>
+          </ul>
 
-  <div class="settings-actions">
-    <amw-button appearance="elevated" color="primary" (click)="saveSettings()" icon="save" iconPosition="left">Save Settings</amw-button>
-    <amw-button appearance="text" (click)="resetSettings()" icon="refresh" iconPosition="left">Reset to Defaults</amw-button>
-  </div>
+          <h3>Customization</h3>
+          <ul>
+            <li>Add or remove tabs based on your application's needs</li>
+            <li>Customize the setting item layout with CSS</li>
+            <li>Add validation to input fields</li>
+            <li>Implement auto-save functionality</li>
+            <li>Add confirmation dialogs for destructive actions</li>
+            <li>Support keyboard navigation for accessibility</li>
+          </ul>
+        </ng-template>
+      </amw-card>
+    </amw-tab>
+  </amw-tabs>
 </div>
-

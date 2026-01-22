@@ -1,6 +1,6 @@
 <div [class]="getSliderClasses()">
-  <!-- Signal Forms binding (scenario 3) - Field directive manages disabled automatically -->
-  @if (field()) {
+  <!-- Signal Forms binding (scenario 3) - FormField directive manages disabled automatically -->
+  @if (formField()) {
     <mat-slider
       [color]="getMaterialColor()"
       [min]="min()"
@@ -11,7 +11,7 @@
       [attr.aria-describedby]="ariaDescribedby()"
       [tabIndex]="tabIndex()">
       <input matSliderThumb
-        [field]="field()"
+        [formField]="formField()"
         (valueChange)="onSliderChange($event)"
         (input)="onSliderInput($event)"
         (focus)="onFocus($event)"

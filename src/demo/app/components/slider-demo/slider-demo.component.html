@@ -1,29 +1,33 @@
-<div class="demo-section">
-  <h3>Orientation Variations</h3>
-  <div class="variation-grid">
-    @for (variation of sliderVariations.orientations; track variation) {
-      <div class="variation-item">
-        <h4>{{ variation.label }}</h4>
-        <amw-slider
-          [vertical]="variation.vertical"
-          [min]="0"
-          [max]="100">
-        </amw-slider>
+<amw-demo-doc componentName="amw-slider">
+  <ng-template #content>
+    <div class="demo-section">
+      <h3>Orientation Variations</h3>
+      <div class="variation-grid">
+        @for (variation of sliderVariations.orientations; track variation) {
+          <div class="variation-item">
+            <h4>{{ variation.label }}</h4>
+            <amw-slider
+              [vertical]="variation.vertical"
+              [min]="0"
+              [max]="100">
+            </amw-slider>
+          </div>
+        }
       </div>
-    }
-  </div>
 
-  <h3>State Variations</h3>
-  <div class="variation-grid">
-    @for (variation of sliderVariations.states; track variation) {
-      <div class="variation-item">
-        <h4>{{ variation.label }}</h4>
-        <amw-slider
-          [disabled]="variation.disabled"
-          [min]="0"
-          [max]="100">
-        </amw-slider>
+      <h3>State Variations</h3>
+      <div class="variation-grid">
+        @for (variation of sliderVariations.states; track variation) {
+          <div class="variation-item">
+            <h4>{{ variation.label }}</h4>
+            <amw-slider
+              [disabled]="variation.disabled"
+              [min]="0"
+              [max]="100">
+            </amw-slider>
+          </div>
+        }
       </div>
-    }
-  </div>
-</div>
+    </div>
+  </ng-template>
+</amw-demo-doc>

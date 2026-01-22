@@ -19,6 +19,7 @@ import { AmwSelectComponent } from '../../../../library/src/controls/components/
 import { AmwSwitchComponent } from '../../../../library/src/controls/components/amw-switch/amw-switch.component';
 import { AmwCardComponent } from '../../../../library/src/components/components/amw-card/amw-card.component';
 import { AmwIconComponent } from '../../../../library/src/components/components';
+import { AmwDemoDocComponent } from '../../shared/components/demo-doc/demo-doc.component';
 
 @Component({
     selector: 'app-sidenav-demo',
@@ -31,7 +32,8 @@ import { AmwIconComponent } from '../../../../library/src/components/components'
         AmwSelectComponent,
         AmwSwitchComponent,
         AmwCardComponent,
-        AmwIconComponent],
+        AmwIconComponent,
+        AmwDemoDocComponent],
     templateUrl: './sidenav-demo.component.html',
     styleUrl: './sidenav-demo.component.scss'
 })

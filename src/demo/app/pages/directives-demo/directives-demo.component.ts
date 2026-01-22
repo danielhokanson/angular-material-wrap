@@ -11,6 +11,8 @@ import { AmwCopyToClipboardDirective } from '../../../../library/src/directives/
 import { AmwTabsComponent, AmwTabComponent, AmwCardComponent } from '../../../../library/src/components/components';
 import { AmwButtonComponent } from '../../../../library/src/controls/components/amw-button/amw-button.component';
 import { AmwInputComponent } from '../../../../library/src/controls/components/amw-input/amw-input.component';
+import { AmwApiDocComponent } from '../../shared/components/api-doc/api-doc.component';
+import { ApiDocumentation } from '../../components/base/base-api.component';
 
 @Component({
     selector: 'amw-demo-directives',
@@ -26,6 +28,7 @@ import { AmwInputComponent } from '../../../../library/src/controls/components/a
     AmwCardComponent,
     AmwButtonComponent,
     AmwInputComponent,
+    AmwApiDocComponent,
 ],
     encapsulation: ViewEncapsulation.None,
     templateUrl: './directives-demo.component.html',
@@ -191,7 +194,7 @@ export class MyComponent {
     };
 
     // Copy to Clipboard API documentation
-    copyToClipboardApiDocumentation = {
+    copyToClipboardApiDocumentation: ApiDocumentation = {
         inputs: [
             {
                 name: 'amwCopyToClipboard',
@@ -229,6 +232,16 @@ export class MyComponent {
                 type: 'EventEmitter<Error>',
                 description: 'Emits the error when copy operation fails'
             }
+        ],
+        usageNotes: [
+            'Use [amwCopyToClipboard]="text" to copy specific text to the clipboard',
+            'If no text is provided, the directive will attempt to copy the element\'s text content or value',
+            'Built-in toast messages display on success/error by default (can be disabled)',
+            'Use amwCopySuccessMessage and amwCopyErrorMessage to customize toast messages',
+            'Listen to (amwCopySuccess) and (amwCopyError) for custom handling',
+            'Set [amwCopyShowToast]="false" to disable built-in notifications',
+            'Uses the modern Clipboard API for secure copy operations',
+            'Requires HTTPS in production environments (HTTP works on localhost)'
         ]
     };
 
@@ -366,18 +379,28 @@ export class MyComponent {
     };
 
     // Click Outside API documentation
-    clickOutsideApiDocumentation = {
+    clickOutsideApiDocumentation: ApiDocumentation = {
         outputs: [
             {
                 name: 'amwClickOutside',
                 type: 'EventEmitter<Event>',
                 description: 'Emits when a click occurs outside the element. The Event object contains details about the click event.'
             }
+        ],
+        usageNotes: [
+            'Use (amwClickOutside)="handler()" to detect clicks outside an element',
+            'The emitted Event object contains information about the click (target, coordinates, etc.)',
+            'Clicks inside the element are stopped from propagating to prevent false triggers',
+            'The directive attaches a listener to the document to detect all clicks',
+            'Document listener is automatically removed when the directive is destroyed',
+            'Common use cases: closing dropdowns, menus, modals, and dismissing popups',
+            'Can be applied to multiple elements independently on the same page',
+            'Uses Renderer2 for efficient event handling and cleanup'
         ]
     };
 
     // Auto Focus API documentation
-    autoFocusApiDocumentation = {
+    autoFocusApiDocumentation: ApiDocumentation = {
         inputs: [
             {
                 name: 'amwAutoFocus',
@@ -391,6 +414,15 @@ export class MyComponent {
                 default: '0',
                 description: 'Delay in milliseconds before focusing the element'
             }
+        ],
+        usageNotes: [
+            'Use [amwAutoFocus]="true" to automatically focus an element',
+            'Use [amwAutoFocusDelay]="milliseconds" to delay the focus action',
+            'Bind the amwAutoFocus input to a boolean property to control when focus occurs',
+            'When applied to non-focusable elements, the directive will find and focus the first focusable child',
+            'Works with input, textarea, select, button, and elements with tabindex',
+            'Focus occurs in ngOnInit (immediate) or ngAfterViewInit (with delay)',
+            'Ensures keyboard navigation works properly by focusing interactive elements'
         ]
     };
 
@@ -445,7 +477,7 @@ export class MyComponent {
     };
 
     // Tooltip API documentation
-    tooltipApiDocumentation = {
+    tooltipApiDocumentation: ApiDocumentation = {
         inputs: [
             {
                 name: 'amwTooltip',
@@ -484,46 +516,57 @@ export class MyComponent {
                 description: 'Whether to render HTML content in the tooltip'
             }
         ],
-        interface: {
-            name: 'TooltipConfig',
-            properties: [
-                {
-                    name: 'content',
-                    type: 'string',
-                    description: 'The tooltip text or HTML content'
-                },
-                {
-                    name: 'position',
-                    type: "'top' | 'bottom' | 'left' | 'right' | 'auto'",
-                    optional: true,
-                    description: 'Position of the tooltip'
-                },
-                {
-                    name: 'disabled',
-                    type: 'boolean',
-                    optional: true,
-                    description: 'Whether the tooltip is disabled'
-                },
-                {
-                    name: 'maxWidth',
-                    type: 'string',
-                    optional: true,
-                    description: 'Maximum width of the tooltip'
-                },
-                {
-                    name: 'class',
-                    type: 'string',
-                    optional: true,
-                    description: 'Custom CSS class'
-                },
-                {
-                    name: 'allowHtml',
-                    type: 'boolean',
-                    optional: true,
-                    description: 'Whether to render HTML content'
-                }
-            ]
-        }
+        usageNotes: [
+            'Use amwTooltip="text" for basic tooltips',
+            'Use [amwTooltip]="config" for advanced options with configuration object',
+            'Set tooltipAllowHtml="true" to render HTML (use with caution)',
+            'The "auto" position adapts based on available space',
+            'Tooltips show on both hover and keyboard focus for accessibility',
+            'Built on Angular CDK Overlay for robust positioning',
+            'Use tooltipClass to apply custom CSS classes'
+        ]
+    };
+
+    // Tooltip interface documentation (kept separate for the interface table)
+    tooltipInterfaceDocumentation = {
+        name: 'TooltipConfig',
+        properties: [
+            {
+                name: 'content',
+                type: 'string',
+                description: 'The tooltip text or HTML content'
+            },
+            {
+                name: 'position',
+                type: "'top' | 'bottom' | 'left' | 'right' | 'auto'",
+                optional: true,
+                description: 'Position of the tooltip'
+            },
+            {
+                name: 'disabled',
+                type: 'boolean',
+                optional: true,
+                description: 'Whether the tooltip is disabled'
+            },
+            {
+                name: 'maxWidth',
+                type: 'string',
+                optional: true,
+                description: 'Maximum width of the tooltip'
+            },
+            {
+                name: 'class',
+                type: 'string',
+                optional: true,
+                description: 'Custom CSS class'
+            },
+            {
+                name: 'allowHtml',
+                type: 'boolean',
+                optional: true,
+                description: 'Whether to render HTML content'
+            }
+        ]
     };
 
     constructor(private route: ActivatedRoute, public notification: AmwNotificationService) { }

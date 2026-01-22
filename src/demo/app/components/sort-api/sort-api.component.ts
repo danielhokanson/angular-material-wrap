@@ -1,10 +1,11 @@
 import { Component, ViewEncapsulation } from '@angular/core';
 import { BaseApiComponent, ApiDocumentation } from '../base/base-api.component';
+import { AmwApiDocComponent, ApiInterface } from '../../shared/components/api-doc/api-doc.component';
 
 @Component({
     selector: 'amw-demo-sort-api',
     standalone: true,
-    imports: [],
+    imports: [AmwApiDocComponent],
     encapsulation: ViewEncapsulation.None,
     templateUrl: './sort-api.component.html',
     styleUrl: './sort-api.component.scss'
@@ -70,6 +71,17 @@ export class SortApiComponent extends BaseApiComponent {
             }
         ]
     };
+
+    interfaces: ApiInterface[] = [
+        {
+            name: 'AmwSort',
+            description: 'Sort state emitted by the amwSortChange event',
+            properties: [
+                { name: 'active', type: 'string', description: 'The currently active sort column identifier' },
+                { name: 'direction', type: "'asc' | 'desc' | ''", description: 'The current sort direction' }
+            ]
+        }
+    ];
 
     constructor() {
         super();

@@ -1,58 +1,63 @@
-<div class="amw-demo-sort-validation">
-  <!-- Sort State Validation -->
-  <div class="validation-section">
-    <h3 class="validation-section__title">Sort State Validation</h3>
-    <div class="state-card">
-      <p class="state-message">{{ validateSortState() }}</p>
-      <div class="state-details">
-        <span>Active: <code>{{ sortActive() || 'null' }}</code></span>
-        <span>Direction: <code>{{ sortDirection() || 'null' }}</code></span>
+<amw-validation-doc
+  componentName="amw-sort"
+  [validationForm]="validationForm"
+  [validationInfo]="validationInfo">
+  <ng-template #formContent>
+    <!-- Sort State Validation -->
+    <div class="validation-section">
+      <h3 class="validation-section__title">Sort State Validation</h3>
+      <div class="state-card">
+        <p class="state-message">{{ validateSortState() }}</p>
+        <div class="state-details">
+          <span>Active: <code>{{ sortActive() || 'null' }}</code></span>
+          <span>Direction: <code>{{ sortDirection() || 'null' }}</code></span>
+        </div>
       </div>
     </div>
-  </div>
 
-  <!-- Sortable Table -->
-  <div class="validation-section">
-    <h3 class="validation-section__title">Product Table</h3>
-    <div
-      amwSort
-      [amwSortActive]="sortActive()"
-      [amwSortDirection]="sortDirection()"
-      (amwSortChange)="onSortChange($event)">
-      <amw-table [dataSource]="sortedProducts" [displayedColumns]="displayedColumns">
-      </amw-table>
+    <!-- Sortable Table -->
+    <div class="validation-section">
+      <h3 class="validation-section__title">Product Table</h3>
+      <div
+        amwSort
+        [amwSortActive]="sortActive()"
+        [amwSortDirection]="sortDirection()"
+        (amwSortChange)="onSortChange($event)">
+        <amw-table [dataSource]="sortedProducts" [displayedColumns]="displayedColumns">
+        </amw-table>
+      </div>
     </div>
-  </div>
 
-  <!-- Sort History -->
-  <div class="validation-section">
-    <h3 class="validation-section__title">Sort History</h3>
-    <div class="history-card">
-      @if (sortHistory().length === 0) {
-        <p class="empty-history">No sort actions yet. Click column headers to sort.</p>
-      } @else {
-        <ul class="history-list">
-          @for (entry of sortHistory(); track $index) {
-            <li>{{ entry }}</li>
-          }
+    <!-- Sort History -->
+    <div class="validation-section">
+      <h3 class="validation-section__title">Sort History</h3>
+      <div class="history-card">
+        @if (sortHistory().length === 0) {
+          <p class="empty-history">No sort actions yet. Click column headers to sort.</p>
+        } @else {
+          <ul class="history-list">
+            @for (entry of sortHistory(); track $index) {
+              <li>{{ entry }}</li>
+            }
+          </ul>
+          <amw-button appearance="text" (buttonClick)="clearHistory()">
+            Clear History
+          </amw-button>
+        }
+      </div>
+    </div>
+
+    <!-- Sort Event Details -->
+    <div class="validation-section">
+      <h3 class="validation-section__title">Sort Event Information</h3>
+      <div class="info-card">
+        <p>The <code>amwSortChange</code> event emits an object with:</p>
+        <ul>
+          <li><code>active: string</code> - The column being sorted</li>
+          <li><code>direction: 'asc' | 'desc' | ''</code> - The sort direction</li>
         </ul>
-        <amw-button appearance="text" (buttonClick)="clearHistory()">
-          Clear History
-        </amw-button>
-      }
+        <p>Click column headers to cycle through: ascending -> descending -> no sort</p>
+      </div>
     </div>
-  </div>
-
-  <!-- Sort Event Details -->
-  <div class="validation-section">
-    <h3 class="validation-section__title">Sort Event Information</h3>
-    <div class="info-card">
-      <p>The <code>amwSortChange</code> event emits an object with:</p>
-      <ul>
-        <li><code>active: string</code> - The column being sorted</li>
-        <li><code>direction: 'asc' | 'desc' | ''</code> - The sort direction</li>
-      </ul>
-      <p>Click column headers to cycle through: ascending → descending → no sort</p>
-    </div>
-  </div>
-</div>
+  </ng-template>
+</amw-validation-doc>

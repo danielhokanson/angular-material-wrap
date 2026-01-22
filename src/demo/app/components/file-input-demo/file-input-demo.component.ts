@@ -4,6 +4,7 @@ import { FormsModule } from '@angular/forms';
 
 import { AmwFileInputComponent } from '../../../../library/src/controls/components/amw-file-input/amw-file-input.component';
 import { AmwCheckboxComponent } from '../../../../library/src/controls/components/amw-checkbox/amw-checkbox.component';
+import { AmwDemoDocComponent } from '../../shared/components/demo-doc/demo-doc.component';
 
 @Component({
     selector: 'amw-demo-file-input',
@@ -12,6 +13,7 @@ import { AmwCheckboxComponent } from '../../../../library/src/controls/component
         FormsModule,
         AmwFileInputComponent,
         AmwCheckboxComponent,
+        AmwDemoDocComponent,
     ],
     encapsulation: ViewEncapsulation.None,
     templateUrl: './file-input-demo.component.html',

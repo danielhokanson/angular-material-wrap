@@ -1,0 +1,45 @@
+<div class="amw-validation-doc">
+  <div class="amw-validation-doc__header">
+    <h3 class="amw-validation-doc__title">Form Validation Examples</h3>
+    <p class="amw-validation-doc__description">{{ computedDescription }}</p>
+  </div>
+
+  <form
+    [formGroup]="validationForm"
+    class="amw-validation-doc__form">
+
+    @if (formContentTemplate) {
+      <ng-container [ngTemplateOutlet]="formContentTemplate"></ng-container>
+    }
+
+    <div class="amw-validation-doc__actions">
+      <amw-button
+        type="submit"
+        appearance="elevated"
+        color="primary"
+        [disabled]="isFormInvalid">
+        Submit Form
+      </amw-button>
+      <amw-button
+        type="button"
+        appearance="outlined"
+        color="primary"
+        (click)="validationForm.reset()">
+        Reset Form
+      </amw-button>
+    </div>
+  </form>
+
+  @if (validationInfo.length > 0) {
+    <div class="amw-validation-doc__info">
+      <h4 class="amw-validation-doc__info-title">Validation Rules Applied:</h4>
+      <ul class="amw-validation-doc__info-list">
+        @for (info of validationInfo; track info.title) {
+          <li class="amw-validation-doc__info-item">
+            <strong>{{ info.title }}:</strong> {{ info.description }}
+          </li>
+        }
+      </ul>
+    </div>
+  }
+</div>

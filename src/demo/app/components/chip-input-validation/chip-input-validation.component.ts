@@ -1,64 +1,49 @@
 import { Component, ViewEncapsulation } from '@angular/core';
-import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
+import { ReactiveFormsModule, FormGroup, Validators } from '@angular/forms';
 import { JsonPipe } from '@angular/common';
+import { AmwValidationDocComponent, ValidationInfo } from '../../shared/components/validation-doc/validation-doc.component';
+import { BaseValidationComponent } from '../base/base-validation.component';
 import { AmwChipInputComponent, ChipInputOption } from '../../../../library/src/controls/components/amw-chip-input';
-import { AmwButtonComponent } from '../../../../library/src/controls/components/amw-button/amw-button.component';
 
 @Component({
-    selector: 'amw-demo-chip-input-validation',
-    standalone: true,
-    imports: [
-        ReactiveFormsModule,
-        JsonPipe,
-        AmwChipInputComponent,
-        AmwButtonComponent
-    ],
-    encapsulation: ViewEncapsulation.None,
-    templateUrl: './chip-input-validation.component.html',
-    styleUrl: './chip-input-validation.component.scss'
+  selector: 'amw-demo-chip-input-validation',
+  standalone: true,
+  imports: [
+    ReactiveFormsModule,
+    JsonPipe,
+    AmwValidationDocComponent,
+    AmwChipInputComponent
+  ],
+  encapsulation: ViewEncapsulation.None,
+  templateUrl: './chip-input-validation.component.html',
+  styleUrl: './chip-input-validation.component.scss'
 })
-export class ChipInputValidationComponent {
-    validationForm: FormGroup;
+export class ChipInputValidationComponent extends BaseValidationComponent {
+  suggestions: ChipInputOption[] = [
+    { value: 'skill1', label: 'JavaScript' },
+    { value: 'skill2', label: 'TypeScript' },
+    { value: 'skill3', label: 'Angular' },
+    { value: 'skill4', label: 'React' },
+    { value: 'skill5', label: 'Node.js' },
+    { value: 'skill6', label: 'Python' },
+    { value: 'skill7', label: 'Java' },
+    { value: 'skill8', label: 'SQL' }
+  ];
 
-    suggestions: ChipInputOption[] = [
-        { value: 'skill1', label: 'JavaScript' },
-        { value: 'skill2', label: 'TypeScript' },
-        { value: 'skill3', label: 'Angular' },
-        { value: 'skill4', label: 'React' },
-        { value: 'skill5', label: 'Node.js' },
-        { value: 'skill6', label: 'Python' },
-        { value: 'skill7', label: 'Java' },
-        { value: 'skill8', label: 'SQL' }
-    ];
+  validationForm: FormGroup = this.fb.group({
+    requiredSkills: [[], Validators.required],
+    optionalSkills: [[]]
+  });
 
-    constructor(private fb: FormBuilder) {
-        this.validationForm = this.fb.group({
-            requiredSkills: [[], Validators.required],
-            optionalSkills: [[]]
-        });
-    }
+  validationInfo: ValidationInfo[] = [
+    { title: 'Required Skills', description: 'Must select at least one skill' },
+    { title: 'Optional Skills', description: 'No validation required' },
+    { title: 'Suggestions', description: 'Autocomplete from predefined list' },
+    { title: 'Custom Input', description: 'Allow adding custom skills' }
+  ];
 
-    onSubmit(): void {
-        if (this.validationForm.valid) {
-            console.log('Form submitted:', this.validationForm.value);
-            alert('Form submitted successfully!');
-        } else {
-            this.validationForm.markAllAsTouched();
-        }
-    }
-
-    getFieldError(fieldName: string): string {
-        const field = this.validationForm.get(fieldName);
-        if (field?.errors && field.touched) {
-            if (field.errors['required']) {
-                return 'Please select at least one skill';
-            }
-        }
-        return '';
-    }
-
-    hasError(fieldName: string): boolean {
-        const field = this.validationForm.get(fieldName);
-        return !!(field?.errors && field.touched);
-    }
+  hasChipError(fieldName: string): boolean {
+    const field = this.validationForm.get(fieldName);
+    return !!(field?.errors && field.touched);
+  }
 }

@@ -1,0 +1,127 @@
+.amw-validation-doc {
+  padding: 24px;
+  max-width: 1400px;
+
+  // Header section
+  &__header {
+    margin-bottom: 24px;
+  }
+
+  &__title {
+    font-size: 1.5rem;
+    font-weight: 500;
+    margin: 0 0 8px 0;
+    color: var(--mat-sys-on-surface);
+  }
+
+  &__description {
+    font-size: 0.95rem;
+    line-height: 1.6;
+    color: var(--mat-sys-on-surface-variant);
+    margin: 0;
+  }
+
+  // Form styling
+  &__form {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    max-width: 600px;
+  }
+
+  // Form row - used by child components
+  :host ::ng-deep .amw-validation-doc__field,
+  :host ::ng-deep .form-row,
+  :host ::ng-deep .form-field {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+  }
+
+  // Error message styling
+  :host ::ng-deep .field-error,
+  :host ::ng-deep .amw-validation-doc__error {
+    font-size: 0.8rem;
+    color: var(--mat-sys-error);
+    margin-top: 4px;
+    padding-left: 16px;
+  }
+
+  // Form actions
+  &__actions {
+    display: flex;
+    gap: 16px;
+    margin-top: 8px;
+    padding-top: 16px;
+    border-top: 1px solid var(--mat-sys-outline-variant);
+  }
+
+  // Validation info section
+  &__info {
+    margin-top: 32px;
+    padding: 20px 24px;
+    background-color: var(--mat-sys-surface-container-low);
+    border-radius: 8px;
+    border-left: 4px solid var(--mat-sys-primary);
+  }
+
+  &__info-title {
+    font-size: 1rem;
+    font-weight: 500;
+    margin: 0 0 12px 0;
+    color: var(--mat-sys-on-surface);
+  }
+
+  &__info-list {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+  }
+
+  &__info-item {
+    padding: 6px 0;
+    line-height: 1.5;
+    color: var(--mat-sys-on-surface-variant);
+
+    strong {
+      color: var(--mat-sys-on-surface);
+    }
+
+    &:not(:last-child) {
+      border-bottom: 1px solid var(--mat-sys-outline-variant);
+    }
+  }
+
+  // Responsive design
+  @media (max-width: 768px) {
+    padding: 16px;
+
+    &__form {
+      max-width: 100%;
+    }
+
+    &__actions {
+      flex-direction: column;
+
+      amw-button {
+        width: 100%;
+      }
+    }
+
+    &__info {
+      padding: 16px 20px;
+    }
+  }
+
+  @media (max-width: 480px) {
+    padding: 12px;
+
+    &__title {
+      font-size: 1.25rem;
+    }
+
+    &__description {
+      font-size: 0.9rem;
+    }
+  }
+}

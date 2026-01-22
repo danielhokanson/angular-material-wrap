@@ -1,19 +1,29 @@
-import { Component, ViewEncapsulation } from '@angular/core';
-import { BaseCodeComponent } from '../base/base-code.component';
-
-type SortCodeExamples = 'basic' | 'withTable' | 'programmatic' | 'disabled' | 'sortHeader';
+import { Component, ViewEncapsulation, OnInit } from '@angular/core';
+import { AmwCodeDocComponent, CodeExample } from '../../shared/components/code-doc/code-doc.component';
+import { AmwIconComponent } from '../../../../library/src/components/components';
 
 @Component({
-    selector: 'amw-demo-sort-code',
-    standalone: true,
-    imports: [],
-    encapsulation: ViewEncapsulation.None,
-    templateUrl: './sort-code.component.html',
-    styleUrl: './sort-code.component.scss'
+  selector: 'amw-demo-sort-code',
+  standalone: true,
+  imports: [
+    AmwCodeDocComponent,
+    AmwIconComponent
+  ],
+  encapsulation: ViewEncapsulation.None,
+  templateUrl: './sort-code.component.html',
+  styleUrl: './sort-code.component.scss'
 })
-export class SortCodeComponent extends BaseCodeComponent<SortCodeExamples> {
-    readonly codeExamples: Record<SortCodeExamples, string> = {
-        basic: `<!-- Basic Sort Directive -->
+export class SortCodeComponent implements OnInit {
+  // Editable code for the shared component
+  editableCode: Record<string, string> = {};
+
+  // Code examples data
+  readonly examples: CodeExample[] = [
+    {
+      key: 'basic',
+      title: 'Basic Sort Directive',
+      description: 'Simple sort directive usage',
+      code: `<!-- Basic Sort Directive -->
 <div amwSort
      [amwSortActive]="'name'"
      [amwSortDirection]="'asc'"
@@ -24,9 +34,13 @@ export class SortCodeComponent extends BaseCodeComponent<SortCodeExamples> {
 <!-- In component -->
 onSortChange(event: { active: string; direction: 'asc' | 'desc' | '' }) {
   console.log('Sort changed:', event.active, event.direction);
-}`,
-
-        withTable: `<!-- Sort with AmwTable -->
+}`
+    },
+    {
+      key: 'withTable',
+      title: 'With Table',
+      description: 'Sort directive with AmwTable',
+      code: `<!-- Sort with AmwTable -->
 <div amwSort
      [amwSortActive]="sortColumn"
      [amwSortDirection]="sortDirection"
@@ -53,9 +67,13 @@ get sortedData() {
 onSortChange(event: AmwSort) {
   this.sortColumn = event.active;
   this.sortDirection = event.direction;
-}`,
-
-        programmatic: `<!-- Programmatic Sort Control -->
+}`
+    },
+    {
+      key: 'programmatic',
+      title: 'Programmatic Control',
+      description: 'Control sort programmatically',
+      code: `<!-- Programmatic Sort Control -->
 <div amwSort
      [amwSortActive]="sortActive"
      [amwSortDirection]="sortDirection"
@@ -80,9 +98,13 @@ setSort(column: string, direction: 'asc' | 'desc') {
 clearSort() {
   this.sortActive = '';
   this.sortDirection = '';
-}`,
-
-        disabled: `<!-- Disabled Sort -->
+}`
+    },
+    {
+      key: 'disabled',
+      title: 'Disabled Sort',
+      description: 'Conditionally disable sorting',
+      code: `<!-- Disabled Sort -->
 <div amwSort
      [amwSortActive]="sortActive"
      [amwSortDirection]="sortDirection"
@@ -97,9 +119,13 @@ clearSort() {
 </button>
 
 <!-- In component -->
-isSortDisabled = false;`,
-
-        sortHeader: `<!-- Sort Header Component -->
+isSortDisabled = false;`
+    },
+    {
+      key: 'sortHeader',
+      title: 'Sort Header Component',
+      description: 'Using sort header component with options',
+      code: `<!-- Sort Header Component -->
 <table amw-table [dataSource]="data">
   <thead>
     <tr amwSort (amwSortChange)="onSortChange($event)">
@@ -122,9 +148,13 @@ isSortDisabled = false;`,
 <!-- amw-sort-header options -->
 <!-- [disableClear]="true" - Prevents clearing sort (only asc/desc) -->
 <!-- arrowPosition="before" - Shows sort arrow before text -->`
-    };
-
-    constructor() {
-        super();
     }
+  ];
+
+  ngOnInit(): void {
+    // Initialize editable code from examples
+    this.examples.forEach(example => {
+      this.editableCode[example.key] = example.code;
+    });
+  }
 }

@@ -1,212 +1,77 @@
-<div class="code-section">
-  <h3>Code Examples</h3>
-  <p>Interactive examples showing dialog patterns. The recommended signal-based approach is shown first.</p>
+<amw-code-doc
+  componentName="dialog"
+  [examples]="examples"
+  [editableCode]="editableCode">
 
-  <amw-accordion class="code-examples-accordion">
-    <!-- RECOMMENDED: Signal-based Pattern -->
-    <amw-accordion-panel amwDescription="✅ RECOMMENDED: Modern signal-based dialog pattern" [expanded]="true">
-      <ng-template #header>
-        <amw-icon name="check_circle" color="primary"></amw-icon>
-        Recommended: Signal-based Dialog
-      </ng-template>
-      <div class="example-container">
-        <div class="code-panel code-panel--recommended">
-          <div class="code-header">
-            <h4>Parent Component Code</h4>
-            <amw-button icon="refresh" (click)="resetCode('recommended')" title="Reset to original"></amw-button>
-          </div>
-          <textarea
-            [(ngModel)]="editableCode.recommended"
-            class="code-editor code-editor--large"
-            spellcheck="false"
-            rows="20"></textarea>
-        </div>
-        <div class="preview-panel">
-          <h4>How It Works</h4>
-          <div class="preview-content">
-            <div class="preview-note preview-note--info">
-              <amw-icon name="lightbulb"></amw-icon>
-              <div>
-                <strong>Signal-based communication:</strong>
-                <ol>
-                  <li>Call <code>dialogService.open(title, component, config)</code></li>
-                  <li>Access dialog's signals via <code>dialogRef.instance.mySignal()</code></li>
-                  <li>Use <code>effect()</code> to react when signals change</li>
-                  <li>Call <code>dialogRef.close()</code> when done</li>
-                </ol>
-              </div>
+  <ng-template #preview let-example>
+    @switch (example.key) {
+      @case ('recommended') {
+        <div class="preview-content">
+          <div class="preview-note preview-note--info">
+            <amw-icon name="lightbulb"></amw-icon>
+            <div>
+              <strong>Signal-based communication:</strong>
+              <ol>
+                <li>Call <code>dialogService.open(title, component, config)</code></li>
+                <li>Access dialog's signals via <code>dialogRef.instance.mySignal()</code></li>
+                <li>Use <code>effect()</code> to react when signals change</li>
+                <li>Call <code>dialogRef.close()</code> when done</li>
+              </ol>
             </div>
           </div>
         </div>
-      </div>
-    </amw-accordion-panel>
-
-    <!-- RECOMMENDED: Dialog Component with Signals -->
-    <amw-accordion-panel amwDescription="✅ RECOMMENDED: Dialog component implementing signals">
-      <ng-template #header>
-        <amw-icon name="check_circle" color="primary"></amw-icon>
-        Recommended: Dialog Component with Signals
-      </ng-template>
-      <div class="example-container">
-        <div class="code-panel code-panel--recommended">
-          <div class="code-header">
-            <h4>Dialog Component Code</h4>
-            <amw-button icon="refresh" (click)="resetCode('signalComponent')" title="Reset to original"></amw-button>
-          </div>
-          <textarea
-            [(ngModel)]="editableCode.signalComponent"
-            class="code-editor code-editor--large"
-            spellcheck="false"
-            rows="30"></textarea>
-        </div>
-        <div class="preview-panel">
-          <h4>Key Points</h4>
-          <div class="preview-content">
-            <div class="preview-note preview-note--info">
-              <amw-icon name="lightbulb"></amw-icon>
-              <div>
-                <strong>Dialog Component Pattern:</strong>
-                <ul>
-                  <li>Inject <code>AMW_DIALOG_TITLE</code> to get the title</li>
-                  <li>Inject <code>MAT_DIALOG_DATA</code> for custom data</li>
-                  <li>Expose a signal (e.g., <code>savedItem = signal&lt;T | null&gt;(null)</code>)</li>
-                  <li>Set the signal when user takes action</li>
-                  <li>Parent handles closing via <code>effect()</code></li>
-                </ul>
-              </div>
+      }
+      @case ('signalComponent') {
+        <div class="preview-content">
+          <div class="preview-note preview-note--info">
+            <amw-icon name="lightbulb"></amw-icon>
+            <div>
+              <strong>Dialog Component Pattern:</strong>
+              <ul>
+                <li>Inject <code>AMW_DIALOG_TITLE</code> to get the title</li>
+                <li>Inject <code>MAT_DIALOG_DATA</code> for custom data</li>
+                <li>Expose a signal (e.g., <code>savedItem = signal&lt;T | null&gt;(null)</code>)</li>
+                <li>Set the signal when user takes action</li>
+                <li>Parent handles closing via <code>effect()</code></li>
+              </ul>
             </div>
           </div>
         </div>
-      </div>
-    </amw-accordion-panel>
-
-    <!-- LEGACY: Basic Dialog -->
-    <amw-accordion-panel amwDescription="⚠️ LEGACY: Simple dialog (deprecated pattern)">
-      <ng-template #header>
-        <amw-icon name="warning" color="warn"></amw-icon>
-        Legacy: Basic Dialog
-      </ng-template>
-      <div class="example-container">
-        <div class="code-panel code-panel--legacy">
-          <div class="code-header">
-            <h4>Code (Deprecated)</h4>
-            <amw-button icon="refresh" (click)="resetCode('basic')" title="Reset to original"></amw-button>
-          </div>
-          <textarea
-            [(ngModel)]="editableCode.basic"
-            class="code-editor"
-            spellcheck="false"></textarea>
+      }
+      @case ('basic') {
+        <amw-button appearance="outlined" color="warn" (click)="openDialog()">Open Dialog (deprecated)</amw-button>
+        <div class="preview-note preview-note--warning">
+          <amw-icon name="warning"></amw-icon>
+          <span>This pattern is deprecated. Use signal-based dialogs instead.</span>
         </div>
-        <div class="preview-panel">
-          <h4>Preview</h4>
-          <div class="preview-content">
-            <amw-button appearance="outlined" color="warn" (click)="openDialog()">Open Dialog (deprecated)</amw-button>
-            <div class="preview-note preview-note--warning">
-              <amw-icon name="warning"></amw-icon>
-              <span>This pattern is deprecated. Use signal-based dialogs instead.</span>
-            </div>
-          </div>
+      }
+      @case ('confirmation') {
+        <amw-button appearance="outlined" color="warn" (click)="openConfirmDialog()">
+          Delete Item (deprecated)
+        </amw-button>
+        <div class="preview-note preview-note--warning">
+          <amw-icon name="warning"></amw-icon>
+          <span>Migrate to signal-based ConfirmDialogComponent</span>
         </div>
-      </div>
-    </amw-accordion-panel>
-
-    <!-- LEGACY: Confirmation Dialog -->
-    <amw-accordion-panel amwDescription="⚠️ LEGACY: Confirmation dialog (deprecated pattern)">
-      <ng-template #header>
-        <amw-icon name="warning" color="warn"></amw-icon>
-        Legacy: Confirmation Dialog
-      </ng-template>
-      <div class="example-container">
-        <div class="code-panel code-panel--legacy">
-          <div class="code-header">
-            <h4>Code (Deprecated)</h4>
-            <amw-button icon="refresh" (click)="resetCode('confirmation')" title="Reset to original"></amw-button>
-          </div>
-          <textarea
-            [(ngModel)]="editableCode.confirmation"
-            class="code-editor"
-            spellcheck="false"
-            readonly></textarea>
+      }
+      @case ('alert') {
+        <amw-button appearance="outlined" color="warn" (click)="openAlertDialog()">
+          Show Alert (deprecated)
+        </amw-button>
+        <div class="preview-note preview-note--warning">
+          <amw-icon name="warning"></amw-icon>
+          <span>Migrate to signal-based AlertDialogComponent</span>
         </div>
-        <div class="preview-panel">
-          <h4>Preview</h4>
-          <div class="preview-content">
-            <amw-button appearance="outlined" color="warn" (click)="openConfirmDialog()">
-              Delete Item (deprecated)
-            </amw-button>
-            <div class="preview-note preview-note--warning">
-              <amw-icon name="warning"></amw-icon>
-              <span>Migrate to signal-based ConfirmDialogComponent</span>
-            </div>
-          </div>
+      }
+      @case ('customActions') {
+        <amw-button appearance="outlined" color="warn" (click)="openFormDialog()">
+          Open Form Dialog (deprecated)
+        </amw-button>
+        <div class="preview-note preview-note--warning">
+          <amw-icon name="warning"></amw-icon>
+          <span>Migrate to signal-based FormDialogComponent</span>
         </div>
-      </div>
-    </amw-accordion-panel>
-
-    <!-- LEGACY: Alert Dialog -->
-    <amw-accordion-panel amwDescription="⚠️ LEGACY: Alert dialog (deprecated pattern)">
-      <ng-template #header>
-        <amw-icon name="warning" color="warn"></amw-icon>
-        Legacy: Alert Dialog
-      </ng-template>
-      <div class="example-container">
-        <div class="code-panel code-panel--legacy">
-          <div class="code-header">
-            <h4>Code (Deprecated)</h4>
-            <amw-button icon="refresh" (click)="resetCode('alert')" title="Reset to original"></amw-button>
-          </div>
-          <textarea
-            [(ngModel)]="editableCode.alert"
-            class="code-editor"
-            spellcheck="false"
-            readonly></textarea>
-        </div>
-        <div class="preview-panel">
-          <h4>Preview</h4>
-          <div class="preview-content">
-            <amw-button appearance="outlined" color="warn" (click)="openAlertDialog()">
-              Show Alert (deprecated)
-            </amw-button>
-            <div class="preview-note preview-note--warning">
-              <amw-icon name="warning"></amw-icon>
-              <span>Migrate to signal-based AlertDialogComponent</span>
-            </div>
-          </div>
-        </div>
-      </div>
-    </amw-accordion-panel>
-
-    <!-- LEGACY: Custom Actions Dialog -->
-    <amw-accordion-panel amwDescription="⚠️ LEGACY: Custom actions (deprecated pattern)">
-      <ng-template #header>
-        <amw-icon name="warning" color="warn"></amw-icon>
-        Legacy: Custom Actions Dialog
-      </ng-template>
-      <div class="example-container">
-        <div class="code-panel code-panel--legacy">
-          <div class="code-header">
-            <h4>Code (Deprecated)</h4>
-            <amw-button icon="refresh" (click)="resetCode('customActions')" title="Reset to original"></amw-button>
-          </div>
-          <textarea
-            [(ngModel)]="editableCode.customActions"
-            class="code-editor"
-            spellcheck="false"
-            readonly></textarea>
-        </div>
-        <div class="preview-panel">
-          <h4>Preview</h4>
-          <div class="preview-content">
-            <amw-button appearance="outlined" color="warn" (click)="openFormDialog()">
-              Open Form Dialog (deprecated)
-            </amw-button>
-            <div class="preview-note preview-note--warning">
-              <amw-icon name="warning"></amw-icon>
-              <span>Migrate to signal-based FormDialogComponent</span>
-            </div>
-          </div>
-        </div>
-      </div>
-    </amw-accordion-panel>
-  </amw-accordion>
-</div>
+      }
+    }
+  </ng-template>
+</amw-code-doc>

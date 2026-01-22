@@ -1,7 +1,10 @@
-import { Component, ViewEncapsulation } from '@angular/core';
+import { Component, ViewEncapsulation, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
-import { BaseCodeComponent } from '../base/base-code.component';
+import { AmwCodeDocComponent, CodeExample } from '../../shared/components/code-doc/code-doc.component';
+import { AmwButtonComponent } from '../../../../library/src/controls/components/amw-button/amw-button.component';
+import { AmwCheckboxComponent } from '../../../../library/src/controls/components/amw-checkbox/amw-checkbox.component';
+import { AmwIconComponent } from '../../../../library/src/components/components';
 
 export interface PeriodicElement {
   name: string;
@@ -10,28 +13,22 @@ export interface PeriodicElement {
   symbol: string;
 }
 
-type DataTableExamples = 'basic' | 'sorting' | 'pagination' | 'selection' | 'actions' | 'filtering';
-
-import { AmwButtonComponent } from '../../../../library/src/controls/components/amw-button/amw-button.component';
-import { AmwCheckboxComponent } from '../../../../library/src/controls/components/amw-checkbox/amw-checkbox.component';
-import { AmwAccordionComponent, AmwAccordionPanelComponent, AmwIconComponent } from '../../../../library/src/components/components';
 @Component({
   selector: 'amw-demo-data-table-code',
   standalone: true,
   imports: [
     CommonModule,
     FormsModule,
+    AmwCodeDocComponent,
     AmwButtonComponent,
     AmwCheckboxComponent,
-    AmwAccordionComponent,
-    AmwAccordionPanelComponent,
     AmwIconComponent
   ],
   encapsulation: ViewEncapsulation.None,
   templateUrl: './data-table-code.component.html',
   styleUrl: './data-table-code.component.scss'
 })
-export class DataTableCodeComponent extends BaseCodeComponent<DataTableExamples> {
+export class DataTableCodeComponent implements OnInit {
   // Data for live preview examples
   displayedColumns: string[] = ['position', 'name', 'weight', 'symbol'];
   displayedColumnsWithSelection: string[] = ['select', 'position', 'name', 'weight', 'symbol'];
@@ -42,13 +39,21 @@ export class DataTableCodeComponent extends BaseCodeComponent<DataTableExamples>
     {position: 2, name: 'Helium', weight: 4.0026, symbol: 'He'},
     {position: 3, name: 'Lithium', weight: 6.941, symbol: 'Li'},
     {position: 4, name: 'Beryllium', weight: 9.0122, symbol: 'Be'},
-    {position: 5, name: 'Boron', weight: 10.811, symbol: 'B'}];
+    {position: 5, name: 'Boron', weight: 10.811, symbol: 'B'}
+  ];
 
   selection: PeriodicElement[] = [];
 
-  // Original code examples (for reset functionality)
-  readonly codeExamples: Record<DataTableExamples, string> = {
-    basic: `<table mat-table [dataSource]="dataSource">
+  // Editable code for the shared component
+  editableCode: Record<string, string> = {};
+
+  // Code examples data
+  readonly examples: CodeExample[] = [
+    {
+      key: 'basic',
+      title: 'Basic Table',
+      description: 'Simple data table with static data',
+      code: `<table mat-table [dataSource]="dataSource">
   <!-- Position Column -->
   <ng-container matColumnDef="position">
     <th mat-header-cell *matHeaderCellDef>No.</th>
@@ -75,9 +80,13 @@ export class DataTableCodeComponent extends BaseCodeComponent<DataTableExamples>
 
   <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
   <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
-</table>`,
-
-    sorting: `<table mat-table [dataSource]="dataSource" matSort>
+</table>`
+    },
+    {
+      key: 'sorting',
+      title: 'Sortable Table',
+      description: 'Table with sortable columns',
+      code: `<table mat-table [dataSource]="dataSource" matSort>
   <ng-container matColumnDef="position">
     <th mat-header-cell *matHeaderCellDef mat-sort-header>No.</th>
     <td mat-cell *matCellDef="let element">{{element.position}}</td>
@@ -88,21 +97,15 @@ export class DataTableCodeComponent extends BaseCodeComponent<DataTableExamples>
     <td mat-cell *matCellDef="let element">{{element.name}}</td>
   </ng-container>
 
-  <ng-container matColumnDef="weight">
-    <th mat-header-cell *matHeaderCellDef mat-sort-header>Weight</th>
-    <td mat-cell *matCellDef="let element">{{element.weight}}</td>
-  </ng-container>
-
-  <ng-container matColumnDef="symbol">
-    <th mat-header-cell *matHeaderCellDef mat-sort-header>Symbol</th>
-    <td mat-cell *matCellDef="let element">{{element.symbol}}</td>
-  </ng-container>
-
   <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
   <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
-</table>`,
-
-    pagination: `<table mat-table [dataSource]="dataSource">
+</table>`
+    },
+    {
+      key: 'pagination',
+      title: 'Table with Pagination',
+      description: 'Add pagination controls to the table',
+      code: `<table mat-table [dataSource]="dataSource">
   <!-- Column definitions here -->
   <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
   <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
@@ -110,9 +113,13 @@ export class DataTableCodeComponent extends BaseCodeComponent<DataTableExamples>
 
 <mat-paginator [pageSizeOptions]="[5, 10, 20]"
                showFirstLastButtons>
-</mat-paginator>`,
-
-    selection: `<table mat-table [dataSource]="dataSource">
+</mat-paginator>`
+    },
+    {
+      key: 'selection',
+      title: 'Table with Selection',
+      description: 'Allow row selection with checkboxes',
+      code: `<table mat-table [dataSource]="dataSource">
   <!-- Checkbox Column -->
   <ng-container matColumnDef="select">
     <th mat-header-cell *matHeaderCellDef>
@@ -131,9 +138,13 @@ export class DataTableCodeComponent extends BaseCodeComponent<DataTableExamples>
 
   <tr mat-header-row *matHeaderRowDef="displayedColumnsWithSelection"></tr>
   <tr mat-row *matRowDef="let row; columns: displayedColumnsWithSelection;"></tr>
-</table>`,
-
-    actions: `<table mat-table [dataSource]="dataSource">
+</table>`
+    },
+    {
+      key: 'actions',
+      title: 'Table with Actions',
+      description: 'Add action buttons to each row',
+      code: `<table mat-table [dataSource]="dataSource">
   <!-- Regular columns... -->
 
   <!-- Actions Column -->
@@ -149,9 +160,13 @@ export class DataTableCodeComponent extends BaseCodeComponent<DataTableExamples>
 
   <tr mat-header-row *matHeaderRowDef="displayedColumnsWithActions"></tr>
   <tr mat-row *matRowDef="let row; columns: displayedColumnsWithActions;"></tr>
-</table>`,
-
-    filtering: `<amw-input
+</table>`
+    },
+    {
+      key: 'filtering',
+      title: 'Table with Filtering',
+      description: 'Add search/filter functionality',
+      code: `<amw-input
   label="Filter"
   (input)="applyFilter($event)"
   placeholder="Ex. Hydrogen">
@@ -168,10 +183,14 @@ applyFilter(event: Event) {
   const filterValue = (event.target as HTMLInputElement).value;
   this.dataSource.filter = filterValue.trim().toLowerCase();
 }`
-  };
+    }
+  ];
 
-  constructor() {
-    super();
+  ngOnInit(): void {
+    // Initialize editable code from examples
+    this.examples.forEach(example => {
+      this.editableCode[example.key] = example.code;
+    });
   }
 
   // Selection methods

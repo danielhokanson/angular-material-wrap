@@ -4,6 +4,7 @@ import { AmwAccordionComponent, AmwAccordionPanelComponent, AmwIconComponent } f
 import { AmwButtonComponent } from '../../../../library/src/controls/components/amw-button/amw-button.component';
 import { AmwInputComponent } from '../../../../library/src/controls/components/amw-input/amw-input.component';
 import { AmwCheckboxComponent } from '../../../../library/src/controls/components/amw-checkbox/amw-checkbox.component';
+import { AmwDemoDocComponent } from '../../shared/components/demo-doc/demo-doc.component';
 
 @Component({
     selector: 'amw-demo-accordion',
@@ -14,7 +15,8 @@ import { AmwCheckboxComponent } from '../../../../library/src/controls/component
         AmwButtonComponent,
         AmwInputComponent,
         AmwCheckboxComponent,
-        AmwIconComponent
+        AmwIconComponent,
+        AmwDemoDocComponent
     ],
     templateUrl: './accordion-demo.component.html',
     styleUrl: './accordion-demo.component.scss'

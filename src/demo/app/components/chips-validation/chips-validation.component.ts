@@ -1,5 +1,7 @@
-import { Component } from '@angular/core';
-import { FormBuilder, FormGroup, Validators, ReactiveFormsModule } from '@angular/forms';
+import { Component, ViewEncapsulation } from '@angular/core';
+import { ReactiveFormsModule, FormGroup, Validators } from '@angular/forms';
+import { AmwValidationDocComponent, ValidationInfo } from '../../shared/components/validation-doc/validation-doc.component';
+import { BaseValidationComponent } from '../base/base-validation.component';
 import { AmwCardComponent, AmwIconComponent } from '../../../../library/src/components/components';
 import { AmwButtonComponent } from '../../../../library/src/controls/components/amw-button/amw-button.component';
 import { AmwInputComponent } from '../../../../library/src/controls/components/amw-input/amw-input.component';
@@ -22,34 +24,30 @@ interface Skill {
   standalone: true,
   imports: [
     ReactiveFormsModule,
+    AmwValidationDocComponent,
     AmwCardComponent,
     AmwIconComponent,
     AmwChipsComponent,
     AmwButtonComponent,
     AmwInputComponent,
-    AmwSelectComponent,
+    AmwSelectComponent
   ],
+  encapsulation: ViewEncapsulation.None,
   templateUrl: './chips-validation.component.html',
   styleUrl: './chips-validation.component.scss'
 })
-export class ChipsValidationComponent {
-  // Form for skills with validation
-  skillForm: FormGroup;
-
-  // Skill level options for select
+export class ChipsValidationComponent extends BaseValidationComponent {
   skillLevelOptions: AmwSelectOption[] = [
     { value: 'beginner', label: 'Beginner' },
     { value: 'intermediate', label: 'Intermediate' },
     { value: 'advanced', label: 'Advanced' }
   ];
 
-  // Tag data
   tags: Tag[] = [
     { name: 'Angular' },
     { name: 'TypeScript' }
   ];
 
-  // Chip representation of tags
   get tagChips(): Chip[] {
     return this.tags.map((tag, index) => ({
       id: `tag-${index}`,
@@ -58,13 +56,11 @@ export class ChipsValidationComponent {
     }));
   }
 
-  // Skills data
   skills: Skill[] = [
     { name: 'JavaScript', level: 'advanced' },
     { name: 'CSS', level: 'intermediate' }
   ];
 
-  // Chip representation of skills
   get skillChips(): Chip[] {
     return this.skills.map((skill, index) => ({
       id: `skill-${index}`,
@@ -73,10 +69,8 @@ export class ChipsValidationComponent {
     }));
   }
 
-  // Email data
   emails: string[] = ['user@example.com'];
 
-  // Chip representation of emails
   get emailChips(): Chip[] {
     return this.emails.map((email, index) => ({
       id: `email-${index}`,
@@ -85,15 +79,19 @@ export class ChipsValidationComponent {
     }));
   }
 
-  constructor(private fb: FormBuilder) {
-    // Skill form with validation
-    this.skillForm = this.fb.group({
-      skillName: ['', [Validators.required, Validators.minLength(2)]],
-      skillLevel: ['beginner', Validators.required]
-    });
-  }
+  skillForm: FormGroup = this.fb.group({
+    skillName: ['', [Validators.required, Validators.minLength(2)]],
+    skillLevel: ['beginner', Validators.required]
+  });
 
-  // Tag management methods
+  validationForm: FormGroup = this.skillForm;
+
+  validationInfo: ValidationInfo[] = [
+    { title: 'Tag Management', description: 'Add tags with min/max constraints (1-10 tags)' },
+    { title: 'Skills with Levels', description: 'Add skills with proficiency levels and validation' },
+    { title: 'Email Validation', description: 'Add email addresses with format validation' }
+  ];
+
   onTagAdd(event: ChipEvent): void {
     if (event.chip && this.tags.length < 10) {
       this.tags.push({ name: event.chip.label });
@@ -121,7 +119,6 @@ export class ChipsValidationComponent {
     return '';
   }
 
-  // Skill management methods
   addSkill(): void {
     if (this.skillForm.valid) {
       const skillName = this.skillForm.get('skillName')?.value;
@@ -135,7 +132,6 @@ export class ChipsValidationComponent {
   }
 
   onSkillChipRemove(event: ChipEvent): void {
-    // Extract skill name from label (format: "SkillName (level)")
     const labelMatch = event.chip.label.match(/^(.+)\s+\(/);
     if (labelMatch) {
       const skillName = labelMatch[1];
@@ -156,7 +152,6 @@ export class ChipsValidationComponent {
     return '';
   }
 
-  // Email management methods
   onEmailAdd(event: ChipEvent): void {
     const email = event.chip.label.trim();
     if (email && this.isValidEmail(email) && !this.emails.includes(email)) {
@@ -185,7 +180,6 @@ export class ChipsValidationComponent {
     return '';
   }
 
-  // Form submission
   submitForms(): void {
     const formData = {
       tags: this.tags,
@@ -193,7 +187,7 @@ export class ChipsValidationComponent {
       emails: this.emails
     };
     console.log('Form submitted:', formData);
-    alert('Forms submitted successfully! Check console for data.');
+    this.notification.success('Success', 'Forms submitted successfully! Check console for data.', { duration: 3000 });
   }
 
   areFormsValid(): boolean {

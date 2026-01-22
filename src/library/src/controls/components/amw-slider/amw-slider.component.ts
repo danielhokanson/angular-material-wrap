@@ -1,14 +1,14 @@
 import { Component, input, output, signal, ViewEncapsulation } from '@angular/core';
 
 import { FormsModule, ReactiveFormsModule, ControlValueAccessor, NG_VALUE_ACCESSOR } from '@angular/forms';
-import { Field } from '@angular/forms/signals';
+import { FormField } from '@angular/forms/signals';
 import { MatSliderModule } from '@angular/material/slider';
 import { BaseComponent } from '../base/base.component';
 
 @Component({
     selector: 'amw-slider',
     standalone: true,
-    imports: [FormsModule, ReactiveFormsModule, Field, MatSliderModule],
+    imports: [FormsModule, ReactiveFormsModule, FormField, MatSliderModule],
     encapsulation: ViewEncapsulation.None,
     templateUrl: './amw-slider.component.html',
     styleUrl: './amw-slider.component.scss',
@@ -31,7 +31,7 @@ export class AmwSliderComponent extends BaseComponent<number> implements Control
      * Mutually exclusive with ngModel and formControl/formControlName.
      * @experimental
      */
-    field = input<any>(undefined);
+    formField = input<any>(undefined);
 
     min = input<number>(0);
     max = input<number>(100);

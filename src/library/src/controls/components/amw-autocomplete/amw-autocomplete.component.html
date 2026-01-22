@@ -11,11 +11,11 @@
       <mat-icon matPrefix class="amw-autocomplete__start-icon">{{ startIcon() }}</mat-icon>
     }
 
-    <!-- Signal Forms binding (scenario 3) - Field directive manages disabled, required, readonly automatically -->
-    @if (field()) {
+    <!-- Signal Forms binding (scenario 3) - FormField directive manages disabled, required, readonly automatically -->
+    @if (formField()) {
       <input
         matInput
-        [field]="field()"
+        [formField]="formField()"
         [placeholder]="placeholder()"
         [value]="inputValue"
         (input)="onInputChange($event)"

@@ -1,14 +1,12 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
 import { AmwNotificationService } from '../../../../library/src/services/amw-notification/amw-notification.service';
 import { Subject, takeUntil } from 'rxjs';
-import { AmwPopoverComponent } from '../../../../library/src/components/components/amw-popover/amw-popover.component';
 import { PopoverConfig } from '../../../../library/src/components/components/amw-popover/interfaces/popover-config.interface';
 import { PopoverTrigger } from '../../../../library/src/components/components/amw-popover/interfaces/popover-trigger.interface';
 import { AmwPopoverService } from '../../../../library/src/components/services/amw-popover.service';
-import { AmwButtonComponent } from '../../../../library/src/controls/components/amw-button/amw-button.component';
-import { AmwTabsComponent, AmwTabComponent } from '../../../../library/src/components/components';
-import { AmwTooltipDirective } from '../../../../library/src/directives';
 import { TabItem } from '../../../../library/src/components/components/amw-tabs/interfaces';
+import { AmwApiDocComponent } from '../../shared/components/api-doc/api-doc.component';
+import { ApiDocumentation } from '../base/base-api.component';
 
 interface PopoverApiDocumentation {
     component: any;
@@ -27,17 +25,27 @@ interface PopoverApiDocumentation {
 @Component({
     selector: 'app-popover-api',
     standalone: true,
-    imports: [
-        AmwPopoverComponent,
-        AmwTabsComponent,
-        AmwTabComponent,
-        AmwButtonComponent,
-        AmwTooltipDirective
-    ],
+    imports: [AmwApiDocComponent],
     templateUrl: './popover-api.component.html',
     styleUrl: './popover-api.component.scss'
 })
 export class PopoverApiComponent implements OnInit, OnDestroy {
+    /** Shared API documentation for the AmwApiDocComponent */
+    sharedApiDocumentation: ApiDocumentation = {
+        inputs: [
+            { name: 'config', type: 'PopoverConfig', default: '{}', description: 'Configuration object for the popover' },
+            { name: 'trigger', type: 'PopoverTrigger', default: '{}', description: 'Trigger configuration for the popover' },
+            { name: 'opened', type: 'boolean', default: 'false', description: 'Whether the popover is opened' }
+        ],
+        outputs: [
+            { name: 'openedChange', type: 'EventEmitter<boolean>', description: 'Emitted when popover opened state changes' },
+            { name: 'beforeOpen', type: 'EventEmitter<void>', description: 'Emitted before popover opens' },
+            { name: 'afterOpen', type: 'EventEmitter<void>', description: 'Emitted after popover opens' },
+            { name: 'beforeClose', type: 'EventEmitter<void>', description: 'Emitted before popover closes' },
+            { name: 'afterClose', type: 'EventEmitter<void>', description: 'Emitted after popover closes' }
+        ]
+    };
+
     /** Subject for component destruction */
     private destroy$ = new Subject<void>();
 

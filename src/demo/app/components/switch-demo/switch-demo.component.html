@@ -1,159 +1,160 @@
-<div class="amw-demo-switch">
-  <div class="demo-section">
-    <h3 class="demo-section__title">Basic Switch</h3>
-    <div class="demo-section__content">
-      <div class="variation-group">
-        <span class="variation-label">Default Switch</span>
-        <amw-switch
-          [(checked)]="basicSwitch"
-          (switchChange)="onSwitchChange($event)">
-        </amw-switch>
-        <small>Value: {{ basicSwitch }}</small>
-      </div>
-    </div>
-  </div>
-
-  <div class="demo-section">
-    <h3 class="demo-section__title">Configuration Options</h3>
-    <div class="demo-section__content">
-      <div class="variation-group">
-        <span class="variation-label">Sizes</span>
-        <amw-switch
-          [size]="'small'"
-          [checked]="basicSwitch"
-          (checkedChange)="basicSwitch = $event">
-          Small Switch
-        </amw-switch>
-        <amw-switch
-          [size]="'medium'"
-          [checked]="basicSwitch"
-          (checkedChange)="basicSwitch = $event">
-          Medium Switch
-        </amw-switch>
-        <amw-switch
-          [size]="'large'"
-          [checked]="basicSwitch"
-          (checkedChange)="basicSwitch = $event">
-          Large Switch
-        </amw-switch>
-      </div>
-
-      <div class="variation-group">
-        <span class="variation-label">Colors</span>
-        <amw-switch
-          [color]="'primary'"
-          [checked]="basicSwitch"
-          (checkedChange)="basicSwitch = $event">
-          Primary Switch
-        </amw-switch>
-        <amw-switch
-          [color]="'accent'"
-          [checked]="basicSwitch"
-          (checkedChange)="basicSwitch = $event">
-          Accent Switch
-        </amw-switch>
-        <amw-switch
-          [color]="'warn'"
-          [checked]="basicSwitch"
-          (checkedChange)="basicSwitch = $event">
-          Warn Switch
-        </amw-switch>
-      </div>
-
-      <div class="variation-group">
-        <span class="variation-label">Label Positions</span>
-        <amw-switch
-          [labelPosition]="'before'"
-          [checked]="basicSwitch"
-          (checkedChange)="basicSwitch = $event">
-          Label Before
-        </amw-switch>
-        <amw-switch
-          [labelPosition]="'after'"
-          [checked]="basicSwitch"
-          (checkedChange)="basicSwitch = $event">
-          Label After
-        </amw-switch>
-      </div>
-
-      <div class="variation-group">
-        <span class="variation-label">States</span>
-        <amw-switch
-          [checked]="true"
-          [disabled]="false">
-          Enabled Switch
-        </amw-switch>
-        <amw-switch
-          [checked]="true"
-          [disabled]="true">
-          Disabled Switch
-        </amw-switch>
-        <amw-switch
-          [checked]="false"
-          [disabled]="true">
-          Disabled Off Switch
-        </amw-switch>
-      </div>
-    </div>
-  </div>
-
-  <div class="demo-section">
-    <h3 class="demo-section__title">Real-World Examples</h3>
-    <div class="demo-section__content">
-      <div class="variation-group">
-        <span class="variation-label">Settings Panel</span>
-        <div class="real-world-example">
-          <div class="example-description">
-            Common switch usage in application settings
+<amw-demo-doc componentName="amw-switch">
+  <ng-template #content>
+    <div class="amw-demo-switch">
+      <div class="demo-section">
+        <h3 class="demo-section__title">Basic Switch</h3>
+        <div class="demo-section__content">
+          <div class="variation-group">
+            <span class="variation-label">Default Switch</span>
+            <amw-switch
+              [(checked)]="basicSwitch"
+              (switchChange)="onSwitchChange($event)">
+            </amw-switch>
+            <small>Value: {{ basicSwitch }}</small>
           </div>
-          <div class="example-controls">
+        </div>
+      </div>
+
+      <div class="demo-section">
+        <h3 class="demo-section__title">Configuration Options</h3>
+        <div class="demo-section__content">
+          <div class="variation-group">
+            <span class="variation-label">Sizes</span>
             <amw-switch
-              [(checked)]="notificationsEnabled"
-              (switchChange)="onNotificationChange($event)">
-              Enable Notifications
+              [size]="'small'"
+              [checked]="basicSwitch"
+              (checkedChange)="basicSwitch = $event">
+              Small Switch
             </amw-switch>
             <amw-switch
-              [(checked)]="darkModeEnabled"
-              (switchChange)="onDarkModeChange($event)">
-              Dark Mode
+              [size]="'medium'"
+              [checked]="basicSwitch"
+              (checkedChange)="basicSwitch = $event">
+              Medium Switch
             </amw-switch>
             <amw-switch
-              [(checked)]="autoSaveEnabled"
-              (switchChange)="onAutoSaveChange($event)">
-              Auto Save
+              [size]="'large'"
+              [checked]="basicSwitch"
+              (checkedChange)="basicSwitch = $event">
+              Large Switch
+            </amw-switch>
+          </div>
+
+          <div class="variation-group">
+            <span class="variation-label">Colors</span>
+            <amw-switch
+              [color]="'primary'"
+              [checked]="basicSwitch"
+              (checkedChange)="basicSwitch = $event">
+              Primary Switch
+            </amw-switch>
+            <amw-switch
+              [color]="'accent'"
+              [checked]="basicSwitch"
+              (checkedChange)="basicSwitch = $event">
+              Accent Switch
+            </amw-switch>
+            <amw-switch
+              [color]="'warn'"
+              [checked]="basicSwitch"
+              (checkedChange)="basicSwitch = $event">
+              Warn Switch
+            </amw-switch>
+          </div>
+
+          <div class="variation-group">
+            <span class="variation-label">Label Positions</span>
+            <amw-switch
+              [labelPosition]="'before'"
+              [checked]="basicSwitch"
+              (checkedChange)="basicSwitch = $event">
+              Label Before
+            </amw-switch>
+            <amw-switch
+              [labelPosition]="'after'"
+              [checked]="basicSwitch"
+              (checkedChange)="basicSwitch = $event">
+              Label After
+            </amw-switch>
+          </div>
+
+          <div class="variation-group">
+            <span class="variation-label">States</span>
+            <amw-switch
+              [checked]="true"
+              [disabled]="false">
+              Enabled Switch
+            </amw-switch>
+            <amw-switch
+              [checked]="true"
+              [disabled]="true">
+              Disabled Switch
+            </amw-switch>
+            <amw-switch
+              [checked]="false"
+              [disabled]="true">
+              Disabled Off Switch
             </amw-switch>
           </div>
         </div>
       </div>
 
-      <div class="variation-group">
-        <span class="variation-label">Notification Preferences</span>
-        <div class="real-world-example">
-          <div class="example-description">
-            Switch controls for notification preferences
+      <div class="demo-section">
+        <h3 class="demo-section__title">Real-World Examples</h3>
+        <div class="demo-section__content">
+          <div class="variation-group">
+            <span class="variation-label">Settings Panel</span>
+            <div class="real-world-example">
+              <div class="example-description">
+                Common switch usage in application settings
+              </div>
+              <div class="example-controls">
+                <amw-switch
+                  [(checked)]="notificationsEnabled"
+                  (switchChange)="onNotificationChange($event)">
+                  Enable Notifications
+                </amw-switch>
+                <amw-switch
+                  [(checked)]="darkModeEnabled"
+                  (switchChange)="onDarkModeChange($event)">
+                  Dark Mode
+                </amw-switch>
+                <amw-switch
+                  [(checked)]="autoSaveEnabled"
+                  (switchChange)="onAutoSaveChange($event)">
+                  Auto Save
+                </amw-switch>
+              </div>
+            </div>
           </div>
-          <div class="example-controls">
-            <amw-switch
-              [(checked)]="emailNotifications"
-              [labelPosition]="'before'">
-              Email Notifications
-            </amw-switch>
-            <amw-switch
-              [(checked)]="smsNotifications"
-              [labelPosition]="'before'">
-              SMS Notifications
-            </amw-switch>
-            <amw-switch
-              [(checked)]="pushNotifications"
-              [labelPosition]="'before'">
-              Push Notifications
-            </amw-switch>
+
+          <div class="variation-group">
+            <span class="variation-label">Notification Preferences</span>
+            <div class="real-world-example">
+              <div class="example-description">
+                Switch controls for notification preferences
+              </div>
+              <div class="example-controls">
+                <amw-switch
+                  [(checked)]="emailNotifications"
+                  [labelPosition]="'before'">
+                  Email Notifications
+                </amw-switch>
+                <amw-switch
+                  [(checked)]="smsNotifications"
+                  [labelPosition]="'before'">
+                  SMS Notifications
+                </amw-switch>
+                <amw-switch
+                  [(checked)]="pushNotifications"
+                  [labelPosition]="'before'">
+                  Push Notifications
+                </amw-switch>
+              </div>
+            </div>
           </div>
         </div>
       </div>
     </div>
-  </div>
-</div>
-
-
-
+  </ng-template>
+</amw-demo-doc>

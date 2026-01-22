@@ -2,12 +2,14 @@ import { Component, ViewEncapsulation } from '@angular/core';
 
 import { AmwCheckboxComponent } from '../../../../library/src/controls/components/amw-checkbox/amw-checkbox.component';
 import { AmwSize, AmwColor } from '../../../../library/src/shared/types';
+import { AmwDemoDocComponent } from '../../shared/components/demo-doc/demo-doc.component';
 
 @Component({
     selector: 'amw-demo-checkbox',
     standalone: true,
     imports: [
-    AmwCheckboxComponent
+    AmwCheckboxComponent,
+    AmwDemoDocComponent
 ],
     encapsulation: ViewEncapsulation.None,
     templateUrl: './checkbox-demo.component.html',

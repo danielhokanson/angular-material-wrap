@@ -1,37 +1,42 @@
-<div class="amw-demo-icon-button-validation">
-  <div class="validation-section">
-    <h3 class="validation-section__title">Disabled State</h3>
-    <div class="validation-section__content">
-      <amw-icon-button
-        icon="settings"
-        ariaLabel="Settings"
-        [disabled]="isDisabled()"
-        (buttonClick)="onAction()">
-      </amw-icon-button>
-      <button class="toggle-btn" (click)="toggleDisabled()">
-        {{ isDisabled() ? 'Enable' : 'Disable' }}
-      </button>
+<amw-validation-doc
+  componentName="amw-icon-button"
+  [validationForm]="validationForm"
+  [validationInfo]="validationInfo">
+  <ng-template #formContent>
+    <div class="validation-section">
+      <h3 class="validation-section__title">Disabled State</h3>
+      <div class="validation-section__content">
+        <amw-icon-button
+          icon="settings"
+          ariaLabel="Settings"
+          [disabled]="isDisabled()"
+          (buttonClick)="onAction()">
+        </amw-icon-button>
+        <button class="toggle-btn" (click)="toggleDisabled()">
+          {{ isDisabled() ? 'Enable' : 'Disable' }}
+        </button>
+      </div>
     </div>
-  </div>
 
-  <div class="validation-section">
-    <h3 class="validation-section__title">Loading State</h3>
-    <div class="validation-section__content">
-      <amw-icon-button
-        icon="refresh"
-        ariaLabel="Refresh"
-        [loading]="isLoading()"
-        (buttonClick)="toggleLoading()">
-      </amw-icon-button>
-      <span class="state-label">Click to trigger loading (auto-resets after 3s)</span>
+    <div class="validation-section">
+      <h3 class="validation-section__title">Loading State</h3>
+      <div class="validation-section__content">
+        <amw-icon-button
+          icon="refresh"
+          ariaLabel="Refresh"
+          [loading]="isLoading()"
+          (buttonClick)="toggleLoading()">
+        </amw-icon-button>
+        <span class="state-label">Click to trigger loading (auto-resets after 3s)</span>
+      </div>
     </div>
-  </div>
 
-  <div class="validation-section">
-    <h3 class="validation-section__title">Accessibility</h3>
-    <div class="validation-section__content">
-      <p class="info-text">Icon buttons require an <code>ariaLabel</code> for accessibility.</p>
-      <amw-icon-button icon="help" ariaLabel="Help and documentation"></amw-icon-button>
+    <div class="validation-section">
+      <h3 class="validation-section__title">Accessibility</h3>
+      <div class="validation-section__content">
+        <p class="info-text">Icon buttons require an <code>ariaLabel</code> for accessibility.</p>
+        <amw-icon-button icon="help" ariaLabel="Help and documentation"></amw-icon-button>
+      </div>
     </div>
-  </div>
-</div>
+  </ng-template>
+</amw-validation-doc>

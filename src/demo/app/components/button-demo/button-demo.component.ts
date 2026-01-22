@@ -6,13 +6,15 @@ import { AmwNotificationService } from '../../../../library/src/services/amw-not
 import { AmwButtonComponent } from '../../../../library/src/controls/components/amw-button/amw-button.component';
 import { AmwButtonStyle, AmwFabType } from '../../../../library/src/controls/components/amw-button/interfaces/amw-button.interface';
 import { AmwSize, AmwColor } from '../../../../library/src/shared/types';
+import { AmwDemoDocComponent } from '../../shared/components/demo-doc/demo-doc.component';
 
 @Component({
     selector: 'amw-demo-button',
     standalone: true,
     imports: [
     ReactiveFormsModule,
-    AmwButtonComponent
+    AmwButtonComponent,
+    AmwDemoDocComponent
 ],
     encapsulation: ViewEncapsulation.None,
     templateUrl: './button-demo.component.html',
