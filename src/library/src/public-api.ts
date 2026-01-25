@@ -50,6 +50,11 @@ export { AmwIconComponent } from './components/components/amw-icon/amw-icon.comp
 export { AmwListComponent } from './components/components/amw-list/amw-list.component';
 export { AmwListItemComponent } from './components/components/amw-list/amw-list-item.component';
 export { AmwPaginatorComponent } from './components/components/amw-paginator/amw-paginator.component';
+export { AmwFullScreenLoadingComponent } from './components/components/amw-full-screen-loading/amw-full-screen-loading.component';
+
+// Full Screen Loading exports
+export { AmwFullScreenLoadingService, loading } from './services/amw-full-screen-loading/amw-full-screen-loading.service';
+export type { LoadingItem } from './services/amw-full-screen-loading/amw-full-screen-loading.service';
 
 // Directives exports
 export * from './directives';
@@ -57,6 +62,16 @@ export * from './directives';
 // Individual directive exports for better tree-shaking
 export { AmwTooltipDirective } from './directives/amw-tooltip/amw-tooltip.directive';
 export { AmwBadgeDirective } from './directives/amw-badge/amw-badge.directive';
+export { AmwValidationTooltipDirective } from './directives/amw-validation-tooltip/amw-validation-tooltip.directive';
+
+// Validation service exports
+export { AmwValidationService, ValidationMixin } from './services/amw-validation/amw-validation.service';
+export type { ValidationViolation, ValidationConfig, ValidationContext } from './services/amw-validation/amw-validation.service';
+
+// Error State service exports
+export { AmwErrorStateService, ErrorStateMixin } from './services/amw-error-state/amw-error-state.service';
+export type { ErrorItem, ErrorStateConfig, ErrorContext } from './services/amw-error-state/amw-error-state.service';
+export { AmwErrorDisplayComponent } from './components/components/amw-error-display/amw-error-display.component';
 
 // Pipes exports
 export * from './pipes';

@@ -1,0 +1,77 @@
+@if (hasErrors()) {
+  <div class="amw-error-display"
+       [class.amw-error-display--banner]="mode() === 'banner'"
+       [class.amw-error-display--inline]="mode() === 'inline'"
+       [class.amw-error-display--toast]="mode() === 'toast'"
+       [class.amw-error-display--list]="mode() === 'list'"
+       [class.amw-error-display--top]="position() === 'top'"
+       [class.amw-error-display--bottom]="position() === 'bottom'">
+
+    <div class="amw-error-display__container">
+      @for (error of displayErrors(); track trackByError($index, error)) {
+        <div class="amw-error-display__item"
+             [class.amw-error-display__item--error]="error.severity === 'error'"
+             [class.amw-error-display__item--warning]="error.severity === 'warning'"
+             [class.amw-error-display__item--info]="error.severity === 'info'"
+             [class.amw-error-display__item--dismissed]="error.dismissed">
+
+          <div class="amw-error-display__icon">
+            <amw-icon [name]="getIcon(error.severity)"></amw-icon>
+          </div>
+
+          <div class="amw-error-display__content">
+            <div class="amw-error-display__message">{{ error.message }}</div>
+            @if (error.source || error.code) {
+              <div class="amw-error-display__meta">
+                @if (error.source) {
+                  <span class="amw-error-display__source">{{ error.source }}</span>
+                }
+                @if (error.code) {
+                  <span class="amw-error-display__code">[{{ error.code }}]</span>
+                }
+              </div>
+            }
+          </div>
+
+          <div class="amw-error-display__actions">
+            @if (showRetry() && error.retryAction) {
+              <amw-button
+                appearance="text"
+                size="small"
+                icon="refresh"
+                (click)="onRetry(error)"
+                ariaLabel="Retry">
+              </amw-button>
+            }
+            @if (showDismiss() && error.dismissible) {
+              <amw-button
+                appearance="text"
+                size="small"
+                icon="close"
+                (click)="onDismiss(error)"
+                ariaLabel="Dismiss">
+              </amw-button>
+            }
+          </div>
+        </div>
+      }
+
+      @if (hiddenCount() > 0) {
+        <div class="amw-error-display__overflow">
+          +{{ hiddenCount() }} more error(s)
+        </div>
+      }
+
+      @if (displayErrors().length > 1) {
+        <div class="amw-error-display__footer">
+          <amw-button
+            appearance="text"
+            size="small"
+            (click)="clearAll()">
+            Clear All
+          </amw-button>
+        </div>
+      }
+    </div>
+  </div>
+}

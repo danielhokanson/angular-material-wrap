@@ -90,6 +90,175 @@
                     </div>
                   </div>
                 }
+                @case ('full-screen-loading') {
+                  <div class="demo-content">
+                    <h3>Full Screen Loading Demo</h3>
+                    <p>A full-screen loading overlay driven by RxJS observables. Each observable can display its own message, and messages dismiss individually with smooth animations.</p>
+
+                    <div class="demo-section">
+                      <h4>Single Loading Operation</h4>
+                      <p>Click to trigger a single loading operation that takes 2 seconds.</p>
+                      <amw-button appearance="elevated" color="primary" (click)="triggerSingleLoading()" icon="hourglass_empty" iconPosition="left">
+                        Start Single Loading
+                      </amw-button>
+                    </div>
+
+                    <div class="demo-section">
+                      <h4>Multiple Simultaneous Operations</h4>
+                      <p>Click to trigger 3 operations that complete at different times (1.5s, 2.5s, 3.5s). Each shows its own message that dismisses when complete.</p>
+                      <amw-button appearance="elevated" color="accent" (click)="triggerMultipleLoading()" icon="layers" iconPosition="left">
+                        Start Multiple Loading
+                      </amw-button>
+                    </div>
+
+                    <div class="demo-section">
+                      <h4>Sequential Operations</h4>
+                      <p>Click to trigger 3 sequential steps that run one after another.</p>
+                      <amw-button appearance="elevated" color="primary" (click)="triggerSequentialLoading()" icon="linear_scale" iconPosition="left">
+                        Start Sequential Loading
+                      </amw-button>
+                    </div>
+
+                    <div class="demo-section">
+                      <h4>Current Loading Items</h4>
+                      <p>Active loading items: {{ fullScreenLoadingService.loadingItems().length }}</p>
+                      @if (fullScreenLoadingService.loadingItems().length > 0) {
+                        <ul class="loading-items-list">
+                          @for (item of fullScreenLoadingService.loadingItems(); track item.id) {
+                            <li>{{ item.message }} @if (item.dismissing) { (dismissing...) }</li>
+                          }
+                        </ul>
+                      }
+                    </div>
+                  </div>
+                }
+                @case ('validation') {
+                  <div class="demo-content">
+                    <h3>Validation Service Demo</h3>
+                    <p>Centralized validation management with automatic reevaluation, button disabling, and violation tooltips.</p>
+
+                    <div class="demo-section">
+                      <h4>Sample Form with Validation</h4>
+                      <amw-input
+                        label="Name"
+                        name="validationName"
+                        [(ngModel)]="validationName"
+                        placeholder="Enter your name"
+                        (input)="onValidationInput()"
+                        (blur)="validateAll()">
+                      </amw-input>
+                      <amw-input
+                        label="Email"
+                        name="validationEmail"
+                        [(ngModel)]="validationEmail"
+                        placeholder="Enter your email"
+                        (input)="onValidationInput()"
+                        (blur)="validateAll()">
+                      </amw-input>
+                      <div class="button-group" style="margin-top: 16px;">
+                        <amw-button
+                          appearance="elevated"
+                          color="primary"
+                          [amwValidationTooltip]="validationContext"
+                          [disabled]="validationContext.isSubmitDisabled()"
+                          (click)="submitValidationForm()"
+                          icon="send"
+                          iconPosition="left">
+                          Submit (Hover when disabled)
+                        </amw-button>
+                        <amw-button appearance="text" (click)="clearValidations()" icon="clear" iconPosition="left">
+                          Clear Validations
+                        </amw-button>
+                      </div>
+                    </div>
+
+                    <div class="demo-section">
+                      <h4>Manual Validation Controls</h4>
+                      <div class="button-group">
+                        <amw-button appearance="outlined" color="warn" (click)="addNameValidation()" icon="error" iconPosition="left">
+                          Add Name Error
+                        </amw-button>
+                        <amw-button appearance="outlined" color="accent" (click)="addEmailValidation()" icon="email" iconPosition="left">
+                          Add Email Error
+                        </amw-button>
+                        <amw-button appearance="outlined" color="primary" (click)="addWarningValidation()" icon="warning" iconPosition="left">
+                          Add Warning
+                        </amw-button>
+                      </div>
+                    </div>
+
+                    <div class="demo-section">
+                      <h4>Current Violations</h4>
+                      <p>Total violations: {{ validationContext.violations().length }}</p>
+                      <p>Has errors: {{ validationContext.hasErrors() }}</p>
+                      <p>Has warnings: {{ validationContext.hasWarnings() }}</p>
+                      <p>Submit disabled: {{ validationContext.isSubmitDisabled() }}</p>
+                      @if (validationContext.violations().length > 0) {
+                        <ul class="violations-list">
+                          @for (violation of validationContext.violations(); track violation.id) {
+                            <li [class]="'violation-' + violation.severity">
+                              <amw-icon [name]="violation.severity === 'error' ? 'error' : violation.severity === 'warning' ? 'warning' : 'info'"></amw-icon>
+                              <span>{{ violation.message }}</span>
+                              <span class="violation-field" *ngIf="violation.field">({{ violation.field }})</span>
+                            </li>
+                          }
+                        </ul>
+                      }
+                    </div>
+                  </div>
+                }
+                @case ('error-state') {
+                  <div class="demo-content">
+                    <h3>Error State Service Demo</h3>
+                    <p>Centralized error management with automatic dismissal, retry actions, and consistent error display.</p>
+
+                    <div class="demo-section">
+                      <h4>Error Display Component</h4>
+                      <amw-error-display
+                        [context]="errorContext"
+                        mode="inline"
+                        [showDismiss]="true"
+                        [showRetry]="true">
+                      </amw-error-display>
+                    </div>
+
+                    <div class="demo-section">
+                      <h4>Trigger Errors</h4>
+                      <div class="button-group">
+                        <amw-button appearance="elevated" color="warn" (click)="addNetworkError()" icon="wifi_off" iconPosition="left">
+                          Network Error
+                        </amw-button>
+                        <amw-button appearance="elevated" color="warn" (click)="addApiError()" icon="cloud_off" iconPosition="left">
+                          API Error
+                        </amw-button>
+                        <amw-button appearance="outlined" color="accent" (click)="addValidationError()" icon="warning" iconPosition="left">
+                          Warning
+                        </amw-button>
+                        <amw-button appearance="outlined" color="primary" (click)="addInfoError()" icon="info" iconPosition="left">
+                          Info
+                        </amw-button>
+                      </div>
+                    </div>
+
+                    <div class="demo-section">
+                      <h4>Exception Handling</h4>
+                      <amw-button appearance="elevated" color="warn" (click)="addExceptionError()" icon="bug_report" iconPosition="left">
+                        Trigger Exception
+                      </amw-button>
+                    </div>
+
+                    <div class="demo-section">
+                      <h4>Error State</h4>
+                      <p>Total errors: {{ errorContext.errors().length }}</p>
+                      <p>Active errors: {{ errorContext.errorCount() }}</p>
+                      <p>Has errors: {{ errorContext.hasErrors() }}</p>
+                      <p>Has warnings: {{ errorContext.hasWarnings() }}</p>
+                      <amw-button appearance="text" color="warn" (click)="clearAllErrors()" icon="clear_all" iconPosition="left">
+                        Clear All Errors
+                      </amw-button>
+                    </div>
+                  </div>
+                }
               }
             </amw-tab>
 
@@ -311,6 +480,165 @@
                       </div>
                     </div>
                   }
+                  @case ('full-screen-loading') {
+                    <div class="full-screen-loading-code-examples">
+                      <h3>Full Screen Loading Code Examples</h3>
+                      <p>The loading() operator provides a clean way to show loading indicators tied to observable lifecycles.</p>
+
+                      <div class="code-example">
+                        <h4>App Setup</h4>
+                        <pre><code>{{ fullScreenLoadingServiceCodeExamples.setup }}</code></pre>
+                        <div class="preview">
+                          <p>Add the component once at your app's root level</p>
+                        </div>
+                      </div>
+
+                      <div class="code-example">
+                        <h4>Basic Usage</h4>
+                        <pre><code>{{ fullScreenLoadingServiceCodeExamples.basic }}</code></pre>
+                        <div class="preview">
+                          <amw-button appearance="elevated" color="primary" (click)="triggerSingleLoading()" icon="hourglass_empty" iconPosition="left">
+                            Try It
+                          </amw-button>
+                        </div>
+                      </div>
+
+                      <div class="code-example">
+                        <h4>Multiple Simultaneous Operations</h4>
+                        <pre><code>{{ fullScreenLoadingServiceCodeExamples.multiple }}</code></pre>
+                        <div class="preview">
+                          <amw-button appearance="elevated" color="accent" (click)="triggerMultipleLoading()" icon="layers" iconPosition="left">
+                            Try Multiple
+                          </amw-button>
+                        </div>
+                      </div>
+
+                      <div class="code-example">
+                        <h4>Sequential Operations</h4>
+                        <pre><code>{{ fullScreenLoadingServiceCodeExamples.sequential }}</code></pre>
+                        <div class="preview">
+                          <amw-button appearance="elevated" color="primary" (click)="triggerSequentialLoading()" icon="linear_scale" iconPosition="left">
+                            Try Sequential
+                          </amw-button>
+                        </div>
+                      </div>
+
+                      <div class="code-example">
+                        <h4>Direct Service Usage</h4>
+                        <pre><code>{{ fullScreenLoadingServiceCodeExamples.service }}</code></pre>
+                        <div class="preview">
+                          <p>For advanced cases, you can use the service directly</p>
+                        </div>
+                      </div>
+                    </div>
+                  }
+                  @case ('validation') {
+                    <div class="validation-code-examples">
+                      <h3>Validation Service Code Examples</h3>
+                      <p>Centralized validation management for forms and components.</p>
+
+                      <div class="code-example">
+                        <h4>Basic Setup</h4>
+                        <pre><code>{{ validationServiceCodeExamples.basic }}</code></pre>
+                        <div class="preview">
+                          <p>Initialize validation in ngOnInit, destroy in ngOnDestroy</p>
+                        </div>
+                      </div>
+
+                      <div class="code-example">
+                        <h4>Auto-Reevaluation</h4>
+                        <pre><code>{{ validationServiceCodeExamples.autoReevaluate }}</code></pre>
+                        <div class="preview">
+                          <p>Link violations to form controls for automatic reevaluation</p>
+                        </div>
+                      </div>
+
+                      <div class="code-example">
+                        <h4>Severity Levels</h4>
+                        <pre><code>{{ validationServiceCodeExamples.severityLevels }}</code></pre>
+                        <div class="preview">
+                          <div class="button-group">
+                            <amw-button appearance="outlined" color="warn" (click)="addNameValidation()">Add Error</amw-button>
+                            <amw-button appearance="outlined" color="accent" (click)="addWarningValidation()">Add Warning</amw-button>
+                          </div>
+                        </div>
+                      </div>
+
+                      <div class="code-example">
+                        <h4>Validation Tooltip Directive</h4>
+                        <pre><code>{{ validationServiceCodeExamples.tooltip }}</code></pre>
+                        <div class="preview">
+                          <amw-button
+                            appearance="elevated"
+                            color="primary"
+                            [amwValidationTooltip]="validationContext"
+                            [disabled]="validationContext.isSubmitDisabled()">
+                            Hover Me (when disabled)
+                          </amw-button>
+                        </div>
+                      </div>
+
+                      <div class="code-example">
+                        <h4>Using ValidationMixin</h4>
+                        <pre><code>{{ validationServiceCodeExamples.mixin }}</code></pre>
+                        <div class="preview">
+                          <p>Extend ValidationMixin for cleaner component code</p>
+                        </div>
+                      </div>
+                    </div>
+                  }
+                  @case ('error-state') {
+                    <div class="error-state-code-examples">
+                      <h3>Error State Service Code Examples</h3>
+                      <p>Centralized error management for applications.</p>
+
+                      <div class="code-example">
+                        <h4>Basic Setup</h4>
+                        <pre><code>{{ errorStateServiceCodeExamples.basic }}</code></pre>
+                        <div class="preview">
+                          <p>Initialize error context in ngOnInit, destroy in ngOnDestroy</p>
+                        </div>
+                      </div>
+
+                      <div class="code-example">
+                        <h4>Exception Handling</h4>
+                        <pre><code>{{ errorStateServiceCodeExamples.exception }}</code></pre>
+                        <div class="preview">
+                          <amw-button appearance="elevated" color="warn" (click)="addExceptionError()" icon="bug_report" iconPosition="left">
+                            Try It
+                          </amw-button>
+                        </div>
+                      </div>
+
+                      <div class="code-example">
+                        <h4>Severity Levels</h4>
+                        <pre><code>{{ errorStateServiceCodeExamples.severityLevels }}</code></pre>
+                        <div class="preview">
+                          <div class="button-group">
+                            <amw-button appearance="outlined" color="warn" (click)="addNetworkError()">Error</amw-button>
+                            <amw-button appearance="outlined" color="accent" (click)="addValidationError()">Warning</amw-button>
+                            <amw-button appearance="outlined" color="primary" (click)="addInfoError()">Info</amw-button>
+                          </div>
+                        </div>
+                      </div>
+
+                      <div class="code-example">
+                        <h4>Retry Actions</h4>
+                        <pre><code>{{ errorStateServiceCodeExamples.retryAction }}</code></pre>
+                        <div class="preview">
+                          <p>Add retry actions to errors for user recovery</p>
+                        </div>
+                      </div>
+
+                      <div class="code-example">
+                        <h4>Error Display Component</h4>
+                        <pre><code>{{ errorStateServiceCodeExamples.displayComponent }}</code></pre>
+                        <div class="preview">
+                          <p>Use AmwErrorDisplayComponent for consistent error UI</p>
+                        </div>
+                      </div>
+                    </div>
+                  }
                 }
               </div>
             </amw-tab>
@@ -339,12 +667,36 @@
                       description="Complete reference for the AmwNotificationService methods and properties.">
                     </amw-api-doc>
                   }
+                  @case ('full-screen-loading') {
+                    <amw-api-doc
+                      componentName="Full Screen Loading Service"
+                      [apiDocumentation]="fullScreenLoadingServiceApiDoc"
+                      description="Complete reference for the AmwFullScreenLoadingService and the loading() operator.">
+                    </amw-api-doc>
+                  }
+                  @case ('validation') {
+                    <amw-api-doc
+                      componentName="Validation Service"
+                      [apiDocumentation]="validationServiceApiDoc"
+                      description="Complete reference for the AmwValidationService, ValidationContext, and amwValidationTooltip directive.">
+                    </amw-api-doc>
+                  }
+                  @case ('error-state') {
+                    <amw-api-doc
+                      componentName="Error State Service"
+                      [apiDocumentation]="errorStateServiceApiDoc"
+                      description="Complete reference for the AmwErrorStateService, ErrorContext, and AmwErrorDisplayComponent.">
+                    </amw-api-doc>
+                  }
                 }
               </div>
             </amw-tab>
           </amw-tabs>
         </ng-template>
 </amw-card>
+
+<!-- Full Screen Loading Component (required for the service to work) -->
+<amw-full-screen-loading></amw-full-screen-loading>
     </div>
   </div>
 </div>

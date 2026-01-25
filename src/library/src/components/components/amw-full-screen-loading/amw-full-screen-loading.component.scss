@@ -1,0 +1,365 @@
+.amw-full-screen-loading {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 9999;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  pointer-events: all;
+
+  // ============================================
+  // Overlay Animation States
+  // ============================================
+
+  // Initial state - use animation for reliable fade-in on DOM insertion
+  opacity: 0;
+
+  // Visible state - fade in with keyframe animation (more reliable than transition)
+  &--visible {
+    animation: amw-fsl-fade-in 600ms cubic-bezier(0.0, 0, 0.2, 1) forwards;
+  }
+
+  // Hiding state - fade out with keyframe animation
+  &--hiding {
+    animation: amw-fsl-fade-out 500ms cubic-bezier(0.4, 0, 1, 1) forwards;
+  }
+
+  // ============================================
+  // Backdrop
+  // ============================================
+
+  &__backdrop {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.6);
+    backdrop-filter: blur(4px);
+    transition: backdrop-filter 600ms ease-out;
+  }
+
+  // ============================================
+  // Content Container (spinner at fixed position)
+  // ============================================
+
+  &__content {
+    position: absolute;
+    // Position spinner higher on screen
+    top: 30%;
+    left: 50%;
+    transform: translateX(-50%);
+    z-index: 1;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+
+  // ============================================
+  // Messages Container
+  // ============================================
+
+  &__messages {
+    position: absolute;
+    // Fixed position well below spinner - messages grow downward
+    top: calc(30% + 375px); // 30% + larger spinner height + generous gap
+    left: 50%;
+    transform: translateX(-50%);
+    z-index: 1;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 8px;
+    min-width: 200px;
+  }
+
+  // ============================================
+  // Individual Message
+  // ============================================
+
+  &__message {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 12px 24px;
+    background-color: rgba(255, 255, 255, 0.95);
+    border-radius: 24px;
+    opacity: 1;
+    transform: translateX(0);
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.15);
+    transition:
+      opacity 400ms cubic-bezier(0.4, 0, 0.2, 1),
+      transform 400ms cubic-bezier(0.4, 0, 0.2, 1);
+
+    // Entry animation - smoother and longer
+    animation: amw-fsl-message-enter 450ms cubic-bezier(0.0, 0, 0.2, 1);
+
+    // Dismissing state - slide right and fade smoothly
+    &--dismissing {
+      opacity: 0;
+      transform: translateX(40px);
+      transition:
+        opacity 500ms cubic-bezier(0.4, 0, 1, 1),
+        transform 500ms cubic-bezier(0.4, 0, 1, 1);
+    }
+
+    &-text {
+      font-size: 14px;
+      font-weight: 500;
+      color: #333333;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      max-width: 400px;
+    }
+  }
+}
+
+// ============================================
+// Geometric Spinner
+// ============================================
+
+.amw-fsl-spinner {
+  position: relative;
+  width: 350px;
+  height: 350px;
+
+  // All rings are absolutely positioned and centered
+  &__ring {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    border-radius: 50%;
+    box-sizing: border-box;
+
+    // Ring 1 - Outermost (350px) - Primary color
+    // 3 segments with 20° gaps, 100° segments
+    // Thickness: 50px (outer at 125px, inner at 75px from center)
+    // Speed: 360deg / 25s = 14.4 deg/s
+    &--1 {
+      width: 360px;
+      height: 360px;
+      margin-left: -180px;
+      margin-top: -180px;
+      background: conic-gradient(
+        var(--mdc-theme-primary, #6200ee) 0deg 100deg,
+        transparent 100deg 120deg,
+        var(--mdc-theme-primary, #6200ee) 120deg 220deg,
+        transparent 220deg 240deg,
+        var(--mdc-theme-primary, #6200ee) 240deg 340deg,
+        transparent 340deg 360deg
+      );
+      // Create ring - inner edge at 60% (75px), thickness 50px
+      mask: radial-gradient(circle, transparent 50%, black 50%);
+      -webkit-mask: radial-gradient(circle, transparent 50%, black 50%);
+      animation: amw-fsl-rotate-cw-1 25s cubic-bezier(0.4, 0.0, 0.2, 1) infinite;
+    }
+
+    // Ring 2 - Inner (150px) - Secondary color
+    // 3 segments with 28° gaps (wider), 92° segments
+    // Touches outer ring (outer edge at 75px from center)
+    // Thickness: 50px (outer at 75px, inner at 25px from center)
+    // Speed: 360deg / 22s = 16.4 deg/s
+    &--2 {
+      width: 250px;
+      height: 250px;
+      margin-left: -125px;
+      margin-top: -125px;
+      background: conic-gradient(
+        var(--mdc-theme-secondary, #03dac6) 0deg 92deg,
+        transparent 92deg 120deg,
+        var(--mdc-theme-secondary, #03dac6) 120deg 212deg,
+        transparent 212deg 240deg,
+        var(--mdc-theme-secondary, #03dac6) 240deg 332deg,
+        transparent 332deg 360deg
+      );
+      // Create ring - inner edge at 50%, thinner to match outer ring
+      mask: radial-gradient(circle, transparent 40%, black 40%);
+      -webkit-mask: radial-gradient(circle, transparent 40%, black 40%);
+      animation: amw-fsl-rotate-ccw-1 22s cubic-bezier(0.25, 0.1, 0.25, 1) infinite;
+    }
+  }
+}
+
+// ============================================
+// Rotation Keyframes with speed variations
+// ============================================
+
+// Outer ring - Clockwise with slowdown and speedup
+@keyframes amw-fsl-rotate-cw-1 {
+  0% {
+    transform: rotate(0deg);
+  }
+  25% {
+    transform: rotate(120deg);
+  }
+  50% {
+    transform: rotate(180deg);
+  }
+  75% {
+    transform: rotate(300deg);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
+}
+
+// Middle ring - Counter-clockwise with pause effect
+@keyframes amw-fsl-rotate-ccw-1 {
+  0% {
+    transform: rotate(0deg);
+  }
+  20% {
+    transform: rotate(-90deg);
+  }
+  40% {
+    transform: rotate(-120deg);
+  }
+  60% {
+    transform: rotate(-240deg);
+  }
+  80% {
+    transform: rotate(-300deg);
+  }
+  100% {
+    transform: rotate(-360deg);
+  }
+}
+
+// ============================================
+// Overlay Fade Animations
+// ============================================
+
+@keyframes amw-fsl-fade-in {
+  0% {
+    opacity: 0;
+  }
+  100% {
+    opacity: 1;
+  }
+}
+
+@keyframes amw-fsl-fade-out {
+  0% {
+    opacity: 1;
+  }
+  100% {
+    opacity: 0;
+  }
+}
+
+// ============================================
+// Message Animation
+// ============================================
+
+@keyframes amw-fsl-message-enter {
+  0% {
+    opacity: 0;
+    transform: translateY(15px) scale(0.98);
+  }
+  60% {
+    opacity: 0.8;
+    transform: translateY(-2px) scale(1);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+}
+
+// ============================================
+// Dark Theme Support
+// ============================================
+
+.dark-theme {
+  .amw-full-screen-loading {
+    &__backdrop {
+      background-color: rgba(0, 0, 0, 0.75);
+    }
+
+    &__message {
+      background-color: rgba(30, 30, 30, 0.95);
+      box-shadow: 0 4px 20px rgba(0, 0, 0, 0.4);
+
+      &-text {
+        color: #ffffff;
+      }
+    }
+  }
+
+  .amw-fsl-spinner {
+    &__ring {
+      &--1 {
+        background: conic-gradient(
+          var(--mdc-theme-primary, #bb86fc) 0deg 100deg,
+          transparent 100deg 120deg,
+          var(--mdc-theme-primary, #bb86fc) 120deg 220deg,
+          transparent 220deg 240deg,
+          var(--mdc-theme-primary, #bb86fc) 240deg 340deg,
+          transparent 340deg 360deg
+        );
+      }
+
+      &--2 {
+        background: conic-gradient(
+          var(--mdc-theme-secondary, #03dac6) 0deg 92deg,
+          transparent 92deg 120deg,
+          var(--mdc-theme-secondary, #03dac6) 120deg 212deg,
+          transparent 212deg 240deg,
+          var(--mdc-theme-secondary, #03dac6) 240deg 332deg,
+          transparent 332deg 360deg
+        );
+      }
+    }
+  }
+}
+
+// ============================================
+// Reduced Motion Support
+// ============================================
+
+@media (prefers-reduced-motion: reduce) {
+  .amw-full-screen-loading {
+    &--visible {
+      animation: amw-fsl-fade-in 400ms linear forwards;
+    }
+
+    &--hiding {
+      animation: amw-fsl-fade-out 400ms linear forwards;
+    }
+
+    &__message {
+      transition: opacity 200ms linear;
+      animation: none;
+
+      &--dismissing {
+        transform: none;
+        transition: opacity 300ms linear;
+      }
+    }
+  }
+
+  .amw-fsl-spinner {
+    &__ring {
+      // Slow, simple rotation for reduced motion
+      animation-duration: 20s !important;
+      animation-timing-function: linear !important;
+
+      &--1 { animation-name: amw-fsl-rotate-simple-cw; }
+      &--2 { animation-name: amw-fsl-rotate-simple-ccw; }
+    }
+  }
+
+  @keyframes amw-fsl-rotate-simple-cw {
+    from { transform: rotate(0deg); }
+    to { transform: rotate(360deg); }
+  }
+
+  @keyframes amw-fsl-rotate-simple-ccw {
+    from { transform: rotate(0deg); }
+    to { transform: rotate(-360deg); }
+  }
+}

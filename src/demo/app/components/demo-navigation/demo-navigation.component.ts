@@ -99,10 +99,13 @@ export class DemoNavigationComponent {
             tooltip: 'Global services and utilities',
             expanded: false,
             children: [
+                { id: 'error-state', label: 'Error State', route: '/services/error-state', icon: 'error_outline' },
+                { id: 'full-screen-loading', label: 'Full Screen Loading', route: '/services/full-screen-loading', icon: 'hourglass_top' },
                 { id: 'http-cache', label: 'HTTP Cache', route: '/services/http-cache', icon: 'storage' },
                 { id: 'loading', label: 'Loading Service', route: '/services/loading', icon: 'hourglass_empty' },
                 { id: 'messaging', label: 'Messaging Service', route: '/services/messaging', icon: 'message' },
-                { id: 'notification', label: 'Notification Service', route: '/services/notification', icon: 'notifications' }
+                { id: 'notification', label: 'Notification Service', route: '/services/notification', icon: 'notifications' },
+                { id: 'validation', label: 'Validation', route: '/services/validation', icon: 'verified' }
             ]
         },
         {

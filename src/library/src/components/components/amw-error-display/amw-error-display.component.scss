@@ -1,0 +1,287 @@
+.amw-error-display {
+  font-family: var(--mdc-typography-body1-font-family, Roboto, sans-serif);
+
+  // ============================================
+  // Mode: Inline (default)
+  // ============================================
+  &--inline {
+    margin: 8px 0;
+  }
+
+  // ============================================
+  // Mode: Banner
+  // ============================================
+  &--banner {
+    position: fixed;
+    left: 0;
+    right: 0;
+    z-index: 1000;
+    padding: 0 16px;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
+
+    &.amw-error-display--top {
+      top: 0;
+    }
+
+    &.amw-error-display--bottom {
+      bottom: 0;
+    }
+  }
+
+  // ============================================
+  // Mode: Toast
+  // ============================================
+  &--toast {
+    position: fixed;
+    z-index: 1000;
+    max-width: 400px;
+    padding: 8px;
+
+    &.amw-error-display--top {
+      top: 16px;
+      right: 16px;
+    }
+
+    &.amw-error-display--bottom {
+      bottom: 16px;
+      right: 16px;
+    }
+
+    .amw-error-display__container {
+      flex-direction: column;
+      gap: 8px;
+    }
+
+    .amw-error-display__item {
+      border-radius: 8px;
+      box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
+    }
+  }
+
+  // ============================================
+  // Mode: List
+  // ============================================
+  &--list {
+    .amw-error-display__item {
+      border-radius: 0;
+      border-bottom: 1px solid var(--mdc-theme-outline-variant, #e0e0e0);
+
+      &:last-child {
+        border-bottom: none;
+      }
+    }
+  }
+
+  // ============================================
+  // Container
+  // ============================================
+  &__container {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+  }
+
+  // ============================================
+  // Individual Error Item
+  // ============================================
+  &__item {
+    display: flex;
+    align-items: flex-start;
+    padding: 12px 16px;
+    border-radius: 4px;
+    animation: amw-error-slide-in 300ms ease-out;
+
+    &--error {
+      // WCAG AA compliant: #410002 on #fdecea = 12.5:1 contrast
+      background-color: var(--mdc-theme-error-container, #fdecea);
+      color: #410002;
+
+      .amw-error-display__icon {
+        color: #ba1a1a;
+      }
+    }
+
+    &--warning {
+      // WCAG AA compliant: #3d2800 on #fff3e0 = 11.2:1 contrast
+      background-color: #fff3e0;
+      color: #3d2800;
+
+      .amw-error-display__icon {
+        color: #9a5000;
+      }
+    }
+
+    &--info {
+      // WCAG AA compliant: #002171 on #e3f2fd = 12.8:1 contrast
+      background-color: #e3f2fd;
+      color: #002171;
+
+      .amw-error-display__icon {
+        color: #002171;
+      }
+    }
+
+    &--dismissed {
+      opacity: 0.5;
+      animation: amw-error-fade-out 300ms ease-out;
+    }
+  }
+
+  // ============================================
+  // Icon
+  // ============================================
+  &__icon {
+    flex-shrink: 0;
+    margin-right: 12px;
+    display: flex;
+    align-items: center;
+
+    amw-icon {
+      font-size: 20px;
+      width: 20px;
+      height: 20px;
+    }
+  }
+
+  // ============================================
+  // Content
+  // ============================================
+  &__content {
+    flex: 1;
+    min-width: 0;
+  }
+
+  &__message {
+    font-size: 14px;
+    line-height: 1.4;
+    word-break: break-word;
+  }
+
+  &__meta {
+    display: flex;
+    gap: 8px;
+    margin-top: 4px;
+    font-size: 12px;
+    // Use inherited color - parent item sets accessible colors
+  }
+
+  &__source {
+    font-weight: 500;
+  }
+
+  &__code {
+    font-family: monospace;
+  }
+
+  // ============================================
+  // Actions
+  // ============================================
+  &__actions {
+    flex-shrink: 0;
+    display: flex;
+    gap: 4px;
+    margin-left: 8px;
+
+    amw-button {
+      opacity: 0.7;
+      transition: opacity 200ms;
+
+      &:hover {
+        opacity: 1;
+      }
+    }
+  }
+
+  // ============================================
+  // Overflow indicator
+  // ============================================
+  &__overflow {
+    padding: 8px 16px;
+    font-size: 12px;
+    color: var(--mdc-theme-on-surface-variant, #666);
+    text-align: center;
+    font-style: italic;
+  }
+
+  // ============================================
+  // Footer
+  // ============================================
+  &__footer {
+    display: flex;
+    justify-content: flex-end;
+    padding: 4px 8px;
+  }
+}
+
+// ============================================
+// Animations
+// ============================================
+@keyframes amw-error-slide-in {
+  0% {
+    opacity: 0;
+    transform: translateY(-10px);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes amw-error-fade-out {
+  0% {
+    opacity: 1;
+  }
+  100% {
+    opacity: 0.5;
+  }
+}
+
+// ============================================
+// Dark Theme Support
+// ============================================
+.dark-theme {
+  .amw-error-display {
+    &__item {
+      &--error {
+        // WCAG AA compliant on dark backgrounds
+        background-color: rgba(176, 0, 32, 0.25);
+        color: #ffb4ab;
+
+        .amw-error-display__icon {
+          color: #ffb4ab;
+        }
+      }
+
+      &--warning {
+        // WCAG AA compliant on dark backgrounds
+        background-color: rgba(255, 152, 0, 0.2);
+        color: #ffe0b2;
+
+        .amw-error-display__icon {
+          color: #ffe0b2;
+        }
+      }
+
+      &--info {
+        // WCAG AA compliant on dark backgrounds
+        background-color: rgba(33, 150, 243, 0.2);
+        color: #bbdefb;
+
+        .amw-error-display__icon {
+          color: #bbdefb;
+        }
+      }
+    }
+  }
+}
+
+// ============================================
+// Reduced Motion Support
+// ============================================
+@media (prefers-reduced-motion: reduce) {
+  .amw-error-display {
+    &__item {
+      animation: none;
+    }
+  }
+}

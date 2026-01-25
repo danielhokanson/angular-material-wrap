@@ -257,6 +257,21 @@ export const routes: Routes = [
         loadComponent: () => import('./pages/http-cache-demo/http-cache-demo.component').then(m => m.HttpCacheDemoComponent)
     },
     {
+        path: 'services/full-screen-loading',
+        loadComponent: () => import('./pages/services-demo/services-demo.component').then(m => m.ServicesDemoComponent),
+        data: { service: 'full-screen-loading' }
+    },
+    {
+        path: 'services/validation',
+        loadComponent: () => import('./pages/services-demo/services-demo.component').then(m => m.ServicesDemoComponent),
+        data: { service: 'validation' }
+    },
+    {
+        path: 'services/error-state',
+        loadComponent: () => import('./pages/services-demo/services-demo.component').then(m => m.ServicesDemoComponent),
+        data: { service: 'error-state' }
+    },
+    {
         path: 'pipes',
         loadComponent: () => import('./pages/pipes-demo/pipes-demo.component').then(m => m.PipesDemoComponent)
     },

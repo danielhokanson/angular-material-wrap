@@ -56,3 +56,9 @@ export * from './amw-list/amw-list-item.component';
 
 // Paginator component
 export * from './amw-paginator/amw-paginator.component';
+
+// Full Screen Loading component
+export * from './amw-full-screen-loading/amw-full-screen-loading.component';
+
+// Error Display component
+export * from './amw-error-display/amw-error-display.component';

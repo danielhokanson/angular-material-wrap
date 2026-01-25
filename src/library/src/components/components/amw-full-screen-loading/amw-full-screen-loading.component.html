@@ -1,0 +1,25 @@
+@if (isVisible()) {
+<div class="amw-full-screen-loading" [class.amw-full-screen-loading--visible]="isLoading()"
+  [class.amw-full-screen-loading--hiding]="!isLoading()">
+  <!-- Overlay backdrop -->
+  <div class="amw-full-screen-loading__backdrop"></div>
+
+  <!-- Spinner container (fixed position) -->
+  <div class="amw-full-screen-loading__content">
+    <div class="amw-fsl-spinner">
+      <div class="amw-fsl-spinner__ring amw-fsl-spinner__ring--1"></div>
+      <div class="amw-fsl-spinner__ring amw-fsl-spinner__ring--2"></div>
+    </div>
+  </div>
+
+  <!-- Messages container (fixed position below spinner) -->
+  <div class="amw-full-screen-loading__messages">
+    @for (item of items(); track trackByItem($index, item)) {
+    <div class="amw-full-screen-loading__message"
+      [class.amw-full-screen-loading__message--dismissing]="item.dismissing">
+      <span class="amw-full-screen-loading__message-text">{{ item.message }}</span>
+    </div>
+    }
+  </div>
+</div>
+}
