@@ -5,3 +5,5 @@ export * from './amw-http-cache';
 export * from './amw-full-screen-loading';
 export * from './amw-validation';
 export * from './amw-error-state';
+export * from './amw-event-bus';
+export * from './amw-base-service';

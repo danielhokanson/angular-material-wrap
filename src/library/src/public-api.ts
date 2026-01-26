@@ -137,3 +137,32 @@ export { AmwThemeManagerComponent } from './styling/components/theme-manager/the
  * 3. [formField] - Signal Forms with form() and field bindings
  */
 export { FormField, form } from '@angular/forms/signals';
+
+// =============================================================================
+// NEW MIGRATION EXPORTS - AMW Library Migration Components
+// =============================================================================
+
+// Validation module
+export * from './validation';
+
+// Inline state components
+export { AmwInlineLoadingComponent } from './components/components/amw-inline-loading/amw-inline-loading.component';
+export { AmwInlineErrorComponent } from './components/components/amw-inline-error/amw-inline-error.component';
+export { AmwInlineEmptyComponent } from './components/components/amw-inline-empty/amw-inline-empty.component';
+
+// HTTP Error Parser utilities
+export * from './utilities';
+
+// Interfaces (async state, CRUD service)
+export * from './interfaces';
+
+// Constants (error messages)
+export * from './constants';
+
+// Event Bus service
+export { AmwEventBusService } from './services/amw-event-bus/amw-event-bus.service';
+export type { BusEvent, EventBusStatistics } from './services/amw-event-bus/amw-event-bus.service';
+
+// Base Service pattern
+export { AmwBaseService } from './services/amw-base-service/amw-base.service';
+export type { IBaseService, IServiceHealthStatus, ServiceConfig } from './services/amw-base-service/base-service.interface';

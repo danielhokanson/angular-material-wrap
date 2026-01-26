@@ -1,0 +1,442 @@
+// ==========================================================================
+// AMW SCSS UTILITY MIXINS
+// Reusable SCSS mixins for common UI patterns
+// ==========================================================================
+
+// --------------------------------------------------------------------------
+// LAYOUT MIXINS
+// --------------------------------------------------------------------------
+
+/// Centered content container with max-width
+/// @param {Length} $max-width [800px] - Maximum width of the container
+/// @param {Length} $padding [24px] - Padding on all sides
+@mixin amw-centered-container($max-width: 800px, $padding: 24px) {
+    max-width: $max-width;
+    margin: 0 auto;
+    padding: $padding;
+}
+
+/// Flex container with centered children
+/// @param {String} $direction [row] - Flex direction
+/// @param {Length} $gap [0] - Gap between items
+@mixin amw-flex-center($direction: row, $gap: 0) {
+    display: flex;
+    flex-direction: $direction;
+    align-items: center;
+    justify-content: center;
+    @if $gap != 0 {
+        gap: $gap;
+    }
+}
+
+/// Flex container with space-between alignment
+/// @param {Length} $gap [0] - Gap between items
+@mixin amw-flex-between($gap: 0) {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    @if $gap != 0 {
+        gap: $gap;
+    }
+}
+
+// --------------------------------------------------------------------------
+// STATE DISPLAY MIXINS
+// --------------------------------------------------------------------------
+
+/// Loading state display
+/// Use for loading indicators within containers
+@mixin amw-loading-state {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 48px 24px;
+    color: var(--md-sys-color-on-surface-variant, var(--mdc-theme-on-surface-variant, #49454f));
+}
+
+/// Empty state display
+/// Use when there's no data to display
+@mixin amw-empty-state {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 16px;
+    padding: 48px 24px;
+    text-align: center;
+    color: var(--md-sys-color-on-surface-variant, var(--mdc-theme-on-surface-variant, #49454f));
+}
+
+/// Error state display
+/// Use for error messages within containers
+@mixin amw-error-state {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 12px;
+    padding: 24px;
+    color: var(--md-sys-color-error, var(--mdc-theme-error, #ba1a1a));
+    background-color: var(--md-sys-color-error-container, var(--mdc-theme-error-container, #ffdad6));
+    border-radius: 8px;
+}
+
+// --------------------------------------------------------------------------
+// FORM MIXINS
+// --------------------------------------------------------------------------
+
+/// Standard form field spacing
+/// Apply to form field containers
+@mixin amw-form-field {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    margin-bottom: 16px;
+}
+
+/// Form field row (horizontal layout)
+/// @param {Length} $gap [16px] - Gap between fields
+@mixin amw-form-row($gap: 16px) {
+    display: flex;
+    flex-wrap: wrap;
+    gap: $gap;
+
+    > * {
+        flex: 1;
+        min-width: 200px;
+    }
+}
+
+/// Action button group (form actions)
+/// @param {Length} $gap [12px] - Gap between buttons
+@mixin amw-action-group($gap: 12px) {
+    display: flex;
+    gap: $gap;
+    justify-content: flex-end;
+    margin-top: 24px;
+}
+
+/// Form section with heading
+@mixin amw-form-section {
+    margin-bottom: 32px;
+
+    &__heading {
+        font-size: 1.125rem;
+        font-weight: 500;
+        margin-bottom: 16px;
+        color: var(--md-sys-color-on-surface, var(--mdc-theme-on-surface, #1c1b1f));
+    }
+}
+
+// --------------------------------------------------------------------------
+// MESSAGE MIXINS
+// --------------------------------------------------------------------------
+
+/// Error message styling
+/// Use for validation error messages
+@mixin amw-error-message {
+    color: var(--md-sys-color-error, var(--mdc-theme-error, #ba1a1a));
+    font-size: 12px;
+    margin-top: 4px;
+    line-height: 1.4;
+}
+
+/// Warning message styling
+@mixin amw-warning-message {
+    color: var(--md-sys-color-warning, #f57c00);
+    font-size: 12px;
+    margin-top: 4px;
+    line-height: 1.4;
+}
+
+/// Info message styling
+@mixin amw-info-message {
+    color: var(--md-sys-color-primary, var(--mdc-theme-primary, #6750a4));
+    font-size: 12px;
+    margin-top: 4px;
+    line-height: 1.4;
+}
+
+/// Success message styling
+@mixin amw-success-message {
+    color: var(--md-sys-color-success, #2e7d32);
+    font-size: 12px;
+    margin-top: 4px;
+    line-height: 1.4;
+}
+
+// --------------------------------------------------------------------------
+// LIST MIXINS
+// --------------------------------------------------------------------------
+
+/// List item styling
+/// Use for items in a list container
+@mixin amw-list-item {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    padding: 12px 16px;
+    border-bottom: 1px solid var(--md-sys-color-outline-variant, var(--mdc-theme-outline-variant, #cac4d0));
+
+    &:last-child {
+        border-bottom: none;
+    }
+}
+
+/// Clickable list item
+/// Extends amw-list-item with hover states
+@mixin amw-list-item-clickable {
+    @include amw-list-item;
+    cursor: pointer;
+    transition: background-color 200ms ease;
+
+    &:hover {
+        background-color: var(--md-sys-color-surface-variant, var(--mdc-theme-surface-variant, #e7e0ec));
+    }
+
+    &:active {
+        background-color: var(--md-sys-color-surface-container-high, var(--mdc-theme-surface-container-high, #ece6f0));
+    }
+}
+
+// --------------------------------------------------------------------------
+// ACCESSIBILITY MIXINS
+// --------------------------------------------------------------------------
+
+/// Focus-visible styling (keyboard focus only)
+/// Use on interactive elements for accessible focus states
+@mixin amw-focus-visible {
+    &:focus-visible {
+        outline: 2px solid var(--md-sys-color-primary, var(--mdc-theme-primary, #6750a4));
+        outline-offset: 2px;
+    }
+}
+
+/// Focus ring (alternative focus style)
+@mixin amw-focus-ring {
+    &:focus-visible {
+        box-shadow: 0 0 0 3px var(--md-sys-color-primary-container, var(--mdc-theme-primary-container, #eaddff));
+    }
+}
+
+/// Screen reader only (visually hidden)
+/// Use for text that should only be read by screen readers
+@mixin amw-sr-only {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    padding: 0;
+    margin: -1px;
+    overflow: hidden;
+    clip: rect(0, 0, 0, 0);
+    white-space: nowrap;
+    border: 0;
+}
+
+// --------------------------------------------------------------------------
+// ANIMATION MIXINS
+// --------------------------------------------------------------------------
+
+/// Standard transition
+/// @param {List} $properties [all] - CSS properties to transition
+/// @param {Time} $duration [200ms] - Transition duration
+/// @param {String} $easing [ease] - Timing function
+@mixin amw-transition($properties: all, $duration: 200ms, $easing: ease) {
+    transition: $properties $duration $easing;
+
+    @media (prefers-reduced-motion: reduce) {
+        transition: none;
+    }
+}
+
+/// Fade in animation
+@mixin amw-fade-in($duration: 200ms) {
+    animation: amw-fade-in $duration ease;
+
+    @media (prefers-reduced-motion: reduce) {
+        animation: none;
+    }
+}
+
+/// Slide in from top animation
+@mixin amw-slide-in-top($duration: 200ms, $distance: 10px) {
+    animation: amw-slide-in-top $duration ease;
+
+    @media (prefers-reduced-motion: reduce) {
+        animation: none;
+    }
+}
+
+// Keyframes
+@keyframes amw-fade-in {
+    from {
+        opacity: 0;
+    }
+    to {
+        opacity: 1;
+    }
+}
+
+@keyframes amw-slide-in-top {
+    from {
+        opacity: 0;
+        transform: translateY(-10px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+// --------------------------------------------------------------------------
+// CARD MIXINS
+// --------------------------------------------------------------------------
+
+/// Card container styling
+@mixin amw-card {
+    background: var(--md-sys-color-surface, var(--mdc-theme-surface, #fffbfe));
+    border-radius: 12px;
+    border: 1px solid var(--md-sys-color-outline-variant, var(--mdc-theme-outline-variant, #cac4d0));
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    overflow: hidden;
+}
+
+/// Card header styling
+@mixin amw-card-header {
+    padding: 16px;
+    border-bottom: 1px solid var(--md-sys-color-outline-variant, var(--mdc-theme-outline-variant, #cac4d0));
+    background: var(--md-sys-color-surface, var(--mdc-theme-surface, #fffbfe));
+}
+
+/// Card content styling
+@mixin amw-card-content {
+    padding: 16px;
+}
+
+/// Card footer styling
+@mixin amw-card-footer {
+    padding: 16px;
+    border-top: 1px solid var(--md-sys-color-outline-variant, var(--mdc-theme-outline-variant, #cac4d0));
+    background: var(--md-sys-color-surface-container-low, var(--mdc-theme-surface-container-low, #f7f2fa));
+}
+
+// --------------------------------------------------------------------------
+// RESPONSIVE MIXINS
+// --------------------------------------------------------------------------
+
+/// Media query for small screens (mobile)
+@mixin amw-mobile {
+    @media (max-width: 599px) {
+        @content;
+    }
+}
+
+/// Media query for medium screens (tablet)
+@mixin amw-tablet {
+    @media (min-width: 600px) and (max-width: 1023px) {
+        @content;
+    }
+}
+
+/// Media query for large screens (desktop)
+@mixin amw-desktop {
+    @media (min-width: 1024px) {
+        @content;
+    }
+}
+
+/// Media query for small screens and up
+@mixin amw-mobile-up {
+    @media (min-width: 600px) {
+        @content;
+    }
+}
+
+/// Media query for medium screens and up
+@mixin amw-tablet-up {
+    @media (min-width: 1024px) {
+        @content;
+    }
+}
+
+// --------------------------------------------------------------------------
+// UTILITY MIXINS
+// --------------------------------------------------------------------------
+
+/// Text truncation (ellipsis)
+/// @param {Number} $lines [1] - Number of lines before truncation
+@mixin amw-truncate($lines: 1) {
+    @if $lines == 1 {
+        overflow: hidden;
+        text-overflow: ellipsis;
+        white-space: nowrap;
+    } @else {
+        display: -webkit-box;
+        -webkit-line-clamp: $lines;
+        -webkit-box-orient: vertical;
+        overflow: hidden;
+    }
+}
+
+/// Scrollable container
+/// @param {String} $direction [y] - Scroll direction (x, y, or both)
+@mixin amw-scrollable($direction: y) {
+    @if $direction == x {
+        overflow-x: auto;
+        overflow-y: hidden;
+    } @else if $direction == y {
+        overflow-x: hidden;
+        overflow-y: auto;
+    } @else {
+        overflow: auto;
+    }
+
+    // Smooth scrolling with reduced motion support
+    scroll-behavior: smooth;
+
+    @media (prefers-reduced-motion: reduce) {
+        scroll-behavior: auto;
+    }
+
+    // Custom scrollbar styling
+    &::-webkit-scrollbar {
+        width: 8px;
+        height: 8px;
+    }
+
+    &::-webkit-scrollbar-track {
+        background: var(--md-sys-color-surface-container-low, var(--mdc-theme-surface-container-low, #f7f2fa));
+        border-radius: 4px;
+    }
+
+    &::-webkit-scrollbar-thumb {
+        background: var(--md-sys-color-outline, var(--mdc-theme-outline, #79747e));
+        border-radius: 4px;
+
+        &:hover {
+            background: var(--md-sys-color-on-surface-variant, var(--mdc-theme-on-surface-variant, #49454f));
+        }
+    }
+}
+
+/// Reset button styles
+@mixin amw-button-reset {
+    appearance: none;
+    background: none;
+    border: none;
+    padding: 0;
+    margin: 0;
+    font: inherit;
+    color: inherit;
+    cursor: pointer;
+
+    &:disabled {
+        cursor: not-allowed;
+    }
+}
+
+/// Reset list styles
+@mixin amw-list-reset {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+}

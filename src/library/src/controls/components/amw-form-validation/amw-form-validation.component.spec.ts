@@ -33,7 +33,7 @@ describe('AmwFormValidationComponent', () => {
       validators: [passwordMatchValidator]
     });
 
-    component.form = testForm;
+    fixture.componentRef.setInput('form', testForm);
   });
 
   it('should create', () => {
@@ -48,11 +48,11 @@ describe('AmwFormValidationComponent', () => {
       }
     };
 
-    component.errors = config;
-    component.showWhen = 'touched';
+    fixture.componentRef.setInput('errors', config);
+    fixture.componentRef.setInput('showWhen', 'touched');
     fixture.detectChanges();
 
-    expect(component.visibleErrors.length).toBe(0);
+    expect(component.visibleErrors().length).toBe(0);
   });
 
   it('should show errors when form has errors and is touched', () => {
@@ -63,8 +63,8 @@ describe('AmwFormValidationComponent', () => {
       }
     };
 
-    component.errors = config;
-    component.showWhen = 'touched';
+    fixture.componentRef.setInput('errors', config);
+    fixture.componentRef.setInput('showWhen', 'touched');
 
     // Set mismatched passwords
     testForm.get('password')?.setValue('password123');
@@ -73,8 +73,8 @@ describe('AmwFormValidationComponent', () => {
 
     fixture.detectChanges();
 
-    expect(component.visibleErrors.length).toBe(1);
-    expect(component.visibleErrors[0].message).toBe('Passwords do not match');
+    expect(component.visibleErrors().length).toBe(1);
+    expect(component.visibleErrors()[0].message).toBe('Passwords do not match');
   });
 
   it('should hide errors when showWhen condition is false', () => {
@@ -86,8 +86,8 @@ describe('AmwFormValidationComponent', () => {
       }
     };
 
-    component.errors = config;
-    component.showWhen = 'always';
+    fixture.componentRef.setInput('errors', config);
+    fixture.componentRef.setInput('showWhen', 'always');
 
     // Set mismatched passwords but don't touch confirmPassword
     testForm.get('password')?.setValue('password123');
@@ -95,7 +95,7 @@ describe('AmwFormValidationComponent', () => {
 
     fixture.detectChanges();
 
-    expect(component.visibleErrors.length).toBe(0);
+    expect(component.visibleErrors().length).toBe(0);
   });
 
   it('should call custom message function with form parameter', () => {
@@ -107,8 +107,8 @@ describe('AmwFormValidationComponent', () => {
       }
     };
 
-    component.errors = config;
-    component.showWhen = 'always';
+    fixture.componentRef.setInput('errors', config);
+    fixture.componentRef.setInput('showWhen', 'always');
 
     // Set mismatched passwords
     testForm.get('password')?.setValue('password123');
@@ -117,7 +117,7 @@ describe('AmwFormValidationComponent', () => {
     fixture.detectChanges();
 
     expect(messageSpy).toHaveBeenCalledWith(testForm);
-    expect(component.getErrorMessage(component.visibleErrors[0])).toBe('Custom error message');
+    expect(component.getErrorMessage(component.visibleErrors()[0])).toBe('Custom error message');
   });
 
   it('should emit errorClick when error is clicked', () => {
@@ -129,8 +129,8 @@ describe('AmwFormValidationComponent', () => {
       }
     };
 
-    component.errors = config;
-    component.showWhen = 'always';
+    fixture.componentRef.setInput('errors', config);
+    fixture.componentRef.setInput('showWhen', 'always');
 
     // Set mismatched passwords
     testForm.get('password')?.setValue('password123');
@@ -141,9 +141,9 @@ describe('AmwFormValidationComponent', () => {
     const errorClickSpy = jasmine.createSpy('errorClick');
     component.errorClick.subscribe(errorClickSpy);
 
-    component.onErrorClick(component.visibleErrors[0]);
+    component.onErrorClick(component.visibleErrors()[0]);
 
-    expect(errorClickSpy).toHaveBeenCalledWith(component.visibleErrors[0]);
+    expect(errorClickSpy).toHaveBeenCalledWith(component.visibleErrors()[0]);
   });
 
   it('should respect maxErrors limit', () => {
@@ -162,15 +162,15 @@ describe('AmwFormValidationComponent', () => {
       error3: { message: 'Error 3', severity: 'error' }
     };
 
-    component.form = multiErrorForm;
-    component.errors = config;
-    component.showWhen = 'always';
-    component.maxErrors = 2;
+    fixture.componentRef.setInput('form', multiErrorForm);
+    fixture.componentRef.setInput('errors', config);
+    fixture.componentRef.setInput('showWhen', 'always');
+    fixture.componentRef.setInput('maxErrors', 2);
 
     multiErrorForm.markAsTouched();
     fixture.detectChanges();
 
-    expect(component.visibleErrors.length).toBeLessThanOrEqual(2);
+    expect(component.visibleErrors().length).toBeLessThanOrEqual(2);
   });
 
   it('should update errors when form value changes', (done) => {
@@ -181,8 +181,8 @@ describe('AmwFormValidationComponent', () => {
       }
     };
 
-    component.errors = config;
-    component.showWhen = 'always';
+    fixture.componentRef.setInput('errors', config);
+    fixture.componentRef.setInput('showWhen', 'always');
     fixture.detectChanges();
 
     // Initially set mismatched passwords
@@ -190,13 +190,13 @@ describe('AmwFormValidationComponent', () => {
     testForm.get('confirmPassword')?.setValue('different');
 
     setTimeout(() => {
-      expect(component.visibleErrors.length).toBe(1);
+      expect(component.visibleErrors().length).toBe(1);
 
       // Fix the mismatch
       testForm.get('confirmPassword')?.setValue('password123');
 
       setTimeout(() => {
-        expect(component.visibleErrors.length).toBe(0);
+        expect(component.visibleErrors().length).toBe(0);
         done();
       }, 100);
     }, 100);
@@ -213,15 +213,15 @@ describe('AmwFormValidationComponent', () => {
       info1: { message: 'Info', severity: 'info' }
     };
 
-    component.form = form;
-    component.errors = config;
-    component.showWhen = 'always';
+    fixture.componentRef.setInput('form', form);
+    fixture.componentRef.setInput('errors', config);
+    fixture.componentRef.setInput('showWhen', 'always');
 
     fixture.detectChanges();
 
-    expect(component.visibleErrors.find(e => e.key === 'error1')?.severity).toBe('error');
-    expect(component.visibleErrors.find(e => e.key === 'warning1')?.severity).toBe('warning');
-    expect(component.visibleErrors.find(e => e.key === 'info1')?.severity).toBe('info');
+    expect(component.visibleErrors().find(e => e.key === 'error1')?.severity).toBe('error');
+    expect(component.visibleErrors().find(e => e.key === 'warning1')?.severity).toBe('warning');
+    expect(component.visibleErrors().find(e => e.key === 'info1')?.severity).toBe('info');
   });
 
   it('should display correct severity icons', () => {
@@ -232,39 +232,43 @@ describe('AmwFormValidationComponent', () => {
   });
 
   it('should work with summary display mode', () => {
-    component.displayMode = 'summary';
-    expect(component.showSummary).toBe(true);
-    expect(component.showInline).toBe(false);
-    expect(component.showFloating).toBe(false);
+    fixture.componentRef.setInput('displayMode', 'summary');
+    fixture.detectChanges();
+    expect(component.showSummary()).toBe(true);
+    expect(component.showInline()).toBe(false);
+    expect(component.showFloating()).toBe(false);
   });
 
   it('should work with inline display mode', () => {
-    component.displayMode = 'inline';
-    expect(component.showSummary).toBe(false);
-    expect(component.showInline).toBe(true);
-    expect(component.showFloating).toBe(false);
+    fixture.componentRef.setInput('displayMode', 'inline');
+    fixture.detectChanges();
+    expect(component.showSummary()).toBe(false);
+    expect(component.showInline()).toBe(true);
+    expect(component.showFloating()).toBe(false);
   });
 
   it('should work with floating display mode', () => {
-    component.displayMode = 'floating';
-    expect(component.showSummary).toBe(false);
-    expect(component.showInline).toBe(false);
-    expect(component.showFloating).toBe(true);
+    fixture.componentRef.setInput('displayMode', 'floating');
+    fixture.detectChanges();
+    expect(component.showSummary()).toBe(false);
+    expect(component.showInline()).toBe(false);
+    expect(component.showFloating()).toBe(true);
   });
 
   it('should work with all display mode', () => {
-    component.displayMode = 'all';
-    expect(component.showSummary).toBe(true);
-    expect(component.showInline).toBe(true);
-    expect(component.showFloating).toBe(true);
+    fixture.componentRef.setInput('displayMode', 'all');
+    fixture.detectChanges();
+    expect(component.showSummary()).toBe(true);
+    expect(component.showInline()).toBe(true);
+    expect(component.showFloating()).toBe(true);
   });
 
   it('should toggle collapse state', () => {
-    component.collapsed = false;
+    component.collapsed.set(false);
     component.toggleCollapse();
-    expect(component.collapsed).toBe(true);
+    expect(component.collapsed()).toBe(true);
     component.toggleCollapse();
-    expect(component.collapsed).toBe(false);
+    expect(component.collapsed()).toBe(false);
   });
 
   it('should emit errorChange when visible errors update', (done) => {
@@ -275,8 +279,8 @@ describe('AmwFormValidationComponent', () => {
       }
     };
 
-    component.errors = config;
-    component.showWhen = 'always';
+    fixture.componentRef.setInput('errors', config);
+    fixture.componentRef.setInput('showWhen', 'always');
 
     const errorChangeSpy = jasmine.createSpy('errorChange');
     component.errorChange.subscribe(errorChangeSpy);
@@ -294,21 +298,21 @@ describe('AmwFormValidationComponent', () => {
   });
 
   it('should handle showWhen "dirty" correctly', () => {
-    component.showWhen = 'dirty';
+    fixture.componentRef.setInput('showWhen', 'dirty');
 
     // Form is not dirty initially
     testForm.get('password')?.setValue('password123');
     testForm.get('confirmPassword')?.setValue('different');
     fixture.detectChanges();
 
-    expect(component.visibleErrors.length).toBe(0);
+    expect(component.visibleErrors().length).toBe(0);
 
     // Mark as dirty
     testForm.markAsDirty();
     fixture.detectChanges();
 
     setTimeout(() => {
-      expect(component.visibleErrors.length).toBeGreaterThan(0);
+      expect(component.visibleErrors().length).toBeGreaterThan(0);
     }, 100);
   });
 
@@ -320,8 +324,8 @@ describe('AmwFormValidationComponent', () => {
       }
     };
 
-    component.errors = config;
-    component.showWhen = 'always';
+    fixture.componentRef.setInput('errors', config);
+    fixture.componentRef.setInput('showWhen', 'always');
 
     // Set mismatched passwords without touching
     testForm.get('password')?.setValue('password123');
@@ -329,10 +333,11 @@ describe('AmwFormValidationComponent', () => {
 
     fixture.detectChanges();
 
-    expect(component.visibleErrors.length).toBe(1);
+    expect(component.visibleErrors().length).toBe(1);
   });
 
   it('should cleanup subscriptions on destroy', () => {
+    fixture.detectChanges();
     const destroySpy = spyOn(component['destroy$'], 'next');
     const completeSpy = spyOn(component['destroy$'], 'complete');
 

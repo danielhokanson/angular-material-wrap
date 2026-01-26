@@ -71,6 +71,7 @@ export class DemoNavigationComponent {
                 { id: 'card', label: 'Card', route: '/components/card', icon: 'view_module' },
                 { id: 'data-table', label: 'Data Table', route: '/components/data-table', icon: 'table_chart' },
                 { id: 'dialog', label: 'Dialog', route: '/components/dialog', icon: 'open_in_new' },
+                { id: 'inline-states', label: 'Inline States', route: '/components/inline-states', icon: 'pending' },
                 { id: 'popover', label: 'Popover', route: '/components/popover', icon: 'call_made' },
                 { id: 'sidenav', label: 'Sidenav', route: '/components/sidenav', icon: 'menu' },
                 { id: 'stepper', label: 'Stepper', route: '/components/stepper', icon: 'view_list' },
@@ -100,12 +101,15 @@ export class DemoNavigationComponent {
             expanded: false,
             children: [
                 { id: 'error-state', label: 'Error State', route: '/services/error-state', icon: 'error_outline' },
+                { id: 'event-bus', label: 'Event Bus', route: '/services/event-bus', icon: 'swap_horiz' },
                 { id: 'full-screen-loading', label: 'Full Screen Loading', route: '/services/full-screen-loading', icon: 'hourglass_top' },
                 { id: 'http-cache', label: 'HTTP Cache', route: '/services/http-cache', icon: 'storage' },
+                { id: 'http-error-parser', label: 'HTTP Error Parser', route: '/services/http-error-parser', icon: 'bug_report' },
                 { id: 'loading', label: 'Loading Service', route: '/services/loading', icon: 'hourglass_empty' },
                 { id: 'messaging', label: 'Messaging Service', route: '/services/messaging', icon: 'message' },
                 { id: 'notification', label: 'Notification Service', route: '/services/notification', icon: 'notifications' },
-                { id: 'validation', label: 'Validation', route: '/services/validation', icon: 'verified' }
+                { id: 'validation', label: 'Validation', route: '/services/validation', icon: 'verified' },
+                { id: 'validators', label: 'Custom Validators', route: '/services/validators', icon: 'rule' }
             ]
         },
         {

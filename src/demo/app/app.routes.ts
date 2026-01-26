@@ -366,6 +366,23 @@ export const routes: Routes = [
         path: 'theme',
         loadComponent: () => import('./components/theme-demo/theme-demo.component').then(m => m.ThemeDemoComponent)
     },
+    // New demo routes for AMW Library Migration Components
+    {
+        path: 'components/inline-states',
+        loadComponent: () => import('./components/inline-states-demo/inline-states-demo.component').then(m => m.InlineStatesDemoComponent)
+    },
+    {
+        path: 'services/event-bus',
+        loadComponent: () => import('./components/event-bus-demo/event-bus-demo.component').then(m => m.EventBusDemoComponent)
+    },
+    {
+        path: 'services/http-error-parser',
+        loadComponent: () => import('./components/http-error-parser-demo/http-error-parser-demo.component').then(m => m.HttpErrorParserDemoComponent)
+    },
+    {
+        path: 'services/validators',
+        loadComponent: () => import('./components/validators-demo/validators-demo.component').then(m => m.ValidatorsDemoComponent)
+    },
     {
         path: '**',
         redirectTo: '/controls'

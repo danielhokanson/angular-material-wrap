@@ -2,6 +2,27 @@
   padding: 24px;
   max-width: 1400px;
 
+  // Page title
+  &__title {
+    font-size: 1.75rem;
+    font-weight: 500;
+    margin: 0 0 8px 0;
+    color: var(--mat-sys-on-surface);
+  }
+
+  // Page description
+  &__description {
+    font-size: 1rem;
+    line-height: 1.6;
+    color: var(--mat-sys-on-surface-variant);
+    margin: 0 0 24px 0;
+  }
+
+  // Direct content projection container
+  &__content {
+    display: block;
+  }
+
   // Section styling
   &__section {
     margin-bottom: 32px;

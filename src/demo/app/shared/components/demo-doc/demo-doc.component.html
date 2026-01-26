@@ -1,5 +1,13 @@
 <div class="amw-demo-doc" [class]="'amw-demo-doc--' + componentName">
-  <!-- Simple content mode -->
+  <!-- Header with title and description -->
+  @if (title) {
+    <h2 class="amw-demo-doc__title">{{ title }}</h2>
+  }
+  @if (computedDescription) {
+    <p class="amw-demo-doc__description">{{ computedDescription }}</p>
+  }
+
+  <!-- Simple content mode via template -->
   @if (contentTemplate && !useSectionsMode) {
     <ng-container [ngTemplateOutlet]="contentTemplate"></ng-container>
   }
@@ -20,6 +28,13 @@
         </div>
       </div>
     }
+  }
+
+  <!-- Direct content projection (fallback when no template is used) -->
+  @if (!contentTemplate && !useSectionsMode) {
+    <div class="amw-demo-doc__content">
+      <ng-content></ng-content>
+    </div>
   }
 
   <!-- Real-world example section -->

@@ -60,6 +60,9 @@ export class AmwDemoDocComponent {
   /** Component name for styling context */
   @Input() componentName = '';
 
+  /** Title for the demo page */
+  @Input() title = '';
+
   /** Optional description for the demo */
   @Input() description = '';
 

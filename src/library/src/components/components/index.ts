@@ -62,3 +62,8 @@ export * from './amw-full-screen-loading/amw-full-screen-loading.component';
 
 // Error Display component
 export * from './amw-error-display/amw-error-display.component';
+
+// Inline state components
+export * from './amw-inline-loading/amw-inline-loading.component';
+export * from './amw-inline-error/amw-inline-error.component';
+export * from './amw-inline-empty/amw-inline-empty.component';
