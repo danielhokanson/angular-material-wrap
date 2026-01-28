@@ -17,12 +17,13 @@
       />
 
     <amw-button
+      appearance="icon"
       icon="palette"
       matSuffix
       type="button"
       [disabled]="isDisabled"
       (click)="toggleColorPicker()"
-      aria-label="Open color picker">
+      ariaLabel="Open color picker">
     </amw-button>
 
     @if (hasValidationError) {
@@ -57,7 +58,7 @@
     <div class="amw-color-picker__dropdown" (click)="$event.stopPropagation()">
       <div class="amw-color-picker__header">
         <span class="amw-color-picker__title">Select Color</span>
-        <amw-button icon="close" (click)="isOpen.set(false)" aria-label="Close">
+        <amw-button appearance="icon" icon="close" (click)="isOpen.set(false)" ariaLabel="Close">
         </amw-button>
       </div>
       <div class="amw-color-picker__content">
@@ -67,15 +68,18 @@
             <div class="amw-color-picker__palette-title">Color Palette</div>
             <div class="amw-color-picker__palette-grid">
               @for (color of paletteColors(); track color) {
-                <amw-button
-                  [icon]="selectedColor() === color ? 'check' : ''"
+                <button
+                  type="button"
                   class="amw-color-picker__color-button"
                   [class.amw-color-picker__color-button--selected]="selectedColor() === color"
                   [style.background-color]="color"
                   [title]="color"
                   (click)="selectColor(color)"
                   [disabled]="isDisabled">
-                </amw-button>
+                  @if (selectedColor() === color) {
+                    <amw-icon name="check" size="sm"></amw-icon>
+                  }
+                </button>
               }
             </div>
           </div>

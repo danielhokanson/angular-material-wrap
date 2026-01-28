@@ -10,7 +10,7 @@ import {
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { MatCardModule } from '@angular/material/card';
-import { MatIconModule } from '@angular/material/icon';
+import { AmwIconComponent } from '../../../components/components/amw-icon/amw-icon.component';
 import { MatDividerModule } from '@angular/material/divider';
 import { MatExpansionModule } from '@angular/material/expansion';
 import { MatBadgeModule } from '@angular/material/badge';
@@ -70,7 +70,7 @@ import { AmwProgressSpinnerComponent } from '../../../components/components/amw-
     CommonModule,
     FormsModule,
     MatCardModule,
-    MatIconModule,
+    AmwIconComponent,
     MatDividerModule,
     AmwProgressSpinnerComponent,
     MatExpansionModule,

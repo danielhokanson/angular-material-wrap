@@ -1,12 +1,14 @@
 import { Component, OnDestroy, signal, ViewEncapsulation } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
-import { MatCardModule } from '@angular/material/card';
 import { AmwEventBusService, BusEvent } from '../../../../library/src/services/amw-event-bus/amw-event-bus.service';
 import { AmwCardComponent } from '../../../../library/src/components/components/amw-card/amw-card.component';
 import { AmwButtonComponent } from '../../../../library/src/controls/components/amw-button/amw-button.component';
 import { AmwInputComponent } from '../../../../library/src/controls/components/amw-input/amw-input.component';
-import { AmwDemoDocComponent } from '../../shared/components/demo-doc/demo-doc.component';
+import { AmwTabsComponent } from '../../../../library/src/components/components/amw-tabs/amw-tabs.component';
+import { AmwTabComponent } from '../../../../library/src/components/components/amw-tabs/amw-tab.component';
+import { AmwApiDocComponent } from '../../shared/components/api-doc/api-doc.component';
+import { ApiDocumentation } from '../../components/base/base-api.component';
 
 interface EventLogEntry {
     timestamp: Date;
@@ -20,184 +22,184 @@ interface EventLogEntry {
     imports: [
         CommonModule,
         FormsModule,
-        MatCardModule,
         AmwCardComponent,
         AmwButtonComponent,
         AmwInputComponent,
-        AmwDemoDocComponent
+        AmwTabsComponent,
+        AmwTabComponent,
+        AmwApiDocComponent
     ],
     encapsulation: ViewEncapsulation.None,
     template: `
-        <amw-demo-doc
-            title="Event Bus Service"
-            description="A lightweight pub/sub event bus for decoupled component communication.">
-
-            <h3>Interactive Demo</h3>
-            <p>Publish events and see them being received by subscribers.</p>
-
-            <div class="demo-grid">
-                <amw-card class="demo-card">
-                    <mat-card-header>
-                        <h4>Publisher</h4>
-                    </mat-card-header>
-                    <mat-card-content>
-                        <div class="publisher-form">
-                            <amw-input
-                                label="Event Type"
-                                [(ngModel)]="eventType"
-                                hint="e.g., user:login, cart:updated" />
-
-                            <amw-input
-                                label="Payload (JSON)"
-                                [(ngModel)]="eventPayload"
-                                hint='e.g., {"user": "john"}' />
-
-                            <div class="button-row">
-                                <amw-button
-                                    appearance="filled"
-                                    (buttonClick)="publishEvent()">
-                                    Publish Event
-                                </amw-button>
-                                <amw-button
-                                    appearance="outlined"
-                                    (buttonClick)="emitObject()">
-                                    Emit Object
-                                </amw-button>
-                            </div>
-                        </div>
-
-                        <h5>Quick Events</h5>
-                        <div class="quick-events">
-                            <amw-button
-                                appearance="outlined"
-                                color="primary"
-                                (buttonClick)="publishQuickEvent('user:login', { username: 'john_doe' })">
-                                User Login
-                            </amw-button>
-                            <amw-button
-                                appearance="outlined"
-                                color="accent"
-                                (buttonClick)="publishQuickEvent('cart:updated', { items: 3, total: 99.99 })">
-                                Cart Updated
-                            </amw-button>
-                            <amw-button
-                                appearance="outlined"
-                                color="warn"
-                                (buttonClick)="publishQuickEvent('notification:error', { message: 'Something went wrong' })">
-                                Error Event
-                            </amw-button>
-                        </div>
-                    </mat-card-content>
-                </amw-card>
-
-                <amw-card class="demo-card">
-                    <mat-card-header>
-                        <h4>Subscriber</h4>
-                    </mat-card-header>
-                    <mat-card-content>
-                        <div class="subscriber-controls">
-                            <amw-input
-                                label="Subscribe to Event Type"
-                                [(ngModel)]="subscribeType"
-                                hint="Leave empty to subscribe to all" />
-
-                            <div class="button-row">
-                                <amw-button
-                                    appearance="filled"
-                                    (buttonClick)="subscribe()">
-                                    Subscribe
-                                </amw-button>
-                                <amw-button
-                                    appearance="outlined"
-                                    (buttonClick)="unsubscribeAll()">
-                                    Unsubscribe All
-                                </amw-button>
-                            </div>
-                        </div>
-
-                        <h5>Active Subscriptions</h5>
-                        <div class="subscriptions-list">
-                            @if (subscriptions().length === 0) {
-                                <p class="empty-text">No active subscriptions</p>
-                            }
-                            @for (sub of subscriptions(); track sub) {
-                                <div class="subscription-item">
-                                    <span>{{ sub || 'All Events' }}</span>
-                                    <button class="remove-btn" (click)="unsubscribe(sub)">x</button>
-                                </div>
-                            }
-                        </div>
-                    </mat-card-content>
-                </amw-card>
+        <div class="event-bus-demo-page">
+            <div class="event-bus-demo-page__header">
+                <h1>Event Bus Service</h1>
+                <p>A lightweight pub/sub event bus for decoupled component communication.</p>
             </div>
 
-            <amw-card class="demo-card">
-                <mat-card-header>
-                    <h4>Event Log</h4>
-                    <amw-button
-                        appearance="text"
-                        (buttonClick)="clearLog()">
-                        Clear
-                    </amw-button>
-                </mat-card-header>
-                <mat-card-content>
-                    <div class="event-log">
-                        @if (eventLog().length === 0) {
-                            <p class="empty-text">No events received yet. Subscribe to an event type and publish events to see them here.</p>
-                        }
-                        @for (entry of eventLog(); track entry.timestamp) {
-                            <div class="log-entry">
-                                <span class="log-time">{{ entry.timestamp | date:'HH:mm:ss.SSS' }}</span>
-                                <span class="log-type">{{ entry.type }}</span>
-                                <span class="log-payload">{{ entry.payload | json }}</span>
-                            </div>
-                        }
-                    </div>
-                </mat-card-content>
-            </amw-card>
+            <amw-card>
+                <ng-template #cardContent>
+                    <amw-tabs>
+                        <amw-tab label="Demo" icon="play_arrow">
+                            <h3>Interactive Demo</h3>
+                            <p>Publish events and see them being received by subscribers.</p>
 
-            <amw-card class="demo-card">
-                <mat-card-header>
-                    <h4>Statistics</h4>
-                </mat-card-header>
-                <mat-card-content>
-                    <div class="stats-grid">
-                        <div class="stat-item">
-                            <span class="stat-value">{{ statistics().totalEvents }}</span>
-                            <span class="stat-label">Events Published</span>
-                        </div>
-                        <div class="stat-item">
-                            <span class="stat-value">{{ statistics().activeEventTypes }}</span>
-                            <span class="stat-label">Event Types</span>
-                        </div>
-                        <div class="stat-item">
-                            <span class="stat-value">{{ statistics().totalSubscribers }}</span>
-                            <span class="stat-label">Active Subscribers</span>
-                        </div>
-                        <div class="stat-item">
-                            <span class="stat-value">{{ activeEventTypes().length }}</span>
-                            <span class="stat-label">Event Types</span>
-                        </div>
-                    </div>
-                    <div class="event-types">
-                        <h5>Active Event Types:</h5>
-                        @if (activeEventTypes().length === 0) {
-                            <p class="empty-text">No active event types</p>
-                        } @else {
-                            <div class="type-list">
-                                @for (type of activeEventTypes(); track type) {
-                                    <span class="type-badge">
-                                        {{ type }} ({{ eventBus.getSubscriberCount(type) }})
-                                    </span>
-                                }
-                            </div>
-                        }
-                    </div>
-                </mat-card-content>
-            </amw-card>
+                            <div class="demo-grid">
+                                <amw-card headerTitle="Publisher" class="demo-card">
+                                    <ng-template #cardContent>
+                                        <div class="publisher-form">
+                                            <amw-input
+                                                label="Event Type"
+                                                [(ngModel)]="eventType"
+                                                hint="e.g., user:login, cart:updated" />
 
-            <h3>Code Examples</h3>
-            <pre><code>import {{ '{' }} AmwEventBusService {{ '}' }} from '&#64;anthropic/angular-material-wrap';
+                                            <amw-input
+                                                label="Payload (JSON)"
+                                                [(ngModel)]="eventPayload"
+                                                hint='e.g., {"user": "john"}' />
+
+                                            <div class="button-row">
+                                                <amw-button
+                                                    appearance="filled"
+                                                    (buttonClick)="publishEvent()">
+                                                    Publish Event
+                                                </amw-button>
+                                                <amw-button
+                                                    appearance="outlined"
+                                                    (buttonClick)="emitObject()">
+                                                    Emit Object
+                                                </amw-button>
+                                            </div>
+                                        </div>
+
+                                        <h5>Quick Events</h5>
+                                        <div class="quick-events">
+                                            <amw-button
+                                                appearance="outlined"
+                                                color="primary"
+                                                (buttonClick)="publishQuickEvent('user:login', { username: 'john_doe' })">
+                                                User Login
+                                            </amw-button>
+                                            <amw-button
+                                                appearance="outlined"
+                                                color="accent"
+                                                (buttonClick)="publishQuickEvent('cart:updated', { items: 3, total: 99.99 })">
+                                                Cart Updated
+                                            </amw-button>
+                                            <amw-button
+                                                appearance="outlined"
+                                                color="warn"
+                                                (buttonClick)="publishQuickEvent('notification:error', { message: 'Something went wrong' })">
+                                                Error Event
+                                            </amw-button>
+                                        </div>
+                                    </ng-template>
+                                </amw-card>
+
+                                <amw-card headerTitle="Subscriber" class="demo-card">
+                                    <ng-template #cardContent>
+                                        <div class="subscriber-controls">
+                                            <amw-input
+                                                label="Subscribe to Event Type"
+                                                [(ngModel)]="subscribeType"
+                                                hint="Leave empty to subscribe to all" />
+
+                                            <div class="button-row">
+                                                <amw-button
+                                                    appearance="filled"
+                                                    (buttonClick)="subscribe()">
+                                                    Subscribe
+                                                </amw-button>
+                                                <amw-button
+                                                    appearance="outlined"
+                                                    (buttonClick)="unsubscribeAll()">
+                                                    Unsubscribe All
+                                                </amw-button>
+                                            </div>
+                                        </div>
+
+                                        <h5>Active Subscriptions</h5>
+                                        <div class="subscriptions-list">
+                                            @if (subscriptions().length === 0) {
+                                                <p class="empty-text">No active subscriptions</p>
+                                            }
+                                            @for (sub of subscriptions(); track sub) {
+                                                <div class="subscription-item">
+                                                    <span>{{ sub || 'All Events' }}</span>
+                                                    <button class="remove-btn" (click)="unsubscribe(sub)">x</button>
+                                                </div>
+                                            }
+                                        </div>
+                                    </ng-template>
+                                </amw-card>
+                            </div>
+
+                            <amw-card headerTitle="Event Log" class="demo-card">
+                                <ng-template #cardContent>
+                                    <div style="display: flex; justify-content: flex-end; margin-bottom: 8px;">
+                                        <amw-button
+                                            appearance="text"
+                                            (buttonClick)="clearLog()">
+                                            Clear
+                                        </amw-button>
+                                    </div>
+                                    <div class="event-log">
+                                        @if (eventLog().length === 0) {
+                                            <p class="empty-text">No events received yet. Subscribe to an event type and publish events to see them here.</p>
+                                        }
+                                        @for (entry of eventLog(); track entry.timestamp) {
+                                            <div class="log-entry">
+                                                <span class="log-time">{{ entry.timestamp | date:'HH:mm:ss.SSS' }}</span>
+                                                <span class="log-type">{{ entry.type }}</span>
+                                                <span class="log-payload">{{ entry.payload | json }}</span>
+                                            </div>
+                                        }
+                                    </div>
+                                </ng-template>
+                            </amw-card>
+
+                            <amw-card headerTitle="Statistics" class="demo-card">
+                                <ng-template #cardContent>
+                                    <div class="stats-grid">
+                                        <div class="stat-item">
+                                            <span class="stat-value">{{ statistics().totalEvents }}</span>
+                                            <span class="stat-label">Events Published</span>
+                                        </div>
+                                        <div class="stat-item">
+                                            <span class="stat-value">{{ statistics().activeEventTypes }}</span>
+                                            <span class="stat-label">Event Types</span>
+                                        </div>
+                                        <div class="stat-item">
+                                            <span class="stat-value">{{ statistics().totalSubscribers }}</span>
+                                            <span class="stat-label">Active Subscribers</span>
+                                        </div>
+                                        <div class="stat-item">
+                                            <span class="stat-value">{{ activeEventTypes().length }}</span>
+                                            <span class="stat-label">Event Types</span>
+                                        </div>
+                                    </div>
+                                    <div class="event-types">
+                                        <h5>Active Event Types:</h5>
+                                        @if (activeEventTypes().length === 0) {
+                                            <p class="empty-text">No active event types</p>
+                                        } @else {
+                                            <div class="type-list">
+                                                @for (type of activeEventTypes(); track type) {
+                                                    <span class="type-badge">
+                                                        {{ type }} ({{ eventBus.getSubscriberCount(type) }})
+                                                    </span>
+                                                }
+                                            </div>
+                                        }
+                                    </div>
+                                </ng-template>
+                            </amw-card>
+                        </amw-tab>
+
+                        <amw-tab label="Code" icon="code">
+                            <div class="code-content">
+                                <h3>Code Examples</h3>
+                                <pre><code>import {{ '{' }} AmwEventBusService {{ '}' }} from '&#64;anthropic/angular-material-wrap';
 
 &#64;Component({{ '{' }}...{{ '}' }})
 export class MyComponent implements OnDestroy {{ '{' }}
@@ -239,83 +241,46 @@ export class MyComponent implements OnDestroy {{ '{' }}
     this.eventBus.emit(cart);
   {{ '}' }}
 {{ '}' }}</code></pre>
+                            </div>
+                        </amw-tab>
 
-            <h3>API Reference</h3>
-            <table class="api-table">
-                <thead>
-                    <tr>
-                        <th>Method</th>
-                        <th>Returns</th>
-                        <th>Description</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <tr>
-                        <td><code>publish(event)</code></td>
-                        <td>void</td>
-                        <td>Publish an event with type and payload</td>
-                    </tr>
-                    <tr>
-                        <td><code>emit(object)</code></td>
-                        <td>void</td>
-                        <td>Emit an object (uses constructor name as type)</td>
-                    </tr>
-                    <tr>
-                        <td><code>on&lt;T&gt;(type)</code></td>
-                        <td>Observable&lt;T&gt;</td>
-                        <td>Subscribe to events of a specific type</td>
-                    </tr>
-                    <tr>
-                        <td><code>all()</code></td>
-                        <td>Observable&lt;BusEvent&gt;</td>
-                        <td>Subscribe to all events</td>
-                    </tr>
-                    <tr>
-                        <td><code>subscribe(type, handler)</code></td>
-                        <td>() => void</td>
-                        <td>Subscribe with callback, returns unsubscribe function</td>
-                    </tr>
-                    <tr>
-                        <td><code>unsubscribe(type, handler)</code></td>
-                        <td>void</td>
-                        <td>Manually unsubscribe a handler</td>
-                    </tr>
-                    <tr>
-                        <td><code>getSubscriberCount(type)</code></td>
-                        <td>number</td>
-                        <td>Get count of subscribers for an event type</td>
-                    </tr>
-                    <tr>
-                        <td><code>hasSubscribers(type)</code></td>
-                        <td>boolean</td>
-                        <td>Check if event type has subscribers</td>
-                    </tr>
-                    <tr>
-                        <td><code>getActiveEventTypes()</code></td>
-                        <td>string[]</td>
-                        <td>Get list of event types with subscribers</td>
-                    </tr>
-                    <tr>
-                        <td><code>getStatistics()</code></td>
-                        <td>EventBusStatistics</td>
-                        <td>Get usage statistics</td>
-                    </tr>
-                    <tr>
-                        <td><code>clearSubscribers(type)</code></td>
-                        <td>void</td>
-                        <td>Clear all subscribers for an event type</td>
-                    </tr>
-                    <tr>
-                        <td><code>clearAllSubscribers()</code></td>
-                        <td>void</td>
-                        <td>Clear all subscribers</td>
-                    </tr>
-                </tbody>
-            </table>
-
-        </amw-demo-doc>
+                        <amw-tab label="API" icon="description">
+                            <div class="api-content">
+                                <amw-api-doc
+                                    componentName="Event Bus Service"
+                                    [apiDocumentation]="eventBusApiDoc"
+                                    description="A lightweight pub/sub event bus for decoupled component communication.">
+                                </amw-api-doc>
+                            </div>
+                        </amw-tab>
+                    </amw-tabs>
+                </ng-template>
+            </amw-card>
+        </div>
     `,
     styles: [`
+        .event-bus-demo-page {
+            padding: 24px;
+            max-width: 1400px;
+            margin: 0 auto;
+
+            &__header {
+                margin-bottom: 24px;
+                h1 { margin: 0 0 8px 0; }
+                p { margin: 0; }
+            }
+        }
+
+        .code-content {
+            padding: 20px 0;
+
+            h3 { margin-top: 0; }
+        }
+
+        .api-content {
+            padding: 20px 0;
+        }
+
         .demo-grid {
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
@@ -325,12 +290,6 @@ export class MyComponent implements OnDestroy {{ '{' }}
 
         .demo-card {
             margin-bottom: 24px;
-
-            mat-card-header {
-                display: flex;
-                justify-content: space-between;
-                align-items: center;
-            }
         }
 
         .publisher-form,
@@ -468,30 +427,6 @@ export class MyComponent implements OnDestroy {{ '{' }}
             font-size: 13px;
         }
 
-        .api-table {
-            width: 100%;
-            border-collapse: collapse;
-            margin-top: 16px;
-
-            th, td {
-                padding: 12px;
-                text-align: left;
-                border-bottom: 1px solid var(--md-sys-color-outline-variant, #cac4d0);
-            }
-
-            th {
-                background: var(--md-sys-color-surface-container, #f3edf7);
-                font-weight: 500;
-            }
-
-            code {
-                background: var(--md-sys-color-surface-container-high, #ece6f0);
-                padding: 2px 6px;
-                border-radius: 4px;
-                font-size: 13px;
-            }
-        }
-
         pre {
             background: var(--md-sys-color-surface-container, #f3edf7);
             padding: 16px;
@@ -515,6 +450,31 @@ export class EventBusDemoComponent implements OnDestroy {
 
     private unsubscribeFunctions: Map<string, () => void> = new Map();
     private allEventsUnsubscribe?: () => void;
+
+    eventBusApiDoc: ApiDocumentation = {
+        methods: [
+            { name: 'publish(event: BusEvent)', returns: 'void', description: 'Publish an event with type and payload' },
+            { name: 'emit(object: any)', returns: 'void', description: 'Emit an object (uses constructor name as type)' },
+            { name: 'on<T>(type: string)', returns: 'Observable<T>', description: 'Subscribe to events of a specific type' },
+            { name: 'all()', returns: 'Observable<BusEvent>', description: 'Subscribe to all events' },
+            { name: 'subscribe(type: string, handler: Function)', returns: '() => void', description: 'Subscribe with callback, returns unsubscribe function' },
+            { name: 'unsubscribe(type: string, handler: Function)', returns: 'void', description: 'Manually unsubscribe a handler' },
+            { name: 'getSubscriberCount(type: string)', returns: 'number', description: 'Get count of subscribers for an event type' },
+            { name: 'hasSubscribers(type: string)', returns: 'boolean', description: 'Check if event type has subscribers' },
+            { name: 'getActiveEventTypes()', returns: 'string[]', description: 'Get list of event types with subscribers' },
+            { name: 'getStatistics()', returns: 'EventBusStatistics', description: 'Get usage statistics' },
+            { name: 'clearSubscribers(type: string)', returns: 'void', description: 'Clear all subscribers for an event type' },
+            { name: 'clearAllSubscribers()', returns: 'void', description: 'Clear all subscribers' }
+        ],
+        usageNotes: [
+            'Inject the service: constructor(public eventBus: AmwEventBusService)',
+            'Use publish() to emit typed events with payloads',
+            'Use on<T>() for RxJS Observable-based subscriptions',
+            'Use subscribe() for callback-based subscriptions (returns unsubscribe function)',
+            'Remember to unsubscribe in ngOnDestroy to avoid memory leaks',
+            'Use emit() to emit plain objects using their constructor name as the event type'
+        ]
+    };
 
     constructor(public eventBus: AmwEventBusService) {}
 

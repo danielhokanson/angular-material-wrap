@@ -16,6 +16,6 @@
             [color]="color() || 'primary'">
         </amw-progress-spinner>
     } @else {
-        <mat-icon>{{ icon() }}</mat-icon>
+        <amw-icon [name]="icon()"></amw-icon>
     }
 </button>

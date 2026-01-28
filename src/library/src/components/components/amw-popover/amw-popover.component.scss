@@ -119,68 +119,69 @@
     }
   }
 
-  // Speech Bubble Content Container
+  // Speech Bubble Content Container - z-index 1 so it paints above the arrow
   &__bubble-content {
-    background: var(--mdc-theme-surface, #ffffff) !important;
-    border: 1px solid var(--mdc-theme-outline-variant, #e0e0e0) !important;
+    background: var(--mdc-theme-surface) !important;
+    border: 1px solid var(--mdc-theme-outline-variant) !important;
     border-radius: 16px !important;
     box-shadow: 0 8px 24px rgba(0, 0, 0, 0.12), 0 4px 8px rgba(0, 0, 0, 0.08) !important;
     overflow: visible !important;
     position: relative !important;
+    z-index: 1 !important;
   }
 
-  // Arrow elements
+  // Arrow - rotated square, sibling of bubble-content.
+  // Paints below bubble-content (DOM order) so the inner half is covered.
   &__arrow {
     position: absolute !important;
-    width: 0 !important;
-    height: 0 !important;
-    border-style: solid !important;
-    z-index: 1;
-    background: transparent !important;
-    background-color: transparent !important;
-    padding: 0 !important;
-    margin: 0 !important;
-    content: none !important;
+    width: 16px !important;
+    height: 16px !important;
+    background: var(--mdc-theme-surface) !important;
+    border: 1px solid var(--mdc-theme-outline-variant) !important;
+    transform: rotate(45deg) !important;
+    z-index: 0 !important;
     display: block !important;
     box-sizing: border-box !important;
+    padding: 0 !important;
+    margin: 0 !important;
     outline: none !important;
-    border-image: none !important;
+    border-radius: 0 !important;
     box-shadow: none !important;
 
-    // Arrow pointing up (when popover is below trigger)
+    // Arrow pointing up (popover below trigger)
     &--up {
-      top: -12px;
+      top: -8px;
       left: 50%;
-      transform: translateX(-50%);
-      border-width: 0 12px 12px 12px !important;
-      border-color: transparent transparent var(--mdc-theme-surface, #ffffff) transparent !important;
+      transform: translateX(-50%) rotate(45deg) !important;
+      border-right-color: transparent !important;
+      border-bottom-color: transparent !important;
     }
 
-    // Arrow pointing down (when popover is above trigger)
+    // Arrow pointing down (popover above trigger)
     &--down {
-      bottom: -12px;
+      bottom: -8px;
       left: 50%;
-      transform: translateX(-50%);
-      border-width: 12px 12px 0 12px !important;
-      border-color: var(--mdc-theme-surface, #ffffff) transparent transparent transparent !important;
+      transform: translateX(-50%) rotate(45deg) !important;
+      border-left-color: transparent !important;
+      border-top-color: transparent !important;
     }
 
-    // Arrow pointing left (when popover is to the right of trigger)
+    // Arrow pointing left (popover to right of trigger)
     &--left {
-      left: -12px;
+      left: -8px;
       top: 50%;
-      transform: translateY(-50%);
-      border-width: 12px 12px 12px 0 !important;
-      border-color: transparent var(--mdc-theme-surface, #ffffff) transparent transparent !important;
+      transform: translateY(-50%) rotate(45deg) !important;
+      border-top-color: transparent !important;
+      border-right-color: transparent !important;
     }
 
-    // Arrow pointing right (when popover is to the left of trigger)
+    // Arrow pointing right (popover to left of trigger)
     &--right {
-      right: -12px;
+      right: -8px;
       top: 50%;
-      transform: translateY(-50%);
-      border-width: 12px 0 12px 12px !important;
-      border-color: transparent transparent transparent var(--mdc-theme-surface, #ffffff) !important;
+      transform: translateY(-50%) rotate(45deg) !important;
+      border-bottom-color: transparent !important;
+      border-left-color: transparent !important;
     }
   }
 

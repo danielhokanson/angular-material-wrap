@@ -1,7 +1,7 @@
 <div class="amw-data-table"
   [class]="'amw-data-table--' + (config()?.density || 'comfortable')"
   role="table"
-  [attr.aria-label]="'Data table'"
+  [attr.aria-label]="ariaLabel()"
   [attr.aria-rowcount]="pagination.length"
   [attr.aria-colcount]="displayedColumns.length">
 
@@ -29,7 +29,7 @@
                   [(ngModel)]="globalFilter"
                   (ngModelChange)="onGlobalFilterChange()"
                   placeholder="Search all columns...">
-                <mat-icon matSuffix>search</mat-icon>
+                <amw-icon name="search" matSuffix></amw-icon>
               </mat-form-field>
             </div>
           }
@@ -37,25 +37,29 @@
           <div class="amw-data-table__actions">
             @if (config()?.showRefresh !== false) {
               <amw-button
-                                icon="refresh"
+                appearance="icon"
+                icon="refresh"
                 amwTooltip="Refresh">
               </amw-button>
             }
             @if (config()?.showColumnVisibility !== false) {
               <amw-button
-                                icon="view_column"
+                appearance="icon"
+                icon="view_column"
                 amwTooltip="Column Visibility">
               </amw-button>
             }
             @if (config()?.showExport !== false) {
               <amw-button
-                                icon="download"
+                appearance="icon"
+                icon="download"
                 amwTooltip="Export">
               </amw-button>
             }
             @if (config()?.showSettings !== false) {
               <amw-button
-                                icon="settings"
+                appearance="icon"
+                icon="settings"
                 amwTooltip="Settings">
               </amw-button>
             }
@@ -70,7 +74,7 @@
           (matSortChange)="onSortChange($event)"
           class="amw-data-table__table"
           role="table"
-          [attr.aria-label]="'Data table'"
+          [attr.aria-label]="ariaLabel()"
           [attr.aria-rowcount]="pagination.length"
           [attr.aria-colcount]="displayedColumns.length">
           <!-- Selection Column -->
@@ -115,13 +119,13 @@
                 [attr.aria-describedby]="column.tooltip ? 'column-' + column.property + '-description' : null">
                 {{ column.label }}
                 @if (column.tooltip) {
-                  <mat-icon
+                  <amw-icon
+                    name="help_outline"
                     amwTooltip="{{ column.tooltip }}"
                     class="amw-data-table__header-tooltip"
                     [id]="'column-' + column.property + '-description'"
                     [attr.aria-label]="'More information about ' + column.label">
-                    help_outline
-                  </mat-icon>
+                  </amw-icon>
                 }
               </th>
               <td
@@ -213,13 +217,15 @@
                       <!-- Field action buttons -->
                       <div class="amw-data-table__field-actions">
                         <amw-button
-                                                    icon="check"
+                          appearance="icon"
+                          icon="check"
                           (click)="saveFieldEditing(row, i, column.property)"
                           amwTooltip="Save changes"
                           class="amw-data-table__field-action">
                         </amw-button>
                         <amw-button
-                                                    icon="close"
+                          appearance="icon"
+                          icon="close"
                           (click)="cancelFieldEditing(row, i, column.property)"
                           amwTooltip="Cancel changes"
                           class="amw-data-table__field-action">
@@ -236,7 +242,8 @@
                     <span [innerHTML]="getFormattedCellValue(row, column.property)"></span>
                     @if (column.editable) {
                       <amw-button
-                                                icon="edit"
+                        appearance="icon"
+                        icon="edit"
                         class="amw-data-table__edit-icon"
                         (click)="startFieldEditing(row, i, column.property, $event)"
                         amwTooltip="Edit field">
@@ -256,14 +263,16 @@
                   <!-- Edit/Save/Cancel buttons -->
                   @if (config()?.editable && !isRowEditing(row) && !hasCustomEditAction()) {
                     <amw-button
-                                            icon="edit"
+                      appearance="icon"
+                      icon="edit"
                       amwTooltip="Edit row"
                       (click)="startEditing(row, i)">
                     </amw-button>
                   }
                   @if (config()?.editable && isRowEditing(row)) {
                     <amw-button
-                                            icon="save"
+                      appearance="icon"
+                      icon="save"
                       color="primary"
                       amwTooltip="Save changes"
                       (click)="saveEditing()">
@@ -271,7 +280,8 @@
                   }
                   @if (config()?.editable && isRowEditing(row)) {
                     <amw-button
-                                            icon="cancel"
+                      appearance="icon"
+                      icon="cancel"
                       amwTooltip="Cancel editing"
                       (click)="cancelEditing()">
                     </amw-button>
@@ -280,7 +290,8 @@
                   @if (!isRowEditing(row)) {
                     @for (action of getRowActions(row, i); track action) {
                       <amw-button
-                                                [icon]="action.icon"
+                        [appearance]="action.icon ? 'icon' : 'text'"
+                        [icon]="action.icon"
                         [disabled]="isActionDisabled(action, row, i)"
                         [amwTooltip]="action.tooltip || action.label"
                         [class]="action.cssClass"
@@ -309,7 +320,7 @@
             <tr class="amw-data-table__no-data-row">
               <td [colSpan]="displayedColumns.length" class="amw-data-table__no-data-cell">
                 <div class="amw-data-table__no-data">
-                  <mat-icon class="amw-data-table__no-data-icon">inbox</mat-icon>
+                  <amw-icon name="inbox" class="amw-data-table__no-data-icon"></amw-icon>
                   <p class="amw-data-table__no-data-message">{{ emptyMessage() }}</p>
                 </div>
               </td>

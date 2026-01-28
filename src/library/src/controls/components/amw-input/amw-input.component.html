@@ -19,7 +19,7 @@
 
     <!-- Start Icon -->
     @if (startIcon()) {
-      <mat-icon matPrefix class="amw-input__start-icon">{{ startIcon() }}</mat-icon>
+      <amw-icon [name]="startIcon()" matPrefix class="amw-input__start-icon"></amw-icon>
     }
 
     <!-- Prefix Text -->
@@ -95,7 +95,7 @@
 
     <!-- End Icon -->
     @if (endIcon()) {
-      <mat-icon matSuffix class="amw-input__end-icon">{{ endIcon() }}</mat-icon>
+      <amw-icon [name]="endIcon()" matSuffix class="amw-input__end-icon"></amw-icon>
     }
 
     <!-- Clear Button -->

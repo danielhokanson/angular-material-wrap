@@ -15,7 +15,7 @@
 
     <!-- Leading icon -->
     @if (icon() && !avatar()) {
-        <mat-icon matChipLeading class="amw-chip__icon">{{ icon() }}</mat-icon>
+        <amw-icon [name]="icon()" matChipLeading class="amw-chip__icon"></amw-icon>
     }
 
     <!-- Chip label -->
@@ -29,7 +29,7 @@
             class="amw-chip__remove"
             [disabled]="disabled()"
             [attr.aria-label]="'Remove ' + label()">
-            <mat-icon>cancel</mat-icon>
+            <amw-icon name="cancel"></amw-icon>
         </button>
     }
 </mat-chip>

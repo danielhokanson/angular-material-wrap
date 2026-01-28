@@ -4,7 +4,7 @@
     [disabled]="disabled()"
     [attr.aria-label]="ariaLabel()">
     @if (icon()) {
-        <mat-icon>{{ icon() }}</mat-icon>
+        <amw-icon [name]="icon()"></amw-icon>
     }
     <ng-content></ng-content>
 </mat-button-toggle>

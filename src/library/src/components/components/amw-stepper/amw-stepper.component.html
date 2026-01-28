@@ -26,8 +26,8 @@
         
         <!-- Step Icon -->
         <div class="amw-stepper__step-icon" *ngIf="currentConfig().showIcons">
-          <mat-icon *ngIf="step.icon && !isStepCompleted(i)">{{ step.icon }}</mat-icon>
-          <mat-icon *ngIf="isStepCompleted(i)">check</mat-icon>
+          <amw-icon *ngIf="step.icon && !isStepCompleted(i)" [name]="step.icon"></amw-icon>
+          <amw-icon *ngIf="isStepCompleted(i)" name="check"></amw-icon>
           <span *ngIf="!step.icon && !isStepCompleted(i)" class="amw-stepper__step-number">{{ i + 1 }}</span>
         </div>
 
@@ -44,8 +44,8 @@
 
         <!-- Step Status Indicator -->
         <div class="amw-stepper__step-status">
-          <mat-icon *ngIf="isStepCompleted(i)" class="amw-stepper__step-check">check</mat-icon>
-          <mat-icon *ngIf="step.isValid === false" class="amw-stepper__step-error">error</mat-icon>
+          <amw-icon *ngIf="isStepCompleted(i)" name="check" class="amw-stepper__step-check"></amw-icon>
+          <amw-icon *ngIf="step.isValid === false" name="error" class="amw-stepper__step-error"></amw-icon>
         </div>
       </div>
     </div>
@@ -131,7 +131,7 @@
   <!-- Stepper Completion -->
   <div class="amw-stepper__completion" *ngIf="isCompleting()">
     <div class="amw-stepper__completion-content">
-      <mat-icon class="amw-stepper__completion-icon">check_circle</mat-icon>
+      <amw-icon name="check_circle" class="amw-stepper__completion-icon"></amw-icon>
       <h3>Stepper Completed!</h3>
       <p>All steps have been completed successfully.</p>
       <amw-button appearance="text" (click)="resetStepper()">

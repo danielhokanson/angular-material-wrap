@@ -13,56 +13,58 @@
   @if (visibleErrors().length > 0) {
     <!-- Summary Mode -->
     @if (showSummary()) {
-      <mat-card
+      <amw-card
         class="amw-form-validation__summary"
         [class.amw-form-validation__summary--elevated]="appearance() === 'elevated'"
         [class.amw-form-validation__summary--flat]="appearance() === 'flat'">
 
-        <mat-card-header class="amw-form-validation__summary-header">
-          <mat-icon class="amw-form-validation__summary-icon">error_outline</mat-icon>
-          <mat-card-title class="amw-form-validation__summary-title">
-            Please correct the following {{ visibleErrors().length === 1 ? 'error' : 'errors' }}:
-          </mat-card-title>
-          @if (collapsible()) {
-            <amw-button
-              [icon]="collapsed() ? 'expand_more' : 'expand_less'"
-              class="amw-form-validation__collapse-button"
-              (click)="toggleCollapse()"
-              [attr.aria-label]="collapsed() ? 'Expand errors' : 'Collapse errors'">
-            </amw-button>
-          }
-        </mat-card-header>
+        <ng-template #cardHeader>
+          <div class="amw-form-validation__summary-header">
+            <amw-icon name="error_outline" class="amw-form-validation__summary-icon"></amw-icon>
+            <span class="amw-form-validation__summary-title">
+              Please correct the following {{ visibleErrors().length === 1 ? 'error' : 'errors' }}:
+            </span>
+            @if (collapsible()) {
+              <amw-button
+                [icon]="collapsed() ? 'expand_more' : 'expand_less'"
+                class="amw-form-validation__collapse-button"
+                (click)="toggleCollapse()"
+                [attr.aria-label]="collapsed() ? 'Expand errors' : 'Collapse errors'">
+              </amw-button>
+            }
+          </div>
+        </ng-template>
 
-        @if (!collapsed()) {
-          <mat-card-content class="amw-form-validation__summary-content">
-            <ul class="amw-form-validation__error-list">
-              @for (error of visibleErrors(); track error.key) {
-                <li
-                  class="amw-form-validation__error-item"
-                  [class.amw-form-validation__error-item--error]="error.severity === 'error' || !error.severity"
-                  [class.amw-form-validation__error-item--warning]="error.severity === 'warning'"
-                  [class.amw-form-validation__error-item--info]="error.severity === 'info'"
-                  [class]="error.customClass || ''"
-                  (click)="onErrorClick(error)"
-                  (keydown.enter)="onErrorClick(error)"
-                  (keydown.space)="onErrorClick(error); $event.preventDefault()"
-                  tabindex="0"
-                  role="button"
-                  [attr.aria-label]="'Navigate to ' + (error.affectedFields?.join(' and ') || 'field')">
-                  @if (showSeverityIcon()) {
-                    <mat-icon class="amw-form-validation__error-icon">
-                      {{ getSeverityIcon(error.severity) }}
-                    </mat-icon>
-                  }
-                  <span class="amw-form-validation__error-message">
-                    {{ getErrorMessage(error) }}
-                  </span>
-                </li>
-              }
-            </ul>
-          </mat-card-content>
-        }
-      </mat-card>
+        <ng-template #cardContent>
+          @if (!collapsed()) {
+            <div class="amw-form-validation__summary-content">
+              <ul class="amw-form-validation__error-list">
+                @for (error of visibleErrors(); track error.key) {
+                  <li
+                    class="amw-form-validation__error-item"
+                    [class.amw-form-validation__error-item--error]="error.severity === 'error' || !error.severity"
+                    [class.amw-form-validation__error-item--warning]="error.severity === 'warning'"
+                    [class.amw-form-validation__error-item--info]="error.severity === 'info'"
+                    [class]="error.customClass || ''"
+                    (click)="onErrorClick(error)"
+                    (keydown.enter)="onErrorClick(error)"
+                    (keydown.space)="onErrorClick(error); $event.preventDefault()"
+                    tabindex="0"
+                    role="button"
+                    [attr.aria-label]="'Navigate to ' + (error.affectedFields?.join(' and ') || 'field')">
+                    @if (showSeverityIcon()) {
+                      <amw-icon [name]="getSeverityIcon(error.severity)" class="amw-form-validation__error-icon"></amw-icon>
+                    }
+                    <span class="amw-form-validation__error-message">
+                      {{ getErrorMessage(error) }}
+                    </span>
+                  </li>
+                }
+              </ul>
+            </div>
+          }
+        </ng-template>
+      </amw-card>
     }
 
     <!-- Inline Mode -->
@@ -83,9 +85,7 @@
             role="button"
             [attr.aria-label]="'Navigate to ' + (error.affectedFields?.join(' and ') || 'field')">
             @if (showSeverityIcon()) {
-              <mat-icon class="amw-form-validation__inline-icon">
-                {{ getSeverityIcon(error.severity) }}
-              </mat-icon>
+              <amw-icon [name]="getSeverityIcon(error.severity)" class="amw-form-validation__inline-icon"></amw-icon>
             }
             <span class="amw-form-validation__inline-message">
               {{ getErrorMessage(error) }}
@@ -98,42 +98,44 @@
     <!-- Floating Mode -->
     @if (showFloating()) {
       <div class="amw-form-validation__floating">
-        <mat-card class="amw-form-validation__floating-card">
-          <mat-card-header class="amw-form-validation__floating-header">
-            <mat-icon class="amw-form-validation__floating-icon">error_outline</mat-icon>
-            <mat-card-title class="amw-form-validation__floating-title">
-              {{ visibleErrors().length }} validation {{ visibleErrors().length === 1 ? 'error' : 'errors' }}
-            </mat-card-title>
-          </mat-card-header>
+        <amw-card class="amw-form-validation__floating-card">
+          <ng-template #cardHeader>
+            <div class="amw-form-validation__floating-header">
+              <amw-icon name="error_outline" class="amw-form-validation__floating-icon"></amw-icon>
+              <span class="amw-form-validation__floating-title">
+                {{ visibleErrors().length }} validation {{ visibleErrors().length === 1 ? 'error' : 'errors' }}
+              </span>
+            </div>
+          </ng-template>
 
-          <mat-card-content class="amw-form-validation__floating-content">
-            <ul class="amw-form-validation__floating-list">
-              @for (error of visibleErrors(); track error.key) {
-                <li
-                  class="amw-form-validation__floating-item"
-                  [class.amw-form-validation__floating-item--error]="error.severity === 'error' || !error.severity"
-                  [class.amw-form-validation__floating-item--warning]="error.severity === 'warning'"
-                  [class.amw-form-validation__floating-item--info]="error.severity === 'info'"
-                  [class]="error.customClass || ''"
-                  (click)="onErrorClick(error)"
-                  (keydown.enter)="onErrorClick(error)"
-                  (keydown.space)="onErrorClick(error); $event.preventDefault()"
-                  tabindex="0"
-                  role="button"
-                  [attr.aria-label]="'Navigate to ' + (error.affectedFields?.join(' and ') || 'field')">
-                  @if (showSeverityIcon()) {
-                    <mat-icon class="amw-form-validation__floating-error-icon">
-                      {{ getSeverityIcon(error.severity) }}
-                    </mat-icon>
-                  }
-                  <span class="amw-form-validation__floating-message">
-                    {{ getErrorMessage(error) }}
-                  </span>
-                </li>
-              }
-            </ul>
-          </mat-card-content>
-        </mat-card>
+          <ng-template #cardContent>
+            <div class="amw-form-validation__floating-content">
+              <ul class="amw-form-validation__floating-list">
+                @for (error of visibleErrors(); track error.key) {
+                  <li
+                    class="amw-form-validation__floating-item"
+                    [class.amw-form-validation__floating-item--error]="error.severity === 'error' || !error.severity"
+                    [class.amw-form-validation__floating-item--warning]="error.severity === 'warning'"
+                    [class.amw-form-validation__floating-item--info]="error.severity === 'info'"
+                    [class]="error.customClass || ''"
+                    (click)="onErrorClick(error)"
+                    (keydown.enter)="onErrorClick(error)"
+                    (keydown.space)="onErrorClick(error); $event.preventDefault()"
+                    tabindex="0"
+                    role="button"
+                    [attr.aria-label]="'Navigate to ' + (error.affectedFields?.join(' and ') || 'field')">
+                    @if (showSeverityIcon()) {
+                      <amw-icon [name]="getSeverityIcon(error.severity)" class="amw-form-validation__floating-error-icon"></amw-icon>
+                    }
+                    <span class="amw-form-validation__floating-message">
+                      {{ getErrorMessage(error) }}
+                    </span>
+                  </li>
+                }
+              </ul>
+            </div>
+          </ng-template>
+        </amw-card>
       </div>
     }
   }

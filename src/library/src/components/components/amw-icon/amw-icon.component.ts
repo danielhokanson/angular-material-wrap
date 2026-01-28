@@ -115,7 +115,7 @@ export type AmwIconColor = 'primary' | 'accent' | 'warn' | 'inherit';
 })
 export class AmwIconComponent {
     /** The name of the icon to display (from Material Icons font) */
-    readonly name = input('');
+    readonly name = input<string | undefined>('');
 
     /**
      * The color theme of the icon

@@ -1,7 +1,7 @@
 import { Component, signal } from '@angular/core';
 
-import { MatTabsModule } from '@angular/material/tabs';
-import { MatIconModule } from '@angular/material/icon';
+import { AmwTabsComponent } from '../../../components/components/amw-tabs/amw-tabs.component';
+import { AmwTabComponent } from '../../../components/components/amw-tabs/amw-tab.component';
 
 import { AmwThemePickerComponent } from '../theme-picker/theme-picker.component';
 import { AmwThemeEditorComponent } from '../theme-editor/theme-editor.component';
@@ -10,8 +10,8 @@ import { AmwThemeEditorComponent } from '../theme-editor/theme-editor.component'
     selector: 'amw-theme-manager',
     standalone: true,
     imports: [
-    MatTabsModule,
-    MatIconModule,
+    AmwTabsComponent,
+    AmwTabComponent,
     AmwThemePickerComponent,
     AmwThemeEditorComponent
 ],

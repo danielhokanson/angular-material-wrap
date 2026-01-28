@@ -6,21 +6,26 @@
   min-height: 100vh;
   display: flex;
   flex-direction: column;
+  background-color: var(--mdc-theme-surface, #fffbfe);
 
   .demo-header {
-    padding: 24px;
+    padding: 32px 24px;
     text-align: center;
     max-width: 1400px;
     margin: 0 auto;
     width: 100%;
+    background-color: var(--mdc-theme-surface-container-low, #f7f2fa);
+    border-bottom: 1px solid var(--mdc-theme-outline-variant, #cac4d0);
 
     h1 {
       margin: 0 0 8px 0;
+      color: var(--mdc-theme-on-surface, #1c1b1f);
     }
 
     p {
       margin: 0;
       line-height: 1.5;
+      color: var(--mdc-theme-on-surface-variant, #49454f);
     }
   }
 

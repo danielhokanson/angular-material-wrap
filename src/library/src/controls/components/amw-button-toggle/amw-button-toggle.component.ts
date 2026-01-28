@@ -1,7 +1,7 @@
 import { Component, ViewEncapsulation, input, computed } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { MatButtonToggleModule } from '@angular/material/button-toggle';
-import { MatIconModule } from '@angular/material/icon';
+import { AmwIconComponent } from '../../../components/components/amw-icon/amw-icon.component';
 
 /**
  * Angular Material Wrap Button Toggle Component
@@ -33,7 +33,7 @@ import { MatIconModule } from '@angular/material/icon';
     imports: [
         CommonModule,
         MatButtonToggleModule,
-        MatIconModule
+        AmwIconComponent
     ],
     encapsulation: ViewEncapsulation.None,
     templateUrl: './amw-button-toggle.component.html',

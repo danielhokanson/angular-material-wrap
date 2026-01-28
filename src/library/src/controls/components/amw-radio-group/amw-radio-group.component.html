@@ -22,10 +22,10 @@
         <div class="amw-radio-group__option-content">
           <!-- Icon -->
           @if (option.icon) {
-            <mat-icon
+            <amw-icon
+              [name]="option.icon"
               class="amw-radio-group__option-icon">
-              {{ option.icon }}
-            </mat-icon>
+            </amw-icon>
           }
           <!-- Label and Description -->
           <div class="amw-radio-group__option-text">

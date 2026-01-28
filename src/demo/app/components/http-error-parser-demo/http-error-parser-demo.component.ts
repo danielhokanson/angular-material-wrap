@@ -1,7 +1,6 @@
 import { Component, signal, ViewEncapsulation } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { HttpErrorResponse } from '@angular/common/http';
-import { MatCardModule } from '@angular/material/card';
 import {
     parseHttpError,
     parseHttpErrorDetailed,
@@ -12,199 +11,203 @@ import {
 } from '../../../../library/src/utilities/http-error-parser';
 import { AmwCardComponent } from '../../../../library/src/components/components/amw-card/amw-card.component';
 import { AmwButtonComponent } from '../../../../library/src/controls/components/amw-button/amw-button.component';
-import { AmwDemoDocComponent } from '../../shared/components/demo-doc/demo-doc.component';
 import { AmwInlineErrorComponent } from '../../../../library/src/components/components/amw-inline-error/amw-inline-error.component';
+import { AmwTabsComponent } from '../../../../library/src/components/components/amw-tabs/amw-tabs.component';
+import { AmwTabComponent } from '../../../../library/src/components/components/amw-tabs/amw-tab.component';
+import { AmwApiDocComponent } from '../../shared/components/api-doc/api-doc.component';
+import { ApiDocumentation } from '../../components/base/base-api.component';
 
 @Component({
     selector: 'amw-http-error-parser-demo',
     standalone: true,
     imports: [
         CommonModule,
-        MatCardModule,
         AmwCardComponent,
         AmwButtonComponent,
-        AmwDemoDocComponent,
-        AmwInlineErrorComponent
+        AmwInlineErrorComponent,
+        AmwTabsComponent,
+        AmwTabComponent,
+        AmwApiDocComponent
     ],
     encapsulation: ViewEncapsulation.None,
     template: `
-        <amw-demo-doc
-            title="HTTP Error Parser"
-            description="Utility functions for parsing and handling HTTP errors consistently.">
-
-            <h3>Interactive Demo</h3>
-            <p>Click buttons to simulate different HTTP errors and see how they're parsed.</p>
-
-            <div class="demo-grid">
-                <amw-card class="demo-card">
-                    <mat-card-header>
-                        <h4>Simulate HTTP Errors</h4>
-                    </mat-card-header>
-                    <mat-card-content>
-                        <div class="error-buttons">
-                            <amw-button
-                                appearance="outlined"
-                                (buttonClick)="simulateError(400, 'Bad Request', { message: 'Invalid input data' })">
-                                400 Bad Request
-                            </amw-button>
-                            <amw-button
-                                appearance="outlined"
-                                (buttonClick)="simulateError(401, 'Unauthorized', { error: 'Token expired' })">
-                                401 Unauthorized
-                            </amw-button>
-                            <amw-button
-                                appearance="outlined"
-                                (buttonClick)="simulateError(403, 'Forbidden', { message: 'Access denied' })">
-                                403 Forbidden
-                            </amw-button>
-                            <amw-button
-                                appearance="outlined"
-                                (buttonClick)="simulateError(404, 'Not Found', null)">
-                                404 Not Found
-                            </amw-button>
-                            <amw-button
-                                appearance="outlined"
-                                (buttonClick)="simulateError(422, 'Unprocessable Entity', { errors: { email: ['Invalid format'], name: ['Required'] } })">
-                                422 Validation Error
-                            </amw-button>
-                            <amw-button
-                                appearance="outlined"
-                                color="warn"
-                                (buttonClick)="simulateError(500, 'Internal Server Error', null)">
-                                500 Server Error
-                            </amw-button>
-                            <amw-button
-                                appearance="outlined"
-                                color="warn"
-                                (buttonClick)="simulateError(502, 'Bad Gateway', null)">
-                                502 Bad Gateway
-                            </amw-button>
-                            <amw-button
-                                appearance="outlined"
-                                color="warn"
-                                (buttonClick)="simulateError(503, 'Service Unavailable', null)">
-                                503 Service Unavailable
-                            </amw-button>
-                            <amw-button
-                                appearance="outlined"
-                                (buttonClick)="simulateNetworkError()">
-                                Network Error
-                            </amw-button>
-                            <amw-button
-                                appearance="outlined"
-                                (buttonClick)="simulateTimeout()">
-                                Timeout
-                            </amw-button>
-                        </div>
-                    </mat-card-content>
-                </amw-card>
-
-                <amw-card class="demo-card">
-                    <mat-card-header>
-                        <h4>Parsed Result</h4>
-                    </mat-card-header>
-                    <mat-card-content>
-                        @if (parsedError()) {
-                            <div class="parsed-result">
-                                <div class="result-row">
-                                    <span class="label">Simple Message:</span>
-                                    <span class="value">{{ simpleMessage() }}</span>
-                                </div>
-
-                                <h5>Detailed Parse:</h5>
-                                <div class="result-row">
-                                    <span class="label">Message:</span>
-                                    <span class="value">{{ parsedError()?.message }}</span>
-                                </div>
-                                <div class="result-row">
-                                    <span class="label">Status:</span>
-                                    <span class="value status-badge" [class]="getStatusClass(parsedError()?.status || 0)">
-                                        {{ parsedError()?.status }} {{ parsedError()?.statusText }}
-                                    </span>
-                                </div>
-                                <div class="result-row">
-                                    <span class="label">Category:</span>
-                                    <span class="value category-badge" [class]="parsedError()?.category">
-                                        {{ parsedError()?.category }}
-                                    </span>
-                                </div>
-                                <div class="result-row">
-                                    <span class="label">Is Retryable:</span>
-                                    <span class="value" [class.retryable]="parsedError()?.isRetryable">
-                                        {{ parsedError()?.isRetryable ? 'Yes' : 'No' }}
-                                    </span>
-                                </div>
-                                @if (hasFieldErrors()) {
-                                    <div class="result-row">
-                                        <span class="label">Field Errors:</span>
-                                        <div class="field-errors">
-                                            @for (field of getFieldErrorKeys(); track field) {
-                                                <div class="field-error">
-                                                    <strong>{{ field }}:</strong> {{ parsedError()?.fieldErrors?.[field]?.join(', ') }}
-                                                </div>
-                                            }
-                                        </div>
-                                    </div>
-                                }
-                            </div>
-
-                            <h5>Display with Inline Error:</h5>
-                            <amw-inline-error
-                                [message]="simpleMessage()"
-                                [showRetry]="parsedError()?.isRetryable || false"
-                                (retry)="onRetry()" />
-                        } @else {
-                            <p class="empty-text">Click an error button to see the parsed result.</p>
-                        }
-                    </mat-card-content>
-                </amw-card>
+        <div class="http-error-parser-demo-page">
+            <div class="http-error-parser-demo-page__header">
+                <h1>HTTP Error Parser</h1>
+                <p>Utility functions for parsing and handling HTTP errors consistently.</p>
             </div>
 
-            <h3>Utility Functions</h3>
+            <amw-card>
+                <ng-template #cardContent>
+                    <amw-tabs>
+                        <amw-tab label="Demo" icon="play_arrow">
+                            <h3>Interactive Demo</h3>
+                            <p>Click buttons to simulate different HTTP errors and see how they're parsed.</p>
 
-            <amw-card class="demo-card">
-                <mat-card-header>
-                    <h4>Type Guards & Helpers</h4>
-                </mat-card-header>
-                <mat-card-content>
-                    <div class="utility-demo">
-                        <div class="utility-row">
-                            <code>isHttpError(lastError)</code>
-                            <span class="utility-result">{{ isHttpErrorResult() }}</span>
-                        </div>
-                        <div class="utility-row">
-                            <code>isRetryableError(lastError)</code>
-                            <span class="utility-result">{{ isRetryableResult() }}</span>
-                        </div>
-                        <div class="utility-row">
-                            <code>extractErrorMessage(lastError)</code>
-                            <span class="utility-result">{{ extractedMessage() }}</span>
-                        </div>
-                    </div>
+                            <div class="demo-grid">
+                                <amw-card headerTitle="Simulate HTTP Errors" class="demo-card">
+                                    <ng-template #cardContent>
+                                        <div class="error-buttons">
+                                            <amw-button
+                                                appearance="outlined"
+                                                (buttonClick)="simulateError(400, 'Bad Request', { message: 'Invalid input data' })">
+                                                400 Bad Request
+                                            </amw-button>
+                                            <amw-button
+                                                appearance="outlined"
+                                                (buttonClick)="simulateError(401, 'Unauthorized', { error: 'Token expired' })">
+                                                401 Unauthorized
+                                            </amw-button>
+                                            <amw-button
+                                                appearance="outlined"
+                                                (buttonClick)="simulateError(403, 'Forbidden', { message: 'Access denied' })">
+                                                403 Forbidden
+                                            </amw-button>
+                                            <amw-button
+                                                appearance="outlined"
+                                                (buttonClick)="simulateError(404, 'Not Found', null)">
+                                                404 Not Found
+                                            </amw-button>
+                                            <amw-button
+                                                appearance="outlined"
+                                                (buttonClick)="simulateError(422, 'Unprocessable Entity', { errors: { email: ['Invalid format'], name: ['Required'] } })">
+                                                422 Validation Error
+                                            </amw-button>
+                                            <amw-button
+                                                appearance="outlined"
+                                                color="warn"
+                                                (buttonClick)="simulateError(500, 'Internal Server Error', null)">
+                                                500 Server Error
+                                            </amw-button>
+                                            <amw-button
+                                                appearance="outlined"
+                                                color="warn"
+                                                (buttonClick)="simulateError(502, 'Bad Gateway', null)">
+                                                502 Bad Gateway
+                                            </amw-button>
+                                            <amw-button
+                                                appearance="outlined"
+                                                color="warn"
+                                                (buttonClick)="simulateError(503, 'Service Unavailable', null)">
+                                                503 Service Unavailable
+                                            </amw-button>
+                                            <amw-button
+                                                appearance="outlined"
+                                                (buttonClick)="simulateNetworkError()">
+                                                Network Error
+                                            </amw-button>
+                                            <amw-button
+                                                appearance="outlined"
+                                                (buttonClick)="simulateTimeout()">
+                                                Timeout
+                                            </amw-button>
+                                        </div>
+                                    </ng-template>
+                                </amw-card>
 
-                    <h5>Test with Different Error Types:</h5>
-                    <div class="button-row">
-                        <amw-button
-                            appearance="outlined"
-                            (buttonClick)="testWithString()">
-                            String Error
-                        </amw-button>
-                        <amw-button
-                            appearance="outlined"
-                            (buttonClick)="testWithError()">
-                            Error Object
-                        </amw-button>
-                        <amw-button
-                            appearance="outlined"
-                            (buttonClick)="testWithUnknown()">
-                            Unknown Error
-                        </amw-button>
-                    </div>
-                </mat-card-content>
-            </amw-card>
+                                <amw-card headerTitle="Parsed Result" class="demo-card">
+                                    <ng-template #cardContent>
+                                        @if (parsedError()) {
+                                            <div class="parsed-result">
+                                                <div class="result-row">
+                                                    <span class="label">Simple Message:</span>
+                                                    <span class="value">{{ simpleMessage() }}</span>
+                                                </div>
 
-            <h3>Code Examples</h3>
-            <pre><code>import {{ '{' }}
+                                                <h5>Detailed Parse:</h5>
+                                                <div class="result-row">
+                                                    <span class="label">Message:</span>
+                                                    <span class="value">{{ parsedError()?.message }}</span>
+                                                </div>
+                                                <div class="result-row">
+                                                    <span class="label">Status:</span>
+                                                    <span class="value status-badge" [class]="getStatusClass(parsedError()?.status || 0)">
+                                                        {{ parsedError()?.status }} {{ parsedError()?.statusText }}
+                                                    </span>
+                                                </div>
+                                                <div class="result-row">
+                                                    <span class="label">Category:</span>
+                                                    <span class="value category-badge" [class]="parsedError()?.category">
+                                                        {{ parsedError()?.category }}
+                                                    </span>
+                                                </div>
+                                                <div class="result-row">
+                                                    <span class="label">Is Retryable:</span>
+                                                    <span class="value" [class.retryable]="parsedError()?.isRetryable">
+                                                        {{ parsedError()?.isRetryable ? 'Yes' : 'No' }}
+                                                    </span>
+                                                </div>
+                                                @if (hasFieldErrors()) {
+                                                    <div class="result-row">
+                                                        <span class="label">Field Errors:</span>
+                                                        <div class="field-errors">
+                                                            @for (field of getFieldErrorKeys(); track field) {
+                                                                <div class="field-error">
+                                                                    <strong>{{ field }}:</strong> {{ parsedError()?.fieldErrors?.[field]?.join(', ') }}
+                                                                </div>
+                                                            }
+                                                        </div>
+                                                    </div>
+                                                }
+                                            </div>
+
+                                            <h5>Display with Inline Error:</h5>
+                                            <amw-inline-error
+                                                [message]="simpleMessage()"
+                                                [showRetry]="parsedError()?.isRetryable || false"
+                                                (retry)="onRetry()" />
+                                        } @else {
+                                            <p class="empty-text">Click an error button to see the parsed result.</p>
+                                        }
+                                    </ng-template>
+                                </amw-card>
+                            </div>
+
+                            <h3>Utility Functions</h3>
+
+                            <amw-card headerTitle="Type Guards & Helpers" class="demo-card">
+                                <ng-template #cardContent>
+                                    <div class="utility-demo">
+                                        <div class="utility-row">
+                                            <code>isHttpError(lastError)</code>
+                                            <span class="utility-result">{{ isHttpErrorResult() }}</span>
+                                        </div>
+                                        <div class="utility-row">
+                                            <code>isRetryableError(lastError)</code>
+                                            <span class="utility-result">{{ isRetryableResult() }}</span>
+                                        </div>
+                                        <div class="utility-row">
+                                            <code>extractErrorMessage(lastError)</code>
+                                            <span class="utility-result">{{ extractedMessage() }}</span>
+                                        </div>
+                                    </div>
+
+                                    <h5>Test with Different Error Types:</h5>
+                                    <div class="button-row">
+                                        <amw-button
+                                            appearance="outlined"
+                                            (buttonClick)="testWithString()">
+                                            String Error
+                                        </amw-button>
+                                        <amw-button
+                                            appearance="outlined"
+                                            (buttonClick)="testWithError()">
+                                            Error Object
+                                        </amw-button>
+                                        <amw-button
+                                            appearance="outlined"
+                                            (buttonClick)="testWithUnknown()">
+                                            Unknown Error
+                                        </amw-button>
+                                    </div>
+                                </ng-template>
+                            </amw-card>
+                        </amw-tab>
+
+                        <amw-tab label="Code" icon="code">
+                            <div class="code-content">
+                                <h3>Code Examples</h3>
+                                <pre><code>import {{ '{' }}
   parseHttpError,
   parseHttpErrorDetailed,
   createErrorHandler,
@@ -260,51 +263,8 @@ if (isRetryableError(error)) {{ '{' }}
 // Extract message from any error type
 const message = extractErrorMessage(unknownError, 'Something went wrong');</code></pre>
 
-            <h3>API Reference</h3>
-            <table class="api-table">
-                <thead>
-                    <tr>
-                        <th>Function</th>
-                        <th>Returns</th>
-                        <th>Description</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <tr>
-                        <td><code>parseHttpError(error)</code></td>
-                        <td>string</td>
-                        <td>Returns a user-friendly error message</td>
-                    </tr>
-                    <tr>
-                        <td><code>parseHttpErrorDetailed(error)</code></td>
-                        <td>ParsedHttpError</td>
-                        <td>Returns detailed parsed error information</td>
-                    </tr>
-                    <tr>
-                        <td><code>createErrorHandler(options?)</code></td>
-                        <td>(error) => Observable&lt;never&gt;</td>
-                        <td>Creates an error handler for RxJS catchError</td>
-                    </tr>
-                    <tr>
-                        <td><code>isHttpError(error)</code></td>
-                        <td>boolean</td>
-                        <td>Type guard for HttpErrorResponse</td>
-                    </tr>
-                    <tr>
-                        <td><code>isRetryableError(error)</code></td>
-                        <td>boolean</td>
-                        <td>Checks if error is worth retrying</td>
-                    </tr>
-                    <tr>
-                        <td><code>extractErrorMessage(error, fallback?)</code></td>
-                        <td>string</td>
-                        <td>Extracts message from any error type</td>
-                    </tr>
-                </tbody>
-            </table>
-
-            <h3>ParsedHttpError Interface</h3>
-            <pre><code>interface ParsedHttpError {{ '{' }}
+                                <h3>ParsedHttpError Interface</h3>
+                                <pre><code>interface ParsedHttpError {{ '{' }}
   message: string;           // User-friendly message
   status: number;            // HTTP status code (0 for network errors)
   statusText: string;        // HTTP status text
@@ -313,10 +273,45 @@ const message = extractErrorMessage(unknownError, 'Something went wrong');</code
   fieldErrors?: Record&lt;string, string[]&gt;;  // Validation errors
   originalError: HttpErrorResponse;
 {{ '}' }}</code></pre>
+                            </div>
+                        </amw-tab>
 
-        </amw-demo-doc>
+                        <amw-tab label="API" icon="description">
+                            <div class="api-content">
+                                <amw-api-doc
+                                    componentName="HTTP Error Parser"
+                                    [apiDocumentation]="httpErrorParserApiDoc"
+                                    description="Utility functions for parsing and handling HTTP errors consistently.">
+                                </amw-api-doc>
+                            </div>
+                        </amw-tab>
+                    </amw-tabs>
+                </ng-template>
+            </amw-card>
+        </div>
     `,
     styles: [`
+        .http-error-parser-demo-page {
+            padding: 24px;
+            max-width: 1400px;
+            margin: 0 auto;
+
+            &__header {
+                margin-bottom: 24px;
+                h1 { margin: 0 0 8px 0; }
+                p { margin: 0; }
+            }
+        }
+
+        .code-content {
+            padding: 20px 0;
+            h3 { margin-top: 0; }
+        }
+
+        .api-content {
+            padding: 20px 0;
+        }
+
         .demo-grid {
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(400px, 1fr));
@@ -461,30 +456,6 @@ const message = extractErrorMessage(unknownError, 'Something went wrong');</code
             flex-wrap: wrap;
         }
 
-        .api-table {
-            width: 100%;
-            border-collapse: collapse;
-            margin-top: 16px;
-
-            th, td {
-                padding: 12px;
-                text-align: left;
-                border-bottom: 1px solid var(--md-sys-color-outline-variant, #cac4d0);
-            }
-
-            th {
-                background: var(--md-sys-color-surface-container, #f3edf7);
-                font-weight: 500;
-            }
-
-            code {
-                background: var(--md-sys-color-surface-container-high, #ece6f0);
-                padding: 2px 6px;
-                border-radius: 4px;
-                font-size: 13px;
-            }
-        }
-
         pre {
             background: var(--md-sys-color-surface-container, #f3edf7);
             padding: 16px;
@@ -502,6 +473,25 @@ export class HttpErrorParserDemoComponent {
     parsedError = signal<ParsedHttpError | null>(null);
     simpleMessage = signal<string>('');
     lastError = signal<unknown>(null);
+
+    httpErrorParserApiDoc: ApiDocumentation = {
+        methods: [
+            { name: 'parseHttpError(error: HttpErrorResponse)', returns: 'string', description: 'Returns a user-friendly error message' },
+            { name: 'parseHttpErrorDetailed(error: HttpErrorResponse)', returns: 'ParsedHttpError', description: 'Returns detailed parsed error information' },
+            { name: 'createErrorHandler(options?: ErrorHandlerOptions)', returns: '(error: any) => Observable<never>', description: 'Creates an error handler for RxJS catchError' },
+            { name: 'isHttpError(error: unknown)', returns: 'boolean', description: 'Type guard for HttpErrorResponse' },
+            { name: 'isRetryableError(error: unknown)', returns: 'boolean', description: 'Checks if error is worth retrying' },
+            { name: 'extractErrorMessage(error: unknown, fallback?: string)', returns: 'string', description: 'Extracts message from any error type' }
+        ],
+        usageNotes: [
+            'Use parseHttpError() for simple user-facing error messages',
+            'Use parseHttpErrorDetailed() when you need error categorization and field errors',
+            'Use createErrorHandler() in RxJS catchError pipes',
+            'Use isHttpError() as a type guard before accessing HttpErrorResponse properties',
+            'Use isRetryableError() to determine if an error is worth retrying (5xx, network, timeout)',
+            'Use extractErrorMessage() for any error type, not just HttpErrorResponse'
+        ]
+    };
 
     simulateError(status: number, statusText: string, body: unknown): void {
         const error = new HttpErrorResponse({

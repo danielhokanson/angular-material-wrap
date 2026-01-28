@@ -42,12 +42,12 @@
     </mat-datepicker-toggle>
 
     @if (clearable() && selectedDate() && !disabled()) {
-      <mat-icon
+      <amw-icon
+        name="clear"
         matSuffix
         (click)="onClear()"
         class="amw-datepicker__clear">
-        clear
-      </mat-icon>
+      </amw-icon>
     }
 
     @if (hint()) {

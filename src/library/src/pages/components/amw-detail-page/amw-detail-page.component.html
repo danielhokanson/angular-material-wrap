@@ -47,7 +47,7 @@
   <!-- Error State -->
   @if (error && !loading) {
     <div class="amw-detail-page__error">
-      <mat-icon>error</mat-icon>
+      <amw-icon name="error"></amw-icon>
       <p>{{ error }}</p>
       <amw-button appearance="elevated" color="primary" (click)="onRefresh()">Retry</amw-button>
     </div>
@@ -57,11 +57,8 @@
   @if (!loading && !error) {
     <div class="amw-detail-page__content">
       <!-- Main Details -->
-      <mat-card class="amw-detail-page__main-card">
-        <mat-card-header>
-          <mat-card-title>Details</mat-card-title>
-        </mat-card-header>
-        <mat-card-content>
+      <amw-card class="amw-detail-page__main-card" headerTitle="Details">
+        <ng-template #cardContent>
           <div class="amw-detail-page__fields">
             @for (field of currentConfig.fields; track field) {
               <div
@@ -72,19 +69,17 @@
               </div>
             }
           </div>
-        </mat-card-content>
-      </mat-card>
+        </ng-template>
+      </amw-card>
       <!-- Related Data -->
       @if (currentConfig.relatedData && currentConfig.relatedData.length > 0) {
         <div class="amw-detail-page__related">
           @for (related of currentConfig.relatedData; track related) {
-            <mat-card
+            <amw-card
               class="amw-detail-page__related-card"
+              [headerTitle]="related.title"
               [style.display]="isRelatedDataVisible(related) ? 'block' : 'none'">
-              <mat-card-header>
-                <mat-card-title>{{ related.title }}</mat-card-title>
-              </mat-card-header>
-              <mat-card-content>
+              <ng-template #cardContent>
                 <div class="amw-detail-page__related-table">
                   <table>
                     <thead>
@@ -107,8 +102,8 @@
                     </tbody>
                   </table>
                 </div>
-              </mat-card-content>
-            </mat-card>
+              </ng-template>
+            </amw-card>
           }
         </div>
       }

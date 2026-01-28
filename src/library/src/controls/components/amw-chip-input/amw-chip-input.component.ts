@@ -13,7 +13,6 @@ import {
 import { FormsModule, ReactiveFormsModule, ControlValueAccessor, NG_VALUE_ACCESSOR } from '@angular/forms';
 import { NgTemplateOutlet } from '@angular/common';
 import { MatChipsModule, MatChipInputEvent } from '@angular/material/chips';
-import { MatIconModule } from '@angular/material/icon';
 import { MatInputModule } from '@angular/material/input';
 import { MatFormFieldModule, MatFormFieldAppearance } from '@angular/material/form-field';
 import { MatAutocompleteModule, MatAutocompleteSelectedEvent } from '@angular/material/autocomplete';
@@ -22,6 +21,7 @@ import { COMMA, ENTER } from '@angular/cdk/keycodes';
 import { Subject } from 'rxjs';
 import { takeUntil, debounceTime, distinctUntilChanged } from 'rxjs/operators';
 
+import { AmwIconComponent } from '../../../components/components/amw-icon/amw-icon.component';
 import { BaseComponent } from '../base/base.component';
 import { ChipInputOption } from './interfaces/chip-input-option.interface';
 
@@ -40,7 +40,7 @@ import { ChipInputOption } from './interfaces/chip-input-option.interface';
         ReactiveFormsModule,
         NgTemplateOutlet,
         MatChipsModule,
-        MatIconModule,
+        AmwIconComponent,
         MatInputModule,
         MatFormFieldModule,
         MatAutocompleteModule,

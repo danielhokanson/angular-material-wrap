@@ -1,15 +1,15 @@
 import { Component, input, output, OnInit, OnDestroy, ViewEncapsulation, ChangeDetectorRef, Inject, Optional, Injectable } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule, ReactiveFormsModule, FormBuilder, FormGroup } from '@angular/forms';
-import { MatCardModule } from '@angular/material/card';
-import { MatIconModule } from '@angular/material/icon';
+import { AmwCardComponent } from '../../../components/components/amw-card/amw-card.component';
+import { AmwIconComponent } from '../../../components/components/amw-icon/amw-icon.component';
 import { MatTabsModule } from '@angular/material/tabs';
-import { MatExpansionModule } from '@angular/material/expansion';
+import { AmwAccordionPanelComponent } from '../../../components/components/amw-accordion/amw-accordion-panel.component';
 import { MatMenuModule } from '@angular/material/menu';
 import { MatChipsModule } from '@angular/material/chips';
 import { MatDividerModule } from '@angular/material/divider';
 import { MatTableModule } from '@angular/material/table';
-import { MatOptionModule } from '@angular/material/core';
+import { AmwSelectOption } from '../../../controls/components/amw-select/interfaces/select.interface';
 import { MatPaginatorModule, PageEvent } from '@angular/material/paginator';
 import { MatSortModule, Sort } from '@angular/material/sort';
 import { Subject, takeUntil, BehaviorSubject, Observable, of } from 'rxjs';
@@ -78,11 +78,11 @@ export class DefaultReportPageDataSource implements ReportPageDataSource {
         CommonModule,
         FormsModule,
         ReactiveFormsModule,
-        MatCardModule,
-        MatIconModule,
+        AmwCardComponent,
+        AmwIconComponent,
         AmwProgressSpinnerComponent,
         MatTabsModule,
-        MatExpansionModule,
+        AmwAccordionPanelComponent,
         AmwButtonComponent,
         AmwInputComponent,
         AmwDatepickerComponent,
@@ -94,7 +94,6 @@ export class DefaultReportPageDataSource implements ReportPageDataSource {
         MatDividerModule,
         MatTableModule,
         AmwProgressBarComponent,
-        MatOptionModule,
         MatPaginatorModule,
         MatSortModule
     ],
@@ -130,6 +129,14 @@ export class AmwReportPageComponent implements OnInit, OnDestroy {
         filters: {},
         lastUpdated: new Date()
     };
+
+    // Date range preset options for the select
+    readonly dateRangePresetOptions: AmwSelectOption[] = [
+        { value: 'last7days', label: 'Last 7 days' },
+        { value: 'last30days', label: 'Last 30 days' },
+        { value: 'last90days', label: 'Last 90 days' },
+        { value: 'custom', label: 'Custom range' }
+    ];
 
     // UI state
     loading = false;
@@ -295,6 +302,14 @@ export class AmwReportPageComponent implements OnInit, OnDestroy {
             dateRange: this.currentData.dateRange || { start: new Date(), end: new Date() }
         });
         this.loadData();
+    }
+
+    getFilterSelectOptions(filter: ReportFilter): AmwSelectOption[] {
+        const options: AmwSelectOption[] = [{ value: '', label: 'All' }];
+        if (filter.options) {
+            options.push(...filter.options.map(opt => ({ value: opt.value, label: opt.label })));
+        }
+        return options;
     }
 
     onWidgetClick(widget: ReportWidget): void {

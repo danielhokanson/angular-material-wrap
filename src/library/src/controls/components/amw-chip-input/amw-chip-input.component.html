@@ -21,14 +21,14 @@
             <ng-container *ngTemplateOutlet="chipTemplate; context: { $implicit: chip, index: i }"></ng-container>
           } @else {
             @if (chip.icon) {
-              <mat-icon matChipAvatar>{{ chip.icon }}</mat-icon>
+              <amw-icon [name]="chip.icon" matChipAvatar></amw-icon>
             }
             {{ displayWith()(chip) }}
           }
 
           @if (removable() && !disabled()) {
             <button matChipRemove aria-label="Remove {{ chip.label }}">
-              <mat-icon>cancel</mat-icon>
+              <amw-icon name="cancel"></amw-icon>
             </button>
           }
         </mat-chip-row>
@@ -78,7 +78,7 @@
             <ng-container *ngTemplateOutlet="suggestionTemplate; context: { $implicit: suggestion }"></ng-container>
           } @else {
             @if (suggestion.icon) {
-              <mat-icon>{{ suggestion.icon }}</mat-icon>
+              <amw-icon [name]="suggestion.icon"></amw-icon>
             }
             <span>{{ suggestion.label }}</span>
             @if (suggestion.subtitle) {

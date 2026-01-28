@@ -68,16 +68,11 @@
     <!-- Single Day View -->
     @if (!showWeekViewInternal) {
       <div class="amw-calendar-mini__day-view">
-        <mat-card class="amw-calendar-mini__day-card">
-          <mat-card-header>
-            <mat-card-title>
-              {{ getFormattedDate(selectedDate, 'long') }}
-            </mat-card-title>
-            <mat-card-subtitle>
-              {{ getEventsForDate(selectedDate).length }} event{{ getEventsForDate(selectedDate).length !== 1 ? 's' : '' }}
-            </mat-card-subtitle>
-          </mat-card-header>
-          <mat-card-content>
+        <amw-card
+          class="amw-calendar-mini__day-card"
+          [headerTitle]="getFormattedDate(selectedDate, 'long')"
+          [headerSubtitle]="getEventsForDate(selectedDate).length + ' event' + (getEventsForDate(selectedDate).length !== 1 ? 's' : '')">
+          <ng-template #cardContent>
             <!-- Events List -->
             <div class="amw-calendar-mini__events-list">
               @for (event of getEventsForDateLimited(selectedDate); track event) {
@@ -140,13 +135,13 @@
               @if (getEventsForDate(selectedDate).length === 0) {
                 <div
                   class="amw-calendar-mini__no-events">
-                  <mat-icon>event_available</mat-icon>
+                  <amw-icon name="event_available"></amw-icon>
                   <p>No events scheduled</p>
                 </div>
               }
             </div>
-          </mat-card-content>
-        </mat-card>
+          </ng-template>
+        </amw-card>
       </div>
     }
 

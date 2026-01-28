@@ -1,14 +1,14 @@
 import { Component, ViewEncapsulation, signal } from '@angular/core';
 import { AmwListComponent } from '../../../../library/src/components/components/amw-list/amw-list.component';
 import { AmwListItemComponent } from '../../../../library/src/components/components/amw-list/amw-list-item.component';
-import { MatIconModule } from '@angular/material/icon';
 import { AmwNotificationService } from '../../../../library/src/services/amw-notification/amw-notification.service';
+import { AmwIconComponent } from '../../../../library/src/components/components/amw-icon/amw-icon.component';
 import { AmwDemoDocComponent } from '../../shared/components/demo-doc/demo-doc.component';
 
 @Component({
     selector: 'amw-demo-list',
     standalone: true,
-    imports: [AmwListComponent, AmwListItemComponent, MatIconModule, AmwDemoDocComponent],
+    imports: [AmwListComponent, AmwListItemComponent, AmwIconComponent, AmwDemoDocComponent],
     encapsulation: ViewEncapsulation.None,
     templateUrl: './list-demo.component.html',
     styleUrl: './list-demo.component.scss'

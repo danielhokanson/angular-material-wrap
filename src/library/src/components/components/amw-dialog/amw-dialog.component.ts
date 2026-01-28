@@ -1,8 +1,8 @@
 import { Component, input, output, ViewEncapsulation, forwardRef, contentChild, TemplateRef, OnInit, OnDestroy, Inject, computed, Optional } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { MatDialogModule, MatDialog, MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
-import { MatIconModule } from '@angular/material/icon';
 import { DialogConfig, DialogType, DialogSize, DialogPosition } from './interfaces';
+import { AmwIconComponent } from '../amw-icon/amw-icon.component';
 import { AmwProgressSpinnerComponent } from '../amw-progress-spinner/amw-progress-spinner.component';
 import { AmwButtonComponent } from '../../../controls/components/amw-button/amw-button.component';
 
@@ -53,7 +53,7 @@ import { AmwButtonComponent } from '../../../controls/components/amw-button/amw-
     CommonModule,
     MatDialogModule,
     AmwButtonComponent,
-    MatIconModule,
+    AmwIconComponent,
     AmwProgressSpinnerComponent
   ],
   encapsulation: ViewEncapsulation.None,

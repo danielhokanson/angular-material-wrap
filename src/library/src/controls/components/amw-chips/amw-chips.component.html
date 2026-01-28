@@ -44,10 +44,10 @@
         }
         <!-- Chip Icon (if provided) -->
         @if (chip.icon && !chip.avatar) {
-          <mat-icon
+          <amw-icon
+            [name]="chip.icon"
             class="amw-chips__chip-icon">
-            {{ chip.icon }}
-          </mat-icon>
+          </amw-icon>
         }
         <!-- Chip Label -->
         <span class="amw-chips__chip-label">{{ chip.label }}</span>
@@ -68,7 +68,7 @@
             matChipRemove
             [attr.aria-label]="'Remove ' + chip.label"
             (click)="$event.stopPropagation()">
-            <mat-icon>close</mat-icon>
+            <amw-icon name="close"></amw-icon>
           </button>
         }
       </mat-chip>
@@ -85,9 +85,7 @@
         [disabled]="menuItem.disabled"
         (click)="onMenuItemClick(currentChip!, menuItem)">
         @if (menuItem.icon) {
-          <mat-icon class="amw-chips__menu-item-icon">
-            {{ menuItem.icon }}
-          </mat-icon>
+          <amw-icon [name]="menuItem.icon" class="amw-chips__menu-item-icon"></amw-icon>
         }
         <span class="amw-chips__menu-item-label">{{ menuItem.label }}</span>
       </button>

@@ -30,7 +30,7 @@
             (keyup.enter)="onSearch()"
             placeholder="Search..."
             appearance="outline">
-            <mat-icon matSuffix>search</mat-icon>
+            <amw-icon name="search" matSuffix></amw-icon>
           </amw-input>
           <amw-button appearance="elevated" color="primary" (click)="onSearch()">Search</amw-button>
         </div>
@@ -40,7 +40,7 @@
           <mat-expansion-panel>
             <mat-expansion-panel-header>
               <mat-panel-title>
-                <mat-icon>filter_list</mat-icon>
+                <amw-icon name="filter_list"></amw-icon>
                 Filters
                 @if (hasActiveFilters()) {
                   <span class="amw-list-page__filter-count">
@@ -171,7 +171,7 @@
     <!-- Error State -->
     @if (error && !loading) {
       <div class="amw-list-page__error">
-        <mat-icon>error</mat-icon>
+        <amw-icon name="error"></amw-icon>
         <p>{{ error }}</p>
         <amw-button appearance="elevated" color="primary" (click)="onRefresh()">Retry</amw-button>
       </div>
@@ -180,7 +180,7 @@
     <!-- Empty State -->
     @if (!loading && !error && currentData.items.length === 0) {
       <div class="amw-list-page__empty">
-        <mat-icon>inbox</mat-icon>
+        <amw-icon name="inbox"></amw-icon>
         <p>No data available</p>
       </div>
     }

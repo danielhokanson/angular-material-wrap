@@ -1,8 +1,8 @@
 import { Component, input, output, signal, model, OnInit, OnDestroy, AfterContentInit, ViewEncapsulation, ChangeDetectorRef, contentChildren, effect } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { MatTabsModule } from '@angular/material/tabs';
-import { MatIconModule } from '@angular/material/icon';
 import { MatCardModule } from '@angular/material/card';
+import { AmwIconComponent } from '../amw-icon/amw-icon.component';
 import { MatDividerModule } from '@angular/material/divider';
 import { Subject } from 'rxjs';
 import { BaseComponent } from '../../../controls/components/base/base.component';
@@ -34,7 +34,7 @@ import { AmwTabComponent } from './amw-tab.component';
     CommonModule,
     MatTabsModule,
     AmwButtonComponent,
-    MatIconModule,
+    AmwIconComponent,
     MatCardModule,
     MatDividerModule
 ],

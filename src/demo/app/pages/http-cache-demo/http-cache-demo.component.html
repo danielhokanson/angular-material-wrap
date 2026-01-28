@@ -5,6 +5,12 @@
   </div>
 
   <div class="http-cache-demo__content">
+    <amw-card class="http-cache-demo__card">
+      <ng-template #cardHeader>
+        <h2>HTTP Cache Interceptor</h2>
+        <p class="subtitle">Interactive demo and documentation</p>
+      </ng-template>
+      <ng-template #cardContent>
     <amw-tabs>
       <!-- Demo Tab -->
       <amw-tab label="Demo" icon="play_arrow">
@@ -193,5 +199,7 @@
         </div>
       </amw-tab>
     </amw-tabs>
+      </ng-template>
+    </amw-card>
   </div>
 </div>

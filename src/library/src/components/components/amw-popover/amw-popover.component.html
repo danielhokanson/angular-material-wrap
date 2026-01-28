@@ -32,33 +32,22 @@
     [attr.role]="'dialog'" [attr.aria-hidden]="!opened()" [attr.aria-labelledby]="headerTitle() ? actualPopoverId() + '-title' : null"
     [attr.aria-describedby]="resolvedContentTemplate() ? actualPopoverId() + '-content' : null">
 
+    <!-- Arrows rendered before bubble-content so bubble paints on top, covering inner half -->
+    @if (showArrow() && (position() === 'bottom' || position() === 'bottom-left' || position() === 'bottom-right')) {
+      <div class="amw-popover__arrow amw-popover__arrow--up"></div>
+    }
+    @if (showArrow() && (position() === 'top' || position() === 'top-left' || position() === 'top-right')) {
+      <div class="amw-popover__arrow amw-popover__arrow--down"></div>
+    }
+    @if (showArrow() && (position() === 'right')) {
+      <div class="amw-popover__arrow amw-popover__arrow--left"></div>
+    }
+    @if (showArrow() && (position() === 'left')) {
+      <div class="amw-popover__arrow amw-popover__arrow--right"></div>
+    }
+
     <!-- Speech Bubble Content Container -->
     <div class="amw-popover__bubble-content" [attr.data-position]="position()" [attr.data-show-arrow]="showArrow()">
-
-      <!-- Arrow pointing up (when popover is below trigger) -->
-      @if (showArrow() && (position() === 'bottom' || position() === 'bottom-left' || position() === 'bottom-right')) {
-        <div
-        class="amw-popover__arrow amw-popover__arrow--up"></div>
-      }
-
-      <!-- Arrow pointing down (when popover is above trigger) -->
-      @if (showArrow() && (position() === 'top' || position() === 'top-left' || position() === 'top-right')) {
-        <div
-        class="amw-popover__arrow amw-popover__arrow--down"></div>
-      }
-
-      <!-- Arrow pointing left (when popover is to the right of trigger) -->
-      @if (showArrow() && (position() === 'right')) {
-        <div
-        class="amw-popover__arrow amw-popover__arrow--left"></div>
-      }
-
-      <!-- Arrow pointing right (when popover is to the left of trigger) -->
-      @if (showArrow() && (position() === 'left')) {
-        <div
-        class="amw-popover__arrow amw-popover__arrow--right"></div>
-      }
-
       <!-- Header -->
       @if (showHeader()) {
         <div class="amw-popover__header">
@@ -73,9 +62,10 @@
             </div>
             @if (showClose()) {
               <amw-button
+                appearance="icon"
                 [icon]="closeButtonIcon()"
                 class="amw-popover__close"
-                [attr.aria-label]="closeButtonText()"
+                [ariaLabel]="closeButtonText()"
                 (click)="onCloseClick()">
               </amw-button>
             }

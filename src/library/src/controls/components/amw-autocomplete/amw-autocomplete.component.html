@@ -8,7 +8,7 @@
 
     <!-- Start Icon (prefix) -->
     @if (startIcon()) {
-      <mat-icon matPrefix class="amw-autocomplete__start-icon">{{ startIcon() }}</mat-icon>
+      <amw-icon [name]="startIcon()" matPrefix class="amw-autocomplete__start-icon"></amw-icon>
     }
 
     <!-- Signal Forms binding (scenario 3) - FormField directive manages disabled, required, readonly automatically -->
@@ -45,12 +45,12 @@
     }
 
     @if (!loading() && !multiple() && clearable() && (selectedValue || inputValue)) {
-      <mat-icon
+      <amw-icon
+        name="clear"
         matSuffix
         (click)="onClear()"
         class="amw-autocomplete__clear">
-        clear
-      </mat-icon>
+      </amw-icon>
     }
 
     @if (hint()) {
@@ -70,7 +70,7 @@
             <span [innerHTML]="getSelectedOption(value)?.label || value"></span>
             @if (!disabled()) {
               <button matChipRemove>
-                <mat-icon>cancel</mat-icon>
+                <amw-icon name="cancel"></amw-icon>
               </button>
             }
           </mat-chip>

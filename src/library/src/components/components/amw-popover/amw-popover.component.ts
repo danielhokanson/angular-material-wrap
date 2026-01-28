@@ -1,7 +1,7 @@
 import { Component, OnInit, OnDestroy, TemplateRef, viewChild, contentChild, ElementRef, AfterViewInit, AfterContentInit, ChangeDetectorRef, ViewContainerRef, ViewEncapsulation, input, output, model, signal, computed } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { MatIconModule } from '@angular/material/icon';
 import { MatCardModule } from '@angular/material/card';
+import { AmwIconComponent } from '../amw-icon/amw-icon.component';
 import { MatDividerModule } from '@angular/material/divider';
 import { MatRippleModule } from '@angular/material/core';
 import { OverlayModule, Overlay, OverlayRef, OverlayConfig } from '@angular/cdk/overlay';
@@ -42,7 +42,7 @@ import { AmwButtonComponent } from '../../../controls/components/amw-button/amw-
     imports: [
         CommonModule,
         AmwButtonComponent,
-        MatIconModule,
+        AmwIconComponent,
         MatCardModule,
         MatDividerModule,
         MatRippleModule,
@@ -214,7 +214,6 @@ export class AmwPopoverComponent implements OnInit, OnDestroy, AfterViewInit, Af
 
     ngOnInit(): void {
         this.initializeConfig();
-        this.setupGlobalEventListeners();
 
         // Generate unique ID if not provided
         if (!this.popoverId()) {

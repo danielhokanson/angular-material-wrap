@@ -5,10 +5,10 @@ import { FormField } from '@angular/forms/signals';
 import { MatDatepickerModule } from '@angular/material/datepicker';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
-import { MatIconModule } from '@angular/material/icon';
 import { MatButtonModule } from '@angular/material/button';
 import { MatNativeDateModule } from '@angular/material/core';
 
+import { AmwIconComponent } from '../../../components/components/amw-icon/amw-icon.component';
 import { BaseComponent } from '../base/base.component';
 import { AmwAppearance } from '../../../shared/types/amw-appearance.type';
 
@@ -27,7 +27,7 @@ import { AmwAppearance } from '../../../shared/types/amw-appearance.type';
         MatDatepickerModule,
         MatFormFieldModule,
         MatInputModule,
-        MatIconModule,
+        AmwIconComponent,
         MatButtonModule,
         MatNativeDateModule
     ],

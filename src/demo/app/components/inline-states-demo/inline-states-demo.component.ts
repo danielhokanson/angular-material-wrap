@@ -5,7 +5,10 @@ import { AmwInlineErrorComponent } from '../../../../library/src/components/comp
 import { AmwInlineEmptyComponent } from '../../../../library/src/components/components/amw-inline-empty/amw-inline-empty.component';
 import { AmwCardComponent } from '../../../../library/src/components/components/amw-card/amw-card.component';
 import { AmwButtonComponent } from '../../../../library/src/controls/components/amw-button/amw-button.component';
-import { AmwDemoDocComponent } from '../../shared/components/demo-doc/demo-doc.component';
+import { AmwTabsComponent } from '../../../../library/src/components/components/amw-tabs/amw-tabs.component';
+import { AmwTabComponent } from '../../../../library/src/components/components/amw-tabs/amw-tab.component';
+import { AmwApiDocComponent } from '../../shared/components/api-doc/api-doc.component';
+import { ApiDocumentation } from '../../components/base/base-api.component';
 
 type DemoState = 'loading' | 'error' | 'empty' | 'data';
 
@@ -19,164 +22,174 @@ type DemoState = 'loading' | 'error' | 'empty' | 'data';
         AmwInlineEmptyComponent,
         AmwCardComponent,
         AmwButtonComponent,
-        AmwDemoDocComponent
+        AmwTabsComponent,
+        AmwTabComponent,
+        AmwApiDocComponent
     ],
     encapsulation: ViewEncapsulation.None,
     template: `
-        <amw-demo-doc
-            title="Inline State Components"
-            description="Standardized components for displaying loading, error, and empty states within cards and sections.">
-
-            <h3>Interactive Demo</h3>
-            <p>Click the buttons below to see different states:</p>
-
-            <div class="demo-state-buttons">
-                <amw-button
-                    appearance="outlined"
-                    [color]="currentState() === 'loading' ? 'primary' : 'primary'"
-                    (buttonClick)="setState('loading')">
-                    Loading
-                </amw-button>
-                <amw-button
-                    appearance="outlined"
-                    [color]="currentState() === 'error' ? 'warn' : 'primary'"
-                    (buttonClick)="setState('error')">
-                    Error
-                </amw-button>
-                <amw-button
-                    appearance="outlined"
-                    (buttonClick)="setState('empty')">
-                    Empty
-                </amw-button>
-                <amw-button
-                    appearance="outlined"
-                    (buttonClick)="setState('data')">
-                    Data
-                </amw-button>
+        <div class="inline-states-demo-page">
+            <div class="inline-states-demo-page__header">
+                <h1>Inline State Components</h1>
+                <p>Standardized components for displaying loading, error, and empty states within cards and sections.</p>
             </div>
 
-            <amw-card class="demo-card" headerTitle="Dynamic State Example">
+            <amw-card>
                 <ng-template #cardContent>
-                    @switch (currentState()) {
-                        @case ('loading') {
-                            <amw-inline-loading message="Loading data..." [size]="32" />
-                        }
-                        @case ('error') {
-                            <amw-inline-error
-                                message="Failed to load data. Please try again."
-                                [showRetry]="true"
-                                (retry)="onRetry()" />
-                        }
-                        @case ('empty') {
-                            <amw-inline-empty
-                                message="No items found"
-                                icon="inbox"
-                                actionLabel="Create Item"
-                                (action)="onCreateItem()" />
-                        }
-                        @case ('data') {
-                            <div class="demo-data-content">
-                                <p>This is the actual data content that would be displayed when data is available.</p>
-                                <ul>
-                                    <li>Item 1</li>
-                                    <li>Item 2</li>
-                                    <li>Item 3</li>
-                                </ul>
+                    <amw-tabs>
+                        <amw-tab label="Demo" icon="play_arrow">
+                            <h3>Interactive Demo</h3>
+                            <p>Click the buttons below to see different states:</p>
+
+                            <div class="demo-state-buttons">
+                                <amw-button
+                                    appearance="elevated"
+                                    color="primary"
+                                    (buttonClick)="setState('loading')">
+                                    Loading
+                                </amw-button>
+                                <amw-button
+                                    appearance="elevated"
+                                    [color]="currentState() === 'error' ? 'warn' : 'primary'"
+                                    (buttonClick)="setState('error')">
+                                    Error
+                                </amw-button>
+                                <amw-button
+                                    appearance="elevated"
+                                    (buttonClick)="setState('empty')">
+                                    Empty
+                                </amw-button>
+                                <amw-button
+                                    appearance="elevated"
+                                    (buttonClick)="setState('data')">
+                                    Data
+                                </amw-button>
                             </div>
-                        }
-                    }
-                </ng-template>
-            </amw-card>
 
-            <h3>Inline Loading</h3>
-            <p>Displays a centered loading spinner with an optional message.</p>
+                            <amw-card class="demo-card" headerTitle="Dynamic State Example">
+                                <ng-template #cardContent>
+                                    @switch (currentState()) {
+                                        @case ('loading') {
+                                            <amw-inline-loading message="Loading data..." [size]="32" />
+                                        }
+                                        @case ('error') {
+                                            <amw-inline-error
+                                                message="Failed to load data. Please try again."
+                                                [showRetry]="true"
+                                                (retry)="onRetry()" />
+                                        }
+                                        @case ('empty') {
+                                            <amw-inline-empty
+                                                message="No items found"
+                                                icon="inbox"
+                                                actionLabel="Create Item"
+                                                (action)="onCreateItem()" />
+                                        }
+                                        @case ('data') {
+                                            <div class="demo-data-content">
+                                                <p>This is the actual data content that would be displayed when data is available.</p>
+                                                <ul>
+                                                    <li>Item 1</li>
+                                                    <li>Item 2</li>
+                                                    <li>Item 3</li>
+                                                </ul>
+                                            </div>
+                                        }
+                                    }
+                                </ng-template>
+                            </amw-card>
 
-            <div class="demo-examples">
-                <amw-card class="demo-example-card" headerTitle="Basic Loading">
-                    <ng-template #cardContent>
-                        <amw-inline-loading />
-                    </ng-template>
-                </amw-card>
+                            <h3>Inline Loading</h3>
+                            <p>Displays a centered loading spinner with an optional message.</p>
 
-                <amw-card class="demo-example-card" headerTitle="With Message">
-                    <ng-template #cardContent>
-                        <amw-inline-loading message="Loading data..." />
-                    </ng-template>
-                </amw-card>
+                            <div class="demo-examples">
+                                <amw-card class="demo-example-card" headerTitle="Basic Loading">
+                                    <ng-template #cardContent>
+                                        <amw-inline-loading />
+                                    </ng-template>
+                                </amw-card>
 
-                <amw-card class="demo-example-card" headerTitle="Custom Size">
-                    <ng-template #cardContent>
-                        <amw-inline-loading [size]="48" message="Please wait..." />
-                    </ng-template>
-                </amw-card>
-            </div>
+                                <amw-card class="demo-example-card" headerTitle="With Message">
+                                    <ng-template #cardContent>
+                                        <amw-inline-loading message="Loading data..." />
+                                    </ng-template>
+                                </amw-card>
 
-            <h3>Inline Error</h3>
-            <p>Displays an error message with an icon and optional retry button.</p>
+                                <amw-card class="demo-example-card" headerTitle="Custom Size">
+                                    <ng-template #cardContent>
+                                        <amw-inline-loading [size]="48" message="Please wait..." />
+                                    </ng-template>
+                                </amw-card>
+                            </div>
 
-            <div class="demo-examples">
-                <amw-card class="demo-example-card" headerTitle="With Retry">
-                    <ng-template #cardContent>
-                        <amw-inline-error
-                            message="Failed to load data"
-                            [showRetry]="true"
-                            (retry)="onRetry()" />
-                    </ng-template>
-                </amw-card>
+                            <h3>Inline Error</h3>
+                            <p>Displays an error message with an icon and optional retry button.</p>
 
-                <amw-card class="demo-example-card" headerTitle="Without Retry">
-                    <ng-template #cardContent>
-                        <amw-inline-error
-                            message="Access denied"
-                            icon="lock"
-                            [showRetry]="false" />
-                    </ng-template>
-                </amw-card>
+                            <div class="demo-examples">
+                                <amw-card class="demo-example-card" headerTitle="With Retry">
+                                    <ng-template #cardContent>
+                                        <amw-inline-error
+                                            message="Failed to load data"
+                                            [showRetry]="true"
+                                            (retry)="onRetry()" />
+                                    </ng-template>
+                                </amw-card>
 
-                <amw-card class="demo-example-card" headerTitle="Custom Icon">
-                    <ng-template #cardContent>
-                        <amw-inline-error
-                            message="Network connection lost"
-                            icon="wifi_off"
-                            [showRetry]="true"
-                            (retry)="onRetry()" />
-                    </ng-template>
-                </amw-card>
-            </div>
+                                <amw-card class="demo-example-card" headerTitle="Without Retry">
+                                    <ng-template #cardContent>
+                                        <amw-inline-error
+                                            message="Access denied"
+                                            icon="lock"
+                                            [showRetry]="false" />
+                                    </ng-template>
+                                </amw-card>
 
-            <h3>Inline Empty</h3>
-            <p>Displays an empty state with an icon and optional action button.</p>
+                                <amw-card class="demo-example-card" headerTitle="Custom Icon">
+                                    <ng-template #cardContent>
+                                        <amw-inline-error
+                                            message="Network connection lost"
+                                            icon="wifi_off"
+                                            [showRetry]="true"
+                                            (retry)="onRetry()" />
+                                    </ng-template>
+                                </amw-card>
+                            </div>
 
-            <div class="demo-examples">
-                <amw-card class="demo-example-card" headerTitle="Basic Empty">
-                    <ng-template #cardContent>
-                        <amw-inline-empty />
-                    </ng-template>
-                </amw-card>
+                            <h3>Inline Empty</h3>
+                            <p>Displays an empty state with an icon and optional action button.</p>
 
-                <amw-card class="demo-example-card" headerTitle="With Action">
-                    <ng-template #cardContent>
-                        <amw-inline-empty
-                            message="No tasks yet"
-                            icon="task_alt"
-                            actionLabel="Add Task"
-                            (action)="onCreateItem()" />
-                    </ng-template>
-                </amw-card>
+                            <div class="demo-examples">
+                                <amw-card class="demo-example-card" headerTitle="Basic Empty">
+                                    <ng-template #cardContent>
+                                        <amw-inline-empty />
+                                    </ng-template>
+                                </amw-card>
 
-                <amw-card class="demo-example-card" headerTitle="Search Results">
-                    <ng-template #cardContent>
-                        <amw-inline-empty
-                            message="No results found for your search"
-                            icon="search_off"
-                            actionLabel="Clear Search"
-                            (action)="onClearSearch()" />
-                    </ng-template>
-                </amw-card>
-            </div>
+                                <amw-card class="demo-example-card" headerTitle="With Action">
+                                    <ng-template #cardContent>
+                                        <amw-inline-empty
+                                            message="No tasks yet"
+                                            icon="task_alt"
+                                            actionLabel="Add Task"
+                                            (action)="onCreateItem()" />
+                                    </ng-template>
+                                </amw-card>
 
-            <h3>Code Examples</h3>
-            <pre><code>// Loading State
+                                <amw-card class="demo-example-card" headerTitle="Search Results">
+                                    <ng-template #cardContent>
+                                        <amw-inline-empty
+                                            message="No results found for your search"
+                                            icon="search_off"
+                                            actionLabel="Clear Search"
+                                            (action)="onClearSearch()" />
+                                    </ng-template>
+                                </amw-card>
+                            </div>
+                        </amw-tab>
+
+                        <amw-tab label="Code" icon="code">
+                            <div class="code-content">
+                                <pre><code>// Loading State
 &lt;amw-inline-loading message="Loading data..." /&gt;
 
 // Error State with Retry
@@ -191,10 +204,37 @@ type DemoState = 'loading' | 'error' | 'empty' | 'data';
     icon="inbox"
     actionLabel="Create Item"
     (action)="onCreate()" /&gt;</code></pre>
+                            </div>
+                        </amw-tab>
 
-        </amw-demo-doc>
+                        <amw-tab label="API" icon="description">
+                            <div class="api-content">
+                                <amw-api-doc
+                                    componentName="Inline State Components"
+                                    [apiDocumentation]="inlineStatesApiDoc"
+                                    description="Components for displaying loading, error, and empty states inline within cards and sections.">
+                                </amw-api-doc>
+                            </div>
+                        </amw-tab>
+                    </amw-tabs>
+                </ng-template>
+            </amw-card>
+        </div>
     `,
     styles: [`
+        .inline-states-demo-page {
+            padding: 24px;
+            max-width: 1400px;
+            margin: 0 auto;
+
+            &__header {
+                margin-bottom: 24px;
+
+                h1 { margin: 0 0 8px 0; }
+                p { margin: 0; }
+            }
+        }
+
         .demo-state-buttons {
             display: flex;
             gap: 12px;
@@ -249,6 +289,26 @@ type DemoState = 'loading' | 'error' | 'empty' | 'data';
 })
 export class InlineStatesDemoComponent {
     currentState = signal<DemoState>('data');
+
+    inlineStatesApiDoc: ApiDocumentation = {
+        inputs: [
+            { name: 'message', type: 'string', default: "''", description: 'Message to display below the state indicator' },
+            { name: 'size', type: 'number', default: '32', description: 'Size of the loading spinner in pixels (loading only)' },
+            { name: 'icon', type: 'string', default: "'inbox'", description: 'Material icon name (empty/error only)' },
+            { name: 'showRetry', type: 'boolean', default: 'true', description: 'Show retry button (error only)' },
+            { name: 'actionLabel', type: 'string', default: "''", description: 'Label for action button (empty only)' }
+        ],
+        outputs: [
+            { name: 'retry', type: 'EventEmitter<void>', description: 'Emitted when retry button is clicked (error only)' },
+            { name: 'action', type: 'EventEmitter<void>', description: 'Emitted when action button is clicked (empty only)' }
+        ],
+        usageNotes: [
+            'Use amw-inline-loading for loading states within cards',
+            'Use amw-inline-error for error states with optional retry',
+            'Use amw-inline-empty for empty states with optional action button',
+            'All components center their content and work well within amw-card'
+        ]
+    };
 
     setState(state: DemoState): void {
         this.currentState.set(state);

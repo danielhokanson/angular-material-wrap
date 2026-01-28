@@ -128,7 +128,7 @@
   /* Actions Cell */
   &__actions-cell {
     display: flex;
-    gap: 4px;
+    gap: 2px;
     align-items: center;
   }
 
@@ -291,13 +291,7 @@
   }
 
   &__edit-icon {
-    font-size: 12px;
-    width: 12px;
-    height: 12px;
-    color: var(--mdc-theme-primary, #6750a4);
     opacity: 0.6;
-    margin-left: 2px; // Reduced from 4px
-    cursor: pointer;
     transition: opacity 0.2s ease;
 
     &:hover {
@@ -314,24 +308,7 @@
   }
 
   &__field-action {
-    width: 16px;
-    height: 16px;
-    font-size: 12px;
-    line-height: 1;
-    min-width: 16px;
-    padding: 0;
-
-    .mat-icon {
-      font-size: 12px;
-      width: 12px;
-      height: 12px;
-    }
-
-    // Constrain touch target to match icon area and prevent overlap
-  .mat-mdc-button-touch-target {
-      max-width: 100% !important;
-      max-height: 100% !important;
-    }
+    // Bare icon buttons handle their own sizing via appearance="icon"
   }
 
   /* No Data State */

@@ -21,8 +21,7 @@ export class TextareaDemoComponent {
     textareaVariations = {
         appearances: [
             { appearance: 'outline' as MatFormFieldAppearance, label: 'Outline' },
-            { appearance: 'fill' as MatFormFieldAppearance, label: 'Fill' },
-            { appearance: 'outline' as MatFormFieldAppearance, label: 'Outline' }
+            { appearance: 'fill' as MatFormFieldAppearance, label: 'Fill' }
         ],
         sizes: [
             { size: 'small', label: 'Small' },

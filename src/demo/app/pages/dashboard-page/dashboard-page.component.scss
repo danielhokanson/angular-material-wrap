@@ -44,6 +44,24 @@
     height: 200px;
     display: flex;
     flex-direction: column;
+    background-color: var(--mdc-theme-surface-container, #f3edf7);
+    border-left: 4px solid var(--mat-sys-primary);
+
+    &:nth-child(2) {
+      border-left-color: var(--mat-sys-tertiary, #006b5f);
+    }
+
+    &:nth-child(3) {
+      border-left-color: var(--mat-sys-secondary, #625b71);
+    }
+
+    &:nth-child(4) {
+      border-left-color: var(--mdc-theme-error, #b3261e);
+    }
+
+    &:nth-child(5) {
+      border-left-color: var(--mat-sys-primary);
+    }
 
     .stat-icon {
       margin-right: 16px;

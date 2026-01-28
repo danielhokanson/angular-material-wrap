@@ -24,7 +24,7 @@
         placeholder="Enter search terms..."
         appearance="outline"
         class="amw-search-page__search-field">
-        <mat-icon matSuffix>search</mat-icon>
+        <amw-icon name="search" matSuffix></amw-icon>
       </amw-input>
       <amw-button appearance="elevated" color="primary" (click)="onSearch()">Search</amw-button>
     </div>
@@ -50,19 +50,17 @@
     @if (currentConfig.showAdvancedFilters && currentConfig.searchFields && currentConfig.searchFields.length > 0 && filtersVisible) {
       <div class="amw-search-page__sidebar"
         [class.amw-search-page__sidebar--visible]="filtersVisible">
-        <mat-card class="amw-search-page__filters-card">
-          <mat-card-header>
-            <mat-card-title>
-              <mat-icon>filter_list</mat-icon>
-              Filters
-            </mat-card-title>
+        <amw-card class="amw-search-page__filters-card">
+          <ng-template #cardHeader>
+            <amw-icon name="filter_list"></amw-icon>
+            Filters
             <amw-button               icon="close"
               (click)="toggleFilters()"
               class="amw-search-page__close-filters-btn"
               aria-label="Close filters">
             </amw-button>
-          </mat-card-header>
-          <mat-card-content>
+          </ng-template>
+          <ng-template #cardContent>
             <div class="amw-search-page__filters-content">
               @for (field of currentConfig.searchFields; track field) {
                 <div
@@ -107,8 +105,8 @@
                 </amw-button>
               </div>
             </div>
-          </mat-card-content>
-        </mat-card>
+          </ng-template>
+        </amw-card>
       </div>
     }
 
@@ -161,7 +159,7 @@
       <!-- Error State -->
       @if (error && !loading) {
         <div class="amw-search-page__error">
-          <mat-icon>error</mat-icon>
+          <amw-icon name="error"></amw-icon>
           <p>{{ error }}</p>
           <amw-button appearance="elevated" color="primary" (click)="onSearch()">Retry</amw-button>
         </div>
@@ -174,10 +172,11 @@
           @if (viewMode === 'list') {
             <div class="amw-search-page__results-list">
               @for (result of currentData.results; track result) {
-                <mat-card
+                <amw-card
                   class="amw-search-page__result-card"
-                  (click)="onResultClick(result)">
-                  <mat-card-content>
+                  [clickable]="true"
+                  (cardClick)="onResultClick(result)">
+                  <ng-template #cardContent>
                     <h3>{{ result.title || result.name || 'Result' }}</h3>
                     <p>{{ result.description || result.summary || 'No description available' }}</p>
                     <div class="amw-search-page__result-meta">
@@ -191,8 +190,8 @@
                         <span>{{ Math.round(result.score * 100) }}% match</span>
                       }
                     </div>
-                  </mat-card-content>
-                </mat-card>
+                  </ng-template>
+                </amw-card>
               }
             </div>
           }
@@ -200,14 +199,15 @@
           @if (viewMode === 'grid') {
             <div class="amw-search-page__results-grid">
               @for (result of currentData.results; track result) {
-                <mat-card
+                <amw-card
                   class="amw-search-page__result-card"
-                  (click)="onResultClick(result)">
-                  <mat-card-content>
+                  [clickable]="true"
+                  (cardClick)="onResultClick(result)">
+                  <ng-template #cardContent>
                     <h3>{{ result.title || result.name || 'Result' }}</h3>
                     <p>{{ result.description || result.summary || 'No description available' }}</p>
-                  </mat-card-content>
-                </mat-card>
+                  </ng-template>
+                </amw-card>
               }
             </div>
           }
@@ -215,27 +215,26 @@
           @if (viewMode === 'card') {
             <div class="amw-search-page__results-cards">
               @for (result of currentData.results; track result) {
-                <mat-card
+                <amw-card
                   class="amw-search-page__result-card"
-                  (click)="onResultClick(result)">
-                  <mat-card-header>
-                    <mat-card-title>{{ result.title || result.name || 'Result' }}</mat-card-title>
-                    <mat-card-subtitle>{{ result.category || 'Category' }}</mat-card-subtitle>
-                  </mat-card-header>
-                  <mat-card-content>
+                  [clickable]="true"
+                  (cardClick)="onResultClick(result)"
+                  [headerTitle]="result.title || result.name || 'Result'"
+                  [headerSubtitle]="result.category || 'Category'">
+                  <ng-template #cardContent>
                     <p>{{ result.description || result.summary || 'No description available' }}</p>
-                  </mat-card-content>
-                  <mat-card-actions>
+                  </ng-template>
+                  <ng-template #cardActions>
                     <amw-button appearance="text">View Details</amw-button>
-                  </mat-card-actions>
-                </mat-card>
+                  </ng-template>
+                </amw-card>
               }
             </div>
           }
           <!-- Empty State -->
           @if (currentData.results.length === 0) {
             <div class="amw-search-page__empty">
-              <mat-icon>search_off</mat-icon>
+              <amw-icon name="search_off"></amw-icon>
               <p>No results found</p>
               <amw-button appearance="elevated" color="primary" (click)="onClearFilters()">Clear Filters</amw-button>
             </div>

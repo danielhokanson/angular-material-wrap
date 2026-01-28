@@ -3,8 +3,8 @@ import { CommonModule } from '@angular/common';
 import { FormGroup } from '@angular/forms';
 import { Subject } from 'rxjs';
 import { takeUntil } from 'rxjs/operators';
-import { MatCardModule } from '@angular/material/card';
-import { MatIconModule } from '@angular/material/icon';
+import { AmwCardComponent } from '../../../components/components/amw-card/amw-card.component';
+import { AmwIconComponent } from '../../../components/components/amw-icon/amw-icon.component';
 import { AmwButtonComponent } from '../amw-button/amw-button.component';
 import {
   FormValidationConfig,
@@ -51,8 +51,8 @@ import {
   standalone: true,
   imports: [
     CommonModule,
-    MatCardModule,
-    MatIconModule,
+    AmwCardComponent,
+    AmwIconComponent,
     AmwButtonComponent
   ],
   templateUrl: './amw-form-validation.component.html',

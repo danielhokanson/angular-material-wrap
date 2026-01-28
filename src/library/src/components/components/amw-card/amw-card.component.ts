@@ -1,8 +1,8 @@
 import { Component, ViewEncapsulation, forwardRef, TemplateRef, input, output, contentChild, computed } from '@angular/core';
 import { NgTemplateOutlet } from '@angular/common';
 import { MatCardModule } from '@angular/material/card';
-import { MatIconModule } from '@angular/material/icon';
 import { MatRippleModule } from '@angular/material/core';
+import { AmwIconComponent } from '../amw-icon/amw-icon.component';
 import { CardConfig, CardVariant, CardElevation } from './interfaces';
 import { AmwSize } from '../../../shared/types/amw-size.type';
 import { AmwProgressSpinnerComponent } from '../amw-progress-spinner/amw-progress-spinner.component';
@@ -54,7 +54,7 @@ import { AmwButtonComponent } from '../../../controls/components/amw-button/amw-
         NgTemplateOutlet,
         MatCardModule,
         AmwButtonComponent,
-        MatIconModule,
+        AmwIconComponent,
         MatRippleModule,
         AmwProgressSpinnerComponent
     ],

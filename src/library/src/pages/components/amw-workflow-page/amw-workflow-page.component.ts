@@ -1,8 +1,8 @@
 import { Component, input, output, OnInit, OnDestroy, ViewEncapsulation, ChangeDetectorRef, Inject, Optional, Injectable, InjectionToken } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule, ReactiveFormsModule, FormBuilder, FormGroup } from '@angular/forms';
-import { MatCardModule } from '@angular/material/card';
-import { MatIconModule } from '@angular/material/icon';
+import { AmwCardComponent } from '../../../components/components/amw-card/amw-card.component';
+import { AmwIconComponent } from '../../../components/components/amw-icon/amw-icon.component';
 import { MatStepperModule } from '@angular/material/stepper';
 import { MatChipsModule } from '@angular/material/chips';
 import { MatDividerModule } from '@angular/material/divider';
@@ -54,9 +54,9 @@ export class DefaultWorkflowPageDataSource implements WorkflowPageDataSource {
         CommonModule,
         FormsModule,
         ReactiveFormsModule,
-        MatCardModule,
+        AmwCardComponent,
         AmwButtonComponent,
-        MatIconModule,
+        AmwIconComponent,
         MatStepperModule,
         AmwProgressBarComponent,
         MatChipsModule,

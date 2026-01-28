@@ -1,16 +1,9 @@
 import { Component, input, output, OnInit, OnDestroy, ViewEncapsulation, ChangeDetectorRef, Inject, Optional, Injectable } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule, ReactiveFormsModule, FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { MatCardModule } from '@angular/material/card';
-import { MatIconModule } from '@angular/material/icon';
-import { MatDatepickerModule } from '@angular/material/datepicker';
-import { MatNativeDateModule } from '@angular/material/core';
-import { MatChipsModule } from '@angular/material/chips';
-import { MatDividerModule } from '@angular/material/divider';
-import { MatTabsModule } from '@angular/material/tabs';
-import { MatExpansionModule } from '@angular/material/expansion';
-import { MatSnackBarModule, MatSnackBar } from '@angular/material/snack-bar';
-import { MatFormFieldModule } from '@angular/material/form-field';
+import { AmwCardComponent } from '../../../components/components/amw-card/amw-card.component';
+import { AmwIconComponent } from '../../../components/components/amw-icon/amw-icon.component';
+import { AmwNotificationService } from '../../../services/amw-notification/amw-notification.service';
 import { Subject, takeUntil, BehaviorSubject, Observable, of } from 'rxjs';
 import { delay } from 'rxjs/operators';
 
@@ -31,6 +24,8 @@ import { AmwCheckboxComponent } from '../../../controls/components/amw-checkbox/
 import { AmwRadioGroupComponent } from '../../../controls/components/amw-radio-group/amw-radio-group.component';
 import { AmwRadioComponent } from '../../../controls/components/amw-radio/amw-radio.component';
 import { AmwSelectComponent } from '../../../controls/components/amw-select/amw-select.component';
+import { AmwChipsComponent } from '../../../controls/components/amw-chips/amw-chips.component';
+import { Chip, ChipEvent } from '../../../controls/components/amw-chips/interfaces';
 
 // Default data source implementation
 @Injectable()
@@ -68,7 +63,7 @@ export class DefaultFormPageDataSource implements FormPageDataSource {
         CommonModule,
         FormsModule,
         ReactiveFormsModule,
-        MatCardModule,
+        AmwCardComponent,
         AmwButtonComponent,
         AmwInputComponent,
         AmwTextareaComponent,
@@ -77,15 +72,8 @@ export class DefaultFormPageDataSource implements FormPageDataSource {
         AmwRadioGroupComponent,
         AmwRadioComponent,
         AmwSelectComponent,
-        MatIconModule,
-        MatDatepickerModule,
-        MatNativeDateModule,
-        MatChipsModule,
-        MatDividerModule,
-        MatTabsModule,
-        MatExpansionModule,
-        MatSnackBarModule,
-        MatFormFieldModule,
+        AmwChipsComponent,
+        AmwIconComponent,
         AmwProgressSpinnerComponent
     ],
     encapsulation: ViewEncapsulation.None,
@@ -132,7 +120,7 @@ export class AmwFormPageComponent implements OnInit, OnDestroy {
 
     constructor(
         private cdr: ChangeDetectorRef,
-        private snackBar: MatSnackBar,
+        private notificationService: AmwNotificationService,
         private fb: FormBuilder,
         @Optional() @Inject('FORM_PAGE_DATA_SOURCE') private injectedDataSource?: FormPageDataSource
     ) { }
@@ -233,15 +221,15 @@ export class AmwFormPageComponent implements OnInit, OnDestroy {
                     next: (success) => {
                         this.saving = false;
                         if (success) {
-                            this.snackBar.open('Data saved successfully', 'Close', { duration: 3000 });
+                            this.notificationService.success('Saved', 'Data saved successfully', { duration: 3000 });
                             this.formSubmit.emit(formData);
                         } else {
-                            this.snackBar.open('Failed to save data', 'Close', { duration: 3000 });
+                            this.notificationService.error('Error', 'Failed to save data', { duration: 3000 });
                         }
                     },
                     error: (err) => {
                         this.saving = false;
-                        this.snackBar.open('Error saving data', 'Close', { duration: 3000 });
+                        this.notificationService.error('Error', 'Error saving data', { duration: 3000 });
                     }
                 });
             } else {
@@ -264,7 +252,7 @@ export class AmwFormPageComponent implements OnInit, OnDestroy {
         // Emit preview event with current form data
         const formData = this.form.value;
         this.formPreview.emit(formData);
-        this.snackBar.open('Preview mode - check console or handle formPreview event', 'Close', { duration: 3000 });
+        this.notificationService.info('Preview', 'Preview mode - check console or handle formPreview event', { duration: 3000 });
         console.log('Form Preview Data:', formData);
     }
 
@@ -283,7 +271,7 @@ export class AmwFormPageComponent implements OnInit, OnDestroy {
         // Emit custom action event with action name and form data
         const formData = this.form.value;
         this.customAction.emit({ action, data: formData });
-        this.snackBar.open(`Custom action '${action}' triggered`, 'Close', { duration: 3000 });
+        this.notificationService.info('Action', `Custom action '${action}' triggered`, { duration: 3000 });
     }
 
     isSectionVisible(section: FormPageSection): boolean {
@@ -305,21 +293,23 @@ export class AmwFormPageComponent implements OnInit, OnDestroy {
         return '';
     }
 
-    addChip(field: FormPageField, event: any): void {
-        const value = event.value;
-        if (value && value.trim()) {
-            const currentValue = this.form.get(field.key)?.value || [];
-            this.form.get(field.key)?.setValue([...currentValue, value.trim()]);
-            event.chipInput.clear();
-        }
+    getChipsForField(field: FormPageField): Chip[] {
+        const values: string[] = this.form.get(field.key)?.value || [];
+        return values.map((v, i) => ({ id: `${field.key}-${i}`, label: v }));
     }
 
-    removeChip(field: FormPageField, chip: any): void {
-        const currentValue = this.form.get(field.key)?.value || [];
-        const index = currentValue.indexOf(chip);
+    onChipAdd(field: FormPageField, event: ChipEvent): void {
+        const currentValue: string[] = this.form.get(field.key)?.value || [];
+        this.form.get(field.key)?.setValue([...currentValue, event.chip.label]);
+    }
+
+    onChipRemove(field: FormPageField, event: ChipEvent): void {
+        const currentValue: string[] = this.form.get(field.key)?.value || [];
+        const index = currentValue.indexOf(event.chip.label);
         if (index >= 0) {
-            currentValue.splice(index, 1);
-            this.form.get(field.key)?.setValue([...currentValue]);
+            const updated = [...currentValue];
+            updated.splice(index, 1);
+            this.form.get(field.key)?.setValue(updated);
         }
     }
 }

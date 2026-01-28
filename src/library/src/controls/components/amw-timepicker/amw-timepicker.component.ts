@@ -3,8 +3,8 @@ import { Component, input, output, signal, ViewEncapsulation, effect } from '@an
 import { FormsModule, NG_VALUE_ACCESSOR } from '@angular/forms';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
-import { MatIconModule } from '@angular/material/icon';
 import { AmwButtonComponent } from '../amw-button/amw-button.component';
+import { AmwIconComponent } from '../../../components/components/amw-icon/amw-icon.component';
 import { BaseComponent } from '../base/base.component';
 import { TimepickerConfig } from './interfaces';
 
@@ -17,7 +17,7 @@ import { TimepickerConfig } from './interfaces';
 @Component({
     selector: 'amw-timepicker',
     standalone: true,
-    imports: [FormsModule, MatFormFieldModule, MatInputModule, MatIconModule, AmwButtonComponent],
+    imports: [FormsModule, MatFormFieldModule, MatInputModule, AmwIconComponent, AmwButtonComponent],
     encapsulation: ViewEncapsulation.None,
     host: { 'data-amw-id': 'amw-timepicker' },
     templateUrl: './amw-timepicker.component.html',

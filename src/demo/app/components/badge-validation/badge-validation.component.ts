@@ -3,8 +3,8 @@ import { ReactiveFormsModule, FormGroup, Validators } from '@angular/forms';
 import { AmwValidationDocComponent, ValidationInfo } from '../../shared/components/validation-doc/validation-doc.component';
 import { BaseValidationComponent } from '../base/base-validation.component';
 import { AmwBadgeDirective } from '../../../../library/src/directives/amw-badge/amw-badge.directive';
-import { MatIconModule } from '@angular/material/icon';
 import { AmwInputComponent } from '../../../../library/src/controls/components/amw-input/amw-input.component';
+import { AmwIconComponent } from '../../../../library/src/components/components/amw-icon/amw-icon.component';
 
 @Component({
   selector: 'amw-demo-badge-validation',
@@ -13,7 +13,7 @@ import { AmwInputComponent } from '../../../../library/src/controls/components/a
     ReactiveFormsModule,
     AmwValidationDocComponent,
     AmwBadgeDirective,
-    MatIconModule,
+    AmwIconComponent,
     AmwInputComponent
   ],
   encapsulation: ViewEncapsulation.None,

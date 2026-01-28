@@ -3,10 +3,10 @@ import { Component, input, output, signal, ViewEncapsulation, OnChanges, compute
 import { FormsModule, NG_VALUE_ACCESSOR } from '@angular/forms';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
-import { MatIconModule } from '@angular/material/icon';
 import { MatChipsModule } from '@angular/material/chips';
 import { OverlayModule, CdkConnectedOverlay, ConnectedPosition } from '@angular/cdk/overlay';
 import { AmwButtonComponent } from '../amw-button/amw-button.component';
+import { AmwIconComponent } from '../../../components/components/amw-icon/amw-icon.component';
 import { BaseComponent } from '../base/base.component';
 import { ColorPickerConfig, ColorPickerMode } from './interfaces';
 
@@ -19,7 +19,7 @@ import { ColorPickerConfig, ColorPickerMode } from './interfaces';
 @Component({
     selector: 'amw-color-picker',
     standalone: true,
-    imports: [FormsModule, MatFormFieldModule, MatInputModule, MatIconModule, AmwButtonComponent, MatChipsModule, OverlayModule],
+    imports: [FormsModule, MatFormFieldModule, MatInputModule, AmwIconComponent, AmwButtonComponent, MatChipsModule, OverlayModule],
     encapsulation: ViewEncapsulation.None,
     host: { 'data-amw-id': 'amw-color-picker' },
     templateUrl: './amw-color-picker.component.html',

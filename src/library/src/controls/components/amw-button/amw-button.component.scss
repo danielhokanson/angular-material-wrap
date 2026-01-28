@@ -17,6 +17,11 @@
   transition: all var(--mdc-motion-duration-short4, 0.2s) ease-in-out;
   outline: none;
 
+  // Strip all wrapper styles for bare icon mode
+  &--bare {
+    display: contents;
+  }
+
   // Size variants
   &--small {
     padding: var(--mdc-button-small-horizontal-padding, 6px) var(--mdc-button-small-vertical-padding, 12px);
@@ -151,6 +156,30 @@
 
     &:hover:not(:disabled) {
       box-shadow: var(--mdc-elevation-level4, 0 2px 4px -1px rgba(0,0,0,.2), 0 4px 5px 0 rgba(0,0,0,.14), 0 1px 10px 0 rgba(0,0,0,.12));
+    }
+  }
+
+  // Bare icon - just a clickable icon with no button wrapper
+  &__bare-icon {
+    cursor: pointer;
+    border-radius: var(--mdc-shape-small, 4px);
+    padding: 2px;
+    transition: background-color var(--mdc-motion-duration-short4, 0.2s) ease-in-out,
+                opacity var(--mdc-motion-duration-short4, 0.2s) ease-in-out;
+
+    &:hover {
+      background-color: var(--mat-icon-button-hover-state-layer-color, color-mix(in srgb, var(--mdc-theme-on-surface, #1c1b1f) 8%, transparent));
+    }
+
+    &:focus-visible {
+      outline: 2px solid var(--mat-focus-indicator-color, #6750A4);
+      outline-offset: 1px;
+    }
+
+    &[aria-disabled="true"] {
+      opacity: 0.38;
+      cursor: not-allowed;
+      pointer-events: none;
     }
   }
 

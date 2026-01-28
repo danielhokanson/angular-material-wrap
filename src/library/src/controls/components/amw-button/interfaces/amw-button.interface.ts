@@ -2,7 +2,7 @@
  * Button style types - controls the visual appearance (surface treatment)
  * These are the M3 button styles from Angular Material
  */
-export type AmwButtonStyle = 'text' | 'elevated' | 'outlined' | 'filled' | 'tonal';
+export type AmwButtonStyle = 'text' | 'elevated' | 'outlined' | 'filled' | 'tonal' | 'icon';
 
 /**
  * FAB (Floating Action Button) type

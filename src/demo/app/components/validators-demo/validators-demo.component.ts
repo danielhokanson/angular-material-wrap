@@ -1,12 +1,14 @@
 import { Component, signal, ViewEncapsulation } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
-import { MatCardModule } from '@angular/material/card';
 import { AmwValidators } from '../../../../library/src/validation/validators/amw-validators';
 import { AmwCardComponent } from '../../../../library/src/components/components/amw-card/amw-card.component';
 import { AmwButtonComponent } from '../../../../library/src/controls/components/amw-button/amw-button.component';
 import { AmwInputComponent } from '../../../../library/src/controls/components/amw-input/amw-input.component';
-import { AmwDemoDocComponent } from '../../shared/components/demo-doc/demo-doc.component';
+import { AmwTabsComponent } from '../../../../library/src/components/components/amw-tabs/amw-tabs.component';
+import { AmwTabComponent } from '../../../../library/src/components/components/amw-tabs/amw-tab.component';
+import { AmwApiDocComponent } from '../../shared/components/api-doc/api-doc.component';
+import { ApiDocumentation } from '../../components/base/base-api.component';
 
 @Component({
     selector: 'amw-validators-demo',
@@ -14,233 +16,225 @@ import { AmwDemoDocComponent } from '../../shared/components/demo-doc/demo-doc.c
     imports: [
         CommonModule,
         ReactiveFormsModule,
-        MatCardModule,
         AmwCardComponent,
         AmwButtonComponent,
         AmwInputComponent,
-        AmwDemoDocComponent
+        AmwTabsComponent,
+        AmwTabComponent,
+        AmwApiDocComponent
     ],
     encapsulation: ViewEncapsulation.None,
     template: `
-        <amw-demo-doc
-            title="Custom Validators"
-            description="A comprehensive set of custom validators for Angular Reactive Forms.">
+        <div class="validators-demo-page">
+            <div class="validators-demo-page__header">
+                <h1>Custom Validators</h1>
+                <p>A comprehensive set of custom validators for Angular Reactive Forms.</p>
+            </div>
 
-            <h3>Password Match Example</h3>
-            <p>Uses <code>AmwValidators.passwordsMatch()</code> to validate password confirmation.</p>
+            <amw-card>
+                <ng-template #cardContent>
+                    <amw-tabs>
+                        <amw-tab label="Demo" icon="play_arrow">
+                            <h3>Password Match Example</h3>
+                            <p>Uses <code>AmwValidators.passwordsMatch()</code> to validate password confirmation.</p>
 
-            <amw-card class="demo-card">
-                <mat-card-header>
-                    <h4>Password Form</h4>
-                </mat-card-header>
-                <mat-card-content>
-                    <form [formGroup]="passwordForm" class="demo-form">
-                        <amw-input
-                            label="Password"
-                            type="password"
-                            formControlName="password"
-                            />
+                            <amw-card headerTitle="Password Form" class="demo-card">
+                                <ng-template #cardContent>
+                                    <form [formGroup]="passwordForm" class="demo-form">
+                                        <amw-input
+                                            label="Password"
+                                            type="password"
+                                            formControlName="password"
+                                            />
 
-                        <amw-input
-                            label="Confirm Password"
-                            type="password"
-                            formControlName="confirmPassword"
-                            />
+                                        <amw-input
+                                            label="Confirm Password"
+                                            type="password"
+                                            formControlName="confirmPassword"
+                                            />
 
-                        @if (passwordForm.hasError('mismatch')) {
-                            <p class="form-error">Passwords do not match</p>
-                        }
+                                        @if (passwordForm.hasError('mismatch')) {
+                                            <p class="form-error">Passwords do not match</p>
+                                        }
 
-                        <amw-button
-                            appearance="filled"
-                            [disabled]="passwordForm.invalid"
-                            (buttonClick)="onPasswordSubmit()">
-                            Submit
-                        </amw-button>
-                    </form>
-                </mat-card-content>
-            </amw-card>
+                                        <amw-button
+                                            appearance="filled"
+                                            [disabled]="passwordForm.invalid"
+                                            (buttonClick)="onPasswordSubmit()">
+                                            Submit
+                                        </amw-button>
+                                    </form>
+                                </ng-template>
+                            </amw-card>
 
-            <h3>URL Validation Example</h3>
-            <p>Uses <code>AmwValidators.validUrl()</code> and <code>AmwValidators.validUrlStrict()</code>.</p>
+                            <h3>URL Validation Example</h3>
+                            <p>Uses <code>AmwValidators.validUrl()</code> and <code>AmwValidators.validUrlStrict()</code>.</p>
 
-            <amw-card class="demo-card">
-                <mat-card-header>
-                    <h4>URL Form</h4>
-                </mat-card-header>
-                <mat-card-content>
-                    <form [formGroup]="urlForm" class="demo-form">
-                        <amw-input
-                            label="Website URL (flexible)"
-                            formControlName="flexibleUrl"
-                            hint="Accepts URLs with or without protocol"
-                            />
-                        @if (urlForm.get('flexibleUrl')?.hasError('invalidUrl')) {
-                            <p class="form-error">Please enter a valid URL</p>
-                        }
+                            <amw-card headerTitle="URL Form" class="demo-card">
+                                <ng-template #cardContent>
+                                    <form [formGroup]="urlForm" class="demo-form">
+                                        <amw-input
+                                            label="Website URL (flexible)"
+                                            formControlName="flexibleUrl"
+                                            hint="Accepts URLs with or without protocol"
+                                            />
+                                        @if (urlForm.get('flexibleUrl')?.hasError('invalidUrl')) {
+                                            <p class="form-error">Please enter a valid URL</p>
+                                        }
 
-                        <amw-input
-                            label="API Endpoint (strict)"
-                            formControlName="strictUrl"
-                            hint="Must include http:// or https://"
-                            />
-                        @if (urlForm.get('strictUrl')?.hasError('invalidUrl')) {
-                            <p class="form-error">Must be a valid URL with protocol (http/https)</p>
-                        }
-                    </form>
-                </mat-card-content>
-            </amw-card>
+                                        <amw-input
+                                            label="API Endpoint (strict)"
+                                            formControlName="strictUrl"
+                                            hint="Must include http:// or https://"
+                                            />
+                                        @if (urlForm.get('strictUrl')?.hasError('invalidUrl')) {
+                                            <p class="form-error">Must be a valid URL with protocol (http/https)</p>
+                                        }
+                                    </form>
+                                </ng-template>
+                            </amw-card>
 
-            <h3>Number Validation Example</h3>
-            <p>Uses <code>AmwValidators.positiveNumber()</code> and <code>AmwValidators.nonNegativeNumber()</code>.</p>
+                            <h3>Number Validation Example</h3>
+                            <p>Uses <code>AmwValidators.positiveNumber()</code> and <code>AmwValidators.nonNegativeNumber()</code>.</p>
 
-            <amw-card class="demo-card">
-                <mat-card-header>
-                    <h4>Number Form</h4>
-                </mat-card-header>
-                <mat-card-content>
-                    <form [formGroup]="numberForm" class="demo-form">
-                        <amw-input
-                            label="Quantity (positive only)"
-                            type="number"
-                            formControlName="positiveNumber"
-                            />
-                        @if (numberForm.get('positiveNumber')?.hasError('notPositive')) {
-                            <p class="form-error">Must be a positive number (greater than 0)</p>
-                        }
+                            <amw-card headerTitle="Number Form" class="demo-card">
+                                <ng-template #cardContent>
+                                    <form [formGroup]="numberForm" class="demo-form">
+                                        <amw-input
+                                            label="Quantity (positive only)"
+                                            type="number"
+                                            formControlName="positiveNumber"
+                                            />
+                                        @if (numberForm.get('positiveNumber')?.hasError('notPositive')) {
+                                            <p class="form-error">Must be a positive number (greater than 0)</p>
+                                        }
 
-                        <amw-input
-                            label="Balance (non-negative)"
-                            type="number"
-                            formControlName="nonNegativeNumber"
-                            />
-                        @if (numberForm.get('nonNegativeNumber')?.hasError('negative')) {
-                            <p class="form-error">Must be zero or greater</p>
-                        }
-                    </form>
-                </mat-card-content>
-            </amw-card>
+                                        <amw-input
+                                            label="Balance (non-negative)"
+                                            type="number"
+                                            formControlName="nonNegativeNumber"
+                                            />
+                                        @if (numberForm.get('nonNegativeNumber')?.hasError('negative')) {
+                                            <p class="form-error">Must be zero or greater</p>
+                                        }
+                                    </form>
+                                </ng-template>
+                            </amw-card>
 
-            <h3>Array Validation Example</h3>
-            <p>Uses <code>AmwValidators.arrayMinLength()</code> and <code>AmwValidators.arrayMaxLength()</code>.</p>
+                            <h3>Array Validation Example</h3>
+                            <p>Uses <code>AmwValidators.arrayMinLength()</code> and <code>AmwValidators.arrayMaxLength()</code>.</p>
 
-            <amw-card class="demo-card">
-                <mat-card-header>
-                    <h4>Tags Selection</h4>
-                </mat-card-header>
-                <mat-card-content>
-                    <div class="demo-tags">
-                        <p>Select 2-5 tags:</p>
-                        <div class="tag-list">
-                            @for (tag of availableTags; track tag) {
-                                <button
-                                    type="button"
-                                    class="tag-chip"
-                                    [class.selected]="selectedTags().includes(tag)"
-                                    (click)="toggleTag(tag)">
-                                    {{ tag }}
-                                </button>
-                            }
-                        </div>
-                        @if (arrayForm.get('tags')?.hasError('arrayMinLength')) {
-                            <p class="form-error">Select at least 2 tags</p>
-                        }
-                        @if (arrayForm.get('tags')?.hasError('arrayMaxLength')) {
-                            <p class="form-error">Maximum 5 tags allowed</p>
-                        }
-                        <p class="tag-count">Selected: {{ selectedTags().length }} tags</p>
-                    </div>
-                </mat-card-content>
-            </amw-card>
+                            <amw-card headerTitle="Tags Selection" class="demo-card">
+                                <ng-template #cardContent>
+                                    <div class="demo-tags">
+                                        <p>Select 2-5 tags:</p>
+                                        <div class="tag-list">
+                                            @for (tag of availableTags; track tag) {
+                                                <button
+                                                    type="button"
+                                                    class="tag-chip"
+                                                    [class.selected]="selectedTags().includes(tag)"
+                                                    (click)="toggleTag(tag)">
+                                                    {{ tag }}
+                                                </button>
+                                            }
+                                        </div>
+                                        @if (arrayForm.get('tags')?.hasError('arrayMinLength')) {
+                                            <p class="form-error">Select at least 2 tags</p>
+                                        }
+                                        @if (arrayForm.get('tags')?.hasError('arrayMaxLength')) {
+                                            <p class="form-error">Maximum 5 tags allowed</p>
+                                        }
+                                        <p class="tag-count">Selected: {{ selectedTags().length }} tags</p>
+                                    </div>
+                                </ng-template>
+                            </amw-card>
 
-            <h3>Date Validation Example</h3>
-            <p>Uses <code>AmwValidators.futureDate()</code>, <code>AmwValidators.pastOrPresentDate()</code>, and <code>AmwValidators.dateRange()</code>.</p>
+                            <h3>Date Validation Example</h3>
+                            <p>Uses <code>AmwValidators.futureDate()</code>, <code>AmwValidators.pastOrPresentDate()</code>, and <code>AmwValidators.dateRange()</code>.</p>
 
-            <amw-card class="demo-card">
-                <mat-card-header>
-                    <h4>Event Date Form</h4>
-                </mat-card-header>
-                <mat-card-content>
-                    <form [formGroup]="dateForm" class="demo-form">
-                        <amw-input
-                            label="Birth Date (past or present)"
-                            type="date"
-                            formControlName="birthDate"
-                            />
-                        @if (dateForm.get('birthDate')?.hasError('futureDate')) {
-                            <p class="form-error">Birth date cannot be in the future</p>
-                        }
+                            <amw-card headerTitle="Event Date Form" class="demo-card">
+                                <ng-template #cardContent>
+                                    <form [formGroup]="dateForm" class="demo-form">
+                                        <amw-input
+                                            label="Birth Date (past or present)"
+                                            type="date"
+                                            formControlName="birthDate"
+                                            />
+                                        @if (dateForm.get('birthDate')?.hasError('futureDate')) {
+                                            <p class="form-error">Birth date cannot be in the future</p>
+                                        }
 
-                        <amw-input
-                            label="Event Start Date (future)"
-                            type="date"
-                            formControlName="startDate"
-                            />
-                        @if (dateForm.get('startDate')?.hasError('notFutureDate')) {
-                            <p class="form-error">Event must be in the future</p>
-                        }
+                                        <amw-input
+                                            label="Event Start Date (future)"
+                                            type="date"
+                                            formControlName="startDate"
+                                            />
+                                        @if (dateForm.get('startDate')?.hasError('notFutureDate')) {
+                                            <p class="form-error">Event must be in the future</p>
+                                        }
 
-                        <amw-input
-                            label="Event End Date"
-                            type="date"
-                            formControlName="endDate"
-                            />
-                        @if (dateForm.hasError('dateRange')) {
-                            <p class="form-error">End date must be after start date</p>
-                        }
-                    </form>
-                </mat-card-content>
-            </amw-card>
+                                        <amw-input
+                                            label="Event End Date"
+                                            type="date"
+                                            formControlName="endDate"
+                                            />
+                                        @if (dateForm.hasError('dateRange')) {
+                                            <p class="form-error">End date must be after start date</p>
+                                        }
+                                    </form>
+                                </ng-template>
+                            </amw-card>
 
-            <h3>Other Validators</h3>
+                            <h3>Other Validators</h3>
 
-            <amw-card class="demo-card">
-                <mat-card-header>
-                    <h4>Additional Validators</h4>
-                </mat-card-header>
-                <mat-card-content>
-                    <form [formGroup]="otherForm" class="demo-form">
-                        <amw-input
-                            label="Username (alphanumeric)"
-                            formControlName="alphanumeric"
-                            hint="Letters and numbers only"
-                            />
-                        @if (otherForm.get('alphanumeric')?.hasError('notAlphanumeric')) {
-                            <p class="form-error">Only letters and numbers allowed</p>
-                        }
+                            <amw-card headerTitle="Additional Validators" class="demo-card">
+                                <ng-template #cardContent>
+                                    <form [formGroup]="otherForm" class="demo-form">
+                                        <amw-input
+                                            label="Username (alphanumeric)"
+                                            formControlName="alphanumeric"
+                                            hint="Letters and numbers only"
+                                            />
+                                        @if (otherForm.get('alphanumeric')?.hasError('notAlphanumeric')) {
+                                            <p class="form-error">Only letters and numbers allowed</p>
+                                        }
 
-                        <amw-input
-                            label="Display Name (alphanumeric with spaces)"
-                            formControlName="alphanumericSpaces"
-                            hint="Letters, numbers, and spaces allowed"
-                            />
-                        @if (otherForm.get('alphanumericSpaces')?.hasError('notAlphanumericWithSpaces')) {
-                            <p class="form-error">Only letters, numbers, and spaces allowed</p>
-                        }
+                                        <amw-input
+                                            label="Display Name (alphanumeric with spaces)"
+                                            formControlName="alphanumericSpaces"
+                                            hint="Letters, numbers, and spaces allowed"
+                                            />
+                                        @if (otherForm.get('alphanumericSpaces')?.hasError('notAlphanumericWithSpaces')) {
+                                            <p class="form-error">Only letters, numbers, and spaces allowed</p>
+                                        }
 
-                        <amw-input
-                            label="Phone Number"
-                            formControlName="phone"
-                            hint="US format: (xxx) xxx-xxxx"
-                            />
-                        @if (otherForm.get('phone')?.hasError('invalidPhoneNumber')) {
-                            <p class="form-error">Please enter a valid phone number</p>
-                        }
+                                        <amw-input
+                                            label="Phone Number"
+                                            formControlName="phone"
+                                            hint="US format: (xxx) xxx-xxxx"
+                                            />
+                                        @if (otherForm.get('phone')?.hasError('invalidPhoneNumber')) {
+                                            <p class="form-error">Please enter a valid phone number</p>
+                                        }
 
-                        <amw-input
-                            label="Unique Username"
-                            formControlName="uniqueValue"
-                            hint="Cannot be: admin, root, system"
-                            />
-                        @if (otherForm.get('uniqueValue')?.hasError('notUnique')) {
-                            <p class="form-error">This value is already taken</p>
-                        }
-                    </form>
-                </mat-card-content>
-            </amw-card>
+                                        <amw-input
+                                            label="Unique Username"
+                                            formControlName="uniqueValue"
+                                            hint="Cannot be: admin, root, system"
+                                            />
+                                        @if (otherForm.get('uniqueValue')?.hasError('notUnique')) {
+                                            <p class="form-error">This value is already taken</p>
+                                        }
+                                    </form>
+                                </ng-template>
+                            </amw-card>
+                        </amw-tab>
 
-            <h3>Code Examples</h3>
-            <pre><code>import {{ '{' }} AmwValidators {{ '}' }} from '&#64;anthropic/angular-material-wrap';
+                        <amw-tab label="Code" icon="code">
+                            <div class="code-content">
+                                <h3>Code Examples</h3>
+                                <pre><code>import {{ '{' }} AmwValidators {{ '}' }} from '&#64;anthropic/angular-material-wrap';
 
 // Password match validation
 this.form = this.fb.group({{ '{' }}
@@ -276,108 +270,45 @@ username: ['', AmwValidators.unique(['admin', 'root', 'system'])],
 
 // Conditional required
 {{ '{' }} validators: AmwValidators.requiredWhen('country', v => v === 'USA', 'state') {{ '}' }}</code></pre>
+                            </div>
+                        </amw-tab>
 
-            <h3>Available Validators</h3>
-            <table class="api-table">
-                <thead>
-                    <tr>
-                        <th>Validator</th>
-                        <th>Description</th>
-                        <th>Error Key</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <tr>
-                        <td><code>fieldsMatch(field1, field2)</code></td>
-                        <td>Validates two fields have the same value</td>
-                        <td>mismatch</td>
-                    </tr>
-                    <tr>
-                        <td><code>passwordsMatch()</code></td>
-                        <td>Shorthand for password/confirmPassword match</td>
-                        <td>mismatch</td>
-                    </tr>
-                    <tr>
-                        <td><code>validUrl()</code></td>
-                        <td>Validates URL format (flexible)</td>
-                        <td>invalidUrl</td>
-                    </tr>
-                    <tr>
-                        <td><code>validUrlStrict()</code></td>
-                        <td>Validates URL with required protocol</td>
-                        <td>invalidUrl</td>
-                    </tr>
-                    <tr>
-                        <td><code>positiveNumber()</code></td>
-                        <td>Value must be greater than 0</td>
-                        <td>notPositive</td>
-                    </tr>
-                    <tr>
-                        <td><code>nonNegativeNumber()</code></td>
-                        <td>Value must be >= 0</td>
-                        <td>negative</td>
-                    </tr>
-                    <tr>
-                        <td><code>arrayMinLength(min)</code></td>
-                        <td>Array must have at least min items</td>
-                        <td>arrayMinLength</td>
-                    </tr>
-                    <tr>
-                        <td><code>arrayMaxLength(max)</code></td>
-                        <td>Array must have at most max items</td>
-                        <td>arrayMaxLength</td>
-                    </tr>
-                    <tr>
-                        <td><code>requiredWhen(field, condition)</code></td>
-                        <td>Field required when condition is true</td>
-                        <td>required</td>
-                    </tr>
-                    <tr>
-                        <td><code>alphanumeric()</code></td>
-                        <td>Only letters and numbers</td>
-                        <td>notAlphanumeric</td>
-                    </tr>
-                    <tr>
-                        <td><code>alphanumericWithSpaces()</code></td>
-                        <td>Letters, numbers, and spaces</td>
-                        <td>notAlphanumericWithSpaces</td>
-                    </tr>
-                    <tr>
-                        <td><code>futureDate()</code></td>
-                        <td>Date must be in the future</td>
-                        <td>notFutureDate</td>
-                    </tr>
-                    <tr>
-                        <td><code>pastOrPresentDate()</code></td>
-                        <td>Date must not be in the future</td>
-                        <td>futureDate</td>
-                    </tr>
-                    <tr>
-                        <td><code>dateRange(start, end)</code></td>
-                        <td>End date must be after start date</td>
-                        <td>dateRange</td>
-                    </tr>
-                    <tr>
-                        <td><code>phoneNumber()</code></td>
-                        <td>Valid phone number format</td>
-                        <td>invalidPhoneNumber</td>
-                    </tr>
-                    <tr>
-                        <td><code>requiredTrue()</code></td>
-                        <td>Checkbox must be checked</td>
-                        <td>requiredTrue</td>
-                    </tr>
-                    <tr>
-                        <td><code>unique(existingValues)</code></td>
-                        <td>Value must not exist in array</td>
-                        <td>notUnique</td>
-                    </tr>
-                </tbody>
-            </table>
-
-        </amw-demo-doc>
+                        <amw-tab label="API" icon="description">
+                            <div class="api-content">
+                                <amw-api-doc
+                                    componentName="Custom Validators"
+                                    [apiDocumentation]="validatorsApiDoc"
+                                    description="A comprehensive set of custom validators for Angular Reactive Forms.">
+                                </amw-api-doc>
+                            </div>
+                        </amw-tab>
+                    </amw-tabs>
+                </ng-template>
+            </amw-card>
+        </div>
     `,
     styles: [`
+        .validators-demo-page {
+            padding: 24px;
+            max-width: 1400px;
+            margin: 0 auto;
+
+            &__header {
+                margin-bottom: 24px;
+                h1 { margin: 0 0 8px 0; }
+                p { margin: 0; }
+            }
+        }
+
+        .code-content {
+            padding: 20px 0;
+            h3 { margin-top: 0; }
+        }
+
+        .api-content {
+            padding: 20px 0;
+        }
+
         .demo-card {
             margin-bottom: 24px;
         }
@@ -477,6 +408,35 @@ export class ValidatorsDemoComponent {
     arrayForm: FormGroup;
     dateForm: FormGroup;
     otherForm: FormGroup;
+
+    validatorsApiDoc: ApiDocumentation = {
+        methods: [
+            { name: 'fieldsMatch(field1: string, field2: string)', returns: 'ValidatorFn', description: 'Validates two fields have the same value. Error key: mismatch' },
+            { name: 'passwordsMatch(passwordField?: string, confirmField?: string)', returns: 'ValidatorFn', description: 'Shorthand for password/confirmPassword match. Error key: mismatch' },
+            { name: 'validUrl()', returns: 'ValidatorFn', description: 'Validates URL format (flexible, protocol optional). Error key: invalidUrl' },
+            { name: 'validUrlStrict()', returns: 'ValidatorFn', description: 'Validates URL with required protocol (http/https). Error key: invalidUrl' },
+            { name: 'positiveNumber()', returns: 'ValidatorFn', description: 'Value must be greater than 0. Error key: notPositive' },
+            { name: 'nonNegativeNumber()', returns: 'ValidatorFn', description: 'Value must be >= 0. Error key: negative' },
+            { name: 'arrayMinLength(min: number)', returns: 'ValidatorFn', description: 'Array must have at least min items. Error key: arrayMinLength' },
+            { name: 'arrayMaxLength(max: number)', returns: 'ValidatorFn', description: 'Array must have at most max items. Error key: arrayMaxLength' },
+            { name: 'requiredWhen(field: string, condition: Function, targetField: string)', returns: 'ValidatorFn', description: 'Field required when condition is true. Error key: required' },
+            { name: 'alphanumeric()', returns: 'ValidatorFn', description: 'Only letters and numbers allowed. Error key: notAlphanumeric' },
+            { name: 'alphanumericWithSpaces()', returns: 'ValidatorFn', description: 'Letters, numbers, and spaces allowed. Error key: notAlphanumericWithSpaces' },
+            { name: 'futureDate()', returns: 'ValidatorFn', description: 'Date must be in the future. Error key: notFutureDate' },
+            { name: 'pastOrPresentDate()', returns: 'ValidatorFn', description: 'Date must not be in the future. Error key: futureDate' },
+            { name: 'dateRange(startField: string, endField: string)', returns: 'ValidatorFn', description: 'End date must be after start date. Error key: dateRange' },
+            { name: 'phoneNumber()', returns: 'ValidatorFn', description: 'Valid phone number format. Error key: invalidPhoneNumber' },
+            { name: 'requiredTrue()', returns: 'ValidatorFn', description: 'Checkbox must be checked. Error key: requiredTrue' },
+            { name: 'unique(existingValues: any[], caseSensitive?: boolean)', returns: 'ValidatorFn', description: 'Value must not exist in array. Error key: notUnique' }
+        ],
+        usageNotes: [
+            'Import AmwValidators from the library',
+            'Use with Angular Reactive Forms FormControl and FormGroup',
+            'Group-level validators (passwordsMatch, dateRange, requiredWhen) go in the FormGroup options',
+            'Field-level validators go in the FormControl validators array',
+            'All validators return standard Angular ValidatorFn'
+        ]
+    };
 
     constructor(private fb: FormBuilder) {
         // Password match form

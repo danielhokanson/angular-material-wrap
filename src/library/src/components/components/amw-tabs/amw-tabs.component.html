@@ -38,10 +38,10 @@
             } @else {
               <!-- Tab Icon -->
               @if (currentConfig().showIcons && tab.icon) {
-                <mat-icon
+                <amw-icon
+                  [name]="tab.icon"
                   class="amw-tabs__tab-icon">
-                  {{ tab.icon }}
-                </mat-icon>
+                </amw-icon>
               }
               <!-- Tab Label -->
               <span class="amw-tabs__tab-label">{{ tab.label }}</span>
@@ -92,7 +92,7 @@
             <div class="amw-tabs__panel-header">
               <div class="amw-tabs__panel-title">
                 @if (tab.icon) {
-                  <mat-icon class="amw-tabs__panel-icon">{{ tab.icon }}</mat-icon>
+                  <amw-icon [name]="tab.icon" class="amw-tabs__panel-icon"></amw-icon>
                 }
                 @if (tab.label) {
                   <h3>{{ tab.label }}</h3>
@@ -125,7 +125,7 @@
   @if (tabs().length === 0) {
     <div class="amw-tabs__empty">
       <div class="amw-tabs__empty-content">
-        <mat-icon class="amw-tabs__empty-icon">tab</mat-icon>
+        <amw-icon name="tab" class="amw-tabs__empty-icon"></amw-icon>
         <h3>No tabs available</h3>
         <p>Add a new tab to get started</p>
         @if (currentConfig().showAddButton) {

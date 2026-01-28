@@ -2,7 +2,7 @@ import { Component, input, output, ViewEncapsulation, computed, AfterContentInit
 import { CommonModule } from '@angular/common';
 import { MatButtonModule } from '@angular/material/button';
 import { MatRippleModule } from '@angular/material/core';
-import { MatIconModule } from '@angular/material/icon';
+import { AmwIconComponent } from '../../../components/components/amw-icon/amw-icon.component';
 import { BaseComponent } from '../base/base.component';
 import { AmwButtonStyle, AmwFabType } from './interfaces/amw-button.interface';
 import { ButtonType } from './interfaces/button-type.type';
@@ -24,10 +24,13 @@ import { AmwProgressSpinnerComponent } from '../../../components/components/amw-
 @Component({
     selector: 'amw-button',
     standalone: true,
-    imports: [CommonModule, MatButtonModule, MatRippleModule, MatIconModule, AmwProgressSpinnerComponent],
+    imports: [CommonModule, MatButtonModule, MatRippleModule, AmwIconComponent, AmwProgressSpinnerComponent],
     encapsulation: ViewEncapsulation.None,
     templateUrl: './amw-button.component.html',
-    styleUrl: './amw-button.component.scss'
+    styleUrl: './amw-button.component.scss',
+    host: {
+        '[style.display]': "effectiveAppearance() === 'icon' ? 'contents' : null"
+    }
 })
 export class AmwButtonComponent extends BaseComponent<void> implements AfterContentInit {
     // Button type (submit, button, reset)
@@ -135,9 +138,11 @@ export class AmwButtonComponent extends BaseComponent<void> implements AfterCont
         const hasIcon = !!this.icon();
         const hasText = !!this.text()?.trim();
         const isExtended = this.isExtendedFab();
+        const isIconAppearance = this.effectiveAppearance() === 'icon';
 
-        // Icon-only when there's an icon but no text (and not extended FAB)
-        return hasIcon && !hasText && !isExtended;
+        // Icon-only when there's an icon but no text (and not extended FAB or icon appearance)
+        // appearance="icon" goes through the standard @switch path instead
+        return hasIcon && !hasText && !isExtended && !isIconAppearance;
     });
 
     /**
@@ -150,6 +155,13 @@ export class AmwButtonComponent extends BaseComponent<void> implements AfterCont
     onButtonClick(event: MouseEvent): void {
         if (!this.disabled() && !this.loading()) {
             this.buttonClick.emit(event);
+        }
+    }
+
+    onBareIconKeydown(event: Event): void {
+        event.preventDefault();
+        if (!this.disabled() && !this.loading()) {
+            this.buttonClick.emit(event as MouseEvent);
         }
     }
 
@@ -173,6 +185,11 @@ export class AmwButtonComponent extends BaseComponent<void> implements AfterCont
      * Generates CSS classes for the button
      */
     get buttonClasses(): string {
+        // Bare icon appearance: minimal classes only
+        if (this.effectiveAppearance() === 'icon') {
+            return 'amw-button__bare-icon';
+        }
+
         const classes = ['amw-button'];
 
         // Appearance class

@@ -87,12 +87,6 @@
     min-width: 120px;
   }
 
-  :host ::ng-deep .variation-label {
-    font-size: 0.85rem;
-    font-weight: 500;
-    color: var(--mat-sys-on-surface-variant);
-  }
-
   // Real-world example styling
   &__section--real-world {
     margin-top: 40px;

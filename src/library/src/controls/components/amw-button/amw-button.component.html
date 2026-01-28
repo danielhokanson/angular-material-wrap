@@ -1,9 +1,9 @@
-<div class="amw-button">
+<div class="amw-button" [class.amw-button--bare]="effectiveAppearance() === 'icon'">
   <!-- Common Button Content Template (for standard buttons and extended FAB) -->
   <ng-template #buttonContent>
     <!-- Left Icon -->
     @if (icon() && iconPosition() === 'left' && !loading()) {
-      <mat-icon class="amw-button__icon amw-button__icon--left">{{ icon() }}</mat-icon>
+      <amw-icon [name]="icon()" class="amw-button__icon amw-button__icon--left"></amw-icon>
     }
 
     <!-- Loading Spinner -->
@@ -25,7 +25,7 @@
 
     <!-- Right Icon -->
     @if (icon() && iconPosition() === 'right' && !loading()) {
-      <mat-icon class="amw-button__icon amw-button__icon--right">{{ icon() }}</mat-icon>
+      <amw-icon [name]="icon()" class="amw-button__icon amw-button__icon--right"></amw-icon>
     }
   </ng-template>
 
@@ -39,7 +39,7 @@
 
     <!-- Icon -->
     @if (icon() && !loading()) {
-      <mat-icon class="amw-button__icon">{{ icon() }}</mat-icon>
+      <amw-icon [name]="icon()" class="amw-button__icon"></amw-icon>
     }
   </ng-template>
 
@@ -80,6 +80,25 @@
       (mouseenter)="onMouseEnter($event)" (mouseleave)="onMouseLeave($event)" class="amw-button__button">
       <ng-container [ngTemplateOutlet]="buttonContent"></ng-container>
     </button>
+  }
+
+  <!-- Bare Icon (appearance="icon") - no button wrapper -->
+  @else if (effectiveAppearance() === 'icon') {
+    <amw-icon
+      [name]="icon()"
+      [class]="buttonClasses"
+      [attr.role]="'button'"
+      [attr.tabindex]="disabled() ? -1 : (tabIndex() ?? 0)"
+      [attr.aria-label]="ariaLabel()"
+      [attr.aria-disabled]="disabled() || loading()"
+      (click)="onButtonClick($event)"
+      (focus)="onButtonFocus($event)"
+      (blur)="onButtonBlur($event)"
+      (mouseenter)="onMouseEnter($event)"
+      (mouseleave)="onMouseLeave($event)"
+      (keydown.enter)="onBareIconKeydown($event)"
+      (keydown.space)="onBareIconKeydown($event)">
+    </amw-icon>
   }
 
   <!-- Icon-Only Button (not FAB) -->

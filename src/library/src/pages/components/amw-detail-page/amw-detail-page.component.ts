@@ -1,7 +1,7 @@
 import { Component, input, output, OnInit, OnDestroy, ViewEncapsulation, ChangeDetectorRef, Inject, Optional } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { MatCardModule } from '@angular/material/card';
-import { MatIconModule } from '@angular/material/icon';
+import { AmwCardComponent } from '../../../components/components/amw-card/amw-card.component';
+import { AmwIconComponent } from '../../../components/components/amw-icon/amw-icon.component';
 import { MatDividerModule } from '@angular/material/divider';
 import { MatTabsModule } from '@angular/material/tabs';
 import { MatExpansionModule } from '@angular/material/expansion';
@@ -28,9 +28,9 @@ import { AmwTooltipDirective } from '../../../directives';
     standalone: true,
     imports: [
         CommonModule,
-        MatCardModule,
+        AmwCardComponent,
         AmwButtonComponent,
-        MatIconModule,
+        AmwIconComponent,
         MatDividerModule,
         MatTabsModule,
         MatExpansionModule,

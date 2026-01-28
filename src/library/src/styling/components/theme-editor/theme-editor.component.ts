@@ -1,10 +1,10 @@
 import { Component, OnInit, signal, computed } from '@angular/core';
 
 import { FormsModule } from '@angular/forms';
-import { MatIconModule } from '@angular/material/icon';
-import { MatCardModule } from '@angular/material/card';
-import { MatSlideToggleModule } from '@angular/material/slide-toggle';
-import { MatSnackBarModule, MatSnackBar } from '@angular/material/snack-bar';
+import { AmwCardComponent } from '../../../components/components/amw-card/amw-card.component';
+import { AmwIconComponent } from '../../../components/components/amw-icon/amw-icon.component';
+import { AmwSwitchComponent } from '../../../controls/components/amw-switch/amw-switch.component';
+import { AmwNotificationService } from '../../../services/amw-notification/amw-notification.service';
 
 import { AmwThemeService, AmwThemeConfig, AmwThemeColors } from '../../services/amw-theme.service';
 import { AmwDividerComponent } from '../../../components/components/amw-divider/amw-divider.component';
@@ -21,12 +21,11 @@ import { AmwColorPickerComponent } from '../../../controls/components/amw-color-
     AmwButtonComponent,
     AmwInputComponent,
     AmwColorPickerComponent,
-    MatIconModule,
-    MatCardModule,
-    MatSlideToggleModule,
+    AmwIconComponent,
+    AmwCardComponent,
+    AmwSwitchComponent,
     AmwDividerComponent,
-    AmwTooltipDirective,
-    MatSnackBarModule
+    AmwTooltipDirective
 ],
     templateUrl: './theme-editor.component.html',
     styleUrl: './theme-editor.component.scss',
@@ -71,7 +70,7 @@ export class AmwThemeEditorComponent implements OnInit {
 
     constructor(
         private themeService: AmwThemeService,
-        private snackBar: MatSnackBar
+        private notificationService: AmwNotificationService
     ) { }
 
     ngOnInit(): void {
@@ -108,8 +107,8 @@ export class AmwThemeEditorComponent implements OnInit {
         }
     }
 
-    onDarkModeToggle(): void {
-        this.isDarkMode = !this.isDarkMode;
+    onDarkModeChanged(isDark: boolean): void {
+        this.isDarkMode = isDark;
 
         // Update background and surface colors based on dark mode
         if (this.isDarkMode) {
@@ -148,7 +147,7 @@ export class AmwThemeEditorComponent implements OnInit {
 
     onSaveTheme(): void {
         if (!this.isValid) {
-            this.snackBar.open('Please fill in all required fields with valid values', 'Close', {
+            this.notificationService.warning('Validation', 'Please fill in all required fields with valid values', {
                 duration: 3000
             });
             return;
@@ -170,9 +169,9 @@ export class AmwThemeEditorComponent implements OnInit {
         }
 
         if (success) {
-            this.snackBar.open(
+            this.notificationService.success(
+                'Theme Saved',
                 `Theme ${this.isEditing() ? 'updated' : 'created'} successfully! Applying theme...`,
-                'Close',
                 { duration: 3000 }
             );
             this.loadCustomThemes();
@@ -180,9 +179,9 @@ export class AmwThemeEditorComponent implements OnInit {
             this.themeService.setTheme(theme.id);
             this.resetForm();
         } else {
-            this.snackBar.open(
+            this.notificationService.error(
+                'Error',
                 `Failed to ${this.isEditing() ? 'update' : 'create'} theme. Theme ID may already exist.`,
-                'Close',
                 { duration: 3000 }
             );
         }
@@ -192,13 +191,13 @@ export class AmwThemeEditorComponent implements OnInit {
         if (confirm(`Are you sure you want to delete the theme "${theme.displayName}"?`)) {
             const success = this.themeService.deleteCustomTheme(theme.id);
             if (success) {
-                this.snackBar.open('Theme deleted successfully!', 'Close', { duration: 3000 });
+                this.notificationService.success('Theme Deleted', 'Theme deleted successfully!', { duration: 3000 });
                 this.loadCustomThemes();
                 if (this.editingThemeId() === theme.id) {
                     this.resetForm();
                 }
             } else {
-                this.snackBar.open('Failed to delete theme', 'Close', { duration: 3000 });
+                this.notificationService.error('Error', 'Failed to delete theme', { duration: 3000 });
             }
         }
     }

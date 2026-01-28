@@ -27,69 +27,69 @@
   <!-- Stats Pills -->
   <div class="amw-dashboard-page__stats"
        [style.--stats-per-row]="currentConfig.statsPerRow">
-    <mat-card *ngFor="let stat of stats"
+    <amw-card *ngFor="let stat of stats"
               class="amw-dashboard-page__stat"
               [class]="getStatColorClass(stat)"
               [class.amw-dashboard-page__stat--clickable]="stat.onClick"
-              (click)="stat.onClick ? onStatClick(stat) : null">
-
-      <!-- Stat Icon -->
-      <div class="amw-dashboard-page__stat-icon" *ngIf="stat.icon">
-        <mat-icon>{{ stat.icon }}</mat-icon>
-      </div>
-
-      <!-- Stat Content -->
-      <div class="amw-dashboard-page__stat-content">
-        <div class="amw-dashboard-page__stat-label">{{ stat.label }}</div>
-
-        <!-- Loading State -->
-        <div *ngIf="stat.loading" class="amw-dashboard-page__stat-loading">
-          <amw-progress-spinner [diameter]="24"></amw-progress-spinner>
+              [clickable]="!!stat.onClick"
+              (cardClick)="onStatClick(stat)">
+      <ng-template #cardContent>
+        <!-- Stat Icon -->
+        <div class="amw-dashboard-page__stat-icon" *ngIf="stat.icon">
+          <amw-icon [name]="stat.icon"></amw-icon>
         </div>
 
-        <!-- Value -->
-        <div *ngIf="!stat.loading" class="amw-dashboard-page__stat-value">
-          {{ stat.format ? stat.format(stat.value) : stat.value }}
-        </div>
+        <!-- Stat Content -->
+        <div class="amw-dashboard-page__stat-content">
+          <div class="amw-dashboard-page__stat-label">{{ stat.label }}</div>
 
-        <!-- Subtitle -->
-        <div *ngIf="stat.subtitle && !stat.loading"
-             class="amw-dashboard-page__stat-subtitle">
-          {{ stat.subtitle }}
-        </div>
+          <!-- Loading State -->
+          <div *ngIf="stat.loading" class="amw-dashboard-page__stat-loading">
+            <amw-progress-spinner [diameter]="24"></amw-progress-spinner>
+          </div>
 
-        <!-- Trend -->
-        <div *ngIf="stat.trend && currentConfig.showTrends && !stat.loading"
-             class="amw-dashboard-page__stat-trend"
-             [class]="getTrendColorClass(stat.trend.direction)">
-          <mat-icon>{{ getTrendIcon(stat.trend.direction) }}</mat-icon>
-          <span>{{ stat.trend.value > 0 ? '+' : '' }}{{ stat.trend.value }}%</span>
-          <span *ngIf="stat.trend.label" class="amw-dashboard-page__stat-trend-label">
-            {{ stat.trend.label }}
-          </span>
+          <!-- Value -->
+          <div *ngIf="!stat.loading" class="amw-dashboard-page__stat-value">
+            {{ stat.format ? stat.format(stat.value) : stat.value }}
+          </div>
+
+          <!-- Subtitle -->
+          <div *ngIf="stat.subtitle && !stat.loading"
+               class="amw-dashboard-page__stat-subtitle">
+            {{ stat.subtitle }}
+          </div>
+
+          <!-- Trend -->
+          <div *ngIf="stat.trend && currentConfig.showTrends && !stat.loading"
+               class="amw-dashboard-page__stat-trend"
+               [class]="getTrendColorClass(stat.trend.direction)">
+            <amw-icon [name]="getTrendIcon(stat.trend.direction)"></amw-icon>
+            <span>{{ stat.trend.value > 0 ? '+' : '' }}{{ stat.trend.value }}%</span>
+            <span *ngIf="stat.trend.label" class="amw-dashboard-page__stat-trend-label">
+              {{ stat.trend.label }}
+            </span>
+          </div>
         </div>
-      </div>
-    </mat-card>
+      </ng-template>
+    </amw-card>
   </div>
 
   <!-- Toolbar -->
   <div class="amw-dashboard-page__toolbar">
     <!-- View Mode Toggles -->
-    <mat-button-toggle-group [value]="currentViewMode"
-                              (change)="onViewModeChange($event.value)"
+    <amw-button-toggle-group [value]="currentViewMode"
+                              (valueChange)="onViewModeChange($event)"
                               class="amw-dashboard-page__view-modes"
                               *ngIf="currentConfig.viewModes.length > 1">
-      <mat-button-toggle *ngFor="let viewMode of currentConfig.viewModes"
+      <amw-button-toggle *ngFor="let viewMode of currentConfig.viewModes"
                           [value]="viewMode"
+                          [icon]="getViewModeIcon(viewMode)"
                           [amwTooltip]="getViewModeLabel(viewMode)">
-        <mat-icon *ngIf="getViewModeIcon(viewMode)">
-          {{ getViewModeIcon(viewMode) }}
-        </mat-icon>
         <span *ngIf="!getViewModeIcon(viewMode)">
           {{ getViewModeLabel(viewMode) }}
         </span>
-      </mat-button-toggle>
-    </mat-button-toggle-group>
+      </amw-button-toggle>
+    </amw-button-toggle-group>
 
     <div class="amw-dashboard-page__toolbar-spacer"></div>
 
@@ -101,7 +101,7 @@
                [placeholder]="currentConfig.searchPlaceholder || 'Search...'"
                type="text"
                appearance="outline">
-      <mat-icon matPrefix>search</mat-icon>
+      <amw-icon name="search" matPrefix></amw-icon>
       <amw-button               icon="close"
               matSuffix
               *ngIf="searchQuery"
@@ -139,7 +139,7 @@
 
     <!-- Error State -->
     <div *ngIf="error && !loading" class="amw-dashboard-page__error">
-      <mat-icon color="warn">error_outline</mat-icon>
+      <amw-icon name="error_outline" color="warn"></amw-icon>
       <p>{{ error }}</p>
       <amw-button appearance="text" (click)="refresh()">Try Again</amw-button>
     </div>
@@ -147,7 +147,7 @@
     <!-- Empty State -->
     <div *ngIf="!loading && !error && items.length === 0"
          class="amw-dashboard-page__empty">
-      <mat-icon>inbox</mat-icon>
+      <amw-icon name="inbox"></amw-icon>
       <p>{{ currentConfig.emptyMessage }}</p>
     </div>
 
@@ -155,38 +155,40 @@
     <div *ngIf="!loading && !error && items.length > 0 && currentConfig.contentLayout === 'grid'"
          class="amw-dashboard-page__grid"
          [style.--grid-columns]="currentConfig.gridColumns">
-      <mat-card *ngFor="let item of items"
+      <amw-card *ngFor="let item of items"
                 class="amw-dashboard-page__grid-item"
-                (click)="onItemClick(item)">
-        <mat-card-header>
-          <mat-card-title>{{ item.title }}</mat-card-title>
-          <mat-card-subtitle *ngIf="item.subtitle">{{ item.subtitle }}</mat-card-subtitle>
-        </mat-card-header>
-        <mat-card-content>
+                [clickable]="true"
+                (cardClick)="onItemClick(item)"
+                [headerTitle]="item.title"
+                [headerSubtitle]="item.subtitle || ''">
+        <ng-template #cardContent>
           <ng-container *ngIf="item.content">{{ item.content }}</ng-container>
           <ng-container *ngIf="!item.content">
             <pre>{{ item | json }}</pre>
           </ng-container>
-        </mat-card-content>
-      </mat-card>
+        </ng-template>
+      </amw-card>
     </div>
 
     <!-- List Layout -->
     <div *ngIf="!loading && !error && items.length > 0 && currentConfig.contentLayout === 'list'"
          class="amw-dashboard-page__list">
-      <mat-card *ngFor="let item of items"
+      <amw-card *ngFor="let item of items"
                 class="amw-dashboard-page__list-item"
-                (click)="onItemClick(item)">
-        <div class="amw-dashboard-page__list-item-content">
-          <div class="amw-dashboard-page__list-item-main">
-            <h3>{{ item.title }}</h3>
-            <p *ngIf="item.subtitle">{{ item.subtitle }}</p>
+                [clickable]="true"
+                (cardClick)="onItemClick(item)">
+        <ng-template #cardContent>
+          <div class="amw-dashboard-page__list-item-content">
+            <div class="amw-dashboard-page__list-item-main">
+              <h3>{{ item.title }}</h3>
+              <p *ngIf="item.subtitle">{{ item.subtitle }}</p>
+            </div>
+            <div *ngIf="item.badge" class="amw-dashboard-page__list-item-badge">
+              <mat-chip>{{ item.badge }}</mat-chip>
+            </div>
           </div>
-          <div *ngIf="item.badge" class="amw-dashboard-page__list-item-badge">
-            <mat-chip>{{ item.badge }}</mat-chip>
-          </div>
-        </div>
-      </mat-card>
+        </ng-template>
+      </amw-card>
     </div>
 
     <!-- Calendar Layout (placeholder) -->
@@ -196,31 +198,32 @@
         Calendar view coming soon. Items: {{ items.length }}
       </p>
       <div class="amw-dashboard-page__list">
-        <mat-card *ngFor="let item of items"
+        <amw-card *ngFor="let item of items"
                   class="amw-dashboard-page__list-item"
-                  (click)="onItemClick(item)">
-          <div class="amw-dashboard-page__list-item-content">
-            <div class="amw-dashboard-page__list-item-main">
-              <h3>{{ item.title }}</h3>
-              <p *ngIf="item.date">{{ item.date | date }}</p>
+                  [clickable]="true"
+                  (cardClick)="onItemClick(item)">
+          <ng-template #cardContent>
+            <div class="amw-dashboard-page__list-item-content">
+              <div class="amw-dashboard-page__list-item-main">
+                <h3>{{ item.title }}</h3>
+                <p *ngIf="item.date">{{ item.date | date }}</p>
+              </div>
             </div>
-          </div>
-        </mat-card>
+          </ng-template>
+        </amw-card>
       </div>
     </div>
 
     <!-- Widgets Layout -->
     <div *ngIf="!loading && !error && currentConfig.contentLayout === 'widgets' && currentConfig.widgets"
          class="amw-dashboard-page__widgets">
-      <mat-expansion-panel *ngFor="let widget of currentConfig.widgets"
+      <amw-accordion-panel *ngFor="let widget of currentConfig.widgets"
                            [expanded]="!widget.collapsed"
                            class="amw-dashboard-page__widget">
-        <mat-expansion-panel-header>
-          <mat-panel-title>
-            <mat-icon *ngIf="widget.icon">{{ widget.icon }}</mat-icon>
-            {{ widget.title }}
-          </mat-panel-title>
-        </mat-expansion-panel-header>
+        <ng-template #header>
+          <amw-icon *ngIf="widget.icon" [name]="widget.icon"></amw-icon>
+          {{ widget.title }}
+        </ng-template>
 
         <div class="amw-dashboard-page__widget-content">
           <div *ngIf="widget.loading" class="amw-dashboard-page__widget-loading">
@@ -228,7 +231,7 @@
           </div>
 
           <div *ngIf="widget.error && !widget.loading" class="amw-dashboard-page__widget-error">
-            <mat-icon color="warn">error_outline</mat-icon>
+            <amw-icon name="error_outline" color="warn"></amw-icon>
             <p>{{ widget.error }}</p>
           </div>
 
@@ -236,7 +239,7 @@
             <pre>{{ widget.data | json }}</pre>
           </div>
         </div>
-      </mat-expansion-panel>
+      </amw-accordion-panel>
     </div>
 
     <!-- Custom Layout (content projection placeholder) -->
@@ -244,15 +247,18 @@
          class="amw-dashboard-page__custom">
       <p>Custom content projection area. Use ng-content in parent template.</p>
       <div class="amw-dashboard-page__list">
-        <mat-card *ngFor="let item of items"
+        <amw-card *ngFor="let item of items"
                   class="amw-dashboard-page__list-item"
-                  (click)="onItemClick(item)">
-          <div class="amw-dashboard-page__list-item-content">
-            <div class="amw-dashboard-page__list-item-main">
-              <h3>{{ item.title }}</h3>
+                  [clickable]="true"
+                  (cardClick)="onItemClick(item)">
+          <ng-template #cardContent>
+            <div class="amw-dashboard-page__list-item-content">
+              <div class="amw-dashboard-page__list-item-main">
+                <h3>{{ item.title }}</h3>
+              </div>
             </div>
-          </div>
-        </mat-card>
+          </ng-template>
+        </amw-card>
       </div>
     </div>
   </div>

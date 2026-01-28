@@ -5,8 +5,8 @@ import { MatTableModule } from '@angular/material/table';
 import { MatPaginatorModule, PageEvent } from '@angular/material/paginator';
 import { MatSortModule, Sort } from '@angular/material/sort';
 import { MatCheckboxModule } from '@angular/material/checkbox';
-import { MatIconModule } from '@angular/material/icon';
 import { MatInputModule } from '@angular/material/input';
+import { AmwIconComponent } from '../amw-icon/amw-icon.component';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatSelectModule } from '@angular/material/select';
 import { MatMenuModule } from '@angular/material/menu';
@@ -46,7 +46,7 @@ import { AmwDialogService } from '../../services/amw-dialog.service';
         MatSortModule,
         MatCheckboxModule,
         AmwButtonComponent,
-        MatIconModule,
+        AmwIconComponent,
         MatInputModule,
         MatFormFieldModule,
         MatSelectModule,
@@ -69,6 +69,7 @@ export class AmwDataTableComponent implements OnInit, OnDestroy {
     loading = input<boolean>(false);
     loadingMessage = input<string>('Loading...');
     emptyMessage = input<string>('No data available');
+    ariaLabel = input<string>('Data table');
 
     // Output events
     sortChange = output<DataTableSort>();

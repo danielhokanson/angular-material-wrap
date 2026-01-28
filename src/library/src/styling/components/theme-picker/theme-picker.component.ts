@@ -1,11 +1,9 @@
 import { Component, OnInit, signal, computed } from '@angular/core';
 
-import { MatSelectModule } from '@angular/material/select';
-import { MatFormFieldModule } from '@angular/material/form-field';
-import { MatIconModule } from '@angular/material/icon';
-import { MatTooltipModule } from '@angular/material/tooltip';
-import { MatDividerModule } from '@angular/material/divider';
-import { MatCardModule } from '@angular/material/card';
+import { AmwIconComponent } from '../../../components/components/amw-icon/amw-icon.component';
+import { AmwCardComponent } from '../../../components/components/amw-card/amw-card.component';
+import { AmwSelectComponent } from '../../../controls/components/amw-select/amw-select.component';
+import { AmwSelectOption } from '../../../controls/components/amw-select/interfaces/select.interface';
 
 import { AmwThemeService, AmwThemeConfig } from '../../services/amw-theme.service';
 
@@ -13,12 +11,9 @@ import { AmwThemeService, AmwThemeConfig } from '../../services/amw-theme.servic
     selector: 'amw-theme-picker',
     standalone: true,
     imports: [
-        MatSelectModule,
-        MatFormFieldModule,
-        MatIconModule,
-        MatTooltipModule,
-        MatDividerModule,
-        MatCardModule
+        AmwIconComponent,
+        AmwCardComponent,
+        AmwSelectComponent
     ],
     templateUrl: './theme-picker.component.html',
     styleUrl: './theme-picker.component.scss',
@@ -33,6 +28,28 @@ export class AmwThemePickerComponent implements OnInit {
     // Computed properties
     isDarkMode = computed(() => this.currentTheme()?.isDark ?? false);
     hasCustomThemes = computed(() => this.customThemes().length > 0);
+
+    themeGroups = computed(() => {
+        const groups: { [key: string]: AmwSelectOption[] } = {};
+
+        groups['Built-in Themes'] = this.builtInThemes().map(theme => ({
+            value: theme.id,
+            label: theme.displayName,
+            icon: this.getThemeIcon(theme),
+            description: this.getThemeDescription(theme)
+        }));
+
+        if (this.hasCustomThemes()) {
+            groups['Custom Themes'] = this.customThemes().map(theme => ({
+                value: theme.id,
+                label: theme.displayName,
+                icon: this.getThemeIcon(theme),
+                description: this.getThemeDescription(theme)
+            }));
+        }
+
+        return groups;
+    });
 
     constructor(private themeService: AmwThemeService) { }
 

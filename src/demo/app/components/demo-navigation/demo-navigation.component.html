@@ -1,3 +1,6 @@
+<!-- Skip to main content link (WCAG 2.4.1) -->
+<a class="skip-link" href="#main-content">Skip to main content</a>
+
 <amw-sidenav
   [config]="sidenavConfig"
   [items]="navigationItems"
@@ -12,19 +15,21 @@
     <amw-toolbar class="demo-sidenav-header">
       <span class="mdc-typography--title-large">AMW Library</span>
       <span class="spacer"></span>
-      <amw-button icon="menu" (click)="toggleSidenav()"></amw-button>
+      <amw-button icon="menu" aria-label="Toggle navigation menu" (click)="toggleSidenav()"></amw-button>
     </amw-toolbar>
   </ng-template>
 
   <!-- Main Content (projected into sidenav content area) -->
-  <amw-toolbar class="demo-main-toolbar">
-    <amw-button icon="menu" (click)="toggleSidenav()" class="demo-menu-button"></amw-button>
-    <span class="mdc-typography--headline-small">Angular Material Wrap - Demo Application</span>
-    <span class="spacer"></span>
-    <amw-demo-theme-menu></amw-demo-theme-menu>
-  </amw-toolbar>
+  <header role="banner">
+    <amw-toolbar class="demo-main-toolbar">
+      <amw-button icon="menu" aria-label="Toggle navigation menu" (click)="toggleSidenav()" class="demo-menu-button"></amw-button>
+      <span class="mdc-typography--headline-small">Angular Material Wrap - Demo Application</span>
+      <span class="spacer"></span>
+      <amw-demo-theme-menu></amw-demo-theme-menu>
+    </amw-toolbar>
+  </header>
 
-  <div class="demo-content-area">
+  <main id="main-content" class="demo-content-area" role="main">
     <router-outlet></router-outlet>
-  </div>
+  </main>
 </amw-sidenav>

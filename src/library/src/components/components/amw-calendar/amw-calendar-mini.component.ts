@@ -1,8 +1,8 @@
 import { Component, input, output, OnInit, OnDestroy, ChangeDetectorRef, ViewEncapsulation, effect } from '@angular/core';
 
 import { FormsModule } from '@angular/forms';
-import { MatIconModule } from '@angular/material/icon';
-import { MatCardModule } from '@angular/material/card';
+import { AmwCardComponent } from '../amw-card/amw-card.component';
+import { AmwIconComponent } from '../amw-icon/amw-icon.component';
 import { MatChipsModule } from '@angular/material/chips';
 import { MatDialog } from '@angular/material/dialog';
 import { AmwCalendarBaseComponent } from './amw-calendar-base.component';
@@ -23,9 +23,9 @@ import { AmwTooltipDirective } from '../../../directives';
     imports: [
     FormsModule,
     AmwButtonComponent,
-    MatIconModule,
+    AmwIconComponent,
     AmwTooltipDirective,
-    MatCardModule,
+    AmwCardComponent,
     MatChipsModule,
     AmwProgressSpinnerComponent
 ],

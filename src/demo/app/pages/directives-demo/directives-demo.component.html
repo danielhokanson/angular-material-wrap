@@ -73,7 +73,7 @@
                       <h4>Copy Code Block</h4>
                       <div class="code-block">
                         <pre>{{ codeExample }}</pre>
-                        <amw-button icon="content_copy"amwCopyToClipboard
+                        <amw-button icon="content_copy" aria-label="Copy code to clipboard" amwCopyToClipboard
                           [amwCopyToClipboard]="codeExample"
                           title="Copy code"></amw-button>
                       </div>
@@ -332,7 +332,7 @@
                         <h4>Custom Messages</h4>
                         <pre><code>{{ copyToClipboardCodeExamples.customMessages }}</code></pre>
                         <div class="preview">
-                          <amw-button icon="content_copy"amwCopyToClipboard
+                          <amw-button icon="content_copy" aria-label="Copy code to clipboard" amwCopyToClipboard
                             [amwCopyToClipboard]="codeExample"
                             amwCopySuccessMessage="Code copied!"
                             amwCopyErrorMessage="Failed to copy code"></amw-button>
@@ -359,7 +359,7 @@
                         <div class="preview">
                           <div class="code-container" style="position: relative; border: 1px solid #ccc; border-radius: 4px; padding: 16px; background: #f5f5f5;">
                             <pre><code>{{ codeExample }}</code></pre>
-                            <amw-button icon="content_copy"amwCopyToClipboard
+                            <amw-button icon="content_copy" aria-label="Copy code to clipboard" amwCopyToClipboard
                               [amwCopyToClipboard]="codeExample"
                               title="Copy code"
                               style="position: absolute; top: 8px; right: 8px;"></amw-button>

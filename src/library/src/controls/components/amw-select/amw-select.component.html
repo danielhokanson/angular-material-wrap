@@ -29,7 +29,7 @@
       <!-- Clear Button (if enabled) -->
       @if (canClear()) {
         <mat-option (click)="onClear()" class="amw-select__clear-option">
-          <mat-icon class="amw-select__clear-icon">clear</mat-icon>
+          <amw-icon name="clear" class="amw-select__clear-icon"></amw-icon>
           Clear Selection
         </mat-option>
       }
@@ -58,7 +58,7 @@
           [class.amw-select__option--disabled]="option.disabled">
           <div class="amw-select__option-content">
             @if (option.icon) {
-              <mat-icon class="amw-select__option-icon">{{ option.icon }}</mat-icon>
+              <amw-icon [name]="option.icon" class="amw-select__option-icon"></amw-icon>
             }
             <div class="amw-select__option-text">
               <span class="amw-select__option-label" [innerHTML]="option.label"></span>
@@ -83,7 +83,7 @@
               [class.amw-select__option--disabled]="option.disabled">
               <div class="amw-select__option-content">
                 @if (option.icon) {
-                  <mat-icon class="amw-select__option-icon">{{ option.icon }}</mat-icon>
+                  <amw-icon [name]="option.icon" class="amw-select__option-icon"></amw-icon>
                 }
                 <div class="amw-select__option-text">
                   <span class="amw-select__option-label" [innerHTML]="option.label"></span>

@@ -27,11 +27,11 @@
       <div class="variation-section">
         <h3 class="variation-section__title">Inset Divider</h3>
         <div class="variation-section__content">
-          <p class="with-icon"><mat-icon>star</mat-icon> Item with icon</p>
+          <p class="with-icon"><amw-icon name="star"></amw-icon> Item with icon</p>
           <amw-divider [inset]="true"></amw-divider>
-          <p class="with-icon"><mat-icon>star</mat-icon> Another item with icon</p>
+          <p class="with-icon"><amw-icon name="star"></amw-icon> Another item with icon</p>
           <amw-divider [inset]="true"></amw-divider>
-          <p class="with-icon"><mat-icon>star</mat-icon> Third item with icon</p>
+          <p class="with-icon"><amw-icon name="star"></amw-icon> Third item with icon</p>
         </div>
       </div>
 
@@ -42,7 +42,7 @@
           <amw-list>
             @for (item of listItems; track item.text; let last = $last) {
               <amw-list-item>
-                <mat-icon amwListItemIcon>{{ item.icon }}</mat-icon>
+                <amw-icon [name]="item.icon" amwListItemIcon></amw-icon>
                 <span amwListItemTitle>{{ item.text }}</span>
               </amw-list-item>
               @if (!last) {
@@ -60,7 +60,7 @@
           <amw-list>
             @for (item of listItems; track item.text; let last = $last) {
               <amw-list-item>
-                <mat-icon amwListItemIcon>{{ item.icon }}</mat-icon>
+                <amw-icon [name]="item.icon" amwListItemIcon></amw-icon>
                 <span amwListItemTitle>{{ item.text }}</span>
               </amw-list-item>
               @if (!last) {

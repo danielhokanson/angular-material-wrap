@@ -6,15 +6,12 @@
         <h3 class="variation-section__title">Basic Badges</h3>
         <div class="variation-section__content">
           <div class="variation-group">
-            <span class="variation-label">Text Badge</span>
             <span [amwBadge]="'New'">Messages</span>
           </div>
           <div class="variation-group">
-            <span class="variation-label">Number Badge</span>
             <span [amwBadge]="notificationCount()">Notifications</span>
           </div>
           <div class="variation-group">
-            <span class="variation-label">On Button</span>
             <amw-button [amwBadge]="messageCount()">Inbox</amw-button>
           </div>
         </div>
@@ -25,16 +22,13 @@
         <h3 class="variation-section__title">Badge Colors</h3>
         <div class="variation-section__content">
           <div class="variation-group">
-            <span class="variation-label">Primary</span>
-            <mat-icon [amwBadge]="5" amwBadgeColor="primary">mail</mat-icon>
+            <amw-icon name="mail" [amwBadge]="5" amwBadgeColor="primary"></amw-icon>
           </div>
           <div class="variation-group">
-            <span class="variation-label">Accent</span>
-            <mat-icon [amwBadge]="5" amwBadgeColor="accent">mail</mat-icon>
+            <amw-icon name="mail" [amwBadge]="5" amwBadgeColor="accent"></amw-icon>
           </div>
           <div class="variation-group">
-            <span class="variation-label">Warn</span>
-            <mat-icon [amwBadge]="5" amwBadgeColor="warn">mail</mat-icon>
+            <amw-icon name="mail" [amwBadge]="5" amwBadgeColor="warn"></amw-icon>
           </div>
         </div>
       </div>
@@ -44,20 +38,16 @@
         <h3 class="variation-section__title">Badge Positions</h3>
         <div class="variation-section__content">
           <div class="variation-group">
-            <span class="variation-label">Above After</span>
-            <mat-icon [amwBadge]="1" amwBadgePosition="above after">home</mat-icon>
+            <amw-icon name="home" [amwBadge]="1" amwBadgePosition="above after"></amw-icon>
           </div>
           <div class="variation-group">
-            <span class="variation-label">Above Before</span>
-            <mat-icon [amwBadge]="2" amwBadgePosition="above before">home</mat-icon>
+            <amw-icon name="home" [amwBadge]="2" amwBadgePosition="above before"></amw-icon>
           </div>
           <div class="variation-group">
-            <span class="variation-label">Below After</span>
-            <mat-icon [amwBadge]="3" amwBadgePosition="below after">home</mat-icon>
+            <amw-icon name="home" [amwBadge]="3" amwBadgePosition="below after"></amw-icon>
           </div>
           <div class="variation-group">
-            <span class="variation-label">Below Before</span>
-            <mat-icon [amwBadge]="4" amwBadgePosition="below before">home</mat-icon>
+            <amw-icon name="home" [amwBadge]="4" amwBadgePosition="below before"></amw-icon>
           </div>
         </div>
       </div>
@@ -67,16 +57,13 @@
         <h3 class="variation-section__title">Badge Sizes</h3>
         <div class="variation-section__content">
           <div class="variation-group">
-            <span class="variation-label">Small</span>
-            <mat-icon [amwBadge]="1" amwBadgeSize="small">notifications</mat-icon>
+            <amw-icon name="notifications" [amwBadge]="1" amwBadgeSize="small"></amw-icon>
           </div>
           <div class="variation-group">
-            <span class="variation-label">Medium</span>
-            <mat-icon [amwBadge]="2" amwBadgeSize="medium">notifications</mat-icon>
+            <amw-icon name="notifications" [amwBadge]="2" amwBadgeSize="medium"></amw-icon>
           </div>
           <div class="variation-group">
-            <span class="variation-label">Large</span>
-            <mat-icon [amwBadge]="3" amwBadgeSize="large">notifications</mat-icon>
+            <amw-icon name="notifications" [amwBadge]="3" amwBadgeSize="large"></amw-icon>
           </div>
         </div>
       </div>
@@ -86,11 +73,9 @@
         <h3 class="variation-section__title">Overlap Control</h3>
         <div class="variation-section__content">
           <div class="variation-group">
-            <span class="variation-label">Overlap (default)</span>
             <button mat-raised-button [amwBadge]="5" [amwBadgeOverlap]="true">Overlap</button>
           </div>
           <div class="variation-group">
-            <span class="variation-label">No Overlap</span>
             <button mat-raised-button [amwBadge]="5" [amwBadgeOverlap]="false">No Overlap</button>
           </div>
         </div>
@@ -101,11 +86,11 @@
         <h3 class="variation-section__title">Dynamic Badge</h3>
         <div class="variation-section__content">
           <div class="variation-group">
-            <mat-icon
+            <amw-icon
+              name="notifications"
               [amwBadge]="notificationCount()"
               [amwBadgeHidden]="notificationCount() === 0 || isHidden()">
-              notifications
-            </mat-icon>
+            </amw-icon>
           </div>
           <div class="button-group">
             <amw-button appearance="outlined" (buttonClick)="incrementNotifications()">Add</amw-button>

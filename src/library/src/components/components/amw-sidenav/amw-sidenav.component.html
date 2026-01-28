@@ -64,7 +64,7 @@
     }
 
     <!-- Sidenav Content -->
-    <div class="amw-sidenav__content">
+    <nav class="amw-sidenav__content" aria-label="Main navigation">
       <!-- Navigation Items -->
       <mat-nav-list class="amw-sidenav__nav-list">
         @for (item of items(); track trackByItem($index, item)) {
@@ -78,11 +78,11 @@
               [routerLink]="item.route"
               (click)="onItemClickHandler(item, $event)">
               @if (item.icon) {
-                <mat-icon
+                <amw-icon
+                  [name]="item.icon"
                   matListItemIcon
                   class="amw-sidenav__item-icon">
-                  {{ item.icon }}
-                </mat-icon>
+                </amw-icon>
               }
               <span matListItemTitle class="amw-sidenav__item-label">
                 {{ item.label }}
@@ -109,10 +109,10 @@
               <mat-expansion-panel-header class="amw-sidenav__expansion-header">
                 <mat-panel-title class="amw-sidenav__expansion-title">
                   @if (item.icon) {
-                    <mat-icon
+                    <amw-icon
+                      [name]="item.icon"
                       class="amw-sidenav__item-icon">
-                      {{ item.icon }}
-                    </mat-icon>
+                    </amw-icon>
                   }
                   <span class="amw-sidenav__item-label">
                     {{ item.label }}
@@ -138,11 +138,11 @@
                     [routerLink]="child.route"
                     (click)="onItemClickHandler(child, $event)">
                     @if (child.icon) {
-                      <mat-icon
+                      <amw-icon
+                        [name]="child.icon"
                         matListItemIcon
                         class="amw-sidenav__item-icon">
-                        {{ child.icon }}
-                      </mat-icon>
+                      </amw-icon>
                     }
                     <span matListItemTitle class="amw-sidenav__item-label">
                       {{ child.label }}
@@ -167,7 +167,7 @@
       <div class="amw-sidenav__custom-content">
         <ng-content select="[slot=content]"></ng-content>
       </div>
-    </div>
+    </nav>
 
     <!-- Sidenav Footer -->
     @if (footerTemplate()) {

@@ -7,22 +7,22 @@
       } @else {
         <h2 class="amw-dialog__title">
           @if (effectiveType() === 'warning' || effectiveType() === 'alert') {
-            <mat-icon class="dialog-icon">warning</mat-icon>
+            <amw-icon name="warning" class="dialog-icon"></amw-icon>
           }
           @if (effectiveType() === 'error') {
-            <mat-icon class="dialog-icon">error</mat-icon>
+            <amw-icon name="error" class="dialog-icon"></amw-icon>
           }
           @if (effectiveType() === 'success') {
-            <mat-icon class="dialog-icon">check_circle</mat-icon>
+            <amw-icon name="check_circle" class="dialog-icon"></amw-icon>
           }
           @if (effectiveType() === 'info') {
-            <mat-icon class="dialog-icon">info</mat-icon>
+            <amw-icon name="info" class="dialog-icon"></amw-icon>
           }
           @if (effectiveType() === 'confirm') {
-            <mat-icon class="dialog-icon">help</mat-icon>
+            <amw-icon name="help" class="dialog-icon"></amw-icon>
           }
           @if (!effectiveType() || effectiveType() === 'standard') {
-            <mat-icon class="dialog-icon">info</mat-icon>
+            <amw-icon name="info" class="dialog-icon"></amw-icon>
           }
           {{ effectiveTitle() }}
         </h2>
@@ -48,7 +48,7 @@
           <!-- Success Message -->
           @case ('success') {
             <div class="success-message">
-              <mat-icon class="success-icon">check_circle</mat-icon>
+              <amw-icon name="check_circle" class="success-icon"></amw-icon>
               <div>
                 <p class="success-text" [innerHTML]="effectiveContent()"></p>
               </div>
@@ -57,7 +57,7 @@
           <!-- Alert Message -->
           @case ('alert') {
             <div class="alert-message">
-              <mat-icon class="alert-icon">warning</mat-icon>
+              <amw-icon name="warning" class="alert-icon"></amw-icon>
               <div>
                 <p class="alert-text" [innerHTML]="effectiveContent()"></p>
               </div>
@@ -66,7 +66,7 @@
           <!-- Info Message -->
           @case ('info') {
             <div class="info-message">
-              <mat-icon class="info-icon">info</mat-icon>
+              <amw-icon name="info" class="info-icon"></amw-icon>
               <div>
                 <p class="info-text" [innerHTML]="effectiveContent()"></p>
               </div>
@@ -75,7 +75,7 @@
           <!-- Warning Message -->
           @case ('warning') {
             <div class="alert-message">
-              <mat-icon class="alert-icon">warning</mat-icon>
+              <amw-icon name="warning" class="alert-icon"></amw-icon>
               <div>
                 <p class="alert-text" [innerHTML]="effectiveContent()"></p>
               </div>
@@ -84,7 +84,7 @@
           <!-- Error Message -->
           @case ('error') {
             <div class="alert-message">
-              <mat-icon class="alert-icon">error</mat-icon>
+              <amw-icon name="error" class="alert-icon"></amw-icon>
               <div>
                 <p class="alert-text" [innerHTML]="effectiveContent()"></p>
               </div>
@@ -93,7 +93,7 @@
           <!-- Confirm Message -->
           @case ('confirm') {
             <div class="info-message">
-              <mat-icon class="info-icon">help_outline</mat-icon>
+              <amw-icon name="help_outline" class="info-icon"></amw-icon>
               <div>
                 <p class="info-text" [innerHTML]="effectiveContent()"></p>
               </div>

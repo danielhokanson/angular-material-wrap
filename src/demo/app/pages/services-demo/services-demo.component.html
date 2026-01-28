@@ -49,7 +49,7 @@
                               <amw-icon [name]="getMessageIcon(message.type)"></amw-icon>
                               <span class="message-title">{{ message.title }}</span>
                               @if (message.dismissible) {
-                                <amw-button icon="close" (click)="removeMessage(message.id)"></amw-button>
+                                <amw-button icon="close" aria-label="Dismiss message" (click)="removeMessage(message.id)"></amw-button>
                               }
                             </div>
                             <div class="message-content">{{ message.content }}</div>

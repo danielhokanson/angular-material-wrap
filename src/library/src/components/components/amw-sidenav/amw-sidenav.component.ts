@@ -1,8 +1,8 @@
 import { Component, input, output, model, signal, computed, OnInit, OnDestroy, TemplateRef, viewChild, ElementRef, AfterViewInit, ChangeDetectorRef, ViewEncapsulation } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { MatSidenavModule, MatSidenav } from '@angular/material/sidenav';
-import { MatIconModule } from '@angular/material/icon';
 import { MatListModule } from '@angular/material/list';
+import { AmwIconComponent } from '../amw-icon/amw-icon.component';
 import { MatToolbarModule } from '@angular/material/toolbar';
 import { MatDividerModule } from '@angular/material/divider';
 import { MatRippleModule } from '@angular/material/core';
@@ -42,7 +42,7 @@ import { AmwButtonComponent } from '../../../controls/components/amw-button/amw-
         CommonModule,
         MatSidenavModule,
         AmwButtonComponent,
-        MatIconModule,
+        AmwIconComponent,
         MatListModule,
         MatToolbarModule,
         MatDividerModule,
@@ -319,6 +319,8 @@ export class AmwSidenavComponent extends BaseComponent implements OnInit, OnDest
         });
 
         // Find and activate the matching item
+        // Use exact match or segment-boundary match (url === route or url starts with route + '/')
+        // This prevents '/controls/chip' from matching '/controls/chip-input'
         let foundItem: SidenavItem | null = null;
         let parentItem: SidenavItem | null = null;
 
@@ -326,7 +328,7 @@ export class AmwSidenavComponent extends BaseComponent implements OnInit, OnDest
             // Check children first (more specific routes)
             if (item.children) {
                 for (const child of item.children) {
-                    if (child.route && url.startsWith(child.route)) {
+                    if (child.route && this.isRouteMatch(url, child.route)) {
                         foundItem = child;
                         parentItem = item;
                         break;
@@ -335,7 +337,7 @@ export class AmwSidenavComponent extends BaseComponent implements OnInit, OnDest
             }
 
             // If no child matched, check the parent item
-            if (!foundItem && item.route && url.startsWith(item.route)) {
+            if (!foundItem && item.route && this.isRouteMatch(url, item.route)) {
                 foundItem = item;
             }
 
@@ -350,6 +352,14 @@ export class AmwSidenavComponent extends BaseComponent implements OnInit, OnDest
             }
             this.cdr.detectChanges();
         }
+    }
+
+    /**
+     * Checks if a URL matches a route exactly or at a segment boundary.
+     * Prevents '/controls/chip' from matching '/controls/chip-input'.
+     */
+    private isRouteMatch(url: string, route: string): boolean {
+        return url === route || url.startsWith(route + '/');
     }
 
     /**

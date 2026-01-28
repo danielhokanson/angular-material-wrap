@@ -2,7 +2,6 @@ import { Component, input, output, signal, ViewEncapsulation, OnInit, OnDestroy,
 
 import { FormsModule, ReactiveFormsModule, ControlValueAccessor, NG_VALUE_ACCESSOR } from '@angular/forms';
 import { MatChipsModule } from '@angular/material/chips';
-import { MatIconModule } from '@angular/material/icon';
 import { MatInputModule } from '@angular/material/input';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatAutocompleteModule } from '@angular/material/autocomplete';
@@ -10,6 +9,7 @@ import { MatMenuModule } from '@angular/material/menu';
 import { AmwButtonComponent } from '../amw-button/amw-button.component';
 import { Subject, takeUntil, debounceTime, distinctUntilChanged } from 'rxjs';
 
+import { AmwIconComponent } from '../../../components/components/amw-icon/amw-icon.component';
 import { BaseComponent } from '../base/base.component';
 import { Chip, ChipConfig, ChipEvent, ChipChangeEvent, ChipMenuItem } from './interfaces';
 import { AmwTooltipDirective } from '../../../directives';
@@ -29,7 +29,7 @@ import { AmwDividerComponent } from '../../../components/components/amw-divider/
         FormsModule,
         ReactiveFormsModule,
         MatChipsModule,
-        MatIconModule,
+        AmwIconComponent,
         AmwButtonComponent,
         MatInputModule,
         MatFormFieldModule,

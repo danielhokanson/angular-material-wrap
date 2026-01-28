@@ -22,7 +22,7 @@
               <amw-list-item
                 [selected]="selectedItem() === item.id"
                 (itemClick)="onItemClick(item.id)">
-                <mat-icon matListItemIcon>{{ item.icon }}</mat-icon>
+                <amw-icon [name]="item.icon" matListItemIcon></amw-icon>
                 <span matListItemTitle>{{ item.title }}</span>
                 @if (item.badge > 0) {
                   <span matListItemMeta class="badge">{{ item.badge }}</span>

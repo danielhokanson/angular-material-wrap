@@ -6,12 +6,12 @@ import { NgTemplateOutlet } from '@angular/common';
 import { MatAutocompleteModule } from '@angular/material/autocomplete';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
-import { MatIconModule } from '@angular/material/icon';
 import { MatChipsModule } from '@angular/material/chips';
 import { MatButtonModule } from '@angular/material/button';
 import { MatOptionModule } from '@angular/material/core';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 
+import { AmwIconComponent } from '../../../components/components/amw-icon/amw-icon.component';
 import { BaseComponent } from '../base/base.component';
 import { AutocompleteOption } from './interfaces/autocomplete-option.interface';
 import { AmwAppearance } from '../../../shared/types/amw-appearance.type';
@@ -33,7 +33,7 @@ import { AmwAppearance } from '../../../shared/types/amw-appearance.type';
     MatAutocompleteModule,
     MatFormFieldModule,
     MatInputModule,
-    MatIconModule,
+    AmwIconComponent,
     MatChipsModule,
     MatButtonModule,
     MatOptionModule,

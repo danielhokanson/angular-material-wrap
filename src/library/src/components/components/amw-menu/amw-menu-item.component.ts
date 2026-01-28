@@ -1,7 +1,7 @@
 import { Component, ViewEncapsulation, input, output, computed } from '@angular/core';
 import { MatMenuModule } from '@angular/material/menu';
-import { MatIconModule } from '@angular/material/icon';
 import { MatDividerModule } from '@angular/material/divider';
+import { AmwIconComponent } from '../amw-icon/amw-icon.component';
 import { RouterModule, IsActiveMatchOptions } from '@angular/router';
 
 /**
@@ -44,7 +44,7 @@ import { RouterModule, IsActiveMatchOptions } from '@angular/router';
     standalone: true,
     imports: [
         MatMenuModule,
-        MatIconModule,
+        AmwIconComponent,
         MatDividerModule,
         RouterModule
     ],
@@ -65,7 +65,7 @@ import { RouterModule, IsActiveMatchOptions } from '@angular/router';
                     [class.amw-menu-item--disabled]="disabled()"
                     (click)="onLinkClick($event)">
                     @if (icon()) {
-                        <mat-icon [class]="iconClasses">{{ icon() }}</mat-icon>
+                        <amw-icon [name]="icon()" [class]="iconClasses"></amw-icon>
                     }
                     <span [class]="labelClasses">{{ label() }}</span>
                 </a>
@@ -76,7 +76,7 @@ import { RouterModule, IsActiveMatchOptions } from '@angular/router';
                     [disabled]="disabled()"
                     (click)="onItemClick($event)">
                     @if (icon()) {
-                        <mat-icon [class]="iconClasses">{{ icon() }}</mat-icon>
+                        <amw-icon [name]="icon()" [class]="iconClasses"></amw-icon>
                     }
                     <span [class]="labelClasses">{{ label() }}</span>
                 </button>

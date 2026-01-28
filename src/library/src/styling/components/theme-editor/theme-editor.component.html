@@ -1,17 +1,13 @@
 <div class="amw-theme-editor">
   <!-- Theme Form -->
-  <mat-card class="theme-form-card">
-    <mat-card-header>
-      <mat-card-title>
-        <mat-icon>palette</mat-icon>
-        {{ isEditing() ? 'Edit Theme' : 'Create New Theme' }}
-      </mat-card-title>
-      <mat-card-subtitle>
-        {{ isEditing() ? 'Modify an existing custom theme' : 'Design a custom theme with your own colors' }}
-      </mat-card-subtitle>
-    </mat-card-header>
+  <amw-card class="theme-form-card">
+    <ng-template #cardHeader>
+      <amw-icon name="palette"></amw-icon>
+      {{ isEditing() ? 'Edit Theme' : 'Create New Theme' }}
+      <p>{{ isEditing() ? 'Modify an existing custom theme' : 'Design a custom theme with your own colors' }}</p>
+    </ng-template>
 
-    <mat-card-content>
+    <ng-template #cardContent>
       <div class="theme-form">
         <!-- Basic Info -->
         <div class="form-section">
@@ -39,13 +35,12 @@
           </div>
 
           <div class="form-row">
-            <mat-slide-toggle
-              [(ngModel)]="isDarkMode"
-              (change)="onDarkModeToggle()"
+            <amw-switch
+              [(checked)]="isDarkMode"
+              (switchChange)="onDarkModeChanged($event)"
+              label="Dark Mode"
               class="dark-mode-toggle">
-              <mat-icon>dark_mode</mat-icon>
-              Dark Mode
-            </mat-slide-toggle>
+            </amw-switch>
           </div>
         </div>
 
@@ -161,20 +156,18 @@
           </amw-button>
         </div>
       </div>
-    </mat-card-content>
-  </mat-card>
+    </ng-template>
+  </amw-card>
 
   <!-- Custom Themes List -->
   @if (customThemes().length > 0) {
-    <mat-card class="themes-list-card">
-      <mat-card-header>
-        <mat-card-title>
-          <mat-icon>palette</mat-icon>
-          Custom Themes
-        </mat-card-title>
-        <mat-card-subtitle>Manage your custom themes</mat-card-subtitle>
-      </mat-card-header>
-      <mat-card-content>
+    <amw-card class="themes-list-card">
+      <ng-template #cardHeader>
+        <amw-icon name="palette"></amw-icon>
+        Custom Themes
+        <p>Manage your custom themes</p>
+      </ng-template>
+      <ng-template #cardContent>
         <div class="themes-list">
           @for (theme of customThemes(); track theme) {
             <div class="theme-item">
@@ -216,7 +209,7 @@
             </div>
           }
         </div>
-      </mat-card-content>
-    </mat-card>
+      </ng-template>
+    </amw-card>
   }
 </div>

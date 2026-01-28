@@ -21,12 +21,12 @@
 
     @if (isDragOver()) {
       <div class="amw-file-input__drop-overlay">
-        <mat-icon class="amw-file-input__drop-icon">cloud_upload</mat-icon>
+        <amw-icon name="cloud_upload" class="amw-file-input__drop-icon"></amw-icon>
         <p class="amw-file-input__drop-text">{{ dropText() }}</p>
       </div>
     } @else {
       <div class="amw-file-input__content">
-        <mat-icon class="amw-file-input__icon">cloud_upload</mat-icon>
+        <amw-icon name="cloud_upload" class="amw-file-input__icon"></amw-icon>
         <p class="amw-file-input__placeholder">{{ placeholderText() }}</p>
         <amw-button
                 appearance="elevated"
@@ -42,21 +42,23 @@
   @if (showFileList() && selectedFiles().length > 0) {
     <div class="amw-file-input__file-list">
       @for (file of selectedFiles(); track file.name) {
-        <mat-card class="amw-file-input__file-item">
-          <mat-card-content class="amw-file-input__file-content">
-            <mat-icon class="amw-file-input__file-icon">{{ getFileIcon(file) }}</mat-icon>
-            <div class="amw-file-input__file-info">
-              <span class="amw-file-input__file-name">{{ file.name }}</span>
-              <span class="amw-file-input__file-size">{{ formatFileSize(file.size) }}</span>
+        <amw-card class="amw-file-input__file-item">
+          <ng-template #cardContent>
+            <div class="amw-file-input__file-content">
+              <amw-icon [name]="getFileIcon(file)" class="amw-file-input__file-icon"></amw-icon>
+              <div class="amw-file-input__file-info">
+                <span class="amw-file-input__file-name">{{ file.name }}</span>
+                <span class="amw-file-input__file-size">{{ formatFileSize(file.size) }}</span>
+              </div>
+              <amw-button
+                      icon="close"
+                      type="button"
+                      (click)="removeFile(file)"
+                      class="amw-file-input__remove-button">
+              </amw-button>
             </div>
-            <amw-button
-                    icon="close"
-                    type="button"
-                    (click)="removeFile(file)"
-                    class="amw-file-input__remove-button">
-            </amw-button>
-          </mat-card-content>
-        </mat-card>
+          </ng-template>
+        </amw-card>
       }
 
       @if (selectedFiles().length > 0) {

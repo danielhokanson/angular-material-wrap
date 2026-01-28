@@ -1,8 +1,8 @@
 import { Component, input, output, signal, model, computed, OnInit, OnDestroy, ViewEncapsulation, ChangeDetectorRef } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { MatStepperModule } from '@angular/material/stepper';
-import { MatIconModule } from '@angular/material/icon';
 import { MatCardModule } from '@angular/material/card';
+import { AmwIconComponent } from '../amw-icon/amw-icon.component';
 import { MatDividerModule } from '@angular/material/divider';
 import { Subject } from 'rxjs';
 import { BaseComponent } from '../../../controls/components/base/base.component';
@@ -33,7 +33,7 @@ import { AmwButtonComponent } from '../../../controls/components/amw-button/amw-
         CommonModule,
         MatStepperModule,
         AmwButtonComponent,
-        MatIconModule,
+        AmwIconComponent,
         MatCardModule,
         MatDividerModule
     ],

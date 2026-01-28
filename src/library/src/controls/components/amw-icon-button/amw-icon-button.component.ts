@@ -1,8 +1,8 @@
 import { Component, ViewEncapsulation, input, output, computed } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { MatButtonModule } from '@angular/material/button';
-import { MatIconModule } from '@angular/material/icon';
 import { MatRippleModule } from '@angular/material/core';
+import { AmwIconComponent } from '../../../components/components/amw-icon/amw-icon.component';
 import { AmwProgressSpinnerComponent } from '../../../components/components/amw-progress-spinner/amw-progress-spinner.component';
 
 /** Icon button size type */
@@ -50,7 +50,7 @@ export type AmwIconButtonColor = 'primary' | 'accent' | 'warn';
     imports: [
         CommonModule,
         MatButtonModule,
-        MatIconModule,
+        AmwIconComponent,
         MatRippleModule,
         AmwProgressSpinnerComponent
     ],

@@ -52,10 +52,10 @@
             <div class="amw-accordion__panel-header-content">
               <!-- Panel Icon -->
               @if (currentConfig.showIcons && panel.icon) {
-                <mat-icon
+                <amw-icon
+                  [name]="panel.icon"
                   class="amw-accordion__panel-icon">
-                  {{ panel.icon }}
-                </mat-icon>
+                </amw-icon>
               }
               <!-- Panel Title -->
               <div class="amw-accordion__panel-title">
@@ -106,7 +106,7 @@
   @if (panels.length === 0) {
     <div class="amw-accordion__empty">
       <div class="amw-accordion__empty-content">
-        <mat-icon class="amw-accordion__empty-icon">expand_more</mat-icon>
+        <amw-icon name="expand_more" class="amw-accordion__empty-icon"></amw-icon>
         <h3>No panels available</h3>
         <p>Add some panels to get started</p>
       </div>

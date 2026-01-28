@@ -4,7 +4,7 @@ import { FormsModule, ReactiveFormsModule, FormBuilder, FormGroup } from '@angul
 import { MatTableModule } from '@angular/material/table';
 import { MatPaginatorModule, PageEvent } from '@angular/material/paginator';
 import { MatSortModule, Sort } from '@angular/material/sort';
-import { MatIconModule } from '@angular/material/icon';
+import { AmwIconComponent } from '../../../components/components/amw-icon/amw-icon.component';
 import { MatChipsModule } from '@angular/material/chips';
 import { MatDividerModule } from '@angular/material/divider';
 import { MatTabsModule } from '@angular/material/tabs';
@@ -47,7 +47,7 @@ import { AmwSelectComponent } from '../../../controls/components/amw-select/amw-
         AmwButtonComponent,
         AmwInputComponent,
         AmwSelectComponent,
-        MatIconModule,
+        AmwIconComponent,
         MatChipsModule,
         MatDividerModule,
         MatTabsModule,

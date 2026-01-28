@@ -4,9 +4,9 @@ import { FormsModule, ReactiveFormsModule, ControlValueAccessor, NG_VALUE_ACCESS
 import { FormField } from '@angular/forms/signals';
 import { MatInputModule } from '@angular/material/input';
 import { MatFormFieldModule, MatFormFieldAppearance } from '@angular/material/form-field';
-import { MatIconModule } from '@angular/material/icon';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { AmwButtonComponent } from '../amw-button/amw-button.component';
+import { AmwIconComponent } from '../../../components/components/amw-icon/amw-icon.component';
 import { BaseComponent } from '../base/base.component';
 import { AmwInputType } from './interfaces/amw-input-type.type';
 
@@ -26,7 +26,7 @@ import { AmwInputType } from './interfaces/amw-input-type.type';
     FormField,
     MatInputModule,
     MatFormFieldModule,
-    MatIconModule,
+    AmwIconComponent,
     MatProgressSpinnerModule,
     AmwButtonComponent
 ],

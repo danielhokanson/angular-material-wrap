@@ -9,14 +9,15 @@ import {
 } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
-import { MatCardModule } from '@angular/material/card';
-import { MatIconModule } from '@angular/material/icon';
+import { AmwCardComponent } from '../../../components/components/amw-card/amw-card.component';
+import { AmwIconComponent } from '../../../components/components/amw-icon/amw-icon.component';
 import { MatChipsModule } from '@angular/material/chips';
-import { MatButtonToggleModule } from '@angular/material/button-toggle';
+import { AmwButtonToggleGroupComponent } from '../../../controls/components/amw-button-toggle/amw-button-toggle-group.component';
+import { AmwButtonToggleComponent } from '../../../controls/components/amw-button-toggle/amw-button-toggle.component';
 import { MatBadgeModule } from '@angular/material/badge';
 import { MatDatepickerModule } from '@angular/material/datepicker';
 import { MatNativeDateModule } from '@angular/material/core';
-import { MatExpansionModule } from '@angular/material/expansion';
+import { AmwAccordionPanelComponent } from '../../../components/components/amw-accordion/amw-accordion-panel.component';
 import { MatMenuModule } from '@angular/material/menu';
 import { Subject, takeUntil } from 'rxjs';
 
@@ -72,17 +73,18 @@ import { AmwProgressSpinnerComponent } from '../../../components/components/amw-
   imports: [
     CommonModule,
     FormsModule,
-    MatCardModule,
-    MatIconModule,
+    AmwCardComponent,
+    AmwIconComponent,
     MatChipsModule,
     AmwProgressSpinnerComponent,
     AmwButtonComponent,
     AmwInputComponent,
-    MatButtonToggleModule,
+    AmwButtonToggleGroupComponent,
+    AmwButtonToggleComponent,
     MatBadgeModule,
     MatDatepickerModule,
     MatNativeDateModule,
-    MatExpansionModule,
+    AmwAccordionPanelComponent,
     MatMenuModule,
     AmwTooltipDirective
   ],

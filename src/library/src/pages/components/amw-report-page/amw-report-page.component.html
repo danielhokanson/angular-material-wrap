@@ -39,13 +39,11 @@
 
   <!-- Date Range and Filters -->
   <div class="amw-report-page__controls">
-    <mat-expansion-panel>
-      <mat-expansion-panel-header>
-        <mat-panel-title>
-          <mat-icon>tune</mat-icon>
-          Filters & Date Range
-        </mat-panel-title>
-      </mat-expansion-panel-header>
+    <amw-accordion-panel>
+      <ng-template #header>
+        <amw-icon name="tune"></amw-icon>
+        Filters & Date Range
+      </ng-template>
 
       <div class="amw-report-page__controls-content">
         <!-- Date Range -->
@@ -56,11 +54,8 @@
             name="dateRangePreset"
             [ngModel]="currentData.dateRange.preset"
             (ngModelChange)="onDateRangePresetChange($event)"
+            [options]="dateRangePresetOptions"
             appearance="outline">
-            <mat-option value="last7days">Last 7 days</mat-option>
-            <mat-option value="last30days">Last 30 days</mat-option>
-            <mat-option value="last90days">Last 90 days</mat-option>
-            <mat-option value="custom">Custom range</mat-option>
           </amw-select>
           @if (currentData.dateRange.preset === 'custom') {
           <amw-datepicker
@@ -105,13 +100,8 @@
                 name="filter_{{ filter.key }}"
                 [ngModel]="currentData.filters?.[filter.key]"
                 (ngModelChange)="onFilterValueChange(filter.key, $event)"
+                [options]="getFilterSelectOptions(filter)"
                 appearance="outline">
-                <mat-option value="">All</mat-option>
-                @for (option of filter.options; track option) {
-                <mat-option [value]="option.value">
-                  {{ option.label }}
-                </mat-option>
-                }
               </amw-select>
               }
               @if (filter.type === 'boolean') {
@@ -128,7 +118,7 @@
         </div>
         }
       </div>
-    </mat-expansion-panel>
+    </amw-accordion-panel>
   </div>
 
   <!-- Loading State -->
@@ -142,7 +132,7 @@
   <!-- Error State -->
   @if (error && !loading) {
   <div class="amw-report-page__error">
-    <mat-icon>error</mat-icon>
+    <amw-icon name="error"></amw-icon>
     <p>{{ error }}</p>
     <amw-button appearance="elevated" color="primary" (click)="onRefresh()">Retry</amw-button>
   </div>
@@ -156,34 +146,33 @@
       @for (widget of currentData.widgets; track widget) {
       <div class="amw-report-page__widget" [class]="getWidgetSizeClass(widget.size)"
         [style]="getWidgetGridStyle(widget)" [style.display]="isWidgetVisible(widget) ? 'block' : 'none'">
-        <mat-card class="amw-report-page__widget-card">
-          <mat-card-header>
-            <mat-card-title>
+        <amw-card class="amw-report-page__widget-card">
+          <ng-template #cardHeader>
               @if (widget.type === 'chart') {
-              <mat-icon>bar_chart</mat-icon>
+              <amw-icon name="bar_chart"></amw-icon>
               }
               @if (widget.type === 'table') {
-              <mat-icon>table_chart</mat-icon>
+              <amw-icon name="table_chart"></amw-icon>
               }
               @if (widget.type === 'metric') {
-              <mat-icon>analytics</mat-icon>
+              <amw-icon name="analytics"></amw-icon>
               }
               @if (widget.type === 'progress') {
-              <mat-icon>trending_up</mat-icon>
+              <amw-icon name="trending_up"></amw-icon>
               }
               {{ widget.title }}
-            </mat-card-title>
             <div class="amw-report-page__widget-actions">
               <amw-button icon="refresh" (click)="onRefreshWidget(widget)" [amwTooltip]="'Refresh'">
               </amw-button>
             </div>
-          </mat-card-header>
-          <mat-card-content (click)="onWidgetClick(widget)">
+          </ng-template>
+          <ng-template #cardContent>
+            <div (click)="onWidgetClick(widget)">
             <!-- Chart Widget -->
             @if (widget.type === 'chart') {
             <div class="amw-report-page__chart-widget">
               <div class="amw-report-page__chart-placeholder">
-                <mat-icon>bar_chart</mat-icon>
+                <amw-icon name="bar_chart"></amw-icon>
                 <p>Chart visualization would be rendered here</p>
                 <p>Data: {{ widget.data | json }}</p>
               </div>
@@ -211,10 +200,10 @@
               <div class="amw-report-page__metric-label">{{ widget.data.label }}</div>
               @if (widget.data.change) {
               <div class="amw-report-page__metric-change">
-                <mat-icon [class.amw-report-page__metric-change--positive]="widget.data.change > 0"
+                <amw-icon [name]="widget.data.change > 0 ? 'trending_up' : 'trending_down'"
+                  [class.amw-report-page__metric-change--positive]="widget.data.change > 0"
                   [class.amw-report-page__metric-change--negative]="widget.data.change < 0">
-                  {{ widget.data.change > 0 ? 'trending_up' : 'trending_down' }}
-                </mat-icon>
+                </amw-icon>
                 {{ Math.abs(widget.data.change) }}%
               </div>
               }
@@ -236,15 +225,16 @@
               <p>Data: {{ widget.data | json }}</p>
             </div>
             }
-          </mat-card-content>
-        </mat-card>
+            </div>
+          </ng-template>
+        </amw-card>
       </div>
       }
     </div>
     <!-- Empty State -->
     @if (currentData.widgets.length === 0) {
     <div class="amw-report-page__empty">
-      <mat-icon>assessment</mat-icon>
+      <amw-icon name="assessment"></amw-icon>
       <p>No widgets configured</p>
     </div>
     }

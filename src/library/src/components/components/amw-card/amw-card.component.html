@@ -30,7 +30,7 @@
             <ng-container>
               @if (headerIcon()) {
                 <div mat-card-avatar class="amw-card__avatar">
-                  <mat-icon>{{ headerIcon() }}</mat-icon>
+                  <amw-icon [name]="headerIcon()"></amw-icon>
                 </div>
               }
               <mat-card-title>{{ headerTitle() }}</mat-card-title>
@@ -116,7 +116,7 @@
           <ng-container>
             @if (headerIcon()) {
               <div mat-card-avatar class="amw-card__avatar">
-                <mat-icon>{{ headerIcon() }}</mat-icon>
+                <amw-icon [name]="headerIcon()"></amw-icon>
               </div>
             }
             <mat-card-title>{{ headerTitle() }}</mat-card-title>

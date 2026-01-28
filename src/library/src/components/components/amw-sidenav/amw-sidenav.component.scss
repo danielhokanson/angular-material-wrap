@@ -173,16 +173,16 @@
     }
 
     &.amw-sidenav__item--active {
-      background: var(--mat-sys-primary-container);
-      color: var(--mat-sys-on-primary-container);
+      background: color-mix(in srgb, var(--mat-sys-primary) 16%, var(--mat-sys-surface));
+      border-left: 3px solid var(--mat-sys-primary);
 
       .amw-sidenav__item-icon {
-        color: var(--mat-sys-on-primary-container);
+        color: var(--mat-sys-primary);
       }
 
       .amw-sidenav__item-label {
-        color: var(--mat-sys-on-primary-container);
-        font-weight: 500;
+        color: var(--mat-sys-primary);
+        font-weight: 600;
       }
     }
 
@@ -195,8 +195,8 @@
   // Navigation Item
   &__item {
     &--active {
-      background: var(--mat-sys-primary-container);
-      color: var(--mat-sys-on-primary-container);
+      background: color-mix(in srgb, var(--mat-sys-primary) 16%, var(--mat-sys-surface));
+      border-left: 3px solid var(--mat-sys-primary);
     }
 
     &--disabled {
@@ -237,15 +237,14 @@
 
     &--active {
       .amw-sidenav__expansion-header {
-        background: var(--mat-sys-primary-container);
-        color: var(--mat-sys-on-primary-container);
+        background: var(--mat-sys-secondary-container);
 
         .amw-sidenav__item-icon {
-          color: var(--mat-sys-on-primary-container);
+          color: var(--mat-sys-primary);
         }
 
         .amw-sidenav__item-label {
-          color: var(--mat-sys-on-primary-container);
+          color: var(--mat-sys-on-surface);
           font-weight: 500;
         }
       }
@@ -306,16 +305,16 @@
     }
 
     &.amw-sidenav__item--active {
-      background: var(--mat-sys-primary-container);
-      color: var(--mat-sys-on-primary-container);
+      background: color-mix(in srgb, var(--mat-sys-primary) 16%, var(--mat-sys-surface));
+      border-left: 3px solid var(--mat-sys-primary);
 
       .amw-sidenav__item-icon {
-        color: var(--mat-sys-on-primary-container);
+        color: var(--mat-sys-primary);
       }
 
       .amw-sidenav__item-label {
-        color: var(--mat-sys-on-primary-container);
-        font-weight: 500;
+        color: var(--mat-sys-primary);
+        font-weight: 600;
       }
     }
 

@@ -4,7 +4,7 @@ import { FormsModule, ReactiveFormsModule, ControlValueAccessor, NG_VALUE_ACCESS
 import { FormField } from '@angular/forms/signals';
 import { MatRadioModule } from '@angular/material/radio';
 import { MatFormFieldModule } from '@angular/material/form-field';
-import { MatIconModule } from '@angular/material/icon';
+import { AmwIconComponent } from '../../../components/components/amw-icon/amw-icon.component';
 import { BaseComponent } from '../base/base.component';
 import { AmwRadioGroupOption, RadioGroupConfig } from './interfaces/radio-group.interface';
 
@@ -25,7 +25,7 @@ import { AmwRadioGroupOption, RadioGroupConfig } from './interfaces/radio-group.
     FormField,
     MatRadioModule,
     MatFormFieldModule,
-    MatIconModule
+    AmwIconComponent
 ],
     encapsulation: ViewEncapsulation.None,
     templateUrl: './amw-radio-group.component.html',

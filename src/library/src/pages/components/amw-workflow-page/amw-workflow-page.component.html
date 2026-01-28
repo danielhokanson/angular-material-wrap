@@ -53,7 +53,7 @@
   <!-- Error State -->
   @if (error && !loading) {
     <div class="amw-workflow-page__error">
-      <mat-icon>error</mat-icon>
+      <amw-icon name="error"></amw-icon>
       <p>{{ error }}</p>
       <amw-button appearance="elevated" color="primary" (click)="loadWorkflow()">Retry</amw-button>
     </div>
@@ -75,7 +75,7 @@
               (click)="onStepClick(i)">
               <div class="amw-workflow-page__step-indicator">
                 @if (isStepCompleted(i)) {
-                  <mat-icon>check</mat-icon>
+                  <amw-icon name="check"></amw-icon>
                 }
                 @if (!isStepCompleted(i)) {
                   <span>{{ i + 1 }}</span>
@@ -94,21 +94,18 @@
       <!-- Current Step Content -->
       <div class="amw-workflow-page__step-content">
         @if (getCurrentStep()) {
-          <mat-card class="amw-workflow-page__step-card">
-            <mat-card-header>
-              <mat-card-title>{{ getCurrentStep()?.title }}</mat-card-title>
-              @if (getCurrentStep()?.description) {
-                <mat-card-subtitle>{{ getCurrentStep()?.description }}</mat-card-subtitle>
-              }
-            </mat-card-header>
-            <mat-card-content>
+          <amw-card
+            class="amw-workflow-page__step-card"
+            [headerTitle]="getCurrentStep()?.title || ''"
+            [headerSubtitle]="getCurrentStep()?.description || ''">
+            <ng-template #cardContent>
               <div class="amw-workflow-page__step-form">
                 <!-- Step content will be rendered here -->
                 <p>Step content for: {{ getCurrentStep()?.title }}</p>
                 <p>This is where the step-specific form or content would be rendered.</p>
               </div>
-            </mat-card-content>
-          </mat-card>
+            </ng-template>
+          </amw-card>
         }
       </div>
       <!-- Navigation Buttons -->

@@ -1,7 +1,7 @@
 import { Component, ViewEncapsulation, input, output, computed, model } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { MatChipsModule } from '@angular/material/chips';
-import { MatIconModule } from '@angular/material/icon';
+import { AmwIconComponent } from '../../../components/components/amw-icon/amw-icon.component';
 
 /** Chip color type */
 export type AmwChipColor = 'primary' | 'accent' | 'warn';
@@ -48,7 +48,7 @@ export type AmwChipColor = 'primary' | 'accent' | 'warn';
     imports: [
         CommonModule,
         MatChipsModule,
-        MatIconModule
+        AmwIconComponent
     ],
     encapsulation: ViewEncapsulation.None,
     templateUrl: './amw-chip.component.html',
