@@ -55,8 +55,8 @@ export interface PopoverConfig {
     /** Whether to restore focus to the previously focused element */
     restoreFocus?: boolean;
 
-    /** The position of the popover */
-    position?: 'top' | 'bottom' | 'left' | 'right' | 'top-left' | 'top-right' | 'bottom-left' | 'bottom-right';
+    /** The position of the popover ('auto' computes optimal placement based on viewport location) */
+    position?: 'auto' | 'top' | 'bottom' | 'left' | 'right' | 'top-left' | 'top-right' | 'bottom-left' | 'bottom-right';
 
     /** The horizontal offset from the trigger */
     offsetX?: number;

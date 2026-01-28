@@ -192,7 +192,7 @@
                   <amw-popover
                     [content]="variation.description"
                     [size]="variation.config.size ?? 'medium'"
-                    [position]="variation.config.position ?? 'bottom'"
+                    [position]="variation.config.position ?? 'auto'"
                     [showArrow]="variation.config.showArrow ?? false"
                     [showClose]="variation.config.showClose ?? true"
                     [showHeader]="variation.config.showHeader ?? false"
@@ -219,7 +219,7 @@
           <amw-popover
             [content]="selectedVariation.description"
             [size]="currentConfig.size ?? 'medium'"
-            [position]="currentConfig.position ?? 'bottom'"
+            [position]="currentConfig.position ?? 'auto'"
             [showArrow]="currentConfig.showArrow ?? false"
             [showClose]="currentConfig.showClose ?? true"
             [showHeader]="currentConfig.showHeader ?? false"

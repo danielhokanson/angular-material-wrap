@@ -53,6 +53,8 @@
     font-family: 'Roboto', 'Helvetica Neue', sans-serif !important;
     font-size: 14px !important;
     line-height: 1.5 !important;
+    // Unified drop-shadow wraps around both bubble and arrow tip
+    filter: drop-shadow(0 4px 8px rgba(0, 0, 0, 0.08)) drop-shadow(0 8px 24px rgba(0, 0, 0, 0.12)) !important;
     
     // Ensure solid background in all cases, but allow explicit inline styles
     *:not([style*="background"]) {
@@ -119,19 +121,19 @@
     }
   }
 
-  // Speech Bubble Content Container - z-index 1 so it paints above the arrow
+  // Speech Bubble Content Container
   &__bubble-content {
     background: var(--mdc-theme-surface) !important;
     border: 1px solid var(--mdc-theme-outline-variant) !important;
     border-radius: 16px !important;
-    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.12), 0 4px 8px rgba(0, 0, 0, 0.08) !important;
-    overflow: visible !important;
+    overflow: hidden !important;
     position: relative !important;
     z-index: 1 !important;
   }
 
   // Arrow - rotated square, sibling of bubble-content.
-  // Paints below bubble-content (DOM order) so the inner half is covered.
+  // z-index 2 so it paints above bubble-content's border.
+  // The matching background makes the junction seamless.
   &__arrow {
     position: absolute !important;
     width: 16px !important;
@@ -139,7 +141,7 @@
     background: var(--mdc-theme-surface) !important;
     border: 1px solid var(--mdc-theme-outline-variant) !important;
     transform: rotate(45deg) !important;
-    z-index: 0 !important;
+    z-index: 2 !important;
     display: block !important;
     box-sizing: border-box !important;
     padding: 0 !important;
@@ -182,6 +184,18 @@
       transform: translateY(-50%) rotate(45deg) !important;
       border-bottom-color: transparent !important;
       border-left-color: transparent !important;
+    }
+
+    // Corner alignment modifiers — shift arrow to left or right edge
+    &--align-left {
+      left: 24px !important;
+      transform: rotate(45deg) !important;
+    }
+
+    &--align-right {
+      left: auto !important;
+      right: 24px !important;
+      transform: rotate(45deg) !important;
     }
   }
 
@@ -391,7 +405,7 @@
   .mat-theme-dark & {
     &__popover {
       background: var(--mdc-theme-surface);
-      box-shadow: 0 8px 24px rgba(0, 0, 0, 0.24), 0 4px 8px rgba(0, 0, 0, 0.16);
+      filter: drop-shadow(0 4px 8px rgba(0, 0, 0, 0.16)) drop-shadow(0 8px 24px rgba(0, 0, 0, 0.24));
     }
 
     &__header {

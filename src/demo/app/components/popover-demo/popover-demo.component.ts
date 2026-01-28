@@ -56,7 +56,7 @@ export class PopoverDemoComponent implements OnInit, OnDestroy {
             description: 'Simple popover with click trigger and basic content',
             config: {
                 size: 'medium' as AmwSize,
-                position: 'bottom' as const,
+                position: 'auto' as const,
                 showArrow: true,
                 showClose: true,
                 showHeader: false,
@@ -277,7 +277,7 @@ export class PopoverDemoComponent implements OnInit, OnDestroy {
     private createConfigForm(): FormGroup {
         return this.fb.group({
             size: ['medium'],
-            position: ['bottom'],
+            position: ['auto'],
             width: [''],
             height: [''],
             minWidth: [''],
@@ -407,7 +407,7 @@ export class PopoverDemoComponent implements OnInit, OnDestroy {
     resetConfig(): void {
         this.configForm.patchValue({
             size: 'medium',
-            position: 'bottom',
+            position: 'auto',
             width: '',
             height: '',
             minWidth: '',
@@ -456,6 +456,7 @@ export class PopoverDemoComponent implements OnInit, OnDestroy {
 
     /** Position options for select dropdown */
     readonly positionOptions: { value: string; label: string }[] = [
+        { value: 'auto', label: 'Auto' },
         { value: 'top', label: 'Top' },
         { value: 'bottom', label: 'Bottom' },
         { value: 'left', label: 'Left' },

@@ -33,21 +33,33 @@
     [attr.aria-describedby]="resolvedContentTemplate() ? actualPopoverId() + '-content' : null">
 
     <!-- Arrows rendered before bubble-content so bubble paints on top, covering inner half -->
-    @if (showArrow() && (position() === 'bottom' || position() === 'bottom-left' || position() === 'bottom-right')) {
+    @if (showArrow() && resolvedPosition() === 'bottom') {
       <div class="amw-popover__arrow amw-popover__arrow--up"></div>
     }
-    @if (showArrow() && (position() === 'top' || position() === 'top-left' || position() === 'top-right')) {
+    @if (showArrow() && resolvedPosition() === 'bottom-left') {
+      <div class="amw-popover__arrow amw-popover__arrow--up amw-popover__arrow--align-left"></div>
+    }
+    @if (showArrow() && resolvedPosition() === 'bottom-right') {
+      <div class="amw-popover__arrow amw-popover__arrow--up amw-popover__arrow--align-right"></div>
+    }
+    @if (showArrow() && resolvedPosition() === 'top') {
       <div class="amw-popover__arrow amw-popover__arrow--down"></div>
     }
-    @if (showArrow() && (position() === 'right')) {
+    @if (showArrow() && resolvedPosition() === 'top-left') {
+      <div class="amw-popover__arrow amw-popover__arrow--down amw-popover__arrow--align-left"></div>
+    }
+    @if (showArrow() && resolvedPosition() === 'top-right') {
+      <div class="amw-popover__arrow amw-popover__arrow--down amw-popover__arrow--align-right"></div>
+    }
+    @if (showArrow() && resolvedPosition() === 'right') {
       <div class="amw-popover__arrow amw-popover__arrow--left"></div>
     }
-    @if (showArrow() && (position() === 'left')) {
+    @if (showArrow() && resolvedPosition() === 'left') {
       <div class="amw-popover__arrow amw-popover__arrow--right"></div>
     }
 
     <!-- Speech Bubble Content Container -->
-    <div class="amw-popover__bubble-content" [attr.data-position]="position()" [attr.data-show-arrow]="showArrow()">
+    <div class="amw-popover__bubble-content" [attr.data-position]="resolvedPosition()" [attr.data-show-arrow]="showArrow()">
       <!-- Header -->
       @if (showHeader()) {
         <div class="amw-popover__header">

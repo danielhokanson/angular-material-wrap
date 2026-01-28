@@ -123,8 +123,8 @@ export class AmwPopoverComponent implements OnInit, OnDestroy, AfterViewInit, Af
     /** Z-index for the popover */
     zIndex = input<number>(1000);
 
-    /** Popover position */
-    position = input<'top' | 'bottom' | 'left' | 'right' | 'top-left' | 'top-right' | 'bottom-left' | 'bottom-right'>('bottom');
+    /** Popover position ('auto' computes optimal placement based on trigger's viewport location) */
+    position = input<'auto' | 'top' | 'bottom' | 'left' | 'right' | 'top-left' | 'top-right' | 'bottom-left' | 'bottom-right'>('auto');
 
     /** Whether to show backdrop */
     backdrop = input<boolean>(false);
@@ -172,6 +172,9 @@ export class AmwPopoverComponent implements OnInit, OnDestroy, AfterViewInit, Af
     // Internal signals for resolved templates
     resolvedTriggerTemplate = signal<TemplateRef<any> | undefined>(undefined);
     resolvedContentTemplate = signal<TemplateRef<any> | undefined>(undefined);
+
+    /** The actual computed position after auto-detection or manual specification */
+    resolvedPosition = signal<'top' | 'bottom' | 'left' | 'right' | 'top-left' | 'top-right' | 'bottom-left' | 'bottom-right'>('bottom');
 
     // Internal signal for generated popover ID
     private generatedPopoverId = signal<string>('');
@@ -259,7 +262,7 @@ export class AmwPopoverComponent implements OnInit, OnDestroy, AfterViewInit, Af
         const defaults: PopoverConfig = {
             opened: false,
             size: 'medium',
-            position: 'bottom',
+            position: 'auto',
             showArrow: false,
             showClose: true,
             showHeader: false,
@@ -888,6 +891,37 @@ export class AmwPopoverComponent implements OnInit, OnDestroy, AfterViewInit, Af
     }
 
     /**
+     * Computes the optimal position when position is 'auto'.
+     * - Top half of viewport → popover below trigger
+     * - Bottom half of viewport → popover above trigger
+     * - Close to right edge → popover to the left
+     * - Close to left edge → popover to the right
+     */
+    private computeAutoPosition(triggerRect: DOMRect, popoverWidth: number, popoverHeight: number): 'top' | 'bottom' | 'left' | 'right' {
+        const viewportWidth = window.innerWidth;
+        const viewportHeight = window.innerHeight;
+        const triggerCenterY = triggerRect.top + triggerRect.height / 2;
+        const triggerCenterX = triggerRect.left + triggerRect.width / 2;
+        const edgeThreshold = 0.15; // 15% of viewport width considered "close to edge"
+
+        // Check horizontal edge proximity first
+        if (triggerCenterX > viewportWidth * (1 - edgeThreshold)) {
+            // Trigger near right edge → popover to the left
+            return 'left';
+        }
+        if (triggerCenterX < viewportWidth * edgeThreshold) {
+            // Trigger near left edge → popover to the right
+            return 'right';
+        }
+
+        // Vertical: top half → below, bottom half → above
+        if (triggerCenterY < viewportHeight / 2) {
+            return 'bottom';
+        }
+        return 'top';
+    }
+
+    /**
      * Manually positions the popover relative to the trigger element.
      */
     private positionPopover(): void {
@@ -907,11 +941,22 @@ export class AmwPopoverComponent implements OnInit, OnDestroy, AfterViewInit, Af
         const popoverWidth = popoverRect.width || 300;
         const popoverHeight = popoverRect.height || 200;
 
+        // Determine effective position
+        let effectivePosition: 'top' | 'bottom' | 'left' | 'right' | 'top-left' | 'top-right' | 'bottom-left' | 'bottom-right';
+        if (this.position() === 'auto') {
+            effectivePosition = this.computeAutoPosition(triggerRect, popoverWidth, popoverHeight);
+        } else {
+            effectivePosition = this.position() as typeof effectivePosition;
+        }
+
+        // Update resolved position signal so the template renders the correct arrow
+        this.resolvedPosition.set(effectivePosition);
+
         let left: number;
         let top: number;
-        const gap = 8;
+        const gap = 12;
 
-        switch (this.position()) {
+        switch (effectivePosition) {
             case 'right':
                 left = triggerRect.right + gap;
                 top = triggerRect.top + (triggerRect.height / 2) - (popoverHeight / 2);
@@ -945,11 +990,11 @@ export class AmwPopoverComponent implements OnInit, OnDestroy, AfterViewInit, Af
                 top = triggerRect.bottom + gap;
                 break;
             default:
-                left = triggerRect.right + gap;
-                top = triggerRect.top + (triggerRect.height / 2) - (popoverHeight / 2);
+                left = triggerRect.left + (triggerRect.width / 2) - (popoverWidth / 2);
+                top = triggerRect.bottom + gap;
         }
 
-        // Adjust if popover would go off screen
+        // Clamp to viewport bounds
         if (left < gap) left = gap;
         if (left + popoverWidth > viewportWidth - gap) {
             left = viewportWidth - popoverWidth - gap;
@@ -963,6 +1008,9 @@ export class AmwPopoverComponent implements OnInit, OnDestroy, AfterViewInit, Af
         overlayElement.style.left = `${left}px`;
         overlayElement.style.top = `${top}px`;
         overlayElement.style.transform = 'none';
+
+        // Trigger change detection so the arrow updates
+        this.cdr.detectChanges();
     }
 
     /**
