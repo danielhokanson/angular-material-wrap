@@ -1,7 +1,6 @@
 import { Component, OnInit, OnDestroy, TemplateRef, viewChild, contentChild, ElementRef, AfterViewInit, AfterContentInit, ChangeDetectorRef, ViewContainerRef, ViewEncapsulation, input, output, model, signal, computed } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { MatCardModule } from '@angular/material/card';
-import { AmwIconComponent } from '../amw-icon/amw-icon.component';
 import { MatDividerModule } from '@angular/material/divider';
 import { MatRippleModule } from '@angular/material/core';
 import { OverlayModule, Overlay, OverlayRef, OverlayConfig } from '@angular/cdk/overlay';
@@ -42,7 +41,6 @@ import { AmwButtonComponent } from '../../../controls/components/amw-button/amw-
     imports: [
         CommonModule,
         AmwButtonComponent,
-        AmwIconComponent,
         MatCardModule,
         MatDividerModule,
         MatRippleModule,
@@ -216,12 +214,53 @@ export class AmwPopoverComponent implements OnInit, OnDestroy, AfterViewInit, Af
     ) {}
 
     ngOnInit(): void {
+        // Inject CDK overlay styles if not already present (fallback for consumers who don't import library styles)
+        this.injectCdkOverlayStyles();
+
         this.initializeConfig();
 
         // Generate unique ID if not provided
         if (!this.popoverId()) {
             this.generatedPopoverId.set(`amw-popover-${Math.random().toString(36).substr(2, 9)}`);
         }
+    }
+
+    /**
+     * Injects CDK overlay styles into the document head if not already present.
+     * This ensures the overlay works correctly even if consumers don't import
+     * the library's global styles or @angular/cdk/overlay-prebuilt.css.
+     */
+    private injectCdkOverlayStyles(): void {
+        const styleId = 'amw-cdk-overlay-styles';
+        if (document.getElementById(styleId)) {
+            return;
+        }
+
+        const styles = `
+            .cdk-overlay-container,.cdk-global-overlay-wrapper{pointer-events:none;top:0;left:0;height:100%;width:100%}
+            .cdk-overlay-container{position:fixed;z-index:1000}
+            .cdk-overlay-container:empty{display:none}
+            .cdk-global-overlay-wrapper{display:flex;position:absolute;z-index:1000}
+            .cdk-overlay-pane{position:absolute;pointer-events:auto;box-sizing:border-box;display:flex;max-width:100%;max-height:100%;z-index:1000}
+            .cdk-overlay-backdrop{position:absolute;top:0;bottom:0;left:0;right:0;pointer-events:auto;-webkit-tap-highlight-color:transparent;opacity:0;touch-action:manipulation;z-index:1000;transition:opacity 400ms cubic-bezier(0.25, 0.8, 0.25, 1)}
+            @media(prefers-reduced-motion){.cdk-overlay-backdrop{transition-duration:1ms}}
+            .cdk-overlay-backdrop-showing{opacity:1}
+            @media(forced-colors: active){.cdk-overlay-backdrop-showing{opacity:.6}}
+            .cdk-overlay-dark-backdrop{background:rgba(0,0,0,.32)}
+            .cdk-overlay-transparent-backdrop{transition:visibility 1ms linear,opacity 1ms linear;visibility:hidden;opacity:1}
+            .cdk-overlay-transparent-backdrop.cdk-overlay-backdrop-showing,.cdk-high-contrast-active .cdk-overlay-transparent-backdrop{opacity:0;visibility:visible}
+            .cdk-overlay-backdrop-noop-animation{transition:none}
+            .cdk-overlay-connected-position-bounding-box{position:absolute;display:flex;flex-direction:column;min-width:1px;min-height:1px;z-index:1000}
+            .cdk-global-scrollblock{position:fixed;width:100%;overflow-y:scroll}
+            .cdk-overlay-popover{background:none;border:none;padding:0;outline:0;overflow:visible;position:fixed;pointer-events:none;white-space:normal;color:inherit;text-decoration:none;width:100%;height:100%;inset:auto;top:0;left:0}
+            .cdk-overlay-popover::backdrop{display:none}
+            .cdk-overlay-popover .cdk-overlay-backdrop{position:fixed;z-index:auto}
+        `;
+
+        const styleElement = document.createElement('style');
+        styleElement.id = styleId;
+        styleElement.textContent = styles;
+        document.head.appendChild(styleElement);
     }
 
     ngAfterContentInit(): void {

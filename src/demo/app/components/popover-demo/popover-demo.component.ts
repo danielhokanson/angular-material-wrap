@@ -13,7 +13,7 @@ import { AmwButtonComponent } from '../../../../library/src/controls/components/
 import { AmwInputComponent } from '../../../../library/src/controls/components/amw-input/amw-input.component';
 import { AmwSelectComponent } from '../../../../library/src/controls/components/amw-select/amw-select.component';
 import { AmwSwitchComponent } from '../../../../library/src/controls/components/amw-switch/amw-switch.component';
-import { AmwCardComponent, AmwIconComponent } from '../../../../library/src/components/components';
+import { AmwCardComponent } from '../../../../library/src/components/components';
 import { AmwDemoDocComponent } from '../../shared/components/demo-doc/demo-doc.component';
 
 /**
@@ -30,7 +30,6 @@ import { AmwDemoDocComponent } from '../../shared/components/demo-doc/demo-doc.c
     AmwSelectComponent,
     AmwSwitchComponent,
     AmwCardComponent,
-    AmwIconComponent,
     AmwDemoDocComponent
 ],
     templateUrl: './popover-demo.component.html',

@@ -2,7 +2,6 @@ import { Component, input, output, OnInit, OnDestroy, contentChild, TemplateRef,
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { MatFormFieldModule } from '@angular/material/form-field';
-import { AmwIconComponent } from '../amw-icon/amw-icon.component';
 import { MatInputModule } from '@angular/material/input';
 import { MatSelectModule } from '@angular/material/select';
 import { MatDatepickerModule } from '@angular/material/datepicker';
@@ -19,7 +18,6 @@ import { Subject } from 'rxjs';
     CommonModule,
     FormsModule,
     AmwButtonComponent,
-    AmwIconComponent,
     MatFormFieldModule,
     MatInputModule,
     MatSelectModule,

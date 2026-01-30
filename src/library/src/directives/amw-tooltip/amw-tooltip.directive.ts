@@ -74,7 +74,45 @@ export class AmwTooltipDirective implements OnDestroy {
         private elementRef: ElementRef,
         private overlay: Overlay,
         private injector: Injector
-    ) { }
+    ) {
+        // Inject CDK overlay styles if not already present
+        this.injectCdkOverlayStyles();
+    }
+
+    /**
+     * Injects CDK overlay styles into the document head if not already present.
+     * This ensures the overlay works correctly even if consumers don't import
+     * the library's global styles or @angular/cdk/overlay-prebuilt.css.
+     */
+    private injectCdkOverlayStyles(): void {
+        const styleId = 'amw-cdk-overlay-styles';
+        if (document.getElementById(styleId)) {
+            return;
+        }
+
+        const styles = `
+            .cdk-overlay-container,.cdk-global-overlay-wrapper{pointer-events:none;top:0;left:0;height:100%;width:100%}
+            .cdk-overlay-container{position:fixed;z-index:1000}
+            .cdk-overlay-container:empty{display:none}
+            .cdk-global-overlay-wrapper{display:flex;position:absolute;z-index:1000}
+            .cdk-overlay-pane{position:absolute;pointer-events:auto;box-sizing:border-box;display:flex;max-width:100%;max-height:100%;z-index:1000}
+            .cdk-overlay-backdrop{position:absolute;top:0;bottom:0;left:0;right:0;pointer-events:auto;-webkit-tap-highlight-color:transparent;opacity:0;touch-action:manipulation;z-index:1000;transition:opacity 400ms cubic-bezier(0.25, 0.8, 0.25, 1)}
+            @media(prefers-reduced-motion){.cdk-overlay-backdrop{transition-duration:1ms}}
+            .cdk-overlay-backdrop-showing{opacity:1}
+            @media(forced-colors: active){.cdk-overlay-backdrop-showing{opacity:.6}}
+            .cdk-overlay-dark-backdrop{background:rgba(0,0,0,.32)}
+            .cdk-overlay-transparent-backdrop{transition:visibility 1ms linear,opacity 1ms linear;visibility:hidden;opacity:1}
+            .cdk-overlay-transparent-backdrop.cdk-overlay-backdrop-showing,.cdk-high-contrast-active .cdk-overlay-transparent-backdrop{opacity:0;visibility:visible}
+            .cdk-overlay-backdrop-noop-animation{transition:none}
+            .cdk-overlay-connected-position-bounding-box{position:absolute;display:flex;flex-direction:column;min-width:1px;min-height:1px;z-index:1000}
+            .cdk-global-scrollblock{position:fixed;width:100%;overflow-y:scroll}
+        `;
+
+        const styleElement = document.createElement('style');
+        styleElement.id = styleId;
+        styleElement.textContent = styles;
+        document.head.appendChild(styleElement);
+    }
 
     ngOnDestroy(): void {
         this.clearTimeouts();

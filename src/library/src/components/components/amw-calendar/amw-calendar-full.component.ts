@@ -2,7 +2,6 @@ import { Component, input, output, OnInit, OnDestroy, ChangeDetectorRef, ViewEnc
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { MatMenuModule } from '@angular/material/menu';
-import { AmwIconComponent } from '../amw-icon/amw-icon.component';
 import { MatCardModule } from '@angular/material/card';
 import { MatChipsModule } from '@angular/material/chips';
 import { MatDialogModule, MatDialog } from '@angular/material/dialog';
@@ -25,7 +24,6 @@ import { AmwTooltipDirective } from '../../../directives';
     CommonModule,
     FormsModule,
     AmwButtonComponent,
-    AmwIconComponent,
     AmwTooltipDirective,
     MatMenuModule,
     MatCardModule,

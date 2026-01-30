@@ -2,7 +2,6 @@ import { Component, ViewEncapsulation, TemplateRef, input, output, viewChild, co
 import { NgTemplateOutlet } from '@angular/common';
 import { MatMenuModule, MatMenuTrigger, MatMenu } from '@angular/material/menu';
 import { AmwButtonComponent } from '../../../controls/components/amw-button/amw-button.component';
-import { AmwIconComponent } from '../amw-icon/amw-icon.component';
 import { AmwMenuItemComponent } from './amw-menu-item.component';
 
 export type MenuPosition = 'before' | 'after' | 'above' | 'below';
@@ -29,8 +28,7 @@ export type MenuPosition = 'before' | 'after' | 'above' | 'below';
     imports: [
         NgTemplateOutlet,
         MatMenuModule,
-        AmwButtonComponent,
-        AmwIconComponent
+        AmwButtonComponent
     ],
     encapsulation: ViewEncapsulation.None,
     templateUrl: './amw-menu.component.html',

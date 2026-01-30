@@ -1,7 +1,6 @@
 import { Component, TemplateRef, ViewEncapsulation, input, output, contentChild, computed, model } from '@angular/core';
 import { NgTemplateOutlet } from '@angular/common';
 import { MatExpansionModule } from '@angular/material/expansion';
-import { AmwIconComponent } from '../amw-icon/amw-icon.component';
 
 /**
  * Angular Material Wrap Accordion Panel Component
@@ -33,8 +32,7 @@ import { AmwIconComponent } from '../amw-icon/amw-icon.component';
     standalone: true,
     imports: [
         NgTemplateOutlet,
-        MatExpansionModule,
-        AmwIconComponent
+        MatExpansionModule
     ],
     encapsulation: ViewEncapsulation.None,
     template: `

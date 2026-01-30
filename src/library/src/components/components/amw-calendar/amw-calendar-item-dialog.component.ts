@@ -3,7 +3,6 @@ import { Component, Inject, OnInit } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
 import { AmwButtonComponent } from '../../../controls/components/amw-button/amw-button.component';
-import { AmwIconComponent } from '../amw-icon/amw-icon.component';
 import { CalendarEvent } from './interfaces';
 
 export interface CalendarItemDialogData {
@@ -20,7 +19,7 @@ export interface CalendarItemDialogData {
 @Component({
     selector: 'amw-calendar-item-dialog',
     standalone: true,
-    imports: [FormsModule, AmwButtonComponent, AmwIconComponent],
+    imports: [FormsModule, AmwButtonComponent],
     templateUrl: './amw-calendar-item-dialog.component.html',
     styleUrl: './amw-calendar-item-dialog.component.scss'
 })
