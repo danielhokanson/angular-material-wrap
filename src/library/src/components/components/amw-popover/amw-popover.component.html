@@ -25,8 +25,9 @@
 <!-- Popover Content Template for Overlay -->
 <ng-template #contentRef>
   <div [id]="actualPopoverId()" class="amw-popover__popover" [class.amw-popover__popover--visible]="opened()"
-    [class.amw-popover__popover--small]="size() === 'small'" [class.amw-popover__popover--medium]="size() === 'medium'"
-    [class.amw-popover__popover--large]="size() === 'large'" [class.amw-popover__popover--extra-large]="size() === 'extra-large'" [class.amw-popover__popover--with-arrow]="showArrow()"
+    [class.amw-popover__popover--auto]="size() === 'auto'" [class.amw-popover__popover--small]="size() === 'small'"
+    [class.amw-popover__popover--medium]="size() === 'medium'" [class.amw-popover__popover--large]="size() === 'large'"
+    [class.amw-popover__popover--extra-large]="size() === 'extra-large'" [class.amw-popover__popover--with-arrow]="showArrow()"
     [class.amw-popover__popover--with-header]="showHeader()" [class.amw-popover__popover--with-footer]="showFooter()"
     [class.amw-popover__popover--with-scrollbar]="scrollable()" [class.amw-popover__popover--disabled]="disabled()"
     [attr.role]="'dialog'" [attr.aria-hidden]="!opened()" [attr.aria-labelledby]="headerTitle() ? actualPopoverId() + '-title' : null"

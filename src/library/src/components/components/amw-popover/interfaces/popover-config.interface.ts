@@ -1,5 +1,5 @@
-/** Popover-specific size type that includes extra-large */
-export type PopoverSize = 'small' | 'medium' | 'large' | 'extra-large';
+/** Popover-specific size type - 'auto' allows content to dictate size */
+export type PopoverSize = 'auto' | 'small' | 'medium' | 'large' | 'extra-large';
 
 /**
  * Configuration interface for amw-popover component

@@ -61,6 +61,12 @@
       background-color: inherit;
     }
 
+    &--auto {
+      min-width: auto;
+      max-width: 90vw; // Prevent overflow on small screens
+      width: fit-content;
+    }
+
     &--small {
       min-width: 200px;
       max-width: 200px;

@@ -76,8 +76,8 @@ export class AmwPopoverComponent implements OnInit, OnDestroy, AfterViewInit, Af
     /** Popover content text */
     content = input<string>('');
 
-    /** Popover size */
-    size = input<'small' | 'medium' | 'large' | 'extra-large'>('medium');
+    /** Popover size - 'auto' allows content to dictate size */
+    size = input<'auto' | 'small' | 'medium' | 'large' | 'extra-large'>('auto');
 
     /** Whether the popover is disabled */
     disabled = input<boolean>(false);
@@ -300,7 +300,7 @@ export class AmwPopoverComponent implements OnInit, OnDestroy, AfterViewInit, Af
         // Start with defaults
         const defaults: PopoverConfig = {
             opened: false,
-            size: 'medium',
+            size: 'auto',
             position: 'auto',
             showArrow: false,
             showClose: true,
@@ -604,6 +604,8 @@ export class AmwPopoverComponent implements OnInit, OnDestroy, AfterViewInit, Af
         }
 
         switch (this.currentConfig.size) {
+            case 'auto':
+                return undefined; // Let content dictate width
             case 'small':
                 return '200px';
             case 'large':

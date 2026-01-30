@@ -51,6 +51,24 @@ export class PopoverDemoComponent implements OnInit, OnDestroy {
     /** Popover variations */
     popoverVariations = [
         {
+            title: 'Auto Size Popover',
+            description: 'Popover that automatically sizes based on content (recommended default)',
+            config: {
+                size: 'auto' as const,
+                position: 'auto' as const,
+                showArrow: true,
+                showClose: true,
+                showHeader: false,
+                showFooter: false
+            },
+            trigger: {
+                type: 'click' as const,
+                toggle: true,
+                escapeKey: true,
+                outsideClick: true
+            }
+        },
+        {
             title: 'Basic Popover',
             description: 'Simple popover with click trigger and basic content',
             config: {
@@ -275,7 +293,7 @@ export class PopoverDemoComponent implements OnInit, OnDestroy {
      */
     private createConfigForm(): FormGroup {
         return this.fb.group({
-            size: ['medium'],
+            size: ['auto'],
             position: ['auto'],
             width: [''],
             height: [''],
@@ -405,7 +423,7 @@ export class PopoverDemoComponent implements OnInit, OnDestroy {
      */
     resetConfig(): void {
         this.configForm.patchValue({
-            size: 'medium',
+            size: 'auto',
             position: 'auto',
             width: '',
             height: '',
@@ -448,9 +466,11 @@ export class PopoverDemoComponent implements OnInit, OnDestroy {
 
     /** Size options for select dropdown */
     readonly sizeOptions: { value: string; label: string }[] = [
+        { value: 'auto', label: 'Auto (Content-based)' },
         { value: 'small', label: 'Small' },
         { value: 'medium', label: 'Medium' },
-        { value: 'large', label: 'Large' }
+        { value: 'large', label: 'Large' },
+        { value: 'extra-large', label: 'Extra Large' }
     ];
 
     /** Position options for select dropdown */
