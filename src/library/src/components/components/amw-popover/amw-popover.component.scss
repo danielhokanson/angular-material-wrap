@@ -61,30 +61,42 @@
       background-color: inherit;
     }
 
-    &--auto {
-      min-width: auto;
-      max-width: 90vw; // Prevent overflow on small screens
-      width: fit-content;
-    }
+    // Note: --auto sizing handled at end of file for proper cascade priority
 
     &--small {
       min-width: 200px;
       max-width: 200px;
+
+      .amw-popover__content {
+        max-height: 300px !important;
+      }
     }
 
     &--medium {
       min-width: 300px;
       max-width: 300px;
+
+      .amw-popover__content {
+        max-height: 300px !important;
+      }
     }
 
     &--large {
       min-width: 400px;
       max-width: 400px;
+
+      .amw-popover__content {
+        max-height: 300px !important;
+      }
     }
 
     &--extra-large {
       min-width: 480px;
       max-width: 520px;
+
+      .amw-popover__content {
+        max-height: 400px !important; // Larger size allows more content
+      }
     }
 
     &--with-header {
@@ -270,9 +282,10 @@
   }
 
   // Content
+  // Note: max-height is NOT set here - it's set per size modifier
+  // This allows auto size to be truly content-driven
   &__content {
     padding: 16px 20px !important;
-    max-height: 300px !important;
     overflow-y: auto !important;
     color: var(--mdc-theme-on-surface) !important;
     line-height: 1.6 !important;
@@ -372,21 +385,38 @@
       &--small {
         min-width: 180px;
         max-width: 180px;
+
+        .amw-popover__content {
+          max-height: 250px;
+        }
       }
 
       &--medium {
         min-width: 250px;
         max-width: 250px;
+
+        .amw-popover__content {
+          max-height: 250px;
+        }
       }
 
       &--large {
         min-width: 320px;
         max-width: 320px;
+
+        .amw-popover__content {
+          max-height: 250px;
+        }
+      }
+
+      &--extra-large {
+        .amw-popover__content {
+          max-height: 300px;
+        }
       }
     }
 
     &__content {
-      max-height: 250px;
       padding: 12px;
     }
 
@@ -461,6 +491,31 @@
     * {
       transition: none !important;
       animation: none !important;
+    }
+  }
+}
+
+// ==========================================================================
+// AUTO SIZE OVERRIDES - Must come AFTER base rules for proper cascade
+// ==========================================================================
+.amw-popover__popover.amw-popover__popover--auto {
+  min-width: auto !important;
+  max-width: 90vw !important;
+  width: fit-content !important;
+
+  .amw-popover__content {
+    max-height: 80vh !important;
+    overflow-y: auto !important;
+  }
+}
+
+// Mobile override for auto size
+@media (max-width: 768px) {
+  .amw-popover__popover.amw-popover__popover--auto {
+    max-width: 95vw !important;
+
+    .amw-popover__content {
+      max-height: 70vh !important;
     }
   }
 }

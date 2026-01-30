@@ -23,15 +23,15 @@ import { AmwDemoDocComponent } from '../../shared/components/demo-doc/demo-doc.c
     selector: 'app-popover-demo',
     standalone: true,
     imports: [
-    ReactiveFormsModule,
-    AmwPopoverComponent,
-    AmwButtonComponent,
-    AmwInputComponent,
-    AmwSelectComponent,
-    AmwSwitchComponent,
-    AmwCardComponent,
-    AmwDemoDocComponent
-],
+        ReactiveFormsModule,
+        AmwPopoverComponent,
+        AmwButtonComponent,
+        AmwInputComponent,
+        AmwSelectComponent,
+        AmwSwitchComponent,
+        AmwCardComponent,
+        AmwDemoDocComponent
+    ],
     templateUrl: './popover-demo.component.html',
     styleUrl: './popover-demo.component.scss'
 })
